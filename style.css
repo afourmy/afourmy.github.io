@@ -1,0 +1,154 @@
+/* afourmy.github.io: the home page and the two project pages. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #1f2328;
+  background: #fff;
+}
+
+.site-header,
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+.site-header { padding-top: 1rem; }
+.site-header a { color: #57606a; font-weight: 600; text-decoration: none; }
+.site-header a:hover { color: #0969da; }
+
+main { padding-bottom: 4rem; }
+
+h1 { font-size: 2rem; line-height: 1.25; margin: 1.5rem 0 1.25rem; }
+h2 { font-size: 1.45rem; margin: 2.5rem 0 0.75rem; padding-bottom: 0.3rem; border-bottom: 1px solid #d0d7de; }
+h3 { font-size: 1.15rem; margin: 1.75rem 0 0.5rem; }
+
+a { color: #0969da; }
+code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; }
+pre { overflow-x: auto; }
+.katex-display { overflow-x: auto; overflow-y: hidden; }
+
+/* Home page */
+.projects { list-style: none; margin: 0; padding: 0; }
+.projects li { margin: 0 0 1.5rem; }
+.projects a { font-size: 1.2rem; font-weight: 600; text-decoration: none; }
+.projects a:hover { text-decoration: underline; }
+.projects p { margin: 0.25rem 0 0; color: #57606a; }
+
+/* Figures */
+.tsp-diagram { max-width: 520px; margin: 1.5rem auto 1rem; text-align: center; }
+.tsp-diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 1rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #fff;
+}
+.tsp-diagram figcaption { margin-top: 0.4rem; font-size: 0.85rem; color: #57606a; }
+
+/* Interactive demos: controls, map, status line */
+.tsp-section { margin: 1.25rem 0 1rem; }
+
+.tsp-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+}
+.tsp-controls label { display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; }
+.tsp-controls button {
+  padding: 0.3rem 0.9rem;
+  border: 1px solid #1f883d;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  background: #1f883d;
+  cursor: pointer;
+}
+.tsp-controls button:hover { background: #1a7f37; }
+.tsp-controls select,
+.ga-group select {
+  padding: 0.25rem 0.4rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: inherit;
+  background: #fff;
+}
+.tsp-control-label { font-weight: 600; }
+.tsp-speed-label { margin-left: auto; }
+.tsp-speed { cursor: pointer; }
+.tsp-info { margin-left: 0.3rem; font-size: 0.95rem; }
+
+.tsp-map {
+  width: 100%;
+  height: 420px;
+  margin-bottom: 0.25rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  z-index: 0;
+}
+.tsp-map .leaflet-control-zoom { z-index: 999; }
+
+.tsp-status {
+  display: flex;
+  justify-content: space-between;
+  min-height: 1.5em;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #57606a;
+}
+
+/* Genetic algorithm settings */
+.ga-rates {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0.9rem 2rem;
+  margin-bottom: 0.6rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+}
+.ga-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.ga-group-title { display: block; text-align: center; font-weight: 600; }
+.ga-group select { width: 100%; }
+.ga-group label { display: grid; grid-template-columns: auto 1fr 2.6rem; align-items: center; gap: 0.6rem; font-size: 0.95rem; }
+.ga-group input[type="range"] { width: 100%; cursor: pointer; }
+.ga-group label span { text-align: right; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; }
+
+/* Wavelength assignment: graph next to map */
+.swap-lp-row { display: flex; gap: 0.8rem; align-items: stretch; }
+.swap-lp-col--graph { flex: 0 0 35%; }
+.swap-lp-col--map { flex: 1 1 auto; min-width: 0; }
+.swap-lp-row .tsp-map { height: 450px; margin-bottom: 0; }
+.swap-lp-caption { margin: 0.6rem 0 0.3rem; font-size: 0.85rem; color: #57606a; }
+.swap-lp-row .swap-lp-caption { margin: 0.2rem 0 0.3rem; }
+.swap-demand-label { margin-left: auto; }
+
+/* Collapsible code */
+details.tsp-code { margin: 1rem 0 1.5rem; border: 1px solid #d0d7de; border-radius: 6px; background: #f6f8fa; }
+details.tsp-code > summary { padding: 0.5rem 0.8rem; font-weight: 600; cursor: pointer; }
+details.tsp-code > pre { margin: 0; border-top: 1px solid #d0d7de; border-radius: 0 0 6px 6px; }
+details.tsp-code > p { margin: 0; padding: 0.5rem 0.8rem; border-top: 1px solid #d0d7de; }
+
+@media (max-width: 640px) {
+  .swap-lp-row { flex-direction: column; }
+  .tsp-speed-label,
+  .swap-demand-label { margin-left: 0; }
+}

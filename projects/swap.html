@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wavelength Assignment Problem</title>
+  <meta name="description" content="The wavelength assignment problem: shortest-path routing, integer programming, and reduction to graph coloring, with visualizations.">
+  <link rel="canonical" href="https://afourmy.github.io/projects/swap.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-polylineoffset@1.1.1/leaflet.polylineoffset.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <header class="site-header"><a href="../index.html">Home</a></header>
+
+  <main>
+    <h1>Wavelength Assignment Problem</h1>
+
+    <p>
+      Optical networks carry information as light traveling through glass fibers. Wavelength
+      Division Multiplexing (WDM) increases how much a single fiber can carry by sending several
+      beams of light through it at once, each on a different wavelength. Because the beams occupy
+      distinct wavelengths, they travel side by side without interfering: a multiplexer combines
+      them into the fiber at one end, and a demultiplexer separates them again at the other.
+    </p>
+
+    <figure class="tsp-diagram">
+      <img src="images/wdm.svg" alt="Wavelength Division Multiplexing: four transmitters, each on its own wavelength, feed a multiplexer that combines their signals onto one fiber, and a demultiplexer separates them back to four receivers at the far end." />
+      <figcaption>Several signals, each on its own wavelength, share a single fiber between a multiplexer and a demultiplexer.</figcaption>
+    </figure>
+
+    <p>
+      In an all-optical network, a beam of light can pass straight through an optical switch
+      without being converted to an electrical signal and back. Avoiding this
+      optical&ndash;electrical&ndash;optical (OEO) conversion makes the network cheaper and more
+      energy-efficient, but it comes with a constraint: a connection must keep the same wavelength
+      all the way from its source to its destination, a property called <em>wavelength
+      continuity</em>. On top of that, two connections that share a fiber cannot use the same
+      wavelength on it, since their beams would overlap.
+    </p>
+
+    <p>
+      A connection routed across the network on a chosen wavelength is called a <em>lightpath</em>.
+      Given the set of lightpaths the network has to carry, the Wavelength Assignment Problem asks
+      for the smallest number of wavelengths needed, and for an assignment of one wavelength to
+      each lightpath that respects both constraints above. Using fewer wavelengths means more
+      traffic fits on the same fiber.
+    </p>
+
+    <p>
+      This page is based on work I did in 2018, which you can find in
+      <a href="https://github.com/afourmy/swap" target="_blank">this repository</a>.
+    </p>
+
+    <h2>A first example</h2>
+
+    <p>
+      Consider five optical switches connected in a line, and five connections to carry across them.
+      Each connection occupies every fiber between its two endpoints. They are drawn below the line
+      as arrows, labelled Path 1 to Path 5:
+    </p>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example.svg" alt="Five switches numbered 1 to 5 in a line, with five connections shown as arrows: Path 1 from switch 3 to 5, Path 2 from 2 to 4, Path 3 from 1 to 5, Path 4 from 1 to 2, Path 5 from 1 to 3." />
+      <figcaption>Five connections over a line of five switches.</figcaption>
+    </figure>
+
+    <p>
+      Two connections can share a wavelength only if they use no fiber in common. One way to assign
+      wavelengths is to take the connections in order and give each the lowest-numbered wavelength
+      not already used on a connection it overlaps:
+    </p>
+
+    <ul>
+      <li>Path 1 takes $\lambda_1$.</li>
+      <li>Path 2 overlaps Path 1 on the fiber between switches 3 and 4, so it needs $\lambda_2$.</li>
+      <li>Path 3 spans the whole line and meets both, so it needs $\lambda_3$.</li>
+      <li>Path 4 shares no fiber with Path 1 or Path 2, so $\lambda_1$ is free to reuse.</li>
+      <li>Path 5 overlaps Paths 2, 3 and 4, leaving $\lambda_4$ as the lowest free one.</li>
+    </ul>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example_naive.svg" alt="The same five connections, coloured by wavelength: Path 1 and Path 4 share lambda 1, Path 2 lambda 2, Path 3 lambda 3, Path 5 lambda 4, for four wavelengths in total." />
+      <figcaption>Taking the connections in order: four wavelengths.</figcaption>
+    </figure>
+
+    <p>
+      This order needs four wavelengths. Taking the connections in a different order changes the
+      result. Ordering them by how many others they overlap (Path 3 overlaps all four, Paths 2 and 5
+      overlap three, Paths 1 and 4 overlap two) and assigning in that order:
+    </p>
+
+    <ul>
+      <li>Path 3 takes $\lambda_1$, Path 2 takes $\lambda_2$, Path 5 takes $\lambda_3$.</li>
+      <li>Path 1 overlaps Paths 3 and 2 but not Path 5, so it can reuse $\lambda_3$.</li>
+      <li>Path 4 overlaps Paths 3 and 5 but not Path 2, so it can reuse $\lambda_2$.</li>
+    </ul>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example_better.svg" alt="The same five connections coloured by wavelength under the second order: only lambda 1, lambda 2 and lambda 3 are used, for three wavelengths in total." />
+      <figcaption>Taking the busiest connections first: three wavelengths.</figcaption>
+    </figure>
+
+    <p>
+      Both assignments are valid and differ only in the order the connections were taken, yet one
+      uses four wavelengths and the other three. Choosing a good order is what the
+      wavelength-assignment step has to do.
+    </p>
+
+    <h2>Solving the problem</h2>
+
+    <p>
+      When the route taken by each connection is also part of the question, the combined problem is
+      known as Routing and Wavelength Assignment (RWA). Here the routes are fixed in advance, the
+      variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no efficient
+      algorithm is known that solves it exactly in all cases.
+    </p>
+
+    <p>
+      It breaks into three steps, which the rest of this page follows in order:
+    </p>
+
+    <ol>
+      <li><strong>Routing:</strong> choose the fibers each connection runs over. Every
+        connection takes the shortest path between its endpoints, measured by geographic
+        distance.</li>
+      <li><strong>Graph transformation:</strong> recast the network into a second graph that
+        turns wavelength assignment into a standard problem on that graph.</li>
+      <li><strong>Wavelength assignment:</strong> assign a wavelength to every connection
+        using as few as possible. Two methods are shown:
+        <ul>
+          <li>linear programming (optimal assignment)</li>
+          <li>largest degree first (faster heuristic)</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>Routing: finding the shortest path</h2>
+
+    <p>
+      Before a wavelength can be assigned to a connection, the connection needs a route: an ordered
+      list of fibers leading from its source switch to its destination switch. Here each connection
+      follows the shortest route between its two switches, where the length of a fiber is the
+      geographic distance between its endpoints, computed from their latitudes and longitudes with
+      the haversine formula. Routes are therefore decided in advance, leaving wavelength assignment
+      as the only remaining problem.
+    </p>
+
+    <p>
+      The shortest path is found here with linear programming rather than a dedicated algorithm such
+      as Dijkstra's.
+    </p>
+
+    <h3>Variables and objective</h3>
+
+    <p>
+      The network is a graph $$(S, F)$$ with $$S$$ the set of switches and $$F$$ the set of fibers.
+      Each fiber is undirected; since a path may cross it either way, every fiber is replaced by two
+      directed arcs, one per direction. Writing $$A$$ for this set of arcs, we associate a binary
+      variable to each arc:
+    </p>
+
+    \[ x_{ij} = \begin{cases} 1 & \text{if the path uses the arc from } i \text{ to } j \\ 0 & \text{otherwise} \end{cases} \]
+
+    <p>
+      Writing $$d_{ij}$$ for the length of the fiber underlying arc $$(i, j)$$, the length of the
+      path is the quantity we want to minimize:
+    </p>
+
+    \[ L = \sum_{(i,\,j)\,\in\,A} d_{ij}\, x_{ij} \]
+
+    <h3>Flow-conservation constraints</h3>
+
+    <p>
+      Minimizing the length on its own would just select no fibers at all. The variables are tied
+      together by <em>flow-conservation</em> constraints, which force the chosen fibers to form a
+      single connected path from the source to the destination. Thinking of one unit of traffic
+      flowing along the path:
+    </p>
+
+    <ul>
+      <li>At the source $$s$$, one more unit leaves than enters:</li>
+    </ul>
+
+    \[ \sum_{j\,:\,(s,\,j)\,\in\,A} x_{sj} \;-\!\! \sum_{j\,:\,(j,\,s)\,\in\,A} x_{js} = 1 \]
+
+    <ul>
+      <li>At any switch other than the source and the destination, as much traffic leaves as
+        enters, so nothing accumulates:</li>
+    </ul>
+
+    \[ \sum_{j\,:\,(i,\,j)\,\in\,A} x_{ij} \;-\!\! \sum_{j\,:\,(j,\,i)\,\in\,A} x_{ji} = 0 \qquad \forall\, i \in S \setminus \{s, d\} \]
+
+    <ul>
+      <li>The variables are binary:</li>
+    </ul>
+
+    \[ x_{ij} \in \{0, 1\} \qquad \forall\, (i, j) \in A \]
+
+    <p>
+      At the destination $$d$$, one more unit enters than leaves, which reads as a fourth equation:
+    </p>
+
+    \[ \sum_{j\,:\,(d,\,j)\,\in\,A} x_{dj} \;-\!\! \sum_{j\,:\,(j,\,d)\,\in\,A} x_{jd} = -1 \]
+
+    <p>
+      This one need not be stated: summing the source and intermediate equations above gives exactly
+      its negative, so it is already implied by them.
+    </p>
+
+    <p>
+      In the map below, the dashed gray line is a traffic demand (a request to connect a source to a
+      destination), and the red path is the shortest route the solver lays out for it over the
+      fibers.
+    </p>
+
+    <div class="tsp-section" id="swap-routing">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-network">
+          <option value="usa" selected>BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+        <label class="swap-demand-label"><span class="tsp-control-label">Traffic demand</span> <select class="swap-demand"></select></label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from math import asin, cos, radians, sin, sqrt
+from cvxopt import matrix, glpk
+
+def haversine(a, b):
+    # geographic distance (km) between two (latitude, longitude) points
+    lat1, lon1, lat2, lon2 = map(radians, (*a, *b))
+    h = sin((lat2 - lat1) / 2)**2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2)**2
+    return 2 * 6371 * asin(sqrt(h))
+
+def shortest_path(switches, fibers, coords, source, destination):
+    # each fiber is split into two directed arcs, one per direction
+    arcs = [(u, v) for (a, b) in fibers for (u, v) in ((a, b), (b, a))]
+    # objective: minimize the total length of the chosen arcs
+    cost = [haversine(coords[u], coords[v]) for (u, v) in arcs]
+    # flow conservation: outgoing minus incoming flow equals +1 at the source
+    # and 0 at every switch except the destination (whose equation is implied)
+    A, b = [], []
+    for switch in switches:
+        if switch == destination:
+            continue
+        A.append([1. if u == switch else -1. if v == switch else 0. for (u, v) in arcs])
+        b.append(1. if switch == source else 0.)
+    # minimize cost . x  subject to  A x = b,  x binary
+    empty = matrix(0., (0, len(arcs)))
+    _, x = glpk.ilp(matrix(cost), empty, matrix(0., (0, 1)),
+                    matrix(A).T, matrix(b), B=set(range(len(arcs))))
+    return [arcs[i] for i in range(len(arcs)) if x[i] > 0.5]</code></pre>
+    </details>
+
+    <h2>Reduction to a graph coloring problem</h2>
+
+    <p>
+      Once the routes are fixed, the wavelength constraint only involves pairs of connections that
+      share a fiber: two such connections must get different wavelengths, while any two that share
+      no fiber may reuse the same one. This is exactly the structure of a graph coloring problem, so
+      the network is recast into a second graph:
+    </p>
+
+    <ul>
+      <li>Every connection becomes a vertex.</li>
+      <li>Two vertices are joined by an edge whenever their connections share at least one fiber.</li>
+    </ul>
+
+    <p>
+      Coloring the vertices so that adjacent ones get different colors is then the same as assigning
+      wavelengths so that connections sharing a fiber differ, and the fewest colors needed (the
+      chromatic number of the graph) is the fewest wavelengths needed.
+    </p>
+
+    <p>
+      In the five-path example, the pairs of connections sharing a fiber are (P1, P2), (P1, P3),
+      (P2, P3), (P2, P5), (P3, P4), (P3, P5) and (P4, P5), which gives a graph on five vertices. The
+      same construction applies to the backbones routed above, shown in the graph below.
+    </p>
+
+    <div class="tsp-section" id="swap-graph">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-graph-network">
+          <option value="line">First example (5 connections)</option>
+          <option value="usa" selected>BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+      </div>
+      <div class="tsp-map swap-graph-canvas"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      What remains is to color this graph with as few colors as possible. That is the
+      wavelength-assignment step.
+    </p>
+
+    <h2>Wavelength assignment by linear programming</h2>
+
+    <p>
+      Coloring the graph with the fewest colors can be written as an integer linear program, which
+      returns the optimal assignment. Write $$G(P, E)$$ for the transformed graph, with one vertex
+      per connection $$p \in P$$, and let $$\Lambda = \{\lambda_1, \dots, \lambda_K\}$$ be the
+      available wavelengths. Two families of binary variables describe an assignment:
+    </p>
+
+    \[ \begin{aligned}
+      &x_p^{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is assigned to connection } p \\ 0 & \text{otherwise} \end{cases} \\[1.5ex]
+      &y_{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is used by at least one connection} \\ 0 & \text{otherwise} \end{cases}
+    \end{aligned} \]
+
+    <p>
+      The aim is to use as few wavelengths as possible, so the objective minimizes how many are
+      switched on:
+    </p>
+
+    \[ \min \sum_{\lambda \in \Lambda} y_{\lambda} \]
+
+    <h3>Constraints</h3>
+
+    <ul>
+      <li>All variables are binary.</li>
+    </ul>
+
+    \[ x_p^{\lambda},\; y_{\lambda} \in \{0, 1\} \]
+
+    <ul>
+      <li>Every connection is assigned exactly one wavelength.</li>
+    </ul>
+
+    \[ \sum_{\lambda \in \Lambda} x_p^{\lambda} = 1 \qquad \forall\, p \in P \]
+
+    <ul>
+      <li>Two connections that share a fiber (an edge of $$G$$) cannot take the same wavelength, and
+        assigning a wavelength to either one marks that wavelength as used.</li>
+    </ul>
+
+    \[ x_p^{\lambda} + x_{p'}^{\lambda} \le y_{\lambda} \qquad \forall\, (p, p') \in E,\; \forall\, \lambda \in \Lambda \]
+
+    <ul>
+      <li>Wavelengths are switched on in order of index, so that relabelings of the same solution
+        are not counted twice.</li>
+    </ul>
+
+    \[ y_{\lambda_{k+1}} \le y_{\lambda_k} \qquad \forall\, k \in \{1, \dots, K - 1\} \]
+
+    <p>
+      The number of available wavelengths $$K$$ is an upper bound on the answer. Taking it as one
+      more than the largest number of connections meeting at any vertex (the maximum degree of
+      $$G$$) always leaves room for a valid assignment.
+    </p>
+
+    <p>
+      The graph below is colored with the fewest wavelengths, and the map shows each connection
+      drawn in its assigned wavelength. Where several connections share a fiber, their wavelengths
+      appear as parallel lines.
+    </p>
+
+    <div class="tsp-section" id="swap-lp">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-lp-network">
+          <option value="line">First example (5 connections)</option>
+          <option value="usa" selected>BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+      </div>
+      <div class="swap-lp-row">
+        <div class="swap-lp-col swap-lp-col--graph">
+          <div class="swap-lp-caption">Graph, colored by wavelength</div>
+          <div class="tsp-map swap-lp-graph"></div>
+        </div>
+        <div class="swap-lp-col swap-lp-col--map">
+          <div class="swap-lp-caption">Routes in their wavelength colors (parallel where a fiber carries several)</div>
+          <div class="tsp-map swap-lp-map"></div>
+        </div>
+      </div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from cvxopt import matrix, glpk
+
+def color_graph(paths, edges, K):
+    # variables: x_p_l for each path p and wavelength l, then y_l
+    # laid out as [x_0_0, ..., x_0_{K-1}, x_1_0, ..., y_0, ..., y_{K-1}]
+    V = len(paths)
+    n = V * K + K
+    # objective: minimize the number of wavelengths used, sum of y_l
+    c = [0.] * (V * K) + [1.] * K
+    # each path gets exactly one wavelength: sum_l x_p_l = 1
+    A, b = [], []
+    for p in range(V):
+        A.append([1. if p * K <= i &lt; (p + 1) * K else 0. for i in range(n)])
+        b.append(1.)
+    G, h = [], []
+    # adjacent paths differ, and using a wavelength switches its y_l on:
+    # x_p_l + x_q_l - y_l &lt;= 0
+    for p, q in edges:
+        for l in range(K):
+            row = [0.] * n
+            row[p * K + l], row[q * K + l], row[V * K + l] = 1., 1., -1.
+            G.append(row); h.append(0.)
+    # symmetry breaking: y_l - y_{l-1} &lt;= 0
+    for l in range(1, K):
+        row = [0.] * n
+        row[V * K + l], row[V * K + l - 1] = 1., -1.
+        G.append(row); h.append(0.)
+    A, G, b, c, h = map(matrix, (A, G, b, c, h))
+    _, x = glpk.ilp(c, G.T, h, A.T, b, B=set(range(n)))
+    # the wavelength assigned to each path
+    return [next(l for l in range(K) if x[p * K + l] > 0.5) for p in range(V)]</code></pre>
+    </details>
+
+    <h2>Wavelength assignment by largest degree first</h2>
+
+    <p>
+      The linear program always returns the minimum number of wavelengths, but solving it grows
+      expensive and does not scale to large networks. The largest-degree-first heuristic is a fast
+      alternative. It colors the vertices one at a time, starting with the most constrained:
+    </p>
+
+    <ol>
+      <li>Take the uncolored vertex of largest degree.</li>
+      <li>Give it the lowest-numbered wavelength not already used by one of its neighbors.</li>
+      <li>Repeat until every vertex is colored.</li>
+    </ol>
+
+    <p>
+      This is the second strategy from the first example, now stated on the graph: the degree of a
+      vertex is the number of connections it shares a fiber with, so taking the largest-degree
+      vertex first is taking the most-overlapping connection first.
+    </p>
+
+    <p>
+      Coloring the busiest vertices first keeps the count low, but the heuristic only ever looks at
+      one vertex at a time and can settle for more wavelengths than the optimum the linear program
+      finds. On the backbone below it runs instantly, where the linear program would already be slow.
+    </p>
+
+    <div class="tsp-section" id="swap-ldf">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-lp-network">
+          <option value="line">First example (5 connections)</option>
+          <option value="usa">BBN Planet backbone (USA)</option>
+          <option value="europe" selected>European backbone</option>
+        </select></label>
+      </div>
+      <div class="swap-lp-row">
+        <div class="swap-lp-col swap-lp-col--graph">
+          <div class="swap-lp-caption">Graph, colored by wavelength</div>
+          <div class="tsp-map swap-lp-graph"></div>
+        </div>
+        <div class="swap-lp-col swap-lp-col--map">
+          <div class="swap-lp-caption">Routes in their wavelength colors (parallel where a fiber carries several)</div>
+          <div class="tsp-map swap-lp-map"></div>
+        </div>
+      </div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def largest_degree_first(graph):
+    # graph maps each path to the list of paths it shares a fiber with
+    color = {}
+    # color the paths in decreasing order of degree
+    order = sorted(graph, key=lambda path: len(graph[path]), reverse=True)
+    for path in order:
+        used = {color[n] for n in graph[path] if n in color}
+        # lowest wavelength index not used by a neighbor
+        wavelength = 0
+        while wavelength in used:
+            wavelength += 1
+        color[path] = wavelength
+    return color</code></pre>
+    </details>
+
+  </main>
+
+  <script src="swap.js"></script>
+  <script>SWAP.init();</script>
+</body>
+</html>

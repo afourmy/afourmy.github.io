@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveling Salesman Problem</title>
+  <meta name="description" content="The traveling salesman problem: construction and optimization heuristics, 2-opt, and an exact linear programming solution, with interactive maps.">
+  <link rel="canonical" href="https://afourmy.github.io/projects/tsp.html">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <header class="site-header"><a href="../index.html">Home</a></header>
+
+  <main>
+    <h1>Traveling Salesman Problem</h1>
+
+    <p>
+      The Traveling Salesman Problem (TSP) asks the following question: given a list of cities
+      and the distances between each pair, what is the shortest possible route that visits every
+      city exactly once and returns to the starting city?
+    </p>
+    <p>
+      It is an NP-hard problem, meaning that no efficient algorithm is known for solving it
+      exactly in all cases. In practice, heuristics are used to find good (though not necessarily
+      optimal) solutions.
+    </p>
+    <p>
+      The cities in the demos below are real locations, selected by population and drawn on a
+      map. The distance between two of them is therefore not a straight line in the plane but a
+      great-circle distance over the surface of the Earth, computed from their latitudes and
+      longitudes with the haversine formula:
+    </p>
+
+    \[ d(A, B) = 2R \arcsin\!\sqrt{\sin^2\!\frac{\varphi_B - \varphi_A}{2} + \cos\varphi_A \cos\varphi_B \sin^2\!\frac{\lambda_B - \lambda_A}{2}} \]
+
+    <p>
+      where $$\varphi$$ and $$\lambda$$ are latitude and longitude in radians and
+      $$R = 6371$$ km is the Earth's radius.
+    </p>
+    <p>
+      This page is based on work I did in 2018, which you can find in
+      <a href="https://github.com/afourmy/pyTSP" target="_blank">this repository</a>.
+    </p>
+
+    <h2>Construction heuristics</h2>
+
+    <p>
+      Construction heuristics build a tour from scratch by adding one city at a time.
+      They are fast and produce reasonable solutions, which can then be improved with
+      optimization techniques. The four algorithms below differ in how they choose which
+      city to add next, and where to insert it in the partial tour.
+    </p>
+    <!-- ── Nearest Neighbor ── -->
+
+    <h3>Nearest Neighbor</h3>
+
+    <p>The simplest construction heuristic. It is greedy: at each step, it travels to the closest unvisited city.</p>
+
+    <ol>
+      <li>Start from a random city.</li>
+      <li>Travel to the nearest unvisited city.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-nearest-neighbor">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      This algorithm is fast ($$O(n^2)$$) but tends to produce tours with
+      crossing edges, especially toward the end when few cities remain and the nearest
+      one may be far away.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def closest_neighbor(distances, tour, node, in_tour=False, farthest=False):
+    # find the closest (or farthest) neighbor to a node,
+    # among cities in the tour or not yet visited
+    neighbors = distances[node]
+    candidates = [
+        (city, dist)
+        for city, dist in neighbors.items()
+        if (city in tour if in_tour else city not in tour)
+    ]
+    return sorted(candidates, key=lambda x: x[1])[-1 if farthest else 0]
+
+def nearest_neighbor(cities, distances):
+    city = randrange(1, len(cities))
+    current, tour, tour_length = city, [city], 0
+    while len(tour) != len(cities):
+        nearest, edge_length = closest_neighbor(distances, tour, current)
+        tour_length += edge_length
+        tour.append(nearest)
+        current = nearest
+    # close the tour by adding the last edge
+    tour_length += distances[current][city]
+    return tour, tour_length</code></pre>
+    </details>
+
+    <!-- ── Nearest Insertion ── -->
+
+    <h3>Nearest Insertion</h3>
+
+    <p>
+      Instead of building a path one edge at a time, insertion heuristics maintain a partial tour
+      (a closed loop) and repeatedly insert a new city into it. Nearest insertion selects the
+      unvisited city that is closest to any city already in the tour.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a single random city.</li>
+      <li><strong>Selection:</strong> find the unvisited city <em>k</em> that minimizes
+        $$d(k, j)$$ for some city <em>j</em> already in the tour.</li>
+      <li><strong>Insertion:</strong> find the edge $$(i, j)$$ in the tour such that inserting
+        <em>k</em> between <em>i</em> and <em>j</em> causes the smallest increase in tour length,
+        i.e. minimizes $$d(i, k) + d(k, j) - d(i, j)$$.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-nearest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def insertion_cost(distances, i, j, k):
+    # cost of inserting node k between nodes i and j
+    return distances[i][k] + distances[k][j] - distances[i][j]
+
+def nearest_insertion(cities, distances, farthest=False):
+    city = randrange(1, len(cities))
+    tour = [city]
+    select = max if farthest else min
+    # min_dist[c] = distance from c to its nearest tour city
+    min_dist = {node: distances[node][city] for node in cities if node != city}
+    while min_dist:
+        # selection: pick closest (or farthest) city to the tour
+        best = select(min_dist, key=min_dist.get)
+        # insertion: find the position that minimizes tour length increase
+        best_position, best_cost = None, float('inf')
+        for i in range(len(tour)):
+            j = (i + 1) % len(tour)
+            cost = insertion_cost(distances, tour[i], tour[j], best)
+            if cost < best_cost:
+                best_position, best_cost = i, cost
+        tour.insert(best_position + 1, best)
+        del min_dist[best]
+        # update distances with the newly added city
+        for node in min_dist:
+            min_dist[node] = min(min_dist[node], distances[node][best])
+    return tour</code></pre>
+    </details>
+
+    <!-- ── Cheapest Insertion ── -->
+
+    <h3>Cheapest Insertion</h3>
+
+    <p>
+      Cheapest insertion considers all unvisited cities and all possible positions at once.
+      It picks the (city, position) pair that results in the smallest increase in tour length.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a random city and its nearest neighbor.</li>
+      <li>Among all unvisited cities <em>k</em> and all edges $$(i, j)$$ in the tour,
+        find the combination that minimizes $$d(i, k) + d(k, j) - d(i, j)$$.</li>
+      <li>Insert <em>k</em> between <em>i</em> and <em>j</em>.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-cheapest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
+      shorter tours because it makes globally cheaper choices at each step.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def cheapest_insertion(cities, distances):
+    city = randrange(1, len(cities))
+    tour = [city]
+    # start with the nearest neighbor
+    neighbor, _ = closest_neighbor(distances, tour, city)
+    tour.append(neighbor)
+    while len(tour) != len(cities):
+        # find the (city, position) pair whose insertion
+        # causes the smallest increase in tour length
+        best_dist, new_tour = float('inf'), None
+        for candidate in cities:
+            if candidate in tour:
+                continue
+            for i in range(len(tour)):
+                j = (i + 1) % len(tour)
+                dist = insertion_cost(distances, tour[i], tour[j], candidate)
+                if dist < best_dist:
+                    best_dist = dist
+                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
+        tour = new_tour
+    return tour</code></pre>
+    </details>
+
+    <!-- ── Farthest Insertion ── -->
+
+    <h3>Farthest Insertion</h3>
+
+    <p>
+      Farthest insertion works like nearest insertion, but with the opposite selection rule:
+      it picks the city that is <em>farthest</em> from any city in the tour. Inserting distant
+      cities first makes the tour approximate the convex hull of the point set early, so later
+      insertions fill in the interior.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a single random city.</li>
+      <li><strong>Selection:</strong> find the unvisited city <em>k</em> that maximizes
+        $$\min_{j \in \text{tour}} d(k, j)$$.</li>
+      <li><strong>Insertion:</strong> insert <em>k</em> at the position in the tour that causes
+        the smallest increase in length.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-farthest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Farthest insertion produces fewer crossing edges than nearest neighbor and generally
+      shorter tours than the other insertion variants.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def farthest_insertion(cities, distances):
+    # same as nearest insertion, but selecting the farthest city
+    return nearest_insertion(cities, distances, farthest=True)</code></pre>
+    </details>
+
+    <h2>Optimization heuristics</h2>
+
+    <p>
+      Construction heuristics produce a complete tour, but it is usually far from optimal.
+      Optimization heuristics start from an existing tour and iteratively improve it by
+      rearranging the order of cities. They repeat until no further improvement can be found
+      (a local optimum).
+    </p>
+
+    <!-- ── Node Insertion ── -->
+
+    <h3>Node Insertion</h3>
+
+    <p>
+      Node insertion tries to improve a tour by
+      removing a single city from its current position and reinserting it at the best
+      possible position elsewhere in the tour.
+    </p>
+
+    <ol>
+      <li>Start with a random tour.</li>
+      <li>For each city <em>k</em> in the tour, remove it and try reinserting it at every
+        other position. If any reinsertion reduces the tour length, apply it.</li>
+      <li>Repeat until a full pass over all cities produces no improvement.</li>
+    </ol>
+
+    <figure class="tsp-diagram">
+      <img src="images/node_insertion.png" alt="Node insertion: a single city is removed from the tour and reinserted at a better position." />
+      <figcaption>A single city is removed and reinserted at its best position.</figcaption>
+    </figure>
+
+    <div class="tsp-section" id="tsp-node-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Each improvement removes crossing edges or tightens detours. The complexity per pass
+      is $$O(n^2)$$ and the algorithm typically converges in a small number of passes.
+      Because it only moves one city at a time, it can get stuck in local optima that
+      require moving two or more cities simultaneously to escape.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def substring_insertion(cities, distances, k):
+    solution = generate_initial_tour(cities)
+    stable, best = False, compute_length(solution, distances)
+    while not stable:
+        stable = True
+        for i in range(len(solution) - k):
+            for j in range(len(solution)):
+                substring = solution[i:(i + k)]
+                candidate = solution[:i] + solution[(i + k):]
+                candidate = candidate[:j] + substring + candidate[j:]
+                tour_length = compute_length(candidate, distances)
+                if best > tour_length:
+                    stable, solution, best = False, candidate, tour_length
+    return solution
+
+# node insertion: move one city at a time
+node_insertion = partial(substring_insertion, k=1)</code></pre>
+    </details>
+
+    <!-- ── Edge Insertion ── -->
+
+    <h3>Edge Insertion</h3>
+
+    <p>
+      Edge insertion generalizes node insertion: instead of relocating a single city, it
+      removes two consecutive cities (an edge of the tour) and reinserts the pair together
+      at the best position. Moving a pair as a unit lets the search escape some local optima
+      that trap node insertion, where no single-city move improves the tour but moving two
+      adjacent cities at once does.
+    </p>
+
+    <ol>
+      <li>Start with a random tour.</li>
+      <li>For each pair of consecutive cities in the tour, remove the pair and try
+        reinserting it at every other position. If any reinsertion reduces the tour length,
+        apply it.</li>
+      <li>Repeat until a full pass produces no improvement.</li>
+    </ol>
+
+    <figure class="tsp-diagram">
+      <img src="images/edge_insertion.png" alt="Edge insertion: two consecutive cities are removed from the tour and reinserted together at a better position." />
+      <figcaption>Two consecutive cities are removed and reinserted together as a unit.</figcaption>
+    </figure>
+
+    <div class="tsp-section" id="tsp-edge-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Both node and edge insertion are instances of a single substring-insertion procedure
+      parameterized by the length <em>k</em> of the moved segment: <em>k</em> = 1 gives node
+      insertion and <em>k</em> = 2 gives edge insertion. Larger segments explore a richer set
+      of moves at higher cost per pass.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python"># edge insertion reuses substring_insertion (defined for node insertion)
+# with k = 2: move two consecutive cities at a time
+edge_insertion = partial(substring_insertion, k=2)</code></pre>
+    </details>
+
+    <!-- ── 2-opt ── -->
+
+    <h3>2-opt (pairwise exchange)</h3>
+
+    <p>
+      2-opt is a local-search move for the TSP. It repeatedly picks two edges of
+      the tour and, if removing them and reconnecting the endpoints the other way shortens
+      the tour, does so. Reconnecting amounts to reversing the segment of the tour between
+      the two edges. Each accepted move removes a pair of crossing edges, so a 2-opt tour
+      has no self-intersections.
+    </p>
+
+    <ol>
+      <li>Start with a random tour.</li>
+      <li>For every pair of edges in the tour, remove them and reconnect the four endpoints
+        the other way, which reverses the segment between the two edges. If the new tour is
+        shorter, keep it.</li>
+      <li>Repeat until a full pass produces no improvement (a local optimum).</li>
+    </ol>
+
+    <figure class="tsp-diagram">
+      <img src="images/pairwise_exchange.png" alt="2-opt: two crossing edges are removed and the endpoints reconnected the other way, reversing the segment between them." />
+      <figcaption>Two crossing edges are removed and reconnected the other way, uncrossing the tour.</figcaption>
+    </figure>
+
+    <div class="tsp-section" id="tsp-two-opt">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Each pass is $$O(n^2)$$. Reversing a segment lets 2-opt remove crossings that node and
+      edge insertion cannot, and it is commonly used as a component of stronger heuristics.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def swap(solution, i, j):
+    # reverse the tour segment between positions i and j
+    return solution[:i] + solution[i:j + 1][::-1] + solution[j + 1:]
+
+def pairwise_exchange(cities, distances):
+    solution = generate_initial_tour(cities)
+    stable, best = False, compute_length(solution, distances)
+    while not stable:
+        stable = True
+        for i in range(1, len(solution) - 1):
+            for j in range(i + 1, len(solution)):
+                candidate = swap(solution, i, j)
+                tour_length = compute_length(candidate, distances)
+                if best > tour_length:
+                    stable, solution, best = False, candidate, tour_length
+    return solution</code></pre>
+    </details>
+
+    <h2>Exact Linear Programming Solution</h2>
+
+    <p>
+      All of the algorithms above are heuristics: they return a good tour, but never a
+      guarantee that it is the shortest. The TSP can instead be written as an
+      <em>integer linear program</em> (ILP) and solved exactly. This is the
+      Dantzig&ndash;Fulkerson&ndash;Johnson formulation.
+    </p>
+
+    <h3>Variables and objective</h3>
+
+    <p>
+      A tour is a graph $$(N, E)$$ with $$N$$ the set of cities and $$E$$ the set of edges.
+      We associate a binary variable $$x_{ij}$$ to each pair of cities $$(i, j)$$:
+    </p>
+
+    \[ x_{ij} = \begin{cases} 1 & \text{if the edge } (i, j) \text{ is in the tour} \\ 0 & \text{otherwise} \end{cases} \]
+
+    <p>
+      Writing $$d_{ij}$$ for the distance between $$i$$ and $$j$$, the length of a tour is the
+      quantity we want to minimize:
+    </p>
+
+    \[ L = \sum_{(i,\,j)\,\in\,N \times N} d_{ij}\, x_{ij} \]
+
+    <h3>Degree constraints</h3>
+
+    <p>
+      Each city is visited exactly once, which means every node must be connected to exactly
+      two edges. For each city $$i$$, exactly two variables $$x_{ij}$$ must equal 1:
+    </p>
+
+    \[ \sum_{j \,\in\, N} x_{ij} = 2 \qquad \forall\, i \in N \]
+
+    <h3>Subtour elimination</h3>
+
+    <p>
+      The degree constraints alone are not enough: they force every node to have two edges,
+      but nothing keeps the result connected. The solver is therefore free to return several
+      disjoint loops (<em>subtours</em>) whose total length is smaller than any
+      single tour. The <strong>Degree constraints only</strong> button below draws exactly
+      this case: several separate closed loops.
+    </p>
+
+    <p>
+      A subtour is a subset $$X \subset N$$ in which the number of selected edges between
+      nodes of $$X$$ equals the size of $$X$$:
+    </p>
+
+    \[ \sum_{i,\,j\,\in\,X,\; i \neq j} x_{ij} = |X| \]
+
+    <p>
+      We can forbid every subtour by requiring that any proper, non-empty subset of cities
+      contain at most $$|X| - 1$$ internal edges, which makes a closed loop on $$X$$ alone
+      impossible:
+    </p>
+
+    \[ \sum_{i,\,j\,\in\,X,\; i \neq j} x_{ij} \le |X| - 1 \qquad \forall\, X \subset N,\; X \notin \{\varnothing, N\} \]
+
+    <p>
+      Together, the objective, the degree constraints and the subtour-elimination constraints
+      describe a tour that is both feasible and the shortest possible.
+    </p>
+
+    <h3>Lazy constraints</h3>
+
+    <p>
+      There is one subtour-elimination constraint for every subset of cities, so their number
+      grows exponentially with $$n$$. They are instead added <em>lazily</em>:
+    </p>
+
+    <ol>
+      <li>Solve the ILP with the degree constraints only. The result is a set of edges where
+        every node has degree two: one or more disjoint loops.</li>
+      <li>If it is a single loop through all cities, it is the optimal tour, so stop.</li>
+      <li>Otherwise, for each subtour found, add its elimination constraint and solve again.</li>
+    </ol>
+
+    <p>
+      Only the violated constraints are added. The two buttons below show the difference:
+      <strong>Degree constraints only</strong> solves the program without any
+      subtour-elimination constraints, so the result is usually several disjoint loops;
+      <strong>With subtour elimination</strong> runs the loop above to completion and returns
+      the single optimal tour.
+    </p>
+
+    <div class="tsp-section" id="tsp-linear-programming">
+      <div class="tsp-controls">
+        <button class="tsp-btn-lp" data-subtour="false">&#9654; Degree constraints only</button>
+        <button class="tsp-btn-lp" data-subtour="true">&#9654; With subtour elimination</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000" selected>Pop. &ge; 1,000,000 (9 cities)</option>
+        </select></label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Solving an ILP is exponential in the worst case, so unlike the heuristics this method
+      only scales to small instances. This section therefore works on the 9-city dataset
+      independently of the selector used above; you can also click the map to place a few
+      cities of your own.
+    </p>
+
+    <p>
+      The original code builds the full Dantzig&ndash;Fulkerson&ndash;Johnson program and hands
+      it to the GLPK solver, enumerating a subtour-elimination constraint for every subset of
+      cities; the interactive version above adds those constraints lazily instead.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from itertools import chain, combinations
+from cvxopt import matrix, glpk
+from numpy import full
+
+def edges_to_tour(edges):
+    # turn the set of selected edges into an ordered list of cities
+    tour, current = [], None
+    while edges:
+        if current is not None:
+            for edge in edges:
+                if current not in edge:
+                    continue
+                current = edge[0] if current == edge[1] else edge[1]
+                tour.append(current)
+                edges.remove(edge)
+        else:
+            x, y = edges.pop()
+            tour.extend([x, y])
+            current = y
+    return tour[:-1]
+
+def ILP_solver(distances):
+    n = len(distances)
+    sx = n * (n - 1) // 2
+    # objective: minimize total length over the upper-triangular edge variables
+    c = [distances[i + 1][j + 1] for i in range(n) for j in range(i + 1, n)]
+    G, h, A, b = [], [], [], full(n, 2, dtype=float)
+    # subtour-elimination constraint for every subset of size 2..n-1
+    for subset in chain.from_iterable(combinations(range(n), r) for r in range(2, n)):
+        G.append(
+            [
+                float(i in subset and j in subset)
+                for i in range(n)
+                for j in range(i + 1, n)
+            ]
+        )
+        h.append(float(len(subset) - 1))
+    # degree constraint: each node has exactly two incident edges
+    for k in range(n):
+        A.append([float(k in (i, j)) for i in range(n) for j in range(i + 1, n)])
+    A, G, b, c, h = map(matrix, (A, G, b, c, h))
+    # binary integer program: minimize c.x  s.t.  G x &lt;= h  and  A x = b
+    _, x = glpk.ilp(c, G.T, h, A.T, b, B=set(range(sx)))
+    edges = [(i + 1, j + 1) for i in range(n) for j in range(i + 1, n)]
+    return edges_to_tour([edges[k] for k in range(sx) if x[k]])</code></pre>
+    </details>
+
+    <h2>Genetic algorithm</h2>
+
+    <p>
+      A genetic algorithm treats a tour as an individual in a population and improves the
+      population over successive generations using operators modelled on natural selection.
+      Each tour is encoded as a permutation of the cities. The population starts random and,
+      at every generation, fitter tours (shorter ones) are more likely to pass their structure
+      to the next generation.
+    </p>
+
+    <h3>One generation</h3>
+
+    <ol>
+      <li>Sort the population by tour length.</li>
+      <li><strong>Elitism:</strong> copy the single best tour unchanged into the next
+        generation.</li>
+      <li>Fill the rest by repeating: pick two parents by <strong>tournament selection</strong>
+        (take five random tours, keep the shortest), apply a <strong>crossover</strong> with
+        probability $$c_r$$ to produce two children, then apply a <strong>mutation</strong> to
+        each child with probability $$m_r$$.</li>
+      <li>Keep the best tours, discard the rest, and repeat for the next generation.</li>
+    </ol>
+
+    <h3>Crossover methods</h3>
+
+    <p>
+      A crossover combines two parent tours into two children that are still valid
+      permutations. Three variants are available:
+    </p>
+
+    <ul>
+      <li><strong>Order (OC):</strong> copy a random segment from one parent, then fill the
+        remaining positions with the other parent's cities in their original order, skipping
+        cities already present.</li>
+      <li><strong>Maximal preservative (MPC):</strong> take a contiguous block of length
+        <em>n</em>/2 from one parent (wrapping around the end), then append the other parent's
+        remaining cities in order.</li>
+      <li><strong>Partially mapped (PMC):</strong> copy a segment from one parent, then place
+        the conflicting cities of the other parent by following the position-by-position
+        mapping the segment induces between the two parents.</li>
+    </ul>
+
+    <h3>Mutation methods</h3>
+
+    <p>
+      A mutation makes a small random change to a single tour, which keeps diversity in the
+      population. Three variants are available:
+    </p>
+
+    <ul>
+      <li><strong>Swap:</strong> exchange the cities at two random positions.</li>
+      <li><strong>Insertion:</strong> remove one city and reinsert it at a random position.</li>
+      <li><strong>Displacement:</strong> remove a random contiguous block of cities and
+        reinsert it at a random position.</li>
+    </ul>
+
+    <div class="tsp-section" id="tsp-genetic-algorithm">
+      <div class="tsp-controls">
+        <button class="tsp-btn-ga">&#9654; Start</button>
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
+          <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
+        </select></label>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+      <div class="ga-rates">
+        <div class="ga-group">
+          <span class="ga-group-title">Crossover Method</span>
+          <select class="ga-crossover">
+            <option value="order" selected>Order (OC)</option>
+            <option value="mpc">Maximal preservative (MPC)</option>
+            <option value="pmc">Partially mapped (PMC)</option>
+          </select>
+          <label>Rate
+            <input type="range" class="ga-cr" min="0" max="1" step="0.01" value="0.5">
+            <span class="ga-cr-val">0.50</span>
+          </label>
+        </div>
+        <div class="ga-group">
+          <span class="ga-group-title">Mutation Method</span>
+          <select class="ga-mutation">
+            <option value="swap" selected>Swap</option>
+            <option value="insertion">Insertion</option>
+            <option value="displacement">Displacement</option>
+          </select>
+          <label>Rate
+            <input type="range" class="ga-mr" min="0" max="1" step="0.01" value="0.5">
+            <span class="ga-mr-val">0.50</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      The population size is 100. The map shows the best tour of the current generation, and
+      the run stops automatically once the best length has not improved for 150 generations.
+      Unlike the construction and optimization heuristics, a genetic algorithm explores many
+      tours in parallel and is not tied to a single starting solution.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from random import randint, random, randrange, sample
+from functools import partial
+
+def crossover_cut(size):
+    first_cut = randint(1, size - 2)
+    return first_cut, randint(first_cut + 1, size)
+
+# ── mutations ──
+
+def swap_mutation(solution):
+    solution = solution[:]
+    i, j = randrange(len(solution)), randrange(len(solution))
+    solution[i], solution[j] = solution[j], solution[i]
+    return solution
+
+def insertion_mutation(solution):
+    solution = solution[:]
+    src, dst = randrange(len(solution)), randrange(len(solution))
+    solution.insert(dst, solution.pop(src))
+    return solution
+
+def displacement_mutation(solution):
+    a, b = crossover_cut(len(solution))
+    at = randint(0, len(solution))
+    substring = solution[a:b]
+    solution = solution[:a] + solution[b:]
+    return solution[:at] + substring + solution[at:]
+
+# ── crossovers (each returns two children) ──
+
+def order_crossover(i1, i2):
+    a, b = crossover_cut(len(i1))
+    ni1, ni2 = i1[a:b], i2[a:b]
+    r1, r2 = i1[b:] + i1[:b], i2[b:] + i2[:b]
+    for x in r1:
+        if x not in ni2:
+            ni2.append(x)
+    for x in r2:
+        if x not in ni1:
+            ni1.append(x)
+    return ni1, ni2
+
+def maximal_preservative_crossover(i1, i2):
+    i1, i2 = i1[:], i2[:]
+    c, r = len(i1) // 2, randrange(len(i1) + 1)
+    s1, s2 = (i1 * 2)[r:r + c], (i2 * 2)[r:r + c]
+    for x in s1:
+        i2.remove(x)
+    for x in s2:
+        i1.remove(x)
+    return s2 + i1, s1 + i2
+
+def partial_mapping(i1, i2, ni1, ni2, a, b):
+    for x in i2[a:b]:
+        if x in i1[a:b]:
+            continue
+        curr = x
+        while True:
+            j = i1[i2.index(curr)]
+            pos = i2.index(j)
+            if ni1[pos] is None:
+                ni1[pos] = x
+                break
+            curr = ni2[pos]
+
+def partially_mapped_crossover(i1, i2):
+    a, b = crossover_cut(len(i1))
+    ni1, ni2 = [None] * len(i1), [None] * len(i1)
+    ni1[a:b], ni2[a:b] = i1[a:b], i2[a:b]
+    partial_mapping(i1, i2, ni1, ni2, a, b)
+    partial_mapping(i2, i1, ni2, ni1, a, b)
+    ni1 = [x if x is not None else i2[i] for i, x in enumerate(ni1)]
+    ni2 = [x if x is not None else i1[i] for i, x in enumerate(ni2)]
+    return ni1, ni2
+
+# ── selection and generation cycle ──
+
+def select(population):
+    # tournament selection: best of five random individuals
+    return min(sample(population, 5), key=compute_length)[:]
+
+def cycle(generation, cities, cr, mr, crossover, mutation):
+    if not generation:
+        generation = [generate_solution(cities) for _ in range(100)]
+    generation = sorted(generation, key=compute_length)
+    next_gen = [generation[0][:]]  # elitism
+    while len(next_gen) &lt; len(generation):
+        p1, p2 = select(generation), select(generation)
+        children = crossover(p1, p2) if random() &lt; cr else (p1, p2)
+        next_gen += [mutation(c) if random() &lt; mr else c for c in children]
+    next_gen = sorted(next_gen[:len(generation)], key=compute_length)
+    return next_gen, compute_length(next_gen[0])</code></pre>
+    </details>
+
+  </main>
+
+  <script src="tsp.js"></script>
+  <script>TSP.init();</script>
+</body>
+</html>
