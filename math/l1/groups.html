@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Groups</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Alegreya+SC:wght@400;700&family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Alegreya', 'Times New Roman', serif;
+      font-size: 15px;
+      color: #111;
+      background: #fcfcfc;
+      line-height: 1.6;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e0e0e0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      align-items: stretch;
+    }
+    .nav-link {
+      font-family: 'Alegreya SC', serif;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: #333;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-home {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .nav-link:hover {
+      background: #f0f7ff;
+      color: #036;
+    }
+
+    .nav-item {
+      position: relative;
+      display: flex;
+    }
+
+    .nav-item > .submenu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-top: none;
+      list-style: none;
+      min-width: 160px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    .nav-item:hover > .submenu {
+      display: block;
+    }
+
+    .nav-item:hover > .submenu.submenu-sections {
+      display: flex;
+    }
+
+    .submenu-section {
+      padding: 0;
+    }
+
+    .submenu-section:not(:last-child) {
+      border-right: 2px solid #ccc;
+    }
+
+    .submenu-section-heading {
+      display: block;
+      padding: 0.5rem 1.2rem 0.3rem;
+      font-family: 'Alegreya SC', serif;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .submenu-section-body {
+      display: flex;
+    }
+
+    .submenu-col {
+      list-style: none;
+      padding: 0;
+      min-width: 150px;
+      white-space: nowrap;
+    }
+
+    .submenu-col:not(:last-child) {
+      border-right: 1px solid #eee;
+    }
+
+    .submenu li a {
+      display: block;
+      padding: 0.4rem 1.2rem;
+      font-size: 1rem;
+      color: #333;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .submenu li a:hover {
+      background: #f0f7ff;
+      color: #036;
+    }
+
+    /* ── Main content ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-family: 'Alegreya', serif;
+      font-size: 2.8rem;
+      font-weight: 420;
+      padding-top: 0.6rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-family: 'Alegreya SC', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: #111;
+    }
+
+    h3 {
+      font-family: 'Alegreya', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.8rem;
+    }
+
+    p {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      margin-bottom: 1rem;
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    a {
+      color: #036;
+      text-decoration: none;
+      border-radius: 3px;
+      transition: background 0.2s;
+    }
+
+    a:hover {
+      background: #f0f7ff;
+    }
+
+    ul, ol {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      margin-bottom: 1rem;
+      padding-left: 2rem;
+    }
+
+    code {
+      font-family: 'Inconsolata', monospace;
+      font-size: 0.9em;
+      color: #600;
+      background: #f5f5f5;
+      padding: 0.1em 0.3em;
+      border-radius: 3px;
+    }
+
+    /* ── KaTeX display overrides ── */
+    .katex-display {
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 0.5rem 0;
+    }
+
+    /* ── Theorem-like blocks ── */
+    .thm-block {
+      margin: 1.5rem 0;
+      padding: 0.8rem 1.2rem;
+      border-left: 3px solid #ccc;
+      background: #fafafa;
+    }
+
+    .thm-block.definition { border-left-color: #369; background: #f4f8fc; }
+    .thm-block.theorem { border-left-color: #933; background: #fcf4f4; }
+    .thm-block.proposition { border-left-color: #693; background: #f4fcf4; }
+    .thm-block.corollary { border-left-color: #963; background: #fcf8f4; }
+    .thm-block.exercise { border-left-color: #639; background: #f8f4fc; }
+
+    .thm-label {
+      font-family: 'Alegreya SC', serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .thm-block p {
+      margin-bottom: 0.5rem;
+    }
+
+    .thm-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .proof {
+      margin: 0.8rem 0 1.5rem 0;
+      padding: 0.5rem 1.2rem;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      text-align: justify;
+    }
+
+    .proof-label {
+      font-style: italic;
+      font-weight: 700;
+      margin-right: 0.3rem;
+    }
+
+    .proof::after {
+      content: " \25A1";
+      float: right;
+    }
+
+    /* ── Language toggle ── */
+    .lang-toggle {
+      margin-left: auto;
+      display: flex;
+      align-self: center;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .lang-toggle button {
+      padding: 0.35rem 0.6rem;
+      font-family: 'Alegreya SC', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      background: none;
+      color: #999;
+    }
+
+    .lang-toggle button:not(:last-child) {
+      border-right: 1px solid #ccc;
+    }
+
+    .lang-toggle button.active {
+      background: #036;
+      color: #fff;
+    }
+
+    .lang-toggle button:not(.active):hover {
+      background: #f0f7ff;
+      color: #036;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      body { font-size: 14px; }
+
+      nav .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0;
+      }
+
+      .nav-item > .submenu {
+        position: static;
+        box-shadow: none;
+        border: none;
+        border-left: 2px solid #e0e0e0;
+        margin-left: 1rem;
+      }
+
+      .nav-item:hover > .submenu {
+        display: block;
+      }
+
+      h1 { font-size: 2rem; }
+      p, ul, ol { font-size: 1.2rem; line-height: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-link nav-home">Home</a>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Mathematics" data-fr="Math&eacute;matiques">Mathematics</a>
+        <div class="submenu submenu-sections">
+          <div class="submenu-section">
+            <div class="submenu-section-heading">L1</div>
+            <div class="submenu-section-body">
+              <ul class="submenu-col">
+                <li><a href="bases.html" data-en="Foundations" data-fr="Bases">Foundations</a></li>
+                <li><a href="complexes.html" data-en="Complex Numbers" data-fr="Nombres complexes">Complex Numbers</a></li>
+                <li><a href="arithmetique.html" data-en="Arithmetic" data-fr="Arithm&eacute;tique">Arithmetic</a></li>
+                <li><a href="fonctions_usuelles.html" data-en="Usual Functions" data-fr="Fonctions usuelles">Usual Functions</a></li>
+                <li><a href="polynomes.html" data-en="Polynomials" data-fr="Polyn&ocirc;mes">Polynomials</a></li>
+                <li><a href="suites.html" data-en="Sequences" data-fr="Suites">Sequences</a></li>
+                <li><a href="continuite.html" data-en="Continuity" data-fr="Continuit&eacute;">Continuity</a></li>
+                <li><a href="derivation.html" data-en="Differentiation" data-fr="D&eacute;rivation">Differentiation</a></li>
+              </ul>
+              <ul class="submenu-col">
+                <li><a href="denombrement.html" data-en="Combinatorics" data-fr="D&eacute;nombrement">Combinatorics</a></li>
+                <li><a href="probabilites.html" data-en="Probability" data-fr="Probabilit&eacute;s">Probability</a></li>
+                <li><a href="groups.html" data-en="Groups" data-fr="Groupes">Groups</a></li>
+                <li><a href="anneaux_corps.html" data-en="Rings &amp; Fields" data-fr="Anneaux &amp; Corps">Rings &amp; Fields</a></li>
+                <li><a href="algebre_lineaire.html" data-en="Linear Algebra" data-fr="Alg&egrave;bre lin&eacute;aire">Linear Algebra</a></li>
+                <li><a href="matrices.html" data-en="Matrices" data-fr="Matrices">Matrices</a></li>
+                <li><a href="determinant.html" data-en="Determinants" data-fr="D&eacute;terminants">Determinants</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="submenu-section">
+            <div class="submenu-section-heading">L2</div>
+            <div class="submenu-section-body">
+              <ul class="submenu-col">
+                <li><a href="../l2/algebra.html" data-en="Algebra" data-fr="Alg&egrave;bre">Algebra</a></li>
+                <li><a href="../l2/analysis.html" data-en="Analysis" data-fr="Analyse">Analysis</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Computer Science" data-fr="Informatique">Computer Science</a>
+        <div class="submenu">
+          <ul class="submenu-col">
+            <li><a href="../../cs/theory/logic.html" data-en="Logic" data-fr="Logique">Logic</a></li>
+            <li><a href="../../cs/theory/automata.html" data-en="Automata" data-fr="Automates">Automata</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Algorithmics" data-fr="Algorithmique">Algorithmics</a>
+        <div class="submenu">
+          <ul class="submenu-col">
+            <li><a href="../../cs/algo/sorting.html" data-en="Sorting" data-fr="Tri">Sorting</a></li>
+            <li><a href="../../cs/algo/graphs.html" data-en="Graphs" data-fr="Graphes">Graphs</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="lang-toggle">
+        <button onclick="setLang('en')" id="lang-en" class="active">EN</button>
+        <button onclick="setLang('fr')" id="lang-fr">FR</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Th&eacute;orie des groupes</h1>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Une <em>loi interne</em> sur un ensemble $G$ est une application $* : G \times G \to G$.</p>
+      <p>Un <em>groupe</em> est un ensemble $G$ muni d'une loi interne $*$ associative, poss&eacute;dant un &eacute;l&eacute;ment neutre $e$ (tel que $a*e = e*a = a$ pour tout $a \in G$), et telle que tout &eacute;l&eacute;ment $a$ admette un inverse $a^{-1}$ v&eacute;rifiant $a*a^{-1} = a^{-1}*a = e$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Un groupe est <em>ab&eacute;lien</em> si $\forall a,b \in G,\ a*b=b*a$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>L'&eacute;l&eacute;ment neutre est unique et l'inverse de chaque &eacute;l&eacute;ment est unique.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Soient $e$ et $e'$ deux &eacute;l&eacute;ments neutres. Alors $e=e*e'=e'$. Si $b$ et $c$ sont deux inverses de $a$, alors $b=b*(a*c)=(b*a)*c=e*c=c$.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Soit $(G,*)$ un groupe. Un sous-ensemble $H \subset G$ est un <em>sous-groupe</em> de $G$ si la loi $*$ restreinte &agrave; $H$ fait de $H$ un groupe.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="thm-label">Th&eacute;or&egrave;me (Crit&egrave;re de sous-groupe)</div>
+      <p>Soit $H$ un sous-ensemble non vide de $G$. Alors $H$ est un sous-groupe de $G$ si et seulement si</p>
+      $$\forall x,y \in H,\ x*y^{-1} \in H.$$
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Si $H$ est un sous-groupe, la propri&eacute;t&eacute; est imm&eacute;diate. R&eacute;ciproquement, supposons $H$ non vide et stable par $x*y^{-1}$. En prenant $x=y$, on obtient $e \in H$. Pour $x \in H$, $x^{-1}=e*x^{-1} \in H$. Enfin, pour $x,y \in H$, comme $y^{-1} \in H$, l'hypoth&egrave;se donne $x*(y^{-1})^{-1} = x*y \in H$.
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>L'intersection de sous-groupes est un sous-groupe.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      L'&eacute;l&eacute;ment neutre appartient &agrave; tous les sous-groupes. La stabilit&eacute; par $x*y^{-1}$ est conserv&eacute;e par intersection.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Soit $a \in G$. Le sous-groupe engendr&eacute; par $a$ est</p>
+      $$\langle a \rangle = \{a^n \mid n \in \mathbb{Z}\}.$$
+      <p>Un groupe est <em>cyclique</em> s'il est engendr&eacute; par un &eacute;l&eacute;ment.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Soit $a \in G$. On appelle <em>ordre de $a$</em>, not&eacute; $\mathrm{ord}(a)$, le cardinal du sous-groupe $\langle a \rangle$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Si $\langle a \rangle$ est fini, alors il existe un plus petit entier $n \ge 1$ tel que $a^n = e$, et l'on a</p>
+      $$\langle a \rangle = \{e,a,a^2,\dots,a^{n-1}\} \quad \text{et} \quad \mathrm{ord}(a)=n.$$
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Si $\langle a \rangle$ est fini, la suite des puissances $e,a,a^2,\dots$ prend un nombre fini de valeurs. Il existe donc deux entiers $0 \le k &lt; \ell$ tels que $a^k=a^\ell$. En multipliant par $(a^k)^{-1}$, on obtient $a^{\ell-k}=e$ avec $\ell-k \ge 1$. L'ensemble $\{m \ge 1 \mid a^m=e\}$ est donc non vide ; soit $n$ son minimum.
+      <em>Distinction.</em> Soient $0 \le i &lt; j \le n-1$ tels que $a^i=a^j$. Alors $a^{j-i}=e$ avec $1 \le j-i \le n-1 &lt; n$, ce qui contredit la minimalit&eacute; de $n$. Donc $e,a,\dots,a^{n-1}$ sont deux &agrave; deux distincts.
+      <em>Exhaustivit&eacute;.</em> Soit $a^m \in \langle a \rangle$. La division euclidienne de $m$ par $n$ donne $m=nq+r$ avec $0 \le r \le n-1$, d'o&ugrave; $a^m=a^{nq+r}=(a^n)^q \cdot a^r = a^r$. Ainsi toute puissance de $a$ est l'un des &eacute;l&eacute;ments $e,a,\dots,a^{n-1}$.
+      On conclut que $\langle a \rangle=\{e,a,\dots,a^{n-1}\}$ et $\mathrm{ord}(a)=n$.
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Tout groupe cyclique est ab&eacute;lien.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Tout &eacute;l&eacute;ment s'&eacute;crit $a^n$. Or $a^n*a^m=a^{n+m}=a^{m+n}=a^m*a^n$.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Une application $\varphi : G \to H$ est un <em>morphisme de groupes</em> si</p>
+      $$\varphi(a*b)=\varphi(a)*\varphi(b).$$
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Un morphisme envoie l'&eacute;l&eacute;ment neutre sur l'&eacute;l&eacute;ment neutre et conserve les inverses.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      On a $\varphi(e_G)=\varphi(e_G*e_G)=\varphi(e_G)*\varphi(e_G)$, d'o&ugrave;, en multipliant &agrave; gauche par $\varphi(e_G)^{-1}$, $\varphi(e_G)=e_H$. De plus, $\varphi(a*a^{-1})=\varphi(e_G)=e_H=\varphi(a)*\varphi(a^{-1})$, ce qui implique $\varphi(a^{-1})=\varphi(a)^{-1}$.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Le noyau est $\ker\varphi=\{x\in G\mid \varphi(x)=e_H\}$. L'image est $\mathrm{Im}\,\varphi=\{\varphi(x)\mid x\in G\}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Le noyau est un sous-groupe de $G$ et l'image un sous-groupe de $H$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Stabilit&eacute; imm&eacute;diate par la d&eacute;finition d'un morphisme.
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Un morphisme est injectif si et seulement si $\ker\varphi=\{e\}$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      $(\Rightarrow)$ Si $\varphi$ est injectif et $x\in\ker\varphi$, alors $\varphi(x)=e=\varphi(e)$, donc $x=e$ par injectivit&eacute; : $\ker\varphi=\{e\}$.
+      $(\Leftarrow)$ Supposons $\ker\varphi=\{e\}$ et $\varphi(x)=\varphi(y)$. Alors $\varphi(x*y^{-1})=\varphi(x)*\varphi(y)^{-1}=e$, donc $x*y^{-1}\in\ker\varphi=\{e\}$, d'o&ugrave; $x*y^{-1}=e$, i.e. $x=y$ : $\varphi$ est injectif.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Soit $H$ un sous-groupe de $G$. La classe &agrave; gauche de $a$ est $a*H=\{a*h\mid h\in H\}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>La relation $x\sim y \iff x^{-1}*y\in H$ est une relation d'&eacute;quivalence sur $G$, dont les classes sont les $a*H$. En particulier, les classes &agrave; gauche forment une partition de $G$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      <em>R&eacute;flexivit&eacute;</em> : $x^{-1}*x=e\in H$. <em>Sym&eacute;trie</em> : si $x^{-1}*y\in H$, alors $y^{-1}*x=(x^{-1}*y)^{-1}\in H$. <em>Transitivit&eacute;</em> : si $x^{-1}*y\in H$ et $y^{-1}*z\in H$, alors $x^{-1}*z=(x^{-1}*y)*(y^{-1}*z)\in H$. La classe de $a$ est $\{x\in G\mid a^{-1}*x\in H\}=\{a*h\mid h\in H\}=a*H$. La partition d&eacute;coule du th&eacute;or&egrave;me g&eacute;n&eacute;ral sur les classes d'&eacute;quivalence.
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Pour tout $a\in G$, la classe &agrave; gauche $a*H$ a le m&ecirc;me cardinal que $H$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      L'application $\varphi : H \to a*H$ d&eacute;finie par $\varphi(h)=a*h$ est bijective : elle est injective car $a*h_1=a*h_2 \Rightarrow h_1=h_2$, et surjective par d&eacute;finition de $a*H$.
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="thm-label">Th&eacute;or&egrave;me (Lagrange)</div>
+      <p>Si $G$ est fini et $H$ est un sous-groupe,</p>
+      $$|G|=[G:H]\cdot |H|.$$
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      $G$ est r&eacute;union disjointe de ses classes &agrave; gauche, toutes de cardinal $|H|$.
+    </div>
+
+    <div class="thm-block corollary">
+      <div class="thm-label">Corollaire</div>
+      <p>Dans un groupe fini, l'ordre d'un &eacute;l&eacute;ment divise l'ordre du groupe.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      On applique le th&eacute;or&egrave;me de Lagrange au sous-groupe $\langle a \rangle$.
+    </div>
+
+    <div class="thm-block definition">
+      <div class="thm-label">D&eacute;finition</div>
+      <p>Un sous-groupe $H$ est <em>distingu&eacute;</em> si $\forall g\in G,\ g*H=H*g$, ou de mani&egrave;re &eacute;quivalente, si $\forall g\in G,\ \forall x\in H,\ g*x*g^{-1}\in H$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="thm-label">Th&eacute;or&egrave;me</div>
+      <p>Si $H$ est distingu&eacute;, $G/H$ est un groupe pour</p>
+      $$(a*H)*(b*H)=(a*b)*H.$$
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      <em>Bonne d&eacute;finition.</em> Supposons $aH=a'H$ et $bH=b'H$. Il existe $h,h'\in H$ tels que $a'=a*h$ et $b'=b*h'$. Alors $a'*b'=a*(h*b)*h'$. Comme $H$ est distingu&eacute;, il existe $k\in H$ tel que $h*b=b*k$, d'o&ugrave; $a'*b'=a*b*(k*h')\in (a*b)*H$, ce qui montre que $(a'*b')H=(a*b)H$ et que la loi est bien d&eacute;finie.
+      <em>Axiomes.</em> L'associativit&eacute; d&eacute;coule de celle de $*$ dans $G$. La classe $eH$ est neutre et $(aH)^{-1}=a^{-1}H$.
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="thm-label">Proposition</div>
+      <p>Le noyau d'un morphisme de groupes est un sous-groupe distingu&eacute;.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Soit $\varphi : G \to H$ un morphisme et $x\in\ker\varphi$. Pour tout $g\in G$, $\varphi(g*x*g^{-1})=\varphi(g)*\varphi(x)*\varphi(g)^{-1} =\varphi(g)*e_H*\varphi(g)^{-1}=e_H$, donc $g*x*g^{-1}\in\ker\varphi$.
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="thm-label">Th&eacute;or&egrave;me (Th&eacute;or&egrave;me fondamental des morphismes)</div>
+      <p>Pour tout morphisme $\varphi : G \to H$,</p>
+      $$G/\ker\varphi \simeq \mathrm{Im}\,\varphi.$$
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      On d&eacute;finit $\psi : G/\ker\varphi \to \mathrm{Im}\,\varphi$ par $\psi(x*\ker\varphi)=\varphi(x)$. Si $x*\ker\varphi=y*\ker\varphi$, alors $y^{-1}*x\in\ker\varphi$, donc $\varphi(x)=\varphi(y)$ : $\psi$ est bien d&eacute;finie. Elle est un morphisme car $\psi((x*\ker\varphi)*(y*\ker\varphi))=\psi(x*y*\ker\varphi) =\varphi(x*y)=\varphi(x)*\varphi(y)$. Elle est surjective par d&eacute;finition de l'image. Enfin, si $\psi(x*\ker\varphi)=e$, alors $\varphi(x)=e$, donc $x\in\ker\varphi$ et $x*\ker\varphi=\ker\varphi$ : $\psi$ est injective.
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="thm-label">Th&eacute;or&egrave;me</div>
+      <p>Tout groupe cyclique est isomorphe &agrave; $(\mathbb{Z},+)$ ou &agrave; $(\mathbb{Z}/n\mathbb{Z},+)$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Soit $G=\langle a\rangle$ un groupe cyclique. On d&eacute;finit $\varphi:\mathbb{Z}\to G$ par $\varphi(n)=a^n$. On a $\varphi(n+m)=a^{n+m}=a^n*a^m=\varphi(n)*\varphi(m)$ : $\varphi$ est un morphisme. Il est surjectif par d&eacute;finition de $\langle a\rangle$.
+      Si $\mathrm{ord}(a)=+\infty$, alors $\varphi(n)=e \iff n=0$, donc $\ker\varphi=\{0\}$ et $G\simeq\mathbb{Z}$. Si $\mathrm{ord}(a)=n&lt;\infty$, alors $\varphi(k)=e \iff n\mid k$, donc $\ker\varphi=n\mathbb{Z}$ et $G\simeq\mathbb{Z}/n\mathbb{Z}$.
+    </div>
+
+    <h2>Exercices</h2>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que si, dans un groupe fini $G$, on a $x^2 = e$ pour tout $x \in G$, alors $G$ est ab&eacute;lien.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Pour tout $x\in G$, $x^2=e$ signifie $x=x^{-1}$. Soient $a,b\in G$. Alors $a*b=(a*b)^{-1}=b^{-1}*a^{-1}=b*a$.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que $f : (\mathbb{R}^*,\times) \to (\mathbb{R}^*,\times)$ d&eacute;finie par $f(x)=x^n$ et $\exp : (\mathbb{C},+) \to (\mathbb{C}^*,\times)$ sont des morphismes de groupes. D&eacute;terminer leur image et leur noyau.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      <em>Puissance $n$-i&egrave;me.</em> On a $f(xy)=(xy)^n=x^n y^n=f(x)f(y)$, donc $f$ est un morphisme. Son noyau est $\ker f=\{x\in\mathbb{R}^*\mid x^n=1\}$ : si $n$ est impair, $\ker f=\{1\}$ ; si $n$ est pair, $\ker f=\{-1,1\}$. Son image est $\mathrm{Im}\,f=\mathbb{R}^*$ si $n$ est impair, et $\mathrm{Im}\,f=\mathbb{R}^*_+$ si $n$ est pair.
+      <em>Exponentielle complexe.</em> On a $\exp(z_1+z_2)=\exp(z_1)\exp(z_2)$, donc $\exp$ est un morphisme. Son noyau est $\ker\exp=\{z\in\mathbb{C}\mid e^z=1\}=2i\pi\mathbb{Z}$. L'application $\exp$ est surjective sur $\mathbb{C}^*$ : pour $w=r e^{i\theta}\in\mathbb{C}^*$, on a $w=\exp(\ln r+i\theta)$, donc $\mathrm{Im}\,\exp=\mathbb{C}^*$.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Soient $H$ et $K$ deux sous-groupes d'un groupe $G$ tels que $H\cup K$ est un sous-groupe de $G$. Montrer que $H\subset K$ ou $K\subset H$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Supposons $H\not\subset K$ et $K\not\subset H$. Il existe alors $h\in H\setminus K$ et $k\in K\setminus H$. Comme $H\cup K$ est un sous-groupe, $h*k\in H\cup K$. Si $h*k\in H$, alors $k=h^{-1}*(h*k)\in H$, contradiction. Si $h*k\in K$, alors $h=(h*k)*k^{-1}\in K$, contradiction.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Soit $G=\,]-1,1[$ et $*$ la loi d&eacute;finie par $x*y=\frac{x+y}{1+xy}$. Montrer que $(G,*)$ est un groupe ab&eacute;lien.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      <em>Bonne d&eacute;finition de $x*y$.</em> Pour $x,y\in\,]-1,1[$, le d&eacute;nominateur $1+xy$ est bien non nul : en effet $|xy|&lt;1$, donc $1+xy&gt;0$. <em>Stabilit&eacute;.</em> On a $1+xy-x-y=(1-x)(1-y)&gt;0$ et $1+xy+x+y=(1+x)(1+y)&gt;0$ pour $x,y\in\,]-1,1[$, donc $|x+y|&lt;1+xy$, d'o&ugrave; $|x*y|=\frac{|x+y|}{1+xy}&lt;1$ et $x*y\in\,]-1,1[$. <em>Associativit&eacute;.</em> Par calcul, on v&eacute;rifie que $(x*y)*z=x*(y*z)=\frac{x+y+z+xyz}{1+xy+xz+yz}$. <em>&Eacute;l&eacute;ment neutre.</em> $x*0=\frac{x+0}{1+0}=x$ et $0*x=x$, donc $0$ est &eacute;l&eacute;ment neutre. <em>Inverse.</em> Pour $x\in G$, $x*(-x)=\frac{x+(-x)}{1+x(-x)}=\frac{0}{1-x^2}=0=e$, donc $x^{-1}=-x$. <em>Commutativit&eacute;.</em> &Eacute;vidente par sym&eacute;trie de la formule. Ainsi $(G,*)$ est un groupe ab&eacute;lien.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer qu'un groupe d'ordre premier est cyclique.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Soit $G$ un groupe tel que $|G|=p$, o&ugrave; $p$ est premier, et soit $a\in G$ avec $a\neq e$. Le sous-groupe $\langle a\rangle$ est non trivial et, par le th&eacute;or&egrave;me de Lagrange, son ordre divise $p$ ; il est donc &eacute;gal &agrave; $p$, d'o&ugrave; $\langle a\rangle=G$. Ainsi $G$ est cyclique.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>D&eacute;terminer l'ordre de l'&eacute;l&eacute;ment $\overline{k}$ dans le groupe $\mathbb{Z}/n\mathbb{Z}$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Dans le groupe additif $\mathbb{Z}/n\mathbb{Z}$, l'ordre de la classe de $k$ est le plus petit entier $m \ge 1$ tel que $m k \equiv 0 \pmod n$, c'est-&agrave;-dire tel que $n$ divise $m k$. Posons $d=\gcd(n,k)$ et &eacute;crivons $n=d n'$ et $k=d k'$ avec $\gcd(n',k')=1$. La condition $n \mid m k$ &eacute;quivaut alors &agrave; $d n' \mid m d k'$, soit encore $n' \mid m k'$, ce qui, puisque $n'$ et $k'$ sont premiers entre eux, est v&eacute;rifi&eacute; pour le plus petit entier $m=n'$. On en d&eacute;duit que l'ordre de $k$ dans $\mathbb{Z}/n\mathbb{Z}$ est &eacute;gal &agrave; $n'=\frac{n}{\gcd(n,k)}$.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que tout sous-groupe de $(\mathbb{Z},+)$ est de la forme $n\mathbb{Z}$ pour un certain entier $n$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que tout sous-groupe d'un groupe cyclique est cyclique.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que si, dans un groupe $G$, deux &eacute;l&eacute;ments $x$ et $y$ commutent et si $\gcd(\mathrm{ord}(x),\mathrm{ord}(y))=1$, alors $\mathrm{ord}(xy)=\mathrm{ord}(x)\mathrm{ord}(y)$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Posons $n=\mathrm{ord}(x)$, $m=\mathrm{ord}(y)$ et $d=\mathrm{ord}(xy)$. Comme $x$ et $y$ commutent, $(xy)^{nm}=x^{nm}y^{nm}=(x^n)^m(y^m)^n=e$, donc $d$ divise $nm$. Par ailleurs, $(xy)^{dn}=x^{dn}y^{dn}=(x^n)^d y^{dn}=y^{dn}$, donc $y^{dn}=e$, d'o&ugrave; $m$ divise $dn$. Comme $\gcd(n,m)=1$, on obtient $m$ divise $d$. De m&ecirc;me, $(xy)^{dm}=x^{dm}$, donc $n$ divise $dm$, et puisque $\gcd(n,m)=1$, $n$ divise $d$. Ainsi $nm$ divise $d$ (car $\gcd(n,m)=1$), d'o&ugrave; $d=nm$.
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Classer, &agrave; isomorphisme pr&egrave;s, les groupes d'ordre $4$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Soit $G$ un groupe fini poss&eacute;dant un unique &eacute;l&eacute;ment d'ordre $2$. Montrer que cet &eacute;l&eacute;ment appartient au centre de $G$.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Soit $a$ l'unique &eacute;l&eacute;ment d'ordre $2$ de $G$ et soit $g\in G$. On a $(gag^{-1})^2=ga^2g^{-1}=e$, donc $gag^{-1}$ est d'ordre $1$ (absurde car alors $a=e$) ou $2$, donc d'ordre $2$, et par unicit&eacute; $gag^{-1}=a$, d'o&ugrave; $ga=ag$ pour tout $g$ et ainsi $a\in Z(G)$. <em>Remarque : en utilisant que la conjugaison est un automorphisme donc pr&eacute;serve l'ordre, on obtient directement $\operatorname{ord}(gag^{-1})=\operatorname{ord}(a)=2$.</em>
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Montrer que tout sous-groupe du groupe additif $(\mathbb{R},+)$ est soit de la forme $a\mathbb{Z}$ avec $a\ge 0$, soit dense dans $\mathbb{R}$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <div class="thm-label">Exercice</div>
+      <p>Soit $G$ un groupe d'ordre $n$. Soit $k$ un entier positif tel que $\gcd(k,n)=1$. Montrer que l'application $f : G \to G$ d&eacute;finie par $f(x)=x^k$ est surjective.</p>
+    </div>
+
+    <div class="proof">
+      <span class="proof-label">D&eacute;monstration.</span>
+      Par le corollaire du th&eacute;or&egrave;me de Lagrange, l'ordre de tout &eacute;l&eacute;ment de $G$ divise $n$, donc $x^n = e$ pour tout $x \in G$. Puisque $\gcd(k,n)=1$, le th&eacute;or&egrave;me de B&eacute;zout fournit $u,v\in\mathbb{Z}$ tels que $ku+nv=1$. Soit $y\in G$. Posons $x=y^u$. Alors $f(x) = (y^u)^k = y^{uk} = y^{1-nv} = y \cdot (y^n)^{-v} = y$. Tout &eacute;l&eacute;ment de $G$ admet un ant&eacute;c&eacute;dent, donc $f$ est surjective.
+    </div>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>
