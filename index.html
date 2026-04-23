@@ -82,6 +82,20 @@
       color: #333;
       text-decoration: none;
       transition: background 0.2s, color 0.2s;
+      text-align: center;
+    }
+
+    .menu > li {
+      /* Show both languages invisibly to lock width to the widest */
+    }
+
+    .menu > li > a::after {
+      content: attr(data-fr);
+      display: block;
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      font-weight: 400;
     }
 
     .menu > li > a:hover {
@@ -399,22 +413,21 @@
   </main>
 
   <script>
-    let currentLang = localStorage.getItem('lang') || 'en';
-    if (currentLang === 'fr') applyLang('fr');
-
-    function toggleLang() {
-      currentLang = currentLang === 'en' ? 'fr' : 'en';
-      localStorage.setItem('lang', currentLang);
-      applyLang(currentLang);
-    }
-
-    function applyLang(lang) {
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
       document.querySelectorAll('[data-en][data-fr]').forEach(el => {
         el.innerHTML = el.getAttribute('data-' + lang);
       });
-      document.querySelector('.lang-toggle').textContent = lang === 'en' ? 'FR' : 'EN';
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
       document.documentElement.lang = lang;
     }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
   </script>
 </body>
 </html>
