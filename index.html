@@ -47,60 +47,37 @@
       display: flex;
       align-items: stretch;
     }
-
-    nav .site-title {
-      font-family: 'Alegreya SC', serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #111;
-      text-decoration: none;
-      padding: 0.8rem 1rem;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-    }
-
-    nav .site-title:hover {
-      background: #f0f7ff;
-      color: #036;
-    }
-
-    .menu {
-      display: flex;
-      list-style: none;
-      gap: 0;
-      align-self: stretch;
-    }
-
-    .menu > li {
-      position: relative;
-      display: flex;
-    }
-
-    .menu > li > a {
-      display: flex;
-      align-items: center;
-      height: 100%;
-      padding: 0.8rem 1rem;
+    .nav-link {
       font-family: 'Alegreya SC', serif;
       font-size: 1.05rem;
       font-weight: 400;
       color: #333;
       text-decoration: none;
-      transition: background 0.2s, color 0.2s;
-      text-align: center;
+      padding: 0.8rem 1rem;
       white-space: nowrap;
+      display: flex;
+      align-items: center;
     }
 
-    .menu > li > a:hover {
+    .nav-home {
+      font-weight: 700;
+      color: #111;
+    }
+
+    .nav-link:hover {
       background: #f0f7ff;
       color: #036;
     }
 
-    .menu > li > .submenu {
+    .nav-item {
+      position: relative;
+      display: flex;
+    }
+
+    .nav-item > .submenu {
       display: none;
       position: absolute;
-      top: calc(100% + 1px);
+      top: 100%;
       left: 0;
       background: #fff;
       border: 1px solid #e0e0e0;
@@ -110,11 +87,11 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     }
 
-    .menu > li:hover > .submenu {
+    .nav-item:hover > .submenu {
       display: block;
     }
 
-    .menu > li:hover > .submenu.submenu-sections {
+    .nav-item:hover > .submenu.submenu-sections {
       display: flex;
     }
 
@@ -289,12 +266,7 @@
         gap: 0;
       }
 
-      .menu {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .menu > li > .submenu {
+      .nav-item > .submenu {
         position: static;
         box-shadow: none;
         border: none;
@@ -302,7 +274,7 @@
         margin-left: 1rem;
       }
 
-      .menu > li:hover > .submenu {
+      .nav-item:hover > .submenu {
         display: block;
       }
 
@@ -314,61 +286,63 @@
 <body>
   <nav>
     <div class="nav-inner">
-      <a href="index.html" class="site-title">Home</a>
-      <ul class="menu">
-        <li>
-          <a href="#" data-en="Mathematics" data-fr="Math&eacute;matiques">Mathematics</a>
-          <div class="submenu submenu-sections">
-            <div class="submenu-section">
-              <div class="submenu-section-heading">L1</div>
-              <div class="submenu-section-body">
-                <ul class="submenu-col">
-                  <li><a href="math/l1/bases.html" data-en="Foundations" data-fr="Bases">Foundations</a></li>
-                  <li><a href="math/l1/complexes.html" data-en="Complex Numbers" data-fr="Nombres complexes">Complex Numbers</a></li>
-                  <li><a href="math/l1/arithmetique.html" data-en="Arithmetic" data-fr="Arithm&eacute;tique">Arithmetic</a></li>
-                  <li><a href="math/l1/fonctions_usuelles.html" data-en="Usual Functions" data-fr="Fonctions usuelles">Usual Functions</a></li>
-                  <li><a href="math/l1/polynomes.html" data-en="Polynomials" data-fr="Polyn&ocirc;mes">Polynomials</a></li>
-                  <li><a href="math/l1/suites.html" data-en="Sequences" data-fr="Suites">Sequences</a></li>
-                  <li><a href="math/l1/continuite.html" data-en="Continuity" data-fr="Continuit&eacute;">Continuity</a></li>
-                  <li><a href="math/l1/derivation.html" data-en="Differentiation" data-fr="D&eacute;rivation">Differentiation</a></li>
-                </ul>
-                <ul class="submenu-col">
-                  <li><a href="math/l1/denombrement.html" data-en="Combinatorics" data-fr="D&eacute;nombrement">Combinatorics</a></li>
-                  <li><a href="math/l1/probabilites.html" data-en="Probability" data-fr="Probabilit&eacute;s">Probability</a></li>
-                  <li><a href="math/l1/groups.html" data-en="Groups" data-fr="Groupes">Groups</a></li>
-                  <li><a href="math/l1/anneaux_corps.html" data-en="Rings &amp; Fields" data-fr="Anneaux &amp; Corps">Rings &amp; Fields</a></li>
-                  <li><a href="math/l1/algebre_lineaire.html" data-en="Linear Algebra" data-fr="Alg&egrave;bre lin&eacute;aire">Linear Algebra</a></li>
-                  <li><a href="math/l1/matrices.html" data-en="Matrices" data-fr="Matrices">Matrices</a></li>
-                  <li><a href="math/l1/determinant.html" data-en="Determinants" data-fr="D&eacute;terminants">Determinants</a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="submenu-section">
-              <div class="submenu-section-heading">L2</div>
-              <div class="submenu-section-body">
-                <ul class="submenu-col">
-                  <li><a href="math/l2/algebra.html" data-en="Algebra" data-fr="Alg&egrave;bre">Algebra</a></li>
-                  <li><a href="math/l2/analysis.html" data-en="Analysis" data-fr="Analyse">Analysis</a></li>
-                </ul>
-              </div>
+      <a href="index.html" class="nav-link nav-home">Home</a>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Mathematics" data-fr="Math&eacute;matiques">Mathematics</a>
+        <div class="submenu submenu-sections">
+          <div class="submenu-section">
+            <div class="submenu-section-heading">L1</div>
+            <div class="submenu-section-body">
+              <ul class="submenu-col">
+                <li><a href="math/l1/bases.html" data-en="Foundations" data-fr="Bases">Foundations</a></li>
+                <li><a href="math/l1/complexes.html" data-en="Complex Numbers" data-fr="Nombres complexes">Complex Numbers</a></li>
+                <li><a href="math/l1/arithmetique.html" data-en="Arithmetic" data-fr="Arithm&eacute;tique">Arithmetic</a></li>
+                <li><a href="math/l1/fonctions_usuelles.html" data-en="Usual Functions" data-fr="Fonctions usuelles">Usual Functions</a></li>
+                <li><a href="math/l1/polynomes.html" data-en="Polynomials" data-fr="Polyn&ocirc;mes">Polynomials</a></li>
+                <li><a href="math/l1/suites.html" data-en="Sequences" data-fr="Suites">Sequences</a></li>
+                <li><a href="math/l1/continuite.html" data-en="Continuity" data-fr="Continuit&eacute;">Continuity</a></li>
+                <li><a href="math/l1/derivation.html" data-en="Differentiation" data-fr="D&eacute;rivation">Differentiation</a></li>
+              </ul>
+              <ul class="submenu-col">
+                <li><a href="math/l1/denombrement.html" data-en="Combinatorics" data-fr="D&eacute;nombrement">Combinatorics</a></li>
+                <li><a href="math/l1/probabilites.html" data-en="Probability" data-fr="Probabilit&eacute;s">Probability</a></li>
+                <li><a href="math/l1/groups.html" data-en="Groups" data-fr="Groupes">Groups</a></li>
+                <li><a href="math/l1/anneaux_corps.html" data-en="Rings &amp; Fields" data-fr="Anneaux &amp; Corps">Rings &amp; Fields</a></li>
+                <li><a href="math/l1/algebre_lineaire.html" data-en="Linear Algebra" data-fr="Alg&egrave;bre lin&eacute;aire">Linear Algebra</a></li>
+                <li><a href="math/l1/matrices.html" data-en="Matrices" data-fr="Matrices">Matrices</a></li>
+                <li><a href="math/l1/determinant.html" data-en="Determinants" data-fr="D&eacute;terminants">Determinants</a></li>
+              </ul>
             </div>
           </div>
-        </li>
-        <li>
-          <a href="#" data-en="Computer Science" data-fr="Informatique">Computer Science</a>
-          <ul class="submenu">
+          <div class="submenu-section">
+            <div class="submenu-section-heading">L2</div>
+            <div class="submenu-section-body">
+              <ul class="submenu-col">
+                <li><a href="math/l2/algebra.html" data-en="Algebra" data-fr="Alg&egrave;bre">Algebra</a></li>
+                <li><a href="math/l2/analysis.html" data-en="Analysis" data-fr="Analyse">Analysis</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Computer Science" data-fr="Informatique">Computer Science</a>
+        <div class="submenu">
+          <ul class="submenu-col">
             <li><a href="cs/theory/logic.html" data-en="Logic" data-fr="Logique">Logic</a></li>
             <li><a href="cs/theory/automata.html" data-en="Automata" data-fr="Automates">Automata</a></li>
           </ul>
-        </li>
-        <li>
-          <a href="#" data-en="Algorithmics" data-fr="Algorithmique">Algorithmics</a>
-          <ul class="submenu">
+        </div>
+      </div>
+      <div class="nav-item">
+        <a href="#" class="nav-link" data-en="Algorithmics" data-fr="Algorithmique">Algorithmics</a>
+        <div class="submenu">
+          <ul class="submenu-col">
             <li><a href="cs/algo/sorting.html" data-en="Sorting" data-fr="Tri">Sorting</a></li>
             <li><a href="cs/algo/graphs.html" data-en="Graphs" data-fr="Graphes">Graphs</a></li>
           </ul>
-        </li>
-      </ul>
+        </div>
+      </div>
       <div class="lang-toggle">
         <button onclick="setLang('en')" id="lang-en" class="active">EN</button>
         <button onclick="setLang('fr')" id="lang-fr">FR</button>
