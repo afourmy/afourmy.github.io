@@ -9,7 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
-        {left: '$$', right: '$$', display: true},
+        {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
     });"></script>
@@ -178,8 +178,8 @@
     }
 
     p {
-      font-size: 1.4rem;
-      line-height: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.6rem;
       margin-bottom: 1rem;
       text-align: justify;
       hyphens: auto;
@@ -197,8 +197,8 @@
     }
 
     ul, ol {
-      font-size: 1.4rem;
-      line-height: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.6rem;
       margin-bottom: 1rem;
       padding-left: 2rem;
     }
@@ -213,6 +213,8 @@
     }
 
     /* ── KaTeX display overrides ── */
+    .katex { font-size: 1em !important; }
+
     .katex-display {
       overflow-x: auto;
       overflow-y: hidden;
@@ -221,23 +223,18 @@
 
     /* ── Theorem-like blocks ── */
     .thm-block {
-      margin: 1.5rem 0;
-      padding: 0.8rem 1.2rem;
-      border-left: 3px solid #ccc;
-      background: #fafafa;
+      margin: 1rem 0;
     }
 
-    .thm-block.definition { border-left-color: #369; background: #f4f8fc; }
-    .thm-block.theorem { border-left-color: #933; background: #fcf4f4; }
-    .thm-block.proposition { border-left-color: #693; background: #f4fcf4; }
-    .thm-block.corollary { border-left-color: #963; background: #fcf8f4; }
-    .thm-block.exercise { border-left-color: #639; background: #f8f4fc; }
-
     .thm-label {
-      font-family: 'Alegreya SC', serif;
       font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
+      font-size: 1.05rem;
+      display: inline;
+      margin-right: 0.3em;
+    }
+
+    .thm-block p:first-of-type {
+      display: inline;
     }
 
     .thm-block p {
@@ -251,8 +248,8 @@
     .proof {
       margin: 0.8rem 0 1.5rem 0;
       padding: 0.5rem 1.2rem;
-      font-size: 1.4rem;
-      line-height: 2rem;
+      font-size: 1.05rem;
+      line-height: 1.6rem;
       text-align: justify;
     }
 
