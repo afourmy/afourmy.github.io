@@ -9,7 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
-        {left: '$$', right: '$$', display: true},
+        {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
     });"></script>
@@ -95,30 +95,6 @@
       display: flex;
     }
 
-    .submenu-section {
-      padding: 0;
-    }
-
-    .submenu-section:not(:last-child) {
-      border-right: 2px solid #ccc;
-    }
-
-    .submenu-section-heading {
-      display: block;
-      padding: 0.5rem 1.2rem 0.3rem;
-      font-family: 'Alegreya SC', serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      border-bottom: 1px solid #e0e0e0;
-    }
-
-    .submenu-section-body {
-      display: flex;
-    }
-
     .submenu-col {
       list-style: none;
       padding: 0;
@@ -127,7 +103,7 @@
     }
 
     .submenu-col:not(:last-child) {
-      border-right: 1px solid #eee;
+      border-right: 2px solid #ccc;
     }
 
     .submenu li a {
@@ -162,25 +138,17 @@
 
     h2 {
       font-family: 'Alegreya SC', serif;
-      font-size: 1.6rem;
-      font-weight: 700;
-      margin-top: 2.5rem;
-      margin-bottom: 1rem;
-      color: #111;
-    }
-
-    h3 {
-      font-family: 'Alegreya', serif;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
       margin-top: 2rem;
       margin-bottom: 0.8rem;
+      color: #111;
     }
 
     p {
-      font-size: 1.4rem;
-      line-height: 2rem;
-      margin-bottom: 1rem;
+      font-size: 1.05rem;
+      line-height: 1.6rem;
+      margin-bottom: 0.4rem;
       text-align: justify;
       hyphens: auto;
     }
@@ -196,13 +164,6 @@
       background: #f0f7ff;
     }
 
-    ul, ol {
-      font-size: 1.4rem;
-      line-height: 2rem;
-      margin-bottom: 1rem;
-      padding-left: 2rem;
-    }
-
     code {
       font-family: 'Inconsolata', monospace;
       font-size: 0.9em;
@@ -213,6 +174,8 @@
     }
 
     /* ── KaTeX display overrides ── */
+    .katex { font-size: 1em !important; }
+
     .katex-display {
       overflow-x: auto;
       overflow-y: hidden;
@@ -221,38 +184,18 @@
 
     /* ── Theorem-like blocks ── */
     .thm-block {
-      margin: 1.5rem 0;
-      padding: 0.8rem 1.2rem;
-      border-left: 3px solid #ccc;
-      background: #fafafa;
+      margin: 0.5rem 0;
     }
-
-    .thm-block.definition { border-left-color: #369; background: #f4f8fc; }
-    .thm-block.theorem { border-left-color: #933; background: #fcf4f4; }
-    .thm-block.proposition { border-left-color: #693; background: #f4fcf4; }
-    .thm-block.corollary { border-left-color: #963; background: #fcf8f4; }
-    .thm-block.exercise { border-left-color: #639; background: #f8f4fc; }
 
     .thm-label {
-      font-family: 'Alegreya SC', serif;
       font-weight: 700;
-      font-size: 1.1rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .thm-block p {
-      margin-bottom: 0.5rem;
-    }
-
-    .thm-block p:last-child {
-      margin-bottom: 0;
+      font-size: 1.05rem;
     }
 
     .proof {
-      margin: 0.8rem 0 1.5rem 0;
-      padding: 0.5rem 1.2rem;
-      font-size: 1.4rem;
-      line-height: 2rem;
+      margin: 0 0 0.5rem 0;
+      font-size: 1.05rem;
+      line-height: 1.6rem;
       text-align: justify;
     }
 
@@ -268,6 +211,9 @@
     }
 
     /* ── Language toggle ── */
+    html[lang="en"] .fr { display: none; }
+    html[lang="fr"] .en { display: none; }
+
     .lang-toggle {
       margin-left: auto;
       display: flex;
@@ -326,7 +272,6 @@
       }
 
       h1 { font-size: 2rem; }
-      p, ul, ol { font-size: 1.2rem; line-height: 1.8rem; }
     }
   </style>
 </head>
@@ -337,9 +282,6 @@
       <div class="nav-item">
         <a href="#" class="nav-link" data-en="Mathematics" data-fr="Math&eacute;matiques">Mathematics</a>
         <div class="submenu submenu-sections">
-          <div class="submenu-section">
-            <div class="submenu-section-heading">L1</div>
-            <div class="submenu-section-body">
               <ul class="submenu-col">
                 <li><a href="math/l1/bases.html" data-en="Foundations" data-fr="Bases">Foundations</a></li>
                 <li><a href="math/l1/complexes.html" data-en="Complex Numbers" data-fr="Nombres complexes">Complex Numbers</a></li>
@@ -349,27 +291,18 @@
                 <li><a href="math/l1/suites.html" data-en="Sequences" data-fr="Suites">Sequences</a></li>
                 <li><a href="math/l1/continuite.html" data-en="Continuity" data-fr="Continuit&eacute;">Continuity</a></li>
                 <li><a href="math/l1/derivation.html" data-en="Differentiation" data-fr="D&eacute;rivation">Differentiation</a></li>
+                <li><a href="math/l1/denombrement.html" data-en="Combinatorics" data-fr="D&eacute;nombrement">Combinatorics</a></li>
               </ul>
               <ul class="submenu-col">
-                <li><a href="math/l1/denombrement.html" data-en="Combinatorics" data-fr="D&eacute;nombrement">Combinatorics</a></li>
                 <li><a href="math/l1/probabilites.html" data-en="Probability" data-fr="Probabilit&eacute;s">Probability</a></li>
                 <li><a href="math/l1/groups.html" data-en="Groups" data-fr="Groupes">Groups</a></li>
                 <li><a href="math/l1/anneaux_corps.html" data-en="Rings &amp; Fields" data-fr="Anneaux &amp; Corps">Rings &amp; Fields</a></li>
                 <li><a href="math/l1/algebre_lineaire.html" data-en="Linear Algebra" data-fr="Alg&egrave;bre lin&eacute;aire">Linear Algebra</a></li>
                 <li><a href="math/l1/matrices.html" data-en="Matrices" data-fr="Matrices">Matrices</a></li>
                 <li><a href="math/l1/determinant.html" data-en="Determinants" data-fr="D&eacute;terminants">Determinants</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="submenu-section">
-            <div class="submenu-section-heading">L2</div>
-            <div class="submenu-section-body">
-              <ul class="submenu-col">
                 <li><a href="math/l2/algebra.html" data-en="Algebra" data-fr="Alg&egrave;bre">Algebra</a></li>
                 <li><a href="math/l2/analysis.html" data-en="Analysis" data-fr="Analyse">Analysis</a></li>
               </ul>
-            </div>
-          </div>
         </div>
       </div>
       <div class="nav-item">
@@ -409,22 +342,18 @@
 
     <p>
       The Fundamental Theorem of Calculus links differentiation and integration.
-      If $f$ is continuous on $[a, b]$ and $F$ is an antiderivative of $f$, then:
+      If $f$ is continuous on $[a, b]$ and $F$ is an antiderivative of $f$, then
+      $\int_a^b f(x)\, dx = F(b) - F(a)$.
     </p>
-
-    $$\int_a^b f(x)\, dx = F(b) - F(a)$$
 
     <p>
-      Euler's identity unites five fundamental constants:
+      Euler's identity unites five fundamental constants: $e^{i\pi} + 1 = 0$.
     </p>
-
-    $$e^{i\pi} + 1 = 0$$
 
     <p>
       The Cauchy&ndash;Schwarz inequality in an inner product space:
+      $\left|\langle u, v \rangle\right|^2 \leq \langle u, u \rangle \cdot \langle v, v \rangle$.
     </p>
-
-    $$\left|\langle u, v \rangle\right|^2 \leq \langle u, u \rangle \cdot \langle v, v \rangle$$
 
   </main>
 
@@ -450,7 +379,7 @@
       if (typeof renderMathInElement === 'function') {
         renderMathInElement(document.querySelector('main'), {
           delimiters: [
-            {left: '$$', right: '$$', display: true},
+            {left: '$$', right: '$$', display: false},
             {left: '$', right: '$', display: false}
           ]
         });
@@ -472,7 +401,7 @@
         document.title = doc.title || 'Home';
         renderMath();
         var lang = localStorage.getItem('lang') || 'en';
-        if (lang === 'fr') setLang('fr');
+        setLang(lang);
         window.scrollTo(0, 0);
       } catch (e) {
         window.location.href = url;
@@ -489,7 +418,6 @@
       if (!href || href === '#' || href.startsWith('http') || href.startsWith('mailto:')) return;
       if (!href.endsWith('.html')) return;
       e.preventDefault();
-      // Always resolve relative to base (index.html directory), not current URL
       var resolved = new URL(href, baseUrl).href;
       navigateTo(resolved);
     });
