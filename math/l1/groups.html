@@ -353,6 +353,243 @@
       Si $\mathrm{ord}(a)=+\infty$, alors $\varphi(n)=e \iff n=0$, donc $\ker\varphi=\{0\}$ et $G\simeq\mathbb{Z}$. Si $\mathrm{ord}(a)=n&lt;\infty$, alors $\varphi(k)=e \iff n\mid k$, donc $\ker\varphi=n\mathbb{Z}$ et $G\simeq\mathbb{Z}/n\mathbb{Z}$.
     </details>
 
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $G$ be a group and $X$ a set. An <em>action</em> of $G$ on $X$ (or <em>left action</em>) is a map $G \times X \to X,\ (g,x) \mapsto g \cdot x$ satisfying: (i) $\forall x \in X,\ e \cdot x = x$, and (ii) $\forall g,h \in G,\ \forall x \in X,\ g \cdot (h \cdot x) = (gh) \cdot x$. We say that $G$ <em>acts</em> on $X$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $G$ un groupe et $X$ un ensemble. Une <em>action</em> de $G$ sur $X$ (ou <em>action &agrave; gauche</em>) est une application $G \times X \to X,\ (g,x) \mapsto g \cdot x$ v&eacute;rifiant : (i) $\forall x \in X,\ e \cdot x = x$, et (ii) $\forall g,h \in G,\ \forall x \in X,\ g \cdot (h \cdot x) = (gh) \cdot x$. On dit alors que $G$ <em>agit</em> sur $X$.</p>
+    </div>
+
+    <div class="thm-block example">
+      <p class="en"><span class="thm-label">Example.</span> $\mathfrak{S}_n$ acts on $\{1,\dots,n\}$ by $\sigma \cdot i = \sigma(i)$; every group $G$ acts on itself by left translation ($g \cdot x = gx$) or by conjugation ($g \cdot x = gxg^{-1}$); $G$ acts on the set of its subgroups by conjugation ($g \cdot H = gHg^{-1}$).</p>
+      <p class="fr"><span class="thm-label">Exemple.</span> $\mathfrak{S}_n$ agit sur $\{1,\dots,n\}$ par $\sigma \cdot i = \sigma(i)$ ; tout groupe $G$ agit sur lui-m&ecirc;me par translation &agrave; gauche ($g \cdot x = gx$) ou par conjugaison ($g \cdot x = gxg^{-1}$) ; $G$ agit sur l'ensemble de ses sous-groupes par conjugaison ($g \cdot H = gHg^{-1}$).</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Giving an action of $G$ on $X$ is equivalent to giving a group homomorphism $\varphi : G \to \mathfrak{S}(X)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Se donner une action de $G$ sur $X$ &eacute;quivaut &agrave; se donner un morphisme de groupes $\varphi : G \to \mathfrak{S}(X)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $G$ acts on $X$, for each $g \in G$, the map $\varphi(g)$ defined by $\varphi(g)(x) = g \cdot x$ is a bijection from $X$ to $X$ (with inverse $\varphi(g^{-1})$). Moreover, $\varphi(gh)(x) = (gh) \cdot x = g \cdot (h \cdot x) = \varphi(g)(\varphi(h)(x))$, so $\varphi(gh) = \varphi(g) \circ \varphi(h)$: $\varphi$ is a homomorphism.
+      Conversely, if $\varphi : G \to \mathfrak{S}(X)$ is a homomorphism, set $g \cdot x = \varphi(g)(x)$. Then $e \cdot x = \varphi(e)(x) = \mathrm{id}(x) = x$ and $g \cdot (h \cdot x) = \varphi(g)(\varphi(h)(x)) = (\varphi(g) \circ \varphi(h))(x) = \varphi(gh)(x) = (gh) \cdot x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $G$ agit sur $X$, pour chaque $g \in G$, l'application $\varphi(g)$ d&eacute;finie par $\varphi(g)(x) = g \cdot x$ est une bijection de $X$ dans $X$ (d'inverse $\varphi(g^{-1})$). De plus, $\varphi(gh)(x) = (gh) \cdot x = g \cdot (h \cdot x) = \varphi(g)(\varphi(h)(x))$, donc $\varphi(gh) = \varphi(g) \circ \varphi(h)$ : $\varphi$ est un morphisme.
+      R&eacute;ciproquement, si $\varphi : G \to \mathfrak{S}(X)$ est un morphisme, on pose $g \cdot x = \varphi(g)(x)$. On a $e \cdot x = \varphi(e)(x) = \mathrm{id}(x) = x$ et $g \cdot (h \cdot x) = \varphi(g)(\varphi(h)(x)) = (\varphi(g) \circ \varphi(h))(x) = \varphi(gh)(x) = (gh) \cdot x$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The action is said to be <em>faithful</em> if the homomorphism $\varphi : G \to \mathfrak{S}(X)$ is injective, i.e. if the only element of $G$ that fixes every point of $X$ is $e$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> L'action est dite <em>fid&egrave;le</em> si le morphisme $\varphi : G \to \mathfrak{S}(X)$ est injectif, c'est-&agrave;-dire si le seul &eacute;l&eacute;ment de $G$ qui fixe tous les points de $X$ est $e$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $G$ act on $X$ and $x \in X$. The <em>orbit</em> of $x$ is $\mathrm{Orb}(x) = \{g \cdot x \mid g \in G\}$ and the <em>stabilizer</em> of $x$ is $\mathrm{Stab}(x) = \{g \in G \mid g \cdot x = x\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $G$ agissant sur $X$ et $x \in X$. L'<em>orbite</em> de $x$ est $\mathrm{Orb}(x) = \{g \cdot x \mid g \in G\}$ et le <em>stabilisateur</em> de $x$ est $\mathrm{Stab}(x) = \{g \in G \mid g \cdot x = x\}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The stabilizer $\mathrm{Stab}(x)$ is a subgroup of $G$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Le stabilisateur $\mathrm{Stab}(x)$ est un sous-groupe de $G$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The identity $e$ fixes $x$, so $e \in \mathrm{Stab}(x)$ and $\mathrm{Stab}(x) \neq \varnothing$.
+      Let $g,h \in \mathrm{Stab}(x)$. Then $(gh^{-1}) \cdot x = g \cdot (h^{-1} \cdot x)$. Since $h \cdot x = x$, we get $h^{-1} \cdot x = h^{-1} \cdot (h \cdot x) = (h^{-1}h) \cdot x = x$. So $(gh^{-1}) \cdot x = g \cdot x = x$, which shows $gh^{-1} \in \mathrm{Stab}(x)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      L'&eacute;l&eacute;ment neutre $e$ fixe $x$, donc $e \in \mathrm{Stab}(x)$ et $\mathrm{Stab}(x) \neq \varnothing$.
+      Soient $g,h \in \mathrm{Stab}(x)$. Alors $(gh^{-1}) \cdot x = g \cdot (h^{-1} \cdot x)$. Or $h \cdot x = x$ implique $h^{-1} \cdot x = h^{-1} \cdot (h \cdot x) = (h^{-1}h) \cdot x = x$. Donc $(gh^{-1}) \cdot x = g \cdot x = x$, ce qui montre $gh^{-1} \in \mathrm{Stab}(x)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The relation $x \sim y \iff \exists g \in G,\ y = g \cdot x$ is an equivalence relation on $X$. The equivalence classes are the orbits, and $X = \bigsqcup_{\bar{x} \in X/G} \mathrm{Orb}(\bar{x})$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La relation $x \sim y \iff \exists g \in G,\ y = g \cdot x$ est une relation d'&eacute;quivalence sur $X$. Les classes d'&eacute;quivalence sont les orbites, et $X = \bigsqcup_{\bar{x} \in X/G} \mathrm{Orb}(\bar{x})$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Reflexivity.</em> $x = e \cdot x$.
+      <em>Symmetry.</em> If $y = g \cdot x$, then $x = g^{-1} \cdot y$.
+      <em>Transitivity.</em> If $y = g \cdot x$ and $z = h \cdot y$, then $z = h \cdot (g \cdot x) = (hg) \cdot x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>R&eacute;flexivit&eacute;.</em> $x = e \cdot x$.
+      <em>Sym&eacute;trie.</em> Si $y = g \cdot x$, alors $x = g^{-1} \cdot y$.
+      <em>Transitivit&eacute;.</em> Si $y = g \cdot x$ et $z = h \cdot y$, alors $z = h \cdot (g \cdot x) = (hg) \cdot x$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The action is said to be <em>transitive</em> if there is only one orbit, i.e. if for all $x,y \in X$, there exists $g \in G$ such that $y = g \cdot x$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> L'action est dite <em>transitive</em> s'il n'y a qu'une seule orbite, c'est-&agrave;-dire si pour tous $x,y \in X$, il existe $g \in G$ tel que $y = g \cdot x$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Orbit-stabilizer formula).</span> Let $G$ be a finite group acting on a set $X$. For all $x \in X$, $|\mathrm{Orb}(x)| = [G:\mathrm{Stab}(x)] = |G|/|\mathrm{Stab}(x)|.$ In particular, the cardinality of each orbit divides $|G|$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule orbite-stabilisateur).</span> Soit $G$ un groupe fini agissant sur un ensemble $X$. Pour tout $x \in X$, $|\mathrm{Orb}(x)| = [G:\mathrm{Stab}(x)] = |G|/|\mathrm{Stab}(x)|.$ En particulier, le cardinal de chaque orbite divise $|G|$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We show that the map $\psi : G/\mathrm{Stab}(x) \to \mathrm{Orb}(x),\ g \cdot \mathrm{Stab}(x) \mapsto g \cdot x$ is a well-defined bijection.
+      <em>Well-definedness.</em> If $g \cdot \mathrm{Stab}(x) = g' \cdot \mathrm{Stab}(x)$, then $g^{-1}g' \in \mathrm{Stab}(x)$, so $(g^{-1}g') \cdot x = x$, hence $g' \cdot x = g \cdot ((g^{-1}g') \cdot x) = g \cdot x$. Thus $\psi$ is well-defined.
+      <em>Injectivity.</em> If $g \cdot x = g' \cdot x$, then $(g^{-1}g') \cdot x = x$, so $g^{-1}g' \in \mathrm{Stab}(x)$, which implies $g \cdot \mathrm{Stab}(x) = g' \cdot \mathrm{Stab}(x)$.
+      <em>Surjectivity.</em> Every element of $\mathrm{Orb}(x)$ is of the form $g \cdot x = \psi(g \cdot \mathrm{Stab}(x))$.
+      The bijection $\psi$ gives $|\mathrm{Orb}(x)| = |G/\mathrm{Stab}(x)| = [G:\mathrm{Stab}(x)]$, and Lagrange's theorem gives $[G:\mathrm{Stab}(x)] = |G|/|\mathrm{Stab}(x)|$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On montre que l'application $\psi : G/\mathrm{Stab}(x) \to \mathrm{Orb}(x),\ g \cdot \mathrm{Stab}(x) \mapsto g \cdot x$ est une bijection bien d&eacute;finie.
+      <em>Bonne d&eacute;finition.</em> Si $g \cdot \mathrm{Stab}(x) = g' \cdot \mathrm{Stab}(x)$, alors $g^{-1}g' \in \mathrm{Stab}(x)$, donc $(g^{-1}g') \cdot x = x$, d'o&ugrave; $g' \cdot x = g \cdot ((g^{-1}g') \cdot x) = g \cdot x$. Ainsi $\psi$ est bien d&eacute;finie.
+      <em>Injectivit&eacute;.</em> Si $g \cdot x = g' \cdot x$, alors $(g^{-1}g') \cdot x = x$, donc $g^{-1}g' \in \mathrm{Stab}(x)$, ce qui implique $g \cdot \mathrm{Stab}(x) = g' \cdot \mathrm{Stab}(x)$.
+      <em>Surjectivit&eacute;.</em> Tout &eacute;l&eacute;ment de $\mathrm{Orb}(x)$ est de la forme $g \cdot x = \psi(g \cdot \mathrm{Stab}(x))$.
+      La bijection $\psi$ donne $|\mathrm{Orb}(x)| = |G/\mathrm{Stab}(x)| = [G:\mathrm{Stab}(x)]$, puis le th&eacute;or&egrave;me de Lagrange donne $[G:\mathrm{Stab}(x)] = |G|/|\mathrm{Stab}(x)|$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Class equation).</span> Let $G$ be a finite group acting on a finite set $X$. Let $X^G = \{x \in X \mid \forall g \in G,\ g \cdot x = x\}$ be the set of fixed points. Then $|X| = |X^G| + \sum_{\bar{x} \in X/G,\, |\mathrm{Orb}(\bar{x})| \ge 2} [G:\mathrm{Stab}(\bar{x})].$</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (&Eacute;quation aux classes).</span> Soit $G$ un groupe fini agissant sur un ensemble fini $X$. On note $X^G = \{x \in X \mid \forall g \in G,\ g \cdot x = x\}$ l'ensemble des points fixes. Alors $|X| = |X^G| + \sum_{\bar{x} \in X/G,\, |\mathrm{Orb}(\bar{x})| \ge 2} [G:\mathrm{Stab}(\bar{x})].$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $X$ is a disjoint union of its orbits. The orbits of cardinality $1$ are exactly the $\{x\}$ with $x \in X^G$. We separate these trivial orbits from the others and apply the orbit-stabilizer formula to each orbit of cardinality $\ge 2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $X$ est r&eacute;union disjointe de ses orbites. Les orbites de cardinal $1$ sont exactement les $\{x\}$ avec $x \in X^G$. On s&eacute;pare ces orbites triviales des autres et on applique la formule orbite-stabilisateur &agrave; chacune des orbites de cardinal $\ge 2$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The <em>center</em> of a group $G$, defined by $\mathrm{Z}(G) = \{z \in G \mid \forall g \in G,\ gz = zg\}$, is a normal subgroup of $G$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Le <em>centre</em> d'un groupe $G$, d&eacute;fini par $\mathrm{Z}(G) = \{z \in G \mid \forall g \in G,\ gz = zg\}$, est un sous-groupe distingu&eacute; de $G$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $e$ commutes with every element, so $e \in \mathrm{Z}(G)$.
+      Let $z_1, z_2 \in \mathrm{Z}(G)$ and $g \in G$. Then $g(z_1 z_2^{-1}) = (gz_1)z_2^{-1} = (z_1 g)z_2^{-1} = z_1(gz_2^{-1})$. Now $gz_2^{-1} = z_2^{-1}g$ (since from $z_2 g = g z_2$ we deduce $g z_2^{-1} = z_2^{-1} g$ by multiplying on both sides). So $g(z_1 z_2^{-1}) = z_1 z_2^{-1} g$, showing $z_1 z_2^{-1} \in \mathrm{Z}(G)$. Normal: if $z \in \mathrm{Z}(G)$, for all $g \in G$, $gzg^{-1} = zgg^{-1} = z \in \mathrm{Z}(G)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $e$ commute avec tout &eacute;l&eacute;ment, donc $e \in \mathrm{Z}(G)$.
+      Si $z_1, z_2 \in \mathrm{Z}(G)$ et $g \in G$, alors $g(z_1 z_2^{-1}) = (gz_1)z_2^{-1} = (z_1 g)z_2^{-1} = z_1(gz_2^{-1})$. Or $gz_2^{-1} = z_2^{-1}g$ (car de $z_2 g = g z_2$ on d&eacute;duit $g z_2^{-1} = z_2^{-1} g$ en multipliant des deux c&ocirc;t&eacute;s). Donc $g(z_1 z_2^{-1}) = z_1 z_2^{-1} g$, ce qui montre $z_1 z_2^{-1} \in \mathrm{Z}(G)$. Distingu&eacute; : si $z \in \mathrm{Z}(G)$, pour tout $g \in G$, $gzg^{-1} = zgg^{-1} = z \in \mathrm{Z}(G)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The <em>conjugacy class</em> of $x \in G$ is $\mathrm{Cl}(x) = \{gxg^{-1} \mid g \in G\}$ and the <em>centralizer</em> of $x$ in $G$ is $C_G(x) = \{g \in G \mid gx = xg\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> La <em>classe de conjugaison</em> de $x \in G$ est $\mathrm{Cl}(x) = \{gxg^{-1} \mid g \in G\}$ et le <em>centralisateur</em> de $x$ dans $G$ est $C_G(x) = \{g \in G \mid gx = xg\}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For the action of $G$ on itself by conjugation: (1) the orbit of $x$ is its conjugacy class $\mathrm{Cl}(x)$, (2) the stabilizer of $x$ is its centralizer $C_G(x)$, (3) the set of fixed points is the center $\mathrm{Z}(G)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour l'action par conjugaison de $G$ sur lui-m&ecirc;me : (1) l'orbite de $x$ est sa classe de conjugaison $\mathrm{Cl}(x)$, (2) le stabilisateur de $x$ est son centralisateur $C_G(x)$, (3) l'ensemble des points fixes est le centre $\mathrm{Z}(G)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) $\mathrm{Orb}(x) = \{g \cdot x \mid g \in G\} = \{gxg^{-1} \mid g \in G\} = \mathrm{Cl}(x)$.
+      (2) $\mathrm{Stab}(x) = \{g \in G \mid gxg^{-1} = x\} = \{g \in G \mid gx = xg\} = C_G(x)$.
+      (3) $x \in X^G \iff \forall g \in G,\ gxg^{-1} = x \iff \forall g \in G,\ gx = xg \iff x \in \mathrm{Z}(G)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      (1) $\mathrm{Orb}(x) = \{g \cdot x \mid g \in G\} = \{gxg^{-1} \mid g \in G\} = \mathrm{Cl}(x)$.
+      (2) $\mathrm{Stab}(x) = \{g \in G \mid gxg^{-1} = x\} = \{g \in G \mid gx = xg\} = C_G(x)$.
+      (3) $x \in X^G \iff \forall g \in G,\ gxg^{-1} = x \iff \forall g \in G,\ gx = xg \iff x \in \mathrm{Z}(G)$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Class equation of a group).</span> Let $G$ be a finite group. Then $|G| = |\mathrm{Z}(G)| + \sum_{\mathrm{Cl}(\bar{x}),\, |\mathrm{Cl}(\bar{x})| \ge 2} [G:C_G(\bar{x})].$</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (&Eacute;quation aux classes d'un groupe).</span> Soit $G$ un groupe fini. Alors $|G| = |\mathrm{Z}(G)| + \sum_{\mathrm{Cl}(\bar{x}),\, |\mathrm{Cl}(\bar{x})| \ge 2} [G:C_G(\bar{x})].$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      This is the direct application of the class equation to the action of $G$ on itself by conjugation. The set of fixed points is $\mathrm{Z}(G)$, the orbit of $\bar{x}$ is $\mathrm{Cl}(\bar{x})$ and $|\mathrm{Cl}(\bar{x})| = [G:C_G(\bar{x})]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      C'est l'application directe de l'&eacute;quation aux classes &agrave; l'action de $G$ sur lui-m&ecirc;me par conjugaison. L'ensemble des points fixes est $\mathrm{Z}(G)$, l'orbite de $\bar{x}$ est $\mathrm{Cl}(\bar{x})$ et $|\mathrm{Cl}(\bar{x})| = [G:C_G(\bar{x})]$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem.</span> Let $G$ be a finite group of order $p^n$ with $p$ prime and $n \ge 1$ (a $p$-group). Then the center of $G$ is nontrivial: $|\mathrm{Z}(G)| \ge p$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Soit $G$ un groupe fini d'ordre $p^n$ avec $p$ premier et $n \ge 1$ (un $p$-groupe). Alors le centre de $G$ est non trivial : $|\mathrm{Z}(G)| \ge p$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the class equation, each $[G:C_G(\bar{x})]$ divides $|G| = p^n$ and is $\ge 2$, so is divisible by $p$. Since $|G|$ is divisible by $p$, we deduce that $|\mathrm{Z}(G)|$ is also divisible by $p$, hence $|\mathrm{Z}(G)| \ge p$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par l'&eacute;quation aux classes, chaque $[G:C_G(\bar{x})]$ divise $|G| = p^n$ et est $\ge 2$, donc est divisible par $p$. Comme $|G|$ est divisible par $p$, on en d&eacute;duit que $|\mathrm{Z}(G)|$ l'est aussi, d'o&ugrave; $|\mathrm{Z}(G)| \ge p$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every group of order $p^2$ is abelian.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout groupe d'ordre $p^2$ est ab&eacute;lien.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the previous theorem, $|\mathrm{Z}(G)|$ divides $p^2$ and is divisible by $p$, so $|\mathrm{Z}(G)| \in \{p, p^2\}$. If $|\mathrm{Z}(G)| = p$, then $|G/\mathrm{Z}(G)| = p$, so $G/\mathrm{Z}(G)$ is cyclic. Let $\overline{a}$ be a generator: every $g \in G$ can be written $g = a^k z$ with $z \in \mathrm{Z}(G)$. For $g_1 = a^{k_1} z_1$ and $g_2 = a^{k_2} z_2$, we have $g_1 g_2 = a^{k_1} z_1 a^{k_2} z_2 = a^{k_2} z_2 a^{k_1} z_1 = g_2 g_1$ since $z_1, z_2$ commute with every element. So $G$ is abelian, hence $\mathrm{Z}(G) = G$, contradiction. Thus $|\mathrm{Z}(G)| = p^2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le th&eacute;or&egrave;me pr&eacute;c&eacute;dent, $|\mathrm{Z}(G)|$ divise $p^2$ et est divisible par $p$, donc $|\mathrm{Z}(G)| \in \{p, p^2\}$. Si $|\mathrm{Z}(G)| = p$, alors $|G/\mathrm{Z}(G)| = p$, donc $G/\mathrm{Z}(G)$ est cyclique. Soit $\overline{a}$ un g&eacute;n&eacute;rateur : tout $g \in G$ s'&eacute;crit $g = a^k z$ avec $z \in \mathrm{Z}(G)$. Pour $g_1 = a^{k_1} z_1$ et $g_2 = a^{k_2} z_2$, on a $g_1 g_2 = a^{k_1} z_1 a^{k_2} z_2 = a^{k_2} z_2 a^{k_1} z_1 = g_2 g_1$ car $z_1, z_2$ commutent avec tout &eacute;l&eacute;ment. Donc $G$ est ab&eacute;lien, d'o&ugrave; $\mathrm{Z}(G) = G$, contradiction. Ainsi $|\mathrm{Z}(G)| = p^2$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cauchy's theorem).</span> Let $G$ be a finite group and $p$ a prime dividing $|G|$. Then $G$ has an element of order $p$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Th&eacute;or&egrave;me de Cauchy).</span> Soit $G$ un groupe fini et $p$ un nombre premier divisant $|G|$. Alors $G$ poss&egrave;de un &eacute;l&eacute;ment d'ordre $p$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We proceed by strong induction on $|G|$.
+      <em>Base case.</em> If $|G|=p$, every element $a \neq e$ has order $p$ (since $\mathrm{ord}(a)$ divides $|G|=p$ and $\mathrm{ord}(a) \neq 1$).
+      <em>Inductive step.</em> Assume the result holds for every group of order $&lt; |G|$, and suppose $p$ divides $|G|$.
+      <em>Case 1:</em> There exists a proper subgroup $H \subsetneq G$ such that $p$ divides $|H|$. Then $|H| &lt; |G|$ and by the induction hypothesis, $H$ has an element of order $p$, which is also in $G$.
+      <em>Case 2:</em> $p$ does not divide the order of any proper subgroup of $G$. By the class equation, $|G| = |\mathrm{Z}(G)| + \sum_{\bar{x},\, |\mathrm{Cl}(\bar{x})| \ge 2} [G:C_G(\bar{x})]$.
+      For each term, $C_G(x_i) \subsetneq G$ (since $x_i \notin \mathrm{Z}(G)$), so $|C_G(x_i)|$ is not divisible by $p$. Since $[G:C_G(x_i)] = |G|/|C_G(x_i)|$ and $p \mid |G|$, we deduce that $p$ divides $[G:C_G(x_i)]$. Since $p$ divides $|G|$ and each $[G:C_G(x_i)]$, we conclude that $p$ divides $|\mathrm{Z}(G)|$.
+      If $\mathrm{Z}(G) \subsetneq G$, we are back to Case 1. Otherwise $\mathrm{Z}(G) = G$ and $G$ is abelian. Let $a \neq e$ and $n = \mathrm{ord}(a)$. If $p \mid n$, then $a^{n/p}$ has order $p$. Otherwise, $\langle a \rangle \subsetneq G$ and $p \mid |G/\langle a \rangle|$ (since $p \mid |G|$ and $p \nmid n$). By induction, $G/\langle a \rangle$ has an element $\overline{b}$ of order $p$. Set $m = \mathrm{ord}(b)$ in $G$. Since $b^m = e$ implies $\overline{b}^m = \overline{e}$, the order $p$ of $\overline{b}$ divides $m$. Then $c = b^{m/p}$ satisfies $c^p = b^m = e$ and $c \neq e$ (otherwise $\mathrm{ord}(b)$ would divide $m/p &lt; m$), so $c$ has order $p$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On proc&egrave;de par r&eacute;currence forte sur $|G|$.
+      <em>Initialisation.</em> Si $|G|=p$, tout &eacute;l&eacute;ment $a \neq e$ est d'ordre $p$ (car $\mathrm{ord}(a)$ divise $|G|=p$ et $\mathrm{ord}(a) \neq 1$).
+      <em>H&eacute;r&eacute;dit&eacute;.</em> Supposons le r&eacute;sultat vrai pour tout groupe d'ordre $&lt; |G|$, et supposons que $p$ divise $|G|$.
+      <em>Cas 1 :</em> Il existe un sous-groupe strict $H \subsetneq G$ tel que $p$ divise $|H|$. Alors $|H| &lt; |G|$ et par hypoth&egrave;se de r&eacute;currence, $H$ poss&egrave;de un &eacute;l&eacute;ment d'ordre $p$, qui est aussi dans $G$.
+      <em>Cas 2 :</em> $p$ ne divise l'ordre d'aucun sous-groupe strict de $G$. Par l'&eacute;quation aux classes, $|G| = |\mathrm{Z}(G)| + \sum_{\bar{x},\, |\mathrm{Cl}(\bar{x})| \ge 2} [G:C_G(\bar{x})]$.
+      Pour chaque $i$, $C_G(x_i) \subsetneq G$ (car $x_i \notin \mathrm{Z}(G)$), donc $|C_G(x_i)|$ n'est pas divisible par $p$. Comme $[G:C_G(x_i)] = |G|/|C_G(x_i)|$ et $p \mid |G|$, on en d&eacute;duit que $p$ divise $[G:C_G(x_i)]$. Puisque $p$ divise $|G|$ et chaque $[G:C_G(x_i)]$, on conclut que $p$ divise $|\mathrm{Z}(G)|$.
+      Si $\mathrm{Z}(G) \subsetneq G$, on est ramen&eacute; au cas 1. Sinon $\mathrm{Z}(G) = G$ et $G$ est ab&eacute;lien. Soit $a \neq e$ et $n = \mathrm{ord}(a)$. Si $p \mid n$, alors $a^{n/p}$ est d'ordre $p$. Sinon, $\langle a \rangle \subsetneq G$ et $p \mid |G/\langle a \rangle|$ (car $p \mid |G|$ et $p \nmid n$). Par r&eacute;currence, $G/\langle a \rangle$ poss&egrave;de un &eacute;l&eacute;ment $\overline{b}$ d'ordre $p$. Posons $m = \mathrm{ord}(b)$ dans $G$. Comme $b^m = e$ implique $\overline{b}^m = \overline{e}$, l'ordre $p$ de $\overline{b}$ divise $m$. Alors $c = b^{m/p}$ v&eacute;rifie $c^p = b^m = e$ et $c \neq e$ (sinon $\mathrm{ord}(b)$ diviserait $m/p &lt; m$), donc $c$ est d'ordre $p$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> For $g \in G$, we denote $\mathrm{Fix}(g) = \{x \in X \mid g \cdot x = x\}$ the set of points fixed by $g$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Pour $g \in G$, on note $\mathrm{Fix}(g) = \{x \in X \mid g \cdot x = x\}$ l'ensemble des points fix&eacute;s par $g$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Burnside's lemma).</span> Let $G$ be a finite group acting on a finite set $X$. The number of orbits is $|\textnormal{Orbits}| = \frac{1}{|G|} \sum_{g \in G} |\mathrm{Fix}(g)|.$</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Lemme de Burnside).</span> Soit $G$ un groupe fini agissant sur un ensemble fini $X$. Le nombre d'orbites est $|\textnormal{Orbites}| = \frac{1}{|G|} \sum_{g \in G} |\mathrm{Fix}(g)|.$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We count in two ways the pairs $(g,x) \in G \times X$ such that $g \cdot x = x$: $\sum_{g \in G} |\mathrm{Fix}(g)| = \sum_{x \in X} |\mathrm{Stab}(x)|$. By the orbit-stabilizer formula, $|\mathrm{Stab}(x)| = |G|/|\mathrm{Orb}(x)|$, so $\sum_{x \in X} |\mathrm{Stab}(x)| = |G| \sum_{x \in X} 1/|\mathrm{Orb}(x)|$. We group by orbit: for an orbit $\mathcal{O}$, all $x \in \mathcal{O}$ satisfy $|\mathrm{Orb}(x)| = |\mathcal{O}|$, and there are $|\mathcal{O}|$ such elements, so $\sum_{x \in \mathcal{O}} 1/|\mathrm{Orb}(x)| = 1$. Each orbit contributes $1$, hence $\sum_{g \in G} |\mathrm{Fix}(g)| = |G| \cdot |\textnormal{Orbits}|$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On compte de deux mani&egrave;res les couples $(g,x) \in G \times X$ tels que $g \cdot x = x$ : $\sum_{g \in G} |\mathrm{Fix}(g)| = \sum_{x \in X} |\mathrm{Stab}(x)|$. Par la formule orbite-stabilisateur, $|\mathrm{Stab}(x)| = |G|/|\mathrm{Orb}(x)|$, donc $\sum_{x \in X} |\mathrm{Stab}(x)| = |G| \sum_{x \in X} 1/|\mathrm{Orb}(x)|$. On regroupe par orbite : pour une orbite $\mathcal{O}$, tous les $x \in \mathcal{O}$ v&eacute;rifient $|\mathrm{Orb}(x)| = |\mathcal{O}|$, et il y a $|\mathcal{O}|$ tels &eacute;l&eacute;ments, donc $\sum_{x \in \mathcal{O}} 1/|\mathrm{Orb}(x)| = 1$. Chaque orbite contribue $1$, d'o&ugrave; $\sum_{g \in G} |\mathrm{Fix}(g)| = |G| \cdot |\textnormal{Orbites}|$.
+    </details>
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
@@ -503,6 +740,59 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       Par le corollaire du th&eacute;or&egrave;me de Lagrange, l'ordre de tout &eacute;l&eacute;ment de $G$ divise $n$, donc $x^n = e$ pour tout $x \in G$. Puisque $\gcd(k,n)=1$, le th&eacute;or&egrave;me de B&eacute;zout fournit $u,v\in\mathbb{Z}$ tels que $ku+nv=1$. Soit $y\in G$. Posons $x=y^u$. Alors $f(x) = (y^u)^k = y^{uk} = y^{1-nv} = y \cdot (y^n)^{-v} = y$. Tout &eacute;l&eacute;ment de $G$ admet un ant&eacute;c&eacute;dent, donc $f$ est surjective.
     </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a finite group of order $2p$, where $p$ is an odd prime. Show that $G$ is isomorphic to $\mathbb{Z}/2p\mathbb{Z}$ or to the dihedral group $D_p$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un groupe fini d'ordre $2p$, o&ugrave; $p$ est un premier impair. Montrer que $G$ est isomorphe &agrave; $\mathbb{Z}/2p\mathbb{Z}$ ou au groupe di&eacute;dral $D_p$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every group of order $p^2$ (with $p$ prime) is isomorphic to $\mathbb{Z}/p^2\mathbb{Z}$ or to $(\mathbb{Z}/p\mathbb{Z})^2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout groupe d'ordre $p^2$ (avec $p$ premier) est isomorphe &agrave; $\mathbb{Z}/p^2\mathbb{Z}$ ou &agrave; $(\mathbb{Z}/p\mathbb{Z})^2$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The symmetric group $\mathfrak{S}_n$ acts on the $n$-colorings of a regular polygon with $n$ vertices by permutation of the vertices. Use Burnside's lemma to count the distinct colorings up to rotation when $n = 4$ and with $k$ colors.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On fait agir $\mathfrak{S}_n$ sur les $n$-coloriages d'un polygone r&eacute;gulier &agrave; $n$ sommets par permutation des sommets. Utiliser le lemme de Burnside pour d&eacute;nombrer les coloriages distincts &agrave; rotation pr&egrave;s lorsque $n = 4$ et avec $k$ couleurs.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a finite group and $H$ a subgroup such that $[G:H] = 2$. Show that $H$ is normal in $G$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un groupe fini et $H$ un sous-groupe tel que $[G:H] = 2$. Montrer que $H$ est distingu&eacute; dans $G$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      There are exactly two left cosets: $H$ and $G \setminus H$. The same holds for right cosets. For all $g \in G$, if $g \in H$, then $gH = H = Hg$. If $g \notin H$, then $gH = G \setminus H = Hg$ (since it is the only other coset). So $gH = Hg$ for all $g$: $H$ is normal.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Il y a exactement deux classes &agrave; gauche : $H$ et $G \setminus H$. De m&ecirc;me pour les classes &agrave; droite. Pour tout $g \in G$, si $g \in H$, alors $gH = H = Hg$. Si $g \notin H$, alors $gH = G \setminus H = Hg$ (car c'est la seule autre classe). Donc $gH = Hg$ pour tout $g$ : $H$ est distingu&eacute;.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a finite group acting on a finite set $X$. Show that if the action is transitive and $|X| \ge 2$, then there exists $g \in G$ with no fixed point.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un groupe fini agissant sur un ensemble fini $X$. Montrer que si l'action est transitive et $|X| \ge 2$, alors il existe $g \in G$ sans point fixe.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By Burnside's lemma, $\sum_{g \in G} |\mathrm{Fix}(g)| = |G|$ (one orbit). If every $g \in G$ had at least one fixed point, then $\sum_{g \in G} |\mathrm{Fix}(g)| \ge |G|$, with moreover $|\mathrm{Fix}(e)| = |X| \ge 2 > 1$, which would give $\sum_{g \in G} |\mathrm{Fix}(g)| > |G|$, contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le lemme de Burnside, $\sum_{g \in G} |\mathrm{Fix}(g)| = |G|$ (une seule orbite). Si tout $g \in G$ avait au moins un point fixe, alors $\sum_{g \in G} |\mathrm{Fix}(g)| \ge |G|$, avec en plus $|\mathrm{Fix}(e)| = |X| \ge 2 > 1$, ce qui donnerait $\sum_{g \in G} |\mathrm{Fix}(g)| > |G|$, contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be a prime and $G$ a group of order $p^n$. Show that $G$ has a normal subgroup of order $p$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un premier et $G$ un groupe d'ordre $p^n$. Montrer que $G$ poss&egrave;de un sous-groupe distingu&eacute; d'ordre $p$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the conjugacy classes and the center of the group $\mathfrak{S}_3$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les classes de conjugaison et le centre du groupe $\mathfrak{S}_3$.</p>
+    </div>
 
   </main>
 
