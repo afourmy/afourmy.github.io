@@ -78,18 +78,6 @@
       <div class="tsp-status"></div>
     </div>
 
-    <pre><code class="language-python">def nearest_neighbor(self):
-    city = randrange(1, self.size)
-    current, tour, tour_length = city, [city], 0
-    while len(tour) != len(self.cities):
-        arg_min, edge_length = self.closest_neighbor(tour, current)
-        tour_length += edge_length
-        tour.append(arg_min)
-        current = arg_min
-    # close the tour by adding the last edge
-    tour_length += self.distances[current][city]
-    return tour, tour_length</code></pre>
-
     <p>
       This algorithm is fast ($$O(n^2)$$) but tends to produce tours with
       crossing edges, especially toward the end when few cities remain and the nearest
@@ -136,34 +124,6 @@
       <div class="tsp-status"></div>
     </div>
 
-    <pre><code class="language-python">def nearest_insertion(self, farthest=False):
-    city = randrange(1, self.size)
-    tour = [city]
-    # find the closest (or farthest) node to the first node
-    neighbor, length = self.closest_neighbor(tour, city, False, farthest)
-    tour.append(neighbor)
-    while len(tour) != len(self.cities):
-        best, dist = None, 0 if farthest else float('inf')
-        # selection step: find the node closest to (or farthest from)
-        # any node already in the sub-tour
-        for candidate in self.cities:
-            if candidate in tour:
-                continue
-            _, length = self.closest_neighbor(tour, candidate, True)
-            if (length > dist if farthest else length < dist):
-                best, dist = candidate, length
-        # insertion step: find the edge (i, j) in the sub-tour which
-        # minimizes d(i, r) + d(r, j) - d(i, j)
-        idx, dist = None, float('inf')
-        tour = tour + [tour[0]]
-        for i in range(len(tour) - 1):
-            cost = self.add(tour[i], tour[i + 1], best)
-            if cost < dist:
-                idx, dist = i, cost
-        tour.insert(idx + 1, best)
-        tour = tour[:-1]
-    return tour</code></pre>
-
     <!-- ── Cheapest Insertion ── -->
 
     <h3>Cheapest Insertion</h3>
@@ -200,27 +160,6 @@
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
     </div>
-
-    <pre><code class="language-python">def cheapest_insertion(self):
-    city = randrange(1, self.size)
-    tour = [city]
-    # start with the nearest neighbor
-    neighbor, length = self.closest_neighbor(tour, city)
-    tour.append(neighbor)
-    while len(tour) != len(self.cities):
-        # find the (city, position) pair whose insertion
-        # causes the smallest increase in tour length
-        best_dist, new_tour = float('inf'), None
-        for candidate in self.cities:
-            if candidate in tour:
-                continue
-            for i in range(len(tour) - 1):
-                dist = self.add(tour[i], tour[i + 1], candidate)
-                if dist < best_dist:
-                    best_dist = dist
-                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
-        tour = new_tour
-    return tour</code></pre>
 
     <p>
       This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
@@ -267,15 +206,91 @@
       <div class="tsp-status"></div>
     </div>
 
-    <pre><code class="language-python">def farthest_insertion(self):
-    # same as nearest insertion, but selecting the farthest city
-    return self.nearest_insertion(farthest=True)</code></pre>
-
     <p>
       Despite its counterintuitive selection rule, farthest insertion is one of the best
       construction heuristics. It tends to avoid the crossing edges that plague nearest
       neighbor and often outperforms the other insertion variants.
     </p>
+
+    <h2>Python implementation</h2>
+
+    <p>
+      The original implementation of these algorithms was written in Python.
+      The code below shows the core logic for each construction heuristic.
+    </p>
+
+    <h3>Nearest Neighbor</h3>
+
+    <pre><code class="language-python">def nearest_neighbor(self):
+    city = randrange(1, self.size)
+    current, tour, tour_length = city, [city], 0
+    while len(tour) != len(self.cities):
+        arg_min, edge_length = self.closest_neighbor(tour, current)
+        tour_length += edge_length
+        tour.append(arg_min)
+        current = arg_min
+    # close the tour by adding the last edge
+    tour_length += self.distances[current][city]
+    return tour, tour_length</code></pre>
+
+    <h3>Nearest Insertion</h3>
+
+    <pre><code class="language-python">def nearest_insertion(self, farthest=False):
+    city = randrange(1, self.size)
+    tour = [city]
+    # find the closest (or farthest) node to the first node
+    neighbor, length = self.closest_neighbor(tour, city, False, farthest)
+    tour.append(neighbor)
+    while len(tour) != len(self.cities):
+        best, dist = None, 0 if farthest else float('inf')
+        # selection step: find the node closest to (or farthest from)
+        # any node already in the sub-tour
+        for candidate in self.cities:
+            if candidate in tour:
+                continue
+            _, length = self.closest_neighbor(tour, candidate, True)
+            if (length > dist if farthest else length < dist):
+                best, dist = candidate, length
+        # insertion step: find the edge (i, j) in the sub-tour which
+        # minimizes d(i, r) + d(r, j) - d(i, j)
+        idx, dist = None, float('inf')
+        tour = tour + [tour[0]]
+        for i in range(len(tour) - 1):
+            cost = self.add(tour[i], tour[i + 1], best)
+            if cost < dist:
+                idx, dist = i, cost
+        tour.insert(idx + 1, best)
+        tour = tour[:-1]
+    return tour</code></pre>
+
+    <h3>Cheapest Insertion</h3>
+
+    <pre><code class="language-python">def cheapest_insertion(self):
+    city = randrange(1, self.size)
+    tour = [city]
+    # start with the nearest neighbor
+    neighbor, length = self.closest_neighbor(tour, city)
+    tour.append(neighbor)
+    while len(tour) != len(self.cities):
+        # find the (city, position) pair whose insertion
+        # causes the smallest increase in tour length
+        best_dist, new_tour = float('inf'), None
+        for candidate in self.cities:
+            if candidate in tour:
+                continue
+            for i in range(len(tour) - 1):
+                dist = self.add(tour[i], tour[i + 1], candidate)
+                if dist < best_dist:
+                    best_dist = dist
+                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
+        tour = new_tour
+    return tour</code></pre>
+
+    <h3>Farthest Insertion</h3>
+
+    <pre><code class="language-python">def farthest_insertion(self):
+    # same as nearest insertion, but selecting the farthest city
+    return self.nearest_insertion(farthest=True)</code></pre>
 
   </main>
 
