@@ -287,19 +287,19 @@
       color: "#c44", weight: 2.5, opacity: 0.85
     }).addTo(inst.map);
     inst.updateStatus("Step 1 / " + steps.length +
-      " \u2014 Tour: " + Math.round(lengths[0]) + " km");
+      " |Tour: " + Math.round(lengths[0]) + " km");
 
     inst.timer = setInterval(function () {
       idx++;
       if (idx >= steps.length) {
         clearInterval(inst.timer); inst.timer = null;
-        inst.updateStatus("Done \u2014 " + steps.length + " steps \u2014 Tour: " +
+        inst.updateStatus("Done |" + steps.length + " steps |Tour: " +
           Math.round(lengths[lengths.length - 1]) + " km");
         return;
       }
       inst.tourLine.setLatLngs(steps[idx]);
       inst.updateStatus("Step " + (idx + 1) + " / " + steps.length +
-        " \u2014 Tour: " + Math.round(lengths[idx]) + " km");
+        " |Tour: " + Math.round(lengths[idx]) + " km");
     }, speed);
   }
 
