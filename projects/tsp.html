@@ -267,13 +267,13 @@ def insertion_cost(distances, i, j, k):
                 best, dist = candidate, length
         # insertion step: find the edge (i, j) in the sub-tour which
         # minimizes d(i, k) + d(k, j) - d(i, j)
-        idx, dist = None, float('inf')
+        index, dist = None, float('inf')
         tour = tour + [tour[0]]
         for i in range(len(tour) - 1):
             cost = insertion_cost(distances, tour[i], tour[i + 1], best)
             if cost < dist:
-                idx, dist = i, cost
-        tour.insert(idx + 1, best)
+                index, dist = i, cost
+        tour.insert(index + 1, best)
         tour = tour[:-1]
     return tour</code></pre>
 
