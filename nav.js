@@ -1,10 +1,12 @@
 (function () {
   var menu = [
-    { en: "Mathematics", fr: "Math\u00e9matiques", columns: [
+    { en: "Mathematics", fr: "Math\u00e9matiques", cssClass: "submenu-sections", columns: [
       [
         { href: "math/l1/bases.html", en: "Foundations", fr: "Bases" },
         { href: "math/l1/groups.html", en: "Groups", fr: "Groupes" },
         { href: "math/l1/anneaux_corps.html", en: "Rings & Fields", fr: "Anneaux & Corps" },
+      ],
+      [
         { href: "math/l1/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },
         { href: "math/l1/denombrement.html", en: "Combinatorics", fr: "D\u00e9nombrement" },
         { href: "math/l1/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
