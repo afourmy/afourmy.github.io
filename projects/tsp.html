@@ -239,10 +239,10 @@ def insertion_cost(distances, i, j, k):
     city = randrange(1, len(cities))
     current, tour, tour_length = city, [city], 0
     while len(tour) != len(cities):
-        arg_min, edge_length = closest_neighbor(distances, tour, current)
+        nearest, edge_length = closest_neighbor(distances, tour, current)
         tour_length += edge_length
-        tour.append(arg_min)
-        current = arg_min
+        tour.append(nearest)
+        current = nearest
     # close the tour by adding the last edge
     tour_length += distances[current][city]
     return tour, tour_length</code></pre>
