@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automata</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Overview</h2>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Formal languages.</span> We fix a finite <em>alphabet</em> $\Sigma$ (for example $\{0,1\}$). A <em>word</em> is a finite sequence of symbols from $\Sigma$, and a <em>language</em> is a set of words. The central question: how to describe and recognize a language? Two complementary tools are available. <em>Regular expressions</em> describe languages through formulas (union, concatenation, Kleene star). <em>Finite automata</em> recognize them via a computation mechanism: one reads the word letter by letter, changing state, and accepts or rejects based on the final state.</p>
+      <p class="fr"><span class="thm-label">Langages formels.</span> On fixe un <em>alphabet</em> fini $\Sigma$ (par exemple $\{0,1\}$). Un <em>mot</em> est une suite finie de symboles de $\Sigma$, et un <em>langage</em> est un ensemble de mots. La question centrale : comment d&eacute;crire et reconna&icirc;tre un langage ? On dispose de deux outils compl&eacute;mentaires. Les <em>expressions r&eacute;guli&egrave;res</em> d&eacute;crivent les langages par des formules (union, concat&eacute;nation, &eacute;toile). Les <em>automates finis</em> les reconnaissent par un m&eacute;canisme de calcul : on lit le mot lettre par lettre en changeant d'&eacute;tat, et on accepte ou refuse selon l'&eacute;tat final.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Deterministic and nondeterministic automata.</span> A <em>deterministic automaton</em> (DFA) has exactly one transition per symbol from each state: the computation is entirely determined by the word. A <em>nondeterministic automaton</em> (NFA) allows multiple possible transitions (or none) and accepts if there exists at least one path leading to an accepting state. One can also add <em>$\varepsilon$-transitions</em>: spontaneous transitions that consume no symbol. Despite this extra flexibility, NFAs recognize exactly the same languages as DFAs.</p>
+      <p class="fr"><span class="thm-label">Automates d&eacute;terministes et non d&eacute;terministes.</span> Un <em>automate d&eacute;terministe</em> (DFA) a exactement une transition par symbole depuis chaque &eacute;tat : le calcul est enti&egrave;rement d&eacute;termin&eacute; par le mot. Un <em>automate non d&eacute;terministe</em> (NFA) autorise plusieurs transitions possibles (ou aucune) et accepte s'il existe au moins un chemin menant &agrave; un &eacute;tat acceptant. On peut aussi ajouter des <em>$\varepsilon$-transitions</em> : des transitions spontan&eacute;es, sans lire de symbole. Malgr&eacute; cette flexibilit&eacute; suppl&eacute;mentaire, les NFA reconnaissent exactement les m&ecirc;mes langages que les DFA.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Regular languages and their limits.</span> The languages recognized by finite automata are called <em>regular languages</em>. Kleene's theorem shows that these are exactly those described by regular expressions. Regular languages are closed under union, concatenation, Kleene star, intersection, and complement. But they have limits: the <em>pumping lemma</em> provides a criterion to prove that a language is not regular. For example, $\{a^n b^n : n \geq 0\}$ escapes finite automata because it would require memorizing an arbitrary number of $a$'s.</p>
+      <p class="fr"><span class="thm-label">Langages r&eacute;guliers et leurs limites.</span> Les langages reconnus par automates finis s'appellent les <em>langages r&eacute;guliers</em>. Le th&eacute;or&egrave;me de Kleene montre que ce sont exactement ceux d&eacute;crits par les expressions r&eacute;guli&egrave;res. Les langages r&eacute;guliers sont clos par union, concat&eacute;nation, &eacute;toile, intersection et compl&eacute;mentaire. Mais ils ont des limites : le <em>lemme de l'&eacute;toile</em> (pumping lemma) fournit un crit&egrave;re pour prouver qu'un langage n'est pas r&eacute;gulier. Par exemple, $\{a^n b^n : n \geq 0\}$ &eacute;chappe aux automates finis car il faudrait m&eacute;moriser un nombre arbitraire de $a$.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Minimality.</span> The Myhill-Nerode theorem characterizes regular languages via an algebraic condition (finitely many equivalence classes) and shows that every regular language has a unique minimal DFA. It can be effectively constructed.</p>
+      <p class="fr"><span class="thm-label">Minimalit&eacute;.</span> Le th&eacute;or&egrave;me de Myhill-Nerode caract&eacute;rise les langages r&eacute;guliers par une condition alg&eacute;brique (nombre fini de classes d'&eacute;quivalence) et montre que tout langage r&eacute;gulier admet un unique DFA minimal. On peut le construire effectivement.</p>
+    </div>
+
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Words and languages</h3>
+    <h3 class="fr">Mots et langages</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Alphabet, word, language).</span> An <em>alphabet</em> is a finite nonempty set $\Sigma$. A <em>word</em> over $\Sigma$ is a finite sequence $w = a_1 a_2 \cdots a_n$ with $a_i \in \Sigma$. The integer $n$ is the <em>length</em> of $w$, denoted $|w|$. The <em>empty word</em>, denoted $\varepsilon$, is the unique word of length $0$. We write $\Sigma^*$ for the set of all words over $\Sigma$. A <em>language</em> over $\Sigma$ is a subset $L \subseteq \Sigma^*$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Alphabet, mot, langage).</span> Un <em>alphabet</em> est un ensemble fini non vide $\Sigma$. Un <em>mot</em> sur $\Sigma$ est une suite finie $w = a_1 a_2 \cdots a_n$ avec $a_i \in \Sigma$. L'entier $n$ est la <em>longueur</em> de $w$, not&eacute;e $|w|$. Le <em>mot vide</em>, not&eacute; $\varepsilon$, est l'unique mot de longueur $0$. On note $\Sigma^*$ l'ensemble de tous les mots sur $\Sigma$. Un <em>langage</em> sur $\Sigma$ est une partie $L \subseteq \Sigma^*$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Concatenation).</span> The <em>concatenation</em> of two words $u = a_1 \cdots a_m$ and $v = b_1 \cdots b_n$ is the word $uv = a_1 \cdots a_m b_1 \cdots b_n$. This operation is associative, with identity element $\varepsilon$. The monoid $(\Sigma^*, \cdot, \varepsilon)$ is the <em>free monoid</em> on $\Sigma$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Concat&eacute;nation).</span> La <em>concat&eacute;nation</em> de deux mots $u = a_1 \cdots a_m$ et $v = b_1 \cdots b_n$ est le mot $uv = a_1 \cdots a_m b_1 \cdots b_n$. Cette op&eacute;ration est associative, d'&eacute;l&eacute;ment neutre $\varepsilon$. Le mono&iuml;de $(\Sigma^*, \cdot, \varepsilon)$ est le <em>mono&iuml;de libre</em> sur $\Sigma$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Operations on languages).</span> Let $L, L' \subseteq \Sigma^*$. <em>Union</em>: $L \cup L'$. <em>Concatenation</em>: $L \cdot L' = \{uv : u \in L,\; v \in L'\}$. <em>Powers</em>: $L^0 = \{\varepsilon\}$, and $L^{n+1} = L^n \cdot L$ for $n \geq 0$. <em>Kleene star</em>: $L^* = \bigcup_{n \geq 0} L^n$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Op&eacute;rations sur les langages).</span> Soient $L, L' \subseteq \Sigma^*$. <em>Union</em> : $L \cup L'$. <em>Concat&eacute;nation</em> : $L \cdot L' = \{uv : u \in L,\; v \in L'\}$. <em>Puissances</em> : $L^0 = \{\varepsilon\}$, et $L^{n+1} = L^n \cdot L$ pour $n \geq 0$. <em>&Eacute;toile de Kleene</em> : $L^* = \bigcup_{n \geq 0} L^n$.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> $L^*$ always contains $\varepsilon$ (since $L^0 = \{\varepsilon\}$). We also write $L^+ = \bigcup_{n \geq 1} L^n = L \cdot L^*$, the set of concatenations of at least one word from $L$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> $L^*$ contient toujours $\varepsilon$ (car $L^0 = \{\varepsilon\}$). On note aussi $L^+ = \bigcup_{n \geq 1} L^n = L \cdot L^*$, l'ensemble des concat&eacute;nations d'au moins un mot de $L$.</p>
+    </div>
+
+    <h3 class="en">Deterministic finite automata</h3>
+    <h3 class="fr">Automates finis d&eacute;terministes</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Deterministic finite automaton).</span> A <em>deterministic finite automaton</em> (DFA) is a quintuple $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ where: $Q$ is a finite set of <em>states</em>, $\Sigma$ is an alphabet, $\delta : Q \times \Sigma \to Q$ is the <em>transition function</em>, $q_0 \in Q$ is the <em>initial state</em>, $F \subseteq Q$ is the set of <em>accepting states</em>.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Automate fini d&eacute;terministe).</span> Un <em>automate fini d&eacute;terministe</em> (DFA) est un quintuplet $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ o&ugrave; : $Q$ est un ensemble fini d'<em>&eacute;tats</em>, $\Sigma$ est un alphabet, $\delta : Q \times \Sigma \to Q$ est la <em>fonction de transition</em>, $q_0 \in Q$ est l'<em>&eacute;tat initial</em>, $F \subseteq Q$ est l'ensemble des <em>&eacute;tats acceptants</em>.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Extended transition function, recognized language).</span> We extend $\delta$ to $Q \times \Sigma^*$ by: $\hat{\delta}(q, \varepsilon) = q$ and $\hat{\delta}(q, wa) = \delta(\hat{\delta}(q, w), a)$. A word $w$ is <em>accepted</em> by $\mathcal{A}$ if $\hat{\delta}(q_0, w) \in F$. The <em>recognized language</em> of $\mathcal{A}$ is $L(\mathcal{A}) = \{w \in \Sigma^* : \hat{\delta}(q_0, w) \in F\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Fonction de transition &eacute;tendue, langage reconnu).</span> On &eacute;tend $\delta$ &agrave; $Q \times \Sigma^*$ par : $\hat{\delta}(q, \varepsilon) = q$ et $\hat{\delta}(q, wa) = \delta(\hat{\delta}(q, w), a)$. Un mot $w$ est <em>accept&eacute;</em> par $\mathcal{A}$ si $\hat{\delta}(q_0, w) \in F$. Le <em>langage reconnu</em> par $\mathcal{A}$ est $L(\mathcal{A}) = \{w \in \Sigma^* : \hat{\delta}(q_0, w) \in F\}$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Regular language).</span> A language $L \subseteq \Sigma^*$ is <em>regular</em> if there exists a DFA $\mathcal{A}$ such that $L = L(\mathcal{A})$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Langage r&eacute;gulier).</span> Un langage $L \subseteq \Sigma^*$ est <em>r&eacute;gulier</em> s'il existe un DFA $\mathcal{A}$ tel que $L = L(\mathcal{A})$.</p>
+    </div>
+
+    <div class="thm-block example">
+      <p class="en"><span class="thm-label">Example.</span> Over $\Sigma = \{0,1\}$, the language of words containing an even number of $1$'s is recognized by the DFA with two states $Q = \{q_0, q_1\}$, $F = \{q_0\}$, $\delta(q_0, 0) = q_0$, $\delta(q_0, 1) = q_1$, $\delta(q_1, 0) = q_1$, $\delta(q_1, 1) = q_0$. The current state stores the parity of the number of $1$'s read so far.</p>
+      <p class="fr"><span class="thm-label">Exemple.</span> Sur $\Sigma = \{0,1\}$, le langage des mots contenant un nombre pair de $1$ est reconnu par le DFA &agrave; deux &eacute;tats $Q = \{q_0, q_1\}$ avec $F = \{q_0\}$, $\delta(q_0, 0) = q_0$, $\delta(q_0, 1) = q_1$, $\delta(q_1, 0) = q_1$, $\delta(q_1, 1) = q_0$. L'&eacute;tat courant m&eacute;morise la parit&eacute; du nombre de $1$ lus.</p>
+    </div>
+
+    <h3 class="en">Nondeterministic finite automata</h3>
+    <h3 class="fr">Automates finis non d&eacute;terministes</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Nondeterministic finite automaton).</span> A <em>nondeterministic finite automaton</em> (NFA) is a quintuple $\mathcal{A} = (Q, \Sigma, \Delta, I, F)$ where: $Q$ is a finite set of states, $\Sigma$ is an alphabet, $\Delta \subseteq Q \times \Sigma \times Q$ is the <em>transition relation</em>, $I \subseteq Q$ is the set of <em>initial states</em>, $F \subseteq Q$ is the set of <em>accepting states</em>.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Automate fini non d&eacute;terministe).</span> Un <em>automate fini non d&eacute;terministe</em> (NFA) est un quintuplet $\mathcal{A} = (Q, \Sigma, \Delta, I, F)$ o&ugrave; : $Q$ est un ensemble fini d'&eacute;tats, $\Sigma$ est un alphabet, $\Delta \subseteq Q \times \Sigma \times Q$ est la <em>relation de transition</em>, $I \subseteq Q$ est l'ensemble des <em>&eacute;tats initiaux</em>, $F \subseteq Q$ est l'ensemble des <em>&eacute;tats acceptants</em>.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> Equivalently, one can view $\Delta$ as a function $\delta : Q \times \Sigma \to \mathcal{P}(Q)$. The difference with a DFA: there can be $0$, $1$, or several transitions from a state for the same symbol, and there can be multiple initial states.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> De mani&egrave;re &eacute;quivalente, on peut voir $\Delta$ comme une fonction $\delta : Q \times \Sigma \to \mathcal{P}(Q)$. La diff&eacute;rence avec un DFA : il peut y avoir $0$, $1$ ou plusieurs transitions depuis un &eacute;tat pour un m&ecirc;me symbole, et il peut y avoir plusieurs &eacute;tats initiaux.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Acceptance by an NFA).</span> We extend $\delta$ to sets of states: for $S \subseteq Q$ and $a \in \Sigma$, $\delta(S, a) = \bigcup_{q \in S} \delta(q, a)$, then to words: $\hat{\delta}(S, \varepsilon) = S$ and $\hat{\delta}(S, wa) = \delta(\hat{\delta}(S, w), a)$. A word $w$ is <em>accepted</em> if $\hat{\delta}(I, w) \cap F \neq \varnothing$. The <em>recognized language</em> is $L(\mathcal{A}) = \{w \in \Sigma^* : \hat{\delta}(I, w) \cap F \neq \varnothing\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Acceptation par un NFA).</span> On &eacute;tend $\delta$ aux ensembles d'&eacute;tats : pour $S \subseteq Q$ et $a \in \Sigma$, $\delta(S, a) = \bigcup_{q \in S} \delta(q, a)$, puis aux mots : $\hat{\delta}(S, \varepsilon) = S$ et $\hat{\delta}(S, wa) = \delta(\hat{\delta}(S, w), a)$. Un mot $w$ est <em>accept&eacute;</em> si $\hat{\delta}(I, w) \cap F \neq \varnothing$. Le <em>langage reconnu</em> est $L(\mathcal{A}) = \{w \in \Sigma^* : \hat{\delta}(I, w) \cap F \neq \varnothing\}$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (NFA with $\varepsilon$-transitions).</span> An <em>$\varepsilon$-NFA</em> is an NFA where the transition relation is $\Delta \subseteq Q \times (\Sigma \cup \{\varepsilon\}) \times Q$. For $S \subseteq Q$, the <em>$\varepsilon$-closure</em> $\mathrm{Cl}_\varepsilon(S)$ is the smallest set containing $S$ and closed under $\varepsilon$-transitions. Acceptance is defined by taking the $\varepsilon$-closure at each step.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (NFA avec $\varepsilon$-transitions).</span> Un <em>$\varepsilon$-NFA</em> est un NFA o&ugrave; la relation de transition est $\Delta \subseteq Q \times (\Sigma \cup \{\varepsilon\}) \times Q$. Pour $S \subseteq Q$, la <em>$\varepsilon$-cl&ocirc;ture</em> $\mathrm{Cl}_\varepsilon(S)$ est le plus petit ensemble contenant $S$ et clos par $\varepsilon$-transitions. L'acceptation se d&eacute;finit en prenant la $\varepsilon$-cl&ocirc;ture &agrave; chaque &eacute;tape.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (DFA-NFA equivalence).</span> For every NFA $\mathcal{N}$, there exists a DFA $\mathcal{D}$ such that $L(\mathcal{D}) = L(\mathcal{N})$. More precisely, if $\mathcal{N}$ has $n$ states, $\mathcal{D}$ has at most $2^n$ states.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (&Eacute;quivalence DFA-NFA).</span> Pour tout NFA $\mathcal{N}$, il existe un DFA $\mathcal{D}$ tel que $L(\mathcal{D}) = L(\mathcal{N})$. Plus pr&eacute;cis&eacute;ment, si $\mathcal{N}$ a $n$ &eacute;tats, $\mathcal{D}$ a au plus $2^n$ &eacute;tats.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Subset construction.</em> Let $\mathcal{N} = (Q, \Sigma, \delta, I, F)$. We build the DFA $\mathcal{D} = (\mathcal{P}(Q), \Sigma, \delta', I, F')$ with $\delta'(S, a) = \bigcup_{q \in S} \delta(q, a)$ and $F' = \{S \in \mathcal{P}(Q) : S \cap F \neq \varnothing\}$.
+      We show by induction on $|w|$ that $\hat{\delta}'(I, w) = \hat{\delta}(I, w)$ (where on the left $\hat{\delta}'$ is the extended transition of the DFA and on the right $\hat{\delta}$ is the NFA extended transition on sets). For $w = \varepsilon$: $\hat{\delta}'(I, \varepsilon) = I = \hat{\delta}(I, \varepsilon)$. For $w = ua$: $\hat{\delta}'(I, ua) = \delta'(\hat{\delta}'(I, u), a) = \delta'(\hat{\delta}(I, u), a) = \bigcup_{q \in \hat{\delta}(I, u)} \delta(q, a) = \hat{\delta}(I, ua)$.
+      Therefore $w \in L(\mathcal{D})$ iff $\hat{\delta}'(I, w) \in F'$ iff $\hat{\delta}(I, w) \cap F \neq \varnothing$ iff $w \in L(\mathcal{N})$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Construction par sous-ensembles.</em> Soit $\mathcal{N} = (Q, \Sigma, \delta, I, F)$. On construit le DFA $\mathcal{D} = (\mathcal{P}(Q), \Sigma, \delta', I, F')$ avec $\delta'(S, a) = \bigcup_{q \in S} \delta(q, a)$ et $F' = \{S \in \mathcal{P}(Q) : S \cap F \neq \varnothing\}$.
+      Montrons par r&eacute;currence sur $|w|$ que $\hat{\delta}'(I, w) = \hat{\delta}(I, w)$ (o&ugrave; &agrave; gauche $\hat{\delta}'$ est la transition &eacute;tendue du DFA et &agrave; droite $\hat{\delta}$ est celle du NFA &eacute;tendue aux ensembles). Pour $w = \varepsilon$ : $\hat{\delta}'(I, \varepsilon) = I = \hat{\delta}(I, \varepsilon)$. Pour $w = ua$ : $\hat{\delta}'(I, ua) = \delta'(\hat{\delta}'(I, u), a) = \delta'(\hat{\delta}(I, u), a) = \bigcup_{q \in \hat{\delta}(I, u)} \delta(q, a) = \hat{\delta}(I, ua)$.
+      Donc $w \in L(\mathcal{D})$ ssi $\hat{\delta}'(I, w) \in F'$ ssi $\hat{\delta}(I, w) \cap F \neq \varnothing$ ssi $w \in L(\mathcal{N})$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $\varepsilon$-NFAs recognize exactly the regular languages.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Les $\varepsilon$-NFA reconnaissent exactement les langages r&eacute;guliers.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We first transform an $\varepsilon$-NFA into an NFA (without $\varepsilon$-transitions): set $\delta'(q, a) = \mathrm{Cl}_\varepsilon(\delta(\mathrm{Cl}_\varepsilon(\{q\}), a))$ and $I' = \mathrm{Cl}_\varepsilon(I)$, then apply the subset construction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On transforme d'abord un $\varepsilon$-NFA en NFA (sans $\varepsilon$-transitions) : on pose $\delta'(q, a) = \mathrm{Cl}_\varepsilon(\delta(\mathrm{Cl}_\varepsilon(\{q\}), a))$ et $I' = \mathrm{Cl}_\varepsilon(I)$, puis on applique la construction par sous-ensembles.
+    </details>
+
+    <h3 class="en">Regular expressions</h3>
+    <h3 class="fr">Expressions r&eacute;guli&egrave;res</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Regular expression).</span> <em>Regular expressions</em> over $\Sigma$ are defined inductively: (i) $\varnothing$ is a regular expression (denotes $\varnothing$), (ii) $\varepsilon$ is a regular expression (denotes $\{\varepsilon\}$), (iii) for every $a \in \Sigma$, $a$ is a regular expression (denotes $\{a\}$), (iv) if $r$ and $s$ are regular expressions, then $(r + s)$, $(r \cdot s)$ and $(r^*)$ are also regular expressions, denoting $L(r) \cup L(s)$, $L(r) \cdot L(s)$ and $L(r)^*$ respectively.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Expression r&eacute;guli&egrave;re).</span> Les <em>expressions r&eacute;guli&egrave;res</em> sur $\Sigma$ sont d&eacute;finies inductivement : (i) $\varnothing$ est une expression r&eacute;guli&egrave;re (d&eacute;note $\varnothing$), (ii) $\varepsilon$ est une expression r&eacute;guli&egrave;re (d&eacute;note $\{\varepsilon\}$), (iii) pour tout $a \in \Sigma$, $a$ est une expression r&eacute;guli&egrave;re (d&eacute;note $\{a\}$), (iv) si $r$ et $s$ sont des expressions r&eacute;guli&egrave;res, alors $(r + s)$, $(r \cdot s)$ et $(r^*)$ le sont aussi, d&eacute;notant respectivement $L(r) \cup L(s)$, $L(r) \cdot L(s)$ et $L(r)^*$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Kleene).</span> A language is regular if and only if it is denoted by a regular expression.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Kleene).</span> Un langage est r&eacute;gulier si et seulement s'il est d&eacute;not&eacute; par une expression r&eacute;guli&egrave;re.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Leftarrow)$ We show that for every regular expression $r$, $L(r)$ is recognized by an $\varepsilon$-NFA, by structural induction.
+      <em>Base cases.</em> $\varnothing$: one state, no accepting state. $\varepsilon$: one state, both initial and accepting. $a$: two states $q_0, q_1$, one transition $q_0 \xrightarrow{a} q_1$, $q_0$ initial, $q_1$ accepting.
+      <em>Union ($r + s$).</em> Take the $\varepsilon$-NFAs $\mathcal{A}_r$ and $\mathcal{A}_s$ (with disjoint states), add a new initial state $q_0$ with $\varepsilon$-transitions to the initial states of $\mathcal{A}_r$ and $\mathcal{A}_s$. The accepting states are those of $\mathcal{A}_r$ and $\mathcal{A}_s$.
+      <em>Concatenation ($r \cdot s$).</em> Add $\varepsilon$-transitions from each accepting state of $\mathcal{A}_r$ to each initial state of $\mathcal{A}_s$. The initial states are those of $\mathcal{A}_r$, the accepting states are those of $\mathcal{A}_s$.
+      <em>Star ($r^*$).</em> Add a new state $q_0$, initial and accepting, with an $\varepsilon$-transition to each initial state of $\mathcal{A}_r$, and $\varepsilon$-transitions from each accepting state of $\mathcal{A}_r$ to $q_0$.
+      In each case, the resulting $\varepsilon$-NFA recognizes the desired language, so it is regular.
+      $(\Rightarrow)$ We use the <em>state elimination method</em>. Let $\mathcal{A}$ be a DFA with $n$ states. We generalize transition labels to carry regular expressions (a <em>generalized automaton</em>). We eliminate states one by one: when removing a state $q_k$, for every pair $(q_i, q_j)$ of remaining states, we replace the label from $q_i$ to $q_j$ by $r_{ij} + r_{ik} \cdot r_{kk}^* \cdot r_{kj}$, where $r_{ij}$, $r_{ik}$, $r_{kj}$, $r_{kk}$ are the current labels. When only the initial state $q_0$ and an accepting state $q_f$ remain, the resulting regular expression denotes the recognized language. If $F$ contains multiple states, we take the union.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Leftarrow)$ On montre que pour toute expression r&eacute;guli&egrave;re $r$, $L(r)$ est reconnu par un $\varepsilon$-NFA, par induction structurelle.
+      <em>Cas de base.</em> $\varnothing$ : un &eacute;tat, aucun &eacute;tat acceptant. $\varepsilon$ : un seul &eacute;tat, &agrave; la fois initial et acceptant. $a$ : deux &eacute;tats $q_0, q_1$, une transition $q_0 \xrightarrow{a} q_1$, $q_0$ initial, $q_1$ acceptant.
+      <em>Union ($r + s$).</em> On prend les $\varepsilon$-NFA $\mathcal{A}_r$ et $\mathcal{A}_s$ (&agrave; &eacute;tats disjoints), on ajoute un nouvel &eacute;tat initial $q_0$ avec des $\varepsilon$-transitions vers les &eacute;tats initiaux de $\mathcal{A}_r$ et $\mathcal{A}_s$. Les &eacute;tats acceptants sont ceux de $\mathcal{A}_r$ et $\mathcal{A}_s$.
+      <em>Concat&eacute;nation ($r \cdot s$).</em> On ajoute des $\varepsilon$-transitions de chaque &eacute;tat acceptant de $\mathcal{A}_r$ vers chaque &eacute;tat initial de $\mathcal{A}_s$. Les &eacute;tats initiaux sont ceux de $\mathcal{A}_r$, les &eacute;tats acceptants ceux de $\mathcal{A}_s$.
+      <em>&Eacute;toile ($r^*$).</em> On ajoute un nouvel &eacute;tat $q_0$, initial et acceptant, avec une $\varepsilon$-transition vers chaque &eacute;tat initial de $\mathcal{A}_r$, et des $\varepsilon$-transitions de chaque &eacute;tat acceptant de $\mathcal{A}_r$ vers $q_0$.
+      Dans chaque cas, le $\varepsilon$-NFA obtenu reconna&icirc;t le langage voulu, donc ce langage est r&eacute;gulier.
+      $(\Rightarrow)$ On utilise la <em>m&eacute;thode d'&eacute;limination des &eacute;tats</em>. Soit $\mathcal{A}$ un DFA &agrave; $n$ &eacute;tats. On g&eacute;n&eacute;ralise les &eacute;tiquettes des transitions pour qu'elles portent des expressions r&eacute;guli&egrave;res (un <em>automate g&eacute;n&eacute;ralis&eacute;</em>). On &eacute;limine les &eacute;tats un par un : quand on supprime un &eacute;tat $q_k$, pour tout couple $(q_i, q_j)$ d'&eacute;tats restants, on remplace l'&eacute;tiquette de $q_i$ &agrave; $q_j$ par $r_{ij} + r_{ik} \cdot r_{kk}^* \cdot r_{kj}$, o&ugrave; $r_{ij}$, $r_{ik}$, $r_{kj}$, $r_{kk}$ sont les &eacute;tiquettes courantes. Quand il ne reste que l'&eacute;tat initial $q_0$ et un &eacute;tat acceptant $q_f$, l'expression r&eacute;guli&egrave;re r&eacute;sultante d&eacute;note le langage reconnu. Si $F$ contient plusieurs &eacute;tats, on fait l'union.
+    </details>
+
+    <h3 class="en">Closure properties</h3>
+    <h3 class="fr">Propri&eacute;t&eacute;s de cl&ocirc;ture</h3>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Closure under union).</span> If $L_1$ and $L_2$ are regular, then $L_1 \cup L_2$ is regular.</p>
+      <p class="fr"><span class="thm-label">Proposition (Cl&ocirc;ture par union).</span> Si $L_1$ et $L_2$ sont r&eacute;guliers, alors $L_1 \cup L_2$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By Kleene's theorem, $L_1$ and $L_2$ are denoted by regular expressions $r_1$ and $r_2$. Then $r_1 + r_2$ is a regular expression denoting $L_1 \cup L_2$, which is therefore regular.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le th&eacute;or&egrave;me de Kleene, $L_1$ et $L_2$ sont d&eacute;not&eacute;s par des expressions r&eacute;guli&egrave;res $r_1$ et $r_2$. Alors $r_1 + r_2$ est une expression r&eacute;guli&egrave;re d&eacute;notant $L_1 \cup L_2$, qui est donc r&eacute;gulier.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Closure under complement).</span> If $L$ is regular, then $\Sigma^* \setminus L$ is regular.</p>
+      <p class="fr"><span class="thm-label">Proposition (Cl&ocirc;ture par compl&eacute;mentaire).</span> Si $L$ est r&eacute;gulier, alors $\Sigma^* \setminus L$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. The DFA $(Q, \Sigma, \delta, q_0, Q \setminus F)$ recognizes $\Sigma^* \setminus L$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$. Le DFA $(Q, \Sigma, \delta, q_0, Q \setminus F)$ reconna&icirc;t $\Sigma^* \setminus L$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Closure under intersection).</span> If $L_1$ and $L_2$ are regular, then $L_1 \cap L_2$ is regular.</p>
+      <p class="fr"><span class="thm-label">Proposition (Cl&ocirc;ture par intersection).</span> Si $L_1$ et $L_2$ sont r&eacute;guliers, alors $L_1 \cap L_2$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By De Morgan: $L_1 \cap L_2 = \overline{\bar{L_1} \cup \bar{L_2}}$, and we use closure under complement and union. One can also directly construct the <em>product automaton</em>: if $\mathcal{A}_i = (Q_i, \Sigma, \delta_i, q_{0,i}, F_i)$ for $i = 1,2$, set $\mathcal{A} = (Q_1 \times Q_2, \Sigma, \delta, (q_{0,1}, q_{0,2}), F_1 \times F_2)$ with $\delta((q_1, q_2), a) = (\delta_1(q_1, a), \delta_2(q_2, a))$. Then $\hat{\delta}((q_{0,1}, q_{0,2}), w) = (\hat{\delta}_1(q_{0,1}, w), \hat{\delta}_2(q_{0,2}, w))$ (by immediate induction), so $w \in L(\mathcal{A})$ iff $w \in L_1 \cap L_2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par De Morgan : $L_1 \cap L_2 = \overline{\bar{L_1} \cup \bar{L_2}}$ et on utilise la cl&ocirc;ture par compl&eacute;mentaire et par union. On peut aussi construire directement l'<em>automate produit</em> : si $\mathcal{A}_i = (Q_i, \Sigma, \delta_i, q_{0,i}, F_i)$ pour $i = 1,2$, on pose $\mathcal{A} = (Q_1 \times Q_2, \Sigma, \delta, (q_{0,1}, q_{0,2}), F_1 \times F_2)$ avec $\delta((q_1, q_2), a) = (\delta_1(q_1, a), \delta_2(q_2, a))$. Alors $\hat{\delta}((q_{0,1}, q_{0,2}), w) = (\hat{\delta}_1(q_{0,1}, w), \hat{\delta}_2(q_{0,2}, w))$ (par r&eacute;currence imm&eacute;diate), donc $w \in L(\mathcal{A})$ ssi $w \in L_1 \cap L_2$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Closure under morphism image and preimage).</span> Let $\varphi : \Sigma^* \to \Gamma^*$ be a monoid morphism. If $L$ is a regular language over $\Gamma$, then $\varphi^{-1}(L)$ is regular over $\Sigma$. If $L$ is a regular language over $\Sigma$, then $\varphi(L)$ is regular over $\Gamma$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Cl&ocirc;ture par image et image r&eacute;ciproque de morphisme).</span> Soit $\varphi : \Sigma^* \to \Gamma^*$ un morphisme de mono&iuml;des. Si $L$ est un langage r&eacute;gulier sur $\Gamma$, alors $\varphi^{-1}(L)$ est r&eacute;gulier sur $\Sigma$. Si $L$ est un langage r&eacute;gulier sur $\Sigma$, alors $\varphi(L)$ est r&eacute;gulier sur $\Gamma$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $\varphi^{-1}(L)$: let $(Q, \Gamma, \delta, q_0, F)$ be a DFA for $L$. We build the DFA $(Q, \Sigma, \delta', q_0, F)$ with $\delta'(q, a) = \hat{\delta}(q, \varphi(a))$. Then $\hat{\delta}'(q_0, w) = \hat{\delta}(q_0, \varphi(w))$ (by induction on $|w|$), so $L(\mathcal{A}') = \varphi^{-1}(L)$.
+      For $\varphi(L)$: let $r$ be a regular expression for $L$. Replace each letter $a$ by $\varphi(a)$ in $r$. The resulting expression denotes $\varphi(L)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Pour $\varphi^{-1}(L)$ : soit $(Q, \Gamma, \delta, q_0, F)$ un DFA pour $L$. On construit le DFA $(Q, \Sigma, \delta', q_0, F)$ avec $\delta'(q, a) = \hat{\delta}(q, \varphi(a))$. Alors $\hat{\delta}'(q_0, w) = \hat{\delta}(q_0, \varphi(w))$ (par r&eacute;currence sur $|w|$), d'o&ugrave; $L(\mathcal{A}') = \varphi^{-1}(L)$.
+      Pour $\varphi(L)$ : soit $r$ une expression r&eacute;guli&egrave;re pour $L$. On remplace chaque lettre $a$ par $\varphi(a)$ dans $r$. L'expression obtenue d&eacute;note $\varphi(L)$.
+    </details>
+
+    <h3 class="en">Pumping lemma</h3>
+    <h3 class="fr">Lemme de l'&eacute;toile</h3>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Pumping Lemma).</span> Let $L$ be a regular language. There exists an integer $p \geq 1$ (the <em>pumping length</em>) such that every word $w \in L$ with $|w| \geq p$ can be decomposed as $w = xyz$ with: (i) $|y| \geq 1$, (ii) $|xy| \leq p$, (iii) $\forall k \geq 0,\; xy^k z \in L$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Lemme de l'&eacute;toile).</span> Soit $L$ un langage r&eacute;gulier. Il existe un entier $p \geq 1$ (la <em>longueur de pompage</em>) tel que tout mot $w \in L$ avec $|w| \geq p$ se d&eacute;compose en $w = xyz$ avec : (i) $|y| \geq 1$, (ii) $|xy| \leq p$, (iii) $\forall k \geq 0,\; xy^k z \in L$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$, and $p = |Q|$. Let $w = a_1 \cdots a_n \in L$ with $n \geq p$. Reading $w$ visits states $r_0 = q_0, r_1, \ldots, r_n$ with $r_i = \hat{\delta}(q_0, a_1 \cdots a_i)$. Among the first $p+1$ states $r_0, r_1, \ldots, r_p$, there are $|Q| = p$ possible states, so by the pigeonhole principle, there exist $0 \leq i &lt; j \leq p$ such that $r_i = r_j$. Set $x = a_1 \cdots a_i$, $y = a_{i+1} \cdots a_j$, $z = a_{j+1} \cdots a_n$.
+      Then $|y| = j - i \geq 1$, $|xy| = j \leq p$, and for all $k \geq 0$: reading $xy^k z$ starts from $q_0$, reaches $r_i$ after $x$, loops $k$ times on the cycle $r_i \to \cdots \to r_j = r_i$ by reading $y^k$, then reaches $r_n$ after $z$. Since $r_n \in F$, we have $xy^k z \in L$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$, et $p = |Q|$. Soit $w = a_1 \cdots a_n \in L$ avec $n \geq p$. La lecture de $w$ visite les &eacute;tats $r_0 = q_0, r_1, \ldots, r_n$ avec $r_i = \hat{\delta}(q_0, a_1 \cdots a_i)$. Parmi les $p+1$ premiers &eacute;tats $r_0, r_1, \ldots, r_p$, il y a $|Q| = p$ &eacute;tats possibles, donc par le principe des tiroirs, il existe $0 \leq i &lt; j \leq p$ tels que $r_i = r_j$. On pose $x = a_1 \cdots a_i$, $y = a_{i+1} \cdots a_j$, $z = a_{j+1} \cdots a_n$.
+      Alors $|y| = j - i \geq 1$, $|xy| = j \leq p$, et pour tout $k \geq 0$ : la lecture de $xy^k z$ part de $q_0$, atteint $r_i$ apr&egrave;s $x$, boucle $k$ fois sur le cycle $r_i \to \cdots \to r_j = r_i$ en lisant $y^k$, puis atteint $r_n$ apr&egrave;s $z$. Comme $r_n \in F$, on a $xy^k z \in L$.
+    </details>
+
+    <div class="thm-block example">
+      <p class="en"><span class="thm-label">Example.</span> Let us show that $L = \{a^n b^n : n \geq 0\}$ is not regular. Suppose for contradiction that it is, with pumping length $p$. The word $w = a^p b^p \in L$ satisfies $|w| = 2p \geq p$. By the lemma, $w = xyz$ with $|y| \geq 1$, $|xy| \leq p$. Since $|xy| \leq p$, $x$ and $y$ consist only of $a$'s, so $y = a^m$ with $m \geq 1$. Then $xy^0 z = xz = a^{p-m} b^p \notin L$ since $p - m \neq p$. Contradiction.</p>
+      <p class="fr"><span class="thm-label">Exemple.</span> Montrons que $L = \{a^n b^n : n \geq 0\}$ n'est pas r&eacute;gulier. Supposons par l'absurde qu'il l'est, de longueur de pompage $p$. Le mot $w = a^p b^p \in L$ v&eacute;rifie $|w| = 2p \geq p$. Par le lemme, $w = xyz$ avec $|y| \geq 1$, $|xy| \leq p$. Comme $|xy| \leq p$, $x$ et $y$ ne contiennent que des $a$, donc $y = a^m$ avec $m \geq 1$. Alors $xy^0 z = xz = a^{p-m} b^p \notin L$ car $p - m \neq p$. Contradiction.</p>
+    </div>
+
+    <div class="thm-block example">
+      <p class="en"><span class="thm-label">Example.</span> Let us show that $L = \{w \in \{0,1\}^* : w \text{ is a palindrome}\}$ is not regular. Let $p$ be the pumping length. The word $w = 0^p 1 0^p \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$ and $|y| \geq 1$, so $y = 0^m$ with $1 \leq m \leq p$, in the first block of $0$'s. Then $xy^2 z = 0^{p+m} 1 0^p$ is not a palindrome, so $xy^2 z \notin L$. Contradiction.</p>
+      <p class="fr"><span class="thm-label">Exemple.</span> Montrons que $L = \{w \in \{0,1\}^* : w \text{ est un palindrome}\}$ n'est pas r&eacute;gulier. Soit $p$ la longueur de pompage. Le mot $w = 0^p 1 0^p \in L$ v&eacute;rifie $|w| \geq p$. Par le lemme, $w = xyz$ avec $|xy| \leq p$ et $|y| \geq 1$, donc $y = 0^m$ avec $1 \leq m \leq p$, dans le premier bloc de $0$. Alors $xy^2 z = 0^{p+m} 1 0^p$ n'est pas un palindrome, donc $xy^2 z \notin L$. Contradiction.</p>
+    </div>
+
+    <h3 class="en">Myhill-Nerode theorem and minimal automaton</h3>
+    <h3 class="fr">Th&eacute;or&egrave;me de Myhill-Nerode et automate minimal</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Nerode congruence).</span> Let $L \subseteq \Sigma^*$. The <em>Nerode congruence</em> of $L$ is the relation $\sim_L$ defined on $\Sigma^*$ by: $u \sim_L v$ if and only if $\forall w \in \Sigma^*,\; (uw \in L \iff vw \in L)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Congruence de Nerode).</span> Soit $L \subseteq \Sigma^*$. La <em>congruence de Nerode</em> de $L$ est la relation $\sim_L$ d&eacute;finie sur $\Sigma^*$ par : $u \sim_L v$ si et seulement si $\forall w \in \Sigma^*,\; (uw \in L \iff vw \in L)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim_L$ is an equivalence relation on $\Sigma^*$, right-compatible with concatenation: if $u \sim_L v$, then for all $a \in \Sigma$, $ua \sim_L va$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La relation $\sim_L$ est une relation d'&eacute;quivalence sur $\Sigma^*$, compatible &agrave; droite avec la concat&eacute;nation : si $u \sim_L v$, alors pour tout $a \in \Sigma$, $ua \sim_L va$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Reflexivity, symmetry, and transitivity are immediate. For compatibility: if $u \sim_L v$, then for all $a \in \Sigma$ and all $w \in \Sigma^*$, $uaw \in L \iff vaw \in L$ (taking $aw$ as suffix in the definition), so $ua \sim_L va$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      La r&eacute;flexivit&eacute;, sym&eacute;trie et transitivit&eacute; sont imm&eacute;diates. Pour la compatibilit&eacute; : si $u \sim_L v$, alors pour tout $a \in \Sigma$ et tout $w \in \Sigma^*$, $uaw \in L \iff vaw \in L$ (en prenant $aw$ comme suffixe dans la d&eacute;finition), donc $ua \sim_L va$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Myhill-Nerode).</span> Let $L \subseteq \Sigma^*$. The following are equivalent: (1) $L$ is regular. (2) $\sim_L$ has finitely many equivalence classes. Moreover, the number of classes of $\sim_L$ is exactly the number of states of the smallest DFA recognizing $L$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Myhill-Nerode).</span> Soit $L \subseteq \Sigma^*$. Les assertions suivantes sont &eacute;quivalentes : (1) $L$ est r&eacute;gulier. (2) $\sim_L$ a un nombre fini de classes d'&eacute;quivalence. De plus, le nombre de classes de $\sim_L$ est exactement le nombre d'&eacute;tats du plus petit DFA reconnaissant $L$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(1 \Rightarrow 2)$. Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. Define $\equiv_\mathcal{A}$ by $u \equiv_\mathcal{A} v$ iff $\hat{\delta}(q_0, u) = \hat{\delta}(q_0, v)$. If $u \equiv_\mathcal{A} v$, then for all $w$, $\hat{\delta}(q_0, uw) = \hat{\delta}(\hat{\delta}(q_0, u), w) = \hat{\delta}(\hat{\delta}(q_0, v), w) = \hat{\delta}(q_0, vw)$, so $uw \in L \iff vw \in L$, giving $u \sim_L v$. Thus $\equiv_\mathcal{A}$ refines $\sim_L$, and $\sim_L$ has at most $|Q|$ classes.
+      $(2 \Rightarrow 1)$. Suppose $\sim_L$ has finitely many $n$ classes. We build the DFA $\mathcal{A}_L = (Q_L, \Sigma, \delta_L, [\varepsilon], F_L)$ with $Q_L = \Sigma^* / {\sim_L}$ (the set of classes), $\delta_L([u], a) = [ua]$ (well-defined by right compatibility), $[\varepsilon]$ as initial state, and $F_L = \{[u] : u \in L\}$ (well-defined since $u \sim_L v$ and $u \in L$ implies $v \in L$ by taking $w = \varepsilon$). We verify $\hat{\delta}_L([\varepsilon], w) = [w]$ by induction on $|w|$ (base: $\hat{\delta}_L([\varepsilon], \varepsilon) = [\varepsilon]$; step: $\hat{\delta}_L([\varepsilon], wa) = \delta_L([w], a) = [wa]$). So $w \in L(\mathcal{A}_L)$ iff $[w] \in F_L$ iff $w \in L$.
+      <em>Minimality.</em> We saw that for any DFA $\mathcal{A}$ recognizing $L$, $\equiv_\mathcal{A}$ refines $\sim_L$, so $|Q| \geq n$. Since $\mathcal{A}_L$ has exactly $n$ states, $\mathcal{A}_L$ is a DFA of minimal size.
+      <em>Uniqueness.</em> If $\mathcal{A}$ is a DFA recognizing $L$ with $n$ states, then $\equiv_\mathcal{A}$ has exactly $n$ classes and refines $\sim_L$ which also has $n$, so $\equiv_\mathcal{A}$ and $\sim_L$ coincide. The map $\hat{\delta}(q_0, u) \mapsto [u]$ is an isomorphism between $\mathcal{A}$ and $\mathcal{A}_L$ (if all states of $\mathcal{A}$ are reachable).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(1 \Rightarrow 2)$. Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$. D&eacute;finissons $\equiv_\mathcal{A}$ par $u \equiv_\mathcal{A} v$ ssi $\hat{\delta}(q_0, u) = \hat{\delta}(q_0, v)$. Si $u \equiv_\mathcal{A} v$, alors pour tout $w$, $\hat{\delta}(q_0, uw) = \hat{\delta}(\hat{\delta}(q_0, u), w) = \hat{\delta}(\hat{\delta}(q_0, v), w) = \hat{\delta}(q_0, vw)$, donc $uw \in L \iff vw \in L$, ce qui donne $u \sim_L v$. Ainsi $\equiv_\mathcal{A}$ raffine $\sim_L$, et $\sim_L$ a au plus $|Q|$ classes.
+      $(2 \Rightarrow 1)$. Supposons que $\sim_L$ a un nombre fini $n$ de classes. On construit le DFA $\mathcal{A}_L = (Q_L, \Sigma, \delta_L, [\varepsilon], F_L)$ avec $Q_L = \Sigma^* / {\sim_L}$ (ensemble des classes), $\delta_L([u], a) = [ua]$ (bien d&eacute;fini par compatibilit&eacute; &agrave; droite), $[\varepsilon]$ comme &eacute;tat initial, et $F_L = \{[u] : u \in L\}$ (bien d&eacute;fini car $u \sim_L v$ et $u \in L$ implique $v \in L$ en prenant $w = \varepsilon$). On v&eacute;rifie $\hat{\delta}_L([\varepsilon], w) = [w]$ par r&eacute;currence sur $|w|$ (cas de base : $\hat{\delta}_L([\varepsilon], \varepsilon) = [\varepsilon]$ ; pas : $\hat{\delta}_L([\varepsilon], wa) = \delta_L([w], a) = [wa]$). Donc $w \in L(\mathcal{A}_L)$ ssi $[w] \in F_L$ ssi $w \in L$.
+      <em>Minimalit&eacute;.</em> On a vu que pour tout DFA $\mathcal{A}$ reconnaissant $L$, $\equiv_\mathcal{A}$ raffine $\sim_L$, donc $|Q| \geq n$. Or $\mathcal{A}_L$ a exactement $n$ &eacute;tats. Donc $\mathcal{A}_L$ est un DFA de taille minimale.
+      <em>Unicit&eacute;.</em> Si $\mathcal{A}$ est un DFA reconnaissant $L$ avec $n$ &eacute;tats, alors $\equiv_\mathcal{A}$ a exactement $n$ classes et raffine $\sim_L$ qui en a aussi $n$, donc $\equiv_\mathcal{A}$ et $\sim_L$ co&iuml;ncident. L'application $\hat{\delta}(q_0, u) \mapsto [u]$ est un isomorphisme entre $\mathcal{A}$ et $\mathcal{A}_L$ (si tous les &eacute;tats de $\mathcal{A}$ sont accessibles).
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every regular language has, up to isomorphism, a unique minimal DFA (among DFAs whose states are all reachable). It is the Nerode automaton $\mathcal{A}_L$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout langage r&eacute;gulier admet, &agrave; isomorphisme pr&egrave;s, un unique DFA minimal (parmi les DFA dont tous les &eacute;tats sont accessibles). C'est l'automate de Nerode $\mathcal{A}_L$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Effective construction of the minimal automaton).</span> Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA whose states are all reachable. The minimal automaton is obtained by identifying <em>equivalent</em> states: $q \sim q'$ if $\forall w \in \Sigma^*$, $\hat{\delta}(q, w) \in F \iff \hat{\delta}(q', w) \in F$. This relation is computed by successive refinement: start with the partition $\{F, Q \setminus F\}$ and refine by distinguishing $q$ and $q'$ if there exists $a \in \Sigma$ such that $\delta(q, a)$ and $\delta(q', a)$ are not in the same block. Iterate until stabilization.</p>
+      <p class="fr"><span class="thm-label">Proposition (Construction effective de l'automate minimal).</span> Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA dont tous les &eacute;tats sont accessibles. L'automate minimal s'obtient en identifiant les &eacute;tats <em>&eacute;quivalents</em> : $q \sim q'$ si $\forall w \in \Sigma^*$, $\hat{\delta}(q, w) \in F \iff \hat{\delta}(q', w) \in F$. On calcule cette relation par raffinement successif : on part de la partition $\{F, Q \setminus F\}$ et on la raffine en distinguant $q$ et $q'$ s'il existe $a \in \Sigma$ tel que $\delta(q, a)$ et $\delta(q', a)$ ne sont pas dans le m&ecirc;me bloc. On it&egrave;re jusqu'&agrave; stabilisation.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Define $\sim_k$ by: $q \sim_0 q'$ iff $(q \in F \iff q' \in F)$, and $q \sim_{k+1} q'$ iff $q \sim_k q'$ and $\forall a \in \Sigma,\;\delta(q, a) \sim_k \delta(q', a)$. Clearly ${\sim_{k+1}} \subseteq {\sim_k}$. Since $Q$ is finite, there exists $k_0$ such that ${\sim_{k_0}} = {\sim_{k_0+1}}$. We show that ${\sim_{k_0}} = {\sim}$. The inclusion ${\sim} \subseteq {\sim_k}$ for all $k$ is immediate by induction. For the other direction, if $q \sim_{k_0} q'$, then for all $a$, $\delta(q, a) \sim_{k_0} \delta(q', a)$, so by induction on $|w|$, $\hat{\delta}(q, w) \sim_{k_0} \hat{\delta}(q', w)$ for all $w$, which implies $\hat{\delta}(q, w) \in F \iff \hat{\delta}(q', w) \in F$, so $q \sim q'$. The quotient $Q / {\sim}$ gives the minimal automaton.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On d&eacute;finit $\sim_k$ par : $q \sim_0 q'$ ssi $(q \in F \iff q' \in F)$, et $q \sim_{k+1} q'$ ssi $q \sim_k q'$ et $\forall a \in \Sigma,\;\delta(q, a) \sim_k \delta(q', a)$. Clairement ${\sim_{k+1}} \subseteq {\sim_k}$. Comme $Q$ est fini, il existe $k_0$ tel que ${\sim_{k_0}} = {\sim_{k_0+1}}$. Montrons que ${\sim_{k_0}} = {\sim}$. L'inclusion ${\sim} \subseteq {\sim_k}$ pour tout $k$ est imm&eacute;diate par r&eacute;currence. Pour l'autre sens, si $q \sim_{k_0} q'$, alors pour tout $a$, $\delta(q, a) \sim_{k_0} \delta(q', a)$, donc par r&eacute;currence sur $|w|$, $\hat{\delta}(q, w) \sim_{k_0} \hat{\delta}(q', w)$ pour tout $w$, ce qui implique $\hat{\delta}(q, w) \in F \iff \hat{\delta}(q', w) \in F$, donc $q \sim q'$. Le quotient $Q / {\sim}$ donne l'automate minimal.
+    </details>
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the language $L = \{w \in \{a,b\}^* : |w|_a \equiv 0 \pmod{3}\}$ (words containing a number of $a$'s divisible by $3$) is regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le langage $L = \{w \in \{a,b\}^* : |w|_a \equiv 0 \pmod{3}\}$ (mots contenant un nombre de $a$ divisible par $3$) est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We build the DFA $\mathcal{A} = (\{q_0, q_1, q_2\}, \{a,b\}, \delta, q_0, \{q_0\})$ with $\delta(q_i, a) = q_{(i+1) \bmod 3}$ and $\delta(q_i, b) = q_i$. The state $q_i$ means the number of $a$'s read is congruent to $i$ modulo $3$. So $\hat{\delta}(q_0, w) = q_{|w|_a \bmod 3}$, and $w \in L(\mathcal{A})$ iff $|w|_a \equiv 0 \pmod{3}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On construit le DFA $\mathcal{A} = (\{q_0, q_1, q_2\}, \{a,b\}, \delta, q_0, \{q_0\})$ avec $\delta(q_i, a) = q_{(i+1) \bmod 3}$ et $\delta(q_i, b) = q_i$. L'&eacute;tat $q_i$ signifie que le nombre de $a$ lus est congru &agrave; $i$ modulo $3$. Donc $\hat{\delta}(q_0, w) = q_{|w|_a \bmod 3}$, et $w \in L(\mathcal{A})$ ssi $|w|_a \equiv 0 \pmod{3}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{a^n : n \text{ is prime}\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{a^n : n \text{ est premier}\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. Let $q$ be a prime $\geq p$. The word $w = a^q \in L$ satisfies $|w| = q \geq p$. By the pumping lemma, $w = xyz$ with $|y| = m \geq 1$, $|xy| \leq p$. Then $|xy^{q+1} z| = q + qm = q(1 + m)$. This is a product of two integers $\geq 2$ ($q$ is prime $\geq 2$ and $1 + m \geq 2$), so it is not prime. Thus $xy^{q+1} z \notin L$, contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons $L$ r&eacute;gulier de longueur de pompage $p$. Soit $q$ un nombre premier $\geq p$. Le mot $w = a^q \in L$ v&eacute;rifie $|w| = q \geq p$. Par le lemme de l'&eacute;toile, $w = xyz$ avec $|y| = m \geq 1$, $|xy| \leq p$. Alors $|xy^{q+1} z| = q + qm = q(1 + m)$. C'est un produit de deux entiers $\geq 2$ ($q$ est premier $\geq 2$ et $1 + m \geq 2$), donc n'est pas premier. Ainsi $xy^{q+1} z \notin L$, contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{0^n 1^n 0^n : n \geq 0\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{0^n 1^n 0^n : n \geq 0\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. The word $w = 0^p 1^p 0^p \in L$ satisfies $|w| = 3p \geq p$. By the pumping lemma, $w = xyz$ with $|xy| \leq p$ and $|y| \geq 1$, so $y = 0^m$ with $1 \leq m \leq p$ (in the first block). Then $xy^0 z = 0^{p-m} 1^p 0^p \notin L$ since $p - m \neq p$. Contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons $L$ r&eacute;gulier de longueur de pompage $p$. Le mot $w = 0^p 1^p 0^p \in L$ v&eacute;rifie $|w| = 3p \geq p$. Par le lemme de l'&eacute;toile, $w = xyz$ avec $|xy| \leq p$ et $|y| \geq 1$, donc $y = 0^m$ avec $1 \leq m \leq p$ (dans le premier bloc). Alors $xy^0 z = 0^{p-m} 1^p 0^p \notin L$ car $p - m \neq p$. Contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{ww : w \in \{a,b\}^*\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{ww : w \in \{a,b\}^*\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. The word $w = a^p b a^p b \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$, $|y| \geq 1$, so $y = a^m$ ($1 \leq m \leq p$). The word $xy^2 z = a^{p+m} b a^p b$ has length $2p + 2 + m$. If $m$ is odd, this length is odd, so $xy^2 z \notin L$ (every element of $L$ has even length). If $m$ is even, $m = 2\ell$ with $\ell \geq 1$, each half has length $p + 1 + \ell$. Since $p + 1 + \ell \leq p + 2\ell$, the cut falls in the first block of $a$'s. The first half is $a^{p + 1 + \ell}$ (only $a$'s), the second is $a^{\ell - 1} b a^p b$ (contains $b$'s). They differ, so $xy^2 z \notin L$. Contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons $L$ r&eacute;gulier de longueur de pompage $p$. Le mot $w = a^p b a^p b \in L$ v&eacute;rifie $|w| \geq p$. Par le lemme, $w = xyz$ avec $|xy| \leq p$, $|y| \geq 1$, donc $y = a^m$ ($1 \leq m \leq p$). Le mot $xy^2 z = a^{p+m} b a^p b$ est de longueur $2p + 2 + m$. Si $m$ est impair, cette longueur est impaire, donc $xy^2 z \notin L$ (tout &eacute;l&eacute;ment de $L$ a longueur paire). Si $m$ est pair, $m = 2\ell$ avec $\ell \geq 1$, chaque moiti&eacute; a longueur $p + 1 + \ell$. Comme $p + 1 + \ell \leq p + 2\ell$, la coupure tombe dans le premier bloc de $a$. La premi&egrave;re moiti&eacute; est $a^{p + 1 + \ell}$ (uniquement des $a$), la seconde est $a^{\ell - 1} b a^p b$ (contient des $b$). Elles diff&egrave;rent, donc $xy^2 z \notin L$. Contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{a^{n^2} : n \geq 0\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{a^{n^2} : n \geq 0\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. The word $w = a^{p^2} \in L$ satisfies $|w| = p^2 \geq p$. By the pumping lemma, $w = xyz$ with $|y| = m \geq 1$ and $|xy| \leq p$. Then $|xy^2 z| = p^2 + m$. Since $1 \leq m \leq p$, we have $p^2 &lt; p^2 + m \leq p^2 + p &lt; p^2 + 2p + 1 = (p+1)^2$. So $p^2 + m$ lies strictly between two consecutive perfect squares, hence is not a perfect square, and $xy^2 z \notin L$. Contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons $L$ r&eacute;gulier de longueur de pompage $p$. Le mot $w = a^{p^2} \in L$ v&eacute;rifie $|w| = p^2 \geq p$. Par le lemme de l'&eacute;toile, $w = xyz$ avec $|y| = m \geq 1$ et $|xy| \leq p$. Alors $|xy^2 z| = p^2 + m$. Or $1 \leq m \leq p$, donc $p^2 &lt; p^2 + m \leq p^2 + p &lt; p^2 + 2p + 1 = (p+1)^2$. Ainsi $p^2 + m$ est strictement compris entre deux carr&eacute;s cons&eacute;cutifs, donc n'est pas un carr&eacute; parfait, et $xy^2 z \notin L$. Contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> For a word $w = a_1 \cdots a_n$, we write $w^R = a_n \cdots a_1$ for the <em>mirror word</em> of $w$. Let $L$ be a regular language. Show that $L^R = \{w^R : w \in L\}$ is regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Pour un mot $w = a_1 \cdots a_n$, on note $w^R = a_n \cdots a_1$ le <em>mot miroir</em> de $w$. Soit $L$ un langage r&eacute;gulier. Montrer que $L^R = \{w^R : w \in L\}$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. We build the NFA $\mathcal{A}^R = (Q, \Sigma, \delta^R, F, \{q_0\})$ by reversing all transitions: $(q', a, q) \in \delta^R$ iff $\delta(q, a) = q'$. The initial states of $\mathcal{A}^R$ are the accepting states of $\mathcal{A}$, and the sole accepting state is $q_0$.
+      We show that $L(\mathcal{A}^R) = L^R$. A word $a_1 \cdots a_n \in L$ iff there exists a path $q_0 \xrightarrow{a_1} r_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} r_n$ in $\mathcal{A}$ with $r_n \in F$. Reversing, $r_n \xrightarrow{a_n} r_{n-1} \xrightarrow{a_{n-1}} \cdots \xrightarrow{a_1} q_0$ is a path in $\mathcal{A}^R$ from $r_n \in F$ (initial state of $\mathcal{A}^R$) to $q_0$ (accepting state of $\mathcal{A}^R$), showing that $a_n \cdots a_1 \in L(\mathcal{A}^R)$. The argument is reversible.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$. On construit le NFA $\mathcal{A}^R = (Q, \Sigma, \delta^R, F, \{q_0\})$ en inversant toutes les transitions : $(q', a, q) \in \delta^R$ ssi $\delta(q, a) = q'$. Les &eacute;tats initiaux de $\mathcal{A}^R$ sont les &eacute;tats acceptants de $\mathcal{A}$, et l'unique &eacute;tat acceptant est $q_0$.
+      Montrons que $L(\mathcal{A}^R) = L^R$. Un mot $a_1 \cdots a_n \in L$ ssi il existe un chemin $q_0 \xrightarrow{a_1} r_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} r_n$ dans $\mathcal{A}$ avec $r_n \in F$. En inversant, $r_n \xrightarrow{a_n} r_{n-1} \xrightarrow{a_{n-1}} \cdots \xrightarrow{a_1} q_0$ est un chemin dans $\mathcal{A}^R$ depuis $r_n \in F$ (&eacute;tat initial de $\mathcal{A}^R$) vers $q_0$ (&eacute;tat acceptant de $\mathcal{A}^R$), ce qui montre $a_n \cdots a_1 \in L(\mathcal{A}^R)$. L'argument est r&eacute;versible.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Arden's lemma).</span> Let $A, B \subseteq \Sigma^*$ with $\varepsilon \notin A$. Show that the unique solution of the equation $X = AX \cup B$ is $X = A^* B$. Deduce a method for computing the language recognized by a finite automaton: to each state $q_i$ of a DFA $(Q, \Sigma, \delta, q_0, F)$, associate the language $L_i = \{w \in \Sigma^* : \hat{\delta}(q_i, w) \in F\}$, and solve the resulting system of equations. Apply this method to the DFA over $\Sigma = \{a, b\}$ with three states $\{0, 1, 2\}$, initial state $0$, accepting state $\{0\}$, with $\delta(0, a) = 1$, $\delta(0, b) = 0$, $\delta(1, a) = 2$, $\delta(1, b) = 0$, $\delta(2, a) = 2$, $\delta(2, b) = 2$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Lemme d'Arden).</span> Soit $A, B \subseteq \Sigma^*$ avec $\varepsilon \notin A$. Montrer que l'unique solution de l'&eacute;quation $X = AX \cup B$ est $X = A^* B$. En d&eacute;duire une m&eacute;thode pour calculer le langage reconnu par un automate fini : &agrave; chaque &eacute;tat $q_i$ d'un DFA $(Q, \Sigma, \delta, q_0, F)$ on associe le langage $L_i = \{w \in \Sigma^* : \hat{\delta}(q_i, w) \in F\}$, et on r&eacute;sout le syst&egrave;me d'&eacute;quations obtenu. Appliquer cette m&eacute;thode au DFA sur $\Sigma = \{a, b\}$ &agrave; trois &eacute;tats $\{0, 1, 2\}$, &eacute;tat initial $0$, &eacute;tat acceptant $\{0\}$, avec $\delta(0, a) = 1$, $\delta(0, b) = 0$, $\delta(1, a) = 2$, $\delta(1, b) = 0$, $\delta(2, a) = 2$, $\delta(2, b) = 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Verification.</em> $A^* B = A(A^* B) \cup B$ since $A^* = AA^* \cup \{\varepsilon\}$. So $X = A^* B$ is a solution.
+      <em>Uniqueness.</em> Let $X$ be a solution. By iterated substitution: $X = AX \cup B = A(AX \cup B) \cup B = A^2 X \cup AB \cup B$. By induction, $X = A^n X \cup \left(\bigcup_{k=0}^{n-1} A^k\right) B$ for all $n \geq 1$. Since $\varepsilon \notin A$, every word in $A$ has length $\geq 1$, so every word in $A^n$ has length $\geq n$. Let $w \in X$: if $w \in A^n X$ for all $n$, then $|w| \geq n$ for all $n$, which is impossible. So there exists $n$ such that $w \in \left(\bigcup_{k=0}^{n-1} A^k\right) B \subseteq A^* B$. Thus $X \subseteq A^* B$. The reverse inclusion follows from the fact that $A^* B$ is a solution and $X = AX \cup B \supseteq B$, then by induction $X \supseteq A^n B$ for all $n$, so $X \supseteq A^* B$.
+      <em>Application.</em> The system of equations is: $L_i = \bigcup_{a \in \Sigma} a \cdot L_{\delta(i, a)}$, with the term $\cup\;\{\varepsilon\}$ added if $i \in F$. Here: $L_0 = a \cdot L_1 \cup b \cdot L_0 \cup \{\varepsilon\}$, $L_1 = a \cdot L_2 \cup b \cdot L_0$, $L_2 = a \cdot L_2 \cup b \cdot L_2$.
+      By Arden on $L_2$: $L_2 = (a \cup b) L_2 \cup \varnothing$, so $L_2 = (a \cup b)^* \varnothing = \varnothing$. Then $L_1 = b \cdot L_0$. Substituting into $L_0$: $L_0 = ab \cdot L_0 \cup b \cdot L_0 \cup \{\varepsilon\} = (ab \cup b) L_0 \cup \{\varepsilon\}$. By Arden: $L_0 = (ab \cup b)^*$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>V&eacute;rification.</em> $A^* B = A(A^* B) \cup B$ car $A^* = AA^* \cup \{\varepsilon\}$. Donc $X = A^* B$ est solution.
+      <em>Unicit&eacute;.</em> Soit $X$ une solution. Par substitution it&eacute;r&eacute;e : $X = AX \cup B = A(AX \cup B) \cup B = A^2 X \cup AB \cup B$. Par r&eacute;currence, $X = A^n X \cup \left(\bigcup_{k=0}^{n-1} A^k\right) B$ pour tout $n \geq 1$. Comme $\varepsilon \notin A$, tout mot de $A$ a longueur $\geq 1$, donc tout mot de $A^n$ a longueur $\geq n$. Soit $w \in X$ : si $w \in A^n X$ pour tout $n$, alors $|w| \geq n$ pour tout $n$, ce qui est impossible. Donc il existe $n$ tel que $w \in \left(\bigcup_{k=0}^{n-1} A^k\right) B \subseteq A^* B$. Ainsi $X \subseteq A^* B$. L'inclusion r&eacute;ciproque vient de ce que $A^* B$ est solution et $X = AX \cup B \supseteq B$, puis par r&eacute;currence $X \supseteq A^n B$ pour tout $n$, donc $X \supseteq A^* B$.
+      <em>Application.</em> Le syst&egrave;me d'&eacute;quations est : $L_i = \bigcup_{a \in \Sigma} a \cdot L_{\delta(i, a)}$, avec le terme $\cup\;\{\varepsilon\}$ ajout&eacute; si $i \in F$. Ici : $L_0 = a \cdot L_1 \cup b \cdot L_0 \cup \{\varepsilon\}$, $L_1 = a \cdot L_2 \cup b \cdot L_0$, $L_2 = a \cdot L_2 \cup b \cdot L_2$.
+      Par Arden sur $L_2$ : $L_2 = (a \cup b) L_2 \cup \varnothing$, donc $L_2 = (a \cup b)^* \varnothing = \varnothing$. Alors $L_1 = b \cdot L_0$. En substituant dans $L_0$ : $L_0 = ab \cdot L_0 \cup b \cdot L_0 \cup \{\varepsilon\} = (ab \cup b) L_0 \cup \{\varepsilon\}$. Par Arden : $L_0 = (ab \cup b)^*$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Construct the minimal automaton of the DFA over $\Sigma = \{a, b\}$ with five states $\{1, 2, 3, 4, 5\}$, initial state $1$, accepting states $\{1, 4\}$, with $\delta(1, a) = 2$, $\delta(1, b) = 3$, $\delta(2, a) = 4$, $\delta(2, b) = 5$, $\delta(3, a) = 5$, $\delta(3, b) = 4$, $\delta(4, a) = 2$, $\delta(4, b) = 3$, $\delta(5, a) = 3$, $\delta(5, b) = 2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Construire l'automate minimal du DFA sur $\Sigma = \{a, b\}$ &agrave; cinq &eacute;tats $\{1, 2, 3, 4, 5\}$, &eacute;tat initial $1$, &eacute;tats acceptants $\{1, 4\}$, avec $\delta(1, a) = 2$, $\delta(1, b) = 3$, $\delta(2, a) = 4$, $\delta(2, b) = 5$, $\delta(3, a) = 5$, $\delta(3, b) = 4$, $\delta(4, a) = 2$, $\delta(4, b) = 3$, $\delta(5, a) = 3$, $\delta(5, b) = 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Initial partition</em>: $P_0 = \{A, B\}$ with $A = \{1, 4\}$ (accepting) and $B = \{2, 3, 5\}$.
+      <em>Refinement.</em> For $a$: $\delta(1, a) = 2 \in B$, $\delta(4, a) = 2 \in B$ (identical). For $b$: $\delta(1, b) = 3 \in B$, $\delta(4, b) = 3 \in B$. So $1$ and $4$ stay together.
+      For the states in $B$: $\delta(2, a) = 4 \in A$, $\delta(3, a) = 5 \in B$, $\delta(5, a) = 3 \in B$. So $2$ is distinguished from $3$ and $5$ on $a$. We get $P_1 = \{\{1, 4\}, \{2\}, \{3, 5\}\}$.
+      Check $\{3, 5\}$: $\delta(3, a) = 5 \in \{3,5\}$, $\delta(5, a) = 3 \in \{3,5\}$; $\delta(3, b) = 4 \in \{1,4\}$, $\delta(5, b) = 2 \in \{2\}$. We distinguish $3$ and $5$ on $b$. We get $P_2 = \{\{1, 4\}, \{2\}, \{3\}, \{5\}\}$.
+      Check $\{1, 4\}$: $\delta(1, a) = 2 \in \{2\}$, $\delta(4, a) = 2 \in \{2\}$; $\delta(1, b) = 3 \in \{3\}$, $\delta(4, b) = 3 \in \{3\}$. Stable. So $P_2$ is the final partition.
+      The minimal automaton has $4$ states: $[1] = \{1,4\}$, $[2] = \{2\}$, $[3] = \{3\}$, $[5] = \{5\}$, with initial state $[1]$, accepting state $[1]$, and transitions $\delta([1], a) = [2]$, $\delta([1], b) = [3]$, $\delta([2], a) = [1]$, $\delta([2], b) = [5]$, $\delta([3], a) = [5]$, $\delta([3], b) = [1]$, $\delta([5], a) = [3]$, $\delta([5], b) = [2]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Partition initiale</em> : $P_0 = \{A, B\}$ avec $A = \{1, 4\}$ (acceptants) et $B = \{2, 3, 5\}$.
+      <em>Raffinement.</em> Pour $a$ : $\delta(1, a) = 2 \in B$, $\delta(4, a) = 2 \in B$ (identiques). Pour $b$ : $\delta(1, b) = 3 \in B$, $\delta(4, b) = 3 \in B$. Donc $1$ et $4$ restent ensemble.
+      Pour les &eacute;tats de $B$ : $\delta(2, a) = 4 \in A$, $\delta(3, a) = 5 \in B$, $\delta(5, a) = 3 \in B$. Donc $2$ se distingue de $3$ et $5$ sur $a$. On obtient $P_1 = \{\{1, 4\}, \{2\}, \{3, 5\}\}$.
+      V&eacute;rifions $\{3, 5\}$ : $\delta(3, a) = 5 \in \{3,5\}$, $\delta(5, a) = 3 \in \{3,5\}$ ; $\delta(3, b) = 4 \in \{1,4\}$, $\delta(5, b) = 2 \in \{2\}$. On distingue $3$ et $5$ sur $b$. On obtient $P_2 = \{\{1, 4\}, \{2\}, \{3\}, \{5\}\}$.
+      V&eacute;rifions $\{1, 4\}$ : $\delta(1, a) = 2 \in \{2\}$, $\delta(4, a) = 2 \in \{2\}$ ; $\delta(1, b) = 3 \in \{3\}$, $\delta(4, b) = 3 \in \{3\}$. Stable. Donc $P_2$ est la partition finale.
+      L'automate minimal a $4$ &eacute;tats : $[1] = \{1,4\}$, $[2] = \{2\}$, $[3] = \{3\}$, $[5] = \{5\}$, avec &eacute;tat initial $[1]$, &eacute;tat acceptant $[1]$, et transitions $\delta([1], a) = [2]$, $\delta([1], b) = [3]$, $\delta([2], a) = [1]$, $\delta([2], b) = [5]$, $\delta([3], a) = [5]$, $\delta([3], b) = [1]$, $\delta([5], a) = [3]$, $\delta([5], b) = [2]$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the number of classes of the Nerode congruence for $L = \{w \in \{a,b\}^* : w \text{ contains } ab \text{ as a factor}\}$ and deduce the minimal automaton.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer le nombre de classes de la congruence de Nerode pour $L = \{w \in \{a,b\}^* : w \text{ contient } ab \text{ comme sous-mot}\}$ et en d&eacute;duire l'automate minimal.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      A word $u$ without the factor $ab$ has the form $b^* a^*$ (since after an $a$, every next character must be $a$, otherwise we create a factor $ab$). We distinguish three cases: (1) $u$ contains $ab$ as a factor, (2) $u \in b^* a^+$ (no factor $ab$, ends with $a$), (3) $u \in b^*$ (no factor $ab$, does not end with $a$).
+      <em>Class 1</em> ($u$ contains $ab$): for all $w \in \Sigma^*$, $uw$ contains $ab$, so $uw \in L$.
+      <em>Class 2</em> ($u \in b^* a^+$): $u$ ends with $a$, so $uw$ contains $ab$ iff $w$ starts with $b$ or $w$ contains $ab$. That is, $uw \in L \iff w \in b\Sigma^* \cup \Sigma^* ab \Sigma^*$.
+      <em>Class 3</em> ($u \in b^*$): the concatenation $uw$ does not create a factor $ab$ at the junction (since $u$ ends with $b$ or $u = \varepsilon$), so $uw \in L \iff w$ contains $ab$.
+      The three classes are distinct: with $w = \varepsilon$, class 1 gives $uw \in L$, classes 2 and 3 give $uw \notin L$; with $w = b$, class 2 gives $ub \in L$ (since $u$ ends with $a$), class 3 gives $ub \notin L$. So $\sim_L$ has exactly $3$ classes.
+      The minimal automaton has three states $\{q_0, q_1, q_2\}$: $q_0 = [\varepsilon]$ (class 3), $q_1 = [a]$ (class 2), $q_2 = [ab]$ (class 1). Initial state $q_0$, accepting state $q_2$. Transitions: $\delta(q_0, a) = q_1$, $\delta(q_0, b) = q_0$, $\delta(q_1, a) = q_1$, $\delta(q_1, b) = q_2$, $\delta(q_2, a) = q_2$, $\delta(q_2, b) = q_2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Un mot $u$ sans facteur $ab$ est de la forme $b^* a^*$ (car apr&egrave;s un $a$, tout caract&egrave;re suivant doit &ecirc;tre $a$, sinon on cr&eacute;e un facteur $ab$). On distingue donc trois cas : (1) $u$ contient $ab$ comme facteur, (2) $u \in b^* a^+$ (pas de facteur $ab$, se termine par $a$), (3) $u \in b^*$ (pas de facteur $ab$, ne se termine pas par $a$).
+      <em>Classe 1</em> ($u$ contient $ab$) : pour tout $w \in \Sigma^*$, $uw$ contient $ab$, donc $uw \in L$.
+      <em>Classe 2</em> ($u \in b^* a^+$) : $u$ se termine par $a$, donc $uw$ contient $ab$ ssi $w$ commence par $b$ ou $w$ contient $ab$. Autrement dit, $uw \in L \iff w \in b\Sigma^* \cup \Sigma^* ab \Sigma^*$.
+      <em>Classe 3</em> ($u \in b^*$) : la concat&eacute;nation $uw$ ne cr&eacute;e pas de facteur $ab$ &agrave; la jonction (car $u$ se termine par $b$ ou $u = \varepsilon$), donc $uw \in L \iff w$ contient $ab$.
+      Les trois classes se distinguent : avec $w = \varepsilon$, la classe 1 donne $uw \in L$, les classes 2 et 3 donnent $uw \notin L$ ; avec $w = b$, la classe 2 donne $ub \in L$ (car $u$ se termine par $a$), la classe 3 donne $ub \notin L$. Donc $\sim_L$ a exactement $3$ classes.
+      L'automate minimal a trois &eacute;tats $\{q_0, q_1, q_2\}$ : $q_0 = [\varepsilon]$ (classe 3), $q_1 = [a]$ (classe 2), $q_2 = [ab]$ (classe 1). &Eacute;tat initial $q_0$, &eacute;tat acceptant $q_2$. Transitions : $\delta(q_0, a) = q_1$, $\delta(q_0, b) = q_0$, $\delta(q_1, a) = q_1$, $\delta(q_1, b) = q_2$, $\delta(q_2, a) = q_2$, $\delta(q_2, b) = q_2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $L$ be a regular language over $\Sigma$ and $M$ an arbitrary language over $\Sigma$. Show that the <em>right quotient</em> $L / M = \{x \in \Sigma^* : \exists y \in M,\; xy \in L\}$ is regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $L$ un langage r&eacute;gulier sur $\Sigma$ et $M$ un langage quelconque sur $\Sigma$. Montrer que le <em>quotient droit</em> $L / M = \{x \in \Sigma^* : \exists y \in M,\; xy \in L\}$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. We build the DFA $\mathcal{A}' = (Q, \Sigma, \delta, q_0, F')$ with $F' = \{q \in Q : \exists y \in M,\; \hat{\delta}(q, y) \in F\}$. We only change the set of accepting states.
+      Then $x \in L(\mathcal{A}')$ iff $\hat{\delta}(q_0, x) \in F'$ iff $\exists y \in M,\; \hat{\delta}(\hat{\delta}(q_0, x), y) \in F$ iff $\exists y \in M,\; \hat{\delta}(q_0, xy) \in F$ iff $\exists y \in M,\; xy \in L$ iff $x \in L/M$. So $L(\mathcal{A}') = L/M$, which is regular. Note that $M$ need not be regular.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$. On construit le DFA $\mathcal{A}' = (Q, \Sigma, \delta, q_0, F')$ avec $F' = \{q \in Q : \exists y \in M,\; \hat{\delta}(q, y) \in F\}$. On ne change que l'ensemble des &eacute;tats acceptants.
+      Alors $x \in L(\mathcal{A}')$ ssi $\hat{\delta}(q_0, x) \in F'$ ssi $\exists y \in M,\; \hat{\delta}(\hat{\delta}(q_0, x), y) \in F$ ssi $\exists y \in M,\; \hat{\delta}(q_0, xy) \in F$ ssi $\exists y \in M,\; xy \in L$ ssi $x \in L/M$. Donc $L(\mathcal{A}') = L/M$, qui est r&eacute;gulier. Remarquer que $M$ n'a pas besoin d'&ecirc;tre r&eacute;gulier.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $L$ be a regular language over $\Sigma$. Show that $\sqrt{L} = \{w \in \Sigma^* : ww \in L\}$ is regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $L$ un langage r&eacute;gulier sur $\Sigma$. Montrer que $\sqrt{L} = \{w \in \Sigma^* : ww \in L\}$ est r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$ with $n = |Q|$. We build a DFA whose states encode both the progress of the first copy of $w$ and the effect of the second copy on every possible state.
+      Set $Q' = Q \times Q^Q$ where $Q^Q$ is the set of functions from $Q$ to $Q$. A state $(q, f)$ means: the first copy has reached state $q$, and for each hypothetical starting state $s$, the second copy would have reached state $f(s)$. The transitions are: $\delta'((q, f), a) = (\delta(q, a),\; s \mapsto \delta(f(s), a))$.
+      The initial state is $(q_0, \mathrm{id}_Q)$: the first copy starts from $q_0$, and the second has not read anything yet. The set of accepting states is $F' = \{(q, f) : f(q) \in F\}$: the second copy starts from the state $q$ reached by the first, and must arrive in $F$.
+      By induction on $|w|$, $\hat{\delta}'((q_0, \mathrm{id}_Q), w) = (\hat{\delta}(q_0, w),\; s \mapsto \hat{\delta}(s, w))$. So $w \in L(\mathcal{A}')$ iff $\hat{\delta}(\hat{\delta}(q_0, w), w) \in F$ iff $ww \in L$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ un DFA reconnaissant $L$ avec $n = |Q|$. On construit un DFA dont les &eacute;tats encodent &agrave; la fois la progression de la premi&egrave;re copie de $w$ et l'effet de la seconde copie sur chaque &eacute;tat possible.
+      On pose $Q' = Q \times Q^Q$ o&ugrave; $Q^Q$ est l'ensemble des fonctions de $Q$ dans $Q$. Un &eacute;tat $(q, f)$ signifie : la premi&egrave;re copie a atteint l'&eacute;tat $q$, et pour chaque &eacute;tat de d&eacute;part hypoth&eacute;tique $s$, la seconde copie aurait atteint l'&eacute;tat $f(s)$. Les transitions sont : $\delta'((q, f), a) = (\delta(q, a),\; s \mapsto \delta(f(s), a))$.
+      L'&eacute;tat initial est $(q_0, \mathrm{id}_Q)$ : la premi&egrave;re copie part de $q_0$, et la seconde n'a encore rien lu. L'ensemble des &eacute;tats acceptants est $F' = \{(q, f) : f(q) \in F\}$ : la seconde copie part de l'&eacute;tat $q$ atteint par la premi&egrave;re, et doit arriver dans $F$.
+      Par r&eacute;currence sur $|w|$, $\hat{\delta}'((q_0, \mathrm{id}_Q), w) = (\hat{\delta}(q_0, w),\; s \mapsto \hat{\delta}(s, w))$. Donc $w \in L(\mathcal{A}')$ ssi $\hat{\delta}(\hat{\delta}(q_0, w), w) \in F$ ssi $ww \in L$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

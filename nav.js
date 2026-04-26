@@ -14,7 +14,6 @@
     ]},
     { en: "Computer Science", fr: "Informatique", columns: [
       [
-        { href: "cs/theory/logic.html", en: "Logic", fr: "Logique" },
         { href: "cs/theory/automata.html", en: "Automata", fr: "Automates" },
       ]
     ]},
