@@ -239,7 +239,7 @@ def insertion_cost(distances, i, j, k):
     city = randrange(1, len(cities))
     current, tour, tour_length = city, [city], 0
     while len(tour) != len(cities):
-        arg_min, edge_length = closest_neighbor(tour, current)
+        arg_min, edge_length = closest_neighbor(distances, tour, current)
         tour_length += edge_length
         tour.append(arg_min)
         current = arg_min
@@ -253,7 +253,7 @@ def insertion_cost(distances, i, j, k):
     city = randrange(1, len(cities))
     tour = [city]
     # find the closest (or farthest) node to the first node
-    neighbor, length = closest_neighbor(tour, city, False, farthest)
+    neighbor, length = closest_neighbor(distances, tour, city, False, farthest)
     tour.append(neighbor)
     while len(tour) != len(cities):
         best, dist = None, 0 if farthest else float('inf')
@@ -262,7 +262,7 @@ def insertion_cost(distances, i, j, k):
         for candidate in cities:
             if candidate in tour:
                 continue
-            _, length = closest_neighbor(tour, candidate, True)
+            _, length = closest_neighbor(distances, tour, candidate, True)
             if (length > dist if farthest else length < dist):
                 best, dist = candidate, length
         # insertion step: find the edge (i, j) in the sub-tour which
@@ -283,7 +283,7 @@ def insertion_cost(distances, i, j, k):
     city = randrange(1, len(cities))
     tour = [city]
     # start with the nearest neighbor
-    neighbor, length = closest_neighbor(tour, city)
+    neighbor, length = closest_neighbor(distances, tour, city)
     tour.append(neighbor)
     while len(tour) != len(cities):
         # find the (city, position) pair whose insertion
