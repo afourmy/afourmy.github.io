@@ -296,7 +296,7 @@ def insertion_cost(distances, i, j, k):
                 dist = insertion_cost(distances, tour[i], tour[j], candidate)
                 if dist < best_dist:
                     best_dist = dist
-                    new_tour = tour[: i + 1] + [candidate] + tour[i + 1 :]
+                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
         tour = new_tour
     return tour</code></pre>
 
