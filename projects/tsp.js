@@ -543,7 +543,7 @@
   }
 
   function clearInstance(inst) {
-    if (inst.timer) { clearInterval(inst.timer); inst.timer = null; }
+    if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
     for (var i = 0; i < inst.markers.length; i++) inst.map.removeLayer(inst.markers[i]);
     if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
     inst.markers = [];
@@ -570,7 +570,7 @@
   }
 
   function runOn(inst, id) {
-    if (inst.timer) { clearInterval(inst.timer); inst.timer = null; }
+    if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
     if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
 
     if (inst.cities.length < 3) {
@@ -582,7 +582,6 @@
     var result = algorithms[id](inst.cities, dist);
     var steps = result.steps, lengths = result.lengths;
     var speedEl = document.getElementById("tsp-" + id).querySelector(".tsp-speed");
-    var speed = speedEl ? parseInt(speedEl.value, 10) : 300;
     var idx = 0;
 
     inst.tourLine = L.polyline(steps[0], {
@@ -591,10 +590,10 @@
     inst.updateStatus("Step 1 / " + steps.length +
       " | Tour: " + Math.round(lengths[0]) + " km");
 
-    inst.timer = setInterval(function () {
+    function tick() {
       idx++;
       if (idx >= steps.length) {
-        clearInterval(inst.timer); inst.timer = null;
+        inst.timer = null;
         inst.updateStatus("Done | " + steps.length + " steps | Tour: " +
           Math.round(lengths[lengths.length - 1]) + " km");
         return;
@@ -602,7 +601,10 @@
       inst.tourLine.setLatLngs(steps[idx]);
       inst.updateStatus("Step " + (idx + 1) + " / " + steps.length +
         " | Tour: " + Math.round(lengths[idx]) + " km");
-    }, speed);
+      var curSpeed = speedEl ? parseInt(speedEl.value, 10) : 300;
+      inst.timer = setTimeout(tick, curSpeed);
+    }
+    inst.timer = setTimeout(tick, speedEl ? parseInt(speedEl.value, 10) : 300);
   }
 
   // ── Init all sections ──
