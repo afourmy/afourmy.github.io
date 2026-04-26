@@ -223,10 +223,14 @@
 
     <pre><code class="language-python">def closest_neighbor(distances, tour, node, in_tour=False, farthest=False):
     """Find the closest (or farthest) neighbor to a node,
-    among cities in the tour or not yet visited."""
+    among cities in the tour or not yet visited.
+    """
     neighbors = distances[node]
-    candidates = [(c, d) for c, d in neighbors.items()
-                  if (c in tour if in_tour else c not in tour)]
+    candidates = [
+        (c, d)
+        for c, d in neighbors.items()
+        if (c in tour if in_tour else c not in tour)
+    ]
     return sorted(candidates, key=lambda x: x[1])[-1 if farthest else 0]
 
 def insertion_cost(distances, i, j, k):
@@ -292,7 +296,7 @@ def insertion_cost(distances, i, j, k):
                 dist = insertion_cost(distances, tour[i], tour[j], candidate)
                 if dist < best_dist:
                     best_dist = dist
-                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
+                    new_tour = tour[: i + 1] + [candidate] + tour[i + 1 :]
         tour = new_tour
     return tour</code></pre>
 
