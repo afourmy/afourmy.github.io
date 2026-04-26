@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traveling Salesman Problem</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Traveling Salesman Problem</h1>
+
+    <p>
+      The Traveling Salesman Problem (TSP) asks the following question: given a list of cities
+      and the distances between each pair, what is the shortest possible route that visits every
+      city exactly once and returns to the starting city?
+    </p>
+    <p>
+      This is one of the most studied problems in combinatorial optimization. It is NP-hard,
+      meaning that no efficient algorithm is known for solving it exactly in all cases. In practice,
+      heuristics are used to find good (though not necessarily optimal) solutions.
+    </p>
+
+    <h2>Interactive map</h2>
+
+    <p>
+      Click on the map to place cities, or generate a random set. Then run any of the
+      construction heuristics below to watch the algorithm build a tour step by step.
+    </p>
+
+    <div class="tsp-controls">
+      <button onclick="TSP.generateRandom(20)">20 random cities</button>
+      <button onclick="TSP.generateRandom(40)">40 random cities</button>
+      <button onclick="TSP.clear()">Clear</button>
+      <label>
+        Speed
+        <select id="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select>
+      </label>
+      <span class="tsp-info">Cities: <strong id="tsp-city-count">0</strong></span>
+    </div>
+
+    <div id="tsp-map"></div>
+    <div id="tsp-status"></div>
+
+    <div class="tsp-algo-buttons">
+      <button onclick="TSP.runNearestNeighbor()">Nearest Neighbor</button>
+      <button onclick="TSP.runNearestInsertion()">Nearest Insertion</button>
+      <button onclick="TSP.runCheapestInsertion()">Cheapest Insertion</button>
+      <button onclick="TSP.runFarthestInsertion()">Farthest Insertion</button>
+    </div>
+
+    <h2>Construction heuristics</h2>
+
+    <p>
+      Construction heuristics build a tour from scratch by adding one city at a time.
+      They are fast and produce reasonable solutions, which can then be improved with
+      optimization techniques. The four algorithms below differ in how they choose which
+      city to add next, and where to insert it in the partial tour.
+    </p>
+
+    <h3>Nearest Neighbor</h3>
+
+    <p>The simplest construction heuristic. It is greedy: at each step, it travels to the closest unvisited city.</p>
+
+    <ol>
+      <li>Start from a random city.</li>
+      <li>Travel to the nearest unvisited city.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <p>
+      This algorithm is fast ($$O(n^2)$$) but tends to produce tours with
+      crossing edges, especially toward the end when few cities remain and the nearest
+      one may be far away.
+    </p>
+
+    <h3>Nearest Insertion</h3>
+
+    <p>
+      Instead of building a path one edge at a time, insertion heuristics maintain a partial tour
+      (a closed loop) and repeatedly insert a new city into it. Nearest insertion selects the
+      unvisited city that is closest to any city already in the tour.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a random city and its nearest neighbor.</li>
+      <li><strong>Selection:</strong> find the unvisited city <em>k</em> that minimizes
+        $$d(k, j)$$ for some city <em>j</em> already in the tour.</li>
+      <li><strong>Insertion:</strong> find the edge $$(i, j)$$ in the tour such that inserting
+        <em>k</em> between <em>i</em> and <em>j</em> causes the smallest increase in tour length,
+        i.e. minimizes $$d(i, k) + d(k, j) - d(i, j)$$.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <h3>Cheapest Insertion</h3>
+
+    <p>
+      Cheapest insertion considers all unvisited cities and all possible positions at once.
+      It picks the (city, position) pair that results in the smallest increase in tour length.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a random city and its nearest neighbor.</li>
+      <li>Among all unvisited cities <em>k</em> and all edges $$(i, j)$$ in the tour,
+        find the combination that minimizes $$d(i, k) + d(k, j) - d(i, j)$$.</li>
+      <li>Insert <em>k</em> between <em>i</em> and <em>j</em>.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <p>
+      This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
+      shorter tours because it makes globally cheaper choices at each step.
+    </p>
+
+    <h3>Farthest Insertion</h3>
+
+    <p>
+      Farthest insertion works like nearest insertion, but with the opposite selection strategy:
+      it picks the city that is <em>farthest</em> from any city in the tour. The intuition is that
+      by incorporating distant outliers first, the tour quickly takes on a shape resembling the
+      convex hull of the point set, and later insertions only fill in the interior.
+    </p>
+
+    <ol>
+      <li>Start with a tour consisting of a random city and its nearest neighbor.</li>
+      <li><strong>Selection:</strong> find the unvisited city <em>k</em> that maximizes
+        $$\min_{j \in \text{tour}} d(k, j)$$.</li>
+      <li><strong>Insertion:</strong> insert <em>k</em> at the position in the tour that causes
+        the smallest increase in length.</li>
+      <li>Repeat until every city has been visited.</li>
+    </ol>
+
+    <p>
+      Despite its counterintuitive selection rule, farthest insertion is one of the best
+      construction heuristics. It tends to avoid the crossing edges that plague nearest
+      neighbor and often outperforms the other insertion variants.
+    </p>
+
+  </main>
+
+  <script src="tsp.js"></script>
+  <script>TSP.init();</script>
+</body>
+</html>
