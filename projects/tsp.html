@@ -35,39 +35,6 @@
       heuristics are used to find good (though not necessarily optimal) solutions.
     </p>
 
-    <h2>Interactive map</h2>
-
-    <p>
-      Click on the map to place cities, or generate a random set. Then run any of the
-      construction heuristics below to watch the algorithm build a tour step by step.
-    </p>
-
-    <div class="tsp-controls">
-      <button onclick="TSP.generateRandom(20)">20 random cities</button>
-      <button onclick="TSP.generateRandom(40)">40 random cities</button>
-      <button onclick="TSP.clear()">Clear</button>
-      <label>
-        Speed
-        <select id="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select>
-      </label>
-      <span class="tsp-info">Cities: <strong id="tsp-city-count">0</strong></span>
-    </div>
-
-    <div id="tsp-map"></div>
-    <div id="tsp-status"></div>
-
-    <div class="tsp-algo-buttons">
-      <button onclick="TSP.runNearestNeighbor()">Nearest Neighbor</button>
-      <button onclick="TSP.runNearestInsertion()">Nearest Insertion</button>
-      <button onclick="TSP.runCheapestInsertion()">Cheapest Insertion</button>
-      <button onclick="TSP.runFarthestInsertion()">Farthest Insertion</button>
-    </div>
-
     <h2>Construction heuristics</h2>
 
     <p>
@@ -76,6 +43,13 @@
       optimization techniques. The four algorithms below differ in how they choose which
       city to add next, and where to insert it in the partial tour.
     </p>
+    <p>
+      All maps below share the same set of cities. Click on any map to add a city,
+      or use the buttons to generate a random set. Then press <strong>Run</strong> to
+      watch the algorithm build its tour step by step.
+    </p>
+
+    <!-- ── Nearest Neighbor ── -->
 
     <h3>Nearest Neighbor</h3>
 
@@ -92,6 +66,25 @@
       crossing edges, especially toward the end when few cities remain and the nearest
       one may be far away.
     </p>
+
+    <div class="tsp-section" id="tsp-nearest-neighbor">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">Run</button>
+        <button class="tsp-btn-random">New random cities</button>
+        <button class="tsp-btn-clear">Clear</button>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <!-- ── Nearest Insertion ── -->
 
     <h3>Nearest Insertion</h3>
 
@@ -110,6 +103,25 @@
         i.e. minimizes $$d(i, k) + d(k, j) - d(i, j)$$.</li>
       <li>Repeat until every city has been visited.</li>
     </ol>
+
+    <div class="tsp-section" id="tsp-nearest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">Run</button>
+        <button class="tsp-btn-random">New random cities</button>
+        <button class="tsp-btn-clear">Clear</button>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <!-- ── Cheapest Insertion ── -->
 
     <h3>Cheapest Insertion</h3>
 
@@ -130,6 +142,25 @@
       This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
       shorter tours because it makes globally cheaper choices at each step.
     </p>
+
+    <div class="tsp-section" id="tsp-cheapest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">Run</button>
+        <button class="tsp-btn-random">New random cities</button>
+        <button class="tsp-btn-clear">Clear</button>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <!-- ── Farthest Insertion ── -->
 
     <h3>Farthest Insertion</h3>
 
@@ -154,6 +185,23 @@
       construction heuristics. It tends to avoid the crossing edges that plague nearest
       neighbor and often outperforms the other insertion variants.
     </p>
+
+    <div class="tsp-section" id="tsp-farthest-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">Run</button>
+        <button class="tsp-btn-random">New random cities</button>
+        <button class="tsp-btn-clear">Clear</button>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
 
   </main>
 
