@@ -483,9 +483,7 @@
 
     var inst = { markers: [], tourLine: null, timer: null, cities: [] };
 
-    inst.map = L.map(container.querySelector(".tsp-map"), {
-      scrollWheelZoom: false
-    }).setView([39.5, -98.35], 4);
+    inst.map = L.map(container.querySelector(".tsp-map")).setView([39.5, -98.35], 4);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
