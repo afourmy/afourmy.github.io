@@ -227,9 +227,9 @@
     """
     neighbors = distances[node]
     candidates = [
-        (c, d)
-        for c, d in neighbors.items()
-        if (c in tour if in_tour else c not in tour)
+        (city, dist)
+        for city, dist in neighbors.items()
+        if (city in tour if in_tour else city not in tour)
     ]
     return sorted(candidates, key=lambda x: x[1])[-1 if farthest else 0]
 
@@ -258,7 +258,7 @@ def insertion_cost(distances, i, j, k):
     tour = [city]
     select = max if farthest else min
     # min_dist[c] = distance from c to its nearest tour city
-    min_dist = {c: distances[c][city] for c in cities if c != city}
+    min_dist = {node: distances[node][city] for node in cities if node != city}
     while min_dist:
         # selection: pick closest (or farthest) city to the tour
         best = select(min_dist, key=min_dist.get)
@@ -272,8 +272,8 @@ def insertion_cost(distances, i, j, k):
         tour.insert(index + 1, best)
         del min_dist[best]
         # update distances with the newly added city
-        for c in min_dist:
-            min_dist[c] = min(min_dist[c], distances[c][best])
+        for node in min_dist:
+            min_dist[node] = min(min_dist[node], distances[node][best])
     return tour</code></pre>
 
     <h3>Cheapest Insertion</h3>
