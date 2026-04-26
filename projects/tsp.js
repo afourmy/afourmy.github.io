@@ -495,7 +495,11 @@
     var statusEl = container.querySelector(".tsp-status");
     var countEl = container.querySelector(".tsp-city-count");
 
-    inst.updateStatus = function (t) { if (statusEl) statusEl.textContent = t; };
+    inst.updateStatus = function (left, right) {
+      if (!statusEl) return;
+      if (arguments.length === 0) { statusEl.innerHTML = ""; return; }
+      statusEl.innerHTML = "<span>" + left + "</span><span>" + right + "</span>";
+    };
     inst.updateCount = function () { if (countEl) countEl.textContent = inst.cities.length; };
 
     var datasetSelect = container.querySelector(".tsp-dataset");
@@ -545,7 +549,7 @@
     inst.markers = [];
     inst.cities = [];
     inst.updateCount();
-    inst.updateStatus("");
+    inst.updateStatus();
   }
 
   function syncOthers(source) {
@@ -583,20 +587,20 @@
     inst.tourLine = L.polyline(steps[0], {
       color: "#c44", weight: 2.5, opacity: 0.85
     }).addTo(inst.map);
-    inst.updateStatus("Step 1 / " + steps.length +
-      " | Tour: " + Math.round(lengths[0]) + " km");
+    inst.updateStatus("Step 1 / " + steps.length,
+      "Tour: " + Math.round(lengths[0]) + " km");
 
     function tick() {
       idx++;
       if (idx >= steps.length) {
         inst.timer = null;
-        inst.updateStatus("Done | " + steps.length + " steps | Tour: " +
-          Math.round(lengths[lengths.length - 1]) + " km");
+        inst.updateStatus("Done | " + steps.length + " steps",
+          "Tour: " + Math.round(lengths[lengths.length - 1]) + " km");
         return;
       }
       inst.tourLine.setLatLngs(steps[idx]);
-      inst.updateStatus("Step " + (idx + 1) + " / " + steps.length +
-        " | Tour: " + Math.round(lengths[idx]) + " km");
+      inst.updateStatus("Step " + (idx + 1) + " / " + steps.length,
+        "Tour: " + Math.round(lengths[idx]) + " km");
       var curSpeed = speedEl ? parseInt(speedEl.value, 10) : 300;
       inst.timer = setTimeout(tick, curSpeed);
     }
