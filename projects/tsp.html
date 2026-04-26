@@ -263,13 +263,13 @@ def insertion_cost(distances, i, j, k):
         # selection: pick closest (or farthest) city to the tour
         best = select(min_dist, key=min_dist.get)
         # insertion: find the position that minimizes tour length increase
-        index, best_cost = None, float('inf')
+        best_position, best_cost = None, float('inf')
         for i in range(len(tour)):
             j = (i + 1) % len(tour)
             cost = insertion_cost(distances, tour[i], tour[j], best)
             if cost < best_cost:
-                index, best_cost = i, cost
-        tour.insert(index + 1, best)
+                best_position, best_cost = i, cost
+        tour.insert(best_position + 1, best)
         del min_dist[best]
         # update distances with the newly added city
         for node in min_dist:
