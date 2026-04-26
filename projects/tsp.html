@@ -292,8 +292,9 @@ def insertion_cost(distances, i, j, k):
         for candidate in cities:
             if candidate in tour:
                 continue
-            for i in range(len(tour) - 1):
-                dist = insertion_cost(distances, tour[i], tour[i + 1], candidate)
+            for i in range(len(tour)):
+                j = (i + 1) % len(tour)
+                dist = insertion_cost(distances, tour[i], tour[j], candidate)
                 if dist < best_dist:
                     best_dist = dist
                     new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
