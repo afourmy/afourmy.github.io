@@ -1,26 +1,13 @@
 (function () {
   var menu = [
-    { en: "Mathematics", fr: "Math\u00e9matiques", cssClass: "submenu-sections", columns: [
+    { en: "Mathematics", fr: "Math\u00e9matiques", columns: [
       [
         { href: "math/l1/bases.html", en: "Foundations", fr: "Bases" },
-        { href: "math/l1/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
-        { href: "math/l1/arithmetique.html", en: "Arithmetic", fr: "Arithm\u00e9tique" },
-        { href: "math/l1/fonctions_usuelles.html", en: "Usual Functions", fr: "Fonctions usuelles" },
-        { href: "math/l1/polynomes.html", en: "Polynomials", fr: "Polyn\u00f4mes" },
-        { href: "math/l1/suites.html", en: "Sequences", fr: "Suites" },
-        { href: "math/l1/continuite.html", en: "Continuity", fr: "Continuit\u00e9" },
-        { href: "math/l1/derivation.html", en: "Differentiation", fr: "D\u00e9rivation" },
-        { href: "math/l1/denombrement.html", en: "Combinatorics", fr: "D\u00e9nombrement" },
-      ],
-      [
-        { href: "math/l1/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },
         { href: "math/l1/groups.html", en: "Groups", fr: "Groupes" },
         { href: "math/l1/anneaux_corps.html", en: "Rings & Fields", fr: "Anneaux & Corps" },
-        { href: "math/l1/algebre_lineaire.html", en: "Linear Algebra", fr: "Alg\u00e8bre lin\u00e9aire" },
-        { href: "math/l1/matrices.html", en: "Matrices", fr: "Matrices" },
-        { href: "math/l1/determinant.html", en: "Determinants", fr: "D\u00e9terminants" },
-        { href: "math/l2/algebra.html", en: "Algebra", fr: "Alg\u00e8bre" },
-        { href: "math/l2/analysis.html", en: "Analysis", fr: "Analyse" },
+        { href: "math/l1/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },
+        { href: "math/l1/denombrement.html", en: "Combinatorics", fr: "D\u00e9nombrement" },
+        { href: "math/l1/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
       ]
     ]},
     { en: "Computer Science", fr: "Informatique", columns: [
