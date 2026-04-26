@@ -370,35 +370,27 @@
   function nearestInsertion(cities, dist, farthest) {
     var n = cities.length;
     var start = Math.floor(Math.random() * n);
-    var inTour = new Array(n).fill(false);
-    inTour[start] = true;
     var tour = [start];
     var steps = [], lengths = [];
 
-    var bestN = -1, bestND = farthest ? -1 : Infinity;
-    for (var j = 0; j < n; j++) {
-      if (j === start) continue;
-      if (farthest ? dist[start][j] > bestND : dist[start][j] < bestND) {
-        bestND = dist[start][j]; bestN = j;
-      }
+    // minDist[c] = distance from c to its nearest tour city
+    var minDist = new Array(n);
+    var inTour = new Array(n).fill(false);
+    inTour[start] = true;
+    for (var c = 0; c < n; c++) {
+      minDist[c] = inTour[c] ? -1 : dist[c][start];
     }
-    tour.push(bestN);
-    inTour[bestN] = true;
-    steps.push(formatTour(tour, cities));
-    lengths.push(tourLength(tour, dist));
 
     while (tour.length < n) {
+      // selection: pick closest (or farthest) city to the tour
       var bestCity = -1, bestCityDist = farthest ? -1 : Infinity;
       for (var c = 0; c < n; c++) {
         if (inTour[c]) continue;
-        var minToTour = Infinity;
-        for (var t = 0; t < tour.length; t++) {
-          if (dist[c][tour[t]] < minToTour) minToTour = dist[c][tour[t]];
-        }
-        if (farthest ? minToTour > bestCityDist : minToTour < bestCityDist) {
-          bestCityDist = minToTour; bestCity = c;
+        if (farthest ? minDist[c] > bestCityDist : minDist[c] < bestCityDist) {
+          bestCityDist = minDist[c]; bestCity = c;
         }
       }
+      // insertion: find the position that minimizes tour length increase
       var bestPos = 0, bestInsCost = Infinity;
       for (var i = 0; i < tour.length; i++) {
         var next = (i + 1) % tour.length;
@@ -409,6 +401,12 @@
       inTour[bestCity] = true;
       steps.push(formatTour(tour, cities));
       lengths.push(tourLength(tour, dist));
+      // update minDist with the newly added city
+      for (var c = 0; c < n; c++) {
+        if (!inTour[c] && dist[c][bestCity] < minDist[c]) {
+          minDist[c] = dist[c][bestCity];
+        }
+      }
     }
     return { steps: steps, lengths: lengths };
   }

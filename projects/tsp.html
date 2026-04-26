@@ -252,29 +252,29 @@ def insertion_cost(distances, i, j, k):
     <pre><code class="language-python">def nearest_insertion(cities, distances, farthest=False):
     city = randrange(1, len(cities))
     tour = [city]
-    # find the closest (or farthest) node to the first node
-    neighbor, length = closest_neighbor(distances, tour, city, False, farthest)
-    tour.append(neighbor)
-    while len(tour) != len(cities):
-        best, dist = None, 0 if farthest else float('inf')
-        # selection step: find the node closest to (or farthest from)
-        # any node already in the sub-tour
-        for candidate in cities:
-            if candidate in tour:
-                continue
-            _, length = closest_neighbor(distances, tour, candidate, True)
-            if (length > dist if farthest else length < dist):
-                best, dist = candidate, length
-        # insertion step: find the edge (i, j) in the sub-tour which
-        # minimizes d(i, k) + d(k, j) - d(i, j)
-        index, dist = None, float('inf')
-        tour = tour + [tour[0]]
-        for i in range(len(tour) - 1):
-            cost = insertion_cost(distances, tour[i], tour[i + 1], best)
-            if cost < dist:
-                index, dist = i, cost
+    select = max if farthest else min
+
+    # min_dist[c] = distance from c to its nearest tour city
+    min_dist = {c: distances[c][city] for c in cities if c != city}
+
+    while min_dist:
+        # selection: pick closest (or farthest) city to the tour
+        best = select(min_dist, key=min_dist.get)
+
+        # insertion: find the position that minimizes tour length increase
+        index, best_cost = None, float('inf')
+        for i in range(len(tour)):
+            j = (i + 1) % len(tour)
+            cost = insertion_cost(distances, tour[i], tour[j], best)
+            if cost < best_cost:
+                index, best_cost = i, cost
         tour.insert(index + 1, best)
-        tour = tour[:-1]
+        del min_dist[best]
+
+        # update distances with the newly added city
+        for c in min_dist:
+            min_dist[c] = min(min_dist[c], distances[c][best])
+
     return tour</code></pre>
 
     <h3>Cheapest Insertion</h3>
