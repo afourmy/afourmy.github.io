@@ -219,6 +219,20 @@
       The code below shows the core logic for each construction heuristic.
     </p>
 
+    <h3>Helper functions</h3>
+
+    <pre><code class="language-python">def closest_neighbor(distances, tour, node, in_tour=False, farthest=False):
+    """Find the closest (or farthest) neighbor to a node,
+    among cities in the tour or not yet visited."""
+    neighbors = distances[node]
+    candidates = [(c, d) for c, d in neighbors.items()
+                  if (c in tour if in_tour else c not in tour)]
+    return sorted(candidates, key=lambda x: x[1])[-1 if farthest else 0]
+
+def insertion_cost(distances, i, j, k):
+    """Cost of inserting node k between nodes i and j."""
+    return distances[i][k] + distances[k][j] - distances[i][j]</code></pre>
+
     <h3>Nearest Neighbor</h3>
 
     <pre><code class="language-python">def nearest_neighbor(cities, distances):
