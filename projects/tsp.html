@@ -55,12 +55,6 @@
       <li>Repeat until every city has been visited.</li>
     </ol>
 
-    <p>
-      This algorithm is fast ($$O(n^2)$$) but tends to produce tours with
-      crossing edges, especially toward the end when few cities remain and the nearest
-      one may be far away.
-    </p>
-
     <div class="tsp-section" id="tsp-nearest-neighbor">
       <div class="tsp-controls">
         <button class="tsp-btn-run">Run</button>
@@ -80,6 +74,12 @@
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
     </div>
+
+    <p>
+      This algorithm is fast ($$O(n^2)$$) but tends to produce tours with
+      crossing edges, especially toward the end when few cities remain and the nearest
+      one may be far away.
+    </p>
 
     <!-- ── Nearest Insertion ── -->
 
@@ -138,11 +138,6 @@
       <li>Repeat until every city has been visited.</li>
     </ol>
 
-    <p>
-      This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
-      shorter tours because it makes globally cheaper choices at each step.
-    </p>
-
     <div class="tsp-section" id="tsp-cheapest-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">Run</button>
@@ -162,6 +157,11 @@
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
     </div>
+
+    <p>
+      This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
+      shorter tours because it makes globally cheaper choices at each step.
+    </p>
 
     <!-- ── Farthest Insertion ── -->
 
@@ -183,12 +183,6 @@
       <li>Repeat until every city has been visited.</li>
     </ol>
 
-    <p>
-      Despite its counterintuitive selection rule, farthest insertion is one of the best
-      construction heuristics. It tends to avoid the crossing edges that plague nearest
-      neighbor and often outperforms the other insertion variants.
-    </p>
-
     <div class="tsp-section" id="tsp-farthest-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">Run</button>
@@ -208,6 +202,12 @@
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
     </div>
+
+    <p>
+      Despite its counterintuitive selection rule, farthest insertion is one of the best
+      construction heuristics. It tends to avoid the crossing edges that plague nearest
+      neighbor and often outperforms the other insertion variants.
+    </p>
 
   </main>
 
