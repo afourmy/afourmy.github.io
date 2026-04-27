@@ -14,7 +14,7 @@
     ]},
     { en: "Computer Science", fr: "Informatique", columns: [
       [
-        { href: "cs/theory/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
+        { href: "cs/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
       ]
     ]},
     { en: "Algorithmics", fr: "Algorithmique", columns: [
