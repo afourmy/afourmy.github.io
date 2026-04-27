@@ -261,16 +261,6 @@
       Alors $|y| = j - i \geq 1$, $|xy| = j \leq p$, et pour tout $k \geq 0$ : la lecture de $xy^k z$ part de $q_0$, atteint $r_i$ apr&egrave;s $x$, boucle $k$ fois sur le cycle $r_i \to \cdots \to r_j = r_i$ en lisant $y^k$, puis atteint $r_n$ apr&egrave;s $z$. Comme $r_n \in F$, on a $xy^k z \in L$.
     </details>
 
-    <div class="thm-block example">
-      <p class="en"><span class="thm-label">Example.</span> Let us show that $L = \{a^n b^n : n \geq 0\}$ is not regular. Suppose for contradiction that it is, with pumping length $p$. The word $w = a^p b^p \in L$ satisfies $|w| = 2p \geq p$. By the lemma, $w = xyz$ with $|y| \geq 1$, $|xy| \leq p$. Since $|xy| \leq p$, $x$ and $y$ consist only of $a$'s, so $y = a^m$ with $m \geq 1$. Then $xy^0 z = xz = a^{p-m} b^p \notin L$ since $p - m \neq p$. Contradiction.</p>
-      <p class="fr"><span class="thm-label">Exemple.</span> Montrons que $L = \{a^n b^n : n \geq 0\}$ n'est pas r&eacute;gulier. Supposons par l'absurde qu'il l'est, de longueur de pompage $p$. Le mot $w = a^p b^p \in L$ v&eacute;rifie $|w| = 2p \geq p$. Par le lemme, $w = xyz$ avec $|y| \geq 1$, $|xy| \leq p$. Comme $|xy| \leq p$, $x$ et $y$ ne contiennent que des $a$, donc $y = a^m$ avec $m \geq 1$. Alors $xy^0 z = xz = a^{p-m} b^p \notin L$ car $p - m \neq p$. Contradiction.</p>
-    </div>
-
-    <div class="thm-block example">
-      <p class="en"><span class="thm-label">Example.</span> Let us show that $L = \{w \in \{0,1\}^* : w \text{ is a palindrome}\}$ is not regular. Let $p$ be the pumping length. The word $w = 0^p 1 0^p \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$ and $|y| \geq 1$, so $y = 0^m$ with $1 \leq m \leq p$, in the first block of $0$'s. Then $xy^2 z = 0^{p+m} 1 0^p$ is not a palindrome, so $xy^2 z \notin L$. Contradiction.</p>
-      <p class="fr"><span class="thm-label">Exemple.</span> Montrons que $L = \{w \in \{0,1\}^* : w \text{ est un palindrome}\}$ n'est pas r&eacute;gulier. Soit $p$ la longueur de pompage. Le mot $w = 0^p 1 0^p \in L$ v&eacute;rifie $|w| \geq p$. Par le lemme, $w = xyz$ avec $|xy| \leq p$ et $|y| \geq 1$, donc $y = 0^m$ avec $1 \leq m \leq p$, dans le premier bloc de $0$. Alors $xy^2 z = 0^{p+m} 1 0^p$ n'est pas un palindrome, donc $xy^2 z \notin L$. Contradiction.</p>
-    </div>
-
     <h3 class="en">Myhill-Nerode theorem and minimal automaton</h3>
     <h3 class="fr">Th&eacute;or&egrave;me de Myhill-Nerode et automate minimal</h3>
 
@@ -347,6 +337,34 @@
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       On construit le DFA $\mathcal{A} = (\{q_0, q_1, q_2\}, \{a,b\}, \delta, q_0, \{q_0\})$ avec $\delta(q_i, a) = q_{(i+1) \bmod 3}$ et $\delta(q_i, b) = q_i$. L'&eacute;tat $q_i$ signifie que le nombre de $a$ lus est congru &agrave; $i$ modulo $3$. Donc $\hat{\delta}(q_0, w) = q_{|w|_a \bmod 3}$, et $w \in L(\mathcal{A})$ ssi $|w|_a \equiv 0 \pmod{3}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{a^n b^n : n \geq 0\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{a^n b^n : n \geq 0\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose for contradiction that $L$ is regular, with pumping length $p$. The word $w = a^p b^p \in L$ satisfies $|w| = 2p \geq p$. By the lemma, $w = xyz$ with $|y| \geq 1$, $|xy| \leq p$. Since $|xy| \leq p$, $x$ and $y$ consist only of $a$'s, so $y = a^m$ with $m \geq 1$. Then $xy^0 z = xz = a^{p-m} b^p \notin L$ since $p - m \neq p$. Contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons par l'absurde que $L$ est r&eacute;gulier, de longueur de pompage $p$. Le mot $w = a^p b^p \in L$ v&eacute;rifie $|w| = 2p \geq p$. Par le lemme, $w = xyz$ avec $|y| \geq 1$, $|xy| \leq p$. Comme $|xy| \leq p$, $x$ et $y$ ne contiennent que des $a$, donc $y = a^m$ avec $m \geq 1$. Alors $xy^0 z = xz = a^{p-m} b^p \notin L$ car $p - m \neq p$. Contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $L = \{w \in \{0,1\}^* : w \text{ is a palindrome}\}$ is not regular.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $L = \{w \in \{0,1\}^* : w \text{ est un palindrome}\}$ n'est pas r&eacute;gulier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $p$ be the pumping length. The word $w = 0^p 1 0^p \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$ and $|y| \geq 1$, so $y = 0^m$ with $1 \leq m \leq p$, in the first block of $0$'s. Then $xy^2 z = 0^{p+m} 1 0^p$ is not a palindrome, so $xy^2 z \notin L$. Contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $p$ la longueur de pompage. Le mot $w = 0^p 1 0^p \in L$ v&eacute;rifie $|w| \geq p$. Par le lemme, $w = xyz$ avec $|xy| \leq p$ et $|y| \geq 1$, donc $y = 0^m$ avec $1 \leq m \leq p$, dans le premier bloc de $0$. Alors $xy^2 z = 0^{p+m} 1 0^p$ n'est pas un palindrome, donc $xy^2 z \notin L$. Contradiction.
     </details>
 
     <div class="thm-block exercise">

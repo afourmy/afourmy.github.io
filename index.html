@@ -57,6 +57,40 @@
       }
     }
 
+    function resolveUrl(attr, baseUrl) {
+      if (!attr) return '';
+      try { return new URL(attr, baseUrl).href; } catch(e) { return attr; }
+    }
+
+    function loadScript(src) {
+      return new Promise(function(resolve) {
+        var s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = resolve;
+        document.head.appendChild(s);
+      });
+    }
+
+    function loadStylesheet(href) {
+      return new Promise(function(resolve) {
+        var l = document.createElement('link');
+        l.rel = 'stylesheet';
+        l.href = href;
+        l.onload = resolve;
+        l.onerror = resolve;
+        document.head.appendChild(l);
+      });
+    }
+
+    function isLoaded(tag, attr, resolvedUrl) {
+      var els = document.querySelectorAll(tag + '[' + attr + ']');
+      for (var i = 0; i < els.length; i++) {
+        if (els[i][attr] === resolvedUrl) return true;
+      }
+      return false;
+    }
+
     async function navigateTo(url, pushState) {
       try {
         var resp = await fetch(url);
@@ -65,15 +99,45 @@
         var doc = new DOMParser().parseFromString(html, 'text/html');
         var newMain = doc.querySelector('main');
         if (!newMain) { window.location.href = url; return; }
-        document.querySelector('main').innerHTML = newMain.innerHTML;
-        if (pushState !== false) {
-          history.pushState(null, '', url);
+
+        // Load CSS from target page head
+        var links = doc.querySelectorAll('head link[rel="stylesheet"]');
+        for (var i = 0; i < links.length; i++) {
+          var href = resolveUrl(links[i].getAttribute('href'), url);
+          if (!isLoaded('link', 'href', href)) await loadStylesheet(href);
         }
+
+        // Load scripts from target page head (in order, waiting for each)
+        var headScripts = doc.querySelectorAll('head script[src]');
+        for (var i = 0; i < headScripts.length; i++) {
+          var src = resolveUrl(headScripts[i].getAttribute('src'), url);
+          if (!isLoaded('script', 'src', src)) await loadScript(src);
+        }
+
+        // Replace page content
+        document.querySelector('main').innerHTML = newMain.innerHTML;
+        if (pushState !== false) history.pushState(null, '', url);
         document.title = doc.title || 'Home';
         renderMath();
-        var lang = localStorage.getItem('lang') || 'en';
-        setLang(lang);
+        if (typeof Prism !== 'undefined') Prism.highlightAll();
+        setLang(localStorage.getItem('lang') || 'en');
         window.scrollTo(0, 0);
+
+        // Load and execute body scripts (in order)
+        var bodyScripts = doc.querySelectorAll('body script');
+        for (var i = 0; i < bodyScripts.length; i++) {
+          var el = bodyScripts[i];
+          var elSrc = el.getAttribute('src');
+          if (elSrc) {
+            var resolved = resolveUrl(elSrc, url);
+            if (resolved.indexOf('nav.js') !== -1) continue;
+            if (!isLoaded('script', 'src', resolved)) await loadScript(resolved);
+          } else if (el.textContent.trim()) {
+            var inline = document.createElement('script');
+            inline.textContent = el.textContent;
+            document.body.appendChild(inline);
+          }
+        }
       } catch (e) {
         window.location.href = url;
       }
