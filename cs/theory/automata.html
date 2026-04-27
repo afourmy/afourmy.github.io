@@ -555,6 +555,20 @@
       document.documentElement.lang = lang;
     }
 
+    // Wrap proof content in .proof-body for white-space: pre-line
+    document.querySelectorAll('.proof').forEach(function(el) {
+      var summary = el.querySelector('summary');
+      var wrapper = document.createElement('div');
+      wrapper.className = 'proof-body';
+      while (summary.nextSibling) wrapper.appendChild(summary.nextSibling);
+      // Trim leading newline from first text node
+      var first = wrapper.firstChild;
+      if (first && first.nodeType === 3) {
+        first.textContent = first.textContent.replace(/^\s*\n\s*/, '');
+      }
+      el.appendChild(wrapper);
+    });
+
     // Apply saved preference on load
     (function() {
       var lang = localStorage.getItem('lang') || 'en';
