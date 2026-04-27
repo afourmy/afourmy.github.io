@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complex Numbers</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <!-- Definition of C -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The set of <em>complex numbers</em> is $\mathbb{C} = \{a + ib : a, b \in \mathbb{R}\}$, where $i$ satisfies $i^2 = -1$. For $z = a + ib$, $a = \operatorname{Re}(z)$ is called the <em>real part</em> and $b = \operatorname{Im}(z)$ the <em>imaginary part</em> of $z$. $(\mathbb{C}, +, \times)$ is a commutative field, with inverse $z^{-1} = \frac{a - ib}{a^2 + b^2}$ for $z \neq 0$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> L'ensemble des <em>nombres complexes</em> est $\mathbb{C}=\{a+ib : a,b\in\mathbb{R}\}$, o&ugrave; $i$ v&eacute;rifie $i^2=-1$. Pour $z=a+ib$, on appelle $a=\operatorname{Re}(z)$ la <em>partie r&eacute;elle</em> et $b=\operatorname{Im}(z)$ la <em>partie imaginaire</em> de $z$. $(\mathbb{C},+,\times)$ est un corps commutatif, d'inverse $z^{-1}=\frac{a-ib}{a^2+b^2}$ pour $z\neq 0$.</p>
+    </div>
+
+    <!-- Conjugate -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Conjugate).</span> The <em>conjugate</em> of $z = a + ib$ is $\bar{z} = a - ib$. We have $\overline{z + z'} = \bar{z} + \bar{z'}$, $\overline{zz'} = \bar{z}\,\bar{z'}$, $\overline{(z/z')} = \bar{z}/\bar{z'}$ (if $z' \neq 0$), $\bar{\bar{z}} = z$, $z + \bar{z} = 2\operatorname{Re}(z)$, $z - \bar{z} = 2i\operatorname{Im}(z)$, $z\bar{z} = a^2 + b^2 \in \mathbb{R}_+$. Moreover $z \in \mathbb{R} \iff \bar{z} = z$ and $z \in i\mathbb{R} \iff \bar{z} = -z$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Conjugu&eacute;).</span> Le <em>conjugu&eacute;</em> de $z=a+ib$ est $\bar{z}=a-ib$. On a $\overline{z+z'}=\bar{z}+\bar{z'}$, $\overline{zz'}=\bar{z}\,\bar{z'}$, $\overline{(z/z')}=\bar{z}/\bar{z'}$ (si $z'\neq 0$), $\bar{\bar{z}}=z$, $z+\bar{z}=2\operatorname{Re}(z)$, $z-\bar{z}=2i\operatorname{Im}(z)$, $z\bar{z}=a^2+b^2\in\mathbb{R}_+$. De plus $z\in\mathbb{R}\iff\bar{z}=z$ et $z\in i\mathbb{R}\iff\bar{z}=-z$.</p>
+    </div>
+
+    <!-- Modulus -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Modulus).</span> The <em>modulus</em> of $z = a + ib$ is $|z| = \sqrt{a^2 + b^2} = \sqrt{z\bar{z}}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Module).</span> Le <em>module</em> de $z=a+ib$ est $|z|=\sqrt{a^2+b^2}=\sqrt{z\bar{z}}$.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> For $z, z' \neq 0$: $|z^{-1}| = |z|^{-1}$ and $|z/z'| = |z|/|z'|$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Pour $z,z'\neq 0$ : $|z^{-1}|=|z|^{-1}$ et $|z/z'|=|z|/|z'|$.</p>
+    </div>
+
+    <!-- Complex exponential -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Complex exponential).</span> For $\theta \in \mathbb{R}$, we set $e^{i\theta} = \cos\theta + i\sin\theta$. We have $e^{i(\theta + \theta')} = e^{i\theta}e^{i\theta'}$ (addition formulas), $(e^{i\theta})^{-1} = e^{-i\theta}$ (take $\theta' = -\theta$), $|e^{i\theta}| = 1$, $(e^{i\theta})^n = e^{in\theta}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Exponentielle complexe).</span> Pour $\theta\in\mathbb{R}$, on pose $e^{i\theta}=\cos\theta+i\sin\theta$. On a $e^{i(\theta+\theta')}=e^{i\theta}e^{i\theta'}$ (formules d'addition), $(e^{i\theta})^{-1}=e^{-i\theta}$ (prendre $\theta'=-\theta$), $|e^{i\theta}|=1$, $(e^{i\theta})^n=e^{in\theta}$.</p>
+    </div>
+
+    <!-- Argument and exponential form -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Argument and exponential form).</span> Let $z \in \mathbb{C}^*$. An <em>argument</em> of $z$ is a real number $\theta$ such that $z = |z|e^{i\theta}$, i.e. $z = |z|(\cos\theta + i\sin\theta)$. The argument is defined modulo $2\pi$ ($\arg(z) \in \mathbb{R}/2\pi\mathbb{Z}$).</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Argument et forme exponentielle).</span> Soit $z\in\mathbb{C}^*$. Un <em>argument</em> de $z$ est un r&eacute;el $\theta$ tel que $z=|z|e^{i\theta}$, i.e. $z=|z|(\cos\theta+i\sin\theta)$. L'argument est d&eacute;fini modulo $2\pi$ ($\arg(z)\in\mathbb{R}/2\pi\mathbb{Z}$).</p>
+    </div>
+
+    <!-- Argument properties -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For $z_1, z_2 \in \mathbb{C}^*$: $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)\ [2\pi]$, $\arg(\bar{z}) = -\arg(z)\ [2\pi]$, $\arg(z^{-1}) = -\arg(z)\ [2\pi]$, $\arg(z_1/z_2) = \arg(z_1) - \arg(z_2)\ [2\pi]$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour $z_1,z_2\in\mathbb{C}^*$ : $\arg(z_1 z_2)=\arg(z_1)+\arg(z_2)\ [2\pi]$, $\arg(\bar{z})=-\arg(z)\ [2\pi]$, $\arg(z^{-1})=-\arg(z)\ [2\pi]$, $\arg(z_1/z_2)=\arg(z_1)-\arg(z_2)\ [2\pi]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $z_k = r_k e^{i\theta_k}$, then $z_1 z_2 = r_1 r_2\,e^{i(\theta_1 + \theta_2)}$ and $\bar{z} = r e^{-i\theta}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $z_k=r_k e^{i\theta_k}$, alors $z_1z_2=r_1r_2\,e^{i(\theta_1+\theta_2)}$ et $\bar{z}=re^{-i\theta}$.
+    </details>
+
+    <!-- Real or purely imaginary quotient -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Real or purely imaginary quotient).</span> For $z_1, z_2 \in \mathbb{C}^*$: $z_1/z_2 \in \mathbb{R} \iff \arg(z_1) = \arg(z_2)\ [\pi]$ and $z_1/z_2 \in \mathbb{R}_+^* \iff \arg(z_1) = \arg(z_2)\ [2\pi]$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Quotient r&eacute;el ou imaginaire pur).</span> Pour $z_1,z_2\in\mathbb{C}^*$ : $z_1/z_2\in\mathbb{R}\iff\arg(z_1)=\arg(z_2)\ [\pi]$ et $z_1/z_2\in\mathbb{R}_+^*\iff\arg(z_1)=\arg(z_2)\ [2\pi]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $z_1/z_2 \in \mathbb{R} \iff \arg(z_1/z_2) = 0\ [\pi] \iff \arg(z_1) - \arg(z_2) = 0\ [\pi]$. Similarly, $z_1/z_2 \in \mathbb{R}_+^* \iff \arg(z_1/z_2) = 0\ [2\pi]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $z_1/z_2\in\mathbb{R}\iff\arg(z_1/z_2)=0\ [\pi]\iff\arg(z_1)-\arg(z_2)=0\ [\pi]$. De m&ecirc;me, $z_1/z_2\in\mathbb{R}_+^*\iff\arg(z_1/z_2)=0\ [2\pi]$.
+    </details>
+
+    <!-- Triangle inequality -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Triangle inequality).</span> For all $z_1, z_2 \in \mathbb{C}$, $|z_1 + z_2| \le |z_1| + |z_2|$ and $\big||z_1| - |z_2|\big| \le |z_1 - z_2|$, with equality (in both cases) if and only if $z_1$ and $z_2$ are positively linked ($z_1\bar{z_2} \in \mathbb{R}_+$, i.e. $\arg(z_1) = \arg(z_2)\ [2\pi]$).</p>
+      <p class="fr"><span class="thm-label">Proposition (In&eacute;galit&eacute; triangulaire).</span> Pour tous $z_1,z_2\in\mathbb{C}$, $|z_1+z_2|\le|z_1|+|z_2|$ et $\big||z_1|-|z_2|\big|\le|z_1-z_2|$, avec &eacute;galit&eacute; (dans les deux cas) si et seulement si $z_1$ et $z_2$ sont positivement li&eacute;s ($z_1\bar{z_2}\in\mathbb{R}_+$, i.e. $\arg(z_1)=\arg(z_2)\ [2\pi]$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $|z_1 + z_2|^2 = |z_1|^2 + |z_2|^2 + 2\operatorname{Re}(z_1\bar{z_2}) \le |z_1|^2 + |z_2|^2 + 2|z_1||z_2| = (|z_1| + |z_2|)^2$, using $\operatorname{Re}(w) \le |w|$. Equality holds iff $\operatorname{Re}(z_1\bar{z_2}) = |z_1\bar{z_2}|$, i.e. $z_1\bar{z_2} \in \mathbb{R}_+$, i.e. $\arg(z_1) = \arg(z_2)\ [2\pi]$.
+      The second inequality is obtained by applying the first to $z_1 = (z_1 - z_2) + z_2$: $|z_1| \le |z_1 - z_2| + |z_2|$, then by symmetry. The equality case reduces to the same condition.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $|z_1+z_2|^2=|z_1|^2+|z_2|^2+2\operatorname{Re}(z_1\bar{z_2})\le|z_1|^2+|z_2|^2+2|z_1||z_2|=(|z_1|+|z_2|)^2$, en utilisant $\operatorname{Re}(w)\le|w|$. Il y a &eacute;galit&eacute; ssi $\operatorname{Re}(z_1\bar{z_2})=|z_1\bar{z_2}|$, i.e. $z_1\bar{z_2}\in\mathbb{R}_+$, i.e. $\arg(z_1)=\arg(z_2)\ [2\pi]$.
+      La seconde s'obtient en appliquant la premi&egrave;re &agrave; $z_1=(z_1-z_2)+z_2$ : $|z_1|\le|z_1-z_2|+|z_2|$, puis par sym&eacute;trie. Le cas d'&eacute;galit&eacute; se ram&egrave;ne au m&ecirc;me.
+    </details>
+
+    <!-- Euler's formulas -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Euler's formulas).</span> $\cos\theta = \frac{e^{i\theta} + e^{-i\theta}}{2}$ and $\sin\theta = \frac{e^{i\theta} - e^{-i\theta}}{2i}$. These formulas allow one to linearize $\cos^n\theta$ and $\sin^n\theta$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Formules d'Euler).</span> $\cos\theta=\frac{e^{i\theta}+e^{-i\theta}}{2}$ et $\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}$. Ces formules permettent de lin&eacute;ariser $\cos^n\theta$ et $\sin^n\theta$.</p>
+    </div>
+
+    <!-- De Moivre's formula -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (De Moivre's formula).</span> $(\cos\theta + i\sin\theta)^n = \cos(n\theta) + i\sin(n\theta)$ for all $n \in \mathbb{Z}$ (since $(e^{i\theta})^n = e^{in\theta}$). This formula allows one to express $\cos(n\theta)$ and $\sin(n\theta)$ in terms of $\cos\theta$ and $\sin\theta$ (expand by the binomial theorem and identify real and imaginary parts).</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule de Moivre).</span> $(\cos\theta+i\sin\theta)^n=\cos(n\theta)+i\sin(n\theta)$ pour tout $n\in\mathbb{Z}$ (car $(e^{i\theta})^n=e^{in\theta}$). Cette formule permet d'exprimer $\cos(n\theta)$ et $\sin(n\theta)$ en fonction de $\cos\theta$ et $\sin\theta$ (d&eacute;velopper par le bin&ocirc;me et identifier parties r&eacute;elle et imaginaire).</p>
+    </div>
+
+    <!-- Roots of unity -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem ($n$-th roots of unity).</span> The solutions of $z^n = 1$ are $\omega_k = e^{2ik\pi/n}$ for $k \in \{0, \ldots, n-1\}$. Writing $\omega = e^{2i\pi/n}$, they are $1, \omega, \omega^2, \ldots, \omega^{n-1}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Racines $n$-i&egrave;mes de l'unit&eacute;).</span> Les solutions de $z^n=1$ sont $\omega_k=e^{2ik\pi/n}$ pour $k\in\{0,\ldots,n-1\}$. En notant $\omega=e^{2i\pi/n}$, ce sont $1,\omega,\omega^2,\ldots,\omega^{n-1}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $z^n = 1 \iff |z| = 1$ and $n\arg(z) = 0\ [2\pi]$, i.e. $\arg(z) = 2k\pi/n$. The distinct values modulo $2\pi$ correspond to $k \in \{0, \ldots, n-1\}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $z^n=1\iff|z|=1$ et $n\arg(z)=0\ [2\pi]$, soit $\arg(z)=2k\pi/n$. Les valeurs distinctes modulo $2\pi$ correspondent &agrave; $k\in\{0,\ldots,n-1\}$.
+    </details>
+
+    <!-- Sum and factorization of roots of unity -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For $n \ge 2$, $\sum_{k=0}^{n-1}\omega^k = 0$ and $X^n - 1 = \prod_{k=0}^{n-1}(X - \omega^k)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour $n\ge 2$, $\sum_{k=0}^{n-1}\omega^k=0$ et $X^n-1=\prod_{k=0}^{n-1}(X-\omega^k)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Geometric sum: $\frac{\omega^n - 1}{\omega - 1} = 0$ since $\omega^n = 1$ and $\omega \neq 1$. For the factorization: $X^n - 1$ is monic of degree $n$ and has the $n$ distinct roots $\omega^0, \ldots, \omega^{n-1}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Somme g&eacute;om&eacute;trique : $\frac{\omega^n-1}{\omega-1}=0$ car $\omega^n=1$ et $\omega\neq 1$. Pour la factorisation : $X^n-1$ est unitaire de degr&eacute; $n$ et admet les $n$ racines distinctes $\omega^0,\ldots,\omega^{n-1}$.
+    </details>
+
+    <!-- n-th roots of a complex number -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem ($n$-th roots of a complex number).</span> Let $W = \rho e^{i\varphi} \in \mathbb{C}^*$. The $n$ solutions of $z^n = W$ are $z_k = \rho^{1/n}\,e^{i(\varphi + 2k\pi)/n}$ for $k \in \{0, \ldots, n-1\}$. In other words, if $z_0$ is one $n$-th root of $W$, the $n$ roots are $z_0, z_0\omega, \ldots, z_0\omega^{n-1}$ since $(z_0\omega^k)^n = z_0^n \cdot \omega^{kn} = W \cdot (\omega^n)^k = W$ (as $\omega^n = 1$).</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Racines $n$-i&egrave;mes d'un complexe).</span> Soit $W=\rho e^{i\varphi}\in\mathbb{C}^*$. Les $n$ solutions de $z^n=W$ sont $z_k=\rho^{1/n}\,e^{i(\varphi+2k\pi)/n}$ pour $k\in\{0,\ldots,n-1\}$. Autrement dit, si $z_0$ est une racine $n$-i&egrave;me de $W$, les $n$ racines sont $z_0,z_0\omega,\ldots,z_0\omega^{n-1}$ car $(z_0\omega^k)^n=z_0^n\cdot\omega^{kn}=W\cdot(\omega^n)^k=W$ (car $\omega^n=1$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $z^n = W \iff |z|^n = \rho$ and $n\arg(z) = \varphi\ [2\pi]$, whence $|z| = \rho^{1/n}$ and $\arg(z) = (\varphi + 2k\pi)/n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $z^n=W\iff|z|^n=\rho$ et $n\arg(z)=\varphi\ [2\pi]$, d'o&ugrave; $|z|=\rho^{1/n}$ et $\arg(z)=(\varphi+2k\pi)/n$.
+    </details>
+
+    <!-- Square roots by identification -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Square roots by identification).</span> For $W = a + ib \neq 0$, the square roots $z = x + iy$ of $W$ are obtained by: $x^2 = \frac{|W| + a}{2}$, $y^2 = \frac{|W| - a}{2}$, $\operatorname{sign}(xy) = \operatorname{sign}(b)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Racines carr&eacute;es par identification).</span> Pour $W=a+ib\neq 0$, les racines carr&eacute;es $z=x+iy$ de $W$ s'obtiennent par : $x^2=\frac{|W|+a}{2}$, $y^2=\frac{|W|-a}{2}$, $\operatorname{signe}(xy)=\operatorname{signe}(b)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $z^2 = W$ gives $x^2 - y^2 = a$ and $2xy = b$. Moreover $|z|^2 = |W|$ gives $x^2 + y^2 = |W|$. Adding and subtracting the first and third equations: $x^2 = (|W| + a)/2$ and $y^2 = (|W| - a)/2$. The sign of $xy$ is that of $b$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $z^2=W$ donne $x^2-y^2=a$ et $2xy=b$. De plus $|z|^2=|W|$ donne $x^2+y^2=|W|$. En sommant et soustrayant les premi&egrave;re et troisi&egrave;me : $x^2=(|W|+a)/2$ et $y^2=(|W|-a)/2$. Le signe de $xy$ est celui de $b$.
+    </details>
+
+    <!-- Quadratic equation -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Quadratic equation in $\mathbb{C}$).</span> Let $az^2 + bz + c = 0$ with $a \neq 0$, $\Delta = b^2 - 4ac$ and $\delta$ a square root of $\Delta$. The solutions are $z = (-b \pm \delta)/(2a)$. If $a, b, c \in \mathbb{R}$: if $\Delta > 0$, two real roots; if $\Delta = 0$, a double real root; if $\Delta &lt; 0$, two complex conjugate roots $(-b \pm i\sqrt{|\Delta|}\,)/(2a)$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (&Eacute;quation du second degr&eacute; dans $\mathbb{C}$).</span> Soit $az^2+bz+c=0$ avec $a\neq 0$, $\Delta=b^2-4ac$ et $\delta$ une racine carr&eacute;e de $\Delta$. Les solutions sont $z=(-b\pm\delta)/(2a)$. Si $a,b,c\in\mathbb{R}$ : si $\Delta>0$, deux racines r&eacute;elles ; si $\Delta=0$, racine double r&eacute;elle ; si $\Delta&lt;0$, deux racines complexes conjugu&eacute;es $(-b\pm i\sqrt{|\Delta|}\,)/(2a)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $az^2 + bz + c = a\!\left[\!\left(z + \frac{b}{2a}\right)^{\!2} - \frac{\Delta}{4a^2}\right] = 0 \iff z + \frac{b}{2a} = \pm\frac{\delta}{2a}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $az^2+bz+c=a\!\left[\!\left(z+\frac{b}{2a}\right)^{\!2}-\frac{\Delta}{4a^2}\right]=0\iff z+\frac{b}{2a}=\pm\frac{\delta}{2a}$.
+    </details>
+
+    <!-- Vieta's formulas -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Vieta's formulas).</span> If $z_1, z_2$ are the roots of $az^2 + bz + c = 0$, then $z_1 + z_2 = -b/a$ and $z_1 z_2 = c/a$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Relations de Vi&egrave;te).</span> Si $z_1,z_2$ sont les racines de $az^2+bz+c=0$, alors $z_1+z_2=-b/a$ et $z_1z_2=c/a$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $az^2 + bz + c = a(z - z_1)(z - z_2) = a\big(z^2 - (z_1 + z_2)z + z_1 z_2\big)$. Identification of coefficients.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $az^2+bz+c=a(z-z_1)(z-z_2)=a\big(z^2-(z_1+z_2)z+z_1z_2\big)$. Identification des coefficients.
+    </details>
+
+    <!-- Conjugate roots -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Conjugate roots).</span> If $P = aX^2 + bX + c$ with $a, b, c \in \mathbb{R}$ and $z_0 \in \mathbb{C}$ is a root of $P$, then $\bar{z_0}$ is also a root.</p>
+      <p class="fr"><span class="thm-label">Proposition (Racines conjugu&eacute;es).</span> Si $P=aX^2+bX+c$ avec $a,b,c\in\mathbb{R}$ et $z_0\in\mathbb{C}$ est racine de $P$, alors $\bar{z_0}$ aussi.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $P(\bar{z_0}) = a\bar{z_0}^2 + b\bar{z_0} + c = \overline{az_0^2 + bz_0 + c} = \overline{P(z_0)} = 0$ (since $\bar{a} = a$, $\bar{b} = b$, $\bar{c} = c$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $P(\bar{z_0})=a\bar{z_0}^2+b\bar{z_0}+c=\overline{az_0^2+bz_0+c}=\overline{P(z_0)}=0$ (car $\bar{a}=a$, $\bar{b}=b$, $\bar{c}=c$).
+    </details>
+
+    <!-- Geometric interpretation -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> We identify $\mathbb{C}$ with the plane $\mathbb{R}^2$: $z = a + ib$ corresponds to the point $M(a,b)$. The modulus $|z|$ is the distance to the origin, and $\arg(z)$ is the angle $(\vec{u_x}, \overrightarrow{OM})$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> On identifie $\mathbb{C}$ au plan $\mathbb{R}^2$ : $z=a+ib$ correspond au point $M(a,b)$. Le module $|z|$ est la distance &agrave; l'origine, et $\arg(z)$ est l'angle $(\vec{u_x},\overrightarrow{OM})$.</p>
+    </div>
+
+    <!-- Sets in the complex plane -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Sets in the complex plane).</span> The distance between the points with affixes $z_1$ and $z_2$ is $|z_1 - z_2|$. Circle with center $a$ and radius $r$: $\{z : |z - a| = r\}$. Closed disk: $\{z : |z - a| \le r\}$. Perpendicular bisector of $[z_1, z_2]$: $\{z : |z - z_1| = |z - z_2|\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Ensembles du plan complexe).</span> La distance entre les points d'affixes $z_1$ et $z_2$ est $|z_1-z_2|$. Cercle de centre $a$ et de rayon $r$ : $\{z : |z-a|=r\}$. Disque ferm&eacute; : $\{z : |z-a|\le r\}$. M&eacute;diatrice de $[z_1,z_2]$ : $\{z : |z-z_1|=|z-z_2|\}$.</p>
+    </div>
+
+    <!-- Plane transformations -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Plane transformations).</span></p>
+      <ul class="en">
+        <li>Translation by a vector with affix $b$: $z \mapsto z + b$.</li>
+        <li>Rotation with center $\Omega(\omega)$ and angle $\alpha$: $z \mapsto \omega + e^{i\alpha}(z - \omega)$.</li>
+        <li>Homothety with center $\Omega(\omega)$ and ratio $\lambda \in \mathbb{R}^*$: $z \mapsto \omega + \lambda(z - \omega)$.</li>
+        <li>Direct similarity with center $\Omega(\omega)$: $z \mapsto \omega + a(z - \omega)$ ($a \in \mathbb{C}^*$) composes a rotation of angle $\arg(a)$ and a homothety of ratio $|a|$.</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Proposition (Transformations du plan).</span></p>
+      <ul class="fr">
+        <li>Translation de vecteur d'affixe $b$ : $z\mapsto z+b$.</li>
+        <li>Rotation de centre $\Omega(\omega)$ et d'angle $\alpha$ : $z\mapsto\omega+e^{i\alpha}(z-\omega)$.</li>
+        <li>Homoth&eacute;tie de centre $\Omega(\omega)$ et de rapport $\lambda\in\mathbb{R}^*$ : $z\mapsto\omega+\lambda(z-\omega)$.</li>
+        <li>Similitude directe de centre $\Omega(\omega)$ : $z\mapsto\omega+a(z-\omega)$ ($a\in\mathbb{C}^*$) compose une rotation d'angle $\arg(a)$ et une homoth&eacute;tie de rapport $|a|$.</li>
+      </ul>
+    </div>
+
+    <!-- Map z -> az+b -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Map $z \mapsto az + b$).</span> Let $f(z) = az + b$ with $a \in \mathbb{C}^*$ and $b \in \mathbb{C}$. If $a = 1$, $f$ is the translation by the vector with affix $b$. If $a \neq 1$, $f$ is the direct similarity with center $\omega = \frac{b}{1 - a}$, ratio $|a|$ and angle $\arg(a)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Application $z\mapsto az+b$).</span> Soit $f(z)=az+b$ avec $a\in\mathbb{C}^*$ et $b\in\mathbb{C}$. Si $a=1$, $f$ est la translation de vecteur d'affixe $b$. Si $a\neq 1$, $f$ est la similitude directe de centre $\omega=\frac{b}{1-a}$, de rapport $|a|$ et d'angle $\arg(a)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $a = 1$, $f(z) = z + b$ is a translation. If $a \neq 1$, we find the fixed point: $f(\omega) = \omega \iff a\omega + b = \omega \iff \omega = \frac{b}{1-a}$. Then $f(z) - \omega = az + b - \omega = az - \frac{ab}{1-a} = a\!\left(z - \frac{b}{1-a}\right) = a(z - \omega)$. So $f(z) = \omega + a(z - \omega)$, which is indeed a direct similarity with center $\omega$, ratio $|a|$ and angle $\arg(a)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $a=1$, $f(z)=z+b$ est une translation. Si $a\neq 1$, on cherche le point fixe : $f(\omega)=\omega\iff a\omega+b=\omega\iff\omega=\frac{b}{1-a}$. Alors $f(z)-\omega=az+b-\omega=az-\frac{ab}{1-a}=a\!\left(z-\frac{b}{1-a}\right)=a(z-\omega)$. Donc $f(z)=\omega+a(z-\omega)$, qui est bien une similitude directe de centre $\omega$, de rapport $|a|$ et d'angle $\arg(a)$.
+    </details>
+
+    <!-- Argument of a quotient and angles -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Argument of a quotient and angles of vectors).</span> Let $\vec{u}$ and $\vec{v}$ be two nonzero vectors with affixes $z_1$ and $z_2$. Then $\left|\frac{z_2}{z_1}\right| = \frac{\|\vec{v}\|}{\|\vec{u}\|}$ and $\arg\!\left(\frac{z_2}{z_1}\right) = (\vec{u}, \vec{v})\ [2\pi]$. In particular: $\vec{u}$ and $\vec{v}$ are <em>collinear</em> $\iff$ $z_2/z_1 \in \mathbb{R}$; $\vec{u}$ and $\vec{v}$ are <em>orthogonal</em> $\iff$ $z_2/z_1 \in i\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Argument d'un quotient et angles de vecteurs).</span> Soient $\vec{u}$ et $\vec{v}$ deux vecteurs non nuls d'affixes $z_1$ et $z_2$. Alors $\left|\frac{z_2}{z_1}\right|=\frac{\|\vec{v}\|}{\|\vec{u}\|}$ et $\arg\!\left(\frac{z_2}{z_1}\right)=(\vec{u},\vec{v})\ [2\pi]$. En particulier : $\vec{u}$ et $\vec{v}$ sont <em>colin&eacute;aires</em> $\iff$ $z_2/z_1\in\mathbb{R}$ ; $\vec{u}$ et $\vec{v}$ sont <em>orthogonaux</em> $\iff$ $z_2/z_1\in i\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $z_2/z_1 = (|z_2|/|z_1|)\,e^{i(\arg(z_2) - \arg(z_1))}$, and $\arg(z_k) = (\vec{u_x}, \vec{w_k})$ where $\vec{w_k}$ is the vector with affix $z_k$, whence $\arg(z_2) - \arg(z_1) = (\vec{u}, \vec{v})$. Collinear $\iff$ angle $= 0$ or $\pi\ [2\pi]$ $\iff$ real quotient. Orthogonal $\iff$ angle $= \pm\pi/2\ [2\pi]$ $\iff$ purely imaginary quotient.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $z_2/z_1=(|z_2|/|z_1|)\,e^{i(\arg(z_2)-\arg(z_1))}$, et $\arg(z_k)=(\vec{u_x},\vec{w_k})$ o&ugrave; $\vec{w_k}$ est le vecteur d'affixe $z_k$, d'o&ugrave; $\arg(z_2)-\arg(z_1)=(\vec{u},\vec{v})$. Colin&eacute;aires $\iff$ angle $=0$ ou $\pi\ [2\pi]$ $\iff$ quotient r&eacute;el. Orthogonaux $\iff$ angle $=\pm\pi/2\ [2\pi]$ $\iff$ quotient imaginaire pur.
+    </details>
+
+    <!-- Quotient of differences of affixes -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Quotient of differences of affixes).</span> Let $A(a)$, $B(b)$, $C(c)$, $D(d)$ be four points in the plane with $C \neq D$. The quotient $\frac{a-b}{c-d}$ compares vectors $\overrightarrow{BA}$ and $\overrightarrow{DC}$: $\left|\frac{a-b}{c-d}\right| = \frac{BA}{DC}$ and $\arg\!\left(\frac{a-b}{c-d}\right) = (\overrightarrow{DC}, \overrightarrow{BA})\ [2\pi]$. In particular, $a - b = e^{i\theta}(c - d)$ means that $\overrightarrow{BA}$ and $\overrightarrow{DC}$ have the same length and make angle $\theta$.</p>
+      <ul class="en">
+        <li>$(a-b)/(c-d) \in \mathbb{R}$ $\iff$ $\overrightarrow{BA}$ and $\overrightarrow{DC}$ are collinear;</li>
+        <li>$(a-b)/(c-d) \in i\mathbb{R}$ $\iff$ $\overrightarrow{BA} \perp \overrightarrow{DC}$;</li>
+        <li>$a - b = c - d$ ($\theta = 0$, same length): $ABDC$ is a parallelogram;</li>
+        <li>$a - b = i(c - d)$ ($\theta = \pi/2$, same length): $BA = DC$ and $\overrightarrow{DC} \perp \overrightarrow{BA}$.</li>
+      </ul>
+      <p class="en">Special case with three points ($D = A$): $\frac{c-a}{b-a}$ compares $\overrightarrow{AB}$ and $\overrightarrow{AC}$. Then $A, B, C$ are collinear $\iff (c-a)/(b-a) \in \mathbb{R}$ and $\overrightarrow{AB} \perp \overrightarrow{AC} \iff (c-a)/(b-a) \in i\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Quotient de diff&eacute;rences d'affixes).</span> Soient $A(a)$, $B(b)$, $C(c)$, $D(d)$ quatre points du plan avec $C\neq D$. Le quotient $\frac{a-b}{c-d}$ compare les vecteurs $\overrightarrow{BA}$ et $\overrightarrow{DC}$ : $\left|\frac{a-b}{c-d}\right|=\frac{BA}{DC}$ et $\arg\!\left(\frac{a-b}{c-d}\right)=(\overrightarrow{DC},\overrightarrow{BA})\ [2\pi]$. En particulier, $a-b=e^{i\theta}(c-d)$ signifie que $\overrightarrow{BA}$ et $\overrightarrow{DC}$ ont m&ecirc;me longueur et font un angle $\theta$.</p>
+      <ul class="fr">
+        <li>$(a-b)/(c-d)\in\mathbb{R}$ $\iff$ $\overrightarrow{BA}$ et $\overrightarrow{DC}$ sont colin&eacute;aires ;</li>
+        <li>$(a-b)/(c-d)\in i\mathbb{R}$ $\iff$ $\overrightarrow{BA}\perp\overrightarrow{DC}$ ;</li>
+        <li>$a-b=c-d$ ($\theta=0$, m&ecirc;me longueur) : $ABDC$ est un parall&eacute;logramme ;</li>
+        <li>$a-b=i(c-d)$ ($\theta=\pi/2$, m&ecirc;me longueur) : $BA=DC$ et $\overrightarrow{DC}\perp\overrightarrow{BA}$.</li>
+      </ul>
+      <p class="fr">Cas particulier avec trois points ($D=A$) : $\frac{c-a}{b-a}$ compare $\overrightarrow{AB}$ et $\overrightarrow{AC}$. Alors $A,B,C$ align&eacute;s $\iff$ $(c-a)/(b-a)\in\mathbb{R}$ et $\overrightarrow{AB}\perp\overrightarrow{AC}$ $\iff$ $(c-a)/(b-a)\in i\mathbb{R}$.</p>
+    </div>
+
+    <!-- ============ EXERCISES ============ -->
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <!-- Exercise: Linearize cos^4 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Linearize $\cos^4\theta$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Lin&eacute;ariser $\cos^4\theta$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By Euler's formulas, $\cos^4\theta = \left(\frac{e^{i\theta} + e^{-i\theta}}{2}\right)^{\!4} = \frac{1}{16}\big(e^{4i\theta} + 4e^{2i\theta} + 6 + 4e^{-2i\theta} + e^{-4i\theta}\big) = \frac{1}{8}\cos(4\theta) + \frac{1}{2}\cos(2\theta) + \frac{3}{8}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par les formules d'Euler, $\cos^4\theta=\left(\frac{e^{i\theta}+e^{-i\theta}}{2}\right)^{\!4}=\frac{1}{16}\big(e^{4i\theta}+4e^{2i\theta}+6+4e^{-2i\theta}+e^{-4i\theta}\big)=\frac{1}{8}\cos(4\theta)+\frac{1}{2}\cos(2\theta)+\frac{3}{8}$.
+    </details>
+
+    <!-- Exercise: cos(3theta) -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Express $\cos(3\theta)$ in terms of $\cos\theta$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Exprimer $\cos(3\theta)$ en fonction de $\cos\theta$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By de Moivre's formula, $\cos(3\theta) + i\sin(3\theta) = (\cos\theta + i\sin\theta)^3$. Expanding by the binomial theorem and identifying the real part: $\cos(3\theta) = \cos^3\theta - 3\cos\theta\sin^2\theta = \cos^3\theta - 3\cos\theta(1 - \cos^2\theta) = 4\cos^3\theta - 3\cos\theta$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par Moivre, $\cos(3\theta)+i\sin(3\theta)=(\cos\theta+i\sin\theta)^3$. En d&eacute;veloppant par le bin&ocirc;me et identifiant la partie r&eacute;elle : $\cos(3\theta)=\cos^3\theta-3\cos\theta\sin^2\theta=\cos^3\theta-3\cos\theta(1-\cos^2\theta)=4\cos^3\theta-3\cos\theta$.
+    </details>
+
+    <!-- Exercise: Square roots of 3+4i -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Find the square roots of $3 + 4i$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les racines carr&eacute;es de $3+4i$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We seek $z = x + iy$ such that $z^2 = 3 + 4i$. We have $|3 + 4i| = 5$, so $x^2 = (5+3)/2 = 4$ and $y^2 = (5-3)/2 = 1$. Since $2xy = 4 > 0$, $x$ and $y$ have the same sign: $z = 2 + i$ or $z = -2 - i$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On cherche $z=x+iy$ tel que $z^2=3+4i$. On a $|3+4i|=5$, d'o&ugrave; $x^2=(5+3)/2=4$ et $y^2=(5-3)/2=1$. Comme $2xy=4>0$, $x$ et $y$ sont de m&ecirc;me signe : $z=2+i$ ou $z=-2-i$.
+    </details>
+
+    <!-- Exercise: Factor X^4+1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Factor $X^4 + 1$ in $\mathbb{R}[X]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Factoriser $X^4+1$ dans $\mathbb{R}[X]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The roots of $X^4 = -1 = e^{i\pi}$ are $z_k = e^{i(\pi + 2k\pi)/4}$ for $k = 0,1,2,3$, i.e. $e^{i\pi/4},\,e^{3i\pi/4},\,e^{5i\pi/4},\,e^{7i\pi/4}$. Grouping conjugate roots: $(X - e^{i\pi/4})(X - e^{-i\pi/4}) = X^2 - 2\cos(\pi/4)X + 1 = X^2 - \sqrt{2}\,X + 1$ and $(X - e^{3i\pi/4})(X - e^{-3i\pi/4}) = X^2 + \sqrt{2}\,X + 1$. Hence $X^4 + 1 = (X^2 - \sqrt{2}\,X + 1)(X^2 + \sqrt{2}\,X + 1)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les racines de $X^4=-1=e^{i\pi}$ sont $z_k=e^{i(\pi+2k\pi)/4}$ pour $k=0,1,2,3$, soit $e^{i\pi/4},\,e^{3i\pi/4},\,e^{5i\pi/4},\,e^{7i\pi/4}$. Les racines conjugu&eacute;es se regroupent : $(X-e^{i\pi/4})(X-e^{-i\pi/4})=X^2-2\cos(\pi/4)X+1=X^2-\sqrt{2}\,X+1$ et $(X-e^{3i\pi/4})(X-e^{-3i\pi/4})=X^2+\sqrt{2}\,X+1$. Donc $X^4+1=(X^2-\sqrt{2}\,X+1)(X^2+\sqrt{2}\,X+1)$.
+    </details>
+
+    <!-- Exercise: Sum cos(a+kb) -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{k=0}^{n-1}\cos(a + kb)$ for $b \notin 2\pi\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{k=0}^{n-1}\cos(a+kb)$ pour $b\notin 2\pi\mathbb{Z}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\sum_{k=0}^{n-1}\cos(a+kb) = \operatorname{Re}\!\left(\sum_{k=0}^{n-1}e^{i(a+kb)}\right) = \operatorname{Re}\!\left(e^{ia}\cdot\frac{e^{inb}-1}{e^{ib}-1}\right)$. Now $\frac{e^{inb}-1}{e^{ib}-1} = \frac{e^{inb/2}}{e^{ib/2}}\cdot\frac{\sin(nb/2)}{\sin(b/2)} = e^{i(n-1)b/2}\cdot\frac{\sin(nb/2)}{\sin(b/2)}$. Therefore $\sum_{k=0}^{n-1}\cos(a+kb) = \frac{\sin(nb/2)}{\sin(b/2)}\cos\!\left(a+\frac{(n-1)b}{2}\right)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\sum_{k=0}^{n-1}\cos(a+kb)=\operatorname{Re}\!\left(\sum_{k=0}^{n-1}e^{i(a+kb)}\right)=\operatorname{Re}\!\left(e^{ia}\cdot\frac{e^{inb}-1}{e^{ib}-1}\right)$. Or $\frac{e^{inb}-1}{e^{ib}-1}=\frac{e^{inb/2}}{e^{ib/2}}\cdot\frac{\sin(nb/2)}{\sin(b/2)}=e^{i(n-1)b/2}\cdot\frac{\sin(nb/2)}{\sin(b/2)}$. Donc $\sum_{k=0}^{n-1}\cos(a+kb)=\frac{\sin(nb/2)}{\sin(b/2)}\cos\!\left(a+\frac{(n-1)b}{2}\right)$.
+    </details>
+
+    <!-- Exercise: Sum of two squares -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $m, n$ be two natural numbers, each a sum of two squares of integers. Show that $mn$ is also a sum of two squares.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $m,n$ deux entiers naturels, chacun somme de deux carr&eacute;s d'entiers. Montrer que $mn$ est aussi somme de deux carr&eacute;s.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $mn = (a^2 + b^2)(c^2 + d^2) = |a + ib|^2|c + id|^2 = |(a+ib)(c+id)|^2 = (ac - bd)^2 + (ad + bc)^2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $mn=(a^2+b^2)(c^2+d^2)=|a+ib|^2|c+id|^2=|(a+ib)(c+id)|^2=(ac-bd)^2+(ad+bc)^2$.
+    </details>
+
+    <!-- Exercise: 7th roots of unity -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $z = e^{2i\pi/7}$. Set $S = z + z^2 + z^4$ and $T = z^3 + z^5 + z^6$. Compute $S$ and $T$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z=e^{2i\pi/7}$. On pose $S=z+z^2+z^4$ et $T=z^3+z^5+z^6$. Calculer $S$ et $T$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $S + T = z + z^2 + \cdots + z^6 = -1$ (sum of 7th roots of unity $\neq 1$). For the product, $ST = (z + z^2 + z^4)(z^3 + z^5 + z^6) = z^4 + z^6 + z^7 + z^5 + z^7 + z^8 + z^7 + z^9 + z^{10}$. Reducing modulo $z^7 = 1$: $ST = 3 + z + z^2 + z^3 + z^4 + z^5 + z^6 = 3 - 1 = 2$. So $S$ and $T$ are roots of $X^2 + X + 2$, with discriminant $\Delta = -7$, whence $S = \frac{-1 + i\sqrt{7}}{2}$ and $T = \frac{-1 - i\sqrt{7}}{2}$ (since $\operatorname{Im}(S) = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} + \sin\frac{8\pi}{7} = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} - \sin\frac{\pi}{7} > 0$ as $\sin\frac{2\pi}{7} > \sin\frac{\pi}{7}$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $S+T=z+z^2+\cdots+z^6=-1$ (somme des racines $7$-i&egrave;mes $\neq 1$). Pour le produit, $ST=(z+z^2+z^4)(z^3+z^5+z^6)=z^4+z^6+z^7+z^5+z^7+z^8+z^7+z^9+z^{10}$. En r&eacute;duisant modulo $z^7=1$ : $ST=3+z+z^2+z^3+z^4+z^5+z^6=3-1=2$. Donc $S$ et $T$ sont racines de $X^2+X+2$, de discriminant $\Delta=-7$, d'o&ugrave; $S=\frac{-1+i\sqrt{7}}{2}$ et $T=\frac{-1-i\sqrt{7}}{2}$ (car $\operatorname{Im}(S)=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}+\sin\frac{8\pi}{7}=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}-\sin\frac{\pi}{7}>0$ puisque $\sin\frac{2\pi}{7}>\sin\frac{\pi}{7}$).
+    </details>
+
+    <!-- Exercise: a cos x + b sin x -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Transform $a\cos x + b\sin x$ (with $a, b \in \mathbb{R}$ not both zero) into the form $R\cos(x + \varphi)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $a\cos x+b\sin x$ (avec $a,b\in\mathbb{R}$ non tous deux nuls) sous la forme $R\cos(x+\varphi)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Direct method.</em> Set $R = \sqrt{a^2 + b^2} > 0$. Then $a\cos x + b\sin x = R\!\left(\frac{a}{R}\cos x + \frac{b}{R}\sin x\right)$. Since $(a/R)^2 + (b/R)^2 = 1$, there exists $\varphi \in \mathbb{R}$ with $\cos\varphi = a/R$ and $\sin\varphi = -b/R$, whence $a\cos x + b\sin x = R\big(\cos\varphi\cos x - \sin\varphi\sin x\big) = R\cos(x + \varphi)$.
+      <br><br>
+      <em>Complex method.</em> $a\cos x + b\sin x = \operatorname{Re}\big((a - ib)e^{ix}\big)$. Now $a - ib = Re^{-i\varphi}$ with $R = |a - ib| = \sqrt{a^2 + b^2}$ and $\varphi = \arg(a + ib)$, so $a\cos x + b\sin x = \operatorname{Re}\big(Re^{i(x - \varphi)}\big) = R\cos(x - \varphi) = R\cos(x + \varphi')$ setting $\varphi' = -\varphi$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>M&eacute;thode directe.</em> On pose $R=\sqrt{a^2+b^2}>0$. Alors $a\cos x+b\sin x=R\!\left(\frac{a}{R}\cos x+\frac{b}{R}\sin x\right)$. Comme $(a/R)^2+(b/R)^2=1$, il existe $\varphi\in\mathbb{R}$ tel que $\cos\varphi=a/R$ et $\sin\varphi=-b/R$, d'o&ugrave; $a\cos x+b\sin x=R\big(\cos\varphi\cos x-\sin\varphi\sin x\big)=R\cos(x+\varphi)$.
+      <br><br>
+      <em>M&eacute;thode complexe.</em> $a\cos x+b\sin x=\operatorname{Re}\big((a-ib)e^{ix}\big)$. Or $a-ib=Re^{-i\varphi}$ avec $R=|a-ib|=\sqrt{a^2+b^2}$ et $\varphi=\arg(a+ib)$, donc $a\cos x+b\sin x=\operatorname{Re}\big(Re^{i(x-\varphi)}\big)=R\cos(x-\varphi)=R\cos(x+\varphi')$ en posant $\varphi'=-\varphi$.
+    </details>
+
+    <!-- Exercise: cos x + sin x -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Transform $\cos x + \sin x$ into the form $R\sin(x + \varphi)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $\cos x+\sin x$ sous la forme $R\sin(x+\varphi)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Direct method.</em> $R = \sqrt{1 + 1} = \sqrt{2}$, then $\cos x + \sin x = \sqrt{2}\big(\sin x\cos\frac{\pi}{4} + \cos x\sin\frac{\pi}{4}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
+      <br><br>
+      <em>Complex method.</em> $\sin x + \cos x = \operatorname{Im}\big((1+i)(\cos x + i\sin x)\big)$. Now $1 + i = \sqrt{2}\,e^{i\pi/4}$, so $\sin x + \cos x = \operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big) = \operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>M&eacute;thode directe.</em> $R=\sqrt{1+1}=\sqrt{2}$, puis $\cos x+\sin x=\sqrt{2}\big(\sin x\cos\frac{\pi}{4}+\cos x\sin\frac{\pi}{4}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
+      <br><br>
+      <em>M&eacute;thode complexe.</em> $\sin x+\cos x=\operatorname{Im}\big((1+i)(\cos x+i\sin x)\big)$. Or $1+i=\sqrt{2}\,e^{i\pi/4}$, donc $\sin x+\cos x=\operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big)=\operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
+    </details>
+
+    <!-- Exercise: Characterize f(z) = 2iz + 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = 2iz + 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z)=2iz+1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We have $a = 2i \neq 1$ and $b = 1$, so $f$ is a direct similarity. Its center is $\omega = \frac{b}{1-a} = \frac{1}{1-2i} = \frac{1+2i}{|1-2i|^2} = \frac{1+2i}{5}$. Its ratio is $|a| = |2i| = 2$ and its angle is $\arg(a) = \arg(2i) = \frac{\pi}{2}$. Thus $f$ is the direct similarity with center $\frac{1+2i}{5}$, ratio $2$ and angle $\frac{\pi}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On a $a=2i\neq 1$ et $b=1$, donc $f$ est une similitude directe. Son centre est $\omega=\frac{b}{1-a}=\frac{1}{1-2i}=\frac{1+2i}{|1-2i|^2}=\frac{1+2i}{5}$. Son rapport est $|a|=|2i|=2$ et son angle est $\arg(a)=\arg(2i)=\frac{\pi}{2}$. Ainsi $f$ est la similitude directe de centre $\frac{1+2i}{5}$, de rapport $2$ et d'angle $\frac{\pi}{2}$.
+    </details>
+
+    <!-- Exercise: |z-i|/|z+i| = 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the set of $z \in \mathbb{C}$ such that $\left|\frac{z-i}{z+i}\right| = 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer l'ensemble des $z\in\mathbb{C}$ tels que $\left|\frac{z-i}{z+i}\right|=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The condition requires $z \neq -i$. Then $\left|\frac{z-i}{z+i}\right| = 1 \iff |z - i| = |z + i|$, which means the point with affix $z$ is equidistant from the points with affixes $i$ and $-i$. The desired set is thus the perpendicular bisector of the segment $[i, -i]$, i.e. the real axis: $z \in \mathbb{R}$.
+      <br><br>
+      <em>Alternative method.</em> $\left|\frac{z-i}{z+i}\right|^2 = \frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. This equals $1$ iff $(z-i)(\bar{z}+i) = (z+i)(\bar{z}-i)$, i.e. $z\bar{z} + iz - i\bar{z} + 1 = z\bar{z} - iz + i\bar{z} + 1$, hence $2i(z - \bar{z}) = 0$, i.e. $z = \bar{z}$, so $z \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La condition n&eacute;cessite $z\neq -i$. Alors $\left|\frac{z-i}{z+i}\right|=1\iff|z-i|=|z+i|$, ce qui signifie que le point d'affixe $z$ est &eacute;quidistant des points d'affixes $i$ et $-i$. L'ensemble cherch&eacute; est donc la m&eacute;diatrice du segment $[i,-i]$, c'est-&agrave;-dire l'axe r&eacute;el : $z\in\mathbb{R}$.
+      <br><br>
+      <em>Autre m&eacute;thode.</em> $\left|\frac{z-i}{z+i}\right|^2=\frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. Cette expression vaut $1$ ssi $(z-i)(\bar{z}+i)=(z+i)(\bar{z}-i)$, i.e. $z\bar{z}+iz-i\bar{z}+1=z\bar{z}-iz+i\bar{z}+1$, soit $2i(z-\bar{z})=0$, i.e. $z=\bar{z}$, donc $z\in\mathbb{R}$.
+    </details>
+
+    <!-- Exercise: z + 1/z real -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $z \in \mathbb{C}^*$. Show that $z + \frac{1}{z} \in \mathbb{R}$ if and only if $|z| = 1$ or $z \in \mathbb{R}^*$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z\in\mathbb{C}^*$. Montrer que $z+\frac{1}{z}\in\mathbb{R}$ si et seulement si $|z|=1$ ou $z\in\mathbb{R}^*$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $z + \frac{1}{z} \in \mathbb{R} \iff z + \frac{1}{z} = \overline{z + \frac{1}{z}} = \bar{z} + \frac{1}{\bar{z}}$, i.e. $z - \bar{z} = \frac{1}{\bar{z}} - \frac{1}{z} = \frac{z - \bar{z}}{z\bar{z}}$. So $(z - \bar{z})\!\left(1 - \frac{1}{z\bar{z}}\right) = 0$, i.e. $z - \bar{z} = 0$ or $z\bar{z} = 1$, that is $z \in \mathbb{R}^*$ or $|z| = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $z+\frac{1}{z}\in\mathbb{R}\iff z+\frac{1}{z}=\overline{z+\frac{1}{z}}=\bar{z}+\frac{1}{\bar{z}}$, soit $z-\bar{z}=\frac{1}{\bar{z}}-\frac{1}{z}=\frac{z-\bar{z}}{z\bar{z}}$. Donc $(z-\bar{z})\!\left(1-\frac{1}{z\bar{z}}\right)=0$, i.e. $z-\bar{z}=0$ ou $z\bar{z}=1$, c'est-&agrave;-dire $z\in\mathbb{R}^*$ ou $|z|=1$.
+    </details>
+
+    <!-- Exercise: (1+isqrt3)^n real negative -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the integers $n \in \mathbb{Z}$ such that $(1 + i\sqrt{3})^n \in \mathbb{R}_-^*$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les entiers $n\in\mathbb{Z}$ tels que $(1+i\sqrt{3})^n\in\mathbb{R}_-^*$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $1 + i\sqrt{3} = 2e^{i\pi/3}$, so $(1 + i\sqrt{3})^n = 2^n e^{in\pi/3}$. This number is real negative iff $e^{in\pi/3} = -1$, i.e. $\frac{n\pi}{3} = \pi\ [2\pi]$, hence $n \equiv 3\ [6]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $1+i\sqrt{3}=2e^{i\pi/3}$, donc $(1+i\sqrt{3})^n=2^n e^{in\pi/3}$. Ce nombre est r&eacute;el n&eacute;gatif ssi $e^{in\pi/3}=-1$, i.e. $\frac{n\pi}{3}=\pi\ [2\pi]$, soit $n\equiv 3\ [6]$.
+    </details>
+
+    <!-- Exercise: Alternating binomial sums -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $S = \sum_{k=0}^{\lfloor n/2\rfloor}(-1)^k\binom{n}{2k}$ and $S' = \sum_{k=0}^{\lfloor (n-1)/2\rfloor}(-1)^k\binom{n}{2k+1}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S=\sum_{k=0}^{\lfloor n/2\rfloor}(-1)^k\binom{n}{2k}$ et $S'=\sum_{k=0}^{\lfloor (n-1)/2\rfloor}(-1)^k\binom{n}{2k+1}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By the binomial theorem, $(1+i)^n = \sum_{k=0}^{n}\binom{n}{k}i^k$. Separating even and odd indices: $(1+i)^n = \sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k}i^{2k} + \sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}i^{2k+1} = S + iS'$. Now $1 + i = \sqrt{2}\,e^{i\pi/4}$, so $(1+i)^n = 2^{n/2}e^{in\pi/4}$. By identification: $S = 2^{n/2}\cos\frac{n\pi}{4}$ and $S' = 2^{n/2}\sin\frac{n\pi}{4}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par le bin&ocirc;me, $(1+i)^n=\sum_{k=0}^{n}\binom{n}{k}i^k$. En s&eacute;parant indices pairs et impairs : $(1+i)^n=\sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k}i^{2k}+\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}i^{2k+1}=S+iS'$. Or $1+i=\sqrt{2}\,e^{i\pi/4}$, donc $(1+i)^n=2^{n/2}e^{in\pi/4}$. Par identification : $S=2^{n/2}\cos\frac{n\pi}{4}$ et $S'=2^{n/2}\sin\frac{n\pi}{4}$.
+    </details>
+
+    <!-- Exercise: Binomial sums mod 3 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $S_0 = \sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1 = \sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ and $S_2 = \sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S_0=\sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1=\sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ et $S_2=\sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $j = e^{2i\pi/3}$. By the binomial theorem, $(1 + \omega)^n = \sum_{k=0}^{n}\binom{n}{k}\omega^k$. Grouping by $k \bmod 3$ and taking $\omega = 1, j, j^2$: $2^n = S_0 + S_1 + S_2$, $(1+j)^n = S_0 + jS_1 + j^2S_2$, $(1+j^2)^n = S_0 + j^2S_1 + jS_2$. Summing these three equalities (and using $1 + j + j^2 = 0$): $3S_0 = 2^n + (1+j)^n + (1+j^2)^n$. Now $1 + j = e^{i\pi/3}$ and $1 + j^2 = e^{-i\pi/3}$, so $(1+j)^n + (1+j^2)^n = 2\cos\frac{n\pi}{3}$, whence $S_0 = \frac{2^n + 2\cos\frac{n\pi}{3}}{3}$. Similarly, summing with weights $1, j^2, j$ and $1, j, j^2$ gives $S_1 = \frac{2^n + 2\cos\frac{(n-2)\pi}{3}}{3}$ and $S_2 = \frac{2^n + 2\cos\frac{(n+2)\pi}{3}}{3}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On pose $j=e^{2i\pi/3}$. Par le bin&ocirc;me, $(1+\omega)^n=\sum_{k=0}^{n}\binom{n}{k}\omega^k$. En regroupant selon $k\bmod 3$ et en prenant $\omega=1,j,j^2$ : $2^n=S_0+S_1+S_2$, $(1+j)^n=S_0+jS_1+j^2S_2$, $(1+j^2)^n=S_0+j^2S_1+jS_2$. En sommant ces trois &eacute;galit&eacute;s (et utilisant $1+j+j^2=0$) : $3S_0=2^n+(1+j)^n+(1+j^2)^n$. Or $1+j=e^{i\pi/3}$ et $1+j^2=e^{-i\pi/3}$, donc $(1+j)^n+(1+j^2)^n=2\cos\frac{n\pi}{3}$, d'o&ugrave; $S_0=\frac{2^n+2\cos\frac{n\pi}{3}}{3}$. De m&ecirc;me, en sommant avec les poids $1,j^2,j$ puis $1,j,j^2$ on obtient $S_1=\frac{2^n+2\cos\frac{(n-2)\pi}{3}}{3}$ et $S_2=\frac{2^n+2\cos\frac{(n+2)\pi}{3}}{3}$.
+    </details>
+
+    <!-- Exercise: Equality in triangle inequality -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $z_1, \ldots, z_n \in \mathbb{C}^*$. Show that $\left|\sum_{k=1}^{n}z_k\right| = \sum_{k=1}^{n}|z_k|$ if and only if all the $z_k$ have the same argument.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $z_1,\ldots,z_n\in\mathbb{C}^*$. Montrer que $\left|\sum_{k=1}^{n}z_k\right|=\sum_{k=1}^{n}|z_k|$ si et seulement si tous les $z_k$ ont le m&ecirc;me argument.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ If $\arg(z_k) = \theta\ [2\pi]$ for all $k$, then $z_k = |z_k|e^{i\theta}$ and $\sum z_k = \big(\sum|z_k|\big)e^{i\theta}$, whence $\left|\sum z_k\right| = \sum|z_k|$.
+      <br><br>
+      $(\Rightarrow)$ By induction on $n$. For $n = 2$, this is the equality case of the triangle inequality. Assume the result for $n-1$ and set $S = \sum_{k=1}^{n-1}z_k$. Then $|S + z_n| \le |S| + |z_n| \le \sum_{k=1}^{n}|z_k| = |S + z_n|$ by the triangle inequality, so all inequalities are equalities. In particular $|S + z_n| = |S| + |z_n|$ (first equality), so $\arg(z_n) = \arg(S)$ by the equality case of the triangle inequality. Moreover $|S| = \sum_{k=1}^{n-1}|z_k|$ (second equality), and by the induction hypothesis $z_1, \ldots, z_{n-1}$ have the same argument $\theta$. Hence $\arg(S) = \theta$, and $\arg(z_n) = \theta$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ Si $\arg(z_k)=\theta\ [2\pi]$ pour tout $k$, alors $z_k=|z_k|e^{i\theta}$ et $\sum z_k=\big(\sum|z_k|\big)e^{i\theta}$, d'o&ugrave; $\left|\sum z_k\right|=\sum|z_k|$.
+      <br><br>
+      $(\Rightarrow)$ Par r&eacute;currence sur $n$. Pour $n=2$, c'est le cas d'&eacute;galit&eacute; de l'in&eacute;galit&eacute; triangulaire. Supposons le r&eacute;sultat vrai pour $n-1$ et posons $S=\sum_{k=1}^{n-1}z_k$. Alors $|S+z_n|\le|S|+|z_n|\le\sum_{k=1}^{n}|z_k|=|S+z_n|$ par l'in&eacute;galit&eacute; triangulaire, donc toutes les in&eacute;galit&eacute;s sont des &eacute;galit&eacute;s. En particulier $|S+z_n|=|S|+|z_n|$ (premi&egrave;re &eacute;galit&eacute;), donc $\arg(z_n)=\arg(S)$ par le cas d'&eacute;galit&eacute; de l'in&eacute;galit&eacute; triangulaire. De plus $|S|=\sum_{k=1}^{n-1}|z_k|$ (seconde &eacute;galit&eacute;), et par hypoth&egrave;se de r&eacute;currence $z_1,\ldots,z_{n-1}$ ont le m&ecirc;me argument $\theta$. Donc $\arg(S)=\theta$, et $\arg(z_n)=\theta$.
+    </details>
+
+    <!-- Exercise: U_n subset U_m -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $\mathbb{U}_n = \{z \in \mathbb{C} : z^n = 1\}$ and $\mathbb{U}_m = \{z \in \mathbb{C} : z^m = 1\}$. Show that $\mathbb{U}_n \subset \mathbb{U}_m$ if and only if $n \mid m$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $\mathbb{U}_n=\{z\in\mathbb{C}:z^n=1\}$ et $\mathbb{U}_m=\{z\in\mathbb{C}:z^m=1\}$. Montrer que $\mathbb{U}_n\subset\mathbb{U}_m$ si et seulement si $n\mid m$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ If $m = nq$, then for $z \in \mathbb{U}_n$: $z^m = z^{nq} = (z^n)^q = 1$, so $z \in \mathbb{U}_m$. $(\Rightarrow)$ If $\mathbb{U}_n \subset \mathbb{U}_m$, then $e^{2i\pi/n} \in \mathbb{U}_m$, so $e^{2im\pi/n} = 1$, i.e. $m/n \in \mathbb{Z}$, hence $n \mid m$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ Si $m=nq$, alors pour $z\in\mathbb{U}_n$ : $z^m=z^{nq}=(z^n)^q=1$, donc $z\in\mathbb{U}_m$. $(\Rightarrow)$ Si $\mathbb{U}_n\subset\mathbb{U}_m$, alors $e^{2i\pi/n}\in\mathbb{U}_m$, donc $e^{2im\pi/n}=1$, i.e. $m/n\in\mathbb{Z}$, soit $n\mid m$.
+    </details>
+
+    <!-- Exercise: Product of roots of unity -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\prod_{k=0}^{n-1}\omega^k$ where $\omega = e^{2i\pi/n}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\prod_{k=0}^{n-1}\omega^k$ o&ugrave; $\omega=e^{2i\pi/n}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\prod_{k=0}^{n-1}\omega^k = \omega^{0+1+\cdots+(n-1)} = \omega^{n(n-1)/2} = e^{i(n-1)\pi} = (-1)^{n-1}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\prod_{k=0}^{n-1}\omega^k=\omega^{0+1+\cdots+(n-1)}=\omega^{n(n-1)/2}=e^{i(n-1)\pi}=(-1)^{n-1}$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>
