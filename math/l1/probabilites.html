@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Probability</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <!-- ====== PROBABILITY SPACE ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A <em>discrete probability space</em> is a pair $(\Omega, \mathbb{P})$ where $\Omega$ is a finite or countable nonempty set and $\mathbb{P} : \mathcal{P}(\Omega) \to [0,1]$ satisfies: (i) $\mathbb{P}(\Omega) = 1$; (ii) ($\sigma$-additivity) for every family $(A_n)_{n \ge 1}$ of pairwise disjoint events, $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} \mathbb{P}(A_n)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Un <em>espace probabilis&eacute; discret</em> est un couple $(\Omega,\mathbb{P})$ o&ugrave; $\Omega$ est un ensemble fini ou d&eacute;nombrable non vide et $\mathbb{P}:\mathcal{P}(\Omega)\to[0,1]$ v&eacute;rifie : (i) $\mathbb{P}(\Omega)=1$ ; (ii) ($\sigma$-additivit&eacute;) pour toute famille $(A_n)_{n\ge 1}$ d'&eacute;v&eacute;nements deux &agrave; deux disjoints, $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right)=\sum_{n=1}^{+\infty}\mathbb{P}(A_n)$.</p>
+    </div>
+
+    <!-- Basic properties -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For all events $A, B \subset \Omega$: $$\mathbb{P}(\varnothing) = 0,\quad \mathbb{P}(A^c) = 1 - \mathbb{P}(A),\quad A \subset B \Rightarrow \mathbb{P}(A) \le \mathbb{P}(B),$$ and $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour tous &eacute;v&eacute;nements $A,B\subset\Omega$ : $$\mathbb{P}(\varnothing)=0,\quad \mathbb{P}(A^c)=1-\mathbb{P}(A),\quad A\subset B \Rightarrow \mathbb{P}(A)\le\mathbb{P}(B),$$ et $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We have $\Omega = A \sqcup A^c$, so $1 = \mathbb{P}(A) + \mathbb{P}(A^c)$, whence $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ and $\mathbb{P}(\varnothing) = 0$. If $A \subset B$, then $B = A \sqcup (B \setminus A)$, so $\mathbb{P}(B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A) \ge \mathbb{P}(A)$. Finally, $A \cup B = A \sqcup (B \setminus A)$ so $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A)$ and since $B = (A \cap B) \sqcup (B \setminus A)$ we get $\mathbb{P}(B \setminus A) = \mathbb{P}(B) - \mathbb{P}(A \cap B)$, whence $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On a $\Omega=A\sqcup A^c$, donc $1=\mathbb{P}(A)+\mathbb{P}(A^c)$, d'o&ugrave; $\mathbb{P}(A^c)=1-\mathbb{P}(A)$ et $\mathbb{P}(\varnothing)=0$. Si $A\subset B$, alors $B=A\sqcup(B\setminus A)$, donc $\mathbb{P}(B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)\ge\mathbb{P}(A)$. Enfin, $A\cup B=A\sqcup(B\setminus A)$ donc $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)$ et comme $B=(A\cap B)\sqcup(B\setminus A)$ on a $\mathbb{P}(B\setminus A)=\mathbb{P}(B)-\mathbb{P}(A\cap B)$, d'o&ugrave; $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.
+    </details>
+
+    <!-- Weights -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{P}$ is entirely determined by the weights $p_\omega = \mathbb{P}(\{\omega\})$ for $\omega \in \Omega$. We have $p_\omega \ge 0$, $\sum_{\omega \in \Omega} p_\omega = 1$ and $\mathbb{P}(A) = \sum_{\omega \in A} p_\omega$ for all $A \subset \Omega$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{P}$ est enti&egrave;rement d&eacute;termin&eacute;e par les poids $p_\omega=\mathbb{P}(\{\omega\})$ pour $\omega\in\Omega$. On a $p_\omega\ge 0$, $\sum_{\omega\in\Omega}p_\omega=1$ et $\mathbb{P}(A)=\sum_{\omega\in A}p_\omega$ pour tout $A\subset\Omega$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By $\sigma$-additivity, $\mathbb{P}(A) = \mathbb{P}\!\bigl(\bigsqcup_{\omega \in A}\{\omega\}\bigr) = \sum_{\omega \in A}\mathbb{P}(\{\omega\})$, and $\sum_{\omega \in \Omega} p_\omega = \mathbb{P}(\Omega) = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par $\sigma$-additivit&eacute;, $\mathbb{P}(A)=\mathbb{P}\!\bigl(\bigsqcup_{\omega\in A}\{\omega\}\bigr)=\sum_{\omega\in A}\mathbb{P}(\{\omega\})$, et $\sum_{\omega\in\Omega}p_\omega=\mathbb{P}(\Omega)=1$.
+    </details>
+
+    <!-- Monotone continuity -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Monotone continuity).</span> Let $(A_n)_{n \ge 1}$ be an increasing sequence of events (i.e. $A_n \subset A_{n+1}$). Then $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right) = \lim_{n \to +\infty} \mathbb{P}(A_n)$. Similarly, if $(B_n)_{n \ge 1}$ is decreasing, $\mathbb{P}\!\bigl(\bigcap_{n=1}^{+\infty} B_n\bigr) = \lim_{n \to +\infty} \mathbb{P}(B_n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Continuit&eacute; monotone).</span> Soit $(A_n)_{n\ge 1}$ une suite croissante d'&eacute;v&eacute;nements (i.e. $A_n\subset A_{n+1}$). Alors $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty}A_n\right)=\lim_{n\to+\infty}\mathbb{P}(A_n)$. De m&ecirc;me, si $(B_n)_{n\ge 1}$ est d&eacute;croissante, $\mathbb{P}\!\bigl(\bigcap_{n=1}^{+\infty}B_n\bigr)=\lim_{n\to+\infty}\mathbb{P}(B_n)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $C_1 = A_1$ and $C_n = A_n \setminus A_{n-1}$ for $n \ge 2$. The $C_n$ are disjoint and $\bigcup_n A_n = \bigsqcup_n C_n$, so $\mathbb{P}(\bigcup_n A_n) = \sum_{n=1}^{+\infty}\mathbb{P}(C_n) = \lim_{N \to +\infty}\sum_{n=1}^N\mathbb{P}(C_n) = \lim_{N \to +\infty}\mathbb{P}(A_N)$. The decreasing case follows by taking complements.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Posons $C_1=A_1$ et $C_n=A_n\setminus A_{n-1}$ pour $n\ge 2$. Les $C_n$ sont disjoints et $\bigcup_n A_n=\bigsqcup_n C_n$, donc $\mathbb{P}(\bigcup_n A_n)=\sum_{n=1}^{+\infty}\mathbb{P}(C_n)=\lim_{N\to+\infty}\sum_{n=1}^N\mathbb{P}(C_n)=\lim_{N\to+\infty}\mathbb{P}(A_N)$. Le cas d&eacute;croissant s'obtient en passant au compl&eacute;mentaire.
+    </details>
+
+    <!-- ====== CONDITIONAL PROBABILITY ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $A, B$ be two events with $\mathbb{P}(B) > 0$. The <em>conditional probability</em> of $A$ given $B$ is $\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soient $A,B$ deux &eacute;v&eacute;nements avec $\mathbb{P}(B)>0$. La <em>probabilit&eacute; conditionnelle</em> de $A$ sachant $B$ est $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Compound probability formula).</span> For all events $A, B$ with $\mathbb{P}(B) > 0$: $\mathbb{P}(A \cap B) = \mathbb{P}(B)\,\mathbb{P}(A \mid B)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Formule des probabilit&eacute;s compos&eacute;es).</span> Pour tous &eacute;v&eacute;nements $A,B$ avec $\mathbb{P}(B)>0$ : $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Total probability formula).</span> Let $(A_1, \dots, A_n)$ be a partition of $\Omega$ with $\mathbb{P}(A_i) > 0$ for all $i$. Then, for every event $B$: $\mathbb{P}(B) = \sum_{i=1}^n \mathbb{P}(A_i)\,\mathbb{P}(B \mid A_i)$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule des probabilit&eacute;s totales).</span> Soit $(A_1,\dots,A_n)$ une partition de $\Omega$ telle que $\mathbb{P}(A_i)>0$ pour tout $i$. Alors, pour tout &eacute;v&eacute;nement $B$ : $\mathbb{P}(B)=\sum_{i=1}^n \mathbb{P}(A_i)\,\mathbb{P}(B\mid A_i)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We have $B = \bigsqcup_{i=1}^n (B \cap A_i)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On a $B=\bigsqcup_{i=1}^n (B\cap A_i)$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bayes' formula).</span> Let $A$ and $B$ be two events with $\mathbb{P}(B) > 0$. Then $\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A)\,\mathbb{P}(B \mid A)}{\mathbb{P}(B)}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule de Bayes).</span> Soient $A$ et $B$ deux &eacute;v&eacute;nements tels que $\mathbb{P}(B)>0$. Alors $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A)\,\mathbb{P}(B\mid A)}{\mathbb{P}(B)}$.</p>
+    </div>
+
+    <!-- ====== INDEPENDENCE ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Two events $A$ and $B$ are <em>independent</em> if $\mathbb{P}(A \cap B) = \mathbb{P}(A)\,\mathbb{P}(B)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Deux &eacute;v&eacute;nements $A$ et $B$ sont <em>ind&eacute;pendants</em> si $\mathbb{P}(A\cap B)=\mathbb{P}(A)\,\mathbb{P}(B)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $\mathbb{P}(B) > 0$, then $A$ and $B$ are independent $\iff$ $\mathbb{P}(A \mid B) = \mathbb{P}(A)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $\mathbb{P}(B)>0$, alors $A$ et $B$ ind&eacute;pendants $\iff$ $\mathbb{P}(A\mid B)=\mathbb{P}(A)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Mutual independence).</span> A finite family of events $(A_1, \dots, A_n)$ is <em>mutually independent</em> if, for every subset $I \subset \{1, \dots, n\}$, $\mathbb{P}\!\bigl(\bigcap_{i \in I} A_i\bigr) = \prod_{i \in I}\mathbb{P}(A_i)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Ind&eacute;pendance mutuelle).</span> Une famille finie d'&eacute;v&eacute;nements $(A_1,\dots,A_n)$ est <em>mutuellement ind&eacute;pendante</em> si, pour toute partie $I\subset\{1,\dots,n\}$, $\mathbb{P}\!\bigl(\bigcap_{i\in I}A_i\bigr)=\prod_{i\in I}\mathbb{P}(A_i)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> Mutual independence implies pairwise independence, but the converse is false. For example, roll two fair dice and let $A = \{\text{first die even}\}$, $B = \{\text{second die even}\}$, $C = \{\text{sum even}\}$. Then $\mathbb{P}(A) = \mathbb{P}(B) = \mathbb{P}(C) = \frac{1}{2}$ and the three pairs are independent ($\mathbb{P}(A \cap B) = \mathbb{P}(A \cap C) = \mathbb{P}(B \cap C) = \frac{1}{4}$), yet $\mathbb{P}(A \cap B \cap C) = \frac{1}{4} \neq \frac{1}{8}$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> L'ind&eacute;pendance mutuelle implique l'ind&eacute;pendance deux &agrave; deux, mais la r&eacute;ciproque est fausse. Par exemple, on lance deux d&eacute;s &eacute;quilibr&eacute;s et on pose $A=\{\text{premier d&eacute; pair}\}$, $B=\{\text{second d&eacute; pair}\}$, $C=\{\text{somme paire}\}$. On a $\mathbb{P}(A)=\mathbb{P}(B)=\mathbb{P}(C)=\frac{1}{2}$ et les trois paires sont ind&eacute;pendantes ($\mathbb{P}(A\cap B)=\mathbb{P}(A\cap C)=\mathbb{P}(B\cap C)=\frac{1}{4}$), pourtant $\mathbb{P}(A\cap B\cap C)=\frac{1}{4}\neq\frac{1}{8}$.</p>
+    </div>
+
+    <!-- ====== RANDOM VARIABLES ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $(\Omega, \mathbb{P})$ be a discrete probability space and $E$ a finite or countable set. A <em>random variable</em> with values in $E$ is a map $X : \Omega \to E$. Its <em>law</em> (or distribution) is defined by $\mathbb{P}(X = x) = \mathbb{P}(X^{-1}(\{x\}))$ for $x \in E$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $(\Omega,\mathbb{P})$ un espace probabilis&eacute; discret et $E$ un ensemble fini ou d&eacute;nombrable. Une <em>variable al&eacute;atoire</em> &agrave; valeurs dans $E$ est une application $X:\Omega\to E$. Sa <em>loi</em> est d&eacute;finie par $\mathbb{P}(X=x)=\mathbb{P}(X^{-1}(\{x\}))$ pour $x\in E$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Joint law).</span> Let $X$ and $Y$ be two discrete random variables with values in finite sets $E$ and $F$. The <em>joint law</em> of $(X, Y)$ is the map $E \times F \to [0,1]$, $(x, y) \longmapsto \mathbb{P}(X = x,\ Y = y)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi conjointe).</span> Soient $X$ et $Y$ deux variables al&eacute;atoires discr&egrave;tes &agrave; valeurs dans des ensembles finis $E$ et $F$. La <em>loi conjointe</em> de $(X,Y)$ est l'application $E\times F \to [0,1]$, $(x,y)\longmapsto \mathbb{P}(X=x,\ Y=y)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Marginal laws).</span> The <em>marginal laws</em> of $X$ and $Y$ are defined by $\mathbb{P}(X = x) = \sum_{y \in F}\mathbb{P}(X = x,\ Y = y)$ and $\mathbb{P}(Y = y) = \sum_{x \in E}\mathbb{P}(X = x,\ Y = y)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Lois marginales).</span> Les <em>lois marginales</em> de $X$ et $Y$ sont d&eacute;finies par $\mathbb{P}(X=x)=\sum_{y\in F}\mathbb{P}(X=x,\ Y=y)$ et $\mathbb{P}(Y=y)=\sum_{x\in E}\mathbb{P}(X=x,\ Y=y)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Mutual independence of random variables).</span> A finite family of random variables $(X_1, \dots, X_n)$ is <em>mutually independent</em> if, for all $(x_1, \dots, x_n)$, $\mathbb{P}(X_1 = x_1, \dots, X_n = x_n) = \prod_{i=1}^n \mathbb{P}(X_i = x_i)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Ind&eacute;pendance mutuelle de variables al&eacute;atoires).</span> Une famille finie de variables al&eacute;atoires $(X_1,\dots,X_n)$ est <em>mutuellement ind&eacute;pendante</em> si, pour tous $(x_1,\dots,x_n)$, $\mathbb{P}(X_1=x_1,\dots,X_n=x_n)=\prod_{i=1}^n\mathbb{P}(X_i=x_i)$.</p>
+    </div>
+
+    <!-- ====== EXPECTATION ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Expectation).</span> Let $X$ be a discrete real random variable. If $\sum_{x \in X(\Omega)} |x|\,\mathbb{P}(X = x) &lt; +\infty$ (absolute convergence), $X$ <em>has an expectation</em> $\mathbb{E}(X) = \sum_{x \in X(\Omega)} x\,\mathbb{P}(X = x)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Esp&eacute;rance).</span> Soit $X$ une variable al&eacute;atoire r&eacute;elle discr&egrave;te. Si $\sum_{x\in X(\Omega)}|x|\,\mathbb{P}(X=x)&lt;+\infty$ (convergence absolue), $X$ <em>admet une esp&eacute;rance</em> $\mathbb{E}(X)=\sum_{x\in X(\Omega)}x\,\mathbb{P}(X=x)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> Absolute convergence is essential. By Riemann's rearrangement theorem, a conditionally convergent series can be rearranged to converge to any value. Absolute convergence guarantees that the sum is independent of the order of summation.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> La convergence absolue est indispensable. Par le th&eacute;or&egrave;me de r&eacute;arrangement de Riemann, une s&eacute;rie semi-convergente peut &ecirc;tre r&eacute;ordonn&eacute;e pour converger vers n'importe quelle valeur. La convergence absolue garantit que la somme est ind&eacute;pendante de l'ordre de sommation.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Transfer theorem).</span> Let $X$ be a random variable with values in $E$ and $f : E \to \mathbb{R}$. If $\sum_{x \in E} |f(x)|\,\mathbb{P}(X = x) &lt; +\infty$, then $\mathbb{E}(f(X)) = \sum_{x \in E} f(x)\,\mathbb{P}(X = x)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Th&eacute;or&egrave;me de transfert).</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $E$ et $f:E\to\mathbb{R}$. Si $\sum_{x\in E}|f(x)|\,\mathbb{P}(X=x)&lt;+\infty$, alors $\mathbb{E}(f(X))=\sum_{x\in E}f(x)\,\mathbb{P}(X=x)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{E}(f(X)) = \sum_{y} y\,\mathbb{P}(f(X)=y) = \sum_{y} y \sum_{f(x)=y}\mathbb{P}(X=x) = \sum_{x} f(x)\,\mathbb{P}(X=x)$, the rearrangement being justified by absolute convergence.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathbb{E}(f(X))=\sum_{y}y\,\mathbb{P}(f(X)=y)=\sum_{y}y\sum_{f(x)=y}\mathbb{P}(X=x)=\sum_{x}f(x)\,\mathbb{P}(X=x)$, le regroupement &eacute;tant justifi&eacute; par la convergence absolue.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Linearity and monotonicity).</span> If $X$ and $Y$ have expectations and $a \in \mathbb{R}$, then $X + Y$ and $aX$ have expectations, $\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)$ and $\mathbb{E}(aX) = a\,\mathbb{E}(X)$. If moreover $X \le Y$, then $\mathbb{E}(X) \le \mathbb{E}(Y)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Lin&eacute;arit&eacute; et croissance).</span> Si $X$ et $Y$ admettent une esp&eacute;rance et $a\in\mathbb{R}$, alors $X+Y$ et $aX$ admettent une esp&eacute;rance, $\mathbb{E}(X+Y)=\mathbb{E}(X)+\mathbb{E}(Y)$ et $\mathbb{E}(aX)=a\,\mathbb{E}(X)$. Si de plus $X\le Y$, alors $\mathbb{E}(X)\le\mathbb{E}(Y)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the transfer theorem applied to the variable $(X,Y)$ and the function $(x,y) \mapsto x+y$, $\mathbb{E}(X+Y) = \sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y) = \sum_x x\sum_y\mathbb{P}(X=x,Y=y) + \sum_y y\sum_x\mathbb{P}(X=x,Y=y) = \mathbb{E}(X) + \mathbb{E}(Y)$. For monotonicity, $Y - X \ge 0$ so $\mathbb{E}(Y - X) = \sum_\omega(Y(\omega) - X(\omega))\,\mathbb{P}(\{\omega\}) \ge 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le th&eacute;or&egrave;me de transfert appliqu&eacute; &agrave; la variable $(X,Y)$ et &agrave; la fonction $(x,y)\mapsto x+y$, $\mathbb{E}(X+Y)=\sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y)=\sum_x x\sum_y\mathbb{P}(X=x,Y=y)+\sum_y y\sum_x\mathbb{P}(X=x,Y=y)=\mathbb{E}(X)+\mathbb{E}(Y)$. Pour la croissance, $Y-X\ge 0$ donc $\mathbb{E}(Y-X)=\sum_\omega(Y(\omega)-X(\omega))\,\mathbb{P}(\{\omega\})\ge 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X_1, \dots, X_n$ are mutually independent and each has an expectation, then $\prod_{i=1}^n X_i$ has an expectation and $\mathbb{E}\!\bigl(\prod_{i=1}^n X_i\bigr) = \prod_{i=1}^n \mathbb{E}(X_i)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X_1,\dots,X_n$ sont mutuellement ind&eacute;pendantes et admettent chacune une esp&eacute;rance, alors $\prod_{i=1}^n X_i$ admet une esp&eacute;rance et $\mathbb{E}\!\bigl(\prod_{i=1}^n X_i\bigr)=\prod_{i=1}^n\mathbb{E}(X_i)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $n$. For $n=2$, $\mathbb{E}(X_1 X_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2) = \mathbb{E}(X_1)\,\mathbb{E}(X_2)$. If the result holds for $n-1$ variables, write $\prod_{i=1}^n X_i = \bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ and apply the $n=2$ case, since $\prod_{i=1}^{n-1}X_i$, being a function of $X_1,\dots,X_{n-1}$, is independent of $X_n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $n$. Pour $n=2$, $\mathbb{E}(X_1 X_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2)=\mathbb{E}(X_1)\,\mathbb{E}(X_2)$. Si le r&eacute;sultat vaut pour $n-1$ variables, on &eacute;crit $\prod_{i=1}^n X_i=\bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ et on applique le cas $n=2$ car $\prod_{i=1}^{n-1}X_i$, fonction de $X_1,\dots,X_{n-1}$, est ind&eacute;pendante de $X_n$.
+    </details>
+
+    <!-- ====== VARIANCE, COVARIANCE ====== -->
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Variance).</span> Let $X$ be a random variable with expectation. If $\sum_{x \in X(\Omega)} x^2\,\mathbb{P}(X = x) &lt; +\infty$, we say $X$ <em>has a variance</em>, defined by $\mathrm{Var}(X) = \mathbb{E}\big((X - \mathbb{E}(X))^2\big) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Variance).</span> Soit $X$ une variable al&eacute;atoire admettant une esp&eacute;rance. Si $\sum_{x\in X(\Omega)}x^2\,\mathbb{P}(X=x)&lt;+\infty$, on dit que $X$ admet une <em>variance</em>, d&eacute;finie par $\mathrm{Var}(X)=\mathbb{E}\big((X-\mathbb{E}(X))^2\big)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> The condition $\mathbb{E}(X^2) &lt; +\infty$ implies $\mathbb{E}(|X|) &lt; +\infty$: by the Cauchy-Schwarz inequality, $\mathbb{E}(|X|) \le \sqrt{\mathbb{E}(X^2)}$. Thus every random variable with a variance also has an expectation.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> La condition $\mathbb{E}(X^2)&lt;+\infty$ implique $\mathbb{E}(|X|)&lt;+\infty$ : par l'in&eacute;galit&eacute; de Cauchy-Schwarz, $\mathbb{E}(|X|)\le\sqrt{\mathbb{E}(X^2)}$. Ainsi, toute variable al&eacute;atoire admettant une variance admet aussi une esp&eacute;rance.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For any random variable $X$ and reals $a, b$: $\mathrm{Var}(aX + b) = a^2\,\mathrm{Var}(X)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour toute variable al&eacute;atoire $X$ et tous r&eacute;els $a,b$ : $\mathrm{Var}(aX+b)=a^2\,\mathrm{Var}(X)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathrm{Var}(aX+b) = \mathbb{E}((aX+b - a\mathbb{E}(X) - b)^2) = \mathbb{E}(a^2(X - \mathbb{E}(X))^2) = a^2\,\mathrm{Var}(X)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathrm{Var}(aX+b)=\mathbb{E}((aX+b-a\mathbb{E}(X)-b)^2)=\mathbb{E}(a^2(X-\mathbb{E}(X))^2)=a^2\,\mathrm{Var}(X)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Standard deviation).</span> The <em>standard deviation</em> of a random variable $X$ is $\sigma(X) = \sqrt{\mathrm{Var}(X)}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (&Eacute;cart type).</span> L'<em>&eacute;cart type</em> d'une variable al&eacute;atoire $X$ est $\sigma(X)=\sqrt{\mathrm{Var}(X)}$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Covariance).</span> The <em>covariance</em> of two random variables $X$ and $Y$ is $\mathrm{Cov}(X,Y) = \mathbb{E}\big((X - \mathbb{E}(X))(Y - \mathbb{E}(Y))\big) = \mathbb{E}(XY) - \mathbb{E}(X)\,\mathbb{E}(Y)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Covariance).</span> La <em>covariance</em> de deux variables al&eacute;atoires $X$ et $Y$ est $\mathrm{Cov}(X,Y)=\mathbb{E}\big((X-\mathbb{E}(X))(Y-\mathbb{E}(Y))\big)=\mathbb{E}(XY)-\mathbb{E}(X)\,\mathbb{E}(Y)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For all random variables $X$ and $Y$: $\mathrm{Var}(X + Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\,\mathrm{Cov}(X,Y)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour toutes variables al&eacute;atoires $X$ et $Y$ : $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\,\mathrm{Cov}(X,Y)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathrm{Var}(X+Y) = \mathbb{E}\big(((X-\mathbb{E}(X))+(Y-\mathbb{E}(Y)))^2\big) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\,\mathrm{Cov}(X,Y)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathrm{Var}(X+Y)=\mathbb{E}\big(((X-\mathbb{E}(X))+(Y-\mathbb{E}(Y)))^2\big)=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\,\mathrm{Cov}(X,Y)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> If $X$ and $Y$ are independent, then $\mathrm{Cov}(X,Y) = 0$, so $\mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y)$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Si $X$ et $Y$ sont ind&eacute;pendantes, alors $\mathrm{Cov}(X,Y)=0$, donc $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X_1, \dots, X_n$ are mutually independent and each has a variance, then $\mathrm{Var}(X_1 + \cdots + X_n) = \sum_{i=1}^n \mathrm{Var}(X_i)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X_1,\dots,X_n$ sont mutuellement ind&eacute;pendantes et admettent chacune une variance, alors $\mathrm{Var}(X_1+\cdots+X_n)=\sum_{i=1}^n\mathrm{Var}(X_i)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $n$. For $n = 2$, independence gives $\mathrm{Cov}(X_1, X_2) = 0$, so $\mathrm{Var}(X_1 + X_2) = \mathrm{Var}(X_1) + \mathrm{Var}(X_2)$. If the result holds for $n-1$ variables, then $\mathrm{Var}(X_1 + \cdots + X_n) = \mathrm{Var}(X_1 + \cdots + X_{n-1}) + \mathrm{Var}(X_n)$ since $X_1 + \cdots + X_{n-1}$, being a function of $X_1, \dots, X_{n-1}$, is independent of $X_n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $n$. Pour $n=2$, l'ind&eacute;pendance donne $\mathrm{Cov}(X_1,X_2)=0$, donc $\mathrm{Var}(X_1+X_2)=\mathrm{Var}(X_1)+\mathrm{Var}(X_2)$. Si le r&eacute;sultat vaut pour $n-1$ variables, $\mathrm{Var}(X_1+\cdots+X_n)=\mathrm{Var}(X_1+\cdots+X_{n-1})+\mathrm{Var}(X_n)$ car $X_1+\cdots+X_{n-1}$, fonction de $X_1,\dots,X_{n-1}$, est ind&eacute;pendante de $X_n$.
+    </details>
+
+    <!-- ====== CLASSICAL DISTRIBUTIONS ====== -->
+
+    <h3 class="en">Classical distributions</h3>
+    <h3 class="fr">Lois classiques</h3>
+
+    <!-- Uniform -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Uniform distribution).</span> A random variable $X$ follows a <em>uniform distribution</em> on a finite set $E$ of cardinality $n$ if $\forall k \in E,\ \mathbb{P}(X = k) = \frac{1}{n}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi uniforme).</span> Une variable al&eacute;atoire $X$ suit une <em>loi uniforme</em> sur un ensemble fini $E$ de cardinal $n$ si $\forall k\in E,\ \mathbb{P}(X=k)=\frac{1}{n}$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> This distribution models an experiment where all outcomes are equally likely, for example the result of rolling a fair die.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Cette loi mod&eacute;lise une exp&eacute;rience o&ugrave; toutes les issues sont &eacute;quiprobables, par exemple le r&eacute;sultat d'un lancer de d&eacute; &eacute;quilibr&eacute;.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X$ follows a uniform distribution on $\{a, \dots, b\}$ (with $a \le b$ integers), setting $n = b - a + 1$: $\mathbb{E}(X) = \frac{a+b}{2}$ and $\mathrm{Var}(X) = \frac{n^2 - 1}{12}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X$ suit une loi uniforme sur $\{a,\dots,b\}$ (avec $a\le b$ entiers), en notant $n=b-a+1$ : $\mathbb{E}(X)=\frac{a+b}{2}$ et $\mathrm{Var}(X)=\frac{n^2-1}{12}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{E}(X) = \frac{1}{n}\sum_{k=a}^b k = \frac{a+b}{2}$. By translation invariance of variance, $\mathrm{Var}(X) = \mathrm{Var}(X-a)$ where $X-a$ is uniform on $\{0,\dots,n-1\}$, so $\mathrm{Var}(X) = \frac{1}{n}\sum_{k=0}^{n-1}k^2 - \left(\frac{n-1}{2}\right)^2 = \frac{n^2-1}{12}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathbb{E}(X)=\frac{1}{n}\sum_{k=a}^b k=\frac{a+b}{2}$. Par invariance de la variance par translation, $\mathrm{Var}(X)=\mathrm{Var}(X-a)$ o&ugrave; $X-a$ suit la loi uniforme sur $\{0,\dots,n-1\}$, d'o&ugrave; $\mathrm{Var}(X)=\frac{1}{n}\sum_{k=0}^{n-1}k^2-\left(\frac{n-1}{2}\right)^2=\frac{n^2-1}{12}$.
+    </details>
+
+    <!-- Bernoulli -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Bernoulli distribution).</span> A random variable $X$ follows a Bernoulli distribution with parameter $p \in [0,1]$ if $\mathbb{P}(X=1) = p$ and $\mathbb{P}(X=0) = 1-p$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi de Bernoulli).</span> Une variable al&eacute;atoire $X$ suit une loi de Bernoulli de param&egrave;tre $p\in[0,1]$ si $\mathbb{P}(X=1)=p$ et $\mathbb{P}(X=0)=1-p$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> This distribution models an experiment with two outcomes (success/failure), for example a biased coin toss where the probability of success is $p$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Cette loi mod&eacute;lise une exp&eacute;rience &agrave; deux issues (succ&egrave;s/&eacute;chec), par exemple un lancer de pi&egrave;ce biais&eacute;e o&ugrave; la probabilit&eacute; de succ&egrave;s vaut $p$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{B}(p)$, then $\mathbb{E}(X) = p$ and $\mathrm{Var}(X) = p(1-p)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{B}(p)$, alors $\mathbb{E}(X)=p$ et $\mathrm{Var}(X)=p(1-p)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{E}(X) = 0\cdot(1-p) + 1\cdot p = p$ and $\mathrm{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2 = p - p^2 = p(1-p)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathbb{E}(X)=0\cdot(1-p)+1\cdot p=p$ et $\mathrm{Var}(X)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2=p-p^2=p(1-p)$.
+    </details>
+
+    <!-- Binomial -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Binomial distribution).</span> A random variable $X$ follows a binomial distribution $\mathcal{B}(n,p)$ if $\mathbb{P}(X = k) = \binom{n}{k}p^k(1-p)^{n-k}$. This models the number of successes in $n$ independent Bernoulli trials with parameter $p$: if $X_1, \dots, X_n$ are independent $\mathcal{B}(p)$, then $X = X_1 + \cdots + X_n \sim \mathcal{B}(n,p)$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi binomiale).</span> Une variable al&eacute;atoire $X$ suit une loi binomiale $\mathcal{B}(n,p)$ si $\mathbb{P}(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$. Cette loi mod&eacute;lise le nombre de succ&egrave;s obtenus lors de $n$ r&eacute;p&eacute;titions ind&eacute;pendantes d'une exp&eacute;rience de Bernoulli de param&egrave;tre $p$ : si $X_1,\dots,X_n$ sont ind&eacute;pendantes $\mathcal{B}(p)$, alors $X=X_1+\cdots+X_n\sim\mathcal{B}(n,p)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{B}(n,p)$, then $\mathbb{E}(X) = np$ and $\mathrm{Var}(X) = np(1-p)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{B}(n,p)$, alors $\mathbb{E}(X)=np$ et $\mathrm{Var}(X)=np(1-p)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Method 1 (direct):</em> $\mathbb{E}(X) = \sum_{k=0}^n k\binom{n}{k}p^k(1-p)^{n-k} = np\sum_{k=1}^n \binom{n-1}{k-1}p^{k-1}(1-p)^{n-k} = np$ (using $k\binom{n}{k} = n\binom{n-1}{k-1}$), and $\mathbb{E}(X^2) = n(n-1)p^2 + np$ (writing $k^2 = k(k-1) + k$), whence $\mathrm{Var}(X) = np(1-p)$.
+      <br><br>
+      <em>Method 2 (via Bernoulli):</em> If $X = X_1 + \cdots + X_n$ with $X_i$ independent $\mathcal{B}(p)$, then by linearity $\mathbb{E}(X) = np$ and by independence $\mathrm{Var}(X) = np(1-p)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>M&eacute;thode 1 (directe) :</em> $\mathbb{E}(X)=\sum_{k=0}^n k\binom{n}{k}p^k(1-p)^{n-k}=np\sum_{k=1}^n \binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}=np$ (en utilisant $k\binom{n}{k}=n\binom{n-1}{k-1}$), et $\mathbb{E}(X^2)=n(n-1)p^2+np$ (en &eacute;crivant $k^2=k(k-1)+k$), d'o&ugrave; $\mathrm{Var}(X)=np(1-p)$.
+      <br><br>
+      <em>M&eacute;thode 2 (via Bernoulli) :</em> si $X=X_1+\cdots+X_n$ avec $X_i$ ind&eacute;pendantes $\mathcal{B}(p)$, alors par lin&eacute;arit&eacute; $\mathbb{E}(X)=np$ et, par ind&eacute;pendance, $\mathrm{Var}(X)=np(1-p)$.
+    </details>
+
+    <!-- Geometric -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Geometric distribution).</span> A random variable $X$ follows a <em>geometric distribution</em> with parameter $p \in\, ]0,1]$, written $X \sim \mathcal{G}(p)$, if $\forall k \ge 1,\ \mathbb{P}(X = k) = (1-p)^{k-1}p$. It models the rank of the first success in a sequence of independent Bernoulli trials with parameter $p$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi g&eacute;om&eacute;trique).</span> Une variable al&eacute;atoire $X$ suit une <em>loi g&eacute;om&eacute;trique</em> de param&egrave;tre $p\in\,]0,1]$, not&eacute;e $X\sim\mathcal{G}(p)$, si $\forall k\ge 1,\ \mathbb{P}(X=k)=(1-p)^{k-1}p$. Elle mod&eacute;lise le rang du premier succ&egrave;s dans une suite d'&eacute;preuves de Bernoulli ind&eacute;pendantes de param&egrave;tre $p$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Memorylessness).</span> If $X \sim \mathcal{G}(p)$, then for all integers $m, n \ge 1$: $\mathbb{P}(X > m+n \mid X > m) = \mathbb{P}(X > n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Absence de m&eacute;moire).</span> Si $X\sim\mathcal{G}(p)$, alors pour tous entiers $m,n\ge 1$ : $\mathbb{P}(X>m+n\mid X>m)=\mathbb{P}(X>n)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{P}(X > k) = \sum_{j=k+1}^{+\infty}(1-p)^{j-1}p = (1-p)^k$, so $\mathbb{P}(X > m+n \mid X > m) = \frac{(1-p)^{m+n}}{(1-p)^m} = (1-p)^n = \mathbb{P}(X > n)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathbb{P}(X>k)=\sum_{j=k+1}^{+\infty}(1-p)^{j-1}p=(1-p)^k$, donc $\mathbb{P}(X>m+n\mid X>m)=\frac{(1-p)^{m+n}}{(1-p)^m}=(1-p)^n=\mathbb{P}(X>n)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{G}(p)$, then $\mathbb{E}(X) = \frac{1}{p}$ and $\mathrm{Var}(X) = \frac{1-p}{p^2}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{G}(p)$, alors $\mathbb{E}(X)=\frac{1}{p}$ et $\mathrm{Var}(X)=\frac{1-p}{p^2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Differentiating the geometric series $\sum_{k=0}^{+\infty}x^k = \frac{1}{1-x}$ gives $\sum_{k=1}^{+\infty}kx^{k-1} = \frac{1}{(1-x)^2}$ for $|x| &lt; 1$. Setting $x = 1-p$: $\mathbb{E}(X) = p\sum_{k=1}^{+\infty}k(1-p)^{k-1} = p \cdot \frac{1}{p^2} = \frac{1}{p}$.
+      For the variance, a second differentiation gives $\sum_{k=2}^{+\infty}k(k-1)x^{k-2} = \frac{2}{(1-x)^3}$. Setting $x = 1-p$: $\mathbb{E}(X(X-1)) = \frac{2(1-p)}{p^2}$. Then $\mathbb{E}(X^2) = \frac{2-p}{p^2}$ and $\mathrm{Var}(X) = \frac{2-p}{p^2} - \frac{1}{p^2} = \frac{1-p}{p^2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      La d&eacute;rivation de la s&eacute;rie g&eacute;om&eacute;trique $\sum_{k=0}^{+\infty}x^k=\frac{1}{1-x}$ donne $\sum_{k=1}^{+\infty}kx^{k-1}=\frac{1}{(1-x)^2}$ pour $|x|&lt;1$. En posant $x=1-p$ : $\mathbb{E}(X)=p\sum_{k=1}^{+\infty}k(1-p)^{k-1}=p\cdot\frac{1}{p^2}=\frac{1}{p}$.
+      Pour la variance, on d&eacute;rive une seconde fois : $\sum_{k=2}^{+\infty}k(k-1)x^{k-2}=\frac{2}{(1-x)^3}$. En posant $x=1-p$ : $\mathbb{E}(X(X-1))=\frac{2(1-p)}{p^2}$. Donc $\mathbb{E}(X^2)=\frac{2-p}{p^2}$ et $\mathrm{Var}(X)=\frac{2-p}{p^2}-\frac{1}{p^2}=\frac{1-p}{p^2}$.
+    </details>
+
+    <!-- Poisson -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Poisson distribution).</span> A random variable $X$ follows a <em>Poisson distribution</em> with parameter $\lambda > 0$, written $X \sim \mathcal{P}(\lambda)$, if $\forall k \in \mathbb{N},\ \mathbb{P}(X = k) = e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Loi de Poisson).</span> Une variable al&eacute;atoire $X$ suit une <em>loi de Poisson</em> de param&egrave;tre $\lambda>0$, not&eacute;e $X\sim\mathcal{P}(\lambda)$, si $\forall k\in\mathbb{N},\ \mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{P}(\lambda)$, then $\mathbb{E}(X) = \lambda$ and $\mathrm{Var}(X) = \lambda$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{P}(\lambda)$, alors $\mathbb{E}(X)=\lambda$ et $\mathrm{Var}(X)=\lambda$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{E}(X) = \sum_{k=0}^{+\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!} = \lambda e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!} = \lambda e^{-\lambda}\cdot e^{\lambda} = \lambda$. Then $\mathbb{E}(X(X-1)) = \lambda^2 e^{-\lambda}\sum_{k=2}^{+\infty}\frac{\lambda^{k-2}}{(k-2)!} = \lambda^2$, so $\mathbb{E}(X^2) = \lambda^2 + \lambda$ and $\mathrm{Var}(X) = \lambda$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\mathbb{E}(X)=\sum_{k=0}^{+\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!}=\lambda e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!}=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda$. Puis $\mathbb{E}(X(X-1))=\lambda^2 e^{-\lambda}\sum_{k=2}^{+\infty}\frac{\lambda^{k-2}}{(k-2)!}=\lambda^2$, donc $\mathbb{E}(X^2)=\lambda^2+\lambda$ et $\mathrm{Var}(X)=\lambda$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{P}(\lambda)$ and $Y \sim \mathcal{P}(\mu)$ are independent, then $X + Y \sim \mathcal{P}(\lambda + \mu)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{P}(\lambda)$ et $Y\sim\mathcal{P}(\mu)$ sont ind&eacute;pendantes, alors $X+Y\sim\mathcal{P}(\lambda+\mu)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $n \in \mathbb{N}$, $\mathbb{P}(X+Y=n) = \sum_{k=0}^n \mathbb{P}(X=k)\,\mathbb{P}(Y=n-k) = \sum_{k=0}^n e^{-\lambda}\frac{\lambda^k}{k!}\cdot e^{-\mu}\frac{\mu^{n-k}}{(n-k)!} = e^{-(\lambda+\mu)}\frac{1}{n!}\sum_{k=0}^n\binom{n}{k}\lambda^k\mu^{n-k} = e^{-(\lambda+\mu)}\frac{(\lambda+\mu)^n}{n!}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Pour $n\in\mathbb{N}$, $\mathbb{P}(X+Y=n)=\sum_{k=0}^n\mathbb{P}(X=k)\,\mathbb{P}(Y=n-k)=\sum_{k=0}^n e^{-\lambda}\frac{\lambda^k}{k!}\cdot e^{-\mu}\frac{\mu^{n-k}}{(n-k)!}=e^{-(\lambda+\mu)}\frac{1}{n!}\sum_{k=0}^n\binom{n}{k}\lambda^k\mu^{n-k}=e^{-(\lambda+\mu)}\frac{(\lambda+\mu)^n}{n!}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Poisson approximation).</span> Let $(p_n)$ be a sequence in $]0,1[$ such that $np_n \to \lambda > 0$. If $X_n \sim \mathcal{B}(n, p_n)$, then for all $k \in \mathbb{N}$: $\mathbb{P}(X_n = k) \xrightarrow[n \to +\infty]{} e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Approximation de Poisson).</span> Soit $(p_n)$ une suite de $]0,1[$ telle que $np_n\to\lambda>0$. Si $X_n\sim\mathcal{B}(n,p_n)$, alors pour tout $k\in\mathbb{N}$ : $\mathbb{P}(X_n=k)\xrightarrow[n\to+\infty]{}e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $\lambda_n = np_n$, so $p_n = \lambda_n/n$. Then $\mathbb{P}(X_n = k) = \binom{n}{k}\left(\frac{\lambda_n}{n}\right)^k\left(1 - \frac{\lambda_n}{n}\right)^{n-k}$. We have $\binom{n}{k}\cdot\frac{1}{n^k} = \frac{n(n-1)\cdots(n-k+1)}{n^k \cdot k!} \to \frac{1}{k!}$, $\lambda_n^k \to \lambda^k$, and $\left(1 - \frac{\lambda_n}{n}\right)^{n-k} \to e^{-\lambda}$, whence the result.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Posons $\lambda_n=np_n$, de sorte que $p_n=\lambda_n/n$. Alors $\mathbb{P}(X_n=k)=\binom{n}{k}\left(\frac{\lambda_n}{n}\right)^k\left(1-\frac{\lambda_n}{n}\right)^{n-k}$. On a $\binom{n}{k}\cdot\frac{1}{n^k}=\frac{n(n-1)\cdots(n-k+1)}{n^k\cdot k!}\to\frac{1}{k!}$, $\lambda_n^k\to\lambda^k$, et $\left(1-\frac{\lambda_n}{n}\right)^{n-k}\to e^{-\lambda}$, d'o&ugrave; le r&eacute;sultat.
+    </details>
+
+    <!-- ====== INEQUALITIES ====== -->
+
+    <h3 class="en">Concentration inequalities</h3>
+    <h3 class="fr">In&eacute;galit&eacute;s de concentration</h3>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Markov's inequality).</span> Let $X$ be a nonnegative random variable and $a > 0$. Then $\mathbb{P}(X \ge a) \le \frac{\mathbb{E}(X)}{a}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (In&eacute;galit&eacute; de Markov).</span> Soit $X$ une variable al&eacute;atoire positive et $a>0$. Alors $\mathbb{P}(X\ge a)\le\frac{\mathbb{E}(X)}{a}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Since $X \ge 0$, we have $X(\omega) \ge a\,\mathbf{1}_{X \ge a}(\omega)$ for all $\omega$. By monotonicity of expectation, $\mathbb{E}(X) \ge a\,\mathbb{E}(\mathbf{1}_{X \ge a}) = a\,\mathbb{P}(X \ge a)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Comme $X\ge 0$, on a $X(\omega)\ge a\,\mathbf{1}_{X\ge a}(\omega)$ pour tout $\omega$. Par croissance de l'esp&eacute;rance, $\mathbb{E}(X)\ge a\,\mathbb{E}(\mathbf{1}_{X\ge a})=a\,\mathbb{P}(X\ge a)$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bienaym&eacute;-Chebyshev inequality).</span> Let $X$ be a random variable and $\varepsilon > 0$. Then $\mathbb{P}(|X - \mathbb{E}(X)| \ge \varepsilon) \le \frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (In&eacute;galit&eacute; de Bienaym&eacute;-Tchebychev).</span> Soit $X$ une variable al&eacute;atoire et $\varepsilon>0$. Alors $\mathbb{P}(|X-\mathbb{E}(X)|\ge\varepsilon)\le\frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The random variable $(X - \mathbb{E}(X))^2$ is nonnegative, so by Markov's inequality with threshold $\varepsilon^2 > 0$: $\mathbb{P}((X - \mathbb{E}(X))^2 \ge \varepsilon^2) \le \frac{\mathbb{E}((X - \mathbb{E}(X))^2)}{\varepsilon^2} = \frac{\mathrm{Var}(X)}{\varepsilon^2}$. Since $(X - \mathbb{E}(X))^2 \ge \varepsilon^2$ iff $|X - \mathbb{E}(X)| \ge \varepsilon$, the result follows.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      La variable al&eacute;atoire $(X-\mathbb{E}(X))^2$ est positive, donc par l'in&eacute;galit&eacute; de Markov avec le seuil $\varepsilon^2>0$ : $\mathbb{P}((X-\mathbb{E}(X))^2\ge\varepsilon^2)\le\frac{\mathbb{E}((X-\mathbb{E}(X))^2)}{\varepsilon^2}=\frac{\mathrm{Var}(X)}{\varepsilon^2}$. Or $(X-\mathbb{E}(X))^2\ge\varepsilon^2$ ssi $|X-\mathbb{E}(X)|\ge\varepsilon$, d'o&ugrave; le r&eacute;sultat.
+    </details>
+
+    <!-- ====== GENERATING FUNCTIONS ====== -->
+
+    <h3 class="en">Generating functions</h3>
+    <h3 class="fr">Fonctions g&eacute;n&eacute;ratrices</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $X$ be a random variable with values in $\mathbb{N}$. The <em>probability generating function</em> of $X$ is $G_X : [-1,1] \to \mathbb{R}$, $G_X(t) = \mathbb{E}(t^X) = \sum_{k=0}^{+\infty}\mathbb{P}(X = k)\,t^k$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $\mathbb{N}$. La <em>fonction g&eacute;n&eacute;ratrice</em> de $X$ est $G_X:[-1,1]\to\mathbb{R}$, $G_X(t)=\mathbb{E}(t^X)=\sum_{k=0}^{+\infty}\mathbb{P}(X=k)\,t^k$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark.</span> The radius of convergence of this power series is at least $1$, since $|\mathbb{P}(X = k)\,t^k| \le \mathbb{P}(X = k)$ for $|t| \le 1$, and $\sum \mathbb{P}(X = k) = 1$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Le rayon de convergence de cette s&eacute;rie enti&egrave;re est au moins $1$ car $|\mathbb{P}(X=k)\,t^k|\le\mathbb{P}(X=k)$ pour $|t|\le 1$, et $\sum\mathbb{P}(X=k)=1$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The generating function characterizes the law: if $G_X = G_Y$ on $[-1,1]$, then $X$ and $Y$ have the same law.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La fonction g&eacute;n&eacute;ratrice caract&eacute;rise la loi : si $G_X=G_Y$ sur $[-1,1]$, alors $X$ et $Y$ ont m&ecirc;me loi.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By uniqueness of the coefficients of a power series, $\mathbb{P}(X = k) = \mathbb{P}(Y = k)$ for all $k$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par unicit&eacute; des coefficients d'une s&eacute;rie enti&egrave;re, $\mathbb{P}(X=k)=\mathbb{P}(Y=k)$ pour tout $k$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> We have $G_X(0) = \mathbb{P}(X = 0)$ and $G_X(1) = 1$. If $X$ has an expectation, $G_X'(1^-) = \mathbb{E}(X)$. If $X$ has a variance, $\mathrm{Var}(X) = G_X''(1^-) + G_X'(1^-) - (G_X'(1^-))^2$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> On a $G_X(0)=\mathbb{P}(X=0)$ et $G_X(1)=1$. Si $X$ admet une esp&eacute;rance, $G_X'(1^-)=\mathbb{E}(X)$. Si $X$ admet une variance, $\mathrm{Var}(X)=G_X''(1^-)+G_X'(1^-)-(G_X'(1^-))^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $G_X'(t) = \sum_{k=1}^{+\infty}k\,\mathbb{P}(X = k)\,t^{k-1}$, and at $t = 1^-$ we get $\sum_{k=1}^{+\infty}k\,\mathbb{P}(X = k) = \mathbb{E}(X)$ by Abel's radial theorem. Similarly, $G_X''(t) = \sum_{k=2}^{+\infty}k(k-1)\mathbb{P}(X = k)\,t^{k-2}$ and $G_X''(1^-) = \mathbb{E}(X(X-1)) = \mathbb{E}(X^2) - \mathbb{E}(X)$, whence the formula.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $G_X'(t)=\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)\,t^{k-1}$, et en $t=1^-$ on obtient $\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)=\mathbb{E}(X)$ par le th&eacute;or&egrave;me d'Abel radial. De m&ecirc;me, $G_X''(t)=\sum_{k=2}^{+\infty}k(k-1)\mathbb{P}(X=k)\,t^{k-2}$ et $G_X''(1^-)=\mathbb{E}(X(X-1))=\mathbb{E}(X^2)-\mathbb{E}(X)$, d'o&ugrave; la formule.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem.</span> If $X$ and $Y$ are independent and $\mathbb{N}$-valued, then $G_{X+Y} = G_X \cdot G_Y$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Si $X$ et $Y$ sont ind&eacute;pendantes et &agrave; valeurs dans $\mathbb{N}$, alors $G_{X+Y}=G_X\cdot G_Y$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $G_{X+Y}(t) = \mathbb{E}(t^{X+Y}) = \mathbb{E}(t^X \cdot t^Y) = \mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ by independence.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $G_{X+Y}(t)=\mathbb{E}(t^{X+Y})=\mathbb{E}(t^X\cdot t^Y)=\mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ par ind&eacute;pendance.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Generating functions of classical distributions.</span></p>
+      <ul class="en">
+        <li>$X \sim \mathcal{B}(p)$: $G_X(t) = 1 - p + pt$.</li>
+        <li>$X \sim \mathcal{B}(n,p)$: $G_X(t) = (1-p+pt)^n$.</li>
+        <li>$X \sim \mathcal{G}(p)$: $G_X(t) = \frac{pt}{1-(1-p)t}$.</li>
+        <li>$X \sim \mathcal{P}(\lambda)$: $G_X(t) = e^{\lambda(t-1)}$.</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Fonctions g&eacute;n&eacute;ratrices des lois classiques.</span></p>
+      <ul class="fr">
+        <li>$X \sim \mathcal{B}(p)$ : $G_X(t) = 1 - p + pt$.</li>
+        <li>$X \sim \mathcal{B}(n,p)$ : $G_X(t) = (1-p+pt)^n$.</li>
+        <li>$X \sim \mathcal{G}(p)$ : $G_X(t) = \frac{pt}{1-(1-p)t}$.</li>
+        <li>$X \sim \mathcal{P}(\lambda)$ : $G_X(t) = e^{\lambda(t-1)}$.</li>
+      </ul>
+    </div>
+
+    <!-- ====== CONVERGENCE AND LLN ====== -->
+
+    <h3 class="en">Convergence in probability and law of large numbers</h3>
+    <h3 class="fr">Convergence en probabilit&eacute; et loi des grands nombres</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A sequence $(X_n)$ of random variables <em>converges in probability</em> to a random variable $X$ if, for all $\varepsilon > 0$, $\mathbb{P}(|X_n - X| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Une suite $(X_n)$ de variables al&eacute;atoires <em>converge en probabilit&eacute;</em> vers une variable al&eacute;atoire $X$ si, pour tout $\varepsilon>0$, $\mathbb{P}(|X_n-X|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Weak law of large numbers).</span> Let $(X_n)_{n \ge 1}$ be a sequence of mutually independent random variables with the same law, having expectation $\mu$ and variance $\sigma^2$. Set $\bar{X}_n = \frac{X_1 + \cdots + X_n}{n}$. Then $\bar{X}_n$ converges in probability to $\mu$: for all $\varepsilon > 0$, $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Loi faible des grands nombres).</span> Soit $(X_n)_{n\ge 1}$ une suite de variables al&eacute;atoires mutuellement ind&eacute;pendantes, de m&ecirc;me loi, admettant une esp&eacute;rance $\mu$ et une variance $\sigma^2$. On pose $\bar{X}_n=\frac{X_1+\cdots+X_n}{n}$. Alors $\bar{X}_n$ converge en probabilit&eacute; vers $\mu$ : pour tout $\varepsilon>0$, $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By linearity, $\mathbb{E}(\bar{X}_n) = \mu$. By mutual independence, $\mathrm{Var}(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i) = \frac{\sigma^2}{n}$. The Bienaym&eacute;-Chebyshev inequality then gives $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \le \frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \xrightarrow[n \to +\infty]{} 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par lin&eacute;arit&eacute; de l'esp&eacute;rance, $\mathbb{E}(\bar{X}_n)=\mu$. Par ind&eacute;pendance mutuelle, $\mathrm{Var}(\bar{X}_n)=\frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i)=\frac{\sigma^2}{n}$. L'in&eacute;galit&eacute; de Bienaym&eacute;-Tchebychev donne alors $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\le\frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2}=\frac{\sigma^2}{n\varepsilon^2}\xrightarrow[n\to+\infty]{}0$.
+    </details>
+
+    <!-- ============ EXERCISES ============ -->
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <!-- Exercise: Hypergeometric -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> An urn contains $n$ white balls and $p$ black balls. We draw $k$ balls without replacement. What is the probability of getting exactly $j$ white balls?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Une urne contient $n$ boules blanches et $p$ boules noires. On tire $k$ boules sans remise. Quelle est la probabilit&eacute; d'obtenir exactement $j$ boules blanches ?</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      There are $\binom{n+p}{k}$ possible draws. The number of draws with $j$ white and $k-j$ black balls is $\binom{n}{j}\binom{p}{k-j}$. So $\mathbb{P} = \frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$ (hypergeometric distribution).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Il y a $\binom{n+p}{k}$ tirages possibles. Le nombre de tirages avec $j$ blanches et $k-j$ noires est $\binom{n}{j}\binom{p}{k-j}$. Donc $\mathbb{P}=\frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$ (loi hyperg&eacute;om&eacute;trique).
+    </details>
+
+    <!-- Exercise: Geometric distribution -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> A coin with success probability $p = \frac{1}{3}$ is tossed until the first success. Let $X$ be the number of tosses. (1) What is the law of $X$? Compute $\mathbb{E}(X)$ and $\mathrm{Var}(X)$. (2) Compute $\mathbb{P}(X > 5)$. (3) Compute $\mathbb{P}(X > 8 \mid X > 3)$. Comment.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On lance une pi&egrave;ce de probabilit&eacute; de succ&egrave;s $p=\frac{1}{3}$ jusqu'&agrave; obtenir le premier succ&egrave;s. Soit $X$ le nombre de lancers effectu&eacute;s. (1) Quelle est la loi de $X$ ? Calculer $\mathbb{E}(X)$ et $\mathrm{Var}(X)$. (2) Calculer $\mathbb{P}(X>5)$. (3) Calculer $\mathbb{P}(X>8\mid X>3)$. Commenter.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $X \sim \mathcal{G}(1/3)$, so $\mathbb{E}(X) = 3$ and $\mathrm{Var}(X) = \frac{2/3}{1/9} = 6$. $\mathbb{P}(X > 5) = (2/3)^5 = 32/243$. $\mathbb{P}(X > 8 \mid X > 3) = (2/3)^5 = \mathbb{P}(X > 5)$ by the memorylessness property: given that there was no success in 3 tosses, everything restarts from scratch.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $X\sim\mathcal{G}(1/3)$, donc $\mathbb{E}(X)=3$ et $\mathrm{Var}(X)=\frac{2/3}{1/9}=6$. $\mathbb{P}(X>5)=(2/3)^5=32/243$. $\mathbb{P}(X>8\mid X>3)=(2/3)^5=\mathbb{P}(X>5)$ par absence de m&eacute;moire : sachant qu'on n'a pas eu de succ&egrave;s en 3 lancers, tout se passe comme si on recommen&ccedil;ait &agrave; z&eacute;ro.
+    </details>
+
+    <!-- Exercise: E(X) = sum P(X>k) -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $X$ be a random variable with values in $\mathbb{N}$. Show that $\mathbb{E}(X) = \sum_{k=0}^{+\infty}\mathbb{P}(X > k)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $\mathbb{N}$. Montrer que $\mathbb{E}(X)=\sum_{k=0}^{+\infty}\mathbb{P}(X>k)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\sum_{k=0}^{+\infty}\mathbb{P}(X > k) = \sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X = j) = \sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X = j) = \sum_{j=1}^{+\infty}j\,\mathbb{P}(X = j) = \mathbb{E}(X)$, the interchange being justified by the positivity of the terms (Fubini-Tonelli for series).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\sum_{k=0}^{+\infty}\mathbb{P}(X>k)=\sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X=j)=\sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X=j)=\sum_{j=1}^{+\infty}j\,\mathbb{P}(X=j)=\mathbb{E}(X)$, l'interversion &eacute;tant justifi&eacute;e par la positivit&eacute; des termes (th&eacute;or&egrave;me de Fubini-Tonelli pour les s&eacute;ries).
+    </details>
+
+    <!-- Exercise: Generating function of geometric -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $X \sim \mathcal{G}(p)$. Compute the generating function of $X$. Deduce $\mathbb{E}(X)$ and $\mathrm{Var}(X)$ by differentiation.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $X\sim\mathcal{G}(p)$. Calculer la fonction g&eacute;n&eacute;ratrice de $X$. En d&eacute;duire $\mathbb{E}(X)$ et $\mathrm{Var}(X)$ par d&eacute;rivation.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $G_X(t) = \frac{pt}{1-(1-p)t}$. $G_X'(t) = \frac{p}{(1-(1-p)t)^2}$, so $G_X'(1^-) = \frac{p}{p^2} = \frac{1}{p} = \mathbb{E}(X)$. $G_X''(t) = \frac{2p(1-p)}{(1-(1-p)t)^3}$, so $G_X''(1^-) = \frac{2(1-p)}{p^2}$. $\mathrm{Var}(X) = G_X''(1^-) + G_X'(1^-) - (G_X'(1^-))^2 = \frac{2(1-p)}{p^2} + \frac{1}{p} - \frac{1}{p^2} = \frac{1-p}{p^2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $G_X(t)=\frac{pt}{1-(1-p)t}$. $G_X'(t)=\frac{p}{(1-(1-p)t)^2}$, donc $G_X'(1^-)=\frac{p}{p^2}=\frac{1}{p}=\mathbb{E}(X)$. $G_X''(t)=\frac{2p(1-p)}{(1-(1-p)t)^3}$, donc $G_X''(1^-)=\frac{2(1-p)}{p^2}$. $\mathrm{Var}(X)=G_X''(1^-)+G_X'(1^-)-(G_X'(1^-))^2=\frac{2(1-p)}{p^2}+\frac{1}{p}-\frac{1}{p^2}=\frac{1-p}{p^2}$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>
