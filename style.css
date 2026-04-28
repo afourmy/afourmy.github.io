@@ -216,11 +216,15 @@ pre code {
   line-height: 1.6rem;
 }
 
-.proof-label {
-  font-style: italic;
-  font-weight: 700;
-  margin-right: 0.3rem;
+/* Hide the proof summary entirely — the thm-label is the toggle */
+.proof > .proof-label {
+  display: none;
+}
+
+/* Clickable indicator on thm-labels that have a proof */
+.thm-label.has-proof {
   cursor: pointer;
+  color: #4a90d9;
 }
 
 .proof-body {
