@@ -216,11 +216,64 @@
       neighbor and often outperforms the other insertion variants.
     </p>
 
+    <h2>Optimization heuristics</h2>
+
+    <p>
+      Construction heuristics produce a complete tour, but it is usually far from optimal.
+      Optimization heuristics start from an existing tour and iteratively improve it by
+      rearranging the order of cities. They repeat until no further improvement can be found
+      (a local optimum).
+    </p>
+
+    <!-- ── Node Insertion ── -->
+
+    <h3>Node Insertion</h3>
+
+    <p>
+      Node insertion (also called or-opt with segment size 1) tries to improve a tour by
+      removing a single city from its current position and reinserting it at the best
+      possible position elsewhere in the tour.
+    </p>
+
+    <ol>
+      <li>Start with a tour built by a construction heuristic (here, nearest neighbor).</li>
+      <li>For each city <em>k</em> in the tour, remove it and try reinserting it at every
+        other position. If any reinsertion reduces the tour length, apply it.</li>
+      <li>Repeat until a full pass over all cities produces no improvement.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-node-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label>Cities <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34)</option>
+          <option value="100000">Pop. &ge; 100,000 (293)</option>
+        </select></label>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Each improvement removes crossing edges or tightens detours. The complexity per pass
+      is $$O(n^2)$$ and the algorithm typically converges in a small number of passes.
+      Because it only moves one city at a time, it can get stuck in local optima that
+      require moving two or more cities simultaneously to escape.
+    </p>
+
     <h2>Python implementation</h2>
 
     <p>
       The original implementation of these algorithms was written in Python.
-      The code below shows the core logic for each construction heuristic.
+      The code below shows the core logic for each heuristic.
     </p>
 
     <h3>Helper functions</h3>
@@ -309,6 +362,23 @@ def insertion_cost(distances, i, j, k):
     <pre><code class="language-python">def farthest_insertion(cities, distances):
     # same as nearest insertion, but selecting the farthest city
     return nearest_insertion(cities, distances, farthest=True)</code></pre>
+
+    <h3>Node Insertion</h3>
+
+    <pre><code class="language-python">def node_insertion(cities, distances):
+    solution = generate_initial_tour(cities)
+    stable, best = False, compute_length(solution, distances)
+    while not stable:
+        stable = True
+        for i in range(len(solution)):
+            for j in range(len(solution)):
+                node = solution[i]
+                candidate = solution[:i] + solution[i + 1:]
+                candidate = candidate[:j] + [node] + candidate[j:]
+                tour_length = compute_length(candidate, distances)
+                if best > tour_length:
+                    stable, solution, best = False, candidate, tour_length
+    return solution</code></pre>
 
   </main>
 

@@ -451,13 +451,65 @@
     return { steps: steps, lengths: lengths };
   }
 
+  // ── OPTIMIZATION HEURISTICS ──
+
+  function nodeInsertion(cities, dist) {
+    // build an initial tour with nearest neighbor (no animation)
+    var n = cities.length;
+    var start = Math.floor(Math.random() * n);
+    var visited = new Array(n).fill(false);
+    var tour = [start];
+    visited[start] = true;
+    while (tour.length < n) {
+      var last = tour[tour.length - 1];
+      var bestIdx = -1, bestDist = Infinity;
+      for (var j = 0; j < n; j++) {
+        if (!visited[j] && dist[last][j] < bestDist) {
+          bestDist = dist[last][j]; bestIdx = j;
+        }
+      }
+      tour.push(bestIdx);
+      visited[bestIdx] = true;
+    }
+
+    var best = tourLength(tour, dist);
+    var steps = [formatTour(tour, cities)];
+    var lengths = [best];
+    var stable = false;
+
+    while (!stable) {
+      stable = true;
+      for (var i = 0; i < n; i++) {
+        for (var j = 0; j < n; j++) {
+          if (j === i) continue;
+          // remove node at position i, reinsert at position j
+          var node = tour[i];
+          var candidate = tour.slice();
+          candidate.splice(i, 1);
+          var insertAt = j > i ? j - 1 : j;
+          candidate.splice(insertAt, 0, node);
+          var len = tourLength(candidate, dist);
+          if (len < best) {
+            tour = candidate;
+            best = len;
+            steps.push(formatTour(tour, cities));
+            lengths.push(best);
+            stable = false;
+          }
+        }
+      }
+    }
+    return { steps: steps, lengths: lengths };
+  }
+
   // ── Per-section map instances ──
 
   var algorithms = {
     "nearest-neighbor": nearestNeighbor,
     "nearest-insertion": function (c, d) { return nearestInsertion(c, d, false); },
     "cheapest-insertion": cheapestInsertion,
-    "farthest-insertion": farthestInsertion
+    "farthest-insertion": farthestInsertion,
+    "node-insertion": nodeInsertion
   };
 
   var instances = {};
@@ -610,7 +662,7 @@
   // ── Init all sections ──
   window.TSP = {
     init: function () {
-      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion"];
+      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion"];
       for (var i = 0; i < ids.length; i++) createInstance(ids[i]);
     }
   };
