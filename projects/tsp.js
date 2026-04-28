@@ -454,22 +454,13 @@
   // ── OPTIMIZATION HEURISTICS ──
 
   function nodeInsertion(cities, dist) {
-    // build an initial tour with nearest neighbor (no animation)
     var n = cities.length;
-    var start = Math.floor(Math.random() * n);
-    var visited = new Array(n).fill(false);
-    var tour = [start];
-    visited[start] = true;
-    while (tour.length < n) {
-      var last = tour[tour.length - 1];
-      var bestIdx = -1, bestDist = Infinity;
-      for (var j = 0; j < n; j++) {
-        if (!visited[j] && dist[last][j] < bestDist) {
-          bestDist = dist[last][j]; bestIdx = j;
-        }
-      }
-      tour.push(bestIdx);
-      visited[bestIdx] = true;
+    // build a random tour (Fisher-Yates shuffle)
+    var tour = [];
+    for (var i = 0; i < n; i++) tour.push(i);
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = tour[i]; tour[i] = tour[j]; tour[j] = tmp;
     }
 
     var best = tourLength(tour, dist);
