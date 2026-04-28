@@ -227,19 +227,21 @@
 
     <!-- ── Node Insertion ── -->
 
-    <h3>Node Insertion</h3>
+    <h3>Node and Edge Insertion</h3>
 
     <p>
-      Node insertion (also called or-opt with segment size 1) tries to improve a tour by
-      removing a single city from its current position and reinserting it at the best
-      possible position elsewhere in the tour.
+      These heuristics improve a tour by removing a substring of consecutive cities and
+      reinserting it at the best possible position elsewhere in the tour. Node insertion
+      moves one city at a time (substring of length 1), while edge insertion moves two
+      consecutive cities at a time (substring of length 2).
     </p>
 
     <ol>
       <li>Start with a tour built by a construction heuristic (here, nearest neighbor).</li>
-      <li>For each city <em>k</em> in the tour, remove it and try reinserting it at every
-        other position. If any reinsertion reduces the tour length, apply it.</li>
-      <li>Repeat until a full pass over all cities produces no improvement.</li>
+      <li>For each substring of <em>k</em> consecutive cities (k=1 for node, k=2 for edge),
+        remove it and try reinserting it at every other position. If any reinsertion reduces
+        the tour length, apply it.</li>
+      <li>Repeat until a full pass produces no improvement.</li>
     </ol>
 
     <div class="tsp-section" id="tsp-node-insertion">
@@ -365,20 +367,25 @@ def insertion_cost(distances, i, j, k):
 
     <h3>Node Insertion</h3>
 
-    <pre><code class="language-python">def node_insertion(cities, distances):
+    <pre><code class="language-python">def substring_insertion(cities, distances, k):
     solution = generate_initial_tour(cities)
     stable, best = False, compute_length(solution, distances)
     while not stable:
         stable = True
-        for i in range(len(solution)):
+        for i in range(len(solution) - k):
             for j in range(len(solution)):
-                node = solution[i]
-                candidate = solution[:i] + solution[i + 1:]
-                candidate = candidate[:j] + [node] + candidate[j:]
+                substring = solution[i:(i + k)]
+                candidate = solution[:i] + solution[(i + k):]
+                candidate = candidate[:j] + substring + candidate[j:]
                 tour_length = compute_length(candidate, distances)
                 if best > tour_length:
                     stable, solution, best = False, candidate, tour_length
-    return solution</code></pre>
+    return solution
+
+# node insertion: move one city at a time
+node_insertion = partial(substring_insertion, k=1)
+# edge insertion: move two consecutive cities at a time
+edge_insertion = partial(substring_insertion, k=2)</code></pre>
 
   </main>
 
