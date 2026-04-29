@@ -344,6 +344,36 @@
       On compl&egrave;te par des z&eacute;ros en t&ecirc;te pour obtenir $10^5$ &eacute;critures &agrave; $5$ chiffres. Pour chacune des $5$ positions, le chiffre $1$ appara&icirc;t dans $10^4$ &eacute;critures, soit $5\times 10^4=50\,000$ au total.
     </details>
 
+    <!-- Exercise: Lattice paths -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the number of lattice paths from $(0,0)$ to $(n,p)$ using only right and up steps is $\binom{n+p}{n}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le nombre de chemins allant de $(0,0)$ &agrave; $(n,p)$ en ne se d&eacute;pla&ccedil;ant que vers la droite ou vers le haut est $\binom{n+p}{n}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      A lattice path from $(0,0)$ to $(n,p)$ consists of exactly $n$ right steps and $p$ up steps, so $n+p$ steps in total. The path is entirely determined by the positions of the $n$ right steps among the $n+p$ steps. There are $\binom{n+p}{n}$ ways to choose these positions.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Un chemin de $(0,0)$ &agrave; $(n,p)$ comporte exactement $n$ pas vers la droite et $p$ pas vers le haut, soit $n+p$ pas au total. Le chemin est enti&egrave;rement d&eacute;termin&eacute; par les positions des $n$ pas vers la droite parmi les $n+p$ pas. Il y a $\binom{n+p}{n}$ fa&ccedil;ons de choisir ces positions.
+    </details>
+
+    <!-- Exercise: Shoes -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> We have $n$ pairs of shoes ($2n$ shoes in total). We choose $2r$ shoes at random ($2r \le n$). In how many ways can we choose these shoes so that no pair is complete?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On dispose de $n$ paires de chaussures ($2n$ chaussures au total). On choisit $2r$ chaussures au hasard ($2r\le n$). De combien de fa&ccedil;ons peut-on choisir ces chaussures de sorte qu'aucune paire ne soit compl&egrave;te ?</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      First choose which $2r$ pairs contribute a shoe: $\binom{n}{2r}$ ways. Then, from each chosen pair, pick one of the two shoes: $2^{2r}$ ways. The answer is $\binom{n}{2r} \cdot 2^{2r}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On choisit d'abord les $2r$ paires qui contribuent une chaussure : $\binom{n}{2r}$ fa&ccedil;ons. Puis, dans chaque paire choisie, on prend l'une des deux chaussures : $2^{2r}$ fa&ccedil;ons. La r&eacute;ponse est $\binom{n}{2r} \cdot 2^{2r}$.
+    </details>
+
     <!-- Exercise: Even/Odd subsets -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{k \text{ even}}\binom{n}{k} = \sum_{k \text{ odd}}\binom{n}{k} = 2^{n-1}$.</p>
@@ -433,36 +463,6 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On choisit $n$ &laquo; unit&eacute;s &raquo; &agrave; r&eacute;partir dans $k$ variables, ce qui revient &agrave; choisir $n$ &eacute;l&eacute;ments parmi $k$ cat&eacute;gories avec r&eacute;p&eacute;tition, soit $\binom{n+k-1}{n}=\binom{n+k-1}{k-1}$ solutions.
-    </details>
-
-    <!-- Exercise: Lattice paths -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the number of lattice paths from $(0,0)$ to $(n,p)$ using only right and up steps is $\binom{n+p}{n}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le nombre de chemins allant de $(0,0)$ &agrave; $(n,p)$ en ne se d&eacute;pla&ccedil;ant que vers la droite ou vers le haut est $\binom{n+p}{n}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      A lattice path from $(0,0)$ to $(n,p)$ consists of exactly $n$ right steps and $p$ up steps, so $n+p$ steps in total. The path is entirely determined by the positions of the $n$ right steps among the $n+p$ steps. There are $\binom{n+p}{n}$ ways to choose these positions.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Un chemin de $(0,0)$ &agrave; $(n,p)$ comporte exactement $n$ pas vers la droite et $p$ pas vers le haut, soit $n+p$ pas au total. Le chemin est enti&egrave;rement d&eacute;termin&eacute; par les positions des $n$ pas vers la droite parmi les $n+p$ pas. Il y a $\binom{n+p}{n}$ fa&ccedil;ons de choisir ces positions.
-    </details>
-
-    <!-- Exercise: Shoes -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> We have $n$ pairs of shoes ($2n$ shoes in total). We choose $2r$ shoes at random ($2r \le n$). In how many ways can we choose these shoes so that no pair is complete?</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> On dispose de $n$ paires de chaussures ($2n$ chaussures au total). On choisit $2r$ chaussures au hasard ($2r\le n$). De combien de fa&ccedil;ons peut-on choisir ces chaussures de sorte qu'aucune paire ne soit compl&egrave;te ?</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      First choose which $2r$ pairs contribute a shoe: $\binom{n}{2r}$ ways. Then, from each chosen pair, pick one of the two shoes: $2^{2r}$ ways. The answer is $\binom{n}{2r} \cdot 2^{2r}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On choisit d'abord les $2r$ paires qui contribuent une chaussure : $\binom{n}{2r}$ fa&ccedil;ons. Puis, dans chaque paire choisie, on prend l'une des deux chaussures : $2^{2r}$ fa&ccedil;ons. La r&eacute;ponse est $\binom{n}{2r} \cdot 2^{2r}$.
     </details>
 
     <!-- Exercise: Balls in urns -->
