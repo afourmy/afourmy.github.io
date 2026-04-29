@@ -78,28 +78,40 @@
   var nav = container.firstChild;
   document.body.insertBefore(nav, document.body.firstChild);
 
-  // Wire thm-labels as proof toggles
+  // Wire thm-labels as proof toggles (event delegation – works with SPA)
+  document.addEventListener("click", function (e) {
+    var label = e.target.closest(".thm-label");
+    if (!label) return;
+    var block = label.closest(".thm-block");
+    if (!block) return;
+    var proofs = [];
+    var sibling = block.nextElementSibling;
+    while (sibling && sibling.classList.contains("proof")) {
+      proofs.push(sibling);
+      sibling = sibling.nextElementSibling;
+    }
+    if (!proofs.length) return;
+    label.classList.add("has-proof");
+    var open = label.classList.toggle("proof-open");
+    proofs.forEach(function (p) {
+      p.open = open;
+    });
+  });
+
+  // Mark labels that have proofs
   window.initProofToggles = function () {
     document.querySelectorAll(".thm-block").forEach(function (block) {
-      if (block._proofWired) return;
-      block._proofWired = true;
-      // Collect proof siblings (en and fr variants)
-      var proofs = [];
       var sibling = block.nextElementSibling;
+      var hasProof = false;
       while (sibling && sibling.classList.contains("proof")) {
-        proofs.push(sibling);
+        hasProof = true;
         sibling = sibling.nextElementSibling;
       }
-      if (!proofs.length) return;
-      block.querySelectorAll(".thm-label").forEach(function (label) {
-        label.classList.add("has-proof");
-        label.addEventListener("click", function () {
-          var open = label.classList.toggle("proof-open");
-          proofs.forEach(function (p) {
-            p.open = open;
-          });
+      if (hasProof) {
+        block.querySelectorAll(".thm-label").forEach(function (label) {
+          label.classList.add("has-proof");
         });
-      });
+      }
     });
   };
   document.addEventListener("DOMContentLoaded", window.initProofToggles);
