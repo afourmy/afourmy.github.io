@@ -452,9 +452,18 @@
 
     <!-- Exercise: Shoes -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> We have $n$ pairs of shoes. We choose $2r$ shoes at random ($2r \le n$). In how many ways can we choose these shoes so that no pair is complete?</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> On dispose de $n$ paires de chaussures. On choisit $2r$ chaussures au hasard ($2r\le n$). De combien de fa&ccedil;ons peut-on choisir ces chaussures de sorte qu'aucune paire ne soit compl&egrave;te ?</p>
+      <p class="en"><span class="thm-label">Exercise.</span> We have $n$ pairs of shoes ($2n$ shoes in total). We choose $2r$ shoes at random ($2r \le n$). In how many ways can we choose these shoes so that no pair is complete?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On dispose de $n$ paires de chaussures ($2n$ chaussures au total). On choisit $2r$ chaussures au hasard ($2r\le n$). De combien de fa&ccedil;ons peut-on choisir ces chaussures de sorte qu'aucune paire ne soit compl&egrave;te ?</p>
     </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      First choose which $2r$ pairs contribute a shoe: $\binom{n}{2r}$ ways. Then, from each chosen pair, pick one of the two shoes: $2^{2r}$ ways. The answer is $\binom{n}{2r} \cdot 2^{2r}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On choisit d'abord les $2r$ paires qui contribuent une chaussure : $\binom{n}{2r}$ fa&ccedil;ons. Puis, dans chaque paire choisie, on prend l'une des deux chaussures : $2^{2r}$ fa&ccedil;ons. La r&eacute;ponse est $\binom{n}{2r} \cdot 2^{2r}$.
+    </details>
 
     <!-- Exercise: Balls in urns -->
     <div class="thm-block exercise">
