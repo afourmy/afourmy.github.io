@@ -374,6 +374,40 @@
       On choisit d'abord les $2r$ paires qui contribuent une chaussure : $\binom{n}{2r}$ fa&ccedil;ons. Puis, dans chaque paire choisie, on prend l'une des deux chaussures : $2^{2r}$ fa&ccedil;ons. La r&eacute;ponse est $\binom{n}{2r} \cdot 2^{2r}$.
     </details>
 
+    <!-- Exercise: Balls in urns -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> In how many ways can $n$ distinct balls be distributed into $k$ distinct urns? And if the balls are indistinguishable?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Combien y a-t-il de fa&ccedil;ons de r&eacute;partir $n$ boules distinctes dans $k$ urnes distinctes ? Et si les boules sont indiscernables ?</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Distinct balls:</em> Each ball goes into one of the $k$ urns, giving $k^n$ distributions.
+      <br>
+      <em>Indistinguishable balls:</em> Only the number of balls per urn matters. We seek the number of $k$-tuples $(x_1, \ldots, x_k) \in \mathbb{N}^k$ with $x_1 + \cdots + x_k = n$, which is $\binom{n+k-1}{k-1}$ (combinations with repetition).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Boules distinctes :</em> chaque boule va dans l'une des $k$ urnes, soit $k^n$ r&eacute;partitions.
+      <br>
+      <em>Boules indiscernables :</em> seul le nombre de boules par urne compte. On cherche le nombre de $k$-uplets $(x_1,\ldots,x_k)\in\mathbb{N}^k$ tels que $x_1+\cdots+x_k=n$, soit $\binom{n+k-1}{k-1}$ (combinaisons avec r&eacute;p&eacute;tition).
+    </details>
+
+    <!-- Exercise: Non-negative integer solutions -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the number of non-negative integer solutions to $x_1 + x_2 + \cdots + x_k = n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer le nombre de solutions enti&egrave;res positives ou nulles de $x_1+x_2+\cdots+x_k=n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We distribute $n$ "units" into $k$ variables, which amounts to choosing $n$ elements among $k$ categories with repetition, giving $\binom{n+k-1}{n} = \binom{n+k-1}{k-1}$ solutions.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On choisit $n$ &laquo; unit&eacute;s &raquo; &agrave; r&eacute;partir dans $k$ variables, ce qui revient &agrave; choisir $n$ &eacute;l&eacute;ments parmi $k$ cat&eacute;gories avec r&eacute;p&eacute;tition, soit $\binom{n+k-1}{n}=\binom{n+k-1}{k-1}$ solutions.
+    </details>
+
     <!-- Exercise: Even/Odd subsets -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{k \text{ even}}\binom{n}{k} = \sum_{k \text{ odd}}\binom{n}{k} = 2^{n-1}$.</p>
@@ -448,40 +482,6 @@
       On a $\displaystyle\sum_{(A,B)\in\mathcal{P}(E)^2}|A\cap B|=\sum_{x\in E}|\{(A,B) : x\in A\cap B\}|$. Or $x\in A\cap B$ ssi $x\in A$ et $x\in B$ : il y a $2^{n-1}$ choix pour $A$ et $2^{n-1}$ pour $B$, soit $2^{2n-2}$ paires. Donc $\sum|A\cap B|=n\cdot 2^{2n-2}$.
       <br>
       De m&ecirc;me, $\sum|A\cup B|=\sum_{x\in E}|\{(A,B) : x\in A\cup B\}|$. On a $x\notin A\cup B$ pour $2^{2n-2}$ paires, donc $x\in A\cup B$ pour $2^{2n}-2^{2n-2}=3\cdot 2^{2n-2}$ paires, d'o&ugrave; $\sum|A\cup B|=3n\cdot 2^{2n-2}$.
-    </details>
-
-    <!-- Exercise: Non-negative integer solutions -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Determine the number of non-negative integer solutions to $x_1 + x_2 + \cdots + x_k = n$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer le nombre de solutions enti&egrave;res positives ou nulles de $x_1+x_2+\cdots+x_k=n$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      We distribute $n$ "units" into $k$ variables, which amounts to choosing $n$ elements among $k$ categories with repetition, giving $\binom{n+k-1}{n} = \binom{n+k-1}{k-1}$ solutions.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On choisit $n$ &laquo; unit&eacute;s &raquo; &agrave; r&eacute;partir dans $k$ variables, ce qui revient &agrave; choisir $n$ &eacute;l&eacute;ments parmi $k$ cat&eacute;gories avec r&eacute;p&eacute;tition, soit $\binom{n+k-1}{n}=\binom{n+k-1}{k-1}$ solutions.
-    </details>
-
-    <!-- Exercise: Balls in urns -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> In how many ways can $n$ distinct balls be distributed into $k$ distinct urns? And if the balls are indistinguishable?</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Combien y a-t-il de fa&ccedil;ons de r&eacute;partir $n$ boules distinctes dans $k$ urnes distinctes ? Et si les boules sont indiscernables ?</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Distinct balls:</em> Each ball goes into one of the $k$ urns, giving $k^n$ distributions.
-      <br>
-      <em>Indistinguishable balls:</em> Only the number of balls per urn matters. We seek the number of $k$-tuples $(x_1, \ldots, x_k) \in \mathbb{N}^k$ with $x_1 + \cdots + x_k = n$, which is $\binom{n+k-1}{k-1}$ (combinations with repetition).
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>Boules distinctes :</em> chaque boule va dans l'une des $k$ urnes, soit $k^n$ r&eacute;partitions.
-      <br>
-      <em>Boules indiscernables :</em> seul le nombre de boules par urne compte. On cherche le nombre de $k$-uplets $(x_1,\ldots,x_k)\in\mathbb{N}^k$ tels que $x_1+\cdots+x_k=n$, soit $\binom{n+k-1}{k-1}$ (combinaisons avec r&eacute;p&eacute;tition).
     </details>
 
     <!-- Exercise: Catalan numbers -->
