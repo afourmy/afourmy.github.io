@@ -47,13 +47,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Proof by induction:</em> Base case $n=2$: $A \cup B = (A \setminus B) \sqcup (A \cap B) \sqcup (B \setminus A)$, so $|A \cup B| = |A| + |B| - |A \cap B|$. Induction step: write $\bigcup_{i=1}^n A_i = \left(\bigcup_{i=1}^{n-1} A_i\right) \cup A_n$ and apply the $n=2$ case.
-      <br><br>
+      <br>
       <em>Proof by indicator functions:</em> We have $\mathbf{1}_{A^c} = 1 - \mathbf{1}_A$ and $\mathbf{1}_{A \cap B} = \mathbf{1}_A \cdot \mathbf{1}_B$, so $\mathbf{1}_{\bigcup A_i} = 1 - \prod_{i=1}^{n}(1 - \mathbf{1}_{A_i}) = \sum_{i}\mathbf{1}_{A_i} - \sum_{i &lt; j}\mathbf{1}_{A_i}\mathbf{1}_{A_j} + \cdots + (-1)^{n-1}\mathbf{1}_{A_1}\cdots\mathbf{1}_{A_n}$, i.e. $\mathbf{1}_{\bigcup A_i} = \sum_{i}\mathbf{1}_{A_i} - \sum_{i &lt; j}\mathbf{1}_{A_i \cap A_j} + \cdots + (-1)^{n-1}\mathbf{1}_{A_1 \cap \cdots \cap A_n}$. Summing over all elements $x$ and using $|A| = \sum_x \mathbf{1}_A(x)$ gives the stated formula.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve par r&eacute;currence :</em> cas $n=2$ : $A\cup B=(A\setminus B)\sqcup(A\cap B)\sqcup(B\setminus A)$, donc $|A\cup B|=|A|+|B|-|A\cap B|$. R&eacute;currence : on &eacute;crit $\bigcup_{i=1}^n A_i=\left(\bigcup_{i=1}^{n-1}A_i\right)\cup A_n$ et on applique le cas $n=2$.
-      <br><br>
+      <br>
       <em>Preuve par indicatrices :</em> on a $\mathbf{1}_{A^c}=1-\mathbf{1}_A$ et $\mathbf{1}_{A\cap B}=\mathbf{1}_A\cdot\mathbf{1}_B$, donc $\mathbf{1}_{\bigcup A_i}=1-\prod_{i=1}^{n}(1-\mathbf{1}_{A_i})=\sum_{i}\mathbf{1}_{A_i}-\sum_{i&lt;j}\mathbf{1}_{A_i}\mathbf{1}_{A_j}+\cdots+(-1)^{n-1}\mathbf{1}_{A_1}\cdots\mathbf{1}_{A_n}$, soit $\mathbf{1}_{\bigcup A_i}=\sum_{i}\mathbf{1}_{A_i}-\sum_{i&lt;j}\mathbf{1}_{A_i\cap A_j}+\cdots+(-1)^{n-1}\mathbf{1}_{A_1\cap\cdots\cap A_n}$. En sommant sur tous les &eacute;l&eacute;ments $x$ de l'ensemble ambiant et en utilisant $|A|=\sum_x\mathbf{1}_A(x)$, on obtient la formule annonc&eacute;e.
     </details>
 
@@ -147,13 +147,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Proof by induction:</em> For $n=0$, $(a+b)^0 = 1 = \binom{0}{0}$. Assuming the formula holds at rank $n$, $(a+b)^{n+1} = (a+b)\sum_{k=0}^{n}\binom{n}{k}a^k b^{n-k} = \sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k} + \sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}$, and re-indexing then applying Pascal's formula yields $\sum_{k=0}^{n+1}\binom{n+1}{k}a^k b^{n+1-k}$.
-      <br><br>
+      <br>
       <em>Combinatorial proof:</em> Expanding $(a+b)^n = (a+b)(a+b)\cdots(a+b)$, each term is obtained by choosing $a$ or $b$ from each of the $n$ factors. The term $a^k b^{n-k}$ appears as many times as there are ways to choose $k$ factors among $n$ from which to take $a$, i.e. $\binom{n}{k}$ times.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve par r&eacute;currence :</em> pour $n=0$, $(a+b)^0=1=\binom{0}{0}$. Si la formule est vraie au rang $n$, alors $(a+b)^{n+1}=(a+b)\sum_{k=0}^{n}\binom{n}{k}a^k b^{n-k}=\sum_{k=0}^{n}\binom{n}{k}a^{k+1}b^{n-k}+\sum_{k=0}^{n}\binom{n}{k}a^k b^{n+1-k}$, et en r&eacute;indexant puis en utilisant Pascal, on obtient $\sum_{k=0}^{n+1}\binom{n+1}{k}a^k b^{n+1-k}$.
-      <br><br>
+      <br>
       <em>Preuve combinatoire :</em> en d&eacute;veloppant $(a+b)^n=(a+b)(a+b)\cdots(a+b)$, chaque terme du produit est obtenu en choisissant $a$ ou $b$ dans chacun des $n$ facteurs. Le terme $a^k b^{n-k}$ appara&icirc;t autant de fois qu'il y a de fa&ccedil;ons de choisir $k$ facteurs parmi $n$ pour y prendre $a$, soit $\binom{n}{k}$ fois.
     </details>
 
@@ -246,13 +246,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Algebraic proof:</em> $\sum_{k=0}^{n}k\binom{n}{k} = \sum_{k=1}^{n}n\binom{n-1}{k-1} = n\sum_{j=0}^{n-1}\binom{n-1}{j} = n \cdot 2^{n-1}$.
-      <br><br>
+      <br>
       <em>Combinatorial proof:</em> We count the pairs (subset, distinguished element in it); choose the distinguished element ($n$ choices) then a subset among the remaining $n-1$ elements ($2^{n-1}$).
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve alg&eacute;brique :</em> $\sum_{k=0}^{n}k\binom{n}{k}=\sum_{k=1}^{n}n\binom{n-1}{k-1}=n\sum_{j=0}^{n-1}\binom{n-1}{j}=n\cdot 2^{n-1}$.
-      <br><br>
+      <br>
       <em>Preuve combinatoire :</em> on compte les paires (partie, &eacute;l&eacute;ment distingu&eacute; dedans) ; on choisit l'&eacute;l&eacute;ment distingu&eacute; ($n$ choix) puis une partie parmi les $n-1$ restants ($2^{n-1}$).
     </details>
 
@@ -280,13 +280,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Algebraic proof:</em> $\binom{n}{n_1}\binom{n-n_1}{n_2}\cdots\binom{n_k}{n_k} = \frac{n!}{n_1!(n-n_1)!} \cdot \frac{(n-n_1)!}{n_2!(n-n_1-n_2)!}\cdots = \frac{n!}{n_1!\cdots n_k!}$.
-      <br><br>
+      <br>
       <em>Combinatorial proof:</em> There are $n!$ ways to order the $n$ elements, divided by $n_1! \cdots n_k!$ since the order within each group does not matter.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve alg&eacute;brique :</em> $\binom{n}{n_1}\binom{n-n_1}{n_2}\cdots\binom{n_k}{n_k}=\frac{n!}{n_1!(n-n_1)!}\cdot\frac{(n-n_1)!}{n_2!(n-n_1-n_2)!}\cdots=\frac{n!}{n_1!\cdots n_k!}$.
-      <br><br>
+      <br>
       <em>Preuve combinatoire :</em> $n!$ fa&ccedil;ons d'ordonner les $n$ &eacute;l&eacute;ments, divis&eacute; par $n_1!\cdots n_k!$ car l'ordre au sein de chaque groupe n'importe pas.
     </details>
 
@@ -319,13 +319,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Method 1:</em> Choose 4 positions among 11 for the I's, then 4 among the remaining 7 for the S's, then 2 among the remaining 3 for the P's, then 1 for the M: $\binom{11}{4}\binom{7}{4}\binom{3}{2}\binom{1}{1} = \binom{11}{4,4,2,1} = \frac{11!}{4!\,4!\,2!\,1!}$.
-      <br><br>
+      <br>
       <em>Method 2:</em> There are $11!$ ways to order the 11 letters if they were all distinct; divide by $4!\,4!\,2!\,1!$ since the I's, S's, and P's are indistinguishable among themselves.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve 1 :</em> on choisit 4 positions parmi 11 pour les I, puis 4 parmi les 7 restantes pour les S, puis 2 parmi les 3 restantes pour les P, puis 1 pour le M : $\binom{11}{4}\binom{7}{4}\binom{3}{2}\binom{1}{1}=\binom{11}{4,4,2,1}=\frac{11!}{4!\,4!\,2!\,1!}$.
-      <br><br>
+      <br>
       <em>Preuve 2 :</em> il y a $11!$ fa&ccedil;ons d'ordonner les 11 lettres si elles &eacute;taient distinctes ; on divise par $4!\,4!\,2!\,1!$ car les I, S, P sont indiscernables entre eux.
     </details>
 
@@ -353,13 +353,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Algebraic proof:</em> We have $\sum_k\binom{n}{k} = 2^n$ and $\sum_k(-1)^k\binom{n}{k} = 0$. Adding: $2S_{\text{even}} = 2^n$, so $S_{\text{even}} = 2^{n-1}$, and $S_{\text{odd}} = 2^n - 2^{n-1} = 2^{n-1}$.
-      <br><br>
+      <br>
       <em>Bijective proof:</em> Let $E$ be a set with $n \ge 1$ elements and fix $e \in E$. The map $A \mapsto A \triangle \{e\}$ is a bijection from $\mathcal{P}_{\text{even}}(E)$ to $\mathcal{P}_{\text{odd}}(E)$ (since it changes the parity of the cardinality, and it is an involution). Since $\mathcal{P}(E) = \mathcal{P}_{\text{even}}(E) \sqcup \mathcal{P}_{\text{odd}}(E)$, we get $|\mathcal{P}_{\text{even}}(E)| = |\mathcal{P}_{\text{odd}}(E)| = 2^n/2 = 2^{n-1}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve alg&eacute;brique :</em> on a $\sum_k\binom{n}{k}=2^n$ et $\sum_k(-1)^k\binom{n}{k}=0$. En sommant : $2S_{\text{pair}}=2^n$, donc $S_{\text{pair}}=2^{n-1}$, et $S_{\text{impair}}=2^n-2^{n-1}=2^{n-1}$.
-      <br><br>
+      <br>
       <em>Preuve bijective :</em> soit $E$ un ensemble &agrave; $n\ge 1$ &eacute;l&eacute;ments et $e\in E$ fix&eacute;. L'application $A\mapsto A\triangle\{e\}$ est une bijection de $\mathcal{P}_{\text{pair}}(E)$ vers $\mathcal{P}_{\text{impair}}(E)$ (car elle change la parit&eacute; du cardinal, et c'est une involution). Comme $\mathcal{P}(E)=\mathcal{P}_{\text{pair}}(E)\sqcup\mathcal{P}_{\text{impair}}(E)$, on obtient $|\mathcal{P}_{\text{pair}}(E)|=|\mathcal{P}_{\text{impair}}(E)|=2^n/2=2^{n-1}$.
     </details>
 
@@ -372,13 +372,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Proof by induction:</em> For $n = p$: $\binom{p}{p} = 1 = \binom{p+1}{p+1}$. If the result holds at rank $n$, then $\sum_{k=p}^{n+1}\binom{k}{p} = \binom{n+1}{p+1} + \binom{n+1}{p} = \binom{n+2}{p+1}$ by Pascal's formula.
-      <br><br>
+      <br>
       <em>Combinatorial proof:</em> We count the subsets of size $p+1$ of $\llbracket 1, n+1 \rrbracket$ by classifying according to the largest element chosen. If the largest is $k+1$ (with $p \le k \le n$), the remaining $p$ are chosen from $\llbracket 1, k \rrbracket$, giving $\binom{k}{p}$ choices. Hence $\sum_{k=p}^{n}\binom{k}{p} = \binom{n+1}{p+1}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve par r&eacute;currence :</em> pour $n=p$ : $\binom{p}{p}=1=\binom{p+1}{p+1}$. Si le r&eacute;sultat est vrai au rang $n$, alors $\sum_{k=p}^{n+1}\binom{k}{p}=\binom{n+1}{p+1}+\binom{n+1}{p}=\binom{n+2}{p+1}$ par la formule de Pascal.
-      <br><br>
+      <br>
       <em>Preuve combinatoire :</em> on compte les parties &agrave; $p+1$ &eacute;l&eacute;ments de $\llbracket 1,n+1\rrbracket$ en classant selon le plus grand &eacute;l&eacute;ment choisi. Si le plus grand est $k+1$ (avec $p\le k\le n$), les $p$ autres sont choisis parmi $\llbracket 1,k\rrbracket$, soit $\binom{k}{p}$ choix. D'o&ugrave; $\sum_{k=p}^{n}\binom{k}{p}=\binom{n+1}{p+1}$.
     </details>
 
@@ -391,13 +391,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Algebraic proof:</em> Write $k^2 = k(k-1) + k$. By the team captain formula, $k(k-1)\binom{n}{k} = n(n-1)\binom{n-2}{k-2}$ and $k\binom{n}{k} = n\binom{n-1}{k-1}$. Thus $\sum_k k^2\binom{n}{k} = n(n-1)2^{n-2} + n \cdot 2^{n-1} = n(n+1)2^{n-2}$.
-      <br><br>
+      <br>
       <em>Combinatorial proof:</em> We count the triples $(A, a, b)$ where $A \subseteq \llbracket 1, n \rrbracket$ and $(a,b) \in A^2$ (ordered pair). If $a = b$: $n$ choices for $a$, then $2^{n-1}$ for the rest of $A$, giving $n \cdot 2^{n-1}$. If $a \neq b$: $n(n-1)$ choices for $(a,b)$, then $2^{n-2}$, giving $n(n-1) \cdot 2^{n-2}$. Total: $n(n+1)2^{n-2}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve alg&eacute;brique :</em> on &eacute;crit $k^2=k(k-1)+k$. Par la formule du capitaine, $k(k-1)\binom{n}{k}=n(n-1)\binom{n-2}{k-2}$ et $k\binom{n}{k}=n\binom{n-1}{k-1}$. Donc $\sum_k k^2\binom{n}{k}=n(n-1)2^{n-2}+n\cdot 2^{n-1}=n(n+1)2^{n-2}$.
-      <br><br>
+      <br>
       <em>Preuve combinatoire :</em> on compte les triplets $(A,a,b)$ o&ugrave; $A\subseteq\llbracket 1,n\rrbracket$ et $(a,b)\in A^2$ (couple ordonn&eacute;). Si $a=b$ : $n$ choix pour $a$, puis $2^{n-1}$ pour le reste de $A$, soit $n\cdot 2^{n-1}$. Si $a\neq b$ : $n(n-1)$ choix pour $(a,b)$, puis $2^{n-2}$, soit $n(n-1)\cdot 2^{n-2}$. Total : $n(n+1)2^{n-2}$.
     </details>
 
@@ -456,13 +456,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Distinct balls:</em> Each ball goes into one of the $k$ urns, giving $k^n$ distributions.
-      <br><br>
+      <br>
       <em>Indistinguishable balls:</em> Only the number of balls per urn matters. We seek the number of $k$-tuples $(x_1, \ldots, x_k) \in \mathbb{N}^k$ with $x_1 + \cdots + x_k = n$, which is $\binom{n+k-1}{k-1}$ (combinations with repetition).
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Boules distinctes :</em> chaque boule va dans l'une des $k$ urnes, soit $k^n$ r&eacute;partitions.
-      <br><br>
+      <br>
       <em>Boules indiscernables :</em> seul le nombre de boules par urne compte. On cherche le nombre de $k$-uplets $(x_1,\ldots,x_k)\in\mathbb{N}^k$ tels que $x_1+\cdots+x_k=n$, soit $\binom{n+k-1}{k-1}$ (combinaisons avec r&eacute;p&eacute;tition).
     </details>
 
@@ -481,13 +481,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Proof by inclusion-exclusion:</em> Let $A_i$ be the set of permutations of $\llbracket 1, n \rrbracket$ that fix $i$. We have $D_n = n! - |\bigcup_{i=1}^n A_i|$. Now $|A_{i_1} \cap \cdots \cap A_{i_k}| = (n-k)!$ (the $k$ elements $i_1, \ldots, i_k$ are fixed, the remaining $n-k$ are freely permuted), and there are $\binom{n}{k}$ such intersections, so by inclusion-exclusion: $|\bigcup_{i=1}^n A_i| = \sum_{k=1}^{n}(-1)^{k-1}\binom{n}{k}(n-k)! = \sum_{k=1}^{n}(-1)^{k-1}\frac{n!}{k!}$. Hence $D_n = n! - \sum_{k=1}^{n}(-1)^{k-1}\frac{n!}{k!} = n!\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.
-      <br><br>
+      <br>
       <em>Proof by Pascal's inversion:</em> Every permutation decomposes as a choice of fixed points and a derangement of the rest: choose $k$ fixed points among $n$ ($\binom{n}{k}$ choices), then a derangement of the remaining $n-k$ ($D_{n-k}$ choices), giving $n! = \sum_{k=0}^{n}\binom{n}{k}D_k$. By Pascal's inversion formula: $D_n = \sum_{k=0}^{n}(-1)^{n-k}\binom{n}{k}k!$. Setting $j = n - k$: $D_n = \sum_{j=0}^{n}(-1)^j\binom{n}{j}(n-j)! = n!\sum_{j=0}^{n}\frac{(-1)^j}{j!}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve par inclusion-exclusion :</em> soit $A_i$ l'ensemble des permutations de $\llbracket 1,n\rrbracket$ qui fixent $i$. On a $D_n=n!-|\bigcup_{i=1}^n A_i|$. Or $|A_{i_1}\cap\cdots\cap A_{i_k}|=(n-k)!$ (les $k$ &eacute;l&eacute;ments $i_1,\ldots,i_k$ sont fix&eacute;s, les $n-k$ autres sont permut&eacute;s librement), et il y a $\binom{n}{k}$ telles intersections, donc par inclusion-exclusion : $|\bigcup_{i=1}^n A_i|=\sum_{k=1}^{n}(-1)^{k-1}\binom{n}{k}(n-k)!=\sum_{k=1}^{n}(-1)^{k-1}\frac{n!}{k!}$. D'o&ugrave; $D_n=n!-\sum_{k=1}^{n}(-1)^{k-1}\frac{n!}{k!}=n!\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.
-      <br><br>
+      <br>
       <em>Preuve par inversion de Pascal :</em> toute permutation se d&eacute;compose en un choix de points fixes et un d&eacute;rangement du reste : on choisit $k$ points fixes parmi $n$ ($\binom{n}{k}$ choix), puis un d&eacute;rangement des $n-k$ restants ($D_{n-k}$ choix), d'o&ugrave; $n!=\sum_{k=0}^{n}\binom{n}{k}D_k$. Par la formule d'inversion de Pascal : $D_n=\sum_{k=0}^{n}(-1)^{n-k}\binom{n}{k}k!$. En posant $j=n-k$ : $D_n=\sum_{j=0}^{n}(-1)^j\binom{n}{j}(n-j)!=n!\sum_{j=0}^{n}\frac{(-1)^j}{j!}$.
     </details>
 
@@ -512,13 +512,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Proof by inclusion-exclusion:</em> Let $A_i$ be the set of maps whose image does not contain $i$. The number of non-surjections is $|\bigcup_{i=1}^p A_i| = \sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, and the result follows by subtracting from $p^n$.
-      <br><br>
+      <br>
       <em>Proof by Pascal's inversion:</em> Denote by $S(n,j)$ the number of surjections from a set with $n$ elements onto a set with $j$ elements. Every map $f : E \to F$ has an image that is a subset of $F$ with $j$ elements, and $f$ is then a surjection onto that subset. Choosing this subset ($\binom{p}{j}$ choices) then a surjection ($S(n,j)$ choices) gives $p^n = \sum_{j=0}^{p}\binom{p}{j}S(n,j)$. By Pascal's inversion formula: $S(n,p) = \sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n = \sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve par inclusion-exclusion :</em> soit $A_i$ l'ensemble des applications dont $i$ n'est pas dans l'image. Le nombre de non-surjections est $|\bigcup_{i=1}^p A_i|=\sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, d'o&ugrave; le r&eacute;sultat en soustrayant de $p^n$.
-      <br><br>
+      <br>
       <em>Preuve par inversion de Pascal :</em> notons $S(n,j)$ le nombre de surjections d'un ensemble &agrave; $n$ &eacute;l&eacute;ments sur un ensemble &agrave; $j$ &eacute;l&eacute;ments. Toute application $f:E\to F$ a pour image une partie de $F$ &agrave; $j$ &eacute;l&eacute;ments, et $f$ est alors une surjection sur cette partie. On choisit cette partie ($\binom{p}{j}$ choix) puis une surjection ($S(n,j)$ choix), d'o&ugrave; $p^n=\sum_{j=0}^{p}\binom{p}{j}S(n,j)$. Par la formule d'inversion de Pascal : $S(n,p)=\sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n=\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
     </details>
 
@@ -588,13 +588,13 @@
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
       <em>Method 1:</em> For each $x \in E$, the condition $A \cup B = E$ requires $x \in A$ or $x \in B$ (or both). The possible cases for $x$ are: $x \in A \setminus B$, $x \in B \setminus A$, or $x \in A \cap B$, giving $3$ choices per element. The choices being independent, we get $3^n$ pairs.
-      <br><br>
+      <br>
       <em>Method 2:</em> We classify by $A$. If $|A| = k$, there are $\binom{n}{k}$ choices for $A$. For $A \cup B = E$, $B$ must contain the $n-k$ elements of $E \setminus A$, and may or may not contain each of the $k$ elements of $A$, giving $2^k$ choices for $B$. The total is $\sum_{k=0}^{n}\binom{n}{k}2^k = (1+2)^n = 3^n$ by the binomial theorem.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Preuve 1 :</em> pour chaque $x\in E$, la condition $A\cup B=E$ impose $x\in A$ ou $x\in B$ (ou les deux). Les cas possibles pour $x$ sont : $x\in A\setminus B$, $x\in B\setminus A$, ou $x\in A\cap B$, soit $3$ choix par &eacute;l&eacute;ment. Les choix &eacute;tant ind&eacute;pendants d'un &eacute;l&eacute;ment &agrave; l'autre, on obtient $3^n$ couples.
-      <br><br>
+      <br>
       <em>Preuve 2 :</em> on classe selon $A$. Si $|A|=k$, il y a $\binom{n}{k}$ choix pour $A$. Pour que $A\cup B=E$, $B$ doit contenir les $n-k$ &eacute;l&eacute;ments de $E\setminus A$, et peut contenir ou non chacun des $k$ &eacute;l&eacute;ments de $A$, soit $2^k$ choix pour $B$. Le total est $\sum_{k=0}^{n}\binom{n}{k}2^k=(1+2)^n=3^n$ par la formule du bin&ocirc;me.
     </details>
 
