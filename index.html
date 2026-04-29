@@ -120,6 +120,7 @@
         document.title = doc.title || 'Home';
         renderMath();
         if (typeof Prism !== 'undefined') Prism.highlightAll();
+        if (typeof initProofToggles === 'function') initProofToggles();
         setLang(localStorage.getItem('lang') || 'en');
         window.scrollTo(0, 0);
 

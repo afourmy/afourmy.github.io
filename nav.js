@@ -79,8 +79,10 @@
   document.body.insertBefore(nav, document.body.firstChild);
 
   // Wire thm-labels as proof toggles
-  document.addEventListener("DOMContentLoaded", function () {
+  window.initProofToggles = function () {
     document.querySelectorAll(".thm-block").forEach(function (block) {
+      if (block._proofWired) return;
+      block._proofWired = true;
       // Collect proof siblings (en and fr variants)
       var proofs = [];
       var sibling = block.nextElementSibling;
@@ -99,5 +101,6 @@
         });
       });
     });
-  });
+  };
+  document.addEventListener("DOMContentLoaded", window.initProofToggles);
 })();
