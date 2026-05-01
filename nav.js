@@ -4,7 +4,6 @@
       [
         { href: "math/l1/bases.html", en: "Foundations", fr: "Bases" },
         { href: "math/l1/groups.html", en: "Groups", fr: "Groupes" },
-        { href: "math/l1/anneaux_corps.html", en: "Rings & Fields", fr: "Anneaux & Corps" },
       ],
       [
         { href: "math/l1/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },
@@ -18,10 +17,7 @@
       ]
     ]},
     { en: "Algorithmics", fr: "Algorithmique", columns: [
-      [
-        { href: "cs/algo/sorting.html", en: "Sorting", fr: "Tri" },
-        { href: "cs/algo/graphs.html", en: "Graphs", fr: "Graphes" },
-      ]
+      []
     ]},
     { en: "Projects", fr: "Projets", columns: [
       [
