@@ -19,6 +19,13 @@
     { en: "Algorithmics", fr: "Algorithmique", columns: [
       []
     ]},
+    { en: "Bioinformatics", fr: "Bio-informatique", columns: [
+      [
+        { href: "bio/genomics.html", en: "Genomics", fr: "G\u00e9nomique" },
+        { href: "bio/proteomics.html", en: "Proteomics", fr: "Prot\u00e9omique" },
+        { href: "bio/phylogenetics.html", en: "Phylogenetics", fr: "Phylog\u00e9n\u00e9tique" },
+      ]
+    ]},
     { en: "Projects", fr: "Projets", columns: [
       [
         { href: "projects/tsp.html", en: "Traveling Salesman", fr: "Voyageur de commerce" },
