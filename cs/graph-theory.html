@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Graph Theory</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h2 class="en">Overview</h2>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Graphs.</span> A <em>graph</em> is a pair $G = (V, E)$ where $V$ is a finite set of <em>vertices</em> and $E$ is a set of <em>edges</em>, each being a 2-element subset of $V$. Graphs model pairwise relations: road networks, social connections, dependency structures. The central questions are structural: when is a graph connected? When does it contain a cycle? How are vertices and edges constrained by global properties?</p>
+      <p class="fr"><span class="thm-label">Graphes.</span> Un <em>graphe</em> est une paire $G = (V, E)$ o&ugrave; $V$ est un ensemble fini de <em>sommets</em> et $E$ est un ensemble d'<em>ar&ecirc;tes</em>, chacune &eacute;tant une partie &agrave; 2 &eacute;l&eacute;ments de $V$. Les graphes mod&eacute;lisent des relations par paires : r&eacute;seaux routiers, connexions sociales, d&eacute;pendances. Les questions centrales sont structurelles : quand un graphe est-il connexe ? Quand contient-il un cycle ? Comment sommets et ar&ecirc;tes sont-ils contraints par des propri&eacute;t&eacute;s globales ?</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Trees.</span> A <em>tree</em> is a connected acyclic graph. Trees are the minimally connected graphs: removing any edge disconnects them, and adding any edge creates a cycle. They admit several equivalent characterizations, all equivalent to having exactly $|V|-1$ edges. Every connected graph contains a <em>spanning tree</em>, a subgraph that is a tree on all vertices.</p>
+      <p class="fr"><span class="thm-label">Arbres.</span> Un <em>arbre</em> est un graphe connexe acyclique. Les arbres sont les graphes minimalement connexes : supprimer toute ar&ecirc;te les d&eacute;connecte, et en ajouter une cr&eacute;e un cycle. Ils admettent plusieurs caract&eacute;risations &eacute;quivalentes, toutes &eacute;quivalentes &agrave; avoir exactement $|V|-1$ ar&ecirc;tes. Tout graphe connexe contient un <em>arbre couvrant</em>, un sous-graphe qui est un arbre sur tous les sommets.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Planarity.</span> A graph is <em>planar</em> if it can be drawn in the plane without edge crossings. Euler's formula $V - E + F = 2$ relates vertices, edges, and faces of any connected plane graph. This formula implies strong constraints: a simple planar graph satisfies $E \leq 3V - 6$, which immediately shows that $K_5$ and $K_{3,3}$ are non-planar. Kuratowski's theorem states these are the only obstructions, up to subdivision.</p>
+      <p class="fr"><span class="thm-label">Planarit&eacute;.</span> Un graphe est <em>planaire</em> s'il peut se dessiner dans le plan sans croisement d'ar&ecirc;tes. La formule d'Euler $V - E + F = 2$ relie sommets, ar&ecirc;tes et faces de tout graphe planaire connexe. Cette formule implique de fortes contraintes : un graphe planaire simple v&eacute;rifie $E \leq 3V - 6$, ce qui montre imm&eacute;diatement que $K_5$ et $K_{3,3}$ ne sont pas planaires. Le th&eacute;or&egrave;me de Kuratowski affirme que ce sont les seuls obstacles, &agrave; subdivision pr&egrave;s.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Coloring.</span> A <em>proper $k$-coloring</em> assigns one of $k$ colors to each vertex so that adjacent vertices receive distinct colors. The <em>chromatic number</em> $\chi(G)$ is the smallest such $k$. It satisfies $\chi(G) \geq \omega(G)$ (clique lower bound) and $\chi(G) \leq \Delta(G) + 1$ (greedy upper bound). The five-color theorem states that every planar graph satisfies $\chi(G) \leq 5$, proved via Kempe chains. The four-color theorem ($\chi \leq 4$ for planar graphs) is true but requires a computer-assisted proof.</p>
+      <p class="fr"><span class="thm-label">Coloration.</span> Une <em>$k$-coloration propre</em> attribue une des $k$ couleurs &agrave; chaque sommet de sorte que deux sommets adjacents aient des couleurs distinctes. Le <em>nombre chromatique</em> $\chi(G)$ est le plus petit tel $k$. Il satisfait $\chi(G) \geq \omega(G)$ (borne inf&eacute;rieure par clique) et $\chi(G) \leq \Delta(G) + 1$ (borne sup&eacute;rieure gloutonne). Le th&eacute;or&egrave;me des cinq couleurs affirme que tout graphe planaire satisfait $\chi(G) \leq 5$, prouv&eacute; via les cha&icirc;nes de Kempe. Le th&eacute;or&egrave;me des quatre couleurs ($\chi \leq 4$ pour les graphes planaires) est vrai mais n&eacute;cessite une d&eacute;monstration assist&eacute;e par ordinateur.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Matchings.</span> A <em>matching</em> in a graph is a set of pairwise non-adjacent edges. Hall's marriage theorem characterizes exactly when a bipartite graph has a matching that covers one side: every subset $S$ of that side must have at least $|S|$ neighbors. This combinatorial condition has a clean inductive proof and powerful corollaries, such as the existence of perfect matchings in regular bipartite graphs.</p>
+      <p class="fr"><span class="thm-label">Couplages.</span> Un <em>couplage</em> dans un graphe est un ensemble d'ar&ecirc;tes deux &agrave; deux non adjacentes. Le th&eacute;or&egrave;me du mariage de Hall caract&eacute;rise exactement quand un graphe biparti admet un couplage couvrant un c&ocirc;t&eacute; : tout sous-ensemble $S$ de ce c&ocirc;t&eacute; doit avoir au moins $|S|$ voisins. Cette condition combinatoire admet une preuve inductive &eacute;l&eacute;gante et des corollaires puissants, comme l'existence de couplages parfaits dans les graphes bipartis r&eacute;guliers.</p>
+    </div>
+
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Graphs and basic notions</h3>
+    <h3 class="fr">Graphes et notions de base</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Graph).</span> A <em>simple undirected graph</em> is a pair $G = (V, E)$ where $V$ is a finite nonempty set of <em>vertices</em> and $E \subseteq \binom{V}{2}$ is a set of <em>edges</em>, each being a 2-element subset of $V$. We write $n = |V|$ and $m = |E|$. Two vertices $u, v$ are <em>adjacent</em> (or <em>neighbors</em>) if $\{u,v\} \in E$. The <em>neighborhood</em> of $v$ is $N(v) = \{u \in V : \{u,v\} \in E\}$. For $S \subseteq V$, we write $N(S) = \bigcup_{v \in S} N(v) \setminus S$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Graphe).</span> Un <em>graphe simple non orient&eacute;</em> est une paire $G = (V, E)$ o&ugrave; $V$ est un ensemble fini non vide de <em>sommets</em> et $E \subseteq \binom{V}{2}$ est un ensemble d'<em>ar&ecirc;tes</em>, chacune &eacute;tant une partie &agrave; 2 &eacute;l&eacute;ments de $V$. On note $n = |V|$ et $m = |E|$. Deux sommets $u, v$ sont <em>adjacents</em> (ou <em>voisins</em>) si $\{u,v\} \in E$. Le <em>voisinage</em> de $v$ est $N(v) = \{u \in V : \{u,v\} \in E\}$. Pour $S \subseteq V$, on &eacute;crit $N(S) = \bigcup_{v \in S} N(v) \setminus S$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Degree).</span> The <em>degree</em> of a vertex $v$ is $\deg(v) = |N(v)|$, the number of edges incident to $v$. The <em>minimum degree</em> and <em>maximum degree</em> of $G$ are $\delta(G) = \min_{v \in V} \deg(v)$ and $\Delta(G) = \max_{v \in V} \deg(v)$. A graph is <em>$k$-regular</em> if every vertex has degree $k$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Degr&eacute;).</span> Le <em>degr&eacute;</em> d'un sommet $v$ est $\deg(v) = |N(v)|$, le nombre d'ar&ecirc;tes incidentes &agrave; $v$. Le <em>degr&eacute; minimum</em> et le <em>degr&eacute; maximum</em> de $G$ sont $\delta(G) = \min_{v \in V} \deg(v)$ et $\Delta(G) = \max_{v \in V} \deg(v)$. Un graphe est <em>$k$-r&eacute;gulier</em> si tout sommet est de degr&eacute; $k$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Handshaking lemma).</span> For any graph $G = (V, E)$, $\displaystyle\sum_{v \in V} \deg(v) = 2|E|$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Lemme des poign&eacute;es de mains).</span> Pour tout graphe $G = (V, E)$, $\displaystyle\sum_{v \in V} \deg(v) = 2|E|$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Count the pairs $(v, e)$ with $v \in e$. Each edge $e = \{u,v\}$ contributes exactly 2 such pairs (one for $u$, one for $v$), giving $2|E|$ total. Each vertex $v$ contributes $\deg(v)$ such pairs. Thus $\sum_{v \in V} \deg(v) = 2|E|$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On compte les paires $(v, e)$ avec $v \in e$. Chaque ar&ecirc;te $e = \{u,v\}$ contribue exactement 2 telles paires (une pour $u$, une pour $v$), donnant $2|E|$ au total. Chaque sommet $v$ contribue $\deg(v)$ telles paires. Ainsi $\sum_{v \in V} \deg(v) = 2|E|$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> In any graph, the number of vertices of odd degree is even.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Dans tout graphe, le nombre de sommets de degr&eacute; impair est pair.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The sum $\sum_{v} \deg(v) = 2|E|$ is even. The contribution of even-degree vertices is even, so the contribution of odd-degree vertices is also even. Since each such vertex contributes an odd number, their count must be even.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      La somme $\sum_{v} \deg(v) = 2|E|$ est paire. La contribution des sommets de degr&eacute; pair est paire, donc celle des sommets de degr&eacute; impair l'est aussi. Chacun contribuant un nombre impair, leur nombre est pair.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Subgraph).</span> A <em>subgraph</em> of $G = (V,E)$ is a graph $H = (V', E')$ with $V' \subseteq V$ and $E' \subseteq E \cap \binom{V'}{2}$. The <em>induced subgraph</em> $G[S]$ on $S \subseteq V$ has vertex set $S$ and all edges of $G$ with both endpoints in $S$: $G[S] = (S, E \cap \binom{S}{2})$. A <em>spanning subgraph</em> has $V' = V$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Sous-graphe).</span> Un <em>sous-graphe</em> de $G = (V,E)$ est un graphe $H = (V', E')$ avec $V' \subseteq V$ et $E' \subseteq E \cap \binom{V'}{2}$. Le <em>sous-graphe induit</em> $G[S]$ par $S \subseteq V$ a pour ensemble de sommets $S$ et toutes les ar&ecirc;tes de $G$ ayant leurs deux extr&eacute;mit&eacute;s dans $S$ : $G[S] = (S, E \cap \binom{S}{2})$. Un <em>sous-graphe couvrant</em> v&eacute;rifie $V' = V$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Walk, trail, path, cycle).</span> A <em>walk</em> of length $k$ in $G$ is a sequence of vertices $v_0, v_1, \ldots, v_k$ with $\{v_i, v_{i+1}\} \in E$ for all $i$. A <em>trail</em> is a walk with no repeated edge. A <em>path</em> is a walk with no repeated vertex. A <em>cycle</em> is a closed walk $v_0, v_1, \ldots, v_k = v_0$ with $k \geq 3$, no repeated vertex except $v_0 = v_k$, and no repeated edge. The <em>length</em> of a path or cycle is its number of edges.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Cheminement, cha&icirc;ne, chemin, cycle).</span> Un <em>cheminement</em> de longueur $k$ dans $G$ est une suite de sommets $v_0, v_1, \ldots, v_k$ avec $\{v_i, v_{i+1}\} \in E$ pour tout $i$. Une <em>cha&icirc;ne</em> est un cheminement sans ar&ecirc;te r&eacute;p&eacute;t&eacute;e. Un <em>chemin</em> est un cheminement sans sommet r&eacute;p&eacute;t&eacute;. Un <em>cycle</em> est un cheminement ferm&eacute; $v_0, v_1, \ldots, v_k = v_0$ avec $k \geq 3$, sans sommet r&eacute;p&eacute;t&eacute; sauf $v_0 = v_k$, et sans ar&ecirc;te r&eacute;p&eacute;t&eacute;e. La <em>longueur</em> d'un chemin ou cycle est son nombre d'ar&ecirc;tes.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Connectivity).</span> Two vertices $u, v$ are <em>connected</em> if there exists a path from $u$ to $v$. Being connected is an equivalence relation on $V$; the equivalence classes are the <em>connected components</em> of $G$. The graph $G$ is <em>connected</em> if it has exactly one connected component, i.e., every pair of vertices is connected. An edge $e$ is a <em>bridge</em> if $G - e$ (the graph with $e$ removed) has more connected components than $G$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Connexit&eacute;).</span> Deux sommets $u, v$ sont <em>connect&eacute;s</em> s'il existe un chemin de $u$ &agrave; $v$. &Ecirc;tre connect&eacute; est une relation d'&eacute;quivalence sur $V$ ; les classes d'&eacute;quivalence sont les <em>composantes connexes</em> de $G$. Le graphe $G$ est <em>connexe</em> s'il a exactement une composante connexe, c'est-&agrave;-dire si toute paire de sommets est connect&eacute;e. Une ar&ecirc;te $e$ est un <em>pont</em> si $G - e$ (le graphe priv&eacute; de $e$) a plus de composantes connexes que $G$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Standard graphs).</span> The <em>complete graph</em> $K_n$ has vertex set $[n] = \{1,\ldots,n\}$ and all $\binom{n}{2}$ possible edges. The <em>path graph</em> $P_n$ has vertices $1, \ldots, n$ and edges $\{i, i+1\}$ for $1 \leq i \leq n-1$. The <em>cycle graph</em> $C_n$ ($n \geq 3$) has vertices $1, \ldots, n$ and edges $\{i, i+1\}$ for $1 \leq i \leq n-1$ plus $\{n, 1\}$. A <em>bipartite graph</em> is a graph whose vertex set can be partitioned into two sets $A$ and $B$ such that every edge has one endpoint in $A$ and one in $B$. The <em>complete bipartite graph</em> $K_{p,q}$ has parts $A$ of size $p$, $B$ of size $q$, and all $pq$ edges between $A$ and $B$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Graphes standards).</span> Le <em>graphe complet</em> $K_n$ a pour ensemble de sommets $[n] = \{1,\ldots,n\}$ et toutes les $\binom{n}{2}$ ar&ecirc;tes possibles. Le <em>graphe chemin</em> $P_n$ a les sommets $1, \ldots, n$ et les ar&ecirc;tes $\{i, i+1\}$ pour $1 \leq i \leq n-1$. Le <em>graphe cycle</em> $C_n$ ($n \geq 3$) a les sommets $1, \ldots, n$, les ar&ecirc;tes $\{i, i+1\}$ pour $1 \leq i \leq n-1$ et $\{n, 1\}$. Un <em>graphe biparti</em> est un graphe dont l'ensemble des sommets peut &ecirc;tre partitionn&eacute; en deux ensembles $A$ et $B$ tels que toute ar&ecirc;te a une extr&eacute;mit&eacute; dans $A$ et une dans $B$. Le <em>graphe biparti complet</em> $K_{p,q}$ a les parties $A$ de taille $p$, $B$ de taille $q$, et toutes les $pq$ ar&ecirc;tes entre $A$ et $B$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Bipartite characterization).</span> A graph $G$ is bipartite if and only if it contains no cycle of odd length.</p>
+      <p class="fr"><span class="thm-label">Proposition (Caract&eacute;risation des graphes bipartis).</span> Un graphe $G$ est biparti si et seulement s'il ne contient aucun cycle de longueur impaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ Let $G$ be bipartite with parts $A$ and $B$. Any cycle $v_0, v_1, \ldots, v_k = v_0$ alternates between $A$ and $B$, so $k$ must be even.
+      $(\Leftarrow)$ Assume $G$ has no odd cycle; it suffices to treat each connected component separately. Fix a component with root $r$. For each vertex $v$, let $d(v)$ denote the length of a shortest path from $r$ to $v$. Set $A = \{v : d(v) \text{ even}\}$ and $B = \{v : d(v) \text{ odd}\}$.
+      <em>Claim</em>: every edge $\{u,v\}$ has one endpoint in $A$ and one in $B$. Suppose for contradiction that $u, v \in A$ (both have even distance). Let $P_u$ and $P_v$ be shortest paths from $r$ to $u$ and $v$. Let $w$ be the last common vertex on these paths. The path from $w$ to $u$ has length $d(u) - d(w)$, the path from $w$ to $v$ has length $d(v) - d(w)$. Since $w$ is the last common vertex, these two sub-paths share no internal vertex. Together with the edge $\{u,v\}$, they form a cycle of length $(d(u) - d(w)) + (d(v) - d(w)) + 1$. Since $d(u)$ and $d(v)$ are both even, $d(u) + d(v) - 2d(w)$ is even, so the cycle length is odd. This contradicts our assumption. The case $u, v \in B$ is identical.
+      Thus $(A, B)$ is a bipartition and $G$ is bipartite.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Rightarrow)$ Soit $G$ biparti avec les parties $A$ et $B$. Tout cycle $v_0, v_1, \ldots, v_k = v_0$ alterne entre $A$ et $B$, donc $k$ est pair.
+      $(\Leftarrow)$ Supposons que $G$ n'ait pas de cycle impair ; il suffit de traiter chaque composante connexe s&eacute;par&eacute;ment. Fixons une composante avec une racine $r$. Pour chaque sommet $v$, soit $d(v)$ la longueur d'un plus court chemin de $r$ &agrave; $v$. Posons $A = \{v : d(v) \text{ pair}\}$ et $B = \{v : d(v) \text{ impair}\}$.
+      <em>Affirmation</em> : toute ar&ecirc;te $\{u,v\}$ a une extr&eacute;mit&eacute; dans $A$ et une dans $B$. Supposons par l'absurde que $u, v \in A$ (distances paires). Soient $P_u$ et $P_v$ des plus courts chemins de $r$ &agrave; $u$ et $v$. Soit $w$ le dernier sommet commun de ces chemins. Le chemin de $w$ &agrave; $u$ est de longueur $d(u) - d(w)$, celui de $w$ &agrave; $v$ est de longueur $d(v) - d(w)$. Puisque $w$ est le dernier sommet commun, ces deux sous-chemins n'ont pas de sommet interne en commun. Avec l'ar&ecirc;te $\{u,v\}$, ils forment un cycle de longueur $(d(u) - d(w)) + (d(v) - d(w)) + 1$. Comme $d(u)$ et $d(v)$ sont pairs, $d(u) + d(v) - 2d(w)$ est pair, donc la longueur du cycle est impaire. Contradiction. Le cas $u, v \in B$ est identique.
+      Ainsi $(A, B)$ est une bipartition et $G$ est biparti.
+    </details>
+
+    <h3 class="en">Trees</h3>
+    <h3 class="fr">Arbres</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Forest, tree, leaf).</span> A <em>forest</em> is an acyclic graph. A <em>tree</em> is a connected forest, i.e., a connected acyclic graph. A <em>leaf</em> is a vertex of degree $1$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (For&ecirc;t, arbre, feuille).</span> Une <em>for&ecirc;t</em> est un graphe acyclique. Un <em>arbre</em> est une for&ecirc;t connexe, c'est-&agrave;-dire un graphe connexe acyclique. Une <em>feuille</em> est un sommet de degr&eacute; $1$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Leaf lemma).</span> Every tree with at least $2$ vertices has at least one leaf.</p>
+      <p class="fr"><span class="thm-label">Proposition (Lemme de la feuille).</span> Tout arbre avec au moins $2$ sommets poss&egrave;de au moins une feuille.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $T$ be a tree with at least $2$ vertices, and let $v_0, v_1, \ldots, v_k$ be a longest path in $T$. Since $|V| \geq 2$, this path has length $k \geq 1$. We claim $v_k$ is a leaf. The vertex $v_k$ has at least one neighbor, namely $v_{k-1}$. Suppose $v_k$ has another neighbor $u \neq v_{k-1}$. Since $T$ is acyclic, $u$ is not any of $v_0, \ldots, v_{k-1}$ (otherwise $v_0, \ldots, v_i, v_k$ would be a shorter walk forming a cycle). But then $v_0, v_1, \ldots, v_k, u$ is a path of length $k+1$, contradicting maximality. So $\deg(v_k) = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $T$ un arbre avec au moins $2$ sommets, et soit $v_0, v_1, \ldots, v_k$ un chemin de longueur maximale dans $T$. Comme $|V| \geq 2$, ce chemin est de longueur $k \geq 1$. Montrons que $v_k$ est une feuille. Le sommet $v_k$ a au moins un voisin, &agrave; savoir $v_{k-1}$. Supposons qu'il ait un autre voisin $u \neq v_{k-1}$. Comme $T$ est acyclique, $u$ n'est aucun des $v_0, \ldots, v_{k-1}$ (sinon $v_0, \ldots, v_i, v_k$ formerait un cycle). Mais alors $v_0, v_1, \ldots, v_k, u$ est un chemin de longueur $k+1$, contredisant la maximalit&eacute;. Donc $\deg(v_k) = 1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Edge count in forests).</span> A forest with $n$ vertices and $c$ connected components has exactly $n - c$ edges.</p>
+      <p class="fr"><span class="thm-label">Proposition (Nombre d'ar&ecirc;tes d'une for&ecirc;t).</span> Une for&ecirc;t avec $n$ sommets et $c$ composantes connexes a exactement $n - c$ ar&ecirc;tes.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $m = |E|$. If $m = 0$: all vertices are isolated, $c = n$, and $m = 0 = n - n$. If $m \geq 1$: pick any edge $e$. Since the forest is acyclic, $e$ is a bridge: removing it splits a component into two (if $e$ were not a bridge, there would be a path avoiding $e$ between its endpoints, forming a cycle with $e$). So $G - e$ has $n$ vertices, $m - 1$ edges, and $c + 1$ components. By induction, $m - 1 = n - (c+1)$, so $m = n - c$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $m = |E|$. Si $m = 0$ : tous les sommets sont isol&eacute;s, $c = n$, et $m = 0 = n - n$. Si $m \geq 1$ : choisissons une ar&ecirc;te $e$. Comme la for&ecirc;t est acyclique, $e$ est un pont : la supprimer scinde une composante en deux (si $e$ n'&eacute;tait pas un pont, il existerait un chemin &eacute;vitant $e$ entre ses extr&eacute;mit&eacute;s, formant un cycle avec $e$). Donc $G - e$ a $n$ sommets, $m-1$ ar&ecirc;tes, et $c+1$ composantes. Par r&eacute;currence, $m - 1 = n - (c+1)$, donc $m = n - c$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Characterizations of trees).</span> Let $G$ be a graph with $n$ vertices. The following are equivalent:
+      <br>(1) $G$ is connected and acyclic (a tree).
+      <br>(2) $G$ is connected and has $n-1$ edges.
+      <br>(3) $G$ is acyclic and has $n-1$ edges.
+      <br>(4) Any two vertices of $G$ are connected by a unique path.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Caract&eacute;risations des arbres).</span> Soit $G$ un graphe &agrave; $n$ sommets. Les assertions suivantes sont &eacute;quivalentes :
+      <br>(1) $G$ est connexe et acyclique (un arbre).
+      <br>(2) $G$ est connexe et a $n-1$ ar&ecirc;tes.
+      <br>(3) $G$ est acyclique et a $n-1$ ar&ecirc;tes.
+      <br>(4) Tout couple de sommets de $G$ est reli&eacute; par un unique chemin.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(1) \Rightarrow (2)$. By the forest edge count proposition with $c = 1$ (connected), $m = n - 1$.
+      $(2) \Rightarrow (1)$. Suppose $G$ is connected with $n-1$ edges. If $G$ had a cycle $C$, remove an edge $e$ from $C$: the graph $G - e$ is still connected (the cycle provides an alternate path). Continue removing edges from cycles until no cycle remains: we obtain a connected acyclic spanning subgraph, which is a tree. By $(1) \Rightarrow (2)$, this tree has $n-1$ edges. But we removed at least one edge, so $G$ had at least $n$ edges, a contradiction.
+      $(1) \Rightarrow (3)$. By the forest edge count with $c = 1$, $m = n - 1$.
+      $(3) \Rightarrow (1)$. Suppose $G$ is acyclic with $n-1$ edges. The forest edge count gives $n - 1 = n - c$, so $c = 1$: $G$ is connected.
+      $(1) \Leftrightarrow (4)$. At least one path exists between any two vertices (connectivity). If two paths $P_1, P_2$ connected $u$ to $v$, let $w$ be the first vertex where they diverge and $x$ the first vertex after $w$ where they meet again; the portions of $P_1$ and $P_2$ from $w$ to $x$ form a cycle, contradicting acyclicity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(1) \Rightarrow (2)$. Par la proposition sur le nombre d'ar&ecirc;tes des for&ecirc;ts avec $c = 1$ (connexe), $m = n - 1$.
+      $(2) \Rightarrow (1)$. Supposons $G$ connexe avec $n-1$ ar&ecirc;tes. Si $G$ avait un cycle $C$, supprimons une ar&ecirc;te $e$ de $C$ : le graphe $G - e$ est encore connexe (le cycle fournit un chemin alternatif). On continue &agrave; supprimer des ar&ecirc;tes de cycles jusqu'&agrave; ce qu'il n'en reste plus : on obtient un sous-graphe couvrant connexe acyclique, qui est un arbre. Par $(1) \Rightarrow (2)$, cet arbre a $n-1$ ar&ecirc;tes. Mais on a supprim&eacute; au moins une ar&ecirc;te, donc $G$ en avait au moins $n$, contradiction.
+      $(1) \Rightarrow (3)$. Par le comptage des ar&ecirc;tes des for&ecirc;ts avec $c = 1$, $m = n - 1$.
+      $(3) \Rightarrow (1)$. Supposons $G$ acyclique avec $n-1$ ar&ecirc;tes. Le comptage donne $n - 1 = n - c$, soit $c = 1$ : $G$ est connexe.
+      $(1) \Leftrightarrow (4)$. Il existe au moins un chemin entre tout couple de sommets (connexit&eacute;). Si deux chemins $P_1, P_2$ reliaient $u$ &agrave; $v$, soit $w$ le premier sommet o&ugrave; ils divergent et $x$ le premier sommet apr&egrave;s $w$ o&ugrave; ils se retrouvent ; les portions de $P_1$ et $P_2$ de $w$ &agrave; $x$ forment un cycle, contredisant l'acyclicit&eacute;.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Spanning tree).</span> A <em>spanning tree</em> of a graph $G = (V, E)$ is a spanning subgraph of $G$ that is a tree, i.e., a subgraph $(V, T)$ with $T \subseteq E$ that is connected and acyclic.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Arbre couvrant).</span> Un <em>arbre couvrant</em> d'un graphe $G = (V, E)$ est un sous-graphe couvrant de $G$ qui est un arbre, c'est-&agrave;-dire un sous-graphe $(V, T)$ avec $T \subseteq E$ qui est connexe et acyclique.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Existence of spanning trees).</span> Every connected graph has a spanning tree.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Existence des arbres couvrants).</span> Tout graphe connexe admet un arbre couvrant.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $G$ be connected. Among all connected spanning subgraphs of $G$, let $H = (V, T)$ be one with a minimum number of edges. We claim $H$ is a tree, i.e., acyclic. Suppose $H$ contains a cycle $C$. Remove any edge $e \in C$: the graph $H - e$ is still connected (any path that used $e$ can be rerouted along the rest of $C$). This contradicts the minimality of $H$. So $H$ is acyclic, hence a tree.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $G$ connexe. Parmi tous les sous-graphes couvrants connexes de $G$, soit $H = (V, T)$ celui ayant le nombre minimum d'ar&ecirc;tes. Montrons que $H$ est un arbre, c'est-&agrave;-dire acyclique. Supposons que $H$ contienne un cycle $C$. Supprimons une ar&ecirc;te $e \in C$ : le graphe $H - e$ est encore connexe (tout chemin utilisant $e$ peut &ecirc;tre rerout&eacute; via le reste de $C$). Cela contredit la minimalit&eacute; de $H$. Donc $H$ est acyclique, donc un arbre.
+    </details>
+
+    <h3 class="en">Eulerian graphs</h3>
+    <h3 class="fr">Graphes eul&eacute;riens</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Eulerian circuit and path).</span> An <em>Eulerian circuit</em> in a graph $G$ is a closed trail that uses every edge of $G$ exactly once. An <em>Eulerian path</em> is a trail (not necessarily closed) that uses every edge of $G$ exactly once. A graph admitting an Eulerian circuit is called <em>Eulerian</em>.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Circuit et chemin eul&eacute;rien).</span> Un <em>circuit eul&eacute;rien</em> dans un graphe $G$ est une cha&icirc;ne ferm&eacute;e qui utilise chaque ar&ecirc;te de $G$ exactement une fois. Un <em>chemin eul&eacute;rien</em> est une cha&icirc;ne (pas n&eacute;cessairement ferm&eacute;e) qui utilise chaque ar&ecirc;te exactement une fois. Un graphe admettant un circuit eul&eacute;rien est dit <em>eul&eacute;rien</em>.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Euler, 1736).</span> A connected graph $G$ has an Eulerian circuit if and only if every vertex has even degree.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Euler, 1736).</span> Un graphe connexe $G$ admet un circuit eul&eacute;rien si et seulement si tout sommet est de degr&eacute; pair.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ In an Eulerian circuit, each time the circuit passes through a vertex $v$, it uses one incoming and one outgoing edge. Since every edge is used exactly once, $\deg(v)$ equals twice the number of times the circuit passes through $v$, which is even.
+      $(\Leftarrow)$ Suppose all degrees are even. We proceed by strong induction on $m = |E|$. If $m = 0$: the empty trail is an Eulerian circuit. If $m \geq 1$: since $G$ is connected with all degrees $\geq 2$ (they are even and nonzero), start at any vertex $v_0$ and greedily extend a trail, never revisiting an edge. The trail must eventually return to $v_0$: at each intermediate visit to a vertex $w \neq v_0$, we used one edge to arrive and can always depart (the degree at $w$ is even, so the number of unused edges incident to $w$ remains even and positive as long as we have not used all of them). Let $C$ be the closed trail obtained.
+      If $C$ uses all edges, we are done. Otherwise, since $G$ is connected, some vertex $u$ of $C$ has unused incident edges. The unused edges form a subgraph $G'$ in which every vertex still has even degree (a subset of the edges of $G$, each removing 0 or 2 from a vertex's available degree... more precisely, remove the edges of $C$ from $G$; each vertex loses an even number of edges since $C$ visits it an even number of times, as its degree in $C$ is even). Each connected component of $G'$ that contains a vertex of $C$ has all-even degrees and strictly fewer edges than $G$; by induction, it has an Eulerian circuit $C'$ starting at $u$. Splice $C'$ into $C$ at $u$ to get a longer closed trail. Repeat until all edges are used.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Rightarrow)$ Dans un circuit eul&eacute;rien, chaque passage par un sommet $v$ utilise une ar&ecirc;te entrante et une sortante. Chaque ar&ecirc;te &eacute;tant utilis&eacute;e exactement une fois, $\deg(v)$ vaut deux fois le nombre de passages par $v$, qui est pair.
+      $(\Leftarrow)$ Supposons tous les degr&eacute;s pairs. On proc&egrave;de par r&eacute;currence forte sur $m = |E|$. Si $m = 0$ : la cha&icirc;ne vide est un circuit eul&eacute;rien. Si $m \geq 1$ : comme $G$ est connexe avec tous les degr&eacute;s $\geq 2$ (pairs et non nuls), partons d'un sommet $v_0$ et &eacute;tendons gloutonnement une cha&icirc;ne sans r&eacute;p&eacute;ter d'ar&ecirc;te. La cha&icirc;ne revient n&eacute;cessairement &agrave; $v_0$ : &agrave; chaque visite interm&eacute;diaire en un sommet $w \neq v_0$, une ar&ecirc;te a &eacute;t&eacute; utilis&eacute;e pour arriver et on peut toujours repartir (le degr&eacute; de $w$ est pair, donc le nombre d'ar&ecirc;tes non utilis&eacute;es en $w$ reste pair et positif tant qu'elles ne sont pas toutes &eacute;puis&eacute;es). Soit $C$ la cha&icirc;ne ferm&eacute;e obtenue.
+      Si $C$ utilise toutes les ar&ecirc;tes, on a termin&eacute;. Sinon, puisque $G$ est connexe, un sommet $u$ de $C$ a des ar&ecirc;tes non utilis&eacute;es. Les ar&ecirc;tes non utilis&eacute;es forment un sous-graphe $G'$ dont chaque sommet a encore un degr&eacute; pair (supprimer les ar&ecirc;tes de $C$ soustrait un nombre pair &agrave; chaque degr&eacute;, car $C$ visite chaque sommet un nombre pair de fois). Chaque composante connexe de $G'$ contenant un sommet de $C$ a tous les degr&eacute;s pairs et strictement moins d'ar&ecirc;tes que $G$ ; par r&eacute;currence, elle admet un circuit eul&eacute;rien $C'$ d&eacute;butant en $u$. On ins&egrave;re $C'$ dans $C$ en $u$ pour obtenir une cha&icirc;ne ferm&eacute;e plus longue. On r&eacute;p&egrave;te jusqu'&agrave; &eacute;puiser toutes les ar&ecirc;tes.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Eulerian path).</span> A connected graph $G$ has an Eulerian path (but not an Eulerian circuit) if and only if it has exactly two vertices of odd degree. In that case, every Eulerian path starts at one odd-degree vertex and ends at the other.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Chemin eul&eacute;rien).</span> Un graphe connexe $G$ admet un chemin eul&eacute;rien (mais pas de circuit eul&eacute;rien) si et seulement s'il a exactement deux sommets de degr&eacute; impair. Dans ce cas, tout chemin eul&eacute;rien part de l'un de ces sommets et arrive &agrave; l'autre.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ An Eulerian path from $u$ to $v$ ($u \neq v$) traverses each edge once. Each vertex $w \notin \{u,v\}$ has even degree (enter and exit equally). The vertex $u$ has one more exit than entry, and $v$ one more entry than exit, so both have odd degree. By the handshaking corollary, the number of odd-degree vertices is even, so there are exactly two.
+      $(\Leftarrow)$ Let $u$ and $v$ be the two odd-degree vertices. Add a new edge $e = \{u,v\}$ to get $G'$. In $G'$, all degrees are even and $G'$ is connected, so by Euler's theorem $G'$ has an Eulerian circuit. This circuit uses $e$; removing $e$ from the circuit gives an Eulerian path from $u$ to $v$ in $G$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Rightarrow)$ Un chemin eul&eacute;rien de $u$ &agrave; $v$ ($u \neq v$) parcourt chaque ar&ecirc;te une fois. Chaque sommet $w \notin \{u,v\}$ a un degr&eacute; pair (entr&eacute;es et sorties &eacute;gales). Le sommet $u$ a une sortie de plus qu'une entr&eacute;e, et $v$ une entr&eacute;e de plus qu'une sortie, donc tous deux ont un degr&eacute; impair. Par le corollaire du lemme des poign&eacute;es de mains, le nombre de sommets de degr&eacute; impair est pair, donc il y en a exactement deux.
+      $(\Leftarrow)$ Soient $u$ et $v$ les deux sommets de degr&eacute; impair. Ajoutons une ar&ecirc;te $e = \{u,v\}$ pour former $G'$. Dans $G'$, tous les degr&eacute;s sont pairs et $G'$ est connexe, donc par le th&eacute;or&egrave;me d'Euler, $G'$ admet un circuit eul&eacute;rien. Ce circuit utilise $e$ ; en supprimant $e$, on obtient un chemin eul&eacute;rien de $u$ &agrave; $v$ dans $G$.
+    </details>
+
+    <h3 class="en">Planar graphs</h3>
+    <h3 class="fr">Graphes planaires</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Planar graph, plane graph, faces).</span> A graph $G$ is <em>planar</em> if it can be drawn in the plane $\mathbb{R}^2$ with vertices as distinct points and edges as Jordan arcs between their endpoints, such that no two edges cross. Such a drawing is a <em>planar embedding</em>. A graph together with a fixed planar embedding is a <em>plane graph</em>. A planar embedding divides the plane into connected regions called <em>faces</em>. Exactly one face is unbounded, the <em>outer face</em>. We write $F$ for the number of faces.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Graphe planaire, graphe plan, faces).</span> Un graphe $G$ est <em>planaire</em> s'il peut &ecirc;tre dessin&eacute; dans le plan $\mathbb{R}^2$ avec les sommets comme points distincts et les ar&ecirc;tes comme arcs de Jordan entre leurs extr&eacute;mit&eacute;s, sans croisement d'ar&ecirc;tes. Un tel dessin est un <em>plongement planaire</em>. Un graphe muni d'un plongement planaire fixe est un <em>graphe plan</em>. Un plongement planaire divise le plan en r&eacute;gions connexes appel&eacute;es <em>faces</em>. Exactement une face est non born&eacute;e, la <em>face ext&eacute;rieure</em>. On note $F$ le nombre de faces.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Euler's formula).</span> For any connected plane graph with $V$ vertices, $E$ edges, and $F$ faces, $V - E + F = 2$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule d'Euler).</span> Pour tout graphe plan connexe &agrave; $V$ sommets, $E$ ar&ecirc;tes et $F$ faces, $V - E + F = 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $E$. Let $T$ be a spanning tree of $G$ (which exists since $G$ is connected). We build $G$ by starting from $T$ and adding edges one by one.
+      <em>Base case</em>: $G = T$ is a tree with $V$ vertices and $V - 1$ edges. A tree drawn in the plane has only one face (the outer face): since the tree is acyclic, no edge encloses a region. So $V - (V-1) + 1 = 2$. ✓
+      <em>Inductive step</em>: Suppose $G$ has $E \geq V$ edges (so $G$ is not a tree and has cycles). Remove any edge $e$ that lies on a cycle. The graph $G - e$ is still connected (the cycle provides an alternate path) and has $V$ vertices, $E - 1$ edges, and $F - 1$ faces: the edge $e$ was shared between two distinct faces (since $e$ is on a cycle, both sides of $e$ are in the interior of a region bounded by a closed walk), and removing $e$ merges them into one face. By induction, $V - (E-1) + (F-1) = 2$, so $V - E + F = 2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $E$. Soit $T$ un arbre couvrant de $G$ (qui existe car $G$ est connexe). On construit $G$ en partant de $T$ et en ajoutant les ar&ecirc;tes une par une.
+      <em>Cas de base</em> : $G = T$ est un arbre &agrave; $V$ sommets et $V-1$ ar&ecirc;tes. Un arbre dessin&eacute; dans le plan n'a qu'une seule face (la face ext&eacute;rieure) : comme l'arbre est acyclique, aucune ar&ecirc;te ne d&eacute;limite une r&eacute;gion. Donc $V - (V-1) + 1 = 2$. ✓
+      <em>Pas inductif</em> : Supposons que $G$ ait $E \geq V$ ar&ecirc;tes (donc $G$ n'est pas un arbre et contient des cycles). Supprimons une ar&ecirc;te $e$ appartenant &agrave; un cycle. Le graphe $G - e$ est encore connexe (le cycle fournit un chemin alternatif) et a $V$ sommets, $E-1$ ar&ecirc;tes et $F-1$ faces : l'ar&ecirc;te $e$ &eacute;tait partag&eacute;e entre deux faces distinctes (puisque $e$ est sur un cycle, ses deux c&ocirc;t&eacute;s sont &agrave; l'int&eacute;rieur d'une r&eacute;gion d&eacute;limit&eacute;e par un chemin ferm&eacute;), et la supprimer fusionne ces deux faces en une. Par r&eacute;currence, $V - (E-1) + (F-1) = 2$, donc $V - E + F = 2$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every simple connected planar graph with $V \geq 3$ vertices satisfies $E \leq 3V - 6$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout graphe planaire simple connexe &agrave; $V \geq 3$ sommets v&eacute;rifie $E \leq 3V - 6$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      In any plane graph, each face is bounded by at least $3$ edges (since the graph is simple, there are no self-loops or multi-edges). Each edge borders at most $2$ faces. Therefore $3F \leq 2E$. Substituting into Euler's formula $F = 2 - V + E$: $3(2 - V + E) \leq 2E$, giving $6 - 3V + 3E \leq 2E$, i.e., $E \leq 3V - 6$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Dans tout graphe plan, chaque face est d&eacute;limit&eacute;e par au moins $3$ ar&ecirc;tes (comme le graphe est simple, il n'y a pas de boucles ni d'ar&ecirc;tes multiples). Chaque ar&ecirc;te borde au plus $2$ faces. Donc $3F \leq 2E$. En substituant dans la formule d'Euler $F = 2 - V + E$ : $3(2 - V + E) \leq 2E$, ce qui donne $6 - 3V + 3E \leq 2E$, soit $E \leq 3V - 6$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $K_5$ is not planar.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> $K_5$ n'est pas planaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $K_5$ has $V = 5$ and $E = 10$. If it were planar, the previous corollary would give $10 \leq 3(5) - 6 = 9$, a contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $K_5$ a $V = 5$ et $E = 10$. S'il &eacute;tait planaire, le corollaire pr&eacute;c&eacute;dent donnerait $10 \leq 3(5) - 6 = 9$, une contradiction.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every simple connected bipartite planar graph with $V \geq 3$ vertices satisfies $E \leq 2V - 4$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout graphe planaire biparti simple connexe &agrave; $V \geq 3$ sommets v&eacute;rifie $E \leq 2V - 4$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      In a bipartite graph, every cycle has even length (by the bipartite characterization), so every face is bounded by at least $4$ edges. Therefore $4F \leq 2E$, i.e., $2F \leq E$. Substituting $F = 2 - V + E$: $2(2 - V + E) \leq E$, giving $4 - 2V + 2E \leq E$, i.e., $E \leq 2V - 4$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Dans un graphe biparti, tout cycle est de longueur paire (par la caract&eacute;risation des graphes bipartis), donc chaque face est d&eacute;limit&eacute;e par au moins $4$ ar&ecirc;tes. Donc $4F \leq 2E$, soit $2F \leq E$. En substituant $F = 2 - V + E$ : $2(2 - V + E) \leq E$, ce qui donne $4 - 2V + 2E \leq E$, soit $E \leq 2V - 4$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $K_{3,3}$ is not planar.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> $K_{3,3}$ n'est pas planaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $K_{3,3}$ is bipartite with $V = 6$ and $E = 9$. If it were planar, the previous corollary would give $9 \leq 2(6) - 4 = 8$, a contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $K_{3,3}$ est biparti avec $V = 6$ et $E = 9$. S'il &eacute;tait planaire, le corollaire pr&eacute;c&eacute;dent donnerait $9 \leq 2(6) - 4 = 8$, une contradiction.
+    </details>
+
+    <h3 class="en">Graph coloring</h3>
+    <h3 class="fr">Coloration de graphes</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Coloring, chromatic number).</span> A <em>proper $k$-coloring</em> of a graph $G = (V,E)$ is a function $c : V \to \{1, \ldots, k\}$ such that $c(u) \neq c(v)$ for every edge $\{u,v\} \in E$. The <em>chromatic number</em> $\chi(G)$ is the smallest $k$ for which a proper $k$-coloring exists.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Coloration, nombre chromatique).</span> Une <em>$k$-coloration propre</em> d'un graphe $G = (V,E)$ est une fonction $c : V \to \{1, \ldots, k\}$ telle que $c(u) \neq c(v)$ pour toute ar&ecirc;te $\{u,v\} \in E$. Le <em>nombre chromatique</em> $\chi(G)$ est le plus petit $k$ pour lequel une $k$-coloration propre existe.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Clique, independence number).</span> A <em>clique</em> in $G$ is a set $S \subseteq V$ of pairwise adjacent vertices. The <em>clique number</em> $\omega(G)$ is the size of the largest clique. An <em>independent set</em> is a set $S \subseteq V$ of pairwise non-adjacent vertices. The <em>independence number</em> $\alpha(G)$ is the size of the largest independent set.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Clique, nombre d'ind&eacute;pendance).</span> Une <em>clique</em> dans $G$ est un ensemble $S \subseteq V$ de sommets deux &agrave; deux adjacents. Le <em>nombre de clique</em> $\omega(G)$ est la taille de la plus grande clique. Un <em>ensemble ind&eacute;pendant</em> est un ensemble $S \subseteq V$ de sommets deux &agrave; deux non adjacents. Le <em>nombre d'ind&eacute;pendance</em> $\alpha(G)$ est la taille du plus grand ensemble ind&eacute;pendant.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Lower bounds on $\chi$).</span> For any graph $G$ with $n$ vertices, $\chi(G) \geq \omega(G)$ and $\chi(G) \geq \lceil n / \alpha(G) \rceil$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Bornes inf&eacute;rieures de $\chi$).</span> Pour tout graphe $G$ &agrave; $n$ sommets, $\chi(G) \geq \omega(G)$ et $\chi(G) \geq \lceil n / \alpha(G) \rceil$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $\chi(G) \geq \omega(G)$: in any clique of size $\omega(G)$, all vertices are pairwise adjacent and must therefore receive distinct colors in any proper coloring. So at least $\omega(G)$ colors are needed.
+      For $\chi(G) \geq \lceil n / \alpha(G) \rceil$: each color class (the set of vertices receiving a given color) is an independent set, so has size at most $\alpha(G)$. With $k$ colors, at most $k \cdot \alpha(G)$ vertices can be colored. Since all $n$ vertices must be colored, $k \cdot \alpha(G) \geq n$, giving $k \geq n / \alpha(G)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Pour $\chi(G) \geq \omega(G)$ : dans toute clique de taille $\omega(G)$, tous les sommets sont deux &agrave; deux adjacents et doivent donc recevoir des couleurs distinctes dans toute coloration propre. Il faut donc au moins $\omega(G)$ couleurs.
+      Pour $\chi(G) \geq \lceil n / \alpha(G) \rceil$ : chaque classe de couleur (l'ensemble des sommets recevant une couleur donn&eacute;e) est un ensemble ind&eacute;pendant, donc de taille au plus $\alpha(G)$. Avec $k$ couleurs, on peut colorer au plus $k \cdot \alpha(G)$ sommets. Comme tous les $n$ sommets doivent &ecirc;tre color&eacute;s, $k \cdot \alpha(G) \geq n$, d'o&ugrave; $k \geq n / \alpha(G)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Greedy upper bound).</span> For any graph $G$, $\chi(G) \leq \Delta(G) + 1$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Borne sup&eacute;rieure gloutonne).</span> Pour tout graphe $G$, $\chi(G) \leq \Delta(G) + 1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Order the vertices $v_1, v_2, \ldots, v_n$ arbitrarily. Color them in this order: assign to $v_i$ the smallest color in $\{1, \ldots, \Delta(G)+1\}$ not used by any previously colored neighbor of $v_i$. At step $i$, $v_i$ has at most $\Delta(G)$ neighbors, so at most $\Delta(G)$ colors are forbidden; thus a color in $\{1, \ldots, \Delta(G)+1\}$ is always available.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Ordonnons les sommets $v_1, v_2, \ldots, v_n$ arbitrairement. Colorons-les dans cet ordre : attribuons &agrave; $v_i$ la plus petite couleur de $\{1, \ldots, \Delta(G)+1\}$ non utilis&eacute;e par un voisin de $v_i$ d&eacute;j&agrave; color&eacute;. &Agrave; l'&eacute;tape $i$, $v_i$ a au plus $\Delta(G)$ voisins, donc au plus $\Delta(G)$ couleurs sont interdites ; ainsi une couleur de $\{1, \ldots, \Delta(G)+1\}$ est toujours disponible.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Five-color theorem).</span> Every planar graph satisfies $\chi(G) \leq 5$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Th&eacute;or&egrave;me des cinq couleurs).</span> Tout graphe planaire satisfait $\chi(G) \leq 5$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $|V|$. The base case $|V| \leq 5$ is immediate (assign a distinct color to each vertex).
+      <em>Existence of a low-degree vertex.</em> Since $G$ is planar with $V \geq 6$, we have $E \leq 3V - 6$, so the average degree $2E/V \leq (6V-12)/V < 6$. Hence $G$ has a vertex $v$ with $\deg(v) \leq 5$.
+      <em>Inductive step.</em> By induction, $G - v$ has a proper $5$-coloring $c$. If $\deg(v) \leq 4$, the neighbors of $v$ use at most $4$ colors, so a fifth color is available for $v$.
+      Suppose $\deg(v) = 5$. Let $v_1, v_2, v_3, v_4, v_5$ be the neighbors of $v$ in cyclic order around $v$ in the planar embedding, with colors $c(v_i) = i$ (if the five neighbors do not use all five colors, we again have a free color for $v$, so assume they do).
+      For $i \neq j$, let $H_{ij}$ denote the subgraph of $G - v$ induced by vertices colored $i$ or $j$. Consider $H_{13}$. If $v_1$ and $v_3$ are in different connected components of $H_{13}$, swap colors $1$ and $3$ in the component of $v_1$: now $v_1$ has color $3$ and all five neighbors of $v$ use only colors in $\{2,3,4,5\}$, so color $1$ is free for $v$.
+      If $v_1$ and $v_3$ are in the same component of $H_{13}$, there is a path $P$ from $v_1$ to $v_3$ in $H_{13}$. In the plane, this path $P$ together with the two edges $\{v, v_1\}$ and $\{v, v_3\}$ forms a closed curve that separates $v_2$ (inside) from $v_4$ and $v_5$ (outside), or vice versa. In either case, $v_2$ and $v_4$ are separated: any path from $v_2$ to $v_4$ in $G - v$ must cross $P$, hence pass through a vertex of $H_{13}$, which uses neither color $2$ nor color $4$. Thus $v_2$ and $v_4$ lie in different connected components of $H_{24}$. Swap colors $2$ and $4$ in the component of $v_2$: now $v_2$ has color $4$, and the five neighbors of $v$ use colors in $\{1, 3, 4, 5\}$, so color $2$ is free for $v$.
+      In all cases, $v$ can be assigned a color, completing the induction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $|V|$. Le cas de base $|V| \leq 5$ est imm&eacute;diat (attribuer une couleur distincte &agrave; chaque sommet).
+      <em>Existence d'un sommet de faible degr&eacute;.</em> Comme $G$ est planaire avec $V \geq 6$, on a $E \leq 3V - 6$, donc le degr&eacute; moyen $2E/V \leq (6V-12)/V < 6$. Donc $G$ poss&egrave;de un sommet $v$ avec $\deg(v) \leq 5$.
+      <em>Pas inductif.</em> Par r&eacute;currence, $G - v$ admet une $5$-coloration propre $c$. Si $\deg(v) \leq 4$, les voisins de $v$ utilisent au plus $4$ couleurs, donc une cinqui&egrave;me est disponible pour $v$.
+      Supposons $\deg(v) = 5$. Soient $v_1, v_2, v_3, v_4, v_5$ les voisins de $v$ en ordre cyclique autour de $v$ dans le plongement planaire, avec les couleurs $c(v_i) = i$ (si les cinq voisins n'utilisent pas toutes les cinq couleurs, une couleur est libre pour $v$, donc on suppose qu'ils les utilisent toutes).
+      Pour $i \neq j$, notons $H_{ij}$ le sous-graphe de $G - v$ induit par les sommets color&eacute;s $i$ ou $j$. Consid&eacute;rons $H_{13}$. Si $v_1$ et $v_3$ sont dans des composantes connexes diff&eacute;rentes de $H_{13}$, on &eacute;change les couleurs $1$ et $3$ dans la composante de $v_1$ : $v_1$ a maintenant la couleur $3$ et tous les voisins de $v$ n'utilisent que les couleurs de $\{2,3,4,5\}$, donc la couleur $1$ est libre pour $v$.
+      Si $v_1$ et $v_3$ sont dans la m&ecirc;me composante de $H_{13}$, il existe un chemin $P$ de $v_1$ &agrave; $v_3$ dans $H_{13}$. Dans le plan, ce chemin $P$ avec les ar&ecirc;tes $\{v, v_1\}$ et $\{v, v_3\}$ forme une courbe ferm&eacute;e s&eacute;parant $v_2$ (d'un c&ocirc;t&eacute;) de $v_4$ et $v_5$ (de l'autre). Ainsi $v_2$ et $v_4$ sont s&eacute;par&eacute;s : tout chemin de $v_2$ &agrave; $v_4$ dans $G - v$ doit croiser $P$, donc passer par un sommet de $H_{13}$, qui n'utilise ni la couleur $2$ ni la couleur $4$. Donc $v_2$ et $v_4$ sont dans des composantes connexes diff&eacute;rentes de $H_{24}$. On &eacute;change les couleurs $2$ et $4$ dans la composante de $v_2$ : $v_2$ a maintenant la couleur $4$, et les voisins de $v$ utilisent les couleurs de $\{1, 3, 4, 5\}$, donc la couleur $2$ est libre pour $v$.
+      Dans tous les cas, $v$ peut recevoir une couleur, ce qui compl&egrave;te la r&eacute;currence.
+    </details>
+
+    <h3 class="en">Matchings</h3>
+    <h3 class="fr">Couplages</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Matching).</span> A <em>matching</em> in a graph $G = (V, E)$ is a set $M \subseteq E$ of pairwise non-adjacent edges (no two edges of $M$ share a vertex). A vertex $v$ is <em>saturated</em> (or <em>matched</em>) by $M$ if some edge of $M$ is incident to $v$. A matching is <em>perfect</em> if it saturates every vertex. In a bipartite graph $G = (A \cup B, E)$, a matching <em>saturates $A$</em> if every vertex of $A$ is matched.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Couplage).</span> Un <em>couplage</em> dans un graphe $G = (V, E)$ est un ensemble $M \subseteq E$ d'ar&ecirc;tes deux &agrave; deux non adjacentes (aucune paire d'ar&ecirc;tes de $M$ ne partage un sommet). Un sommet $v$ est <em>satur&eacute;</em> (ou <em>coupl&eacute;</em>) par $M$ si une ar&ecirc;te de $M$ lui est incidente. Un couplage est <em>parfait</em> s'il sature tout sommet. Dans un graphe biparti $G = (A \cup B, E)$, un couplage <em>sature $A$</em> si tout sommet de $A$ est coupl&eacute;.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Hall's marriage theorem).</span> Let $G = (A \cup B, E)$ be a bipartite graph. There exists a matching saturating $A$ if and only if for every $S \subseteq A$, $|N(S)| \geq |S|$ (Hall's condition).</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Th&eacute;or&egrave;me du mariage de Hall).</span> Soit $G = (A \cup B, E)$ un graphe biparti. Il existe un couplage saturant $A$ si et seulement si pour tout $S \subseteq A$, $|N(S)| \geq |S|$ (condition de Hall).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ If $M$ saturates $A$, then for any $S \subseteq A$, the matching $M$ provides $|S|$ distinct vertices in $N(S)$ (one for each vertex of $S$), so $|N(S)| \geq |S|$.
+      $(\Leftarrow)$ By induction on $|A|$. If $|A| = 0$: done. If $|A| = 1$: Hall's condition gives $|N(\{a\})| \geq 1$, so $a$ has a neighbor; take that edge.
+      Assume $|A| \geq 2$. We consider two cases.
+      <em>Case 1</em>: for every proper nonempty $S \subsetneq A$, $|N(S)| \geq |S| + 1$. Pick any $a \in A$ and any neighbor $b \in N(a)$. In $G' = G - \{a, b\}$ with parts $A' = A \setminus \{a\}$ and $B' = B \setminus \{b\}$: for any $T \subseteq A'$, $N_{G'}(T) \supseteq N_G(T) \setminus \{b\}$, so $|N_{G'}(T)| \geq |N_G(T)| - 1 \geq (|T| + 1) - 1 = |T|$. By induction, $G'$ has a matching saturating $A'$; adding the edge $\{a,b\}$ saturates $A$.
+      <em>Case 2</em>: there exists a proper nonempty $S \subsetneq A$ with $|N(S)| = |S|$ (a <em>tight</em> set). The induced subgraph $G[S \cup N(S)]$ satisfies Hall's condition by restriction; by induction, it has a matching $M_1$ saturating $S$.
+      Consider $G'' = G[(A \setminus S) \cup (B \setminus N(S))]$. We claim Hall's condition holds in $G''$. Let $T \subseteq A \setminus S$. In $G$, $N_G(T \cup S) = N_G(T) \cup N_G(S)$, with $N_G(T) \setminus N_G(S) = N_{G''}(T)$ (since edges from $T$ going into $N_G(S)$ are absent from $G''$). Therefore $|N_G(T \cup S)| = |N_{G''}(T)| + |N_G(S)| = |N_{G''}(T)| + |S|$. By Hall's condition in $G$: $|N_G(T \cup S)| \geq |T \cup S| = |T| + |S|$. So $|N_{G''}(T)| + |S| \geq |T| + |S|$, giving $|N_{G''}(T)| \geq |T|$. By induction, $G''$ has a matching $M_2$ saturating $A \setminus S$. Since $M_1$ and $M_2$ use vertices in disjoint sets ($N(S)$ and $B \setminus N(S)$), $M_1 \cup M_2$ is a matching saturating $A$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Rightarrow)$ Si $M$ sature $A$, alors pour tout $S \subseteq A$, le couplage $M$ fournit $|S|$ sommets distincts dans $N(S)$ (un pour chaque sommet de $S$), donc $|N(S)| \geq |S|$.
+      $(\Leftarrow)$ Par r&eacute;currence sur $|A|$. Si $|A| = 0$ : fait. Si $|A| = 1$ : la condition de Hall donne $|N(\{a\})| \geq 1$, donc $a$ a un voisin ; on prend cette ar&ecirc;te.
+      Supposons $|A| \geq 2$. Deux cas.
+      <em>Cas 1</em> : pour tout $S$ propre non vide $S \subsetneq A$, $|N(S)| \geq |S| + 1$. Prenons $a \in A$ et un voisin $b \in N(a)$. Dans $G' = G - \{a, b\}$ avec les parties $A' = A \setminus \{a\}$ et $B' = B \setminus \{b\}$ : pour tout $T \subseteq A'$, $N_{G'}(T) \supseteq N_G(T) \setminus \{b\}$, donc $|N_{G'}(T)| \geq |N_G(T)| - 1 \geq (|T| + 1) - 1 = |T|$. Par r&eacute;currence, $G'$ admet un couplage saturant $A'$ ; en ajoutant l'ar&ecirc;te $\{a,b\}$, on sature $A$.
+      <em>Cas 2</em> : il existe $S$ propre non vide avec $|N(S)| = |S|$ (un ensemble <em>serr&eacute;</em>). Le sous-graphe induit $G[S \cup N(S)]$ satisfait la condition de Hall par restriction ; par r&eacute;currence, il admet un couplage $M_1$ saturant $S$.
+      Consid&eacute;rons $G'' = G[(A \setminus S) \cup (B \setminus N(S))]$. Montrons que la condition de Hall y est v&eacute;rifi&eacute;e. Soit $T \subseteq A \setminus S$. Dans $G$, $N_G(T \cup S) = N_G(T) \cup N_G(S)$, avec $N_G(T) \setminus N_G(S) = N_{G''}(T)$. Donc $|N_G(T \cup S)| = |N_{G''}(T)| + |N_G(S)| = |N_{G''}(T)| + |S|$. Par la condition de Hall dans $G$ : $|N_G(T \cup S)| \geq |T \cup S| = |T| + |S|$. Donc $|N_{G''}(T)| + |S| \geq |T| + |S|$, soit $|N_{G''}(T)| \geq |T|$. Par r&eacute;currence, $G''$ admet un couplage $M_2$ saturant $A \setminus S$. Comme $M_1$ et $M_2$ utilisent des sommets dans des ensembles disjoints ($N(S)$ et $B \setminus N(S)$), $M_1 \cup M_2$ est un couplage saturant $A$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every $k$-regular bipartite graph ($k \geq 1$) has a perfect matching.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout graphe biparti $k$-r&eacute;gulier ($k \geq 1$) admet un couplage parfait.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $G = (A \cup B, E)$ be $k$-regular. First, $|A| = |B|$: counting edges from each side, $k|A| = |E| = k|B|$. We verify Hall's condition. For any $S \subseteq A$, count edges between $S$ and $N(S)$: there are $k|S|$ edges incident to $S$, all going to $N(S)$. Each vertex in $N(S)$ has degree $k$, so $k|N(S)| \geq k|S|$, giving $|N(S)| \geq |S|$. By Hall's theorem, there is a matching saturating $A$. Since $|A| = |B|$, this matching is perfect.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $G = (A \cup B, E)$ un graphe $k$-r&eacute;gulier. D'abord, $|A| = |B|$ : en comptant les ar&ecirc;tes depuis chaque c&ocirc;t&eacute;, $k|A| = |E| = k|B|$. V&eacute;rifions la condition de Hall. Pour tout $S \subseteq A$, comptons les ar&ecirc;tes entre $S$ et $N(S)$ : il y a $k|S|$ ar&ecirc;tes incidentes &agrave; $S$, toutes allant dans $N(S)$. Chaque sommet de $N(S)$ a degr&eacute; $k$, donc $k|N(S)| \geq k|S|$, d'o&ugrave; $|N(S)| \geq |S|$. Par le th&eacute;or&egrave;me de Hall, il existe un couplage saturant $A$. Comme $|A| = |B|$, ce couplage est parfait.
+    </details>
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that in any simple graph $G$ with at least $2$ vertices, there exist two vertices with the same degree.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que dans tout graphe simple $G$ &agrave; au moins $2$ sommets, il existe deux sommets de m&ecirc;me degr&eacute;.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $n = |V| \geq 2$. The degree of any vertex lies in $\{0, 1, \ldots, n-1\}$. However, the values $0$ and $n-1$ cannot both occur simultaneously: degree $n-1$ means a vertex is adjacent to all others, which forces all degrees to be $\geq 1$, contradicting degree $0$. So the $n$ degrees take values in a set of size at most $n-1$. By the pigeonhole principle, two vertices share the same degree.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $n = |V| \geq 2$. Le degr&eacute; de tout sommet est dans $\{0, 1, \ldots, n-1\}$. Cependant, les valeurs $0$ et $n-1$ ne peuvent pas coexister : un sommet de degr&eacute; $n-1$ est adjacent &agrave; tous les autres, ce qui force tous les degr&eacute;s &agrave; &ecirc;tre $\geq 1$, contredisant le degr&eacute; $0$. Donc les $n$ degr&eacute;s prennent leurs valeurs dans un ensemble de taille au plus $n-1$. Par le principe des tiroirs, deux sommets ont le m&ecirc;me degr&eacute;.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every tree is bipartite.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout arbre est biparti.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      A tree is acyclic, so in particular it contains no cycle at all, and a fortiori no odd cycle. By the bipartite characterization, $G$ is bipartite.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Un arbre est acyclique, donc il ne contient aucun cycle, et a fortiori aucun cycle impair. Par la caract&eacute;risation des graphes bipartis, $G$ est biparti.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine $\chi(K_n)$, $\chi(C_n)$, and $\chi(K_{p,q})$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer $\chi(K_n)$, $\chi(C_n)$ et $\chi(K_{p,q})$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$\chi(K_n) = n$.</em> Every pair of vertices is adjacent, so all $n$ vertices must receive distinct colors. Thus $\chi(K_n) \geq n$. The assignment $c(v_i) = i$ achieves $n$ colors.
+      <em>$\chi(C_n)$.</em> If $n$ is even: $C_n$ is bipartite (it has no odd cycle), so $\chi(C_n) \leq 2$. Since $C_n$ contains edges, $\chi(C_n) \geq 2$. Thus $\chi(C_n) = 2$.
+      If $n$ is odd: $C_n$ itself is an odd cycle, so it is not bipartite, giving $\chi(C_n) \geq 3$. Color the vertices $v_1, \ldots, v_n$ cyclically: $c(v_i) = 1$ if $i$ is odd and $i < n$, $c(v_i) = 2$ if $i$ is even, and $c(v_n) = 3$. This is a valid $3$-coloring, so $\chi(C_n) = 3$.
+      <em>$\chi(K_{p,q}) = 2$ for $p, q \geq 1$.</em> $K_{p,q}$ is bipartite with parts $A$ and $B$: color $A$ with color $1$ and $B$ with color $2$. Since $p, q \geq 1$ there is an edge, so $\chi(K_{p,q}) \geq 2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>$\chi(K_n) = n$.</em> Toute paire de sommets est adjacente, donc les $n$ sommets doivent recevoir des couleurs distinctes. Ainsi $\chi(K_n) \geq n$. L'assignation $c(v_i) = i$ utilise $n$ couleurs.
+      <em>$\chi(C_n)$.</em> Si $n$ est pair : $C_n$ est biparti (sans cycle impair), donc $\chi(C_n) \leq 2$. Comme $C_n$ contient des ar&ecirc;tes, $\chi(C_n) \geq 2$. Donc $\chi(C_n) = 2$.
+      Si $n$ est impair : $C_n$ est lui-m&ecirc;me un cycle impair, donc non biparti, d'o&ugrave; $\chi(C_n) \geq 3$. Colorons les sommets $v_1, \ldots, v_n$ cycliquement : $c(v_i) = 1$ si $i$ est impair et $i < n$, $c(v_i) = 2$ si $i$ est pair, et $c(v_n) = 3$. C'est une $3$-coloration valide, donc $\chi(C_n) = 3$.
+      <em>$\chi(K_{p,q}) = 2$ pour $p, q \geq 1$.</em> $K_{p,q}$ est biparti avec les parties $A$ et $B$ : colorons $A$ avec la couleur $1$ et $B$ avec la couleur $2$. Comme $p, q \geq 1$, il y a une ar&ecirc;te, donc $\chi(K_{p,q}) \geq 2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and $E \geq 1$, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
+      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$. This is a contradiction, so the Petersen graph is not planar.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et $E \geq 1$, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
+      Le graphe de Petersen a $V = 10$, $E = 15$ et $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$. C'est une contradiction, donc le graphe de Petersen n'est pas planaire.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Mantel's theorem).</span> Show that any triangle-free graph on $n$ vertices has at most $n^2/4$ edges.</p>
+      <p class="fr"><span class="thm-label">Exercice (Th&eacute;or&egrave;me de Mantel).</span> Montrer que tout graphe sans triangle &agrave; $n$ sommets a au plus $n^2/4$ ar&ecirc;tes.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $G$ be triangle-free. For any edge $\{u,v\} \in E$, the sets $N(u)$ and $N(v)$ are disjoint: if $w \in N(u) \cap N(v)$, then $u, v, w$ form a triangle. Since $N(u)$ and $N(v)$ are disjoint subsets of $V$, we have $\deg(u) + \deg(v) \leq n$.
+      Sum over all edges: $\sum_{\{u,v\} \in E} (\deg(u) + \deg(v)) \leq n|E|$.
+      The left side equals $\sum_{v \in V} \deg(v)^2$: each vertex $v$ contributes $\deg(v)$ to the degree of each of its $\deg(v)$ neighbors' edge-sums, for a total of $\deg(v)^2$.
+      By the Cauchy-Schwarz inequality: $\sum_{v} \deg(v)^2 \geq \frac{1}{n}\left(\sum_{v} \deg(v)\right)^2 = \frac{(2|E|)^2}{n} = \frac{4|E|^2}{n}$.
+      Combining: $\frac{4|E|^2}{n} \leq n|E|$, giving $|E| \leq \frac{n^2}{4}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $G$ sans triangle. Pour toute ar&ecirc;te $\{u,v\} \in E$, les ensembles $N(u)$ et $N(v)$ sont disjoints : si $w \in N(u) \cap N(v)$, alors $u, v, w$ forment un triangle. Comme $N(u)$ et $N(v)$ sont des parties disjointes de $V$, on a $\deg(u) + \deg(v) \leq n$.
+      En sommant sur toutes les ar&ecirc;tes : $\sum_{\{u,v\} \in E} (\deg(u) + \deg(v)) \leq n|E|$.
+      Le membre gauche vaut $\sum_{v \in V} \deg(v)^2$ : chaque sommet $v$ contribue $\deg(v)$ &agrave; la somme de degr&eacute;s de chacune de ses $\deg(v)$ ar&ecirc;tes, pour un total de $\deg(v)^2$.
+      Par l'in&eacute;galit&eacute; de Cauchy-Schwarz : $\sum_{v} \deg(v)^2 \geq \frac{1}{n}\left(\sum_{v} \deg(v)\right)^2 = \frac{(2|E|)^2}{n} = \frac{4|E|^2}{n}$.
+      En combinant : $\frac{4|E|^2}{n} \leq n|E|$, d'o&ugrave; $|E| \leq \frac{n^2}{4}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Ramsey number $R(3,3) = 6$).</span> Show that any 2-coloring of the edges of $K_6$ contains a monochromatic triangle. Show that there exists a 2-coloring of the edges of $K_5$ with no monochromatic triangle.</p>
+      <p class="fr"><span class="thm-label">Exercice (Nombre de Ramsey $R(3,3) = 6$).</span> Montrer que toute 2-coloration des ar&ecirc;tes de $K_6$ contient un triangle monochrome. Montrer qu'il existe une 2-coloration des ar&ecirc;tes de $K_5$ sans triangle monochrome.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$K_6$ always contains a monochromatic triangle.</em> Color each edge red or blue. Pick any vertex $v$. It has $5$ neighbors, so by the pigeonhole principle, at least $\lceil 5/2 \rceil = 3$ edges from $v$ have the same color, say red, going to vertices $a, b, c$. If any edge among $\{a,b\}$, $\{b,c\}$, $\{a,c\}$ is red, it forms a red triangle with $v$. If all three are blue, then $a, b, c$ form a blue triangle.
+      <em>$K_5$ admits a 2-coloring with no monochromatic triangle.</em> Label the vertices $0, 1, 2, 3, 4$ arranged in a regular pentagon. Color the edges of the pentagon (i.e., $\{i, i+1 \pmod 5\}$) red, and the diagonals (i.e., $\{i, i+2 \pmod 5\}$) blue. Any three vertices include at most two consecutive vertices on the pentagon and at most two on the same diagonal, so no three vertices form a monochromatic triangle: every potential triangle uses at least one red edge (a pentagon edge) and one blue edge (a diagonal).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>$K_6$ contient toujours un triangle monochrome.</em> Colorons chaque ar&ecirc;te en rouge ou bleu. Prenons un sommet $v$. Il a $5$ voisins, donc par le principe des tiroirs, au moins $\lceil 5/2 \rceil = 3$ ar&ecirc;tes depuis $v$ ont la m&ecirc;me couleur, disons rouge, vers des sommets $a, b, c$. Si l'une des ar&ecirc;tes $\{a,b\}$, $\{b,c\}$, $\{a,c\}$ est rouge, elle forme un triangle rouge avec $v$. Si toutes trois sont bleues, alors $a, b, c$ forment un triangle bleu.
+      <em>$K_5$ admet une 2-coloration sans triangle monochrome.</em> Num&eacute;rotons les sommets $0, 1, 2, 3, 4$ disposs&eacute;s en pentagone r&eacute;gulier. Colorons en rouge les ar&ecirc;tes du pentagone (c'est-&agrave;-dire $\{i, i+1 \pmod 5\}$) et en bleu les diagonales ($\{i, i+2 \pmod 5\}$). Tout triplet de sommets implique au moins une ar&ecirc;te rouge et une ar&ecirc;te bleue, donc aucun triangle n'est monochrome.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un graphe connexe &agrave; $n$ sommets, $m$ ar&ecirc;tes et $k$ sommets de degr&eacute; impair. Montrer que le nombre minimum de cha&icirc;nes n&eacute;cessaires pour d&eacute;composer les ar&ecirc;tes de $G$ est $\max(1, k/2)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the handshaking corollary, $k$ is even, so $k/2$ is an integer.
+      <em>Lower bound.</em> Each trail contributes to exactly $2$ vertices (its endpoints) an odd degree increase of $1$ each (from the trail itself), or $0$ if it is closed. More precisely: in any trail, its two endpoints have odd degree within the trail (contributing $1$ each), and all internal vertices have even degree. A closed trail contributes $0$ odd-degree vertices. So $t$ trails collectively produce at most $2t$ odd-degree vertices in $G$. Since $G$ has $k$ odd-degree vertices, we need $2t \geq k$, i.e., $t \geq k/2$. Also $t \geq 1$ if $m \geq 1$.
+      <em>Upper bound.</em> Add $k/2$ new edges pairing up the odd-degree vertices to obtain $G'$ where all degrees are even. By Euler's theorem, $G'$ has an Eulerian circuit. Removing the $k/2$ added edges splits the circuit into at most $k/2$ trails (each added edge removal can split a circuit into at most one more trail). If $k = 0$, one trail (the Eulerian circuit) suffices.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le corollaire du lemme des poign&eacute;es de mains, $k$ est pair, donc $k/2$ est un entier.
+      <em>Borne inf&eacute;rieure.</em> Dans toute cha&icirc;ne, ses deux extr&eacute;mit&eacute;s ont degr&eacute; impair dans la cha&icirc;ne (contribuant 1 chacune), et tous les sommets internes ont degr&eacute; pair. Une cha&icirc;ne ferm&eacute;e contribue $0$ sommet de degr&eacute; impair. Donc $t$ cha&icirc;nes produisent au plus $2t$ sommets de degr&eacute; impair dans $G$. Comme $G$ en a $k$, il faut $2t \geq k$, soit $t \geq k/2$. De plus $t \geq 1$ si $m \geq 1$.
+      <em>Borne sup&eacute;rieure.</em> Ajoutons $k/2$ ar&ecirc;tes couplant les sommets de degr&eacute; impair pour obtenir $G'$ o&ugrave; tous les degr&eacute;s sont pairs. Par le th&eacute;or&egrave;me d'Euler, $G'$ admet un circuit eul&eacute;rien. En supprimant les $k/2$ ar&ecirc;tes ajout&eacute;es, on d&eacute;coupe le circuit en au plus $k/2$ cha&icirc;nes. Si $k = 0$, une seule cha&icirc;ne (le circuit eul&eacute;rien) suffit.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that if $G$ is a connected planar graph with $V$ vertices, $E$ edges, $F$ faces, and $k$ connected components, then $V - E + F = 1 + k$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $G$ est un graphe planaire (pas n&eacute;cessairement connexe) &agrave; $V$ sommets, $E$ ar&ecirc;tes, $F$ faces et $k$ composantes connexes, alors $V - E + F = 1 + k$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Apply Euler's formula to each connected component $G_1, \ldots, G_k$ drawn in the plane. Each component $G_i$ satisfies $V_i - E_i + F_i = 2$ by Euler's formula, where $F_i$ is the number of faces of $G_i$. However, the outer face of each component is shared with the others; summing naively over components over-counts the outer (unbounded) face: each component contributes $1$ outer face, but they all share the same outer face of the whole drawing. Thus $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Appliquons la formule d'Euler &agrave; chaque composante connexe $G_1, \ldots, G_k$ dessin&eacute;e dans le plan. Chaque composante $G_i$ satisfait $V_i - E_i + F_i = 2$, o&ugrave; $F_i$ est le nombre de faces de $G_i$. Cependant, la face ext&eacute;rieure de chaque composante est partag&eacute;e avec les autres ; en sommant na&iuml;vement, on compte $k$ fois la face non born&eacute;e, alors qu'elle est unique dans le dessin global. Donc $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Wrap proof content in .proof-body for white-space: pre-line
+    document.querySelectorAll('.proof').forEach(function(el) {
+      var summary = el.querySelector('summary');
+      var wrapper = document.createElement('div');
+      wrapper.className = 'proof-body';
+      while (summary.nextSibling) wrapper.appendChild(summary.nextSibling);
+      // Trim leading newline from first text node
+      var first = wrapper.firstChild;
+      if (first && first.nodeType === 3) {
+        first.textContent = first.textContent.replace(/^\s*\n\s*/, '');
+      }
+      el.appendChild(wrapper);
+    });
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

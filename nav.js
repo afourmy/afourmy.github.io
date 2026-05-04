@@ -14,6 +14,7 @@
     { en: "Computer Science", fr: "Informatique", columns: [
       [
         { href: "cs/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
+        { href: "cs/graph-theory.html", en: "Graph Theory", fr: "Théorie des graphes" },
       ]
     ]},
     { en: "Algorithmics", fr: "Algorithmique", columns: [
