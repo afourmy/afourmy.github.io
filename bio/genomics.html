@@ -60,8 +60,8 @@
     </div>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (GC content).</span> The <em>GC content</em> of a sequence $s$ of length $n$ is the fraction of positions occupied by G or C: $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{T}\}\}|}{n}$. GC content varies across species (from $\sim$25% in some bacteria to $\sim$75% in others) and across regions of the same genome. It affects sequencing quality and DNA stability, since G–C pairs form three hydrogen bonds versus two for A–T pairs.</p>
-      <p class="fr"><span class="thm-label">Définition (Teneur en GC).</span> La <em>teneur en GC</em> d'une séquence $s$ de longueur $n$ est la fraction de positions occupées par G ou C : $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{T}\}\}|}{n}$. Elle varie selon les espèces (de $\sim$25 % chez certaines bactéries à $\sim$75 % chez d'autres) et selon les régions d'un même génome. Elle influence la qualité du séquençage et la stabilité de l'ADN, car les paires G–C forment trois liaisons hydrogène contre deux pour les paires A–T.</p>
+      <p class="en"><span class="thm-label">Definition (GC content).</span> The <em>GC content</em> of a sequence $s$ of length $n$ is the fraction of positions occupied by G or C: $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{C}\}\}|}{n}$. GC content varies across species (from $\sim$25% in some bacteria to $\sim$75% in others) and across regions of the same genome. It affects sequencing quality and DNA stability, since G–C pairs form three hydrogen bonds versus two for A–T pairs.</p>
+      <p class="fr"><span class="thm-label">Définition (Teneur en GC).</span> La <em>teneur en GC</em> d'une séquence $s$ de longueur $n$ est la fraction de positions occupées par G ou C : $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{C}\}\}|}{n}$. Elle varie selon les espèces (de $\sim$25 % chez certaines bactéries à $\sim$75 % chez d'autres) et selon les régions d'un même génome. Elle influence la qualité du séquençage et la stabilité de l'ADN, car les paires G–C forment trois liaisons hydrogène contre deux pour les paires A–T.</p>
     </div>
 
     <div class="thm-block definition">
@@ -89,6 +89,11 @@
       <p class="fr"><span class="thm-label">Séquençage longues lectures (PacBio, Oxford Nanopore).</span> Deux plateformes produisent des lectures de 10 000 à 1 000 000 pb, permettant l'assemblage à travers les régions répétitives. PacBio (séquençage SMRT) observe l'activité de la polymérase dans des guides d'onde à zéro mode ; Oxford Nanopore mesure les variations de courant ionique lors du passage de l'ADN dans un nanopore protéique. Les deux ont des taux d'erreur plus élevés ($\sim$1–15 %) concentrés dans les répétitions d'homopolymères, mais les erreurs sont largement aléatoires et peuvent être corrigées par une couverture élevée ou un assemblage hybride avec des lectures courtes.</p>
     </div>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Coverage intuition.</span> Think of tearing a book into short, randomly placed strips. To reconstruct the text you need enough strips so that every word is covered by at least one strip. With only one strip per region you cannot distinguish a smudged word (sequencing error) from the real text; with 30 overlapping strips showing the same word you can be confident. Two complications arise in practice. First, coverage is uneven: some regions are over-represented (biased amplification, high GC content) and others are missed entirely. Second, if the same sentence is repeated in many chapters, strips from those regions are indistinguishable and you cannot tell where each one belongs. These two phenomena -- non-uniform coverage and repeats -- are why the idealized Poisson model below is only an approximation, and why 30$\times$ coverage is needed in practice rather than the $\approx 5\times$ that the model predicts.</p>
+      <p class="fr"><span class="thm-label">Intuition de la couverture.</span> Imaginez déchirer un livre en courts morceaux placés aléatoirement. Pour reconstruire le texte, il faut suffisamment de morceaux pour que chaque mot soit couvert par au moins un morceau. Avec un seul morceau par région, on ne peut pas distinguer un mot illisible (erreur de séquençage) du texte réel ; avec 30 morceaux se chevauchant et montrant le même mot, on peut en être sûr. Deux complications surviennent en pratique. Premièrement, la couverture est inégale : certaines régions sont sur-représentées (amplification biaisée, forte teneur en GC) et d'autres sont entièrement manquées. Deuxièmement, si la même phrase est répétée dans de nombreux chapitres, les morceaux de ces régions sont indiscernables et on ne sait pas où chacun appartient. Ces deux phénomènes -- couverture non uniforme et répétitions -- expliquent pourquoi le modèle de Poisson idéalisé ci-dessous n'est qu'une approximation, et pourquoi une couverture de $30\times$ est nécessaire en pratique plutôt que les $\approx 5\times$ prédits par le modèle.</p>
+    </div>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Coverage).</span> Let $G$ be the genome length, $L$ the mean read length, and $N$ the total number of reads. The <em>sequencing depth</em> (or <em>coverage</em>) is $C = \frac{N \cdot L}{G}$. A coverage of $C = 30\times$ means each base is, on average, covered by 30 reads. The <em>Lander–Waterman model</em> treats read start positions as a Poisson process with rate $C/L$ per base. Under this model, the fraction of the genome covered by at least one read is $1 - e^{-C}$, and the probability that a given base has depth exactly $k$ is $\frac{e^{-C} C^k}{k!}$.</p>
       <p class="fr"><span class="thm-label">Définition (Couverture).</span> Soient $G$ la longueur du génome, $L$ la longueur moyenne des lectures et $N$ le nombre total de lectures. La <em>profondeur de séquençage</em> (ou <em>couverture</em>) est $C = \frac{N \cdot L}{G}$. Une couverture de $C = 30\times$ signifie que chaque base est couverte en moyenne par 30 lectures. Le <em>modèle de Lander–Waterman</em> traite les positions de départ des lectures comme un processus de Poisson de taux $C/L$ par base. Sous ce modèle, la fraction du génome couverte par au moins une lecture est $1 - e^{-C}$, et la probabilité qu'une base donnée ait une profondeur exactement $k$ est $\frac{e^{-C} C^k}{k!}$.</p>
@@ -108,7 +113,34 @@
       Sous le modèle de Lander–Waterman, la probabilité qu'une base donnée ne soit couverte par aucune lecture est $e^{-C}$. En posant $e^{-C} \leq 0{,}01$, on obtient $-C \leq \ln(0{,}01) = -\ln(100)$, soit $C \geq \ln(100) \approx 4{,}6$.
     </details>
 
-    <!-- ── 3. Sequence Alignment ── -->
+    <!-- ── 3. Exact String Matching ── -->
+
+    <h3 class="en">Exact String Matching</h3>
+    <h3 class="fr">Recherche exacte de motifs</h3>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The pattern matching problem.</span> The simplest string query in genomics: given a short <em>pattern</em> $p$ of length $m$ and a long <em>text</em> $t$ of length $n$, find all positions $i$ such that $t[i..i+m-1] = p$. Practical examples include locating restriction enzyme cut sites ($m \approx 6$), checking whether a primer binds to a reference ($m \approx 20$), and finding exact seed matches as a subroutine of read alignment (Section 4). Because reads may originate from either strand of the double helix, one must always search for both $p$ and its reverse complement $\overline{p}$.</p>
+      <p class="fr"><span class="thm-label">Le problème de recherche de motif.</span> La requête de chaîne la plus simple en génomique : étant donnés un court <em>motif</em> $p$ de longueur $m$ et un long <em>texte</em> $t$ de longueur $n$, trouver toutes les positions $i$ telles que $t[i..i+m-1] = p$. Des exemples pratiques incluent la localisation des sites de coupure d'enzymes de restriction ($m \approx 6$), la vérification qu'une amorce se fixe à une référence ($m \approx 20$), et la recherche de graines exactes comme sous-procédure de l'alignement de lectures (Section 4). Comme les lectures peuvent provenir de l'un ou l'autre brin de la double hélice, il faut toujours chercher à la fois $p$ et son complément inverse $\overline{p}$.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Naïve matching.</span> The naïve algorithm slides a window of length $m$ over $t$ and compares all characters at each position. It runs in $O(nm)$ time and $O(1)$ extra space. For a human genome ($n = 3 \times 10^9$, $m = 20$), this is $6 \times 10^{10}$ comparisons. Early termination on mismatch makes the average case much faster: for a uniformly random DNA string, the expected number of comparisons per window is $O(1)$ since the first character mismatches with probability $3/4$. In the worst case ($t = \texttt{AAA}\cdots$, $p = \texttt{AAA}\cdots\texttt{B}$) every window requires $m$ comparisons. This worst case motivates the KMP and Boyer-Moore algorithms, which guarantee $O(n)$ time.</p>
+      <p class="fr"><span class="thm-label">Recherche naïve.</span> L'algorithme naïf fait glisser une fenêtre de longueur $m$ sur $t$ et compare tous les caractères à chaque position. Il s'exécute en $O(nm)$ dans le pire des cas et en $O(1)$ espace supplémentaire. Pour un génome humain ($n = 3 \times 10^9$, $m = 20$), cela représente $6 \times 10^{10}$ comparaisons. L'arrêt anticipé en cas de mésappariement le rend beaucoup plus rapide en cas moyen : pour une chaîne d'ADN uniformément aléatoire, le nombre espéré de comparaisons par fenêtre est $O(1)$ car le premier caractère mésapparie avec probabilité $3/4$. Dans le pire des cas ($t = \texttt{AAA}\cdots$, $p = \texttt{AAA}\cdots\texttt{B}$), chaque fenêtre nécessite $m$ comparaisons. Ce pire cas motive les algorithmes KMP et Boyer-Moore, qui garantissent un temps $O(n)$.</p>
+    </div>
+
+    <pre><code class="language-python">def rc(seq):
+    return seq.translate(str.maketrans('ACGT', 'TGCA'))[::-1]
+
+
+def exact_match(pattern, text):
+    m, n = len(pattern), len(text)
+    return [i for i in range(n - m + 1) if text[i:i+m] == pattern]
+
+
+def match_both_strands(pattern, text):
+    return exact_match(pattern, text), exact_match(rc(pattern), text)</code></pre>
+
+    <!-- ── 4. Sequence Alignment ── -->
 
     <h3 class="en">Sequence Alignment</h3>
     <h3 class="fr">Alignement de séquences</h3>
@@ -117,6 +149,15 @@
       <p class="en"><span class="thm-label">Definition (Alignment).</span> An <em>alignment</em> of two strings $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$ over $\Sigma$ is a placement of the characters of $a$ and $b$ into two rows of a matrix such that: each column contains at least one non-gap character, and the left-to-right order of characters in each row is preserved. A column is a <em>match</em> if both characters are identical, a <em>mismatch</em> if both are non-gap but different, and a <em>gap</em> (or indel) if one character is a gap symbol $-$. An alignment <em>score</em> is assigned by a scoring function $s(\cdot, \cdot)$ that sums contributions over all columns.</p>
       <p class="fr"><span class="thm-label">Définition (Alignement).</span> Un <em>alignement</em> de deux chaînes $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$ sur $\Sigma$ est un placement des caractères de $a$ et $b$ dans deux lignes d'une matrice tel que : chaque colonne contient au moins un caractère non-gap, et l'ordre de gauche à droite des caractères de chaque ligne est préservé. Une colonne est un <em>appariement</em> si les deux caractères sont identiques, un <em>mésappariement</em> si les deux sont non-gap mais différents, et un <em>gap</em> (ou indel) si l'un est un symbole gap $-$. Un <em>score</em> d'alignement est attribué par une fonction de score $s(\cdot, \cdot)$ sommant les contributions sur toutes les colonnes.</p>
     </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Hamming distance).</span> Let $a$ and $b$ be two strings of <em>equal</em> length $n$ over $\Sigma$. The <em>Hamming distance</em> $d_H(a, b) = |\{i : a_i \neq b_i\}|$ counts positions where the strings differ. It considers only substitutions and is undefined for strings of unequal length. In genomics, it naturally captures the number of sequencing errors between a read and the reference region it covers, under the assumption that the read has no insertions or deletions relative to that region.</p>
+      <p class="fr"><span class="thm-label">Définition (Distance de Hamming).</span> Soient $a$ et $b$ deux chaînes de même longueur $n$ sur $\Sigma$. La <em>distance de Hamming</em> $d_H(a, b) = |\{i : a_i \neq b_i\}|$ compte les positions où les chaînes diffèrent. Elle ne considère que les substitutions et n'est pas définie pour des chaînes de longueurs différentes. En génomique, elle capture naturellement le nombre d'erreurs de séquençage entre une lecture et la région de référence qu'elle couvre, sous l'hypothèse que la lecture ne comporte pas d'insertions ou de délétions par rapport à cette région.</p>
+    </div>
+
+    <pre><code class="language-python">def hamming(a, b):
+    assert len(a) == len(b)
+    return sum(x != y for x, y in zip(a, b))</code></pre>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Edit distance).</span> The <em>edit distance</em> (Levenshtein distance) $d(a, b)$ between two strings $a$ and $b$ is the minimum number of single-character operations (insertions, deletions, substitutions) needed to transform $a$ into $b$. It equals the minimum number of mismatches plus gaps in any alignment of $a$ and $b$ with unit costs. The edit distance satisfies the metric axioms:</p>
@@ -234,7 +275,7 @@
       <p class="fr"><span class="thm-label">De l'alignement exact à l'heuristique : BLAST.</span> Needleman–Wunsch et Smith–Waterman sont en $O(mn)$. Quand $m = 300$ (une lecture) et $n = 3 \times 10^9$ (le génome humain), cela représente $9 \times 10^{11}$ opérations par lecture - beaucoup trop lent. <em>BLAST</em> (Basic Local Alignment Search Tool) accélère l'alignement local par une heuristique de type graine-et-extension :<br>(1) trouver toutes les correspondances exactes de longueur $W$ (graines) entre la requête et la base de données,<br>(2) étendre chaque graine dans les deux directions tant que le score d'alignement local reste au-dessus d'un seuil. Cela manque les alignements sans correspondance exacte de $W$-mer, mais en pratique très peu d'alignements biologiquement significatifs sont manqués avec $W = 11$. Les aligneurs modernes de lectures courtes (BWA, Bowtie2) utilisent des structures de données différentes (index FM, transformée de Burrows–Wheeler) pour atteindre un alignement en $O(n + m)$.</p>
     </div>
 
-    <!-- ── 4. Genome Assembly ── -->
+    <!-- ── 5. Genome Assembly ── -->
 
     <h3 class="en">Genome Assembly</h3>
     <h3 class="fr">Assemblage du génome</h3>
@@ -302,7 +343,7 @@ def assemble(reads, k):
     path = eulerian_path(debruijn_graph(reads, k))
     return path[0] + ''.join(node[-1] for node in path[1:])</code></pre>
 
-    <!-- ── 5. Genome Annotation ── -->
+    <!-- ── 6. Genome Annotation ── -->
 
     <h3 class="en">Genome Annotation</h3>
     <h3 class="fr">Annotation du génome</h3>
@@ -356,7 +397,7 @@ def find_all_orfs(seq, min_codons=100):
       <p class="fr"><span class="thm-label">Annotation fonctionnelle.</span> Une fois les localisations des gènes prédites, une fonction est attribuée à chaque produit génique par recherche de similarité dans des bases de données curées : <em>UniProt/Swiss-Prot</em> (séquences protéiques curées manuellement), <em>Pfam</em> (familles de domaines protéiques modélisées comme des HMM de profil), et la <em>Gene Ontology</em> (GO) - un vocabulaire contrôlé de termes de processus biologique, fonction moléculaire et composant cellulaire. Une recherche BLAST ou HMMer transfère les annotations d'homologues connus au nouveau gène. La fiabilité des annotations transférées diminue lorsque l'identité de séquence descend en dessous de $\sim$30 %.</p>
     </div>
 
-    <!-- ── 6. Variant Calling ── -->
+    <!-- ── 7. Variant Calling ── -->
 
     <h3 class="en">Variant Calling</h3>
     <h3 class="fr">Détection de variants</h3>
@@ -403,7 +444,7 @@ def call_genotype(n, k, error=1e-3):
     lls = genotype_likelihoods(n, k, error)
     return max(lls, key=lls.get)</code></pre>
 
-    <!-- ── 7. Comparative Genomics ── -->
+    <!-- ── 8. Comparative Genomics ── -->
 
     <h3 class="en">Comparative Genomics</h3>
     <h3 class="fr">Génomique comparative</h3>
