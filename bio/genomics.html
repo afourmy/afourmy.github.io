@@ -131,11 +131,9 @@
     <pre><code class="language-python">def rc(seq):
     return seq.translate(str.maketrans('ACGT', 'TGCA'))[::-1]
 
-
 def exact_match(pattern, text):
     m, n = len(pattern), len(text)
     return [i for i in range(n - m + 1) if text[i:i+m] == pattern]
-
 
 def match_both_strands(pattern, text):
     return exact_match(pattern, text), exact_match(rc(pattern), text)</code></pre>
@@ -294,7 +292,6 @@ def match_both_strands(pattern, text):
     return next((k for k in range(min(len(r1), len(r2)), min_len - 1, -1)
                  if r1[-k:] == r2[:k]), 0)
 
-
 def overlap_graph(reads, min_len):
     return {
         i: [(j, k) for j, r2 in enumerate(reads)
@@ -313,7 +310,6 @@ def overlap_graph(reads, min_len):
     </div>
 
     <pre><code class="language-python">from collections import Counter, defaultdict
-
 
 def debruijn_graph(reads, k):
     graph = defaultdict(list)
