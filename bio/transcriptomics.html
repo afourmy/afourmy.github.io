@@ -48,5 +48,21 @@
     <h3 class="fr">Réseaux géniques et voies métaboliques</h3>
 
   </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
