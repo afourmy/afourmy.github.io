@@ -372,16 +372,20 @@ def find_all_orfs(seq, min_codons=100):
     </div>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Genotype likelihood).</span> Let a position be covered by $n$ reads, of which $k$ show the alternative allele and $n - k$ show the reference allele. Let $\epsilon$ be the per-base error rate. Under a diploid model with genotypes $RR$ (homozygous reference), $RA$ (heterozygous), and $AA$ (homozygous alternative), the likelihoods are:
-      $$P(\text{data} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$$
-      $$P(\text{data} \mid RA) = \left(\tfrac{1}{2}\right)^n$$
-      $$P(\text{data} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$$
-      The called genotype is the one maximizing the posterior $P(\text{genotype} \mid \text{data}) \propto P(\text{data} \mid \text{genotype}) \cdot P(\text{genotype})$. Variants are reported in <em>VCF</em> (Variant Call Format), a tab-separated text file with one line per variant.</p>
-      <p class="fr"><span class="thm-label">Définition (Vraisemblance de génotype).</span> Soit une position couverte par $n$ lectures, dont $k$ montrent l'allèle alternatif et $n - k$ l'allèle de référence. Soit $\epsilon$ le taux d'erreur par base. Dans un modèle diploïde avec les génotypes $RR$ (homozygote référence), $RA$ (hétérozygote) et $AA$ (homozygote alternatif), les vraisemblances sont :
-      $$P(\text{données} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$$
-      $$P(\text{données} \mid RA) = \left(\tfrac{1}{2}\right)^n$$
-      $$P(\text{données} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$$
-      Le génotype appelé est celui qui maximise le posterior $P(\text{génotype} \mid \text{données}) \propto P(\text{données} \mid \text{génotype}) \cdot P(\text{génotype})$. Les variants sont rapportés au format <em>VCF</em> (Variant Call Format), un fichier texte séparé par tabulations avec une ligne par variant.</p>
+      <p class="en"><span class="thm-label">Definition (Genotype likelihood).</span> Let a position be covered by $n$ reads, of which $k$ show the alternative allele and $n - k$ show the reference allele. Let $\epsilon$ be the per-base error rate. Under a diploid model with genotypes $RR$ (homozygous reference), $RA$ (heterozygous), and $AA$ (homozygous alternative), the likelihoods are:</p>
+      <ul class="en">
+        <li>$P(\text{data} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$</li>
+        <li>$P(\text{data} \mid RA) = \left(\tfrac{1}{2}\right)^n$</li>
+        <li>$P(\text{data} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$</li>
+      </ul>
+      <p class="en">The called genotype is the one maximizing the posterior $P(\text{genotype} \mid \text{data}) \propto P(\text{data} \mid \text{genotype}) \cdot P(\text{genotype})$. Variants are reported in <em>VCF</em> (Variant Call Format), a tab-separated text file with one line per variant.</p>
+      <p class="fr"><span class="thm-label">Définition (Vraisemblance de génotype).</span> Soit une position couverte par $n$ lectures, dont $k$ montrent l'allèle alternatif et $n - k$ l'allèle de référence. Soit $\epsilon$ le taux d'erreur par base. Dans un modèle diploïde avec les génotypes $RR$ (homozygote référence), $RA$ (hétérozygote) et $AA$ (homozygote alternatif), les vraisemblances sont :</p>
+      <ul class="fr">
+        <li>$P(\text{données} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$</li>
+        <li>$P(\text{données} \mid RA) = \left(\tfrac{1}{2}\right)^n$</li>
+        <li>$P(\text{données} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$</li>
+      </ul>
+      <p class="fr">Le génotype appelé est celui qui maximise le posterior $P(\text{génotype} \mid \text{données}) \propto P(\text{données} \mid \text{génotype}) \cdot P(\text{génotype})$. Les variants sont rapportés au format <em>VCF</em> (Variant Call Format), un fichier texte séparé par tabulations avec une ligne par variant.</p>
     </div>
 
     <pre><code class="language-python">from math import log
