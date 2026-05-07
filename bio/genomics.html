@@ -136,16 +136,20 @@
     </div>
 
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Needleman–Wunsch, 1970).</span> Let $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$. Define the scoring function: $s(x, y) = +1$ if $x = y$, $-1$ if $x \neq y$, and gap penalty $-d$ for each gap. The optimal global alignment score $F(m, n)$ satisfies the recurrence
-      $$F(i, 0) = -i \cdot d$$
-      $$F(0, j) = -j \cdot d$$
-      $$F(i, j) = \max\begin{cases} F(i-1,\, j-1) + s(a_i, b_j) \\ F(i-1,\, j) - d \\ F(i,\, j-1) - d \end{cases}$$
-      and can be computed in $O(mn)$ time and space by filling the $(m+1) \times (n+1)$ DP table row by row.</p>
-      <p class="fr"><span class="thm-label">Théorème (Needleman–Wunsch, 1970).</span> Soient $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$. Définissons la fonction de score : $s(x, y) = +1$ si $x = y$, $-1$ si $x \neq y$, et pénalité de gap $-d$ par gap. Le score optimal d'alignement global $F(m, n)$ satisfait la récurrence
-      $$F(i, 0) = -i \cdot d$$
-      $$F(0, j) = -j \cdot d$$
-      $$F(i, j) = \max\begin{cases} F(i-1,\, j-1) + s(a_i, b_j) \\ F(i-1,\, j) - d \\ F(i,\, j-1) - d \end{cases}$$
-      et peut être calculé en temps et espace $O(mn)$ en remplissant le tableau de PD $(m+1) \times (n+1)$ ligne par ligne.</p>
+      <p class="en"><span class="thm-label">Theorem (Needleman–Wunsch, 1970).</span> Let $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$. Define the scoring function: $s(x, y) = +1$ if $x = y$, $-1$ if $x \neq y$, and gap penalty $-d$ for each gap. The optimal global alignment score $F(m, n)$ satisfies the recurrence</p>
+      <ul class="en">
+        <li>$F(i, 0) = -i \cdot d$</li>
+        <li>$F(0, j) = -j \cdot d$</li>
+        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j), F(i-1,\, j) - d, F(i,\, j-1) - d\}$</li>
+      </ul>
+      <p class="en">and can be computed in $O(mn)$ time and space by filling the $(m+1) \times (n+1)$ DP table row by row.</p>
+      <p class="fr"><span class="thm-label">Théorème (Needleman–Wunsch, 1970).</span> Soient $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$. Définissons la fonction de score : $s(x, y) = +1$ si $x = y$, $-1$ si $x \neq y$, et pénalité de gap $-d$ par gap. Le score optimal d'alignement global $F(m, n)$ satisfait la récurrence</p>
+      <ul class="fr">
+        <li>$F(i, 0) = -i \cdot d$</li>
+        <li>$F(0, j) = -j \cdot d$</li>
+        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j), F(i-1,\, j) - d, F(i,\, j-1) - d\}$</li>
+      </ul>
+      <p class="fr">et peut être calculé en temps et espace $O(mn)$ en remplissant le tableau de PD $(m+1) \times (n+1)$ ligne par ligne.</p>
     </div>
 
     <details class="proof en">
