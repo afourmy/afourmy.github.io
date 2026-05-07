@@ -15,6 +15,9 @@
     });"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
 </head>
 <body>
   <script src="../nav.js"></script>
@@ -23,29 +26,401 @@
     <h2 class="en">Overview</h2>
     <h2 class="fr">Vue d'ensemble</h2>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The central dogma.</span> The flow of genetic information in a cell follows a single direction: DNA is <em>transcribed</em> into RNA, which is <em>translated</em> into protein. DNA is a double-stranded polymer made of four nucleotides — adenine (A), cytosine (C), guanine (G), thymine (T) — held together by complementary base pairing (A–T, C–G). The complete DNA sequence of an organism is its <em>genome</em>. Genomics is the study of genomes: their structure, content, and evolution.</p>
+      <p class="fr"><span class="thm-label">Le dogme central.</span> Le flux d'information génétique dans une cellule suit une direction unique : l'ADN est <em>transcrit</em> en ARN, qui est <em>traduit</em> en protéine. L'ADN est un polymère double brin composé de quatre nucléotides — adénine (A), cytosine (C), guanine (G), thymine (T) — maintenus ensemble par complémentarité de bases (A–T, C–G). La séquence complète d'ADN d'un organisme constitue son <em>génome</em>. La génomique est l'étude des génomes : leur structure, leur contenu et leur évolution.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Computational challenges.</span> A human genome contains roughly $3 \times 10^9$ base pairs. No current technology reads it in one pass: sequencers produce millions of short <em>reads</em> (fragments of 100–30,000 bp depending on the platform), and computational methods must reconstruct the original sequence, identify variants, and annotate functional elements. The core algorithmic problems are <em>sequence alignment</em> (comparing two sequences) and <em>genome assembly</em> (reconstructing a genome from overlapping reads).</p>
+      <p class="fr"><span class="thm-label">Défis computationnels.</span> Le génome humain contient environ $3 \times 10^9$ paires de bases. Aucune technologie actuelle ne le lit en une seule passe : les séquenceurs produisent des millions de courtes <em>lectures</em> (fragments de 100 à 30 000 pb selon la plateforme), et des méthodes computationnelles doivent reconstruire la séquence originale, identifier les variants et annoter les éléments fonctionnels. Les problèmes algorithmiques centraux sont l'<em>alignement de séquences</em> (comparer deux séquences) et l'<em>assemblage du génome</em> (reconstruire un génome à partir de lectures se chevauchant).</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">String algorithms at the core.</span> A DNA sequence is a string over the alphabet $\Sigma = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{T}\}$. Genomics imports and adapts classical string algorithms — dynamic programming, suffix arrays, hash tables — and scales them to gigabase inputs. The dominant complexity constraints are time (reads number in the millions) and memory (a genome-scale suffix array requires tens of gigabytes).</p>
+      <p class="fr"><span class="thm-label">Les algorithmes de chaînes au cœur.</span> Une séquence d'ADN est une chaîne sur l'alphabet $\Sigma = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{T}\}$. La génomique importe et adapte les algorithmes classiques de traitement de chaînes — programmation dynamique, tableaux de suffixes, tables de hachage — et les passe à l'échelle de milliards de bases. Les contraintes de complexité dominantes sont le temps (les lectures se comptent en millions) et la mémoire (un tableau de suffixes à l'échelle du génome requiert plusieurs dizaines de gigaoctets).</p>
+    </div>
+
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
+
+    <!-- ── 1. DNA and the Genome ── -->
 
     <h3 class="en">DNA and the Genome</h3>
     <h3 class="fr">ADN et le génome</h3>
 
-    <h3 class="en">Sequence Alignment</h3>
-    <h3 class="fr">Alignement de séquences</h3>
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (DNA sequence).</span> A <em>DNA sequence</em> of length $n$ is a string $s = s_1 s_2 \cdots s_n$ over the alphabet $\Sigma = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{T}\}$. The <em>complement</em> of a base is defined by $\overline{\texttt{A}} = \texttt{T}$, $\overline{\texttt{T}} = \texttt{A}$, $\overline{\texttt{C}} = \texttt{G}$, $\overline{\texttt{G}} = \texttt{C}$. The <em>reverse complement</em> of $s$ is the string $\overline{s_n}\, \overline{s_{n-1}} \cdots \overline{s_1}$. In the double helix, each strand is the reverse complement of the other.</p>
+      <p class="fr"><span class="thm-label">Définition (Séquence d'ADN).</span> Une <em>séquence d'ADN</em> de longueur $n$ est une chaîne $s = s_1 s_2 \cdots s_n$ sur l'alphabet $\Sigma = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{T}\}$. Le <em>complément</em> d'une base est défini par $\overline{\texttt{A}} = \texttt{T}$, $\overline{\texttt{T}} = \texttt{A}$, $\overline{\texttt{C}} = \texttt{G}$, $\overline{\texttt{G}} = \texttt{C}$. Le <em>complément inverse</em> de $s$ est la chaîne $\overline{s_n}\, \overline{s_{n-1}} \cdots \overline{s_1}$. Dans la double hélice, chaque brin est le complément inverse de l'autre.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Genome, chromosome, gene).</span> The <em>genome</em> of an organism is the complete set of its hereditary information, encoded as DNA. In eukaryotes, the genome is organized into <em>chromosomes</em>: linear double-stranded DNA molecules packaged with proteins. A <em>gene</em> is a region of the genome that encodes a functional product (typically a protein or a structural RNA). Genes represent roughly 2% of the human genome; the rest consists of regulatory sequences, repetitive elements, and regions of unknown function.</p>
+      <p class="fr"><span class="thm-label">Définition (Génome, chromosome, gène).</span> Le <em>génome</em> d'un organisme est l'ensemble complet de son information héréditaire, encodée sous forme d'ADN. Chez les eucaryotes, le génome est organisé en <em>chromosomes</em> : des molécules d'ADN double brin linéaires associées à des protéines. Un <em>gène</em> est une région du génome codant un produit fonctionnel (typiquement une protéine ou un ARN structural). Les gènes représentent environ 2 % du génome humain ; le reste est constitué de séquences régulatrices, d'éléments répétitifs et de régions à fonction inconnue.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (GC content).</span> The <em>GC content</em> of a sequence $s$ of length $n$ is the fraction of positions occupied by G or C: $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{T}\}\}|}{n}$. GC content varies across species (from ~25% in some bacteria to ~75% in others) and across regions of the same genome. It affects sequencing quality and DNA stability, since G–C pairs form three hydrogen bonds versus two for A–T pairs.</p>
+      <p class="fr"><span class="thm-label">Définition (Teneur en GC).</span> La <em>teneur en GC</em> d'une séquence $s$ de longueur $n$ est la fraction de positions occupées par G ou C : $\text{GC}(s) = \frac{|\{i : s_i \in \{\texttt{G}, \texttt{T}\}\}|}{n}$. Elle varie selon les espèces (de ~25 % chez certaines bactéries à ~75 % chez d'autres) et selon les régions d'un même génome. Elle influence la qualité du séquençage et la stabilité de l'ADN, car les paires G–C forment trois liaisons hydrogène contre deux pour les paires A–T.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (k-mer).</span> A <em>$k$-mer</em> is a substring of length $k$. A sequence of length $n$ contains exactly $n - k + 1$ $k$-mers (with overlaps). The <em>$k$-mer spectrum</em> of a sequence is the multiset of all its $k$-mers. Over the alphabet $\Sigma$, there are $4^k$ distinct $k$-mers. $k$-mers are a fundamental data structure in genome assembly, read mapping, and error correction.</p>
+      <p class="fr"><span class="thm-label">Définition ($k$-mer).</span> Un <em>$k$-mer</em> est une sous-chaîne de longueur $k$. Une séquence de longueur $n$ contient exactement $n - k + 1$ $k$-mers (avec chevauchements). Le <em>spectre de $k$-mers</em> d'une séquence est le multi-ensemble de tous ses $k$-mers. Sur l'alphabet $\Sigma$, il existe $4^k$ $k$-mers distincts. Les $k$-mers sont une structure de données fondamentale en assemblage de génomes, alignement de lectures et correction d'erreurs.</p>
+    </div>
+
+    <!-- ── 2. Sequencing Technologies ── -->
 
     <h3 class="en">Sequencing Technologies</h3>
     <h3 class="fr">Technologies de séquençage</h3>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The sequencing problem.</span> A sequencer cannot read a whole chromosome in one pass. Instead, it produces a large number of short <em>reads</em>: substrings sampled (approximately at random) from the genome. Reconstruction of the original genome from these reads is the <em>assembly problem</em>. The key parameters of a sequencing technology are: read length, throughput (total bases per run), error rate, and error profile (substitutions vs. insertions/deletions).</p>
+      <p class="fr"><span class="thm-label">Le problème du séquençage.</span> Un séquenceur ne peut pas lire un chromosome entier en une seule passe. Il produit un grand nombre de courtes <em>lectures</em> : des sous-chaînes échantillonnées (approximativement au hasard) depuis le génome. La reconstruction du génome original à partir de ces lectures est le <em>problème d'assemblage</em>. Les paramètres clés d'une technologie de séquençage sont : la longueur des lectures, le débit (nombre total de bases par run), le taux d'erreur et le profil d'erreur (substitutions vs. insertions/délétions).</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Short-read sequencing (Illumina).</span> The dominant technology since ~2007. DNA is fragmented, adapters are ligated to both ends, and fragments are amplified on a flow cell by bridge PCR, forming <em>clusters</em>. Sequencing proceeds by synthesis: at each cycle, fluorescently labeled reversible-terminator nucleotides are incorporated, imaged, and cleaved. This yields reads of 100–300 bp with very low error rates (~0.1%), primarily substitution errors. A single run produces hundreds of gigabases of data. The short read length is the main limitation: it makes it hard to assemble repetitive regions longer than a read.</p>
+      <p class="fr"><span class="thm-label">Séquençage courtes lectures (Illumina).</span> La technologie dominante depuis ~2007. L'ADN est fragmenté, des adaptateurs sont ligaturés aux deux extrémités, et les fragments sont amplifiés sur une flow cell par PCR en pont, formant des <em>clusters</em>. Le séquençage se fait par synthèse : à chaque cycle, des nucléotides fluorescents à terminateurs réversibles sont incorporés, imagés, puis clivés. Cela produit des lectures de 100 à 300 pb avec des taux d'erreur très faibles (~0,1 %), principalement des erreurs de substitution. Un seul run produit des centaines de gigabases. La courte longueur des lectures est la principale limitation : elle rend difficile l'assemblage des régions répétitives plus longues qu'une lecture.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Long-read sequencing (PacBio, Oxford Nanopore).</span> Two platforms produce reads of 10,000–1,000,000 bp, enabling assembly across repetitive regions. PacBio (SMRT sequencing) observes polymerase activity in zero-mode waveguides; Oxford Nanopore measures ionic current changes as DNA passes through a protein pore. Both have higher error rates (~1–15%) concentrated in homopolymer runs (consecutive identical bases), but sequencing errors are largely random and can be corrected by high coverage or hybrid assembly with short reads.</p>
+      <p class="fr"><span class="thm-label">Séquençage longues lectures (PacBio, Oxford Nanopore).</span> Deux plateformes produisent des lectures de 10 000 à 1 000 000 pb, permettant l'assemblage à travers les régions répétitives. PacBio (séquençage SMRT) observe l'activité de la polymérase dans des guides d'onde à zéro mode ; Oxford Nanopore mesure les variations de courant ionique lors du passage de l'ADN dans un nanopore protéique. Les deux ont des taux d'erreur plus élevés (~1–15 %) concentrés dans les répétitions d'homopolymères, mais les erreurs sont largement aléatoires et peuvent être corrigées par une couverture élevée ou un assemblage hybride avec des lectures courtes.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Coverage).</span> Let $G$ be the genome length, $L$ the mean read length, and $N$ the total number of reads. The <em>sequencing depth</em> (or <em>coverage</em>) is $C = \frac{N \cdot L}{G}$. A coverage of $C = 30\times$ means each base is, on average, covered by 30 reads. The <em>Lander–Waterman model</em> treats read start positions as a Poisson process with rate $C/L$ per base. Under this model, the fraction of the genome covered by at least one read is $1 - e^{-C}$, and the probability that a given base has depth exactly $k$ is $\frac{e^{-C} C^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Couverture).</span> Soient $G$ la longueur du génome, $L$ la longueur moyenne des lectures et $N$ le nombre total de lectures. La <em>profondeur de séquençage</em> (ou <em>couverture</em>) est $C = \frac{N \cdot L}{G}$. Une couverture de $C = 30\times$ signifie que chaque base est couverte en moyenne par 30 lectures. Le <em>modèle de Lander–Waterman</em> traite les positions de départ des lectures comme un processus de Poisson de taux $C/L$ par base. Sous ce modèle, la fraction du génome couverte par au moins une lecture est $1 - e^{-C}$, et la probabilité qu'une base donnée ait une profondeur exactement $k$ est $\frac{e^{-C} C^k}{k!}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Coverage for near-complete assembly).</span> Under the Lander–Waterman model, achieving less than $1\%$ uncovered bases requires $C \geq \ln(100) \approx 4.6$. In practice, due to non-uniform coverage and repetitive regions, coverage of $30\times$ (short reads) or $50\times$ (long reads) is typically required for a high-quality assembly.</p>
+      <p class="fr"><span class="thm-label">Proposition (Couverture pour un assemblage quasi-complet).</span> Sous le modèle de Lander–Waterman, obtenir moins de 1 % de bases non couvertes nécessite $C \geq \ln(100) \approx 4{,}6$. En pratique, en raison de la couverture non uniforme et des régions répétitives, une couverture de $30\times$ (lectures courtes) ou $50\times$ (lectures longues) est généralement requise pour un assemblage de haute qualité.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Under the Lander–Waterman model, the probability that a given base is not covered by any read is $e^{-C}$. Setting $e^{-C} \leq 0.01$ gives $-C \leq \ln(0.01) = -\ln(100)$, i.e., $C \geq \ln(100) \approx 4.6$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Sous le modèle de Lander–Waterman, la probabilité qu'une base donnée ne soit couverte par aucune lecture est $e^{-C}$. En posant $e^{-C} \leq 0{,}01$, on obtient $-C \leq \ln(0{,}01) = -\ln(100)$, soit $C \geq \ln(100) \approx 4{,}6$.
+    </details>
+
+    <!-- ── 3. Sequence Alignment ── -->
+
+    <h3 class="en">Sequence Alignment</h3>
+    <h3 class="fr">Alignement de séquences</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Alignment).</span> An <em>alignment</em> of two strings $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$ over $\Sigma$ is a placement of the characters of $a$ and $b$ into two rows of a matrix such that: each column contains at least one non-gap character, and the left-to-right order of characters in each row is preserved. A column is a <em>match</em> if both characters are identical, a <em>mismatch</em> if both are non-gap but different, and a <em>gap</em> (or indel) if one character is a gap symbol $-$. An alignment <em>score</em> is assigned by a scoring function $s(\cdot, \cdot)$ that sums contributions over all columns.</p>
+      <p class="fr"><span class="thm-label">Définition (Alignement).</span> Un <em>alignement</em> de deux chaînes $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$ sur $\Sigma$ est un placement des caractères de $a$ et $b$ dans deux lignes d'une matrice tel que : chaque colonne contient au moins un caractère non-gap, et l'ordre de gauche à droite des caractères de chaque ligne est préservé. Une colonne est un <em>appariement</em> si les deux caractères sont identiques, un <em>mésappariement</em> si les deux sont non-gap mais différents, et un <em>gap</em> (ou indel) si l'un est un symbole gap $-$. Un <em>score</em> d'alignement est attribué par une fonction de score $s(\cdot, \cdot)$ sommant les contributions sur toutes les colonnes.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Edit distance).</span> The <em>edit distance</em> (Levenshtein distance) $d(a, b)$ between two strings $a$ and $b$ is the minimum number of single-character operations (insertions, deletions, substitutions) needed to transform $a$ into $b$. It equals the minimum number of mismatches plus gaps in any alignment of $a$ and $b$ with unit costs. The edit distance satisfies the metric axioms: $d(a,b) \geq 0$, $d(a,b) = 0 \iff a = b$, $d(a,b) = d(b,a)$, and $d(a,c) \leq d(a,b) + d(b,c)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Distance d'édition).</span> La <em>distance d'édition</em> (distance de Levenshtein) $d(a, b)$ entre deux chaînes $a$ et $b$ est le nombre minimum d'opérations sur un seul caractère (insertions, suppressions, substitutions) nécessaires pour transformer $a$ en $b$. Elle est égale au nombre minimum de mésappariements plus gaps dans tout alignement de $a$ et $b$ avec des coûts unitaires. La distance d'édition satisfait les axiomes d'une métrique : $d(a,b) \geq 0$, $d(a,b) = 0 \iff a = b$, $d(a,b) = d(b,a)$, et $d(a,c) \leq d(a,b) + d(b,c)$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Needleman–Wunsch, 1970).</span> Let $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$. Define the scoring function: $s(x, y) = +1$ if $x = y$, $-1$ if $x \neq y$, and gap penalty $-d$ for each gap. The optimal global alignment score $F(m, n)$ satisfies the recurrence
+      $$F(i, 0) = -i \cdot d, \quad F(0, j) = -j \cdot d$$
+      $$F(i, j) = \max\begin{cases} F(i-1,\, j-1) + s(a_i, b_j) \\ F(i-1,\, j) - d \\ F(i,\, j-1) - d \end{cases}$$
+      and can be computed in $O(mn)$ time and space by filling the $(m+1) \times (n+1)$ DP table row by row.</p>
+      <p class="fr"><span class="thm-label">Théorème (Needleman–Wunsch, 1970).</span> Soient $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$. Définissons la fonction de score : $s(x, y) = +1$ si $x = y$, $-1$ si $x \neq y$, et pénalité de gap $-d$ par gap. Le score optimal d'alignement global $F(m, n)$ satisfait la récurrence
+      $$F(i, 0) = -i \cdot d, \quad F(0, j) = -j \cdot d$$
+      $$F(i, j) = \max\begin{cases} F(i-1,\, j-1) + s(a_i, b_j) \\ F(i-1,\, j) - d \\ F(i,\, j-1) - d \end{cases}$$
+      et peut être calculé en temps et espace $O(mn)$ en remplissant le tableau de PD $(m+1) \times (n+1)$ ligne par ligne.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof (correctness of the recurrence).</summary>
+      Consider an optimal alignment of $a[1..i]$ and $b[1..j]$. Its last column is one of three cases: (1) $a_i$ aligned with $b_j$ — the score is $F(i-1, j-1) + s(a_i, b_j)$; (2) $a_i$ aligned with a gap — the score is $F(i-1, j) - d$; (3) $b_j$ aligned with a gap — the score is $F(i, j-1) - d$. The prefix alignment in each case is itself optimal (if it were not, we could substitute a better prefix alignment and improve the total score, contradicting optimality). Thus $F(i,j)$ is the maximum over these three cases.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration (correction de la récurrence).</summary>
+      Considérons un alignement optimal de $a[1..i]$ et $b[1..j]$. Sa dernière colonne est l'un de trois cas : (1) $a_i$ aligné avec $b_j$ — le score est $F(i-1, j-1) + s(a_i, b_j)$ ; (2) $a_i$ aligné avec un gap — le score est $F(i-1, j) - d$ ; (3) $b_j$ aligné avec un gap — le score est $F(i, j-1) - d$. L'alignement du préfixe dans chaque cas est lui-même optimal (sinon on pourrait le remplacer par un meilleur alignement de préfixe et améliorer le score total, contredisant l'optimalité). Donc $F(i,j)$ est le maximum sur ces trois cas.</p>
+    </details>
+
+    <pre><code class="language-python">def needleman_wunsch(a, b, match=1, mismatch=-1, gap=-1):
+    m, n = len(a), len(b)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    for i in range(m + 1): dp[i][0] = i * gap
+    for j in range(n + 1): dp[0][j] = j * gap
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            sub = match if a[i-1] == b[j-1] else mismatch
+            dp[i][j] = max(dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap)
+    ra, rb, i, j = [], [], m, n
+    while i or j:
+        sub = match if i and j and a[i-1] == b[j-1] else mismatch
+        if i and j and dp[i][j] == dp[i-1][j-1] + sub:
+            ra.append(a[i-1]); rb.append(b[j-1]); i -= 1; j -= 1
+        elif i and dp[i][j] == dp[i-1][j] + gap:
+            ra.append(a[i-1]); rb.append('-'); i -= 1
+        else:
+            ra.append('-'); rb.append(b[j-1]); j -= 1
+    return ''.join(reversed(ra)), ''.join(reversed(rb)), dp[m][n]</code></pre>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Local alignment, Smith–Waterman).</span> A <em>local alignment</em> of $a$ and $b$ is a global alignment of a substring $a[i..i']$ with a substring $b[j..j']$, chosen to maximize the alignment score. This is the biologically meaningful operation when searching for a conserved domain within a longer sequence. The <em>Smith–Waterman algorithm</em> computes the optimal local alignment score using the modified recurrence
+      $$H(i, j) = \max\begin{cases} 0 \\ H(i-1,\, j-1) + s(a_i, b_j) \\ H(i-1,\, j) - d \\ H(i,\, j-1) - d \end{cases}$$
+      The optimal local alignment score is $\max_{i,j} H(i,j)$, and the traceback starts from this maximum and stops when a cell with value $0$ is reached.</p>
+      <p class="fr"><span class="thm-label">Définition (Alignement local, Smith–Waterman).</span> Un <em>alignement local</em> de $a$ et $b$ est un alignement global d'une sous-chaîne $a[i..i']$ avec une sous-chaîne $b[j..j']$, choisi pour maximiser le score d'alignement. C'est l'opération biologiquement pertinente lorsqu'on recherche un domaine conservé au sein d'une séquence plus longue. L'<em>algorithme de Smith–Waterman</em> calcule le score optimal d'alignement local en utilisant la récurrence modifiée
+      $$H(i, j) = \max\begin{cases} 0 \\ H(i-1,\, j-1) + s(a_i, b_j) \\ H(i-1,\, j) - d \\ H(i,\, j-1) - d \end{cases}$$
+      Le score optimal d'alignement local est $\max_{i,j} H(i,j)$, et le retrace commence à ce maximum et s'arrête quand on atteint une cellule de valeur $0$.</p>
+    </div>
+
+    <pre><code class="language-python">def smith_waterman(a, b, match=2, mismatch=-1, gap=-1):
+    m, n = len(a), len(b)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    best, pos = 0, (0, 0)
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            sub = match if a[i-1] == b[j-1] else mismatch
+            dp[i][j] = max(0, dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap)
+            if dp[i][j] > best:
+                best, pos = dp[i][j], (i, j)
+    ra, rb = [], []
+    i, j = pos
+    while dp[i][j]:
+        sub = match if a[i-1] == b[j-1] else mismatch
+        if dp[i][j] == dp[i-1][j-1] + sub:
+            ra.append(a[i-1]); rb.append(b[j-1]); i -= 1; j -= 1
+        elif dp[i][j] == dp[i-1][j] + gap:
+            ra.append(a[i-1]); rb.append('-'); i -= 1
+        else:
+            ra.append('-'); rb.append(b[j-1]); j -= 1
+    return ''.join(reversed(ra)), ''.join(reversed(rb)), best</code></pre>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">From exact to heuristic alignment: BLAST.</span> Needleman–Wunsch and Smith–Waterman are $O(mn)$. When $m = 300$ (a read) and $n = 3 \times 10^9$ (the human genome), this is $9 \times 10^{11}$ operations per read — far too slow. <em>BLAST</em> (Basic Local Alignment Search Tool) accelerates local alignment by a seed-and-extend heuristic: (1) find all exact matches of length $W$ (seeds) between the query and the database, (2) extend each seed in both directions as long as the local alignment score stays above a threshold. This misses alignments with no exact $W$-mer match, but in practice very few biologically meaningful alignments are missed when $W = 11$. Modern short-read aligners (BWA, Bowtie2) use different data structures (FM-index, Burrows–Wheeler transform) to achieve $O(n + m)$ alignment.</p>
+      <p class="fr"><span class="thm-label">De l'alignement exact à l'heuristique : BLAST.</span> Needleman–Wunsch et Smith–Waterman sont en $O(mn)$. Quand $m = 300$ (une lecture) et $n = 3 \times 10^9$ (le génome humain), cela représente $9 \times 10^{11}$ opérations par lecture — beaucoup trop lent. <em>BLAST</em> (Basic Local Alignment Search Tool) accélère l'alignement local par une heuristique de type graine-et-extension : (1) trouver toutes les correspondances exactes de longueur $W$ (graines) entre la requête et la base de données, (2) étendre chaque graine dans les deux directions tant que le score d'alignement local reste au-dessus d'un seuil. Cela manque les alignements sans correspondance exacte de $W$-mer, mais en pratique très peu d'alignements biologiquement significatifs sont manqués avec $W = 11$. Les aligneurs modernes de lectures courtes (BWA, Bowtie2) utilisent des structures de données différentes (index FM, transformée de Burrows–Wheeler) pour atteindre un alignement en $O(n + m)$.</p>
+    </div>
+
+    <!-- ── 4. Genome Assembly ── -->
+
     <h3 class="en">Genome Assembly</h3>
     <h3 class="fr">Assemblage du génome</h3>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The assembly problem.</span> Given a set of reads $R = \{r_1, \ldots, r_N\}$ sampled from an unknown genome $G$, reconstruct $G$. This is fundamentally ambiguous: repetitive regions of length greater than a read cannot be resolved from the reads alone. In practice, the output is not a single sequence but a set of <em>contigs</em> (contiguous assembled sequences) and <em>scaffolds</em> (contigs linked by mate-pair information, with gaps of estimated size). Assembly quality is measured by the <em>N50</em>: the length $L$ such that contigs of length $\geq L$ cover at least half the total assembled sequence.</p>
+      <p class="fr"><span class="thm-label">Le problème d'assemblage.</span> Étant donné un ensemble de lectures $R = \{r_1, \ldots, r_N\}$ échantillonnées depuis un génome inconnu $G$, reconstruire $G$. Ce problème est fondamentalement ambigu : les régions répétitives de longueur supérieure à une lecture ne peuvent pas être résolues à partir des seules lectures. En pratique, la sortie n'est pas une séquence unique mais un ensemble de <em>contigs</em> (séquences assemblées contiguës) et de <em>scaffolds</em> (contigs reliés par des informations de mate-pairs, avec des gaps de taille estimée). La qualité de l'assemblage est mesurée par le <em>N50</em> : la longueur $L$ telle que les contigs de longueur $\geq L$ couvrent au moins la moitié de la séquence totale assemblée.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Overlap graph).</span> Given a set of reads $R$ and a minimum overlap length $\ell$, the <em>overlap graph</em> $G_R = (R, E)$ is a directed graph where there is an edge from $r_i$ to $r_j$ if the suffix of $r_i$ of length $\geq \ell$ matches (approximately) the prefix of $r_j$. The edge weight is the length of the overlap. The assembly problem reduces to finding a <em>Hamiltonian path</em> in $G_R$ — a path visiting every read exactly once. This is NP-hard in general, which motivates alternative formulations.</p>
+      <p class="fr"><span class="thm-label">Définition (Graphe de chevauchement).</span> Étant donné un ensemble de lectures $R$ et une longueur minimale de chevauchement $\ell$, le <em>graphe de chevauchement</em> $G_R = (R, E)$ est un graphe orienté où il existe une arête de $r_i$ vers $r_j$ si le suffixe de $r_i$ de longueur $\geq \ell$ correspond (approximativement) au préfixe de $r_j$. Le poids de l'arête est la longueur du chevauchement. Le problème d'assemblage se réduit à trouver un <em>chemin hamiltonien</em> dans $G_R$ — un chemin visitant chaque lecture exactement une fois. Ce problème est NP-difficile en général, ce qui motive des formulations alternatives.</p>
+    </div>
+
+    <pre><code class="language-python">def overlap(r1, r2, min_len):
+    for k in range(min(len(r1), len(r2)), min_len - 1, -1):
+        if r1[-k:] == r2[:k]:
+            return k
+    return 0
+
+def overlap_graph(reads, min_len):
+    return {
+        i: [(j, k) for j, r2 in enumerate(reads)
+            if i != j and (k := overlap(r1, r2, min_len)) > 0]
+        for i, r1 in enumerate(reads)
+    }</code></pre>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (de Bruijn graph).</span> Let $k \geq 1$. The <em>de Bruijn graph</em> $B_k(R)$ of a read set $R$ is a directed multigraph defined as follows. Each <em>node</em> is a distinct $(k-1)$-mer appearing in the reads. For each $k$-mer $w = w_1 \cdots w_k$ in the reads, add a directed <em>edge</em> from node $w_1 \cdots w_{k-1}$ to node $w_2 \cdots w_k$, labeled $w$. The assembly problem in this graph reduces to finding an <em>Eulerian path</em> — a path traversing every edge exactly once — which can be solved in $O(|E|)$ time. This is the key advantage over the overlap graph approach.</p>
+      <p class="fr"><span class="thm-label">Définition (Graphe de de Bruijn).</span> Soit $k \geq 1$. Le <em>graphe de de Bruijn</em> $B_k(R)$ d'un ensemble de lectures $R$ est un multigraphe orienté défini comme suit. Chaque <em>nœud</em> est un $(k-1)$-mer distinct apparaissant dans les lectures. Pour chaque $k$-mer $w = w_1 \cdots w_k$ dans les lectures, on ajoute une <em>arête</em> orientée du nœud $w_1 \cdots w_{k-1}$ vers le nœud $w_2 \cdots w_k$, étiquetée $w$. Le problème d'assemblage dans ce graphe se réduit à trouver un <em>chemin eulérien</em> — un chemin parcourant chaque arête exactement une fois — qui peut être résolu en temps $O(|E|)$. C'est l'avantage clé sur l'approche par graphe de chevauchement.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Eulerian path condition in de Bruijn graphs).</span> A directed graph has an Eulerian path if and only if the graph is connected (on vertices with nonzero degree) and at most one vertex has $\text{out-degree} - \text{in-degree} = 1$ (the start), at most one has $\text{in-degree} - \text{out-degree} = 1$ (the end), and all other vertices have equal in- and out-degree. In a de Bruijn graph built from a single linear genome with no sequencing errors and sufficient coverage, exactly these conditions hold. Repeats and errors create additional edges that violate the balance condition, producing a non-Eulerian graph whose resolution requires additional information.</p>
+      <p class="fr"><span class="thm-label">Proposition (Condition de chemin eulérien dans les graphes de de Bruijn).</span> Un graphe orienté admet un chemin eulérien si et seulement si le graphe est connexe (sur les sommets de degré non nul) et au plus un sommet vérifie $\text{degré sortant} - \text{degré entrant} = 1$ (le départ), au plus un vérifie $\text{degré entrant} - \text{degré sortant} = 1$ (l'arrivée), et tous les autres ont des degrés entrant et sortant égaux. Dans un graphe de de Bruijn construit à partir d'un génome linéaire unique sans erreurs de séquençage et avec une couverture suffisante, exactement ces conditions sont satisfaites. Les répétitions et les erreurs créent des arêtes supplémentaires qui violent la condition d'équilibre, produisant un graphe non eulérien dont la résolution nécessite des informations supplémentaires.</p>
+    </div>
+
+    <pre><code class="language-python">from collections import defaultdict
+
+def debruijn_graph(reads, k):
+    graph = defaultdict(list)
+    for read in reads:
+        for i in range(len(read) - k + 1):
+            graph[read[i:i+k-1]].append(read[i+1:i+k])
+    return graph
+
+def eulerian_path(graph):
+    in_deg  = defaultdict(int)
+    out_deg = {u: len(vs) for u, vs in graph.items()}
+    for vs in graph.values():
+        for v in vs: in_deg[v] += 1
+    start = next((u for u in graph if out_deg[u] - in_deg[u] == 1), next(iter(graph)))
+    adj = {u: list(vs) for u, vs in graph.items()}
+    stack, path = [start], []
+    while stack:
+        if adj.get(stack[-1]):
+            stack.append(adj[stack[-1]].pop())
+        else:
+            path.append(stack.pop())
+    return path[::-1]
+
+def assemble(reads, k):
+    path = eulerian_path(debruijn_graph(reads, k))
+    return path[0] + ''.join(node[-1] for node in path[1:])</code></pre>
+
+    <!-- ── 5. Genome Annotation ── -->
 
     <h3 class="en">Genome Annotation</h3>
     <h3 class="fr">Annotation du génome</h3>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">What is annotation.</span> A raw genome sequence is just a string. <em>Genome annotation</em> is the process of identifying the location and function of its elements: protein-coding genes, non-coding RNAs, regulatory sequences, and repetitive elements. It proceeds in two phases: <em>structural annotation</em> (where are the genes?) and <em>functional annotation</em> (what do they do?). The two main strategies for gene finding are <em>ab initio</em> prediction (from sequence signals alone) and <em>homology-based</em> prediction (by similarity to known genes).</p>
+      <p class="fr"><span class="thm-label">Qu'est-ce que l'annotation.</span> Une séquence génomique brute n'est qu'une chaîne. L'<em>annotation du génome</em> est le processus d'identification de la localisation et de la fonction de ses éléments : gènes codant pour des protéines, ARN non codants, séquences régulatrices et éléments répétitifs. Elle se déroule en deux phases : l'<em>annotation structurale</em> (où sont les gènes ?) et l'<em>annotation fonctionnelle</em> (que font-ils ?). Les deux stratégies principales pour la détection des gènes sont la prédiction <em>ab initio</em> (à partir des seuls signaux de séquence) et la prédiction par <em>homologie</em> (par similarité avec des gènes connus).</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Open reading frame).</span> An <em>open reading frame</em> (ORF) is a contiguous stretch of codons (triplets) beginning with a start codon (<code>ATG</code>) and ending with a stop codon (<code>TAA</code>, <code>TAG</code>, or <code>TGA</code>), with no in-frame stop codon in between. A DNA sequence has six reading frames: three on the forward strand (starting at offsets 0, 1, 2) and three on the reverse complement strand. In prokaryotes, long ORFs ($\geq 100$ codons) are strong evidence of a protein-coding gene. In eukaryotes, genes are interrupted by <em>introns</em>, so ORF finding alone is insufficient.</p>
+      <p class="fr"><span class="thm-label">Définition (Cadre de lecture ouvert).</span> Un <em>cadre de lecture ouvert</em> (ORF) est une suite contiguë de codons (triplets) commençant par un codon initiateur (<code>ATG</code>) et se terminant par un codon stop (<code>TAA</code>, <code>TAG</code> ou <code>TGA</code>), sans codon stop interne dans le même cadre. Une séquence d'ADN possède six cadres de lecture : trois sur le brin direct (aux décalages 0, 1, 2) et trois sur le brin complémentaire inverse. Chez les procaryotes, les ORF longs ($\geq 100$ codons) constituent une forte évidence d'un gène codant pour une protéine. Chez les eucaryotes, les gènes sont interrompus par des <em>introns</em>, ce qui rend la seule détection d'ORF insuffisante.</p>
+    </div>
+
+    <pre><code class="language-python">STOP_CODONS = {'TAA', 'TAG', 'TGA'}
+
+def find_orfs(seq, min_codons=100):
+    """Find all ORFs on the forward strand of seq."""
+    orfs = []
+    for frame in range(3):
+        i = frame
+        while i + 3 <= len(seq):
+            if seq[i:i+3] == 'ATG':
+                for j in range(i + 3, len(seq) - 2, 3):
+                    if seq[j:j+3] in STOP_CODONS:
+                        if (j - i) // 3 >= min_codons:
+                            orfs.append((i, j + 3, frame))
+                        break
+            i += 3
+    return orfs
+
+def reverse_complement(seq):
+    comp = str.maketrans('ACGT', 'TGCA')
+    return seq.translate(comp)[::-1]
+
+def find_all_orfs(seq, min_codons=100):
+    forward = find_orfs(seq, min_codons)
+    rc = reverse_complement(seq)
+    reverse = [(len(seq) - e, len(seq) - s, frame + 3)
+               for s, e, frame in find_orfs(rc, min_codons)]
+    return forward + reverse</code></pre>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Ab initio gene prediction.</span> In eukaryotes, gene structure is complex: exons (coding), introns (non-coding, spliced out), UTRs, and splice signals. <em>Ab initio</em> predictors (Augustus, GeneMark) model these signals using <em>hidden Markov models</em> (HMMs). States represent genomic features (exon, intron, intergenic, splice donor, splice acceptor), and emission probabilities capture codon usage bias and splice consensus sequences. The Viterbi algorithm finds the most likely state sequence — and hence the most likely gene structure — in $O(n \cdot |S|^2)$ time, where $|S|$ is the number of states.</p>
+      <p class="fr"><span class="thm-label">Prédiction de gènes ab initio.</span> Chez les eucaryotes, la structure des gènes est complexe : exons (codants), introns (non codants, épissés), UTR et signaux d'épissage. Les prédicteurs <em>ab initio</em> (Augustus, GeneMark) modélisent ces signaux à l'aide de <em>modèles de Markov cachés</em> (HMM). Les états représentent des caractéristiques génomiques (exon, intron, intergenique, site donneur, site accepteur), et les probabilités d'émission capturent le biais d'usage des codons et les séquences consensus d'épissage. L'algorithme de Viterbi trouve la séquence d'états la plus probable — et donc la structure de gène la plus probable — en temps $O(n \cdot |S|^2)$, où $|S|$ est le nombre d'états.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Functional annotation.</span> Once gene locations are predicted, each gene product is assigned a function by similarity search against curated databases: <em>UniProt/Swiss-Prot</em> (manually curated protein sequences), <em>Pfam</em> (protein domain families modeled as profile HMMs), and the <em>Gene Ontology</em> (GO) — a controlled vocabulary of biological process, molecular function, and cellular component terms. A BLAST or HMMer search transfers annotations from known homologs to the new gene. The reliability of transferred annotations decreases as sequence identity drops below ~30%.</p>
+      <p class="fr"><span class="thm-label">Annotation fonctionnelle.</span> Une fois les localisations des gènes prédites, une fonction est attribuée à chaque produit génique par recherche de similarité dans des bases de données curées : <em>UniProt/Swiss-Prot</em> (séquences protéiques curées manuellement), <em>Pfam</em> (familles de domaines protéiques modélisées comme des HMM de profil), et la <em>Gene Ontology</em> (GO) — un vocabulaire contrôlé de termes de processus biologique, fonction moléculaire et composant cellulaire. Une recherche BLAST ou HMMer transfère les annotations d'homologues connus au nouveau gène. La fiabilité des annotations transférées diminue lorsque l'identité de séquence descend en dessous de ~30 %.</p>
+    </div>
+
+    <!-- ── 6. Variant Calling ── -->
+
     <h3 class="en">Variant Calling</h3>
     <h3 class="fr">Détection de variants</h3>
 
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Variant types).</span> A <em>variant</em> is a position where a sequenced sample differs from a reference genome. <em>Single nucleotide polymorphisms</em> (SNPs) are single-base substitutions. <em>Insertions and deletions</em> (indels) are short additions or removals of bases (typically $< 50$ bp). <em>Structural variants</em> (SVs) are large rearrangements: deletions, duplications, inversions, translocations ($\geq 50$ bp). SNPs and indels are the most abundant: a typical human genome differs from the reference at $\sim 4 \times 10^6$ SNP positions.</p>
+      <p class="fr"><span class="thm-label">Définition (Types de variants).</span> Un <em>variant</em> est une position où un échantillon séquencé diffère d'un génome de référence. Les <em>polymorphismes mononucléotidiques</em> (SNP) sont des substitutions d'une seule base. Les <em>insertions et délétions</em> (indels) sont des ajouts ou suppressions courtes de bases (typiquement $< 50$ pb). Les <em>variants structuraux</em> (SV) sont de grands réarrangements : délétions, duplications, inversions, translocations ($\geq 50$ pb). Les SNP et indels sont les plus abondants : un génome humain typique diffère de la référence en $\sim 4 \times 10^6$ positions SNP.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The variant calling pipeline.</span> The standard pipeline has three stages. (1) <em>Read mapping</em>: align reads to the reference genome using a short-read aligner (BWA-MEM, Bowtie2). Each read is placed at its best matching position; the result is a BAM file — a sorted, indexed binary alignment. (2) <em>Pileup</em>: for each reference position, collect all reads covering that position and count the observed bases. (3) <em>Genotyping</em>: apply a statistical model to decide whether an observed deviation from the reference is a true variant or a sequencing error. The industry-standard tool is GATK HaplotypeCaller, which uses a local assembly step to handle indels cleanly.</p>
+      <p class="fr"><span class="thm-label">Le pipeline de détection de variants.</span> Le pipeline standard comporte trois étapes. (1) <em>Alignement des lectures</em> : aligner les lectures sur le génome de référence avec un aligneur de lectures courtes (BWA-MEM, Bowtie2). Chaque lecture est placée à sa meilleure position ; le résultat est un fichier BAM — un alignement binaire trié et indexé. (2) <em>Pileup</em> : pour chaque position de référence, collecter toutes les lectures couvrant cette position et compter les bases observées. (3) <em>Génotypage</em> : appliquer un modèle statistique pour décider si un écart observé par rapport à la référence est un vrai variant ou une erreur de séquençage. L'outil standard de l'industrie est GATK HaplotypeCaller, qui utilise une étape d'assemblage local pour traiter les indels proprement.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Genotype likelihood).</span> Let a position be covered by $n$ reads, of which $k$ show the alternative allele and $n - k$ show the reference allele. Let $\epsilon$ be the per-base error rate. Under a diploid model with genotypes $RR$ (homozygous reference), $RA$ (heterozygous), and $AA$ (homozygous alternative), the likelihoods are:
+      $$P(\text{data} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$$
+      $$P(\text{data} \mid RA) = \left(\tfrac{1}{2}\right)^n$$
+      $$P(\text{data} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$$
+      The called genotype is the one maximizing the posterior $P(\text{genotype} \mid \text{data}) \propto P(\text{data} \mid \text{genotype}) \cdot P(\text{genotype})$. Variants are reported in <em>VCF</em> (Variant Call Format), a tab-separated text file with one line per variant.</p>
+      <p class="fr"><span class="thm-label">Définition (Vraisemblance de génotype).</span> Soit une position couverte par $n$ lectures, dont $k$ montrent l'allèle alternatif et $n - k$ l'allèle de référence. Soit $\epsilon$ le taux d'erreur par base. Dans un modèle diploïde avec les génotypes $RR$ (homozygote référence), $RA$ (hétérozygote) et $AA$ (homozygote alternatif), les vraisemblances sont :
+      $$P(\text{données} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$$
+      $$P(\text{données} \mid RA) = \left(\tfrac{1}{2}\right)^n$$
+      $$P(\text{données} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$$
+      Le génotype appelé est celui qui maximise le posterior $P(\text{génotype} \mid \text{données}) \propto P(\text{données} \mid \text{génotype}) \cdot P(\text{génotype})$. Les variants sont rapportés au format <em>VCF</em> (Variant Call Format), un fichier texte séparé par tabulations avec une ligne par variant.</p>
+    </div>
+
+    <pre><code class="language-python">from math import log
+
+def genotype_likelihoods(n, k, error=1e-3):
+    """Log-likelihoods for RR, RA, AA given n reads with k alt observations."""
+    ref, alt = n - k, k
+    ll_RR = ref * log(1 - error) + alt * log(error)
+    ll_RA = n * log(0.5)
+    ll_AA = alt * log(1 - error) + ref * log(error)
+    return {'RR': ll_RR, 'RA': ll_RA, 'AA': ll_AA}
+
+def call_genotype(n, k, error=1e-3):
+    lls = genotype_likelihoods(n, k, error)
+    return max(lls, key=lls.get)</code></pre>
+
+    <!-- ── 7. Comparative Genomics ── -->
+
     <h3 class="en">Comparative Genomics</h3>
     <h3 class="fr">Génomique comparative</h3>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Goals of comparative genomics.</span> Comparing genomes across species reveals which regions are evolutionarily conserved (and therefore likely functional), infers the evolutionary history of genes and species, and identifies gene gains, losses, and rearrangements. The two central problems are <em>multiple sequence alignment</em> (aligning more than two sequences simultaneously) and <em>phylogenetic tree inference</em> (reconstructing the evolutionary tree from sequence data).</p>
+      <p class="fr"><span class="thm-label">Objectifs de la génomique comparative.</span> Comparer des génomes entre espèces révèle quelles régions sont évolutivement conservées (et donc probablement fonctionnelles), infère l'histoire évolutive des gènes et des espèces, et identifie les gains, pertes et réarrangements de gènes. Les deux problèmes centraux sont l'<em>alignement multiple de séquences</em> (aligner plus de deux séquences simultanément) et l'<em>inférence d'arbres phylogénétiques</em> (reconstruire l'arbre évolutif à partir de données de séquences).</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Multiple sequence alignment).</span> A <em>multiple sequence alignment</em> (MSA) of $k$ sequences $s^{(1)}, \ldots, s^{(k)}$ is a matrix with $k$ rows and $c$ columns, where each row is a gapped version of one sequence and each column contains at least one non-gap character. The <em>sum-of-pairs score</em> is $\sum_{1 \leq i &lt; j \leq k} \text{score}(s^{(i)}, s^{(j)})$ summed over all pairwise alignments induced by the MSA columns. Optimal MSA under sum-of-pairs is NP-hard for $k \geq 3$; in practice, progressive methods (MUSCLE, CLUSTALW) are used: they build a guide tree from pairwise distances and merge alignments bottom-up.</p>
+      <p class="fr"><span class="thm-label">Définition (Alignement multiple de séquences).</span> Un <em>alignement multiple de séquences</em> (MSA) de $k$ séquences $s^{(1)}, \ldots, s^{(k)}$ est une matrice à $k$ lignes et $c$ colonnes, où chaque ligne est une version avec gaps d'une séquence et chaque colonne contient au moins un caractère non-gap. Le <em>score somme des paires</em> est $\sum_{1 \leq i &lt; j \leq k} \text{score}(s^{(i)}, s^{(j)})$ sommé sur tous les alignements par paires induits par les colonnes du MSA. L'MSA optimal sous somme des paires est NP-difficile pour $k \geq 3$ ; en pratique, des méthodes progressives (MUSCLE, CLUSTALW) sont utilisées : elles construisent un arbre guide à partir de distances par paires et fusionnent les alignements de bas en haut.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Jukes–Cantor model).</span> The <em>Jukes–Cantor model</em> is the simplest model of DNA sequence evolution. It assumes all substitution rates between nucleotides are equal, at rate $\alpha$ per site per unit time. If two sequences diverged $t$ time units ago, the expected fraction of identical sites is $p = \frac{1}{4} + \frac{3}{4} e^{-8\alpha t/3}$. Inverting, the <em>Jukes–Cantor distance} $d$ between two sequences with observed fraction $p_{\text{obs}}$ of differing sites is:
+      $$d = -\frac{3}{4} \ln\!\left(1 - \frac{4}{3} p_{\text{obs}}\right)$$
+      This corrects for multiple substitutions at the same site — an observed difference of $p$ underestimates the true evolutionary distance.</p>
+      <p class="fr"><span class="thm-label">Définition (Modèle de Jukes–Cantor).</span> Le <em>modèle de Jukes–Cantor</em> est le modèle le plus simple d'évolution des séquences d'ADN. Il suppose que tous les taux de substitution entre nucléotides sont égaux, au taux $\alpha$ par site par unité de temps. Si deux séquences ont divergé il y a $t$ unités de temps, la fraction espérée de sites identiques est $p = \frac{1}{4} + \frac{3}{4} e^{-8\alpha t/3}$. Par inversion, la <em>distance de Jukes–Cantor</em> $d$ entre deux séquences avec une fraction observée $p_{\text{obs}}$ de sites différents est :
+      $$d = -\frac{3}{4} \ln\!\left(1 - \frac{4}{3} p_{\text{obs}}\right)$$
+      Cela corrige les substitutions multiples sur le même site — une différence observée $p$ sous-estime la vraie distance évolutive.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Phylogenetic tree, UPGMA).</span> A <em>phylogenetic tree</em> is a tree whose leaves are the sequences (taxa) and whose internal nodes represent ancestral sequences. Edge lengths represent evolutionary distances. <em>UPGMA</em> (Unweighted Pair Group Method with Arithmetic mean) is the simplest tree-building algorithm: at each step, merge the two clusters with the smallest average pairwise distance, and set the branch length to half that distance. It produces an <em>ultrametric</em> tree (all leaves at equal distance from the root), which is correct only under a molecular clock assumption. <em>Neighbor-joining</em> relaxes this assumption and is more widely used in practice.</p>
+      <p class="fr"><span class="thm-label">Définition (Arbre phylogénétique, UPGMA).</span> Un <em>arbre phylogénétique</em> est un arbre dont les feuilles sont les séquences (taxons) et dont les nœuds internes représentent des séquences ancestrales. Les longueurs des arêtes représentent les distances évolutives. <em>UPGMA</em> (méthode de groupe de paires non pondérée avec moyenne arithmétique) est l'algorithme de construction d'arbre le plus simple : à chaque étape, on fusionne les deux clusters ayant la plus petite distance moyenne par paires, et on fixe la longueur de branche à la moitié de cette distance. Il produit un arbre <em>ultramétrique</em> (toutes les feuilles à égale distance de la racine), correct uniquement sous l'hypothèse d'horloge moléculaire. Le <em>neighbor-joining</em> relaxe cette hypothèse et est plus largement utilisé en pratique.</p>
+    </div>
+
+    <pre><code class="language-python">from math import log, inf
+
+def jukes_cantor(s1, s2):
+    p = sum(a != b for a, b in zip(s1, s2)) / len(s1)
+    return -0.75 * log(1 - 4 * p / 3) if p < 0.75 else inf
+
+def upgma(seqs):
+    """Build a UPGMA tree. Returns list of merge steps (i, j, distance, new_label)."""
+    labels = list(range(len(seqs)))
+    clusters = {i: [i] for i in labels}
+    dist = {(i, j): jukes_cantor(seqs[i], seqs[j])
+            for i in labels for j in labels if i < j}
+    merges, next_id = [], len(seqs)
+    while len(clusters) > 1:
+        # find closest pair
+        i, j = min(((i, j) for i in clusters for j in clusters if i < j),
+                   key=lambda p: dist[p] if p in dist else dist[p[::-1]])
+        d = dist.get((i, j), dist.get((j, i)))
+        merges.append((i, j, d / 2, next_id))
+        # merge: update distances as averages
+        new_cluster = clusters[i] + clusters[j]
+        for k in clusters:
+            if k in (i, j): continue
+            di = dist.get((min(i,k), max(i,k)))
+            dj = dist.get((min(j,k), max(j,k)))
+            dist[(min(next_id,k), max(next_id,k))] = (
+                len(clusters[i]) * di + len(clusters[j]) * dj
+            ) / len(new_cluster)
+        del clusters[i], clusters[j]
+        clusters[next_id] = new_cluster
+        next_id += 1
+    return merges</code></pre>
 
   </main>
 
