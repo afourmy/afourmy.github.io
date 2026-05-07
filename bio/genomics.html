@@ -150,16 +150,25 @@
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             sub = match if a[i-1] == b[j-1] else mismatch
-            dp[i][j] = max(dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap)
+            dp[i][j] = max(
+                dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap
+            )
     ra, rb, i, j = [], [], m, n
     while i or j:
         sub = match if i and j and a[i-1] == b[j-1] else mismatch
         if i and j and dp[i][j] == dp[i-1][j-1] + sub:
-            ra.append(a[i-1]); rb.append(b[j-1]); i -= 1; j -= 1
+            ra.append(a[i-1])
+            rb.append(b[j-1])
+            i -= 1
+            j -= 1
         elif i and dp[i][j] == dp[i-1][j] + gap:
-            ra.append(a[i-1]); rb.append('-'); i -= 1
+            ra.append(a[i-1])
+            rb.append('-')
+            i -= 1
         else:
-            ra.append('-'); rb.append(b[j-1]); j -= 1
+            ra.append('-')
+            rb.append(b[j-1])
+            j -= 1
     return ''.join(reversed(ra)), ''.join(reversed(rb)), dp[m][n]</code></pre>
 
     <div class="thm-block definition">
@@ -178,7 +187,9 @@
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             sub = match if a[i-1] == b[j-1] else mismatch
-            dp[i][j] = max(0, dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap)
+            dp[i][j] = max(
+                0, dp[i-1][j-1] + sub, dp[i-1][j] + gap, dp[i][j-1] + gap
+            )
             if dp[i][j] > best:
                 best, pos = dp[i][j], (i, j)
     ra, rb = [], []
@@ -186,11 +197,18 @@
     while dp[i][j]:
         sub = match if a[i-1] == b[j-1] else mismatch
         if dp[i][j] == dp[i-1][j-1] + sub:
-            ra.append(a[i-1]); rb.append(b[j-1]); i -= 1; j -= 1
+            ra.append(a[i-1])
+            rb.append(b[j-1])
+            i -= 1
+            j -= 1
         elif dp[i][j] == dp[i-1][j] + gap:
-            ra.append(a[i-1]); rb.append('-'); i -= 1
+            ra.append(a[i-1])
+            rb.append('-')
+            i -= 1
         else:
-            ra.append('-'); rb.append(b[j-1]); j -= 1
+            ra.append('-')
+            rb.append(b[j-1])
+            j -= 1
     return ''.join(reversed(ra)), ''.join(reversed(rb)), best</code></pre>
 
     <div class="thm-block remark">
