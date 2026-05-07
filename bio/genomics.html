@@ -235,6 +235,7 @@
     return next((k for k in range(min(len(r1), len(r2)), min_len - 1, -1)
                  if r1[-k:] == r2[:k]), 0)
 
+
 def overlap_graph(reads, min_len):
     return {
         i: [(j, k) for j, r2 in enumerate(reads)
@@ -254,6 +255,7 @@ def overlap_graph(reads, min_len):
 
     <pre><code class="language-python">from collections import Counter, defaultdict
 
+
 def debruijn_graph(reads, k):
     graph = defaultdict(list)
     for read in reads:
@@ -261,10 +263,13 @@ def debruijn_graph(reads, k):
             graph[read[i:i+k-1]].append(read[i+1:i+k])
     return graph
 
+
 def eulerian_path(graph):
-    in_deg  = Counter(v for vs in graph.values() for v in vs)
+    in_deg = Counter(v for vs in graph.values() for v in vs)
     out_deg = {u: len(vs) for u, vs in graph.items()}
-    start   = next((u for u in graph if out_deg[u] - in_deg[u] == 1), next(iter(graph)))
+    start = next(
+        (u for u in graph if out_deg[u] - in_deg[u] == 1), next(iter(graph))
+    )
     adj = {u: list(vs) for u, vs in graph.items()}
     stack, path = [start], []
     while stack:
@@ -273,6 +278,7 @@ def eulerian_path(graph):
         else:
             path.append(stack.pop())
     return path[::-1]
+
 
 def assemble(reads, k):
     path = eulerian_path(debruijn_graph(reads, k))
@@ -295,19 +301,26 @@ def assemble(reads, k):
 
     <pre><code class="language-python">STOP_CODONS = {'TAA', 'TAG', 'TGA'}
 
+
 def find_orfs(seq, min_codons=100):
     orfs = []
     for frame in range(3):
         codons = [seq[i:i+3] for i in range(frame, len(seq) - 2, 3)]
         starts = [i for i, c in enumerate(codons) if c == 'ATG']
         for start in starts:
-            stop = next((i for i in range(start + 1, len(codons)) if codons[i] in STOP_CODONS), None)
+            stop = next(
+                (i for i in range(start + 1, len(codons))
+                 if codons[i] in STOP_CODONS),
+                None,
+            )
             if stop and stop - start >= min_codons:
                 orfs.append((frame + start * 3, frame + (stop + 1) * 3, frame))
     return orfs
 
+
 def reverse_complement(seq):
     return seq.translate(str.maketrans('ACGT', 'TGCA'))[::-1]
+
 
 def find_all_orfs(seq, min_codons=100):
     rc = reverse_complement(seq)
@@ -355,12 +368,14 @@ def find_all_orfs(seq, min_codons=100):
 
     <pre><code class="language-python">from math import log
 
+
 def genotype_likelihoods(n, k, error=1e-3):
     return {
         'RR': (n-k) * log(1 - error) + k * log(error),
         'RA': n * log(0.5),
         'AA': k * log(1 - error) + (n-k) * log(error),
     }
+
 
 def call_genotype(n, k, error=1e-3):
     lls = genotype_likelihoods(n, k, error)
@@ -397,23 +412,29 @@ def call_genotype(n, k, error=1e-3):
 
     <pre><code class="language-python">from math import log, inf
 
+
 def jukes_cantor(s1, s2):
     p = sum(a != b for a, b in zip(s1, s2)) / len(s1)
     return -0.75 * log(1 - 4 * p / 3) if p < 0.75 else inf
 
+
 def upgma(seqs):
     n = len(seqs)
     clusters = {i: [i] for i in range(n)}
-    dist = {(i, j): jukes_cantor(seqs[i], seqs[j]) for i in range(n) for j in range(i+1, n)}
+    dist = {
+        (i, j): jukes_cantor(seqs[i], seqs[j])
+        for i in range(n)
+        for j in range(i+1, n)
+    }
     merges, next_id = [], n
     while len(clusters) > 1:
         i, j = min(dist, key=dist.get)
         merges.append((i, j, dist[i, j] / 2, next_id))
         new = clusters[i] + clusters[j]
         for k in set(clusters) - {i, j}:
-            dist[min(next_id,k), max(next_id,k)] = (
-                len(clusters[i]) * dist[min(i,k), max(i,k)] +
-                len(clusters[j]) * dist[min(j,k), max(j,k)]
+            dist[min(next_id, k), max(next_id, k)] = (
+                len(clusters[i]) * dist[min(i, k), max(i, k)] +
+                len(clusters[j]) * dist[min(j, k), max(j, k)]
             ) / len(new)
         dist = {p: d for p, d in dist.items() if i not in p and j not in p}
         del clusters[i], clusters[j]
