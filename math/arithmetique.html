@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arithmetic</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <!-- Divisibility and congruence -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $a,b\in\mathbb{Z}$. We say $a$ <em>divides</em> $b$, written $a\mid b$, if there exists $k\in\mathbb{Z}$ such that $b=ka$. The set of multiples of $a$ is $a\mathbb{Z}=\{ka : k\in\mathbb{Z}\}$. Divisibility is reflexive and transitive. Moreover, $a\mid b$ and $b\mid a \Rightarrow |a|=|b|$: it is a partial order on $\mathbb{N}$, but not on $\mathbb{Z}$.
+
+      Let $a,b\in\mathbb{Z}$ and $n\in\mathbb{N}^*$. We say $a$ is <em>congruent to $b$ modulo $n$</em>, written $a\equiv b\ [n]$, if $n\mid(a-b)$, i.e. if $a$ and $b$ have the same remainder in the Euclidean division by $n$. Congruence modulo $n$ is an equivalence relation on $\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soient $a,b\in\mathbb{Z}$. On dit que $a$ <em>divise</em> $b$, not&eacute; $a\mid b$, s'il existe $k\in\mathbb{Z}$ tel que $b=ka$. L'ensemble des multiples de $a$ est $a\mathbb{Z}=\{ka : k\in\mathbb{Z}\}$. La divisibilit&eacute; est r&eacute;flexive et transitive. De plus, $a\mid b$ et $b\mid a\Rightarrow |a|=|b|$ : c'est une relation d'ordre sur $\mathbb{N}$, mais pas sur $\mathbb{Z}$.
+
+      Soient $a,b\in\mathbb{Z}$ et $n\in\mathbb{N}^*$. On dit que $a$ est <em>congru &agrave; $b$ modulo $n$</em>, not&eacute; $a\equiv b\ [n]$, si $n\mid(a-b)$, c'est-&agrave;-dire si $a$ et $b$ ont le m&ecirc;me reste dans la division euclidienne par $n$. La congruence modulo $n$ est une relation d'&eacute;quivalence sur $\mathbb{Z}$.</p>
+    </div>
+
+    <!-- Congruence arithmetic -->
+    <div class="thm-block proposition">
+      <div class="en"><p><span class="thm-label">Proposition.</span> If $a\equiv b\ [n]$ and $a'\equiv b'\ [n]$, then:</p>
+      <ul>
+        <li>$a+a'\equiv b+b'\ [n]$,</li>
+        <li>$aa'\equiv bb'\ [n]$ (in particular, $a^k\equiv b^k\ [n]$ for all $k\in\mathbb{N}$),</li>
+        <li>for all $m\in\mathbb{Z}$, $ma\equiv mb\ [mn]$.</li>
+      </ul></div>
+      <div class="fr"><p><span class="thm-label">Proposition.</span> Si $a\equiv b\ [n]$ et $a'\equiv b'\ [n]$, alors :</p>
+      <ul>
+        <li>$a+a'\equiv b+b'\ [n]$,</li>
+        <li>$aa'\equiv bb'\ [n]$ (en particulier, $a^k\equiv b^k\ [n]$ pour tout $k\in\mathbb{N}$),</li>
+        <li>pour tout $m\in\mathbb{Z}$, $ma\equiv mb\ [mn]$.</li>
+      </ul></div>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By hypothesis, $n\mid(a-b)$ and $n\mid(a'-b')$.
+
+      <em>Sum.</em> $(a+a')-(b+b')=(a-b)+(a'-b')$, and $n$ divides each term, so $n\mid(a+a')-(b+b')$.
+
+      <em>Product.</em> $aa'-bb'=a(a'-b')+b'(a-b)$. Since $n\mid a(a'-b')$ and $n\mid b'(a-b)$, we get $n\mid(aa'-bb')$. For powers, apply compatibility with the product by induction: if $a\equiv b\ [n]$ and $a^{k-1}\equiv b^{k-1}\ [n]$, then $a^k=a\cdot a^{k-1}\equiv b\cdot b^{k-1}=b^k\ [n]$.
+
+      <em>Multiplication by $m$.</em> $ma-mb=m(a-b)$, and $n\mid(a-b)$ implies $mn\mid m(a-b)$, so $ma\equiv mb\ [mn]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par hypoth&egrave;se, $n\mid(a-b)$ et $n\mid(a'-b')$.
+
+      <em>Somme.</em> $(a+a')-(b+b')=(a-b)+(a'-b')$, et $n$ divise chacun des termes, donc $n\mid(a+a')-(b+b')$.
+
+      <em>Produit.</em> $aa'-bb'=a(a'-b')+b'(a-b)$. Or $n\mid a(a'-b')$ et $n\mid b'(a-b)$, donc $n\mid(aa'-bb')$. Pour les puissances, on applique la compatibilit&eacute; avec le produit par r&eacute;currence : si $a\equiv b\ [n]$ et $a^{k-1}\equiv b^{k-1}\ [n]$, alors $a^k=a\cdot a^{k-1}\equiv b\cdot b^{k-1}=b^k\ [n]$.
+
+      <em>Multiplication par $m$.</em> $ma-mb=m(a-b)$, et $n\mid(a-b)$ entra&icirc;ne $mn\mid m(a-b)$, donc $ma\equiv mb\ [mn]$.
+    </details>
+
+    <!-- Euclidean division -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Euclidean division).</span> Let $a\in\mathbb{Z}$ and $b\in\mathbb{Z}^*$. There exists a unique pair $(q,r)\in\mathbb{Z}\times\mathbb{N}$ such that $a=bq+r$ and $0\le r&lt;|b|$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Division euclidienne).</span> Soient $a\in\mathbb{Z}$ et $b\in\mathbb{Z}^*$. Il existe un unique couple $(q,r)\in\mathbb{Z}\times\mathbb{N}$ tel que $a=bq+r$ et $0\le r&lt;|b|$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      It suffices to handle $b\ge 1$ (if $b&lt;0$, divide $a$ by $|b|$ and obtain the same remainder since $a=|b|q'+r$ gives $a=b(-q')+r$).
+
+      <em>Existence.</em> Consider the set $E=\{a-bk : k\in\mathbb{Z}\}\cap\mathbb{N}$. This set is nonempty since $a-b(-|a|)=a+b|a|\ge 0$ (as $b\ge 1$). By the well-ordering principle, $E$ has a smallest element $r=a-bq\ge 0$. If $r\ge b$, then $r-b=a-b(q+1)\ge 0$, so $r-b\in E$ with $r-b&lt;r$, contradicting minimality. Hence $0\le r&lt;b$.
+
+      <em>Uniqueness.</em> Suppose $a=bq_1+r_1=bq_2+r_2$ with $0\le r_1,r_2&lt;|b|$. Then $b(q_1-q_2)=r_2-r_1$, so $|b|\cdot|q_1-q_2|=|r_2-r_1|&lt;|b|$. This forces $|q_1-q_2|=0$, i.e. $q_1=q_2$, then $r_1=r_2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Il suffit de traiter le cas $b\ge 1$ (si $b&lt;0$, on divise $a$ par $|b|$ et on obtient le m&ecirc;me reste car $a=|b|q'+r$ donne $a=b(-q')+r$).
+
+      <em>Existence.</em> On consid&egrave;re l'ensemble $E=\{a-bk : k\in\mathbb{Z}\}\cap\mathbb{N}$. Cet ensemble est non vide car $a-b(-|a|)=a+b|a|\ge 0$ (puisque $b\ge 1$). Par le principe du bon ordre, $E$ admet un plus petit &eacute;l&eacute;ment $r=a-bq\ge 0$. Si $r\ge b$, alors $r-b=a-b(q+1)\ge 0$, donc $r-b\in E$ avec $r-b&lt;r$, contredisant la minimalit&eacute;. Donc $0\le r&lt;b$.
+
+      <em>Unicit&eacute;.</em> Supposons $a=bq_1+r_1=bq_2+r_2$ avec $0\le r_1,r_2&lt;|b|$. Alors $b(q_1-q_2)=r_2-r_1$, d'o&ugrave; $|b|\cdot|q_1-q_2|=|r_2-r_1|&lt;|b|$. Cela impose $|q_1-q_2|=0$, soit $q_1=q_2$, puis $r_1=r_2$.
+    </details>
+
+    <!-- Subgroups of Z -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every subgroup of $(\mathbb{Z},+)$ is of the form $n\mathbb{Z}$ for some $n\in\mathbb{N}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout sous-groupe de $(\mathbb{Z},+)$ est de la forme $n\mathbb{Z}$ pour un certain $n\in\mathbb{N}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $H$ be a subgroup of $\mathbb{Z}$. If $H=\{0\}$, then $H=0\mathbb{Z}$. Otherwise, $H$ contains a nonzero element, and since $H$ is closed under negation, $H$ contains a strictly positive integer. Let $n=\min(H\cap\mathbb{N}^*)$.
+
+      $n\mathbb{Z}\subset H$ because $H$ is a subgroup containing $n$. Conversely, let $h\in H$. The Euclidean division of $h$ by $n$ gives $h=nq+r$ with $0\le r&lt;n$. Then $r=h-nq\in H$ (since $h\in H$ and $nq\in n\mathbb{Z}\subset H$). If $r&gt;0$, we would have $r\in H\cap\mathbb{N}^*$ with $r&lt;n$, contradicting the minimality of $n$. Hence $r=0$ and $h\in n\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Soit $H$ un sous-groupe de $\mathbb{Z}$. Si $H=\{0\}$, alors $H=0\mathbb{Z}$. Sinon, $H$ contient un &eacute;l&eacute;ment non nul, et comme $H$ est stable par passage &agrave; l'oppos&eacute;, $H$ contient un entier strictement positif. Soit $n=\min(H\cap\mathbb{N}^*)$.
+
+      $n\mathbb{Z}\subset H$ car $H$ est un sous-groupe contenant $n$. R&eacute;ciproquement, soit $h\in H$. La division euclidienne de $h$ par $n$ donne $h=nq+r$ avec $0\le r&lt;n$. Alors $r=h-nq\in H$ (car $h\in H$ et $nq\in n\mathbb{Z}\subset H$). Si $r&gt;0$, on aurait $r\in H\cap\mathbb{N}^*$ avec $r&lt;n$, contredisant la minimalit&eacute; de $n$. Donc $r=0$ et $h\in n\mathbb{Z}$.
+    </details>
+
+    <!-- GCD definition -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $a,b\in\mathbb{Z}$. The <em>GCD</em> of $a$ and $b$, written $\gcd(a,b)$ or $a\wedge b$, is the greatest element of the set of common divisors of $a$ and $b$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soient $a,b\in\mathbb{Z}$. Le <em>PGCD</em> de $a$ et $b$, not&eacute; $\gcd(a,b)$ ou $a\wedge b$, est le plus grand &eacute;l&eacute;ment de l'ensemble des diviseurs communs &agrave; $a$ et $b$.</p>
+    </div>
+
+    <!-- Characterization of GCD -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Characterization of GCD).</span> Let $a,b\in\mathbb{Z}$ not both zero. The GCD $d=\gcd(a,b)$ is the unique element of $\mathbb{N}^*$ such that $a\mathbb{Z}+b\mathbb{Z}=d\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Caract&eacute;risation du PGCD).</span> Soient $a,b\in\mathbb{Z}$ non tous deux nuls. Le PGCD $d=\gcd(a,b)$ est l'unique &eacute;l&eacute;ment de $\mathbb{N}^*$ tel que $a\mathbb{Z}+b\mathbb{Z}=d\mathbb{Z}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The set $I=a\mathbb{Z}+b\mathbb{Z}=\{ua+vb : u,v\in\mathbb{Z}\}$ is a subgroup of $\mathbb{Z}$ (closed under addition and negation), so $I=d\mathbb{Z}$ for some $d\in\mathbb{N}$. Since $a\in I$ and $b\in I$ and $(a,b)\neq(0,0)$, we have $d\ge 1$. $d$ divides $a$ and $b$: indeed $a\in d\mathbb{Z}$ and $b\in d\mathbb{Z}$. If $c\in\mathbb{N}$ divides $a$ and $b$, then $c$ divides every element $ua+vb$ of $d\mathbb{Z}$, in particular $c\mid d$, so $c\le d$. Thus $d$ is the greatest common divisor.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      L'ensemble $I=a\mathbb{Z}+b\mathbb{Z}=\{ua+vb : u,v\in\mathbb{Z}\}$ est un sous-groupe de $\mathbb{Z}$ (stable par addition et oppos&eacute;), donc $I=d\mathbb{Z}$ pour un certain $d\in\mathbb{N}$. Comme $a\in I$ et $b\in I$ et $(a,b)\neq(0,0)$, on a $d\ge 1$. $d$ divise $a$ et $b$ : en effet $a\in d\mathbb{Z}$ et $b\in d\mathbb{Z}$. Si $c\in\mathbb{N}$ divise $a$ et $b$, alors $c$ divise tout &eacute;l&eacute;ment $ua+vb$ de $d\mathbb{Z}$, en particulier $c\mid d$, donc $c\le d$. Ainsi $d$ est bien le plus grand diviseur commun.
+    </details>
+
+    <!-- Bezout -->
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (B&eacute;zout's theorem).</span> Let $a,b\in\mathbb{Z}$ not both zero. There exist $u,v\in\mathbb{Z}$ such that $au+bv=\gcd(a,b)$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Th&eacute;or&egrave;me de B&eacute;zout).</span> Soient $a,b\in\mathbb{Z}$ non tous deux nuls. Il existe $u,v\in\mathbb{Z}$ tels que $au+bv=\gcd(a,b)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\gcd(a,b)\in a\mathbb{Z}+b\mathbb{Z}$ by the previous theorem.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\gcd(a,b)\in a\mathbb{Z}+b\mathbb{Z}$ par le th&eacute;or&egrave;me pr&eacute;c&eacute;dent.
+    </details>
+
+    <!-- Euclidean algorithm -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Euclidean algorithm).</span> For $a\in\mathbb{Z}$ and $b\in\mathbb{Z}^*$, if $a=bq+r$ (Euclidean division), then $\gcd(a,b)=\gcd(b,r)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Algorithme d'Euclide).</span> Pour $a\in\mathbb{Z}$ et $b\in\mathbb{Z}^*$, si $a=bq+r$ (division euclidienne), alors $\gcd(a,b)=\gcd(b,r)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We have $a=bq+r$ and $r=a-bq$, so every common divisor of $a$ and $b$ divides $r$, and every common divisor of $b$ and $r$ divides $a$. The sets of common divisors are identical, so the GCDs are equal.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On a $a=bq+r$ et $r=a-bq$, donc tout diviseur commun &agrave; $a$ et $b$ divise $r$, et tout diviseur commun &agrave; $b$ et $r$ divise $a$. Les ensembles de diviseurs communs sont identiques, donc les PGCD sont &eacute;gaux.
+    </details>
+
+    <!-- Properties of GCD -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of GCD).</span> $\gcd(a,b)=\gcd(|a|,|b|)$, $\gcd(a,0)=|a|$, $\gcd(a,1)=1$, $\gcd(a,a)=|a|$. For all $k\in\mathbb{Z}$: $\gcd(ka,kb)=|k|\gcd(a,b)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Propri&eacute;t&eacute;s du PGCD).</span> $\gcd(a,b)=\gcd(|a|,|b|)$, $\gcd(a,0)=|a|$, $\gcd(a,1)=1$, $\gcd(a,a)=|a|$. Pour tout $k\in\mathbb{Z}$ : $\gcd(ka,kb)=|k|\gcd(a,b)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $ka\mathbb{Z}+kb\mathbb{Z}=k(a\mathbb{Z}+b\mathbb{Z})=k\cdot\gcd(a,b)\mathbb{Z}=|k|\gcd(a,b)\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $ka\mathbb{Z}+kb\mathbb{Z}=k(a\mathbb{Z}+b\mathbb{Z})=k\cdot\gcd(a,b)\mathbb{Z}=|k|\gcd(a,b)\mathbb{Z}$.
+    </details>
+
+    <!-- Coprimality -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Two integers $a,b$ are <em>coprime</em> (or <em>relatively prime</em>) if $\gcd(a,b)=1$, i.e. if $a\mathbb{Z}+b\mathbb{Z}=\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Deux entiers $a,b$ sont <em>premiers entre eux</em> (ou <em>coprimes</em>) si $\gcd(a,b)=1$, c'est-&agrave;-dire si $a\mathbb{Z}+b\mathbb{Z}=\mathbb{Z}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $a$ and $b$ are coprime if and only if there exist $u,v\in\mathbb{Z}$ such that $au+bv=1$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $a$ et $b$ sont premiers entre eux si et seulement s'il existe $u,v\in\mathbb{Z}$ tels que $au+bv=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $\gcd(a,b)=1$, B&eacute;zout gives $au+bv=1$. Conversely, if $au+bv=1$, then $1\in a\mathbb{Z}+b\mathbb{Z}$, so $a\mathbb{Z}+b\mathbb{Z}=\mathbb{Z}$, i.e. $\gcd(a,b)=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $\gcd(a,b)=1$, B&eacute;zout donne $au+bv=1$. R&eacute;ciproquement, si $au+bv=1$, alors $1\in a\mathbb{Z}+b\mathbb{Z}$, donc $a\mathbb{Z}+b\mathbb{Z}=\mathbb{Z}$, i.e. $\gcd(a,b)=1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Let $a,b\in\mathbb{Z}$ with $d=\gcd(a,b)$. Then $\gcd(a/d,b/d)=1$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Soient $a,b\in\mathbb{Z}$ avec $d=\gcd(a,b)$. Alors $\gcd(a/d,b/d)=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By B&eacute;zout, $au+bv=d$, so $(a/d)u+(b/d)v=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par B&eacute;zout, $au+bv=d$, soit $(a/d)u+(b/d)v=1$.
+    </details>
+
+    <!-- Gauss's lemma -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Gauss's lemma).</span> If $a\mid bc$ and $\gcd(a,b)=1$, then $a\mid c$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Lemme de Gauss).</span> Si $a\mid bc$ et $\gcd(a,b)=1$, alors $a\mid c$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By B&eacute;zout, there exist $u,v$ such that $au+bv=1$. Multiplying by $c$: $acu+bcv=c$. Now $a\mid acu$ and $a\mid bcv$ (since $a\mid bc$), so $a\mid c$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par B&eacute;zout, il existe $u,v$ tels que $au+bv=1$. En multipliant par $c$ : $acu+bcv=c$. Or $a\mid acu$ et $a\mid bcv$ (car $a\mid bc$), donc $a\mid c$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> If $a\mid c$ and $b\mid c$ and $\gcd(a,b)=1$, then $ab\mid c$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $a\mid c$ et $b\mid c$ et $\gcd(a,b)=1$, alors $ab\mid c$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      From $a\mid c$, write $c=ak$. Then $b\mid ak$ and $\gcd(b,a)=1$, so by Gauss $b\mid k$, i.e. $k=b\ell$, hence $c=ab\ell$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      De $a\mid c$, on &eacute;crit $c=ak$. Alors $b\mid ak$ et $\gcd(b,a)=1$, donc par Gauss $b\mid k$, i.e. $k=b\ell$, d'o&ugrave; $c=ab\ell$.
+    </details>
+
+    <!-- Euclid's lemma -->
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Euclid's lemma).</span> If $p$ is a prime and $p\mid ab$, then $p\mid a$ or $p\mid b$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Lemme d'Euclide).</span> Si $p$ est un nombre premier et $p\mid ab$, alors $p\mid a$ ou $p\mid b$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $p\nmid a$, then $\gcd(p,a)=1$ (since the only positive divisors of $p$ are $1$ and $p$), and by Gauss $p\mid b$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $p\nmid a$, alors $\gcd(p,a)=1$ (car les seuls diviseurs positifs de $p$ sont $1$ et $p$), et par Gauss $p\mid b$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Let $a,b,c\in\mathbb{Z}$. If $\gcd(a,c)=1$ and $\gcd(b,c)=1$, then $\gcd(ab,c)=1$. In particular, if $\gcd(a,b)=1$, then $\gcd(a^n,b^m)=1$ for all $n,m\in\mathbb{N}^*$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Soient $a,b,c\in\mathbb{Z}$. Si $\gcd(a,c)=1$ et $\gcd(b,c)=1$, alors $\gcd(ab,c)=1$. En particulier, si $\gcd(a,b)=1$, alors $\gcd(a^n,b^m)=1$ pour tous $n,m\in\mathbb{N}^*$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By B&eacute;zout: $au+cv=1$ and $bu'+cv'=1$. Multiplying: $abuu'+c(auv'+bvu'+cvv')=1$, so $\gcd(ab,c)=1$. For powers: by induction on $n$. If $\gcd(a^{n-1},b)=1$ and $\gcd(a,b)=1$, then $\gcd(a^n,b)=\gcd(a^{n-1}\cdot a,b)=1$. Then by induction on $m$, $\gcd(a^n,b^m)=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par B&eacute;zout : $au+cv=1$ et $bu'+cv'=1$. En multipliant : $abuu'+c(auv'+bvu'+cvv')=1$, donc $\gcd(ab,c)=1$. Pour les puissances : par r&eacute;currence sur $n$. Si $\gcd(a^{n-1},b)=1$ et $\gcd(a,b)=1$, alors $\gcd(a^n,b)=\gcd(a^{n-1}\cdot a,b)=1$. Puis par r&eacute;currence sur $m$ de m&ecirc;me, $\gcd(a^n,b^m)=1$.
+    </details>
+
+    <!-- LCM -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The <em>LCM</em> (least common multiple) of $a,b\in\mathbb{Z}^*$, written $\operatorname{lcm}(a,b)$ or $a\vee b$, is the smallest element of $\mathbb{N}^*$ divisible by both $a$ and $b$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Le <em>PPCM</em> (plus petit commun multiple) de $a,b\in\mathbb{Z}^*$, not&eacute; $\operatorname{ppcm}(a,b)$ ou $a\vee b$, est le plus petit &eacute;l&eacute;ment de $\mathbb{N}^*$ divisible par $a$ et par $b$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\operatorname{lcm}(a,b)=\dfrac{|ab|}{\gcd(a,b)}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\operatorname{ppcm}(a,b)=\dfrac{|ab|}{\gcd(a,b)}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $d=\gcd(a,b)$, $a=da'$, $b=db'$ with $\gcd(a',b')=1$. Set $m=\frac{|ab|}{d}=|a'b'd|=|a'|\cdot|b|=|b'|\cdot|a|$, so $a\mid m$ and $b\mid m$. Let $c$ be a common multiple of $a$ and $b$: $a\mid c$ and $b\mid c$. From $da'\mid c$, write $c=da'k$. Then $db'\mid da'k$, so $b'\mid a'k$, and since $\gcd(a',b')=1$, by Gauss $b'\mid k$, hence $da'b'\mid c$, i.e. $m\mid c$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Posons $d=\gcd(a,b)$, $a=da'$, $b=db'$ avec $\gcd(a',b')=1$. Posons $m=\frac{|ab|}{d}=|a'b'd|=|a'|\cdot|b|=|b'|\cdot|a|$, donc $a\mid m$ et $b\mid m$. Soit $c$ un multiple commun de $a$ et $b$, alors $a\mid c$ et $b\mid c$. De $da'\mid c$, on tire $c=da'k$. Puis $db'\mid da'k$, soit $b'\mid a'k$, et comme $\gcd(a',b')=1$, par Gauss $b'\mid k$, donc $da'b'\mid c$, i.e. $m\mid c$.
+    </details>
+
+    <!-- Irreducible fractions -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Irreducible fractions).</span> Every rational $r\in\mathbb{Q}$ has a unique representation $r=p/q$ with $q\ge 1$ and $\gcd(p,q)=1$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Fraction irr&eacute;ductible).</span> Tout rationnel $r\in\mathbb{Q}$ s'&eacute;crit de mani&egrave;re unique sous la forme $r=p/q$ avec $q\ge 1$ et $\gcd(p,q)=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Existence.</em> Write $r=a/b$ with $b\ge 1$, and set $d=\gcd(a,b)$, $p=a/d$, $q=b/d$. Then $q\ge 1$, $r=p/q$ and $\gcd(p,q)=1$. <em>Uniqueness.</em> If $p/q=p'/q'$ with $\gcd(p,q)=\gcd(p',q')=1$ and $q,q'\ge 1$, then $pq'=p'q$. So $q\mid pq'$, and since $\gcd(p,q)=1$, by Gauss $q\mid q'$. Similarly $q'\mid q$, so $q=q'$ (since $q,q'\ge 1$), then $p=p'$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Existence.</em> &Eacute;crire $r=a/b$ avec $b\ge 1$, et poser $d=\gcd(a,b)$, $p=a/d$, $q=b/d$. Alors $q\ge 1$, $r=p/q$ et $\gcd(p,q)=1$. <em>Unicit&eacute;.</em> Si $p/q=p'/q'$ avec $\gcd(p,q)=\gcd(p',q')=1$ et $q,q'\ge 1$, alors $pq'=p'q$. Donc $q\mid pq'$, et comme $\gcd(p,q)=1$, par Gauss $q\mid q'$. De m&ecirc;me $q'\mid q$, donc $q=q'$ (car $q,q'\ge 1$), puis $p=p'$.
+    </details>
+
+    <!-- Prime numbers -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> An integer $p\ge 2$ is <em>prime</em> if its only positive divisors are $1$ and $p$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Un entier $p\ge 2$ est <em>premier</em> si ses seuls diviseurs positifs sont $1$ et $p$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Primality criterion).</span> If $n\ge 2$ is not divisible by any prime $p\le\sqrt{n}$, then $n$ is prime.</p>
+      <p class="fr"><span class="thm-label">Proposition (Crit&egrave;re de primalit&eacute;).</span> Si $n\ge 2$ n'est divisible par aucun nombre premier $p\le\sqrt{n}$, alors $n$ est premier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $n$ is not prime, $n=ab$ with $2\le a\le b$. Then $a^2\le ab=n$, so $a\le\sqrt{n}$. But $a\ge 2$ has a prime divisor $p\le a\le\sqrt{n}$, and this $p$ divides $n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $n$ n'est pas premier, $n=ab$ avec $2\le a\le b$. Alors $a^2\le ab=n$, donc $a\le\sqrt{n}$. Or $a\ge 2$ admet un diviseur premier $p\le a\le\sqrt{n}$, et ce $p$ divise $n$.
+    </details>
+
+    <!-- Infinitely many primes -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Euclid).</span> There are infinitely many prime numbers.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Euclide).</span> Il existe une infinit&eacute; de nombres premiers.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose there are only finitely many primes $p_1,\ldots,p_k$. Let $N=p_1\cdots p_k+1$. Then $N\ge 2$, so $N$ has a prime divisor $p$. This $p$ is one of the $p_i$, so $p\mid p_1\cdots p_k$, hence $p\mid N-p_1\cdots p_k=1$, a contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons qu'il n'existe qu'un nombre fini de nombres premiers $p_1,\ldots,p_k$. Soit $N=p_1\cdots p_k+1$. Alors $N\ge 2$, donc $N$ admet un diviseur premier $p$. Ce $p$ est l'un des $p_i$, donc $p\mid p_1\cdots p_k$, d'o&ugrave; $p\mid N-p_1\cdots p_k=1$, ce qui est absurde.
+    </details>
+
+    <!-- Fundamental theorem of arithmetic -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Fundamental theorem of arithmetic).</span> Every integer $n\ge 2$ can be written uniquely as $n=p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_k^{\alpha_k}$ where $p_1&lt;p_2&lt;\cdots&lt;p_k$ are primes and $\alpha_1,\ldots,\alpha_k\ge 1$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Th&eacute;or&egrave;me fondamental de l'arithm&eacute;tique).</span> Tout entier $n\ge 2$ s'&eacute;crit de mani&egrave;re unique sous la forme $n=p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_k^{\alpha_k}$ o&ugrave; $p_1&lt;p_2&lt;\cdots&lt;p_k$ sont des nombres premiers et $\alpha_1,\ldots,\alpha_k\ge 1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Existence</em> (by strong induction). For $n=2$, clear. Let $n\ge 3$. If $n$ is prime, $n=n^1$. Otherwise, $n=ab$ with $2\le a,b&lt;n$. By the induction hypothesis, $a$ and $b$ factor into primes, so $n$ does too.
+
+      <em>Uniqueness</em> (by strong induction). Suppose $p_1^{\alpha_1}\cdots p_k^{\alpha_k}=q_1^{\beta_1}\cdots q_\ell^{\beta_\ell}$. Then $p_1$ divides the right side. Since $p_1$ is prime, it divides one of the $q_j^{\beta_j}$, so $p_1\mid q_j$ (by Euclid's lemma). Since $p_1$ and $q_j$ are prime, $p_1=q_j$. We divide by $p_1$ and apply the induction hypothesis to $n/p_1&lt;n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Existence</em> (par r&eacute;currence forte). Pour $n=2$, c'est clair. Soit $n\ge 3$. Si $n$ est premier, $n=n^1$. Sinon, $n=ab$ avec $2\le a,b&lt;n$. Par hypoth&egrave;se de r&eacute;currence, $a$ et $b$ se d&eacute;composent en produit de premiers, donc $n$ aussi.
+
+      <em>Unicit&eacute;</em> (par r&eacute;currence forte). Supposons $p_1^{\alpha_1}\cdots p_k^{\alpha_k}=q_1^{\beta_1}\cdots q_\ell^{\beta_\ell}$. Alors $p_1$ divise le membre de droite. Comme $p_1$ est premier, il divise l'un des $q_j^{\beta_j}$, donc $p_1\mid q_j$ (par le lemme d'Euclide). Comme $p_1$ et $q_j$ sont premiers, $p_1=q_j$. On simplifie par $p_1$ et on applique l'hypoth&egrave;se de r&eacute;currence &agrave; $n/p_1&lt;n$.
+    </details>
+
+    <!-- p-adic valuation -->
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $p$ be a prime and $n\in\mathbb{Z}^*$. The <em>$p$-adic valuation</em> of $n$, written $v_p(n)$, is the exponent of $p$ in the prime factorization of $|n|$. We have $v_p(n)=\max\{k\in\mathbb{N} : p^k\mid n\}$.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $p$ un nombre premier et $n\in\mathbb{Z}^*$. La <em>valuation $p$-adique</em> de $n$, not&eacute;e $v_p(n)$, est l'exposant de $p$ dans la d&eacute;composition en facteurs premiers de $|n|$. On a $v_p(n)=\max\{k\in\mathbb{N} : p^k\mid n\}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="en"><p><span class="thm-label">Proposition.</span> For all $a,b\in\mathbb{Z}^*$ and every prime $p$:</p>
+      <ul>
+        <li>$v_p(ab)=v_p(a)+v_p(b)$,</li>
+        <li>$v_p(a+b)\ge\min(v_p(a),v_p(b))$, with equality if $v_p(a)\neq v_p(b)$,</li>
+        <li>$a\mid b\iff$ for every prime $p$, $v_p(a)\le v_p(b)$.</li>
+      </ul></div>
+      <div class="fr"><p><span class="thm-label">Proposition.</span> Pour tous $a,b\in\mathbb{Z}^*$ et tout premier $p$ :</p>
+      <ul>
+        <li>$v_p(ab)=v_p(a)+v_p(b)$,</li>
+        <li>$v_p(a+b)\ge\min(v_p(a),v_p(b))$, avec &eacute;galit&eacute; si $v_p(a)\neq v_p(b)$,</li>
+        <li>$a\mid b\iff$ pour tout premier $p$, $v_p(a)\le v_p(b)$.</li>
+      </ul></div>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $a=p^\alpha a'$ and $b=p^\beta b'$ with $p\nmid a'$ and $p\nmid b'$. Then $ab=p^{\alpha+\beta}a'b'$ and $p\nmid a'b'$ (since $p$ is prime), so $v_p(ab)=\alpha+\beta$. For the sum, if $\alpha\le\beta$: $a+b=p^\alpha(a'+p^{\beta-\alpha}b')$, so $v_p(a+b)\ge\alpha=\min(\alpha,\beta)$, and if $\alpha&lt;\beta$, then $p\nmid a'$, so $v_p(a+b)=\alpha$. The third property follows immediately from the uniqueness of factorization.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Posons $a=p^\alpha a'$ et $b=p^\beta b'$ avec $p\nmid a'$ et $p\nmid b'$. Alors $ab=p^{\alpha+\beta}a'b'$ et $p\nmid a'b'$ (car $p$ premier), donc $v_p(ab)=\alpha+\beta$. Pour la somme, si $\alpha\le\beta$ : $a+b=p^\alpha(a'+p^{\beta-\alpha}b')$, donc $v_p(a+b)\ge\alpha=\min(\alpha,\beta)$, et si $\alpha&lt;\beta$, alors $p\nmid a'$, d'o&ugrave; $v_p(a+b)=\alpha$. La troisi&egrave;me propri&eacute;t&eacute; est imm&eacute;diate par l'unicit&eacute; de la d&eacute;composition.
+    </details>
+
+    <!-- GCD and LCM via valuations -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (GCD and LCM via valuations).</span> For all $a,b\in\mathbb{Z}^*$: $$\gcd(a,b)=\prod_p p^{\min(v_p(a),v_p(b))}\quad\text{and}\quad\operatorname{lcm}(a,b)=\prod_p p^{\max(v_p(a),v_p(b))}.$$</p>
+      <p class="fr"><span class="thm-label">Proposition (PGCD et PPCM via les valuations).</span> Pour tous $a,b\in\mathbb{Z}^*$ : $$\gcd(a,b)=\prod_p p^{\min(v_p(a),v_p(b))}\quad\text{et}\quad\operatorname{ppcm}(a,b)=\prod_p p^{\max(v_p(a),v_p(b))}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $d\mid a$ and $d\mid b\iff v_p(d)\le v_p(a)$ and $v_p(d)\le v_p(b)$ for all $p\iff v_p(d)\le\min(v_p(a),v_p(b))$ for all $p$. The greatest such $d$ corresponds to $v_p(d)=\min(v_p(a),v_p(b))$. Dual reasoning for the LCM.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $d\mid a$ et $d\mid b\iff v_p(d)\le v_p(a)$ et $v_p(d)\le v_p(b)$ pour tout $p\iff v_p(d)\le\min(v_p(a),v_p(b))$ pour tout $p$. Le plus grand tel $d$ correspond &agrave; $v_p(d)=\min(v_p(a),v_p(b))$. Raisonnement dual pour le PPCM.
+    </details>
+
+    <!-- Inverse modulo n -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $a$ has an inverse modulo $n$ (i.e. there exists $u$ such that $au\equiv 1\ [n]$) if and only if $\gcd(a,n)=1$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $a$ admet un inverse modulo $n$ (i.e. il existe $u$ tel que $au\equiv 1\ [n]$) si et seulement si $\gcd(a,n)=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $au\equiv 1\ [n]\iff\exists v\in\mathbb{Z},\ au+nv=1\iff\gcd(a,n)=1$ (by B&eacute;zout).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $au\equiv 1\ [n]\iff\exists v\in\mathbb{Z},\ au+nv=1\iff\gcd(a,n)=1$ (par B&eacute;zout).
+    </details>
+
+    <!-- p divides binomial -->
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Let $p$ be a prime. For all $1\le k\le p-1$, $p\mid\binom{p}{k}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Soit $p$ un nombre premier. Pour tout $1\le k\le p-1$, $p\mid\binom{p}{k}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $k\binom{p}{k}=p\binom{p-1}{k-1}$, i.e. $p\mid k\binom{p}{k}$. Since $p$ is prime and $1\le k\le p-1$, $\gcd(p,k)=1$, so $p\mid\binom{p}{k}$ by Gauss.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $k\binom{p}{k}=p\binom{p-1}{k-1}$, i.e. $p\mid k\binom{p}{k}$. Comme $p$ est premier et $1\le k\le p-1$, $\gcd(p,k)=1$, donc $p\mid\binom{p}{k}$ par Gauss.
+    </details>
+
+    <!-- Fermat's little theorem -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Fermat's little theorem).</span> Let $p$ be a prime and $a\in\mathbb{Z}$. Then $a^p\equiv a\ [p]$. If $p\nmid a$, then $a^{p-1}\equiv 1\ [p]$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Petit th&eacute;or&egrave;me de Fermat).</span> Soit $p$ un nombre premier et $a\in\mathbb{Z}$. Alors $a^p\equiv a\ [p]$. Si $p\nmid a$, alors $a^{p-1}\equiv 1\ [p]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $a\ge 0$. For $a=0$, clear. Assume $a^p\equiv a\ [p]$. Then $(a+1)^p=\sum_{k=0}^{p}\binom{p}{k}a^k=a^p+1+\sum_{k=1}^{p-1}\binom{p}{k}a^k\equiv a^p+1\equiv a+1\ [p]$, since $p\mid\binom{p}{k}$ for $1\le k\le p-1$. The case $a&lt;0$ follows since $a\equiv a+mp\ [p]$ with $a+mp\ge 0$ for large enough $m$. The second assertion follows by dividing by $a$ (valid since $\gcd(a,p)=1$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence sur $a\ge 0$. Pour $a=0$, c'est clair. Supposons $a^p\equiv a\ [p]$. Alors $(a+1)^p=\sum_{k=0}^{p}\binom{p}{k}a^k=a^p+1+\sum_{k=1}^{p-1}\binom{p}{k}a^k\equiv a^p+1\equiv a+1\ [p]$, car $p\mid\binom{p}{k}$ pour $1\le k\le p-1$. Le cas $a&lt;0$ s'en d&eacute;duit car $a\equiv a+mp\ [p]$ avec $a+mp\ge 0$ pour $m$ assez grand. La seconde assertion d&eacute;coule de la premi&egrave;re par simplification par $a$ (licite car $\gcd(a,p)=1$).
+    </details>
+
+    <!-- Legendre's formula -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Legendre's formula).</span> For every prime $p$ and $n\in\mathbb{N}^*$, $$v_p(n!)=\sum_{k\ge 1}\left\lfloor\frac{n}{p^k}\right\rfloor$$ (a finite sum, since $\lfloor n/p^k\rfloor=0$ for $p^k&gt;n$).</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule de Legendre).</span> Pour tout premier $p$ et tout $n\in\mathbb{N}^*$, $$v_p(n!)=\sum_{k\ge 1}\left\lfloor\frac{n}{p^k}\right\rfloor$$ (somme finie car $\lfloor n/p^k\rfloor=0$ d&egrave;s que $p^k&gt;n$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We count the factors of $p$ in $n!=1\cdot 2\cdots n$. Each multiple of $p$ contributes at least one factor of $p$: there are $\lfloor n/p\rfloor$ of them. Each multiple of $p^2$ contributes an extra factor: there are $\lfloor n/p^2\rfloor$ of them, etc.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On cherche le nombre de facteurs $p$ dans $n!=1\cdot 2\cdots n$. Chaque multiple de $p$ apporte au moins un facteur $p$ : il y en a $\lfloor n/p\rfloor$. Chaque multiple de $p^2$ apporte un facteur suppl&eacute;mentaire : il y en a $\lfloor n/p^2\rfloor$, etc.
+    </details>
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <!-- Exercise 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $n\in\mathbb{N}^*$, $\gcd(n,n+1)=1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $n\in\mathbb{N}^*$, $\gcd(n,n+1)=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $d=\gcd(n,n+1)$. Then $d\mid(n+1)-n=1$, so $d=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $d=\gcd(n,n+1)$. Alors $d\mid(n+1)-n=1$, donc $d=1$.
+    </details>
+
+    <!-- Exercise 2 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be a prime, $p\ge 3$. Show that $p$ is of the form $4k+1$ or $4k+3$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ premier, $p\ge 3$. Montrer que $p$ est de la forme $4k+1$ ou $4k+3$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $p\ge 3$, $p$ is odd. Modulo $4$, the possible remainders are $0,1,2,3$. Even remainders ($0$ and $2$) make $p$ even, which is impossible. The remaining cases are $1$ and $3$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $p\ge 3$, $p$ est impair. Modulo $4$, les restes possibles sont $0,1,2,3$. Les restes pairs ($0$ et $2$) donnent $p$ pair, impossible. Restent $1$ et $3$.
+    </details>
+
+    <!-- Exercise 3 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that there are infinitely many primes of the form $4k+3$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il existe une infinit&eacute; de nombres premiers de la forme $4k+3$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Suppose there are only finitely many: $p_1,\ldots,p_r$. Let $N=4p_1\cdots p_r-1\equiv 3\ [4]$. Since $N$ is odd, its prime divisors are of the form $4k+1$ or $4k+3$. If they were all of the form $4k+1$, then $N$ would be too (since $(4a+1)(4b+1)=4(4ab+a+b)+1$), contradicting $N\equiv 3\ [4]$. So $N$ has a prime divisor $p\equiv 3\ [4]$. This $p$ is one of the $p_i$, so $p\mid 4p_1\cdots p_r$, giving $p\mid 4p_1\cdots p_r-N=1$, a contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Supposons qu'il n'en existe qu'un nombre fini : $p_1,\ldots,p_r$. Soit $N=4p_1\cdots p_r-1\equiv 3\ [4]$. Comme $N$ est impair, ses diviseurs premiers sont de la forme $4k+1$ ou $4k+3$. S'ils &eacute;taient tous de la forme $4k+1$, $N$ le serait aussi (car $(4a+1)(4b+1)=4(4ab+a+b)+1$), ce qui contredit $N\equiv 3\ [4]$. Donc $N$ admet un diviseur premier $p\equiv 3\ [4]$. Ce $p$ est l'un des $p_i$, donc $p\mid 4p_1\cdots p_r$, d'o&ugrave; $p\mid 4p_1\cdots p_r-N=1$, absurde.
+    </details>
+
+    <!-- Exercise 4 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\gcd(a,b)=\gcd(a,a+b)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\gcd(a,b)=\gcd(a,a+b)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $d$ be a common divisor of $a$ and $b$. Then $d\mid a+(b)=a+b$, so $d$ divides $a$ and $a+b$. Conversely, if $d$ divides $a$ and $a+b$, then $d\mid(a+b)-a=b$. The sets of common divisors are identical, so the GCDs are equal.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $d$ un diviseur commun &agrave; $a$ et $b$. Alors $d\mid a+(b)=a+b$, donc $d$ divise $a$ et $a+b$. R&eacute;ciproquement, si $d$ divise $a$ et $a+b$, alors $d\mid(a+b)-a=b$. Les ensembles de diviseurs communs sont identiques, donc les PGCD sont &eacute;gaux.
+    </details>
+
+    <!-- Exercise 5 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that if $2^n-1$ is prime, then $n$ is prime.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $2^n-1$ est premier, alors $n$ est premier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Contrapositive: if $n=ab$ with $a,b\ge 2$, then $2^n-1=2^{ab}-1=(2^a)^b-1=(2^a-1)(1+2^a+2^{2a}+\cdots+2^{(b-1)a})$. Since $2^a-1\ge 3$ and the second factor $\ge 1+2^a\ge 5$, $2^n-1$ is composite.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Contrapos&eacute;e : si $n=ab$ avec $a,b\ge 2$, alors $2^n-1=2^{ab}-1=(2^a)^b-1=(2^a-1)(1+2^a+2^{2a}+\cdots+2^{(b-1)a})$. Comme $2^a-1\ge 3$ et le second facteur $\ge 1+2^a\ge 5$, on a $2^n-1$ compos&eacute;.
+    </details>
+
+    <!-- Exercise 6 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\gcd(325,110)$ and find a B&eacute;zout relation using the extended Euclidean algorithm.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer $\gcd(325,110)$ et trouver une relation de B&eacute;zout &agrave; l'aide de l'algorithme d'Euclide &eacute;tendu.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Euclidean algorithm.</em> $325=2\times 110+105$, $110=1\times 105+5$, $105=21\times 5+0$. Hence $\gcd(325,110)=5$.
+
+      <em>Back-substitution (B&eacute;zout).</em> $5=110-1\times 105=110-1\times(325-2\times 110)=3\times 110-1\times 325$. B&eacute;zout relation: $325\times(-1)+110\times 3=5$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Algorithme d'Euclide.</em> $325=2\times 110+105$, $110=1\times 105+5$, $105=21\times 5+0$. Donc $\gcd(325,110)=5$.
+
+      <em>Remont&eacute;e de l'algorithme (B&eacute;zout).</em> On exprime $5$ en remontant les divisions : $5=110-1\times 105=110-1\times(325-2\times 110)=3\times 110-1\times 325$. D'o&ugrave; la relation de B&eacute;zout : $325\times(-1)+110\times 3=5$.
+    </details>
+
+    <!-- Exercise 7 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve in $\mathbb{Z}$ the equation $15x+12y=9$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre dans $\mathbb{Z}$ l'&eacute;quation $15x+12y=9$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\gcd(15,12)=3$ and $3\mid 9$, so solutions exist. Simplify: $5x+4y=3$. Modulo $4$: $5x\equiv 3\ [4]$, i.e. $x\equiv 3\ [4]$, so $x=3+4k$. Then $y=\frac{3-5(3+4k)}{4}=-3-5k$. The solutions are $(x,y)=(3+4k,-3-5k)$ for $k\in\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\gcd(15,12)=3$ et $3\mid 9$, donc il existe des solutions. On simplifie : $5x+4y=3$. Modulo $4$ : $5x\equiv 3\ [4]$, i.e. $x\equiv 3\ [4]$, donc $x=3+4k$. Alors $y=\frac{3-5(3+4k)}{4}=-3-5k$. Les solutions sont $(x,y)=(3+4k,-3-5k)$ pour $k\in\mathbb{Z}$.
+    </details>
+
+    <!-- Exercise 8 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $3x\equiv 7\ [11]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $3x\equiv 7\ [11]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $\gcd(3,11)=1$, $3$ is invertible modulo $11$. We have $3\times 4=12\equiv 1\ [11]$, so $3^{-1}\equiv 4\ [11]$. Hence $x\equiv 4\times 7\equiv 28\equiv 6\ [11]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $\gcd(3,11)=1$, $3$ est inversible modulo $11$. Or $3\times 4=12\equiv 1\ [11]$, donc $3^{-1}\equiv 4\ [11]$. D'o&ugrave; $x\equiv 4\times 7\equiv 28\equiv 6\ [11]$.
+    </details>
+
+    <!-- Exercise 9 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $n\ge 1$ and $a\in\mathbb{N}^*$, $n!\mid\prod_{k=0}^{n-1}(a+k)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $n\ge 1$ et tout $a\in\mathbb{N}^*$, $n!\mid\prod_{k=0}^{n-1}(a+k)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\prod_{k=0}^{n-1}(a+k)=\dfrac{(a+n-1)!}{(a-1)!}=n!\binom{a+n-1}{n}\in n!\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\prod_{k=0}^{n-1}(a+k)=\dfrac{(a+n-1)!}{(a-1)!}=n!\binom{a+n-1}{n}\in n!\mathbb{Z}$.
+    </details>
+
+    <!-- Exercise 10 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\binom{n}{k}\in\mathbb{N}$ for all $0\le k\le n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\binom{n}{k}\in\mathbb{N}$ pour tout $0\le k\le n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By induction on $n$ using Pascal's formula: $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$. For $n=0$: $\binom{0}{0}=1\in\mathbb{Z}$. If all $\binom{n-1}{j}$ are integers, then $\binom{n}{k}$ is a sum of two integers.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par r&eacute;currence sur $n$ gr&acirc;ce &agrave; la formule de Pascal : $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$. Pour $n=0$ : $\binom{0}{0}=1\in\mathbb{Z}$. Si les $\binom{n-1}{j}$ sont entiers, alors $\binom{n}{k}$ est somme de deux entiers.
+    </details>
+
+    <!-- Exercise 11 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\binom{2n}{n}$ is even for all $n\ge 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\binom{2n}{n}$ est pair pour tout $n\ge 1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\binom{2n}{n}=\binom{2n-1}{n-1}+\binom{2n-1}{n}=2\binom{2n-1}{n}$ by symmetry, so $\binom{2n}{n}$ is even.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\binom{2n}{n}=\binom{2n-1}{n-1}+\binom{2n-1}{n}=2\binom{2n-1}{n}$ par sym&eacute;trie, donc $\binom{2n}{n}$ est pair.
+    </details>
+
+    <!-- Exercise 12 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every integer $n$ is congruent to the sum of its digits modulo $9$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout entier $n$ est congru &agrave; la somme de ses chiffres modulo $9$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      If $n=\sum_{k=0}^{m}a_k\cdot 10^k$ (decimal expansion), then $10\equiv 1\ [9]$, so $10^k\equiv 1\ [9]$ for all $k$, hence $n\equiv\sum_{k=0}^{m}a_k\ [9]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Si $n=\sum_{k=0}^{m}a_k\cdot 10^k$ (&eacute;criture d&eacute;cimale), alors $10\equiv 1\ [9]$, donc $10^k\equiv 1\ [9]$ pour tout $k$, d'o&ugrave; $n\equiv\sum_{k=0}^{m}a_k\ [9]$.
+    </details>
+
+    <!-- Exercise 13 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $a\in\mathbb{Z}$ with $\gcd(a,10)=1$. Show that there exists a multiple of $a$ whose decimal representation consists only of $1$s.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $a\in\mathbb{Z}$ avec $\gcd(a,10)=1$. Montrer qu'il existe un multiple de $a$ dont l'&eacute;criture d&eacute;cimale ne comporte que des $1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Consider the numbers $R_k=\underbrace{11\ldots1}_{k}=\frac{10^k-1}{9}$ for $k\ge 1$. Among the first $a+1$ of them, $R_1,R_2,\ldots,R_{a+1}$, two are congruent modulo $a$ (by pigeonhole). Let $R_j\equiv R_i\ [a]$ with $j&gt;i$; then $a\mid R_j-R_i=\underbrace{11\ldots1}_{j-i}\underbrace{00\ldots0}_{i}=R_{j-i}\cdot 10^i$. Since $\gcd(a,10)=1$, we have $\gcd(a,10^i)=1$, so by Gauss $a\mid R_{j-i}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Consid&eacute;rons les nombres $R_k=\underbrace{11\ldots1}_{k}=\frac{10^k-1}{9}$ pour $k\ge 1$. Parmi les $a+1$ premiers, $R_1,R_2,\ldots,R_{a+1}$, deux d'entre eux sont congrus modulo $a$ (par le principe des tiroirs). Soit $R_j\equiv R_i\ [a]$ avec $j&gt;i$, alors $a\mid R_j-R_i=\underbrace{11\ldots1}_{j-i}\underbrace{00\ldots0}_{i}=R_{j-i}\cdot 10^i$. Comme $\gcd(a,10)=1$, on a $\gcd(a,10^i)=1$, donc par Gauss $a\mid R_{j-i}$.
+    </details>
+
+    <!-- Exercise 14 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $x,y,z\in\mathbb{Z}^*$ with $x^3+y^3=z^3$. Show that one of $x$, $y$, $z$ is divisible by $3$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $x,y,z\in\mathbb{Z}^*$ tels que $x^3+y^3=z^3$. Montrer que l'un des entiers $x$, $y$ ou $z$ est divisible par $3$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Suppose for contradiction that $3\nmid x$, $3\nmid y$, $3\nmid z$. For $n$ not divisible by $3$, $n\equiv\pm 1,\pm 2,\pm 4\ [9]$. We check: $(\pm 1)^3=\pm 1$, $(\pm 2)^3=\pm 8\equiv\mp 1$, $(\pm 4)^3=\pm 64\equiv\pm 1\ [9]$. So $n^3\equiv\pm 1\ [9]$.
+
+      Thus $x^3+y^3\in\{1+1,\, 1+(-1),\, (-1)+1,\, (-1)+(-1)\}=\{2,\, 0,\, 0,\, -2\}\ [9]$. But $z^3\equiv\pm 1\ [9]$, so $x^3+y^3\equiv\pm 1\ [9]$. This excludes all four cases ($0,\pm 2$), a contradiction. Hence $3$ divides one of $x$, $y$, $z$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Raisonnons par l'absurde : supposons $3\nmid x$, $3\nmid y$ et $3\nmid z$. Pour $n$ non divisible par $3$, on a $n\equiv\pm 1,\pm 2,\pm 4\ [9]$. On v&eacute;rifie : $(\pm 1)^3=\pm 1$, $(\pm 2)^3=\pm 8\equiv\mp 1$, $(\pm 4)^3=\pm 64\equiv\pm 1\ [9]$. Donc $n^3\equiv\pm 1\ [9]$.
+
+      Ainsi $x^3+y^3\in\{1+1,\, 1+(-1),\, (-1)+1,\, (-1)+(-1)\}=\{2,\, 0,\, 0,\, -2\}\ [9]$. Or $z^3\equiv\pm 1\ [9]$, donc $x^3+y^3\equiv\pm 1\ [9]$. Cela exclut les quatre cas ci-dessus ($0,\pm 2$), ce qui est absurde. Donc $3$ divise l'un des entiers $x$, $y$ ou $z$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    // Apply saved preference on load
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

@@ -4,6 +4,7 @@
       [
         { href: "math/bases.html", en: "Foundations", fr: "Bases" },
         { href: "math/groups.html", en: "Groups", fr: "Groupes" },
+        { href: "math/arithmetique.html", en: "Arithmetic", fr: "Arithmétique" },
       ],
       [
         { href: "math/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },

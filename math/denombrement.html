@@ -520,47 +520,6 @@
       <p class="en"><span class="thm-label">Exercise (Compositions).</span> Show that the number of ways to write $n$ as an ordered sum of positive integers is $2^{n-1}$.</p>
       <p class="fr"><span class="thm-label">Exercice (Compositions).</span> Montrer que le nombre de fa&ccedil;ons d'&eacute;crire $n$ comme somme ordonn&eacute;e d'entiers $\ge 1$ est $2^{n-1}$.</p>
     </div>
-
-    <!-- Exercise: Number of surjections -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Number of surjections).</span> Show that the number of surjections from $E$ to $F$ (with $|E|=n$ and $|F|=p$, $n \ge p$) is: $$\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$$</p>
-      <p class="fr"><span class="thm-label">Exercice (Nombre de surjections).</span> Montrer que le nombre de surjections de $E$ dans $F$ (avec $|E|=n$ et $|F|=p$, $n\ge p$) est : $$\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$$</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Proof by inclusion-exclusion:</em> Let $A_i$ be the set of maps whose image does not contain $i$. The number of non-surjections is $|\bigcup_{i=1}^p A_i| = \sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, and the result follows by subtracting from $p^n$.
-      <br>
-      <em>Proof by Pascal's inversion:</em> Denote by $S(n,j)$ the number of surjections from a set with $n$ elements onto a set with $j$ elements. Every map $f : E \to F$ has an image that is a subset of $F$ with $j$ elements, and $f$ is then a surjection onto that subset. Choosing this subset ($\binom{p}{j}$ choices) then a surjection ($S(n,j)$ choices) gives $p^n = \sum_{j=0}^{p}\binom{p}{j}S(n,j)$. By Pascal's inversion formula: $S(n,p) = \sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n = \sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>Preuve par inclusion-exclusion :</em> soit $A_i$ l'ensemble des applications dont $i$ n'est pas dans l'image. Le nombre de non-surjections est $|\bigcup_{i=1}^p A_i|=\sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, d'o&ugrave; le r&eacute;sultat en soustrayant de $p^n$.
-      <br>
-      <em>Preuve par inversion de Pascal :</em> notons $S(n,j)$ le nombre de surjections d'un ensemble &agrave; $n$ &eacute;l&eacute;ments sur un ensemble &agrave; $j$ &eacute;l&eacute;ments. Toute application $f:E\to F$ a pour image une partie de $F$ &agrave; $j$ &eacute;l&eacute;ments, et $f$ est alors une surjection sur cette partie. On choisit cette partie ($\binom{p}{j}$ choix) puis une surjection ($S(n,j)$ choix), d'o&ugrave; $p^n=\sum_{j=0}^{p}\binom{p}{j}S(n,j)$. Par la formule d'inversion de Pascal : $S(n,p)=\sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n=\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
-    </details>
-
-    <!-- Exercise: Stirling numbers of the second kind -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Stirling numbers).</span> The <em>Stirling number of the second kind</em> $S(n,k)$ is the number of partitions of a set with $n$ elements into $k$ nonempty parts. Show that: $$S(n,k) = \frac{1}{k!}\sum_{j=0}^{k}(-1)^j\binom{k}{j}(k-j)^n$$</p>
-      <p class="fr"><span class="thm-label">Exercice (Nombres de Stirling).</span> Le <em>nombre de Stirling de seconde esp&egrave;ce</em> $S(n,k)$ est le nombre de partitions d'un ensemble &agrave; $n$ &eacute;l&eacute;ments en $k$ parties non vides. Montrer que : $$S(n,k)=\frac{1}{k!}\sum_{j=0}^{k}(-1)^j\binom{k}{j}(k-j)^n$$</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      A surjection from $E$ onto $F$ induces a partition of $E$ into $|F|$ parts (the fibers), and each partition gives $k!$ surjections (by labeling the parts), hence surjections $= k! \cdot S(n,k)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Une surjection de $E$ sur $F$ induit une partition de $E$ en $|F|$ parties (les fibres), et chaque partition donne $k!$ surjections (en num&eacute;rotant les parties), d'o&ugrave; surjections $=k!\cdot S(n,k)$.
-    </details>
-
-    <!-- Exercise: Bell numbers -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Bell numbers).</span> The <em>Bell number</em> $B_n$ is the number of partitions of a set with $n$ elements (into any number of nonempty parts). Show that: $$B_n = \sum_{k=0}^{n} S(n,k)$$ and establish the recurrence $\displaystyle B_{n+1} = \sum_{k=0}^{n}\binom{n}{k}B_k$ with $B_0 = 1$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Nombres de Bell).</span> Le <em>nombre de Bell</em> $B_n$ est le nombre de partitions d'un ensemble &agrave; $n$ &eacute;l&eacute;ments (en un nombre quelconque de parties non vides). Montrer que : $$B_n=\sum_{k=0}^{n}S(n,k)$$ et &eacute;tablir la relation de r&eacute;currence $\displaystyle B_{n+1}=\sum_{k=0}^{n}\binom{n}{k}B_k$ avec $B_0=1$.</p>
-    </div>
-
     <!-- Exercise: Stirling numbers of the first kind -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise (Stirling numbers of the first kind).</span> The <em>(unsigned) Stirling number of the first kind</em> $c(n,k)$ is the number of permutations of $n$ elements having exactly $k$ cycles. Show the recurrence: $$c(n+1,k) = n \cdot c(n,k) + c(n,k-1)$$ with $c(n,n) = 1$, $c(n,0) = 0$ for $n \ge 1$, and $c(0,0) = 1$.</p>
@@ -645,6 +604,46 @@
       <summary class="proof-label">Solution.</summary>
       Soit $x\in\bigcup_{i=1}^n A_i$ et $A_{i_1},\ldots,A_{i_m}$ les ensembles tels que $x\in\bigcap_{j=1}^{m} A_{i_j}$ avec $m\ge 1$. Dans le premier terme $\sum|A_i|$, $x$ est compt&eacute; $m$ fois (une pour chaque $A_{i_j}$ le contenant). Dans le deuxi&egrave;me terme $\sum|A_i\cap A_j|$, $x$ est compt&eacute; $\binom{m}{2}$ fois (une pour chaque paire parmi $A_{i_1},\ldots,A_{i_m}$). Dans le troisi&egrave;me, $\binom{m}{3}$ fois, etc. La contribution totale de $x$ est donc : $\binom{m}{1}-\binom{m}{2}+\binom{m}{3}-\cdots+(-1)^{m-1}\binom{m}{m}=\sum_{k=1}^{m}(-1)^{k-1}\binom{m}{k}=1-(1-1)^m=1$ par la formule du bin&ocirc;me. Chaque &eacute;l&eacute;ment est bien compt&eacute; exactement une fois.
     </details>
+
+    <!-- Exercise: Number of surjections -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Number of surjections).</span> Show that the number of surjections from $E$ to $F$ (with $|E|=n$ and $|F|=p$, $n \ge p$) is: $$\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$$</p>
+      <p class="fr"><span class="thm-label">Exercice (Nombre de surjections).</span> Montrer que le nombre de surjections de $E$ dans $F$ (avec $|E|=n$ et $|F|=p$, $n\ge p$) est : $$\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Proof by inclusion-exclusion:</em> Let $A_i$ be the set of maps whose image does not contain $i$. The number of non-surjections is $|\bigcup_{i=1}^p A_i| = \sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, and the result follows by subtracting from $p^n$.
+      <br>
+      <em>Proof by Pascal's inversion:</em> Denote by $S(n,j)$ the number of surjections from a set with $n$ elements onto a set with $j$ elements. Every map $f : E \to F$ has an image that is a subset of $F$ with $j$ elements, and $f$ is then a surjection onto that subset. Choosing this subset ($\binom{p}{j}$ choices) then a surjection ($S(n,j)$ choices) gives $p^n = \sum_{j=0}^{p}\binom{p}{j}S(n,j)$. By Pascal's inversion formula: $S(n,p) = \sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n = \sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Preuve par inclusion-exclusion :</em> soit $A_i$ l'ensemble des applications dont $i$ n'est pas dans l'image. Le nombre de non-surjections est $|\bigcup_{i=1}^p A_i|=\sum_{k=1}^{p}(-1)^{k-1}\binom{p}{k}(p-k)^n$, d'o&ugrave; le r&eacute;sultat en soustrayant de $p^n$.
+      <br>
+      <em>Preuve par inversion de Pascal :</em> notons $S(n,j)$ le nombre de surjections d'un ensemble &agrave; $n$ &eacute;l&eacute;ments sur un ensemble &agrave; $j$ &eacute;l&eacute;ments. Toute application $f:E\to F$ a pour image une partie de $F$ &agrave; $j$ &eacute;l&eacute;ments, et $f$ est alors une surjection sur cette partie. On choisit cette partie ($\binom{p}{j}$ choix) puis une surjection ($S(n,j)$ choix), d'o&ugrave; $p^n=\sum_{j=0}^{p}\binom{p}{j}S(n,j)$. Par la formule d'inversion de Pascal : $S(n,p)=\sum_{k=0}^{p}(-1)^{p-k}\binom{p}{k}k^n=\sum_{k=0}^{p}(-1)^k\binom{p}{k}(p-k)^n$.
+    </details>
+
+    <!-- Exercise: Stirling numbers of the second kind -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Stirling numbers).</span> The <em>Stirling number of the second kind</em> $S(n,k)$ is the number of partitions of a set with $n$ elements into $k$ nonempty parts. Show that: $$S(n,k) = \frac{1}{k!}\sum_{j=0}^{k}(-1)^j\binom{k}{j}(k-j)^n$$</p>
+      <p class="fr"><span class="thm-label">Exercice (Nombres de Stirling).</span> Le <em>nombre de Stirling de seconde esp&egrave;ce</em> $S(n,k)$ est le nombre de partitions d'un ensemble &agrave; $n$ &eacute;l&eacute;ments en $k$ parties non vides. Montrer que : $$S(n,k)=\frac{1}{k!}\sum_{j=0}^{k}(-1)^j\binom{k}{j}(k-j)^n$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      A surjection from $E$ onto $F$ induces a partition of $E$ into $|F|$ parts (the fibers), and each partition gives $k!$ surjections (by labeling the parts), hence surjections $= k! \cdot S(n,k)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Une surjection de $E$ sur $F$ induit une partition de $E$ en $|F|$ parties (les fibres), et chaque partition donne $k!$ surjections (en num&eacute;rotant les parties), d'o&ugrave; surjections $=k!\cdot S(n,k)$.
+    </details>
+
+    <!-- Exercise: Bell numbers -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Bell numbers).</span> The <em>Bell number</em> $B_n$ is the number of partitions of a set with $n$ elements (into any number of nonempty parts). Show that: $$B_n = \sum_{k=0}^{n} S(n,k)$$ and establish the recurrence $\displaystyle B_{n+1} = \sum_{k=0}^{n}\binom{n}{k}B_k$ with $B_0 = 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Nombres de Bell).</span> Le <em>nombre de Bell</em> $B_n$ est le nombre de partitions d'un ensemble &agrave; $n$ &eacute;l&eacute;ments (en un nombre quelconque de parties non vides). Montrer que : $$B_n=\sum_{k=0}^{n}S(n,k)$$ et &eacute;tablir la relation de r&eacute;currence $\displaystyle B_{n+1}=\sum_{k=0}^{n}\binom{n}{k}B_k$ avec $B_0=1$.</p>
+    </div>
 
   </main>
 
