@@ -318,7 +318,6 @@ def debruijn_graph(reads, k):
             graph[read[i:i+k-1]].append(read[i+1:i+k])
     return graph
 
-
 def eulerian_path(graph):
     in_deg = Counter(v for vs in graph.values() for v in vs)
     out_deg = {u: len(vs) for u, vs in graph.items()}
@@ -333,7 +332,6 @@ def eulerian_path(graph):
         else:
             path.append(stack.pop())
     return path[::-1]
-
 
 def assemble(reads, k):
     path = eulerian_path(debruijn_graph(reads, k))
@@ -356,7 +354,6 @@ def assemble(reads, k):
 
     <pre><code class="language-python">STOP_CODONS = {'TAA', 'TAG', 'TGA'}
 
-
 def find_orfs(seq, min_codons=100):
     orfs = []
     for frame in range(3):
@@ -372,10 +369,8 @@ def find_orfs(seq, min_codons=100):
                 orfs.append((frame + start * 3, frame + (stop + 1) * 3, frame))
     return orfs
 
-
 def reverse_complement(seq):
     return seq.translate(str.maketrans('ACGT', 'TGCA'))[::-1]
-
 
 def find_all_orfs(seq, min_codons=100):
     rc = reverse_complement(seq)
@@ -427,14 +422,12 @@ def find_all_orfs(seq, min_codons=100):
 
     <pre><code class="language-python">from math import log
 
-
 def genotype_likelihoods(n, k, error=1e-3):
     return {
         'RR': (n-k) * log(1 - error) + k * log(error),
         'RA': n * log(0.5),
         'AA': k * log(1 - error) + (n-k) * log(error),
     }
-
 
 def call_genotype(n, k, error=1e-3):
     lls = genotype_likelihoods(n, k, error)
@@ -471,11 +464,9 @@ def call_genotype(n, k, error=1e-3):
 
     <pre><code class="language-python">from math import log, inf
 
-
 def jukes_cantor(s1, s2):
     p = sum(a != b for a, b in zip(s1, s2)) / len(s1)
     return -0.75 * log(1 - 4 * p / 3) if p < 0.75 else inf
-
 
 def upgma(seqs):
     n = len(seqs)
