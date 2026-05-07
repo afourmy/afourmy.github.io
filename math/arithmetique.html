@@ -467,7 +467,22 @@
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
-    <!-- Exercise 1 -->
+    <!-- Exercise 1: sqrt(2) irrational -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\sqrt{2}$ is irrational.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\sqrt{2}$ est irrationnel.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By contradiction, suppose $\sqrt{2}=\frac{p}{q}$ with $p,q\in\mathbb{N}^*$ and $\gcd(p,q)=1$. Then $p^2=2q^2$, so $p^2$ is even, hence $p$ is even: $p=2k$. Then $4k^2=2q^2$, i.e. $q^2=2k^2$, so $q$ is even. Contradiction with $\gcd(p,q)=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par l'absurde, supposons $\sqrt{2}=\frac{p}{q}$ avec $p,q\in\mathbb{N}^*$ et $\gcd(p,q)=1$. Alors $p^2=2q^2$, donc $p^2$ est pair, donc $p$ est pair : $p=2k$. Alors $4k^2=2q^2$, soit $q^2=2k^2$, donc $q$ est pair. Contradiction avec $\gcd(p,q)=1$.
+    </details>
+
+    <!-- Exercise 2 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that for all $n\in\mathbb{N}^*$, $\gcd(n,n+1)=1$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $n\in\mathbb{N}^*$, $\gcd(n,n+1)=1$.</p>
@@ -497,7 +512,7 @@
       Comme $p\ge 3$, $p$ est impair. Modulo $4$, les restes possibles sont $0,1,2,3$. Les restes pairs ($0$ et $2$) donnent $p$ pair, impossible. Restent $1$ et $3$.
     </details>
 
-    <!-- Exercise 3 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that there are infinitely many primes of the form $4k+3$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il existe une infinit&eacute; de nombres premiers de la forme $4k+3$.</p>
@@ -512,7 +527,7 @@
       Supposons qu'il n'en existe qu'un nombre fini : $p_1,\ldots,p_r$. Soit $N=4p_1\cdots p_r-1\equiv 3\ [4]$. Comme $N$ est impair, ses diviseurs premiers sont de la forme $4k+1$ ou $4k+3$. S'ils &eacute;taient tous de la forme $4k+1$, $N$ le serait aussi (car $(4a+1)(4b+1)=4(4ab+a+b)+1$), ce qui contredit $N\equiv 3\ [4]$. Donc $N$ admet un diviseur premier $p\equiv 3\ [4]$. Ce $p$ est l'un des $p_i$, donc $p\mid 4p_1\cdots p_r$, d'o&ugrave; $p\mid 4p_1\cdots p_r-N=1$, absurde.
     </details>
 
-    <!-- Exercise 4 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $\gcd(a,b)=\gcd(a,a+b)$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\gcd(a,b)=\gcd(a,a+b)$.</p>
@@ -527,7 +542,7 @@
       Soit $d$ un diviseur commun &agrave; $a$ et $b$. Alors $d\mid a+(b)=a+b$, donc $d$ divise $a$ et $a+b$. R&eacute;ciproquement, si $d$ divise $a$ et $a+b$, alors $d\mid(a+b)-a=b$. Les ensembles de diviseurs communs sont identiques, donc les PGCD sont &eacute;gaux.
     </details>
 
-    <!-- Exercise 5 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that if $2^n-1$ is prime, then $n$ is prime.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $2^n-1$ est premier, alors $n$ est premier.</p>
@@ -542,7 +557,7 @@
       Contrapos&eacute;e : si $n=ab$ avec $a,b\ge 2$, alors $2^n-1=2^{ab}-1=(2^a)^b-1=(2^a-1)(1+2^a+2^{2a}+\cdots+2^{(b-1)a})$. Comme $2^a-1\ge 3$ et le second facteur $\ge 1+2^a\ge 5$, on a $2^n-1$ compos&eacute;.
     </details>
 
-    <!-- Exercise 6 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Compute $\gcd(325,110)$ and find a B&eacute;zout relation using the extended Euclidean algorithm.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer $\gcd(325,110)$ et trouver une relation de B&eacute;zout &agrave; l'aide de l'algorithme d'Euclide &eacute;tendu.</p>
@@ -561,7 +576,7 @@
       <em>Remont&eacute;e de l'algorithme (B&eacute;zout).</em> On exprime $5$ en remontant les divisions : $5=110-1\times 105=110-1\times(325-2\times 110)=3\times 110-1\times 325$. D'o&ugrave; la relation de B&eacute;zout : $325\times(-1)+110\times 3=5$.
     </details>
 
-    <!-- Exercise 7 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Solve in $\mathbb{Z}$ the equation $15x+12y=9$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre dans $\mathbb{Z}$ l'&eacute;quation $15x+12y=9$.</p>
@@ -576,7 +591,7 @@
       $\gcd(15,12)=3$ et $3\mid 9$, donc il existe des solutions. On simplifie : $5x+4y=3$. Modulo $4$ : $5x\equiv 3\ [4]$, i.e. $x\equiv 3\ [4]$, donc $x=3+4k$. Alors $y=\frac{3-5(3+4k)}{4}=-3-5k$. Les solutions sont $(x,y)=(3+4k,-3-5k)$ pour $k\in\mathbb{Z}$.
     </details>
 
-    <!-- Exercise 8 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Solve $3x\equiv 7\ [11]$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $3x\equiv 7\ [11]$.</p>
@@ -591,7 +606,7 @@
       Comme $\gcd(3,11)=1$, $3$ est inversible modulo $11$. Or $3\times 4=12\equiv 1\ [11]$, donc $3^{-1}\equiv 4\ [11]$. D'o&ugrave; $x\equiv 4\times 7\equiv 28\equiv 6\ [11]$.
     </details>
 
-    <!-- Exercise 9 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that for all $n\ge 1$ and $a\in\mathbb{N}^*$, $n!\mid\prod_{k=0}^{n-1}(a+k)$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $n\ge 1$ et tout $a\in\mathbb{N}^*$, $n!\mid\prod_{k=0}^{n-1}(a+k)$.</p>
@@ -606,7 +621,7 @@
       $\prod_{k=0}^{n-1}(a+k)=\dfrac{(a+n-1)!}{(a-1)!}=n!\binom{a+n-1}{n}\in n!\mathbb{Z}$.
     </details>
 
-    <!-- Exercise 10 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $\binom{n}{k}\in\mathbb{N}$ for all $0\le k\le n$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\binom{n}{k}\in\mathbb{N}$ pour tout $0\le k\le n$.</p>
@@ -621,7 +636,7 @@
       Par r&eacute;currence sur $n$ gr&acirc;ce &agrave; la formule de Pascal : $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$. Pour $n=0$ : $\binom{0}{0}=1\in\mathbb{Z}$. Si les $\binom{n-1}{j}$ sont entiers, alors $\binom{n}{k}$ est somme de deux entiers.
     </details>
 
-    <!-- Exercise 11 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $\binom{2n}{n}$ is even for all $n\ge 1$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\binom{2n}{n}$ est pair pour tout $n\ge 1$.</p>
@@ -636,7 +651,7 @@
       $\binom{2n}{n}=\binom{2n-1}{n-1}+\binom{2n-1}{n}=2\binom{2n-1}{n}$ par sym&eacute;trie, donc $\binom{2n}{n}$ est pair.
     </details>
 
-    <!-- Exercise 12 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that every integer $n$ is congruent to the sum of its digits modulo $9$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout entier $n$ est congru &agrave; la somme de ses chiffres modulo $9$.</p>
@@ -651,7 +666,7 @@
       Si $n=\sum_{k=0}^{m}a_k\cdot 10^k$ (&eacute;criture d&eacute;cimale), alors $10\equiv 1\ [9]$, donc $10^k\equiv 1\ [9]$ pour tout $k$, d'o&ugrave; $n\equiv\sum_{k=0}^{m}a_k\ [9]$.
     </details>
 
-    <!-- Exercise 13 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $a\in\mathbb{Z}$ with $\gcd(a,10)=1$. Show that there exists a multiple of $a$ whose decimal representation consists only of $1$s.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $a\in\mathbb{Z}$ avec $\gcd(a,10)=1$. Montrer qu'il existe un multiple de $a$ dont l'&eacute;criture d&eacute;cimale ne comporte que des $1$.</p>
@@ -666,7 +681,7 @@
       Consid&eacute;rons les nombres $R_k=\underbrace{11\ldots1}_{k}=\frac{10^k-1}{9}$ pour $k\ge 1$. Parmi les $a+1$ premiers, $R_1,R_2,\ldots,R_{a+1}$, deux d'entre eux sont congrus modulo $a$ (par le principe des tiroirs). Soit $R_j\equiv R_i\ [a]$ avec $j&gt;i$, alors $a\mid R_j-R_i=\underbrace{11\ldots1}_{j-i}\underbrace{00\ldots0}_{i}=R_{j-i}\cdot 10^i$. Comme $\gcd(a,10)=1$, on a $\gcd(a,10^i)=1$, donc par Gauss $a\mid R_{j-i}$.
     </details>
 
-    <!-- Exercise 14 -->
+    <!-- Exercise 15 -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $x,y,z\in\mathbb{Z}^*$ with $x^3+y^3=z^3$. Show that one of $x$, $y$, $z$ is divisible by $3$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soient $x,y,z\in\mathbb{Z}^*$ tels que $x^3+y^3=z^3$. Montrer que l'un des entiers $x$, $y$ ou $z$ est divisible par $3$.</p>
