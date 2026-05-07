@@ -145,9 +145,8 @@
 
     <pre><code class="language-python">def needleman_wunsch(a, b, match=1, mismatch=-1, gap=-1):
     m, n = len(a), len(b)
-    dp = [[0] * (n + 1) for _ in range(m + 1)]
-    for i in range(m + 1): dp[i][0] = i * gap
-    for j in range(n + 1): dp[0][j] = j * gap
+    dp = [[i * gap] + [0] * n for i in range(m + 1)]
+    dp[0] = [j * gap for j in range(n + 1)]
     for i in range(1, m + 1):
         for j in range(1, n + 1):
             sub = match if a[i-1] == b[j-1] else mismatch
@@ -215,10 +214,8 @@
     </div>
 
     <pre><code class="language-python">def overlap(r1, r2, min_len):
-    for k in range(min(len(r1), len(r2)), min_len - 1, -1):
-        if r1[-k:] == r2[:k]:
-            return k
-    return 0
+    return next((k for k in range(min(len(r1), len(r2)), min_len - 1, -1)
+                 if r1[-k:] == r2[:k]), 0)
 
 def overlap_graph(reads, min_len):
     return {
@@ -237,7 +234,7 @@ def overlap_graph(reads, min_len):
       <p class="fr"><span class="thm-label">Proposition (Condition de chemin eulérien dans les graphes de de Bruijn).</span> Un graphe orienté admet un chemin eulérien si et seulement si le graphe est connexe (sur les sommets de degré non nul) et au plus un sommet vérifie $\text{degré sortant} - \text{degré entrant} = 1$ (le départ), au plus un vérifie $\text{degré entrant} - \text{degré sortant} = 1$ (l'arrivée), et tous les autres ont des degrés entrant et sortant égaux. Dans un graphe de de Bruijn construit à partir d'un génome linéaire unique sans erreurs de séquençage et avec une couverture suffisante, exactement ces conditions sont satisfaites. Les répétitions et les erreurs créent des arêtes supplémentaires qui violent la condition d'équilibre, produisant un graphe non eulérien dont la résolution nécessite des informations supplémentaires.</p>
     </div>
 
-    <pre><code class="language-python">from collections import defaultdict
+    <pre><code class="language-python">from collections import Counter, defaultdict
 
 def debruijn_graph(reads, k):
     graph = defaultdict(list)
@@ -247,11 +244,9 @@ def debruijn_graph(reads, k):
     return graph
 
 def eulerian_path(graph):
-    in_deg  = defaultdict(int)
+    in_deg  = Counter(v for vs in graph.values() for v in vs)
     out_deg = {u: len(vs) for u, vs in graph.items()}
-    for vs in graph.values():
-        for v in vs: in_deg[v] += 1
-    start = next((u for u in graph if out_deg[u] - in_deg[u] == 1), next(iter(graph)))
+    start   = next((u for u in graph if out_deg[u] - in_deg[u] == 1), next(iter(graph)))
     adj = {u: list(vs) for u, vs in graph.items()}
     stack, path = [start], []
     while stack:
