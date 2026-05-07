@@ -465,6 +465,25 @@
       <em>Preuve combinatoire :</em> on compte les triplets $(A,a,b)$ o&ugrave; $A\subseteq\llbracket 1,n\rrbracket$ et $(a,b)\in A^2$ (couple ordonn&eacute;). Si $a=b$ : $n$ choix pour $a$, puis $2^{n-1}$ pour le reste de $A$, soit $n\cdot 2^{n-1}$. Si $a\neq b$ : $n(n-1)$ choix pour $(a,b)$, puis $2^{n-2}$, soit $n(n-1)\cdot 2^{n-2}$. Total : $n(n+1)2^{n-2}$.
     </details>
 
+    <!-- Exercise: A cup B = E -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $E$ be a set with $n$ elements. Determine the number of pairs $(A,B) \in \mathcal{P}(E)^2$ such that $A \cup B = E$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $E$ un ensemble &agrave; $n$ &eacute;l&eacute;ments. D&eacute;terminer le nombre de couples $(A,B)\in\mathcal{P}(E)^2$ tels que $A\cup B=E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Method 1:</em> For each $x \in E$, the condition $A \cup B = E$ requires $x \in A$ or $x \in B$ (or both). The possible cases for $x$ are: $x \in A \setminus B$, $x \in B \setminus A$, or $x \in A \cap B$, giving $3$ choices per element. The choices being independent, we get $3^n$ pairs.
+      <br>
+      <em>Method 2:</em> We classify by $A$. If $|A| = k$, there are $\binom{n}{k}$ choices for $A$. For $A \cup B = E$, $B$ must contain the $n-k$ elements of $E \setminus A$, and may or may not contain each of the $k$ elements of $A$, giving $2^k$ choices for $B$. The total is $\sum_{k=0}^{n}\binom{n}{k}2^k = (1+2)^n = 3^n$ by the binomial theorem.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Preuve 1 :</em> pour chaque $x\in E$, la condition $A\cup B=E$ impose $x\in A$ ou $x\in B$ (ou les deux). Les cas possibles pour $x$ sont : $x\in A\setminus B$, $x\in B\setminus A$, ou $x\in A\cap B$, soit $3$ choix par &eacute;l&eacute;ment. Les choix &eacute;tant ind&eacute;pendants d'un &eacute;l&eacute;ment &agrave; l'autre, on obtient $3^n$ couples.
+      <br>
+      <em>Preuve 2 :</em> on classe selon $A$. Si $|A|=k$, il y a $\binom{n}{k}$ choix pour $A$. Pour que $A\cup B=E$, $B$ doit contenir les $n-k$ &eacute;l&eacute;ments de $E\setminus A$, et peut contenir ou non chacun des $k$ &eacute;l&eacute;ments de $A$, soit $2^k$ choix pour $B$. Le total est $\sum_{k=0}^{n}\binom{n}{k}2^k=(1+2)^n=3^n$ par la formule du bin&ocirc;me.
+    </details>
+
     <!-- Exercise: Sum |A cap B| and |A cup B| -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $E$ be a set with $n$ elements. Compute $\displaystyle\sum_{(A,B) \in \mathcal{P}(E)^2} |A \cap B|$ and $\displaystyle\sum_{(A,B) \in \mathcal{P}(E)^2} |A \cup B|$.</p>
@@ -555,26 +574,6 @@
       <summary class="proof-label">Solution.</summary>
       On compte les paires $(\sigma,x)$ o&ugrave; $x$ est un point fixe de $\sigma$. Pour chaque $x$, le nombre de $\sigma$ fixant $x$ est $(n-1)!$, soit $n\cdot(n-1)!=n!$ paires au total.
     </details>
-
-    <!-- Exercise: A cup B = E -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $E$ be a set with $n$ elements. Determine the number of pairs $(A,B) \in \mathcal{P}(E)^2$ such that $A \cup B = E$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $E$ un ensemble &agrave; $n$ &eacute;l&eacute;ments. D&eacute;terminer le nombre de couples $(A,B)\in\mathcal{P}(E)^2$ tels que $A\cup B=E$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Method 1:</em> For each $x \in E$, the condition $A \cup B = E$ requires $x \in A$ or $x \in B$ (or both). The possible cases for $x$ are: $x \in A \setminus B$, $x \in B \setminus A$, or $x \in A \cap B$, giving $3$ choices per element. The choices being independent, we get $3^n$ pairs.
-      <br>
-      <em>Method 2:</em> We classify by $A$. If $|A| = k$, there are $\binom{n}{k}$ choices for $A$. For $A \cup B = E$, $B$ must contain the $n-k$ elements of $E \setminus A$, and may or may not contain each of the $k$ elements of $A$, giving $2^k$ choices for $B$. The total is $\sum_{k=0}^{n}\binom{n}{k}2^k = (1+2)^n = 3^n$ by the binomial theorem.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>Preuve 1 :</em> pour chaque $x\in E$, la condition $A\cup B=E$ impose $x\in A$ ou $x\in B$ (ou les deux). Les cas possibles pour $x$ sont : $x\in A\setminus B$, $x\in B\setminus A$, ou $x\in A\cap B$, soit $3$ choix par &eacute;l&eacute;ment. Les choix &eacute;tant ind&eacute;pendants d'un &eacute;l&eacute;ment &agrave; l'autre, on obtient $3^n$ couples.
-      <br>
-      <em>Preuve 2 :</em> on classe selon $A$. Si $|A|=k$, il y a $\binom{n}{k}$ choix pour $A$. Pour que $A\cup B=E$, $B$ doit contenir les $n-k$ &eacute;l&eacute;ments de $E\setminus A$, et peut contenir ou non chacun des $k$ &eacute;l&eacute;ments de $A$, soit $2^k$ choix pour $B$. Le total est $\sum_{k=0}^{n}\binom{n}{k}2^k=(1+2)^n=3^n$ par la formule du bin&ocirc;me.
-    </details>
-
     <!-- Exercise: Inversions -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise (Inversions).</span> An <em>inversion</em> of a permutation $\sigma \in \mathfrak{S}_n$ is a pair $(i,j)$ with $1 \le i &lt; j \le n$ and $\sigma(i) > \sigma(j)$. Compute $\displaystyle\sum_{\sigma \in \mathfrak{S}_n} \mathrm{inv}(\sigma)$, where $\mathrm{inv}(\sigma)$ denotes the number of inversions of $\sigma$.</p>
