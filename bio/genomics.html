@@ -338,12 +338,11 @@ def find_all_orfs(seq, min_codons=100):
     <pre><code class="language-python">from math import log
 
 def genotype_likelihoods(n, k, error=1e-3):
-    """Log-likelihoods for RR, RA, AA given n reads with k alt observations."""
-    ref, alt = n - k, k
-    ll_RR = ref * log(1 - error) + alt * log(error)
-    ll_RA = n * log(0.5)
-    ll_AA = alt * log(1 - error) + ref * log(error)
-    return {'RR': ll_RR, 'RA': ll_RA, 'AA': ll_AA}
+    return {
+        'RR': (n-k) * log(1 - error) + k * log(error),
+        'RA': n * log(0.5),
+        'AA': k * log(1 - error) + (n-k) * log(error),
+    }
 
 def call_genotype(n, k, error=1e-3):
     lls = genotype_likelihoods(n, k, error)
@@ -385,29 +384,22 @@ def jukes_cantor(s1, s2):
     return -0.75 * log(1 - 4 * p / 3) if p < 0.75 else inf
 
 def upgma(seqs):
-    """Build a UPGMA tree. Returns list of merge steps (i, j, distance, new_label)."""
-    labels = list(range(len(seqs)))
-    clusters = {i: [i] for i in labels}
-    dist = {(i, j): jukes_cantor(seqs[i], seqs[j])
-            for i in labels for j in labels if i < j}
-    merges, next_id = [], len(seqs)
+    n = len(seqs)
+    clusters = {i: [i] for i in range(n)}
+    dist = {(i, j): jukes_cantor(seqs[i], seqs[j]) for i in range(n) for j in range(i+1, n)}
+    merges, next_id = [], n
     while len(clusters) > 1:
-        # find closest pair
-        i, j = min(((i, j) for i in clusters for j in clusters if i < j),
-                   key=lambda p: dist[p] if p in dist else dist[p[::-1]])
-        d = dist.get((i, j), dist.get((j, i)))
-        merges.append((i, j, d / 2, next_id))
-        # merge: update distances as averages
-        new_cluster = clusters[i] + clusters[j]
-        for k in clusters:
-            if k in (i, j): continue
-            di = dist.get((min(i,k), max(i,k)))
-            dj = dist.get((min(j,k), max(j,k)))
-            dist[(min(next_id,k), max(next_id,k))] = (
-                len(clusters[i]) * di + len(clusters[j]) * dj
-            ) / len(new_cluster)
+        i, j = min(dist, key=dist.get)
+        merges.append((i, j, dist[i, j] / 2, next_id))
+        new = clusters[i] + clusters[j]
+        for k in set(clusters) - {i, j}:
+            dist[min(next_id,k), max(next_id,k)] = (
+                len(clusters[i]) * dist[min(i,k), max(i,k)] +
+                len(clusters[j]) * dist[min(j,k), max(j,k)]
+            ) / len(new)
+        dist = {p: d for p, d in dist.items() if i not in p and j not in p}
         del clusters[i], clusters[j]
-        clusters[next_id] = new_cluster
+        clusters[next_id] = new
         next_id += 1
     return merges</code></pre>
 
