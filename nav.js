@@ -58,7 +58,7 @@
   for (var m = 0; m < menu.length; m++) {
     var item = menu[m];
     html += '<div class="nav-item">';
-    html += '<a href="#" class="nav-link" data-en="' + esc(item.en) + '" data-fr="' + esc(item.fr) + '">' + esc(item.en) + '</a>';
+    html += '<a href="#" class="nav-link" data-en="' + esc(item.en) + '" data-fr="' + esc(item.fr) + '" onclick="return false;">' + esc(item.en) + '</a>';
     html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
     for (var c = 0; c < item.columns.length; c++) {
       html += '<ul class="submenu-col">';
