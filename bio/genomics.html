@@ -283,30 +283,24 @@ def assemble(reads, k):
     <pre><code class="language-python">STOP_CODONS = {'TAA', 'TAG', 'TGA'}
 
 def find_orfs(seq, min_codons=100):
-    """Find all ORFs on the forward strand of seq."""
     orfs = []
     for frame in range(3):
-        i = frame
-        while i + 3 <= len(seq):
-            if seq[i:i+3] == 'ATG':
-                for j in range(i + 3, len(seq) - 2, 3):
-                    if seq[j:j+3] in STOP_CODONS:
-                        if (j - i) // 3 >= min_codons:
-                            orfs.append((i, j + 3, frame))
-                        break
-            i += 3
+        codons = [seq[i:i+3] for i in range(frame, len(seq) - 2, 3)]
+        starts = [i for i, c in enumerate(codons) if c == 'ATG']
+        for start in starts:
+            stop = next((i for i in range(start + 1, len(codons)) if codons[i] in STOP_CODONS), None)
+            if stop and stop - start >= min_codons:
+                orfs.append((frame + start * 3, frame + (stop + 1) * 3, frame))
     return orfs
 
 def reverse_complement(seq):
-    comp = str.maketrans('ACGT', 'TGCA')
-    return seq.translate(comp)[::-1]
+    return seq.translate(str.maketrans('ACGT', 'TGCA'))[::-1]
 
 def find_all_orfs(seq, min_codons=100):
-    forward = find_orfs(seq, min_codons)
     rc = reverse_complement(seq)
     reverse = [(len(seq) - e, len(seq) - s, frame + 3)
                for s, e, frame in find_orfs(rc, min_codons)]
-    return forward + reverse</code></pre>
+    return find_orfs(seq, min_codons) + reverse</code></pre>
 
     <div class="thm-block remark">
       <p class="en"><span class="thm-label">Ab initio gene prediction.</span> In eukaryotes, gene structure is complex: exons (coding), introns (non-coding, spliced out), UTRs, and splice signals. <em>Ab initio</em> predictors (Augustus, GeneMark) model these signals using <em>hidden Markov models</em> (HMMs). States represent genomic features (exon, intron, intergenic, splice donor, splice acceptor), and emission probabilities capture codon usage bias and splice consensus sequences. The Viterbi algorithm finds the most likely state sequence — and hence the most likely gene structure — in $O(n \cdot |S|^2)$ time, where $|S|$ is the number of states.</p>
