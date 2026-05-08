@@ -91,6 +91,24 @@
       Write $n = \sum_{i=0}^{k} d_i \cdot 10^i$. Since $10 \equiv 1 \pmod{9}$, we have $10^i \equiv 1 \pmod{9}$ for all $i$, so $n \equiv \sum_{i=0}^{k} d_i \pmod{9}$. Thus $9 \mid n \iff 9 \mid \sum d_i$, and since $3 \mid 9$, the same holds for 3.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that the sum of 3 consecutive perfect squares cannot be a perfect square.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      $(n-1)^2 + n^2 + (n+1)^2 = 3n^2 + 2$. Suppose $3n^2 + 2 = k^2$. Then $k^2 \equiv 2 \pmod{3}$. But squares mod 3 are only 0 or 1, a contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> If $a$ and $b$ satisfy $\frac{a+b}{a} = \frac{b}{a+b}$, show that $a$ and $b$ cannot both be real.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Cross-multiplying gives $(a+b)^2 = ab$, i.e. $a^2 + ab + b^2 = 0$. If $b = 0$ then $a = 0$, making the fractions undefined. Otherwise dividing by $b^2$ and setting $t = a/b$ gives $t^2 + t + 1 = 0$, whose discriminant is $-3 < 0$, so there are no real solutions.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
