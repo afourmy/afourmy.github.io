@@ -109,6 +109,24 @@
       Cross-multiplying gives $(a+b)^2 = ab$, i.e. $a^2 + ab + b^2 = 0$. Seen as a quadratic in $a$, its discriminant is $b^2 - 4b^2 = -3b^2 \leq 0$, with equality only when $b = 0$, which forces $a = 0$ and makes the fractions undefined. So there are no valid real solutions.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> If an integer $q$ can be expressed as the sum of two integer squares, show that $2q$ can as well.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      If $q = a^2 + b^2$, then $(a+b)^2 + (a-b)^2 = 2a^2 + 2b^2 = 2q$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\lfloor 2x \rfloor + \lfloor 2y \rfloor \geq \lfloor x \rfloor + \lfloor y \rfloor + \lfloor x+y \rfloor$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Let $\alpha = \{x\}$, $\beta = \{y\}$. Since $\lfloor 2t \rfloor = 2\lfloor t \rfloor + \lfloor 2\{t\} \rfloor$ and $\lfloor x+y \rfloor = \lfloor x \rfloor + \lfloor y \rfloor + \lfloor \alpha + \beta \rfloor$, the inequality reduces to $\lfloor 2\alpha \rfloor + \lfloor 2\beta \rfloor \geq \lfloor \alpha + \beta \rfloor$. If $\lfloor \alpha + \beta \rfloor = 0$ this is trivial. If $\lfloor \alpha + \beta \rfloor = 1$, then $\alpha + \beta \geq 1$, so $\alpha \geq \frac{1}{2}$ or $\beta \geq \frac{1}{2}$, giving $\lfloor 2\alpha \rfloor + \lfloor 2\beta \rfloor \geq 1$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
