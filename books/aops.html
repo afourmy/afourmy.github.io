@@ -68,7 +68,18 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Suppose $p_1 \cdots p_n + 1 = k^2$. Since the product contains the factor 2, it is even, so $k^2$ is odd, hence $k$ is odd. Writing $k = 2m+1$, we get $k^2 = 4m^2 + 4m + 1 = 4m(m+1) + 1 \equiv 1 \pmod{4}$, which forces $p_1 \cdots p_n \equiv 0 \pmod{4}$. Since 2 appears exactly once in the product, $p_1 \cdots p_n \equiv 2 \pmod{4}$, a contradiction.</p>
+      <em>Method 1 (2-adic valuation):</em> Suppose $p_1 \cdots p_n + 1 = k^2$, so $p_1 \cdots p_n = (k-1)(k+1)$. Since $p_1 = 2$, the left side is even, so $(k-1)(k+1)$ is even. As $k-1$ and $k+1$ have the same parity, they must both be even, giving $v_2((k-1)(k+1)) \geq 2$. But $v_2(p_1 \cdots p_n) = 1$ since 2 appears exactly once, a contradiction.
+      <br>
+      <em>Method 2 (mod 4):</em> Suppose $p_1 \cdots p_n + 1 = k^2$. Since the product is even, $k$ is odd. Writing $k = 2m+1$, we get $k^2 = 4m(m+1) + 1 \equiv 1 \pmod{4}$, which forces $p_1 \cdots p_n \equiv 0 \pmod{4}$. But $p_1 \cdots p_n \equiv 2 \pmod{4}$, a contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that a number is divisible by 4 (resp. 8) if and only if its last 2 (resp. 3) digits are.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Any integer $n$ can be written as $n = 100q + r$ where $r$ is the number formed by its last 2 digits. Since $4 \mid 100$, we have $4 \mid n \iff 4 \mid r$. Similarly, $n = 1000q + r'$ where $r'$ is the last 3 digits, and since $8 \mid 1000$, we have $8 \mid n \iff 8 \mid r'$.
     </details>
 
     <h2>Volume 2</h2>
