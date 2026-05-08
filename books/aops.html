@@ -82,6 +82,15 @@
       Any integer $n$ can be written as $n = 100q + r$ where $r$ is the number formed by its last 2 digits. Since $4 \mid 100$, we have $4 \mid n \iff 4 \mid r$. Similarly, $n = 1000q + r'$ where $r'$ is the last 3 digits, and since $8 \mid 1000$, we have $8 \mid n \iff 8 \mid r'$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that a number is divisible by 3 (resp. 9) if and only if the sum of its digits is.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Write $n = \sum_{i=0}^{k} d_i \cdot 10^i$. Since $10 \equiv 1 \pmod{9}$, we have $10^i \equiv 1 \pmod{9}$ for all $i$, so $n \equiv \sum_{i=0}^{k} d_i \pmod{9}$. Thus $9 \mid n \iff 9 \mid \sum d_i$, and since $3 \mid 9$, the same holds for 3.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
