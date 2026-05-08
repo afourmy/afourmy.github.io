@@ -127,6 +127,32 @@
       Let $\alpha = \{x\}$, $\beta = \{y\}$. Since $\lfloor 2t \rfloor = 2\lfloor t \rfloor + \lfloor 2\{t\} \rfloor$ and $\lfloor x+y \rfloor = \lfloor x \rfloor + \lfloor y \rfloor + \lfloor \alpha + \beta \rfloor$, the inequality reduces to $\lfloor 2\alpha \rfloor + \lfloor 2\beta \rfloor \geq \lfloor \alpha + \beta \rfloor$. If $\lfloor \alpha + \beta \rfloor = 0$ this is trivial. If $\lfloor \alpha + \beta \rfloor = 1$, then $\alpha + \beta \geq 1$, so $\alpha \geq \frac{1}{2}$ or $\beta \geq \frac{1}{2}$, giving $\lfloor 2\alpha \rfloor + \lfloor 2\beta \rfloor \geq 1$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find a closed form for the sum $S = a + (a+d) + (a+2d) + \cdots + (a+(n-1)d)$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Write $S$ in two ways:
+      $$S = a \quad\quad + (a+d) \quad + \cdots + (a+(n-1)d)$$
+      $$S = (a+(n-1)d) + (a+(n-2)d) + \cdots + a$$
+      Adding term by term, each pair sums to $2a + (n-1)d$, and there are $n$ such pairs, so $2S = n(2a+(n-1)d)$, giving:
+      $$S = \frac{n}{2}(2a + (n-1)d)$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find a closed form for the sum $S = a + ar + ar^2 + \cdots + ar^{n-1}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Multiply $S$ by $r$: $Sr = ar + ar^2 + \cdots + ar^n$. Subtracting:
+      $$S - Sr = a - ar^n$$
+      $$S(1-r) = a(1-r^n)$$
+      $$S = \frac{a(1-r^n)}{1-r} \quad (r \neq 1)$$
+      If $r = 1$, then $S = na$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
