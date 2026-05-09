@@ -198,6 +198,15 @@
       Since the dice are indistinguishable, $(a, b)$ and $(b, a)$ count as the same outcome. There are 6 doubles (both dice equal) and $\binom{6}{2} = 15$ outcomes with distinct values, for a total of $6 + 15 = 21$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A word consists of $n$ letters, where letter $i$ appears $k_i$ times, with $k_1 + \cdots + k_r = n$. Find a closed form for the number of distinct arrangements of this word.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      If all $n$ letters were distinct there would be $n!$ arrangements. Since permuting the $k_i$ copies of letter $i$ among themselves yields no new arrangement, we divide by $k_i!$ for each $i$, giving $\frac{n!}{k_1!\, k_2!\, \cdots\, k_r!}$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
