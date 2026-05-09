@@ -326,6 +326,19 @@
       <em>Method 2 (prime factorization):</em> Write $n = p_1^{a_1} \cdots p_k^{a_k}$. The number of divisors is $\tau(n) = (a_1+1)\cdots(a_k+1)$. This product is odd iff every factor $(a_i+1)$ is odd, iff every $a_i$ is even, iff $n$ is a perfect square.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $n^5 - n$ is divisible by 10 for all integers $n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Factor: $n^5 - n = n(n-1)(n+1)(n^2+1)$. It suffices to show divisibility by 2 and 5.
+      <br>
+      Divisibility by 2: $(n-1)n$ is a product of 2 consecutive integers, hence even.
+      <br>
+      Divisibility by 5: <em>Method 1 (Fermat):</em> $n^5 \equiv n \pmod{5}$ by Fermat's little theorem. <em>Method 2 (cases mod 5):</em> if $n \equiv 0, 1, 4 \pmod{5}$ then one of $n, n-1, n+1$ is divisible by 5. If $n \equiv 2$ or $3 \pmod{5}$, then $n^2 \equiv 4 \pmod{5}$ so $n^2 + 1 \equiv 0 \pmod{5}$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
