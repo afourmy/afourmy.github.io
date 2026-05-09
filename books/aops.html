@@ -225,6 +225,51 @@
       Count each type of intersection separately. Line-line: each pair of lines meets in at most 1 point, and there are $\binom{5}{2} = 10$ pairs, giving 10 points. Circle-circle: 2 circles meet in at most 2 points, giving 2. Line-circle: each of the 5 lines meets each of the 2 circles in at most 2 points, giving $5 \times 2 \times 2 = 20$. Total: $10 + 2 + 20 = \mathbf{32}$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A 5-card hand is dealt from a standard 52-card deck. What is the probability that it contains exactly two aces?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Choose 2 aces from 4 and 3 non-aces from the remaining 48: $\frac{\binom{4}{2}\binom{48}{3}}{\binom{52}{5}}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A 4-digit number not beginning with 0 is chosen at random. What is the probability that all 4 digits are distinct?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      There are $9 \times 10^3$ valid 4-digit numbers. For all digits distinct: 9 choices for the first digit (1–9), then 9, 8, 7 for the remaining, giving $\frac{9 \times 9 \times 8 \times 7}{9 \times 10^3}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A 5-card hand is dealt from a standard 52-card deck. What is the probability that it contains exactly one pair (two cards of the same value, with the other three cards all of different values)?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Choose the pair value (13 ways), its 2 suits ($\binom{4}{2}$), the 3 remaining values from the other 12 ($\binom{12}{3}$), and a suit for each ($4^3$), giving $\frac{13 \cdot \binom{4}{2} \cdot \binom{12}{3} \cdot 4^3}{\binom{52}{5}}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A box contains 3 red balls and 3 green balls. Two balls are drawn one after the other without replacement. What is the probability that the first is red and the second is green?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      $\frac{3}{6} \times \frac{3}{5} = \frac{3}{10}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A box contains 3 red balls and 3 green balls. Two balls are chosen simultaneously. What is the probability that one is red and one is green?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      $\frac{\binom{3}{1}\binom{3}{1}}{\binom{6}{2}}$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
