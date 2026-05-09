@@ -146,11 +146,56 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      Multiply $S$ by $r$: $Sr = ar + ar^2 + \cdots + ar^n$. Subtracting:
-      $$S - Sr = a - ar^n$$
-      $$S(1-r) = a(1-r^n)$$
+      Multiply $S$ by $r$: $Sr = ar + ar^2 + \cdots + ar^n$. Subtracting gives $S - Sr = a - ar^n$, i.e. $S(1-r) = a(1-r^n)$, so:
       $$S = \frac{a(1-r^n)}{1-r} \quad (r \neq 1)$$
       If $r = 1$, then $S = na$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\sum_{k=1}^{\infty} \frac{1}{k}$ diverges.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Group the terms in blocks of size $1, 1, 2, 4, 8, \ldots$:
+      $$1 + \frac{1}{2} + \left(\frac{1}{3}+\frac{1}{4}\right) + \left(\frac{1}{5}+\cdots+\frac{1}{8}\right) + \cdots$$
+      Each block of $2^n$ terms satisfies $\frac{1}{2^n+1} + \cdots + \frac{1}{2^{n+1}} \geq 2^n \cdot \frac{1}{2^{n+1}} = \frac{1}{2}$, so the sum of the first $2^n$ terms is $\geq \frac{n}{2}$, which diverges.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that any two consecutive Fibonacci numbers are relatively prime.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      By induction. $\gcd(F_1, F_2) = \gcd(1,1) = 1$. Assuming $\gcd(F_n, F_{n+1}) = 1$, since $F_{n+2} = F_{n+1} + F_n$ we have $\gcd(F_{n+1}, F_{n+2}) = \gcd(F_{n+1}, F_{n+1} + F_n) = \gcd(F_{n+1}, F_n) = 1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> How many 5-digit numbers ending with 1, 2 or 4 are there with no repeated digit?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Fix the last digit: 3 choices. The first digit cannot be 0 or equal to the last digit (which is nonzero), leaving 8 choices. The remaining three positions are filled from the 8 unused digits: $8 \times 7 \times 6$ ways. Total: $3 \times 8 \times 8 \times 7 \times 6 = 8064$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the largest $n$ such that $2^n \mid 100!$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      By Legendre's formula, $v_2(100!) = \sum_{k \geq 1} \lfloor \frac{100}{2^k} \rfloor$. Computing: $50 + 25 + 12 + 6 + 3 + 1 = 97$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Two identical dice are rolled. How many distinct outcomes are there, if outcomes that differ only by swapping the two dice are considered the same?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Since the dice are indistinguishable, $(a, b)$ and $(b, a)$ count as the same outcome. There are 6 doubles (both dice equal) and $\binom{6}{2} = 15$ outcomes with distinct values, for a total of $6 + 15 = 21$.
     </details>
 
     <h2>Volume 2</h2>
