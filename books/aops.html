@@ -207,6 +207,24 @@
       If all $n$ letters were distinct there would be $n!$ arrangements. Since permuting the $k_i$ copies of letter $i$ among themselves yields no new arrangement, we divide by $k_i!$ for each $i$, giving $\frac{n!}{k_1!\, k_2!\, \cdots\, k_r!}$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the unit digit of $\sum_{k=1}^{15} k!$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      For $k \geq 5$, $k!$ is divisible by 10 so contributes 0 to the unit digit. Thus the unit digit equals that of $1! + 2! + 3! + 4! = 1 + 2 + 6 + 24 = 33$, which is $\mathbf{3}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Given 5 lines and 2 circles in a plane, what is the maximum number of intersection points?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Count each type of intersection separately. Line-line: $\binom{5}{2} = 10$. Circle-circle: $1$ pair $\times 2 = 2$. Line-circle: $5 \times 2 \times 2 = 20$. Total: $10 + 2 + 20 = \mathbf{32}$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
