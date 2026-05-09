@@ -315,6 +315,17 @@
       There is no missing dollar. The reasoning is flawed. The 42 already includes the 2 kept by the messenger (40 to the manager + 2 to the messenger). Adding the 2 again is double-counting. The correct accounting is: 45 paid $-$ 3 returned $=$ 42 $=$ 40 (room) $+$ 2 (messenger).
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that a positive integer has an odd number of distinct divisors if and only if it is a perfect square.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <em>Method 1 (pairing):</em> Pair each divisor $d$ of $n$ with $n/d$. Two distinct divisors $d \neq n/d$ form a pair, contributing 2 to the count. A divisor is unpaired iff $d = n/d$, i.e. $d^2 = n$. So the total count is odd iff there is exactly one unpaired divisor, which happens iff $n$ is a perfect square.
+      <br>
+      <em>Method 2 (prime factorization):</em> Write $n = p_1^{a_1} \cdots p_k^{a_k}$. The number of divisors is $\tau(n) = (a_1+1)\cdots(a_k+1)$. This product is odd iff every factor $(a_i+1)$ is odd, iff every $a_i$ is even, iff $n$ is a perfect square.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
