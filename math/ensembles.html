@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sets</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h3 class="en">Construction of number sets</h3>
+    <h3 class="fr">Construction des ensembles de nombres</h3>
+
+    <h4 class="en">The natural numbers $\mathbb{N}$</h4>
+    <h4 class="fr">Les entiers naturels $\mathbb{N}$</h4>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Inductive set, $\mathbb{N}$).</span> A set $E$ is <em>inductive</em> if it contains $\varnothing$ and if for every $x\in E$, $S(x)=x\cup\{x\}\in E$. The element $S(x)$ is called the <em>successor</em> of $x$. The <em>axiom of infinity</em> (ZF) asserts the existence of an inductive set. We define $\mathbb{N}$ as the intersection of all inductive sets: it is the smallest inductive set. We write $0=\varnothing$ and the subsequent elements are the finite von Neumann ordinals: $0=\varnothing$, $1=\{\varnothing\}$, $2=\{\varnothing,\{\varnothing\}\}$, $3=\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\}$, $\ldots$ Note that each $n=\{0,1,\ldots,n-1\}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Ensemble inductif, $\mathbb{N}$).</span> Un ensemble $E$ est <em>inductif</em> s'il contient $\varnothing$ et si pour tout $x\in E$, $S(x)=x\cup\{x\}\in E$. L'élément $S(x)$ est appelé <em>successeur</em> de $x$. L'<em>axiome de l'infini</em> (ZF) postule l'existence d'un ensemble inductif. On définit $\mathbb{N}$ comme l'intersection de tous les ensembles inductifs : c'est le plus petit ensemble inductif. On note $0=\varnothing$ et les éléments suivants sont les ordinaux finis de von Neumann : $0=\varnothing$, $1=\{\varnothing\}$, $2=\{\varnothing,\{\varnothing\}\}$, $3=\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\}$, $\ldots$ On observe que chaque $n=\{0,1,\ldots,n-1\}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Induction principle).</span> If $A\subset\mathbb{N}$ satisfies $0\in A$ and $\forall n\in A,\;S(n)\in A$, then $A=\mathbb{N}$. In particular, to show that a property $P(n)$ holds for all $n\in\mathbb{N}$, it suffices to show $P(0)$ and $\forall n,\;P(n)\Rightarrow P(S(n))$: apply the theorem to $A=\{n\in\mathbb{N}:P(n)\}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Principe de récurrence).</span> Si $A\subset\mathbb{N}$ vérifie $0\in A$ et $\forall n\in A,\;S(n)\in A$, alors $A=\mathbb{N}$. En particulier, pour montrer qu'une propriété $P(n)$ est vraie pour tout $n\in\mathbb{N}$, il suffit de montrer $P(0)$ et $\forall n,\;P(n)\Rightarrow P(S(n))$ : on applique le théorème à $A=\{n\in\mathbb{N}:P(n)\}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Such an $A$ is inductive. Since $\mathbb{N}$ is the intersection of all inductive sets, $\mathbb{N}\subset A$. Since $A\subset\mathbb{N}$, $A=\mathbb{N}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Un tel $A$ est inductif. Comme $\mathbb{N}$ est l'intersection de tous les ensembles inductifs, $\mathbb{N}\subset A$. Comme $A\subset\mathbb{N}$, $A=\mathbb{N}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations on $\mathbb{N}$).</span> The induction principle allows us to define addition by $n+0=n$ and $n+S(m)=S(n+m)$, and multiplication by $n\cdot 0=0$ and $n\cdot S(m)=n\cdot m+n$. These operations are associative, commutative, and multiplication distributes over addition.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur $\mathbb{N}$).</span> Le principe de récurrence permet de définir l'addition par $n+0=n$ et $n+S(m)=S(n+m)$, et la multiplication par $n\cdot 0=0$ et $n\cdot S(m)=n\cdot m+n$. Ces opérations sont associatives, commutatives, et la multiplication est distributive sur l'addition.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We prove commutativity of addition.
+      <br>
+      <em>Lemma 1: $0+m=m$ for all $m$.</em>
+      Set $P(m):\;0+m=m$ and prove $P(m)$ for all $m$ by induction. <em>Base case:</em> $0+0=0$ (by $n+0=n$ with $n=0$), so $P(0)$. <em>Inductive step:</em> assume $P(m)$, i.e. $0+m=m$. Then $0+S(m)=S(0+m)$ (by $n+S(m)=S(n+m)$ with $n=0$) $=S(m)$.
+      <br>
+      <em>Lemma 2: $S(n)+m=S(n+m)$ for all $n,m$.</em>
+      Fix $n$, induction on $m$: $S(n)+0=S(n)=S(n+0)$. If $S(n)+m=S(n+m)$, then $S(n)+S(m)=S(S(n)+m)=S(S(n+m))=S(n+S(m))$.
+      <br>
+      <em>Commutativity: $n+m=m+n$.</em>
+      Induction on $n$: for $n=0$, $0+m=m=m+0$. If $n+m=m+n$, then $S(n)+m=S(n+m)=S(m+n)=m+S(n)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On prouve la commutativité de l'addition.
+      <br>
+      <em>Lemme 1 : $0+m=m$ pour tout $m$.</em>
+      On pose $P(m):\;0+m=m$ et on montre $P(m)$ pour tout $m$ par récurrence. <em>Initialisation :</em> $0+0=0$ (par $n+0=n$ avec $n=0$), donc $P(0)$. <em>Hérédité :</em> supposons $P(m)$, i.e. $0+m=m$. Alors $0+S(m)=S(0+m)$ (par $n+S(m)=S(n+m)$ avec $n=0$) $=S(m)$.
+      <br>
+      <em>Lemme 2 : $S(n)+m=S(n+m)$ pour tous $n,m$.</em>
+      À $n$ fixé, récurrence sur $m$ : $S(n)+0=S(n)=S(n+0)$. Si $S(n)+m=S(n+m)$, alors $S(n)+S(m)=S(S(n)+m)=S(S(n+m))=S(n+S(m))$.
+      <br>
+      <em>Commutativité : $n+m=m+n$.</em>
+      Récurrence sur $n$ : pour $n=0$, $0+m=m=m+0$. Si $n+m=m+n$, alors $S(n)+m=S(n+m)=S(m+n)=m+S(n)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Well-ordering of $\mathbb{N}$).</span> The relation $n\le m\Leftrightarrow\exists k\in\mathbb{N},\;n+k=m$ is a well-ordering: every nonempty subset of $\mathbb{N}$ has a minimum.</p>
+      <p class="fr"><span class="thm-label">Proposition (Bon ordre sur $\mathbb{N}$).</span> La relation $n\le m\Leftrightarrow\exists k\in\mathbb{N},\;n+k=m$ est un bon ordre : toute partie non vide de $\mathbb{N}$ admet un minimum.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      This is an order: reflexivity ($n+0=n$), antisymmetry (if $n+k=m$ and $m+l=n$ then $n+k+l=n$ so $k=l=0$), transitivity (if $n+k=m$ and $m+l=p$ then $n+(k+l)=p$). Every nonempty $A\subset\mathbb{N}$ has a minimum: otherwise $\mathbb{N}\setminus A$ would be inductive (since $0\notin A$, and if $n\notin A$ then $S(n)\notin A$ for otherwise $S(n)$ would be a minimum of $A$), so $\mathbb{N}\setminus A=\mathbb{N}$, contradiction. The order is total: if $n$ and $m$ are incomparable, $\{n,m\}$ is a nonempty subset without a minimum, contradicting well-ordering.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      C'est un ordre : réflexivité ($n+0=n$), antisymétrie (si $n+k=m$ et $m+l=n$ alors $n+k+l=n$ donc $k=l=0$), transitivité (si $n+k=m$ et $m+l=p$ alors $n+(k+l)=p$). Toute partie non vide $A\subset\mathbb{N}$ admet un minimum : sinon, $\mathbb{N}\setminus A$ serait inductif (car $0\notin A$, et si $n\notin A$ alors $S(n)\notin A$ car sinon $S(n)$ serait minimal dans $A$), donc $\mathbb{N}\setminus A=\mathbb{N}$, contradiction. L'ordre est total : si $n$ et $m$ ne sont pas comparables, $\{n,m\}$ est une partie non vide sans minimum, ce qui contredit le bon ordre.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Define on $\mathbb{N}\times\mathbb{N}$ the relation $(a,b)\sim(c,d)\Leftrightarrow a+d=b+c$. Set $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$. The class of $(a,b)$ represents the integer $a-b$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathbb{N}\times\mathbb{N}$ la relation $(a,b)\sim(c,d)\Leftrightarrow a+d=b+c$. On pose $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$. La classe de $(a,b)$ représente l'entier $a-b$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La relation $\sim$ est une relation d'équivalence.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Reflexivity: $a+b=b+a$. Symmetry: if $a+d=b+c$, then $c+b=d+a$. Transitivity: if $a+d=b+c$ and $c+f=d+e$, summing gives $a+d+c+f=b+c+d+e$, hence $a+f=b+e$ by cancellation.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Réflexivité : $a+b=b+a$. Symétrie : si $a+d=b+c$, alors $c+b=d+a$. Transitivité : si $a+d=b+c$ et $c+f=d+e$, alors en sommant $a+d+c+f=b+c+d+e$, d'où $a+f=b+e$ par simplification.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations on $\mathbb{Z}$).</span> Define on $\mathbb{Z}$:</p>
+      <ul class="en">
+        <li>Addition: $[(a,b)]+[(c,d)]=[(a+c,b+d)]$</li>
+        <li>Multiplication: $[(a,b)]\cdot[(c,d)]=[(ac+bd,ad+bc)]$</li>
+        <li>Order: $[(a,b)]\le[(c,d)]\Leftrightarrow a+d\le b+c$</li>
+      </ul>
+      <p class="en">These definitions are independent of the choice of representatives. Equipped with these operations, $(\mathbb{Z},+,\cdot)$ is a commutative integral domain, and $\le$ is a total order compatible with the operations. The map $n\mapsto[(n,0)]$ is an injective morphism from $(\mathbb{N},+,\cdot)$ into $(\mathbb{Z},+,\cdot)$, which allows us to identify $\mathbb{N}$ with a subset of $\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur $\mathbb{Z}$).</span> On définit sur $\mathbb{Z}$ :</p>
+      <ul class="fr">
+        <li>Addition : $[(a,b)]+[(c,d)]=[(a+c,b+d)]$</li>
+        <li>Multiplication : $[(a,b)]\cdot[(c,d)]=[(ac+bd,ad+bc)]$</li>
+        <li>Ordre : $[(a,b)]\le[(c,d)]\Leftrightarrow a+d\le b+c$</li>
+      </ul>
+      <p class="fr">Ces définitions ne dépendent pas du choix des représentants. Muni de ces opérations, $(\mathbb{Z},+,\cdot)$ est un anneau commutatif intègre, et $\le$ est un ordre total compatible avec les opérations. L'application $n\mapsto[(n,0)]$ est un morphisme injectif de $(\mathbb{N},+,\cdot)$ dans $(\mathbb{Z},+,\cdot)$, ce qui permet d'identifier $\mathbb{N}$ à une partie de $\mathbb{Z}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Well-definedness of addition:</em> if $(a,b)\sim(a',b')$ and $(c,d)\sim(c',d')$, i.e. $a+b'=b+a'$ and $c+d'=d+c'$, then $(a+c)+(b'+d')=(b+d)+(a'+c')$, so $(a+c,b+d)\sim(a'+c',b'+d')$.
+      <br>
+      <em>Well-definedness of multiplication:</em> if $(a,b)\sim(a',b')$, i.e. $a+b'=a'+b$, we show $(ac+bd,ad+bc)\sim(a'c+b'd,a'd+b'c)$, i.e. $(ac+bd)+(a'd+b'c)=(ad+bc)+(a'c+b'd)$. We have $(ac+bd)+(a'd+b'c)=c(a+b')+d(a'+b)$ and $(ad+bc)+(a'c+b'd)=c(a'+b)+d(a+b')$. Since $a+b'=a'+b$, both expressions are equal. The check for a change of representative in $(c,d)$ is analogous.
+      <br>
+      <em>Integrality:</em> if $[(a,b)]\cdot[(c,d)]=[(0,0)]$ with $[(a,b)]\neq[(0,0)]$ and $[(c,d)]\neq[(0,0)]$, then $a\neq b$, $c\neq d$, and $ac+bd=ad+bc$. This gives $(a-b)(c-d)=0$ (reducing to the case where subtractions are defined in $\mathbb{N}$), so $a=b$ or $c=d$, contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Bonne définition de l'addition :</em> si $(a,b)\sim(a',b')$ et $(c,d)\sim(c',d')$, i.e. $a+b'=b+a'$ et $c+d'=d+c'$, alors $(a+c)+(b'+d')=(b+d)+(a'+c')$, donc $(a+c,b+d)\sim(a'+c',b'+d')$.
+      <br>
+      <em>Bonne définition de la multiplication :</em> si $(a,b)\sim(a',b')$, i.e. $a+b'=a'+b$, montrons $(ac+bd,ad+bc)\sim(a'c+b'd,a'd+b'c)$, i.e. $(ac+bd)+(a'd+b'c)=(ad+bc)+(a'c+b'd)$. On a $(ac+bd)+(a'd+b'c)=c(a+b')+d(a'+b)$ et $(ad+bc)+(a'c+b'd)=c(a'+b)+d(a+b')$. Comme $a+b'=a'+b$, les deux expressions sont égales. La vérification pour un changement de représentant en $(c,d)$ est analogue.
+      <br>
+      <em>Intégrité :</em> si $[(a,b)]\cdot[(c,d)]=[(0,0)]$ avec $[(a,b)]\neq[(0,0)]$ et $[(c,d)]\neq[(0,0)]$, alors $a\neq b$, $c\neq d$, et $ac+bd=ad+bc$. Cela donne $(a-b)(c-d)=0$ (en se ramenant au cas où les soustractions sont définies dans $\mathbb{N}$), d'où $a=b$ ou $c=d$, contradiction.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h4 class="en">The rationals $\mathbb{Q}$</h4>
+    <h4 class="fr">Les rationnels $\mathbb{Q}$</h4>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Define on $\mathbb{Z}\times\mathbb{Z}^*$ the relation $(a,b)\sim(c,d)\Leftrightarrow ad=bc$. Set $\mathbb{Q}=(\mathbb{Z}\times\mathbb{Z}^*)/{\sim}$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathbb{Z}\times\mathbb{Z}^*$ la relation $(a,b)\sim(c,d)\Leftrightarrow ad=bc$. On pose $\mathbb{Q}=(\mathbb{Z}\times\mathbb{Z}^*)/{\sim}$.</p>
+    </div>
+
+    <p class="en">Intuitively, the class of $(a,b)$ represents the fraction $a/b$.</p>
+    <p class="fr">Intuitivement, la classe de $(a,b)$ représente la fraction $a/b$.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La relation $\sim$ est une relation d'équivalence.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Reflexivity: $ab=ba$. Symmetry: if $ad=bc$, then $cb=da$. Transitivity: if $ad=bc$ and $cf=de$, then $adf=bcf=bde$. Since $d\neq 0$, we simplify: $af=be$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Réflexivité : $ab=ba$. Symétrie : si $ad=bc$, alors $cb=da$. Transitivité : si $ad=bc$ et $cf=de$, alors $adf=bcf=bde$. Comme $d\neq 0$, on simplifie : $af=be$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations on $\mathbb{Q}$).</span> Define on $\mathbb{Q}$:</p>
+      <ul class="en">
+        <li>Addition: $[(a,b)]+[(c,d)]=[(ad+bc,bd)]$</li>
+        <li>Multiplication: $[(a,b)]\cdot[(c,d)]=[(ac,bd)]$</li>
+        <li>Order: $[(a,b)]\le[(c,d)]\Leftrightarrow ad\le bc$ (when $b,d&gt;0$)</li>
+      </ul>
+      <p class="en">These definitions are independent of the choice of representatives ($bd\neq 0$ since $\mathbb{Z}$ is an integral domain). Equipped with these operations, $(\mathbb{Q},+,\cdot,\le)$ is a totally ordered field. The map $n\mapsto[(n,1)]$ is an injective morphism from $\mathbb{Z}$ into $\mathbb{Q}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur $\mathbb{Q}$).</span> On définit sur $\mathbb{Q}$ :</p>
+      <ul class="fr">
+        <li>Addition : $[(a,b)]+[(c,d)]=[(ad+bc,bd)]$</li>
+        <li>Multiplication : $[(a,b)]\cdot[(c,d)]=[(ac,bd)]$</li>
+        <li>Ordre : $[(a,b)]\le[(c,d)]\Leftrightarrow ad\le bc$ (lorsque $b,d&gt;0$)</li>
+      </ul>
+      <p class="fr">Ces définitions ne dépendent pas du choix des représentants ($bd\neq 0$ car $\mathbb{Z}$ est intègre). Muni de ces opérations, $(\mathbb{Q},+,\cdot,\le)$ est un corps commutatif totalement ordonné. L'application $n\mapsto[(n,1)]$ est un morphisme injectif de $\mathbb{Z}$ dans $\mathbb{Q}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Well-definedness of addition:</em> if $(a,b)\sim(a',b')$ and $(c,d)\sim(c',d')$, i.e. $ab'=a'b$ and $cd'=c'd$, we verify $(ad+bc)b'd'=(a'd'+b'c')bd$. Indeed, $adb'd'=a'dbd'$ (since $ab'=a'b$) and $bcb'd'=b'c'bd$ (since $cd'=c'd$), and summing gives the result.
+      <br>
+      <em>Well-definedness of multiplication:</em> $ab'=a'b$ and $cd'=c'd$ give $acb'd'=a'bc'd=a'c'bd$, so $(ac,bd)\sim(a'c',b'd')$.
+      <br>
+      <em>Inverse:</em> for $[(a,b)]$ with $a\neq 0$, the inverse is $[(b,a)]$, since $[(a,b)]\cdot[(b,a)]=[(ab,ba)]=[(1,1)]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Bonne définition de l'addition :</em> si $(a,b)\sim(a',b')$ et $(c,d)\sim(c',d')$, i.e. $ab'=a'b$ et $cd'=c'd$, on vérifie $(ad+bc)b'd'=(a'd'+b'c')bd$. En effet, $adb'd'=a'dbd'$ (car $ab'=a'b$) et $bcb'd'=b'c'bd$ (car $cd'=c'd$), et la somme donne le résultat.
+      <br>
+      <em>Bonne définition de la multiplication :</em> $ab'=a'b$ et $cd'=c'd$ donnent $acb'd'=a'bc'd=a'c'bd$, donc $(ac,bd)\sim(a'c',b'd')$.
+      <br>
+      <em>Inverse :</em> pour $[(a,b)]$ avec $a\neq 0$, l'inverse est $[(b,a)]$, car $[(a,b)]\cdot[(b,a)]=[(ab,ba)]=[(1,1)]$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{Q}$ is not complete: there exist Cauchy sequences of rationals that do not converge in $\mathbb{Q}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{Q}$ n'est pas complet : il existe des suites de Cauchy de rationnels qui ne convergent pas dans $\mathbb{Q}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The sequence $(u_n)$ defined by $u_0=1$ and $u_{n+1}=f(u_n)$ with $f(x)=\frac{x}{2}+\frac{1}{x}$ is Cauchy in $\mathbb{Q}$. By the AM-GM inequality, $f(x)\ge\sqrt{2}$ for $x&gt;0$, so $u_n\ge\sqrt{2}$ for $n\ge 1$. Since $f'(x)=\frac{1}{2}-\frac{1}{x^2}\in[0,\frac{1}{2}]$ for $x\ge\sqrt{2}$, the mean value theorem gives $|u_{n+2}-u_{n+1}|\le\frac{1}{2}|u_{n+1}-u_n|$ for $n\ge 1$. Since $|u_1-u_0|=\frac{1}{2}$ and $|u_2-u_1|=\frac{1}{12}\le\frac{1}{4}$, we get by induction $|u_{n+1}-u_n|\le\frac{1}{2^n}$. Its limit $\ell$ satisfies $\ell=\frac{\ell}{2}+\frac{1}{\ell}$, so $\ell^2=2$, but $\sqrt{2}\notin\mathbb{Q}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La suite $(u_n)$ définie par $u_0=1$ et $u_{n+1}=f(u_n)$ avec $f(x)=\frac{x}{2}+\frac{1}{x}$ est de Cauchy dans $\mathbb{Q}$. En effet, par l'inégalité arithmético-géométrique, $f(x)\ge\sqrt{2}$ pour $x&gt;0$, donc $u_n\ge\sqrt{2}$ pour $n\ge 1$. Comme $f'(x)=\frac{1}{2}-\frac{1}{x^2}\in[0,\frac{1}{2}]$ pour $x\ge\sqrt{2}$, le théorème des accroissements finis donne $|u_{n+2}-u_{n+1}|\le\frac{1}{2}|u_{n+1}-u_n|$ pour $n\ge 1$. Comme $|u_1-u_0|=\frac{1}{2}$ et $|u_2-u_1|=\frac{1}{12}\le\frac{1}{4}$, on obtient par récurrence $|u_{n+1}-u_n|\le\frac{1}{2^n}$. Sa limite $\ell$ vérifie $\ell=\frac{\ell}{2}+\frac{1}{\ell}$, d'où $\ell^2=2$, mais $\sqrt{2}\notin\mathbb{Q}$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h4 class="en">The reals $\mathbb{R}$</h4>
+    <h4 class="fr">Les réels $\mathbb{R}$</h4>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Cauchy sequence).</span> A sequence $(a_n)$ of elements of $\mathbb{Q}$ is a <em>Cauchy sequence</em> if for every $\varepsilon\in\mathbb{Q}_{&gt;0}$, there exists $N\in\mathbb{N}$ such that for all $m,n\ge N$, $|a_m-a_n|&lt;\varepsilon$.</p>
+      <p class="fr"><span class="thm-label">Définition (Suite de Cauchy).</span> Une suite $(a_n)$ d'éléments de $\mathbb{Q}$ est <em>de Cauchy</em> si pour tout $\varepsilon\in\mathbb{Q}_{&gt;0}$, il existe $N\in\mathbb{N}$ tel que pour tous $m,n\ge N$, $|a_m-a_n|&lt;\varepsilon$.</p>
+    </div>
+
+    <p class="en">We denote by $\mathcal{C}$ the set of Cauchy sequences of rationals.</p>
+    <p class="fr">On note $\mathcal{C}$ l'ensemble des suites de Cauchy de rationnels.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathcal{C}$ is stable under termwise addition and multiplication, and every Cauchy sequence is bounded.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathcal{C}$ est stable par addition et multiplication (termes à termes), et toute suite de Cauchy est bornée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Boundedness:</em> for $\varepsilon=1$, there exists $N$ such that $|a_n-a_N|&lt;1$ for $n\ge N$. So $|a_n|\le\max(|a_0|,\ldots,|a_{N-1}|,|a_N|+1)$ for all $n$.
+      <br>
+      <em>Addition:</em> if $(a_n)$ and $(b_n)$ are Cauchy, then $|(a_m+b_m)-(a_n+b_n)|\le|a_m-a_n|+|b_m-b_n|$, each term can be made $&lt;\varepsilon/2$.
+      <br>
+      <em>Multiplication:</em> $|a_mb_m-a_nb_n|=|a_m(b_m-b_n)+b_n(a_m-a_n)|\le M|b_m-b_n|+M'|a_m-a_n|$ where $M,M'$ are bounds for $(a_n)$ and $(b_n)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Bornitude :</em> pour $\varepsilon=1$, il existe $N$ tel que $|a_n-a_N|&lt;1$ pour $n\ge N$. Donc $|a_n|\le\max(|a_0|,\ldots,|a_{N-1}|,|a_N|+1)$ pour tout $n$.
+      <br>
+      <em>Addition :</em> si $(a_n)$ et $(b_n)$ sont de Cauchy, alors $|(a_m+b_m)-(a_n+b_n)|\le|a_m-a_n|+|b_m-b_n|$, chaque terme pouvant être rendu $&lt;\varepsilon/2$.
+      <br>
+      <em>Multiplication :</em> $|a_mb_m-a_nb_n|=|a_m(b_m-b_n)+b_n(a_m-a_n)|\le M|b_m-b_n|+M'|a_m-a_n|$ où $M,M'$ sont des bornes de $(a_n)$ et $(b_n)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Define on $\mathcal{C}$ the relation $(a_n)\sim(b_n)\Leftrightarrow\lim_{n\to\infty}(a_n-b_n)=0$, i.e. $\forall\varepsilon\in\mathbb{Q}_{&gt;0},\;\exists N,\;\forall n\ge N,\;|a_n-b_n|&lt;\varepsilon$. Set $\mathbb{R}=\mathcal{C}/{\sim}$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathcal{C}$ la relation $(a_n)\sim(b_n)\Leftrightarrow\lim_{n\to\infty}(a_n-b_n)=0$, i.e. $\forall\varepsilon\in\mathbb{Q}_{&gt;0},\;\exists N,\;\forall n\ge N,\;|a_n-b_n|&lt;\varepsilon$. On pose $\mathbb{R}=\mathcal{C}/{\sim}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation compatible with addition and multiplication.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La relation $\sim$ est une relation d'équivalence compatible avec l'addition et la multiplication.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The equivalence is immediate. Compatibility with addition: if $(a_n)\sim(a'_n)$ and $(b_n)\sim(b'_n)$, then $|(a_n+b_n)-(a'_n+b'_n)|\le|a_n-a'_n|+|b_n-b'_n|\to 0$. Compatibility with multiplication: $|a_nb_n-a'_nb'_n|=|a_n(b_n-b'_n)+b'_n(a_n-a'_n)|\le M|b_n-b'_n|+M'|a_n-a'_n|\to 0$ where $M$ and $M'$ are bounds.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'équivalence est immédiate. Compatibilité avec l'addition : si $(a_n)\sim(a'_n)$ et $(b_n)\sim(b'_n)$, alors $|(a_n+b_n)-(a'_n+b'_n)|\le|a_n-a'_n|+|b_n-b'_n|\to 0$. Compatibilité avec la multiplication : $|a_nb_n-a'_nb'_n|=|a_n(b_n-b'_n)+b'_n(a_n-a'_n)|\le M|b_n-b'_n|+M'|a_n-a'_n|\to 0$ où $M$ et $M'$ sont des bornes.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Ordered field).</span> $\mathbb{R}$, equipped with addition $[(a_n)]+[(b_n)]=[(a_n+b_n)]$ and multiplication $[(a_n)]\cdot[(b_n)]=[(a_nb_n)]$, is a commutative field. The order is defined by $[(a_n)]&gt;0$ if there exist $\varepsilon\in\mathbb{Q}_{&gt;0}$ and $N\in\mathbb{N}$ such that $a_n&gt;\varepsilon$ for all $n\ge N$. The map $q\mapsto[(q,q,q,\ldots)]$ is an injective ordered field morphism from $\mathbb{Q}$ into $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Corps ordonné).</span> $\mathbb{R}$, muni de l'addition $[(a_n)]+[(b_n)]=[(a_n+b_n)]$ et de la multiplication $[(a_n)]\cdot[(b_n)]=[(a_nb_n)]$, est un corps commutatif. L'ordre est défini par $[(a_n)]&gt;0$ s'il existe $\varepsilon\in\mathbb{Q}_{&gt;0}$ et $N\in\mathbb{N}$ tels que $a_n&gt;\varepsilon$ pour tout $n\ge N$. L'application $q\mapsto[(q,q,q,\ldots)]$ est un morphisme injectif de corps ordonnés de $\mathbb{Q}$ dans $\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Ring properties are verified on representatives. <em>Inverse:</em> let $[(a_n)]\neq 0$, i.e. $(a_n)\not\sim(0)$. There exist $\varepsilon&gt;0$ and $N$ such that $|a_n|&gt;\varepsilon$ for $n\ge N$. Define $b_n=1/a_n$ for $n\ge N$ and $b_n=0$ for $n&lt;N$. Then $(b_n)$ is Cauchy: $|b_m-b_n|=\frac{|a_m-a_n|}{|a_m||a_n|}\le\frac{|a_m-a_n|}{\varepsilon^2}$, and $(a_nb_n)\sim(1)$ since $a_nb_n=1$ for $n\ge N$.
+      <br>
+      <em>Well-definedness of order:</em> if $(a_n)\sim(a'_n)$ and $a_n&gt;\varepsilon$ for $n\ge N$, then $a'_n&gt;\varepsilon/2$ for $n$ large enough (since $|a_n-a'_n|&lt;\varepsilon/2$ from some rank on).
+      <br>
+      <em>Embedding:</em> $q\mapsto[(q,q,\ldots)]$ preserves operations and order, and is injective since if $q\neq q'$, the constant sequence $(q-q')$ does not tend to $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les propriétés d'anneau se vérifient sur les représentants. <em>Inverse :</em> soit $[(a_n)]\neq 0$, i.e. $(a_n)\not\sim(0)$. Il existe $\varepsilon&gt;0$ et $N$ tels que $|a_n|&gt;\varepsilon$ pour $n\ge N$. On définit $b_n=1/a_n$ pour $n\ge N$ et $b_n=0$ pour $n&lt;N$. Alors $(b_n)$ est de Cauchy : $|b_m-b_n|=\frac{|a_m-a_n|}{|a_m||a_n|}\le\frac{|a_m-a_n|}{\varepsilon^2}$, et $(a_nb_n)\sim(1)$ car $a_nb_n=1$ pour $n\ge N$.
+      <br>
+      <em>Bonne définition de l'ordre :</em> si $(a_n)\sim(a'_n)$ et $a_n&gt;\varepsilon$ pour $n\ge N$, alors $a'_n&gt;\varepsilon/2$ pour $n$ assez grand (car $|a_n-a'_n|&lt;\varepsilon/2$ à partir d'un certain rang).
+      <br>
+      <em>Plongement :</em> $q\mapsto[(q,q,\ldots)]$ préserve les opérations et l'ordre, et est injectif car si $q\neq q'$, la suite constante $(q-q')$ ne tend pas vers $0$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Completeness of $\mathbb{R}$).</span> Every Cauchy sequence of elements of $\mathbb{R}$ converges in $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Complétude de $\mathbb{R}$).</span> Toute suite de Cauchy d'éléments de $\mathbb{R}$ converge dans $\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $(x_n)$ be a Cauchy sequence in $\mathbb{R}$. Each $x_n$ is a class $[(a_{n,k})_k]$ for some Cauchy sequence $(a_{n,k})_k$ of rationals. For each $n$, choose a rational $r_n=a_{n,k_n}$ with $k_n$ large enough so that $|a_{n,k}-r_n|&lt;\frac{1}{n+1}$ for all $k\ge k_n$, so that $|x_n-[(r_n,r_n,\ldots)]|&lt;\frac{1}{n+1}$ in $\mathbb{R}$.
+      <br>
+      We show $(r_n)$ is Cauchy in $\mathbb{Q}$. Let $\varepsilon&gt;0$. Since $(x_n)$ is Cauchy in $\mathbb{R}$, there exists $N_1$ such that $|x_m-x_n|&lt;\varepsilon/3$ for $m,n\ge N_1$. Choose $N\ge N_1$ with $\frac{1}{N+1}&lt;\varepsilon/3$. For $m,n\ge N$:
+      $$|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.$$
+      Set $x=[(r_n)]\in\mathbb{R}$. Then $|x_n-x|\le|x_n-[(r_n,r_n,\ldots)]|+|[(r_n,r_n,\ldots)]-x|&lt;\frac{1}{n+1}+|[(r_n,r_n,\ldots)]-[(r_k)_k]|$. The second term tends to $0$ since $r_n$ is a term of the Cauchy sequence $(r_k)$. Hence $x_n\to x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)$ une suite de Cauchy dans $\mathbb{R}$. Chaque $x_n$ est une classe $[(a_{n,k})_k]$ pour une suite de Cauchy $(a_{n,k})_k$ de rationnels. Pour chaque $n$, on choisit un rationnel $r_n=a_{n,k_n}$ avec $k_n$ assez grand pour que $|a_{n,k}-r_n|&lt;\frac{1}{n+1}$ pour tout $k\ge k_n$, de sorte que $|x_n-[(r_n,r_n,\ldots)]|&lt;\frac{1}{n+1}$ dans $\mathbb{R}$.
+      <br>
+      Montrons que $(r_n)$ est de Cauchy dans $\mathbb{Q}$. Soit $\varepsilon&gt;0$. Comme $(x_n)$ est de Cauchy dans $\mathbb{R}$, il existe $N_1$ tel que $|x_m-x_n|&lt;\varepsilon/3$ pour $m,n\ge N_1$. On choisit $N\ge N_1$ tel que $\frac{1}{N+1}&lt;\varepsilon/3$. Pour $m,n\ge N$ :
+      $$|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.$$
+      Posons $x=[(r_n)]\in\mathbb{R}$. Alors $|x_n-x|\le|x_n-[(r_n,r_n,\ldots)]|+|[(r_n,r_n,\ldots)]-x|&lt;\frac{1}{n+1}+|[(r_n,r_n,\ldots)]-[(r_k)_k]|$. Le second terme tend vers $0$ car $r_n$ est un terme de la suite de Cauchy $(r_k)$. Donc $x_n\to x$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h3 class="en">Sets and cardinality</h3>
+    <h3 class="fr">Ensembles et cardinalité</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Equipotence, countability).</span> Two sets $A$ and $B$ are <em>equipotent</em>, written $A\sim B$, if there exists a bijection from $A$ onto $B$. A set $E$ is <em>countable</em> if it is equipotent to $\mathbb{N}$, and <em>at most countable</em> if it is finite or countable.</p>
+      <p class="fr"><span class="thm-label">Définition (Équipotence, dénombrabilité).</span> Deux ensembles $A$ et $B$ sont <em>équipotents</em>, noté $A\sim B$, s'il existe une bijection de $A$ sur $B$. Un ensemble $E$ est <em>dénombrable</em> s'il est équipotent à $\mathbb{N}$, et <em>au plus dénombrable</em> s'il est fini ou dénombrable.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Equipotence is an equivalence relation: (i) $A\sim A$ (identity), (ii) $A\sim B\Rightarrow B\sim A$ (inverse bijection), (iii) $A\sim B$ and $B\sim C\Rightarrow A\sim C$ (composition).</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> L'équipotence est une relation d'équivalence : (i) $A\sim A$ (identité), (ii) $A\sim B\Rightarrow B\sim A$ (bijection réciproque), (iii) $A\sim B$ et $B\sim C\Rightarrow A\sim C$ (composition).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (i) $\mathrm{id}_A$ is a bijection from $A$ to $A$. (ii) If $f:A\to B$ is a bijection, so is $f^{-1}:B\to A$. (iii) If $f:A\to B$ and $g:B\to C$ are bijections, so is $g\circ f:A\to C$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (i) $\mathrm{id}_A$ est une bijection de $A$ sur $A$. (ii) Si $f:A\to B$ est une bijection, $f^{-1}:B\to A$ aussi. (iii) Si $f:A\to B$ et $g:B\to C$ sont des bijections, $g\circ f:A\to C$ aussi.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{N}^2$ is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{N}^2$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We enumerate $\mathbb{N}^2$ along successive diagonals $\{(p,q):p+q=n\}$. The diagonals $0,1,\ldots,n-1$ contain $1+2+\cdots+n=\frac{n(n+1)}{2}$ pairs in total, so the first pair of diagonal $n$ receives number $\frac{n(n+1)}{2}$, and the pair $(p,q)$ with $p+q=n$ receives $\varphi(p,q)=\frac{n(n+1)}{2}+p=\frac{(p+q)(p+q+1)}{2}+p$. This map is a bijection from $\mathbb{N}^2$ to $\mathbb{N}$ by construction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On parcourt $\mathbb{N}^2$ par diagonales successives $\{(p,q):p+q=n\}$. Les diagonales $0,1,\ldots,n-1$ contiennent $1+2+\cdots+n=\frac{n(n+1)}{2}$ couples au total, donc le premier couple de la diagonale $n$ reçoit le numéro $\frac{n(n+1)}{2}$, et le couple $(p,q)$ avec $p+q=n$ reçoit $\varphi(p,q)=\frac{n(n+1)}{2}+p=\frac{(p+q)(p+q+1)}{2}+p$. Cette application est une bijection de $\mathbb{N}^2$ sur $\mathbb{N}$ par construction.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{Z}$ is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{Z}$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The map $n\mapsto\begin{cases}-n/2&\text{if }n\text{ is even}\\(n+1)/2&\text{if }n\text{ is odd}\end{cases}$ is a bijection from $\mathbb{N}$ to $\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'application $n\mapsto\begin{cases}-n/2&\text{si }n\text{ pair}\\(n+1)/2&\text{si }n\text{ impair}\end{cases}$ est une bijection de $\mathbb{N}$ sur $\mathbb{Z}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every infinite subset of $\mathbb{N}$ is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute partie infinie de $\mathbb{N}$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $A\subset\mathbb{N}$ be infinite. Define $f:\mathbb{N}\to A$ by $f(0)=\min A$ and $f(n+1)=\min(A\setminus\{f(0),\ldots,f(n)\})$. The set $A\setminus\{f(0),\ldots,f(n)\}$ is nonempty since $A$ is infinite, so $f$ is well-defined. By construction $f$ is strictly increasing, hence injective. It is surjective: if $a\in A\setminus\mathrm{Im}(f)$, then for all $n$, $a\in A\setminus\{f(0),\ldots,f(n-1)\}$, so $f(n)\le a$. But then $f$ takes values in $\{0,\ldots,a\}$, which is finite, contradicting injectivity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $A\subset\mathbb{N}$ infini. On définit $f:{\mathbb{N}}\to A$ par $f(0)=\min A$ et $f(n+1)=\min(A\setminus\{f(0),\ldots,f(n)\})$. L'ensemble $A\setminus\{f(0),\ldots,f(n)\}$ est non vide car $A$ est infini, donc $f$ est bien définie. Par construction $f$ est strictement croissante, donc injective. Elle est surjective : si $a\in A\setminus\mathrm{Im}(f)$, alors pour tout $n$, $a\in A\setminus\{f(0),\ldots,f(n-1)\}$, donc $f(n)\le a$. Mais alors $f$ prend ses valeurs dans $\{0,\ldots,a\}$, qui est fini, ce qui contredit l'injectivité de $f$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every infinite subset of a countable set is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute partie infinie d'un ensemble dénombrable est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $A$ be infinite and $A\subset E$ with $E\sim\mathbb{N}$. Let $\varphi:E\to\mathbb{N}$ be a bijection. Then $\varphi(A)$ is an infinite subset of $\mathbb{N}$, hence countable. Since $A\sim\varphi(A)$, $A$ is countable.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $A$ infini et $A\subset E$ avec $E\sim\mathbb{N}$. Soit $\varphi:E\to\mathbb{N}$ une bijection. Alors $\varphi(A)$ est une partie infinie de $\mathbb{N}$, donc dénombrable. Comme $A\sim\varphi(A)$, $A$ est dénombrable.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> A countable union of at most countable sets is at most countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Une union dénombrable d'ensembles au plus dénombrables est au plus dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $(A_n)_{n\in\mathbb{N}}$ be a family of at most countable sets. For each $n$, there exists an injection $f_n:A_n\to\mathbb{N}$. For every $x\in\bigcup_n A_n$, set $n(x)=\min\{n:x\in A_n\}$ and $\Phi(x)=(n(x),f_{n(x)}(x))$. Then $\Phi$ is an injection from $\bigcup_n A_n$ into $\mathbb{N}^2\sim\mathbb{N}$, so $\bigcup_n A_n$ is at most countable.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(A_n)_{n\in\mathbb{N}}$ une famille d'ensembles au plus dénombrables. Pour chaque $n$, il existe une injection $f_n:A_n\to\mathbb{N}$. Pour tout $x\in\bigcup_n A_n$, on pose $n(x)=\min\{n:x\in A_n\}$ et $\Phi(x)=(n(x),f_{n(x)}(x))$. Alors $\Phi$ est une injection de $\bigcup_n A_n$ dans $\mathbb{N}^2\sim\mathbb{N}$, donc $\bigcup_n A_n$ est au plus dénombrable.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> A finite product of countable sets is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Un produit fini d'ensembles dénombrables est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction: the case $n=2$ follows from $\mathbb{N}^2\sim\mathbb{N}$, since if $f:A\to\mathbb{N}$ and $g:B\to\mathbb{N}$ are bijections, then $(a,b)\mapsto(f(a),g(b))$ is a bijection from $A\times B$ to $\mathbb{N}^2\sim\mathbb{N}$. If $A_1\times\cdots\times A_n\sim\mathbb{N}$, then $A_1\times\cdots\times A_{n+1}\sim\mathbb{N}\times A_{n+1}\sim\mathbb{N}^2\sim\mathbb{N}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence : le cas $n=2$ découle de $\mathbb{N}^2\sim\mathbb{N}$, car si $f:A\to\mathbb{N}$ et $g:B\to\mathbb{N}$ sont des bijections, alors $(a,b)\mapsto(f(a),g(b))$ est une bijection de $A\times B$ sur $\mathbb{N}^2\sim\mathbb{N}$. Si $A_1\times\cdots\times A_n\sim\mathbb{N}$, alors $A_1\times\cdots\times A_{n+1}\sim\mathbb{N}\times A_{n+1}\sim\mathbb{N}^2\sim\mathbb{N}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cantor-Bernstein).</span> If there exists an injection from $A$ into $B$ and an injection from $B$ into $A$, then $A\sim B$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Cantor-Bernstein).</span> S'il existe une injection de $A$ dans $B$ et une injection de $B$ dans $A$, alors $A\sim B$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f:A\to B$ and $g:B\to A$ be injections. Form a bipartite directed graph on $A\sqcup B$ with edges $a\to f(a)$ for $a\in A$ and $b\to g(b)$ for $b\in B$. Each vertex has exactly one successor and at most one predecessor. The connected components are therefore <em>chains</em> of the form $\cdots\to a\to f(a)\to g(f(a))\to\cdots$, of three types:
+      <ul>
+        <li>(A) the chain starts in $A$ (at an element of $A\setminus g(B)$, with no predecessor),</li>
+        <li>(B) the chain starts in $B$ (at an element of $B\setminus f(A)$, with no predecessor),</li>
+        <li>($\infty$) the chain is doubly infinite (every element has a predecessor).</li>
+      </ul>
+      Define $h:A\to B$ by $h(a)=f(a)$ if $a$ lies in a chain of type (A) or ($\infty$), and $h(a)=g^{-1}(a)$ if $a$ lies in a chain of type (B) (in which case $a\in g(B)$ since the chain starts in $B$, so $g^{-1}(a)$ is well-defined). In each chain, $h$ realizes a bijection between the elements of $A$ and those of $B$ in that chain (via $f$ or $g^{-1}$ depending on the type), so $h$ is a bijection from $A$ onto $B$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soient $f:A\to B$ et $g:B\to A$ des injections. On forme un graphe biparti orienté sur $A\sqcup B$ avec les arêtes $a\to f(a)$ pour $a\in A$ et $b\to g(b)$ pour $b\in B$. Chaque sommet a exactement un successeur et au plus un prédécesseur. Les composantes connexes sont donc des <em>chaînes</em> de la forme $\cdots\to a\to f(a)\to g(f(a))\to\cdots$, de trois types :
+      <ul>
+        <li>(A) la chaîne commence dans $A$ (par un élément de $A\setminus g(B)$, sans prédécesseur),</li>
+        <li>(B) la chaîne commence dans $B$ (par un élément de $B\setminus f(A)$, sans prédécesseur),</li>
+        <li>($\infty$) la chaîne est doublement infinie (tout élément a un prédécesseur).</li>
+      </ul>
+      On définit $h:A\to B$ par $h(a)=f(a)$ si $a$ est dans une chaîne de type (A) ou ($\infty$), et $h(a)=g^{-1}(a)$ si $a$ est dans une chaîne de type (B) (dans ce cas $a\in g(B)$ car la chaîne commence dans $B$, donc $g^{-1}(a)$ est bien défini). Dans chaque chaîne, $h$ réalise une bijection entre les éléments de $A$ et ceux de $B$ de cette chaîne (par $f$ ou par $g^{-1}$ selon le type), donc $h$ est une bijection de $A$ sur $B$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $\mathbb{Q}$ is countable.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> $\mathbb{Q}$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The map $\frac{p}{q}\mapsto(p,q)$ (with $q&gt;0$ and $\gcd(|p|,q)=1$) is an injection from $\mathbb{Q}$ into $\mathbb{Z}\times\mathbb{N}^*\subset\mathbb{Z}^2$. Since $\mathbb{Z}^2\sim\mathbb{N}^2\sim\mathbb{N}$, $\mathbb{Q}$ injects into $\mathbb{N}$. Since $\mathbb{N}$ injects into $\mathbb{Q}$ via $n\mapsto n$, Cantor-Bernstein gives $\mathbb{Q}\sim\mathbb{N}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'application $\frac{p}{q}\mapsto(p,q)$ (avec $q&gt;0$ et $\gcd(|p|,q)=1$) est une injection de $\mathbb{Q}$ dans $\mathbb{Z}\times\mathbb{N}^*\subset\mathbb{Z}^2$. Or $\mathbb{Z}^2\sim\mathbb{N}^2\sim\mathbb{N}$, donc $\mathbb{Q}$ s'injecte dans $\mathbb{N}$. Comme $\mathbb{N}$ s'injecte dans $\mathbb{Q}$ par $n\mapsto n$, on conclut par Cantor-Bernstein que $\mathbb{Q}\sim\mathbb{N}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cantor, diagonal argument).</span> $\mathbb{R}$ is not countable.</p>
+      <p class="fr"><span class="thm-label">Théorème (Cantor, argument diagonal).</span> $\mathbb{R}$ n'est pas dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      It suffices to show $[0,1]$ is not countable. Suppose for contradiction that $[0,1]=\{x_0,x_1,x_2,\ldots\}$ and write $x_n=0{,}a_{n,0}a_{n,1}a_{n,2}\cdots$ in decimal expansion (avoiding expansions ending in $999\ldots$). Construct $y=0{,}b_0b_1b_2\cdots$ with $b_n=\begin{cases}3&\text{if }a_{n,n}\neq 3\\7&\text{if }a_{n,n}=3\end{cases}$. Then $y\in[0,1]$ and $y\neq x_n$ for all $n$ (since $b_n\neq a_{n,n}$), contradicting $[0,1]=\{x_0,x_1,\ldots\}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Il suffit de montrer que $[0,1]$ n'est pas dénombrable. Supposons par l'absurde que $[0,1]=\{x_0,x_1,x_2,\ldots\}$ et écrivons $x_n=0{,}a_{n,0}a_{n,1}a_{n,2}\cdots$ en développement décimal (en évitant les développements terminant par $999\ldots$). On construit $y=0{,}b_0b_1b_2\cdots$ avec $b_n=\begin{cases}3&\text{si }a_{n,n}\neq 3\\7&\text{si }a_{n,n}=3\end{cases}$. Alors $y\in[0,1]$ et $y\neq x_n$ pour tout $n$ (car $b_n\neq a_{n,n}$), ce qui contredit $[0,1]=\{x_0,x_1,\ldots\}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cantor).</span> For any set $E$, there is no surjection from $E$ onto $\mathcal{P}(E)$. In particular, $E$ and $\mathcal{P}(E)$ are not equipotent, and $\mathcal{P}(\mathbb{N})$ is not countable.</p>
+      <p class="fr"><span class="thm-label">Théorème (Cantor).</span> Pour tout ensemble $E$, il n'existe pas de surjection de $E$ sur $\mathcal{P}(E)$. En particulier, $E$ et $\mathcal{P}(E)$ ne sont pas équipotents, et $\mathcal{P}(\mathbb{N})$ n'est pas dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f:E\to\mathcal{P}(E)$ be any map. Set $D=\{x\in E:x\notin f(x)\}$. Suppose $D=f(a)$ for some $a\in E$. If $a\in D$, then $a\notin f(a)=D$, contradiction. If $a\notin D$, then $a\in f(a)=D$, contradiction. So $D\notin\mathrm{Im}(f)$ and $f$ is not surjective.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f:E\to\mathcal{P}(E)$ une application quelconque. On pose $D=\{x\in E:x\notin f(x)\}$. Supposons $D=f(a)$ pour un $a\in E$. Si $a\in D$, alors $a\notin f(a)=D$, contradiction. Si $a\notin D$, alors $a\in f(a)=D$, contradiction. Donc $D\notin\mathrm{Im}(f)$ et $f$ n'est pas surjective.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Russell's paradox).</span> There is no set of all sets.</p>
+      <p class="fr"><span class="thm-label">Proposition (Paradoxe de Russell).</span> Il n'existe pas d'ensemble de tous les ensembles.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose there exists a set $\mathcal{U}$ containing all sets. Set $R=\{x\in\mathcal{U}:x\notin x\}$. Since $R$ is a set, $R\in\mathcal{U}$. If $R\in R$, then by definition of $R$, $R\notin R$, contradiction. If $R\notin R$, then $R$ satisfies the condition $R\notin R$, so $R\in R$, contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons qu'il existe un ensemble $\mathcal{U}$ contenant tous les ensembles. On pose $R=\{x\in\mathcal{U}:x\notin x\}$. Comme $R$ est un ensemble, $R\in\mathcal{U}$. Si $R\in R$, alors par définition de $R$, $R\notin R$, contradiction. Si $R\notin R$, alors $R$ vérifie la condition $R\notin R$, donc $R\in R$, contradiction.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathcal{P}(\mathbb{N})\sim\{0,1\}^{\mathbb{N}}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathcal{P}(\mathbb{N})\sim\{0,1\}^{\mathbb{N}}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The map $\varphi:A\mapsto\mathbf{1}_A$ sends $\mathcal{P}(\mathbb{N})$ into $\{0,1\}^{\mathbb{N}}$. It is injective: if $\mathbf{1}_A=\mathbf{1}_B$, then for all $n$, $n\in A\Leftrightarrow\mathbf{1}_A(n)=1\Leftrightarrow\mathbf{1}_B(n)=1\Leftrightarrow n\in B$, so $A=B$. It is surjective: for any sequence $u\in\{0,1\}^{\mathbb{N}}$, the set $A=\{n\in\mathbb{N}:u(n)=1\}$ satisfies $\mathbf{1}_A=u$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'application $\varphi:A\mapsto\mathbf{1}_A$ envoie $\mathcal{P}(\mathbb{N})$ dans $\{0,1\}^{\mathbb{N}}$. Elle est injective : si $\mathbf{1}_A=\mathbf{1}_B$, alors pour tout $n$, $n\in A\Leftrightarrow\mathbf{1}_A(n)=1\Leftrightarrow\mathbf{1}_B(n)=1\Leftrightarrow n\in B$, donc $A=B$. Elle est surjective : pour toute suite $u\in\{0,1\}^{\mathbb{N}}$, l'ensemble $A=\{n\in\mathbb{N}:u(n)=1\}$ vérifie $\mathbf{1}_A=u$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $[0,1]\sim\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $[0,1]\sim\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The inclusion $[0,1]\hookrightarrow\mathbb{R}$ is an injection. The map $x\mapsto\frac{1}{1+e^{-x}}$ is a bijection from $\mathbb{R}$ onto $]0,1[\subset[0,1]$, hence an injection from $\mathbb{R}$ into $[0,1]$. We conclude by Cantor-Bernstein. (We cannot conclude directly since $x\mapsto\frac{1}{1+e^{-x}}$ does not attain the endpoints 0 and 1, which are its limits at $-\infty$ and $+\infty$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'inclusion $[0,1]\hookrightarrow\mathbb{R}$ est une injection. L'application $x\mapsto\frac{1}{1+e^{-x}}$ est une bijection de $\mathbb{R}$ sur $]0,1[\subset[0,1]$, donc une injection de $\mathbb{R}$ dans $[0,1]$. On conclut par Cantor-Bernstein. (On ne peut pas conclure directement car $x\mapsto\frac{1}{1+e^{-x}}$ n'atteint pas les bornes 0 et 1, qui sont les limites en $-\infty$ et $+\infty$.)
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We show $\{0,1\}^{\mathbb{N}}\sim[0,1]$, which suffices since $[0,1]\sim\mathbb{R}$.
+      <br>
+      <em>Injection $\{0,1\}^{\mathbb{N}}\hookrightarrow[0,1]$:</em> the naive map $(a_n)\mapsto\sum_{n=0}^{\infty}\frac{a_n}{2^{n+1}}$ is not injective, due to carrying in base 2: for example $\frac{1}{2}=\sum_{n=1}^{\infty}\frac{1}{2^{n+1}}$, so the sequences $(1,0,0,\ldots)$ and $(0,1,1,\ldots)$ have the same image. To avoid this, we space the digits by setting $f((a_n))=\sum_{n=0}^{\infty}\frac{2a_n}{3^{n+1}}$. If $(a_n)\neq(a'_n)$, let $N=\min\{n:a_n\neq a'_n\}$. Then $|f((a_n))-f((a'_n))|\ge\frac{2}{3^{N+1}}-\sum_{n&gt;N}\frac{2}{3^{n+1}}=\frac{2}{3^{N+1}}-\frac{1}{3^{N+1}}&gt;0$, so $f$ is injective.
+      <br>
+      <em>Injection $[0,1]\hookrightarrow\{0,1\}^{\mathbb{N}}$:</em> every $t\in[0,1]$ has a unique base-2 expansion not ending in $111\ldots$: $t=\sum_{n=1}^{\infty}\frac{b_n}{2^n}$ with $b_n\in\{0,1\}$. The map $t\mapsto(b_n)_{n\ge 1}$ is an injection from $[0,1]$ into $\{0,1\}^{\mathbb{N}}$.
+      <br>
+      We conclude by Cantor-Bernstein.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On montre que $\{0,1\}^{\mathbb{N}}\sim[0,1]$, ce qui suffit puisque $[0,1]\sim\mathbb{R}$.
+      <br>
+      <em>Injection $\{0,1\}^{\mathbb{N}}\hookrightarrow[0,1]$ :</em> l'application naïve $(a_n)\mapsto\sum_{n=0}^{\infty}\frac{a_n}{2^{n+1}}$ n'est pas injective, car il y a un phénomène de retenue en base $2$ : par exemple $\frac{1}{2}=\sum_{n=1}^{\infty}\frac{1}{2^{n+1}}$, donc les suites $(1,0,0,\ldots)$ et $(0,1,1,\ldots)$ ont la même image. Pour l'éviter, on espace les chiffres en posant $f((a_n))=\sum_{n=0}^{\infty}\frac{2a_n}{3^{n+1}}$. Si $(a_n)\neq(a'_n)$, soit $N=\min\{n:a_n\neq a'_n\}$. Alors $|f((a_n))-f((a'_n))|\ge\frac{2}{3^{N+1}}-\sum_{n&gt;N}\frac{2}{3^{n+1}}=\frac{2}{3^{N+1}}-\frac{1}{3^{N+1}}&gt;0$, donc $f$ est injective.
+      <br>
+      <em>Injection $[0,1]\hookrightarrow\{0,1\}^{\mathbb{N}}$ :</em> tout $t\in[0,1]$ admet un unique développement en base $2$ ne terminant pas par $111\ldots$ : $t=\sum_{n=1}^{\infty}\frac{b_n}{2^n}$ avec $b_n\in\{0,1\}$. L'application $t\mapsto(b_n)_{n\ge 1}$ est une injection de $[0,1]$ dans $\{0,1\}^{\mathbb{N}}$.
+      <br>
+      On conclut par Cantor-Bernstein.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $\mathbb{R}\sim\mathbb{R}^2$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> $\mathbb{R}\sim\mathbb{R}^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The injection $x\mapsto(x,0)$ gives $\mathbb{R}\hookrightarrow\mathbb{R}^2$. For the injection $\mathbb{R}^2\hookrightarrow\mathbb{R}$: since $[0,1]\sim\mathbb{R}$, it suffices to show $[0,1]^2\hookrightarrow[0,1]$. To $(x,y)\in[0,1]^2$ with $x=0{,}x_1x_2x_3\cdots$ and $y=0{,}y_1y_2y_3\cdots$ (decimal expansions without $999\ldots$), associate $0{,}x_1y_1x_2y_2x_3y_3\cdots$ (interleaving of digits). This map is injective. We conclude by Cantor-Bernstein.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'injection $x\mapsto(x,0)$ donne $\mathbb{R}\hookrightarrow\mathbb{R}^2$. Pour l'injection $\mathbb{R}^2\hookrightarrow\mathbb{R}$ : comme $[0,1]\sim\mathbb{R}$, il suffit de montrer $[0,1]^2\hookrightarrow[0,1]$. À $(x,y)\in[0,1]^2$ avec $x=0{,}x_1x_2x_3\cdots$ et $y=0{,}y_1y_2y_3\cdots$ (développements décimaux sans $999\ldots$), on associe $0{,}x_1y_1x_2y_2x_3y_3\cdots$ (entrelacement des chiffres). Cette application est injective. On conclut par Cantor-Bernstein.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h4 class="en">Additional results</h4>
+    <h4 class="fr">Résultats complémentaires</h4>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The set of finite subsets of $\mathbb{N}$ is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> L'ensemble des parties finies de $\mathbb{N}$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For each $n\in\mathbb{N}$, the set $\mathcal{P}_n(\mathbb{N})$ of subsets of size $n$ injects into $\mathbb{N}^n$ (by ordering the elements), which is countable. The set of all finite subsets is $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, a countable union of countable sets, hence countable.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour chaque $n\in\mathbb{N}$, l'ensemble $\mathcal{P}_n(\mathbb{N})$ des parties à $n$ éléments s'injecte dans $\mathbb{N}^n$ (en ordonnant les éléments), qui est dénombrable. L'ensemble des parties finies est $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, union dénombrable d'ensembles dénombrables, donc dénombrable.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{N}^{\mathbb{N}}$ (the set of sequences of integers) satisfies $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{N}^{\mathbb{N}}$ (l'ensemble des suites d'entiers) vérifie $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Injection $\{0,1\}^{\mathbb{N}}\hookrightarrow\mathbb{N}^{\mathbb{N}}$:</em> natural inclusion (a sequence of 0s and 1s is a sequence of integers).
+      <br>
+      <em>Injection $\mathbb{N}^{\mathbb{N}}\hookrightarrow\{0,1\}^{\mathbb{N}}$:</em> to $(a_n)\in\mathbb{N}^{\mathbb{N}}$, associate the sequence obtained by encoding each $a_n$ in binary separated by a marker: write $a_n$ zeros followed by a $1$, then concatenate. Formally, send $(a_n)$ to $(\underbrace{0,\ldots,0}_{a_0},1,\underbrace{0,\ldots,0}_{a_1},1,\ldots)$, which is injective since the $a_n$ can be recovered as the lengths of the blocks of 0s between consecutive 1s.
+      <br>
+      By Cantor-Bernstein: $\{0,1\}^{\mathbb{N}}\sim\mathbb{N}^{\mathbb{N}}$, and since $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$, we get $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Injection $\{0,1\}^{\mathbb{N}}\hookrightarrow\mathbb{N}^{\mathbb{N}}$ :</em> inclusion naturelle (une suite de $0$ et $1$ est une suite d'entiers).
+      <br>
+      <em>Injection $\mathbb{N}^{\mathbb{N}}\hookrightarrow\{0,1\}^{\mathbb{N}}$ :</em> à $(a_n)\in\mathbb{N}^{\mathbb{N}}$, on associe la suite obtenue en codant chaque $a_n$ en binaire séparé par un marqueur : on écrit $a_n$ zéros suivis d'un $1$, et on concatène. Formellement, on envoie $(a_n)$ sur la suite $(\underbrace{0,\ldots,0}_{a_0},1,\underbrace{0,\ldots,0}_{a_1},1,\ldots)$, qui est injective car on retrouve les $a_n$ comme longueurs des blocs de $0$ entre les $1$ consécutifs.
+      <br>
+      Par Cantor-Bernstein : $\{0,1\}^{\mathbb{N}}\sim\mathbb{N}^{\mathbb{N}}$, et comme $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$, on obtient $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the set of algebraic numbers is countable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des nombres algébriques est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      An algebraic number is a root of some polynomial $P\in\mathbb{Z}[X]\setminus\{0\}$. The set of degree-$n$ polynomials with integer coefficients identifies with $\mathbb{Z}^{n+1}\setminus\{0\}$, which is countable. Each degree-$n$ polynomial has at most $n$ roots. So the set of roots of degree-$n$ polynomials is a countable union of finite sets, hence at most countable. The set of all algebraic numbers is $\bigcup_{n\ge 1}(\text{roots of degree-}n\text{ polynomials})$, a countable union of countable sets, hence countable (and infinite since it contains $\mathbb{Q}$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Un nombre algébrique est racine d'un polynôme $P\in\mathbb{Z}[X]\setminus\{0\}$. L'ensemble des polynômes de degré $n$ à coefficients entiers s'identifie à $\mathbb{Z}^{n+1}\setminus\{0\}$, qui est dénombrable. Chaque polynôme de degré $n$ a au plus $n$ racines. Donc l'ensemble des racines des polynômes de degré $n$ est une union dénombrable d'ensembles finis, donc au plus dénombrable. L'ensemble de tous les nombres algébriques est $\bigcup_{n\ge 1}(\text{racines des polynômes de degré }n)$, union dénombrable d'ensembles dénombrables, donc dénombrable (et il est infini car il contient $\mathbb{Q}$).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Deduce that the set of transcendental numbers is uncountable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> En déduire que l'ensemble des nombres transcendants est indénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The set of transcendental numbers is $\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}}$. If this set were at most countable, then $\mathbb{R}=\overline{\mathbb{Q}}_{\text{alg}}\cup(\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}})$ would be a union of two at most countable sets, hence at most countable, contradicting Cantor's theorem.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'ensemble des transcendants est $\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}}$. Si cet ensemble était au plus dénombrable, alors $\mathbb{R}=\overline{\mathbb{Q}}_{\text{alg}}\cup(\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}})$ serait une union de deux ensembles au plus dénombrables, donc au plus dénombrable, ce qui contredit le théorème de Cantor.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{R}\setminus\mathbb{Q}$ is uncountable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{R}\setminus\mathbb{Q}$ est indénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Same argument: if $\mathbb{R}\setminus\mathbb{Q}$ were at most countable, then $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ would be at most countable (union of two countable sets), contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Même argument : si $\mathbb{R}\setminus\mathbb{Q}$ était au plus dénombrable, alors $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ serait au plus dénombrable (union de deux dénombrables), contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that there is no surjection from $\mathbb{N}$ onto $\{0,1\}^{\mathbb{N}}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de surjection de $\mathbb{N}$ sur $\{0,1\}^{\mathbb{N}}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose there exists a surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, and write $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. Define $b=(b_k)$ by $b_k=1-a_{k,k}$. Then $b\in\{0,1\}^{\mathbb{N}}$ and for all $n$, $b\neq\varphi(n)$ since $b_n=1-a_{n,n}\neq a_{n,n}$. So $b\notin\mathrm{Im}(\varphi)$, contradiction.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons qu'il existe une surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, et notons $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. On définit $b=(b_k)$ par $b_k=1-a_{k,k}$. Alors $b\in\{0,1\}^{\mathbb{N}}$ et pour tout $n$, $b\neq\varphi(n)$ car $b_n=1-a_{n,n}\neq a_{n,n}$. Donc $b\notin\mathrm{Im}(\varphi)$, contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the set of open subsets of $\mathbb{R}$ has the cardinality of the continuum.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des ouverts de $\mathbb{R}$ a le cardinal du continu.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Injection from $\mathbb{R}$ into open sets:</em> $x\mapsto{]{-\infty},x[}$ is injective.
+      <br>
+      <em>Injection from open sets into $\mathcal{P}(\mathbb{Q})$:</em> every open subset of $\mathbb{R}$ is entirely determined by its rational points (since an open set is a union of open intervals, and $\mathbb{Q}$ is dense). The map $U\mapsto U\cap\mathbb{Q}$ is therefore injective. Since $\mathcal{P}(\mathbb{Q})\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, we conclude by Cantor-Bernstein.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Injection de $\mathbb{R}$ dans les ouverts :</em> $x\mapsto{]{-\infty},x[}$ est injective.
+      <br>
+      <em>Injection des ouverts dans $\mathcal{P}(\mathbb{Q})$ :</em> tout ouvert de $\mathbb{R}$ est entièrement déterminé par l'ensemble de ses points rationnels (car un ouvert non vide est une union d'intervalles ouverts, et $\mathbb{Q}$ est dense). L'application $U\mapsto U\cap\mathbb{Q}$ est donc injective. Comme $\mathcal{P}(\mathbb{Q})\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, on conclut par Cantor-Bernstein.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the set $\mathcal{C}(\mathbb{R},\mathbb{R})$ of continuous functions from $\mathbb{R}$ to $\mathbb{R}$ has the cardinality of the continuum.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble $\mathcal{C}(\mathbb{R},\mathbb{R})$ des fonctions continues de $\mathbb{R}$ dans $\mathbb{R}$ a le cardinal du continu.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Injection from $\mathbb{R}$ into $\mathcal{C}(\mathbb{R},\mathbb{R})$:</em> $a\mapsto(x\mapsto a)$ (constant functions) is injective.
+      <br>
+      <em>Injection from $\mathcal{C}(\mathbb{R},\mathbb{R})$ into $\mathbb{R}^{\mathbb{Q}}$:</em> a continuous function is determined by its values on $\mathbb{Q}$ (by density of $\mathbb{Q}$ and continuity). So $f\mapsto f|_{\mathbb{Q}}$ is injective. Now $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (since $\mathbb{Q}\sim\mathbb{N}$), and $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. We conclude by Cantor-Bernstein.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Injection de $\mathbb{R}$ dans $\mathcal{C}(\mathbb{R},\mathbb{R})$ :</em> $a\mapsto(x\mapsto a)$ (fonctions constantes) est injective.
+      <br>
+      <em>Injection de $\mathcal{C}(\mathbb{R},\mathbb{R})$ dans $\mathbb{R}^{\mathbb{Q}}$ :</em> une fonction continue est déterminée par ses valeurs sur $\mathbb{Q}$ (par densité de $\mathbb{Q}$ et continuité). Donc $f\mapsto f|_{\mathbb{Q}}$ est injective. Or $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (car $\mathbb{Q}\sim\mathbb{N}$), et $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. On conclut par Cantor-Bernstein.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Hilbert's hotel).</span> A hotel has a countably infinite number of rooms, all occupied. (a) A new guest arrives. Show that they can be accommodated. (b) A coach of $n$ guests arrives. Show that all can be accommodated. (c) A countably infinite number of coaches, each containing a countably infinite number of guests, arrive. Show that all can be accommodated.</p>
+      <p class="fr"><span class="thm-label">Exercice (Hôtel de Hilbert).</span> Un hôtel a une infinité dénombrable de chambres, toutes occupées. (a) Un nouveau client arrive. Montrer qu'on peut le loger. (b) Un autocar de $n$ clients arrive. Montrer qu'on peut tous les loger. (c) Une infinité dénombrable d'autocars, chacun contenant une infinité dénombrable de clients, arrivent. Montrer qu'on peut tous les loger.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (a) Move the guest in room $k$ to room $k+1$ for every $k\in\mathbb{N}$, freeing room $0$. Formally, $\sigma:k\mapsto k+1$ is an injection from $\mathbb{N}$ into $\mathbb{N}$ whose image is $\mathbb{N}^*$, freeing $0$.
+      <br>
+      (b) Send the guest in room $k$ to room $k+n$. Rooms $0,\ldots,n-1$ are free for the $n$ new guests. This is the injection $k\mapsto k+n$.
+      <br>
+      (c) Use $\mathbb{N}^2\sim\mathbb{N}$. Label guests by $(i,j)$ (guest $j$ of bus $i$), and assign them room $\varphi(i,j)$ where $\varphi:\mathbb{N}^2\to\mathbb{N}$ is Cantor's bijection.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (a) On déplace le client de la chambre $k$ vers la chambre $k+1$ pour tout $k\in\mathbb{N}$, ce qui libère la chambre $0$. Formellement, $\sigma:k\mapsto k+1$ est une injection de $\mathbb{N}$ dans $\mathbb{N}$ dont l'image est $\mathbb{N}^*$, libérant $0$.
+      <br>
+      (b) On envoie le client de la chambre $k$ en chambre $k+n$. Les chambres $0,\ldots,n-1$ sont libres pour les $n$ nouveaux clients. C'est l'injection $k\mapsto k+n$.
+      <br>
+      (c) On utilise $\mathbb{N}^2\sim\mathbb{N}$. On étiquette les clients par $(i,j)$ (client $j$ du bus $i$), et on leur attribue la chambre $\varphi(i,j)$ où $\varphi:\mathbb{N}^2\to\mathbb{N}$ est la bijection de Cantor.
+    </details>
+
+  </main>
+</body>
+</html>

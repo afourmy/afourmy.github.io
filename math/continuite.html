@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Continuity</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Continuity of functions</h3>
+    <h3 class="fr">Continuité des fonctions</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $I \subset \mathbb{R}$, $f : I \to \mathbb{R}$ and $a \in I$. We say that $f$ is <em>continuous at $a$</em> if $\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x \in I,\ |x-a| &lt; \delta \Rightarrow |f(x)-f(a)| &lt; \varepsilon$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $I \subset \mathbb{R}$, $f : I \to \mathbb{R}$ et $a \in I$. On dit que $f$ est <em>continue en $a$</em> si $\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x \in I,\ |x-a| &lt; \delta \Rightarrow |f(x)-f(a)| &lt; \varepsilon$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Sequential characterization).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. The function $f$ is continuous at $a$ if and only if for every sequence $(x_n)$ in $I$ such that $x_n \to a$, we have $f(x_n) \to f(a)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Caractérisation séquentielle).</span> Soit $f : I \to \mathbb{R}$ et $a \in I$. La fonction $f$ est continue en $a$ si et seulement si pour toute suite $(x_n)$ de $I$ telle que $x_n \to a$, on a $f(x_n) \to f(a)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ Suppose $f$ is continuous at $a$ and let $(x_n)$ be a sequence such that $x_n \to a$. Let $\varepsilon &gt; 0$. By continuity of $f$ at $a$, there exists $\delta &gt; 0$ such that $|x-a| &lt; \delta \Rightarrow |f(x)-f(a)| &lt; \varepsilon$. Since $x_n \to a$, there exists $N$ such that for all $n \ge N$, $|x_n - a| &lt; \delta$. So for all $n \ge N$, $|f(x_n) - f(a)| &lt; \varepsilon$. Thus $f(x_n) \to f(a)$.
+      <br>
+      $(\Leftarrow)$ Suppose that for every sequence $(x_n)$ converging to $a$, we have $f(x_n) \to f(a)$. We argue by contrapositive. Suppose $f$ is not continuous at $a$. Then there exists $\varepsilon_0 &gt; 0$ such that for every $\delta &gt; 0$, there exists $x \in I$ satisfying $|x-a| &lt; \delta$ and $|f(x)-f(a)| \ge \varepsilon_0$. For each $n \ge 1$, apply this with $\delta = \frac{1}{n}$: there exists $x_n \in I$ such that $|x_n - a| &lt; \frac{1}{n}$ and $|f(x_n)-f(a)| \ge \varepsilon_0$. Then $x_n \to a$, but $f(x_n)$ does not converge to $f(a)$, contradicting the hypothesis. So $f$ is continuous at $a$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Supposons $f$ continue en $a$ et soit $(x_n)$ une suite telle que $x_n \to a$. Soit $\varepsilon &gt; 0$. Par continuité de $f$ en $a$, il existe $\delta &gt; 0$ tel que $|x-a| &lt; \delta \Rightarrow |f(x)-f(a)| &lt; \varepsilon$. Comme $x_n \to a$, il existe $N$ tel que pour tout $n \ge N$, $|x_n - a| &lt; \delta$. Donc pour tout $n \ge N$, $|f(x_n) - f(a)| &lt; \varepsilon$. Ainsi $f(x_n) \to f(a)$.
+      <br>
+      $(\Leftarrow)$ Supposons que pour toute suite $(x_n)$ convergeant vers $a$, on ait $f(x_n) \to f(a)$. Raisonnons par contraposée. Supposons que $f$ ne soit pas continue en $a$. Alors il existe $\varepsilon_0 &gt; 0$ tel que, pour tout $\delta &gt; 0$, il existe $x \in I$ vérifiant $|x-a| &lt; \delta$ et $|f(x)-f(a)| \ge \varepsilon_0$. Pour tout $n \ge 1$, appliquons cette propriété avec $\delta = \frac{1}{n}$ : il existe $x_n \in I$ tel que $|x_n - a| &lt; \frac{1}{n}$ et $|f(x_n)-f(a)| \ge \varepsilon_0$. Alors $x_n \to a$, mais la suite $f(x_n)$ ne converge pas vers $f(a)$, ce qui contredit l'hypothèse. Donc $f$ est continue en $a$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations on continuous functions).</span> Let $f,g : I \to \mathbb{R}$ be continuous at $a \in I$ and $\lambda \in \mathbb{R}$. Then $f+g$, $\lambda f$ and $fg$ are continuous at $a$. If $g(a) \neq 0$, then $f/g$ is continuous at $a$. If $g$ takes values in an interval $J$ and $h : J \to \mathbb{R}$ is continuous at $g(a)$, then $h \circ g$ is continuous at $a$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur les fonctions continues).</span> Soient $f,g : I \to \mathbb{R}$ continues en $a \in I$ et $\lambda \in \mathbb{R}$. Alors $f+g$, $\lambda f$ et $fg$ sont continues en $a$. Si $g(a) \neq 0$, alors $f/g$ est continue en $a$. Si $g$ est à valeurs dans un intervalle $J$ et $h : J \to \mathbb{R}$ est continue en $g(a)$, alors $h \circ g$ est continue en $a$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      This follows from the sequential characterization and the limit laws for sequences: if $x_n\to a$, then $f(x_n)\to f(a)$ and $g(x_n)\to g(a)$, so $(f+g)(x_n)=f(x_n)+g(x_n)\to f(a)+g(a)$, and similarly for the other operations. For composition, $g(x_n)\to g(a)$ and continuity of $h$ at $g(a)$ give $h(g(x_n))\to h(g(a))$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Conséquence de la caractérisation séquentielle et des opérations sur les limites de suites : si $x_n\to a$, alors $f(x_n)\to f(a)$ et $g(x_n)\to g(a)$, donc $(f+g)(x_n)=f(x_n)+g(x_n)\to f(a)+g(a)$, et de même pour les autres opérations. Pour la composée, $g(x_n)\to g(a)$ et $h$ continue en $g(a)$ donnent $h(g(x_n))\to h(g(a))$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Left and right continuity).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. We say $f$ is <em>left-continuous at $a$</em> if $\lim_{x\to a^-}f(x)=f(a)$, and <em>right-continuous at $a$</em> if $\lim_{x\to a^+}f(x)=f(a)$. The function $f$ is continuous at $a$ if and only if it is both left- and right-continuous at $a$.</p>
+      <p class="fr"><span class="thm-label">Définition (Continuité à gauche, à droite).</span> Soit $f : I \to \mathbb{R}$ et $a \in I$. On dit que $f$ est <em>continue à gauche en $a$</em> si $\lim_{x\to a^-}f(x)=f(a)$, et <em>continue à droite en $a$</em> si $\lim_{x\to a^+}f(x)=f(a)$. La fonction $f$ est continue en $a$ si et seulement si elle est continue à gauche et à droite en $a$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Continuous extension).</span> Let $f : I \setminus \{a\} \to \mathbb{R}$ where $a \in I$. If $f$ has a finite limit $\ell$ at $a$, we say $f$ can be continuously extended at $a$, and the function $\tilde{f} : I \to \mathbb{R}$ defined by $\tilde{f}(x) = f(x)$ for $x \neq a$ and $\tilde{f}(a) = \ell$ is called the continuous extension of $f$ at $a$. The function $\tilde{f}$ is continuous at $a$.</p>
+      <p class="fr"><span class="thm-label">Définition (Prolongement par continuité).</span> Soit $f : I \setminus \{a\} \to \mathbb{R}$ où $a \in I$. Si $f$ admet une limite finie $\ell$ en $a$, on dit que $f$ est prolongeable par continuité en $a$, et la fonction $\tilde{f} : I \to \mathbb{R}$ définie par $\tilde{f}(x) = f(x)$ si $x \neq a$ et $\tilde{f}(a) = \ell$ est appelée le prolongement par continuité de $f$ en $a$. La fonction $\tilde{f}$ est continue en $a$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Intermediate value theorem).</span> Let $f$ be continuous on $[a,b]$. For every real number $x$ between $f(a)$ and $f(b)$, there exists $c \in [a,b]$ such that $f(c)=x$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème des valeurs intermédiaires).</span> Soit $f$ continue sur $[a,b]$. Pour tout réel $x$ compris entre $f(a)$ et $f(b)$, il existe $c \in [a,b]$ tel que $f(c)=x$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (by bisection) Replacing $f$ by $f-x$, we may assume $x=0$ with $f(a)\le0\le f(b)$ (if $f(a)\ge0\ge f(b)$, apply the result to $-f$). We construct by induction two sequences $(a_n)$ and $(b_n)$ such that $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ and $b_n-a_n=\frac{b-a}{2^n}$. Given $a_n$ and $b_n$, set $m_n=\frac{a_n+b_n}{2}$. If $f(m_n)\le0$, set $a_{n+1}=m_n$ and $b_{n+1}=b_n$; otherwise $a_{n+1}=a_n$ and $b_{n+1}=m_n$. This ensures $f(a_{n+1})\le0\le f(b_{n+1})$ and $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Thus $(a_n)$ is increasing, $(b_n)$ is decreasing and $b_n-a_n\to0$, so both sequences converge to a common limit $c\in[a,b]$ (completeness of $\mathbb{R}$). By continuity of $f$ at $c$, $f(a_n)\to f(c)$ and $f(b_n)\to f(c)$, but $f(a_n)\le0$ and $f(b_n)\ge0$ for all $n$, so $f(c)\le0$ and $f(c)\ge0$, giving $f(c)=0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (par dichotomie) Quitte à remplacer $f$ par $f-x$, on se ramène au cas $x=0$ avec $f(a)\le0\le f(b)$ (si $f(a)\ge0\ge f(b)$, on applique le résultat à $-f$). On construit par récurrence deux suites $(a_n)$ et $(b_n)$ telles que $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ et $b_n-a_n=\frac{b-a}{2^n}$. Supposons $a_n$ et $b_n$ construits et posons $m_n=\frac{a_n+b_n}{2}$. Si $f(m_n)\le0$, on pose $a_{n+1}=m_n$ et $b_{n+1}=b_n$, sinon $a_{n+1}=a_n$ et $b_{n+1}=m_n$, ce qui garantit $f(a_{n+1})\le0\le f(b_{n+1})$ et $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Ainsi $(a_n)$ est croissante, $(b_n)$ est décroissante et $b_n-a_n\to0$, donc les suites sont adjacentes et convergent vers une même limite $c\in[a,b]$ (complétude de $\mathbb{R}$). Par continuité de $f$ en $c$, on a $f(a_n)\to f(c)$ et $f(b_n)\to f(c)$, or pour tout $n$, $f(a_n)\le0$ et $f(b_n)\ge0$, donc $f(c)\le0$ et $f(c)\ge0$, d'où $f(c)=0$.
+    </details>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Assume $f(a)\le x\le f(b)$ and set $S=\{t\in[a,b]\mid f(t)\le x\}$. Then $S$ is nonempty (since $a\in S$) and bounded above by $b$, so $c=\sup S$ exists (completeness of $\mathbb{R}$) and $c\in[a,b]$. By continuity of $f$ at $c$, if $f(c)&lt;x$, there exists $\delta&gt;0$ such that $f(t)&lt;x$ for all $t\in[c,c+\delta]\cap[a,b]$, so $t\in S$. This means there are points strictly greater than $c$ in $S$, contradicting $c=\sup S$. Similarly, if $f(c)&gt;x$, there exists $\delta&gt;0$ such that $f(t)&gt;x$ for all $t\in[c-\delta,c]\cap[a,b]$, so $t\notin S$, contradicting the definition of $c$ as the supremum of $S$. Therefore $f(c)=x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons $f(a)\le x\le f(b)$ et posons $S=\{t\in[a,b]\mid f(t)\le x\}$. Alors $S$ est non vide car $a\in S$ et majoré par $b$, donc $c=\sup S$ existe (complétude de $\mathbb{R}$) et $c\in[a,b]$. Par continuité de $f$ en $c$, si $f(c)&lt;x$, il existe $\delta&gt;0$ tel que pour tout $t\in[c,c+\delta]\cap[a,b]$, $f(t)&lt;x$, donc $t\in S$. On vient de montrer qu'il existe des points strictement plus grands que $c$ qui appartiennent à $S$, ce qui contredit le fait que $c$ soit une borne supérieure de $S$. De même, si $f(c)&gt;x$, il existe $\delta&gt;0$ tel que pour tout $t\in[c-\delta,c]\cap[a,b]$, $f(t)&gt;x$, donc $t\notin S$, ce qui contredit la définition de $c$ comme borne supérieure de $S$. Donc $f(c)=x$.
+    </details>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> Both proofs use the completeness of $\mathbb{R}$: the first via the convergence of adjacent sequences, the second via the existence of the supremum.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Ces deux démonstrations utilisent la complétude de $\mathbb{R}$ : la première via la convergence des suites adjacentes, la seconde via l'existence de la borne supérieure.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> If $f$ is continuous on $[a,b]$ and $f(a)f(b) &lt; 0$, then there exists $c \in (a,b)$ such that $f(c)=0$.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $f$ est continue sur $[a,b]$ et $f(a)f(b) &lt; 0$, alors il existe $c \in (a,b)$ tel que $f(c)=0$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Extreme value theorem).</span> Every continuous function on a closed interval $[a,b]$ is bounded and attains its bounds.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème des bornes atteintes).</span> Toute fonction continue sur un segment $[a,b]$ est bornée et atteint ses bornes.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$f$ is bounded.</em> Suppose for contradiction that $f$ is not bounded above. For each $n\ge1$, there exists $x_n\in[a,b]$ with $f(x_n)\ge n$. The sequence $(x_n)$ is bounded, so by Bolzano–Weierstrass it has a subsequence $(x_{\varphi(n)})$ converging to some $\ell\in[a,b]$. By continuity of $f$ at $\ell$, $f(x_{\varphi(n)})\to f(\ell)$, contradicting $f(x_{\varphi(n)})\ge\varphi(n)\to+\infty$. So $f$ is bounded above; similarly it is bounded below.
+      <br>
+      <em>$f$ attains its maximum.</em> Let $M=\sup_{[a,b]}f$. For each $n\ge1$, there exists $x_n\in[a,b]$ with $M-\frac{1}{n}\le f(x_n)\le M$. By Bolzano–Weierstrass, extract a subsequence $(x_{\varphi(n)})$ converging to $\ell\in[a,b]$. By continuity, $f(x_{\varphi(n)})\to f(\ell)$, and by the squeeze theorem $f(\ell)=M$. The argument for the minimum is analogous.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>$f$ est bornée.</em> Supposons par l'absurde que $f$ n'est pas majorée. Pour tout $n\ge1$, il existe $x_n\in[a,b]$ tel que $f(x_n)\ge n$. La suite $(x_n)$ est bornée, donc par le théorème de Bolzano--Weierstrass elle admet une sous-suite $(x_{\varphi(n)})$ convergeant vers un certain $\ell\in[a,b]$. Par continuité de $f$ en $\ell$, $f(x_{\varphi(n)})\to f(\ell)$, ce qui contredit $f(x_{\varphi(n)})\ge\varphi(n)\to+\infty$. Donc $f$ est majorée ; de même $f$ est minorée.
+      <br>
+      <em>$f$ atteint son maximum.</em> Soit $M=\sup_{[a,b]}f$. Pour tout $n\ge1$, il existe $x_n\in[a,b]$ tel que $M-\frac{1}{n}\le f(x_n)\le M$. Par Bolzano--Weierstrass, on extrait une sous-suite $(x_{\varphi(n)})$ convergeant vers $\ell\in[a,b]$. Par continuité, $f(x_{\varphi(n)})\to f(\ell)$, et par encadrement $f(\ell)=M$. Le raisonnement est analogue pour le minimum.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> The image of a closed interval under a continuous function is a closed interval.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> L'image d'un segment par une fonction continue est un segment.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be continuous on $[a,b]$. By the extreme value theorem, $f$ attains its minimum $m$ and maximum $M$ on $[a,b]$: there exist $x_1, x_2 \in [a,b]$ with $f(x_1)=m$ and $f(x_2)=M$. So $f([a,b]) \subseteq [m,M]$ and $m, M \in f([a,b])$. By the intermediate value theorem applied to $f$ on the interval with endpoints $x_1$ and $x_2$, for every $y \in [m,M]$ there exists $c$ between $x_1$ and $x_2$ with $f(c)=y$. So $[m,M] \subseteq f([a,b])$, giving $f([a,b])=[m,M]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ continue sur $[a,b]$. Par le théorème des bornes atteintes, $f$ atteint son minimum $m$ et son maximum $M$ sur $[a,b]$ : il existe $x_1, x_2 \in [a,b]$ tels que $f(x_1)=m$ et $f(x_2)=M$. On a donc $f([a,b]) \subseteq [m,M]$ et $m, M \in f([a,b])$. Par le théorème des valeurs intermédiaires appliqué à $f$ sur l'intervalle d'extrémités $x_1$ et $x_2$, pour tout $y \in [m,M]$, il existe $c$ entre $x_1$ et $x_2$ tel que $f(c)=y$. Donc $[m,M] \subseteq f([a,b])$, d'où $f([a,b])=[m,M]$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Image of an interval).</span> The image of an interval under a continuous function is an interval.</p>
+      <p class="fr"><span class="thm-label">Théorème (Image d'un intervalle).</span> L'image d'un intervalle par une fonction continue est un intervalle.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be continuous on an interval $I$ and let $u, v \in f(I)$ with $u &lt; v$. There exist $a, b \in I$ with $f(a)=u$ and $f(b)=v$. The interval with endpoints $a$ and $b$ is contained in $I$ (since $I$ is an interval). By the intermediate value theorem applied to $f$ on this interval, for every $w \in [u,v]$ there exists $c$ between $a$ and $b$ with $f(c)=w$. So $[u,v] \subseteq f(I)$, showing that $f(I)$ is an interval.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ continue sur un intervalle $I$ et soient $u, v \in f(I)$ avec $u &lt; v$. Il existe $a, b \in I$ tels que $f(a)=u$ et $f(b)=v$. L'intervalle d'extrémités $a$ et $b$ est inclus dans $I$ (car $I$ est un intervalle). Par le théorème des valeurs intermédiaires appliqué à $f$ sur cet intervalle, pour tout $w \in [u,v]$, il existe $c$ entre $a$ et $b$ tel que $f(c)=w$. Donc $[u,v] \subseteq f(I)$, ce qui montre que $f(I)$ est un intervalle.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bijection theorem).</span> Let $f$ be continuous and strictly monotone on an interval $I$. Then:</p>
+      <ol class="en">
+        <li>$f$ is a bijection from $I$ onto $J = f(I)$, which is an interval.</li>
+        <li>The inverse bijection $f^{-1} : J \to I$ is continuous and strictly monotone in the same direction as $f$.</li>
+      </ol>
+      <p class="fr"><span class="thm-label">Théorème (Théorème de la bijection).</span> Soit $f$ continue et strictement monotone sur un intervalle $I$. Alors :</p>
+      <ol class="fr">
+        <li>$f$ réalise une bijection de $I$ sur $J = f(I)$, qui est un intervalle.</li>
+        <li>La bijection réciproque $f^{-1} : J \to I$ est continue et strictement monotone de même sens que $f$.</li>
+      </ol>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$f$ is bijective from $I$ onto $f(I)$.</em> Surjectivity is immediate by definition of $f(I)$. Injectivity follows from strict monotonicity: if $x \neq y$, then $f(x) \neq f(y)$. The set $J = f(I)$ is an interval by the previous theorem.
+      <br>
+      <em>$f^{-1}$ is strictly monotone.</em> Suppose $f$ is strictly increasing and let $y_1 &lt; y_2$ in $J$. If $f^{-1}(y_1) \ge f^{-1}(y_2)$, then by monotonicity of $f$, $y_1 \ge y_2$, contradiction. So $f^{-1}$ is strictly increasing.
+      <br>
+      <em>$f^{-1}$ is continuous.</em> Suppose $f$ is strictly increasing. Let $y_0 \in J$, $x_0 = f^{-1}(y_0)$ and $\varepsilon &gt; 0$. Choose $\varepsilon' \in\,]0, \varepsilon]$ such that $[x_0-\varepsilon', x_0+\varepsilon'] \subset I$. By strict monotonicity, $f(x_0-\varepsilon') &lt; y_0 &lt; f(x_0+\varepsilon')$. Set $\delta = \min(y_0 - f(x_0-\varepsilon'),\, f(x_0+\varepsilon') - y_0) &gt; 0$. Then $|y-y_0| &lt; \delta$ implies $f(x_0-\varepsilon') &lt; y &lt; f(x_0+\varepsilon')$, so by strict monotonicity $x_0-\varepsilon' &lt; f^{-1}(y) &lt; x_0+\varepsilon'$, giving $|f^{-1}(y)-x_0| &lt; \varepsilon' \le \varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>$f$ est bijective de $I$ sur $f(I)$.</em> La surjectivité est immédiate par définition de $f(I)$. L'injectivité découle de la stricte monotonie : si $x \neq y$, alors $f(x) \neq f(y)$. L'ensemble $J = f(I)$ est un intervalle d'après le théorème précédent.
+      <br>
+      <em>$f^{-1}$ est strictement monotone.</em> Supposons $f$ strictement croissante et soient $y_1 &lt; y_2$ dans $J$. Si $f^{-1}(y_1) \ge f^{-1}(y_2)$, alors par croissance de $f$, $y_1 \ge y_2$, contradiction. Donc $f^{-1}$ est strictement croissante.
+      <br>
+      <em>$f^{-1}$ est continue.</em> Supposons $f$ strictement croissante. Soit $y_0 \in J$, $x_0 = f^{-1}(y_0)$ et $\varepsilon &gt; 0$. On choisit $\varepsilon' \in\,]0, \varepsilon]$ tel que $[x_0-\varepsilon', x_0+\varepsilon'] \subset I$. Par stricte croissance de $f$, $f(x_0-\varepsilon') &lt; y_0 &lt; f(x_0+\varepsilon')$. On pose $\delta = \min(y_0 - f(x_0-\varepsilon'),\, f(x_0+\varepsilon') - y_0) &gt; 0$. Alors $|y-y_0| &lt; \delta$ implique $f(x_0-\varepsilon') &lt; y &lt; f(x_0+\varepsilon')$, donc par stricte croissance de $f$, $x_0-\varepsilon' &lt; f^{-1}(y) &lt; x_0+\varepsilon'$, soit $|f^{-1}(y)-x_0| &lt; \varepsilon' \le \varepsilon$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval. We say $f : I \to \mathbb{R}$ is <em>uniformly continuous</em> on $I$ if $$\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x,y \in I,\ |x-y|&lt;\delta \Rightarrow |f(x)-f(y)|&lt;\varepsilon.$$</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $I$ un intervalle. On dit que $f : I \to \mathbb{R}$ est <em>uniformément continue</em> sur $I$ si $$\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x,y \in I,\ |x-y|&lt;\delta \Rightarrow |f(x)-f(y)|&lt;\varepsilon.$$</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval and $k \ge 0$. We say $f : I \to \mathbb{R}$ is <em>$k$-Lipschitz</em> if $$\forall x,y \in I,\ |f(x)-f(y)| \le k\,|x-y|.$$</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $I$ un intervalle et $k \ge 0$. On dit que $f : I \to \mathbb{R}$ est <em>$k$-lipschitzienne</em> si $$\forall x,y \in I,\ |f(x)-f(y)| \le k\,|x-y|.$$</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every Lipschitz function is uniformly continuous.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute fonction lipschitzienne est uniformément continue.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be $k$-Lipschitz on $I$. Let $\varepsilon &gt; 0$. Set $\delta = \varepsilon / k$ if $k &gt; 0$ (and $\delta$ arbitrary if $k=0$). Then for all $x,y \in I$, $|x-y| &lt; \delta \Rightarrow |f(x)-f(y)| \le k|x-y| &lt; k\delta = \varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ une fonction $k$-lipschitzienne sur $I$. Soit $\varepsilon &gt; 0$. Posons $\delta = \varepsilon / k$ si $k &gt; 0$ (et $\delta$ quelconque si $k=0$). Alors pour tous $x,y \in I$, $|x-y| &lt; \delta \Rightarrow |f(x)-f(y)| \le k|x-y| &lt; k\delta = \varepsilon$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Heine).</span> Every continuous function on a closed interval is uniformly continuous.</p>
+      <p class="fr"><span class="thm-label">Théorème (Heine).</span> Toute fonction continue sur un segment est uniformément continue.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be continuous on $[a,b]$. Suppose for contradiction that $f$ is not uniformly continuous. Then there exists $\varepsilon_0 &gt; 0$ such that for every $n \ge 1$, there exist $x_n, y_n \in [a,b]$ with $|x_n - y_n| &lt; \frac{1}{n}$ and $|f(x_n) - f(y_n)| \ge \varepsilon_0$. The sequence $(x_n)$ is bounded, so by Bolzano–Weierstrass it has a subsequence $(x_{\varphi(n)})$ converging to $\ell \in [a,b]$. Since $|x_{\varphi(n)} - y_{\varphi(n)}| &lt; \frac{1}{\varphi(n)} \to 0$, we also have $y_{\varphi(n)} \to \ell$. By continuity of $f$ at $\ell$, $f(x_{\varphi(n)}) \to f(\ell)$ and $f(y_{\varphi(n)}) \to f(\ell)$, so $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \to 0$, contradicting $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \ge \varepsilon_0$. So $f$ is uniformly continuous.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ continue sur $[a,b]$. Supposons par l'absurde que $f$ n'est pas uniformément continue. Alors il existe $\varepsilon_0 &gt; 0$ tel que, pour tout $n \ge 1$, il existe $x_n, y_n \in [a,b]$ vérifiant $|x_n - y_n| &lt; \frac{1}{n}$ et $|f(x_n) - f(y_n)| \ge \varepsilon_0$. La suite $(x_n)$ est bornée, donc par le théorème de Bolzano--Weierstrass elle admet une sous-suite $(x_{\varphi(n)})$ convergeant vers $\ell \in [a,b]$. Comme $|x_{\varphi(n)} - y_{\varphi(n)}| &lt; \frac{1}{\varphi(n)} \to 0$, on a aussi $y_{\varphi(n)} \to \ell$. Par continuité de $f$ en $\ell$, $f(x_{\varphi(n)}) \to f(\ell)$ et $f(y_{\varphi(n)}) \to f(\ell)$, donc $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \to 0$, ce qui contredit $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \ge \varepsilon_0$. Donc $f$ est uniformément continue.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Study the continuity of the function $$f(x)=\begin{cases}x \sin(1/x) & \text{if } x \neq 0, \\ 0 & \text{if } x=0.\end{cases}$$</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Étudier la continuité de la fonction $$f(x)=\begin{cases}x \sin(1/x) & \text{si } x \neq 0, \\ 0 & \text{si } x=0.\end{cases}$$</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a continuous function on $\mathbb{R}$ that is not uniformly continuous.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction continue non uniformément continue sur $\mathbb{R}$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[a,b]$. Show that the equation $f(x)=x$ has at least one solution in $[a,b]$ if $f([a,b]) \subset [a,b]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[a,b]$. Montrer que l'équation $f(x)=x$ admet au moins une solution dans $[a,b]$ si $f([a,b]) \subset [a,b]$.</p>
+    </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $f:\mathbb{R}\to\mathbb{R}_+^*$ defined by $f(0)=1$ and $f(x)=\frac{e^x-1}{x}$ for $x\neq0$ is a bijection.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $f:\mathbb{R}\to\mathbb{R}_+^*$ définie par $f(0)=1$ et $f(x)=\frac{e^x-1}{x}$ pour $x\neq0$ est une bijection.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Continuity:</em> for $x\neq0$, $f$ is continuous as a quotient of continuous functions with $x\neq0$. At $0$, $\lim_{x\to0}\frac{e^x-1}{x}=\exp'(0)=1=f(0)$ (the derivative of $\exp$ at $0$), so $f$ is continuous at $0$.
+      <br>
+      <em>Injectivity:</em> for $x\neq0$, $f'(x)=\frac{xe^x-e^x+1}{x^2}$. Set $g(x)=xe^x-e^x+1$: $g(0)=0$ and $g'(x)=xe^x$, so $g'(x)&lt;0$ for $x&lt;0$ and $g'(x)&gt;0$ for $x&gt;0$, giving $g(x)\ge0$ for all $x$, with equality only at $0$. Thus $f'(x)&gt;0$ for all $x\neq0$: $f$ is strictly increasing on $\mathbb{R}$, hence injective.
+      <br>
+      <em>Surjectivity:</em> $f$ is continuous on $\mathbb{R}$ with $f(x)\to0^+$ as $x\to-\infty$ and $f(x)\to+\infty$ as $x\to+\infty$. By the intermediate value theorem, for every $y\in\mathbb{R}_+^*$ there exists $x\in\mathbb{R}$ with $f(x)=y$, so $f$ is surjective onto $\mathbb{R}_+^*$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Continuité :</em> pour $x\neq0$, $f$ est continue comme quotient de fonctions continues avec $x\neq0$. En $0$, $\lim_{x\to0}\frac{e^x-1}{x}=\exp'(0)=1=f(0)$ (taux d'accroissement de $\exp$ en $0$), donc $f$ est continue en $0$.
+      <br>
+      <em>Injectivité :</em> pour $x\neq0$, $f'(x)=\frac{xe^x-e^x+1}{x^2}$. Posons $g(x)=xe^x-e^x+1$ : $g(0)=0$ et $g'(x)=xe^x$, donc $g'(x)&lt;0$ pour $x&lt;0$ et $g'(x)&gt;0$ pour $x&gt;0$, d'où $g(x)\ge0$ pour tout $x$, avec égalité uniquement en $0$. Ainsi $f'(x)&gt;0$ pour tout $x\neq0$ : $f$ est strictement croissante sur $\mathbb{R}$, donc injective.
+      <br>
+      <em>Surjectivité :</em> $f$ est continue sur $\mathbb{R}$ avec $f(x)\to0^+$ quand $x\to-\infty$ et $f(x)\to+\infty$ quand $x\to+\infty$. Par le théorème des valeurs intermédiaires, pour tout $y\in\mathbb{R}_+^*$, il existe $x\in\mathbb{R}$ tel que $f(x)=y$, donc $f$ est surjective sur $\mathbb{R}_+^*$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Prove that $x\mapsto x^n$ is continuous on $\mathbb{R}$ using the definition of continuity.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Démontrer que $x\mapsto x^n$ est continue sur $\mathbb{R}$ en utilisant la définition de la continuité.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $a\in\mathbb{R}$ and $\varepsilon&gt;0$. Write $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. For $|x-a|&lt;1$, the triangle inequality gives $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, so each term satisfies $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$, and the sum has $n$ terms, giving $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. Set $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Then $|x-a|&lt;\delta$ implies $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $a\in\mathbb{R}$ et $\varepsilon&gt;0$. On écrit $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. Pour $|x-a|&lt;1$, l'inégalité triangulaire donne $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, donc $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$ pour chaque terme, et la somme en comporte $n$, d'où $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. On pose $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Alors $|x-a|&lt;\delta$ implique $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine all functions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ such that $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Déterminer les fonctions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ telles que $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Setting $x=y=0$: $f(0)=2f(0)$, so $f(0)=0$. Setting $y=-x$: $f(-x)=-f(x)$. By immediate induction, $f(nx)=nf(x)$ for all $n\in\mathbb{N}$, then for all $n\in\mathbb{Z}$ (since $f(-x)=-f(x)$). Setting $a=f(1)$ and $x=p/q$ with $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$: $qf(p/q)=f(p)=pf(1)=pa$, so $f(p/q)=a\cdot p/q$. Thus $f(r)=ar$ for all $r\in\mathbb{Q}$. By density of $\mathbb{Q}$ in $\mathbb{R}$, for any $x\in\mathbb{R}$ there is a sequence $(r_n)\subset\mathbb{Q}$ with $r_n\to x$. By continuity: $f(x)=\lim f(r_n)=\lim ar_n=ax$. So $f(x)=ax$ for all $x\in\mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      En posant $x=y=0$ : $f(0)=2f(0)$, donc $f(0)=0$. En posant $y=-x$ : $f(-x)=-f(x)$. Par récurrence immédiate, $f(nx)=nf(x)$ pour tout $n\in\mathbb{N}$, puis pour tout $n\in\mathbb{Z}$ (car $f(-x)=-f(x)$). En posant $a=f(1)$ et $x=p/q$ avec $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$ : $qf(p/q)=f(p)=pf(1)=pa$, donc $f(p/q)=a\cdot p/q$. Ainsi $f(r)=ar$ pour tout $r\in\mathbb{Q}$. Par densité de $\mathbb{Q}$ dans $\mathbb{R}$, pour tout $x\in\mathbb{R}$, il existe une suite $(r_n)\subset\mathbb{Q}$ telle que $r_n\to x$. Par continuité de $f$ : $f(x)=\lim f(r_n)=\lim ar_n=ax$. Donc $f(x)=ax$ pour tout $x\in\mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every continuous and periodic function on $\mathbb{R}$ is bounded.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que toute fonction continue et périodique sur $\mathbb{R}$ est bornée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be continuous and $T$-periodic with $T&gt;0$. By the extreme value theorem, $f$ is bounded on the interval $[0,T]$: there exists $M\ge0$ such that $|f(x)|\le M$ for all $x\in[0,T]$. For any $x\in\mathbb{R}$, setting $n=\lfloor x/T\rfloor$, we have $n\le x/T&lt;n+1$, so $x-nT\in[0,T)$, and $f(x)=f(x-nT)$ by periodicity, giving $|f(x)|\le M$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ continue et $T$-périodique avec $T&gt;0$. Par le théorème des bornes atteintes, $f$ est bornée sur le segment $[0,T]$ : il existe $M\ge0$ tel que $|f(x)|\le M$ pour tout $x\in[0,T]$. Pour tout $x\in\mathbb{R}$, en posant $n=\lfloor x/T\rfloor$, on a $n\le x/T&lt;n+1$ donc $x-nT\in[0,T)$, et $f(x)=f(x-nT)$ par périodicité, donc $|f(x)|\le M$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $x\mapsto\frac{1}{x}$ is Lipschitz on $[1,+\infty[$, and not uniformly continuous on $]0,1]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $x\mapsto\frac{1}{x}$ est lipschitzienne sur $[1,+\infty[$, et non uniformément continue sur $]0,1]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Lipschitz on $[1,+\infty[$.</em> For $x,y\in[1,+\infty[$, $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ since $xy\ge1$. So the function is $1$-Lipschitz on $[1,+\infty[$.
+      <br>
+      <em>Not uniformly continuous on $]0,1]$.</em> Set $x_n=\frac{1}{n}$ and $y_n=\frac{1}{n+1}$. Then $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, but $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. So for $\varepsilon=1$, whatever $\delta&gt;0$, one can find $x_n,y_n\in\,]0,1]$ with $|x_n-y_n|&lt;\delta$ and $|f(x_n)-f(y_n)|\ge\varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Lipschitzienne sur $[1,+\infty[$.</em> Pour $x,y\in[1,+\infty[$, on a $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ car $xy\ge1$. La fonction est donc $1$-lipschitzienne sur $[1,+\infty[$.
+      <br>
+      <em>Non uniformément continue sur $]0,1]$.</em> Posons $x_n=\frac{1}{n}$ et $y_n=\frac{1}{n+1}$. Alors $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, mais $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. Donc pour $\varepsilon=1$, quel que soit $\delta&gt;0$, on peut trouver $x_n,y_n\in\,]0,1]$ avec $|x_n-y_n|&lt;\delta$ et $|f(x_n)-f(y_n)|\ge\varepsilon$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Give a counterexample to Heine's theorem for a continuous function on an interval that is not a closed interval.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un contre-exemple au théorème de Heine pour une fonction continue sur un intervalle qui n'est pas un segment.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The function $f:x\mapsto\sin(1/x)$ is continuous on $]0,1]$. Let $\varepsilon=1$ and $\delta&gt;0$ be arbitrary. Choose $n$ large enough so that $x_n=\frac{1}{2n\pi}$ and $y_n=\frac{1}{2n\pi+\pi/2}$ belong to $]0,1]$ with $|x_n-y_n|&lt;\delta$. Then $f(x_n)=\sin(2n\pi)=0$ and $f(y_n)=\sin(2n\pi+\pi/2)=1$, so $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Thus $f$ is not uniformly continuous on $]0,1]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La fonction $f:x\mapsto\sin(1/x)$ est continue sur $]0,1]$. Soit $\varepsilon=1$ et $\delta&gt;0$ quelconque. On choisit $n$ assez grand pour que $x_n=\frac{1}{2n\pi}$ et $y_n=\frac{1}{2n\pi+\pi/2}$ appartiennent à $]0,1]$ avec $|x_n-y_n|&lt;\delta$. Or $f(x_n)=\sin(2n\pi)=0$ et $f(y_n)=\sin(2n\pi+\pi/2)=1$, donc $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Ainsi $f$ n'est pas uniformément continue sur $]0,1]$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be continuous and increasing such that there exists $a &gt; 0$ with $\forall x, y \in \mathbb{R},\ |f(x)-f(y)| \ge a\,|x-y|$. Show that $f$ is bijective.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ continue et croissante telle qu'il existe $a &gt; 0$ vérifiant $\forall x, y \in \mathbb{R},\ |f(x)-f(y)| \ge a\,|x-y|$. Montrer que $f$ est bijective.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Injectivity.</em> If $x \neq y$, then $|f(x)-f(y)| \ge a|x-y| &gt; 0$, so $f(x)\neq f(y)$. Thus $f$ is injective.
+      <br>
+      <em>Surjectivity.</em> Let $y \in \mathbb{R}$. For $x &gt; 0$, $f$ is increasing so $f(x) \ge f(0)$, giving $|f(x)-f(0)| = f(x)-f(0) \ge ax$, hence $f(x) \ge f(0)+ax \to +\infty$ as $x\to+\infty$. Similarly, for $x &lt; 0$, $f(x) \le f(0)$, so $f(0)-f(x) \ge a|x|$, giving $f(x) \le f(0)-a|x| \to -\infty$ as $x\to-\infty$. By the intermediate value theorem, there exists $c\in\mathbb{R}$ with $f(c)=y$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Injectivité.</em> Si $x \neq y$, alors $|f(x)-f(y)| \ge a|x-y| &gt; 0$, donc $f(x)\neq f(y)$. Ainsi $f$ est injective.
+      <br>
+      <em>Surjectivité.</em> Soit $y \in \mathbb{R}$. Pour $x &gt; 0$, $f$ est croissante donc $f(x) \ge f(0)$, d'où $|f(x)-f(0)| = f(x)-f(0) \ge ax$, soit $f(x) \ge f(0)+ax \to +\infty$ quand $x\to+\infty$. De même, pour $x &lt; 0$, $f(x) \le f(0)$, d'où $f(0)-f(x) \ge a|x|$, soit $f(x) \le f(0)-a|x| \to -\infty$ quand $x\to-\infty$. Par le théorème des valeurs intermédiaires, il existe $c\in\mathbb{R}$ tel que $f(c)=y$.
+    </details>
+
+  </main>
+</body>
+</html>

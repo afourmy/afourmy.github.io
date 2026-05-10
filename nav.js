@@ -2,13 +2,26 @@
   var menu = [
     { en: "Mathematics", fr: "Math\u00e9matiques", cssClass: "submenu-sections", columns: [
       [
+        { href: "math/ensembles.html", en: "Sets", fr: "Ensembles" },
         { href: "math/bases.html", en: "Foundations", fr: "Bases" },
-        { href: "math/groups.html", en: "Groups", fr: "Groupes" },
-        { href: "math/arithmetique.html", en: "Arithmetic", fr: "Arithmétique" },
+        { href: "math/suites.html", en: "Sequences", fr: "Suites" },
+        { href: "math/fonctions-usuelles.html", en: "Standard Functions", fr: "Fonctions usuelles" },
+        { href: "math/continuite.html", en: "Continuity", fr: "Continuité" },
+        { href: "math/derivation.html", en: "Differentiation", fr: "Dérivation" },
+        { href: "math/topologie.html", en: "Topology", fr: "Topologie" },
       ],
       [
-        { href: "math/probabilites.html", en: "Probability", fr: "Probabilit\u00e9s" },
-        { href: "math/denombrement.html", en: "Combinatorics", fr: "D\u00e9nombrement" },
+        { href: "math/groups.html", en: "Groups", fr: "Groupes" },
+        { href: "math/arithmetique.html", en: "Arithmetic", fr: "Arithmétique" },
+        { href: "math/anneaux-corps.html", en: "Rings and Fields", fr: "Anneaux et corps" },
+        { href: "math/polynomes.html", en: "Polynomials", fr: "Polynômes" },
+        { href: "math/linear-algebra.html", en: "Linear Algebra", fr: "Algèbre linéaire" },
+        { href: "math/matrices.html", en: "Matrices", fr: "Matrices" },
+        { href: "math/reduction.html", en: "Reduction", fr: "Réduction" },
+      ],
+      [
+        { href: "math/probabilites.html", en: "Probability", fr: "Probabilités" },
+        { href: "math/denombrement.html", en: "Combinatorics", fr: "Dénombrement" },
         { href: "math/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
       ]
     ]},
