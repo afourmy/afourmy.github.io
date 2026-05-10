@@ -339,6 +339,50 @@
       Divisibility by 5: <em>Method 1 (Fermat):</em> $n^5 \equiv n \pmod{5}$ by Fermat's little theorem. <em>Method 2 (cases mod 5):</em> if $n \equiv 0, 1, 4 \pmod{5}$ then one of $n, n-1, n+1$ is divisible by 5. If $n \equiv 2$ or $3 \pmod{5}$, then $n^2 \equiv 4 \pmod{5}$ so $n^2 + 1 \equiv 0 \pmod{5}$.
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A 100-meter-long train heading east at 10 m/s passes a train heading west at 15 m/s. If the two trains take 30 seconds to completely pass each other, how long is the second train?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Since the trains travel in opposite directions, their relative speed is $10 + 15 = 25$ m/s. For the trains to fully pass each other, the total distance covered equals the sum of their lengths. Thus $25 \times 30 = 100 + L$, giving $L = 750 - 100 = \mathbf{650}$ meters.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A law firm with 4 senior partners and 3 junior partners wishes to form a committee. In how many ways can such a committee be formed if it must include at least 2 senior partners and at most 1 junior partner?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      A valid committee has $s \geq 2$ senior and $j \leq 1$ junior partners. Summing over all valid $(s, j)$:
+      $$\binom{4}{2}\binom{3}{0} + \binom{4}{2}\binom{3}{1} + \binom{4}{3}\binom{3}{0} + \binom{4}{3}\binom{3}{1} + \binom{4}{4}\binom{3}{0} + \binom{4}{4}\binom{3}{1}$$
+      $$= 6 + 18 + 4 + 12 + 1 + 3 = \mathbf{44}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Two players take turns removing between 1 and 5 sticks from a pile of 59. The player forced to take the last stick loses. How many sticks should the first player remove on the opening move to guarantee a win?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      A position is losing for the player to move iff the opponent can always respond to maintain control. If there is 1 stick, the current player must take it and loses. With 2–6 sticks, the current player can leave exactly 1 for the opponent. With 7 sticks, any move leaves 2–6 (a winning position for the opponent), so 7 is again a losing position. In general, the losing positions are $1, 7, 13, \ldots$, i.e. those congruent to $1 \pmod{6}$.
+      <br>
+      The losing positions are $1, 7, 13, \ldots, 55, 61, \ldots$ The nearest one below 59 is 55, so the first player takes $\mathbf{4}$ sticks. From then on, whenever the second player takes $n$ sticks, the first player takes $6 - n$, keeping the pile on $49, 43, \ldots, 7, 1$ and forcing the second player to take the last stick.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $a$ and $b$ be positive real numbers such that $x^2 + ax + 2b = 0$ and $x^2 + 2bx + a = 0$ both have real roots. Find the smallest possible value of $a + b$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      For real roots, the discriminants must be non-negative:
+      $$a^2 - 8b \geq 0 \quad \text{and} \quad 4b^2 - 4a \geq 0,$$
+      giving $b \leq \frac{a^2}{8}$ and $b \geq \sqrt{a}$ (since $b > 0$). To minimize $a + b$, take $b$ as small as possible, i.e. $b = \sqrt{a}$. This is compatible with the first constraint only when $\sqrt{a} \leq \frac{a^2}{8}$, i.e. $a^{3/2} \geq 8$, so $a \geq 4$.
+      <br>
+      Since $f(a) = a + \sqrt{a}$ is increasing, the minimum is at $a = 4$, $b = 2$, where both discriminants vanish. The smallest possible value is $a + b = \mathbf{6}$.
+    </details>
+
     <h2>Volume 2</h2>
     <!-- Volume 2 content goes here -->
 
