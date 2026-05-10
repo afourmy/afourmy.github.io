@@ -174,21 +174,42 @@ def match_both_strands(pattern, text):
       </ul>
     </div>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Why dynamic programming?</span> To align $a$ (length $m$) against $b$ (length $n$) we need to decide, for each character, whether it is matched to a character of the other string or to a gap. The number of possible alignments is exponential: roughly $\binom{m+n}{m}$, which grows faster than $2^m$ for comparable lengths. Enumerating them all is hopeless.</p>
+      <p class="en">The saving observation is <em>optimal substructure</em>: the last column of any alignment of $a[1..i]$ with $b[1..j]$ is one of exactly three things.
+      <ol>
+        <li>$a_i$ is aligned with $b_j$ (a match or mismatch).</li>
+        <li>$a_i$ is aligned with a gap on the $b$ side.</li>
+        <li>$b_j$ is aligned with a gap on the $a$ side.</li>
+      </ol>
+      In every case, removing that last column leaves an alignment of a strictly shorter prefix pair: $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, or $(a[1..i], b[1..j-1])$ respectively. If the original alignment is optimal, the leftover prefix alignment must also be optimal for its own prefix pair (otherwise we could swap in a better prefix alignment and improve the total score -- a contradiction). This is the exchange argument that justifies recursion.</p>
+      <p class="en">So define $F(i, j)$ as <em>the score of the best alignment of $a[1..i]$ with $b[1..j]$</em>. We can compute $F(i,j)$ from three smaller subproblems, building the table from top-left to bottom-right. Computing the whole $(m+1)\times(n+1)$ table takes $O(mn)$ time and space.</p>
+      <p class="fr"><span class="thm-label">Pourquoi la programmation dynamique ?</span> Pour aligner $a$ (longueur $m$) contre $b$ (longueur $n$), il faut décider, pour chaque caractère, s'il est apparié à un caractère de l'autre chaîne ou à un gap. Le nombre d'alignements possibles est exponentiel : environ $\binom{m+n}{m}$, ce qui croît plus vite que $2^m$ pour des longueurs comparables. Les énumérer tous est hors de portée.</p>
+      <p class="fr">L'observation clé est la <em>sous-structure optimale</em> : la dernière colonne de tout alignement de $a[1..i]$ avec $b[1..j]$ est nécessairement l'un de trois cas.
+      <ol>
+        <li>$a_i$ est aligné avec $b_j$ (appariement ou mésappariement).</li>
+        <li>$a_i$ est aligné avec un gap du côté de $b$.</li>
+        <li>$b_j$ est aligné avec un gap du côté de $a$.</li>
+      </ol>
+      Dans chaque cas, en retirant cette dernière colonne, on obtient un alignement d'une paire de préfixes strictement plus courts : $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, ou $(a[1..i], b[1..j-1])$ respectivement. Si l'alignement original est optimal, l'alignement de préfixe restant doit lui aussi être optimal pour sa paire de préfixes (sinon on pourrait le remplacer par un meilleur alignement de préfixe et améliorer le score total, ce qui contredit l'optimalité). C'est l'argument d'échange qui justifie la récursion.</p>
+      <p class="fr">On définit donc $F(i, j)$ comme <em>le score du meilleur alignement de $a[1..i]$ avec $b[1..j]$</em>. On peut calculer $F(i,j)$ à partir de trois sous-problèmes plus petits, en remplissant le tableau de gauche à droite et de haut en bas. Calculer le tableau entier $(m+1)\times(n+1)$ prend un temps et un espace $O(mn)$.</p>
+    </div>
+
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Needleman–Wunsch, 1970).</span> Let $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$. Define the scoring function: $s(x, y) = +1$ if $x = y$, $-1$ if $x \neq y$, and gap penalty $-d$ for each gap. The optimal global alignment score $F(m, n)$ satisfies the recurrence</p>
+      <p class="en"><span class="thm-label">Theorem (Needleman–Wunsch, 1970).</span> Let $a = a_1 \cdots a_m$ and $b = b_1 \cdots b_n$. Define the scoring function: $s(x, y) = +1$ if $x = y$, $-1$ if $x \neq y$, and gap penalty $-d$ for each gap. Let $F(i,j)$ be the score of the best alignment of $a[1..i]$ with $b[1..j]$. The three cases identified above translate directly into the recurrence</p>
       <ul class="en">
-        <li>$F(i, 0) = -i \cdot d$</li>
-        <li>$F(0, j) = -j \cdot d$</li>
-        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j), F(i-1,\, j) - d, F(i,\, j-1) - d\}$</li>
+        <li>$F(i, 0) = -i \cdot d$ (aligning $i$ characters of $a$ against $i$ gaps)</li>
+        <li>$F(0, j) = -j \cdot d$ (aligning $j$ characters of $b$ against $j$ gaps)</li>
+        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j),\; F(i-1,\, j) - d,\; F(i,\, j-1) - d\}$</li>
       </ul>
-      <p class="en">and can be computed in $O(mn)$ time and space by filling the $(m+1) \times (n+1)$ DP table row by row.</p>
-      <p class="fr"><span class="thm-label">Théorème (Needleman–Wunsch, 1970).</span> Soient $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$. Définissons la fonction de score : $s(x, y) = +1$ si $x = y$, $-1$ si $x \neq y$, et pénalité de gap $-d$ par gap. Le score optimal d'alignement global $F(m, n)$ satisfait la récurrence</p>
+      <p class="en">The three terms correspond exactly to cases 1, 2, and 3 above. The optimal global alignment score is $F(m, n)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Needleman–Wunsch, 1970).</span> Soient $a = a_1 \cdots a_m$ et $b = b_1 \cdots b_n$. Définissons la fonction de score : $s(x, y) = +1$ si $x = y$, $-1$ si $x \neq y$, et pénalité de gap $-d$ par gap. Soit $F(i,j)$ le score du meilleur alignement de $a[1..i]$ avec $b[1..j]$. Les trois cas identifiés ci-dessus se traduisent directement par la récurrence</p>
       <ul class="fr">
-        <li>$F(i, 0) = -i \cdot d$</li>
-        <li>$F(0, j) = -j \cdot d$</li>
-        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j), F(i-1,\, j) - d, F(i,\, j-1) - d\}$</li>
+        <li>$F(i, 0) = -i \cdot d$ (aligner $i$ caractères de $a$ contre $i$ gaps)</li>
+        <li>$F(0, j) = -j \cdot d$ (aligner $j$ caractères de $b$ contre $j$ gaps)</li>
+        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j),\; F(i-1,\, j) - d,\; F(i,\, j-1) - d\}$</li>
       </ul>
-      <p class="fr">et peut être calculé en temps et espace $O(mn)$ en remplissant le tableau de PD $(m+1) \times (n+1)$ ligne par ligne.</p>
+      <p class="fr">Les trois termes correspondent exactement aux cas 1, 2 et 3 ci-dessus. Le score optimal d'alignement global est $F(m, n)$.</p>
     </div>
 
     <details class="proof en">
@@ -228,13 +249,22 @@ def match_both_strands(pattern, text):
             j -= 1
     return ''.join(reversed(ra)), ''.join(reversed(rb)), dp[m][n]</code></pre>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">From global to local alignment.</span> Needleman–Wunsch aligns <em>all</em> of $a$ against <em>all</em> of $b$. End gaps are penalized just like interior gaps. This is the right model when two sequences are known to be related along their full length (e.g. two homologous genes of similar size).</p>
+      <p class="en">For many biological questions the situation is different: $a$ might be a short query (a read, a protein domain) and $b$ a long database sequence, or both sequences may share only a conserved region flanked by unrelated sequence. In these cases, forcing a full alignment penalizes the unrelated flanking regions heavily and yields a meaningless score. What we want is to find the pair of <em>substrings</em> $(a[i..i'],\, b[j..j'])$ whose alignment score is highest -- ignoring everything outside them.</p>
+      <p class="en">The trick to turning NW into a local aligner is simple: we allow the alignment score to "restart" at any position by adding $0$ as a fourth option in the recurrence. Concretely, define $H(i,j)$ as the score of the best alignment ending at $a_i$ and $b_j$, <em>or $0$ if no alignment ending here has a positive score</em>. Then extending from a cell with $H = 0$ is the same as starting a fresh alignment at that point. The best local alignment score is $\max_{i,j} H(i,j)$, found anywhere in the table, not just at the bottom-right corner. Traceback starts at that maximum and stops as soon as it reaches a cell with $H = 0$ -- that cell marks the start of the local alignment.</p>
+      <p class="fr"><span class="thm-label">De l'alignement global à l'alignement local.</span> Needleman–Wunsch aligne <em>tout</em> $a$ contre <em>tout</em> $b$. Les gaps en extrémité sont pénalisés comme les gaps intérieurs. C'est le bon modèle lorsque deux séquences sont connues pour être liées sur toute leur longueur (par exemple deux gènes homologues de taille similaire).</p>
+      <p class="fr">Pour beaucoup de questions biologiques, la situation est différente : $a$ peut être une courte requête (une lecture, un domaine protéique) et $b$ une longue séquence de base de données, ou les deux séquences ne partagent qu'une région conservée encadrée par des séquences non liées. Dans ces cas, forcer un alignement complet pénalise lourdement les régions flanquantes non liées et produit un score sans signification. Ce qu'on veut, c'est trouver la paire de <em>sous-chaînes</em> $(a[i..i'],\, b[j..j'])$ dont le score d'alignement est le plus élevé, en ignorant tout ce qui est en dehors.</p>
+      <p class="fr">L'astuce pour transformer NW en un aligneur local est simple : on autorise le score d'alignement à "repartir de zéro" à n'importe quelle position en ajoutant $0$ comme quatrième option dans la récurrence. Concrètement, on définit $H(i,j)$ comme le score du meilleur alignement se terminant en $a_i$ et $b_j$, <em>ou $0$ si aucun alignement se terminant ici n'a un score positif</em>. Étendre à partir d'une cellule avec $H = 0$ revient à démarrer un alignement frais à ce point. Le meilleur score d'alignement local est $\max_{i,j} H(i,j)$, trouvé n'importe où dans le tableau, pas seulement en bas à droite. Le retrace commence à ce maximum et s'arrête dès qu'on atteint une cellule avec $H = 0$ -- cette cellule marque le début de l'alignement local.</p>
+    </div>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Local alignment, Smith–Waterman).</span> A <em>local alignment</em> of $a$ and $b$ is a global alignment of a substring $a[i..i']$ with a substring $b[j..j']$, chosen to maximize the alignment score. This is the biologically meaningful operation when searching for a conserved domain within a longer sequence. The <em>Smith–Waterman algorithm</em> computes the optimal local alignment score using the modified recurrence
-      $$H(i, j) = \max\begin{cases} 0 \\ H(i-1,\, j-1) + s(a_i, b_j) \\ H(i-1,\, j) - d \\ H(i,\, j-1) - d \end{cases}$$
-      The optimal local alignment score is $\max_{i,j} H(i,j)$, and the traceback starts from this maximum and stops when a cell with value $0$ is reached.</p>
-      <p class="fr"><span class="thm-label">Définition (Alignement local, Smith–Waterman).</span> Un <em>alignement local</em> de $a$ et $b$ est un alignement global d'une sous-chaîne $a[i..i']$ avec une sous-chaîne $b[j..j']$, choisi pour maximiser le score d'alignement. C'est l'opération biologiquement pertinente lorsqu'on recherche un domaine conservé au sein d'une séquence plus longue. L'<em>algorithme de Smith–Waterman</em> calcule le score optimal d'alignement local en utilisant la récurrence modifiée
-      $$H(i, j) = \max\begin{cases} 0 \\ H(i-1,\, j-1) + s(a_i, b_j) \\ H(i-1,\, j) - d \\ H(i,\, j-1) - d \end{cases}$$
-      Le score optimal d'alignement local est $\max_{i,j} H(i,j)$, et le retrace commence à ce maximum et s'arrête quand on atteint une cellule de valeur $0$.</p>
+      <p class="en"><span class="thm-label">Definition (Local alignment, Smith–Waterman).</span> A <em>local alignment</em> of $a$ and $b$ is a global alignment of a substring $a[i..i']$ with a substring $b[j..j']$, chosen to maximize the alignment score. The <em>Smith–Waterman algorithm</em> computes the optimal local alignment score using the recurrence
+      $$H(i, j) = \max\begin{cases} 0 & \text{(start fresh)} \\ H(i-1,\, j-1) + s(a_i, b_j) & \text{(case 1: match/mismatch)} \\ H(i-1,\, j) - d & \text{(case 2: gap in } b\text{)} \\ H(i,\, j-1) - d & \text{(case 3: gap in } a\text{)} \end{cases}$$
+      The first three cases are identical to Needleman–Wunsch. The only addition is the $0$ option: if extending any alignment to position $(i,j)$ would give a negative score, it is better to declare that no useful alignment ends here and start over. The optimal local alignment score is $\max_{i,j} H(i,j)$, and the traceback starts from this maximum and stops when a cell with value $0$ is reached.</p>
+      <p class="fr"><span class="thm-label">Définition (Alignement local, Smith–Waterman).</span> Un <em>alignement local</em> de $a$ et $b$ est un alignement global d'une sous-chaîne $a[i..i']$ avec une sous-chaîne $b[j..j']$, choisi pour maximiser le score d'alignement. L'<em>algorithme de Smith–Waterman</em> calcule le score optimal d'alignement local en utilisant la récurrence
+      $$H(i, j) = \max\begin{cases} 0 & \text{(repartir de zéro)} \\ H(i-1,\, j-1) + s(a_i, b_j) & \text{(cas 1 : appariement/mésapp.)} \\ H(i-1,\, j) - d & \text{(cas 2 : gap dans } b\text{)} \\ H(i,\, j-1) - d & \text{(cas 3 : gap dans } a\text{)} \end{cases}$$
+      Les trois premiers cas sont identiques à Needleman–Wunsch. La seule addition est l'option $0$ : si étendre un alignement jusqu'à la position $(i,j)$ donnerait un score négatif, il vaut mieux déclarer qu'aucun alignement utile ne se termine ici et repartir. Le score optimal d'alignement local est $\max_{i,j} H(i,j)$, et le retrace commence à ce maximum et s'arrête quand on atteint une cellule de valeur $0$.</p>
     </div>
 
     <pre><code class="language-python">def smith_waterman(a, b, match=2, mismatch=-1, gap=-1):
