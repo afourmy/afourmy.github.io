@@ -176,22 +176,22 @@ def match_both_strands(pattern, text):
 
     <div class="thm-block remark">
       <p class="en"><span class="thm-label">Why dynamic programming?</span> To align $a$ (length $m$) against $b$ (length $n$) we need to decide, for each character, whether it is matched to a character of the other string or to a gap. The number of possible alignments is exponential: roughly $\binom{m+n}{m}$, which grows faster than $2^m$ for comparable lengths. Enumerating them all is hopeless.</p>
-      <p class="en">The saving observation is <em>optimal substructure</em>: the last column of any alignment of $a[1..i]$ with $b[1..j]$ is one of exactly three things.
-      <ol>
+      <p class="en">The saving observation is <em>optimal substructure</em>: the last column of any alignment of $a[1..i]$ with $b[1..j]$ is one of exactly three things.</p>
+      <ol class="en">
         <li>$a_i$ is aligned with $b_j$ (a match or mismatch).</li>
         <li>$a_i$ is aligned with a gap on the $b$ side.</li>
         <li>$b_j$ is aligned with a gap on the $a$ side.</li>
       </ol>
-      In every case, removing that last column leaves an alignment of a strictly shorter prefix pair: $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, or $(a[1..i], b[1..j-1])$ respectively. If the original alignment is optimal, the leftover prefix alignment must also be optimal for its own prefix pair (otherwise we could swap in a better prefix alignment and improve the total score -- a contradiction). This is the exchange argument that justifies recursion.</p>
+      <p class="en">In every case, removing that last column leaves an alignment of a strictly shorter prefix pair: $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, or $(a[1..i], b[1..j-1])$ respectively. If the original alignment is optimal, the leftover prefix alignment must also be optimal for its own prefix pair (otherwise we could swap in a better prefix alignment and improve the total score -- a contradiction). This is the exchange argument that justifies recursion.</p>
       <p class="en">So define $F(i, j)$ as <em>the score of the best alignment of $a[1..i]$ with $b[1..j]$</em>. We can compute $F(i,j)$ from three smaller subproblems, building the table from top-left to bottom-right. Computing the whole $(m+1)\times(n+1)$ table takes $O(mn)$ time and space.</p>
       <p class="fr"><span class="thm-label">Pourquoi la programmation dynamique ?</span> Pour aligner $a$ (longueur $m$) contre $b$ (longueur $n$), il faut décider, pour chaque caractère, s'il est apparié à un caractère de l'autre chaîne ou à un gap. Le nombre d'alignements possibles est exponentiel : environ $\binom{m+n}{m}$, ce qui croît plus vite que $2^m$ pour des longueurs comparables. Les énumérer tous est hors de portée.</p>
-      <p class="fr">L'observation clé est la <em>sous-structure optimale</em> : la dernière colonne de tout alignement de $a[1..i]$ avec $b[1..j]$ est nécessairement l'un de trois cas.
-      <ol>
+      <p class="fr">L'observation clé est la <em>sous-structure optimale</em> : la dernière colonne de tout alignement de $a[1..i]$ avec $b[1..j]$ est nécessairement l'un de trois cas.</p>
+      <ol class="fr">
         <li>$a_i$ est aligné avec $b_j$ (appariement ou mésappariement).</li>
         <li>$a_i$ est aligné avec un gap du côté de $b$.</li>
         <li>$b_j$ est aligné avec un gap du côté de $a$.</li>
       </ol>
-      Dans chaque cas, en retirant cette dernière colonne, on obtient un alignement d'une paire de préfixes strictement plus courts : $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, ou $(a[1..i], b[1..j-1])$ respectivement. Si l'alignement original est optimal, l'alignement de préfixe restant doit lui aussi être optimal pour sa paire de préfixes (sinon on pourrait le remplacer par un meilleur alignement de préfixe et améliorer le score total, ce qui contredit l'optimalité). C'est l'argument d'échange qui justifie la récursion.</p>
+      <p class="fr">Dans chaque cas, en retirant cette dernière colonne, on obtient un alignement d'une paire de préfixes strictement plus courts : $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, ou $(a[1..i], b[1..j-1])$ respectivement. Si l'alignement original est optimal, l'alignement de préfixe restant doit lui aussi être optimal pour sa paire de préfixes (sinon on pourrait le remplacer par un meilleur alignement de préfixe et améliorer le score total, ce qui contredit l'optimalité). C'est l'argument d'échange qui justifie la récursion.</p>
       <p class="fr">On définit donc $F(i, j)$ comme <em>le score du meilleur alignement de $a[1..i]$ avec $b[1..j]$</em>. On peut calculer $F(i,j)$ à partir de trois sous-problèmes plus petits, en remplissant le tableau de gauche à droite et de haut en bas. Calculer le tableau entier $(m+1)\times(n+1)$ prend un temps et un espace $O(mn)$.</p>
     </div>
 
