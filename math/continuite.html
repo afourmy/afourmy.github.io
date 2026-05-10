@@ -88,18 +88,15 @@
     </details>
 
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Proof (by supremum).</summary>
       Assume $f(a)\le x\le f(b)$ and set $S=\{t\in[a,b]\mid f(t)\le x\}$. Then $S$ is nonempty (since $a\in S$) and bounded above by $b$, so $c=\sup S$ exists (completeness of $\mathbb{R}$) and $c\in[a,b]$. By continuity of $f$ at $c$, if $f(c)&lt;x$, there exists $\delta&gt;0$ such that $f(t)&lt;x$ for all $t\in[c,c+\delta]\cap[a,b]$, so $t\in S$. This means there are points strictly greater than $c$ in $S$, contradicting $c=\sup S$. Similarly, if $f(c)&gt;x$, there exists $\delta&gt;0$ such that $f(t)&gt;x$ for all $t\in[c-\delta,c]\cap[a,b]$, so $t\notin S$, contradicting the definition of $c$ as the supremum of $S$. Therefore $f(c)=x$.
+      <p class="en"><em>Remark.</em> Both proofs use the completeness of $\mathbb{R}$: the first via the convergence of adjacent sequences, the second via the existence of the supremum.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Démonstration (par la borne supérieure).</summary>
       Supposons $f(a)\le x\le f(b)$ et posons $S=\{t\in[a,b]\mid f(t)\le x\}$. Alors $S$ est non vide car $a\in S$ et majoré par $b$, donc $c=\sup S$ existe (complétude de $\mathbb{R}$) et $c\in[a,b]$. Par continuité de $f$ en $c$, si $f(c)&lt;x$, il existe $\delta&gt;0$ tel que pour tout $t\in[c,c+\delta]\cap[a,b]$, $f(t)&lt;x$, donc $t\in S$. On vient de montrer qu'il existe des points strictement plus grands que $c$ qui appartiennent à $S$, ce qui contredit le fait que $c$ soit une borne supérieure de $S$. De même, si $f(c)&gt;x$, il existe $\delta&gt;0$ tel que pour tout $t\in[c-\delta,c]\cap[a,b]$, $f(t)&gt;x$, donc $t\notin S$, ce qui contredit la définition de $c$ comme borne supérieure de $S$. Donc $f(c)=x$.
+      <p class="fr"><em>Remarque.</em> Ces deux démonstrations utilisent la complétude de $\mathbb{R}$ : la première via la convergence des suites adjacentes, la seconde via l'existence de la borne supérieure.</p>
     </details>
-
-    <div class="thm-block remark">
-      <p class="en"><span class="thm-label">Remark.</span> Both proofs use the completeness of $\mathbb{R}$: the first via the convergence of adjacent sequences, the second via the existence of the supremum.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Ces deux démonstrations utilisent la complétude de $\mathbb{R}$ : la première via la convergence des suites adjacentes, la seconde via l'existence de la borne supérieure.</p>
-    </div>
 
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary.</span> If $f$ is continuous on $[a,b]$ and $f(a)f(b) &lt; 0$, then there exists $c \in (a,b)$ such that $f(c)=0$.</p>
