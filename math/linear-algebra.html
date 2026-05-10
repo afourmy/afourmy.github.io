@@ -20,9 +20,922 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
+    <h2 class="en">Course</h2>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Espace vectoriel).</span>
+      <span class="thm-label en">Definition (Vector space).</span>
+      <span class="fr">Soit $\mathbb{K}$ un corps (typiquement $\mathbb{R}$ ou $\mathbb{C}$). Un <em>$\mathbb{K}$-espace vectoriel</em> est un ensemble $E$ muni d'une addition faisant de $(E,+)$ un groupe abélien et d'une multiplication par les scalaires $\mathbb{K}\times E\to E$ vérifiant : $1\cdot x=x$, $\lambda(\mu x)=(\lambda\mu)x$, $(\lambda+\mu)x=\lambda x+\mu x$, et $\lambda(x+y)=\lambda x+\lambda y$.</span>
+      <span class="en">Let $\mathbb{K}$ be a field (typically $\mathbb{R}$ or $\mathbb{C}$). A <em>$\mathbb{K}$-vector space</em> is a set $E$ equipped with an addition making $(E,+)$ an abelian group and a scalar multiplication $\mathbb{K}\times E\to E$ satisfying: $1\cdot x=x$, $\lambda(\mu x)=(\lambda\mu)x$, $(\lambda+\mu)x=\lambda x+\mu x$, and $\lambda(x+y)=\lambda x+\lambda y$.</span>
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Sous-espace vectoriel).</span>
+      <span class="thm-label en">Definition (Vector subspace).</span>
+      <span class="fr">Soit $E$ un $\mathbb{K}$-ev. Un sous-ensemble $F\subset E$ est un <em>sous-espace vectoriel</em> (sev) de $E$ si $F$ est non vide et stable par combinaison linéaire.</span>
+      <span class="en">Let $E$ be a $\mathbb{K}$-vector space. A subset $F\subset E$ is a <em>vector subspace</em> of $E$ if $F$ is non-empty and closed under linear combinations.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition (Caractérisation des sev).</span>
+      <span class="thm-label en">Proposition (Characterization of subspaces).</span>
+      <span class="fr">$F\subset E$ est un sev de $E$ ssi $0_E\in F$ et $\forall x,y\in F,\ \forall\lambda\in\mathbb{K},\ x+\lambda y\in F$.</span>
+      <span class="en">$F\subset E$ is a subspace of $E$ iff $0_E\in F$ and $\forall x,y\in F,\ \forall\lambda\in\mathbb{K},\ x+\lambda y\in F$.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Soit $x,y\in F$ et $\lambda,\mu\in\mathbb{K}$. Alors $\mu y\in F$ (prendre $x=0_E$), puis $\lambda x+\mu y\in F$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Leftarrow)$ Let $x,y\in F$ and $\lambda,\mu\in\mathbb{K}$. Then $\mu y\in F$ (take $x=0_E$), then $\lambda x+\mu y\in F$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition (Intersection de sev).</span>
+      <span class="thm-label en">Proposition (Intersection of subspaces).</span>
+      <span class="fr">Soit $(F_i)_{i\in I}$ une famille de sev de $E$. Alors $\bigcap_{i\in I}F_i$ est un sev de $E$.</span>
+      <span class="en">Let $(F_i)_{i\in I}$ be a family of subspaces of $E$. Then $\bigcap_{i\in I}F_i$ is a subspace of $E$.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $0_E\in F_i$ pour tout $i$, donc $0_E\in\bigcap F_i$. Si $x,y\in\bigcap F_i$ et $\lambda\in\mathbb{K}$, alors pour tout $i$, $x+\lambda y\in F_i$, donc $x+\lambda y\in\bigcap F_i$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $0_E\in F_i$ for all $i$, so $0_E\in\bigcap F_i$. If $x,y\in\bigcap F_i$ and $\lambda\in\mathbb{K}$, then for all $i$, $x+\lambda y\in F_i$, so $x+\lambda y\in\bigcap F_i$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Somme de sev).</span>
+      <span class="thm-label en">Definition (Sum of subspaces).</span>
+      <span class="fr">Soit $F,G$ deux sev de $E$. La <em>somme</em> de $F$ et $G$ est $F+G=\{x+y : x\in F,\ y\in G\}$.</span>
+      <span class="en">Let $F,G$ be two subspaces of $E$. The <em>sum</em> of $F$ and $G$ is $F+G=\{x+y : x\in F,\ y\in G\}$.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">$F+G$ est un sev de $E$, et c'est le plus petit sev contenant $F\cup G$.</span>
+      <span class="en">$F+G$ is a subspace of $E$, and it is the smallest subspace containing $F\cup G$.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $0_E=0_E+0_E\in F+G$. Si $u=x_1+y_1$ et $v=x_2+y_2$ avec $x_i\in F$, $y_i\in G$, alors $u+\lambda v=(x_1+\lambda x_2)+(y_1+\lambda y_2)\in F+G$.
+      Tout sev contenant $F\cup G$ contient toute somme $x+y$ avec $x\in F$, $y\in G$, donc contient $F+G$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $0_E=0_E+0_E\in F+G$. If $u=x_1+y_1$ and $v=x_2+y_2$ with $x_i\in F$, $y_i\in G$, then $u+\lambda v=(x_1+\lambda x_2)+(y_1+\lambda y_2)\in F+G$.
+      Any subspace containing $F\cup G$ contains every sum $x+y$ with $x\in F$, $y\in G$, hence contains $F+G$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Combinaison linéaire).</span>
+      <span class="thm-label en">Definition (Linear combination).</span>
+      <span class="fr">Une <em>combinaison linéaire</em> (CL) de vecteurs $x_1,\ldots,x_n\in E$ est un vecteur de la forme $\sum_{i=1}^n\lambda_i x_i$ avec $\lambda_i\in\mathbb{K}$.</span>
+      <span class="en">A <em>linear combination</em> (LC) of vectors $x_1,\ldots,x_n\in E$ is a vector of the form $\sum_{i=1}^n\lambda_i x_i$ with $\lambda_i\in\mathbb{K}$.</span>
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Sous-espace engendré).</span>
+      <span class="thm-label en">Definition (Span).</span>
+      <span class="fr">Soit $A\subset E$. Le <em>sous-espace engendré</em> par $A$, noté $\mathrm{Vect}(A)$, est l'ensemble des CL finies d'éléments de $A$.</span>
+      <span class="en">Let $A\subset E$. The <em>span</em> of $A$, denoted $\mathrm{Vect}(A)$, is the set of all finite LCs of elements of $A$.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">$\mathrm{Vect}(A)$ est le plus petit sev de $E$ contenant $A$.</span>
+      <span class="en">$\mathrm{Vect}(A)$ is the smallest subspace of $E$ containing $A$.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">Si $F$ et $G$ sont des sev de $E$, alors $F+G=\mathrm{Vect}(F\cup G)$.</span>
+      <span class="en">If $F$ and $G$ are subspaces of $E$, then $F+G=\mathrm{Vect}(F\cup G)$.</span>
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Famille génératrice).</span>
+      <span class="thm-label en">Definition (Spanning family).</span>
+      <span class="fr">Une famille $(x_i)_{i\in I}$ de vecteurs de $E$ est <em>génératrice</em> de $E$ si $\mathrm{Vect}(x_i : i\in I)=E$.</span>
+      <span class="en">A family $(x_i)_{i\in I}$ of vectors of $E$ is <em>spanning</em> for $E$ if $\mathrm{Vect}(x_i : i\in I)=E$.</span>
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Famille libre).</span>
+      <span class="thm-label en">Definition (Linearly independent family).</span>
+      <span class="fr">Une famille $(x_i)_{i\in I}$ est <em>libre</em> (ou <em>linéairement indépendante</em>) si toute CL nulle $\sum_{i\in J}\lambda_i x_i=0_E$ (où $J\subset I$ fini) implique $\lambda_i=0$ pour tout $i\in J$. Sinon, elle est <em>liée</em>.</span>
+      <span class="en">A family $(x_i)_{i\in I}$ is <em>linearly independent</em> if every vanishing LC $\sum_{i\in J}\lambda_i x_i=0_E$ (with $J\subset I$ finite) implies $\lambda_i=0$ for all $i\in J$. Otherwise it is <em>linearly dependent</em>.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition (Caractérisation d'une famille liée).</span>
+      <span class="thm-label en">Proposition (Characterization of linear dependence).</span>
+      <span class="fr">$(x_1,\ldots,x_n)$ est liée si et seulement si l'un des $x_i$ est CL des autres.</span>
+      <span class="en">$(x_1,\ldots,x_n)$ is linearly dependent iff one of the $x_i$ is a LC of the others.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Il existe $(\lambda_1,\ldots,\lambda_n)\neq(0,\ldots,0)$ tel que $\sum\lambda_i x_i=0$. Si $\lambda_j\neq 0$, alors $x_j=-\lambda_j^{-1}\sum_{i\neq j}\lambda_i x_i$.
+      $(\Leftarrow)$ Si $x_j=\sum_{i\neq j}\mu_i x_i$, alors $\sum_{i\neq j}\mu_i x_i-x_j=0$ est une CL nulle non triviale.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ There exist $(\lambda_1,\ldots,\lambda_n)\neq(0,\ldots,0)$ such that $\sum\lambda_i x_i=0$. If $\lambda_j\neq 0$, then $x_j=-\lambda_j^{-1}\sum_{i\neq j}\lambda_i x_i$.
+      $(\Leftarrow)$ If $x_j=\sum_{i\neq j}\mu_i x_i$, then $\sum_{i\neq j}\mu_i x_i-x_j=0$ is a non-trivial vanishing LC.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">Toute sous-famille d'une famille libre est libre. Toute sur-famille d'une famille génératrice est génératrice.</span>
+      <span class="en">Every subfamily of a linearly independent family is linearly independent. Every superfamily of a spanning family is spanning.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">Si $(x_1,\ldots,x_n)$ est libre et $x_{n+1}\notin\mathrm{Vect}(x_1,\ldots,x_n)$, alors $(x_1,\ldots,x_n,x_{n+1})$ est libre.</span>
+      <span class="en">If $(x_1,\ldots,x_n)$ is linearly independent and $x_{n+1}\notin\mathrm{Vect}(x_1,\ldots,x_n)$, then $(x_1,\ldots,x_n,x_{n+1})$ is linearly independent.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $\sum_{i=1}^{n+1}\lambda_i x_i=0$. Si $\lambda_{n+1}\neq 0$, alors $x_{n+1}=-\lambda_{n+1}^{-1}\sum_{i=1}^n\lambda_i x_i\in\mathrm{Vect}(x_1,\ldots,x_n)$, contradiction. Donc $\lambda_{n+1}=0$, puis $\sum_{i=1}^n\lambda_i x_i=0$ implique $\lambda_i=0$ pour $i\le n$ car $(x_1,\ldots,x_n)$ est libre.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\sum_{i=1}^{n+1}\lambda_i x_i=0$. If $\lambda_{n+1}\neq 0$, then $x_{n+1}=-\lambda_{n+1}^{-1}\sum_{i=1}^n\lambda_i x_i\in\mathrm{Vect}(x_1,\ldots,x_n)$, a contradiction. So $\lambda_{n+1}=0$, and then $\sum_{i=1}^n\lambda_i x_i=0$ implies $\lambda_i=0$ for $i\le n$ since $(x_1,\ldots,x_n)$ is linearly independent.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Base).</span>
+      <span class="thm-label en">Definition (Basis).</span>
+      <span class="fr">Une <em>base</em> de $E$ est une famille libre et génératrice de $E$.</span>
+      <span class="en">A <em>basis</em> of $E$ is a linearly independent spanning family of $E$.</span>
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label fr">Théorème (Caractérisation des bases).</span>
+      <span class="thm-label en">Theorem (Characterization of bases).</span>
+      <span class="fr">Soit $(e_1,\ldots,e_n)$ une famille de $E$. Les assertions suivantes sont équivalentes :</span>
+      <span class="en">Let $(e_1,\ldots,e_n)$ be a family in $E$. The following are equivalent:</span>
+      <ol class="fr">
+        <li>$(e_1,\ldots,e_n)$ est une base de $E$,</li>
+        <li>Tout vecteur $x\in E$ s'écrit de manière unique $x=\sum_{i=1}^n x_i e_i$ avec $x_i\in\mathbb{K}$.</li>
+      </ol>
+      <ol class="en">
+        <li>$(e_1,\ldots,e_n)$ is a basis of $E$,</li>
+        <li>Every vector $x\in E$ has a unique representation $x=\sum_{i=1}^n x_i e_i$ with $x_i\in\mathbb{K}$.</li>
+      </ol>
+      <span class="fr">Les scalaires $(x_1,\ldots,x_n)$ sont les <em>coordonnées</em> de $x$ dans la base $(e_i)$.</span>
+      <span class="en">The scalars $(x_1,\ldots,x_n)$ are the <em>coordinates</em> of $x$ in the basis $(e_i)$.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(1)\Rightarrow(2)$ : Existence par génératrice. Unicité : si $\sum x_i e_i=\sum y_i e_i$, alors $\sum(x_i-y_i)e_i=0$, donc $x_i=y_i$ par liberté.
+      $(2)\Rightarrow(1)$ : Génératrice par existence. Libre : si $\sum\lambda_i e_i=0$, l'unicité de la décomposition de $0$ donne $\lambda_i=0$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(1)\Rightarrow(2)$: Existence by spanning. Uniqueness: if $\sum x_i e_i=\sum y_i e_i$, then $\sum(x_i-y_i)e_i=0$, so $x_i=y_i$ by linear independence.
+      $(2)\Rightarrow(1)$: Spanning by existence. Linear independence: if $\sum\lambda_i e_i=0$, uniqueness of the decomposition of $0$ gives $\lambda_i=0$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition.</span>
+      <span class="thm-label en">Definition.</span>
+      <span class="fr">$E$ est de <em>dimension finie</em> s'il admet une famille génératrice finie.</span>
+      <span class="en">$E$ is <em>finite-dimensional</em> if it has a finite spanning family.</span>
+    </div>
+
+    <div class="thm-block lemma">
+      <span class="thm-label fr">Lemme (Lemme d'échange — Steinitz).</span>
+      <span class="thm-label en">Lemma (Exchange lemma — Steinitz).</span>
+      <span class="fr">Soit $(e_1,\ldots,e_n)$ génératrice de $E$ et $(f_1,\ldots,f_p)$ libre. Alors $p\le n$ et on peut remplacer $p$ vecteurs de $(e_i)$ par les $(f_j)$ pour obtenir une famille génératrice.</span>
+      <span class="en">Let $(e_1,\ldots,e_n)$ be spanning for $E$ and $(f_1,\ldots,f_p)$ be linearly independent. Then $p\le n$ and one can replace $p$ vectors of $(e_i)$ by the $(f_j)$ to obtain a spanning family.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $p$. Si $p=0$, c'est trivial. Supposons le résultat vrai pour $p-1$ vecteurs libres. On peut donc écrire $E=\mathrm{Vect}(f_1,\ldots,f_{p-1},e_{i_p},\ldots,e_{i_n})$ après réindexation. Alors $f_p=\sum_{j=1}^{p-1}\alpha_j f_j+\sum_{k=p}^n\beta_k e_{i_k}$. Il existe $\beta_k\neq 0$ (sinon $f_p\in\mathrm{Vect}(f_1,\ldots,f_{p-1})$, contredisant la liberté). On peut alors exprimer $e_{i_k}$ en fonction des autres, d'où $E=\mathrm{Vect}(f_1,\ldots,f_p,\ldots)$ avec $n-p$ des $e_i$. En particulier $p\le n$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $p$. If $p=0$, this is trivial. Assume the result holds for $p-1$ linearly independent vectors. After reindexing, $E=\mathrm{Vect}(f_1,\ldots,f_{p-1},e_{i_p},\ldots,e_{i_n})$. Then $f_p=\sum_{j=1}^{p-1}\alpha_j f_j+\sum_{k=p}^n\beta_k e_{i_k}$. Some $\beta_k\neq 0$ (otherwise $f_p\in\mathrm{Vect}(f_1,\ldots,f_{p-1})$, contradicting linear independence). We can then express $e_{i_k}$ in terms of the others, giving $E=\mathrm{Vect}(f_1,\ldots,f_p,\ldots)$ with $n-p$ of the $e_i$. In particular $p\le n$.
+    </details>
+
+    <div class="thm-block corollary">
+      <span class="thm-label fr">Corollaire.</span>
+      <span class="thm-label en">Corollary.</span>
+      <span class="fr">Si $E$ admet une famille génératrice à $n$ éléments, toute famille libre a au plus $n$ éléments.</span>
+      <span class="en">If $E$ has a spanning family with $n$ elements, every linearly independent family has at most $n$ elements.</span>
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label fr">Théorème (Existence de bases en dimension finie).</span>
+      <span class="thm-label en">Theorem (Existence of bases in finite dimension).</span>
+      <span class="fr">Tout ev de dimension finie admet une base. De plus :</span>
+      <span class="en">Every finite-dimensional vector space has a basis. Moreover:</span>
+      <ol class="fr">
+        <li>Toute famille libre peut être complétée en une base,</li>
+        <li>De toute famille génératrice on peut extraire une base.</li>
+      </ol>
+      <ol class="en">
+        <li>Every linearly independent family can be extended to a basis,</li>
+        <li>From every spanning family one can extract a basis.</li>
+      </ol>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p><strong>Point 1 (complétion).</strong> Soit $(f_1,\ldots,f_p)$ libre. Si elle engendre $E$, c'est une base. Sinon, il existe $x\notin\mathrm{Vect}(f_1,\ldots,f_p)$, et $(f_1,\ldots,f_p,x)$ est libre. On itère ; le procédé termine car toute famille libre de $E$ a au plus $n$ éléments (corollaire du lemme de Steinitz, avec $(e_1,\ldots,e_n)$ une famille génératrice finie qui existe par définition de la dimension finie).</p>
+      <p><strong>Point 2 (extraction).</strong> Soit $(e_1,\ldots,e_n)$ génératrice. Si elle est libre, c'est déjà une base. Sinon, l'un des $e_i$ est CL des autres ; on le retire : la famille reste génératrice. On itère ; le procédé termine car on retire au moins un vecteur à chaque étape.</p>
+      <p><strong>Existence d'une base.</strong> $E$ étant de dimension finie, il admet par définition une famille génératrice finie. Par le point 2, on en extrait une base. Donc tout ev de dimension finie admet une base.</p>
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p><strong>Point 1 (extension).</strong> Let $(f_1,\ldots,f_p)$ be linearly independent. If it spans $E$, it is a basis. Otherwise there exists $x\notin\mathrm{Vect}(f_1,\ldots,f_p)$, and $(f_1,\ldots,f_p,x)$ is linearly independent. Iterate; the process terminates since every linearly independent family has at most $n$ elements (by the Steinitz corollary, where $(e_1,\ldots,e_n)$ is a finite spanning family which exists by definition of finite dimension).</p>
+      <p><strong>Point 2 (extraction).</strong> Let $(e_1,\ldots,e_n)$ be spanning. If it is linearly independent, it is already a basis. Otherwise some $e_i$ is an LC of the others; remove it: the family remains spanning. Iterate; the process terminates since at least one vector is removed at each step.</p>
+      <p><strong>Existence of a basis.</strong> Since $E$ is finite-dimensional, it has a finite spanning family by definition. By Point 2, one extracts a basis from it.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <span class="thm-label fr">Théorème (Invariance de la dimension).</span>
+      <span class="thm-label en">Theorem (Invariance of dimension).</span>
+      <span class="fr">Toutes les bases d'un ev de dimension finie ont le même cardinal.</span>
+      <span class="en">All bases of a finite-dimensional vector space have the same cardinality.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soient $(e_1,\ldots,e_n)$ et $(f_1,\ldots,f_p)$ deux bases. Comme $(f_j)$ est libre et $(e_i)$ génératrice, $p\le n$. Par symétrie, $n\le p$, donc $n=p$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $(e_1,\ldots,e_n)$ and $(f_1,\ldots,f_p)$ be two bases. Since $(f_j)$ is linearly independent and $(e_i)$ is spanning, $p\le n$. By symmetry, $n\le p$, so $n=p$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label fr">Définition (Dimension).</span>
+      <span class="thm-label en">Definition (Dimension).</span>
+      <span class="fr">La <em>dimension</em> de $E$, notée $\dim E$, est le cardinal commun de ses bases. Par convention, $\dim\{0\}=0$.</span>
+      <span class="en">The <em>dimension</em> of $E$, denoted $\dim E$, is the common cardinality of its bases. By convention, $\dim\{0\}=0$.</span>
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label fr">Proposition.</span>
+      <span class="thm-label en">Proposition.</span>
+      <span class="fr">Soit $E$ de dimension $n$.</span>
+      <span class="en">Let $E$ have dimension $n$.</span>
+      <ol class="fr">
+        <li>Toute famille libre a au plus $n$ éléments ; une famille libre à $n$ éléments est une base.</li>
+        <li>Toute famille génératrice a au moins $n$ éléments ; une famille génératrice à $n$ éléments est une base.</li>
+      </ol>
+      <ol class="en">
+        <li>Every linearly independent family has at most $n$ elements; a linearly independent family with $n$ elements is a basis.</li>
+        <li>Every spanning family has at least $n$ elements; a spanning family with $n$ elements is a basis.</li>
+      </ol>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) Le lemme d'échange donne $p\le n$. Si $p=n$ et $(f_i)$ libre non génératrice, on pourrait l'étendre, contradiction.
+      (2) De toute génératrice on extrait une base, donc $p\ge n$. Si $p=n$, la famille extraite a $n$ éléments, c'est toute la famille.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) The exchange lemma gives $p\le n$. If $p=n$ and $(f_i)$ is linearly independent but not spanning, it could be extended, contradiction.
+      (2) From every spanning family one extracts a basis, so $p\ge n$. If $p=n$, the extracted basis has $n$ elements, which is the whole family.
+    </details>
+
+    <div class="thm-block theorem">
+      <span class="thm-label fr">Théorème.</span>
+      <span class="thm-label en">Theorem.</span>
+      <span class="fr">Soit $E$ de dimension finie et $F$ un sev de $E$. Alors :</span>
+      <span class="en">Let $E$ be finite-dimensional and $F$ a subspace of $E$. Then:</span>
+      <ol class="fr">
+        <li>$F$ est de dimension finie et $\dim F\le\dim E$,</li>
+        <li>$\dim F=\dim E\Leftrightarrow F=E$.</li>
+      </ol>
+      <ol class="en">
+        <li>$F$ is finite-dimensional and $\dim F\le\dim E$,</li>
+        <li>$\dim F=\dim E\Leftrightarrow F=E$.</li>
+      </ol>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) Toute famille libre de $F$ est libre dans $E$, donc a au plus $\dim E$ éléments. Soit $(f_1,\ldots,f_p)$ une famille libre de $F$ de cardinal maximal. Si $F\neq\mathrm{Vect}(f_i)$, on pourrait l'étendre, contradiction. Donc c'est une base de $F$, et $\dim F=p\le\dim E$.
+      (2) $(\Leftarrow)$ Évident. $(\Rightarrow)$ Une base de $F$ est libre dans $E$ à $\dim E$ éléments, donc base de $E$, d'où $F=E$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) Every linearly independent family in $F$ is linearly independent in $E$, so has at most $\dim E$ elements. Let $(f_1,\ldots,f_p)$ be a linearly independent family in $F$ of maximal size. If $F\neq\mathrm{Vect}(f_i)$, it could be extended, a contradiction. So it is a basis of $F$, and $\dim F=p\le\dim E$.
+      (2) $(\Leftarrow)$ Clear. $(\Rightarrow)$ A basis of $F$ is linearly independent in $E$ with $\dim E$ elements, hence a basis of $E$, so $F=E$.
+    </details>
+
+    <div class="thm-block theorem">
+      <span class="thm-label fr">Théorème (Formule de Grassmann).</span>
+      <span class="thm-label en">Theorem (Grassmann formula).</span>
+      <span class="fr">Soit $F,G$ deux sev de dimension finie de $E$. Alors $\dim(F+G)=\dim F+\dim G-\dim(F\cap G)$.</span>
+      <span class="en">Let $F,G$ be two finite-dimensional subspaces of $E$. Then $\dim(F+G)=\dim F+\dim G-\dim(F\cap G)$.</span>
+    </div>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(e_1,\ldots,e_r)$ une base de $F\cap G$. On la complète en $(e_1,\ldots,e_r,f_1,\ldots,f_s)$ base de $F$ et en $(e_1,\ldots,e_r,g_1,\ldots,g_t)$ base de $G$. Alors $(e_i,f_j,g_k)$ engendre $F+G$. Montrons qu'elle est libre : si $\sum\alpha_i e_i+\sum\beta_j f_j+\sum\gamma_k g_k=0$, alors $\sum\gamma_k g_k=-\sum\alpha_i e_i-\sum\beta_j f_j\in F\cap G$. Donc $\sum\gamma_k g_k=\sum\delta_i e_i$, et la liberté de $(e_i,g_k)$ dans $G$ donne $\gamma_k=0$. De même $\beta_j=0$, puis $\alpha_i=0$. Donc $\dim(F+G)=r+s+t=(r+s)+(r+t)-r$.
+    </details>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $(e_1,\ldots,e_r)$ be a basis of $F\cap G$. Extend it to $(e_1,\ldots,e_r,f_1,\ldots,f_s)$ a basis of $F$ and $(e_1,\ldots,e_r,g_1,\ldots,g_t)$ a basis of $G$. Then $(e_i,f_j,g_k)$ spans $F+G$. It is linearly independent: if $\sum\alpha_i e_i+\sum\beta_j f_j+\sum\gamma_k g_k=0$, then $\sum\gamma_k g_k=-\sum\alpha_i e_i-\sum\beta_j f_j\in F\cap G$, so $\sum\gamma_k g_k=\sum\delta_i e_i$, and linear independence of $(e_i,g_k)$ in $G$ gives $\gamma_k=0$. Similarly $\beta_j=0$, then $\alpha_i=0$. Thus $\dim(F+G)=r+s+t=(r+s)+(r+t)-r$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Somme directe).</span>
+      $F$ et $G$ sont en <em>somme directe</em> dans $E$, noté $F\oplus G$, si $F\cap G=\{0\}$.
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Caractérisation de la somme directe).</span>
+      Les assertions suivantes sont équivalentes :
+      <ol>
+        <li>$F$ et $G$ sont en somme directe,</li>
+        <li>Tout $x\in F+G$ s'écrit de manière unique $x=y+z$ avec $y\in F$, $z\in G$,</li>
+        <li>Si $y+z=0$ avec $y\in F$, $z\in G$, alors $y=z=0$.</li>
+      </ol>
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(1)\Rightarrow(2)$ : Si $x=y_1+z_1=y_2+z_2$, alors $y_1-y_2=z_2-z_1\in F\cap G=\{0\}$.
+      $(2)\Rightarrow(3)$ : $0=0+0$ est l'unique décomposition de $0$.
+      $(3)\Rightarrow(1)$ : Si $x\in F\cap G$, alors $x+(-x)=0$ avec $x\in F$, $-x\in G$, donc $x=0$.
+    </details>
+
+    <div class="thm-block corollary">
+      <span class="thm-label">Corollaire.</span>
+      Si $F\oplus G$, alors $\dim(F+G)=\dim F+\dim G$.
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Supplémentaire).</span>
+      $G$ est un <em>supplémentaire</em> de $F$ dans $E$ si $E=F\oplus G$, i.e., $F+G=E$ et $F\cap G=\{0\}$.
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème.</span>
+      Tout sev $F$ d'un ev $E$ de dimension finie admet un supplémentaire.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(e_1,\ldots,e_r)$ une base de $F$. On la complète en $(e_1,\ldots,e_r,e_{r+1},\ldots,e_n)$ base de $E$. Alors $G=\mathrm{Vect}(e_{r+1},\ldots,e_n)$ est supplémentaire de $F$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Application linéaire).</span>
+      Soient $E,F$ deux $\mathbb{K}$-ev. Une application $f:E\to F$ est <em>linéaire</em> si $\forall x,y\in E,\ \forall\lambda\in\mathbb{K},\quad f(x+\lambda y)=f(x)+\lambda f(y)$.
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Propriétés immédiates).</span>
+      Soit $f:E\to F$ linéaire. Alors $f(0_E)=0_F$, $f(-x)=-f(x)$, et $f\!\left(\sum_{i=1}^n\lambda_i x_i\right)=\sum_{i=1}^n\lambda_i f(x_i)$.
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      L'ensemble $\mathcal{L}(E,F)$ des applications linéaires de $E$ dans $F$ est un $\mathbb{K}$-ev pour les opérations $(f+g)(x)=f(x)+g(x)$ et $(\lambda f)(x)=\lambda f(x)$.
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      La composée de deux applications linéaires est linéaire.
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème (Détermination par l'image d'une base).</span>
+      Soit $(e_1,\ldots,e_n)$ une base de $E$ et $(y_1,\ldots,y_n)$ une famille quelconque de $F$. Il existe une unique application linéaire $f:E\to F$ telle que $f(e_i)=y_i$ pour tout $i$.
+      Ce théorème justifie la représentation matricielle : la matrice de $f$ dans une base $(e_i)$, c'est les $f(e_i)$ en colonnes.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Unicité : si $x=\sum x_i e_i$, alors $f(x)=\sum x_i f(e_i)=\sum x_i y_i$ est imposé.
+      Existence : on définit $f\!\left(\sum x_i e_i\right)=\sum x_i y_i$. Bien défini (les coordonnées sont uniques). Linéaire : $f(x+\lambda y)=f\!\left(\sum(x_i+\lambda y_i)e_i\right)=\sum(x_i+\lambda y_i)y_i=f(x)+\lambda f(y)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Image directe et réciproque de sev).</span>
+      Soit $f:E\to F$ linéaire. Si $G$ est un sev de $E$, alors $f(G)$ est un sev de $F$. Si $H$ est un sev de $F$, alors $f^{-1}(H)$ est un sev de $E$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $f(G)$ : $0_F=f(0_E)\in f(G)$. Si $u=f(x)$, $v=f(y)\in f(G)$ et $\lambda\in\mathbb{K}$, alors $u+\lambda v=f(x+\lambda y)\in f(G)$.
+      $f^{-1}(H)$ : $f(0_E)=0_F\in H$ donc $0_E\in f^{-1}(H)$. Si $x,y\in f^{-1}(H)$, alors $f(x+\lambda y)=f(x)+\lambda f(y)\in H$, donc $x+\lambda y\in f^{-1}(H)$.
+    </details>
+
+    <div class="thm-block corollary">
+      <span class="thm-label">Corollaire.</span>
+      Soit $f:E\to F$ linéaire. $\ker f$ est un sev de $E$ et $\mathrm{Im}\,f$ est un sev de $F$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $\ker f=f^{-1}(\{0_F\})$ est l'image réciproque du sev $\{0_F\}$, et $\mathrm{Im}\,f=f(E)$ est l'image directe du sev $E$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Image d'une famille génératrice).</span>
+      Si $(e_i)$ engendre $E$, alors $(f(e_i))$ engendre $\mathrm{Im}\,f$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Tout $y\in\mathrm{Im}\,f$ s'écrit $y=f(x)=f(\sum\lambda_i e_i)=\sum\lambda_i f(e_i)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Caractérisation de l'injectivité).</span>
+      $f$ est injective $\Leftrightarrow\ker f=\{0_E\}$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $f(x)=0_F=f(0_E)$, alors $x=0_E$ par injectivité.
+      $(\Leftarrow)$ Si $f(x)=f(y)$, alors $f(x-y)=0_F$, donc $x-y\in\ker f=\{0\}$, d'où $x=y$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Image d'une famille libre par une application injective).</span>
+      Si $f$ est injective et $(x_1,\ldots,x_n)$ est libre, alors $(f(x_1),\ldots,f(x_n))$ est libre.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\sum\lambda_i f(x_i)=0$, alors $f(\sum\lambda_i x_i)=0$, donc $\sum\lambda_i x_i\in\ker f=\{0\}$, d'où $\lambda_i=0$ par liberté de $(x_i)$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Rang).</span>
+      Le <em>rang</em> d'une application linéaire $f$ est $\mathrm{rg}\,f=\dim(\mathrm{Im}\,f)$.
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème (Théorème du rang).</span>
+      Soit $f:E\to F$ linéaire avec $E$ de dimension finie. Alors $\dim E=\dim(\ker f)+\mathrm{rg}\,f$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(e_1,\ldots,e_r)$ une base de $\ker f$. On la complète en $(e_1,\ldots,e_r,e_{r+1},\ldots,e_n)$ base de $E$. Montrons que $(f(e_{r+1}),\ldots,f(e_n))$ est une base de $\mathrm{Im}\,f$.
+      Génératrice : tout $y=f(x)=f(\sum\lambda_i e_i)=\sum_{i&gt;r}\lambda_i f(e_i)$ (car $f(e_i)=0$ pour $i\le r$).
+      Libre : si $\sum_{i&gt;r}\lambda_i f(e_i)=0$, alors $f(\sum_{i&gt;r}\lambda_i e_i)=0$, donc $\sum_{i&gt;r}\lambda_i e_i\in\ker f=\mathrm{Vect}(e_1,\ldots,e_r)$. Ainsi $\sum_{i&gt;r}\lambda_i e_i=\sum_{i\le r}\mu_i e_i$, et la liberté de $(e_i)$ donne $\lambda_i=0$ pour $i&gt;r$.
+      Donc $\mathrm{rg}\,f=n-r=\dim E-\dim(\ker f)$.
+    </details>
+
+    <div class="thm-block corollary">
+      <span class="thm-label">Corollaire.</span>
+      Soit $f:E\to F$ linéaire avec $\dim E=\dim F=n&lt;\infty$. Alors $f$ injective $\Leftrightarrow$ $f$ surjective $\Leftrightarrow$ $f$ bijective.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $f$ injective $\Leftrightarrow\dim(\ker f)=0\Leftrightarrow\mathrm{rg}\,f=n\Leftrightarrow\mathrm{Im}\,f=F$ (car $\dim(\mathrm{Im}\,f)=\dim F$) $\Leftrightarrow f$ surjective.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Isomorphisme).</span>
+      Un <em>isomorphisme</em> est une application linéaire bijective. Deux ev sont <em>isomorphes</em> s'il existe un isomorphisme entre eux.
+    </div>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      La réciproque d'un isomorphisme est un isomorphisme.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f:E\to F$ un isomorphisme et $g=f^{-1}$. Soient $y_1,y_2\in F$ et $\lambda\in\mathbb{K}$. Alors $f(g(y_1)+\lambda g(y_2))=y_1+\lambda y_2$, donc $g(y_1+\lambda y_2)=g(y_1)+\lambda g(y_2)$.
+    </details>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème.</span>
+      Deux ev de dimension finie sont isomorphes ssi ils ont la même dimension.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $f:E\to F$ est un isomorphisme et $(e_i)$ une base de $E$, alors $(f(e_i))$ est une base de $F$ (libre car $f$ injective, génératrice car $f$ surjective).
+      $(\Leftarrow)$ Si $\dim E=\dim F=n$, soient $(e_i)$ et $(f_i)$ des bases. L'application linéaire définie par $f(e_i)=f_i$ est un isomorphisme (bijective car son image est $F$).
+    </details>
+
+    <div class="thm-block corollary">
+      <span class="thm-label">Corollaire.</span>
+      Tout $\mathbb{K}$-ev de dimension $n$ est isomorphe à $\mathbb{K}^n$.
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Forme linéaire).</span>
+      Une <em>forme linéaire</em> sur $E$ est une application linéaire $\varphi:E\to\mathbb{K}$.
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Hyperplan).</span>
+      Un <em>hyperplan</em> de $E$ (de dimension finie $n$) est un sev $H$ de $E$ tel que $\dim H=n-1$.
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème (Caractérisation des hyperplans).</span>
+      Soit $E$ de dimension finie et $H$ un sev de $E$. Alors $H$ est un hyperplan ssi il existe une forme linéaire non nulle $\varphi$ telle que $H=\ker\varphi$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $(e_1,\ldots,e_{n-1})$ une base de $H$, complétée en $(e_1,\ldots,e_{n-1},e_n)$ base de $E$. La forme linéaire $\varphi$ définie par $\varphi(e_i)=0$ pour $i\le n-1$ et $\varphi(e_n)=1$ vérifie $\ker\varphi=H$.
+      $(\Leftarrow)$ Si $\varphi\neq 0$, alors $\mathrm{Im}\,\varphi\neq\{0\}$ et $\mathrm{Im}\,\varphi\subset\mathbb{K}$, donc $\mathrm{Im}\,\varphi=\mathbb{K}$ et $\mathrm{rg}\,\varphi=1$. Le théorème du rang donne $\dim(\ker\varphi)=n-1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      Si $H$ est un hyperplan de $E$ et $x\notin H$, alors $E=H\oplus\mathrm{Vect}(x)$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $\dim H+\dim\mathrm{Vect}(x)=(n-1)+1=n=\dim E$. De plus $H\cap\mathrm{Vect}(x)=\{0\}$ car $x\notin H$. Donc $E=H\oplus\mathrm{Vect}(x)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      Deux formes linéaires non nulles $\varphi,\psi$ sur $E$ ont le même noyau ssi elles sont proportionnelles.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Si $\psi=\lambda\varphi$ avec $\lambda\neq 0$, alors $\ker\psi=\ker\varphi$.
+      $(\Rightarrow)$ Soit $H=\ker\varphi=\ker\psi$ et $a\notin H$. Pour tout $x\in E$, $x-\frac{\varphi(x)}{\varphi(a)}a\in\ker\varphi=\ker\psi$, donc $\psi\!\left(x-\frac{\varphi(x)}{\varphi(a)}a\right)=0$, d'où $\psi(x)=\frac{\psi(a)}{\varphi(a)}\varphi(x)$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Endomorphisme).</span>
+      Un <em>endomorphisme</em> de $E$ est une application linéaire de $E$ dans $E$. On note $\mathcal{L}(E)=\mathcal{L}(E,E)$.
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Homothétie).</span>
+      Une <em>homothétie</em> de rapport $\lambda\in\mathbb{K}$ est l'endomorphisme $h_\lambda:x\mapsto\lambda x$.
+    </div>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Projecteur).</span>
+      Un <em>projecteur</em> (ou <em>projection</em>) est un endomorphisme $p$ tel que $p\circ p=p$ (idempotent).
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème (Caractérisation des projecteurs).</span>
+      Soit $p\in\mathcal{L}(E)$. Alors $p$ est un projecteur ssi il existe des sev $F,G$ tels que $E=F\oplus G$, $\mathrm{Im}\,p=F$ et $\ker p=G$. On dit que $p$ est la projection sur $F$ parallèlement à $G$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Si $x=y+z$ avec $y\in F$, $z\in G$, on définit $p(x)=y$. Alors $p$ est linéaire et $p^2=p$.
+      $(\Rightarrow)$ Posons $F=\mathrm{Im}\,p$ et $G=\ker p$. Pour tout $x$, $x=p(x)+(x-p(x))$ avec $p(x)\in F$ et $p(x-p(x))=p(x)-p^2(x)=0$, donc $x-p(x)\in G$. Ainsi $E=F+G$. Si $x\in F\cap G$, alors $x=p(y)$ et $p(x)=0$, donc $x=p(y)=p^2(y)=p(x)=0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition.</span>
+      Si $p$ est un projecteur, alors $\mathrm{id}-p$ est le projecteur sur $\ker p$ parallèlement à $\mathrm{Im}\,p$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\mathrm{id}-p)^2=\mathrm{id}-2p+p^2=\mathrm{id}-p$. De plus $\mathrm{Im}(\mathrm{id}-p)=\ker p$ et $\ker(\mathrm{id}-p)=\mathrm{Im}\,p$.
+    </details>
+
+    <div class="thm-block definition">
+      <span class="thm-label">Définition (Symétrie).</span>
+      Une <em>symétrie</em> est un endomorphisme $s$ tel que $s\circ s=\mathrm{id}$ (involution).
+    </div>
+
+    <div class="thm-block theorem">
+      <span class="thm-label">Théorème (Caractérisation des symétries).</span>
+      Soit $s\in\mathcal{L}(E)$. Alors $s$ est une symétrie ssi il existe des sev $F,G$ tels que $E=F\oplus G$ et $s(y+z)=y-z$ pour $y\in F$, $z\in G$. On dit que $s$ est la symétrie par rapport à $F$ parallèlement à $G$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Vérification directe : $s^2(y+z)=s(y-z)=y+z$.
+      $(\Rightarrow)$ Posons $F=\ker(s-\mathrm{id})$ et $G=\ker(s+\mathrm{id})$. Comme $s^2=\mathrm{id}$, on a $(s-\mathrm{id})(s+\mathrm{id})=0$, donc $\mathrm{Im}(s+\mathrm{id})\subset F$ et $\mathrm{Im}(s-\mathrm{id})\subset G$. Tout $x=\frac{1}{2}(x+s(x))+\frac{1}{2}(x-s(x))$ avec le premier terme dans $F$ et le second dans $G$. Si $x\in F\cap G$, alors $s(x)=x$ et $s(x)=-x$, donc $x=0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <span class="thm-label">Proposition (Lien projecteur-symétrie).</span>
+      $p$ est un projecteur $\Leftrightarrow s=2p-\mathrm{id}$ est une symétrie. De plus $\mathrm{Im}\,p=\ker(s-\mathrm{id})$ et $\ker p=\ker(s+\mathrm{id})$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(2p-\mathrm{id})^2=4p^2-4p+\mathrm{id}$, donc $s^2=\mathrm{id}\Leftrightarrow 4p^2-4p=0\Leftrightarrow p^2=p$. Pour l'image et le noyau : $s(x)=x\Leftrightarrow 2p(x)-x=x\Leftrightarrow p(x)=x$, donc $\ker(s-\mathrm{id})=\mathrm{Im}\,p$. De même $s(x)=-x\Leftrightarrow 2p(x)-x=-x\Leftrightarrow p(x)=0$, donc $\ker(s+\mathrm{id})=\ker p$.
+    </details>
+
+    <h2>Exercices</h2>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Montrer que l'ensemble des suites réelles $(u_n)_{n\in\mathbb{N}}$ est un $\mathbb{R}$-ev de dimension infinie.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Notons $E=\mathbb{R}^{\mathbb{N}}$. C'est un sous-espace vectoriel de l'espace des fonctions de $\mathbb{N}$ dans $\mathbb{R}$ (stable par combinaison linéaire), donc un $\mathbb{R}$-ev. Pour tout $k\in\mathbb{N}$, on définit $e^{(k)}=(\delta_{n,k})_{n\in\mathbb{N}}$. La famille $(e^{(0)},\dots,e^{(p)})$ est libre pour tout $p$ : si $\sum_{k=0}^p\lambda_k e^{(k)}=0$, alors pour tout $j\in\llbracket 0,p\rrbracket$, l'évaluation en $n=j$ donne $\lambda_j=0$. Ainsi $E$ contient des familles libres de taille arbitraire, donc $E$ est de dimension infinie.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un ev et $F,G$ deux sev. Montrer que $F\cup G$ est un sev ssi $F\subset G$ ou $G\subset F$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Évident. $(\Rightarrow)$ Supposons $F\not\subset G$ et $G\not\subset F$. Il existe $x\in F\setminus G$ et $y\in G\setminus F$. Alors $x+y\in F\cup G$, donc $x+y\in F$ ou $x+y\in G$. Si $x+y\in F$, alors $y=(x+y)-x\in F$, contradiction. De même si $x+y\in G$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f:\mathbb{R}^3\to\mathbb{R}^2$ définie par $f(x,y,z)=(x+y,y+z)$. Déterminer $\ker f$, $\mathrm{Im}\,f$ et vérifier le théorème du rang.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $\ker f=\{(x,y,z) : x+y=0,\ y+z=0\}=\{(-t,t,-t) : t\in\mathbb{R}\}=\mathrm{Vect}((-1,1,-1))$, de dimension $1$.
+      $\mathrm{Im}\,f=\{(x+y,y+z) : x,y,z\in\mathbb{R}\}=\mathbb{R}^2$ (en prenant $y=0$, on obtient $(x,z)$ quelconque), de dimension $2$.
+      Vérification : $\dim\ker f+\mathrm{rg}\,f=1+2=3=\dim\mathbb{R}^3$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f,g\in\mathcal{L}(E)$ tels que $f\circ g=0$. Montrer que $\mathrm{rg}\,f+\mathrm{rg}\,g\le\dim E$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $f\circ g=0$ signifie $\mathrm{Im}\,g\subset\ker f$, donc $\mathrm{rg}\,g\le\dim(\ker f)=\dim E-\mathrm{rg}\,f$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ de dimension finie et $f\in\mathcal{L}(E)$. Montrer que $E=\ker f\oplus\mathrm{Im}\,f$ ssi $\ker f=\ker f^2$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Toujours $\ker f\subset\ker f^2$. Soit $x\in\ker f^2$, $x=y+z$ avec $y\in\ker f$, $z\in\mathrm{Im}\,f$, $z=f(t)$. Alors $0=f^2(x)=f^2(z)=f^2(f(t))=f(f^2(t))$, donc $f(z)=f^2(t)\in\ker f\cap\mathrm{Im}\,f=\{0\}$, d'où $z\in\ker f\cap\mathrm{Im}\,f=\{0\}$, et $x=y\in\ker f$.
+      $(\Leftarrow)$ $\ker f\cap\mathrm{Im}\,f=\{0\}$ : si $x\in\ker f\cap\mathrm{Im}\,f$, $x=f(t)$, donc $f^2(t)=0$, d'où $t\in\ker f^2=\ker f$, et $x=f(t)=0$.
+      De plus $\dim(\ker f)+\dim(\mathrm{Im}\,f)=\dim E$, donc $E=\ker f\oplus\mathrm{Im}\,f$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ de dimension $n$ et $H_1,\ldots,H_n$ des hyperplans (sev de dimension $n-1$). Montrer que $\bigcap_{i=1}^n H_i\neq\{0\}$ ssi il existe $i\neq j$ tels que $H_i=H_j$.
+    </div>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f\in\mathcal{L}(E,F)$ et $G$ un sev de $E$. Montrer que $\dim f(G)=\dim G-\dim(G\cap\ker f)$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      On applique le théorème du rang à la restriction $f|_G:G\to F$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un ev de dimension $n$ et $f,g\in\mathcal{L}(E)$. Montrer que $|\mathrm{rg}\,f-\mathrm{rg}\,g|\le\mathrm{rg}(f-g)\le\mathrm{rg}\,f+\mathrm{rg}\,g$.
+    </div>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $p,q$ deux projecteurs de $E$. Montrer que $p+q$ est un projecteur ssi $p\circ q=q\circ p=0$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(p+q)^2=p^2+pq+qp+q^2=p+q+pq+qp$ (car $p^2=p$, $q^2=q$). Donc $(p+q)^2=p+q$ ssi $pq+qp=0$.
+      $(\Leftarrow)$ Si $pq=qp=0$, alors $pq+qp=0$.
+      $(\Rightarrow)$ Supposons $pq+qp=0$, soit $pq=-qp$. On calcule $pqp$ de deux façons : $pqp=p(qp)=p(-pq)=-p^2q=-pq$ et $pqp=(pq)p=(-qp)p=-qp^2=-qp$. Donc $pq=qp$. Combiné avec $pq=-qp$, on obtient $qp=-qp$, soit $2qp=0$, d'où $qp=0$ puis $pq=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $F$ un sous-espace vectoriel strict de $E$ et $A=E\setminus F$. Montrer que $\mathrm{Vect}(A)=E$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      On a $A\subset E$, donc $\mathrm{Vect}(A)\subset E$. Montrons l'inclusion réciproque. Comme $F\neq E$, il existe $a\in A$. Soit $x\in F$. Alors $x+a\notin F$ (sinon $(x+a)-x=a\in F$, contradiction), donc $x+a\in A$. Ainsi $x=(x+a)-a$ est CL de deux éléments de $A$, donc $x\in\mathrm{Vect}(A)$. On a montré $F\subset\mathrm{Vect}(A)$, et $A\subset\mathrm{Vect}(A)$ trivialement, donc $E=F\cup A\subset\mathrm{Vect}(A)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f_i:x\mapsto e^{x+i}$ pour $i\in\mathbb{N}$. La famille $(f_i)_{i\in\mathbb{N}}$ est-elle libre dans $\mathcal{F}(\mathbb{R},\mathbb{R})$ ?
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Non. On a $f_i(x)=e^{x+i}=e^i\cdot e^x$, donc $f_i=e^i f_0$ pour tout $i$. En particulier, $e\cdot f_0-f_1=0$ est une relation de liaison non triviale. La famille est donc liée : tous les $f_i$ sont colinéaires à $f_0=e^x$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f_0(x)=1$, $f_1(x)=x$, $f_2(x)=x^2$ et $f_3(x)=e^x$. La famille $(f_0,f_1,f_2,f_3)$ est-elle libre dans $\mathcal{F}(\mathbb{R},\mathbb{R})$ ?
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Oui. Soit $\lambda_0+\lambda_1 x+\lambda_2 x^2+\lambda_3 e^x=0$ pour tout $x\in\mathbb{R}$. En multipliant par $e^{-x}$ : $\lambda_0 e^{-x}+\lambda_1 x e^{-x}+\lambda_2 x^2 e^{-x}+\lambda_3=0$. En faisant $x\to+\infty$, les trois premiers termes tendent vers $0$, donc $\lambda_3=0$. Il reste $\lambda_0+\lambda_1 x+\lambda_2 x^2=0$ pour tout $x$. En faisant $x\to+\infty$ après division par $x^2$, on obtient $\lambda_2=0$. Il reste $\lambda_0+\lambda_1 x=0$ pour tout $x$, d'où $\lambda_1=0$ puis $\lambda_0=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Montrer que $\mathcal{C}^\infty(\mathbb{R},\mathbb{R})$ est un $\mathbb{R}$-ev. Pour tout $k\in\mathbb{N}$, on définit $\varphi_k:\mathcal{C}^\infty(\mathbb{R},\mathbb{R})\to\mathbb{R}$ par $\varphi_k(f)=f^{(k)}(0)$. Montrer que les $\varphi_k$ sont des formes linéaires et que la famille $(\varphi_k)_{k\in\mathbb{N}}$ est libre dans $\mathcal{L}(\mathcal{C}^\infty(\mathbb{R},\mathbb{R}),\mathbb{R})$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathcal{C}^\infty(\mathbb{R},\mathbb{R})$ est un sous-ensemble de $\mathcal{F}(\mathbb{R},\mathbb{R})$ contenant la fonction nulle et stable par CL (une CL de fonctions $\mathcal{C}^\infty$ est $\mathcal{C}^\infty$), donc c'est un sev, en particulier un $\mathbb{R}$-ev.
+      Linéarité de $\varphi_k$ : pour $f,g\in\mathcal{C}^\infty(\mathbb{R},\mathbb{R})$ et $\lambda\in\mathbb{R}$, $\varphi_k(f+\lambda g)=(f+\lambda g)^{(k)}(0)=f^{(k)}(0)+\lambda g^{(k)}(0)=\varphi_k(f)+\lambda\varphi_k(g)$.
+      Liberté : soit $\sum_{k=0}^p\lambda_k\varphi_k=0$, i.e., $\sum_{k=0}^p\lambda_k f^{(k)}(0)=0$ pour tout $f\in\mathcal{C}^\infty(\mathbb{R},\mathbb{R})$. Pour $n\in\llbracket 0,p\rrbracket$, on évalue en $f:x\mapsto x^n$. Alors $f^{(k)}(0)=0$ si $k\neq n$ et $f^{(n)}(0)=n!$. L'égalité donne $\lambda_n\cdot n!=0$, donc $\lambda_n=0$. Ceci valant pour tout $n$, la famille est libre.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un ev et $A,B\subset E$. Montrer que $\mathrm{Vect}(A\cup B)=\mathrm{Vect}(A)+\mathrm{Vect}(B)$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\subset)$ $\mathrm{Vect}(A)+\mathrm{Vect}(B)$ est un sev contenant $A\cup B$ (car $A\subset\mathrm{Vect}(A)\subset\mathrm{Vect}(A)+\mathrm{Vect}(B)$ et de même pour $B$). Or $\mathrm{Vect}(A\cup B)$ est le plus petit sev contenant $A\cup B$, donc $\mathrm{Vect}(A\cup B)\subset\mathrm{Vect}(A)+\mathrm{Vect}(B)$.
+      $(\supset)$ $A\subset A\cup B$, donc $\mathrm{Vect}(A)\subset\mathrm{Vect}(A\cup B)$. De même $\mathrm{Vect}(B)\subset\mathrm{Vect}(A\cup B)$. Comme $\mathrm{Vect}(A\cup B)$ est un sev, il est stable par somme, donc $\mathrm{Vect}(A)+\mathrm{Vect}(B)\subset\mathrm{Vect}(A\cup B)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E=\mathcal{F}(\mathbb{R},\mathbb{R})$ et $F=\{f\in E : f(0)=f(1)=0\}$. Montrer que $F$ est un sev de $E$. Déterminer un supplémentaire de $F$ dans $E$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $F$ est un sev : $0\in F$ car $0(0)=0(1)=0$, et si $f,g\in F$, $\lambda\in\mathbb{R}$, alors $(f+\lambda g)(0)=0$ et $(f+\lambda g)(1)=0$, donc $f+\lambda g\in F$.
+      Supplémentaire : posons $G=\{g\in E : \forall x\notin\{0,1\},\ g(x)=0\}$. $G$ est un sev (stable par CL). $F\cap G=\{0\}$ : si $g\in F\cap G$, alors $g(x)=0$ pour $x\notin\{0,1\}$ et $g(0)=g(1)=0$, donc $g=0$. $E=F+G$ : pour $f\in E$, on définit $g$ par $g(0)=f(0)$, $g(1)=f(1)$, $g(x)=0$ sinon ; alors $g\in G$ et $f-g\in F$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $H=\{(x_1,\ldots,x_n)\in\mathbb{R}^n : x_1+\cdots+x_n=0\}$. Montrer que $H$ est un sev de $\mathbb{R}^n$. Déterminer un supplémentaire de $H$. Le supplémentaire est-il unique ?
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $H=\ker\varphi$ où $\varphi:(x_1,\ldots,x_n)\mapsto x_1+\cdots+x_n$ est une forme linéaire non nulle, donc $H$ est un sev (noyau d'une application linéaire). C'est un hyperplan ($\dim H=n-1$).
+      Supplémentaire : $\varphi(1,\ldots,1)=n\neq 0$, donc $(1,\ldots,1)\notin H$. Comme $H$ est un hyperplan, $\mathbb{R}^n=H\oplus\mathrm{Vect}((1,\ldots,1))$.
+      Le supplémentaire n'est pas unique : par exemple $\mathrm{Vect}((1,0,\ldots,0))$ convient aussi, car $\varphi((1,0,\ldots,0))=1\neq 0$. Plus généralement, $\mathrm{Vect}(v)$ est supplémentaire de $H$ pour tout $v\notin H$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f\in\mathcal{L}(E,F)$ et $g\in\mathcal{L}(F,G)$. Montrer que :
+      <ol>
+        <li>$\ker(g\circ f)=\ker f\Leftrightarrow\ker g\cap\mathrm{Im}\,f=\{0\}$,</li>
+        <li>$\mathrm{Im}(g\circ f)=\mathrm{Im}\,g\Leftrightarrow\ker g+\mathrm{Im}\,f=F$.</li>
+      </ol>
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      <p>(1) On a toujours $\ker f\subset\ker(g\circ f)$ car si $f(x)=0$, alors $g(f(x))=0$. Il suffit donc de montrer l'équivalence pour l'inclusion réciproque.</p>
+      <p>$(\Rightarrow)$ Soit $y\in\ker g\cap\mathrm{Im}\,f$, $y=f(x)$ avec $g(y)=0$. Alors $g(f(x))=0$, donc $x\in\ker(g\circ f)=\ker f$, d'où $y=f(x)=0$.</p>
+      <p>$(\Leftarrow)$ Soit $x\in\ker(g\circ f)$, i.e., $g(f(x))=0$. Alors $f(x)\in\ker g\cap\mathrm{Im}\,f=\{0\}$, donc $f(x)=0$, i.e., $x\in\ker f$.</p>
+      <p>(2) On a toujours $\mathrm{Im}(g\circ f)\subset\mathrm{Im}\,g$ car $g(f(x))\in\mathrm{Im}\,g$. Il suffit donc de montrer l'équivalence pour l'inclusion réciproque.</p>
+      <p>$(\Rightarrow)$ Soit $y\in F$. Comme $g(y)\in\mathrm{Im}\,g=\mathrm{Im}(g\circ f)$, il existe $x\in E$ tel que $g(y)=g(f(x))$, donc $y-f(x)\in\ker g$. Ainsi $y=(y-f(x))+f(x)\in\ker g+\mathrm{Im}\,f$.</p>
+      <p>$(\Leftarrow)$ Soit $z\in\mathrm{Im}\,g$, $z=g(y)$. Écrivons $y=u+f(x)$ avec $u\in\ker g$, $x\in E$. Alors $z=g(y)=g(u)+g(f(x))=g(f(x))\in\mathrm{Im}(g\circ f)$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $u,v\in\mathcal{L}(E)$ tels que $u\circ v=v\circ u$ et $E=\ker u\oplus\ker v$. Montrer que $\mathrm{Im}\,u\subset\ker v$ et $\mathrm{Im}\,v\subset\ker u$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $x\in E$, $x=a+b$ avec $a\in\ker u$, $b\in\ker v$. Alors $u(x)=u(b)$. Comme $u$ et $v$ commutent, $v(u(b))=u(v(b))=u(0)=0$, donc $u(b)\in\ker v$. Ainsi $u(x)\in\ker v$ pour tout $x$, i.e., $\mathrm{Im}\,u\subset\ker v$. Par symétrie (en échangeant les rôles de $u$ et $v$), $\mathrm{Im}\,v\subset\ker u$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $f$ un endomorphisme de $E$. Montrer que $E=\mathrm{Im}\,f+\ker f$ ssi $\mathrm{Im}\,f=\mathrm{Im}\,f^2$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $y\in\mathrm{Im}\,f$, $y=f(x)$. Écrivons $x=u+v$ avec $u\in\mathrm{Im}\,f$, $v\in\ker f$. Alors $y=f(u)+f(v)=f(u)$. Comme $u\in\mathrm{Im}\,f$, $u=f(t)$ pour un certain $t$, donc $y=f(u)=f^2(t)\in\mathrm{Im}\,f^2$. Ainsi $\mathrm{Im}\,f\subset\mathrm{Im}\,f^2$. L'inclusion réciproque étant toujours vraie, $\mathrm{Im}\,f=\mathrm{Im}\,f^2$.
+      $(\Leftarrow)$ Soit $x\in E$. Alors $f(x)\in\mathrm{Im}\,f=\mathrm{Im}\,f^2$, donc il existe $t\in E$ tel que $f(x)=f^2(t)$. On écrit $x=f(t)+(x-f(t))$. On a $f(t)\in\mathrm{Im}\,f$ et $f(x-f(t))=f(x)-f^2(t)=0$, donc $x-f(t)\in\ker f$. Ainsi $x\in\mathrm{Im}\,f+\ker f$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $p,q$ deux projecteurs de $E$ tels que $p\circ q=q\circ p$. Montrer que $p\circ q$ est un projecteur et déterminer son noyau et son image.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(p\circ q)^2=p\circ q\circ p\circ q=p\circ p\circ q\circ q=p^2\circ q^2=p\circ q$ (en utilisant $q\circ p=p\circ q$, $p^2=p$, $q^2=q$). Donc $p\circ q$ est un projecteur.
+      <p>Image : $\mathrm{Im}(p\circ q)=\mathrm{Im}\,p\cap\mathrm{Im}\,q$.</p>
+      <p>$(\subset)$ Si $y=p(q(x))$, alors $y\in\mathrm{Im}\,p$. De plus $q(y)=q(p(q(x)))=p(q(q(x)))=p(q(x))=y$, donc $y\in\mathrm{Im}\,q$.</p>
+      <p>$(\supset)$ Soit $y\in\mathrm{Im}\,p\cap\mathrm{Im}\,q$. Alors $p(y)=y$ et $q(y)=y$, donc $p(q(y))=p(y)=y$, d'où $y\in\mathrm{Im}(p\circ q)$.</p>
+      <p>Noyau : $\ker(p\circ q)=\ker p+\ker q$.</p>
+      <p>$(\supset)$ $\ker q\subset\ker(p\circ q)$ car $q(x)=0\Rightarrow p(q(x))=0$, et $\ker p\subset\ker(p\circ q)$ car $p(q(x))=q(p(x))=0$. Comme $\ker(p\circ q)$ est un sev, il contient $\ker p+\ker q$.</p>
+      <p>$(\subset)$ Soit $x\in\ker(p\circ q)$. On écrit $x=q(x)+(x-q(x))$ avec $q(x)\in\ker p$ (car $p(q(x))=0$) et $x-q(x)\in\ker q$ (car $q(x-q(x))=q(x)-q^2(x)=0$).</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Dans $\mathbb{R}_4[X]$, on pose $F=\{P\in\mathbb{R}_4[X] : P(0)=P'(0)=P'(1)=0\}$. Montrer que $F$ est un sous-espace vectoriel de $\mathbb{R}_4[X]$, en donner une base et la dimension. Montrer que $\mathrm{Vect}(1,X,1+X+X^2)$ est un supplémentaire de $F$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      <p><strong>$F$ est un sev.</strong> Le polynôme nul vérifie les trois conditions. Si $P,Q\in F$ et $\lambda,\mu\in\mathbb{R}$, alors $(\lambda P+\mu Q)(0)=0$, $(\lambda P+\mu Q)'(0)=0$ et $(\lambda P+\mu Q)'(1)=0$. Donc $F$ est un sous-espace vectoriel de $\mathbb{R}_4[X]$.</p>
+      <p><strong>Base et dimension.</strong> Les conditions $P(0)=0$ et $P'(0)=0$ signifient que $0$ est racine au moins double de $P$, donc $P=X^2Q$ avec $Q=a+bX+cX^2\in\mathbb{R}_2[X]$. Alors $P'=2XQ+X^2Q'$, d'où $P'(1)=2Q(1)+Q'(1)=2(a+b+c)+(b+2c)=2a+3b+4c=0$, soit $c=-\frac{2a+3b}{4}$. En posant $P_1=X^2(2-X^2)$ et $P_2=X^3(4-3X)$, on a $F=\mathrm{Vect}(P_1,P_2)$. Comme $\deg P_1=4\neq 3=\deg P_2$, la famille $(P_1,P_2)$ est libre, donc c'est une base de $F$ et $\dim F=2$.</p>
+      <p><strong>Supplémentaire.</strong> Posons $G=\mathrm{Vect}(1,X,1+X+X^2)$. La famille $(1,X,1+X+X^2)$ est échelonnée en degré, donc libre, et $\dim G=3$. Comme $\dim F+\dim G=5=\dim\mathbb{R}_4[X]$, il suffit de montrer $F\cap G=\{0\}$. Soit $P\in F\cap G$ : $P=\alpha+\beta X+\gamma(1+X+X^2)=(\alpha+\gamma)+(\beta+\gamma)X+\gamma X^2$. Les conditions $P(0)=\alpha+\gamma=0$, $P'(0)=\beta+\gamma=0$ et $P'(1)=\beta+3\gamma=0$ donnent $2\gamma=0$, puis $\gamma=\beta=\alpha=0$. Donc $F\cap G=\{0\}$ et $\mathbb{R}_4[X]=F\oplus G$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soient $F$ et $G$ deux sous-espaces vectoriels d'un espace vectoriel $E$ de dimension finie $n$. Montrer que si $\dim F+\dim G&gt;n$, alors $F\cap G\neq\{0\}$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Par la formule de Grassmann, $\dim(F\cap G)=\dim F+\dim G-\dim(F+G)$. Or $F+G\subset E$, donc $\dim(F+G)\le n$. D'où $\dim(F\cap G)\ge\dim F+\dim G-n&gt;0$, ce qui implique $F\cap G\neq\{0\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension finie $n$ et $H_1,H_2$ deux hyperplans distincts de $E$. Calculer $\dim(H_1\cap H_2)$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      <p><em>Preuve (formule de Grassmann).</em> $\dim(H_1\cap H_2)=\dim H_1+\dim H_2-\dim(H_1+H_2)=2(n-1)-\dim(H_1+H_2)$. Si $H_1+H_2=H_2$, alors $H_1\subset H_2$, et comme $\dim H_1=\dim H_2=n-1$, on aurait $H_1=H_2$, contradiction. Donc $H_1+H_2\neq H_2$, d'où $\dim(H_1+H_2)&gt;\dim H_2=n-1$, soit $\dim(H_1+H_2)=n$ et $\dim(H_1\cap H_2)=2(n-1)-n=n-2$.</p>
+      <p><em>Preuve (formes linéaires).</em> Soit $\varphi\in E^*$ telle que $H_2=\ker\varphi$. Considérons $\psi=\varphi|_{H_1}:H_1\to\mathbb{K}$. Alors $\ker\psi=H_1\cap\ker\varphi=H_1\cap H_2$. Comme $H_1\neq H_2$, $H_1\not\subset\ker\varphi$, donc $\psi\neq 0$, d'où $\mathrm{rg}\,\psi=1$. Par le théorème du rang, $\dim(H_1\cap H_2)=\dim H_1-1=n-2$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soient $E$ un $\mathbb{K}$-espace vectoriel de dimension finie et $E_1,E_2$ deux sous-espaces de $E$. Montrer qu'il existe $u\in\mathcal{L}(E)$ tel que $\ker u=E_1$ et $\mathrm{Im}\,u=E_2$ si et seulement si $\dim E=\dim E_1+\dim E_2$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Par le théorème du rang, $\dim E=\dim\ker u+\dim\mathrm{Im}\,u=\dim E_1+\dim E_2$.
+      $(\Leftarrow)$ Posons $p=\dim E_1$ et $q=\dim E_2$, de sorte que $p+q=n=\dim E$. Soit $(e_1,\ldots,e_p)$ une base de $E_1$, que l'on complète en une base $(e_1,\ldots,e_p,f_1,\ldots,f_q)$ de $E$, et soit $(g_1,\ldots,g_q)$ une base de $E_2$. On définit $u\in\mathcal{L}(E)$ par $u(e_i)=0$ pour $1\le i\le p$ et $u(f_j)=g_j$ pour $1\le j\le q$. Soit $x=\sum_{i=1}^p\alpha_i e_i+\sum_{j=1}^q\beta_j f_j\in E$. Alors $u(x)=\sum_{j=1}^q\beta_j g_j$, donc $u(x)=0$ ssi $\beta_1=\cdots=\beta_q=0$ (car $(g_j)$ est libre), i.e. $x\in E_1$. Ainsi $\ker u=E_1$. De plus $\mathrm{Im}\,u=\mathrm{Vect}(g_1,\ldots,g_q)=E_2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension $3$ et $u\in\mathcal{L}(E)$ tel que $u^2=0$. Montrer qu'il existe $a\in E$ et $f\in E^*$ tels que $u(x)=f(x)a$ pour tout $x\in E$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $u^2=0$, $\mathrm{Im}\,u\subset\ker u$, donc $\mathrm{rg}\,u\le\dim\ker u=3-\mathrm{rg}\,u$, soit $\mathrm{rg}\,u\le 1$ et $\dim\ker u\ge 2$. Si $u=0$, on prend $a=0$ et $f=0$. Sinon $\dim\ker u=2$. Soit $(e_1,e_2)$ une base de $\ker u$, que l'on complète en une base $(e_1,e_2,e_3)$ de $E$. Posons $a=u(e_3)$ et $f\in E^*$ la forme linéaire définie par $f(e_1)=0$, $f(e_2)=0$, $f(e_3)=1$. Pour tout $x=x_1e_1+x_2e_2+x_3e_3$, on a $u(x)=x_3u(e_3)=x_3a=f(x)a$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension $n$ et $u,v\in\mathcal{L}(E)$. Montrer que $\mathrm{rg}\,u+\mathrm{rg}\,v\le\mathrm{rg}(u\circ v)+n$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Le théorème du rang appliqué à $u|_{\mathrm{Im}\,v}:\mathrm{Im}\,v\to E$ donne $\mathrm{rg}(u|_{\mathrm{Im}\,v})=\dim\mathrm{Im}\,v-\dim\ker(u|_{\mathrm{Im}\,v})$. Or $\ker(u|_{\mathrm{Im}\,v})=\mathrm{Im}\,v\cap\ker u$ et $\mathrm{Im}(u|_{\mathrm{Im}\,v})=\mathrm{Im}(u\circ v)$, donc $\mathrm{rg}(u\circ v)=\mathrm{rg}\,v-\dim(\mathrm{Im}\,v\cap\ker u)$. Comme $\dim(\mathrm{Im}\,v\cap\ker u)\le\dim\ker u=n-\mathrm{rg}\,u$, on obtient $\mathrm{rg}(u\circ v)\ge\mathrm{rg}\,v-(n-\mathrm{rg}\,u)$, soit $\mathrm{rg}\,u+\mathrm{rg}\,v\le\mathrm{rg}(u\circ v)+n$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un $\mathbb{K}$-espace vectoriel et $u\in\mathcal{L}(E)$ tel que pour tout $x\in E$, la famille $(x,u(x))$ est liée. Montrer que $u$ est une homothétie.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour tout $x\neq 0$, il existe $\lambda_x\in\mathbb{K}$ tel que $u(x)=\lambda_x x$. Montrons que $\lambda_x$ est indépendant de $x$. Soient $x,y\in E$ non nuls. Si $(x,y)$ est libre, alors $x+y\neq 0$, donc $u(x+y)=\lambda_{x+y}(x+y)$. Par linéarité, $u(x+y)=\lambda_x x+\lambda_y y$. Ainsi $\lambda_{x+y}x+\lambda_{x+y}y=\lambda_x x+\lambda_y y$, et par liberté de $(x,y)$, $\lambda_x=\lambda_{x+y}=\lambda_y$. Si $(x,y)$ est liée, alors $y=\mu x$ avec $\mu\neq 0$, et $\lambda_y y=u(y)=\mu u(x)=\mu\lambda_x x=\lambda_x y$, donc $\lambda_y=\lambda_x$. Dans les deux cas $\lambda_x=\lambda_y$, donc il existe $\lambda\in\mathbb{K}$ tel que $u=\lambda\,\mathrm{id}_E$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $E$ un $\mathbb{K}$-espace vectoriel, $p$ un projecteur de $E$ et $u\in\mathcal{L}(E)$. Montrer que $u\circ p=p\circ u$ si et seulement si $\mathrm{Im}\,p$ et $\ker p$ sont stables par $u$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      Notons $F=\mathrm{Im}\,p$ et $G=\ker p$, de sorte que $E=F\oplus G$.
+      $(\Rightarrow)$ Soit $y\in F$. Alors $p(y)=y$, donc $p(u(y))=u(p(y))=u(y)$, d'où $u(y)\in F$. Soit $z\in G$. Alors $p(z)=0$, donc $p(u(z))=u(p(z))=0$, d'où $u(z)\in G$.
+      $(\Leftarrow)$ Soit $x\in E$, $x=y+z$ avec $y\in F$, $z\in G$. Par stabilité, $u(y)\in F$ et $u(z)\in G$. Alors $p(u(x))=p(u(y))+p(u(z))=u(y)+0=u(y)$. D'autre part, $u(p(x))=u(p(y)+p(z))=u(y+0)=u(y)$. Donc $p\circ u=u\circ p$.
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $p$ un projecteur de $E$ et $\lambda\in\mathbb{K}\setminus\{0,1\}$. Montrer que $p-\lambda\,\mathrm{id}\in GL(E)$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      <p><em>Preuve (en dimension finie, il suffit de montrer l'injectivité).</em> Soit $x\in\ker(p-\lambda\,\mathrm{id})$, i.e., $p(x)=\lambda x$. Alors $\lambda x=p(x)=p^2(x)=p(\lambda x)=\lambda p(x)=\lambda^2 x$, donc $\lambda(\lambda-1)x=0$. Comme $\lambda\notin\{0,1\}$, $x=0$. Ainsi $p-\lambda\,\mathrm{id}$ est injective, donc bijective.</p>
+      <p><em>Preuve (cas général).</em> Posons $F=\mathrm{Im}\,p$ et $G=\ker p$, de sorte que $E=F\oplus G$. Soit $y\in E$, $y=y_1+y_2$ avec $y_1\in G$, $y_2\in F$. On cherche $x=x_1+x_2$ ($x_1\in G$, $x_2\in F$) tel que $(p-\lambda\,\mathrm{id})(x)=y$. On a $(p-\lambda\,\mathrm{id})(x)=-\lambda x_1+(1-\lambda)x_2$. Par unicité de la décomposition sur $G\oplus F$, cela équivaut à $-\lambda x_1=y_1$ et $(1-\lambda)x_2=y_2$. Comme $\lambda\neq 0$ et $\lambda\neq 1$, on obtient $x_1=-\frac{1}{\lambda}y_1$ et $x_2=\frac{1}{1-\lambda}y_2$, ce qui donne un unique antécédent. Donc $p-\lambda\,\mathrm{id}$ est bijective.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <span class="thm-label">Exercice.</span>
+      Soit $p,q$ deux projecteurs de $E$ tels que $p\circ q=0$. On pose $r=p+q-q\circ p$. Montrer que $r$ est un projecteur, que $\ker r=\ker p\cap\ker q$ et que $\mathrm{Im}\,r=\mathrm{Im}\,p\oplus\mathrm{Im}\,q$.
+    </div>
+    <details class="proof">
+      <summary class="proof-label">Démonstration.</summary>
+      $r^2=(p+q-qp)^2=p+pq-pqp+qp+q-q^2p-qp^2-qpq+qpqp=p+0-0+qp+q-qp-qp-0+0=p+q-qp=r$. Donc $r$ est un projecteur.
+      <p>Noyau : soit $x\in\ker r$, i.e. $p(x)+q(x)-q(p(x))=0$. En composant par $p$ : $p(x)=0$, puis $q(x)=0$, d'où $x\in\ker p\cap\ker q$. Réciproquement, si $x\in\ker p\cap\ker q$, alors $r(x)=0$. Donc $\ker r=\ker p\cap\ker q$.</p>
+      <p>Image : pour tout $x\in E$, $r(x)=p(x)+q(x-p(x))\in\mathrm{Im}\,p+\mathrm{Im}\,q$. Réciproquement, si $y\in\mathrm{Im}\,p$, alors $r(y)=y+q(y)-q(y)=y$ ; si $y\in\mathrm{Im}\,q$, alors $p(y)=p(q(y))=0$ et $r(y)=y$. Donc $\mathrm{Im}\,r=\mathrm{Im}\,p+\mathrm{Im}\,q$. La somme est directe : si $y\in\mathrm{Im}\,p\cap\mathrm{Im}\,q$, alors $p(y)=y$ et $q(y)=y$, d'où $y=p(q(y))=0$.</p>
+    </details>
 
   </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>

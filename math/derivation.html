@@ -20,9 +20,587 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
-    <h2 class="fr">Cours</h2>
+    <h2 class="en">Differentiation</h2>
+    <h2 class="fr">Dérivation</h2>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval of $\mathbb{R}$, $f : I \to \mathbb{R}$ and $a \in I$. We say $f$ is <em>differentiable at $a$</em> if the limit $\lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ exists and is finite. This limit is called the <em>derivative</em> of $f$ at $a$, denoted $f'(a)$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $I$ un intervalle de $\mathbb{R}$, $f : I \to \mathbb{R}$ et $a \in I$. On dit que $f$ est <em>dérivable en $a$</em> si la limite $\lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ existe et est finie. Cette limite est appelée le <em>nombre dérivé</em> de $f$ en $a$, noté $f'(a)$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Left and right derivatives).</span> If the limit $\lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h}$ exists and is finite, it is called the <em>right derivative</em> of $f$ at $a$, denoted $f'_r(a)$. The <em>left derivative</em> $f'_l(a)$ is defined similarly.</p>
+      <p class="fr"><span class="thm-label">Définition (Dérivées à gauche et à droite).</span> Si la limite $\lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h}$ existe et est finie, on l'appelle <em>dérivée à droite</em> de $f$ en $a$, notée $f'_d(a)$. On définit de même la <em>dérivée à gauche</em> $f'_g(a)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $f$ is differentiable at $a$ if and only if $f'_l(a)$ and $f'_r(a)$ both exist and are equal.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La fonction $f$ est dérivable en $a$ si et seulement si $f'_g(a)$ et $f'_d(a)$ existent et sont égales.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $g(h) = \frac{f(a+h)-f(a)}{h}$. $(\Rightarrow)$ If $\lim_{h\to 0} g(h) = \ell$, then in particular $\lim_{h\to 0^+} g(h) = \lim_{h\to 0^-} g(h) = \ell$. $(\Leftarrow)$ If both limits equal $\ell$, let $\varepsilon &gt; 0$: there exist $\delta_1, \delta_2 &gt; 0$ such that $|g(h)-\ell| &lt; \varepsilon$ for $h \in ]0,\delta_1[$ and for $h \in ]-\delta_2,0[$. Setting $\delta = \min(\delta_1,\delta_2)$, we have $|g(h)-\ell| &lt; \varepsilon$ for all $h \in ]-\delta,\delta[ \setminus \{0\}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $g(h) = \frac{f(a+h)-f(a)}{h}$. $(\Rightarrow)$ Si $\lim_{h\to 0} g(h) = \ell$, alors en particulier $\lim_{h\to 0^+} g(h) = \lim_{h\to 0^-} g(h) = \ell$. $(\Leftarrow)$ Si ces deux limites valent $\ell$, soit $\varepsilon &gt; 0$ : il existe $\delta_1, \delta_2 &gt; 0$ tels que $|g(h)-\ell| &lt; \varepsilon$ pour $h \in ]0,\delta_1[$ et pour $h \in ]-\delta_2,0[$. En posant $\delta = \min(\delta_1,\delta_2)$, on a $|g(h)-\ell| &lt; \varepsilon$ pour tout $h \in ]-\delta,\delta[ \setminus \{0\}$.</p>
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $f$ is differentiable at $a$, then $f$ is continuous at $a$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $f$ est dérivable en $a$, alors $f$ est continue en $a$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">We write $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ as $h \to 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On écrit $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ quand $h \to 0$.</p>
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Tangent line).</span> If $f$ is differentiable at $a$, the line with equation $y = f(a) + f'(a)(x-a)$ is the <em>tangent</em> to the graph of $f$ at $(a, f(a))$.</p>
+      <p class="fr"><span class="thm-label">Définition (Tangente).</span> Si $f$ est dérivable en $a$, la droite d'équation $y = f(a) + f'(a)(x-a)$ est la <em>tangente</em> au graphe de $f$ en $(a, f(a))$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Differentiation rules).</span> Let $f,g : I \to \mathbb{R}$ be differentiable at $a$ and $\lambda \in \mathbb{R}$. Then:</p>
+      <ol class="en">
+        <li>$(\lambda f)'(a) = \lambda f'(a)$ and $(f+g)'(a) = f'(a)+g'(a)$.</li>
+        <li>$(fg)'(a) = f'(a)g(a) + f(a)g'(a)$.</li>
+        <li>If $g(a) \neq 0$, $(f/g)'(a) = \frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}$.</li>
+      </ol>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur les dérivées).</span> Soient $f,g : I \to \mathbb{R}$ dérivables en $a$ et $\lambda \in \mathbb{R}$. Alors :</p>
+      <ol class="fr">
+        <li>$(\lambda f)'(a) = \lambda f'(a)$ et $(f+g)'(a) = f'(a)+g'(a)$.</li>
+        <li>$(fg)'(a) = f'(a)g(a) + f(a)g'(a)$.</li>
+        <li>Si $g(a) \neq 0$, $(f/g)'(a) = \frac{f'(a)g(a)-f(a)g'(a)}{g(a)^2}$.</li>
+      </ol>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">(2) We write $\frac{f(a+h)g(a+h)-f(a)g(a)}{h} = \frac{f(a+h)-f(a)}{h}\,g(a+h) + f(a)\,\frac{g(a+h)-g(a)}{h}$. Since $g$ is differentiable at $a$, it is continuous at $a$, so $g(a+h) \to g(a)$. The whole expression converges to $f'(a)g(a) + f(a)g'(a)$.</p>
+      <p class="en">(3) It suffices to show $(1/g)'(a) = -g'(a)/g(a)^2$. We have $\frac{1/g(a+h)-1/g(a)}{h} = \frac{g(a)-g(a+h)}{h \cdot g(a+h)g(a)} = -\frac{1}{g(a+h)g(a)} \cdot \frac{g(a+h)-g(a)}{h} \to \frac{-g'(a)}{g(a)^2}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">(2) On écrit $\frac{f(a+h)g(a+h)-f(a)g(a)}{h} = \frac{f(a+h)-f(a)}{h}\,g(a+h) + f(a)\,\frac{g(a+h)-g(a)}{h}$. Comme $g$ est dérivable en $a$, elle est continue en $a$, donc $g(a+h) \to g(a)$. Le tout converge vers $f'(a)g(a) + f(a)g'(a)$.</p>
+      <p class="fr">(3) Il suffit de montrer que $(1/g)'(a) = -g'(a)/g(a)^2$. On a $\frac{1/g(a+h)-1/g(a)}{h} = \frac{g(a)-g(a+h)}{h \cdot g(a+h)g(a)} = -\frac{1}{g(a+h)g(a)} \cdot \frac{g(a+h)-g(a)}{h} \to \frac{-g'(a)}{g(a)^2}$.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Chain rule).</span> If $g$ is differentiable at $a$ and $f$ is differentiable at $g(a)$, then $f \circ g$ is differentiable at $a$ and $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Dérivée d'une composée).</span> Si $g$ est dérivable en $a$ et $f$ est dérivable en $g(a)$, alors $f \circ g$ est dérivable en $a$ et $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $\varphi(h) = \frac{f(g(a)+h)-f(g(a))}{h}$ for $h \neq 0$ and $\varphi(0) = f'(g(a))$. Differentiability of $f$ at $g(a)$ ensures $\varphi$ is continuous at $0$. We can write $f(g(a)+h) - f(g(a)) = h\,\varphi(h)$ for all $h$. Setting $k = g(a+h)-g(a)$, we get $\frac{f(g(a+h))-f(g(a))}{h} = \frac{k}{h}\,\varphi(k)$. As $h \to 0$, $k \to 0$ (by continuity of $g$), so $\varphi(k) \to f'(g(a))$ and $k/h \to g'(a)$, giving $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $\varphi(h) = \frac{f(g(a)+h)-f(g(a))}{h}$ si $h \neq 0$ et $\varphi(0) = f'(g(a))$. La dérivabilité de $f$ en $g(a)$ assure que $\varphi$ est continue en $0$. On peut écrire $f(g(a)+h) - f(g(a)) = h\,\varphi(h)$ pour tout $h$. En posant $k = g(a+h)-g(a)$, on obtient $\frac{f(g(a+h))-f(g(a))}{h} = \frac{k}{h}\,\varphi(k)$. Quand $h \to 0$, $k \to 0$ (par continuité de $g$), donc $\varphi(k) \to f'(g(a))$ et $k/h \to g'(a)$, d'où $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Derivative of the inverse function).</span> Let $f$ be continuous and strictly monotone on an interval $I$, and let $J = f(I)$. If $f$ is differentiable at $a \in I$ and $f'(a) \neq 0$, then $f^{-1}$ is differentiable at $b = f(a)$ and $(f^{-1})'(b) = \frac{1}{f'(f^{-1}(b))} = \frac{1}{f'(a)}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Dérivée de la bijection réciproque).</span> Soit $f$ continue et strictement monotone sur un intervalle $I$, et soit $J = f(I)$. Si $f$ est dérivable en $a \in I$ et $f'(a) \neq 0$, alors $f^{-1}$ est dérivable en $b = f(a)$ et $(f^{-1})'(b) = \frac{1}{f'(f^{-1}(b))} = \frac{1}{f'(a)}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $b = f(a)$ and write for $k \neq 0$, $k \in J-b$: $\frac{f^{-1}(b+k)-f^{-1}(b)}{k} = \frac{f^{-1}(b+k)-a}{f(f^{-1}(b+k))-f(a)}$. Let $h = f^{-1}(b+k)-a$; since $f^{-1}$ is continuous, $h \to 0$ as $k \to 0$, and $h \neq 0$ since $f$ is injective. We get $\frac{h}{f(a+h)-f(a)} = \frac{1}{\frac{f(a+h)-f(a)}{h}} \to \frac{1}{f'(a)}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $b = f(a)$ et on écrit pour $k \neq 0$, $k \in J-b$ : $\frac{f^{-1}(b+k)-f^{-1}(b)}{k} = \frac{f^{-1}(b+k)-a}{f(f^{-1}(b+k))-f(a)}$. Posons $h = f^{-1}(b+k)-a$ ; comme $f^{-1}$ est continue, $h \to 0$ quand $k \to 0$, et $h \neq 0$ car $f$ est injective. On obtient $\frac{h}{f(a+h)-f(a)} = \frac{1}{\frac{f(a+h)-f(a)}{h}} \to \frac{1}{f'(a)}$.</p>
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> We say $f$ is of <em>class $\mathcal{C}^n$</em> on $I$ if $f$ is $n$ times differentiable on $I$ and $f^{(n)}$ is continuous on $I$. We say $f$ is of <em>class $\mathcal{C}^\infty$</em> if it is of class $\mathcal{C}^n$ for every $n$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> On dit que $f$ est de <em>classe $\mathcal{C}^n$</em> sur $I$ si $f$ est $n$ fois dérivable sur $I$ et $f^{(n)}$ est continue sur $I$. On dit que $f$ est de <em>classe $\mathcal{C}^\infty$</em> si elle est de classe $\mathcal{C}^n$ pour tout $n$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Derivatives of standard functions).</span> For $\alpha \in \mathbb{R}$, the function $x \mapsto x^\alpha$ is differentiable on $\mathbb{R}_+^*$ with derivative $\alpha x^{\alpha-1}$. The functions $\sin$ and $\cos$ are differentiable on $\mathbb{R}$ with $\sin' = \cos$ and $\cos' = -\sin$. The function $\tan$ is differentiable on $\mathbb{R}\setminus\{\pi/2+k\pi\}$ with $\tan' = 1+\tan^2 = 1/\cos^2$. The functions $\arcsin$ and $\arccos$ are differentiable on $]-1,1[$ with $\arcsin'x = \frac{1}{\sqrt{1-x^2}}$ and $\arccos'x = \frac{-1}{\sqrt{1-x^2}}$. The function $\arctan$ is differentiable on $\mathbb{R}$ with $\arctan'x = \frac{1}{1+x^2}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Dérivées des fonctions usuelles).</span> Pour $\alpha \in \mathbb{R}$, la fonction $x \mapsto x^\alpha$ est dérivable sur $\mathbb{R}_+^*$ de dérivée $\alpha x^{\alpha-1}$. Les fonctions $\sin$ et $\cos$ sont dérivables sur $\mathbb{R}$ avec $\sin' = \cos$ et $\cos' = -\sin$. La fonction $\tan$ est dérivable sur $\mathbb{R}\setminus\{\pi/2+k\pi\}$ avec $\tan' = 1+\tan^2 = 1/\cos^2$. Les fonctions $\arcsin$ et $\arccos$ sont dérivables sur $]-1,1[$ avec $\arcsin'x = \frac{1}{\sqrt{1-x^2}}$ et $\arccos'x = \frac{-1}{\sqrt{1-x^2}}$. La fonction $\arctan$ est dérivable sur $\mathbb{R}$ avec $\arctan'x = \frac{1}{1+x^2}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">We write $x^\alpha = e^{\alpha \ln x}$, so by the chain rule $(x^\alpha)' = \frac{\alpha}{x}\,e^{\alpha \ln x} = \alpha x^{\alpha-1}$.</p>
+      <p class="en">For $\sin$: $\frac{\sin(x+h)-\sin x}{h} = \cos(x+h/2)\,\frac{\sin(h/2)}{h/2} \to \cos x$. Similarly for $\cos$: $\frac{\cos(x+h)-\cos x}{h} = -\sin(x+h/2)\,\frac{\sin(h/2)}{h/2} \to -\sin x$.</p>
+      <p class="en">Since $\tan = \sin/\cos$, the quotient rule gives $\tan' x = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x} = 1 + \tan^2 x$.</p>
+      <p class="en">For the inverse functions, we apply the inverse function theorem: $\sin'(\arcsin x) = \cos(\arcsin x) = \sqrt{1-x^2} \neq 0$, so $\arcsin'x = \frac{1}{\sqrt{1-x^2}}$. Similarly $\cos'(\arccos x) = -\sqrt{1-x^2}$, so $\arccos'x = \frac{-1}{\sqrt{1-x^2}}$. Finally $\tan'(\arctan x) = 1+x^2$, so $\arctan'x = \frac{1}{1+x^2}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On écrit $x^\alpha = e^{\alpha \ln x}$, donc par composition $(x^\alpha)' = \frac{\alpha}{x}\,e^{\alpha \ln x} = \alpha x^{\alpha-1}$.</p>
+      <p class="fr">Pour $\sin$ : $\frac{\sin(x+h)-\sin x}{h} = \cos(x+h/2)\,\frac{\sin(h/2)}{h/2} \to \cos x$. De même pour $\cos$ : $\frac{\cos(x+h)-\cos x}{h} = -\sin(x+h/2)\,\frac{\sin(h/2)}{h/2} \to -\sin x$.</p>
+      <p class="fr">Comme $\tan = \sin/\cos$, la formule du quotient donne $\tan' x = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x} = 1 + \tan^2 x$.</p>
+      <p class="fr">Pour les réciproques, on applique le théorème de dérivation de la bijection réciproque : $\sin'(\arcsin x) = \cos(\arcsin x) = \sqrt{1-x^2} \neq 0$, donc $\arcsin'x = \frac{1}{\sqrt{1-x^2}}$. De même $\cos'(\arccos x) = -\sqrt{1-x^2}$, donc $\arccos'x = \frac{-1}{\sqrt{1-x^2}}$. Enfin $\tan'(\arctan x) = 1+x^2$, donc $\arctan'x = \frac{1}{1+x^2}$.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Leibniz rule).</span> Let $f,g$ be of class $\mathcal{C}^n$ on $I$. Then $fg$ is of class $\mathcal{C}^n$ and $(fg)^{(n)} = \sum_{k=0}^{n} \binom{n}{k} f^{(k)} g^{(n-k)}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Formule de Leibniz).</span> Soient $f,g$ de classe $\mathcal{C}^n$ sur $I$. Alors $fg$ est de classe $\mathcal{C}^n$ et $(fg)^{(n)} = \sum_{k=0}^{n} \binom{n}{k} f^{(k)} g^{(n-k)}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">By induction on $n$. For $n=0$, trivial. If the formula holds at rank $n$, then $(fg)^{(n+1)} = \sum_{k=0}^{n}\binom{n}{k}\left(f^{(k+1)}g^{(n-k)}+f^{(k)}g^{(n+1-k)}\right)$. Re-indexing the first sum ($j=k+1$): $\sum_{j=1}^{n+1}\binom{n}{j-1}f^{(j)}g^{(n+1-j)} + \sum_{k=0}^{n}\binom{n}{k}f^{(k)}g^{(n+1-k)}$. The $k=0$ term of the second sum gives $f\,g^{(n+1)}$ and the $j=n+1$ term of the first gives $f^{(n+1)}g$. For $1 \le k \le n$, the coefficients of $f^{(k)}g^{(n+1-k)}$ add up to $\binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}$, which concludes.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Par récurrence sur $n$. Pour $n=0$, c'est trivial. Si la formule est vraie au rang $n$, alors $(fg)^{(n+1)} = \sum_{k=0}^{n}\binom{n}{k}\left(f^{(k+1)}g^{(n-k)}+f^{(k)}g^{(n+1-k)}\right)$. En réindexant la première somme ($j=k+1$) : $\sum_{j=1}^{n+1}\binom{n}{j-1}f^{(j)}g^{(n+1-j)} + \sum_{k=0}^{n}\binom{n}{k}f^{(k)}g^{(n+1-k)}$. Le terme $k=0$ de la seconde somme donne $f\,g^{(n+1)}$ et le terme $j=n+1$ de la première donne $f^{(n+1)}g$. Pour $1 \le k \le n$, les coefficients de $f^{(k)}g^{(n+1-k)}$ s'additionnent en $\binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}$, ce qui conclut.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Local extremum and derivative).</span> Let $f : I \to \mathbb{R}$ be differentiable at $a \in \mathring{I}$ (the interior of $I$). If $f$ has a local extremum at $a$, then $f'(a)=0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Extremum local et dérivée).</span> Soit $f : I \to \mathbb{R}$ dérivable en $a \in \mathring{I}$ (intérieur de $I$). Si $f$ admet un extremum local en $a$, alors $f'(a)=0$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Suppose $f$ has a local maximum at $a$. There exists $\delta &gt; 0$ such that for all $x \in\, ]a-\delta, a+\delta[\, \cap\, I$, $f(x) \le f(a)$. For small $h &gt; 0$, $\frac{f(a+h)-f(a)}{h} \le 0$, so $f'_r(a) \le 0$. For $h &lt; 0$, $\frac{f(a+h)-f(a)}{h} \ge 0$, so $f'_l(a) \ge 0$. Since $f$ is differentiable at $a$, $f'_l(a)=f'_r(a)=f'(a)$, giving $0 \le f'(a) \le 0$, hence $f'(a)=0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Supposons que $f$ admet un maximum local en $a$. Il existe $\delta &gt; 0$ tel que pour tout $x \in\, ]a-\delta, a+\delta[\, \cap\, I$, $f(x) \le f(a)$. Pour $h &gt; 0$ assez petit, $\frac{f(a+h)-f(a)}{h} \le 0$, donc $f'_d(a) \le 0$. Pour $h &lt; 0$, $\frac{f(a+h)-f(a)}{h} \ge 0$, donc $f'_g(a) \ge 0$. Comme $f$ est dérivable en $a$, $f'_g(a)=f'_d(a)=f'(a)$, d'où $0 \le f'(a) \le 0$, soit $f'(a)=0$.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Rolle's theorem).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$, differentiable on $]a,b[$, and such that $f(a)=f(b)$. Then there exists $c \in\, ]a,b[$ such that $f'(c)=0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème de Rolle).</span> Soit $f : [a,b] \to \mathbb{R}$ continue sur $[a,b]$, dérivable sur $]a,b[$, et telle que $f(a)=f(b)$. Alors il existe $c \in\, ]a,b[$ tel que $f'(c)=0$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">By the extreme value theorem, $f$ attains its maximum $M$ and minimum $m$ on $[a,b]$. If $m=M$, then $f$ is constant and $f'(c)=0$ for all $c \in\, ]a,b[$. Otherwise, since $f(a)=f(b)$, at least one of the two extrema is attained at some $c \in\, ]a,b[$ (both cannot be attained only at the endpoints since $f(a)=f(b)$ would force $m=M$). By the local extremum theorem, $f'(c)=0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Par le théorème des bornes atteintes, $f$ atteint son maximum $M$ et son minimum $m$ sur $[a,b]$. Si $m=M$, alors $f$ est constante et $f'(c)=0$ pour tout $c \in\, ]a,b[$. Sinon, comme $f(a)=f(b)$, au moins l'un des deux extrema est atteint en un point $c \in\, ]a,b[$ (les deux ne peuvent être atteints uniquement aux bords puisque $f(a)=f(b)$ forcerait $m=M$). Par le théorème de l'extremum local, $f'(c)=0$.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Mean value theorem).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $]a,b[$. Then there exists $c \in\, ]a,b[$ such that $f(b)-f(a) = f'(c)(b-a)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Égalité des accroissements finis).</span> Soit $f : [a,b] \to \mathbb{R}$ continue sur $[a,b]$ et dérivable sur $]a,b[$. Alors il existe $c \in\, ]a,b[$ tel que $f(b)-f(a) = f'(c)(b-a)$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Apply Rolle's theorem to $g(x) = f(x) - \frac{f(b)-f(a)}{b-a}(x-a)$. One checks that $g$ is continuous on $[a,b]$, differentiable on $]a,b[$, and $g(a) = f(a) = g(b)$. So there exists $c \in\, ]a,b[$ with $g'(c)=0$, i.e. $f'(c) = \frac{f(b)-f(a)}{b-a}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On applique le théorème de Rolle à la fonction $g(x) = f(x) - \frac{f(b)-f(a)}{b-a}(x-a)$. On vérifie que $g$ est continue sur $[a,b]$, dérivable sur $]a,b[$, et $g(a) = f(a) = g(b)$. Donc il existe $c \in\, ]a,b[$ tel que $g'(c)=0$, soit $f'(c) = \frac{f(b)-f(a)}{b-a}$.</p>
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Mean value inequality).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$, differentiable on $]a,b[$, and such that $m \le f' \le M$ on $]a,b[$. Then $m(b-a) \le f(b)-f(a) \le M(b-a)$. In particular, if $|f'| \le M$ on $]a,b[$, then $|f(b)-f(a)| \le M(b-a)$ and $f$ is $M$-Lipschitz on $[a,b]$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Inégalité des accroissements finis).</span> Soit $f : [a,b] \to \mathbb{R}$ continue sur $[a,b]$, dérivable sur $]a,b[$, et telle que $m \le f' \le M$ sur $]a,b[$. Alors $m(b-a) \le f(b)-f(a) \le M(b-a)$. En particulier, si $|f'| \le M$ sur $]a,b[$, alors $|f(b)-f(a)| \le M(b-a)$ et $f$ est $M$-lipschitzienne sur $[a,b]$.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Characterization of constant functions).</span> Let $f$ be differentiable on an interval $I$. Then $f$ is constant if and only if $f'=0$ on $I$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Caractérisation des fonctions constantes).</span> Soit $f$ dérivable sur un intervalle $I$. Alors $f$ est constante si et seulement si $f'=0$ sur $I$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">$(\Rightarrow)$ Obvious. $(\Leftarrow)$ For all $x,y \in I$, the mean value inequality gives $|f(x)-f(y)| \le 0 \cdot |x-y| = 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">$(\Rightarrow)$ Évident. $(\Leftarrow)$ Pour tous $x,y \in I$, l'inégalité des accroissements finis donne $|f(x)-f(y)| \le 0 \cdot |x-y| = 0$.</p>
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Monotonicity and sign of the derivative).</span> Let $f$ be differentiable on an interval $I$.</p>
+      <ol class="en">
+        <li>$f$ is increasing if and only if $f' \ge 0$ on $I$.</li>
+        <li>$f$ is strictly increasing if and only if $f' \ge 0$ and $f'$ does not vanish on any non-trivial subinterval.</li>
+      </ol>
+      <p class="fr"><span class="thm-label">Corollaire (Lien monotonie-signe de la dérivée).</span> Soit $f$ dérivable sur un intervalle $I$.</p>
+      <ol class="fr">
+        <li>$f$ est croissante si et seulement si $f' \ge 0$ sur $I$.</li>
+        <li>$f$ est strictement croissante si et seulement si $f' \ge 0$ et $f'$ ne s'annule sur aucun intervalle non trivial.</li>
+      </ol>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">$(\Rightarrow)$ If $f$ is increasing, then for $h &gt; 0$, $\frac{f(a+h)-f(a)}{h} \ge 0$, so $f'(a) \ge 0$.</p>
+      <p class="en">$(\Leftarrow)$ If $f' \ge 0$, for $x &lt; y$ in $I$, the mean value theorem gives $f(y)-f(x)=f'(c)(y-x) \ge 0$, so $f$ is increasing.</p>
+      <p class="en">For strict increase: since $f$ is increasing, $f$ strictly increasing $\iff$ $f$ non-constant on every non-trivial subinterval $\iff$ $f'$ does not vanish on any non-trivial interval.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">$(\Rightarrow)$ Si $f$ est croissante, alors pour $h &gt; 0$, $\frac{f(a+h)-f(a)}{h} \ge 0$, donc $f'(a) \ge 0$.</p>
+      <p class="fr">$(\Leftarrow)$ Si $f' \ge 0$, pour $x &lt; y$ dans $I$, l'égalité des accroissements finis donne $f(y)-f(x)=f'(c)(y-x) \ge 0$, donc $f$ est croissante.</p>
+      <p class="fr">Pour la stricte croissance : $f$ étant croissante, $f$ strictement croissante $\iff$ $f$ non constante sur tout sous-intervalle non trivial $\iff$ $f'$ ne s'annule sur aucun intervalle non trivial.</p>
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Limit of the derivative).</span> Let $f$ be continuous on $[a,b]$ and differentiable on $]a,b[$. If $f'(x) \to \ell$ as $x \to a^+$ (with $\ell \in \mathbb{R}$), then $f$ is right-differentiable at $a$ and $f'_r(a) = \lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h} = \ell$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème de la limite de la dérivée).</span> Soit $f$ continue sur $[a,b]$ et dérivable sur $]a,b[$. Si $f'(x) \to \ell$ quand $x \to a^+$ (avec $\ell \in \mathbb{R}$), alors $f$ est dérivable à droite en $a$ et $f'_d(a) = \lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h} = \ell$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">For small $h &gt; 0$, $f$ is continuous on $[a,a+h]$ and differentiable on $]a,a+h[$. By the mean value theorem, there exists $c_h \in\, ]a,a+h[$ such that $\frac{f(a+h)-f(a)}{h} = f'(c_h)$. As $h \to 0^+$, $c_h \to a^+$, so $f'(c_h) \to \ell$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Pour $h &gt; 0$ assez petit, $f$ est continue sur $[a,a+h]$ et dérivable sur $]a,a+h[$. Par l'égalité des accroissements finis, il existe $c_h \in\, ]a,a+h[$ tel que $\frac{f(a+h)-f(a)}{h} = f'(c_h)$. Quand $h \to 0^+$, $c_h \to a^+$, donc $f'(c_h) \to \ell$.</p>
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Recurrence and exponential convergence).</span> Let $I$ be an interval stable under $f$, with $f$ differentiable on $I$ and $|f'| \le k$ on $I$ for some $k \in [0,1[$. If $\ell \in I$ is a fixed point of $f$ and $(u_n)$ is defined by $u_0 \in I$ and $u_{n+1}=f(u_n)$, then $|u_n - \ell| \le k^n |u_0 - \ell|$ and $(u_n)$ converges to $\ell$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Suite récurrente et convergence exponentielle).</span> Soit $I$ un intervalle stable par $f$, avec $f$ dérivable sur $I$ et $|f'| \le k$ sur $I$ pour un certain $k \in [0,1[$. Si $\ell \in I$ est un point fixe de $f$ et $(u_n)$ est définie par $u_0 \in I$ et $u_{n+1}=f(u_n)$, alors $|u_n - \ell| \le k^n |u_0 - \ell|$ et $(u_n)$ converge vers $\ell$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">By the mean value inequality, $|u_{n+1}-\ell| = |f(u_n)-f(\ell)| \le k\,|u_n-\ell|$. By induction, $|u_n - \ell| \le k^n |u_0-\ell|$. Since $0 \le k &lt; 1$, $k^n \to 0$, so $u_n \to \ell$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Par l'inégalité des accroissements finis, $|u_{n+1}-\ell| = |f(u_n)-f(\ell)| \le k\,|u_n-\ell|$. Par récurrence, $|u_n - \ell| \le k^n |u_0-\ell|$. Comme $0 \le k &lt; 1$, $k^n \to 0$, donc $u_n \to \ell$.</p>
+    </details>
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Generalized mean value theorem, Cauchy).</span> Let $f,g : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $]a,b[$. Show that there exists $c \in\, ]a,b[$ such that $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Généralisation des accroissements finis, Cauchy).</span> Soient $f,g : [a,b] \to \mathbb{R}$ continues sur $[a,b]$ et dérivables sur $]a,b[$. Montrer qu'il existe $c \in\, ]a,b[$ tel que $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Apply Rolle's theorem to $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. We have $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, so there exists $c \in\, ]a,b[$ with $h'(c) = 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On applique le théorème de Rolle à $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. On a $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, donc il existe $c \in\, ]a,b[$ tel que $h'(c) = 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (L'Hôpital's rule).</span> Let $f,g$ be differentiable on an interval $I$ minus a point $a$, with $g' \neq 0$ near $a$. If $f(x) \to 0$ and $g(x) \to 0$ as $x \to a$, and if $\frac{f'(x)}{g'(x)} \to \ell$ (finite), show that $\frac{f(x)}{g(x)} \to \ell$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Règle de L'Hôpital).</span> Soient $f,g$ dérivables sur un intervalle $I$ privé d'un point $a$, avec $g' \neq 0$ au voisinage de $a$. Si $f(x) \to 0$ et $g(x) \to 0$ quand $x \to a$, et si $\frac{f'(x)}{g'(x)} \to \ell$ (finie), montrer que $\frac{f(x)}{g(x)} \to \ell$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Extend $f$ and $g$ by continuity setting $f(a)=g(a)=0$. For $x \neq a$ near $a$, Cauchy's theorem applied between $a$ and $x$ gives $c$ between $a$ and $x$ such that $f(x)\,g'(c) = g(x)\,f'(c)$. Since $g'(c) \neq 0$, we have $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. As $x \to a$, $c \to a$, so $\frac{f'(c)}{g'(c)} \to \ell$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On prolonge $f$ et $g$ par continuité en posant $f(a)=g(a)=0$. Pour $x \neq a$ au voisinage de $a$, le théorème de Cauchy appliqué entre $a$ et $x$ donne $c$ entre $a$ et $x$ tel que $f(x)\,g'(c) = g(x)\,f'(c)$. Comme $g'(c) \neq 0$, on a $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. Quand $x \to a$, $c \to a$, donc $\frac{f'(c)}{g'(c)} \to \ell$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute the $n$-th derivative of $f(x) = x^2 e^x$ using the Leibniz rule.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée $n$-ième de $f(x) = x^2 e^x$ à l'aide de la formule de Leibniz.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Write $f = g \cdot h$ with $g(x)=x^2$ and $h(x)=e^x$. We have $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ for $k \ge 3$, and $h^{(k)}(x)=e^x$. The Leibniz rule gives: $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On a $f = g \cdot h$ avec $g(x)=x^2$ et $h(x)=e^x$. On a $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ pour $k \ge 3$, et $h^{(k)}(x)=e^x$. La formule de Leibniz donne : $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be differentiable such that $f'(x) = f(x)$ for all $x$ and $f(0)=1$. Show that $f(x)=e^x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ dérivable telle que $f'(x) = f(x)$ pour tout $x$ et $f(0)=1$. Montrer que $f(x)=e^x$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $g(x) = f(x)e^{-x}$. Then $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, so $g$ is constant. Since $g(0) = f(0)\cdot 1 = 1$, we have $g(x)=1$ for all $x$, giving $f(x)=e^x$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $g(x) = f(x)e^{-x}$. Alors $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, donc $g$ est constante. Comme $g(0) = f(0)\cdot 1 = 1$, on a $g(x)=1$ pour tout $x$, d'où $f(x)=e^x$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $f(x) = \ln(1+x)-x$ and $g(x)=\ln(1+x)-\frac{x}{1+x}$. We have $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ for $x &gt; 0$, so $f$ is strictly decreasing on $\mathbb{R}_+^*$, giving $f(x) &lt; f(0) = 0$, i.e. $\ln(1+x) &lt; x$. Similarly, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ for $x &gt; 0$, so $g(x) &gt; 0$, i.e. $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $f(x) = \ln(1+x)-x$ et $g(x)=\ln(1+x)-\frac{x}{1+x}$. On a $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ pour $x &gt; 0$, donc $f$ est strictement décroissante sur $\mathbb{R}_+^*$, d'où $f(x) &lt; f(0) = 0$, soit $\ln(1+x) &lt; x$. De même, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ pour $x &gt; 0$, donc $g(x) &gt; 0$, soit $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the absolute value function $x \mapsto |x|$ is not differentiable at $0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la fonction valeur absolue $x \mapsto |x|$ n'est pas dérivable en $0$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Compute the left and right derivatives. For $h &gt; 0$: $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, so $f'_r(0) = 1$. For $h &lt; 0$: $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, so $f'_l(0) = -1$. Since $f'_r(0) \neq f'_l(0)$, $f$ is not differentiable at $0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On calcule les dérivées à gauche et à droite. Pour $h &gt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, donc $f'_d(0) = 1$. Pour $h &lt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, donc $f'_g(0) = -1$. Comme $f'_d(0) \neq f'_g(0)$, $f$ n'est pas dérivable en $0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function continuous at a point $a$ but admitting neither a left nor a right derivative at $a$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction continue en un point $a$ mais qui n'admet ni dérivée à gauche, ni dérivée à droite en $a$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Consider $f : \mathbb{R} \to \mathbb{R}$ defined by $f(x) = \sqrt{|x|}$ and $a = 0$. The function $f$ is continuous at $0$ since $0 \le f(x) = \sqrt{|x|} \to 0$ as $x \to 0$. For $h &gt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ as $h \to 0^+$, so $f$ is not right-differentiable at $0$. For $h &lt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ as $h \to 0^-$, so $f$ is not left-differentiable at $0$.</p>
+      <p class="en">Another example: $f(x) = x\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f$ is continuous at $0$ since $|f(x)| \le |x| \to 0$. The difference quotient at $0$ equals $\sin(1/h)$, which has no limit as $h \to 0^+$ or $h \to 0^-$ (taking $h_n = \frac{1}{n\pi}$ gives $0$ and $h_n = \frac{1}{\pi/2 + 2n\pi}$ gives $1$).</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On considère $f : \mathbb{R} \to \mathbb{R}$ définie par $f(x) = \sqrt{|x|}$ et $a = 0$. La fonction $f$ est continue en $0$ car $0 \le f(x) = \sqrt{|x|} \to 0$ quand $x \to 0$. Pour $h &gt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ quand $h \to 0^+$, donc $f$ n'est pas dérivable à droite en $0$. Pour $h &lt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ quand $h \to 0^-$, donc $f$ n'est pas dérivable à gauche en $0$.</p>
+      <p class="fr">Autre exemple : on considère $f(x) = x\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. La fonction $f$ est continue en $0$ car $|f(x)| \le |x| \to 0$. Le taux d'accroissement en $0$ vaut $\sin(1/h)$, qui n'admet pas de limite quand $h \to 0^+$ ni quand $h \to 0^-$ (les suites $h_n = \frac{1}{n\pi}$ et $h_n = \frac{1}{\pi/2 + 2n\pi}$ donnent respectivement $0$ et $1$).</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">The function $\sin$ is continuous and differentiable on $\mathbb{R}$, with $|\sin'(t)| = |\cos t| \le 1$. By the mean value inequality applied to $\sin$ on $[0,x]$ (or $[x,0]$), we get $|\sin x - \sin 0| \le 1 \cdot |x-0|$, i.e. $|\sin x| \le |x|$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">La fonction $\sin$ est continue sur $\mathbb{R}$ et dérivable sur $\mathbb{R}$, avec $|\sin'(t)| = |\cos t| \le 1$. Par l'inégalité des accroissements finis appliquée à $\sin$ sur $[0,x]$ (ou $[x,0]$), on obtient $|\sin x - \sin 0| \le 1 \cdot |x-0|$, soit $|\sin x| \le |x|$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Show that $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On note $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Montrer que $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Apply the mean value theorem to $\ln$ on $[k,k+1]$: there exists $c \in\, ]k,k+1[$ such that $\ln(k+1)-\ln k = \frac{1}{c}$. Since $k &lt; c &lt; k+1$, we get $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. Summing from $k=1$ to $n-1$: $\sum_{k=1}^{n-1} \frac{1}{k+1} \le \ln n \le \sum_{k=1}^{n-1} \frac{1}{k}$ (the middle sum telescopes to $\ln n$). So $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$, giving $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, and dividing by $\ln n$: $\frac{H_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On applique le théorème des accroissements finis à $\ln$ sur $[k,k+1]$ : il existe $c \in\, ]k,k+1[$ tel que $\ln(k+1)-\ln k = \frac{1}{c}$. Comme $k &lt; c &lt; k+1$, on obtient $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. En sommant pour $k$ allant de $1$ à $n-1$ : la somme centrale est télescopique et vaut $\ln n$. On obtient donc $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$. Ainsi $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, et en divisant par $\ln n$ : $\frac{H_n}{\ln n} \to 1$, soit $H_n \sim \ln n$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function $f$ differentiable at a point $a$ with $f'(a) &gt; 0$, but not increasing on any neighbourhood of $a$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction $f$ dérivable en un point $a$ avec $f'(a) &gt; 0$, mais qui n'est pas croissante sur aucun voisinage de $a$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $f(x) = x + 2x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. For $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. Setting $x_n = \frac{1}{2n\pi}$, we get $f'(x_n) = 1 - 2 = -1 &lt; 0$. So $f'$ takes negative values arbitrarily close to $0$, meaning $f$ is not increasing on any neighbourhood of $0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $f(x) = x + 2x^2\sin(1/x)$ pour $x \neq 0$ et $f(0)=0$. On a $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. Pour $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. En posant $x_n = \frac{1}{2n\pi}$, on obtient $f'(x_n) = 1 - 2 = -1 &lt; 0$. Ainsi $f'$ prend des valeurs négatives arbitrairement près de $0$, donc $f$ n'est croissante sur aucun voisinage de $0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $f(x) = \arcsin x + \arccos x$ on $[-1,1]$. On $]-1,1[$, $f$ is differentiable and $f'(x) = \frac{1}{\sqrt{1-x^2}} - \frac{1}{\sqrt{1-x^2}} = 0$. So $f$ is constant on $]-1,1[$, and by continuity on $[-1,1]$. Since $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$, we conclude $\arcsin x + \arccos x = \frac{\pi}{2}$ for all $x \in [-1,1]$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $f(x) = \arcsin x + \arccos x$ sur $[-1,1]$. Sur $]-1,1[$, $f$ est dérivable et $f'(x) = \frac{1}{\sqrt{1-x^2}} + \frac{-1}{\sqrt{1-x^2}} = 0$. Donc $f$ est constante sur $]-1,1[$, et par continuité sur $[-1,1]$. Or $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$. Ainsi $\arcsin x + \arccos x = \frac{\pi}{2}$ pour tout $x \in [-1,1]$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (False converse of the limit of the derivative theorem).</span> Give an example of a function $f$ differentiable at a point $a$, but such that $f'(x)$ has no limit as $x \to a$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Réciproque fausse du théorème de la limite de la dérivée).</span> Donner un exemple de fonction $f$ dérivable en un point $a$, mais telle que $f'(x)$ n'admet pas de limite quand $x \to a$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $f(x) = x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ by the squeeze theorem. For $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. The term $2x\sin(1/x) \to 0$, but $\cos(1/x)$ has no limit: taking $x_n = \frac{1}{2n\pi}$ gives $\cos(1/x_n) = 1$ and $y_n = \frac{1}{(2n+1)\pi/2}$ gives $\cos(1/y_n) = 0$. So $f'(x)$ has no limit at $0$, even though $f'(0)$ exists.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On pose $f(x) = x^2\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. On calcule $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ par encadrement. Pour $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. Le terme $2x\sin(1/x) \to 0$, mais $\cos(1/x)$ n'admet pas de limite (en posant $x_n = \frac{1}{2n\pi}$, $\cos(1/x_n) = 1$ et $y_n = \frac{1}{(2n+1)\pi/2}$, $\cos(1/y_n) = 0$). Donc $f'(x)$ n'a pas de limite en $0$, bien que $f'(0)$ existe.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $\alpha \in \mathbb{R}$. Show that $f : x \mapsto x^\alpha$ is of class $\mathcal{C}^\infty$ on $\mathbb{R}_+^*$ and determine $f^{(k)}$ for all $k \in \mathbb{N}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $\alpha \in \mathbb{R}$. Montrer que $f : x \mapsto x^\alpha$ est de classe $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$ et déterminer $f^{(k)}$ pour tout $k \in \mathbb{N}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">We have $f(x) = e^{\alpha \ln x}$, a composition of $\mathcal{C}^\infty$ functions on $\mathbb{R}_+^*$, so $f \in \mathcal{C}^\infty(\mathbb{R}_+^*)$. By induction on $k$: $f^{(k)}(x) = \alpha(\alpha-1)\cdots(\alpha-k+1)\,x^{\alpha-k}$. For $k=0$, this is $f(x) = x^\alpha$. If the formula holds at rank $k$, then $f^{(k+1)}(x) = \alpha(\alpha-1)\cdots(\alpha-k)\,x^{\alpha-(k+1)}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On a $f(x) = e^{\alpha \ln x}$, qui est composée de fonctions $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$, donc $f$ est $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$. On montre par récurrence sur $k$ que $f^{(k)}(x) = \alpha(\alpha-1)\cdots(\alpha-k+1)\,x^{\alpha-k}$. Pour $k=0$, c'est $f(x) = x^\alpha$. Si la formule est vraie au rang $k$, alors $f^{(k+1)}(x) = \alpha(\alpha-1)\cdots(\alpha-k)\,x^{\alpha-(k+1)}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be of class $\mathcal{C}^k$ on an interval $I$ vanishing at (at least) $k+1$ points of $I$. Show that $f^{(k)}$ vanishes at least once.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ de classe $\mathcal{C}^k$ sur un intervalle $I$ qui s'annule en (au moins) $k+1$ points de $I$. Montrer que $f^{(k)}$ s'annule en au moins un point.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">By induction on $k$. For $k=0$: $f$ vanishes at least once, so $f^{(0)}=f$ vanishes; immediate.</p>
+      <p class="en">Assume the result at rank $k-1$ and let $f \in \mathcal{C}^k$ vanish at $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. By Rolle's theorem on each $[a_i, a_{i+1}]$ (for $i=1,\ldots,k$), there exists $c_i \in\, ]a_i, a_{i+1}[$ with $f'(c_i) = 0$. So $f' \in \mathcal{C}^{k-1}$ vanishes at $k$ points, i.e. $(k-1)+1$ points. By the induction hypothesis, $(f')^{(k-1)} = f^{(k)}$ vanishes at least once.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On raisonne par récurrence sur $k$. Pour $k=0$ : $f$ s'annule en au moins un point, donc $f^{(0)}=f$ s'annule, c'est immédiat.</p>
+      <p class="fr">Supposons le résultat vrai au rang $k-1$ et soit $f$ de classe $\mathcal{C}^k$ s'annulant en $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. Par le théorème de Rolle sur chaque intervalle $[a_i, a_{i+1}]$, il existe $c_i \in\, ]a_i, a_{i+1}[$ tel que $f'(c_i) = 0$. Ainsi $f'$ est de classe $\mathcal{C}^{k-1}$ et s'annule en $k$ points. Par l'hypothèse de récurrence, $f^{(k)}$ s'annule en au moins un point.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> We say $f$ has a <em>symmetric derivative</em> at $0$ if $\lim_{h\to 0}\frac{f(h)-f(-h)}{2h}$ exists in $\mathbb{R}$. Show that if $f$ is differentiable at $0$, then $f$ has a symmetric derivative at $0$ equal to $f'(0)$. Is the converse true?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On dit que $f$ possède une <em>dérivée symétrique</em> en $0$ si $\lim_{h\to 0}\frac{f(h)-f(-h)}{2h}$ existe dans $\mathbb{R}$. Montrer que si $f$ est dérivable en $0$, alors $f$ possède une dérivée symétrique en $0$ égale à $f'(0)$. La réciproque est-elle vraie ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en"><em>Direct.</em> Write $\frac{f(h)-f(-h)}{2h} = \frac{1}{2}\cdot\frac{f(h)-f(0)}{h} + \frac{1}{2}\cdot\frac{f(-h)-f(0)}{-h}$. As $h\to 0$, both quotients tend to $f'(0)$, so $\frac{f(h)-f(-h)}{2h}\to f'(0)$.</p>
+      <p class="en"><em>Converse is false.</em> The function $f(x)=|x|$ has symmetric derivative $0$ at $0$: $\frac{|h|-|-h|}{2h}=0\to 0$. Yet $f$ is not differentiable at $0$ since $\frac{|h|}{h}$ has no limit.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr"><em>Sens direct.</em> On écrit $\frac{f(h)-f(-h)}{2h} = \frac{1}{2}\cdot\frac{f(h)-f(0)}{h} + \frac{1}{2}\cdot\frac{f(-h)-f(0)}{-h}$. Quand $h\to 0$, les deux quotients tendent vers $f'(0)$, donc $\frac{f(h)-f(-h)}{2h}\to f'(0)$.</p>
+      <p class="fr"><em>Réciproque fausse.</em> La fonction $f(x)=|x|$ possède une dérivée symétrique en $0$ : $\frac{|h|-|-h|}{2h}=0\to 0$. Pourtant $f$ n'est pas dérivable en $0$ car $\frac{|h|}{h}$ n'a pas de limite.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,+\infty[ \to \mathbb{R}$ be differentiable with $f(0)=0$, $f \ge 0$, and $\forall x \ge 0,\ f'(x) \le a\,f(x)$ for some $a &gt; 0$. Show that $f$ is identically zero.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,+\infty[ \to \mathbb{R}$ dérivable telle que $f(0)=0$, $f \ge 0$, et $\forall x \ge 0,\ f'(x) \le a\,f(x)$ avec $a &gt; 0$. Montrer que $f$ est nulle.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Set $g(x) = f(x)e^{-ax}$. Then $g(0) = 0$ and $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, so $g$ is decreasing. Thus $g(x) \le g(0) = 0$ for all $x \ge 0$. Since $f \ge 0$, we have $g \ge 0$. Therefore $g = 0$ on $[0,+\infty[$, so $f = 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Posons $g(x) = f(x)e^{-ax}$. Alors $g(0) = 0$ et $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, donc $g$ est décroissante. Ainsi $g(x) \le g(0) = 0$ pour tout $x \ge 0$. Or $f \ge 0$ implique $g \ge 0$. Donc $g = 0$ sur $[0,+\infty[$, soit $f = 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $f'(x) \to +\infty$ as $x \to +\infty$. What can be said about the limit of $f$ at $+\infty$? Is the converse true?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f'(x) \to +\infty$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ? La réciproque est-elle vraie ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en"><em>Direct.</em> Since $f'(x)\to+\infty$, there exists $A$ with $f'(x)\ge 1$ for all $x\ge A$. For $x\ge A$, the mean value theorem on $[A,x]$ gives $c\in\,]A,x[$ with $f(x)-f(A)=f'(c)(x-A)\ge x-A\to+\infty$. So $f(x)\to+\infty$.</p>
+      <p class="en"><em>Converse is false.</em> $f(x)=x+\sin(x)$ satisfies $f(x)\to+\infty$ but $f'(x)=1+\cos(x)$ has no limit. Also $f(x)=\ln(x)\to+\infty$ but $f'(x)=1/x\to 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr"><em>Sens direct.</em> Puisque $f'(x)\to+\infty$, il existe $A$ tel que $f'(x)\ge 1$ pour tout $x\ge A$. Pour $x\ge A$, le théorème des accroissements finis sur $[A,x]$ donne $c\in\,]A,x[$ tel que $f(x)-f(A)=f'(c)(x-A)\ge x-A\to+\infty$. Donc $f(x)\to+\infty$.</p>
+      <p class="fr"><em>Réciproque fausse.</em> $f(x)=x+\sin(x)$ vérifie $f(x)\to+\infty$ mais $f'(x)=1+\cos(x)$ n'a pas de limite. De même, $f(x)=\ln(x)\to+\infty$ mais $f'(x)=1/x\to 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $xf'(x) \to 1$ as $x \to +\infty$. What can be said about the limit of $f$ at $+\infty$?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $xf'(x) \to 1$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Since $xf'(x) \to 1 &gt; 0$, there exists $A &gt; 0$ with $f'(x) &gt; \frac{1}{2x}$ for all $x &gt; A$. Set $g(x) = f(x) - \frac{1}{2}\ln x$. Then $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ for $x &gt; A$, so $g$ is increasing on $[A,+\infty[$, giving $g(x) \ge g(A)$. Thus $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Puisque $xf'(x) \to 1 &gt; 0$, il existe $A &gt; 0$ tel que pour tout $x &gt; A$, $f'(x) &gt; \frac{1}{2x}$. Posons $g(x) = f(x) - \frac{1}{2}\ln x$. Alors $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ pour $x &gt; A$, donc $g$ est croissante sur $[A,+\infty[$, d'où $g(x) \ge g(A)$. Ainsi $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $f'(x) \to 0$ as $x \to +\infty$. What can be said about the limit of $f$ at $+\infty$?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f'(x) \to 0$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Nothing can be concluded: $f$ may have a finite limit, an infinite limit, or no limit at all. Counterexamples: $f(x) = 1/x \to 0$ with $f'(x) = -1/x^2 \to 0$; $f(x) = \ln x \to +\infty$ with $f'(x) = 1/x \to 0$; $f(x) = \sin(\sqrt{x})$ has no limit with $f'(x) = \frac{\cos(\sqrt{x})}{2\sqrt{x}} \to 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On ne peut rien conclure : $f$ peut avoir une limite finie, infinie, ou pas de limite du tout. Contre-exemples : $f(x) = 1/x \to 0$ avec $f'(x) = -1/x^2 \to 0$ ; $f(x) = \ln x \to +\infty$ avec $f'(x) = 1/x \to 0$ ; $f(x) = \sin(\sqrt{x})$ n'a pas de limite avec $f'(x) = \frac{\cos(\sqrt{x})}{2\sqrt{x}} \to 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $f(x) \to 0$ as $x \to +\infty$. What can be said about the limit of $f'$ at $+\infty$?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f(x) \to 0$ quand $x \to +\infty$. Que peut-on dire de la limite de $f'$ en $+\infty$ ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Nothing can be concluded. Counterexamples: $f(x) = 1/x \to 0$ with $f'(x) = -1/x^2 \to 0$; $f(x) = \frac{\sin(x^2)}{x} \to 0$ but $f'(x) = 2\cos(x^2) - \frac{\sin(x^2)}{x^2}$ has no limit: taking $x_n = \sqrt{2n\pi}$ gives $f'(x_n) \to 2$, and $y_n = \sqrt{(2n+1)\pi}$ gives $f'(y_n) \to -2$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On ne peut rien conclure. Contre-exemples : $f(x) = 1/x \to 0$ avec $f'(x) = -1/x^2 \to 0$ ; $f(x) = \frac{\sin(x^2)}{x} \to 0$ mais $f'(x) = 2\cos(x^2) - \frac{\sin(x^2)}{x^2}$ n'a pas de limite : en posant $x_n = \sqrt{2n\pi}$, $f'(x_n) \to 2$ ; en posant $y_n = \sqrt{(2n+1)\pi}$, $f'(y_n) \to -2$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be of class $\mathcal{C}^1$ such that $f(f(x)) = \frac{x}{2} + 3$ for all $x \in \mathbb{R}$. Determine all functions satisfying this property.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ de classe $\mathcal{C}^1$ telle que $f(f(x)) = \frac{x}{2} + 3$ pour tout $x \in \mathbb{R}$. Déterminer toutes les fonctions vérifiant cette propriété.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Applying $f$ to both sides of $f(f(x)) = x/2+3$ gives $f(f(f(x))) = f(x/2+3)$. But applying the relation to $f(x)$: $f(f(f(x))) = f(x)/2+3$. So $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ for all $x$. Differentiating: $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. The sequence $x_n = T^n(x)$ satisfies $x_{n+1} = x_n/2 + 3$, with fixed point $6$: $x_n - 6 = (x-6)/2^n \to 0$. By continuity of $f'$: $f'(x) = f'(T^n(x)) \to f'(6)$. So $f'$ is constant and $f(x) = ax+b$. Then $f(f(x)) = a^2x+b(a+1) = x/2+3$ gives $a^2 = 1/2$ and $b(a+1)=3$, so:</p>
+      <ul class="en">
+        <li>$a = \frac{1}{\sqrt{2}}$: $b = 6-3\sqrt{2}$, giving $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
+        <li>$a = -\frac{1}{\sqrt{2}}$: $b = 6+3\sqrt{2}$, giving $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
+      </ul>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">En appliquant $f$ aux deux membres de $f(f(x)) = x/2+3$, on obtient $f(f(f(x))) = f(x/2+3)$. Mais en appliquant la relation à $f(x)$ : $f(f(f(x))) = f(x)/2+3$. Donc $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ pour tout $x$. En dérivant : $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. La suite $x_n = T^n(x)$ converge vers $6$. Par continuité de $f'$ : $f'$ est constante et $f(x) = ax+b$. Enfin, $f(f(x)) = a^2x+b(a+1) = x/2+3$ donne $a^2 = 1/2$ et $b(a+1)=3$, d'où :</p>
+      <ul class="fr">
+        <li>$a = \frac{1}{\sqrt{2}}$ : $b = 6-3\sqrt{2}$, soit $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
+        <li>$a = -\frac{1}{\sqrt{2}}$ : $b = 6+3\sqrt{2}$, soit $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
+      </ul>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute the derivative of $f(x) = \ln(x + \sqrt{x^2+1})$ on $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée de $f(x) = \ln(x + \sqrt{x^2+1})$ sur $\mathbb{R}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Darboux's theorem).</span> Let $f : [a,b] \to \mathbb{R}$ be differentiable on $[a,b]$. Show that $f'$ satisfies the intermediate value property: for every $\lambda$ strictly between $f'(a)$ and $f'(b)$, there exists $c \in\, ]a,b[$ with $f'(c) = \lambda$. In particular, if $f'(a) \neq f'(b)$, then $f'([a,b])$ is an interval.</p>
+      <p class="fr"><span class="thm-label">Exercice (Théorème de Darboux).</span> Soit $f : [a,b] \to \mathbb{R}$ dérivable sur $[a,b]$. Montrer que $f'$ vérifie la propriété des valeurs intermédiaires : pour tout $\lambda$ compris strictement entre $f'(a)$ et $f'(b)$, il existe $c \in\, ]a,b[$ tel que $f'(c) = \lambda$. En particulier, si $f'(a) \neq f'(b)$, alors $f'([a,b])$ est un intervalle.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">Assume $f'(a) &lt; \lambda &lt; f'(b)$ (the case $f'(a) &gt; \lambda &gt; f'(b)$ follows by replacing $f$ by $-f$). Set $g(x) = f(x) - \lambda x$, so $g'(x) = f'(x) - \lambda$.</p>
+      <p class="en">Since $g'(a) = f'(a) - \lambda &lt; 0$, for small $h &gt; 0$ we have $g(a+h) &lt; g(a)$, so $g(a)$ is not the minimum of $g$ on $[a,b]$.</p>
+      <p class="en">Since $g'(b) = f'(b) - \lambda &gt; 0$, for small $h &lt; 0$ we have $g(b+h) &lt; g(b)$, so $g(b)$ is not the minimum either.</p>
+      <p class="en">Since $g$ is continuous on the compact $[a,b]$, it attains its minimum at some $c \in [a,b]$. Since $c \notin \{a,b\}$, we have $c \in\, ]a,b[$, and since this is an interior minimum, $g'(c) = 0$, i.e. $f'(c) = \lambda$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Supposons $f'(a) &lt; \lambda &lt; f'(b)$ (le cas $f'(a) &gt; \lambda &gt; f'(b)$ s'en déduit en remplaçant $f$ par $-f$). On pose $g(x) = f(x) - \lambda x$. Alors $g$ est dérivable sur $[a,b]$ et $g'(x) = f'(x) - \lambda$.</p>
+      <p class="fr">On a $g'(a) = f'(a) - \lambda &lt; 0$, donc pour $h &gt; 0$ assez petit, $g(a+h) &lt; g(a)$. En particulier, $g(a)$ n'est pas le minimum de $g$ sur $[a,b]$.</p>
+      <p class="fr">De même, $g'(b) = f'(b) - \lambda &gt; 0$, donc pour $h &lt; 0$ assez petit, $g(b+h) &lt; g(b)$. En particulier, $g(b)$ n'est pas le minimum de $g$ sur $[a,b]$.</p>
+      <p class="fr">Comme $g$ est continue sur le compact $[a,b]$, elle y atteint son minimum en un point $c \in [a,b]$. D'après ce qui précède, $c \notin \{a,b\}$, donc $c \in\, ]a,b[$. Ce minimum local est atteint en un point intérieur, donc $g'(c) = 0$, soit $f'(c) = \lambda$.</p>
+    </details>
 
   </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
