@@ -33,7 +33,7 @@
       counting, pattern matching, approximate search) are foundational to the rest of the course.
     </p>
 
-    <h2>DNA: The Basics</h2>
+    <h3>DNA: The Basics</h3>
 
     <p>
       DNA is the molecule that encodes the instructions for building and running a cell. It is
@@ -65,7 +65,7 @@ def reverse_complement(pattern):
 
     <p>For example: <code>reverse_complement("ATCGTA")</code> → <code>"TACGAT"</code>.</p>
 
-    <h2>DNA Replication and the Origin</h2>
+    <h3>DNA Replication and the Origin</h3>
 
     <p>
       Before a cell divides, it must copy its entire genome. This process is called
@@ -90,7 +90,7 @@ def reverse_complement(pattern):
       replication begins is essential for engineering such vectors.
     </p>
 
-    <h2>Finding the Origin: Frequent k-mers</h2>
+    <h3>Finding the Origin: Frequent k-mers</h3>
 
     <p>
       The computational question is: given a genome string, find short substrings (k-mers) that
@@ -154,7 +154,7 @@ def frequent_words(text, k):
       and its reverse complement together.
     </p>
 
-    <h2>The Clump Finding Problem</h2>
+    <h3>The Clump Finding Problem</h3>
 
     <p>
       In a real bacterial genome, ori is a region of roughly 500 base pairs in which DnaA boxes
@@ -190,9 +190,9 @@ def frequent_words(text, k):
       own. The next section provides a complementary approach that narrows down ori directly.
     </p>
 
-    <h2>Replication Asymmetry and the Skew</h2>
+    <h3>Replication Asymmetry and the Skew</h3>
 
-    <h3>How Replication Works</h3>
+    <h4>How Replication Works</h4>
 
     <p>
       In bacteria, the chromosome is circular. Replication starts at ori and proceeds in both
@@ -216,7 +216,7 @@ def frequent_words(text, k):
       mutation bias</strong> on the lagging strand.
     </p>
 
-    <h3>The Skew Diagram</h3>
+    <h4>The Skew Diagram</h4>
 
     <p>
       This mutation bias has a measurable genome-wide consequence. Moving clockwise from ori to ter
