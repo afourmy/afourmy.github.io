@@ -250,7 +250,7 @@ def min_skew(genome):
       without any k-mer counting.
     </p>
 
-    <h2>Approximate Pattern Matching</h2>
+    <h3>Approximate Pattern Matching</h3>
 
     <p>
       Real DnaA boxes are not identical copies of a single 9-mer. They have accumulated mutations
@@ -258,7 +258,7 @@ def min_skew(genome):
       that are "close" to a query string.
     </p>
 
-    <h3>Hamming Distance</h3>
+    <h4>Hamming Distance</h4>
 
     <p>
       The <strong>Hamming distance</strong> $d_H(s_1, s_2)$ between two strings of equal length is
@@ -268,7 +268,7 @@ def min_skew(genome):
     <pre><code class="language-python">def hamming_distance(s1, s2):
     return sum(c1 != c2 for c1, c2 in zip(s1, s2))</code></pre>
 
-    <h3>Approximate Pattern Matching</h3>
+    <h4>Approximate Pattern Matching</h4>
 
     <p>
       Find all positions where pattern occurs in text with at most $d$ mismatches.
@@ -279,7 +279,7 @@ def min_skew(genome):
     return [i for i in range(len(text) - k + 1)
             if hamming_distance(text[i:i+k], pattern) <= d]</code></pre>
 
-    <h3>Frequent Words with Mismatches</h3>
+    <h4>Frequent Words with Mismatches</h4>
 
     <p>
       The final formulation: find k-mers that appear most frequently in the text, counting all
