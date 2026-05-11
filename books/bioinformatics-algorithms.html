@@ -211,25 +211,14 @@ def frequent_words(text, k):
     <p>
       The critical asymmetry: the lagging strand template spends much more time as single-stranded
       DNA while waiting for the fork to advance. Single-stranded DNA is chemically less stable than
-      double-stranded DNA. In particular, cytosine (C) spontaneously mutates to thymine (T) at a
-      much higher rate when single-stranded. Over evolutionary time, this produces a <strong>C-to-T
-      mutation bias</strong> on the lagging strand.
+      double-stranded DNA.
     </p>
 
     <h4>The Skew Diagram</h4>
 
     <p>
-      This mutation bias has a measurable genome-wide consequence. Moving clockwise from ori to ter
-      along the genome, the forward strand acts as the lagging strand template. Cytosines are lost
-      over time, reducing C and increasing G on the forward strand in this half. Moving from ter back
-      to ori, the situation reverses.
-    </p>
-
-    <p>
       Define the <strong>skew</strong> at position $i$ as the running value of $\#G - \#C$ up to
-      position $i$. The skew <strong>decreases</strong> from ori to ter and <strong>increases</strong>
-      from ter back to ori. The <strong>minimum of the skew</strong> therefore marks ori; the
-      maximum marks ter.
+      position $i$. The <strong>minimum of the skew</strong> marks ori; the maximum marks ter.
     </p>
 
     <pre><code class="language-python">def skew(genome):
@@ -289,17 +278,12 @@ def min_skew(genome):
     </p>
 
     <pre><code class="language-python">def neighbors(pattern, d):
-    if d == 0:
-        return {pattern}
-    if len(pattern) == 1:
-        return set('ACGT')
-    result = set()
-    for suffix_neighbor in neighbors(pattern[1:], d):
-        if hamming_distance(pattern[1:], suffix_neighbor) < d:
-            for base in 'ACGT':
-                result.add(base + suffix_neighbor)
-        else:
-            result.add(pattern[0] + suffix_neighbor)
+    result = {pattern}
+    for _ in range(d):
+        for p in list(result):
+            for i in range(len(p)):
+                for base in 'ACGT':
+                    result.add(p[:i] + base + p[i+1:])
     return result
 
 def frequent_words_with_mismatches(text, k, d):
