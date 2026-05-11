@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bioinformatics Algorithms</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Bioinformatics Algorithms</h1>
+
+    <h2>Chapter 1: Where in the Genome Does Replication Begin?</h2>
+
+    <p>
+      This chapter frames a fundamental biological problem as a string search problem: given the
+      text of a genome, where does DNA replication start? The algorithms developed here (k-mer
+      counting, pattern matching, approximate search) are foundational to the rest of the course.
+    </p>
+
+    <h2>DNA: The Basics</h2>
+
+    <p>
+      DNA is the molecule that encodes the instructions for building and running a cell. It is
+      made of four <strong>nucleotides</strong>: Adenine (A), Thymine (T), Cytosine (C), and
+      Guanine (G). From a CS perspective, a DNA strand is a string over the alphabet {A, T, C, G}.
+    </p>
+
+    <p>
+      DNA is <strong>double-stranded</strong>: two strands are bonded together. The pairing
+      is fixed by chemistry: A always pairs with T, and C always pairs with G.
+    </p>
+
+    <p>
+      The two strands are <strong>antiparallel</strong>: they run in opposite directions.
+      Each strand has a chemical directionality defined by its ends, called 5' and 3'. By convention,
+      DNA sequences are always written 5' to 3'. So if one strand reads 5'-ATCG-3', the paired
+      strand reads 3'-TAGC-5', which in standard 5'-to-3' notation is CGAT.
+    </p>
+
+    <p>
+      To get the complementary strand in 5'-to-3' notation: reverse the original strand, then swap
+      each base with its complement (A↔T, C↔G). This is called the <strong>reverse complement</strong>.
+    </p>
+
+    <pre><code class="language-python">COMPLEMENT = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+
+def reverse_complement(pattern):
+    return ''.join(COMPLEMENT[b] for b in reversed(pattern))</code></pre>
+
+    <p>For example: <code>reverse_complement("ATCGTA")</code> → <code>"TACGAT"</code>.</p>
+
+    <h2>DNA Replication and the Origin</h2>
+
+    <p>
+      Before a cell divides, it must copy its entire genome. This process is called
+      <strong>DNA replication</strong>. Each strand of the double helix serves as a template for
+      synthesizing a new complementary strand, producing two identical copies of the original.
+      Watson and Crick noted this in their 1953 landmark paper on DNA structure: "it has not
+      escaped our notice that the specific pairing we have postulated immediately suggests a
+      possible copying mechanism for the genetic material."
+    </p>
+
+    <p>
+      Replication does not start at a random position. It begins at a specific region called the
+      <strong>origin of replication</strong> (ori). A protein called <strong>DnaA</strong>
+      initiates replication by binding to short sequences near ori called <strong>DnaA boxes</strong>.
+      In bacteria, DnaA boxes are roughly 9-mers that appear multiple times clustered within a short
+      stretch of DNA near ori.
+    </p>
+
+    <p>
+      Understanding ori has practical applications. For instance, viral vectors used in gene therapy
+      carry their own ori that hijacks the host cell's replication machinery. Knowing where and how
+      replication begins is essential for engineering such vectors.
+    </p>
+
+    <h2>Finding the Origin: Frequent k-mers</h2>
+
+    <p>
+      The computational question is: given a genome string, find short substrings (k-mers) that
+      appear unusually often in a region. Those are candidate DnaA boxes.
+    </p>
+
+    <p>
+      A first primitive: find all positions where a pattern occurs exactly in a text.
+    </p>
+
+    <pre><code class="language-python">def pattern_match(text, pattern):
+    k = len(pattern)
+    return [i for i in range(len(text) - k + 1) if text[i:i+k] == pattern]</code></pre>
+
+    <p>
+      This is $O(n \cdot k)$ where $n = |text|$. To find the most frequent k-mers, slide a window
+      across the text and count each k-mer in a dictionary:
+    </p>
+
+    <pre><code class="language-python">def frequent_words_naive(text, k):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        kmer = text[i:i+k]
+        counts[kmer] = counts.get(kmer, 0) + 1
+    max_count = max(counts.values())
+    return [kmer for kmer, c in counts.items() if c == max_count]</code></pre>
+
+    <p>
+      An alternative is a <strong>frequency array</strong> of size $4^k$ instead of a dictionary.
+      Each k-mer is mapped to a unique integer index in $[0,\, 4^k - 1]$ by treating the string as
+      a base-4 number (A=0, C=1, G=2, T=3). This gives $O(1)$ index access rather than a hash
+      lookup, and makes the index encoding explicit.
+    </p>
+
+    <pre><code class="language-python">BASE  = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+BASES = 'ACGT'
+
+def kmer_to_index(kmer):
+    index = 0
+    for base in kmer:
+        index = 4 * index + BASE[base]
+    return index
+
+def index_to_kmer(index, k):
+    kmer = []
+    for _ in range(k):
+        kmer.append(BASES[index % 4])
+        index //= 4
+    return ''.join(reversed(kmer))
+
+def frequent_words(text, k):
+    freq = [0] * (4 ** k)
+    for i in range(len(text) - k + 1):
+        freq[kmer_to_index(text[i:i+k])] += 1
+    max_count = max(freq)
+    return [index_to_kmer(i, k) for i, c in enumerate(freq) if c == max_count]</code></pre>
+
+    <p>
+      Important: we must search <strong>both</strong> strands. A DnaA box on one strand has its
+      reverse complement on the other, and DnaA can bind either. In practice, we count both a k-mer
+      and its reverse complement together.
+    </p>
+
+    <h2>The Clump Finding Problem</h2>
+
+    <p>
+      In a real bacterial genome, ori is a region of roughly 500 base pairs in which DnaA boxes
+      cluster tightly. The <strong>clump finding problem</strong> formalizes this: find all k-mers
+      that appear at least $t$ times within some window of length $L$.
+    </p>
+
+    <p>
+      A k-mer forms an <strong>$(L, t)$-clump</strong> in genome if there exists a window of length
+      $L$ containing at least $t$ occurrences of that k-mer.
+    </p>
+
+    <pre><code class="language-python">def find_clumps(genome, k, L, t):
+    clumps = set()
+    for i in range(len(genome) - L + 1):
+        window = genome[i:i+L]
+        freq = {}
+        for j in range(L - k + 1):
+            kmer = window[j:j+k]
+            freq[kmer] = freq.get(kmer, 0) + 1
+            if freq[kmer] >= t:
+                clumps.add(kmer)
+    return clumps</code></pre>
+
+    <p>
+      This naive implementation is $O(n \cdot L \cdot k)$. It can be optimized to $O(n \cdot k)$ by
+      sliding the window one position at a time and updating counts incrementally: add the k-mer
+      entering the window on the right, remove the one leaving on the left.
+    </p>
+
+    <p>
+      On real genomes, clump finding returns thousands of candidates and is not specific enough on its
+      own. The next section provides a complementary approach that narrows down ori directly.
+    </p>
+
+    <h2>Replication Asymmetry and the Skew</h2>
+
+    <h3>How Replication Works</h3>
+
+    <p>
+      In bacteria, the chromosome is circular. Replication starts at ori and proceeds in both
+      directions simultaneously, creating two <strong>replication forks</strong> that travel around
+      the chromosome until they meet at the <strong>terminus</strong> (ter), roughly opposite ori.
+    </p>
+
+    <p>
+      DNA synthesis can only proceed in the 5'-to-3' direction. At each fork, one strand (the
+      <strong>leading strand</strong>) is synthesized continuously in the direction the fork is
+      moving. The other (the <strong>lagging strand</strong>) must be synthesized in short fragments
+      called <strong>Okazaki fragments</strong>, going in the direction opposite to fork movement.
+      These fragments are later joined by an enzyme.
+    </p>
+
+    <p>
+      The critical asymmetry: the lagging strand template spends much more time as single-stranded
+      DNA while waiting for the fork to advance. Single-stranded DNA is chemically less stable than
+      double-stranded DNA. In particular, cytosine (C) spontaneously mutates to thymine (T) at a
+      much higher rate when single-stranded. Over evolutionary time, this produces a <strong>C-to-T
+      mutation bias</strong> on the lagging strand.
+    </p>
+
+    <h3>The Skew Diagram</h3>
+
+    <p>
+      This mutation bias has a measurable genome-wide consequence. Moving clockwise from ori to ter
+      along the genome, the forward strand acts as the lagging strand template. Cytosines are lost
+      over time, reducing C and increasing G on the forward strand in this half. Moving from ter back
+      to ori, the situation reverses.
+    </p>
+
+    <p>
+      Define the <strong>skew</strong> at position $i$ as the running value of $\#G - \#C$ up to
+      position $i$. The skew <strong>decreases</strong> from ori to ter and <strong>increases</strong>
+      from ter back to ori. The <strong>minimum of the skew</strong> therefore marks ori; the
+      maximum marks ter.
+    </p>
+
+    <pre><code class="language-python">def skew(genome):
+    s, val = [0], 0
+    for base in genome:
+        if base == 'G': val += 1
+        elif base == 'C': val -= 1
+        s.append(val)
+    return s
+
+def min_skew(genome):
+    s = skew(genome)
+    m = min(s)
+    return [i for i, v in enumerate(s) if v == m]</code></pre>
+
+    <p>
+      The skew approach is $O(n)$ and provides a fast, independent way to locate the ori region
+      without any k-mer counting.
+    </p>
+
+    <h2>Approximate Pattern Matching</h2>
+
+    <p>
+      Real DnaA boxes are not identical copies of a single 9-mer. They have accumulated mutations
+      over evolutionary time, so exact matching misses many occurrences. We need to find patterns
+      that are "close" to a query string.
+    </p>
+
+    <h3>Hamming Distance</h3>
+
+    <p>
+      The <strong>Hamming distance</strong> $d_H(s_1, s_2)$ between two strings of equal length is
+      the number of positions where they differ.
+    </p>
+
+    <pre><code class="language-python">def hamming_distance(s1, s2):
+    return sum(c1 != c2 for c1, c2 in zip(s1, s2))</code></pre>
+
+    <h3>Approximate Pattern Matching</h3>
+
+    <p>
+      Find all positions where pattern occurs in text with at most $d$ mismatches.
+    </p>
+
+    <pre><code class="language-python">def approximate_pattern_match(text, pattern, d):
+    k = len(pattern)
+    return [i for i in range(len(text) - k + 1)
+            if hamming_distance(text[i:i+k], pattern) <= d]</code></pre>
+
+    <h3>Frequent Words with Mismatches</h3>
+
+    <p>
+      The final formulation: find k-mers that appear most frequently in the text, counting all
+      approximate occurrences (up to $d$ mismatches). The idea is to generate the
+      <strong>neighborhood</strong> of each k-mer in the text, i.e. all k-mers within Hamming
+      distance $d$, and accumulate counts across all neighborhood members.
+    </p>
+
+    <pre><code class="language-python">def neighbors(pattern, d):
+    if d == 0:
+        return {pattern}
+    if len(pattern) == 1:
+        return set('ACGT')
+    result = set()
+    for suffix_neighbor in neighbors(pattern[1:], d):
+        if hamming_distance(pattern[1:], suffix_neighbor) < d:
+            for base in 'ACGT':
+                result.add(base + suffix_neighbor)
+        else:
+            result.add(pattern[0] + suffix_neighbor)
+    return result
+
+def frequent_words_with_mismatches(text, k, d):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        for neighbor in neighbors(text[i:i+k], d):
+            counts[neighbor] = counts.get(neighbor, 0) + 1
+    max_count = max(counts.values())
+    return [kmer for kmer, c in counts.items() if c == max_count]</code></pre>
+
+    <p>
+      The number of neighbors of a k-mer within Hamming distance $d$ is
+      $\sum_{j=0}^{d} \binom{k}{j} 3^j$.
+      For $k = 9,\, d = 1$: each 9-mer has $1 + 9 \times 3 = 28$ neighbors.
+      Total runtime: $O\!\left(n \cdot \sum_{j=0}^{d}\binom{k}{j} 3^j\right)$.
+    </p>
+
+    <p>
+      In practice, we apply this while also counting reverse complements, so that DnaA box
+      signals from both strands are captured simultaneously.
+    </p>
+
+  </main>
+</body>
+</html>

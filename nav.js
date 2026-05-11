@@ -49,6 +49,7 @@
     { en: "Books", fr: "Livres", columns: [
       [
         { href: "books/aops.html", en: "The Art of Problem Solving", fr: "L'Art de la résolution de problèmes" },
+        { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms", fr: "Algorithmes en bioinformatique" },
       ]
     ]},
   ];
