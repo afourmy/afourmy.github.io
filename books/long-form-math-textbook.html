@@ -82,6 +82,88 @@
       <p>Pick any two of the 5 points. There is a great circle passing through both of them, which divides the sphere into two closed hemispheres (each including its boundary great circle). The remaining 3 points are each in at least one of the two hemispheres. By the pigeonhole principle, one hemisphere contains at least $\lceil 3/2 \rceil = 2$ of those 3 points. That same hemisphere also contains the two points on the great circle, for a total of at least 4.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that if one chooses 31 numbers from $\{1, 2, \ldots, 60\}$, two of them are relatively prime.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Partition $\{1, \ldots, 60\}$ into 30 consecutive pairs: $\{1,2\}, \{3,4\}, \ldots, \{59,60\}$. Any two consecutive integers $n$ and $n+1$ are relatively prime, since any common divisor must divide their difference 1. By the pigeonhole principle, choosing 31 numbers from these 30 pairs forces at least two chosen numbers to fall in the same pair, and those two are relatively prime.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $n \geq 1$. Show that if one chooses $n+1$ distinct odd integers from $\{1, 2, \ldots, 3n\}$, at least one of them divides another.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Every odd integer $m$ can be written uniquely as $m = 3^k q$ where $k \geq 0$ and $q$ is an odd integer not divisible by 3. Call $q$ the <em>3-free part</em> of $m$. For each such $q$, define the chain $C_q = \{q,\, 3q,\, 9q,\, \ldots\} \cap \{1,\ldots,3n\}$. These chains partition all odd integers in $\{1,\ldots,3n\}$, and within each chain every element divides the next.</p>
+      <p>The chains are indexed by the odd integers in $\{1,\ldots,3n\}$ that are not divisible by 3. In $\{1,\ldots,3n\}$ there are exactly $2n$ integers not divisible by 3, and exactly half of them are odd, giving exactly $n$ chains. By the pigeonhole principle, choosing $n+1$ odd integers from these $n$ chains forces two of them into the same chain, and the smaller of the two divides the larger.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $p$ be a prime and $a$ an integer with $p \nmid a$. Show that $a^{p-1} \equiv 1 \pmod{p}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Consider the $p-1$ integers $a, 2a, \ldots, (p-1)a$. They are all distinct modulo $p$ and nonzero modulo $p$: if $ia \equiv ja \pmod{p}$ then $p \mid (j-i)a$, and since $p \nmid a$ we get $p \mid j-i$, impossible for $1 \leq i < j \leq p-1$. So $\{a, 2a, \ldots, (p-1)a\}$ is a permutation of $\{1, 2, \ldots, p-1\}$ modulo $p$. Multiplying all elements: $a^{p-1}(p-1)! \equiv (p-1)! \pmod{p}$. Since $\gcd((p-1)!, p) = 1$, we cancel to obtain $a^{p-1} \equiv 1 \pmod{p}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that the square of any integer ending in 5 ends in 25.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Any integer ending in 5 can be written as $n = 10k + 5$ for some integer $k$. Then $n^2 = (10k+5)^2 = 100k^2 + 100k + 25 = 100k(k+1) + 25$. Since $100k(k+1)$ is divisible by 100, the last two digits of $n^2$ are exactly 25.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $a, b, c$ be integers satisfying $a^2 + b^2 = c^2$. Show that at least one of $a$ or $b$ is divisible by 3.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Any integer is congruent to $0$, $1$, or $2$ modulo 3, so its square is congruent to $0$ or $1$ modulo 3. Suppose for contradiction that $3 \nmid a$ and $3 \nmid b$. Then $a^2 \equiv 1$ and $b^2 \equiv 1 \pmod{3}$, giving $c^2 \equiv 2 \pmod{3}$. But no square is congruent to 2 modulo 3, a contradiction. Therefore 3 divides $a$ or $b$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every odd integer is the difference of two perfect squares.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $n = 2k+1$ be any odd integer. Then $(k+1)^2 - k^2 = 2k + 1 = n$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that for every positive integer $n$, there exist $n$ consecutive integers, none of which is prime.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Consider the $n$ consecutive integers $(n+1)! + 2,\ (n+1)! + 3,\ \ldots,\ (n+1)! + (n+1)$. For each $k$ with $2 \leq k \leq n+1$, we have $k \mid (n+1)!$ and $k \mid k$, so $k \mid (n+1)! + k$. Since $(n+1)! + k > k$, it is composite.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every prime greater than 3 is within 1 of a multiple of 6.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Every integer is congruent to $0, 1, 2, 3, 4,$ or $5$ modulo 6. A prime $p > 3$ cannot be divisible by 2 (ruling out $0, 2, 4$) or by 3 (ruling out $0, 3$), so $p \equiv 1$ or $5 \pmod{6}$. Both cases mean $p$ is within 1 of a multiple of 6.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $\varphi(n)$ denote Euler's totient function. Show that if $\gcd(a, n) = 1$, then $a^{\varphi(n)} \equiv 1 \pmod{n}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $r_1, r_2, \ldots, r_{\varphi(n)}$ be the integers in $\{1, \ldots, n\}$ coprime to $n$. Since $\gcd(a, n) = 1$, the products $ar_1, ar_2, \ldots, ar_{\varphi(n)}$ are also coprime to $n$ and distinct modulo $n$, so they are a permutation of $r_1, \ldots, r_{\varphi(n)}$ modulo $n$. Multiplying all terms: $a^{\varphi(n)} \prod r_i \equiv \prod r_i \pmod{n}$. Since each $r_i$ is coprime to $n$, so is their product, and we can cancel to get $a^{\varphi(n)} \equiv 1 \pmod{n}$.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
