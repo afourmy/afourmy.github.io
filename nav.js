@@ -43,13 +43,14 @@
     ]},
     { en: "Projects", fr: "Projets", columns: [
       [
-        { href: "projects/tsp.html", en: "Traveling Salesman", fr: "Voyageur de commerce" },
+        { href: "projects/tsp.html", en: "Traveling Salesman Problem", fr: "Voyageur de commerce" },
       ]
     ]},
     { en: "Books", fr: "Livres", columns: [
       [
         { href: "books/aops.html", en: "The Art of Problem Solving", fr: "L'Art de la résolution de problèmes" },
         { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms", fr: "Algorithmes en bioinformatique" },
+        { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook", fr: "A Long-Form Mathematics Textbook" },
       ]
     ]},
   ];
