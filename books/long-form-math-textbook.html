@@ -173,6 +173,24 @@
       <p>The number of non-empty subsets of $A$ is $2^{10} - 1 = 1023$. The sum of any non-empty subset of $A$ is at most $91 + 92 + \cdots + 100 = 955$ (the largest possible 10-element subset of $\{1,\ldots,100\}$), and at least 1. So all subset sums take values in $\{1, \ldots, 955\}$, giving at most 955 distinct values. Since $1023 > 955$, by the pigeonhole principle two distinct non-empty subsets must have the same sum.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> An L-tromino is a piece of the shape $\begin{array}{ll}\blacksquare & \\ \blacksquare & \blacksquare\end{array}$. Show that for any $n \geq 1$, if any single square is removed from a $2^n \times 2^n$ chessboard, the remaining squares can be perfectly tiled by L-trominoes.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By induction on $n$. The base case $n = 1$ is immediate: removing any one square from a $2 \times 2$ board leaves exactly one L-tromino. For the inductive step, divide the $2^n \times 2^n$ board into four quadrants of size $2^{n-1} \times 2^{n-1}$. The removed square lies in exactly one quadrant. Place one L-tromino at the center of the board, covering one corner square from each of the other three quadrants. Each quadrant now has exactly one square missing, so by the induction hypothesis each can be tiled by L-trominoes.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $\mathbb{Q}$ is dense in $\mathbb{R}$: for any $a, b \in \mathbb{R}$ with $a < b$, there exists $q \in \mathbb{Q}$ such that $a < q < b$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Since $b - a > 0$, by the Archimedean property there exists $n \in \mathbb{N}$ with $n > \frac{1}{b-a}$, i.e. $\frac{1}{n} < b - a$. Let $m = \lfloor na \rfloor + 1$, so $m - 1 \leq na < m$, giving $a < \frac{m}{n}$. Also $m \leq na + 1 < na + n(b-a) = nb$, so $\frac{m}{n} < b$. Thus $q = \frac{m}{n} \in \mathbb{Q}$ satisfies $a < q < b$.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
