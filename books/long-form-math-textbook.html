@@ -191,6 +191,15 @@
       <p>Since $b - a > 0$, by the Archimedean property there exists $n \in \mathbb{N}$ with $n > \frac{1}{b-a}$, i.e. $\frac{1}{n} < b - a$. Let $m = \lfloor na \rfloor + 1$, so $m - 1 \leq na < m$, giving $a < \frac{m}{n}$. Also $m \leq na + 1 < na + n(b-a) = nb$, so $\frac{m}{n} < b$. Thus $q = \frac{m}{n} \in \mathbb{Q}$ satisfies $a < q < b$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Consider an $n \times m$ chocolate bar. How many breaks are needed to split it into $nm$ individual $1 \times 1$ squares?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Exactly $nm - 1$ breaks are needed. Each break takes one piece and splits it into two, increasing the number of pieces by exactly 1. We start with 1 piece and need $nm$ pieces, so we need exactly $nm - 1$ breaks regardless of the order in which we break.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
