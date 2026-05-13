@@ -28,10 +28,26 @@
 
     <h2>Proofs</h2>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that an $8 \times 8$ chessboard with one corner removed cannot be tiled by $1 \times 2$ dominoes.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The board has $64 - 1 = 63$ squares. Each domino covers exactly 2 squares, so a complete tiling would require $63/2$ dominoes, which is not an integer. Hence no tiling exists.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that an $8 \times 8$ chessboard with the top-left and bottom-right corners removed cannot be tiled by $1 \times 2$ dominoes.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Color the board like a standard chessboard, alternating black and white. The top-left and bottom-right corners share the same color — say, both are white. The original board has 32 black and 32 white squares; removing both corners leaves 32 black and 30 white squares. Each domino covers exactly one black square and one white square, so any tiling covers equal numbers of each color. Since $32 \neq 30$, no tiling exists.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
-</body>
-</html>
 </body>
 </html>
