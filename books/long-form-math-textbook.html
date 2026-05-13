@@ -198,6 +198,7 @@
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>Exactly $nm - 1$ breaks are needed. Each break takes one piece and splits it into two, increasing the number of pieces by exactly 1. We start with 1 piece and need $nm$ pieces, so we need exactly $nm - 1$ breaks regardless of the order in which we break.</p>
+      <p><em>Alternative proof by strong induction.</em> Let $P(k)$ be the statement that any rectangular piece of $k$ squares requires exactly $k - 1$ breaks. The base case $k = 1$ holds since no break is needed. For the inductive step, take a piece of $k > 1$ squares and make one break, splitting it into two pieces of $a$ and $b$ squares with $a + b = k$ and $a, b \geq 1$. By strong induction, these require $a - 1$ and $b - 1$ further breaks respectively. The total is $1 + (a-1) + (b-1) = a + b - 1 = k - 1$.</p>
     </details>
 
     <h2>Analysis</h2>
