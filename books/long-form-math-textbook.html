@@ -210,6 +210,16 @@
       <p>The step $P(1) \Rightarrow P(2)$ fails: the two subgroups of size 1 are $\{p_1\}$ and $\{p_2\}$, which are disjoint, so there is no shared member to force the names to agree.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every positive integer $n$ can be expressed as a sum of distinct powers of 2 in exactly one way.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Existence</em> by strong induction. The base case $n = 1 = 2^0$ holds. For $n > 1$, let $2^k$ be the largest power of 2 with $2^k \leq n$. Then $n - 2^k < 2^k$ (otherwise $2^{k+1} \leq n$), so by induction $n - 2^k$ is a sum of distinct powers of 2, all strictly less than $2^k$. Prepending $2^k$ gives a representation of $n$ using distinct powers.</p>
+      <p><em>Uniqueness.</em> Suppose $n = 2^{a_1} + \cdots + 2^{a_r} = 2^{b_1} + \cdots + 2^{b_s}$ with $a_1 > \cdots > a_r$ and $b_1 > \cdots > b_s$. Then $2^{a_1} \leq n < 2^{a_1+1}$ and similarly $2^{b_1} \leq n < 2^{b_1+1}$, so $a_1 = b_1$. Subtracting $2^{a_1}$ from both sides and repeating gives $r = s$ and $a_i = b_i$ for all $i$.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
