@@ -107,7 +107,8 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Consider the $p-1$ integers $a, 2a, \ldots, (p-1)a$. They are all distinct modulo $p$ and nonzero modulo $p$: if $ia \equiv ja \pmod{p}$ then $p \mid (j-i)a$, and since $p \nmid a$ we get $p \mid j-i$, impossible for $1 \leq i < j \leq p-1$. So $\{a, 2a, \ldots, (p-1)a\}$ is a permutation of $\{1, 2, \ldots, p-1\}$ modulo $p$. Multiplying all elements: $a^{p-1}(p-1)! \equiv (p-1)! \pmod{p}$. Since $\gcd((p-1)!, p) = 1$, we cancel to obtain $a^{p-1} \equiv 1 \pmod{p}$.</p>
+      <p><em>Proof 1 (rearrangement).</em> Consider the $p-1$ integers $a, 2a, \ldots, (p-1)a$. They are all distinct modulo $p$ and nonzero modulo $p$: if $ia \equiv ja \pmod{p}$ then $p \mid (j-i)a$, and since $p \nmid a$ we get $p \mid j-i$, impossible for $1 \leq i < j \leq p-1$. So $\{a, 2a, \ldots, (p-1)a\}$ is a permutation of $\{1, 2, \ldots, p-1\}$ modulo $p$. Multiplying all elements: $a^{p-1}(p-1)! \equiv (p-1)! \pmod{p}$. Since $\gcd((p-1)!, p) = 1$, we cancel to obtain $a^{p-1} \equiv 1 \pmod{p}$.</p>
+      <p><em>Proof 2 (binomial theorem).</em> We first show $\binom{p}{k} \equiv 0 \pmod{p}$ for $0 < k < p$. Indeed, $\binom{p}{k} = \frac{p!}{k!(p-k)!}$ is an integer, $p$ divides the numerator, and $k!$ and $(p-k)!$ have no factor of $p$ since $k, p-k < p$. We now prove $a^p \equiv a \pmod{p}$ for all $a \geq 1$ by induction. The base case $a = 1$ is clear. Assuming $a^p \equiv a$, the binomial theorem gives $(a+1)^p = \sum_{k=0}^{p} \binom{p}{k} a^k$, and every middle term vanishes mod $p$, leaving $(a+1)^p \equiv a^p + 1 \equiv a + 1 \pmod{p}$. So $p \mid a(a^{p-1} - 1)$, and since $p \nmid a$, we get $a^{p-1} \equiv 1 \pmod{p}$.</p>
     </details>
 
     <div class="thm-block exercise">
