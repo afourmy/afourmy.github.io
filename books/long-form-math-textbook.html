@@ -228,9 +228,9 @@
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>By induction on $n$. For the base case $n = 1$, a graph on 2 vertices has at most 1 edge, so the hypothesis ($n^2 + 1 = 2$ edges) cannot be satisfied and there is nothing to prove.</p>
-      <p>For the inductive step, assume the result holds for $n - 1$. Let $G$ have $2n$ vertices and $n^2 + 1$ edges, and pick any edge $uv$. Let $G'$ be the subgraph induced by the remaining $2(n-1)$ vertices.</p>
-      <p>If $G'$ has at least $(n-1)^2 + 1$ edges, the induction hypothesis gives a triangle in $G'$, and we are done.</p>
-      <p>Otherwise $G'$ has at most $(n-1)^2 = n^2 - 2n + 1$ edges. The remaining $n^2 + 1 - (n^2 - 2n + 1) = 2n$ edges all involve $u$ or $v$; one of them is $uv$ itself, so at least $2n - 1 = 2(n-1) + 1$ edges go from $\{u, v\}$ to the $2(n-1)$ other vertices. By the pigeonhole principle, some vertex $w$ among those $2(n-1)$ is adjacent to both $u$ and $v$, and $u, v, w$ form a triangle.</p>
+      <p>For the inductive step, assume the result holds for $n$. Let $G$ have $2(n+1)$ vertices and $(n+1)^2 + 1$ edges, and pick any edge $uv$. Let $G'$ be the subgraph induced by the remaining $2n$ vertices.</p>
+      <p>If $G'$ has at least $n^2 + 1$ edges, the induction hypothesis gives a triangle in $G'$, and we are done.</p>
+      <p>Otherwise $G'$ has at most $n^2$ edges. The remaining $(n+1)^2 + 1 - n^2 = 2n + 2$ edges all involve $u$ or $v$; one of them is $uv$ itself, so at least $2n + 1$ edges go from $\{u, v\}$ to the $2n$ other vertices. By the pigeonhole principle, some vertex $w$ among those $2n$ is adjacent to both $u$ and $v$, and $u, v, w$ form a triangle.</p>
     </details>
 
     <h2>Analysis</h2>
