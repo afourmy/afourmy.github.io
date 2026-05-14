@@ -221,6 +221,18 @@
       <p><em>Uniqueness.</em> Suppose $n = 2^{a_1} + \cdots + 2^{a_r} = 2^{b_1} + \cdots + 2^{b_s}$ with $a_1 > \cdots > a_r$ and $b_1 > \cdots > b_s$. Then $2^{a_1} \leq n < 2^{a_1+1}$ and similarly $2^{b_1} \leq n < 2^{b_1+1}$, so $a_1 = b_1$. Subtracting $2^{a_1}$ from both sides and repeating gives $r = s$ and $a_i = b_i$ for all $i$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise (Mantel's theorem).</span> Let $G$ be a graph with $2n$ vertices and $n^2 + 1$ edges. Show that $G$ contains a triangle.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By induction on $n$. For the base case $n = 1$, a graph on 2 vertices has at most 1 edge, so the hypothesis ($n^2 + 1 = 2$ edges) cannot be satisfied and there is nothing to prove.</p>
+      <p>For the inductive step, assume the result holds for $n - 1$. Let $G$ have $2n$ vertices and $n^2 + 1$ edges, and pick any edge $uv$. Let $G'$ be the subgraph induced by the remaining $2(n-1)$ vertices.</p>
+      <p>If $G'$ has at least $(n-1)^2 + 1$ edges, the induction hypothesis gives a triangle in $G'$, and we are done.</p>
+      <p>Otherwise $G'$ has at most $(n-1)^2 = n^2 - 2n + 1$ edges. The remaining $n^2 + 1 - (n^2 - 2n + 1) = 2n$ edges all involve $u$ or $v$; one of them is $uv$ itself, so at least $2n - 1 = 2(n-1) + 1$ edges go from $\{u, v\}$ to the $2(n-1)$ other vertices. By the pigeonhole principle, some vertex $w$ among those $2(n-1)$ is adjacent to both $u$ and $v$, and $u, v, w$ form a triangle.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
