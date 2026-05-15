@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -20,9 +21,716 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrice).</span> Soient $n,p\in\mathbb{N}^*$. Une <em>matrice</em> à $n$ lignes et $p$ colonnes à coefficients dans $\mathbb{K}$ est un tableau $A=(a_{ij})_{\substack{1\le i\le n\\1\le j\le p}}$ d'éléments de $\mathbb{K}$. On note $\mathcal{M}_{n,p}(\mathbb{K})$ l'ensemble de ces matrices, et $\mathcal{M}_n(\mathbb{K})=\mathcal{M}_{n,n}(\mathbb{K})$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $(\mathcal{M}_{n,p}(\mathbb{K}),+,\cdot)$ est un $\mathbb{K}$-espace vectoriel de dimension $np$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La famille $(E_{ij})_{\substack{1\le i\le n\\1\le j\le p}}$ des matrices élémentaires (dont le seul coefficient non nul est un $1$ en position $(i,j)$) est une base de $\mathcal{M}_{n,p}(\mathbb{K})$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Produit matriciel).</span> Soient $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B=(b_{jk})\in\mathcal{M}_{p,q}(\mathbb{K})$. Le <em>produit</em> $AB$ est la matrice $C=(c_{ik})\in\mathcal{M}_{n,q}(\mathbb{K})$ définie par $c_{ik}=\sum_{j=1}^p a_{ij}b_{jk}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés du produit).</span> Soient $A,A'\in\mathcal{M}_{n,p}(\mathbb{K})$, $B,B'\in\mathcal{M}_{p,q}(\mathbb{K})$, $C\in\mathcal{M}_{q,r}(\mathbb{K})$ et $\lambda\in\mathbb{K}$. Le produit est <em>associatif</em>, $(AB)C=A(BC)$ ; <em>bilinéaire</em>, $(A+A')B=AB+A'B$, $A(B+B')=AB+AB'$ et $\lambda(AB)=(\lambda A)B=A(\lambda B)$ ; et admet $I_n=(\delta_{ij})$ comme <em>élément neutre</em>, $I_nA=A$ et $AI_p=A$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Associativité : le coefficient $(i,l)$ de $(AB)C$ est $\sum_k\left(\sum_j a_{ij}b_{jk}\right)c_{kl}=\sum_{j,k}a_{ij}b_{jk}c_{kl}=\sum_j a_{ij}\left(\sum_k b_{jk}c_{kl}\right)$, qui est le coefficient $(i,l)$ de $A(BC)$.
+      Bilinéarité et élément neutre : calculs directs.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Lemme (Produit des matrices de base).</span> Soient $E_{ij}\in\mathcal{M}_{n,p}(\mathbb{K})$ et $E_{kl}\in\mathcal{M}_{p,q}(\mathbb{K})$. Alors $E_{ij}\cdot E_{kl}=\delta_{jk}\,E_{il}\in\mathcal{M}_{n,q}(\mathbb{K})$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Le coefficient $(s,t)$ du produit $E_{ij}E_{kl}$ est $\sum_{m=1}^p (E_{ij})_{sm}(E_{kl})_{mt}=\sum_m \delta_{si}\delta_{mj}\,\delta_{mk}\delta_{lt}=\delta_{si}\,\delta_{jk}\,\delta_{lt}$, qui est bien le coefficient $(s,t)$ de $\delta_{jk}\,E_{il}$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Transposée).</span> La <em>transposée</em> de $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ est $A^\top=(a_{ji})\in\mathcal{M}_{p,n}(\mathbb{K})$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la transposée).</span> Soient $A,B\in\mathcal{M}_{n,p}(\mathbb{K})$, $\lambda\in\mathbb{K}$ et $C\in\mathcal{M}_{p,q}(\mathbb{K})$. On a $(A+B)^\top=A^\top+B^\top$, $(\lambda A)^\top=\lambda A^\top$, $(AC)^\top=C^\top A^\top$ et $(A^\top)^\top=A$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour la transposée du produit : le coefficient $(i,j)$ de $(AC)^\top$ est le coefficient $(j,i)$ de $AC$, soit $\sum_k a_{jk}c_{ki}$. Or le coefficient $(i,j)$ de $C^\top A^\top$ est $\sum_k (C^\top)_{ik}(A^\top)_{kj}=\sum_k c_{ki}a_{jk}$, ce qui est égal.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Trace).</span> La <em>trace</em> de $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ est $\mathrm{tr}(A)=\sum_{i=1}^n a_{ii}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la trace).</span> La trace est linéaire. De plus, pour $A\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B\in\mathcal{M}_{p,n}(\mathbb{K})$, on a $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, ainsi que $\mathrm{tr}(A^\top)=\mathrm{tr}(A)$ et $\mathrm{tr}(I_n)=n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On a $\mathrm{tr}(AB)=\sum_{i=1}^n (AB)_{ii}=\sum_{i=1}^n\sum_{k=1}^p a_{ik}b_{ki}=\sum_{k=1}^p\sum_{i=1}^n b_{ki}a_{ik}=\sum_{k=1}^p (BA)_{kk}=\mathrm{tr}(BA)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Unicité de la trace).</span> La trace est l'unique forme linéaire $\varphi:\mathcal{M}_n(\mathbb{K})\to\mathbb{K}$ (à un scalaire près) vérifiant $\varphi(AB)=\varphi(BA)$ pour tout $A,B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $\varphi$ une telle forme linéaire. On a $E_{ij}=E_{i1}E_{1j}$ pour tout $i,j$, et $E_{1j}E_{i1}=\delta_{ij}E_{11}$. Donc $\varphi(E_{ij})=\varphi(E_{i1}E_{1j})=\varphi(E_{1j}E_{i1})=\delta_{ij}\varphi(E_{11})$. Ainsi $\varphi(E_{ij})=\delta_{ij}\varphi(E_{11})=\varphi(E_{11})\cdot\mathrm{tr}(E_{ij})$ (car $\mathrm{tr}(E_{ij})=\delta_{ij}$), d'où $\varphi=\varphi(E_{11})\cdot\mathrm{tr}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème.</span> $(\mathcal{M}_n(\mathbb{K}),+,\times)$ est un anneau unitaire, non commutatif et non intègre (il existe des diviseurs de zéro) pour $n\ge 2$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\mathcal{M}_n(\mathbb{K}),+)$ est un groupe abélien. Le produit est associatif, distributif par rapport à l'addition, et $I_n$ est l'élément neutre.
+
+      Non commutatif : $\begin{pmatrix}1&1\\0&0\end{pmatrix}\begin{pmatrix}0&0\\1&0\end{pmatrix}=\begin{pmatrix}1&0\\0&0\end{pmatrix}\neq\begin{pmatrix}0&0\\1&1\end{pmatrix}=\begin{pmatrix}0&0\\1&0\end{pmatrix}\begin{pmatrix}1&1\\0&0\end{pmatrix}$.
+
+      Non intègre : $\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Rang d'une matrice).</span> Le <em>rang</em> d'une matrice $A\in\mathcal{M}_{n,p}(\mathbb{K})$, noté $\mathrm{rg}(A)$, est le rang de la famille de ses vecteurs colonnes, i.e. la dimension du sous-espace engendré par les colonnes de $A$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Théorème du rang — version matricielle).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $\dim(\ker A)+\mathrm{rg}(A)=p$, où $\ker A=\{X\in\mathbb{K}^p : AX=0\}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      C'est le théorème du rang appliqué à l'application linéaire $\varphi_A:\mathbb{K}^p\to\mathbb{K}^n$, $X\mapsto AX$, dont l'image est l'espace engendré par les colonnes de $A$, de dimension $\mathrm{rg}(A)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrice inversible).</span> $A\in\mathcal{M}_n(\mathbb{K})$ est <em>inversible</em> s'il existe $B\in\mathcal{M}_n(\mathbb{K})$ telle que $AB=BA=I_n$. La matrice $B$, unique, est notée $A^{-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration (unicité).</summary>
+      Si $AB=BA=I_n$ et $AC=CA=I_n$, alors $B=BI_n=B(AC)=(BA)C=I_nC=C$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $A,B$ sont inversibles, alors $AB$ est inversible et $(AB)^{-1}=B^{-1}A^{-1}$, et $A^\top$ est inversible et $(A^\top)^{-1}=(A^{-1})^\top$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(AB)(B^{-1}A^{-1})=A(BB^{-1})A^{-1}=I_n$ et $(B^{-1}A^{-1})(AB)=I_n$.
+
+      $A^\top(A^{-1})^\top=(A^{-1}A)^\top=I_n$ et $(A^{-1})^\top A^\top=(AA^{-1})^\top=I_n$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Groupe linéaire).</span> L'ensemble $\mathrm{GL}_n(\mathbb{K})$ des matrices inversibles de $\mathcal{M}_n(\mathbb{K})$ est un groupe pour le produit (non abélien pour $n\ge 2$).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $I_n\in\mathrm{GL}_n(\mathbb{K})$. Le produit de deux matrices inversibles est inversible (ci-dessus). L'associativité est héritée de $\mathcal{M}_n(\mathbb{K})$. Si $A\in\mathrm{GL}_n(\mathbb{K})$, alors $A^{-1}\in\mathrm{GL}_n(\mathbb{K})$ car $(A^{-1})^{-1}=A$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inversibilité à gauche ou à droite).</span> Soient $A,B\in\mathcal{M}_n(\mathbb{K})$. Si $AB=I_n$, alors $A$ et $B$ sont inversibles (et $BA=I_n$).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $AB=I_n$ donne $\mathrm{Im}(AB)\subset\mathrm{Im}(A)=\mathbb{K}^n$, donc $A$ est surjective, donc bijective en dimension finie, donc inversible. En multipliant $AB=I_n$ à gauche par $A^{-1}$ : $B=A^{-1}$, d'où $BA=I_n$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrices triangulaires).</span> Une matrice $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ est <em>triangulaire supérieure</em> si $a_{ij}=0$ pour tout $i&gt;j$, et <em>triangulaire inférieure</em> si $a_{ij}=0$ pour tout $i&lt;j$. On note $\mathcal{T}_n^+(\mathbb{K})$ et $\mathcal{T}_n^-(\mathbb{K})$ ces ensembles. Une matrice à la fois triangulaire supérieure et inférieure est <em>diagonale</em>.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathcal{T}_n^+(\mathbb{K})$ est une sous-algèbre de $\mathcal{M}_n(\mathbb{K})$ : c'est un sous-espace vectoriel, et le produit de deux matrices triangulaires supérieures est triangulaire supérieure. De plus, si $A,B\in\mathcal{T}_n^+(\mathbb{K})$, alors $(AB)_{ii}=a_{ii}b_{ii}$ pour tout $i$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Stabilité par combinaison linéaire : immédiate. Pour le produit : $(AB)_{ij}=\sum_k a_{ik}b_{kj}$. Pour $i&gt;j$, chaque terme est nul car soit $k&lt;i$ (donc $a_{ik}=0$), soit $k\ge i&gt;j$ (donc $b_{kj}=0$) ; ces deux cas couvrent tous les $k$. Pour $i=j$, les termes non nuls vérifient $k\ge i$ (sinon $a_{ik}=0$) et $k\le i$ (sinon $b_{ki}=0$), soit $k=i$, d'où $(AB)_{ii}=a_{ii}b_{ii}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inversibilité des matrices triangulaires).</span> Soit $A\in\mathcal{T}_n^+(\mathbb{K})$. Alors $A$ est inversible si et seulement si tous ses coefficients diagonaux sont non nuls.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Le cas $n=1$ est immédiat. Pour $n\ge 2$, on écrit $A=\begin{pmatrix}a_{11}&L\\0&A'\end{pmatrix}$ avec $L\in\mathcal{M}_{1,n-1}(\mathbb{K})$ et $A'\in\mathcal{T}_{n-1}^+(\mathbb{K})$.
+
+      $(\Leftarrow)$ Si tous les $a_{ii}$ sont non nuls, $A'$ est inversible par hypothèse de récurrence. La matrice $B=\begin{pmatrix}a_{11}^{-1}&-a_{11}^{-1}L(A')^{-1}\\0&(A')^{-1}\end{pmatrix}$ vérifie $AB=BA=I_n$ par calcul par blocs.
+
+      $(\Rightarrow)$ Si $A$ est inversible : si $a_{11}=0$, la première colonne est nulle, donc $Ae_1=0$, contradiction. Donc $a_{11}\neq 0$. Pour $A'$ : si $A'X'=0$, on pose $Y=\begin{pmatrix}-a_{11}^{-1}LX'\\X'\end{pmatrix}$ et on vérifie $AY=0$. Donc $Y=0$, puis $X'=0$ : $A'$ est injective, donc inversible.
+    </details>
+
+    <div class="thm-block definition">
+      <div class="fr"><p><span class="thm-label">Définition (Opérations élémentaires sur les lignes).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$, on note $L_i$ la $i$-ème ligne de $A$. Les opérations élémentaires sur les lignes sont :</p>
+      <ol>
+        <li><em>Transvection</em> $L_i\leftarrow L_i+\lambda L_j$ (avec $i\neq j$, $\lambda\in\mathbb{K}$) : ajouter $\lambda$ fois la ligne $j$ à la ligne $i$.</li>
+        <li><em>Dilatation</em> $L_i\leftarrow \lambda L_i$ (avec $\lambda\in\mathbb{K}^*$) : multiplier la ligne $i$ par $\lambda\neq 0$.</li>
+        <li><em>Permutation</em> $L_i\leftrightarrow L_j$ (avec $i\neq j$) : échanger les lignes $i$ et $j$.</li>
+      </ol>
+      <p>On définit de même les opérations élémentaires sur les colonnes $C_j$.</p></div>
+    </div>
+
+    <div class="thm-block definition">
+      <div class="fr"><p><span class="thm-label">Définition (Matrices élémentaires).</span> Les matrices élémentaires sont les matrices obtenues en effectuant une opération élémentaire sur $I_n$ :</p>
+      <ol>
+        <li><em>Matrice de transvection</em> : $T_{ij}(\lambda)=I_n+\lambda E_{ij}$ (avec $i\neq j$). C'est $I_n$ avec un $\lambda$ en position $(i,j)$.</li>
+        <li><em>Matrice de dilatation</em> : $D_i(\lambda)=I_n+(\lambda-1)E_{ii}$ (avec $\lambda\neq 0$). C'est $I_n$ avec $\lambda$ au lieu de $1$ en position $(i,i)$.</li>
+        <li><em>Matrice de permutation</em> : $P_{ij}=I_n-E_{ii}-E_{jj}+E_{ij}+E_{ji}$ (avec $i\neq j$). C'est $I_n$ avec les lignes $i$ et $j$ échangées.</li>
+      </ol></div>
+    </div>
+
+    <div class="thm-block proposition">
+      <div class="fr"><p><span class="thm-label">Proposition (Effet des matrices élémentaires par multiplication à gauche).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$.</p>
+      <ol>
+        <li>$T_{ij}(\lambda)\cdot A$ est la matrice obtenue en effectuant $L_i\leftarrow L_i+\lambda L_j$ sur $A$.</li>
+        <li>$D_i(\lambda)\cdot A$ est la matrice obtenue en effectuant $L_i\leftarrow\lambda L_i$ sur $A$.</li>
+        <li>$P_{ij}\cdot A$ est la matrice obtenue en effectuant $L_i\leftrightarrow L_j$ sur $A$.</li>
+      </ol>
+      <p>La multiplication à droite effectue l'opération correspondante sur les colonnes.</p></div>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour la transvection : le coefficient $(k,l)$ de $T_{ij}(\lambda)A=(I_n+\lambda E_{ij})A$ est $a_{kl}+\lambda(E_{ij}A)_{kl}$. Or $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$, donc la ligne $k$ est $L_k$ si $k\neq i$, et $L_i+\lambda L_j$ si $k=i$. Les deux autres cas sont analogues.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inversibilité des matrices élémentaires).</span> Les matrices élémentaires sont inversibles : $T_{ij}(\lambda)^{-1}=T_{ij}(-\lambda)$, $D_i(\lambda)^{-1}=D_i(\lambda^{-1})$, $P_{ij}^{-1}=P_{ij}$ (involution).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $T_{ij}(\lambda)T_{ij}(-\lambda)=(I_n+\lambda E_{ij})(I_n-\lambda E_{ij})=I_n-\lambda^2 E_{ij}^2=I_n$ car $E_{ij}^2=0$ (puisque $i\neq j$).
+
+      $D_i(\lambda)D_i(\lambda^{-1})$ : le coefficient $(i,i)$ est $\lambda\cdot\lambda^{-1}=1$, les autres sont inchangés.
+
+      $P_{ij}^2=I_n$ : échanger deux fois les mêmes lignes redonne $I_n$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Système linéaire).</span> Un <em>système linéaire</em> de $n$ équations à $p$ inconnues à coefficients dans $\mathbb{K}$ s'écrit matriciellement $(S)\ AX=B$ avec $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$, $X\in\mathcal{M}_{p,1}(\mathbb{K})$ et $B\in\mathcal{M}_{n,1}(\mathbb{K})$. Le système est <em>homogène</em> si $B=0$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Systèmes équivalents).</span> Deux systèmes linéaires sont <em>équivalents</em> s'ils ont le même ensemble de solutions.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Les opérations élémentaires préservent les solutions).</span> Effectuer une opération élémentaire sur les lignes d'un système $AX=B$ (i.e. multiplier à gauche par une matrice élémentaire) donne un système équivalent.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $E$ une matrice élémentaire. Le système $EAX=EB$ a les mêmes solutions que $AX=B$ car $E$ est inversible : $AX=B\Leftrightarrow E(AX)=E(B)\Leftrightarrow (EA)X=EB$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Algorithme du pivot de Gauss).</span> Toute matrice $A\in\mathcal{M}_{n,p}(\mathbb{K})$ peut être réduite par opérations élémentaires sur les lignes. On procède colonne par colonne : on choisit un coefficient non nul (<strong>pivot</strong>), on le place par permutation, on le normalise à $1$ par dilatation, puis on élimine les autres coefficients de sa colonne par transvections. On obtient $r$ pivots, où $r=\mathrm{rg}(A)$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <div class="fr"><p><span class="thm-label">Théorème (Solutions d'un système linéaire).</span> Soit $AX=B$ un système de $n$ équations à $p$ inconnues, et $r=\mathrm{rg}(A)$.</p>
+      <ol>
+        <li>L'ensemble des solutions du système homogène $AX=0$ est un sev de $\mathbb{K}^p$.</li>
+        <li>S'il admet au moins une solution, alors la solution est unique si $r=p$, et il y a une infinité de solutions si $r&lt;p$.</li>
+      </ol></div>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) C'est le noyau de l'application linéaire $X\mapsto AX$.
+
+      (2) Le théorème du rang donne $\dim(\ker A)=p-r$. Si $r=p$, $\ker A=\{0\}$ et la solution est unique. Si $r&lt;p$, $\ker A\neq\{0\}$ et il y a une infinité de solutions.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Calcul de l'inverse par pivot de Gauss).</span> Pour calculer $A^{-1}$ (si $A$ est inversible), on forme la matrice augmentée $\left(\begin{array}{c|c} A & I_n \end{array}\right)$ et on applique le pivot de Gauss sur les lignes jusqu'à ce que le bloc gauche devienne $I_n$ : le bloc droit contient alors $A^{-1}$, soit \[\left(\begin{array}{c|c} A & I_n \end{array}\right) \xrightarrow{\text{Gauss}} \left(\begin{array}{c|c} I_n & A^{-1} \end{array}\right).\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Notons $E_1,\ldots,E_k$ les matrices élémentaires correspondant aux opérations. Elles vérifient $E_k\cdots E_1 A=I_n$, d'où $E_k\cdots E_1=A^{-1}$. Ces mêmes opérations appliquées au bloc droit transforment $I_n$ en $A^{-1}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <div class="fr"><p><span class="thm-label">Théorème (Caractérisation de l'inversibilité).</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$. Les assertions suivantes sont équivalentes :</p>
+      <ol>
+        <li>$A$ est inversible,</li>
+        <li>L'application $X\mapsto AX$ de $\mathbb{K}^n$ dans $\mathbb{K}^n$ est bijective,</li>
+        <li>Le système $AX=0$ n'admet que la solution triviale $X=0$,</li>
+        <li>Les colonnes de $A$ forment une base de $\mathbb{K}^n$,</li>
+        <li>Pour tout $B\in\mathbb{K}^n$, le système $AX=B$ admet une unique solution,</li>
+        <li>Le pivot de Gauss appliqué à $A$ donne $n$ pivots.</li>
+      </ol>
+      <p>Dans ce cas, l'unique solution de $AX=B$ est $X=A^{-1}B$.</p></div>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(1)\Rightarrow(2)$ : $X\mapsto AX$ est bijective, d'inverse $X\mapsto A^{-1}X$.
+
+      $(2)\Rightarrow(3)$ : Si $AX=0=A\cdot 0$, l'injectivité donne $X=0$.
+
+      $(3)\Rightarrow(4)$ : $AX=0$ n'ayant que la solution triviale, les colonnes sont libres ; une famille libre de $n$ vecteurs dans $\mathbb{K}^n$ est une base.
+
+      $(4)\Rightarrow(5)$ : Les colonnes forment une base, donc $X\mapsto AX$ est bijective ; pour tout $B$, $AX=B$ a une unique solution.
+
+      $(5)\Rightarrow(6)$ : Si Gauss donne moins de $n$ pivots, il y a une variable libre, donc $AX=0$ a des solutions non triviales, contredisant l'unicité pour $B=0$.
+
+      $(6)\Rightarrow(1)$ : Si Gauss donne $n$ pivots, il existe $E_1,\ldots,E_k$ telles que $E_k\cdots E_1 A=I_n$. D'après la proposition d'inversibilité à gauche ou à droite, $A$ est inversible.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Décomposition en produit de matrices élémentaires).</span> Toute matrice inversible $A\in\mathrm{GL}_n(\mathbb{K})$ est un produit de matrices élémentaires.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par le pivot de Gauss, il existe $E_1,\ldots,E_k$ telles que $E_k\cdots E_1 A=I_n$. Donc $A=E_1^{-1}\cdots E_k^{-1}$, et chaque $E_i^{-1}$ est une matrice élémentaire.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $A\in\mathcal{M}_n(\mathbb{K})$ est inversible si et seulement si $\mathrm{rg}(A)=n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $A$ est inversible ssi la famille des colonnes de $A$ est une base de $\mathbb{K}^n$, ssi $\mathrm{rg}(A)=n$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $\mathrm{rg}(A)=\mathrm{rg}(A^\top)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Le rang de $A$ est le nombre de pivots de Gauss, qui coïncide avec la dimension de l'espace engendré par les lignes (les opérations élémentaires préservent cet espace). Donc le rang des colonnes égale le rang des lignes, qui est $\mathrm{rg}(A^\top)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Invariance du rang par multiplication inversible).</span> Si $P\in\mathrm{GL}_n(\mathbb{K})$ et $Q\in\mathrm{GL}_p(\mathbb{K})$, alors $\mathrm{rg}(PAQ)=\mathrm{rg}(A)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La multiplication par $P$ à gauche effectue des opérations élémentaires sur les lignes, et par $Q$ à droite sur les colonnes. Ces opérations ne changent pas le rang.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inégalité du rang du produit).</span> Soient $A\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B\in\mathcal{M}_{p,q}(\mathbb{K})$. Alors $\mathrm{rg}(AB)\le\min(\mathrm{rg}(A),\mathrm{rg}(B))$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Chaque colonne de $AB$ est une CL des colonnes de $A$, donc $\mathrm{Im}(AB)\subset\mathrm{Im}(A)$, d'où $\mathrm{rg}(AB)\le\mathrm{rg}(A)$. De plus $\ker B\subset\ker(AB)$, donc par le théorème du rang $\mathrm{rg}(AB)=q-\dim(\ker(AB))\le q-\dim(\ker B)=\mathrm{rg}(B)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrices équivalentes).</span> Deux matrices $A,B\in\mathcal{M}_{n,p}(\mathbb{K})$ sont <em>équivalentes</em> s'il existe $P\in\mathrm{GL}_n(\mathbb{K})$ et $Q\in\mathrm{GL}_p(\mathbb{K})$ telles que $B=PAQ$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> L'équivalence de matrices est une relation d'équivalence sur $\mathcal{M}_{n,p}(\mathbb{K})$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Réflexivité : $A=I_nAI_p$. Symétrie : si $B=PAQ$, alors $A=P^{-1}BQ^{-1}$. Transitivité : si $B=PAQ$ et $C=P'BQ'$, alors $C=(P'P)A(QQ')$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrice canonique $J_r$).</span> Pour $0\le r\le\min(n,p)$, on note $J_r=\begin{pmatrix}I_r&0\\0&0\end{pmatrix}\in\mathcal{M}_{n,p}(\mathbb{K})$ la matrice dont les $r$ premiers coefficients diagonaux valent $1$ et tous les autres sont nuls.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Classification des matrices par le rang).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $A$ est équivalente à $J_r$ où $r=\mathrm{rg}(A)$. En particulier, deux matrices sont équivalentes si et seulement si elles ont même rang.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par le pivot de Gauss, on réduit $A$ par opérations élémentaires sur les lignes et les colonnes. Après Gauss sur les lignes, on obtient $r$ pivots en colonnes $j_1&lt;\cdots&lt;j_r$. Des permutations de colonnes ramènent les pivots en positions $1,\ldots,r$, puis des transvections donnent $J_r$.
+
+      Réciproquement, si $A$ et $B$ sont équivalentes, $\mathrm{rg}(B)=\mathrm{rg}(A)$ par invariance du rang. Et si $\mathrm{rg}(A)=\mathrm{rg}(B)=r$, alors $A\sim J_r\sim B$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Rang et sous-matrices inversibles).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $\mathrm{rg}(A)$ est la taille maximale d'une sous-matrice carrée inversible que l'on peut extraire de $A$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $r=\mathrm{rg}(A)$.
+
+      $(\le)$ Soit $B$ une sous-matrice carrée de $A$ de taille $k$. Si $B$ est inversible, ses $k$ colonnes sont libres. Ces colonnes étant des restrictions de colonnes de $A$, les colonnes correspondantes de $A$ sont aussi libres, d'où $k\le r$.
+
+      $(\ge)$ On peut extraire $r$ colonnes libres de $A$. Parmi leurs $n$ lignes, on peut en trouver $r$ formant une matrice $r\times r$ de rang $r$, donc inversible.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrice d'une application linéaire).</span> Soient $E$ et $F$ des $\mathbb{K}$-ev de dimensions $p$ et $n$, munis de bases $\mathcal{B}=(e_1,\ldots,e_p)$ et $\mathcal{C}=(f_1,\ldots,f_n)$. La <em>matrice</em> de $u\in\mathcal{L}(E,F)$ dans les bases $\mathcal{B}$ et $\mathcal{C}$ est la matrice $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathcal{M}_{n,p}(\mathbb{K})$ dont la $j$-ème colonne contient les coordonnées de $u(e_j)$ dans $\mathcal{C}$ : $u(e_j)=\sum_{i=1}^n a_{ij}f_i$. Pour un endomorphisme, on note $\mathrm{Mat}_\mathcal{B}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}}(u)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Composition et produit matriciel).</span> Soient $u\in\mathcal{L}(E,F)$ et $v\in\mathcal{L}(F,G)$ avec $\mathcal{B},\mathcal{C},\mathcal{D}$ des bases de $E,F,G$. Alors $\mathrm{Mat}_{\mathcal{B},\mathcal{D}}(v\circ u)=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)\cdot\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)=(a_{kj})$ et $B=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)=(b_{ik})$. Alors $(v\circ u)(e_j)=v\!\left(\sum_k a_{kj}f_k\right)=\sum_i\!\left(\sum_k b_{ik}a_{kj}\right)g_i$, et $\sum_k b_{ik}a_{kj}=(BA)_{ij}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Isomorphisme et matrice inversible).</span> Soient $E,F$ de même dimension $n$, $\mathcal{B}$ base de $E$, $\mathcal{C}$ base de $F$, et $u\in\mathcal{L}(E,F)$. Alors $u$ est un isomorphisme si et seulement si $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathrm{GL}_n(\mathbb{K})$. Dans ce cas, $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathrm{Mat}(u^{-1}\circ u)=\mathrm{Mat}(u^{-1})\cdot\mathrm{Mat}(u)$. Or $u^{-1}\circ u=\mathrm{id}_E$ a pour matrice $I_n$, donc $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$. Réciproquement, si $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ est inversible, $A^{-1}$ définit $v\in\mathcal{L}(F,E)$ avec $v\circ u=\mathrm{id}_E$ et $u\circ v=\mathrm{id}_F$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Soient $E$ un $\mathbb{K}$-ev de dimension $n$, $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$, et $\mathcal{C}=(c_1,\ldots,c_n)$ une famille de $n$ vecteurs de $E$. Alors $\mathcal{C}$ est une base de $E$ si et seulement si la matrice dont la $j$-ème colonne contient les coordonnées de $c_j$ dans $\mathcal{B}$ est inversible.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathcal{C}$ est une base ssi l'application $u:E\to E$ définie par $u(e_j)=c_j$ est un isomorphisme, ssi $\mathrm{Mat}_\mathcal{B}(u)\in\mathrm{GL}_n(\mathbb{K})$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrice de passage).</span> Soient $\mathcal{B}=(e_1,\ldots,e_n)$ et $\mathcal{B}'=(e_1',\ldots,e_n')$ deux bases de $E$. La <em>matrice de passage</em> de $\mathcal{B}$ à $\mathcal{B}'$ est $P_{\mathcal{B}\to\mathcal{B}'}=\mathrm{Mat}_{\mathcal{B}',\mathcal{B}}(\mathrm{id}_E)\in\mathrm{GL}_n(\mathbb{K})$, dont la $j$-ème colonne contient les coordonnées de $e_j'$ dans $\mathcal{B}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Formule de changement de base pour un endomorphisme).</span> Soit $u\in\mathcal{L}(E)$, $\mathcal{B},\mathcal{B}'$ bases de $E$ et $P=P_{\mathcal{B}\to\mathcal{B}'}$. Alors $\mathrm{Mat}_{\mathcal{B}'}(u)=P^{-1}\cdot\mathrm{Mat}_\mathcal{B}(u)\cdot P$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On écrit $u=\mathrm{id}\circ\, u\circ\mathrm{id}$ et on applique deux fois la proposition précédente : $\mathrm{Mat}_{\mathcal{B}'}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}'}(\mathrm{id})\cdot\mathrm{Mat}_\mathcal{B}(u)\cdot\mathrm{Mat}_{\mathcal{B}',\mathcal{B}}(\mathrm{id})=P^{-1}\cdot\mathrm{Mat}_\mathcal{B}(u)\cdot P$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrices semblables).</span> Deux matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ sont <em>semblables</em> s'il existe $P\in\mathrm{GL}_n(\mathbb{K})$ tel que $B=P^{-1}AP$. La similitude est une relation d'équivalence.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Deux matrices sont semblables si et seulement si elles représentent le même endomorphisme dans des bases différentes.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $B=P^{-1}AP$, en posant $A=\mathrm{Mat}_\mathcal{B}(u)$ et en prenant $\mathcal{B}'$ défini par $P$, on a $B=\mathrm{Mat}_{\mathcal{B}'}(u)$.
+
+      $(\Leftarrow)$ Résulte directement de la formule de changement de base.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Invariants de similitude).</span> Si $A$ et $B$ sont semblables, alors $\mathrm{tr}(A)=\mathrm{tr}(B)$, $\mathrm{rg}(A)=\mathrm{rg}(B)$, et $A$ inversible $\Leftrightarrow B$ inversible.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) $\mathrm{tr}(P^{-1}AP)=\mathrm{tr}((P^{-1}A)P)=\mathrm{tr}(P(P^{-1}A))=\mathrm{tr}(A)$.
+
+      (2) Le rang est invariant par multiplication par des matrices inversibles.
+
+      (3) Si $B=P^{-1}AP$ et $A$ inversible, alors $B^{-1}=P^{-1}A^{-1}P$.
+    </details>
+
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre le système :
+      \[\begin{cases}x+2y+3z=1\\2x+5y+7z=3\\x+3y+4z=2\end{cases}\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      \[
+      \left(\begin{array}{ccc|c}
+      1&2&3&1\\
+      2&5&7&3\\
+      1&3&4&2
+      \end{array}\right)
+      \xrightarrow{L_2\leftarrow L_2-2L_1}
+      \left(\begin{array}{ccc|c}
+      1&2&3&1\\
+      0&1&1&1\\
+      1&3&4&2
+      \end{array}\right)
+      \xrightarrow{L_3\leftarrow L_3-L_1}
+      \left(\begin{array}{ccc|c}
+      1&2&3&1\\
+      0&1&1&1\\
+      0&1&1&1
+      \end{array}\right)
+      \]
+      \[
+      \xrightarrow{L_3\leftarrow L_3-L_2}
+      \left(\begin{array}{ccc|c}
+      1&2&3&1\\
+      0&1&1&1\\
+      0&0&0&0
+      \end{array}\right)
+      \xrightarrow{L_1\leftarrow L_1-2L_2}
+      \left(\begin{array}{ccc|c}
+      1&0&1&-1\\
+      0&1&1&1\\
+      0&0&0&0
+      \end{array}\right)
+      \]
+      On a $r=2$ pivots, $z$ est libre. Les solutions sont : $\{(-1-t,\ 1-t,\ t) : t\in\mathbb{K}\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer l'inverse de $A=\begin{pmatrix}1&2\\3&7\end{pmatrix}$ par pivot de Gauss.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      \[
+      \left(\begin{array}{cc|cc}
+      1&2&1&0\\
+      3&7&0&1
+      \end{array}\right)
+      \xrightarrow{L_2\leftarrow L_2-3L_1}
+      \left(\begin{array}{cc|cc}
+      1&2&1&0\\
+      0&1&-3&1
+      \end{array}\right)
+      \xrightarrow{L_1\leftarrow L_1-2L_2}
+      \left(\begin{array}{cc|cc}
+      1&0&7&-2\\
+      0&1&-3&1
+      \end{array}\right)
+      \]
+      Donc $A^{-1}=\begin{pmatrix}7&-2\\-3&1\end{pmatrix}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ telles que $AB-BA=I_n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Si $AB-BA=I_n$, alors $\mathrm{tr}(AB-BA)=\mathrm{tr}(AB)-\mathrm{tr}(BA)=0$, mais $\mathrm{tr}(I_n)=n\neq 0$, contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ telle que pour toute matrice $B\in\mathcal{M}_n(\mathbb{K})$, $AB=BA$. Montrer que $A=\lambda I_n$ pour un certain $\lambda\in\mathbb{K}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $A=(a_{ij})$. Pour $i\neq j$, prenons $B=E_{ij}$. Alors $(AE_{ij})_{kl}=a_{ki}\delta_{jl}$ et $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$. L'égalité $AE_{ij}=E_{ij}A$ en position $(i,j)$ donne $a_{ii}=a_{jj}$, et en position $(k,j)$ pour $k\neq i$ donne $a_{ki}=0$. Donc $A=a_{11}I_n$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ nilpotente, i.e. il existe $p\in\mathbb{N}^*$ tel que $A^p=0$. Montrer que $I_n-A$ est inversible et exprimer $(I_n-A)^{-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On a $(I_n-A)(I_n+A+A^2+\cdots+A^{p-1})=I_n-A^p=I_n$. Donc $(I_n-A)^{-1}=\sum_{k=0}^{p-1}A^k$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $n\ge 1$. On définit $J\in\mathcal{M}_n(\mathbb{K})$ la matrice dont tous les coefficients valent $1$, et $K\in\mathcal{M}_n(\mathbb{K})$ la matrice dont les coefficients diagonaux valent $1$ et les coefficients hors diagonale valent $-1$. Calculer $J^p$ et $K^p$ pour tout entier $p\ge 1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>Puissances de $J$.</strong> Le coefficient $(i,j)$ de $J^2$ vaut $n$, donc $J^2=nJ$. Par récurrence, $J^p=n^{p-1}J$.
+
+      <strong>Puissances de $K$.</strong> On observe que $K=2I_n-J$. Comme $I_n$ et $J$ commutent, le binôme de Newton donne $K^p=\sum_{k=0}^{p}\binom{p}{k}2^{p-k}(-1)^kJ^k$. Pour $k\ge 1$, $J^k=n^{k-1}J$, donc $K^p=2^pI_n+\frac{J}{n}\sum_{k=1}^{p}\binom{p}{k}2^{p-k}(-n)^k$. Or $\sum_{k=0}^{p}\binom{p}{k}2^{p-k}(-n)^k=(2-n)^p$, d'où finalement \[K^p=2^p\,I_n+\frac{(2-n)^p-2^p}{n}\,J.\]
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{R})$ telle que $A^\top A=0_p$. Montrer que $A=0_{n,p}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On a $\mathrm{tr}(A^\top A)=\sum_{j=1}^p\sum_{i=1}^n a_{ij}^2=0$. Tous les termes étant positifs ou nuls, on a $a_{ij}=0$ pour tout $i,j$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A=\begin{pmatrix}1&1\\-1&1\end{pmatrix}$ et $C=\{B\in\mathcal{M}_2(\mathbb{R})\mid AB=BA\}$. Montrer que $C$ est un sous-espace vectoriel de $\mathcal{M}_2(\mathbb{R})$ et déterminer sa dimension.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $C=\ker(B\mapsto AB-BA)$ est un sev. On résout $AB=BA$ avec $B=\begin{pmatrix}a&b\\c&d\end{pmatrix}$ : on obtient $c=-b$ et $d=a$, donc $C=\left\{\begin{pmatrix}a&b\\-b&a\end{pmatrix}\mid a,b\in\mathbb{R}\right\}$. La famille $\left(I_2,\begin{pmatrix}0&1\\-1&0\end{pmatrix}\right)$ est une base de $C$, donc $\dim C=2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{R})$ qui commute avec toute matrice diagonale. Montrer que $A$ est diagonale.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Pour tout $k$, $AE_{kk}=E_{kk}A$. On calcule $(AE_{kk})_{ij}=a_{ik}\delta_{jk}$ et $(E_{kk}A)_{ij}=\delta_{ik}a_{kj}$. Pour $j=k,\ i\neq k$ : $a_{ik}=0$ ; pour $i=k,\ j\neq k$ : $a_{kj}=0$. Donc tous les coefficients extra-diagonaux sont nuls.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Déterminer l'ensemble des matrices $A\in\mathcal{M}_n(\mathbb{K})$ qui commutent avec toute matrice symétrique.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>Étape 1 : $A$ est diagonale.</strong> $E_{ii}$ est symétrique, et $AE_{ii}=E_{ii}A$ donne $a_{ki}=a_{ik}=0$ pour $k\neq i$.
+
+      <strong>Étape 2 : les entrées diagonales sont égales.</strong> $S_{ij}=E_{ij}+E_{ji}$ est symétrique. Avec $A=\mathrm{diag}(a_1,\ldots,a_n)$, l'égalité $AS_{ij}=S_{ij}A$ en position $(i,j)$ donne $a_i=a_j$.
+
+      <strong>Conclusion.</strong> L'ensemble est $\{\lambda I_n\mid\lambda\in\mathbb{K}\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $A,B\in\mathcal{M}_n(\mathbb{K})$ telles que pour tout $X\in\mathcal{M}_n(\mathbb{K})$, $\mathrm{tr}(AX)=\mathrm{tr}(BX)$. Montrer que $A=B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $C=A-B$. Pour $X=E_{ji}$, on calcule $\mathrm{tr}(CE_{ji})=c_{ij}$. L'hypothèse donne $c_{ij}=0$ pour tous $i,j$, soit $A=B$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{T}_n^+(\mathbb{K})$ triangulaire supérieure dont tous les coefficients diagonaux sont non nuls. Montrer que $A$ est inversible sans utiliser le déterminant, en montrant que $AX=0$ implique $X=0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $X=(x_1,\ldots,x_n)^\top$ tel que $AX=0$. La $i$-ème équation s'écrit $a_{ii}x_i+\sum_{j=i+1}^n a_{ij}x_j=0$. Par récurrence descendante de $i=n$ à $i=1$ : à chaque étape $a_{ii}x_i=0$, donc $x_i=0$ car $a_{ii}\neq 0$. Ainsi $X=0$, et $A$ est injective, donc inversible en dimension finie.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $A,B\in\mathcal{M}_n(\mathbb{R})$. Déterminer les matrices $X\in\mathcal{M}_n(\mathbb{R})$ telles que $X+\mathrm{tr}(X)\,A=B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $t=\mathrm{tr}(X)$. Alors $X=B-tA$, et en prenant la trace : $t(1+\mathrm{tr}(A))=\mathrm{tr}(B)$.
+
+      <strong>Cas 1 :</strong> si $\mathrm{tr}(A)\neq -1$, l'unique solution est $X=B-\dfrac{\mathrm{tr}(B)}{1+\mathrm{tr}(A)}\,A$.
+
+      <strong>Cas 2 :</strong> si $\mathrm{tr}(A)=-1$ et $\mathrm{tr}(B)\neq 0$, pas de solution.
+
+      <strong>Cas 3 :</strong> si $\mathrm{tr}(A)=-1$ et $\mathrm{tr}(B)=0$, les solutions sont $X=B-tA$ pour tout $t\in\mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f:\mathbb{K}_n[X]\to\mathbb{K}_n[X]$ l'endomorphisme défini par $f(P)=P+P'$. En utilisant $f$, montrer que les matrices $A,B\in\mathcal{M}_{n+1}(\mathbb{K})$ suivantes sont semblables :
+      \[
+      A=\begin{pmatrix}1&1&0&\cdots&0\\0&1&2&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&n\\0&\cdots&&0&1\end{pmatrix},\qquad
+      B=\begin{pmatrix}1&1&0&\cdots&0\\0&1&1&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&1\\0&\cdots&&0&1\end{pmatrix}.
+      \]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>Matrice de $f$ dans $\mathcal{B}=(1,X,\ldots,X^n)$.</strong> Pour $0\le k\le n$, $f(X^k)=X^k+kX^{k-1}$, donc la matrice de $f$ dans $\mathcal{B}$ est $A$.
+
+      <strong>Matrice de $f$ dans $\mathcal{B}'=\left(1,X,\frac{X^2}{2!},\ldots,\frac{X^n}{n!}\right)$.</strong> Pour $k\ge 1$, $f\!\left(\frac{X^k}{k!}\right)=\frac{X^k}{k!}+\frac{X^{k-1}}{(k-1)!}$, donc la matrice de $f$ dans $\mathcal{B}'$ est $B$.
+
+      <strong>Conclusion.</strong> $A$ et $B$ représentent le même endomorphisme dans deux bases différentes, donc elles sont semblables.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $P\in\mathcal{M}_n(\mathbb{K})$ la matrice antidiagonale dont les seuls coefficients non nuls sont des $1$ sur la diagonale allant de $(n,1)$ à $(1,n)$. Montrer que $P^2=I_n$, calculer $PAP$ pour $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$, et en déduire que toute matrice triangulaire inférieure est semblable à une matrice triangulaire supérieure.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> $P$ est obtenue par les échanges $L_i\leftrightarrow L_{n+1-i}$ sur $I_n$. Les refaire redonne $I_n$, donc $P^2=I_n$ et $P^{-1}=P$.
+
+      <strong>2.</strong> Multiplier à gauche par $P$ échange $L_i\leftrightarrow L_{n+1-i}$, à droite échange $C_j\leftrightarrow C_{n+1-j}$. Donc $(PAP)_{ij}=a_{n+1-i,\,n+1-j}$.
+
+      <strong>3.</strong> Si $A$ est triangulaire inférieure, $PAP=P^{-1}AP$ est triangulaire supérieure, donc $A$ et $PAP$ sont semblables.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> À quelle condition les matrices élémentaires $E_{ab}$ et $E_{cd}$ de $\mathcal{M}_n(\mathbb{R})$ sont-elles semblables ?</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $E_{ab}$ et $E_{cd}$ sont semblables si et seulement si ($a=b$ et $c=d$) ou ($a\neq b$ et $c\neq d$).
+
+      Si $a=b$ et $c\neq d$ (ou vice versa), $\mathrm{tr}(E_{ab})=1\neq 0=\mathrm{tr}(E_{cd})$, donc elles ne sont pas semblables.
+
+      Sinon, $E_{ab}$ représente l'endomorphisme $u$ tel que $u(e_b)=e_a$ et $u(e_j)=0$ pour $j\neq b$. En échangeant $e_a\leftrightarrow e_c$ et $e_b\leftrightarrow e_d$ dans la base, la matrice de $u$ devient $E_{cd}$. La matrice de passage $Q=P_{ac}P_{bd}$ vérifie $Q^{-1}=Q$ et $E_{cd}=QE_{ab}Q$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $E$ un espace vectoriel de dimension $3$ et $f\in\mathcal{L}(E)$ un endomorphisme non nul. Montrer que $f^2=0$ si et seulement s'il existe une base de $E$ dans laquelle la matrice de $f$ est $\begin{pmatrix}0&1&0\\0&0&0\\0&0&0\end{pmatrix}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ Un calcul direct donne $f^2=0$ et $f\neq 0$.
+
+      $(\Rightarrow)$ Supposons $f^2=0$ et $f\neq 0$. On a $\mathrm{Im}(f)\subset\ker(f)$, et le théorème du rang donne $\mathrm{rg}(f)+\dim\ker(f)=3$. Comme $f\neq 0$, $\mathrm{rg}(f)=1$ et $\dim\ker(f)=2$. Soit $e_2\in E$ tel que $e_1=f(e_2)\neq 0$. Comme $e_1\in\ker(f)$, on complète en une base $(e_1,e_3)$ de $\ker(f)$. Alors $(e_1,e_2,e_3)$ est une base de $E$ dans laquelle $f(e_1)=0$, $f(e_2)=e_1$, $f(e_3)=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <div class="fr"><p><span class="thm-label">Exercice.</span> Soit $E$ un $\mathbb{K}$-espace vectoriel de dimension $n$ et $f\in\mathcal{L}(E)$ de rang $1$.</p>
+      <ol>
+        <li>Montrer que si $\ker(f)\cap\mathrm{Im}(f)=\{0\}$, alors il existe une base de $E$ et $\lambda\in\mathbb{K}^*$ tels que la matrice de $f$ dans cette base soit $\lambda E_{11}$.</li>
+        <li>En déduire que pour tout endomorphisme de rang $1$, il existe $\alpha\in\mathbb{K}$ tel que $f^2=\alpha f$.</li>
+      </ol></div>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> $\dim\mathrm{Im}(f)=1$ et $\dim\ker(f)=n-1$. L'hypothèse et Grassmann donnent $E=\ker(f)\oplus\mathrm{Im}(f)$. Soit $e_1$ une base de $\mathrm{Im}(f)$ : comme $e_1\notin\ker(f)$, $f(e_1)=\lambda e_1$ pour $\lambda\in\mathbb{K}^*$. En complétant avec une base de $\ker(f)$, la matrice de $f$ est $\lambda E_{11}$.
+
+      <strong>2.</strong> <em>Cas 1 :</em> $\ker(f)\cap\mathrm{Im}(f)=\{0\}$. La matrice de $f$ est $\lambda E_{11}$, donc $f^2$ a pour matrice $\lambda^2 E_{11}=\lambda(\lambda E_{11})$, d'où $f^2=\lambda f$.
+
+      <em>Cas 2 :</em> $\ker(f)\cap\mathrm{Im}(f)\neq\{0\}$. Comme $\dim\mathrm{Im}(f)=1$, $\mathrm{Im}(f)\subset\ker(f)$, donc $f^2=0=0\cdot f$.
+    </details>
+
   </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'fr';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
