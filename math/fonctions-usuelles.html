@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fonctions usuelles</title>
+  <title>Standard Functions</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
@@ -21,47 +21,78 @@
   <script src="../../nav.js"></script>
 
   <main>
+    <h2 class="en">Standard Functions</h2>
     <h2 class="fr">Fonctions usuelles</h2>
 
+    <h3 class="en">Exponential</h3>
     <h3 class="fr">Exponentielle</h3>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The exponential function is the unique differentiable function $\exp : \mathbb{R} \to \mathbb{R}$ such that $\exp' = \exp$ and $\exp(0)=1$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> La fonction exponentielle est l'unique fonction $\exp : \mathbb{R} \to \mathbb{R}$ dérivable telle que $\exp' = \exp$ et $\exp(0)=1$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Fundamental property).</span> For all $x, y \in \mathbb{R}$, $\exp(x+y) = \exp(x)\exp(y)$.</p>
       <p class="fr"><span class="thm-label">Proposition (Propriété fondamentale).</span> Pour tous $x, y \in \mathbb{R}$, $\exp(x+y) = \exp(x)\exp(y)$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Fix $y \in \mathbb{R}$ and set $g(x) = \exp(x+y)\exp(-x)$. Then $g'(x) = \exp(x+y)\exp(-x) + \exp(x+y)(-\exp(-x)) = 0$. So $g$ is constant: $g(x) = g(0) = \exp(y)\exp(0) = \exp(y)$ for all $x$. In particular, $\exp(x+y)\exp(-x) = \exp(y)$, i.e. $\exp(x+y) = \exp(x)\exp(y)$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Fixons $y \in \mathbb{R}$ et posons $g(x) = \exp(x+y)\exp(-x)$. Alors $g'(x) = \exp(x+y)\exp(-x) + \exp(x+y)(-\exp(-x)) = 0$. Donc $g$ est constante : $g(x) = g(0) = \exp(y)\exp(0) = \exp(y)$ pour tout $x$. En particulier, $\exp(x+y)\exp(-x) = \exp(y)$, soit $\exp(x+y) = \exp(x)\exp(y)$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For all $x \in \mathbb{R}$, $\exp(x) &gt; 0$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour tout $x \in \mathbb{R}$, $\exp(x) &gt; 0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We have $\exp(x) = \exp(x/2 + x/2) = \exp(x/2)^2 \ge 0$. If $\exp(x_0)=0$ for some $x_0$, then for all $x$, $\exp(x)=\exp(x-x_0)\exp(x_0)=0$, contradicting $\exp(0)=1$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On a $\exp(x) = \exp(x/2 + x/2) = \exp(x/2)^2 \ge 0$. Si $\exp(x_0)=0$ pour un certain $x_0$, alors pour tout $x$, $\exp(x)=\exp(x-x_0)\exp(x_0)=0$, ce qui contredit $\exp(0)=1$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\exp$ is strictly increasing on $\mathbb{R}$, with $\lim_{x\to+\infty}\exp(x)=+\infty$ and $\lim_{x\to-\infty}\exp(x)=0$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\exp$ est strictement croissante sur $\mathbb{R}$, avec $\lim_{x\to+\infty}\exp(x)=+\infty$ et $\lim_{x\to-\infty}\exp(x)=0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Since $\exp'(x) = \exp(x) &gt; 0$ for all $x$, $\exp$ is strictly increasing. It is bounded below by $0$, so $\ell = \lim_{x\to-\infty}\exp(x)$ exists in $[0,+\infty[$. If $\ell &gt; 0$, then $\exp(x) \ge \ell &gt; 0$ for all $x$, and $\exp(x) = \exp(0) + \int_0^x \exp(t)\,dt \ge 1 + \ell x \to -\infty$ as $x\to-\infty$, a contradiction. So $\ell = 0$. Finally $\exp(x) = 1/\exp(-x) \to +\infty$ as $x \to +\infty$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Comme $\exp'(x) = \exp(x) &gt; 0$ pour tout $x$, la fonction $\exp$ est strictement croissante. Elle est minorée par $0$, donc $\ell = \lim_{x\to-\infty}\exp(x)$ existe dans $[0,+\infty[$. Si $\ell &gt; 0$, alors $\exp(x) \ge \ell &gt; 0$ pour tout $x$, et $\exp(x) = \exp(0) + \int_0^x \exp(t)\,dt \ge 1 + \ell x \to -\infty$ quand $x\to-\infty$, contradiction. Donc $\ell = 0$. Enfin $\exp(x) = 1/\exp(-x) \to +\infty$ quand $x \to +\infty$.
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Power series expansion).</span> For all $x \in \mathbb{R}$,
+      \[e^x = \sum_{k=0}^{+\infty} \frac{x^k}{k!}.\]
+      </p>
       <p class="fr"><span class="thm-label">Théorème (Développement en série de l'exponentielle).</span> Pour tout $x \in \mathbb{R}$,
       \[e^x = \sum_{k=0}^{+\infty} \frac{x^k}{k!}.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Step 1: Taylor's formula with integral remainder.</em> We show by induction on $n$ that for all $x \in \mathbb{R}$:
+      \[e^x = \sum_{k=0}^{n} \frac{x^k}{k!} + \int_0^x \frac{(x-t)^n}{n!}\,e^t\,dt.\]
+      For $n=0$: $\sum_{k=0}^0 \frac{x^k}{k!} + \int_0^x e^t\,dt = 1 + (e^x - 1) = e^x$. Assuming the formula holds at rank $n$, integrate the remainder by parts with $u'(t) = e^t$ and $v(t) = -\frac{(x-t)^{n+1}}{(n+1)!}$:
+      \[\int_0^x \frac{(x-t)^n}{n!}\,e^t\,dt = \frac{x^{n+1}}{(n+1)!} + \int_0^x \frac{(x-t)^{n+1}}{(n+1)!}\,e^t\,dt.\]
+      Substituting into the induction hypothesis gives the formula at rank $n+1$.
+      <br><br>
+      <em>Step 2: the remainder tends to $0$.</em> Denote $R_n(x) = \int_0^x \frac{(x-t)^n}{n!}\,e^t\,dt$. For $x \ge 0$: $0 \le (x-t)^n e^t \le x^n e^x$ for $t \in [0,x]$, so $|R_n(x)| \le \frac{x^{n+1}}{n!}\,e^x$. For $x &lt; 0$: setting $x = -a$ with $a &gt; 0$, $|R_n(x)| \le \frac{a^{n+1}}{n!}$. In both cases, $\frac{|x|^{n+1}}{n!} \to 0$ because from rank $n &gt; |x|$ onward, the ratio of consecutive terms equals $\frac{|x|}{n+1} &lt; 1$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       <em>Étape 1 : formule de Taylor avec reste intégral.</em> On montre par récurrence sur $n$ que pour tout $x \in \mathbb{R}$ :
@@ -74,23 +105,38 @@
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Comparison of growth rates).</span> For all $n \in \mathbb{N}$,
+      \[\lim_{x\to+\infty}\frac{e^x}{x^n}=+\infty \qquad \text{and} \qquad \lim_{x\to-\infty}|x|^n e^x = 0.\]
+      </p>
       <p class="fr"><span class="thm-label">Théorème (Croissances comparées).</span> Pour tout $n \in \mathbb{N}$,
       \[\lim_{x\to+\infty}\frac{e^x}{x^n}=+\infty \qquad \text{et} \qquad \lim_{x\to-\infty}|x|^n e^x = 0.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $x &gt; 0$, $e^x = \sum_{k=0}^{\infty} \frac{x^k}{k!} \ge \frac{x^{n+1}}{(n+1)!}$, so $\frac{e^x}{x^n} \ge \frac{x}{(n+1)!} \to +\infty$. For the second limit, set $x = -t$ with $t \to +\infty$: $|x|^n e^x = t^n e^{-t} = \frac{t^n}{e^t} \to 0$ by the first limit.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Pour $x &gt; 0$, $e^x = \sum_{k=0}^{\infty} \frac{x^k}{k!} \ge \frac{x^{n+1}}{(n+1)!}$, donc $\frac{e^x}{x^n} \ge \frac{x}{(n+1)!} \to +\infty$. Pour la seconde limite, on pose $x = -t$ avec $t \to +\infty$ : $|x|^n e^x = t^n e^{-t} = \frac{t^n}{e^t} \to 0$ d'après la première limite.
     </details>
 
+    <h3 class="en">Natural Logarithm</h3>
     <h3 class="fr">Logarithme népérien</h3>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The function $\exp : \mathbb{R} \to \mathbb{R}_+^*$ is a bijection (continuous, strictly increasing, with image $\mathbb{R}_+^*$). Its inverse bijection is the <em>natural logarithm</em> $\ln : \mathbb{R}_+^* \to \mathbb{R}$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> La fonction $\exp : \mathbb{R} \to \mathbb{R}_+^*$ est une bijection (continue, strictement croissante, d'image $\mathbb{R}_+^*$). Sa bijection réciproque est le <em>logarithme népérien</em> $\ln : \mathbb{R}_+^* \to \mathbb{R}$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For all $x, y &gt; 0$ and all $n \in \mathbb{Z}$:</p>
+      <ol class="en">
+        <li>$\ln(xy) = \ln x + \ln y$.</li>
+        <li>$\ln(x^n) = n\ln x$.</li>
+        <li>$\ln(1) = 0$ and $\ln(1/x) = -\ln x$.</li>
+      </ol>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour tous $x, y &gt; 0$ et tout $n \in \mathbb{Z}$ :</p>
       <ol class="fr">
         <li>$\ln(xy) = \ln x + \ln y$.</li>
@@ -99,38 +145,61 @@
       </ol>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) We have $\exp(\ln x + \ln y) = \exp(\ln x)\exp(\ln y) = xy = \exp(\ln(xy))$. By injectivity of $\exp$, $\ln(xy) = \ln x + \ln y$. Properties (2) and (3) follow by induction and by setting $y = 1/x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       (1) On a $\exp(\ln x + \ln y) = \exp(\ln x)\exp(\ln y) = xy = \exp(\ln(xy))$. Par injectivité de $\exp$, $\ln(xy) = \ln x + \ln y$. Les propriétés (2) et (3) s'en déduisent par récurrence et en posant $y = 1/x$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\ln$ is differentiable on $\mathbb{R}_+^*$ with $\ln'(x) = \frac{1}{x}$. It is strictly increasing, with $\lim_{x\to+\infty}\ln x = +\infty$ and $\lim_{x\to 0^+}\ln x = -\infty$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\ln$ est dérivable sur $\mathbb{R}_+^*$ avec $\ln'(x) = \frac{1}{x}$. Elle est strictement croissante, avec $\lim_{x\to+\infty}\ln x = +\infty$ et $\lim_{x\to 0^+}\ln x = -\infty$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the inverse function theorem, $\ln'(x) = \frac{1}{\exp'(\ln x)} = \frac{1}{\exp(\ln x)} = \frac{1}{x}$. Since $\ln'(x) &gt; 0$, $\ln$ is strictly increasing. For all $n$, $\ln(n) \ge \ln(2^n) = n\ln 2 \to +\infty$, so $\lim_{x\to+\infty}\ln x = +\infty$. Finally $\ln(1/x) = -\ln x$, giving $\lim_{x\to 0^+}\ln x = -\infty$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par le théorème de dérivation de la bijection réciproque, $\ln'(x) = \frac{1}{\exp'(\ln x)} = \frac{1}{\exp(\ln x)} = \frac{1}{x}$. Comme $\ln'(x) &gt; 0$, $\ln$ est strictement croissante. Pour tout $n$, $\ln(n) \ge \ln(2^n) = n\ln 2 \to +\infty$, donc $\lim_{x\to+\infty}\ln x = +\infty$. Enfin $\ln(1/x) = -\ln x$, d'où $\lim_{x\to 0^+}\ln x = -\infty$.
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Comparison of growth rates).</span> For all $n \in \mathbb{N}^*$,
+      \[\lim_{x\to+\infty}\frac{\ln x}{x^n}=0 \qquad \text{and} \qquad \lim_{x\to 0^+}x^n\ln x = 0.\]
+      </p>
       <p class="fr"><span class="thm-label">Théorème (Croissances comparées).</span> Pour tout $n \in \mathbb{N}^*$,
       \[\lim_{x\to+\infty}\frac{\ln x}{x^n}=0 \qquad \text{et} \qquad \lim_{x\to 0^+}x^n\ln x = 0.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $x = e^t$ with $t \to +\infty$: $\frac{\ln x}{x^n} = \frac{t}{e^{nt}} = \frac{1}{n}\cdot\frac{nt}{e^{nt}} \to 0$ by the exponential growth comparison. For $x \to 0^+$, set $x = 1/u$ with $u \to +\infty$: $x^n \ln x = \frac{-\ln u}{u^n} \to 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On pose $x = e^t$ avec $t \to +\infty$ : $\frac{\ln x}{x^n} = \frac{t}{e^{nt}} = \frac{1}{n}\cdot\frac{nt}{e^{nt}} \to 0$ par croissance comparée de l'exponentielle. Pour $x \to 0^+$, on pose $x = 1/u$ avec $u \to +\infty$ : $x^n \ln x = \frac{-\ln u}{u^n} \to 0$.
     </details>
 
+    <h3 class="en">Power Functions</h3>
     <h3 class="fr">Fonctions puissances</h3>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> For $\alpha \in \mathbb{R}$ and $x &gt; 0$, define $x^\alpha = e^{\alpha \ln x}$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> Pour $\alpha \in \mathbb{R}$ et $x &gt; 0$, on définit $x^\alpha = e^{\alpha \ln x}$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For $\alpha \in \mathbb{R}$ and $x &gt; 0$:</p>
+      <ol class="en">
+        <li>$(x^\alpha)' = \alpha x^{\alpha - 1}$.</li>
+        <li>$x^\alpha x^\beta = x^{\alpha+\beta}$ and $(x^\alpha)^\beta = x^{\alpha\beta}$.</li>
+      </ol>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour $\alpha \in \mathbb{R}$ et $x &gt; 0$ :</p>
       <ol class="fr">
         <li>$(x^\alpha)' = \alpha x^{\alpha - 1}$.</li>
@@ -138,6 +207,12 @@
       </ol>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) $(x^\alpha)' = (e^{\alpha\ln x})' = \frac{\alpha}{x} e^{\alpha\ln x} = \alpha x^{\alpha-1}$.
+      <br><br>
+      (2) $x^\alpha x^\beta = e^{\alpha\ln x}e^{\beta\ln x} = e^{(\alpha+\beta)\ln x} = x^{\alpha+\beta}$. Similarly, $(x^\alpha)^\beta = e^{\beta\ln(x^\alpha)} = e^{\beta\alpha\ln x} = x^{\alpha\beta}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       (1) $(x^\alpha)' = (e^{\alpha\ln x})' = \frac{\alpha}{x} e^{\alpha\ln x} = \alpha x^{\alpha-1}$.
@@ -146,156 +221,247 @@
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Generalized growth comparison).</span> For all $\alpha &gt; 0$ and $\beta &gt; 0$:
+      \[\lim_{x\to+\infty}\frac{(\ln x)^\beta}{x^\alpha}=0 \qquad \text{and} \qquad \lim_{x\to 0^+}|x|^\alpha |\ln x|^\beta = 0.\]
+      </p>
       <p class="fr"><span class="thm-label">Théorème (Croissances comparées généralisées).</span> Pour tous $\alpha &gt; 0$ et $\beta &gt; 0$ :
       \[\lim_{x\to+\infty}\frac{(\ln x)^\beta}{x^\alpha}=0 \qquad \text{et} \qquad \lim_{x\to 0^+}|x|^\alpha |\ln x|^\beta = 0.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Setting $x = e^t$: $\frac{(\ln x)^\beta}{x^\alpha} = \frac{t^\beta}{e^{\alpha t}}$. For any $n &gt; \beta$, $e^{\alpha t} \ge \frac{(\alpha t)^{n}}{n!}$, so $\frac{t^\beta}{e^{\alpha t}} \le \frac{n!}{\alpha^n} \cdot \frac{1}{t^{n-\beta}} \to 0$. The second limit follows by setting $x = 1/u$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       En posant $x = e^t$ : $\frac{(\ln x)^\beta}{x^\alpha} = \frac{t^\beta}{e^{\alpha t}}$. Or $e^{\alpha t} \ge \frac{(\alpha t)^{n}}{n!}$ pour tout $n &gt; \beta$, donc $\frac{t^\beta}{e^{\alpha t}} \le \frac{n!}{\alpha^n} \cdot \frac{1}{t^{n-\beta}} \to 0$. La seconde limite s'obtient en posant $x = 1/u$.
     </details>
 
+    <h3 class="en">Trigonometric Functions</h3>
     <h3 class="fr">Fonctions trigonométriques</h3>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Derivatives).</span> The functions $\sin$ and $\cos$ are differentiable on $\mathbb{R}$ with $\sin' = \cos$ and $\cos' = -\sin$. The function $\tan$ is differentiable on $\mathbb{R}\setminus\{\frac{\pi}{2}+k\pi,\ k\in\mathbb{Z}\}$ with $\tan' = 1 + \tan^2 = \frac{1}{\cos^2}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Dérivées).</span> Les fonctions $\sin$ et $\cos$ sont dérivables sur $\mathbb{R}$ avec $\sin' = \cos$ et $\cos' = -\sin$. La fonction $\tan$ est dérivable sur $\mathbb{R}\setminus\{\frac{\pi}{2}+k\pi,\ k\in\mathbb{Z}\}$ avec $\tan' = 1 + \tan^2 = \frac{1}{\cos^2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $\tan$: $\tan'(x) = \left(\frac{\sin x}{\cos x}\right)' = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x} = 1 + \tan^2 x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Pour $\tan$ : $\tan'(x) = \left(\frac{\sin x}{\cos x}\right)' = \frac{\cos^2 x + \sin^2 x}{\cos^2 x} = \frac{1}{\cos^2 x} = 1 + \tan^2 x$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Addition formulas).</span> For all $a, b \in \mathbb{R}$:
+      \[\begin{aligned}\cos(a+b) &= \cos a\cos b - \sin a\sin b, \\ \sin(a+b) &= \sin a\cos b + \cos a\sin b, \\ \tan(a+b) &= \frac{\tan a + \tan b}{1 - \tan a\tan b} \quad\text{(if defined).}\end{aligned}\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition (Formules d'addition).</span> Pour tous $a, b \in \mathbb{R}$ :
       \[\begin{aligned}\cos(a+b) &= \cos a\cos b - \sin a\sin b, \\ \sin(a+b) &= \sin a\cos b + \cos a\sin b, \\ \tan(a+b) &= \frac{\tan a + \tan b}{1 - \tan a\tan b} \quad\text{(si défini).}\end{aligned}\]
       </p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Product-to-sum formulas).</span>
+      \[\cos a\cos b = \frac{1}{2}[\cos(a-b)+\cos(a+b)], \qquad \sin a\sin b = \frac{1}{2}[\cos(a-b)-\cos(a+b)],\]
+      \[\sin a\cos b = \frac{1}{2}[\sin(a+b)+\sin(a-b)].\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition (Formules de linéarisation).</span>
       \[\cos a\cos b = \frac{1}{2}[\cos(a-b)+\cos(a+b)], \qquad \sin a\sin b = \frac{1}{2}[\cos(a-b)-\cos(a+b)],\]
       \[\sin a\cos b = \frac{1}{2}[\sin(a+b)+\sin(a-b)].\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Expand $\cos(a+b)+\cos(a-b) = 2\cos a\cos b$ using the addition formulas. Similarly for the others.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On développe $\cos(a+b)+\cos(a-b) = 2\cos a\cos b$ en utilisant les formules d'addition. De même pour les autres.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Sum-to-product formulas).</span> Setting $p = a+b$ and $q = a-b$ (i.e. $a = \frac{p+q}{2}$, $b = \frac{p-q}{2}$):
+      \[\cos p + \cos q = 2\cos\frac{p+q}{2}\cos\frac{p-q}{2}, \qquad \cos p - \cos q = -2\sin\frac{p+q}{2}\sin\frac{p-q}{2},\]
+      \[\sin p + \sin q = 2\sin\frac{p+q}{2}\cos\frac{p-q}{2}.\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition (Formules de factorisation).</span> En posant $p = a+b$ et $q = a-b$ (i.e. $a = \frac{p+q}{2}$, $b = \frac{p-q}{2}$) :
       \[\cos p + \cos q = 2\cos\frac{p+q}{2}\cos\frac{p-q}{2}, \qquad \cos p - \cos q = -2\sin\frac{p+q}{2}\sin\frac{p-q}{2},\]
       \[\sin p + \sin q = 2\sin\frac{p+q}{2}\cos\frac{p-q}{2}.\]
       </p>
     </div>
 
+    <h3 class="en">Inverse Trigonometric Functions</h3>
     <h3 class="fr">Fonctions trigonométriques réciproques</h3>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The function $\sin : [-\pi/2, \pi/2] \to [-1,1]$ is a strictly increasing bijection. Its inverse is $\arcsin : [-1,1] \to [-\pi/2, \pi/2]$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> La fonction $\sin : [-\pi/2, \pi/2] \to [-1,1]$ est une bijection strictement croissante. Sa bijection réciproque est $\arcsin : [-1,1] \to [-\pi/2, \pi/2]$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\arcsin$ is differentiable on $]-1,1[$ with
+      \[\arcsin'(x) = \frac{1}{\sqrt{1-x^2}}.\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\arcsin$ est dérivable sur $]-1,1[$ avec
       \[\arcsin'(x) = \frac{1}{\sqrt{1-x^2}}.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the inverse function theorem, $\arcsin'(x) = \frac{1}{\cos(\arcsin(x))}$. For $\theta = \arcsin(x) \in \,]-\pi/2,\pi/2[$, we have $\cos\theta &gt; 0$, so $\cos\theta = \sqrt{1-\sin^2\theta} = \sqrt{1-x^2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par dérivation de la bijection réciproque, $\arcsin'(x) = \frac{1}{\cos(\arcsin(x))}$. Pour $\theta = \arcsin(x) \in \,]-\pi/2,\pi/2[$, on a $\cos\theta &gt; 0$, donc $\cos\theta = \sqrt{1-\sin^2\theta} = \sqrt{1-x^2}$.
     </details>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The function $\cos : [0, \pi] \to [-1,1]$ is a strictly decreasing bijection. Its inverse is $\arccos : [-1,1] \to [0, \pi]$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> La fonction $\cos : [0, \pi] \to [-1,1]$ est une bijection strictement décroissante. Sa bijection réciproque est $\arccos : [-1,1] \to [0, \pi]$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\arccos$ is differentiable on $]-1,1[$ with
+      \[\arccos'(x) = \frac{-1}{\sqrt{1-x^2}}.\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\arccos$ est dérivable sur $]-1,1[$ avec
       \[\arccos'(x) = \frac{-1}{\sqrt{1-x^2}}.\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\arccos'(x) = \frac{1}{-\sin(\arccos(x))}$. For $\theta = \arccos(x) \in \,]0,\pi[$, we have $\sin\theta &gt; 0$, so $\sin\theta = \sqrt{1-\cos^2\theta} = \sqrt{1-x^2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\arccos'(x) = \frac{1}{-\sin(\arccos(x))}$. Pour $\theta = \arccos(x) \in \,]0,\pi[$, on a $\sin\theta &gt; 0$, donc $\sin\theta = \sqrt{1-\cos^2\theta} = \sqrt{1-x^2}$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> For all $x \in [-1,1]$, $\arccos x + \arcsin x = \frac{\pi}{2}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour tout $x \in [-1,1]$, $\arccos x + \arcsin x = \frac{\pi}{2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $f(x) = \arccos x + \arcsin x$. For $x \in \,]-1,1[$, $f'(x) = \frac{-1}{\sqrt{1-x^2}} + \frac{1}{\sqrt{1-x^2}} = 0$, so $f$ is constant on $]-1,1[$. By continuity on $[-1,1]$, $f$ is constant on $[-1,1]$. We have $f(0) = \arccos 0 + \arcsin 0 = \frac{\pi}{2} + 0 = \frac{\pi}{2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Posons $f(x) = \arccos x + \arcsin x$. Pour $x \in \,]-1,1[$, $f'(x) = \frac{-1}{\sqrt{1-x^2}} + \frac{1}{\sqrt{1-x^2}} = 0$, donc $f$ est constante sur $]-1,1[$. Par continuité sur $[-1,1]$, $f$ est constante sur $[-1,1]$. Or $f(0) = \arccos 0 + \arcsin 0 = \frac{\pi}{2} + 0 = \frac{\pi}{2}$.
     </details>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The function $\tan : \,]-\pi/2, \pi/2[\, \to \mathbb{R}$ is a strictly increasing bijection. Its inverse is $\arctan : \mathbb{R} \to \,]-\pi/2, \pi/2[$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> La fonction $\tan : \,]-\pi/2, \pi/2[\, \to \mathbb{R}$ est une bijection strictement croissante. Sa bijection réciproque est $\arctan : \mathbb{R} \to \,]-\pi/2, \pi/2[$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\arctan$ is differentiable on $\mathbb{R}$ with
+      \[\arctan'(x) = \frac{1}{1+x^2}.\]
+      We have $\lim_{x\to+\infty}\arctan(x) = \frac{\pi}{2}$ and $\lim_{x\to-\infty}\arctan(x) = -\frac{\pi}{2}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\arctan$ est dérivable sur $\mathbb{R}$ avec
       \[\arctan'(x) = \frac{1}{1+x^2}.\]
       On a $\lim_{x\to+\infty}\arctan(x) = \frac{\pi}{2}$ et $\lim_{x\to-\infty}\arctan(x) = -\frac{\pi}{2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\arctan'(x) = \frac{1}{\tan'(\arctan x)} = \frac{1}{1+\tan^2(\arctan x)} = \frac{1}{1+x^2}$.
+      The limits follow from the fact that $\arctan$ is the inverse of $\tan : \,]-\pi/2,\pi/2[\, \to \mathbb{R}$, and $\tan(\theta) \to +\infty$ as $\theta \to \pi/2^-$ and $\tan(\theta) \to -\infty$ as $\theta \to -\pi/2^+$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\arctan'(x) = \frac{1}{\tan'(\arctan x)} = \frac{1}{1+\tan^2(\arctan x)} = \frac{1}{1+x^2}$.
       Les limites découlent du fait que $\arctan$ est la bijection réciproque de $\tan : \,]-\pi/2,\pi/2[\, \to \mathbb{R}$, et que $\tan(\theta) \to +\infty$ quand $\theta \to \pi/2^-$ et $\tan(\theta) \to -\infty$ quand $\theta \to -\pi/2^+$.
     </details>
 
+    <h3 class="en">Hyperbolic Functions</h3>
     <h3 class="fr">Fonctions hyperboliques</h3>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> The <em>hyperbolic cosine</em>, <em>hyperbolic sine</em> and <em>hyperbolic tangent</em> are defined by:
+      \[\cosh x = \frac{e^x + e^{-x}}{2}, \qquad \sinh x = \frac{e^x - e^{-x}}{2}, \qquad \tanh x = \frac{\sinh x}{\cosh x}.\]
+      </p>
       <p class="fr"><span class="thm-label">Définition.</span> On définit le <em>cosinus hyperbolique</em>, le <em>sinus hyperbolique</em> et la <em>tangente hyperbolique</em> par :
       \[\cosh x = \frac{e^x + e^{-x}}{2}, \qquad \sinh x = \frac{e^x - e^{-x}}{2}, \qquad \tanh x = \frac{\sinh x}{\cosh x}.\]
       </p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Parity).</span> $\cosh$ is even, $\sinh$ and $\tanh$ are odd.</p>
       <p class="fr"><span class="thm-label">Proposition (Parité).</span> $\cosh$ est paire, $\sinh$ et $\tanh$ sont impaires.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\cosh(-x) = \frac{e^{-x}+e^x}{2} = \cosh x$ and $\sinh(-x) = \frac{e^{-x}-e^x}{2} = -\sinh x$, so $\tanh(-x) = -\tanh x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\cosh(-x) = \frac{e^{-x}+e^x}{2} = \cosh x$ et $\sinh(-x) = \frac{e^{-x}-e^x}{2} = -\sinh x$, d'où $\tanh(-x) = -\tanh x$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Derivatives).</span> $\cosh' = \sinh$, $\sinh' = \cosh$, $\tanh' = 1 - \tanh^2 = \frac{1}{\cosh^2}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Dérivées).</span> $\cosh' = \sinh$, $\sinh' = \cosh$, $\tanh' = 1 - \tanh^2 = \frac{1}{\cosh^2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\cosh'(x) = \frac{e^x - e^{-x}}{2} = \sinh x$ and $\sinh'(x) = \frac{e^x + e^{-x}}{2} = \cosh x$. For $\tanh$: $\tanh'(x) = \frac{\cosh^2 x - \sinh^2 x}{\cosh^2 x} = \frac{1}{\cosh^2 x} = 1 - \tanh^2 x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\cosh'(x) = \frac{e^x - e^{-x}}{2} = \sinh x$ et $\sinh'(x) = \frac{e^x + e^{-x}}{2} = \cosh x$. Pour $\tanh$ : $\tanh'(x) = \frac{\cosh^2 x - \sinh^2 x}{\cosh^2 x} = \frac{1}{\cosh^2 x} = 1 - \tanh^2 x$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Fundamental identity).</span> For all $x \in \mathbb{R}$, $\cosh^2 x - \sinh^2 x = 1$.</p>
       <p class="fr"><span class="thm-label">Proposition (Identité fondamentale).</span> Pour tout $x \in \mathbb{R}$, $\cosh^2 x - \sinh^2 x = 1$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\cosh^2 x - \sinh^2 x = \frac{(e^x+e^{-x})^2 - (e^x-e^{-x})^2}{4} = \frac{4e^x e^{-x}}{4} = 1$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\cosh^2 x - \sinh^2 x = \frac{(e^x+e^{-x})^2 - (e^x-e^{-x})^2}{4} = \frac{4e^x e^{-x}}{4} = 1$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Addition formulas).</span> For all $a, b \in \mathbb{R}$:
+      \[\begin{aligned}\cosh(a+b) &= \cosh a\cosh b + \sinh a\sinh b, \\ \sinh(a+b) &= \sinh a\cosh b + \cosh a\sinh b.\end{aligned}\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition (Formules d'addition).</span> Pour tous $a, b \in \mathbb{R}$ :
       \[\begin{aligned}\cosh(a+b) &= \cosh a\cosh b + \sinh a\sinh b, \\ \sinh(a+b) &= \sinh a\cosh b + \cosh a\sinh b.\end{aligned}\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\cosh a\cosh b + \sinh a\sinh b = \frac{(e^a+e^{-a})(e^b+e^{-b})+(e^a-e^{-a})(e^b-e^{-b})}{4} = \frac{2e^{a+b}+2e^{-(a+b)}}{4} = \cosh(a+b)$. Similarly for $\sinh(a+b)$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\cosh a\cosh b + \sinh a\sinh b = \frac{(e^a+e^{-a})(e^b+e^{-b})+(e^a-e^{-a})(e^b-e^{-b})}{4} = \frac{2e^{a+b}+2e^{-(a+b)}}{4} = \cosh(a+b)$. De même pour $\sinh(a+b)$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Monotonicity).</span></p>
+      <ol class="en">
+        <li>$\cosh$ is strictly decreasing on $\mathbb{R}_-$ and strictly increasing on $\mathbb{R}_+$, with $\cosh x \ge 1$.</li>
+        <li>$\sinh$ is strictly increasing on $\mathbb{R}$, a bijection from $\mathbb{R}$ to $\mathbb{R}$.</li>
+        <li>$\tanh$ is strictly increasing on $\mathbb{R}$, a bijection from $\mathbb{R}$ to $]-1,1[$.</li>
+      </ol>
       <p class="fr"><span class="thm-label">Proposition (Variations).</span></p>
       <ol class="fr">
         <li>$\cosh$ est strictement décroissante sur $\mathbb{R}_-$ et strictement croissante sur $\mathbb{R}_+$, avec $\cosh x \ge 1$.</li>
@@ -304,6 +470,14 @@
       </ol>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      (1) $\cosh'(x) = \sinh(x)$, which is negative for $x &lt; 0$ and positive for $x &gt; 0$. Also $\cosh(0) = 1$ and $\cosh^2 x = 1 + \sinh^2 x \ge 1$.
+      <br><br>
+      (2) $\sinh'(x) = \cosh(x) \ge 1 &gt; 0$, so $\sinh$ is strictly increasing. We have $\sinh(x) \to +\infty$ as $x \to +\infty$ and $\sinh(x) \to -\infty$ as $x \to -\infty$, so $\sinh$ is a bijection from $\mathbb{R}$ to $\mathbb{R}$.
+      <br><br>
+      (3) $\tanh'(x) = 1/\cosh^2(x) &gt; 0$, so $\tanh$ is strictly increasing. We have $\tanh(x) = \frac{1-e^{-2x}}{1+e^{-2x}} \to 1$ as $x \to +\infty$ and $\tanh(x) \to -1$ as $x \to -\infty$, so $\tanh(\mathbb{R}) = \,]-1,1[$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       (1) $\cosh'(x) = \sinh(x)$, qui est négatif pour $x &lt; 0$ et positif pour $x &gt; 0$. De plus $\cosh(0) = 1$ et $\cosh^2 x = 1 + \sinh^2 x \ge 1$.
@@ -313,47 +487,80 @@
       (3) $\tanh'(x) = 1/\cosh^2(x) &gt; 0$, donc $\tanh$ est strictement croissante. On a $\tanh(x) = \frac{1-e^{-2x}}{1+e^{-2x}} \to 1$ quand $x \to +\infty$ et $\tanh(x) \to -1$ quand $x \to -\infty$, donc $\tanh(\mathbb{R}) = \,]-1,1[$.
     </details>
 
+    <h3 class="en">Inverse Hyperbolic Functions</h3>
     <h3 class="fr">Fonctions hyperboliques réciproques</h3>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\sinh : \mathbb{R} \to \mathbb{R}$ is a bijection and its inverse is
+      \[\operatorname{argsh}(x) = \ln(x + \sqrt{x^2+1}).\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\sinh : \mathbb{R} \to \mathbb{R}$ est une bijection et sa réciproque est
       \[\operatorname{argsh}(x) = \ln(x + \sqrt{x^2+1}).\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We seek $y$ such that $\sinh y = x$, i.e. $\frac{e^y - e^{-y}}{2} = x$. Setting $t = e^y &gt; 0$: $t - 1/t = 2x$, i.e. $t^2 - 2xt - 1 = 0$, giving $t = x + \sqrt{x^2+1}$ (the only positive root since $x - \sqrt{x^2+1} &lt; 0$). So $y = \ln(x + \sqrt{x^2+1})$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On cherche $y$ tel que $\sinh y = x$, soit $\frac{e^y - e^{-y}}{2} = x$. En posant $t = e^y &gt; 0$ : $t - 1/t = 2x$, soit $t^2 - 2xt - 1 = 0$, d'où $t = x + \sqrt{x^2+1}$ (seule racine positive car $x - \sqrt{x^2+1} &lt; 0$). Ainsi $y = \ln(x + \sqrt{x^2+1})$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\cosh : [0,+\infty[ \to [1,+\infty[$ is a bijection and its inverse is
+      \[\operatorname{argch}(x) = \ln(x + \sqrt{x^2-1}) \qquad (x \ge 1).\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\cosh : [0,+\infty[ \to [1,+\infty[$ est une bijection et sa réciproque est
       \[\operatorname{argch}(x) = \ln(x + \sqrt{x^2-1}) \qquad (x \ge 1).\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We seek $y \ge 0$ such that $\cosh y = x$, i.e. $\frac{e^y + e^{-y}}{2} = x$. Setting $t = e^y \ge 1$: $t^2 - 2xt + 1 = 0$, giving $t = x + \sqrt{x^2-1}$ (we discard $x - \sqrt{x^2-1} = \frac{1}{x+\sqrt{x^2-1}} &lt; 1$ for $x &gt; 1$). So $y = \ln(x+\sqrt{x^2-1})$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On cherche $y \ge 0$ tel que $\cosh y = x$, soit $\frac{e^y + e^{-y}}{2} = x$. En posant $t = e^y \ge 1$ : $t^2 - 2xt + 1 = 0$, d'où $t = x + \sqrt{x^2-1}$ (on écarte $x - \sqrt{x^2-1} = \frac{1}{x+\sqrt{x^2-1}} &lt; 1$ pour $x &gt; 1$). Ainsi $y = \ln(x+\sqrt{x^2-1})$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The function $\tanh : \mathbb{R} \to \,]-1,1[$ is a bijection and its inverse is
+      \[\operatorname{argth}(x) = \frac{1}{2}\ln\frac{1+x}{1-x} \qquad (|x| &lt; 1).\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition.</span> La fonction $\tanh : \mathbb{R} \to \,]-1,1[$ est une bijection et sa réciproque est
       \[\operatorname{argth}(x) = \frac{1}{2}\ln\frac{1+x}{1-x} \qquad (|x| &lt; 1).\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We seek $y$ such that $\tanh y = x$, i.e. $\frac{e^y - e^{-y}}{e^y + e^{-y}} = x$. Multiplying by $e^y$: $\frac{e^{2y}-1}{e^{2y}+1} = x$, giving $e^{2y}(1-x) = 1+x$, so $e^{2y} = \frac{1+x}{1-x}$ and $y = \frac{1}{2}\ln\frac{1+x}{1-x}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On cherche $y$ tel que $\tanh y = x$, soit $\frac{e^y - e^{-y}}{e^y + e^{-y}} = x$. En multipliant par $e^y$ : $\frac{e^{2y}-1}{e^{2y}+1} = x$, d'où $e^{2y}(1-x) = 1+x$, soit $e^{2y} = \frac{1+x}{1-x}$ et $y = \frac{1}{2}\ln\frac{1+x}{1-x}$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Derivatives of inverse hyperbolic functions).</span>
+      \[\operatorname{argsh}'(x) = \frac{1}{\sqrt{x^2+1}}, \qquad \operatorname{argch}'(x) = \frac{1}{\sqrt{x^2-1}}\ (x &gt; 1), \qquad \operatorname{argth}'(x) = \frac{1}{1-x^2}\ (|x|&lt;1).\]
+      </p>
       <p class="fr"><span class="thm-label">Proposition (Dérivées des réciproques hyperboliques).</span>
       \[\operatorname{argsh}'(x) = \frac{1}{\sqrt{x^2+1}}, \qquad \operatorname{argch}'(x) = \frac{1}{\sqrt{x^2-1}}\ (x &gt; 1), \qquad \operatorname{argth}'(x) = \frac{1}{1-x^2}\ (|x|&lt;1).\]
       </p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\operatorname{argsh}'(x) = \frac{1}{\cosh(\operatorname{argsh}(x))} = \frac{1}{\sqrt{1+\sinh^2(\operatorname{argsh}(x))}} = \frac{1}{\sqrt{1+x^2}}$.
+      <br><br>
+      $\operatorname{argch}'(x) = \frac{1}{\sinh(\operatorname{argch}(x))}$. For $x &gt; 1$, $\operatorname{argch}(x) &gt; 0$ so $\sinh(\operatorname{argch}(x)) &gt; 0$ and $\sinh(\operatorname{argch}(x)) = \sqrt{\cosh^2(\operatorname{argch}(x))-1} = \sqrt{x^2-1}$.
+      <br><br>
+      $\operatorname{argth}'(x) = \frac{1}{\tanh'(\operatorname{argth}(x))} = \frac{1}{1-\tanh^2(\operatorname{argth}(x))} = \frac{1}{1-x^2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $\operatorname{argsh}'(x) = \frac{1}{\cosh(\operatorname{argsh}(x))} = \frac{1}{\sqrt{1+\sinh^2(\operatorname{argsh}(x))}} = \frac{1}{\sqrt{1+x^2}}$.
@@ -363,39 +570,62 @@
       $\operatorname{argth}'(x) = \frac{1}{\tanh'(\operatorname{argth}(x))} = \frac{1}{1-\tanh^2(\operatorname{argth}(x))} = \frac{1}{1-x^2}$.
     </details>
 
+    <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 1.</span> Show that for all $x &gt; 0$, $\ln(1+x) \le x$.</p>
       <p class="fr"><span class="thm-label">Exercice 1.</span> Montrer que pour tout $x &gt; 0$, $\ln(1+x) \le x$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $f(x) = x - \ln(1+x)$. We have $f(0) = 0$ and $f'(x) = 1 - \frac{1}{1+x} = \frac{x}{1+x} \ge 0$ for $x \ge 0$. So $f$ is increasing on $[0,+\infty[$, giving $f(x) \ge f(0) = 0$ for all $x \ge 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Posons $f(x) = x - \ln(1+x)$. On a $f(0) = 0$ et $f'(x) = 1 - \frac{1}{1+x} = \frac{x}{1+x} \ge 0$ pour $x \ge 0$. Donc $f$ est croissante sur $[0,+\infty[$, d'où $f(x) \ge f(0) = 0$ pour tout $x \ge 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 2.</span> Show that for all $x \in \mathbb{R}$, $e^x \ge 1 + x$.</p>
       <p class="fr"><span class="thm-label">Exercice 2.</span> Montrer que pour tout $x \in \mathbb{R}$, $e^x \ge 1 + x$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $f(x) = e^x - 1 - x$. We have $f'(x) = e^x - 1$, which vanishes at $0$. For $x &lt; 0$, $f'(x) &lt; 0$ and for $x &gt; 0$, $f'(x) &gt; 0$, so $f$ attains its minimum at $0$: $f(x) \ge f(0) = 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Posons $f(x) = e^x - 1 - x$. On a $f'(x) = e^x - 1$, qui s'annule en $0$. Pour $x &lt; 0$, $f'(x) &lt; 0$ et pour $x &gt; 0$, $f'(x) &gt; 0$, donc $f$ atteint son minimum en $0$ : $f(x) \ge f(0) = 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 3.</span> Show that $\arctan x + \arctan(1/x) = \frac{\pi}{2}$ for all $x &gt; 0$.</p>
       <p class="fr"><span class="thm-label">Exercice 3.</span> Montrer que $\arctan x + \arctan(1/x) = \frac{\pi}{2}$ pour tout $x &gt; 0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $f(x) = \arctan x + \arctan(1/x)$ for $x &gt; 0$. Then $f'(x) = \frac{1}{1+x^2} + \frac{-1/x^2}{1+1/x^2} = \frac{1}{1+x^2} - \frac{1}{x^2+1} = 0$. So $f$ is constant and $f(1) = \frac{\pi}{4} + \frac{\pi}{4} = \frac{\pi}{2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Posons $f(x) = \arctan x + \arctan(1/x)$ pour $x &gt; 0$. Alors $f'(x) = \frac{1}{1+x^2} + \frac{-1/x^2}{1+1/x^2} = \frac{1}{1+x^2} - \frac{1}{x^2+1} = 0$. Donc $f$ est constante et $f(1) = \frac{\pi}{4} + \frac{\pi}{4} = \frac{\pi}{2}$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 4.</span> Simplify $\cos(\arcsin x)$ and $\sin(\arctan x)$ for $x$ in the domain of definition.</p>
       <p class="fr"><span class="thm-label">Exercice 4.</span> Simplifier $\cos(\arcsin x)$ et $\sin(\arctan x)$ pour $x$ dans le domaine de définition.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For $x \in [-1,1]$, set $\theta = \arcsin x \in [-\pi/2, \pi/2]$. Then $\cos\theta \ge 0$ and $\cos\theta = \sqrt{1-\sin^2\theta} = \sqrt{1-x^2}$, so $\cos(\arcsin x) = \sqrt{1-x^2}$.
+      <br><br>
+      For $x \in \mathbb{R}$, set $\theta = \arctan x \in \,]-\pi/2,\pi/2[$. We have $\cos\theta &gt; 0$ and $1 + \tan^2\theta = 1/\cos^2\theta$, so $\cos\theta = 1/\sqrt{1+x^2}$. Thus $\sin\theta = \tan\theta\cos\theta = \frac{x}{\sqrt{1+x^2}}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Pour $x \in [-1,1]$, posons $\theta = \arcsin x \in [-\pi/2, \pi/2]$. Alors $\cos\theta \ge 0$ et $\cos\theta = \sqrt{1-\sin^2\theta} = \sqrt{1-x^2}$, donc $\cos(\arcsin x) = \sqrt{1-x^2}$.
@@ -404,41 +634,77 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 5.</span> Solve the equation $\cosh x = 2\sinh x + 3$.</p>
       <p class="fr"><span class="thm-label">Exercice 5.</span> Résoudre l'équation $\cosh x = 2\sinh x + 3$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Substituting: $\frac{e^x+e^{-x}}{2} = 2\cdot\frac{e^x-e^{-x}}{2} + 3$, i.e. $e^x + e^{-x} = 2e^x - 2e^{-x} + 6$, giving $3e^{-x} - e^x = 6$. Setting $t = e^x &gt; 0$: $3/t - t = 6$, i.e. $t^2 + 6t - 3 = 0$, giving $t = -3 + 2\sqrt{3}$ (the only positive root). So $x = \ln(-3 + 2\sqrt{3})$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       En remplaçant : $\frac{e^x+e^{-x}}{2} = 2\cdot\frac{e^x-e^{-x}}{2} + 3$, soit $e^x + e^{-x} = 2e^x - 2e^{-x} + 6$, d'où $3e^{-x} - e^x = 6$. En posant $t = e^x &gt; 0$ : $3/t - t = 6$, soit $t^2 + 6t - 3 = 0$, d'où $t = -3 + 2\sqrt{3}$ (seule racine positive). Donc $x = \ln(-3 + 2\sqrt{3})$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 6.</span> Show that for all $n \in \mathbb{N}^*$, $\sum_{k=1}^{n}\frac{1}{k} \ge \ln(n+1)$.</p>
       <p class="fr"><span class="thm-label">Exercice 6.</span> Montrer que pour tout $n \in \mathbb{N}^*$, $\sum_{k=1}^{n}\frac{1}{k} \ge \ln(n+1)$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For all $k \ge 1$, the function $t \mapsto 1/t$ is decreasing, so for $t \in [k,k+1]$, $\frac{1}{t} \le \frac{1}{k}$. Integrating: $\int_k^{k+1}\frac{1}{t}\,dt \le \frac{1}{k}$. Summing from $k=1$ to $n$: $\int_1^{n+1}\frac{1}{t}\,dt \le \sum_{k=1}^n\frac{1}{k}$, i.e. $\ln(n+1) \le \sum_{k=1}^n\frac{1}{k}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Pour tout $k \ge 1$, la fonction $t \mapsto 1/t$ est décroissante, donc pour $t \in [k,k+1]$, $\frac{1}{t} \le \frac{1}{k}$. En intégrant : $\int_k^{k+1}\frac{1}{t}\,dt \le \frac{1}{k}$. En sommant de $k=1$ à $n$ : $\int_1^{n+1}\frac{1}{t}\,dt \le \sum_{k=1}^n\frac{1}{k}$, soit $\ln(n+1) \le \sum_{k=1}^n\frac{1}{k}$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 7.</span> Show that $\lim_{x\to 0}\frac{\sin x}{x} = 1$ and deduce that $\lim_{x\to 0}\frac{\tan x}{x} = 1$.</p>
       <p class="fr"><span class="thm-label">Exercice 7.</span> Montrer que $\lim_{x\to 0}\frac{\sin x}{x} = 1$ et en déduire que $\lim_{x\to 0}\frac{\tan x}{x} = 1$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The limit $\lim_{x\to 0}\frac{\sin x}{x} = 1$ is the derivative of $\sin$ at $0$: $\frac{\sin(0+x)-\sin 0}{x} \to \sin'(0) = \cos 0 = 1$. Then $\frac{\tan x}{x} = \frac{\sin x}{x}\cdot\frac{1}{\cos x} \to 1 \cdot 1 = 1$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       La limite $\lim_{x\to 0}\frac{\sin x}{x} = 1$ est le taux d'accroissement de $\sin$ en $0$ : $\frac{\sin(0+x)-\sin 0}{x} \to \sin'(0) = \cos 0 = 1$. Ensuite, $\frac{\tan x}{x} = \frac{\sin x}{x}\cdot\frac{1}{\cos x} \to 1 \cdot 1 = 1$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 8.</span> Show that $\operatorname{argsh}(x) = \operatorname{argth}\!\left(\frac{x}{\sqrt{1+x^2}}\right)$ for all $x\in\mathbb{R}$.</p>
       <p class="fr"><span class="thm-label">Exercice 8.</span> Montrer que $\operatorname{argsh}(x) = \operatorname{argth}\!\left(\frac{x}{\sqrt{1+x^2}}\right)$ pour tout $x\in\mathbb{R}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $y = \operatorname{argsh}(x)$, so $\sinh y = x$. We have $\tanh y = \frac{\sinh y}{\cosh y} = \frac{x}{\sqrt{1+\sinh^2 y}} = \frac{x}{\sqrt{1+x^2}}$. So $y = \operatorname{argth}\!\left(\frac{x}{\sqrt{1+x^2}}\right)$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Posons $y = \operatorname{argsh}(x)$, donc $\sinh y = x$. On a $\tanh y = \frac{\sinh y}{\cosh y} = \frac{x}{\sqrt{1+\sinh^2 y}} = \frac{x}{\sqrt{1+x^2}}$. Donc $y = \operatorname{argth}\!\left(\frac{x}{\sqrt{1+x^2}}\right)$.
     </details>
 
   </main>
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
