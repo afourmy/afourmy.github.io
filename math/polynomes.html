@@ -1,17 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Polynomials</title>
+  <title>Polynômes</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
-      ]
+      ],
+      macros: {
+        '\\K': '\\mathbb{K}',
+        '\\R': '\\mathbb{R}',
+        '\\C': '\\mathbb{C}',
+        '\\N': '\\mathbb{N}',
+        '\\Z': '\\mathbb{Z}',
+        '\\Q': '\\mathbb{Q}'
+      }
     });"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   <link rel="stylesheet" href="../../style.css">
@@ -20,8 +29,632 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
-    <h2 class="fr">Cours</h2>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <h3 class="fr">Pourquoi des polynômes formels ?</h3>
+    <p class="fr">
+      Un polynôme $P = X^2 - 3X + 2$ n'est pas la fonction $x \mapsto x^2 - 3x + 2$ : c'est un objet algébrique (la suite de ses coefficients) qu'on peut évaluer en un scalaire, mais aussi en une matrice ($P(A) = A^2 - 3A + 2I$), en un endomorphisme, ou en un autre polynôme. Pour que ces substitutions aient un sens, il faut distinguer le polynôme $P$ de la fonction polynomiale $\widetilde{P} : x \mapsto P(x)$.
+    </p>
+
+    <h3 class="fr">$\K[X]$ ressemble à $\Z$</h3>
+    <p class="fr">
+      L'anneau des polynômes $\K[X]$ se comporte comme l'anneau des entiers $\Z$ : on y dispose d'une <em>division euclidienne</em> (diviser $A$ par $B$ avec un reste de degré strictement inférieur à celui de $B$), ce qui entraîne toute l'arithmétique. On peut définir le PGCD, parler de polynômes premiers entre eux, et obtenir une <em>identité de Bézout</em> : $\gcd(A,B) = AU + BV$ pour certains polynômes $U,V$. On a aussi un <em>lemme de Gauss</em> (si $A \mid BC$ et $\gcd(A,B)=1$, alors $A \mid C$) et une <em>factorisation unique</em> en irréductibles, exactement comme la décomposition en nombres premiers.
+    </p>
+
+    <h3 class="fr">Racines et factorisation</h3>
+    <p class="fr">
+      Le lien entre l'arithmétique des polynômes et l'algèbre est donné par les <em>racines</em>. Le résultat fondamental est que $a$ est racine de $P$ si et seulement si $(X-a)$ divise $P$. Un polynôme de degré $n$ a donc au plus $n$ racines (comptées avec multiplicité). Si on connaît toutes les racines, on peut factoriser $P$ en produit de facteurs $(X-a_i)$, et les <em>formules de Viète</em> relient les coefficients de $P$ aux fonctions symétriques de ses racines (somme, produit, etc.).
+    </p>
+
+    <h3 class="fr">Multiplicité et dérivation</h3>
+    <p class="fr">
+      La <em>multiplicité</em> d'une racine $a$ mesure combien de fois le facteur $(X-a)$ apparaît dans $P$. La dérivée formelle permet de la détecter : $a$ est racine de multiplicité $m$ si et seulement si $P(a) = P'(a) = \cdots = P^{(m-1)}(a) = 0$ et $P^{(m)}(a) \neq 0$, ce qui découle directement de la <em>formule de Taylor</em> $P(X) = \sum \frac{P^{(k)}(a)}{k!}(X-a)^k$. En particulier, $P$ n'a que des racines simples si et seulement si $\gcd(P,P') = 1$.
+    </p>
+
+    <h3 class="fr">Fractions rationnelles et éléments simples</h3>
+    <p class="fr">
+      Le corps $\K(X)$ des fractions rationnelles est à $\K[X]$ ce que $\Q$ est à $\Z$ : on autorise la division. Une fraction rationnelle $F=A/B$ est un quotient formel de deux polynômes ($B\neq 0$), exactement comme un rationnel $p/q$ est un quotient de deux entiers. Deux écritures $A/B$ et $C/D$ représentent la même fraction si et seulement si $AD=BC$.
+    </p>
+    <p class="fr">
+      L'outil central est la <em>décomposition en éléments simples</em> : toute fraction rationnelle se décompose de manière unique en une partie polynomiale (la partie entière) plus une somme de fractions élémentaires de la forme $\lambda/(X-a)^k$ sur $\C$, ou $\lambda/(X-a)^k$ et $(\alpha X+\beta)/(X^2+pX+q)^k$ sur $\R$. C'est l'analogue de la décomposition en facteurs premiers pour les fractions.
+    </p>
+
+    <h2 class="fr">Polynômes</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Polynôme).</span> Un <em>polynôme</em> à coefficients dans $\K$ est une suite $(a_n)_{n\in\N}$ d'éléments de $\K$ nulle à partir d'un certain rang. On note $P=\sum_{k=0}^{n}a_kX^k$ et on appelle $a_k$ le <em>coefficient de degré $k$</em> de $P$. L'ensemble des polynômes à coefficients dans $\K$ est noté $\K[X]$. Le <em>degré</em> d'un polynôme non nul $P$, noté $\deg P$, est le plus grand entier $k$ tel que $a_k\neq 0$; par convention $\deg(0)=-\infty$. Le coefficient $a_{\deg P}$ est le <em>coefficient dominant</em>; $P$ est <em>unitaire</em> si son coefficient dominant vaut $1$. On munit $\K[X]$ de l'addition $(P+Q)_k=a_k+b_k$ et de la multiplication $(PQ)_k=\sum_{i+j=k}a_ib_j$, ce qui en fait un anneau commutatif.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Degré et opérations).</span> Pour tous $P,Q\in\K[X]$ :</p>
+      <ul class="fr">
+        <li>$\deg(P+Q)\le\max(\deg P,\deg Q)$</li>
+        <li>$\deg(PQ)=\deg P+\deg Q$</li>
+        <li>$\deg(\lambda P)=\deg P$ pour tout $\lambda\in\K^*$</li>
+      </ul>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $p=\deg P$, $q=\deg Q$ et $m=\max(p,q)$. Comme $P$ et $Q$ n'ont pas de terme de degré $&gt;m$, il en est de même de $P+Q$, donc $\deg(P+Q)\le m$. Si $p=q=m$ et si les coefficients dominants $a_p$ et $b_q$ vérifient $a_p+b_q=0$, le terme de degré $m$ disparaît, donc $\deg(P+Q)&lt;m$. Pour le produit, le terme de plus haut degré possible est $p+q$ et son coefficient est le produit des coefficients dominants, non nul, donc $\deg(PQ)=p+q$. Enfin $\lambda\neq0$ ne modifie pas le terme dominant, donc $\deg(\lambda P)=p$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> $\K[X]$ est intègre : si $PQ=0$, alors $P=0$ ou $Q=0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $P\neq 0$ et $Q\neq 0$, alors $\deg(PQ)=\deg P+\deg Q\ge 0$, donc $PQ\neq 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inversibles de $\K[X]$).</span> Les inversibles de $\K[X]$ sont les polynômes constants non nuls, i.e. $\K[X]^\times=\K^*$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $PQ=1$, alors $\deg P+\deg Q=\deg(1)=0$. Comme $\deg P\ge 0$ et $\deg Q\ge 0$, on a $\deg P=\deg Q=0$, donc $P$ et $Q$ sont des constantes non nulles. Réciproquement, toute constante non nulle $\lambda$ a pour inverse $\lambda^{-1}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Division euclidienne).</span> Soient $A\in\K[X]$ et $B\in\K[X]\setminus\{0\}$. Il existe un unique couple $(Q,R)\in\K[X]^2$ tel que $A=BQ+R$ et $\deg R&lt;\deg B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence.</em> Récurrence sur $n=\deg A$. Si $\deg A&lt;\deg B$, prendre $Q=0$ et $R=A$. Sinon, posons $n=\deg A$, $m=\deg B\le n$, et notons $a_n,b_m$ les coefficients dominants. L'idée est d'annuler le coefficient dominant de $A$ : le polynôme $A_1=A-\frac{a_n}{b_m}X^{n-m}B$ vérifie $\deg A_1&lt;n$. Par récurrence, $A_1=BQ_1+R$ avec $\deg R&lt;\deg B$, donc $A=B\big(Q_1+\frac{a_n}{b_m}X^{n-m}\big)+R$.
+      <br><br>
+      <em>Unicité.</em> Si $A=BQ_1+R_1=BQ_2+R_2$ avec $\deg R_1,\deg R_2&lt;\deg B$, alors $B(Q_1-Q_2)=R_2-R_1$; si $Q_1\ne Q_2$, le membre de gauche a degré $\ge\deg B$ tandis que celui de droite a degré $&lt;\deg B$, contradiction; donc $Q_1=Q_2$ puis $R_1=R_2$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Divisibilité).</span> On dit que $B$ <em>divise</em> $A$, noté $B\mid A$, s'il existe $Q\in\K[X]$ tel que $A=BQ$, i.e. le reste de la division euclidienne de $A$ par $B$ est nul.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> La divisibilité dans $\K[X]$ est réflexive et transitive. De plus, si $A\mid B$ et $B\mid A$, alors $A=\lambda B$ pour un certain $\lambda\in\K^*$ (on dit que $A$ et $B$ sont <em>associés</em>).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Réflexivité : $A=A\cdot 1$. Transitivité : si $A=BQ$ et $B=CR$, alors $A=CRQ$. Si $A\mid B$ et $B\mid A$ avec $A\neq 0$ : $B=AQ$ et $A=BR$, d'où $A=AQR$, soit $QR=1$ par intégrité. Donc $Q,R\in\K^*$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (PGCD).</span> Soient $A,B\in\K[X]$ non tous deux nuls. Le <em>PGCD</em> de $A$ et $B$, noté $\gcd(A,B)$ ou $A\wedge B$, est l'unique polynôme unitaire $D$ tel que $D\mid A$, $D\mid B$, et si $C\mid A$ et $C\mid B$ alors $C\mid D$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Existence et caractérisation du PGCD).</span> Soient $A,B\in\K[X]$ non tous deux nuls. L'ensemble $I=A\K[X]+B\K[X]=\{UA+VB : U,V\in\K[X]\}$ est un idéal de $\K[X]$, et il existe un unique polynôme unitaire $D$ tel que $I=D\K[X]$. Ce $D$ est le PGCD de $A$ et $B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $I$ est un idéal : si $P_1=U_1A+V_1B$ et $P_2=U_2A+V_2B$ sont dans $I$, alors $P_1-P_2=(U_1-U_2)A+(V_1-V_2)B\in I$, et pour tout $Q\in\K[X]$, $QP_1=(QU_1)A+(QV_1)B\in I$. De plus $I\neq\{0\}$ car $A$ ou $B$ est non nul.
+      <br><br>
+      Soit $D$ un élément non nul de $I$ de degré minimal. On peut supposer $D$ unitaire (quitte à diviser par son coefficient dominant). Pour tout $P\in I$, la division euclidienne donne $P=DQ+R$ avec $\deg R&lt;\deg D$. Or $R=P-DQ\in I$, et par minimalité du degré de $D$, $R=0$. Donc $I\subset D\K[X]$. Réciproquement, $D\in I$ donc $D\K[X]\subset I$ (car $I$ est un idéal). Ainsi $I=D\K[X]$.
+      <br><br>
+      Montrons que $D$ est le PGCD. $A\in I=D\K[X]$, donc $D\mid A$, et de même $D\mid B$. Si $C\mid A$ et $C\mid B$, alors $C$ divise tout élément $UA+VB$ de $I$, en particulier $C\mid D$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Théorème de Bézout).</span> Soient $A,B\in\K[X]$ non tous deux nuls. Il existe $U,V\in\K[X]$ tels que $AU+BV=\gcd(A,B)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\gcd(A,B)\in A\K[X]+B\K[X]$ par le théorème précédent.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Algorithme d'Euclide).</span> Pour $A\in\K[X]$ et $B\in\K[X]\setminus\{0\}$, si $A=BQ+R$ (division euclidienne), alors $\gcd(A,B)=\gcd(B,R)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $A=BQ+R$ et $R=A-BQ$, donc tout diviseur commun à $A$ et $B$ divise $R$, et tout diviseur commun à $B$ et $R$ divise $A$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Premiers entre eux).</span> Deux polynômes $A,B$ sont <em>premiers entre eux</em> si $\gcd(A,B)=1$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $A$ et $B$ sont premiers entre eux si et seulement s'il existe $U,V\in\K[X]$ tels que $AU+BV=1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\gcd(A,B)=1$, Bézout donne $AU+BV=1$. Réciproquement, si $AU+BV=1$ et si $D\mid A$ et $D\mid B$, alors $D\mid 1$, donc $D\in\K^*$, i.e. $\gcd(A,B)=1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Lemme (Lemme de Gauss).</span> Si $A\mid BC$ et $\gcd(A,B)=1$, alors $A\mid C$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par Bézout, $AU+BV=1$. En multipliant par $C$ : $ACU+BCV=C$. Or $A\mid ACU$ et $A\mid BCV$ (car $A\mid BC$), donc $A\mid C$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $A\mid C$ et $B\mid C$ et $\gcd(A,B)=1$, alors $AB\mid C$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      De $A\mid C$, on écrit $C=AK$. Alors $B\mid AK$ et $\gcd(B,A)=1$, donc par Gauss $B\mid K$, d'où $AB\mid C$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (PPCM).</span> Soient $A,B\in\K[X]$ non nuls. Le <em>PPCM</em> de $A$ et $B$, noté $\mathrm{ppcm}(A,B)$, est l'unique polynôme unitaire $M$ tel que $A\mid M$, $B\mid M$, et si $A\mid C$ et $B\mid C$ alors $M\mid C$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Existence du PPCM et relation PGCD-PPCM).</span> Soient $A,B\in\K[X]$ non nuls. Le PPCM de $A$ et $B$ existe, et (à constante multiplicative près) $\mathrm{ppcm}(A,B)\cdot\gcd(A,B)=AB$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $D=\gcd(A,B)$ et $M=AB/D$ (rendu unitaire). Comme $D\mid A$, on a $A/D\in\K[X]$, donc $M=(A/D)B$, d'où $B\mid M$. De même $A\mid M$. Si $A\mid C$ et $B\mid C$, écrivons $C=AK$. Alors $B\mid AK$. Or $A=DA'$ et $B=DB'$ avec $\gcd(A',B')=1$. De $DB'\mid DA'K$, on tire $B'\mid A'K$, et par Gauss $B'\mid K$. Donc $A'B'\mid K$, soit $M=DA'B'\mid DA'K=C$, i.e. $M\mid C$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Irréductible).</span> Un polynôme $P\in\K[X]$ de degré $\ge 1$ est <em>irréductible</em> si ses seuls diviseurs sont les constantes non nulles et les polynômes associés à $P$ (i.e. les $\lambda P$ pour $\lambda\in\K^*$). Autrement dit, $P$ est irréductible si $P=AB$ implique $\deg A=0$ ou $\deg B=0$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout polynôme de degré $1$ est irréductible.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $P=AB$ avec $\deg P=1$, alors $\deg A+\deg B=1$, donc $\deg A=0$ ou $\deg B=0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $P$ est irréductible et $P\nmid A$, alors $\gcd(P,A)=1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $D=\gcd(P,A)$. Alors $D\mid P$, et comme $P$ est irréductible, $D$ est soit une constante (i.e. $D=1$ car unitaire), soit associé à $P$. Si $D$ est associé à $P$, alors $P\mid A$, contredisant $P\nmid A$. Donc $D=1$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Lemme d'Euclide).</span> Si $P$ est irréductible et $P\mid AB$, alors $P\mid A$ ou $P\mid B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $P\nmid A$, alors $\gcd(P,A)=1$, et par Gauss $P\mid B$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Factorisation en irréductibles).</span> Tout polynôme $P$ de degré $\ge 1$ s'écrit $P=\lambda P_1^{\alpha_1}\cdots P_r^{\alpha_r}$ où $\lambda\in\K^*$, les $P_i$ sont des polynômes irréductibles unitaires distincts, et $\alpha_i\ge 1$. Cette écriture est unique à l'ordre des facteurs près.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence</em> par récurrence forte sur $\deg P$. Si $P$ est irréductible, $P=\lambda\cdot(P/\lambda)$ avec $P/\lambda$ irréductible unitaire. Sinon $P=AB$ avec $1\le\deg A,\deg B&lt;\deg P$, et on conclut par hypothèse de récurrence.
+      <br><br>
+      <em>Unicité</em> par récurrence forte sur $\deg P$. L'unicité repose sur le lemme d'Euclide ($\K[X]$ est euclidien). Si $\lambda P_1^{\alpha_1}\cdots P_r^{\alpha_r}=\mu Q_1^{\beta_1}\cdots Q_s^{\beta_s}$, alors $P_1\mid\mu Q_1^{\beta_1}\cdots Q_s^{\beta_s}$. Comme $P_1$ est irréductible, par le lemme d'Euclide, $P_1\mid Q_j^{\beta_j}$ pour un certain $j$, puis $P_1\mid Q_j$. Comme $P_1$ et $Q_j$ sont irréductibles unitaires, $P_1=Q_j$. On simplifie par $P_1$ et on applique l'hypothèse de récurrence.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Évaluation).</span> Soit $P\in\K[X]$ et $a\in\K$. Le <em>polynôme évalué en $a$</em>, noté $P(a)$, est obtenu en substituant $X$ par $a$ : si $P=\sum_{k=0}^na_kX^k$, alors $P(a)=\sum_{k=0}^na_ka^k$. L'application $\widetilde{P}:a\mapsto P(a)$ est la <em>fonction polynomiale</em> associée à $P$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Racine).</span> On dit que $a\in\K$ est une <em>racine</em> de $P$ si $P(a)=0$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Caractérisation des racines).</span> $a$ est racine de $P$ si et seulement si $(X-a)\mid P$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Si $P=(X-a)Q$, alors $P(a)=(a-a)Q(a)=0$.
+      <br><br>
+      $(\Rightarrow)$ La division euclidienne de $P$ par $X-a$ donne $P=(X-a)Q+R$ avec $\deg R&lt;\deg(X-a)=1$, donc $R$ est une constante. En évaluant en $a$ : $0=P(a)=0\cdot Q(a)+R$, donc $R=0$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Multiplicité).</span> Soit $a$ une racine de $P\neq 0$. La <em>multiplicité</em> de $a$ comme racine de $P$ est le plus grand entier $m\ge 1$ tel que $(X-a)^m\mid P$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $a$ est racine de multiplicité $m$ de $P$ si et seulement s'il existe $Q\in\K[X]$ tel que $P=(X-a)^mQ$ et $Q(a)\neq 0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Par définition, $(X-a)^m\mid P$, donc $P=(X-a)^mQ$. Si $Q(a)=0$, alors $(X-a)\mid Q$, d'où $(X-a)^{m+1}\mid P$, contredisant la maximalité de $m$.
+      <br><br>
+      $(\Leftarrow)$ $(X-a)^m\mid P$ par hypothèse. Si $(X-a)^{m+1}\mid P$, alors $P=(X-a)^{m+1}R$, d'où $(X-a)^mQ=(X-a)^{m+1}R$, soit $Q=(X-a)R$ par intégrité, et $Q(a)=0$ : contradiction.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Nombre de racines).</span> Soit $P\in\K[X]$ non nul de degré $n$. Si $a_1,\ldots,a_r$ sont des racines distinctes de $P$ de multiplicités $m_1,\ldots,m_r$, alors $\prod_{i=1}^r(X-a_i)^{m_i}\mid P$. En particulier, $m_1+\cdots+m_r\le n$, et $P$ a au plus $n$ racines (comptées avec multiplicité).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par définition, $(X-a_i)^{m_i}\mid P$ pour tout $i$. Les polynômes $(X-a_i)^{m_i}$ sont deux à deux premiers entre eux : en effet, supposons $D=\gcd((X-a_i)^{m_i},(X-a_j)^{m_j})\neq 1$ pour $i\neq j$. Alors $\deg D\ge 1$, donc $D$ admet un diviseur irréductible $Q$. Comme $Q\mid (X-a_i)^{m_i}$ et $Q$ est irréductible, par le lemme d'Euclide $Q\mid (X-a_i)$, donc $Q$ est associé à $(X-a_i)$. De même $Q\mid (X-a_j)^{m_j}$ implique $Q$ associé à $(X-a_j)$. Donc $(X-a_i)$ et $(X-a_j)$ sont associés, i.e. $a_i=a_j$ : contradiction. Par application itérée du lemme de Gauss, on obtient $\prod_{i=1}^r(X-a_i)^{m_i}\mid P$. En comparant les degrés : $m_1+\cdots+m_r\le n$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $P\in\K[X]$ de degré $\le n$ s'annule en $n+1$ points distincts, alors $P=0$.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $P,Q\in\K[X]$ de degré $\le n$ coïncident en $n+1$ points distincts, alors $P=Q$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $P-Q$ est de degré $\le n$ et s'annule en $n+1$ points, donc $P-Q=0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Racines et conjugaison).</span> Soit $P\in\R[X]$ et $z\in\C$. Alors $P(z)=0$ si et seulement si $P(\bar{z})=0$, et $z$ et $\bar{z}$ ont la même multiplicité.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $P(\bar{z})=\sum a_k\bar{z}^k=\sum a_k\overline{z^k}=\overline{\sum a_kz^k}=\overline{P(z)}$ (car les $a_k$ sont réels). Donc $P(z)=0\iff P(\bar{z})=0$. Pour la multiplicité, si $P=(X-z)^mQ$ avec $Q(z)\neq 0$, on conjugue : $P=(X-\bar{z})^m\bar{Q}$ et $\bar{Q}(\bar{z})=\overline{Q(z)}\neq 0$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Dérivée formelle).</span> La <em>dérivée formelle</em> de $P=\sum_{k=0}^na_kX^k$ est $P'=\sum_{k=1}^nka_kX^{k-1}$. On définit par récurrence $P^{(0)}=P$ et $P^{(i+1)}=(P^{(i)})'$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la dérivation).</span> Pour tous $P,Q\in\K[X]$ et $\lambda\in\K$ :</p>
+      <ul class="fr">
+        <li>$(\lambda P+Q)'=\lambda P'+Q'$ (linéarité).</li>
+        <li>$(PQ)'=P'Q+PQ'$ (formule de Leibniz pour l'ordre 1).</li>
+        <li>Si $P\neq 0$, $\deg P'=\deg P-1$ (si $\mathrm{car}(\K)=0$; c'est le cas pour $\R$ et $\C$).</li>
+      </ul>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La linéarité est immédiate. Pour Leibniz : si $P=\sum a_iX^i$ et $Q=\sum b_jX^j$, le coefficient de $X^k$ dans $(PQ)'$ est $(k+1)\sum_{i+j=k+1}a_ib_j$. Le coefficient de $X^k$ dans $P'Q+PQ'$ est $\sum_{i+j=k}(i+1)a_{i+1}b_j+\sum_{i+j=k}a_i(j+1)b_{j+1}=\sum_{i'+j=k+1}i'a_{i'}b_j+\sum_{i+j'=k+1}j'a_ib_{j'}=(k+1)\sum_{i+j=k+1}a_ib_j$. Pour le degré : si $P=a_nX^n+\cdots$ avec $a_n\neq 0$, alors $P'=na_nX^{n-1}+\cdots$ et $na_n\neq 0$ en caractéristique $0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Formule de Leibniz).</span> Pour tous $P,Q\in\K[X]$ et tout $n\in\N$ :
+      \[(PQ)^{(n)}=\sum_{k=0}^{n}\binom{n}{k}P^{(k)}Q^{(n-k)}.\]
+      </p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Pour $n=0$, c'est trivial. Pour $n=1$, c'est $(PQ)'=P'Q+PQ'$. Supposons la formule vraie au rang $n$. Alors $(PQ)^{(n+1)}=\left(\sum_{k=0}^{n}\binom{n}{k}P^{(k)}Q^{(n-k)}\right)'=\sum_{k=0}^{n}\binom{n}{k}\left(P^{(k+1)}Q^{(n-k)}+P^{(k)}Q^{(n+1-k)}\right)$. En regroupant les termes contenant $P^{(j)}Q^{(n+1-j)}$ pour $0\le j\le n+1$ : le coefficient de $P^{(j)}Q^{(n+1-j)}$ est $\binom{n}{j}$ (venant du second terme avec $k=j$) plus $\binom{n}{j-1}$ (venant du premier terme avec $k=j-1$), soit $\binom{n+1}{j}$ par la formule de Pascal.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Soit $(P_0, P_1, \ldots, P_n)$ une famille de polynômes telle que $\deg P_k = k$ pour tout $k$. Alors c'est une base de $\K_n[X]$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      C'est une famille de $n+1$ vecteurs dans $\K_n[X]$ qui est de dimension $n+1$, il suffit donc de montrer qu'elle est libre. Soit $\sum_{k=0}^n c_k P_k = 0$. On montre par récurrence descendante que $c_k = 0$ pour tout $k$. En notant $a_k$ le coefficient dominant de $P_k$ (non nul par hypothèse), le polynôme $\sum_{k=0}^n c_k P_k$ a pour coefficient de degré $n$ la valeur $c_n a_n$. Comme ce polynôme est nul, $c_n a_n = 0$, donc $c_n = 0$. Supposons $c_n = c_{n-1} = \cdots = c_{j+1} = 0$ pour un certain $j \leq n-1$. Alors $\sum_{k=0}^j c_k P_k = 0$, et le coefficient de degré $j$ de ce polynôme est $c_j a_j$, donc $c_j = 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Formule de Taylor).</span> Pour tout $P\in\K[X]$ de degré $n$ et tout $a\in\K$ :
+      \[P(X)=\sum_{k=0}^{n}\frac{P^{(k)}(a)}{k!}(X-a)^k.\]
+      </p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On écrit $P$ dans la base $(1,(X-a),(X-a)^2,\ldots)$ : $P=\sum_{k=0}^nc_k(X-a)^k$. On dérive $k$ fois et on évalue en $a$ : $P^{(k)}(a)=k!\cdot c_k$ (car la dérivée $k$-ième de $(X-a)^j$ évaluée en $a$ vaut $j!$ si $j=k$, et $0$ si $j&lt;k$ ou $j&gt;k$). Donc $c_k=P^{(k)}(a)/k!$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Multiplicité et dérivation).</span> Soit $P\in\K[X]$ non nul et $a\in\K$. Alors $a$ est racine de multiplicité $m\ge 1$ de $P$ si et seulement si $P(a)=P'(a)=\cdots=P^{(m-1)}(a)=0$ et $P^{(m)}(a)\neq 0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par la formule de Taylor, $P=\sum_{k=0}^{n}c_k(X-a)^k$ avec $c_k=\frac{P^{(k)}(a)}{k!}$. Cette écriture est l'unique décomposition de $P$ dans la base $(1,(X-a),\ldots,(X-a)^n)$. Si $c_0=\cdots=c_{m-1}=0$, alors $P=(X-a)^m(c_m+c_{m+1}(X-a)+\cdots)$, donc $(X-a)^m\mid P$. Réciproquement, si $(X-a)^m\mid P$, on écrit $P=(X-a)^mQ$ avec $Q=\sum_{j=0}^{n-m}d_j(X-a)^j$, d'où $P=\sum_{j=0}^{n-m}d_j(X-a)^{j+m}$; par unicité de la décomposition, $c_k=0$ pour $k&lt;m$. De même, $(X-a)^{m+1}\nmid P$ si et seulement si $c_m\neq 0$. Comme $c_k=0\iff P^{(k)}(a)=0$, on conclut.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> $a$ est racine simple de $P$ si et seulement si $P(a)=0$ et $P'(a)\neq 0$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Racines multiples et PGCD).</span> Si $a$ est racine de multiplicité $m\ge 2$ de $P$, alors $a$ est racine de $\gcd(P,P')$. Réciproquement, si $\gcd(P,P')=1$, toutes les racines de $P$ sont simples.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $P=(X-a)^mQ$, alors $P'=m(X-a)^{m-1}Q+(X-a)^mQ'=(X-a)^{m-1}(mQ+(X-a)Q')$, donc $(X-a)^{m-1}\mid P'$. Comme $(X-a)^m\mid P$, on a $(X-a)\mid\gcd(P,P')$.
+      <br><br>
+      Réciproquement, si $\gcd(P,P')=1$ et si $a$ était racine de multiplicité $m\ge 2$, alors $(X-a)\mid\gcd(P,P')$, contredisant $\gcd(P,P')=1$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Formules de Viète).</span> Soit $P=a_nX^n+a_{n-1}X^{n-1}+\cdots+a_0=a_n(X-x_1)\cdots(X-x_n)\in\K[X]$ (racines comptées avec multiplicité dans un corps contenant $\K$). Alors :
+      \[\sum_{i=1}^{n}x_i=-\frac{a_{n-1}}{a_n},\qquad \sum_{i&lt;j}x_ix_j=\frac{a_{n-2}}{a_n},\qquad \prod_{i=1}^{n}x_i=(-1)^n\frac{a_0}{a_n}.\]
+      Plus généralement, si $\sigma_k=\sum_{1\le i_1&lt;\cdots&lt;i_k\le n}x_{i_1}\cdots x_{i_k}$ est la $k$-ième fonction symétrique élémentaire, alors $\sigma_k=(-1)^k\frac{a_{n-k}}{a_n}$.
+      </p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On développe $a_n(X-x_1)\cdots(X-x_n)=a_n\sum_{k=0}^{n}(-1)^{n-k}\sigma_{n-k}X^k$ en remarquant que le coefficient de $X^k$ s'obtient en choisissant $X$ dans $k$ des facteurs et $-x_i$ dans les $n-k$ restants. En identifiant avec $\sum a_kX^k$ : $a_k=a_n(-1)^{n-k}\sigma_{n-k}$, soit $\sigma_{n-k}=(-1)^{n-k}\frac{a_k}{a_n}$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Cas du degré 2).</span> Si $P=aX^2+bX+c$ a pour racines $x_1,x_2$, alors $x_1+x_2=-b/a$ et $x_1x_2=c/a$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Fractions rationnelles).</span> Le <em>corps des fractions rationnelles</em> $\K(X)$ est l'ensemble des classes d'équivalence de couples $(A,B)\in\K[X]\times(\K[X]\setminus\{0\})$ pour la relation $(A,B)\sim(C,D)\iff AD=BC$. On note $F=\frac{A}{B}$ la classe de $(A,B)$. On dit que $F$ est sous <em>forme irréductible</em> si $\gcd(A,B)=1$; toute fraction rationnelle admet une unique forme irréductible (à constante multiplicative près) en simplifiant par $D=\gcd(A,B)$. Le <em>degré</em> de $F=\frac{A}{B}$ sous forme irréductible est $\deg F=\deg A-\deg B$. On dit que $F$ est <em>propre</em> si $\deg A&lt;\deg B$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $\K(X)$ muni de l'addition $\frac{A}{B}+\frac{C}{D}=\frac{AD+BC}{BD}$ et de la multiplication $\frac{A}{B}\cdot\frac{C}{D}=\frac{AC}{BD}$ est un corps commutatif.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Bonne définition.</em> Si $\frac{A}{B}=\frac{A'}{B'}$ (i.e. $AB'=A'B$) et $\frac{C}{D}=\frac{C'}{D'}$ (i.e. $CD'=C'D$), vérifions que $\frac{AD+BC}{BD}=\frac{A'D'+B'C'}{B'D'}$, i.e. $(AD+BC)B'D'=(A'D'+B'C')BD$. Or $(AD+BC)B'D'=ADB'D'+BCB'D'=A'BDD'+BCD'B'$ (en utilisant $AB'=A'B$ puis $CD'=C'D$) $=BD(A'D'+B'C')$. De même pour le produit : $(AC)(B'D')=(AB')(CD')=(A'B)(C'D)=(A'C')(BD)$.
+      <br><br>
+      <em>Axiomes de corps.</em> Les dénominateurs $BD$ sont non nuls car $\K[X]$ est intègre. La commutativité et l'associativité se vérifient par calcul direct. L'élément neutre additif est $\frac{0}{1}$, l'opposé de $\frac{A}{B}$ est $\frac{-A}{B}$. L'élément neutre multiplicatif est $\frac{1}{1}$. La distributivité : $\frac{A}{B}\left(\frac{C}{D}+\frac{E}{F}\right)=\frac{A(CF+DE)}{BDF}$ et $\frac{AC}{BD}+\frac{AE}{BF}=\frac{A(CF+DE)}{BDF}$. Enfin, pour $A\neq 0$, $\frac{A}{B}\cdot\frac{B}{A}=\frac{1}{1}$, donc tout élément non nul est inversible.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Degré et opérations).</span> Pour toutes $F,G\in\K(X)$ non nulles :</p>
+      <ul class="fr">
+        <li>$\deg(FG)=\deg F+\deg G$</li>
+        <li>$\deg(F+G)\le\max(\deg F,\deg G)$, avec égalité si $\deg F\neq\deg G$</li>
+      </ul>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soient $F=\frac{A}{B}$ et $G=\frac{C}{D}$ sous forme irréductible. Pour le produit : $\deg(FG)=\deg(AC)-\deg(BD)=(\deg A+\deg C)-(\deg B+\deg D)=\deg F+\deg G$.
+      <br><br>
+      Pour la somme : $F+G=\frac{AD+BC}{BD}$. Or $\deg(AD+BC)\le\max(\deg A+\deg D,\deg B+\deg C)$ avec égalité si ces deux degrés diffèrent. Donc $\deg(F+G)\le\max(\deg A+\deg D,\deg B+\deg C)-\deg B-\deg D=\max(\deg F,\deg G)$. Si $\deg F\neq\deg G$, alors $\deg A+\deg D\neq\deg B+\deg C$, l'inégalité devient une égalité, d'où $\deg(F+G)=\max(\deg F,\deg G)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Pôle, zéro).</span> Soit $F=\frac{A}{B}$ sous forme irréductible et $a\in\K$. Si $B(a)=0$, on dit que $a$ est un <em>pôle</em> de $F$, d'ordre la multiplicité de $a$ comme racine de $B$. Si $A(a)=0$, on dit que $a$ est un <em>zéro</em> de $F$, d'ordre la multiplicité de $a$ comme racine de $A$. Comme $\gcd(A,B)=1$, un élément $a$ ne peut pas être à la fois pôle et zéro.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Partie entière d'une fraction rationnelle).</span> Soit $F=\frac{A}{B}\in\K(X)$. Il existe un unique couple $(E,F_0)$ avec $E\in\K[X]$ et $F_0=\frac{R}{B}$ fraction propre (i.e. $\deg R&lt;\deg B$) tel que $F=E+F_0$. Le polynôme $E$ est la <em>partie entière</em> (ou partie polynomiale) de $F$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par division euclidienne de $A$ par $B$ : $A=BQ+R$ avec $\deg R&lt;\deg B$. Donc $F=\frac{A}{B}=Q+\frac{R}{B}$. On pose $E=Q$ et $F_0=\frac{R}{B}$. L'unicité découle de celle de la division euclidienne.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Élément simple).</span> Un <em>élément simple</em> sur $\K$ est une fraction rationnelle de la forme $\frac{R}{P^k}$ où $P\in\K[X]$ est irréductible unitaire, $k\ge 1$, et $\deg R&lt;\deg P$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Décomposition en éléments simples sur $\K$).</span> Soit $F=\frac{A}{B}\in\K(X)$ avec $B=b\prod_{i=1}^{r}P_i^{n_i}$ où $b\in\K^*$ et les $P_i$ sont des irréductibles unitaires distincts. Alors il existe un unique polynôme $E\in\K[X]$ et d'uniques polynômes $R_{i,k}\in\K[X]$ avec $\deg R_{i,k}&lt;\deg P_i$ tels que
+      \[F=E+\sum_{i=1}^{r}\sum_{k=1}^{n_i}\frac{R_{i,k}}{P_i^k}.\]
+      De plus, $E$ est la partie entière de $F$ (donc $E=0$ si $F$ est propre), et $\sum_{k=1}^{n_i}\frac{R_{i,k}}{P_i^k}$ est la <em>partie polaire relative à $P_i$</em>.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence.</em> On peut supposer $F$ propre (sinon on soustrait la partie entière). On procède par récurrence sur $r$ (le nombre de facteurs irréductibles distincts).
+      <br><br>
+      <em>Cas $r=1$.</em> $B=bP_1^{n_1}$. On effectue des divisions euclidiennes successives de $A$ par $P_1$ : $A=R_{n_1}+P_1Q_1$, puis $Q_1=R_{n_1-1}+P_1Q_2$, etc., ce qui donne $A=R_{n_1}+R_{n_1-1}P_1+\cdots+R_1P_1^{n_1-1}$ avec $\deg R_k&lt;\deg P_1$ pour tout $k$. En divisant par $bP_1^{n_1}$ : $F=\sum_{k=1}^{n_1}\frac{R_k/b}{P_1^k}$.
+      <br><br>
+      <em>Passage de $r-1$ à $r$.</em> Posons $B_1=P_1^{n_1}$ et $B_2=b\prod_{i=2}^rP_i^{n_i}$. Comme les $P_i$ sont des irréductibles distincts, $\gcd(B_1,B_2)=1$. Par Bézout, il existe $U,V\in\K[X]$ tels que $UB_1+VB_2=1$. En multipliant par $\frac{A}{B_1B_2}$ : $F=\frac{AU}{B_2}+\frac{AV}{B_1}$. On effectue les divisions euclidiennes et on obtient $F=\frac{S_1}{B_1}+\frac{S_2}{B_2}$ où $\frac{S_1}{B_1}$ est propre avec $B_1=P_1^{n_1}$ (cas $r=1$) et $\frac{S_2}{B_2}$ est propre avec $r-1$ facteurs irréductibles distincts (hypothèse de récurrence).
+      <br><br>
+      <em>Unicité.</em> Supposons deux décompositions; leur différence donne $\sum_{i,k}\frac{T_{i,k}}{P_i^k}=0$ avec $\deg T_{i,k}&lt;\deg P_i$. En multipliant par $P_1^{n_1}$ : $T_{1,n_1}+T_{1,n_1-1}P_1+\cdots=-P_1^{n_1}\sum_{i\ge 2,k}\frac{T_{i,k}}{P_i^k}$. Le membre de droite est divisible par $P_1$, donc $P_1\mid T_{1,n_1}$, et comme $\deg T_{1,n_1}&lt;\deg P_1$, on a $T_{1,n_1}=0$. Par récurrence descendante, tous les $T_{1,k}=0$, puis de même pour chaque $i$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Décomposition sur $\C$).</span> Sur $\C$, les irréductibles sont les polynômes de degré $1$, donc les éléments simples sont les $\frac{\lambda}{(X-a)^k}$ avec $\lambda\in\C^*$. Si $B=b\prod_{i=1}^r(X-a_i)^{n_i}$ :
+      \[F=E+\sum_{i=1}^{r}\sum_{k=1}^{n_i}\frac{\lambda_{i,k}}{(X-a_i)^k}.\]
+      </p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Décomposition sur $\R$).</span> Sur $\R$, les irréductibles sont les polynômes de degré $1$ et les polynômes de degré $2$ à discriminant strictement négatif, donc les éléments simples sont les $\frac{\lambda}{(X-a)^k}$ et les $\frac{\alpha X+\beta}{(X^2+pX+q)^k}$ avec $p^2-4q&lt;0$. Si $B=b\prod_{i=1}^{r}(X-a_i)^{n_i}\prod_{j=1}^{s}(X^2+p_jX+q_j)^{m_j}$ :
+      \[F=E+\sum_{i=1}^{r}\sum_{k=1}^{n_i}\frac{\lambda_{i,k}}{(X-a_i)^k}+\sum_{j=1}^{s}\sum_{l=1}^{m_j}\frac{\alpha_{j,l}X+\beta_{j,l}}{(X^2+p_jX+q_j)^l}.\]
+      </p>
+    </div>
+
+    <h3 class="fr">Méthodes de calcul des coefficients</h3>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Pôle simple).</span> Soit $a$ un pôle simple de $F=\frac{A}{B}$ (forme irréductible). Alors le coefficient $\lambda$ de $\frac{1}{X-a}$ dans la décomposition vaut :
+      \[\lambda=\frac{A(a)}{C(a)}=\frac{A(a)}{B'(a)} \quad \text{où } B=(X-a)C.\]
+      </p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $a$ est pôle simple, $B=(X-a)C$ avec $C(a)\neq 0$. La décomposition s'écrit $F=\frac{\lambda}{X-a}+G$ où $G$ n'a pas de pôle en $a$. En multipliant par $(X-a)$ et en évaluant en $a$ : $\lambda=\frac{(X-a)A}{B}\Big|_{X=a}=\frac{A(a)}{C(a)}$. De plus, $B'=C+(X-a)C'$ donc $B'(a)=C(a)$, ce qui donne la formule alternative $\lambda=\frac{A(a)}{B'(a)}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Pôle multiple).</span> Soit $a$ un pôle d'ordre $n$ de $F=\frac{A}{B}$. En posant $\varphi(X)=(X-a)^nF(X)=\frac{A(X)}{C(X)}$ où $B=(X-a)^nC$ avec $C(a)\neq 0$, le coefficient $\lambda_{n-j}$ de $\frac{1}{(X-a)^{n-j}}$ vaut $\frac{\varphi^{(j)}(a)}{j!}$. En particulier, $\lambda_n=\frac{A(a)}{C(a)}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On a $F=\sum_{k=1}^{n}\frac{\lambda_k}{(X-a)^k}+G$ où $G$ n'a pas de pôle en $a$. En multipliant par $(X-a)^n$ : $\varphi(X)=(X-a)^nF(X)=\lambda_n+\lambda_{n-1}(X-a)+\cdots+\lambda_1(X-a)^{n-1}+(X-a)^nG(X)$. C'est le développement de Taylor de $\varphi$ en $a$ (les termes $(X-a)^nG$ s'annulent en $a$ avec toutes leurs dérivées jusqu'à l'ordre $n-1$). Donc $\varphi^{(j)}(a)=j!\,\lambda_{n-j}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Lien entre décompositions sur $\C$ et sur $\R$).</span> Soit $F\in\R(X)$ et $z\in\C\setminus\R$ un pôle d'ordre $n$. Si la partie polaire relative à $z$ sur $\C$ est $\sum_{k=1}^{n}\frac{c_k}{(X-z)^k}$, alors celle relative à $\bar{z}$ est $\sum_{k=1}^{n}\frac{\bar{c}_k}{(X-\bar{z})^k}$. La partie polaire réelle correspondante s'obtient en regroupant $\frac{c_k}{(X-z)^k}+\frac{\bar{c}_k}{(X-\bar{z})^k}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $F=\overline{F}$ car $F\in\R(X)$. La conjugaison de $\frac{c_k}{(X-z)^k}$ donne $\frac{\bar{c}_k}{(X-\bar{z})^k}$. Par unicité de la décomposition sur $\C$, la partie polaire relative à $\bar{z}$ est bien $\sum\frac{\bar{c}_k}{(X-\bar{z})^k}$.
+    </details>
+
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 1.</span> Effectuer la division euclidienne de $A=7X^5+4X^4+2X^3-X+5$ par $B=X^2+2$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On applique l'algorithme d'élimination du terme dominant à chaque étape.
+      $A - 7X^3B = 4X^4 - 12X^3 - X + 5$ ($Q_1=7X^3$), puis $-4X^2B = -12X^3 - 8X^2 - X + 5$ ($Q_2=7X^3+4X^2$), puis $-(-12X)B = -8X^2 + 23X + 5$ ($Q_3=7X^3+4X^2-12X$), puis $-(-8)B = 23X + 21$ ($Q_4=7X^3+4X^2-12X-8$). On a $\deg(23X+21) &lt; \deg B$, donc $Q = 7X^3 + 4X^2 - 12X - 8$ et $R = 23X + 21$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 2.</span> Déterminer le PGCD de $A=6X^4+8X^3-7X^2-5X-2$ et $B=6X^3-4X^2-X-1$, puis trouver une relation de Bézout.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Algorithme d'Euclide.</em> $A=B(X+2)+(2X^2-2X)$, puis $B=(2X^2-2X)(3X+1)+(X-1)$, puis $2X^2-2X=(X-1)\cdot 2X$. Le dernier reste non nul est $X-1$, donc $\gcd(A,B)=X-1$.
+      <br><br>
+      <em>Remontée de Bézout.</em> On exprime $X-1$ à partir des divisions successives : $X-1=B-(2X^2-2X)(3X+1)=B-(A-B(X+2))(3X+1)=B(1+(X+2)(3X+1))-A(3X+1)$, soit $X-1=A\cdot(-(3X+1))+B\cdot(3X^2+7X+3)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 3.</span> Soient $P,Q\in\K[X]$ premiers entre eux. Montrer que $P$ et $Q$ n'ont aucune racine commune.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Si $a$ était racine commune, $(X-a)\mid P$ et $(X-a)\mid Q$, donc $(X-a)\mid\gcd(P,Q)=1$, ce qui impose $\deg(X-a)\le\deg(1)=0$ : contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 4.</span> Soient $P,Q\in\K[X]$ avec $\deg P=\deg Q=n$. Montrer que si $P$ et $Q$ coïncident en $n$ points distincts $a_1,\ldots,a_n$, alors $P-Q=c\prod_{i=1}^n(X-a_i)$ pour un certain $c\in\K$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $R=P-Q$ est de degré $\le n$ et s'annule en $a_1,\ldots,a_n$. Si $R=0$, prendre $c=0$. Sinon, $(X-a_i)\mid R$ pour tout $i$. Les $(X-a_i)$ sont irréductibles et deux à deux distincts, donc deux à deux premiers entre eux. Par application itérée du corollaire du lemme de Gauss, $\prod(X-a_i)\mid R$. Comme ce produit est de degré $n$ et $\deg R\le n$, on a $R=c\prod(X-a_i)$ avec $c\in\K^*$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 5.</span> Résoudre dans $\C^3$ le système $x+y+z=1$, $x^2+y^2+z^2=21$, $\frac{1}{x}+\frac{1}{y}+\frac{1}{z}=1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par les formules de Viète, on cherche les fonctions symétriques élémentaires. On pose $\sigma_1=x+y+z=1$. Comme $x^2+y^2+z^2=\sigma_1^2-2\sigma_2$, on obtient $\sigma_2=xy+yz+xz=\frac{1-21}{2}=-10$. La troisième équation donne $\frac{yz+xz+xy}{xyz}=\frac{\sigma_2}{\sigma_3}=1$, donc $\sigma_3=xyz=-10$. Ainsi $x,y,z$ sont les racines de $t^3-\sigma_1 t^2+\sigma_2 t-\sigma_3=t^3-t^2-10t+10=t^2(t-1)-10(t-1)=(t-1)(t^2-10)$. Les solutions sont les permutations de $(1,\sqrt{10},-\sqrt{10})$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $n\ge 1$. Factoriser $X^n-1$ dans $\C[X]$ puis dans $\R[X]$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les racines de $X^n-1$ sont les racines $n$-ièmes de l'unité : $\omega_k=e^{2ik\pi/n}$ pour $k=0,1,\ldots,n-1$. Ce sont $n$ racines distinctes d'un polynôme de degré $n$, donc toutes simples, et $X^n-1=\prod_{k=0}^{n-1}(X-e^{2ik\pi/n})$.
+      <br><br>
+      Dans $\R[X]$, on regroupe les racines conjuguées $\omega_k$ et $\overline{\omega_k}=\omega_{n-k}$ : $(X-\omega_k)(X-\overline{\omega_k})=X^2-2\cos(2k\pi/n)X+1$. Si $n$ est pair, les racines réelles sont $1$ et $-1$, et $X^n-1=(X-1)(X+1)\prod_{k=1}^{n/2-1}(X^2-2\cos(2k\pi/n)X+1)$. Si $n$ est impair, la seule racine réelle est $1$, et $X^n-1=(X-1)\prod_{k=1}^{(n-1)/2}(X^2-2\cos(2k\pi/n)X+1)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 7 (Interpolation de Lagrange).</span> Soient $a_0,\ldots,a_n$ des éléments distincts de $\K$ et $b_0,\ldots,b_n\in\K$. Montrer qu'il existe un unique $P\in\K[X]$ de degré $\le n$ tel que $P(a_i)=b_i$ pour tout $i$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Unicité.</em> Si $P$ et $Q$ conviennent, $P-Q$ est de degré $\le n$ et s'annule en $n+1$ points distincts, donc $P-Q=0$.
+      <br><br>
+      <em>Existence.</em> On pose $L_i(X)=\prod_{j\neq i}\frac{X-a_j}{a_i-a_j}$. Alors $\deg L_i=n$, $L_i(a_i)=1$, et $L_i(a_j)=0$ pour $j\neq i$. Le polynôme $P=\sum_{i=0}^nb_iL_i$ convient : $\deg P\le n$ et $P(a_i)=\sum_j b_jL_j(a_i)=b_i$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 8.</span> Soient $a_1,\ldots,a_n\in\K$ distincts. Calculer $\sum_{i=1}^{n}\prod_{j\neq i}\frac{1}{a_i-a_j}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On applique l'interpolation de Lagrange au polynôme constant $P=1$ avec les points $a_1,\ldots,a_n$ et les valeurs $b_i=1$ pour tout $i$. L'interpolation donne $1=\sum_{i=1}^nL_i(X)$ où $L_i=\prod_{j\neq i}\frac{X-a_j}{a_i-a_j}$ est de degré $n-1$. Le coefficient dominant de $L_i$ est $\frac{1}{\prod_{j\neq i}(a_i-a_j)}$. Or le membre de gauche $1$ est de degré $0$, donc pour $n\ge 2$ le coefficient de $X^{n-1}$ dans $\sum L_i$ doit être nul : $\sum_{i=1}^{n}\prod_{j\neq i}\frac{1}{a_i-a_j}=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 9.</span> Soit $P=a_nX^n+\cdots+a_0\in\Z[X]$ et $p/q$ une racine rationnelle (en fraction irréductible). Montrer que $q\mid a_n$ et $p\mid a_0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $P(p/q)=0$ donne $\sum_{k=0}^na_kp^kq^{n-k}=0$ (en multipliant par $q^n$). Donc $p\mid a_0q^n$. Comme $\gcd(p,q)=1$, $\gcd(p,q^n)=1$, et par Gauss $p\mid a_0$. De même, $q\mid a_np^n$, et $\gcd(q,p^n)=1$, donc $q\mid a_n$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 10.</span> Factoriser $X^{2n}-1$ et $X^{2n+1}+1$ dans $\R[X]$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les racines de $X^{2n}-1$ sont les $\omega_k=e^{ik\pi/n}$ pour $k=0,\ldots,2n-1$. On regroupe les racines conjuguées : $(X-\omega_k)(X-\bar{\omega}_k)=X^2-2\cos(k\pi/n)X+1$. Les racines réelles sont $\omega_0=1$ et $\omega_n=-1$. Donc $X^{2n}-1=(X-1)(X+1)\prod_{k=1}^{n-1}(X^2-2\cos(k\pi/n)X+1)$.
+      <br><br>
+      Pour $X^{2n+1}+1$ : on cherche les $z$ tels que $z^{2n+1}=-1=e^{i\pi}$. On obtient $r=1$ et $\theta=\frac{(2k+1)\pi}{2n+1}$ pour $k=0,\ldots,2n$, soit $2n+1$ racines distinctes $\omega_k=e^{i(2k+1)\pi/(2n+1)}$. La seule racine réelle est $\omega_n=-1$. Les racines conjuguées donnent des facteurs $X^2-2\cos\frac{(2k+1)\pi}{2n+1}X+1$. Donc $X^{2n+1}+1=(X+1)\prod_{k=0}^{n-1}\left(X^2-2\cos\frac{(2k+1)\pi}{2n+1}X+1\right)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 11.</span> Déterminer les polynômes $P\in\R[X]$ tels que $P(X^2)=P(X)^2$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $n=\deg P$. Coefficients dominants : $a_n=a_n^2$, donc $a_n=1$. Soit $\alpha\in\C$ une racine non nulle de $P$. Comme $P(\alpha^2)=P(\alpha)^2=0$, $\alpha^2$ est aussi racine, et par itération $\alpha^{2^k}$ est racine pour tout $k\in\N$. Comme $P$ n'a qu'un nombre fini de racines, il existe $k&gt;j\geq 0$ tels que $\alpha^{2^k}=\alpha^{2^j}$, d'où $|\alpha|=1$. On écrit $\alpha=e^{i\theta}$ avec $\theta\in(0,2\pi]$.
+      <br><br>
+      Réciproquement, si $\beta^2=\alpha$ est racine de $P$, alors $\beta$ est aussi racine. En choisissant $\beta=e^{i\theta/2}$, on obtient par itération que $e^{i\theta/2^k}$ est racine de $P$ pour tout $k\in\N$. Si $\theta\neq 0$, les $e^{i\theta/2^k}$ sont deux à deux distincts, ce qui contredit la finitude des racines. Si $\theta=0$, i.e. $\alpha=1$, alors $-1$ est aussi racine (car $(-1)^2=1$), et le même argument appliqué à $-1=e^{i\pi}$ donne une infinité de racines distinctes. Donc $P$ n'a aucune racine non nulle dans $\C$, d'où $P=X^n$ (car $a_n=1$).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 12.</span> Soit $n \in \mathbb{N}^*$ et $P = aX^{n+1} + bX^n + 1 \in \mathbb{R}[X]$. Déterminer une condition nécessaire et sufficiente sur $(a, b)$ pour que $(X-1)^2 \mid P$, puis calculer le quotient.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $1$ est racine de $P$ de multiplicité au moins $2$ si et seulement si $P(1) = 0$ et $P'(1) = 0$. Or $P'= a(n+1)X^n + bnX^{n-1}$, d'où le système $a + b + 1 = 0$ et $a(n+1) + bn = 0$. La seconde équation donne $an + a + bn = 0$, i.e. $a + n(a+b) = 0$. Comme $a + b = -1$, on obtient $a - n = 0$, donc $a = n$ et $b = -(n+1)$.
+      <br><br>
+      Il reste à calculer le quotient $Q$ tel que $nX^{n+1} - (n+1)X^n + 1 = (X-1)^2 Q$. On écrit $nX^{n+1} - (n+1)X^n + 1 = nX^n(X-1) - (X^n - 1)$. Comme $X^n - 1 = (X-1)(X^{n-1} + \cdots + 1)$, on obtient $(X-1)(nX^n - X^{n-1} - \cdots - 1)$. Or $nX^n - X^{n-1} - \cdots - 1 = (X-1)\sum_{k=0}^{n-1}(X^{n-1} + \cdots + X^k)$. D'où $Q = \sum_{m=0}^{n-1}(m+1)X^m$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 13.</span> Trouver tous les polynômes $P \in \K[X]$ tels que $P - XP' = X$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      En écrivant $P = \sum_{k=0}^n a_k X^k$, on a $P - XP' = \sum_{k=0}^n (1-k)a_k X^k$. L'identification avec $X$ donne pour le coefficient de $X$ : $(1-1)a_1 = 1$, soit $0 = 1$, contradiction. Il n'existe donc aucun tel polynôme.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 14.</span> Déterminer la partie polaire de $F=\frac{X^2+3X+1}{(X-1)^2(X-2)}$ associée au pôle $1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On pose $\varphi(X)=(X-1)^2F(X)=\frac{X^2+3X+1}{X-2}$. La partie polaire en $1$ est $\frac{\lambda_2}{(X-1)^2}+\frac{\lambda_1}{X-1}$ avec $\lambda_2=\varphi(1)=\frac{1+3+1}{1-2}=-5$ et $\lambda_1=\varphi'(1)$. On calcule $\varphi'(X)=\frac{(2X+3)(X-2)-(X^2+3X+1)}{(X-2)^2}=\frac{X^2-4X-7}{(X-2)^2}$, d'où $\varphi'(1)=\frac{1-4-7}{1}=-10$. La partie polaire associée au pôle $1$ est $\frac{-5}{(X-1)^2}+\frac{-10}{X-1}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 15.</span> Décomposer en éléments simples sur $\C$ la fraction $F=\frac{X^5}{X^4-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Partie entière.</em> Division euclidienne : $X^5=(X^4-1)\cdot X+X$, donc $E=X$ et $F=X+\frac{X}{X^4-1}$.
+      <br><br>
+      <em>Partie polaire.</em> On factorise $X^4-1=(X-1)(X+1)(X-i)(X+i)$. Tous les pôles sont simples. On applique la formule $\lambda_a=\frac{A(a)}{B'(a)}$ avec $B=X^4-1$ et $B'=4X^3$ : $\lambda_1=\frac{1}{4}$, $\lambda_{-1}=\frac{-1}{-4}=\frac{1}{4}$, $\lambda_i=\frac{i}{4i^3}=\frac{i}{-4i}=-\frac{1}{4}$, $\lambda_{-i}=\frac{-i}{4(-i)^3}=\frac{-i}{4i}=-\frac{1}{4}$. Finalement,
+      \[F=X+\frac{1}{4}\left(\frac{1}{X-1}+\frac{1}{X+1}-\frac{1}{X-i}-\frac{1}{X+i}\right).\]
+    </details>
 
   </main>
 </body>

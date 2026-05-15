@@ -1,17 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reduction</title>
+  <title>Réduction</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
-      ]
+      ],
+      macros: {
+        '\\K': '\\mathbb{K}',
+        '\\R': '\\mathbb{R}',
+        '\\C': '\\mathbb{C}',
+        '\\N': '\\mathbb{N}',
+        '\\Id': '\\mathrm{Id}',
+        '\\rg': '\\mathrm{rg}',
+        '\\Sp': '\\mathrm{Sp}',
+        '\\tr': '\\mathrm{tr}',
+        '\\Vect': '\\mathrm{Vect}',
+        '\\Mat': '\\mathrm{Mat}'
+      }
     });"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   <link rel="stylesheet" href="../../style.css">
@@ -20,8 +33,598 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
-    <h2 class="fr">Cours</h2>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <h3 class="fr">Le problème</h3>
+    <p class="fr">
+      En algèbre linéaire de première année, on a appris à travailler avec les applications linéaires et les matrices. Mais une même application linéaire $u : E \to E$ peut être représentée par des matrices très différentes selon la base choisie. Certaines bases donnent des matrices simples (diagonales, triangulaires), d'autres des matrices compliquées. L'objectif de la <em>réduction</em> est de trouver une base dans laquelle la matrice de $u$ est la plus simple possible, afin de comprendre la structure de $u$ et de pouvoir calculer facilement $u^n$, $e^u$, résoudre des équations différentielles, etc.
+    </p>
+
+    <h3 class="fr">Valeurs propres et diagonalisation</h3>
+    <p class="fr">
+      L'idée la plus naturelle : chercher des vecteurs $x \neq 0$ tels que $u(x) = \lambda x$, c'est-à-dire des directions préservées par $u$. Ces vecteurs sont les <em>vecteurs propres</em>, et les $\lambda$ correspondants sont les <em>valeurs propres</em>. Si on trouve une base entière de vecteurs propres, la matrice de $u$ dans cette base est diagonale : c'est la <em>diagonalisation</em>. Les valeurs propres sont les racines du <em>polynôme caractéristique</em> $\chi_u(\lambda) = \det(u - \lambda \mathrm{Id})$.
+    </p>
+
+    <h3 class="fr">Quand la diagonalisation échoue</h3>
+    <p class="fr">
+      Tous les endomorphismes ne sont pas diagonalisables. Deux obstacles possibles : le polynôme caractéristique peut ne pas être scindé (pas assez de racines dans $\mathbb{K}$), ou même quand il est scindé, les sous-espaces propres peuvent être trop petits. Sur $\mathbb{C}$, le premier obstacle disparaît (tout polynôme est scindé), et on peut toujours au moins <em>trigonaliser</em> : trouver une base dans laquelle la matrice est triangulaire supérieure.
+    </p>
+
+    <h3 class="fr">Polynômes d'endomorphismes et Cayley-Hamilton</h3>
+    <p class="fr">
+      L'algèbre $\mathbb{K}[u]$ des polynômes en $u$ est un outil puissant. Le <em>théorème de Cayley-Hamilton</em> affirme que $\chi_u(u) = 0$ : l'endomorphisme annule son propre polynôme caractéristique. Le <em>polynôme minimal</em> $\mu_u$ est le plus petit polynôme qui annule $u$. Il divise tout polynôme annulateur et ses racines sont exactement les valeurs propres de $u$.
+    </p>
+
+    <h3 class="fr">Décomposition des noyaux et applications</h3>
+    <p class="fr">
+      Le <em>lemme de décomposition des noyaux</em> dit que si $P = P_1 \cdots P_k$ avec les $P_i$ premiers entre eux deux à deux, alors $\ker P(u) = \bigoplus \ker P_i(u)$. C'est l'outil central pour décomposer $E$ en sous-espaces stables. Appliqué au polynôme minimal, il donne la décomposition de Dunford : tout endomorphisme dont le polynôme caractéristique est scindé s'écrit $u = d + n$ avec $d$ diagonalisable, $n$ nilpotent, et $d$ et $n$ qui commutent.
+    </p>
+
+    <h2 class="fr">Compléments d'algèbre linéaire</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Sous-espace stable).</span> Soit $u \in \mathcal{L}(E)$. Un sous-espace vectoriel $F$ de $E$ est dit <em>stable par $u$</em> (ou <em>$u$-stable</em>) si $u(F) \subset F$, c'est-à-dire si pour tout $x \in F$, $u(x) \in F$. On peut alors considérer la restriction $u|_F : F \to F$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Matrice par blocs).</span> Soit $E = F_1 \oplus \cdots \oplus F_k$ avec chaque $F_i$ stable par $u$. Si on choisit une base de $E$ adaptée à cette décomposition, alors la matrice de $u$ est diagonale par blocs :
+      \[\mathrm{Mat}(u) = \begin{pmatrix} A_1 & & 0 \\ & \ddots & \\ 0 & & A_k \end{pmatrix}\]
+      où $A_i$ est la matrice de $u|_{F_i}$ dans la base de $F_i$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $\mathcal{B} = (\mathcal{B}_1, \ldots, \mathcal{B}_k)$ où $\mathcal{B}_i$ est une base de $F_i$. Pour $e \in \mathcal{B}_i$, $u(e) \in F_i$ (car $F_i$ est stable), donc les coordonnées de $u(e)$ sur les vecteurs de $\mathcal{B}_j$ pour $j \neq i$ sont nulles. La colonne correspondant à $e$ n'a des coefficients non nuls que dans le bloc $i$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Polynôme d'un endomorphisme).</span> Soit $u \in \mathcal{L}(E)$ et $P = \sum_{k=0}^n a_k X^k \in \mathbb{K}[X]$. On définit l'endomorphisme $P(u) = \sum_{k=0}^n a_k u^k$, avec la convention $u^0 = \mathrm{Id}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> L'application $\mathbb{K}[X] \to \mathcal{L}(E)$, $P \mapsto P(u)$ est un morphisme d'algèbres : $(P + Q)(u) = P(u) + Q(u)$, $(\lambda P)(u) = \lambda P(u)$, $(PQ)(u) = P(u) \circ Q(u) = Q(u) \circ P(u)$. En particulier, $P(u)$ et $Q(u)$ commutent.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Il suffit de vérifier sur les monômes $P = X^j$, $Q = X^k$. On a $(PQ)(u) = X^{j+k}(u) = u^{j+k}$ et $P(u) \circ Q(u) = u^j \circ u^k = u^{j+k}$, d'où $(PQ)(u) = P(u) \circ Q(u)$. Le cas général s'en déduit par bilinéarité.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Polynôme annulateur).</span> $P \in \mathbb{K}[X]$ est un <em>polynôme annulateur</em> de $u$ si $P(u) = 0$ (l'endomorphisme nul).</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $F$ est un sous-espace stable par $u$ et $P$ est un polynôme annulateur de $u$, alors $P$ est aussi un polynôme annulateur de $u|_F$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour tout $x \in F$, $P(u|_F)(x) = P(u)(x) = 0$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Valeur propre, vecteur propre).</span> Soit $u \in \mathcal{L}(E)$. Un scalaire $\lambda \in \mathbb{K}$ est une <em>valeur propre</em> de $u$ s'il existe $x \in E$, $x \neq 0$, tel que $u(x) = \lambda x$. Un tel vecteur $x$ est un <em>vecteur propre</em> associé à $\lambda$. On note $\mathrm{Sp}(u)$ l'ensemble des valeurs propres de $u$ (le <em>spectre</em> de $u$).</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Sous-espace propre).</span> Le <em>sous-espace propre</em> associé à la valeur propre $\lambda$ est $E_\lambda = \ker(u - \lambda \mathrm{Id})$. C'est l'ensemble des vecteurs propres associés à $\lambda$, auquel on ajoute le vecteur nul.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Chaque sous-espace propre $E_\lambda$ est un sous-espace vectoriel de $E$, non réduit à $\{0\}$, et stable par $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $E_\lambda = \ker(u - \lambda \mathrm{Id})$ est un noyau, donc un sev. Il est non nul par définition de valeur propre. Si $x \in E_\lambda$, alors $u(x) = \lambda x \in E_\lambda$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Indépendance des sous-espaces propres).</span> Soit $\lambda_1, \ldots, \lambda_p$ des valeurs propres distinctes de $u$. Alors $E_{\lambda_1} + \cdots + E_{\lambda_p} = E_{\lambda_1} \oplus \cdots \oplus E_{\lambda_p}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Récurrence sur $p$. Soit $x_1 + \cdots + x_p = 0$ avec $x_i \in E_{\lambda_i}$. En appliquant $u$ : $\lambda_1 x_1 + \cdots + \lambda_p x_p = 0$. En soustrayant $\lambda_p$ fois la relation initiale : $(\lambda_1 - \lambda_p) x_1 + \cdots + (\lambda_{p-1} - \lambda_p) x_{p-1} = 0$. Par hypothèse de récurrence, chaque $(\lambda_i - \lambda_p) x_i = 0$. Comme $\lambda_i \neq \lambda_p$ pour $i &lt; p$, on a $x_i = 0$ pour $i &lt; p$, puis $x_p = 0$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Des vecteurs propres associés à des valeurs propres distinctes forment une famille libre.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x_i \in E_{\lambda_i} \setminus \{0\}$, la somme directe implique que $\sum \alpha_i x_i = 0$ entraîne chaque $\alpha_i x_i = 0$, donc $\alpha_i = 0$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Un endomorphisme d'un espace de dimension $n$ a au plus $n$ valeurs propres.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $u$ avait $n+1$ valeurs propres distinctes, on aurait $n+1$ vecteurs propres linéairement indépendants dans un espace de dimension $n$, ce qui est impossible.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Polynôme caractéristique).</span> Soit $u \in \mathcal{L}(E)$ avec $\dim E = n$. Le <em>polynôme caractéristique</em> de $u$ est $\chi_u(\lambda) = \det(u - \lambda \mathrm{Id})$. Pour une matrice $A$, on note $\chi_A(\lambda) = \det(A - \lambda I_n)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Forme du polynôme caractéristique).</span>
+      \[\chi_u(\lambda) = (-1)^n \lambda^n + (-1)^{n-1} \mathrm{tr}(u)\, \lambda^{n-1} + \cdots + \det(u)\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par la formule de Leibniz, toute permutation $\sigma \neq \mathrm{id}$ a au moins deux points non fixes, donc le produit correspondant contient au plus $n-2$ facteurs en $\lambda$. Seul le terme $\sigma = \mathrm{id}$ contribue aux coefficients de $\lambda^n$ et $\lambda^{n-1}$ : $\prod_{i=1}^n (a_{ii} - \lambda) = (-1)^n \lambda^n + (-1)^{n-1} \mathrm{tr}(A)\, \lambda^{n-1} + \cdots$. Enfin $\chi_u(0) = \det(A) = \det(u)$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème.</span> $\lambda$ est valeur propre de $u$ si et seulement si $\chi_u(\lambda) = 0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\lambda$ est valeur propre de $u$ $\iff$ $u - \lambda \mathrm{Id}$ n'est pas injective $\iff$ $u - \lambda \mathrm{Id}$ n'est pas bijective (en dimension finie) $\iff$ $\det(u - \lambda \mathrm{Id}) = 0$ $\iff$ $\chi_u(\lambda) = 0$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Multiplicités algébrique et géométrique).</span> Si $\lambda$ est valeur propre de $u$, sa <em>multiplicité algébrique</em> $m_\lambda$ est sa multiplicité en tant que racine de $\chi_u$. Sa <em>multiplicité géométrique</em> est $\dim E_\lambda = \dim \ker(u - \lambda \mathrm{Id})$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Encadrement des multiplicités).</span> Pour toute valeur propre $\lambda$ de $u$ : $1 \leq \dim E_\lambda \leq m_\lambda$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $1 \leq \dim E_\lambda$ vient de la définition de valeur propre. Pour $\dim E_\lambda \leq m_\lambda$ : soit $p = \dim E_\lambda$ et $(e_1, \ldots, e_p)$ une base de $E_\lambda$, complétée en base de $E$. La matrice de $u$ est $M = \begin{pmatrix} \lambda I_p & B \\ 0 & C \end{pmatrix}$. Alors $\chi_u(X) = (\lambda - X)^p \det(C - X I_{n-p})$, donc $(X - \lambda)^p$ divise $\chi_u(X)$, d'où $m_\lambda \geq p$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Matrices semblables).</span> Deux matrices $A, B \in \mathcal{M}_n(\mathbb{K})$ sont <em>semblables</em> s'il existe $P \in GL_n(\mathbb{K})$ telle que $B = P^{-1}AP$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Deux matrices semblables ont même polynôme caractéristique, même trace, même déterminant, même rang et mêmes valeurs propres (avec mêmes multiplicités).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\chi_{P^{-1}AP}(X) = \det(P^{-1}AP - XI_n) = \det(P^{-1}(A - XI_n)P) = \det(A - XI_n) = \chi_A(X)$. La trace et le déterminant se lisent sur les coefficients de $\chi$. Le rang : $\mathrm{rg}(P^{-1}AP) = \mathrm{rg}(A)$ car $P$ et $P^{-1}$ sont inversibles.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Diagonalisabilité).</span> Un endomorphisme $u \in \mathcal{L}(E)$ est <em>diagonalisable</em> s'il existe une base de $E$ formée de vecteurs propres de $u$. Une matrice $A \in \mathcal{M}_n(\mathbb{K})$ est <em>diagonalisable</em> sur $\mathbb{K}$ s'il existe $P \in GL_n(\mathbb{K})$ et $D$ diagonale telles que $A = PDP^{-1}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Caractérisation de la diagonalisabilité).</span> Soit $u \in \mathcal{L}(E)$ avec $\dim E = n$. Les assertions suivantes sont équivalentes :
+      <ol class="fr">
+        <li>$u$ est diagonalisable,</li>
+        <li>$E = \bigoplus_{\lambda \in \mathrm{Sp}(u)} E_\lambda$,</li>
+        <li>$\chi_u$ est scindé sur $\mathbb{K}$ et pour toute valeur propre $\lambda$, $\dim E_\lambda = m_\lambda$.</li>
+      </ol></p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(1) \Leftrightarrow (2)$ : si $(e_1, \ldots, e_n)$ est une base de vecteurs propres, chaque $e_i \in E_{\lambda_j}$, donc $E = \sum E_\lambda$, somme directe car les sous-espaces propres le sont toujours. Réciproquement, si $E = \bigoplus E_\lambda$, on réunit des bases de chaque $E_\lambda$.
+      <br><br>
+      $(2) \Leftrightarrow (3)$ : on a toujours $\sum \dim E_\lambda \leq \sum m_\lambda \leq n$. L'égalité $\sum \dim E_\lambda = n$ force $\dim E_\lambda = m_\lambda$ pour tout $\lambda$ et $\sum m_\lambda = n$ (donc $\chi_u$ scindé). Réciproquement, si $\chi_u$ est scindé et $\dim E_\lambda = m_\lambda$ pour tout $\lambda$, alors $\sum \dim E_\lambda = \sum m_\lambda = n$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $u$ a $n = \dim E$ valeurs propres distinctes, alors $u$ est diagonalisable.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Avec $n$ valeurs propres distinctes, chaque multiplicité algébrique vaut $1$. Alors $\dim E_\lambda \geq 1 = m_\lambda$, et l'inégalité $\dim E_\lambda \leq m_\lambda$ force l'égalité.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Existence et unicité du polynôme minimal).</span> Soit $u \in \mathcal{L}(E)$ avec $\dim E = n$. Il existe un unique polynôme unitaire $\mu_u \in \mathbb{K}[X]$ de degré minimal tel que $\mu_u(u) = 0$. De plus, $\mu_u$ divise tout polynôme annulateur de $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence.</em> L'espace $\mathcal{L}(E)$ est de dimension $n^2$. Les $n^2 + 1$ endomorphismes $\mathrm{Id}, u, u^2, \ldots, u^{n^2}$ forment une famille liée, d'où un polynôme annulateur non nul. Parmi ceux de degré minimal, on en choisit un unitaire.
+      <br><br>
+      <em>Divisibilité.</em> Soit $P$ un polynôme annulateur. La division euclidienne donne $P = Q \mu_u + R$ avec $\deg R &lt; \deg \mu_u$. Alors $R(u) = P(u) - Q(u) \circ \mu_u(u) = 0$. Si $R \neq 0$, c'est un annulateur de degré $&lt; \deg \mu_u$ : contradiction. Donc $R = 0$ et $\mu_u | P$.
+      <br><br>
+      <em>Unicité.</em> Si $\mu'$ est unitaire annulateur de degré minimal, alors $\mu_u | \mu'$ et $\deg \mu_u = \deg \mu'$, donc $\mu_u = \mu'$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Racines du polynôme minimal).</span> Les racines de $\mu_u$ sont exactement les valeurs propres de $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $\lambda$ une racine de $\mu_u$. Alors $\mu_u = (X - \lambda)Q$. Comme $\deg Q &lt; \deg \mu_u$, $Q(u) \neq 0$. Soit $x \in E$ tel que $y = Q(u)(x) \neq 0$. Alors $(u - \lambda \mathrm{Id})(y) = (u - \lambda \mathrm{Id})(Q(u)(x)) = \mu_u(u)(x) = 0$, donc $y$ est un vecteur propre pour $\lambda$.
+      <br><br>
+      $(\Leftarrow)$ Soit $\lambda \in \mathrm{Sp}(u)$ et $x$ un vecteur propre. Alors $\mu_u(u)(x) = \mu_u(\lambda) x = 0$. Comme $x \neq 0$, $\mu_u(\lambda) = 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Polynôme minimal d'une restriction).</span> Si $F$ est un sous-espace stable par $u$, alors $\mu_{u|_F}$ divise $\mu_u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mu_u$ est un polynôme annulateur de $u$, donc aussi de $u|_F$. Or $\mu_{u|_F}$ divise tout polynôme annulateur de $u|_F$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Cayley-Hamilton).</span> Tout endomorphisme $u$ d'un espace de dimension finie annule son polynôme caractéristique : $\chi_u(u) = 0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On travaille avec la matrice $A$ de $u$. Soit $B(\lambda) = {}^t\!\mathrm{Com}(A - \lambda I_n)$ la comatrice transposée. Par la formule de la comatrice :
+      \[(A - \lambda I_n) B(\lambda) = \chi_A(\lambda) \cdot I_n\]
+      Les coefficients de $B(\lambda)$ sont des polynômes en $\lambda$ de degré $\leq n-1$ ; on écrit $B(\lambda) = B_0 + B_1 \lambda + \cdots + B_{n-1} \lambda^{n-1}$. En écrivant $\chi_A(X) = c_0 + c_1 X + \cdots + c_n X^n$ et en identifiant les puissances de $\lambda$ dans l'identité matricielle, on obtient les relations :
+      \[\begin{aligned} AB_0 &= c_0 I_n \\ AB_1 - B_0 &= c_1 I_n \\ &\vdots \\ -B_{n-1} &= c_n I_n \end{aligned}\]
+      On multiplie la $k$-ème ligne par $A^k$ et on somme : les termes en $B_k$ se télescopent et on obtient $0 = c_0 I_n + c_1 A + \cdots + c_n A^n = \chi_A(A)$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Le polynôme minimal $\mu_u$ divise le polynôme caractéristique $\chi_u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\chi_u$ est un polynôme annulateur de $u$ (par Cayley-Hamilton), et $\mu_u$ divise tout polynôme annulateur.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Le degré du polynôme minimal est au plus $n = \dim E$.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> $\mu_u$ et $\chi_u$ ont les mêmes racines (mais pas les mêmes multiplicités en général).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mu_u | \chi_u$, donc toute racine de $\mu_u$ est racine de $\chi_u$. Réciproquement, les racines de $\mu_u$ et de $\chi_u$ sont toutes deux exactement les valeurs propres de $u$.
+    </details>
+
+    <div class="thm-block lemma">
+      <p class="fr"><span class="thm-label">Lemme (Lemme de décomposition des noyaux).</span> Soit $u \in \mathcal{L}(E)$ et $P_1, \ldots, P_k \in \mathbb{K}[X]$ des polynômes premiers entre eux deux à deux. Posons $P = P_1 \cdots P_k$. Alors :
+      \[\ker P(u) = \bigoplus_{i=1}^k \ker P_i(u)\]
+      De plus, si $P(u) = 0$, alors $E = \bigoplus_{i=1}^k \ker P_i(u)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Cas $k = 2$.</em> Posons $P = P_1 P_2$ avec $\mathrm{pgcd}(P_1, P_2) = 1$. Par Bézout, il existe $U, V$ tels que $UP_1 + VP_2 = 1$, d'où $U(u) \circ P_1(u) + V(u) \circ P_2(u) = \mathrm{Id}$.
+      <br><br>
+      <em>Inclusion $\ker P_1(u) + \ker P_2(u) \subset \ker P(u)$.</em> Si $x \in \ker P_1(u)$, alors $P(u)(x) = P_2(u)(P_1(u)(x)) = 0$.
+      <br><br>
+      <em>Inclusion réciproque.</em> Soit $x \in \ker P(u)$. La relation de Bézout donne $x = U(u)(P_1(u)(x)) + V(u)(P_2(u)(x))$. En posant $y = V(u)(P_2(u)(x))$ et $z = U(u)(P_1(u)(x))$, on vérifie $P_1(u)(y) = V(u)(P(u)(x)) = 0$ et $P_2(u)(z) = U(u)(P(u)(x)) = 0$, donc $x = y + z \in \ker P_1(u) + \ker P_2(u)$.
+      <br><br>
+      <em>Somme directe.</em> Si $x \in \ker P_1(u) \cap \ker P_2(u)$, la relation de Bézout donne $x = U(u)(P_1(u)(x)) + V(u)(P_2(u)(x)) = 0$.
+      <br><br>
+      <em>Cas général.</em> Récurrence : on applique le cas $k = 2$ à $P = P_1 \cdot (P_2 \cdots P_k)$, puis l'hypothèse de récurrence à $P_2 \cdots P_k$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Projecteurs associés).</span> Sous les hypothèses du lemme, avec $P(u) = 0$, la projection sur $\ker P_i(u)$ parallèlement à $\bigoplus_{j \neq i} \ker P_j(u)$ est un polynôme en $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $Q_i = \prod_{j \neq i} P_j$. Les $Q_i$ sont premiers entre eux dans leur ensemble ; il existe $U_1, \ldots, U_k$ tels que $\sum U_i Q_i = 1$. Alors $\pi_i = U_i(u) \circ Q_i(u)$ est la projection voulue : $\sum \pi_i = \mathrm{Id}$, et pour $x \in \ker P_j(u)$ avec $j \neq i$, $Q_i(u)(x) = 0$ (car $P_j | Q_i$), donc $\pi_i(x) = 0$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Critère de diagonalisabilité par le polynôme minimal).</span> $u$ est diagonalisable si et seulement si $\mu_u$ est scindé à racines simples.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Supposons $u$ diagonalisable, $E = \bigoplus E_{\lambda_i}$. Posons $P = \prod_{i=1}^p (X - \lambda_i)$. Pour $x_j \in E_{\lambda_j}$, le facteur $(u - \lambda_j \mathrm{Id})$ s'annule sur $x_j$, donc $P(u)(x_j) = 0$. Ainsi $P$ est annulateur, $\mu_u | P$, et $\mu_u$ est scindé à racines simples.
+      <br><br>
+      $(\Leftarrow)$ Supposons $\mu_u = \prod_{i=1}^p (X - \lambda_i)$ avec les $\lambda_i$ distincts. Les facteurs $(X - \lambda_i)$ sont premiers entre eux deux à deux. Le lemme de décomposition donne :
+      \[E = \ker \mu_u(u) = \bigoplus_{i=1}^p \ker(u - \lambda_i \mathrm{Id}) = \bigoplus_{i=1}^p E_{\lambda_i}\]
+      Donc $u$ est diagonalisable.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> $u$ est diagonalisable si et seulement s'il est annulé par un polynôme scindé à racines simples.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $u$ est diagonalisable, $\mu_u$ est un tel polynôme. $(\Leftarrow)$ Si $P$ scindé à racines simples annule $u$, alors $\mu_u | P$, donc $\mu_u$ est aussi scindé à racines simples.
+    </details>
+
+    <div class="thm-block example">
+      <p class="fr"><span class="thm-label">Exemple.</span> Un projecteur $p$ vérifie $p^2 = p$, donc $p(p - \mathrm{Id}) = 0$. Le polynôme $X(X-1)$ est scindé à racines simples, donc $p$ est diagonalisable (valeurs propres possibles : $0$ et $1$).</p>
+    </div>
+
+    <h2 class="fr">Trigonalisation</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Endomorphisme trigonalisable).</span> $u \in \mathcal{L}(E)$ est <em>trigonalisable</em> s'il existe une base de $E$ dans laquelle la matrice de $u$ est triangulaire supérieure.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Critère de trigonalisabilité).</span> $u$ est trigonalisable si et seulement si $\chi_u$ est scindé sur $\mathbb{K}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si la matrice de $u$ est triangulaire supérieure $T$, alors $\chi_u(\lambda) = \prod_{i=1}^n (t_{ii} - \lambda)$, qui est scindé.
+      <br><br>
+      $(\Leftarrow)$ Par récurrence sur $n = \dim E$. Si $\chi_u$ est scindé, il a une racine $\lambda_1 \in \mathbb{K}$. Soit $e_1$ un vecteur propre. Dans une base $(e_1, f_2, \ldots, f_n)$, la matrice de $u$ est $M = \begin{pmatrix} \lambda_1 & * \\ 0 & A' \end{pmatrix}$, et $\chi_u(X) = (\lambda_1 - X)\det(A' - XI_{n-1})$. Comme $\chi_u$ est scindé, $\det(A' - XI_{n-1})$ l'est aussi. Par hypothèse de récurrence, $A' = Q^{-1}T'Q$. En posant $P = \begin{pmatrix} 1 & 0 \\ 0 & Q \end{pmatrix}$, on obtient $P^{-1}MP$ triangulaire supérieure.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Sur $\mathbb{C}$, tout endomorphisme est trigonalisable.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Sur $\mathbb{C}$, tout polynôme est scindé (théorème de d'Alembert-Gauss).
+    </details>
+
+    <div class="thm-block remark">
+      <p class="fr"><span class="thm-label">Remarque.</span> Les éléments diagonaux de la matrice triangulaire sont les valeurs propres de $u$ comptées avec multiplicité.</p>
+    </div>
+
+    <h2 class="fr">Endomorphismes nilpotents</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Endomorphisme nilpotent).</span> $u \in \mathcal{L}(E)$ est <em>nilpotent</em> s'il existe $p \in \mathbb{N}^*$ tel que $u^p = 0$. Le plus petit tel $p$ est l'<em>indice de nilpotence</em> de $u$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisations de la nilpotence).</span> Soit $u \in \mathcal{L}(E)$ avec $\dim E = n$. Les assertions suivantes sont équivalentes :
+      <ol class="fr">
+        <li>$u$ est nilpotent,</li>
+        <li>$u^n = 0$,</li>
+        <li>$\chi_u(X) = (-1)^n X^n$ ($0$ est la seule valeur propre, de multiplicité $n$),</li>
+        <li>$\mu_u(X) = X^p$ pour un certain $p \leq n$.</li>
+      </ol></p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(1) \Rightarrow (3)$ : Si $u^p = 0$, alors $\mu_u | X^p$, donc $\mu_u = X^q$. Les racines de $\mu_u$ sont les valeurs propres, donc $0$ est la seule valeur propre. Comme $\mu_u | \chi_u$, on obtient $\chi_u = (-1)^n X^n$.
+      <br><br>
+      $(3) \Rightarrow (2)$ : Par Cayley-Hamilton, $\chi_u(u) = (-1)^n u^n = 0$, donc $u^n = 0$.
+      <br><br>
+      $(2) \Rightarrow (1)$ : Immédiat.
+      <br><br>
+      $(1) \Leftrightarrow (4)$ : Si $u^p = 0$, alors $\mu_u | X^p$, d'où $\mu_u = X^q$. Réciproquement, $\mu_u = X^p$ implique $u^p = 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $u$ est nilpotent d'indice $p$, alors $p \leq n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Cayley-Hamilton donne $u^n = 0$, donc $p \leq n$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Matrice triangulaire strictement supérieure).</span> $u$ est nilpotent si et seulement si sa matrice dans une certaine base est triangulaire supérieure avec des zéros sur la diagonale.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Leftarrow)$ Une matrice strictement triangulaire supérieure $T$ vérifie $T^n = 0$.
+      <br><br>
+      $(\Rightarrow)$ Si $u$ est nilpotent, $\chi_u = (-1)^n X^n$ est scindé, donc $u$ est trigonalisable et les éléments diagonaux de la matrice triangulaire sont les valeurs propres, toutes égales à $0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Trace des puissances).</span> Si $u$ est nilpotent, alors $\mathrm{tr}(u^k) = 0$ pour tout $k \geq 1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Dans une base de trigonalisation, la matrice de $u^k$ est strictement triangulaire supérieure, donc sa trace est nulle.
+    </details>
+
+    <h2 class="fr">Sous-espaces caractéristiques</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Sous-espace caractéristique).</span> Soit $\lambda$ une valeur propre de $u$ de multiplicité algébrique $m_\lambda$. Le <em>sous-espace caractéristique</em> associé à $\lambda$ est $N_\lambda = \ker(u - \lambda \mathrm{Id})^{m_\lambda}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Propriétés des sous-espaces caractéristiques).</span> Soit $\chi_u$ scindé avec $\chi_u = \prod_{i=1}^p (-1)^n(X - \lambda_i)^{m_i}$. Alors :
+      <ol class="fr">
+        <li>$\dim N_{\lambda_i} = m_{\lambda_i}$ pour tout $i$,</li>
+        <li>$E = \bigoplus_{i=1}^p N_{\lambda_i}$,</li>
+        <li>Chaque $N_{\lambda_i}$ est stable par $u$, et $(u - \lambda_i \mathrm{Id})|_{N_{\lambda_i}}$ est nilpotent.</li>
+      </ol></p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par Cayley-Hamilton, $\prod (u - \lambda_i \mathrm{Id})^{m_i} = 0$. Les polynômes $(X - \lambda_i)^{m_i}$ sont premiers entre eux deux à deux. Le lemme de décomposition donne $E = \bigoplus_{i=1}^p N_{\lambda_i}$, d'où $n = \sum \dim N_{\lambda_i}$.
+      <br><br>
+      Chaque $N_{\lambda_i}$ est stable par $u$. La restriction $u|_{N_{\lambda_i}}$ a pour seule valeur propre $\lambda_i$ (si $\mu$ est valeur propre avec vecteur propre $x$, alors $(\mu - \lambda_i)^{m_i} x = (u - \lambda_i \mathrm{Id})^{m_i}(x) = 0$, donc $\mu = \lambda_i$). Ainsi $\chi_{u|_{N_{\lambda_i}}} = (-1)^{d_i}(X - \lambda_i)^{d_i}$. En multipliant : $\chi_u = \prod \chi_{u|_{N_{\lambda_i}}}$, donc $d_i = m_i$. Enfin, $(u - \lambda_i \mathrm{Id})^{m_i}|_{N_{\lambda_i}} = 0$ prouve la nilpotence.
+    </details>
+
+    <div class="thm-block remark">
+      <p class="fr"><span class="thm-label">Remarque.</span> Les sous-espaces caractéristiques généralisent les sous-espaces propres : on a toujours $E_\lambda \subset N_\lambda$, avec égalité si et seulement si $\dim E_\lambda = m_\lambda$.</p>
+    </div>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> $u$ est diagonalisable si et seulement si $N_\lambda = E_\lambda$ pour toute valeur propre $\lambda$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $u$ diagonalisable $\iff$ $\dim E_\lambda = m_\lambda$ pour tout $\lambda$ $\iff$ $E_\lambda = N_\lambda$ pour tout $\lambda$ (car $E_\lambda \subset N_\lambda$ et $\dim N_\lambda = m_\lambda$).
+    </details>
+
+    <h2 class="fr">Diagonalisation simultanée</h2>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Diagonalisation simultanée).</span> Soit $u, v \in \mathcal{L}(E)$ deux endomorphismes diagonalisables qui commutent ($u \circ v = v \circ u$). Alors il existe une base de $E$ dans laquelle les matrices de $u$ et de $v$ sont toutes deux diagonales.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $u$ est diagonalisable, $E = \bigoplus_{\lambda \in \mathrm{Sp}(u)} E_\lambda(u)$. Chaque $E_\lambda(u)$ est stable par $v$ : si $x \in E_\lambda(u)$, $u(v(x)) = v(u(x)) = v(\lambda x) = \lambda v(x)$, donc $v(x) \in E_\lambda(u)$.
+      <br><br>
+      $v|_{E_\lambda(u)}$ est diagonalisable (car $v$ est annulé par un polynôme scindé à racines simples $P$, et $v|_{E_\lambda(u)}$ est annulé par le même $P$). Il existe donc une base de $E_\lambda(u)$ formée de vecteurs propres de $v$, qui sont aussi vecteurs propres de $u$. En réunissant ces bases, on obtient une base de $E$ de vecteurs propres communs.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Si $d_1$ et $d_2$ sont diagonalisables et commutent, alors $d_1 + d_2$ et $d_1 - d_2$ sont diagonalisables.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Il existe une base commune de vecteurs propres de $d_1$ et $d_2$, dans laquelle $d_1 + d_2$ et $d_1 - d_2$ sont aussi diagonales.
+    </details>
+
+    <div class="thm-block lemma">
+      <p class="fr"><span class="thm-label">Lemme.</span> Si $n_1$ et $n_2$ sont nilpotents et commutent, alors $n_1 + n_2$ et $n_1 - n_2$ sont nilpotents.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $n_1$ et $n_2$ commutent, la formule du binôme s'applique. Soit $n_1^p = 0$ et $n_2^q = 0$.
+      \[(n_1 + n_2)^{p+q-1} = \sum_{k=0}^{p+q-1} \binom{p+q-1}{k} n_1^k n_2^{p+q-1-k}\]
+      Pour chaque terme : si $k \geq p$, alors $n_1^k = 0$ ; sinon $p+q-1-k \geq q$, donc $n_2^{p+q-1-k} = 0$. Ainsi $(n_1 + n_2)^{p+q-1} = 0$.
+    </details>
+
+    <h2 class="fr">Décomposition de Dunford</h2>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Décomposition de Dunford).</span> Soit $u \in \mathcal{L}(E)$ tel que $\chi_u$ est scindé sur $\mathbb{K}$. Alors il existe un unique couple $(d, n)$ d'endomorphismes de $E$ tel que :
+      <ol class="fr">
+        <li>$u = d + n$,</li>
+        <li>$d$ est diagonalisable et $n$ est nilpotent,</li>
+        <li>$d \circ n = n \circ d$.</li>
+      </ol>
+      De plus, $d$ et $n$ sont des polynômes en $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence.</em> Soit $\mu_u = \prod_{i=1}^p (X - \lambda_i)^{r_i}$. Les $(X - \lambda_i)^{r_i}$ sont premiers entre eux deux à deux. Par décomposition des noyaux : $E = \bigoplus_{i=1}^p F_i$ avec $F_i = \ker(u - \lambda_i \mathrm{Id})^{r_i}$. On définit $d$ par $d|_{F_i} = \lambda_i \mathrm{Id}_{F_i}$ ; alors $d$ est diagonalisable. Posons $n = u - d$ : sur chaque $F_i$, $n|_{F_i} = (u - \lambda_i \mathrm{Id})|_{F_i}$ est nilpotent. Les projections $\pi_i$ sur $F_i$ sont des polynômes en $u$, donc $d = \sum \lambda_i \pi_i$ et $n = u - d$ le sont aussi. Comme $d$ et $n$ sont des polynômes en $u$, ils commutent.
+      <br><br>
+      <em>Unicité.</em> Soit $(d', n')$ un autre couple vérifiant les trois propriétés. $d'$ et $n'$ commutent avec $u$, donc avec tout polynôme en $u$, donc avec $d$ et $n$. On a $d - d' = n' - n$. Le membre gauche est diagonalisable (diagonalisables qui commutent), le membre droit est nilpotent (nilpotents qui commutent). Un endomorphisme à la fois diagonalisable et nilpotent est nul (toutes ses valeurs propres sont $0$ et il est diagonalisable). Donc $d = d'$ et $n = n'$.
+    </details>
+
+    <div class="thm-block remark">
+      <p class="fr"><span class="thm-label">Remarque.</span> $d$ s'appelle la <em>partie diagonalisable</em> (ou semi-simple) de $u$, et $n$ la <em>partie nilpotente</em>.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Commutation dans Dunford).</span> $d$ et $n$ commutent avec tout endomorphisme qui commute avec $u$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $d$ et $n$ sont des polynômes en $u$. Si $v$ commute avec $u$, alors $v$ commute avec tout polynôme en $u$.
+    </details>
+
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 1.</span> Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. Déterminer si $A$ est diagonalisable. Calculer $A^n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\chi_A(X) = (1-X)^2$. La seule valeur propre est $\lambda = 1$, de multiplicité algébrique $2$. $E_1 = \ker(A - I_2) = \ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \mathrm{Vect}\begin{pmatrix} 1 \\ 0 \end{pmatrix}$, de dimension $1 &lt; 2$. Donc $A$ n'est pas diagonalisable.
+      <br><br>
+      On écrit $A = I_2 + N$ avec $N = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, et $N^2 = 0$. Par la formule du binôme :
+      \[A^n = (I_2 + N)^n = I_2 + nN = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}\]
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 2.</span> Soit $u \in \mathcal{L}(E)$ tel que $u^2 = u$. Montrer que $u$ est diagonalisable et déterminer ses valeurs propres possibles.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $u^2 - u = 0$, donc $u$ est annulé par $P(X) = X(X-1)$, scindé à racines simples. Donc $u$ est diagonalisable, de valeurs propres parmi $\{0, 1\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 3.</span> Soit $u \in \mathcal{L}(E)$ nilpotent et $v \in \mathcal{L}(E)$ qui commute avec $u$. Montrer que $u \circ v$ est nilpotent.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $u$ et $v$ commutent, $(u \circ v)^n = u^n \circ v^n$. Si $u^p = 0$, alors $(u \circ v)^p = u^p \circ v^p = 0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 4.</span> Montrer que deux matrices semblables ont le même polynôme minimal.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $B = P^{-1}AP$. Pour tout polynôme $Q$, $Q(B) = P^{-1}Q(A)P$. Donc $Q(B) = 0 \iff Q(A) = 0$ : les polynômes annulateurs de $A$ et $B$ sont les mêmes, donc les polynômes minimaux sont égaux.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 5.</span> Soit $A = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}$. Déterminer si $A$ est diagonalisable sur $\mathbb{R}$, puis sur $\mathbb{C}$. Donner la décomposition de Dunford sur $\mathbb{C}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\chi_A(X) = (2-X)(X^2+1) = -(X-2)(X^2+1)$.
+      <br><br>
+      <em>Sur $\mathbb{R}$</em> : $X^2+1$ n'a pas de racine réelle, donc $\chi_A$ n'est pas scindé sur $\mathbb{R}$ : $A$ n'est même pas trigonalisable sur $\mathbb{R}$.
+      <br><br>
+      <em>Sur $\mathbb{C}$</em> : $\chi_A(X) = -(X-2)(X-i)(X+i)$. Trois valeurs propres distinctes, donc $A$ est diagonalisable sur $\mathbb{C}$. La décomposition de Dunford est $d = A$, $n = 0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $u \in \mathcal{L}(E)$ tel que $u^3 = u$. Montrer que $u$ est diagonalisable.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $u^3 - u = 0$, donc $u$ annule $P(X) = X^3 - X = X(X-1)(X+1)$, scindé à racines simples. Donc $u$ est diagonalisable.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 7.</span> Soit $E$ de dimension $n$ et $u \in \mathcal{L}(E)$ nilpotent d'indice $n$ (i.e. $u^{n-1} \neq 0$ et $u^n = 0$). Montrer qu'il existe $x \in E$ tel que $(x, u(x), u^2(x), \ldots, u^{n-1}(x))$ est une base de $E$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $u^{n-1} \neq 0$, il existe $x \in E$ tel que $u^{n-1}(x) \neq 0$. Montrons que $(x, u(x), \ldots, u^{n-1}(x))$ est libre. Soit $\sum_{k=0}^{n-1} a_k u^k(x) = 0$. En appliquant $u^{n-1}$ : $a_0 u^{n-1}(x) = 0$ (car $u^{n-1+k} = 0$ pour $k \geq 1$). Donc $a_0 = 0$. En appliquant $u^{n-2}$ : $a_1 = 0$. En continuant, $a_k = 0$ pour tout $k$. Famille libre de $n$ vecteurs en dimension $n$ : c'est une base.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 8.</span> Soit $A \in \mathcal{M}_n(\mathbb{R})$ telle que $A^2 + A + I_n = 0$. Montrer que $n$ est pair.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Le polynôme $P(X) = X^2 + X + 1$ annule $A$ et n'a pas de racine réelle (discriminant $-3 &lt; 0$), donc $A$ n'a pas de valeur propre réelle.
+      <br><br>
+      Sur $\mathbb{C}$, les racines de $P$ sont $j = e^{2i\pi/3}$ et $\bar{j}$. Comme $\mu_A | P$ et $P$ est scindé à racines simples sur $\mathbb{C}$, $A$ est diagonalisable sur $\mathbb{C}$, de valeurs propres $j$ et $\bar{j}$. Comme $A$ est à coefficients réels, $j$ et $\bar{j}$ ont la même multiplicité $m$. Donc $n = 2m$ est pair.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 9.</span> Soit $u \in \mathcal{L}(E)$ et $F, G$ deux sous-espaces stables par $u$ tels que $E = F \oplus G$. Montrer que $\chi_u = \chi_{u|_F} \cdot \chi_{u|_G}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Dans une base adaptée à $E = F \oplus G$, la matrice de $u$ est $\begin{pmatrix} A & 0 \\ 0 & B \end{pmatrix}$ avec $A = \mathrm{Mat}(u|_F)$ et $B = \mathrm{Mat}(u|_G)$. Donc :
+      \[\chi_u(X) = \det\begin{pmatrix} A - XI & 0 \\ 0 & B - XI \end{pmatrix} = \det(A - XI) \cdot \det(B - XI) = \chi_{u|_F}(X) \cdot \chi_{u|_G}(X)\]
+    </details>
 
   </main>
 </body>

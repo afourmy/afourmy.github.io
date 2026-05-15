@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Déterminants</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <h3 class="fr">Le problème de départ</h3>
+    <p class="fr">
+      On veut un critère simple pour savoir si une famille de $n$ vecteurs dans un espace de dimension $n$ forme une base. Vérifier la définition (libre et génératrice) est fastidieux. L'idée est de construire une <em>fonction</em> qui prend $n$ vecteurs et renvoie un scalaire, avec la règle : la famille est une base si et seulement si ce scalaire est non nul. Cette fonction, c'est le déterminant.
+    </p>
+
+    <h3 class="fr">Quelles propriétés exiger ?</h3>
+    <p class="fr">
+      On veut que cette fonction soit linéaire en chaque vecteur séparément, parce que c'est ce qui permet de calculer à partir des coordonnées. On veut aussi qu'elle renvoie $0$ dès que deux vecteurs sont identiques, parce que dans ce cas la famille est évidemment liée. Le résultat remarquable est qu'une fois qu'on impose ces deux exigences et que la fonction vaut $1$ sur la base canonique, la fonction est <em>unique</em>. Il n'y a qu'un seul déterminant.
+    </p>
+
+    <h3 class="fr">Des vecteurs aux matrices</h3>
+    <p class="fr">
+      Écrire les $n$ vecteurs en colonnes dans une base donne une matrice $n\times n$. Le déterminant de la famille de vecteurs devient le déterminant de cette matrice, avec la formule $\det A=\sum_{\sigma\in\mathfrak{S}_n}\varepsilon(\sigma)\prod_{i}a_{i,\sigma(i)}$. La propriété $\det({}^tA)=\det A$ fait que tout ce qui est vrai sur les colonnes l'est aussi sur les lignes.
+    </p>
+
+    <h3 class="fr">Le théorème central : $\det(AB)=\det A\cdot\det B$</h3>
+    <p class="fr">
+      C'est la propriété la plus puissante. Elle dit que le déterminant transforme un produit de matrices en produit de scalaires. Conséquence immédiate : $A$ est inversible si et seulement si $\det A\neq 0$. Pour un endomorphisme, comme $\det(P^{-1}AP)=\det A$, le déterminant ne dépend pas de la base choisie : c'est un invariant intrinsèque de l'application linéaire.
+    </p>
+
+    <h3 class="fr">Calculer concrètement</h3>
+    <p class="fr">
+      La formule avec les permutations a $n!$ termes : inutilisable en pratique. On la remplace par le <em>développement par rapport à une ligne ou une colonne</em>, qui ramène un déterminant $n\times n$ à $n$ déterminants $(n-1)\times(n-1)$. Les <em>opérations élémentaires</em> (échanger deux lignes, ajouter un multiple d'une ligne à une autre) permettent de se ramener à une matrice triangulaire, dont le déterminant est le produit des coefficients diagonaux.
+    </p>
+
+    <h3 class="fr">Comatrice et formules de Cramer</h3>
+    <p class="fr">
+      La relation $A\cdot{}^t\mathrm{Com}(A)=(\det A)\cdot I_n$ donne une formule explicite pour l'inverse d'une matrice. Appliquée à un système $AX=B$, elle fournit les <em>formules de Cramer</em> : chaque inconnue s'exprime comme un rapport de déterminants.
+    </p>
+
+    <h2 class="fr">Cours</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Groupe symétrique).</span> Le <em>groupe symétrique</em> $\mathfrak{S}_n$ est l'ensemble des bijections de $\llbracket 1,n\rrbracket$ dans lui-même, muni de la composition. Son cardinal est $n!$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition ($p$-cycle, transposition).</span> On dit que $\sigma\in\mathfrak{S}_n$ est un <em>$p$-cycle</em> s'il existe $p$ éléments distincts $a_1,\ldots,a_p$ tels que $\sigma(a_1)=a_2$, ..., $\sigma(a_{p-1})=a_p$, $\sigma(a_p)=a_1$, et $\sigma$ fixe tous les autres éléments. On note $\sigma=(a_1\ a_2\ \cdots\ a_p)$. Une <em>transposition</em> est un $2$-cycle $(i\ j)$ qui échange $i\neq j$ et fixe les autres éléments.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute permutation $\sigma\in\mathfrak{S}_n$ est un produit de transpositions.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Si $\sigma(n)=n$, on applique l'hypothèse de récurrence à $\sigma|_{\llbracket 1,n-1\rrbracket}$. Sinon, soit $\tau=(n\ \sigma(n))$. Alors $(\tau\circ\sigma)(n)=n$, donc $\tau\circ\sigma$ est un produit de transpositions, et $\sigma=\tau\circ(\tau\circ\sigma)$ aussi.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Signature).</span> La <em>signature</em> de $\sigma\in\mathfrak{S}_n$ est
+      \[\varepsilon(\sigma)=\prod_{1\le i&lt;j\le n}\frac{\sigma(j)-\sigma(i)}{j-i}\in\{-1,+1\}.\]</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la signature).</span> $\varepsilon(\sigma\circ\tau)=\varepsilon(\sigma)\varepsilon(\tau)$ (morphisme de groupes), $\varepsilon(\mathrm{id})=1$, et pour toute transposition $\tau$, $\varepsilon(\tau)=-1$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Morphisme :</em> $\varepsilon(\sigma\circ\tau)=\prod_{i&lt;j}\frac{\sigma(\tau(j))-\sigma(\tau(i))}{j-i}=\prod_{i&lt;j}\frac{\sigma(\tau(j))-\sigma(\tau(i))}{\tau(j)-\tau(i)}\cdot\prod_{i&lt;j}\frac{\tau(j)-\tau(i)}{j-i}=\varepsilon(\sigma)\varepsilon(\tau)$, car $\tau$ étant une bijection, le premier produit vaut $\varepsilon(\sigma)$.
+      <br><br>
+      <em>Transpositions :</em> soit $\tau=(p\ q)$ avec $p&lt;q$. Le facteur $\frac{\tau(q)-\tau(p)}{q-p}=\frac{p-q}{q-p}=-1$. Pour chaque $k\notin\{p,q\}$, les deux facteurs impliquant $k$ avec $p$ et $k$ avec $q$ se compensent (produit égal à $1$). Donc $\varepsilon(\tau)=-1$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Le nombre de transpositions dans une décomposition de $\sigma$ a toujours la même parité : $\varepsilon(\sigma)=(-1)^k$ si $\sigma$ est produit de $k$ transpositions.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\sigma=\tau_1\circ\cdots\circ\tau_k$, alors $\varepsilon(\sigma)=\varepsilon(\tau_1)\cdots\varepsilon(\tau_k)=(-1)^k$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Permutation paire/impaire, groupe alterné).</span> Une permutation $\sigma$ est <em>paire</em> si $\varepsilon(\sigma)=1$, <em>impaire</em> si $\varepsilon(\sigma)=-1$. Le <em>groupe alterné</em> $\mathfrak{A}_n=\ker\varepsilon=\{\sigma\in\mathfrak{S}_n\mid\varepsilon(\sigma)=1\}$ est le sous-groupe des permutations paires.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $|\mathfrak{A}_n|=\dfrac{n!}{2}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On fixe une transposition $\tau_0$. L'application $\sigma\mapsto\tau_0\circ\sigma$ envoie bijectivement $\mathfrak{A}_n$ sur $\mathfrak{S}_n\setminus\mathfrak{A}_n$ (car $\varepsilon(\tau_0\circ\sigma)=-\varepsilon(\sigma)$). Donc permutations paires et impaires sont en nombre égal, soit $\frac{n!}{2}$ chacune.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Forme $n$-linéaire, forme alternée).</span> Une application $f:E^n\to\mathbb{K}$ est <em>$n$-linéaire</em> si elle est linéaire en chaque variable, les autres étant fixées. Une forme $n$-linéaire est <em>alternée</em> si $f(x_1,\ldots,x_n)=0$ dès que deux des $x_i$ sont égaux.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Soit $f$ une forme $n$-linéaire alternée. Alors :
+      <ol class="fr">
+        <li>$f$ est <em>antisymétrique</em> : échanger deux vecteurs change le signe.</li>
+        <li>Pour toute permutation $\sigma\in\mathfrak{S}_n$ : $f(x_{\sigma(1)},\ldots,x_{\sigma(n)})=\varepsilon(\sigma)\,f(x_1,\ldots,x_n)$.</li>
+        <li>Si $(x_1,\ldots,x_n)$ est liée, alors $f(x_1,\ldots,x_n)=0$.</li>
+      </ol></p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) $0=f(\ldots,x_i+x_j,\ldots,x_i+x_j,\ldots)=f(\ldots,x_i,\ldots,x_j,\ldots)+f(\ldots,x_j,\ldots,x_i,\ldots)$ par multilinéarité. Donc échanger $x_i$ et $x_j$ change le signe.
+      <br><br>
+      (2) On décompose $\sigma=\tau_1\circ\cdots\circ\tau_k$ en transpositions. Chaque transposition change le signe par (1), donc après $k$ échanges le signe est $(-1)^k=\varepsilon(\sigma)$.
+      <br><br>
+      (3) Si $x_j=\sum_{i\neq j}\lambda_i x_i$, par multilinéarité $f(x_1,\ldots,x_n)=\sum_{i\neq j}\lambda_i f(x_1,\ldots,x_i,\ldots,x_i,\ldots,x_n)=0$ car chaque terme a deux vecteurs égaux.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Existence et unicité).</span> Soit $E$ un $\mathbb{K}$-ev de dimension $n$ et $(e_1,\ldots,e_n)$ une base de $E$. Il existe une unique forme $n$-linéaire alternée $\det_{(e_i)}:E^n\to\mathbb{K}$ telle que $\det_{(e_i)}(e_1,\ldots,e_n)=1$. Si $x_j=\sum_{i=1}^n a_{ij}e_i$, elle est donnée par :
+      \[\det_{(e_i)}(x_1,\ldots,x_n)=\sum_{\sigma\in\mathfrak{S}_n}\varepsilon(\sigma)\,a_{\sigma(1),1}\cdots a_{\sigma(n),n}\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Unicité.</em> Soit $f$ une telle forme. On décompose chaque $x_j=\sum_i a_{ij}e_i$. La multilinéarité donne $f(x_1,\ldots,x_n)=\sum_{i_1,\ldots,i_n}a_{i_1 1}\cdots a_{i_n n}\,f(e_{i_1},\ldots,e_{i_n})$. Les termes avec deux indices égaux valent $0$ (alternée), donc la somme porte sur les permutations. On a $f(e_{\sigma(1)},\ldots,e_{\sigma(n)})=\varepsilon(\sigma)f(e_1,\ldots,e_n)=\varepsilon(\sigma)$, d'où la formule.
+      <br><br>
+      <em>Existence.</em> On pose $D(x_1,\ldots,x_n)=\sum_{\sigma}\varepsilon(\sigma)\,a_{\sigma(1),1}\cdots a_{\sigma(n),n}$.
+      <br><br>
+      <em>$n$-linéarité.</em> Chaque terme contient exactement un facteur $a_{\sigma(j),j}$ provenant de $x_j$. En remplaçant $x_j$ par $\lambda x_j + \mu x_j'$, ce facteur se scinde linéairement, donc $D$ est linéaire en $x_j$. Ceci vaut pour tout $j$.
+      <br><br>
+      <em>Alternée.</em> Supposons $x_k=x_l$ pour $k\neq l$. Pour $\sigma'\!=\!\sigma\circ\tau_{kl}$, on a $\varepsilon(\sigma')=-\varepsilon(\sigma)$ et $a_{\sigma'(1),1}\cdots a_{\sigma'(n),n}=a_{\sigma(1),1}\cdots a_{\sigma(n),n}$ (car $a_{i,k}=a_{i,l}$). Les termes de $\sigma$ et $\sigma'$ s'annulent deux à deux, d'où $D=0$.
+      <br><br>
+      <em>Valeur en $(e_1,\ldots,e_n)$.</em> Si $x_j=e_j$, alors $a_{ij}=\delta_{ij}$, et seul le terme $\sigma=\mathrm{id}$ est non nul : $D(e_1,\ldots,e_n)=1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> L'espace des formes $n$-linéaires alternées sur un ev de dimension $n$ est de dimension $1$, engendré par $\det_{(e_i)}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La preuve d'unicité montre que toute forme $n$-linéaire alternée $f$ vérifie $f=f(e_1,\ldots,e_n)\cdot\det_{(e_i)}$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation des bases).</span> $(x_1,\ldots,x_n)$ est une base de $E$ si et seulement si $\det_{(e_i)}(x_1,\ldots,x_n)\neq 0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $(x_i)$ est liée, $\det_{(e_i)}(x_1,\ldots,x_n)=0$. Si $(x_i)$ est libre, c'est une base, donc $\det_{(x_i)}$ existe. Par la proposition précédente, $\det_{(x_i)}=c\cdot\det_{(e_i)}$. En évaluant en $(x_1,\ldots,x_n)$ : $1=c\cdot\det_{(e_i)}(x_1,\ldots,x_n)$, donc ce déterminant est non nul.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Déterminant d'une matrice).</span> Soit $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. Le <em>déterminant</em> de $A$ est $\det A=\det_{(e_i)}(C_1,\ldots,C_n)$ où $C_j$ est la $j$-ème colonne de $A$. Autrement dit :
+      \[\det A=\sum_{\sigma\in\mathfrak{S}_n}\varepsilon(\sigma)\prod_{i=1}^n a_{i,\sigma(i)}\]</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Propriétés fondamentales).</span> $\det$ est $n$-linéaire en les colonnes et alternée, $\det I_n=1$, et $\det({}^tA)=\det A$ (toutes les propriétés sur les colonnes valent aussi sur les lignes).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les deux premières propriétés découlent de la définition. Pour $\det({}^tA)=\det A$ :
+      \[\det({}^tA)=\sum_{\sigma}\varepsilon(\sigma)\prod_{i}a_{\sigma(i),i}=\sum_{\sigma}\varepsilon(\sigma)\prod_{j}a_{j,\sigma^{-1}(j)}=\sum_{\tau}\varepsilon(\tau)\prod_{j}a_{j,\tau(j)}=\det A,\]
+      en posant $\tau=\sigma^{-1}$ et en utilisant $\varepsilon(\sigma^{-1})=\varepsilon(\sigma)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Opérations élémentaires).</span>
+      <ol class="fr">
+        <li>$C_i\leftrightarrow C_j$ : le déterminant change de signe.</li>
+        <li>$C_i\leftarrow\lambda C_i$ : le déterminant est multiplié par $\lambda$.</li>
+        <li>$C_i\leftarrow C_i+\lambda C_j$ ($i\neq j$) : le déterminant ne change pas.</li>
+      </ol>
+      Mêmes propriétés sur les lignes.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (1) Antisymétrie. (2) Multilinéarité. (3) Multilinéarité + alternée : $\det(\ldots,C_i+\lambda C_j,\ldots)=\det(\ldots,C_i,\ldots)+\lambda\det(\ldots,C_j,\ldots,C_j,\ldots)=\det A$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Matrice triangulaire).</span> Le déterminant d'une matrice triangulaire (supérieure ou inférieure) est le produit des coefficients diagonaux.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $A$ triangulaire supérieure. Si $\sigma\neq\mathrm{id}$, il existe $i$ tel que $\sigma(i)&lt;i$, donc $a_{i,\sigma(i)}=0$. Seul le terme $\sigma=\mathrm{id}$ survit : $\det A=\prod_{i=1}^n a_{ii}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Déterminant d'un produit).</span> Soient $A,B\in\mathcal{M}_n(\mathbb{K})$. Alors $\det(AB)=\det A\cdot\det B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On fixe $A$ et on considère $\varphi:B\mapsto\det(AB)$ comme fonction des colonnes de $B$. La colonne $j$ de $AB$ est $AC_j^B$, donc $\varphi$ est $n$-linéaire en les colonnes de $B$ et alternée (si deux colonnes de $B$ sont égales, deux colonnes de $AB$ le sont aussi). Par unicité de la forme $n$-linéaire alternée : $\varphi(B)=\varphi(I_n)\cdot\det B=\det(A)\cdot\det B$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Déterminant par blocs triangulaires).</span> Soit $M=\begin{pmatrix}A&B\\0&D\end{pmatrix}$ avec $A\in\mathcal{M}_p(\mathbb{K})$ et $D\in\mathcal{M}_q(\mathbb{K})$. Alors $\det M=\det A\cdot\det D$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On factorise $M=\begin{pmatrix}I_p&0\\0&D\end{pmatrix}\begin{pmatrix}A&B\\0&I_q\end{pmatrix}$. Par multiplicativité : $\det M=\det\begin{pmatrix}I_p&0\\0&D\end{pmatrix}\cdot\det\begin{pmatrix}A&B\\0&I_q\end{pmatrix}$. Dans chacun de ces déterminants, seules les permutations fixant le bloc supérieur gauche contribuent, ce qui donne respectivement $\det D$ et $\det A$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Caractérisation de l'inversibilité).</span> $A\in\mathcal{M}_n(\mathbb{K})$ est inversible si et seulement si $\det A\neq 0$. Dans ce cas, $\det(A^{-1})=(\det A)^{-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $A$ est inversible, $1=\det(AA^{-1})=\det A\cdot\det(A^{-1})$, donc $\det A\neq 0$.
+      <br>
+      $(\Leftarrow)$ Si $A$ n'est pas inversible, ses colonnes sont liées, donc $\det A=0$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Soit $f\in\mathcal{L}(E)$ avec $\dim E=n$. Alors $f$ est un automorphisme si et seulement si $\det(\mathrm{Mat}(f))\neq 0$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Invariance par changement de base).</span> Soit $f\in\mathcal{L}(E)$. Si $A=\mathrm{Mat}_{\mathcal{B}}(f)$ et $A'=\mathrm{Mat}_{\mathcal{B}'}(f)$, alors $\det A=\det A'$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $A'=P^{-1}AP$ avec $P$ la matrice de passage. Donc $\det A'=\det(P^{-1})\det A\det P=\det A$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Déterminant d'un endomorphisme).</span> On définit $\det f=\det(\mathrm{Mat}_{\mathcal{B}}(f))$ pour n'importe quelle base $\mathcal{B}$ de $E$ (ne dépend pas du choix de $\mathcal{B}$).</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $\det(f\circ g)=\det f\cdot\det g$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Cofacteur).</span> Soit $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. Le <em>cofacteur</em> de $a_{ij}$ est $A_{ij}=(-1)^{i+j}\det M_{ij}$, où $M_{ij}\in\mathcal{M}_{n-1}(\mathbb{K})$ est obtenue en supprimant la ligne $i$ et la colonne $j$ de $A$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Développement par rapport à une colonne).</span> Pour tout $j\in\llbracket 1,n\rrbracket$ :
+      \[\det A=\sum_{i=1}^n a_{ij}A_{ij}\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par multilinéarité en la $j$-ème colonne : $\det A=\sum_{i=1}^n a_{ij}\det(C_1,\ldots,C_{j-1},e_i,C_{j+1},\ldots,C_n)$. On vérifie que $\det(C_1,\ldots,e_i,\ldots,C_n)=(-1)^{i+j}\det M_{ij}$ en déplaçant $e_i$ en première position par $i-1+j-1$ échanges (chacun changeant le signe), puis en reconnaissant le déterminant de $M_{ij}$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Développement par rapport à une ligne).</span> Pour tout $i\in\llbracket 1,n\rrbracket$ :
+      \[\det A=\sum_{j=1}^n a_{ij}A_{ij}\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On applique le développement par colonne à ${}^tA$ (qui a le même déterminant).
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Formule des faux cofacteurs).</span> Pour $i\neq k$ : $\sum_{j=1}^n a_{ij}A_{kj}=0$. De même pour $j\neq l$ : $\sum_{i=1}^n a_{ij}A_{il}=0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\sum_{j=1}^n a_{ij}A_{kj}$ est le développement par rapport à la ligne $k$ d'une matrice dont les lignes $i$ et $k$ sont identiques. Son déterminant est donc $0$ (forme alternée).
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Comatrice).</span> La <em>comatrice</em> de $A$ est $\mathrm{Com}(A)=(A_{ij})_{1\le i,j\le n}$, où $A_{ij}$ est le cofacteur de $a_{ij}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème.</span> $A\cdot{}^t\mathrm{Com}(A)=(\det A)\cdot I_n$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Le coefficient $(i,k)$ de $A\cdot{}^t\mathrm{Com}(A)$ est $\sum_{j=1}^n a_{ij}A_{kj}$. Si $i=k$, c'est le développement de $\det A$ par la ligne $i$. Si $i\neq k$, c'est $0$ par la formule des faux cofacteurs.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Inverse par la comatrice).</span> Si $\det A\neq 0$, alors $A^{-1}=\dfrac{1}{\det A}\,{}^t\mathrm{Com}(A)$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Formules de Cramer).</span> Soit $AX=B$ un système de Cramer ($A$ inversible). Alors pour tout $j\in\llbracket 1,n\rrbracket$ :
+      \[x_j=\frac{\det A_j}{\det A}\]
+      où $A_j$ est la matrice $A$ dont la $j$-ème colonne est remplacée par $B$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $X=A^{-1}B=\frac{1}{\det A}\,{}^t\mathrm{Com}(A)\cdot B$. Le coefficient $j$ de $X$ est $x_j=\frac{1}{\det A}\sum_{i=1}^n A_{ij}b_i$. Or $\sum_{i=1}^n b_i A_{ij}$ est le développement de $\det A_j$ par la $j$-ème colonne.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Déterminant de Vandermonde).</span> Soit $x_1,\ldots,x_n\in\mathbb{K}$. Alors :
+      \[V(x_1,\ldots,x_n)=\begin{vmatrix}1&1&\cdots&1\\x_1&x_2&\cdots&x_n\\x_1^2&x_2^2&\cdots&x_n^2\\\vdots&\vdots&\ddots&\vdots\\x_1^{n-1}&x_2^{n-1}&\cdots&x_n^{n-1}\end{vmatrix}=\prod_{1\le i&lt;j\le n}(x_j-x_i)\]</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. On pose $P(x)=V(x,x_2,\ldots,x_n)$ : c'est un polynôme de degré au plus $n-1$ en $x$, qui s'annule en $x_2,\ldots,x_n$ (deux colonnes égales). Donc $P(x)=\lambda\prod_{j=2}^n(x-x_j)$. Le coefficient dominant $\lambda$ (coefficient de $x^{n-1}$) est le cofacteur de l'entrée $(n,1)$, soit $V(x_2,\ldots,x_n)=\prod_{2\le i&lt;j\le n}(x_j-x_i)$ par hypothèse de récurrence. Finalement :
+      \[V(x_1,\ldots,x_n)=P(x_1)=\prod_{2\le i&lt;j\le n}(x_j-x_i)\cdot\prod_{j=2}^n(x_1-x_j)=\prod_{1\le i&lt;j\le n}(x_j-x_i).\]
+    </details>
+
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 1.</span> Calculer $\det\begin{pmatrix}1&2&3\\4&5&6\\7&8&9\end{pmatrix}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $L_2\leftarrow L_2-L_1$, $L_3\leftarrow L_3-L_1$ : $\det=\det\begin{pmatrix}1&2&3\\3&3&3\\6&6&6\end{pmatrix}=0$ car $L_3=2L_2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 2.</span> Calculer le déterminant de la matrice $A\in\mathcal{M}_n(\mathbb{K})$ dont tous les coefficients diagonaux valent $a$ et tous les autres valent $b$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On effectue $C_1\leftarrow C_1+C_2+\cdots+C_n$. La première colonne vaut $(a+(n-1)b,\ldots,a+(n-1)b)^t$. On factorise $a+(n-1)b$, puis $L_i\leftarrow L_i-L_1$ pour $i\ge 2$ donne une matrice triangulaire avec $1$ en $(1,1)$ et $a-b$ sur la diagonale pour $i\ge 2$. Donc $\det A=(a+(n-1)b)(a-b)^{n-1}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 3.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ telle que $A^2=A$. Déterminer les valeurs possibles de $\det A$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $A^2=A$ donne $(\det A)^2=\det A$, donc $\det A(\det A-1)=0$, d'où $\det A\in\{0,1\}$. Les deux valeurs sont atteintes : $A=0_n$ donne $0$, $A=I_n$ donne $1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 4.</span> Soit $A\in\mathcal{M}_n(\mathbb{R})$ antisymétrique (${}^tA=-A$) avec $n$ impair. Montrer que $\det A=0$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\det A=\det({}^tA)=\det(-A)=(-1)^n\det A=-\det A$ car $n$ est impair. Donc $2\det A=0$, d'où $\det A=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 5.</span> Résoudre par les formules de Cramer le système $\begin{cases}2x+y=5\\x+3y=5\end{cases}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\det A=\det\begin{pmatrix}2&1\\1&3\end{pmatrix}=5$.
+      \[x=\frac{1}{5}\det\begin{pmatrix}5&1\\5&3\end{pmatrix}=\frac{10}{5}=2,\qquad y=\frac{1}{5}\det\begin{pmatrix}2&5\\1&5\end{pmatrix}=\frac{5}{5}=1.\]
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $(e_1,e_2,e_3)$ une base d'un $\mathbb{K}$-ev de dimension $3$. Retrouver $\det_{(e_i)}(x,y,z)$ en appliquant la formule de Leibniz.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On applique $\det_{(e_i)}(x,y,z)=\sum_{\sigma\in\mathfrak{S}_3}\varepsilon(\sigma)\,a_{\sigma(1),1}\,a_{\sigma(2),2}\,a_{\sigma(3),3}$ où $a_{i,1}=x_i$, $a_{i,2}=y_i$, $a_{i,3}=z_i$. Les six permutations donnent :
+      <br><br>
+      $\mathrm{id}$ ($\varepsilon=+1$) : $x_1 y_2 z_3$ ; $(1\;2\;3)$ ($\varepsilon=+1$) : $x_2 y_3 z_1$ ; $(1\;3\;2)$ ($\varepsilon=+1$) : $x_3 y_1 z_2$ ; $(1\;2)$ ($\varepsilon=-1$) : $x_2 y_1 z_3$ ; $(1\;3)$ ($\varepsilon=-1$) : $x_3 y_2 z_1$ ; $(2\;3)$ ($\varepsilon=-1$) : $x_1 y_3 z_2$.
+      <br><br>
+      D'où $\det_{(e_i)}(x,y,z)=x_1 y_2 z_3+x_2 y_3 z_1+x_3 y_1 z_2-x_2 y_1 z_3-x_3 y_2 z_1-x_1 y_3 z_2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 7.</span> Soit $\sigma\in\mathfrak{S}_n$ et $c=(a_1\ a_2\ \cdots\ a_p)$ un $p$-cycle. Déterminer $\sigma\circ c\circ\sigma^{-1}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $x\in\llbracket 1,n\rrbracket$ et $y=\sigma^{-1}(x)$.
+      <br><br>
+      <em>Cas 1 :</em> $x=\sigma(a_k)$ pour un certain $k$. Alors $y=a_k$, $c(y)=a_{k+1}$ (indices modulo $p$), et $(\sigma\circ c\circ\sigma^{-1})(x)=\sigma(a_{k+1})$.
+      <br><br>
+      <em>Cas 2 :</em> $x\notin\{\sigma(a_1),\ldots,\sigma(a_p)\}$. Alors $c(y)=y$ et $(\sigma\circ c\circ\sigma^{-1})(x)=x$.
+      <br><br>
+      Donc $\sigma\circ c\circ\sigma^{-1}=(\sigma(a_1)\ \sigma(a_2)\ \cdots\ \sigma(a_p))$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 8.</span> Déterminer la signature de $\sigma\in\mathfrak{S}_8$ définie par $\begin{pmatrix}1&2&3&4&5&6&7&8\\3&5&4&8&7&6&2&1\end{pmatrix}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On décompose en cycles à supports disjoints : $1\mapsto 3\mapsto 4\mapsto 8\mapsto 1$ donne $(1\ 3\ 4\ 8)$ ; $2\mapsto 5\mapsto 7\mapsto 2$ donne $(2\ 5\ 7)$ ; $6$ est un point fixe. Donc $\sigma=(1\ 3\ 4\ 8)\circ(2\ 5\ 7)$.
+      <br><br>
+      La signature d'un $p$-cycle est $(-1)^{p-1}$ (il se décompose en $p-1$ transpositions). Par multiplicativité :
+      \[\varepsilon(\sigma)=(-1)^{4-1}\cdot(-1)^{3-1}=(-1)^3\cdot(-1)^2=(-1)\cdot 1=-1.\]
+      La permutation $\sigma$ est impaire.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 9.</span> Déterminer la signature de la permutation $\sigma\in\mathfrak{S}_n$ définie par $\sigma(i)=n+1-i$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Par les inversions.</em> Pour tout couple $(i,j)$ avec $i&lt;j$, on a $\sigma(i)=n+1-i&gt;n+1-j=\sigma(j)$ : tout couple est une inversion. Le nombre d'inversions est $I(\sigma)=\binom{n}{2}=\frac{n(n-1)}{2}$, d'où $\varepsilon(\sigma)=(-1)^{n(n-1)/2}$.
+      <br><br>
+      <em>Par les cycles.</em> $\sigma$ échange $i$ et $n+1-i$, donc $\sigma$ est le produit de $\lfloor n/2\rfloor$ transpositions (l'élément central est fixe si $n$ est impair), d'où $\varepsilon(\sigma)=(-1)^{\lfloor n/2\rfloor}$.
+    </details>
+
+  </main>
+</body>
+</html>

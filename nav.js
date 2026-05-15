@@ -1,28 +1,29 @@
 (function () {
   var menu = [
-    { en: "Mathematics", fr: "Math\u00e9matiques", cssClass: "submenu-sections", columns: [
+    { en: "Mathematics", fr: "Mathématiques", cssClass: "submenu-sections", columns: [
       [
-        { href: "math/ensembles.html", en: "Sets", fr: "Ensembles" },
-        { href: "math/bases.html", en: "Foundations", fr: "Bases" },
         { href: "math/suites.html", en: "Sequences", fr: "Suites" },
         { href: "math/fonctions-usuelles.html", en: "Standard Functions", fr: "Fonctions usuelles" },
         { href: "math/continuite.html", en: "Continuity", fr: "Continuité" },
         { href: "math/derivation.html", en: "Differentiation", fr: "Dérivation" },
         { href: "math/topologie.html", en: "Topology", fr: "Topologie" },
+        { href: "math/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
       ],
       [
+        { href: "math/ensembles.html", en: "Sets", fr: "Ensembles" },
+        { href: "math/bases.html", en: "Foundations", fr: "Bases" },
         { href: "math/groups.html", en: "Groups", fr: "Groupes" },
         { href: "math/arithmetique.html", en: "Arithmetic", fr: "Arithmétique" },
         { href: "math/anneaux-corps.html", en: "Rings and Fields", fr: "Anneaux et corps" },
         { href: "math/polynomes.html", en: "Polynomials", fr: "Polynômes" },
-        { href: "math/linear-algebra.html", en: "Linear Algebra", fr: "Algèbre linéaire" },
-        { href: "math/matrices.html", en: "Matrices", fr: "Matrices" },
-        { href: "math/reduction.html", en: "Reduction", fr: "Réduction" },
       ],
       [
+        { href: "math/linear-algebra.html", en: "Linear Algebra", fr: "Algèbre linéaire" },
+        { href: "math/matrices.html", en: "Matrices", fr: "Matrices" },
+        { href: "math/determinants.html", en: "Determinants", fr: "Déterminants" },
+        { href: "math/reduction.html", en: "Reduction", fr: "Réduction" },
         { href: "math/probabilites.html", en: "Probability", fr: "Probabilités" },
         { href: "math/denombrement.html", en: "Combinatorics", fr: "Dénombrement" },
-        { href: "math/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
       ]
     ]},
     { en: "Computer Science", fr: "Informatique", columns: [
@@ -36,9 +37,9 @@
     ]},
     { en: "Bioinformatics", fr: "Bio-informatique", columns: [
       [
-        { href: "bio/genomics.html", en: "Genomics", fr: "G\u00e9nomique" },
+        { href: "bio/genomics.html", en: "Genomics", fr: "Génomique" },
         { href: "bio/transcriptomics.html", en: "Transcriptomics", fr: "Transcriptomique" },
-        { href: "bio/proteomics.html", en: "Proteomics", fr: "Prot\u00e9omique" },
+        { href: "bio/proteomics.html", en: "Proteomics", fr: "Protéomique" },
       ]
     ]},
     { en: "Projects", fr: "Projets", columns: [

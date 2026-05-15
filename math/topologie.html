@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Topology</title>
+  <title>Topologie</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -20,8 +21,726 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Course</h2>
+    <h2 class="fr">Vue d'ensemble</h2>
+
+    <h3 class="fr">Distances</h3>
+    <p class="fr">
+      En analyse réelle, $|x - y|$ mesure la proximité entre deux réels. Mais dès qu'on travaille dans $\mathbb{R}^n$, dans des espaces de fonctions, ou dans des ensembles plus exotiques, il faut généraliser. La <em>distance</em> $d(x,y)$ est cette généralisation. Une fois qu'on a une distance, on peut définir les boules (les points proches d'un centre), le diamètre d'un ensemble, et les parties bornées.
+    </p>
+
+    <h3 class="fr">Ouverts et fermés</h3>
+    <p class="fr">
+      Un <em>ouvert</em>, c'est un ensemble où chaque point a de la marge : on peut le perturber légèrement sans sortir de l'ensemble. L'intervalle $]0,1[$ est ouvert. Un <em>fermé</em>, c'est un ensemble qui contient ses bords : si une suite de points du fermé converge, la limite reste dedans. L'intervalle $[0,1]$ est fermé. $]0,1]$ n'est ni ouvert, ni fermé.
+    </p>
+    <p class="fr">
+      L'<em>intérieur</em> $\mathring{A}$ est la plus grande partie ouverte contenue dans $A$ : les points loin du bord. L'<em>adhérence</em> $\overline{A}$ est le plus petit fermé contenant $A$ : on rajoute tous les points approchables par des suites d'éléments de $A$. La <em>frontière</em> $\partial A = \overline{A} \setminus \mathring{A}$ est la zone de transition. Exemple : pour $A = ]0,1[$, on a $\mathring{A} = ]0,1[$, $\overline{A} = [0,1]$, $\partial A = \{0, 1\}$.
+    </p>
+
+    <h3 class="fr">Normes et équivalence</h3>
+    <p class="fr">
+      Quand l'espace est vectoriel, on préfère une <em>norme</em> $\|x\|$ (la taille d'un vecteur) à une distance brute : la distance se retrouve comme $d(x, y) = \|x - y\|$.
+    </p>
+    <p class="fr">
+      Sur $\mathbb{R}^n$, il y a plein de normes ($\|\cdot\|_1$, $\|\cdot\|_2$, $\|\cdot\|_\infty\ldots$). Le choix de la norme change-t-il les ouverts, la convergence, la continuité ? En dimension finie, non : on montre que deux normes quelconques sont toujours <em>équivalentes</em> (chacune coincée entre deux multiples de l'autre), et donnent donc exactement la même topologie.
+    </p>
+
+    <h3 class="fr">Continuité</h3>
+    <p class="fr">
+      Une fonction $f$ est <em>continue</em> en $a$ si de petites perturbations de $a$ produisent de petites perturbations de $f(a)$. La <em>continuité uniforme</em> renforce ceci : le $\delta$ qui contrôle la perturbation ne dépend que de $\varepsilon$, pas du point. <em>Lipschitzienne</em> est encore plus fort : $f$ ne peut pas amplifier les distances de plus d'un facteur fixe $k$. D'où la hiérarchie : lipschitzienne $\Rightarrow$ uniformément continue $\Rightarrow$ continue.
+    </p>
+    <p class="fr">
+      La <em>caractérisation globale</em> ($f$ continue $\iff$ l'image réciproque de tout ouvert est un ouvert) est celle qui a permis de définir la continuité dans des espaces sans distance.
+    </p>
+    <p class="fr">
+      Pour les applications linéaires, la linéarité transforme la continuité locale en continuité globale : être continue, être continue en $0$, être bornée sur la boule unité, être lipschitzienne — c'est la même chose.
+    </p>
+
+    <h3 class="fr">Caractérisations séquentielles</h3>
+    <p class="fr">En topologie métrique, les suites caractérisent tout :</p>
+    <ul class="fr">
+      <li>$F$ est fermé $\iff$ toute suite convergente d'éléments de $F$ a sa limite dans $F$.</li>
+      <li>$x \in \overline{A}$ $\iff$ il existe une suite d'éléments de $A$ qui converge vers $x$.</li>
+      <li>$f$ est continue en $a$ $\iff$ pour toute suite $x_n \to a$, on a $f(x_n) \to f(a)$.</li>
+    </ul>
+    <p class="fr">Les caractérisations séquentielles transforment des questions topologiques en questions sur les suites.</p>
+
+    <h3 class="fr">Complétude</h3>
+    <p class="fr">
+      Une suite de Cauchy, c'est une suite dont les termes finissent par être arbitrairement proches <em>les uns des autres</em>. Une telle suite converge toujours, mais sa limite n'appartient pas nécessairement à l'espace dans lequel on travaille. Un espace est <em>complet</em> si la limite de toute suite de Cauchy appartient à l'espace.
+    </p>
+    <p class="fr">
+      Un EVN complet s'appelle un <em>espace de Banach</em>.
+    </p>
+    <p class="fr">
+      Dans un espace complet, un sous-ensemble est complet si et seulement si il est fermé. Être fermé (contenir toutes ses limites) et être complet (toute suite de Cauchy converge dans l'ensemble) reviennent au même dès que l'espace ambiant est complet.
+    </p>
+    <p class="fr">
+      Le <em>théorème du point fixe de Banach</em> exploite la complétude : si $f$ est une contraction ($d(f(x), f(y)) \le k \cdot d(x, y)$ avec $k &lt; 1$) sur un espace complet, alors les itérés $x, f(x), f(f(x)), \ldots$ forment une suite de Cauchy (car les distances entre termes successifs décroissent géométriquement), qui converge donc vers l'unique point fixe de $f$.
+    </p>
+
+    <h3 class="fr">Compacité</h3>
+    <p class="fr">
+      <em>Un compact se comporte comme un ensemble fini du point de vue topologique.</em>
+    </p>
+    <p class="fr">
+      Un espace est compact si de toute suite on peut extraire une sous-suite convergente : aucune suite ne peut s'échapper. La compacité permet de passer de l'infini au fini :
+    </p>
+    <ul class="fr">
+      <li><strong>Bornes atteintes.</strong> Sur un compact, une fonction continue atteint son max et son min. Sans compacité, le sup peut ne pas être atteint ($f(x) = x$ sur $]0, 1[$ par exemple).</li>
+      <li><strong>Heine.</strong> Sur un compact, toute fonction continue est automatiquement uniformément continue ; la compacité empêche le $\delta$ de dégénérer dans certaines zones.</li>
+      <li><strong>Borel-Lebesgue.</strong> Tout recouvrement d'un compact par des ouverts admet un sous-recouvrement <em>fini</em> : on ramène un recouvrement infini à un recouvrement fini.</li>
+    </ul>
+    <p class="fr">
+      En dimension finie (en particulier dans $\mathbb{R}^n$), compact $\iff$ fermé et borné (Bolzano-Weierstrass).
+    </p>
+    <p class="fr">
+      Cette caractérisation est <em>spécifique à la dimension finie</em>. En dimension infinie, la boule unité fermée est fermée et bornée mais <em>pas</em> compacte (théorème de Riesz) : il existe des suites dans la boule unité dont aucune sous-suite ne converge. La compacité de la boule unité caractérise exactement la dimension finie.
+    </p>
+
+    <h3 class="fr">Dimension finie vs dimension infinie</h3>
+    <p class="fr">
+      En dimension finie, toutes les normes sont équivalentes, fermé et borné $\Leftrightarrow$ compact, tout EVN est complet (de Banach), tout sous-espace vectoriel est fermé, et toute application linéaire est continue. En dimension infinie, chacune de ces propriétés tombe en défaut :
+    </p>
+    <ul class="fr">
+      <li><strong>Normes non équivalentes.</strong> Sur $\mathcal{C}([0,1], \mathbb{R})$, les normes $\|f\|_\infty = \sup |f|$ et $\|f\|_1 = \int_0^1 |f(t)|\,dt$ ne sont pas équivalentes : $f_n(t) = t^n$ vérifie $\|f_n\|_\infty = 1$ mais $\|f_n\|_1 = \frac{1}{n+1} \to 0$.</li>
+      <li><strong>Fermé borné mais pas compact.</strong> Dans $(\mathcal{C}([0,1]), \|\cdot\|_\infty)$, la suite $f_n(t) = t^n$ est dans la boule unité fermée, mais n'admet aucune sous-suite uniformément convergente : la limite ponctuelle est $\mathbf{1}_{\{1\}}$, qui est discontinue.</li>
+      <li><strong>Espace incomplet.</strong> $\mathbb{Q}$ n'est pas complet : la suite $1$; $1{,}4$; $1{,}41$; $\ldots$ (décimales successives de $\sqrt{2}$) est de Cauchy dans $\mathbb{Q}$ et converge vers $\sqrt{2} \notin \mathbb{Q}$. De même, l'espace des polynômes muni de $\|P\|_\infty = \sup_{[0,1]} |P|$ n'est pas complet : les sommes partielles $P_n(x) = \sum_{k=0}^n \frac{x^k}{k!}$ convergent vers $e^x$, qui n'est pas un polynôme.</li>
+      <li><strong>Sous-espace non fermé.</strong> $\mathbb{R}[X]$ est un sous-espace vectoriel de $(\mathcal{C}([0,1]), \|\cdot\|_\infty)$ mais n'est pas fermé : par le théorème de Weierstrass, toute fonction continue est limite uniforme de polynômes, donc $\overline{\mathbb{R}[X]} = \mathcal{C}([0,1])$.</li>
+      <li><strong>Application linéaire discontinue.</strong> La dérivation $D \colon P \mapsto P'$ sur $(\mathbb{R}[X], \|\cdot\|_\infty)$ : si $P_n(t) = t^n/n$, alors $\|P_n\|_\infty = 1/n \to 0$ mais $\|P_n'\|_\infty = \|t^{n-1}\|_\infty = 1 \not\to 0$.</li>
+    </ul>
+
+    <h3 class="fr">Connexité par arcs</h3>
+    <p class="fr">
+      Un espace est <em>connexe par arcs</em> si deux points quelconques peuvent être reliés par un chemin continu. La conséquence principale : si $f$ est continue sur un connexe par arcs et à valeurs réelles, alors $f(A)$ est un intervalle (TVI généralisé).
+    </p>
+    <p class="fr">
+      La <em>convexité</em> (les segments restent dans l'ensemble) implique la connexité par arcs. Les boules d'un EVN sont convexes, donc connexes par arcs ; mais un ouvert connexe par arcs n'est pas nécessairement convexe.
+    </p>
+
     <h2 class="fr">Cours</h2>
+
+    <h3 class="fr">Espaces métriques</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Distance).</span> Soit $E$ un ensemble. Une <em>distance</em> sur $E$ est une application $d\colon E\times E\to\mathbb{R}_+$ vérifiant, pour tous $x,y,z\in E$ :
+      (i) $d(x,y)=0\iff x=y$ (séparation),
+      (ii) $d(x,y)=d(y,x)$ (symétrie),
+      (iii) $d(x,y)\le d(x,z)+d(z,y)$ (inégalité triangulaire).</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Espace métrique).</span> Un <em>espace métrique</em> est un couple $(E,d)$ où $E$ est un ensemble et $d$ est une distance sur $E$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Boules et sphère).</span> Soit $(E,d)$ un espace métrique, $a\in E$, $r&gt;0$. La <em>boule ouverte</em> est $B(a,r)=\{x\in E : d(x,a)&lt;r\}$, la <em>boule fermée</em> est $\overline{B}(a,r)=\{x\in E : d(x,a)\le r\}$, la <em>sphère</em> est $S(a,r)=\{x\in E : d(x,a)=r\}$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Distance à une partie, diamètre, partie bornée).</span> Soit $A\subset E$ non vide. La <em>distance</em> de $x\in E$ à $A$ est $d(x,A)=\inf\{d(x,a) : a\in A\}$. Le <em>diamètre</em> de $A$ est $\mathrm{diam}(A)=\sup\{d(x,y) : x,y\in A\}\in\mathbb{R}_+\cup\{+\infty\}$. $A$ est <em>bornée</em> si $\mathrm{diam}(A)&lt;+\infty$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $A$ est bornée si et seulement si $A$ est contenue dans une boule.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $A\subset B(a,r)$, alors $d(x,y)\le d(x,a)+d(a,y)&lt;2r$ pour $x,y\in A$, donc $\mathrm{diam}(A)&lt;+\infty$. Réciproquement, fixer $a\in A$ donne $A\subset\overline{B}(a,\mathrm{diam}(A))$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Produit d'espaces métriques).</span> Si $(E_1,d_1)$ et $(E_2,d_2)$ sont des espaces métriques, $d\big((x_1,x_2),(y_1,y_2)\big)=\max\big(d_1(x_1,y_1),\,d_2(x_2,y_2)\big)$ est une distance sur $E_1\times E_2$. On définit de même la distance produit sur $E_1\times\cdots\times E_p$.</p>
+    </div>
+
+    <h3 class="fr">Ouverts, fermés, intérieur, adhérence</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Ouvert, fermé).</span> $O\subset E$ est <em>ouvert</em> si pour tout $x\in O$, il existe $r&gt;0$ tel que $B(x,r)\subset O$. $F\subset E$ est <em>fermé</em> si $E\setminus F$ est ouvert.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute boule ouverte est un ouvert. Toute boule fermée est un fermé.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $x\in B(a,r)$ et $\rho=r-d(x,a)&gt;0$. Pour $y\in B(x,\rho)$, $d(y,a)\le d(y,x)+d(x,a)&lt;\rho+d(x,a)=r$, donc $B(x,\rho)\subset B(a,r)$. Pour la boule fermée : $E\setminus\overline{B}(a,r)=\{x:d(x,a)&gt;r\}$ est ouvert par un argument analogue (prendre $\rho=d(x,a)-r$).
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Stabilité).</span></p>
+      <ul class="fr">
+        <li>$\varnothing$ et $E$ sont ouverts (et fermés).</li>
+        <li>Toute union quelconque d'ouverts est un ouvert. Toute intersection <em>finie</em> d'ouverts est un ouvert.</li>
+        <li>Toute intersection quelconque de fermés est un fermé. Toute union <em>finie</em> de fermés est un fermé.</li>
+      </ul>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x\in\bigcup_i O_i$, alors $x\in O_j$ pour un certain $j$, d'où $B(x,r)\subset O_j\subset\bigcup_i O_i$. Si $x\in\bigcap_{k=1}^n O_k$, pour chaque $k$ on a $B(x,r_k)\subset O_k$ ; on pose $r=\min(r_1,\ldots,r_n)&gt;0$ et $B(x,r)\subset\bigcap_{k=1}^n O_k$. Pour les fermés, passage au complémentaire (lois de De Morgan).
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Intérieur, adhérence, frontière).</span> L'<em>intérieur</em> de $A$ est $\mathring{A}=\bigcup\{O\subset A : O\text{ ouvert}\}$ (le plus grand ouvert inclus dans $A$). L'<em>adhérence</em> de $A$ est $\overline{A}=\bigcap\{F\supset A : F\text{ fermé}\}$ (le plus petit fermé contenant $A$). La <em>frontière</em> est $\partial A=\overline{A}\setminus\mathring{A}$. On a $A$ ouvert $\iff A=\mathring{A}$ et $A$ fermé $\iff A=\overline{A}$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> $x\in\mathring{A}\iff\exists\,r&gt;0,\;B(x,r)\subset A$. $\quad$ $x\in\overline{A}\iff\forall\,r&gt;0,\;B(x,r)\cap A\neq\varnothing$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $x\in\mathring{A}$ ssi $x$ appartient à un ouvert contenu dans $A$, ssi il existe $r&gt;0$ tel que $B(x,r)\subset A$. Pour l'adhérence : $x\notin\overline{A}$ ssi $x\in E\setminus\overline{A}$ (ouvert car $\overline{A}$ est fermé), ssi $\exists\,r&gt;0,\,B(x,r)\subset E\setminus\overline{A}\subset E\setminus A$ (car $A\subset\overline{A}$), i.e. $B(x,r)\cap A=\varnothing$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Densité).</span> $A$ est <em>dense</em> dans $E$ si $\overline{A}=E$, i.e. pour tout $x\in E$ et tout $r&gt;0$, $B(x,r)\cap A\neq\varnothing$.</p>
+    </div>
+
+    <h3 class="fr">Normes</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Norme).</span> Soit $E$ un $\mathbb{K}$-espace vectoriel ($\mathbb{K}=\mathbb{R}$ ou $\mathbb{C}$). Une <em>norme</em> sur $E$ est une application $\|\cdot\|\colon E\to\mathbb{R}_+$ vérifiant :
+      (i) $\|x\|=0\iff x=0$,
+      (ii) $\|\lambda x\|=|\lambda|\,\|x\|$ pour $\lambda\in\mathbb{K}$, $x\in E$,
+      (iii) $\|x+y\|\le\|x\|+\|y\|$ (inégalité triangulaire).
+      Le couple $(E,\|\cdot\|)$ est un <em>espace vectoriel normé</em> (EVN). La <em>distance associée</em> est $d(x,y)=\|x-y\|$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inégalité triangulaire inverse).</span> Pour tous $x,y\in E$ : $\big|\|x\|-\|y\|\big|\le\|x-y\|$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\|x\|=\|(x-y)+y\|\le\|x-y\|+\|y\|$, donc $\|x\|-\|y\|\le\|x-y\|$. Par symétrie des rôles de $x$ et $y$, on obtient l'inégalité avec la valeur absolue.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Dans un EVN, $B(a,r)=a+r\,B(0,1)$ et $\overline{B}(a,r)=a+r\,\overline{B}(0,1)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $x\in B(a,r)\iff\|x-a\|&lt;r\iff\left\|\frac{x-a}{r}\right\|&lt;1\iff\frac{x-a}{r}\in B(0,1)\iff x\in a+r\,B(0,1)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Normes équivalentes).</span> Deux normes $\|\cdot\|_a$ et $\|\cdot\|_b$ sur $E$ sont <em>équivalentes</em> s'il existe $\alpha,\beta&gt;0$ tels que $\alpha\|x\|_a\le\|x\|_b\le\beta\|x\|_a$ pour tout $x\in E$. C'est une relation d'équivalence.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Deux normes équivalentes définissent les mêmes ouverts, les mêmes fermés, les mêmes suites convergentes et les mêmes suites de Cauchy.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      De $\alpha\|y\|_a\le\|y\|_b\le\beta\|y\|_a$ on tire $B_b(x,\alpha r)\subset B_a(x,r)\subset B_b(x,\beta r)$. Si $O$ est ouvert pour $\|\cdot\|_a$ et $x\in O$, alors $B_a(x,r)\subset O$ pour un $r&gt;0$, donc $B_b(x,\alpha r)\subset O$ : $O$ est ouvert pour $\|\cdot\|_b$. Réciproquement, $B_b(x,r)\subset O$ entraîne $B_a(x,r/\beta)\subset O$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Inégalités entre normes sur $\mathbb{R}^n$).</span> Pour tout $x\in\mathbb{R}^n$ :
+      \[\|x\|_\infty\le\|x\|_2\le\|x\|_1\le n\,\|x\|_\infty\]
+      (donc les normes $\|\cdot\|_1$, $\|\cdot\|_2$ et $\|\cdot\|_\infty$ sont deux à deux équivalentes).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour tout $i$, $x_i^2\le\sum_{j=1}^n x_j^2$, donc $|x_i|\le\|x\|_2$, d'où $\|x\|_\infty\le\|x\|_2$. Ensuite $\left(\sum|x_i|\right)^2=\sum x_i^2+2\sum_{i&lt;j}|x_i||x_j|\ge\sum x_i^2$, donc $\|x\|_1\ge\|x\|_2$. Enfin $\|x\|_1=\sum|x_i|\le n\max|x_i|=n\|x\|_\infty$.
+    </details>
+
+    <h3 class="fr">Convergence et caractérisations séquentielles</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Convergence).</span> $(x_n)$ <em>converge</em> vers $\ell\in E$ si $d(x_n,\ell)\to 0$, i.e. $\forall\,\varepsilon&gt;0,\;\exists\,N\in\mathbb{N},\;\forall\,n\ge N,\; d(x_n,\ell)&lt;\varepsilon$. On note $x_n\to\ell$ ou $\lim x_n=\ell$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Unicité de la limite).</span> Si $(x_n)$ converge, sa limite est unique.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x_n\to\ell$ et $x_n\to\ell'$ : $0\le d(\ell,\ell')\le d(\ell,x_n)+d(x_n,\ell')\to 0$, donc $\ell=\ell'$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute suite convergente est bornée.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x_n\to\ell$, il existe $N$ tel que $d(x_n,\ell)&lt;1$ pour $n\ge N$. Alors $\{x_n\}\subset B(\ell,R)$ avec $R=\max(d(x_0,\ell),\ldots,d(x_{N-1},\ell),1)+1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute suite extraite d'une suite convergente converge vers la même limite.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x_n\to\ell$ et $\varphi$ strictement croissante, alors $\varphi(n)\ge n$ (récurrence immédiate), donc pour $n\ge N$, $d(x_{\varphi(n)},\ell)&lt;\varepsilon$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation séquentielle des fermés).</span> $F\subset E$ est fermé si et seulement si toute suite d'éléments de $F$ qui converge dans $E$ a sa limite dans $F$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $(x_n)$ à valeurs dans $F$ avec $x_n\to\ell\in E$. Si $\ell\notin F$, alors $\ell\in E\setminus F$ (ouvert), donc $B(\ell,r)\subset E\setminus F$ pour un $r&gt;0$. Mais $x_n\to\ell$ implique $x_n\in B(\ell,r)$ à partir d'un certain rang, contradiction avec $x_n\in F$.
+      <br><br>
+      $(\Leftarrow)$ Supposons $E\setminus F$ non ouvert : il existe $x\in E\setminus F$ tel que pour tout $n$, $B(x,1/n)\cap F\neq\varnothing$. On choisit $x_n\in B(x,1/n)\cap F$ pour chaque $n$. Alors $x_n\in F$ et $d(x_n,x)&lt;1/n$, donc $x_n\to x\notin F$, contradiction.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation séquentielle de l'adhérence).</span> $x\in\overline{A}$ si et seulement s'il existe une suite $(a_n)$ à valeurs dans $A$ telle que $a_n\to x$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Si $x\in\overline{A}$, pour tout $n\ge 1$, $B(x,1/n)\cap A\neq\varnothing$ ; choisir $a_n$ dans cette intersection donne $a_n\to x$.
+      <br><br>
+      $(\Leftarrow)$ Si $a_n\to x$ avec $a_n\in A$, pour tout $r&gt;0$, $a_n\in B(x,r)$ à partir d'un certain rang, donc $B(x,r)\cap A\neq\varnothing$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Valeur d'adhérence).</span> $\ell$ est <em>valeur d'adhérence</em> de $(x_n)$ s'il existe une suite extraite $(x_{\varphi(n)})$ qui converge vers $\ell$.</p>
+    </div>
+
+    <h3 class="fr">Continuité</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Continuité en un point).</span> $f\colon(E,d_E)\to(F,d_F)$ est <em>continue en $a\in E$</em> si $\forall\,\varepsilon&gt;0,\;\exists\,\delta&gt;0,\;\forall\,x\in E,\; d_E(x,a)&lt;\delta\Rightarrow d_F(f(x),f(a))&lt;\varepsilon$. $f$ est <em>continue</em> si elle est continue en tout point de $E$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation séquentielle).</span> $f$ est continue en $a$ si et seulement si pour toute suite $(x_n)\to a$, on a $f(x_n)\to f(a)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $\varepsilon&gt;0$, $\delta$ associé. Si $x_n\to a$, il existe $N$ tel que $d(x_n,a)&lt;\delta$ pour $n\ge N$, donc $d(f(x_n),f(a))&lt;\varepsilon$.
+      <br><br>
+      $(\Leftarrow)$ Contraposée : si $f$ n'est pas continue en $a$, il existe $\varepsilon_0&gt;0$ et $(x_n)$ avec $d(x_n,a)&lt;1/n$ et $d(f(x_n),f(a))\ge\varepsilon_0$. Alors $x_n\to a$ mais $f(x_n)\not\to f(a)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> La composée de deux fonctions continues est continue.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)\to a$. Alors $f(x_n)\to f(a)$ (continuité de $f$), puis $g(f(x_n))\to g(f(a))$ (continuité de $g$).
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation globale).</span> $f\colon E\to F$ est continue si et seulement si l'image réciproque de tout ouvert de $F$ est un ouvert de $E$, si et seulement si l'image réciproque de tout fermé de $F$ est un fermé de $E$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $V$ ouvert dans $F$ et $a\in f^{-1}(V)$. Alors $f(a)\in V$, donc $B(f(a),\varepsilon)\subset V$. Par continuité en $a$, il existe $\delta&gt;0$ tel que $f(B(a,\delta))\subset B(f(a),\varepsilon)\subset V$, donc $B(a,\delta)\subset f^{-1}(V)$.
+      <br><br>
+      $(\Leftarrow)$ Soit $a\in E$ et $\varepsilon&gt;0$. $B(f(a),\varepsilon)$ est ouvert, donc $f^{-1}(B(f(a),\varepsilon))$ est ouvert et contient $a$, d'où l'existence de $\delta$. L'équivalence avec les fermés s'obtient par passage au complémentaire : $f^{-1}(F\setminus V)=E\setminus f^{-1}(V)$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Lipschitz, continuité uniforme).</span> $f\colon E\to F$ est <em>lipschitzienne de rapport $k$</em> si $d_F(f(x),f(y))\le k\,d_E(x,y)$ pour tous $x,y$. $f$ est <em>uniformément continue</em> si $\forall\,\varepsilon&gt;0,\;\exists\,\delta&gt;0,\;\forall\,x,y\in E,\; d_E(x,y)&lt;\delta\Rightarrow d_F(f(x),f(y))&lt;\varepsilon$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Lipschitzienne $\Rightarrow$ uniformément continue $\Rightarrow$ continue. Les réciproques sont fausses en général.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Lipschitzienne $\Rightarrow$ uniformément continue : prendre $\delta=\varepsilon/k$. Uniformément continue $\Rightarrow$ continue : $\delta$ ne dépend que de $\varepsilon$, a fortiori on peut l'utiliser en chaque point. Contre-exemples : $x\mapsto\sqrt{x}$ sur $[0,1]$ est uniformément continue mais pas lipschitzienne ; $x\mapsto x^2$ sur $\mathbb{R}$ est continue mais pas uniformément continue.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Dans un EVN, l'application $x\mapsto\|x\|$ est $1$-lipschitzienne. Les applications $(x,y)\mapsto x+y$ et $(\lambda,x)\mapsto\lambda x$ sont continues.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\big|\|x\|-\|y\|\big|\le\|x-y\|$ (inégalité triangulaire inverse). Pour l'addition : si $\max(\|x-a\|,\|y-b\|)&lt;\delta$, alors $\|(x+y)-(a+b)\|\le\|x-a\|+\|y-b\|&lt;2\delta=\varepsilon$ en choisissant $\delta=\varepsilon/2$.
+      <br><br>
+      Pour le produit scalaire : supposons $\max(|\lambda-\mu|,\|x-a\|)&lt;\delta$. On a $\|\lambda x-\mu a\|\le|\lambda|\,\|x-a\|+|\lambda-\mu|\,\|a\|\le(|\mu|+\delta)\delta+\delta\,\|a\|=\delta(|\mu|+\|a\|+\delta)$. En choisissant $\delta=\min\big(1,\,\varepsilon/(|\mu|+\|a\|+1)\big)$, on obtient $\|\lambda x-\mu a\|&lt;\varepsilon$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Homéomorphisme, isométrie).</span> $f\colon E\to F$ est un <em>homéomorphisme</em> si $f$ est bijective, continue, et $f^{-1}$ est continue. $f$ est une <em>isométrie</em> si $d_F(f(x),f(y))=d_E(x,y)$ pour tous $x,y$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Application linéaire continue).</span> Soit $f\colon E\to F$ une application linéaire entre EVN. Les propriétés suivantes sont équivalentes :</p>
+      <ol class="fr">
+        <li>$f$ est continue,</li>
+        <li>$f$ est continue en $0$,</li>
+        <li>$f$ est bornée sur $\overline{B}(0,1)$ : $\sup_{\|x\|\le 1}\|f(x)\|&lt;+\infty$,</li>
+        <li>il existe $C\ge 0$ tel que $\|f(x)\|\le C\|x\|$ pour tout $x\in E$,</li>
+        <li>$f$ est lipschitzienne.</li>
+      </ol>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      (i)$\Rightarrow$(ii) trivial. (ii)$\Rightarrow$(iii) : par continuité en $0$ pour $\varepsilon=1$, il existe $\delta&gt;0$ tel que $\|x\|&lt;\delta\Rightarrow\|f(x)\|&lt;1$. Pour $\|x\|\le 1$, $\|\delta x/2\|&lt;\delta$ donc $\|f(\delta x/2)\|&lt;1$, d'où $\|f(x)\|&lt;2/\delta$.
+      <br><br>
+      (iii)$\Rightarrow$(iv) : poser $C=\sup_{\|x\|\le 1}\|f(x)\|$. Pour $x\neq 0$, $\|f(x/\|x\|)\|\le C$, donc $\|f(x)\|\le C\|x\|$.
+      <br><br>
+      (iv)$\Rightarrow$(v) : $\|f(x)-f(y)\|=\|f(x-y)\|\le C\|x-y\|$. (v)$\Rightarrow$(i) évident.
+    </details>
+
+    <h3 class="fr">Complétude</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Suite de Cauchy).</span> $(x_n)$ est <em>de Cauchy</em> si $\forall\,\varepsilon&gt;0,\;\exists\,N\in\mathbb{N},\;\forall\,p,q\ge N,\; d(x_p,x_q)&lt;\varepsilon$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute suite convergente est de Cauchy.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x_n\to\ell$ : $d(x_p,x_q)\le d(x_p,\ell)+d(\ell,x_q)&lt;2\varepsilon$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute suite de Cauchy est bornée.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $\varepsilon=1$, il existe $N$ tel que $d(x_p,x_q)&lt;1$ pour $p,q\ge N$. Pour $n\ge N$, $d(x_n,x_N)&lt;1$. Donc $d(x_n,x_N)\le R$ pour tout $n$, avec $R=\max(d(x_0,x_N),\ldots,d(x_{N-1},x_N),1)$, i.e. $\{x_n\}\subset\overline{B}(x_N,R)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Si une sous-suite d'une suite de Cauchy converge, alors la suite converge (vers la même limite).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)$ de Cauchy et $x_{\varphi(n)}\to\ell$. Soit $\varepsilon&gt;0$. Il existe $N_1$ tel que $d(x_p,x_q)&lt;\varepsilon/2$ pour $p,q\ge N_1$, et $N_2$ tel que $d(x_{\varphi(n)},\ell)&lt;\varepsilon/2$ pour $n\ge N_2$. Pour $n\ge\max(N_1,N_2)$, on a $\varphi(n)\ge n\ge N_1$, donc $d(x_n,\ell)\le d(x_n,x_{\varphi(n)})+d(x_{\varphi(n)},\ell)&lt;\varepsilon$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Espace complet, espace de Banach).</span> $(E,d)$ est <em>complet</em> si toute suite de Cauchy de $E$ converge dans $E$. Un EVN complet est un <em>espace de Banach</em>.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème.</span> Soit $F\subset E$ avec $(E,d)$ complet. Alors $F$ est complet si et seulement si $F$ est fermé dans $E$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soit $(x_n)$ à valeurs dans $F$ avec $x_n\to\ell\in E$. $(x_n)$ est de Cauchy dans $E$, donc dans $F$. Par complétude de $F$, elle converge dans $F$, donc $\ell\in F$.
+      <br><br>
+      $(\Leftarrow)$ Soit $(x_n)$ de Cauchy dans $F$. $(x_n)$ est de Cauchy dans $E$ (complet), donc converge vers $\ell\in E$. Comme $F$ est fermé, $\ell\in F$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Point fixe de Banach).</span> Soit $(E,d)$ un espace métrique complet non vide et $f\colon E\to E$ une <em>contraction</em> : il existe $k\in[0,1[$ tel que $d(f(x),f(y))\le k\,d(x,y)$ pour tous $x,y$. Alors $f$ admet un <em>unique</em> point fixe $\ell$, et pour tout $x_0\in E$, la suite $x_{n+1}=f(x_n)$ converge vers $\ell$ avec
+      \[d(x_n,\ell)\le\frac{k^n}{1-k}\,d(x_0,x_1).\]
+      </p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Unicité</em> : si $f(\ell)=\ell$ et $f(\ell')=\ell'$, alors $d(\ell,\ell')=d(f(\ell),f(\ell'))\le k\,d(\ell,\ell')$, donc $(1-k)d(\ell,\ell')\le 0$, d'où $\ell=\ell'$.
+      <br><br>
+      <em>Existence</em> : on pose $x_{n+1}=f(x_n)$. Par récurrence, $d(x_{n+1},x_n)\le k^n\,d(x_1,x_0)$. Pour $p\ge 1$, par inégalité triangulaire :
+      \[d(x_n,x_{n+p})\le\sum_{j=0}^{p-1}k^{n+j}\,d(x_1,x_0)\le\frac{k^n}{1-k}\,d(x_1,x_0).\]
+      Comme $k^n\to 0$, $(x_n)$ est de Cauchy, donc converge vers $\ell\in E$. Par continuité de $f$ : $\ell=\lim x_{n+1}=f(\lim x_n)=f(\ell)$. En faisant $p\to+\infty$ dans l'inégalité ci-dessus, on obtient $d(x_n,\ell)\le\frac{k^n}{1-k}\,d(x_0,x_1)$.
+    </details>
+
+    <h3 class="fr">Compacité</h3>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Compact).</span> Un espace métrique $(K,d)$ est <em>compact</em> si de toute suite d'éléments de $K$, on peut extraire une sous-suite convergente dans $K$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout compact est fermé.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)$ à valeurs dans $K$ avec $x_n\to\ell\in E$. Par compacité, extraire $x_{\varphi(n)}\to\ell'\in K$. Or $x_{\varphi(n)}\to\ell$ aussi (sous-suite d'une convergente). Par unicité, $\ell=\ell'\in K$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout compact est borné.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $K$ n'est pas borné, pour tout $n\ge 1$, il existe $x_n\in K$ tel que $d(x_n,x_0)\ge n$. Soit $(x_{\varphi(n)})$ une sous-suite quelconque. Comme $\varphi(n)\ge n$, on a $d(x_{\varphi(n)},x_0)\ge\varphi(n)\ge n\to+\infty$, donc $(x_{\varphi(n)})$ ne peut pas converger. Ceci contredit la compacité de $K$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout fermé d'un compact est compact.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $F\subset K$ fermé, $(x_n)$ à valeurs dans $F$. C'est une suite dans $K$ compact : extraire $x_{\varphi(n)}\to\ell\in K$. Comme $F$ est fermé et $x_{\varphi(n)}\in F$ pour tout $n$, $\ell\in F$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Bolzano-Weierstrass dans $\mathbb{R}$).</span> Toute suite bornée de réels admet une sous-suite convergente.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)$ à valeurs dans $[a,b]$. On pose $[a_0,b_0]=[a,b]$. À l'étape $k$, on coupe $[a_k,b_k]$ en deux moitiés ; au moins l'une contient une infinité de termes de $(x_n)$ : on la note $[a_{k+1},b_{k+1}]$. On obtient des intervalles emboîtés de longueur $b_k-a_k=(b-a)/2^k$, chacun contenant une infinité de termes.
+      <br><br>
+      On extrait une sous-suite par récurrence : $\varphi(0)=\min\{n : x_n\in[a_0,b_0]\}$, puis $\varphi(k+1)=\min\{n&gt;\varphi(k) : x_n\in[a_{k+1},b_{k+1}]\}$. Alors $x_{\varphi(k)}\in[a_k,b_k]$ pour tout $k$. La suite $(a_k)$ est croissante et majorée par $b$, donc converge vers $\ell$. Comme $b_k=a_k+(b-a)/2^k$, on a $b_k\to\ell$ aussi. Par encadrement, $x_{\varphi(k)}\to\ell$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Une partie de $\mathbb{R}$ est compacte si et seulement si elle est fermée et bornée.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Compact $\Rightarrow$ fermé et borné. $(\Leftarrow)$ Soit $K\subset\mathbb{R}$ fermé borné et $(x_n)$ à valeurs dans $K$. Par BW dans $\mathbb{R}$, extraire $x_{\varphi(n)}\to\ell$. Comme $K$ est fermé, $\ell\in K$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Bolzano-Weierstrass dans $\mathbb{R}^n$).</span> Une partie de $(\mathbb{R}^n,\|\cdot\|_\infty)$ est compacte si et seulement si elle est fermée et bornée.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Compact $\Rightarrow$ fermé et borné. $(\Leftarrow)$ Soit $(x_k)$ à valeurs dans $K$ fermé borné. La suite $(x_k^{(1)})$ est bornée dans $\mathbb{R}$ : par BW dans $\mathbb{R}$, extraire $\varphi_1$ telle que $x_{\varphi_1(k)}^{(1)}$ converge. On itère sur chaque coordonnée. Après $n$ extractions, toutes les coordonnées convergent, donc $x_{\varphi_n(k)}\to\ell$ dans $\mathbb{R}^n$. Comme $K$ est fermé, $\ell\in K$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Image continue d'un compact).</span> Soit $f\colon K\to F$ continue avec $K$ compact. Alors $f(K)$ est compact.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(y_n)$ à valeurs dans $f(K)$, $y_n=f(x_n)$ avec $x_n\in K$. Par compacité, extraire $x_{\varphi(n)}\to\ell\in K$. Par continuité, $y_{\varphi(n)}=f(x_{\varphi(n)})\to f(\ell)\in f(K)$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire (Théorème des bornes atteintes).</span> Soit $f\colon K\to\mathbb{R}$ continue avec $K$ compact non vide. Alors $f$ est bornée et atteint ses bornes : il existe $a,b\in K$ tels que $f(a)=\min_K f$ et $f(b)=\max_K f$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $f(K)$ est compact dans $\mathbb{R}$, donc fermé et borné. Borné implique $M=\sup f(K)&lt;+\infty$. Par définition du sup, il existe $(y_n)$ à valeurs dans $f(K)$ avec $y_n\to M$. Comme $f(K)$ est fermé, $M\in f(K)$, donc $M=f(b)$ pour un $b\in K$. De même pour le min.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Heine).</span> Soit $f\colon K\to F$ continue avec $K$ compact. Alors $f$ est uniformément continue.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par l'absurde. S'il existe $\varepsilon_0&gt;0$ tel que pour tout $n$, il existe $x_n,y_n\in K$ avec $d(x_n,y_n)&lt;1/n$ et $d(f(x_n),f(y_n))\ge\varepsilon_0$. Par compacité, extraire $x_{\varphi(n)}\to\ell\in K$. Alors $d(y_{\varphi(n)},\ell)\le d(y_{\varphi(n)},x_{\varphi(n)})+d(x_{\varphi(n)},\ell)\to 0$. Par continuité de $f$ en $\ell$ : $f(x_{\varphi(n)})\to f(\ell)$ et $f(y_{\varphi(n)})\to f(\ell)$, donc $d(f(x_{\varphi(n)}),f(y_{\varphi(n)}))\to 0$, contradiction avec $\ge\varepsilon_0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout espace métrique compact est complet.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_n)$ de Cauchy dans $K$ compact. Extraire $x_{\varphi(n)}\to\ell\in K$. Une suite de Cauchy ayant une sous-suite convergente converge.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Borel-Lebesgue).</span> Soit $(K,d)$ un espace métrique. $K$ est compact si et seulement si tout recouvrement de $K$ par des ouverts admet un sous-recouvrement fini.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Par contraposée. Soit $(U_n)_{n\ge 1}$ un recouvrement ouvert sans sous-recouvrement fini. Pour tout $n$, choisir $x_n\in K\setminus\bigcup_{i=1}^n U_i$. Si $x_{\varphi(k)}\to\ell\in K$, alors $\ell\in U_j$ pour un certain $j$, et $x_{\varphi(k)}\in U_j$ pour $k$ assez grand. Or pour $\varphi(k)\ge j$, $x_{\varphi(k)}\notin U_j$ par construction : contradiction.
+      <br><br>
+      $(\Leftarrow)$ Supposons la propriété de Borel-Lebesgue. Pour $\varepsilon&gt;0$, les boules $B(x,\varepsilon)$ forment un recouvrement de $K$ ; par BL, on en extrait un sous-recouvrement fini : $K\subset\bigcup_{j=1}^N B(x_j,\varepsilon)$. On extrait ensuite une sous-suite par procédé diagonal : pour $\varepsilon=1$, une des $N$ boules contient une infinité de termes, on en extrait une sous-suite $(x_n^{(1)})$ de diamètre $\le 2$. Pour $\varepsilon=1/2$, on recommence dans $(x_n^{(1)})$, etc. La diagonale $z_k=x_k^{(k)}$ est de Cauchy (pour $\ell\ge k$, $z_\ell$ est dans la même boule de rayon $1/k$ que $z_k$), et converge dans $K$.
+    </details>
+
+    <h2 class="fr">Dimension finie</h2>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Équivalence des normes en dimension finie).</span> Sur un espace vectoriel de dimension finie, toutes les normes sont équivalentes.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $E$ de dimension $p$, $(e_1,\ldots,e_p)$ une base, et $N$ une norme quelconque. On montre $N\sim\|\cdot\|_1$ où $\|x\|_1=\sum|x_i|$ pour $x=\sum x_i e_i$.
+      <br><br>
+      <em>Majoration</em> : $N(x)=N\!\left(\sum x_i e_i\right)\le\sum|x_i|\,N(e_i)\le M\|x\|_1$ avec $M=\max_i N(e_i)$.
+      <br><br>
+      <em>Minoration</em> : l'inégalité $|N(x)-N(y)|\le N(x-y)\le M\|x-y\|_1$ montre que $N$ est continue pour $\|\cdot\|_1$. La sphère $S=\{x:\|x\|_1=1\}$ est fermée et bornée dans $(\mathbb{R}^p,\|\cdot\|_\infty)$, donc compacte (BW). Par le théorème des bornes atteintes, $m=\min_S N&gt;0$ (car $N(x)&gt;0$ sur $S$). Pour $x\neq 0$ : $N(x/\|x\|_1)\ge m$, donc $N(x)\ge m\|x\|_1$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout espace vectoriel normé de dimension finie est complet (de Banach).</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Toutes les normes étant équivalentes, les suites de Cauchy sont les mêmes pour toutes les normes. Via une base, $(E,\|\cdot\|_1)\simeq(\mathbb{R}^p,\|\cdot\|_1)$ qui est complet (car équivalent à $(\mathbb{R}^p,\|\cdot\|_\infty)$ qui est complet).
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout sous-espace vectoriel de dimension finie d'un EVN est fermé.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Complet (corollaire précédent), donc fermé dans l'espace ambiant (un sous-espace complet d'un espace métrique est fermé).
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème.</span> Dans un EVN de dimension finie, une partie est compacte si et seulement si elle est fermée et bornée.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par équivalence des normes et identification à $\mathbb{R}^p$, c'est le théorème de Bolzano-Weierstrass.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Toute application linéaire d'un EVN de dimension finie vers un EVN quelconque est continue.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f\colon E\to F$ linéaire avec $\dim E=p&lt;\infty$. En base $(e_1,\ldots,e_p)$, $\|f(x)\|\le\sum|x_i|\,\|f(e_i)\|\le M\|x\|_1$ avec $M=\max\|f(e_i)\|$. Comme $\|\cdot\|_1$ est équivalente à n'importe quelle norme sur $E$, $f$ est bornée, donc continue.
+    </details>
+
+    <div class="thm-block lemma">
+      <p class="fr"><span class="thm-label">Lemme (Lemme de Riesz).</span> Soit $F$ un sous-espace vectoriel <em>fermé</em> et <em>strict</em> d'un EVN $E$. Pour tout $\varepsilon\in\,]0,1[$, il existe $x\in E$ avec $\|x\|=1$ et $d(x,F)\ge 1-\varepsilon$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $y\in E\setminus F$. Comme $F$ est fermé, $\delta=d(y,F)&gt;0$. Choisir $f_0\in F$ tel que $\|y-f_0\|\le\delta/(1-\varepsilon)$. Poser $x=(y-f_0)/\|y-f_0\|$. Alors $\|x\|=1$ et pour tout $g\in F$ :
+      \[d(x,F)\le\|x-g\|=\frac{\|y-f_0-g\|y-f_0\|\|}{\|y-f_0\|}=\frac{\|y-(f_0+g\|y-f_0\|)\|}{\|y-f_0\|}\ge\frac{\delta}{\|y-f_0\|}\ge 1-\varepsilon.\]
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Théorème de Riesz).</span> Un EVN est de dimension finie si et seulement si sa boule unité fermée $\overline{B}(0,1)$ est compacte.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ En dimension finie, $\overline{B}(0,1)$ est fermée et bornée, donc compacte (Bolzano-Weierstrass).
+      <br><br>
+      $(\Leftarrow)$ Contraposée. Si $E$ est de dimension infinie, on construit $(x_n)$ dans $\overline{B}(0,1)$ sans sous-suite convergente. On pose $E_1=\mathrm{Vect}(e_1)$ (dimension $1$, fermé). Par le lemme de Riesz ($\varepsilon=1/2$), il existe $x_2$ avec $\|x_2\|=1$ et $d(x_2,E_1)\ge 1/2$. On pose $E_2=\mathrm{Vect}(E_1,x_2)$ (dimension $2$, fermé). On itère : on obtient $(x_n)$ dans $S(0,1)$ avec $\|x_n-x_m\|\ge 1/2$ pour $n\neq m$. Cette suite n'a aucune sous-suite de Cauchy, donc aucune sous-suite convergente.
+    </details>
+
+    <h2 class="fr">Connexité par arcs</h2>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Chemin, connexité par arcs).</span> Un <em>chemin</em> (ou arc) dans $E$ de $a$ à $b$ est une application continue $\gamma\colon[0,1]\to E$ avec $\gamma(0)=a$ et $\gamma(1)=b$. Une partie $A\subset E$ est <em>connexe par arcs</em> si pour tous $a,b\in A$, il existe un chemin de $a$ à $b$ dont l'image est dans $A$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> L'image continue d'un connexe par arcs est connexe par arcs.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soient $y_1,y_2\in f(A)$, $y_i=f(a_i)$ avec $a_i\in A$. Il existe $\gamma\colon[0,1]\to A$ de $a_1$ à $a_2$. Alors $f\circ\gamma\colon[0,1]\to f(A)$ est un chemin de $y_1$ à $y_2$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="fr"><span class="thm-label">Théorème (Théorème des valeurs intermédiaires — version topologique).</span> Soit $A$ connexe par arcs et $f\colon A\to\mathbb{R}$ continue. Alors $f(A)$ est un intervalle de $\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $f(A)$ est connexe par arcs dans $\mathbb{R}$. Montrons que toute partie connexe par arcs $I$ de $\mathbb{R}$ est un intervalle : soient $\alpha&lt;\beta$ dans $I$ et $\gamma\colon[0,1]\to I$ un chemin de $\alpha$ à $\beta$. Pour $v\in\,]\alpha,\beta[$, le TVI classique appliqué à $\gamma$ fournit $t\in\,]0,1[$ avec $\gamma(t)=v\in I$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Les parties connexes par arcs de $\mathbb{R}$ sont exactement les intervalles.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Un intervalle $I$ est connexe par arcs : pour $a,b\in I$, le chemin $\gamma(t)=(1-t)a+tb$ est à valeurs dans $I$ (par convexité de l'intervalle). Réciproquement, une partie connexe par arcs de $\mathbb{R}$ est un intervalle (appliquer le théorème précédent à $\mathrm{id}$).
+    </details>
+
+    <div class="thm-block definition">
+      <p class="fr"><span class="thm-label">Définition (Partie convexe).</span> $C\subset E$ (EVN) est <em>convexe</em> si pour tous $x,y\in C$ et $t\in[0,1]$, $(1-t)x+ty\in C$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Les boules ouvertes et fermées d'un EVN sont convexes.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $x,y\in B(a,r)$ et $t\in[0,1]$ : $\|(1-t)x+ty-a\|\le(1-t)\|x-a\|+t\|y-a\|&lt;(1-t)r+tr=r$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="fr"><span class="thm-label">Proposition.</span> Toute partie convexe d'un EVN est connexe par arcs.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $a,b\in C$ convexe, le segment $\gamma(t)=(1-t)a+tb$ est dans $C$ par convexité.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="fr"><span class="thm-label">Corollaire.</span> Toute boule ouverte et toute boule fermée d'un EVN sont connexes par arcs.</p>
+    </div>
+
+    <div class="thm-block example">
+      <p class="fr"><span class="thm-label">Exemple.</span> $\mathbb{R}^n\setminus\{0\}$ est connexe par arcs pour $n\ge 2$ : pour $a,b\neq 0$, si le segment $[a,b]$ ne passe pas par $0$, on utilise le segment ; sinon, on passe par un point intermédiaire $c$ non colinéaire à $a$ et $b$. En revanche, $\mathrm{GL}_n(\mathbb{R})$ n'est pas connexe par arcs (voir exercice 3).</p>
+    </div>
+
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 1.</span> Montrer que $\mathrm{GL}_n(\mathbb{R})$ est un ouvert de $\mathcal{M}_n(\mathbb{R})$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      L'application $\det\colon\mathcal{M}_n(\mathbb{R})\to\mathbb{R}$ est continue (polynôme en les coefficients, et les coordonnées $A\mapsto a_{ij}$ sont continues pour toute norme en dimension finie). Comme $\mathbb{R}^*=\mathbb{R}\setminus\{0\}$ est ouvert et $\mathrm{GL}_n(\mathbb{R})=\det^{-1}(\mathbb{R}^*)$, c'est un ouvert (image réciproque d'un ouvert par une application continue).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 2.</span> Soit $E$ un EVN, $F$ un sous-espace de dimension finie, $x\in E$. Montrer qu'il existe $y_0\in F$ tel que $\|x-y_0\|=d(x,F)$.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $d=d(x,F)=\inf_{y\in F}\|x-y\|$. Il existe $(y_n)$ à valeurs dans $F$ avec $\|x-y_n\|\to d$. La suite $(y_n)$ est bornée : $\|y_n\|\le\|y_n-x\|+\|x\|$ est majorée à partir d'un certain rang. Comme $F$ est de dimension finie, $\overline{B}(0,R)\cap F$ est compact. On extrait $y_{\varphi(n)}\to y_0\in F$. Par continuité de la norme : $\|x-y_0\|=\lim\|x-y_{\varphi(n)}\|=d$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 3.</span> Montrer que $\mathrm{GL}_n(\mathbb{R})$ n'est pas connexe par arcs.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\det\colon\mathrm{GL}_n(\mathbb{R})\to\mathbb{R}^*$ est continue. Si $\mathrm{GL}_n(\mathbb{R})$ était connexe par arcs, son image $\det(\mathrm{GL}_n(\mathbb{R}))=\mathbb{R}^*$ le serait aussi (image continue d'un connexe par arcs). Or $\mathbb{R}^*=]-\infty,0[\cup]0,+\infty[$ n'est pas connexe par arcs : tout chemin continu $\gamma\colon[0,1]\to\mathbb{R}^*$ de $-1$ à $1$ vérifierait $\gamma(0)=-1&lt;0&lt;1=\gamma(1)$ ; par le TVI classique, il existerait $t$ avec $\gamma(t)=0$, contredisant $\gamma([0,1])\subset\mathbb{R}^*$. Contradiction.
+      <br><br>
+      <em>Remarque :</em> les deux composantes connexes par arcs de $\mathrm{GL}_n(\mathbb{R})$ sont $\mathrm{GL}_n^+(\mathbb{R})=\{A:\det A&gt;0\}$ et $\mathrm{GL}_n^-(\mathbb{R})=\{A:\det A&lt;0\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="fr"><span class="thm-label">Exercice 4.</span> Soit $(E,\|\cdot\|)$ un espace de Banach et $f\colon E\to E$ telle que $f\circ f$ est une contraction. Montrer que $f$ admet un unique point fixe.</p>
+    </div>
+
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $g=f\circ f$ est une contraction, donc admet un unique point fixe $\ell$ (théorème du point fixe de Banach). On a $g(f(\ell))=f(g(\ell))=f(\ell)$, donc $f(\ell)$ est aussi point fixe de $g$. Par unicité, $f(\ell)=\ell$.
+    </details>
 
   </main>
 </body>
