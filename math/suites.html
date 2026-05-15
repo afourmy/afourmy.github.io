@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suites</title>
+  <title>Sequences</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
@@ -21,22 +21,34 @@
   <script src="../../nav.js"></script>
 
   <main>
+    <h2 class="en">Supremum, completeness of $\mathbb{R}$</h2>
     <h2 class="fr">Borne supérieure, complétude de $\mathbb{R}$</h2>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above (resp. below). The <em>supremum</em> (resp. <em>infimum</em>) of $A$, denoted $\sup A$ (resp. $\inf A$), is the smallest upper bound (resp. the largest lower bound) of $A$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> Soit $A\subset\mathbb{R}$ non vide et majorée (resp. minorée). On appelle <em>borne supérieure</em> (resp. <em>borne inférieure</em>) de $A$, notée $\sup A$ (resp. $\inf A$), le plus petit des majorants (resp. le plus grand des minorants) de $A$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Supremum property).</span> Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum in $\mathbb{R}$ (resp. every nonempty subset bounded below has an infimum). We say $\mathbb{R}$ is <em>complete</em>.</p>
       <p class="fr"><span class="thm-label">Proposition (Propriété de la borne supérieure).</span> Toute partie non vide et majorée de $\mathbb{R}$ admet une borne supérieure dans $\mathbb{R}$ (resp. toute partie non vide et minorée admet une borne inférieure). On dit que $\mathbb{R}$ est <em>complet</em>.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Characterization of the supremum).</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above. $M=\sup A$ if and only if:
+      \[\text{(i)}\ \forall x\in A,\ x\le M \qquad\text{and}\qquad \text{(ii)}\ \forall\varepsilon&gt;0,\ \exists x\in A,\ M-\varepsilon&lt;x.\]
+      Similarly, $m=\inf A$ if and only if $\forall x\in A,\ x\ge m$ and $\forall\varepsilon&gt;0,\ \exists x\in A,\ x&lt;m+\varepsilon$.</p>
       <p class="fr"><span class="thm-label">Proposition (Caractérisation de la borne supérieure).</span> Soit $A\subset\mathbb{R}$ non vide et majorée. $M=\sup A$ si et seulement si :
       \[\text{(i)}\ \forall x\in A,\ x\le M \qquad\text{et}\qquad \text{(ii)}\ \forall\varepsilon&gt;0,\ \exists x\in A,\ M-\varepsilon&lt;x.\]
       De même, $m=\inf A$ si et seulement si $\forall x\in A,\ x\ge m$ et $\forall\varepsilon&gt;0,\ \exists x\in A,\ x&lt;m+\varepsilon$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ If $M=\sup A$, then $M$ is an upper bound of $A$, giving (i). For (ii): let $\varepsilon>0$. If no $x\in A$ satisfies $x>M-\varepsilon$, then $M-\varepsilon$ would be an upper bound of $A$ strictly less than $M$, contradicting the definition of $\sup$.
+      <br><br>
+      $(\Leftarrow)$ Condition (i) says $M$ is an upper bound of $A$. Let $M'$ be another upper bound. By (ii), for every $\varepsilon>0$, there exists $x\in A$ such that $M-\varepsilon&lt;x\le M'$, so $M-\varepsilon&lt;M'$. Since this holds for all $\varepsilon>0$, we get $M\le M'$. Thus $M$ is the smallest upper bound, i.e. $M=\sup A$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $(\Rightarrow)$ Si $M=\sup A$, alors $M$ est un majorant de $A$, d'où (i). Pour (ii) : soit $\varepsilon&gt;0$. Si aucun $x\in A$ ne vérifie $x&gt;M-\varepsilon$, alors $M-\varepsilon$ serait un majorant de $A$ strictement inférieur à $M$, contredisant la définition du $\sup$.
@@ -45,50 +57,80 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Archimedean property).</span> $\mathbb{N}$ is not bounded above in $\mathbb{R}$: $\forall y\ge 0,\ \exists n\in\mathbb{N},\ n&gt;y$. Equivalently: for all $x&gt;0$ and $y\ge 0$, there exists $n\in\mathbb{N}$ such that $nx&gt;y$.</p>
       <p class="fr"><span class="thm-label">Proposition (Propriété d'Archimède).</span> $\mathbb{N}$ n'est pas majoré dans $\mathbb{R}$ : $\forall y\ge 0,\ \exists n\in\mathbb{N},\ n&gt;y$. De manière équivalente : pour tous réels $x&gt;0$ et $y\ge 0$, il existe $n\in\mathbb{N}$ tel que $nx&gt;y$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By contradiction, if $\mathbb{N}$ is bounded above, it has $M=\sup\mathbb{N}$; then $M-1$ is not an upper bound, so there exists $n\in\mathbb{N}$ with $n>M-1$, giving $n+1>M$ with $n+1\in\mathbb{N}$, a contradiction. The second formulation follows by applying the first to $y/x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par l'absurde, si $\mathbb{N}$ est majoré, il admet $M=\sup\mathbb{N}$ ; alors $M-1$ n'est pas majorant, donc il existe $n\in\mathbb{N}$ tel que $n&gt;M-1$, d'où $n+1&gt;M$ avec $n+1\in\mathbb{N}$, contradiction. La seconde formulation s'obtient en appliquant la première à $y/x$.
     </details>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Convergence).</span> The sequence $(u_n)$ <em>converges to</em> $\ell \in \mathbb{R}$ if
+      \[\forall \varepsilon &gt; 0,\ \exists N \in \mathbb{N},\ \forall n \ge N,\ |u_n - \ell| &lt; \varepsilon.\]
+      </p>
       <p class="fr"><span class="thm-label">Définition (Convergence).</span> On dit que la suite $(u_n)$ <em>converge vers</em> $\ell \in \mathbb{R}$ si
       \[\forall \varepsilon &gt; 0,\ \exists N \in \mathbb{N},\ \forall n \ge N,\ |u_n - \ell| &lt; \varepsilon.\]
       </p>
     </div>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Infinite limit).</span> $(u_n)$ <em>tends to $+\infty$</em> (resp. $-\infty$) if
+      \[\forall A \in \mathbb{R},\ \exists N \in \mathbb{N},\ \forall n \ge N,\ u_n \ge A \quad (\text{resp.}\ u_n \le A).\]
+      </p>
       <p class="fr"><span class="thm-label">Définition (Limite infinie).</span> On dit que $(u_n)$ <em>tend vers $+\infty$</em> (resp. $-\infty$) si
       \[\forall A \in \mathbb{R},\ \exists N \in \mathbb{N},\ \forall n \ge N,\ u_n \ge A \quad (\text{resp.}\ u_n \le A).\]
       </p>
     </div>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Uniqueness of the limit).</span> A real sequence has at most one limit.</p>
       <p class="fr"><span class="thm-label">Théorème (Unicité de la limite).</span> Une suite réelle admet au plus une limite.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $u_n\to\ell$ and $u_n\to\ell'$; for $\varepsilon>0$, there exist $n_1,n_2\in\mathbb{N}$ such that $n\ge n_1\Rightarrow |u_n-\ell|&lt;\varepsilon/2$ and $n\ge n_2\Rightarrow |u_n-\ell'|&lt;\varepsilon/2$, so for all $n\ge\max(n_1,n_2)$ we have $|\ell-\ell'|\le |u_n-\ell|+|u_n-\ell'|&lt;\varepsilon$, hence $\ell=\ell'$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Supposons $u_n\to\ell$ et $u_n\to\ell'$ ; pour $\varepsilon&gt;0$, il existe $n_1,n_2\in\mathbb{N}$ tels que $n\ge n_1\Rightarrow |u_n-\ell|&lt;\varepsilon/2$ et $n\ge n_2\Rightarrow |u_n-\ell'|&lt;\varepsilon/2$, donc pour tout $n\ge\max(n_1,n_2)$ on a $|\ell-\ell'|\le |u_n-\ell|+|u_n-\ell'|&lt;\varepsilon$, d'où $\ell=\ell'$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every convergent sequence is bounded.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Toute suite convergente est bornée.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $u_n\to\ell$, for $\varepsilon=1$ there exists $N$ such that $n\ge N\Rightarrow |u_n-\ell|&lt;1$. By the triangle inequality, $|u_n|=|(u_n-\ell)+\ell|\le |u_n-\ell|+|\ell|&lt;1+|\ell|$. So for all $n$, $|u_n|\le\max(|u_0|,\ldots,|u_{N-1}|,|\ell|+1)$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Si $u_n\to\ell$, pour $\varepsilon=1$ il existe $N$ tel que $n\ge N\Rightarrow |u_n-\ell|&lt;1$. Par l'inégalité triangulaire, $|u_n|=|(u_n-\ell)+\ell|\le |u_n-\ell|+|\ell|&lt;1+|\ell|$. Donc pour tout $n$, $|u_n|\le\max(|u_0|,\ldots,|u_{N-1}|,|\ell|+1)$.
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Squeeze theorem).</span> Let $(u_n)$, $(v_n)$ and $(w_n)$ be three sequences such that, from some rank onward,
+      \[u_n \le v_n \le w_n,\]
+      and $u_n \to \ell$, $w_n \to \ell$. Then $v_n \to \ell$.</p>
       <p class="fr"><span class="thm-label">Théorème (Théorème des gendarmes).</span> Soient $(u_n)$, $(v_n)$ et $(w_n)$ trois suites telles que, à partir d'un certain rang,
       \[u_n \le v_n \le w_n,\]
       et $u_n \to \ell$, $w_n \to \ell$. Alors $v_n \to \ell$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\varepsilon>0$. There exists $N_1$ such that $n\ge N_1\Rightarrow |u_n-\ell|&lt;\varepsilon$, and $N_2$ such that $n\ge N_2\Rightarrow |w_n-\ell|&lt;\varepsilon$. Let $N_0$ be a rank from which $u_n\le v_n\le w_n$. For $n\ge\max(N_0,N_1,N_2)$, we have $\ell-\varepsilon &lt; u_n \le v_n \le w_n &lt; \ell+\varepsilon$, so $|v_n-\ell|&lt;\varepsilon$.
+      <br><br>
+      <em>Alternative proof.</em> Write $v_n = u_n + (v_n - u_n)$ with $0 \le v_n - u_n \le w_n - u_n \to 0$, so $v_n - u_n \to 0$ and $v_n \to \ell$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Soit $\varepsilon&gt;0$. Il existe $N_1$ tel que $n\ge N_1 \Rightarrow |u_n-\ell|&lt;\varepsilon$, et $N_2$ tel que $n\ge N_2 \Rightarrow |w_n-\ell|&lt;\varepsilon$. Soit $N_0$ un rang à partir duquel $u_n\le v_n\le w_n$. Pour $n\ge\max(N_0,N_1,N_2)$, on a $\ell-\varepsilon &lt; u_n \le v_n \le w_n &lt; \ell+\varepsilon$, d'où $|v_n-\ell|&lt;\varepsilon$.
@@ -97,11 +139,21 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Standard limits).</span> We have:
+      \[\lim_{n\to\infty} \frac{1}{n} = 0, \quad \lim_{n\to\infty} n = +\infty, \quad \lim_{n\to\infty} q^n = \begin{cases} 0 & \text{if } |q|&lt;1\\ +\infty & \text{if } q&gt;1 \end{cases}\]
+      If $q\le -1$, the sequence $(q^n)$ diverges.</p>
       <p class="fr"><span class="thm-label">Proposition (Limites usuelles).</span> On a :
       \[\lim_{n\to\infty} \frac{1}{n} = 0, \quad \lim_{n\to\infty} n = +\infty, \quad \lim_{n\to\infty} q^n = \begin{cases} 0 & \text{si } |q|&lt;1\\ +\infty & \text{si } q&gt;1 \end{cases}\]
       Si $q\le -1$, la suite $(q^n)$ diverge.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $\varepsilon>0$, the Archimedean property gives $N$ with $1/N&lt;\varepsilon$, so $n\ge N\Rightarrow 1/n\le 1/N&lt;\varepsilon$. Similarly, for $A>0$, there exists $N\ge A$, and then $n\ge N\Rightarrow n\ge A$, giving $n\to+\infty$.
+      <br><br>
+      For $q^n$: if $|q|&lt;1$, set $h=1/|q|-1&gt;0$; then $|q|^n=1/(1+h)^n\le 1/(1+nh)\to 0$ by Bernoulli's inequality; if $q&gt;1$, set $h=q-1&gt;0$, then $q^n=(1+h)^n\ge 1+nh\to+\infty$.
+      If $q\le -1$, the subsequences $(q^{2n})$ and $(q^{2n+1})$ have different limits ($1$ and $-1$ if $q=-1$; $+\infty$ and $-\infty$ if $q&lt;-1$), so $(q^n)$ diverges.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Pour $\varepsilon&gt;0$, la propriété d'Archimède donne $N$ tel que $1/N&lt;\varepsilon$, donc $n\ge N\Rightarrow 1/n\le 1/N&lt;\varepsilon$. De même, pour $A&gt;0$, il existe $N\ge A$, et alors $n\ge N\Rightarrow n\ge A$, d'où $n\to+\infty$.
@@ -111,9 +163,18 @@
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Limit laws).</span> If $u_n \to \ell$ and $v_n \to m$, then $u_n+v_n \to \ell+m$, $u_n v_n \to \ell m$, and if moreover $m\neq 0$ and $v_n\neq 0$ from some rank onward, $u_n/v_n \to \ell/m$.</p>
       <p class="fr"><span class="thm-label">Théorème (Opérations sur les limites).</span> Si $u_n \to \ell$ et $v_n \to m$, alors $u_n+v_n \to \ell+m$, $u_n v_n \to \ell m$, et si de plus $m\neq 0$ et $v_n\neq 0$ à partir d'un certain rang, $u_n/v_n \to \ell/m$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Sum: $|(u_n+v_n)-(\ell+m)|\le |u_n-\ell|+|v_n-m|&lt;\varepsilon$ for $n$ large enough.
+      <br><br>
+      Product: $(u_n)$ converges so is bounded by $M>0$, and $|u_nv_n-\ell m|\le |u_n||v_n-m|+|m||u_n-\ell|\le M|v_n-m|+|m||u_n-\ell|&lt;\varepsilon$ for $n$ large enough.
+      <br><br>
+      Quotient: it suffices to show $1/v_n\to 1/m$; since $v_n\to m\neq 0$, we have $|v_n|\ge |m|/2$ from some rank, so $|1/v_n-1/m|=|v_n-m|/(|v_n||m|)\le 2|v_n-m|/m^2\to 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Somme : $|(u_n+v_n)-(\ell+m)|\le |u_n-\ell|+|v_n-m|&lt;\varepsilon$ pour $n$ assez grand.
@@ -124,33 +185,55 @@
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Monotone convergence).</span> Every monotone bounded sequence is convergent.</p>
       <p class="fr"><span class="thm-label">Théorème (Convergence monotone).</span> Toute suite monotone et bornée est convergente.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $(u_n)$ is increasing and bounded above; the set $\{u_n \mid n\in\mathbb{N}\}$ is nonempty and bounded above, so it has a supremum $\ell$, and for every $\varepsilon>0$ there exists $N$ with $u_N>\ell-\varepsilon$, so by monotonicity $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, giving $|u_n-\ell|&lt;\varepsilon$; the decreasing case is analogous.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Supposons $(u_n)$ croissante et majorée ; l'ensemble $\{u_n \mid n\in\mathbb{N}\}$ est non vide (il contient $u_0$) et majoré par hypothèse, donc il admet une borne supérieure $\ell$, et pour tout $\varepsilon&gt;0$, il existe $N$ tel que $u_N&gt;\ell-\varepsilon$, donc par croissance $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, d'où $|u_n-\ell|&lt;\varepsilon$ ; le cas décroissant est analogue.
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Adjacent sequences).</span> Let $(u_n)$ be increasing and $(v_n)$ decreasing such that:
+      \[u_n \le v_n \quad \text{and} \quad v_n-u_n \to 0.\]
+      Then $(u_n)$ and $(v_n)$ converge to the same limit.</p>
       <p class="fr"><span class="thm-label">Théorème (Suites adjacentes).</span> Soient $(u_n)$ croissante et $(v_n)$ décroissante telles que :
       \[u_n \le v_n \quad \text{et} \quad v_n-u_n \to 0.\]
       Alors $(u_n)$ et $(v_n)$ convergent vers la même limite.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(u_n)$ is increasing and bounded above by $v_0$ (since $u_n\le v_n\le v_0$), so it converges to $\ell$; similarly $(v_n)$ is decreasing and bounded below by $u_0$, so it converges to $m$. Passing to the limit in $v_n-u_n\to 0$ gives $m-\ell=0$, so $\ell=m$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $(u_n)$ est croissante et majorée par $v_0$ (car $u_n\le v_n\le v_0$), donc convergente vers $\ell$ ; de même $(v_n)$ est décroissante et minorée par $u_0$, donc convergente vers $m$. Par passage à la limite dans $v_n-u_n\to 0$, on obtient $m-\ell=0$, d'où $\ell=m$.
     </details>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Subsequence).</span> Let $(u_n)$ be a sequence. A <em>subsequence</em> of $(u_n)$ is any sequence of the form $(u_{\varphi(n)})$ where $\varphi\colon\mathbb{N}\to\mathbb{N}$ is strictly increasing.</p>
       <p class="fr"><span class="thm-label">Définition (Suite extraite).</span> Soit $(u_n)$ une suite. On appelle <em>suite extraite</em> (ou sous-suite) de $(u_n)$ toute suite de la forme $(u_{\varphi(n)})$ où $\varphi\colon\mathbb{N}\to\mathbb{N}$ est strictement croissante.</p>
     </div>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Monotone subsequence lemma).</span> Every real sequence has a monotone subsequence.</p>
       <p class="fr"><span class="thm-label">Théorème (Lemme d'extraction monotone).</span> Toute suite réelle admet une sous-suite monotone.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Call $n$ a <em>peak</em> of $(u_n)$ if $u_n\ge u_m$ for all $m\ge n$.
+      <br><br>
+      If the peaks form an infinite sequence $\varphi(0)&lt;\varphi(1)&lt;\cdots$, then for each $k$, $\varphi(k)$ is a peak and $\varphi(k+1)\ge\varphi(k)$, so $u_{\varphi(k)}\ge u_{\varphi(k+1)}$: the subsequence is decreasing.
+      <br><br>
+      Otherwise, there exists $N$ such that no $n\ge N$ is a peak; we then build an increasing subsequence by induction: $\varphi(0)=N$, and for each $k$, since $\varphi(k)$ is not a peak, there exists $\varphi(k+1)&gt;\varphi(k)$ with $u_{\varphi(k+1)}&gt;u_{\varphi(k)}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On dit que $n$ est un <em>pic</em> de $(u_n)$ si $u_n\ge u_m$ pour tout $m\ge n$.
@@ -161,18 +244,30 @@
     </details>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bolzano-Weierstrass).</span> Every bounded real sequence has a convergent subsequence.</p>
       <p class="fr"><span class="thm-label">Théorème (Bolzano-Weierstrass).</span> Toute suite réelle bornée admet une sous-suite convergente.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the monotone subsequence lemma, the sequence has a monotone subsequence; this subsequence is bounded (as a subsequence of a bounded sequence), hence convergent by the monotone convergence theorem.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par le lemme d'extraction monotone, la suite admet une sous-suite monotone ; celle-ci est bornée (comme sous-suite d'une suite bornée), donc convergente par le théorème de convergence monotone.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Sequential characterization of the supremum).</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above, and $s\in\mathbb{R}$. Then $s=\sup A$ if and only if $s$ is an upper bound of $A$ and there exists a sequence $(a_n)\in A^{\mathbb{N}}$ such that $a_n\to s$.</p>
       <p class="fr"><span class="thm-label">Proposition (Caractérisation séquentielle de la borne supérieure).</span> Soit $A\subset\mathbb{R}$ non vide et majorée, et $s\in\mathbb{R}$. Alors $s=\sup A$ si et seulement si $s$ est un majorant de $A$ et il existe une suite $(a_n)\in A^{\mathbb{N}}$ telle que $a_n\to s$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ $s$ is an upper bound of $A$ by definition. Moreover, for each $n\ge 1$, there exists $a_n\in A$ with $s-\frac{1}{n}&lt;a_n\le s$. By the squeeze theorem, $a_n\to s$.
+      <br><br>
+      $(\Leftarrow)$ Let $\varepsilon>0$; since $a_n\to s$, there exists $n$ with $a_n>s-\varepsilon$ and $a_n\in A$. So $s=\sup A$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $(\Rightarrow)$ $s$ est un majorant de $A$ par définition. De plus, pour tout $n\ge 1$, il existe $a_n\in A$ tel que $s-\frac{1}{n}&lt;a_n\le s$. Par encadrement, $a_n\to s$.
@@ -181,24 +276,41 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Well-definedness of a recurrent sequence).</span> Let $f\colon I\to\mathbb{R}$ and $u_0\in I$. If there exists an interval $J\subset I$ such that $u_0\in J$ and $f(J)\subset J$, then the sequence defined by $u_{n+1}=f(u_n)$ satisfies $u_n\in J$ for all $n$.</p>
       <p class="fr"><span class="thm-label">Proposition (Bonne définition d'une suite récurrente).</span> Soit $f\colon I\to\mathbb{R}$ et $u_0\in I$. S'il existe un intervalle $J\subset I$ tel que $u_0\in J$ et $f(J)\subset J$, alors la suite définie par $u_{n+1}=f(u_n)$ vérifie $u_n\in J$ pour tout $n$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction. We have $u_0\in J$ by hypothesis. If $u_n\in J$, then $u_{n+1}=f(u_n)\in f(J)\subset J$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par récurrence. On a $u_0\in J$ par hypothèse. Si $u_n\in J$, alors $u_{n+1}=f(u_n)\in f(J)\subset J$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Limit and fixed point).</span> If $(u_n)$ converges to $\ell$ and $f$ is continuous at $\ell$, then $\ell = f(\ell)$.</p>
       <p class="fr"><span class="thm-label">Proposition (Limite et point fixe).</span> Si $(u_n)$ converge vers $\ell$ et $f$ est continue en $\ell$, alors $\ell = f(\ell)$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We have $u_{n+1}=f(u_n)$. Passing to the limit and using continuity of $f$: $\ell = f(\ell)$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On a $u_{n+1}=f(u_n)$. En passant à la limite et par continuité de $f$, $\ell = f(\ell)$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Method for studying a recurrent sequence.</span> Let $f\colon I\to\mathbb{R}$, $u_0\in I$ and $u_{n+1}=f(u_n)$.</p>
+      <ol class="en">
+        <li><em>Well-definedness.</em> Find $J\subset I$ with $u_0\in J$ and $f(J)\subset J$, which guarantees $u_n\in J$ for all $n$ (by induction).</li>
+        <li><em>Monotonicity.</em> Study the sign of $f(x)-x$ on $J$. If $f(x)\ge x$ on $J$, the sequence is increasing; if $f(x)\le x$, it is decreasing. One can also compare $u_1$ and $u_0$ then use the monotonicity of $f$: if $f$ is increasing and $u_1\ge u_0$, then by induction $u_{n+1}\ge u_n$.</li>
+        <li><em>Convergence.</em> Conclude by the monotone convergence theorem (the sequence is monotone and bounded in $J$).</li>
+        <li><em>Limit.</em> Solve $f(\ell)=\ell$ and select the solution compatible with $J$ and the monotonicity of $(u_n)$.</li>
+      </ol>
       <p class="fr"><span class="thm-label">Méthode d'étude d'une suite récurrente.</span> Soit $f\colon I\to\mathbb{R}$, $u_0\in I$ et $u_{n+1}=f(u_n)$.</p>
       <ol class="fr">
         <li><em>Bonne définition.</em> Trouver $J\subset I$ tel que $u_0\in J$ et $f(J)\subset J$, ce qui garantit $u_n\in J$ pour tout $n$ (par récurrence).</li>
@@ -209,60 +321,98 @@
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Arithmetic-geometric sequence).</span> Let $(u_n)$ be defined by $u_{n+1}=au_n+b$ with $a\neq 1$. Let $\ell=\frac{b}{1-a}$ be the fixed point of $x\mapsto ax+b$. Then $u_n=a^n(u_0-\ell)+\ell$ for all $n\in\mathbb{N}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Suite arithmético-géométrique).</span> Soit $(u_n)$ définie par $u_{n+1}=au_n+b$ avec $a\neq 1$. Soit $\ell=\frac{b}{1-a}$ le point fixe de $x\mapsto ax+b$. Alors $u_n=a^n(u_0-\ell)+\ell$ pour tout $n\in\mathbb{N}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $v_n=u_n-\ell$. Then $v_{n+1}=u_{n+1}-\ell=au_n+b-\ell=a(u_n-\ell)=av_n$ since $b-\ell=b-\frac{b}{1-a}=\frac{-ab}{1-a}=-a\ell$. So $(v_n)$ is geometric with ratio $a$: $v_n=a^nv_0=a^n(u_0-\ell)$, giving $u_n=a^n(u_0-\ell)+\ell$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       On pose $v_n=u_n-\ell$. Alors $v_{n+1}=u_{n+1}-\ell=au_n+b-\ell=a(u_n-\ell)=av_n$ car $b-\ell=b-\frac{b}{1-a}=\frac{-ab}{1-a}=-a\ell$. Donc $(v_n)$ est géométrique de raison $a$ : $v_n=a^nv_0=a^n(u_0-\ell)$, d'où $u_n=a^n(u_0-\ell)+\ell$.
     </details>
 
+    <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 1.</span> Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
       <p class="fr"><span class="thm-label">Exercice 1.</span> Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $\varepsilon>0$. For all $n\ge 1$, we have $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Set $N=\lfloor 1/\varepsilon\rfloor+1$, so that $N>1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Then for all $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Soit $\varepsilon&gt;0$. Pour tout $n\ge 1$, on a $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Posons $N=\lfloor 1/\varepsilon\rfloor+1$, de sorte que $N&gt;1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Alors pour tout $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 2.</span> Show, using the definition, that $n^2+(-1)^n n\to+\infty$.</p>
       <p class="fr"><span class="thm-label">Exercice 2.</span> Montrer, en utilisant la définition, que $n^2+(-1)^n n\to+\infty$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $A\in\mathbb{R}$. For all $n\ge 1$, we have $(-1)^n n\ge -n$, so $n^2+(-1)^n n\ge n^2-n=n(n-1)\ge (n-1)^2$. Set $N=\lfloor\sqrt{A}\rfloor+2$. For all $n\ge N$, $(n-1)^2\ge (N-1)^2&gt;A$. So $n^2+(-1)^n n\ge A$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Soit $A\in\mathbb{R}$. Pour tout $n\ge 1$, on a $(-1)^n n\ge -n$, donc $n^2+(-1)^n n\ge n^2-n=n(n-1)\ge (n-1)^2$. Posons $N=\lfloor\sqrt{A}\rfloor+2$. Pour tout $n\ge N$, on a $(n-1)^2\ge (N-1)^2&gt;A$. Ainsi $n^2+(-1)^n n\ge A$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 3.</span> Let $(a_n)$ be a sequence converging to $\ell\in\mathbb{R}$. Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
       <p class="fr"><span class="thm-label">Exercice 3.</span> Soit $(a_n)$ une suite convergeant vers $\ell\in\mathbb{R}$. Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We have $|a_n^2-\ell^2|=|a_n-\ell|\cdot|a_n+\ell|$. Since $(a_n)$ converges, it is bounded by $M>0$, so $|a_n+\ell|\le M+|\ell|$. For $\varepsilon>0$, there exists $N$ such that $n\ge N\Rightarrow |a_n-\ell|&lt;\varepsilon/(M+|\ell|)$, giving $|a_n^2-\ell^2|&lt;\varepsilon$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On a $|a_n^2-\ell^2|=|a_n-\ell|\cdot|a_n+\ell|$. Comme $(a_n)$ converge, elle est bornée par $M&gt;0$, donc $|a_n+\ell|\le M+|\ell|$. Pour $\varepsilon&gt;0$, il existe $N$ tel que $n\ge N\Rightarrow |a_n-\ell|&lt;\varepsilon/(M+|\ell|)$, d'où $|a_n^2-\ell^2|&lt;\varepsilon$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 4.</span> Study the convergence of the sequence defined by $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
       <p class="fr"><span class="thm-label">Exercice 4.</span> Étudier la convergence de la suite définie par $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $v_n = u_n - 1$. Then $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, so $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Thus $u_n = 1 + v_n \to 1$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On pose $v_n = u_n - 1$. Alors $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, donc $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Ainsi $u_n = 1 + v_n \to 1$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 5.</span> Show that the sequence $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverges to $+\infty$.</p>
       <p class="fr"><span class="thm-label">Exercice 5.</span> Montrer que la suite $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverge vers $+\infty$.</p>
     </div>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 6.</span> Let $(u_n)$ be defined by $u_0=0$ and $u_{n+1}=\sqrt{u_n+2}$. Study its convergence.</p>
       <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $(u_n)$ définie par $u_0=0$ et $u_{n+1}=\sqrt{u_n+2}$. Étudier sa convergence.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Bound.</em> We show by induction that $0\le u_n\le 2$. This holds for $n=0$. If $0\le u_n\le 2$, then $2\le u_n+2\le 4$, so $\sqrt{2}\le u_{n+1}\le 2$.
+      <br><br>
+      <em>Monotonicity.</em> We have $u_{n+1}-u_n=\sqrt{u_n+2}-u_n$. Set $f(x)=\sqrt{x+2}-x$; then $f'(x)=\frac{1}{2\sqrt{x+2}}-1&lt;0$ on $[0,2]$ and $f(2)=0$, so $f(x)\ge 0$ on $[0,2]$, giving $u_{n+1}\ge u_n$.
+      <br><br>
+      <em>Convergence.</em> $(u_n)$ is increasing and bounded above by $2$, so it converges to a limit $\ell$.
+      <br><br>
+      <em>Fixed point.</em> Since $0\le u_n\le 2$, we have $\ell\ge 0$. Passing to the limit in $u_{n+1}=\sqrt{u_n+2}$ gives $\ell=\sqrt{\ell+2}$, so $\ell^2=\ell+2$, i.e. $(\ell-2)(\ell+1)=0$; since $\ell\ge 0$, we have $\ell=2$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       <em>Borne.</em> Montrons par récurrence que $0\le u_n\le 2$. C'est vrai pour $n=0$. Si $0\le u_n\le 2$, alors $2\le u_n+2\le 4$, donc $\sqrt{2}\le u_{n+1}\le 2$.
@@ -275,109 +425,180 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 7.</span> Show that the sequence $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ is increasing and bounded above, hence convergent.</p>
       <p class="fr"><span class="thm-label">Exercice 7.</span> Montrer que la suite $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ est croissante et majorée, donc convergente.</p>
     </div>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 8 (Cesàro).</span> Let $(u_n)$ be a sequence converging to $\ell$. Show that
+      \[\frac{1}{n}\sum_{k=0}^{n-1} u_k \to \ell.\]
+      </p>
       <p class="fr"><span class="thm-label">Exercice 8 (Cesàro).</span> Soit $(u_n)$ une suite convergeant vers $\ell$. Montrer que
       \[\frac{1}{n}\sum_{k=0}^{n-1} u_k \to \ell.\]
       </p>
     </div>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 9.</span> Study the convergence of the sequence $(\cos n)$.</p>
       <p class="fr"><span class="thm-label">Exercice 9.</span> Étudier la convergence de la suite $(\cos n)$.</p>
     </div>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 10 (Heron's method).</span> Let $u_0&gt;0$ and $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Show that $(u_n)$ converges to $\sqrt{2}$.</p>
       <p class="fr"><span class="thm-label">Exercice 10 (Méthode de Héron).</span> Soit $u_0&gt;0$ et $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Montrer que $(u_n)$ converge vers $\sqrt{2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By the AM-GM inequality ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ for all $n\ge 0$, so $u_n\ge\sqrt{2}$ for $n\ge 1$. Then $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, so $(u_n)_{n\ge 1}$ is decreasing and bounded below by $\sqrt{2}$, hence convergent to $\ell\ge\sqrt{2}$. Passing to the limit: $\ell=\frac{1}{2}(\ell+2/\ell)$, so $\ell^2=2$, giving $\ell=\sqrt{2}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Par l'inégalité arithmético-géométrique ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ pour tout $n\ge 0$, donc $u_n\ge\sqrt{2}$ pour $n\ge 1$. Alors $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, donc $(u_n)_{n\ge 1}$ est décroissante et minorée par $\sqrt{2}$, donc convergente vers $\ell\ge\sqrt{2}$. Par passage à la limite, $\ell=\frac{1}{2}(\ell+2/\ell)$, d'où $\ell^2=2$, soit $\ell=\sqrt{2}$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 11 (Comparison of growth rates).</span> Show that for all $|q|&lt;1$ and all $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
       <p class="fr"><span class="thm-label">Exercice 11 (Croissances comparées).</span> Montrer que pour tout $|q|&lt;1$ et tout $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $|q|=1/(1+h)$ with $h>0$. For $n\ge k+1$, the binomial formula gives $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, a polynomial of degree $k+1$ in $n$. So $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On pose $|q|=1/(1+h)$ avec $h&gt;0$. Pour $n\ge k+1$, la formule du binôme donne $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, polynôme de degré $k+1$ en $n$. Donc $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 12 (Adjacent sequences).</span> Set $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ and $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Show that $(u_n)$ and $(v_n)$ are adjacent, and deduce that $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.</p>
       <p class="fr"><span class="thm-label">Exercice 12 (Suites adjacentes).</span> On pose $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ et $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes, et en déduire que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $(u_n)$ is increasing since $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. For $(v_n)$: $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, so $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent, in particular $(u_n)$ converges, meaning $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $(u_n)$ est croissante car $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. Pour $(v_n)$ : $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, donc $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes, en particulier $(u_n)$ converge, ce qui signifie que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 13.</span> Let $x\in\mathbb{R}$. Show that $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
       <p class="fr"><span class="thm-label">Exercice 13.</span> Soit $x\in\mathbb{R}$. Montrer que $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $u_n=\left(1+\frac{x}{n}\right)^n$ for $n&gt;|x|$. Then $\ln u_n=n\ln\left(1+\frac{x}{n}\right)=x\cdot\frac{\ln(1+x/n)-\ln 1}{x/n}$. As $x/n\to 0$, by definition of the derivative of $\ln$ at $1$: $\frac{\ln(1+t)}{t}\to\ln'(1)=1$ as $t\to 0$. So $\ln u_n\to x$. By continuity of the exponential, $u_n\to\mathrm{e}^x$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On pose $u_n=\left(1+\frac{x}{n}\right)^n$ pour $n&gt;|x|$. Alors $\ln u_n=n\ln\left(1+\frac{x}{n}\right)=x\cdot\frac{\ln(1+x/n)-\ln 1}{x/n}$. Or $x/n\to 0$, et par définition de la dérivée de $\ln$ en $1$ : $\frac{\ln(1+t)}{t}\to\ln'(1)=1$ quand $t\to 0$. Donc $\ln u_n\to x\cdot 1=x$. Par continuité de l'exponentielle, $u_n\to\mathrm{e}^x$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 14.</span> Show that $n!\to+\infty$.</p>
       <p class="fr"><span class="thm-label">Exercice 14.</span> Montrer que $n!\to+\infty$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For all $n\ge 1$, we have $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (since each factor $k\ge 2$ for $k\ge 2$). Since $2^{n-1}\to+\infty$, we get $n!\to+\infty$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Pour tout $n\ge 1$, on a $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (car chaque facteur $k\ge 2$ pour $k\ge 2$). Comme $2^{n-1}\to+\infty$, $n!\to+\infty$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 15.</span> Show that $\displaystyle\frac{n!}{n^n}\to 0$.</p>
       <p class="fr"><span class="thm-label">Exercice 15.</span> Montrer que $\displaystyle\frac{n!}{n^n}\to 0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For all $n\ge 1$, we have $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, since each factor $k/n\le 1$. By the squeeze theorem, $n!/n^n\to 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Pour tout $n\ge 1$, on a $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, car chaque facteur $k/n\le 1$. Par le théorème d'encadrement, $n!/n^n\to 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 16.</span> Let $a\in\mathbb{R}$. Show that $\displaystyle\frac{a^n}{n!}\to 0$.</p>
       <p class="fr"><span class="thm-label">Exercice 16.</span> Soit $a\in\mathbb{R}$. Montrer que $\displaystyle\frac{a^n}{n!}\to 0$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $N=\lfloor|a|\rfloor+1$, so that $|a|/N&lt;1$. For $n\ge N$, we have $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Since $|a|/N&lt;1$, the term $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. By the squeeze theorem, $a^n/n!\to 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Soit $N=\lfloor|a|\rfloor+1$, de sorte que $|a|/N&lt;1$. Pour $n\ge N$, on a $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Comme $|a|/N&lt;1$, le terme $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. Par le théorème d'encadrement, $a^n/n!\to 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 17.</span> Study the sequence defined by $u_0=1$ and $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
       <p class="fr"><span class="thm-label">Exercice 17.</span> Étude de la suite définie par $u_0=1$ et $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $1+u_n^2&gt;1$, we have $0&lt;u_{n+1}&lt;u_n$ (by immediate induction for $u_n&gt;0$). So $(u_n)$ is decreasing and bounded below by $0$, hence converges to $\ell\ge 0$ satisfying $\ell=\frac{\ell}{1+\ell^2}$, giving $\ell^3=0$, so $\ell=0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Comme $1+u_n^2&gt;1$, on a $0&lt;u_{n+1}&lt;u_n$ (récurrence immédiate pour $u_n&gt;0$). Donc $(u_n)$ est décroissante et minorée par $0$, donc convergente vers $\ell\geq 0$ vérifiant $\ell=\frac{\ell}{1+\ell^2}$, d'où $\ell^3=0$, soit $\ell=0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 18.</span> Let $x\in\mathbb{R}$. Define the decimal approximation of order $n$ of $x$ by $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ and set $v_n=u_n+\frac{1}{10^n}$. Show that $(u_n)$ and $(v_n)$ are adjacent and converge to $x$. Deduce that $\mathbb{Q}$ is dense in $\mathbb{R}$.</p>
       <p class="fr"><span class="thm-label">Exercice 18.</span> Soit $x\in\mathbb{R}$. On définit l'approximation décimale d'ordre $n$ de $x$ par $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ et on pose $v_n=u_n+\frac{1}{10^n}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes et convergent vers $x$. En déduire que $\mathbb{Q}$ est dense dans $\mathbb{R}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By definition of the floor function, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, so $u_n\le x&lt;v_n$. We show $u_n\le u_{n+1}$: since $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, we have $u_n\le u_{n+1}$, so $(u_n)$ is increasing. Similarly, $10^{n+1}v_n\ge\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, so $v_n\ge v_{n+1}$, and $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{10^n}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent and converge to the same limit $\ell$. Since $u_n\le x&lt;v_n$ for all $n$, we have $\ell=x$. In particular, for every $\varepsilon>0$, there exists $n$ with $|u_n-x|&lt;\varepsilon$ and $u_n\in\mathbb{Q}$, so $\mathbb{Q}$ is dense in $\mathbb{R}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Par définition de la partie entière, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, donc $u_n\le x&lt;v_n$. On montre que $u_n\le u_{n+1}$ : comme $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, on a $u_n\leq u_{n+1}$, et $(u_n)$ est croissante. De même, $10^{n+1}v_n\geq\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, soit $v_n\geq v_{n+1}$, et $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{10^n}\to0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes et convergent vers une même limite $\ell$. Comme $u_n\le x&lt;v_n$ pour tout $n$, on a $\ell=x$. En particulier, pour tout $\varepsilon&gt;0$, il existe $n$ tel que $|u_n-x|&lt;\varepsilon$ avec $u_n\in\mathbb{Q}$, donc $\mathbb{Q}$ est dense dans $\mathbb{R}$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 19 (Nested intervals theorem).</span> Let $(I_n)$ be a sequence of nested closed intervals, i.e. $I_n=[a_n,b_n]$ with $I_{n+1}\subset I_n$ for all $n$. Assume $b_n-a_n\to 0$. Show that $\displaystyle\bigcap_{n\ge 0}I_n$ contains exactly one point.</p>
       <p class="fr"><span class="thm-label">Exercice 19 (Théorème des segments emboîtés).</span> Soit $(I_n)$ une suite de segments emboîtés, i.e. $I_n=[a_n,b_n]$ avec $I_{n+1}\subset I_n$ pour tout $n$. On suppose que $b_n-a_n\to 0$. Montrer que $\displaystyle\bigcap_{n\geq 0}I_n$ contient exactement un point.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $I_{n+1}\subset I_n$ gives $a_n\le a_{n+1}\le b_{n+1}\le b_n$, so $(a_n)$ is increasing and $(b_n)$ is decreasing. Moreover $b_n-a_n\to 0$, so $(a_n)$ and $(b_n)$ are adjacent and converge to the same limit $\ell$. Since $a_n\le\ell\le b_n$ for all $n$, we have $\ell\in I_n$ for all $n$, so $\ell\in\bigcap_{n\ge 0}I_n$. Conversely, if $x\in\bigcap_{n\ge 0}I_n$, then $a_n\le x\le b_n$ for all $n$, and passing to the limit gives $\ell\le x\le\ell$, i.e. $x=\ell$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $I_{n+1}\subset I_n$ donne $a_n\leq a_{n+1}\leq b_{n+1}\leq b_n$, donc $(a_n)$ est croissante et $(b_n)$ est décroissante. De plus $b_n-a_n\to 0$, donc $(a_n)$ et $(b_n)$ sont adjacentes et convergent vers une même limite $\ell$. Comme $a_n\leq\ell\leq b_n$ pour tout $n$, on a $\ell\in I_n$ pour tout $n$, donc $\ell\in\bigcap_{n\geq 0}I_n$. Réciproquement, si $x\in\bigcap_{n\geq 0}I_n$, alors $a_n\leq x\leq b_n$ pour tout $n$, d'où en passant à la limite $\ell\leq x\leq\ell$, soit $x=\ell$.
     </details>
 
   </main>
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
