@@ -574,13 +574,22 @@
       <p class="fr"><span class="thm-label">Remarque.</span> Les éléments diagonaux de la matrice triangulaire sont les valeurs propres de $u$ comptées avec multiplicité.</p>
     </div>
 
+    <h2 class="en">Nilpotent Endomorphisms</h2>
     <h2 class="fr">Endomorphismes nilpotents</h2>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Nilpotent endomorphism).</span> $u \in \mathcal{L}(E)$ is <em>nilpotent</em> if there exists $p \in \mathbb{N}^*$ such that $u^p = 0$. The smallest such $p$ is the <em>nilpotency index</em> of $u$.</p>
       <p class="fr"><span class="thm-label">Définition (Endomorphisme nilpotent).</span> $u \in \mathcal{L}(E)$ est <em>nilpotent</em> s'il existe $p \in \mathbb{N}^*$ tel que $u^p = 0$. Le plus petit tel $p$ est l'<em>indice de nilpotence</em> de $u$.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Characterizations of nilpotency).</span> Let $u \in \mathcal{L}(E)$ with $\dim E = n$. The following are equivalent:
+      <ol class="en">
+        <li>$u$ is nilpotent,</li>
+        <li>$u^n = 0$,</li>
+        <li>$\chi_u(X) = (-1)^n X^n$ ($0$ is the only eigenvalue, with multiplicity $n$),</li>
+        <li>$\mu_u(X) = X^p$ for some $p \leq n$.</li>
+      </ol></p>
       <p class="fr"><span class="thm-label">Proposition (Caractérisations de la nilpotence).</span> Soit $u \in \mathcal{L}(E)$ avec $\dim E = n$. Les assertions suivantes sont équivalentes :
       <ol class="fr">
         <li>$u$ est nilpotent,</li>
@@ -590,6 +599,16 @@
       </ol></p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(1) \Rightarrow (3)$: If $u^p = 0$, then $\mu_u | X^p$, so $\mu_u = X^q$. The roots of $\mu_u$ are the eigenvalues, so $0$ is the only eigenvalue. Since $\mu_u | \chi_u$, we get $\chi_u = (-1)^n X^n$.
+      <br><br>
+      $(3) \Rightarrow (2)$: By Cayley-Hamilton, $\chi_u(u) = (-1)^n u^n = 0$, so $u^n = 0$.
+      <br><br>
+      $(2) \Rightarrow (1)$: Immediate.
+      <br><br>
+      $(1) \Leftrightarrow (4)$: If $u^p = 0$, then $\mu_u | X^p$, so $\mu_u = X^q$. Conversely, $\mu_u = X^p$ implies $u^p = 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $(1) \Rightarrow (3)$ : Si $u^p = 0$, alors $\mu_u | X^p$, donc $\mu_u = X^q$. Les racines de $\mu_u$ sont les valeurs propres, donc $0$ est la seule valeur propre. Comme $\mu_u | \chi_u$, on obtient $\chi_u = (-1)^n X^n$.
@@ -602,18 +621,30 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $u$ is nilpotent of index $p$, then $p \leq n$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Si $u$ est nilpotent d'indice $p$, alors $p \leq n$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Cayley-Hamilton gives $u^n = 0$, so $p \leq n$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Cayley-Hamilton donne $u^n = 0$, donc $p \leq n$.
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Strictly upper triangular matrix).</span> $u$ is nilpotent if and only if its matrix in some basis is upper triangular with zeros on the diagonal.</p>
       <p class="fr"><span class="thm-label">Proposition (Matrice triangulaire strictement supérieure).</span> $u$ est nilpotent si et seulement si sa matrice dans une certaine base est triangulaire supérieure avec des zéros sur la diagonale.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Leftarrow)$ A strictly upper triangular matrix $T$ satisfies $T^n = 0$.
+      <br><br>
+      $(\Rightarrow)$ If $u$ is nilpotent, $\chi_u = (-1)^n X^n$ splits, so $u$ is trigonalizable and the diagonal entries of the triangular matrix are the eigenvalues, all equal to $0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $(\Leftarrow)$ Une matrice strictement triangulaire supérieure $T$ vérifie $T^n = 0$.
@@ -622,21 +653,34 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Trace of powers).</span> If $u$ is nilpotent, then $\mathrm{tr}(u^k) = 0$ for all $k \geq 1$.</p>
       <p class="fr"><span class="thm-label">Proposition (Trace des puissances).</span> Si $u$ est nilpotent, alors $\mathrm{tr}(u^k) = 0$ pour tout $k \geq 1$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      In a trigonalization basis, the matrix of $u^k$ is strictly upper triangular, so its trace is zero.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Dans une base de trigonalisation, la matrice de $u^k$ est strictement triangulaire supérieure, donc sa trace est nulle.
     </details>
 
+    <h2 class="en">Generalized Eigenspaces</h2>
     <h2 class="fr">Sous-espaces caractéristiques</h2>
 
     <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Generalized eigenspace).</span> Let $\lambda$ be an eigenvalue of $u$ with algebraic multiplicity $m_\lambda$. The <em>generalized eigenspace</em> associated with $\lambda$ is $N_\lambda = \ker(u - \lambda \mathrm{Id})^{m_\lambda}$.</p>
       <p class="fr"><span class="thm-label">Définition (Sous-espace caractéristique).</span> Soit $\lambda$ une valeur propre de $u$ de multiplicité algébrique $m_\lambda$. Le <em>sous-espace caractéristique</em> associé à $\lambda$ est $N_\lambda = \ker(u - \lambda \mathrm{Id})^{m_\lambda}$.</p>
     </div>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Properties of generalized eigenspaces).</span> Let $\chi_u$ split with $\chi_u = \prod_{i=1}^p (-1)^n(X - \lambda_i)^{m_i}$. Then:
+      <ol class="en">
+        <li>$\dim N_{\lambda_i} = m_{\lambda_i}$ for all $i$,</li>
+        <li>$E = \bigoplus_{i=1}^p N_{\lambda_i}$,</li>
+        <li>Each $N_{\lambda_i}$ is stable under $u$, and $(u - \lambda_i \mathrm{Id})|_{N_{\lambda_i}}$ is nilpotent.</li>
+      </ol></p>
       <p class="fr"><span class="thm-label">Théorème (Propriétés des sous-espaces caractéristiques).</span> Soit $\chi_u$ scindé avec $\chi_u = \prod_{i=1}^p (-1)^n(X - \lambda_i)^{m_i}$. Alors :
       <ol class="fr">
         <li>$\dim N_{\lambda_i} = m_{\lambda_i}$ pour tout $i$,</li>
@@ -645,6 +689,12 @@
       </ol></p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By Cayley-Hamilton, $\prod (u - \lambda_i \mathrm{Id})^{m_i} = 0$. The polynomials $(X - \lambda_i)^{m_i}$ are pairwise coprime. The kernel decomposition lemma gives $E = \bigoplus_{i=1}^p N_{\lambda_i}$, so $n = \sum \dim N_{\lambda_i}$.
+      <br><br>
+      Each $N_{\lambda_i}$ is stable under $u$. The restriction $u|_{N_{\lambda_i}}$ has $\lambda_i$ as its only eigenvalue (if $\mu$ is an eigenvalue with eigenvector $x$, then $(\mu - \lambda_i)^{m_i} x = (u - \lambda_i \mathrm{Id})^{m_i}(x) = 0$, so $\mu = \lambda_i$). Thus $\chi_{u|_{N_{\lambda_i}}} = (-1)^{d_i}(X - \lambda_i)^{d_i}$. Multiplying: $\chi_u = \prod \chi_{u|_{N_{\lambda_i}}}$, so $d_i = m_i$. Finally, $(u - \lambda_i \mathrm{Id})^{m_i}|_{N_{\lambda_i}} = 0$ proves nilpotency.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Par Cayley-Hamilton, $\prod (u - \lambda_i \mathrm{Id})^{m_i} = 0$. Les polynômes $(X - \lambda_i)^{m_i}$ sont premiers entre eux deux à deux. Le lemme de décomposition donne $E = \bigoplus_{i=1}^p N_{\lambda_i}$, d'où $n = \sum \dim N_{\lambda_i}$.
@@ -653,24 +703,38 @@
     </details>
 
     <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> Generalized eigenspaces extend eigenspaces: we always have $E_\lambda \subset N_\lambda$, with equality if and only if $\dim E_\lambda = m_\lambda$.</p>
       <p class="fr"><span class="thm-label">Remarque.</span> Les sous-espaces caractéristiques généralisent les sous-espaces propres : on a toujours $E_\lambda \subset N_\lambda$, avec égalité si et seulement si $\dim E_\lambda = m_\lambda$.</p>
     </div>
 
     <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> $u$ is diagonalizable if and only if $N_\lambda = E_\lambda$ for every eigenvalue $\lambda$.</p>
       <p class="fr"><span class="thm-label">Corollaire.</span> $u$ est diagonalisable si et seulement si $N_\lambda = E_\lambda$ pour toute valeur propre $\lambda$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $u$ diagonalizable $\iff$ $\dim E_\lambda = m_\lambda$ for all $\lambda$ $\iff$ $E_\lambda = N_\lambda$ for all $\lambda$ (since $E_\lambda \subset N_\lambda$ and $\dim N_\lambda = m_\lambda$).
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $u$ diagonalisable $\iff$ $\dim E_\lambda = m_\lambda$ pour tout $\lambda$ $\iff$ $E_\lambda = N_\lambda$ pour tout $\lambda$ (car $E_\lambda \subset N_\lambda$ et $\dim N_\lambda = m_\lambda$).
     </details>
 
+    <h2 class="en">Simultaneous Diagonalization</h2>
     <h2 class="fr">Diagonalisation simultanée</h2>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Simultaneous diagonalization).</span> Let $u, v \in \mathcal{L}(E)$ be two diagonalizable endomorphisms that commute ($u \circ v = v \circ u$). Then there exists a basis of $E$ in which the matrices of both $u$ and $v$ are diagonal.</p>
       <p class="fr"><span class="thm-label">Théorème (Diagonalisation simultanée).</span> Soit $u, v \in \mathcal{L}(E)$ deux endomorphismes diagonalisables qui commutent ($u \circ v = v \circ u$). Alors il existe une base de $E$ dans laquelle les matrices de $u$ et de $v$ sont toutes deux diagonales.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Since $u$ is diagonalizable, $E = \bigoplus_{\lambda \in \mathrm{Sp}(u)} E_\lambda(u)$. Each $E_\lambda(u)$ is stable under $v$: if $x \in E_\lambda(u)$, $u(v(x)) = v(u(x)) = v(\lambda x) = \lambda v(x)$, so $v(x) \in E_\lambda(u)$.
+      <br><br>
+      $v|_{E_\lambda(u)}$ is diagonalizable (since $v$ is annihilated by a polynomial $P$ that splits with simple roots, and $v|_{E_\lambda(u)}$ is annihilated by the same $P$). So there exists a basis of $E_\lambda(u)$ consisting of eigenvectors of $v$, which are also eigenvectors of $u$. Taking the union of these bases yields a common eigenvector basis of $E$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Comme $u$ est diagonalisable, $E = \bigoplus_{\lambda \in \mathrm{Sp}(u)} E_\lambda(u)$. Chaque $E_\lambda(u)$ est stable par $v$ : si $x \in E_\lambda(u)$, $u(v(x)) = v(u(x)) = v(\lambda x) = \lambda v(x)$, donc $v(x) \in E_\lambda(u)$.
@@ -679,18 +743,30 @@
     </details>
 
     <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> If $d_1$ and $d_2$ are diagonalizable and commute, then $d_1 + d_2$ and $d_1 - d_2$ are diagonalizable.</p>
       <p class="fr"><span class="thm-label">Corollaire.</span> Si $d_1$ et $d_2$ sont diagonalisables et commutent, alors $d_1 + d_2$ et $d_1 - d_2$ sont diagonalisables.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      There exists a common eigenvector basis for $d_1$ and $d_2$, in which $d_1 + d_2$ and $d_1 - d_2$ are also diagonal.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Il existe une base commune de vecteurs propres de $d_1$ et $d_2$, dans laquelle $d_1 + d_2$ et $d_1 - d_2$ sont aussi diagonales.
     </details>
 
     <div class="thm-block lemma">
+      <p class="en"><span class="thm-label">Lemma.</span> If $n_1$ and $n_2$ are nilpotent and commute, then $n_1 + n_2$ and $n_1 - n_2$ are nilpotent.</p>
       <p class="fr"><span class="thm-label">Lemme.</span> Si $n_1$ et $n_2$ sont nilpotents et commutent, alors $n_1 + n_2$ et $n_1 - n_2$ sont nilpotents.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Since $n_1$ and $n_2$ commute, the binomial formula applies. Let $n_1^p = 0$ and $n_2^q = 0$.
+      \[(n_1 + n_2)^{p+q-1} = \sum_{k=0}^{p+q-1} \binom{p+q-1}{k} n_1^k n_2^{p+q-1-k}\]
+      For each term: if $k \geq p$, then $n_1^k = 0$; otherwise $p+q-1-k \geq q$, so $n_2^{p+q-1-k} = 0$. Thus $(n_1 + n_2)^{p+q-1} = 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Comme $n_1$ et $n_2$ commutent, la formule du binôme s'applique. Soit $n_1^p = 0$ et $n_2^q = 0$.
@@ -698,9 +774,17 @@
       Pour chaque terme : si $k \geq p$, alors $n_1^k = 0$ ; sinon $p+q-1-k \geq q$, donc $n_2^{p+q-1-k} = 0$. Ainsi $(n_1 + n_2)^{p+q-1} = 0$.
     </details>
 
+    <h2 class="en">Dunford Decomposition</h2>
     <h2 class="fr">Décomposition de Dunford</h2>
 
     <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Dunford decomposition).</span> Let $u \in \mathcal{L}(E)$ such that $\chi_u$ splits over $\mathbb{K}$. Then there exists a unique pair $(d, n)$ of endomorphisms of $E$ such that:
+      <ol class="en">
+        <li>$u = d + n$,</li>
+        <li>$d$ is diagonalizable and $n$ is nilpotent,</li>
+        <li>$d \circ n = n \circ d$.</li>
+      </ol>
+      Moreover, $d$ and $n$ are polynomials in $u$.</p>
       <p class="fr"><span class="thm-label">Théorème (Décomposition de Dunford).</span> Soit $u \in \mathcal{L}(E)$ tel que $\chi_u$ est scindé sur $\mathbb{K}$. Alors il existe un unique couple $(d, n)$ d'endomorphismes de $E$ tel que :
       <ol class="fr">
         <li>$u = d + n$,</li>
@@ -710,6 +794,12 @@
       De plus, $d$ et $n$ sont des polynômes en $u$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Existence.</em> Let $\mu_u = \prod_{i=1}^p (X - \lambda_i)^{r_i}$. The $(X - \lambda_i)^{r_i}$ are pairwise coprime. By kernel decomposition: $E = \bigoplus_{i=1}^p F_i$ with $F_i = \ker(u - \lambda_i \mathrm{Id})^{r_i}$. Define $d$ by $d|_{F_i} = \lambda_i \mathrm{Id}_{F_i}$; then $d$ is diagonalizable. Set $n = u - d$: on each $F_i$, $n|_{F_i} = (u - \lambda_i \mathrm{Id})|_{F_i}$ is nilpotent. The projections $\pi_i$ onto $F_i$ are polynomials in $u$, so $d = \sum \lambda_i \pi_i$ and $n = u - d$ are too. Since $d$ and $n$ are polynomials in $u$, they commute.
+      <br><br>
+      <em>Uniqueness.</em> Let $(d', n')$ be another pair satisfying the three properties. $d'$ and $n'$ commute with $u$, hence with every polynomial in $u$, hence with $d$ and $n$. We have $d - d' = n' - n$. The left side is diagonalizable (commuting diagonalizables), the right side is nilpotent (commuting nilpotents). An endomorphism that is both diagonalizable and nilpotent is zero (all eigenvalues are $0$ and it is diagonalizable). So $d = d'$ and $n = n'$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       <em>Existence.</em> Soit $\mu_u = \prod_{i=1}^p (X - \lambda_i)^{r_i}$. Les $(X - \lambda_i)^{r_i}$ sont premiers entre eux deux à deux. Par décomposition des noyaux : $E = \bigoplus_{i=1}^p F_i$ avec $F_i = \ker(u - \lambda_i \mathrm{Id})^{r_i}$. On définit $d$ par $d|_{F_i} = \lambda_i \mathrm{Id}_{F_i}$ ; alors $d$ est diagonalisable. Posons $n = u - d$ : sur chaque $F_i$, $n|_{F_i} = (u - \lambda_i \mathrm{Id})|_{F_i}$ est nilpotent. Les projections $\pi_i$ sur $F_i$ sont des polynômes en $u$, donc $d = \sum \lambda_i \pi_i$ et $n = u - d$ le sont aussi. Comme $d$ et $n$ sont des polynômes en $u$, ils commutent.
@@ -718,24 +808,39 @@
     </details>
 
     <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> $d$ is called the <em>diagonalizable part</em> (or semisimple part) of $u$, and $n$ the <em>nilpotent part</em>.</p>
       <p class="fr"><span class="thm-label">Remarque.</span> $d$ s'appelle la <em>partie diagonalisable</em> (ou semi-simple) de $u$, et $n$ la <em>partie nilpotente</em>.</p>
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Commutation in Dunford).</span> $d$ and $n$ commute with every endomorphism that commutes with $u$.</p>
       <p class="fr"><span class="thm-label">Proposition (Commutation dans Dunford).</span> $d$ et $n$ commutent avec tout endomorphisme qui commute avec $u$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $d$ and $n$ are polynomials in $u$. If $v$ commutes with $u$, then $v$ commutes with every polynomial in $u$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $d$ et $n$ sont des polynômes en $u$. Si $v$ commute avec $u$, alors $v$ commute avec tout polynôme en $u$.
     </details>
 
+    <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 1.</span> Let $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. Determine whether $A$ is diagonalizable. Compute $A^n$.</p>
       <p class="fr"><span class="thm-label">Exercice 1.</span> Soit $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$. Déterminer si $A$ est diagonalisable. Calculer $A^n$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\chi_A(X) = (1-X)^2$. The only eigenvalue is $\lambda = 1$, with algebraic multiplicity $2$. $E_1 = \ker(A - I_2) = \ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \mathrm{Vect}\begin{pmatrix} 1 \\ 0 \end{pmatrix}$, of dimension $1 < 2$. So $A$ is not diagonalizable.
+      <br><br>
+      Write $A = I_2 + N$ with $N = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$, and $N^2 = 0$. By the binomial formula:
+      \[A^n = (I_2 + N)^n = I_2 + nN = \begin{pmatrix} 1 & n \\ 0 & 1 \end{pmatrix}\]
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $\chi_A(X) = (1-X)^2$. La seule valeur propre est $\lambda = 1$, de multiplicité algébrique $2$. $E_1 = \ker(A - I_2) = \ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \mathrm{Vect}\begin{pmatrix} 1 \\ 0 \end{pmatrix}$, de dimension $1 &lt; 2$. Donc $A$ n'est pas diagonalisable.
@@ -745,36 +850,60 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 2.</span> Let $u \in \mathcal{L}(E)$ such that $u^2 = u$. Show that $u$ is diagonalizable and determine its possible eigenvalues.</p>
       <p class="fr"><span class="thm-label">Exercice 2.</span> Soit $u \in \mathcal{L}(E)$ tel que $u^2 = u$. Montrer que $u$ est diagonalisable et déterminer ses valeurs propres possibles.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $u^2 - u = 0$, so $u$ is annihilated by $P(X) = X(X-1)$, which splits with simple roots. So $u$ is diagonalizable, with eigenvalues in $\{0, 1\}$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $u^2 - u = 0$, donc $u$ est annulé par $P(X) = X(X-1)$, scindé à racines simples. Donc $u$ est diagonalisable, de valeurs propres parmi $\{0, 1\}$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 3.</span> Let $u \in \mathcal{L}(E)$ be nilpotent and $v \in \mathcal{L}(E)$ commuting with $u$. Show that $u \circ v$ is nilpotent.</p>
       <p class="fr"><span class="thm-label">Exercice 3.</span> Soit $u \in \mathcal{L}(E)$ nilpotent et $v \in \mathcal{L}(E)$ qui commute avec $u$. Montrer que $u \circ v$ est nilpotent.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $u$ and $v$ commute, $(u \circ v)^n = u^n \circ v^n$. If $u^p = 0$, then $(u \circ v)^p = u^p \circ v^p = 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Comme $u$ et $v$ commutent, $(u \circ v)^n = u^n \circ v^n$. Si $u^p = 0$, alors $(u \circ v)^p = u^p \circ v^p = 0$.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 4.</span> Show that two similar matrices have the same minimal polynomial.</p>
       <p class="fr"><span class="thm-label">Exercice 4.</span> Montrer que deux matrices semblables ont le même polynôme minimal.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $B = P^{-1}AP$. For every polynomial $Q$, $Q(B) = P^{-1}Q(A)P$. So $Q(B) = 0 \iff Q(A) = 0$: the annihilating polynomials of $A$ and $B$ are the same, hence so are their minimal polynomials.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Soit $B = P^{-1}AP$. Pour tout polynôme $Q$, $Q(B) = P^{-1}Q(A)P$. Donc $Q(B) = 0 \iff Q(A) = 0$ : les polynômes annulateurs de $A$ et $B$ sont les mêmes, donc les polynômes minimaux sont égaux.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 5.</span> Let $A = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}$. Determine whether $A$ is diagonalizable over $\mathbb{R}$, then over $\mathbb{C}$. Give the Dunford decomposition over $\mathbb{C}$.</p>
       <p class="fr"><span class="thm-label">Exercice 5.</span> Soit $A = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}$. Déterminer si $A$ est diagonalisable sur $\mathbb{R}$, puis sur $\mathbb{C}$. Donner la décomposition de Dunford sur $\mathbb{C}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\chi_A(X) = (2-X)(X^2+1) = -(X-2)(X^2+1)$.
+      <br><br>
+      <em>Over $\mathbb{R}$</em>: $X^2+1$ has no real roots, so $\chi_A$ does not split over $\mathbb{R}$: $A$ is not even trigonalizable over $\mathbb{R}$.
+      <br><br>
+      <em>Over $\mathbb{C}$</em>: $\chi_A(X) = -(X-2)(X-i)(X+i)$. Three distinct eigenvalues, so $A$ is diagonalizable over $\mathbb{C}$. The Dunford decomposition is $d = A$, $n = 0$.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $\chi_A(X) = (2-X)(X^2+1) = -(X-2)(X^2+1)$.
@@ -785,27 +914,44 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 6.</span> Let $u \in \mathcal{L}(E)$ such that $u^3 = u$. Show that $u$ is diagonalizable.</p>
       <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $u \in \mathcal{L}(E)$ tel que $u^3 = u$. Montrer que $u$ est diagonalisable.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $u^3 - u = 0$, so $u$ is annihilated by $P(X) = X^3 - X = X(X-1)(X+1)$, which splits with simple roots. So $u$ is diagonalizable.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $u^3 - u = 0$, donc $u$ annule $P(X) = X^3 - X = X(X-1)(X+1)$, scindé à racines simples. Donc $u$ est diagonalisable.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 7.</span> Let $E$ have dimension $n$ and $u \in \mathcal{L}(E)$ be nilpotent of index $n$ (i.e. $u^{n-1} \neq 0$ and $u^n = 0$). Show that there exists $x \in E$ such that $(x, u(x), u^2(x), \ldots, u^{n-1}(x))$ is a basis of $E$.</p>
       <p class="fr"><span class="thm-label">Exercice 7.</span> Soit $E$ de dimension $n$ et $u \in \mathcal{L}(E)$ nilpotent d'indice $n$ (i.e. $u^{n-1} \neq 0$ et $u^n = 0$). Montrer qu'il existe $x \in E$ tel que $(x, u(x), u^2(x), \ldots, u^{n-1}(x))$ est une base de $E$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $u^{n-1} \neq 0$, there exists $x \in E$ with $u^{n-1}(x) \neq 0$. Show $(x, u(x), \ldots, u^{n-1}(x))$ is linearly independent. Let $\sum_{k=0}^{n-1} a_k u^k(x) = 0$. Applying $u^{n-1}$: $a_0 u^{n-1}(x) = 0$ (since $u^{n-1+k} = 0$ for $k \geq 1$). So $a_0 = 0$. Applying $u^{n-2}$: $a_1 = 0$. Continuing, $a_k = 0$ for all $k$. A linearly independent family of $n$ vectors in dimension $n$ is a basis.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Comme $u^{n-1} \neq 0$, il existe $x \in E$ tel que $u^{n-1}(x) \neq 0$. Montrons que $(x, u(x), \ldots, u^{n-1}(x))$ est libre. Soit $\sum_{k=0}^{n-1} a_k u^k(x) = 0$. En appliquant $u^{n-1}$ : $a_0 u^{n-1}(x) = 0$ (car $u^{n-1+k} = 0$ pour $k \geq 1$). Donc $a_0 = 0$. En appliquant $u^{n-2}$ : $a_1 = 0$. En continuant, $a_k = 0$ pour tout $k$. Famille libre de $n$ vecteurs en dimension $n$ : c'est une base.
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 8.</span> Let $A \in \mathcal{M}_n(\mathbb{R})$ such that $A^2 + A + I_n = 0$. Show that $n$ is even.</p>
       <p class="fr"><span class="thm-label">Exercice 8.</span> Soit $A \in \mathcal{M}_n(\mathbb{R})$ telle que $A^2 + A + I_n = 0$. Montrer que $n$ est pair.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The polynomial $P(X) = X^2 + X + 1$ annihilates $A$ and has no real roots (discriminant $-3 < 0$), so $A$ has no real eigenvalue.
+      <br><br>
+      Over $\mathbb{C}$, the roots of $P$ are $j = e^{2i\pi/3}$ and $\bar{j}$. Since $\mu_A | P$ and $P$ splits with simple roots over $\mathbb{C}$, $A$ is diagonalizable over $\mathbb{C}$, with eigenvalues $j$ and $\bar{j}$. Since $A$ has real entries, $j$ and $\bar{j}$ have the same multiplicity $m$. So $n = 2m$ is even.
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Le polynôme $P(X) = X^2 + X + 1$ annule $A$ et n'a pas de racine réelle (discriminant $-3 &lt; 0$), donc $A$ n'a pas de valeur propre réelle.
@@ -814,9 +960,15 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 9.</span> Let $u \in \mathcal{L}(E)$ and $F, G$ two subspaces stable under $u$ such that $E = F \oplus G$. Show that $\chi_u = \chi_{u|_F} \cdot \chi_{u|_G}$.</p>
       <p class="fr"><span class="thm-label">Exercice 9.</span> Soit $u \in \mathcal{L}(E)$ et $F, G$ deux sous-espaces stables par $u$ tels que $E = F \oplus G$. Montrer que $\chi_u = \chi_{u|_F} \cdot \chi_{u|_G}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      In a basis adapted to $E = F \oplus G$, the matrix of $u$ is $\begin{pmatrix} A & 0 \\ 0 & B \end{pmatrix}$ with $A = \mathrm{Mat}(u|_F)$ and $B = \mathrm{Mat}(u|_G)$. So:
+      \[\chi_u(X) = \det\begin{pmatrix} A - XI & 0 \\ 0 & B - XI \end{pmatrix} = \det(A - XI) \cdot \det(B - XI) = \chi_{u|_F}(X) \cdot \chi_{u|_G}(X)\]
+    </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Dans une base adaptée à $E = F \oplus G$, la matrice de $u$ est $\begin{pmatrix} A & 0 \\ 0 & B \end{pmatrix}$ avec $A = \mathrm{Mat}(u|_F)$ et $B = \mathrm{Mat}(u|_G)$. Donc :
@@ -824,5 +976,21 @@
     </details>
 
   </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(function(el) {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
 </body>
 </html>
