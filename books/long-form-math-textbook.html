@@ -270,6 +270,24 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $p$ be a prime. Show that $\sqrt{p}$ is irrational.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Suppose for contradiction that $\sqrt{p} = a/b$ with $a, b \in \mathbb{Z}$ and $\gcd(a, b) = 1$. Then $pb^2 = a^2$, so $b^2 \mid a^2$. Since $\gcd(a, b) = 1$ we have $\gcd(a^2, b^2) = 1$, forcing $b^2 = 1$, i.e. $b = \pm 1$. Then $p = a^2$, but a prime cannot be a perfect square, a contradiction.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every integer $n \geq 2$ is a product of primes, using a minimal counterexample argument.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Suppose for contradiction that the set $S$ of integers $\geq 2$ that are not products of primes is nonempty. By the well-ordering principle, $S$ has a least element $n$. Then $n$ is not prime (otherwise $n$ itself is a product of one prime, contradicting $n \in S$), so $n = ab$ for some integers $2 \leq a, b < n$. Since $a$ and $b$ are less than the minimal counterexample, neither belongs to $S$, so both are products of primes. But then $n = ab$ is also a product of primes, a contradiction.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Let $a$ be an odd integer. Show that $x^2 + x - a^2 = 0$ has no integer solution.</p>
     </div>
 
