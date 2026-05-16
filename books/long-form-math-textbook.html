@@ -239,9 +239,62 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>By induction on $n$. For the base case $n = 0$, we have $F_0 = 2^1 + 1 = 3$ and $F_1 - 2 = 2^2 + 1 - 2 = 3$.</p>
-      <p>For the inductive step, assume $F_0 \cdots F_{n-1} = F_n - 2$. Then</p>
-      <p>$F_0 \cdots F_{n-1} \cdot F_n = (F_n - 2) \cdot F_n = (2^{2^n} - 1)(2^{2^n} + 1) = 2^{2^{n+1}} - 1 = F_{n+1} - 2$.</p>
+      <p>By induction on $n$. The base case $n = 0$ holds since $F_0 = 3 = F_1 - 2$. For the inductive step, assume $F_0 \cdots F_{n-1} = F_n - 2$. Multiplying both sides by $F_n$ gives $F_0 \cdots F_{n-1} \cdot F_n = (F_n - 2) \cdot F_n$. Writing $F_n = 2^{2^n} + 1$, the right side factors as a difference of squares: $(2^{2^n} - 1)(2^{2^n} + 1) = 2^{2^{n+1}} - 1 = F_{n+1} - 2$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $x \geq -1$. Show that for every integer $n \geq 0$, $1 + nx \leq (1 + x)^n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By induction on $n$. The base case $n = 0$ gives $1 \leq 1$, which holds. For the inductive step, assume $1 + nx \leq (1+x)^n$. Since $x \geq -1$ we have $1 + x \geq 0$, so multiplying both sides by $1 + x$ preserves the inequality: $(1 + nx)(1 + x) \leq (1 + x)^{n+1}$. Expanding the left side gives $(1 + nx)(1 + x) = 1 + (n+1)x + nx^2 \geq 1 + (n+1)x$, since $nx^2 \geq 0$. Chaining the two inequalities gives $1 + (n+1)x \leq (1+x)^{n+1}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that for every $n \geq 1$, there exist $n$ distinct positive integers $a_1, \ldots, a_n$ such that $a_1^2 + \cdots + a_n^2$ is a perfect square.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By induction on $n$. The base case $n = 1$ holds with $a_1 = 1$, since $1^2 = 1^2$. For the inductive step, suppose $a_1, \ldots, a_n$ are distinct positive integers with $a_1^2 + \cdots + a_n^2 = k^2$. Set $b_i = 3a_i$ for each $i$ and $b_{n+1} = 4k$. Then $b_1^2 + \cdots + b_n^2 + b_{n+1}^2 = 9k^2 + 16k^2 = (5k)^2$. The values $b_1, \ldots, b_n$ are distinct since the $a_i$ are. If $b_{n+1} = 3a_j$ for some $j$, then $a_j = 4k/3$, giving $a_j^2 = 16k^2/9 > k^2$, which contradicts $a_j^2 \leq a_1^2 + \cdots + a_n^2 = k^2$. So $b_{n+1}$ is distinct from every $b_i$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every tree with $n$ vertices has exactly $n - 1$ edges.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By induction on $n$. The base case $n = 1$ holds: a single vertex has no edges, and $1 - 1 = 0$. For the inductive step, let $T$ be a tree with $n \geq 2$ vertices. Every tree with at least two vertices has a leaf, i.e. a vertex $v$ of degree 1. Remove $v$ and its unique incident edge to obtain a graph $T'$ on $n - 1$ vertices. Since $T$ is connected and acyclic, $T'$ is also connected and acyclic, so $T'$ is a tree. By the induction hypothesis, $T'$ has $n - 2$ edges. Restoring $v$ and its edge gives $T$ exactly $(n - 2) + 1 = n - 1$ edges.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $a$ be an odd integer. Show that $x^2 + x - a^2 = 0$ has no integer solution.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Proof 1 (parity).</em> Rewrite the equation as $x(x + 1) = a^2$. The left side is the product of two consecutive integers, so it is always even. But $a$ is odd, so $a^2$ is odd. An even number cannot equal an odd number, a contradiction.</p>
+      <p><em>Proof 2 (discriminant).</em> For $x^2 + x - a^2 = 0$ to have an integer solution, its discriminant $\Delta = 1 + 4a^2$ must be a perfect square, say $k^2$. Then $k^2 - 4a^2 = 1$, i.e., $(k - 2a)(k + 2a) = 1$. The only integer factorizations of 1 are $1 \cdot 1$ and $(-1) \cdot (-1)$, both of which give $k - 2a = k + 2a$, forcing $a = 0$. Since 0 is even, no odd integer $a$ satisfies this, so no integer solution exists.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $\dfrac{1}{n} \to 0$ using the definition of a limit.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $\varepsilon > 0$. By the Archimedean property, there exists $N \in \mathbb{N}$ with $N > 1/\varepsilon$. Then for all $n > N$, we have $\left|\frac{1}{n} - 0\right| = \frac{1}{n} < \frac{1}{N} < \varepsilon$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $a_n = 2 - \dfrac{1}{n^2}$ converges to $2$ using the definition of a limit.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $\varepsilon > 0$. By the Archimedean property, there exists $N \in \mathbb{N}$ with $N > 1/\sqrt{\varepsilon}$. Then for all $n > N$, we have $\left|\left(2 - \frac{1}{n^2}\right) - 2\right| = \frac{1}{n^2} < \frac{1}{N^2} < \varepsilon$.</p>
     </details>
 
     <h2>Analysis</h2>
