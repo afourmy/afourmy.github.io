@@ -315,6 +315,34 @@
       <p>Let $\varepsilon > 0$. By the Archimedean property, there exists $N \in \mathbb{N}$ with $N > 1/\sqrt{\varepsilon}$. Then for all $n > N$, we have $\left|\left(2 - \frac{1}{n^2}\right) - 2\right| = \frac{1}{n^2} < \frac{1}{N^2} < \varepsilon$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $a, b, c$ be integers with $a^2 + b^2 = c^2$. Show that at least one of $a$ or $b$ is even.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Suppose for contradiction that both $a$ and $b$ are odd. Any odd integer squares to $1$ modulo $4$, so $a^2 + b^2 \equiv 1 + 1 = 2 \pmod{4}$. But any integer squares to either $0$ or $1$ modulo $4$, so $c^2 \not\equiv 2 \pmod{4}$, a contradiction.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $m, n$ be integers. Show that if $4 \mid m^2 + n^2$ then $m$ and $n$ are not both odd.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>We prove the contrapositive: if $m$ and $n$ are both odd, then $4 \nmid m^2 + n^2$. Any odd integer squares to $1$ modulo $4$, so $m^2 + n^2 \equiv 1 + 1 = 2 \pmod{4}$, hence $4 \nmid m^2 + n^2$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that for every integer $n \geq 1$, $n^2 + n + 1$ is not a perfect square.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Proof 1 (contradiction).</em> Suppose $n^2 + n + 1 = k^2$ for some integer $k$. Then $n(n + 1) = k^2 - 1 = (k-1)(k+1)$. Since $k^2 > n^2$ we have $k \geq n + 1$, so $k - 1 \geq n$ and $k + 1 \geq n + 2$. Thus $(k-1)(k+1) \geq n(n+2) > n(n+1)$, a contradiction.</p>
+      <p><em>Proof 2 (squeeze).</em> For $n \geq 1$, we have $n^2 < n^2 + n + 1$ and $n^2 + n + 1 < n^2 + 2n + 1 = (n+1)^2$. So $n^2 + n + 1$ lies strictly between two consecutive perfect squares $n^2$ and $(n+1)^2$, and therefore cannot itself be a perfect square.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
