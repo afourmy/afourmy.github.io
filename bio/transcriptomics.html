@@ -9,12 +9,15 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
-        {left: '$$', right: '$$', display: false},
+        {left: '$$', right: '$$', display: true},
         {left: '$', right: '$', display: false}
       ]
     });"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
 </head>
 <body>
   <script src="../nav.js"></script>
@@ -23,29 +26,419 @@
     <h2 class="en">Overview</h2>
     <h2 class="fr">Vue d'ensemble</h2>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">What is transcriptomics.</span> The <em>transcriptome</em> of a cell is the complete set of RNA molecules it produces at a given time. Unlike the genome, which is fixed, the transcriptome is dynamic: different cells in the same organism express different subsets of genes, and the same cell changes its expression pattern in response to signals, stress, or developmental cues. Transcriptomics is the large-scale measurement of these expression levels. Its central tool, <em>RNA-seq</em>, converts RNA into cDNA, sequences millions of fragments, and counts how many reads originate from each gene.</p>
+      <p class="fr"><span class="thm-label">Qu'est-ce que la transcriptomique.</span> Le <em>transcriptome</em> d'une cellule est l'ensemble complet des molécules d'ARN qu'elle produit à un moment donné. Contrairement au génome, qui est fixe, le transcriptome est dynamique : différentes cellules du même organisme expriment différents sous-ensembles de gènes, et la même cellule modifie son profil d'expression en réponse à des signaux, un stress ou des signaux de développement. La transcriptomique est la mesure à grande échelle de ces niveaux d'expression. Son outil central, le <em>RNA-seq</em>, convertit l'ARN en ADNc, séquence des millions de fragments et compte combien de lectures proviennent de chaque gène.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Computational challenges.</span> The data volume of a typical RNA-seq experiment is modest (1–10 GB per sample) compared to genome sequencing, but the analysis is layered. Three quantitative questions arise in sequence: (1) <em>How many reads came from gene $g$?</em> (alignment and quantification); (2) <em>Is gene $g$ expressed differently between conditions $A$ and $B$?</em> (differential expression); (3) <em>Do groups of functionally related genes change together?</em> (pathway analysis). The statistical subtlety is that RNA-seq counts are overdispersed, require normalization across samples, and must control for thousands of simultaneous hypotheses.</p>
+      <p class="fr"><span class="thm-label">Défis computationnels.</span> Le volume de données d'une expérience RNA-seq typique est modeste (1–10 Go par échantillon) comparé au séquençage génomique, mais l'analyse est structurée en couches. Trois questions quantitatives se posent successivement : (1) <em>Combien de lectures proviennent du gène $g$ ?</em> (alignement et quantification) ; (2) <em>Le gène $g$ est-il exprimé différemment entre les conditions $A$ et $B$ ?</em> (expression différentielle) ; (3) <em>Des groupes de gènes fonctionnellement liés changent-ils ensemble ?</em> (analyse de voies). La subtilité statistique est que les comptes RNA-seq sont surdispersés, nécessitent une normalisation entre échantillons et doivent contrôler des milliers d'hypothèses simultanées.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The single-cell revolution.</span> Classical RNA-seq measures the average expression across millions of cells. But a tissue is heterogeneous: it contains many cell types with very different transcriptomes. <em>Single-cell RNA-seq</em> (scRNA-seq) measures the transcriptome of each cell individually, at the cost of much sparser data. The analysis pipeline involves dimensionality reduction, clustering, and cell type assignment, raising new computational challenges in scalability and statistical inference.</p>
+      <p class="fr"><span class="thm-label">La révolution unicellulaire.</span> Le RNA-seq classique mesure l'expression moyenne de millions de cellules. Mais un tissu est hétérogène : il contient de nombreux types cellulaires aux transcriptomes très différents. Le <em>RNA-seq unicellulaire</em> (scRNA-seq) mesure le transcriptome de chaque cellule individuellement, au prix de données bien plus éparses. Le pipeline d'analyse implique une réduction de dimensionnalité, un clustering et une attribution de type cellulaire, soulevant de nouveaux défis computationnels.</p>
+    </div>
+
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
+
+    <!-- ── 1. RNA Biology ── -->
 
     <h3 class="en">RNA Biology</h3>
     <h3 class="fr">Biologie de l'ARN</h3>
 
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (RNA, transcriptome).</span> <em>RNA</em> (ribonucleic acid) is a single-stranded polymer over the alphabet $\Sigma_{RNA} = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{U}\}$, where uracil (U) replaces thymine (T). RNA is synthesized by RNA polymerase using DNA as a template in a process called <em>transcription</em>. The RNA sequence is identical to the coding (sense) strand of the DNA (with T replaced by U). The <em>transcriptome</em> of a cell at time $t$ is the multiset of all RNA molecules present in the cell at $t$.</p>
+      <p class="fr"><span class="thm-label">Définition (ARN, transcriptome).</span> L'<em>ARN</em> (acide ribonucléique) est un polymère simple brin sur l'alphabet $\Sigma_{ARN} = \{\texttt{A}, \texttt{C}, \texttt{G}, \texttt{U}\}$, où l'uracile (U) remplace la thymine (T). L'ARN est synthétisé par l'ARN polymérase en utilisant l'ADN comme matrice, dans un processus appelé <em>transcription</em>. La séquence d'ARN est identique au brin codant (sens) de l'ADN (avec T remplacé par U). Le <em>transcriptome</em> d'une cellule à l'instant $t$ est le multi-ensemble de toutes les molécules d'ARN présentes dans la cellule en $t$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (RNA classes).</span> The major classes of RNA in eukaryotes are:</p>
+      <ul class="en">
+        <li><em>mRNA</em> (messenger RNA): encodes a protein. It carries information from DNA to the ribosome. In eukaryotes it has a 5' cap, a coding sequence (CDS), and a 3' poly-A tail.</li>
+        <li><em>rRNA</em> (ribosomal RNA): structural and catalytic component of ribosomes. The most abundant RNA by mass ($\sim$80% of total RNA).</li>
+        <li><em>tRNA</em> (transfer RNA): adaptor molecule that delivers amino acids during translation. Each tRNA has an anticodon complementary to one codon.</li>
+        <li><em>ncRNA</em> (non-coding RNA): a broad class including lncRNA (long non-coding RNA, $>$200 nt), miRNA (microRNA, $\sim$22 nt, post-transcriptional repressors), and snRNA (small nuclear RNA, involved in splicing).</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Définition (Classes d'ARN).</span> Les principales classes d'ARN chez les eucaryotes sont :</p>
+      <ul class="fr">
+        <li><em>ARNm</em> (ARN messager) : code une protéine. Il porte l'information de l'ADN au ribosome. Chez les eucaryotes, il possède une coiffe 5', une séquence codante (CDS) et une queue poly-A en 3'.</li>
+        <li><em>ARNr</em> (ARN ribosomique) : composant structural et catalytique des ribosomes. L'ARN le plus abondant en masse ($\sim$80 % de l'ARN total).</li>
+        <li><em>ARNt</em> (ARN de transfert) : molécule adaptatrice qui apporte les acides aminés lors de la traduction. Chaque ARNt possède un anticodon complémentaire d'un codon.</li>
+        <li><em>ARNnc</em> (ARN non codant) : classe large incluant les ARNlnc (longs ARN non codants, $>$200 nt), les miARN (microARN, $\sim$22 nt, répresseurs post-transcriptionnels), et les ARNsn (petits ARN nucléaires, impliqués dans l'épissage).</li>
+      </ul>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Pre-mRNA, introns, exons, splicing).</span> In eukaryotes, a gene is not a contiguous coding sequence. The primary transcript (<em>pre-mRNA</em>) contains alternating <em>exons</em> (retained in the mature mRNA) and <em>introns</em> (removed). The process of removing introns and joining exons is called <em>splicing</em>, catalyzed by the <em>spliceosome</em>. Let a gene have exons $E_1, \ldots, E_k$ of lengths $\ell_1, \ldots, \ell_k$. The mature mRNA has length $\sum_{i=1}^k \ell_i$, which can be much shorter than the genomic span of the gene (sometimes by a factor of 10–100 in humans, where introns average $\sim$3,400 bp vs. exons of $\sim$170 bp).</p>
+      <p class="fr"><span class="thm-label">Définition (pré-ARNm, introns, exons, épissage).</span> Chez les eucaryotes, un gène n'est pas une séquence codante contiguë. Le transcrit primaire (<em>pré-ARNm</em>) contient des <em>exons</em> alternés (conservés dans l'ARNm mature) et des <em>introns</em> (éliminés). Le processus d'élimination des introns et de jonction des exons est appelé <em>épissage</em>, catalysé par le <em>spliceosome</em>. Soit un gène avec des exons $E_1, \ldots, E_k$ de longueurs $\ell_1, \ldots, \ell_k$. L'ARNm mature a une longueur $\sum_{i=1}^k \ell_i$, qui peut être bien plus courte que l'étendue génomique du gène (parfois d'un facteur 10–100 chez l'humain, où les introns font $\sim$3 400 pb en moyenne contre $\sim$170 pb pour les exons).</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Alternative splicing.</span> A single gene can produce multiple distinct mRNA isoforms by including or excluding different exons, or by using alternative splice sites at intron boundaries. A <em>constitutive exon</em> is present in all isoforms; a <em>cassette exon</em> is included in only some. The human genome contains $\sim$20,000 protein-coding genes but $\sim$200,000 distinct transcript isoforms. Alternative splicing is a major source of protein diversity. It complicates RNA-seq quantification because reads spanning a junction must be assigned to the correct isoform, not just to the gene.</p>
+      <p class="fr"><span class="thm-label">Épissage alternatif.</span> Un seul gène peut produire plusieurs isoformes d'ARNm distinctes en incluant ou excluant différents exons, ou en utilisant des sites d'épissage alternatifs aux frontières des introns. Un <em>exon constitutif</em> est présent dans toutes les isoformes ; un <em>exon cassette</em> n'est inclus que dans certaines. Le génome humain contient $\sim$20 000 gènes codant des protéines mais $\sim$200 000 isoformes de transcrits distinctes. L'épissage alternatif est une source majeure de diversité protéique. Il complique la quantification RNA-seq car les lectures chevauchant une jonction doivent être assignées à la bonne isoforme, et pas seulement au gène.</p>
+    </div>
+
+    <pre><code class="language-python">complement = str.maketrans('ACGT', 'TGCA')
+
+def transcribe(dna_coding_strand):
+    return dna_coding_strand.replace('T', 'U')
+
+def splice(pre_mrna, intron_intervals):
+    # intron_intervals: list of (start, end) 0-based half-open
+    exons, pos = [], 0
+    for start, end in sorted(intron_intervals):
+        exons.append(pre_mrna[pos:start])
+        pos = end
+    exons.append(pre_mrna[pos:])
+    return ''.join(exons)</code></pre>
+
+    <!-- ── 2. RNA-seq Technology ── -->
+
     <h3 class="en">RNA-seq Technology</h3>
     <h3 class="fr">Technologie RNA-seq</h3>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Library preparation.</span> RNA-seq converts RNA into sequenceable cDNA in several steps. (1) <em>RNA extraction</em>: total RNA is isolated from cells. (2) <em>RNA selection</em>: since rRNA constitutes $\sim$80% of total RNA, it must be removed. Either poly-A selection (captures mRNAs via oligo-dT beads, discards rRNA and most ncRNA) or rRNA depletion (directly removes rRNA, retains all other RNA) is used. (3) <em>Fragmentation</em>: RNA is fragmented to the target size (typically 200–500 nt). (4) <em>Reverse transcription</em>: RNA fragments are converted to double-stranded cDNA. (5) <em>Adapter ligation and amplification</em>: sequencing adapters are ligated to both ends and the library is PCR-amplified. The result is a set of cDNA fragments, each corresponding to a region of a transcript.</p>
+      <p class="fr"><span class="thm-label">Préparation de bibliothèque.</span> Le RNA-seq convertit l'ARN en ADNc séquençable en plusieurs étapes. (1) <em>Extraction d'ARN</em> : l'ARN total est isolé des cellules. (2) <em>Sélection d'ARN</em> : l'ARNr représentant $\sim$80 % de l'ARN total, il doit être retiré. Soit une sélection poly-A (capture les ARNm via des billes oligo-dT, écarte l'ARNr et la plupart des ARNnc), soit une déplétion en ARNr (retire directement l'ARNr, conserve tous les autres ARN). (3) <em>Fragmentation</em> : l'ARN est fragmenté à la taille cible (typiquement 200–500 nt). (4) <em>Transcription inverse</em> : les fragments d'ARN sont convertis en ADNc double brin. (5) <em>Ligation d'adaptateurs et amplification</em> : des adaptateurs de séquençage sont ligaturés aux deux extrémités et la bibliothèque est amplifiée par PCR. Le résultat est un ensemble de fragments d'ADNc, chacun correspondant à une région d'un transcrit.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Paired-end reads, insert size).</span> In <em>paired-end</em> sequencing, both ends of each cDNA fragment are sequenced, producing two reads (called <em>mates</em>) per fragment. If the forward read starts at position $i$ and the reverse read ends at position $j$ on the transcript, the <em>insert size</em> is $j - i + 1$. Paired-end information (1) confirms that both mates align to the same gene or isoform, (2) spans exon-exon junctions when individual reads are too short, and (3) enables estimation of the insert size distribution. In <em>single-end</em> sequencing, only one read is produced per fragment, at lower cost but with less information.</p>
+      <p class="fr"><span class="thm-label">Définition (Lectures pairées, taille d'insert).</span> En séquençage <em>pairé</em>, les deux extrémités de chaque fragment d'ADNc sont séquencées, produisant deux lectures (<em>mates</em>) par fragment. Si la lecture directe commence à la position $i$ et la lecture inverse se termine à la position $j$ sur le transcrit, la <em>taille d'insert</em> est $j - i + 1$. L'information pairée (1) confirme que les deux mates s'alignent sur le même gène ou isoforme, (2) couvre les jonctions exon-exon quand les lectures individuelles sont trop courtes, et (3) permet d'estimer la distribution de la taille d'insert. En séquençage <em>simple-brin</em>, une seule lecture est produite par fragment, à moindre coût mais avec moins d'information.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Stranded library).</span> In a <em>stranded</em> (strand-specific) library, the protocol preserves which DNA strand the RNA was transcribed from. The first-strand cDNA is synthesized with dUTP incorporated into the second strand, which is then degraded before PCR, so only the first strand (same orientation as the original RNA) is amplified. Each read's strand of origin is therefore known. This disambiguates overlapping genes on opposite strands and improves quantification of antisense transcription. In an <em>unstranded</em> library, strand information is lost.</p>
+      <p class="fr"><span class="thm-label">Définition (Bibliothèque orientée).</span> Dans une bibliothèque <em>orientée</em> (strand-specific), le protocole préserve l'information sur quel brin d'ADN l'ARN a été transcrit. Le premier brin d'ADNc est synthétisé avec du dUTP incorporé dans le second brin, qui est ensuite dégradé avant la PCR, de sorte que seul le premier brin (même orientation que l'ARN original) est amplifié. Le brin d'origine de chaque lecture est donc connu. Cela lève l'ambiguïté pour les gènes se chevauchant sur des brins opposés et améliore la quantification de la transcription antisens. Dans une bibliothèque <em>non orientée</em>, l'information de brin est perdue.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Sequencing depth for RNA-seq).</span> The <em>sequencing depth</em> $N$ is the total number of reads in a sample. Unlike genome sequencing, optimal depth in RNA-seq depends on the biological question. For standard differential expression of abundant genes: $N \approx 20\text{--}30 \times 10^6$ reads. For detection of lowly expressed genes or rare isoforms: $N \geq 100 \times 10^6$. The critical constraint is not coverage uniformity but <em>count precision</em>: a gene expressed at 0.01% of total mRNA receives only $\sim$100 reads at $N = 10^6$, giving high Poisson noise.</p>
+      <p class="fr"><span class="thm-label">Définition (Profondeur de séquençage en RNA-seq).</span> La <em>profondeur de séquençage</em> $N$ est le nombre total de lectures dans un échantillon. Contrairement au séquençage génomique, la profondeur optimale en RNA-seq dépend de la question biologique. Pour l'expression différentielle standard des gènes abondants : $N \approx 20\text{--}30 \times 10^6$ lectures. Pour la détection de gènes faiblement exprimés ou d'isoformes rares : $N \geq 100 \times 10^6$. La contrainte critique n'est pas l'uniformité de couverture mais la <em>précision des comptes</em> : un gène exprimé à 0,01 % de l'ARNm total ne reçoit que $\sim$100 lectures à $N = 10^6$, entraînant un bruit de Poisson élevé.</p>
+    </div>
+
+    <!-- ── 3. Read Alignment and Quantification ── -->
 
     <h3 class="en">Read Alignment and Quantification</h3>
     <h3 class="fr">Alignement et quantification</h3>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The spliced alignment problem.</span> Aligning RNA-seq reads to a reference genome is harder than genomic alignment because reads can span exon-exon junctions. A 150 bp read may have its first 50 bp from exon $i$ and its last 100 bp from exon $j$, with thousands of intronic bases in between. A standard aligner that does not allow large gaps would fail. <em>Splice-aware aligners</em> (STAR, HISAT2) split reads at candidate junctions and align each piece to its respective exon, with junctions taken from a reference annotation or discovered de novo from the data.</p>
+      <p class="fr"><span class="thm-label">Le problème de l'alignement épissé.</span> Aligner des lectures RNA-seq sur un génome de référence est plus difficile que l'alignement génomique car les lectures peuvent chevaucher des jonctions exon-exon. Une lecture de 150 pb peut avoir ses 50 premières pb provenant de l'exon $i$ et ses 100 dernières de l'exon $j$, avec des milliers de bases introniques entre les deux. Un aligneur standard n'autorisant pas les grands gaps échouerait. Les <em>aligneurs sensibles à l'épissage</em> (STAR, HISAT2) fractionnent les lectures aux jonctions candidates et alignent chaque partie sur son exon, avec des jonctions issues d'une annotation de référence ou découvertes de novo.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Pseudoalignment.</span> Full splice-aware alignment is expensive: STAR requires $\sim$30 GB of RAM and several hours per sample. An alternative is <em>pseudoalignment</em> (kallisto, salmon). Instead of finding the exact genomic position of each read, pseudoalignment asks: <em>which transcripts are compatible with this read?</em> It builds an index of $k$-mers from all annotated transcripts. For each read, it looks up all $k$-mers in the index and takes the intersection of compatible transcripts. This is $\sim$10–30$\times$ faster and nearly as accurate for quantification, though it does not produce alignment files needed for some downstream analyses (e.g., variant calling, visualization).</p>
+      <p class="fr"><span class="thm-label">Pseudo-alignement.</span> L'alignement épissé complet est coûteux : STAR nécessite $\sim$30 Go de RAM et plusieurs heures par échantillon. Une alternative est le <em>pseudo-alignement</em> (kallisto, salmon). Au lieu de trouver la position génomique exacte de chaque lecture, le pseudo-alignement demande : <em>quels transcrits sont compatibles avec cette lecture ?</em> Il construit un index de $k$-mers de tous les transcrits annotés. Pour chaque lecture, il recherche tous ses $k$-mers dans l'index et prend l'intersection des transcrits compatibles. C'est $\sim$10–30$\times$ plus rapide et presque aussi précis pour la quantification, bien qu'il ne produise pas de fichiers d'alignement nécessaires pour certaines analyses aval.</p>
+    </div>
+
+    <pre><code class="language-python">from collections import defaultdict
+
+def build_kmer_index(transcripts, k):
+    # transcripts: dict {transcript_id: sequence}
+    index = defaultdict(set)
+    for tid, seq in transcripts.items():
+        for i in range(len(seq) - k + 1):
+            index[seq[i:i+k]].add(tid)
+    return index
+
+def pseudoalign(read, index, k):
+    compatible = None
+    for i in range(len(read) - k + 1):
+        hits = index.get(read[i:i+k])
+        if hits:
+            compatible = hits if compatible is None else compatible & hits
+    return compatible or set()</code></pre>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Raw counts, count matrix).</span> After alignment, reads are assigned to genes (or transcripts). The <em>raw count</em> $c_{gj}$ is the number of reads in sample $j$ assigned to gene $g$. The <em>count matrix</em> $C \in \mathbb{N}^{G \times J}$ collects all raw counts across $G$ genes and $J$ samples. Raw counts cannot be directly compared between genes (longer genes attract more reads) or between samples (different library sizes produce different total counts). Normalization is required before any comparison.</p>
+      <p class="fr"><span class="thm-label">Définition (Comptes bruts, matrice de comptes).</span> Après l'alignement, les lectures sont assignées aux gènes (ou transcrits). Le <em>compte brut</em> $c_{gj}$ est le nombre de lectures dans l'échantillon $j$ assignées au gène $g$. La <em>matrice de comptes</em> $C \in \mathbb{N}^{G \times J}$ collecte tous les comptes bruts sur $G$ gènes et $J$ échantillons. Les comptes bruts ne peuvent pas être directement comparés entre gènes (les gènes plus longs attirent plus de lectures) ni entre échantillons (des tailles de bibliothèques différentes produisent des comptes totaux différents). Une normalisation est nécessaire avant toute comparaison.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (RPKM, FPKM, TPM).</span> Let $c_g$ be the raw count of gene $g$, $\ell_g$ its effective length in kilobases, and $N$ the total number of mapped reads in millions. Three normalization units are in common use:</p>
+      <ul class="en">
+        <li><em>RPKM</em> (Reads Per Kilobase per Million): $\text{RPKM}_g = c_g / (\ell_g \cdot N)$. Corrects for gene length and library size.</li>
+        <li><em>FPKM</em> (Fragments Per Kilobase per Million): same as RPKM but counts fragments (pairs) rather than individual reads. Used for paired-end data.</li>
+        <li><em>TPM</em> (Transcripts Per Million): $\text{TPM}_g = \frac{c_g / \ell_g}{\sum_{g'} c_{g'} / \ell_{g'}} \times 10^6$. TPM values sum to exactly $10^6$ per sample, making them directly comparable between samples. TPM is now preferred over RPKM/FPKM.</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Définition (RPKM, FPKM, TPM).</span> Soit $c_g$ le compte brut du gène $g$, $\ell_g$ sa longueur effective en kilobases, et $N$ le nombre total de lectures mappées en millions. Trois unités de normalisation sont couramment utilisées :</p>
+      <ul class="fr">
+        <li><em>RPKM</em> (Reads Per Kilobase per Million) : $\text{RPKM}_g = c_g / (\ell_g \cdot N)$. Corrige la longueur du gène et la taille de la bibliothèque.</li>
+        <li><em>FPKM</em> (Fragments Per Kilobase per Million) : identique au RPKM mais compte les fragments (paires) plutôt que les lectures individuelles. Utilisé pour les données pairées.</li>
+        <li><em>TPM</em> (Transcripts Per Million) : $\text{TPM}_g = \frac{c_g / \ell_g}{\sum_{g'} c_{g'} / \ell_{g'}} \times 10^6$. Les valeurs TPM somment à exactement $10^6$ par échantillon, les rendant directement comparables entre échantillons. Le TPM est maintenant préféré au RPKM/FPKM.</li>
+      </ul>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (TPM sums to $10^6$).</span> For any sample, $\sum_g \text{TPM}_g = 10^6$.</p>
+      <p class="fr"><span class="thm-label">Proposition (La somme des TPM vaut $10^6$).</span> Pour tout échantillon, $\sum_g \text{TPM}_g = 10^6$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $r_g = c_g / \ell_g$ and $S = \sum_{g'} r_{g'}$. Then $\text{TPM}_g = (r_g / S) \times 10^6$. Summing over all genes: $\sum_g \text{TPM}_g = \frac{10^6}{S} \sum_g r_g = \frac{10^6}{S} \cdot S = 10^6$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $r_g = c_g / \ell_g$ et $S = \sum_{g'} r_{g'}$. Alors $\text{TPM}_g = (r_g / S) \times 10^6$. En sommant sur tous les gènes : $\sum_g \text{TPM}_g = \frac{10^6}{S} \sum_g r_g = \frac{10^6}{S} \cdot S = 10^6$.
+    </details>
+
+    <pre><code class="language-python">def compute_tpm(counts, lengths_kb):
+    rates = [c / l for c, l in zip(counts, lengths_kb)]
+    total = sum(rates)
+    return [r / total * 1e6 for r in rates]
+
+def compute_rpkm(counts, lengths_kb, total_mapped_millions):
+    return [c / (l * total_mapped_millions) for c, l in zip(counts, lengths_kb)]</code></pre>
+
+    <!-- ── 4. Differential Expression ── -->
+
     <h3 class="en">Differential Expression</h3>
     <h3 class="fr">Expression différentielle</h3>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">The differential expression problem.</span> Given two conditions $A$ and $B$ (e.g., treated vs. untreated), each with $n_A$ and $n_B$ biological replicates, we want to identify genes whose expression level differs between conditions. For gene $g$, we test the null hypothesis $H_0^g$: the mean expression of $g$ is equal in $A$ and $B$. The challenge is that RNA-seq counts have a specific statistical structure that must be modeled correctly: they are discrete, non-negative, and exhibit more variance than a Poisson distribution.</p>
+      <p class="fr"><span class="thm-label">Le problème de l'expression différentielle.</span> Étant donné deux conditions $A$ et $B$ (par exemple, traitée vs. non traitée), chacune avec $n_A$ et $n_B$ réplicats biologiques, on veut identifier les gènes dont le niveau d'expression diffère entre les conditions. Pour le gène $g$, on teste l'hypothèse nulle $H_0^g$ : l'expression moyenne de $g$ est égale dans $A$ et $B$. Le défi est que les comptes RNA-seq ont une structure statistique spécifique qui doit être modélisée correctement : ils sont discrets, non négatifs, et exhibent plus de variance qu'une loi de Poisson.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Why not Poisson?</span> The number of reads mapping to gene $g$ in a sample of $N$ total reads follows $\text{Binomial}(N, p_g) \approx \text{Poisson}(N p_g)$ for large $N$ and small $p_g$. A Poisson has $\text{Var}(X) = \mathbb{E}[X]$. In practice, biological replicates show variance much larger than the mean: this is called <em>overdispersion</em>. It arises from biological variability between samples -- cell state fluctuations, sample handling, etc. -- that adds extra variance on top of the Poisson sampling noise. A Poisson model underestimates variability and produces far too many false positives.</p>
+      <p class="fr"><span class="thm-label">Pourquoi pas Poisson ?</span> Le nombre de lectures mappant sur le gène $g$ dans un échantillon de $N$ lectures totales suit $\text{Binomiale}(N, p_g) \approx \text{Poisson}(N p_g)$ pour $N$ grand et $p_g$ petit. Une loi de Poisson vérifie $\text{Var}(X) = \mathbb{E}[X]$. En pratique, les réplicats biologiques montrent une variance bien supérieure à la moyenne : c'est la <em>surdispersion</em>. Elle provient de la variabilité biologique entre échantillons -- fluctuations d'état cellulaire, manipulation des échantillons, etc. -- qui ajoute une variance supplémentaire au-dessus du bruit d'échantillonnage de Poisson. Un modèle de Poisson sous-estime la variabilité et produit beaucoup trop de faux positifs.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Negative binomial model).</span> The <em>negative binomial</em> distribution $\text{NB}(\mu, \alpha)$ with mean $\mu > 0$ and dispersion $\alpha \geq 0$ has variance $\text{Var}(X) = \mu + \alpha \mu^2$. When $\alpha = 0$ it reduces to Poisson. The extra term $\alpha \mu^2$ captures overdispersion: at higher mean expression, absolute variance grows quadratically. In the DESeq2 model, the count $c_{gj}$ for gene $g$ in sample $j$ satisfies
+      $$c_{gj} \sim \text{NB}(\mu_{gj},\, \alpha_g), \qquad \mu_{gj} = s_j \cdot q_{gj}$$
+      where $s_j$ is a sample-specific size factor (accounting for different library sizes) and $q_{gj}$ is the normalized expression level. The gene-specific dispersion $\alpha_g$ is shared across all samples of the same gene.</p>
+      <p class="fr"><span class="thm-label">Définition (Modèle binomial négatif).</span> La distribution <em>binomiale négative</em> $\text{NB}(\mu, \alpha)$ de moyenne $\mu > 0$ et de dispersion $\alpha \geq 0$ a pour variance $\text{Var}(X) = \mu + \alpha \mu^2$. Quand $\alpha = 0$, elle se réduit à Poisson. Le terme supplémentaire $\alpha \mu^2$ capture la surdispersion : à une expression moyenne plus élevée, la variance absolue croît de façon quadratique. Dans le modèle DESeq2, le compte $c_{gj}$ du gène $g$ dans l'échantillon $j$ satisfait
+      $$c_{gj} \sim \text{NB}(\mu_{gj},\, \alpha_g), \qquad \mu_{gj} = s_j \cdot q_{gj}$$
+      où $s_j$ est un facteur de taille spécifique à l'échantillon (tenant compte des différentes tailles de bibliothèque) et $q_{gj}$ est le niveau d'expression normalisé. La dispersion $\alpha_g$, spécifique au gène, est partagée entre tous les échantillons du même gène.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Size factors, median-of-ratios).</span> The <em>size factor</em> $s_j$ of sample $j$ corrects for sequencing depth and RNA composition differences. DESeq2 estimates it as follows. For each gene $g$, compute the geometric mean across samples: $\bar{c}_g = \bigl(\prod_{j=1}^J c_{gj}\bigr)^{1/J}$. The size factor is the median of per-gene ratios:
+      $$s_j = \operatorname{median}_g \left\{\frac{c_{gj}}{\bar{c}_g}\right\}$$
+      Genes with $\bar{c}_g = 0$ are excluded. Dividing raw counts by $s_j$ gives the <em>normalized counts</em> $\tilde{c}_{gj} = c_{gj} / s_j$, comparable across samples. This estimator is robust to highly expressed outlier genes (which would bias simpler depth normalization).</p>
+      <p class="fr"><span class="thm-label">Définition (Facteurs de taille, médiane des ratios).</span> Le <em>facteur de taille</em> $s_j$ de l'échantillon $j$ corrige les différences de profondeur de séquençage et de composition en ARN. DESeq2 l'estime comme suit. Pour chaque gène $g$, on calcule la moyenne géométrique sur tous les échantillons : $\bar{c}_g = \bigl(\prod_{j=1}^J c_{gj}\bigr)^{1/J}$. Le facteur de taille est la médiane des ratios par gène :
+      $$s_j = \operatorname{médiane}_g \left\{\frac{c_{gj}}{\bar{c}_g}\right\}$$
+      Les gènes avec $\bar{c}_g = 0$ sont exclus. Diviser les comptes bruts par $s_j$ donne les <em>comptes normalisés</em> $\tilde{c}_{gj} = c_{gj} / s_j$, comparables entre échantillons. Cet estimateur est robuste aux gènes outliers fortement exprimés (qui biaiseraient une normalisation par profondeur simple).</p>
+    </div>
+
+    <pre><code class="language-python">import math
+from statistics import median
+
+def size_factors(count_matrix):
+    # count_matrix: list of rows, each row = counts for one gene across all samples
+    n_samples = len(count_matrix[0])
+    sf = []
+    for j in range(n_samples):
+        ratios = []
+        for row in count_matrix:
+            # geometric mean over samples for this gene
+            nonzero = [c for c in row if c > 0]
+            if len(nonzero) == n_samples:
+                gm = math.exp(sum(math.log(c) for c in row) / n_samples)
+                ratios.append(row[j] / gm)
+        sf.append(median(ratios))
+    return sf</code></pre>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Dispersion estimation.</span> With only 3–5 replicates, a per-gene estimate of $\alpha_g$ from a single gene's data is very noisy. DESeq2 uses <em>empirical Bayes shrinkage</em>: it first estimates a global trend $\hat{\alpha}({\mu})$ (dispersion as a function of mean expression, pooling information from all genes), then shrinks each gene's maximum-likelihood estimate toward this trend. Highly expressed genes are shrunk less (more data); lowly expressed genes are pulled strongly toward the trend. This stabilizes estimates and improves power for DE testing.</p>
+      <p class="fr"><span class="thm-label">Estimation de la dispersion.</span> Avec seulement 3–5 réplicats, une estimation de $\alpha_g$ par gène à partir des seules données de ce gène est très bruitée. DESeq2 utilise un <em>rétrécissement bayésien empirique</em> : il estime d'abord une tendance globale $\hat{\alpha}({\mu})$ (dispersion en fonction de l'expression moyenne, en regroupant l'information de tous les gènes), puis réduit l'estimation du maximum de vraisemblance de chaque gène vers cette tendance. Les gènes fortement exprimés sont moins réduits (plus de données) ; les gènes faiblement exprimés sont fortement attirés vers la tendance. Cela stabilise les estimations et améliore la puissance du test ED.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Log fold-change, Wald test).</span> For gene $g$, the <em>log$_2$ fold-change</em> (LFC) between condition $B$ and condition $A$ is $\text{LFC}_g = \log_2(\hat{q}_{gB} / \hat{q}_{gA})$, where $\hat{q}_{gA}$ and $\hat{q}_{gB}$ are estimated mean normalized expressions. A positive LFC means higher expression in $B$. The <em>Wald test</em> tests $H_0: \text{LFC}_g = 0$ by forming
+      $$W_g = \frac{\widehat{\text{LFC}}_g}{\widehat{\text{SE}}(\widehat{\text{LFC}}_g)}$$
+      which under $H_0$ is approximately standard Normal. The two-sided $p$-value is $p_g = 2\Phi(-|W_g|)$, where $\Phi$ is the standard Normal CDF.</p>
+      <p class="fr"><span class="thm-label">Définition (Log fold-change, test de Wald).</span> Pour le gène $g$, le <em>log$_2$ fold-change</em> (LFC) entre la condition $B$ et la condition $A$ est $\text{LFC}_g = \log_2(\hat{q}_{gB} / \hat{q}_{gA})$, où $\hat{q}_{gA}$ et $\hat{q}_{gB}$ sont les expressions moyennes normalisées estimées. Un LFC positif signifie une expression plus élevée dans $B$. Le <em>test de Wald</em> teste $H_0: \text{LFC}_g = 0$ en formant
+      $$W_g = \frac{\widehat{\text{LFC}}_g}{\widehat{\text{SE}}(\widehat{\text{LFC}}_g)}$$
+      qui sous $H_0$ est approximativement normale standard. La $p$-valeur bilatérale est $p_g = 2\Phi(-|W_g|)$, où $\Phi$ est la fonction de répartition de la normale standard.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Multiple testing, BH correction).</span> Testing $G \approx 20{,}000$ genes simultaneously inflates false positives: even with no true signal, $\sim$1,000 genes would have $p < 0.05$ by chance. The <em>false discovery rate</em> (FDR) is $\text{FDR} = \mathbb{E}[V/R]$, where $V$ is the number of false rejections and $R$ the total number of rejections. The <em>Benjamini--Hochberg (BH) procedure</em> controls FDR at level $q$: sort $p$-values $p_{(1)} \leq \cdots \leq p_{(G)}$; let $k^* = \max\{k : p_{(k)} \leq kq/G\}$; reject all hypotheses $1, \ldots, k^*$. The adjusted $p$-value of gene $(k)$ is $\tilde{p}_{(k)} = \min_{j \geq k}(G \cdot p_{(j)} / j)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Tests multiples, correction BH).</span> Tester $G \approx 20\,000$ gènes simultanément gonfle les faux positifs : même sans signal réel, $\sim$1 000 gènes auraient $p < 0{,}05$ par hasard. Le <em>taux de fausse découverte</em> (FDR) est $\text{FDR} = \mathbb{E}[V/R]$, où $V$ est le nombre de faux rejets et $R$ le nombre total de rejets. La <em>procédure de Benjamini--Hochberg (BH)</em> contrôle le FDR au niveau $q$ : trier les $p$-valeurs $p_{(1)} \leq \cdots \leq p_{(G)}$ ; poser $k^* = \max\{k : p_{(k)} \leq kq/G\}$ ; rejeter toutes les hypothèses $1, \ldots, k^*$. La $p$-valeur ajustée du gène $(k)$ est $\tilde{p}_{(k)} = \min_{j \geq k}(G \cdot p_{(j)} / j)$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (BH controls FDR).</span> If the $p$-values of the true null hypotheses are independent and $\text{Uniform}[0,1]$, the BH procedure at level $q$ satisfies $\text{FDR} \leq q \cdot G_0 / G \leq q$, where $G_0$ is the number of true null hypotheses.</p>
+      <p class="fr"><span class="thm-label">Théorème (BH contrôle le FDR).</span> Si les $p$-valeurs des vraies hypothèses nulles sont indépendantes et $\text{Uniforme}[0,1]$, la procédure BH au niveau $q$ satisfait $\text{FDR} \leq q \cdot G_0 / G \leq q$, où $G_0$ est le nombre de vraies hypothèses nulles.</p>
+    </div>
+
+    <pre><code class="language-python">def bh_correction(pvalues, q=0.05):
+    n = len(pvalues)
+    indexed = sorted(enumerate(pvalues), key=lambda x: x[1])
+    adjusted = [0.0] * n
+    min_so_far = 1.0
+    for rank, (i, p) in reversed(list(enumerate(indexed, 1))):
+        adj = min(p * n / rank, 1.0)
+        min_so_far = min(min_so_far, adj)
+        adjusted[i] = min_so_far
+    return adjusted</code></pre>
+
+    <!-- ── 5. Transcriptome Assembly ── -->
 
     <h3 class="en">Transcriptome Assembly</h3>
     <h3 class="fr">Assemblage du transcriptome</h3>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Genome-guided vs. de novo assembly.</span> Transcriptome assembly reconstructs the set of expressed transcript sequences from RNA-seq reads. Two strategies exist. <em>Genome-guided assembly</em> (StringTie, Cufflinks) first aligns reads to a reference genome, then reconstructs transcripts from the alignment. It is the standard when a good reference is available. <em>De novo assembly</em> (Trinity) assembles transcripts without any reference, using de Bruijn graphs built from RNA-seq $k$-mers. It is necessary for organisms lacking a reference genome, but is more computationally intensive and more prone to assembly errors.</p>
+      <p class="fr"><span class="thm-label">Assemblage guidé par le génome vs. de novo.</span> L'assemblage du transcriptome reconstruit l'ensemble des séquences de transcrits exprimés à partir des lectures RNA-seq. Deux stratégies existent. L'<em>assemblage guidé par le génome</em> (StringTie, Cufflinks) aligne d'abord les lectures sur un génome de référence, puis reconstruit les transcrits à partir de l'alignement. C'est l'approche standard lorsqu'une bonne référence est disponible. L'<em>assemblage de novo</em> (Trinity) assemble les transcrits sans aucune référence, en utilisant des graphes de de Bruijn construits à partir des $k$-mers RNA-seq. Il est nécessaire pour les organismes sans génome de référence, mais est plus intensif en calcul et plus sujet aux erreurs.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Splice graph).</span> Given splice-aligned reads on a genomic locus, the <em>splice graph</em> $SG = (V, E)$ is a directed acyclic graph where each node $v \in V$ represents a maximal contiguous genomic interval covered by reads without interruption (an <em>exonic segment</em>), and each directed edge $(u, v) \in E$ represents an exon-exon junction observed in at least one spliced read. Each path from a source node to a sink node in $SG$ corresponds to a candidate transcript isoform. The assembly problem reduces to: which paths through $SG$ best explain the observed read coverage?</p>
+      <p class="fr"><span class="thm-label">Définition (Graphe d'épissage).</span> Étant donné des lectures alignées avec épissage sur un locus génomique, le <em>graphe d'épissage</em> $SG = (V, E)$ est un graphe acyclique orienté où chaque nœud $v \in V$ représente un intervalle génomique maximal contigu couvert par des lectures sans interruption (un <em>segment exonique</em>), et chaque arête orientée $(u, v) \in E$ représente une jonction exon-exon observée dans au moins une lecture épissée. Chaque chemin d'un nœud source à un nœud puits dans $SG$ correspond à une isoforme de transcrit candidate. Le problème d'assemblage se réduit à : quels chemins dans $SG$ expliquent le mieux la couverture de lectures observée ?</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Isoform abundance estimation by EM.</span> Given candidate isoforms $T_1, \ldots, T_K$ (paths in the splice graph), estimate their abundances $\theta_k \geq 0$ with $\sum_k \theta_k = 1$. Each read $r$ is compatible with a subset $S_r \subseteq [K]$ of isoforms. Assuming reads are generated independently, with read $r$ arising from isoform $k$ with probability proportional to $\theta_k$, the log-likelihood is
+      $$\ell(\boldsymbol{\theta}) = \sum_r \log \sum_{k \in S_r} \theta_k$$
+      This is maximized by the <em>EM algorithm</em>: the E-step computes fractional assignments $\hat{n}_{rk} = \theta_k / \sum_{k' \in S_r} \theta_{k'}$; the M-step updates $\theta_k \propto \sum_r \hat{n}_{rk}$. Iterating to convergence yields maximum-likelihood isoform abundances.</p>
+      <p class="fr"><span class="thm-label">Estimation d'abondance des isoformes par EM.</span> Étant donné des isoformes candidates $T_1, \ldots, T_K$ (chemins dans le graphe d'épissage), estimer leurs abondances $\theta_k \geq 0$ avec $\sum_k \theta_k = 1$. Chaque lecture $r$ est compatible avec un sous-ensemble $S_r \subseteq [K]$ d'isoformes. En supposant que les lectures sont générées indépendamment, la lecture $r$ provenant de l'isoforme $k$ avec probabilité proportionnelle à $\theta_k$, la log-vraisemblance est
+      $$\ell(\boldsymbol{\theta}) = \sum_r \log \sum_{k \in S_r} \theta_k$$
+      Elle est maximisée par l'<em>algorithme EM</em> : l'étape E calcule les assignations fractionnelles $\hat{n}_{rk} = \theta_k / \sum_{k' \in S_r} \theta_{k'}$ ; l'étape M met à jour $\theta_k \propto \sum_r \hat{n}_{rk}$. Itérer jusqu'à convergence donne les abondances d'isoformes par maximum de vraisemblance.</p>
+    </div>
+
+    <pre><code class="language-python">def em_isoform(compatible_sets, n_isoforms, n_iter=100):
+    # compatible_sets[r] = set of isoform indices compatible with read r
+    theta = [1.0 / n_isoforms] * n_isoforms
+    for _ in range(n_iter):
+        counts = [0.0] * n_isoforms
+        for S in compatible_sets:
+            denom = sum(theta[k] for k in S)
+            for k in S:
+                counts[k] += theta[k] / denom
+        total = sum(counts)
+        theta = [c / total for c in counts]
+    return theta</code></pre>
+
+    <!-- ── 6. Single-Cell RNA-seq ── -->
+
     <h3 class="en">Single-Cell RNA-seq</h3>
     <h3 class="fr">RNA-seq unicellulaire</h3>
 
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Droplet-based scRNA-seq.</span> The dominant scRNA-seq technology (10x Genomics Chromium) encapsulates individual cells in nanoliter-scale aqueous droplets, each containing a barcoded bead. The bead releases oligonucleotides with (1) a <em>cell barcode</em> (CBC) that uniquely identifies the droplet, and (2) a <em>unique molecular identifier</em> (UMI), a short random sequence that tags each individual mRNA molecule. All mRNAs in the cell are captured by oligo-dT on the bead, reverse-transcribed, amplified, and sequenced. Because each mRNA gets a distinct UMI, PCR duplicates are removed by collapsing reads with the same CBC and UMI, yielding a count proportional to original molecule count.</p>
+      <p class="fr"><span class="thm-label">scRNA-seq par gouttelettes.</span> La technologie scRNA-seq dominante (10x Genomics Chromium) encapsule des cellules individuelles dans des gouttelettes aqueuses à l'échelle du nanolitre, chacune contenant une bille à code-barres. La bille libère des oligonucléotides avec (1) un <em>code-barres cellulaire</em> (CBC) qui identifie de manière unique la gouttelette, et (2) un <em>identifiant moléculaire unique</em> (UMI), une courte séquence aléatoire qui étiquette chaque molécule d'ARNm individuelle. Tous les ARNm de la cellule sont capturés par oligo-dT sur la bille, transcrits en sens inverse, amplifiés et séquencés. Comme chaque ARNm reçoit un UMI distinct, les duplicats PCR sont retirés en fusionnant les lectures ayant le même CBC et UMI, donnant un compte proportionnel au nombre de molécules originales.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (UMI count matrix).</span> After demultiplexing by cell barcode and UMI deduplication, the output is a <em>UMI count matrix</em> $X \in \mathbb{N}^{G \times C}$ where $X_{gc}$ is the number of distinct UMIs observed for gene $g$ in cell $c$. The matrix is extremely sparse: a typical cell detects $\sim$2,000--5,000 genes out of $\sim$30,000, so $\sim$85--93\% of entries are zero. This sparsity has two causes: genuine absence of expression, and <em>technical dropout</em> (a transcript was present but not captured).</p>
+      <p class="fr"><span class="thm-label">Définition (Matrice de comptes UMI).</span> Après démultiplexage par code-barres cellulaire et déduplication par UMI, la sortie est une <em>matrice de comptes UMI</em> $X \in \mathbb{N}^{G \times C}$ où $X_{gc}$ est le nombre d'UMI distincts observés pour le gène $g$ dans la cellule $c$. La matrice est extrêmement éparse : une cellule typique détecte $\sim$2 000--5 000 gènes parmi $\sim$30 000, soit $\sim$85--93 \% d'entrées nulles. Cette éparsité a deux causes : l'absence réelle d'expression, et le <em>dropout technique</em> (un transcrit était présent mais n'a pas été capturé).</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Quality control.</span> Not every droplet contains a valid cell. Key QC metrics per barcode: (1) <em>total UMI count</em>: very low values indicate empty droplets or dead cells; (2) <em>number of genes detected</em>: very low suggests empty droplets, very high suggests doublets (two cells co-encapsulated); (3) <em>fraction of mitochondrial UMIs</em>: high values ($>$20--25\%) indicate damaged cells that have lost cytoplasmic RNA but retained mitochondria. Cells failing any threshold are removed before downstream analysis.</p>
+      <p class="fr"><span class="thm-label">Contrôle qualité.</span> Toutes les gouttelettes ne contiennent pas une cellule valide. Métriques QC clés par code-barres : (1) <em>compte total d'UMI</em> : les valeurs très basses indiquent des gouttelettes vides ou des cellules mortes ; (2) <em>nombre de gènes détectés</em> : très faible suggère des gouttelettes vides, très élevé suggère des doublets (deux cellules co-encapsulées) ; (3) <em>fraction d'UMI mitochondriaux</em> : des valeurs élevées ($>$20--25 \%) indiquent des cellules endommagées ayant perdu leur ARN cytoplasmique mais conservé leurs mitochondries. Les cellules échouant à un seuil sont retirées avant l'analyse aval.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Log-normalization).</span> Each cell's raw counts are divided by its library size $N_c = \sum_g X_{gc}$ and scaled by a factor $S = 10{,}000$ (CP10K -- counts per 10,000): $\tilde{X}_{gc} = (X_{gc} / N_c) \times S$. A log-transformation is applied: $Y_{gc} = \log_2(\tilde{X}_{gc} + 1)$. The $+1$ pseudocount prevents $\log(0)$ and stabilizes variance for low counts. The resulting matrix $Y \in \mathbb{R}^{G \times C}$ is the starting point for all downstream analyses.</p>
+      <p class="fr"><span class="thm-label">Définition (Log-normalisation).</span> Les comptes bruts de chaque cellule sont divisés par la taille de sa bibliothèque $N_c = \sum_g X_{gc}$ et multipliés par un facteur $S = 10\,000$ (CP10K -- comptes pour 10 000) : $\tilde{X}_{gc} = (X_{gc} / N_c) \times S$. Une log-transformation est ensuite appliquée : $Y_{gc} = \log_2(\tilde{X}_{gc} + 1)$. Le pseudocompte $+1$ évite $\log(0)$ et stabilise la variance pour les faibles comptes. La matrice résultante $Y \in \mathbb{R}^{G \times C}$ est le point de départ de toutes les analyses aval.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Dimensionality reduction: PCA then UMAP.</span> The matrix $Y$ has $G \approx 30{,}000$ dimensions and $C \approx 10{,}000$ cells. Working directly in $\mathbb{R}^G$ is infeasible (curse of dimensionality). The standard pipeline: (1) select the top $D \approx 2{,}000$ <em>highly variable genes</em> (HVGs) -- those with the most biological variation across cells; (2) run PCA on the $D \times C$ submatrix to get a $k$-dimensional embedding (typically $k = 50$); (3) apply UMAP to the $k$-dimensional PCA embedding for 2D visualization. PCA captures linear structure; UMAP preserves local neighborhoods in a nonlinear embedding. Clustering is done in PCA space, not UMAP space (UMAP distorts global distances).</p>
+      <p class="fr"><span class="thm-label">Réduction de dimensionnalité : ACP puis UMAP.</span> La matrice $Y$ a $G \approx 30\,000$ dimensions et $C \approx 10\,000$ cellules. Travailler directement dans $\mathbb{R}^G$ est irréalisable (fléau de la dimensionnalité). Le pipeline standard : (1) sélectionner les $D \approx 2\,000$ <em>gènes hautement variables</em> (HVG) -- ceux avec le plus de variation biologique entre cellules ; (2) appliquer une ACP sur la sous-matrice $D \times C$ pour obtenir un embedding de dimension $k$ (typiquement $k = 50$) ; (3) appliquer UMAP sur l'embedding ACP de dimension $k$ pour une visualisation 2D. L'ACP capture la structure linéaire ; UMAP préserve les voisinages locaux dans un embedding non linéaire. Le clustering est effectué dans l'espace ACP, pas dans l'espace UMAP (UMAP distord les distances globales).</p>
+    </div>
+
+    <pre><code class="language-python">import math
+from statistics import mean, variance
+
+def log_normalize(count_matrix, scale=1e4):
+    # count_matrix[c][g] = UMI count for cell c, gene g
+    result = []
+    for row in count_matrix:
+        total = sum(row)
+        result.append([math.log2(x / total * scale + 1) for x in row])
+    return result
+
+def highly_variable_genes(log_norm, top_n=2000):
+    n_cells = len(log_norm)
+    n_genes = len(log_norm[0])
+    col = [[log_norm[c][g] for c in range(n_cells)] for g in range(n_genes)]
+    var_per_gene = [variance(col[g]) if n_cells > 1 else 0 for g in range(n_genes)]
+    ranked = sorted(range(n_genes), key=lambda g: -var_per_gene[g])
+    return set(ranked[:top_n])</code></pre>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (kNN graph and clustering).</span> After PCA, each cell is a point in $\mathbb{R}^k$. A <em>$k$-nearest-neighbor graph</em> (kNN graph) is constructed: each cell is connected to its $k$ nearest neighbors in PCA space (typically $k = 15$, Euclidean distance). Community detection on this graph identifies clusters of cells with similar transcriptional profiles. The <em>Leiden algorithm</em> optimizes a modularity-like quality function over graph partitions. A <em>resolution parameter</em> $\gamma > 0$ controls granularity: larger $\gamma$ yields more, smaller clusters.</p>
+      <p class="fr"><span class="thm-label">Définition (Graphe kNN et clustering).</span> Après l'ACP, chaque cellule est un point dans $\mathbb{R}^k$. Un <em>graphe des $k$ plus proches voisins</em> (graphe kNN) est construit : chaque cellule est connectée à ses $k$ plus proches voisins dans l'espace ACP (typiquement $k = 15$, distance euclidienne). La détection de communautés sur ce graphe identifie des clusters de cellules aux profils transcriptionnels similaires. L'<em>algorithme de Leiden</em> optimise une fonction de qualité de type modularité sur les partitions du graphe. Un <em>paramètre de résolution</em> $\gamma > 0$ contrôle la granularité : un $\gamma$ plus grand produit plus de clusters, plus petits.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Cell type annotation.</span> Clusters have no biological label by default. Annotation is done by finding <em>marker genes</em> -- genes specifically expressed in one cluster and not others. Computationally, marker genes are identified by differential expression between each cluster and all others (one-vs-rest test, typically using a Wilcoxon rank-sum test or logistic regression). The top markers are then matched to known cell type signatures in databases such as CellMarker or PanglaoDB, or automatically assigned using reference-based tools such as SingleR.</p>
+      <p class="fr"><span class="thm-label">Annotation des types cellulaires.</span> Les clusters n'ont pas d'étiquette biologique par défaut. L'annotation se fait en trouvant des <em>gènes marqueurs</em> -- gènes spécifiquement exprimés dans un cluster et pas dans les autres. Computationnellement, les gènes marqueurs sont identifiés par expression différentielle entre chaque cluster et tous les autres (test un-contre-tous, typiquement par test de Wilcoxon ou régression logistique). Les principaux marqueurs sont ensuite comparés à des signatures de types cellulaires dans des bases de données comme CellMarker ou PanglaoDB, ou assignés automatiquement par des outils basés sur des références comme SingleR.</p>
+    </div>
+
+    <!-- ── 7. Gene Networks and Pathways ── -->
+
     <h3 class="en">Gene Networks and Pathways</h3>
     <h3 class="fr">Réseaux géniques et voies métaboliques</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Gene Ontology).</span> The <em>Gene Ontology</em> (GO) is a controlled vocabulary describing gene functions, structured as a directed acyclic graph. Each <em>GO term</em> is a node representing a biological concept; edges represent "is-a" or "part-of" relationships. GO has three independent ontologies: <em>Biological Process</em> (BP, e.g., "DNA repair"), <em>Molecular Function</em> (MF, e.g., "ATP binding"), and <em>Cellular Component</em> (CC, e.g., "nucleus"). The <em>true path rule</em>: if gene $g$ is annotated with term $t$, it is implicitly annotated with all ancestors of $t$ in the DAG.</p>
+      <p class="fr"><span class="thm-label">Définition (Gene Ontology).</span> La <em>Gene Ontology</em> (GO) est un vocabulaire contrôlé décrivant les fonctions des gènes, structuré comme un graphe acyclique orienté. Chaque <em>terme GO</em> est un nœud représentant un concept biologique ; les arêtes représentent des relations "est-un" ou "fait-partie-de". La GO comporte trois ontologies indépendantes : <em>Processus Biologique</em> (BP, par ex. "réparation de l'ADN"), <em>Fonction Moléculaire</em> (MF, par ex. "liaison ATP"), et <em>Composant Cellulaire</em> (CC, par ex. "noyau"). La <em>règle du chemin vrai</em> : si le gène $g$ est annoté avec le terme $t$, il est implicitement annoté avec tous les ancêtres de $t$ dans le DAG.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Over-representation analysis, hypergeometric test).</span> Given a hit list $S$ (e.g., differentially expressed genes) of size $n$ drawn from a universe of $N$ genes, and a GO term $T$ annotating $K$ genes in the universe, the overlap $k = |S \cap T|$ follows a <em>hypergeometric distribution</em> under the null that $S$ is a random subset:
+      $$P(X = k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$$
+      The one-sided $p$-value for over-representation is $P(X \geq k) = \sum_{x=k}^{\min(K,n)} P(X = x)$. After BH correction over all tested terms, enriched terms with small adjusted $p$-value represent biological processes disproportionately represented in the hit list.</p>
+      <p class="fr"><span class="thm-label">Définition (Analyse de sur-représentation, test hypergéométrique).</span> Étant donné une liste de hits $S$ (par ex., gènes différentiellement exprimés) de taille $n$ tirée d'un univers de $N$ gènes, et un terme GO $T$ annotant $K$ gènes dans l'univers, le chevauchement $k = |S \cap T|$ suit une <em>distribution hypergéométrique</em> sous l'hypothèse nulle que $S$ est un sous-ensemble aléatoire :
+      $$P(X = k) = \frac{\binom{K}{k}\binom{N-K}{n-k}}{\binom{N}{n}}$$
+      La $p$-valeur unilatérale pour la sur-représentation est $P(X \geq k) = \sum_{x=k}^{\min(K,n)} P(X = x)$. Après correction BH sur tous les termes testés, les termes enrichis avec une petite $p$-valeur ajustée représentent des processus biologiques disproportionnellement présents dans la liste de hits.</p>
+    </div>
+
+    <pre><code class="language-python">from math import comb
+
+def hypergeometric_pvalue(N, K, n, k):
+    # P(X >= k), X ~ Hypergeometric(N, K, n)
+    return sum(
+        comb(K, x) * comb(N - K, n - x) / comb(N, n)
+        for x in range(k, min(K, n) + 1)
+    )
+
+def over_representation(hit_set, gene_sets, universe):
+    N = len(universe)
+    n = len(hit_set & universe)
+    results = []
+    for term, genes in gene_sets.items():
+        K = len(genes & universe)
+        k = len(hit_set & genes & universe)
+        if K > 0 and k > 0:
+            p = hypergeometric_pvalue(N, K, n, k)
+            results.append((term, k, K, p))
+    return sorted(results, key=lambda x: x[3])</code></pre>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Gene Set Enrichment Analysis, GSEA).</span> ORA requires a hard threshold to define the hit list. GSEA avoids this: it takes a ranked list of all $G$ genes (ranked by signed LFC or $-\log_{10}(p)$) and a gene set $T$. Walking down the ranked list, an <em>enrichment score</em> ES is computed as a running sum that increments by $1/|T|$ when a gene in $T$ is encountered and decrements by $1/(G - |T|)$ otherwise. ES($T$) is the maximum deviation from zero. A large positive ES means genes in $T$ cluster at the top of the list (preferentially up-regulated). Significance is assessed by permutation of gene labels.</p>
+      <p class="fr"><span class="thm-label">Définition (Analyse d'enrichissement de sets de gènes, GSEA).</span> L'ORA nécessite un seuil strict pour définir la liste de hits. GSEA l'évite : il prend une liste classée de tous les $G$ gènes (classés par LFC signé ou $-\log_{10}(p)$) et un ensemble de gènes $T$. En parcourant la liste classée, un <em>score d'enrichissement</em> ES est calculé comme une somme courante qui s'incrémente de $1/|T|$ quand un gène de $T$ est rencontré et se décrémente de $1/(G - |T|)$ sinon. ES($T$) est la déviation maximale par rapport à zéro. Un ES positif élevé signifie que les gènes de $T$ se regroupent en tête de liste (préférentiellement sur-régulés). La significativité est évaluée par permutation des étiquettes des gènes.</p>
+    </div>
+
+    <pre><code class="language-python">def gsea_score(ranked_genes, gene_set):
+    n = len(ranked_genes)
+    n_set = sum(1 for g in ranked_genes if g in gene_set)
+    n_miss = n - n_set
+    if n_set == 0 or n_miss == 0:
+        return 0.0
+    running, max_dev = 0.0, 0.0
+    for g in ranked_genes:
+        running += 1.0 / n_set if g in gene_set else -1.0 / n_miss
+        if abs(running) > abs(max_dev):
+            max_dev = running
+    return max_dev</code></pre>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Co-expression networks.</span> A <em>gene co-expression network</em> is an undirected weighted graph where nodes are genes and edge weights measure similarity of expression profiles across samples. The Pearson correlation $\rho_{gg'}$ between the expression vectors of genes $g$ and $g'$ (over all samples) is the most common similarity. WGCNA (Weighted Gene Co-expression Network Analysis) raises correlations to a power $\beta$ chosen to enforce scale-free network topology: $w_{gg'} = |\rho_{gg'}|^\beta$. Hierarchical clustering of the resulting adjacency matrix partitions genes into <em>modules</em> -- groups of co-expressed genes. Each module is summarized by its <em>eigengene</em> (first principal component), which can be correlated with external traits to find biologically relevant modules.</p>
+      <p class="fr"><span class="thm-label">Réseaux de co-expression.</span> Un <em>réseau de co-expression génique</em> est un graphe non orienté pondéré où les nœuds sont des gènes et les poids des arêtes mesurent la similarité des profils d'expression entre échantillons. La corrélation de Pearson $\rho_{gg'}$ entre les vecteurs d'expression des gènes $g$ et $g'$ (sur tous les échantillons) est la mesure la plus courante. WGCNA (Weighted Gene Co-expression Network Analysis) élève les corrélations à une puissance $\beta$ choisie pour imposer une topologie de réseau sans échelle : $w_{gg'} = |\rho_{gg'}|^\beta$. Le clustering hiérarchique de la matrice d'adjacence résultante partitionne les gènes en <em>modules</em> -- groupes de gènes co-exprimés. Chaque module est résumé par son <em>eigengène</em> (première composante principale), qui peut être corrélé à des traits externes pour identifier les modules biologiquement pertinents.</p>
+    </div>
 
   </main>
 
