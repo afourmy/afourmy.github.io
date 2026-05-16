@@ -343,6 +343,16 @@
       <p><em>Proof 2 (squeeze).</em> For $n \geq 1$, we have $n^2 < n^2 + n + 1$ and $n^2 + n + 1 < n^2 + 2n + 1 = (n+1)^2$. So $n^2 + n + 1$ lies strictly between two consecutive perfect squares $n^2$ and $(n+1)^2$, and therefore cannot itself be a perfect square.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that a function $f : A \to B$ is invertible if and only if it is a bijection.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>$(\Rightarrow)$ Suppose $f$ has an inverse $g : B \to A$, so $g \circ f = \mathrm{id}_A$ and $f \circ g = \mathrm{id}_B$. For injectivity, if $f(x) = f(y)$ then $x = g(f(x)) = g(f(y)) = y$. For surjectivity, given $y \in B$, set $x = g(y)$; then $f(x) = f(g(y)) = y$.</p>
+      <p>$(\Leftarrow)$ Suppose $f$ is a bijection. For each $y \in B$, surjectivity gives some $x$ with $f(x) = y$, and injectivity makes it unique; define $g(y) = x$. Then $g(f(x)) = x$ and $f(g(y)) = y$ for all $x, y$, so $g$ is an inverse of $f$.</p>
+    </details>
+
     <h2>Analysis</h2>
 
   </main>
