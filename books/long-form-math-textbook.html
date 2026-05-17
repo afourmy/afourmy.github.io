@@ -354,6 +354,17 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every sequence of real numbers has a monotone subsequence.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Call index $n$ a <em>peak</em> if $a_n \geq a_k$ for all $k > n$. There are two cases.</p>
+      <p>If there are infinitely many peaks $n_1 < n_2 < \cdots$, then for each $i$, since $n_i$ is a peak and $n_{i+1} > n_i$, we have $a_{n_i} \geq a_{n_{i+1}}$. So $(a_{n_i})$ is non-increasing.</p>
+      <p>If there are finitely many peaks, let $N$ be the last one. Define $n_1 = N + 1$; since $n_1$ is not a peak, there exists $n_2 > n_1$ with $a_{n_2} > a_{n_1}$. Since $n_2$ is not a peak either, there exists $n_3 > n_2$ with $a_{n_3} > a_{n_2}$. Continuing inductively gives a strictly increasing subsequence.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Suppose $n$ ants are placed on a 1-meter stick, each walking at 1 m/s left or right. When two ants meet, they each instantly reverse direction. What is the longest possible time until all ants have fallen off?</p>
     </div>
 
@@ -363,10 +374,6 @@
     </details>
 
     <h2>Analysis</h2>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that every sequence of real numbers has a monotone subsequence.</p>
-    </div>
 
   </main>
 </body>
