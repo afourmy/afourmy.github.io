@@ -445,16 +445,13 @@ def over_representation(hit_set, gene_sets, universe):
   <script>
     function setLang(lang) {
       localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
-        el.innerHTML = el.getAttribute('data-' + lang);
-      });
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
+      document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? '' : 'none');
       document.documentElement.lang = lang;
     }
     (function() {
       var lang = localStorage.getItem('lang') || 'en';
-      if (lang === 'fr') setLang('fr');
+      setLang(lang);
     })();
   </script>
 </body>
