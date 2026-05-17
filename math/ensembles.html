@@ -713,8 +713,8 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Hilbert's hotel).</span> A hotel has a countably infinite number of rooms, all occupied. (a) A new guest arrives. Show that they can be accommodated. (b) A coach of $n$ guests arrives. Show that all can be accommodated. (c) A countably infinite number of coaches, each containing a countably infinite number of guests, arrive. Show that all can be accommodated.</p>
-      <p class="fr"><span class="thm-label">Exercice (Hôtel de Hilbert).</span> Un hôtel a une infinité dénombrable de chambres, toutes occupées. (a) Un nouveau client arrive. Montrer qu'on peut le loger. (b) Un autocar de $n$ clients arrive. Montrer qu'on peut tous les loger. (c) Une infinité dénombrable d'autocars, chacun contenant une infinité dénombrable de clients, arrivent. Montrer qu'on peut tous les loger.</p>
+      <p class="en"><span class="thm-label">Exercise (Hilbert's hotel).</span> A hotel has a countably infinite number of rooms, all occupied. (a) A new guest arrives. Show that they can be accommodated. (b) A coach of $n$ guests arrives. Show that all can be accommodated. (c) A coach with a countably infinite number of guests arrives. Show that all can be accommodated. (d) A countably infinite number of coaches, each containing a countably infinite number of guests, arrive. Show that all can be accommodated.</p>
+      <p class="fr"><span class="thm-label">Exercice (Hôtel de Hilbert).</span> Un hôtel a une infinité dénombrable de chambres, toutes occupées. (a) Un nouveau client arrive. Montrer qu'on peut le loger. (b) Un autocar de $n$ clients arrive. Montrer qu'on peut tous les loger. (c) Un autocar contenant une infinité dénombrable de clients arrive. Montrer qu'on peut tous les loger. (d) Une infinité dénombrable d'autocars, chacun contenant une infinité dénombrable de clients, arrivent. Montrer qu'on peut tous les loger.</p>
     </div>
 
     <details class="proof en">
@@ -723,7 +723,9 @@
       <br>
       (b) Send the guest in room $k$ to room $k+n$. Rooms $0,\ldots,n-1$ are free for the $n$ new guests. This is the injection $k\mapsto k+n$.
       <br>
-      (c) Use $\mathbb{N}^2\sim\mathbb{N}$. Label guests by $(i,j)$ (guest $j$ of bus $i$), and assign them room $\varphi(i,j)$ where $\varphi:\mathbb{N}^2\to\mathbb{N}$ is Cantor's bijection.
+      (c) Send the guest in room $k$ to room $2k$, freeing all odd rooms. Assign new guest $j$ to room $2j+1$. Formally, use $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, and place new guest $j$ in room $2j+1$.
+      <br>
+      (d) Use $\mathbb{N}^2\sim\mathbb{N}$. Label guests by $(i,j)$ (guest $j$ of bus $i$), and assign them room $\varphi(i,j)$ where $\varphi:\mathbb{N}^2\to\mathbb{N}$ is Cantor's bijection.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
@@ -731,7 +733,9 @@
       <br>
       (b) On envoie le client de la chambre $k$ en chambre $k+n$. Les chambres $0,\ldots,n-1$ sont libres pour les $n$ nouveaux clients. C'est l'injection $k\mapsto k+n$.
       <br>
-      (c) On utilise $\mathbb{N}^2\sim\mathbb{N}$. On étiquette les clients par $(i,j)$ (client $j$ du bus $i$), et on leur attribue la chambre $\varphi(i,j)$ où $\varphi:\mathbb{N}^2\to\mathbb{N}$ est la bijection de Cantor.
+      (c) On envoie le client de la chambre $k$ en chambre $2k$, libérant toutes les chambres impaires. On attribue la chambre $2j+1$ au nouveau client $j$. Formellement, on utilise $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, et on place le nouveau client $j$ en chambre $2j+1$.
+      <br>
+      (d) On utilise $\mathbb{N}^2\sim\mathbb{N}$. On étiquette les clients par $(i,j)$ (client $j$ du bus $i$), et on leur attribue la chambre $\varphi(i,j)$ où $\varphi:\mathbb{N}^2\to\mathbb{N}$ est la bijection de Cantor.
     </details>
 
   </main>
