@@ -624,16 +624,13 @@
       <p><em>Method 1 (congruences):</em> Since $x^4 \equiv 1 \pmod{x^4 - 1}$ and $203 = 4 \cdot 50 + 3$,
       $$x^{203} = (x^4)^{50} \cdot x^3 \equiv x^3 \pmod{x^4 - 1}.$$
       So $x^{203} - 1 \equiv x^3 - 1 \pmod{x^4 - 1}$, and the remainder is $\mathbf{x^3 - 1}$.</p>
-      <p><em>Method 2 (evaluate at roots):</em> Write the Euclidean division as
-      $$x^{203} - 1 = (x^4 - 1) Q(x) + R(x), \qquad R(x) = a x^3 + b x^2 + c x + d.$$
-      The roots of $x^4 - 1$ are $1, -1, i, -i$, and at each root the left side equals $R$ evaluated there:
-      $$\begin{aligned}
-        x = 1: &\quad 0 = a + b + c + d, \\
-        x = -1: &\quad -2 = -a + b - c + d, \\
-        x = i: &\quad i^{203} - 1 = -i - 1 = -a i - b + c i + d, \\
-        x = -i: &\quad (-i)^{203} - 1 = i - 1 = a i - b - c i + d,
-      \end{aligned}$$
-      where $i^{203} = i^{4 \cdot 50 + 3} = i^3 = -i$.</p>
+      <p><em>Method 2 (evaluate at roots):</em> Write the Euclidean division as $x^{203} - 1 = (x^4 - 1) Q(x) + R(x)$ with $R(x) = a x^3 + b x^2 + c x + d$. The roots of $x^4 - 1$ are $1, -1, i, -i$, and at each root the left side equals $R$ evaluated there. Using $i^{203} = i^{4 \cdot 50 + 3} = i^3 = -i$:</p>
+      <ul>
+        <li>$x = 1$: &nbsp; $0 = a + b + c + d$,</li>
+        <li>$x = -1$: &nbsp; $-2 = -a + b - c + d$,</li>
+        <li>$x = i$: &nbsp; $-i - 1 = -a i - b + c i + d$,</li>
+        <li>$x = -i$: &nbsp; $i - 1 = a i - b - c i + d$.</li>
+      </ul>
       <p>From the first two: $b + d = -1$ and $a + c = 1$. From the last two (real and imaginary parts): $-b + d = -1$ and $a - c = 1$. Solving: $a = 1$, $b = 0$, $c = 0$, $d = -1$, giving $R(x) = \mathbf{x^3 - 1}$.</p>
     </details>
 
