@@ -753,6 +753,28 @@
       where $h : \mathbb{R} \to \mathbb{R}$ is any even function.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Plot the function $\displaystyle f(x) = \frac{2 x^3 - 3 x^2 + x - 6}{x^2 - 3 x + 2}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Factor the denominator: $x^2 - 3x + 2 = (x-1)(x-2)$. Testing $x = 2$ in the numerator: $16 - 12 + 2 - 6 = 0$, so $x - 2$ divides the numerator:
+      $$2 x^3 - 3 x^2 + x - 6 = (x - 2)(2 x^2 + x + 3).$$
+      Hence for $x \neq 2$,
+      $$f(x) = \frac{2 x^2 + x + 3}{x - 1}.$$
+      The quadratic $2x^2 + x + 3$ has discriminant $1 - 24 \lt 0$, so it has no real roots and $f$ has no $x$-intercepts.</p>
+      <p>Polynomial division yields
+      $$f(x) = 2 x + 3 + \frac{6}{x - 1}.$$
+      Key features:</p>
+      <ul>
+        <li><strong>Removable discontinuity</strong> at $x = 2$: the factor $x - 2$ cancels, so $f$ extends by continuity with $f(2) = 13$ (a "hole" in the graph if we keep the original domain).</li>
+        <li><strong>Vertical asymptote</strong> $x = 1$: $f \to -\infty$ as $x \to 1^-$, $f \to +\infty$ as $x \to 1^+$.</li>
+        <li><strong>Oblique asymptote</strong> $y = 2 x + 3$.</li>
+        <li><strong>$y$-intercept</strong>: $f(0) = -3$.</li>
+      </ul>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
