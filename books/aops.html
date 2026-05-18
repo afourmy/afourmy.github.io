@@ -487,7 +487,7 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $P(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0$ have roots $r_1, \ldots, r_n$ (counted with multiplicity), and define the $k$-th power sum
+      <p><span class="thm-label">Exercise.</span> (Newton's sums) Let $P(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0$ have roots $r_1, \ldots, r_n$ (counted with multiplicity), and define the $k$-th power sum
       $$s_k = r_1^k + r_2^k + \cdots + r_n^k, \qquad k \geq 0.$$
       Show that for every $k \geq n$,
       $$a_n s_k + a_{n-1} s_{k-1} + \cdots + a_1 s_{k-n+1} + a_0 s_{k-n} = 0,$$
@@ -503,6 +503,44 @@
       <p>Summing over $i = 1, \ldots, n$:
       $$a_n s_k + a_{n-1} s_{k-1} + \cdots + a_0 s_{k-n} = 0.$$
       (For $k = n$, the last term is $a_0 s_0 = a_0 n$.)</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $r_1, \ldots, r_{1000}$ be the roots of $x^{1000} - 10x + 10 = 0$. Find $\sum_{i=1}^{1000} r_i^{1000}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Apply Newton's sums with $k = n = 1000$:
+      $$a_{1000} s_{1000} + a_{999} s_{999} + \cdots + a_1 s_1 + a_0 \cdot 1000 = 0.$$
+      Here $a_{1000} = 1$, $a_1 = -10$, $a_0 = 10$, and all other coefficients vanish, so
+      $$s_{1000} - 10 s_1 + 10000 = 0.$$</p>
+      <p>By Vieta's, $s_1 = \sum r_i = -a_{999}/a_{1000} = 0$. Therefore
+      $$s_{1000} = -10000.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the product of the $n$-th roots of unity.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The $n$-th roots of unity are the roots of $P(x) = x^n - 1$. By Vieta's,
+      $$\prod_{k=0}^{n-1} \omega_k = (-1)^n \frac{a_0}{a_n} = (-1)^n \cdot (-1) = (-1)^{n+1}.$$</p>
+      <p>So the product is $1$ if $n$ is odd, and $-1$ if $n$ is even.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $c, d$ be nonzero constants such that two of the roots of $4x^3 - 12x^2 + cx + d$ add to $0$. Find $\frac{d}{c}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let the roots be $r$, $-r$, $s$. By Vieta's:
+      $$r + (-r) + s = \frac{12}{4} = 3 \implies s = 3.$$</p>
+      <p>The other two Vieta relations give
+      $$r(-r) + rs + (-r)s = -r^2 = \frac{c}{4}, \qquad r \cdot (-r) \cdot s = -3 r^2 = -\frac{d}{4}.$$
+      So $r^2 = -\frac{c}{4} = \frac{d}{12}$, hence $d = -3c$ and $\displaystyle \frac{d}{c} = \mathbf{-3}$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
