@@ -486,6 +486,25 @@
       <p>By Vieta's, the sum of roots is $\displaystyle -\frac{20}{-18} = \mathbf{\frac{10}{9}}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $P(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0$ have roots $r_1, \ldots, r_n$ (counted with multiplicity), and define the $k$-th power sum
+      $$s_k = r_1^k + r_2^k + \cdots + r_n^k, \qquad k \geq 0.$$
+      Show that for every $k \geq n$,
+      $$a_n s_k + a_{n-1} s_{k-1} + \cdots + a_1 s_{k-n+1} + a_0 s_{k-n} = 0,$$
+      with the convention $s_0 = n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>For each root $r_i$, $P(r_i) = 0$:
+      $$a_n r_i^n + a_{n-1} r_i^{n-1} + \cdots + a_0 = 0.$$
+      Multiplying by $r_i^{k-n}$ (valid since $k \geq n$) gives
+      $$a_n r_i^k + a_{n-1} r_i^{k-1} + \cdots + a_0 r_i^{k-n} = 0.$$</p>
+      <p>Summing over $i = 1, \ldots, n$:
+      $$a_n s_k + a_{n-1} s_{k-1} + \cdots + a_0 s_{k-n} = 0.$$
+      (For $k = n$, the last term is $a_0 s_0 = a_0 n$.)</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
