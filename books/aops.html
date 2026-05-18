@@ -647,13 +647,34 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f(xy) = x f(y)$ for all $x, y \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Setting $y = 1$ gives $f(x) = x f(1)$, so $f(x) = cx$ with $c = f(1)$.</p>
+      <p>Conversely, $f(x) = cx$ satisfies $f(xy) = c(xy) = x (cy) = x f(y)$. So the solutions are exactly $f(x) = cx$, $c \in \mathbb{R}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $y f(x) = x f(y)$ for all $x, y \in \mathbb{R}$.</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Setting $y = 1$ gives $f(x) = x f(1)$. Writing $c = f(1)$, we get $f(x) = cx$ for all $x$.</p>
+      <p><em>Method 1:</em> Setting $y = 1$ gives $f(x) = x f(1)$. Writing $c = f(1)$, we get $f(x) = cx$ for all $x$.</p>
+      <p><em>Method 2:</em> For $x, y \neq 0$, dividing both sides by $xy$ gives $\frac{f(x)}{x} = \frac{f(y)}{y}$. So $g(t) = \frac{f(t)}{t}$ takes the same value for every nonzero $t$, i.e. $g$ is constant on $\mathbb{R} \setminus \{0\}$. Call this constant $c$; then $f(t) = ct$ for all $t \neq 0$. For $t = 0$, setting $x = 0$ and any $y \neq 0$ in the original equation gives $y f(0) = 0$, hence $f(0) = 0 = c \cdot 0$.</p>
       <p>Conversely, any $f(x) = cx$ satisfies $y \cdot cx = x \cdot cy$. So the solutions are exactly the linear maps $f(x) = cx$, $c \in \mathbb{R}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f(x + y) + f(x - y) = 2 x^2 + 2 y^2$ for all $x, y \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Setting $y = 0$ gives $2 f(x) = 2 x^2$, so $f(x) = x^2$.</p>
+      <p>Conversely, $f(x) = x^2$ satisfies $(x+y)^2 + (x-y)^2 = 2x^2 + 2y^2$. So $f(x) = x^2$ is the unique solution.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
