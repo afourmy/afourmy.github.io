@@ -603,6 +603,52 @@
       $$x^{13} + 1 = (x-1)\underbrace{(x^{12} + x^{11} + \cdots + x + 1)}_{Q(x)} + \underbrace{2}_{R}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $(1 + x + x^2)^n = a_0 + a_1 x + a_2 x^2 + \cdots + a_{2n} x^{2n}$. Find $a_0 + a_2 + a_4 + \cdots + a_{2n}$ in terms of $n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Set $P(x) = (1 + x + x^2)^n$. Then
+      $$P(1) = a_0 + a_1 + \cdots + a_{2n}, \qquad P(-1) = a_0 - a_1 + a_2 - \cdots + a_{2n}.$$
+      Adding and dividing by $2$ isolates the even-indexed coefficients:
+      $$a_0 + a_2 + \cdots + a_{2n} = \frac{P(1) + P(-1)}{2} = \frac{3^n + 1^n}{2} = \mathbf{\frac{3^n + 1}{2}}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the remainder of $x^{203} - 1$ divided by $x^4 - 1$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Method 1 (congruences):</em> Since $x^4 \equiv 1 \pmod{x^4 - 1}$ and $203 = 4 \cdot 50 + 3$,
+      $$x^{203} = (x^4)^{50} \cdot x^3 \equiv x^3 \pmod{x^4 - 1}.$$
+      So $x^{203} - 1 \equiv x^3 - 1 \pmod{x^4 - 1}$, and the remainder is $\mathbf{x^3 - 1}$.</p>
+      <p><em>Method 2 (evaluate at roots):</em> Write the Euclidean division as
+      $$x^{203} - 1 = (x^4 - 1) Q(x) + R(x), \qquad R(x) = a x^3 + b x^2 + c x + d.$$
+      The roots of $x^4 - 1$ are $1, -1, i, -i$, and at each root the left side equals $R$ evaluated there:
+      $$\begin{aligned}
+        x = 1: &\quad 0 = a + b + c + d, \\
+        x = -1: &\quad -2 = -a + b - c + d, \\
+        x = i: &\quad i^{203} - 1 = -i - 1 = -a i - b + c i + d, \\
+        x = -i: &\quad (-i)^{203} - 1 = i - 1 = a i - b - c i + d,
+      \end{aligned}$$
+      where $i^{203} = i^{4 \cdot 50 + 3} = i^3 = -i$.</p>
+      <p>From the first two: $b + d = -1$ and $a + c = 1$. From the last two (real and imaginary parts): $-b + d = -1$ and $a - c = 1$. Solving: $a = 1$, $b = 0$, $c = 0$, $d = -1$, giving $R(x) = \mathbf{x^3 - 1}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $k \geq 2$ be a positive integer. Find all real polynomials $P$ such that $P(P(X)) = P(X)^k$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Set $Y = P(X)$. The equation becomes $P(Y) = Y^k$ for every $Y$ in the image of $P$.</p>
+      <p><em>Case 1: $P$ non-constant.</em> Then $P$ takes infinitely many values, so $P(Y) - Y^k$ vanishes at infinitely many points, hence $P(Y) = Y^k$ as polynomials. Conversely, $P(X) = X^k$ satisfies $P(P(X)) = (X^k)^k = X^{k^2} = P(X)^k$.</p>
+      <p><em>Case 2: $P$ constant, $P(X) = c$.</em> Then $c = c^k$, i.e. $c(c^{k-1} - 1) = 0$. Over $\mathbb{R}$, this gives $c = 0$, $c = 1$, or $c = -1$ (the last only when $k$ is odd, so that $k-1$ is even).</p>
+      <p>The real solutions are therefore $P(X) = X^k$, $P(X) = 0$, $P(X) = 1$, and (for odd $k$) $P(X) = -1$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
