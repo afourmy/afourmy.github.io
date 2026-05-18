@@ -701,6 +701,23 @@
       <p>Conversely, this $f$ satisfies the equation: $\displaystyle \frac{2 - x^2}{3x} + 2 \cdot \frac{2 - 1/x^2}{3/x} = \frac{2 - x^2 + 4 x^2 - 2}{3 x} = x.$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f\!\left(\frac{1+a}{2}\right) = f\!\left(\frac{1-a}{2}\right) + a$ for all $a \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Note that $a = \frac{1+a}{2} - \frac{1-a}{2}$, so the equation rewrites as
+      $$f\!\left(\frac{1+a}{2}\right) - \frac{1+a}{2} = f\!\left(\frac{1-a}{2}\right) - \frac{1-a}{2}.$$
+      Defining $g(x) = f(x) - x$, this says $g\!\left(\frac{1+a}{2}\right) = g\!\left(\frac{1-a}{2}\right)$ for all $a$, i.e. $g(u) = g(1 - u)$ for all $u$ (since $\frac{1+a}{2} + \frac{1-a}{2} = 1$).</p>
+      <p>Now define $h(x) = g\!\left(x + \tfrac{1}{2}\right)$. The condition $g(u) = g(1-u)$ becomes
+      $$h\!\left(u - \tfrac{1}{2}\right) = h\!\left(\tfrac{1}{2} - u\right),$$
+      i.e. $h(t) = h(-t)$: $h$ must be even.</p>
+      <p>Hence the solutions are exactly
+      $$f(x) = x + h\!\left(x - \tfrac{1}{2}\right),$$
+      where $h : \mathbb{R} \to \mathbb{R}$ is any even function. (Taking $h(t) = t^2$ recovers $f(x) = x + (x - \tfrac{1}{2})^2 = x^2 + \tfrac{1}{4}$.)</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
