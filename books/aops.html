@@ -810,12 +810,23 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> I deposit one dollar in the bank at $100\%$ annual interest. If the interest is compounded once, after one year I have $2$ dollars. If it is compounded twice (every 6 months), I have $\left(1 + \tfrac{1}{2}\right) + \tfrac{1}{2}\left(1 + \tfrac{1}{2}\right) = \left(1 + \tfrac{1}{2}\right)^2$ dollars. If the interest is compounded continuously (infinitely often), how much do I have after one year?</p>
+      <p><span class="thm-label">Exercise.</span> I deposit one dollar in the bank at $100\%$ annual interest. If the interest is compounded once, after one year I have $2$ dollars. If it is compounded twice (every 6 months), I have $\left(1 + \tfrac{1}{2}\right) + \tfrac{1}{2}\left(1 + \tfrac{1}{2}\right)$ dollars. If the interest is compounded continuously (infinitely often), how much do I have after one year?</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>With $n$ equal compounding periods, the balance after one year is $\left(1 + \tfrac{1}{n}\right)^n$. Letting $n \to \infty$ gives $\displaystyle \lim_{n \to \infty} \left(1 + \tfrac{1}{n}\right)^n = e \approx 2.718$ dollars.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Compute $\displaystyle \lim_{x \to \infty} \left(1 + \frac{2}{x}\right)^{3 x}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $u = x/2$, so $\frac{2}{x} = \frac{1}{u}$ and $3 x = 6 u$:
+      $$\left(1 + \frac{2}{x}\right)^{3 x} = \left(1 + \frac{1}{u}\right)^{6 u} = \left(\left(1 + \frac{1}{u}\right)^{u}\right)^{6}.$$
+      As $x \to \infty$, $u \to \infty$, and $\left(1 + \frac{1}{u}\right)^u \to e$, so the limit is $\mathbf{e^6}$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
