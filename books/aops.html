@@ -549,7 +549,9 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>By the polynomial remainder theorem, the remainder of $P(x)$ divided by $x - a$ is $P(a)$. Here $P(x) = x^{13} + 1$ and $a = 1$, so the remainder is $P(1) = 1 + 1 = \mathbf{2}$.</p>
+      <p><em>Method 1 (remainder theorem):</em> The remainder of $P(x)$ divided by $x - a$ is $P(a)$. Here $P(x) = x^{13} + 1$ and $a = 1$, so the remainder is $P(1) = 1 + 1 = \mathbf{2}$.</p>
+      <p><em>Method 2 (explicit division):</em> Using the geometric series identity $x^{13} - 1 = (x-1)(x^{12} + x^{11} + \cdots + x + 1)$, we get
+      $$x^{13} + 1 = (x-1)\underbrace{(x^{12} + x^{11} + \cdots + x + 1)}_{Q(x)} + \underbrace{2}_{R}.$$</p>
     </details>
 
     <!-- Volume 2 content goes here -->
