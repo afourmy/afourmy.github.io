@@ -678,6 +678,29 @@
       <p>Conversely, $f(x) = x^2$ satisfies $(x+y)^2 + (x-y)^2 = 2x^2 + 2y^2$. So $f(x) = x^2$ is the unique solution.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f(x + y) + f(x - y) = 2 x^2 - 2 y^2$ for all $x, y \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Setting $y = 0$ gives $2 f(x) = 2 x^2$, so $f(x) = x^2$. Setting $x = 0$ gives $f(y) + f(-y) = -2 y^2$, but $f(y) + f(-y) = y^2 + y^2 = 2 y^2$, forcing $4 y^2 = 0$ for all $y$, a contradiction.</p>
+      <p>Hence <strong>no such function exists</strong>.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R}^* \to \mathbb{R}$ such that $f(x) + 2 f\!\left(\frac{1}{x}\right) = x$ for all $x \neq 0$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Substituting $x \to \frac{1}{x}$ in the equation gives a second relation:
+      $$f(x) + 2 f(1/x) = x, \qquad f(1/x) + 2 f(x) = \frac{1}{x}.$$</p>
+      <p>This is a linear system in $f(x)$ and $f(1/x)$. Multiplying the second by $2$ and subtracting the first:
+      $$3 f(x) = \frac{2}{x} - x \implies f(x) = \frac{2 - x^2}{3 x}.$$</p>
+      <p>Conversely, this $f$ satisfies the equation: $\displaystyle \frac{2 - x^2}{3x} + 2 \cdot \frac{2 - 1/x^2}{3/x} = \frac{2 - x^2 + 4 x^2 - 2}{3 x} = x.$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
