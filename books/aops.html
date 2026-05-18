@@ -506,6 +506,20 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $r_1, \ldots, r_{1000}$ be the roots of $x^{1000} - 10x + 10 = 0$. Find $\sum_{i=1}^{1000} r_i^{1000}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Apply Newton's sums with $k = n = 1000$:
+      $$a_{1000} s_{1000} + a_{999} s_{999} + \cdots + a_1 s_1 + a_0 \cdot 1000 = 0.$$
+      Here $a_{1000} = 1$, $a_1 = -10$, $a_0 = 10$, and all other coefficients vanish, so
+      $$s_{1000} - 10 s_1 + 10000 = 0.$$</p>
+      <p>By Vieta's, $s_1 = \sum r_i = -a_{999}/a_{1000} = 0$. Therefore
+      $$s_{1000} = -10000.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> (Newton's sum for $s_2$) Let $P(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_0$ have roots $r_1, \ldots, r_n$ with $n \geq 2$. Show that
       $$a_n s_2 + a_{n-1} s_1 + 2 a_{n-2} = 0,$$
       where $s_k = r_1^k + \cdots + r_n^k$.</p>
@@ -521,20 +535,6 @@
       Multiplying by $a_n$ and rearranging:
       $$a_n s_2 = \frac{a_{n-1}^2}{a_n} - 2 a_{n-2} = -a_{n-1} s_1 - 2 a_{n-2},$$
       i.e. $a_n s_2 + a_{n-1} s_1 + 2 a_{n-2} = 0$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $r_1, \ldots, r_{1000}$ be the roots of $x^{1000} - 10x + 10 = 0$. Find $\sum_{i=1}^{1000} r_i^{1000}$.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Solution.</summary>
-      <p>Apply Newton's sums with $k = n = 1000$:
-      $$a_{1000} s_{1000} + a_{999} s_{999} + \cdots + a_1 s_1 + a_0 \cdot 1000 = 0.$$
-      Here $a_{1000} = 1$, $a_1 = -10$, $a_0 = 10$, and all other coefficients vanish, so
-      $$s_{1000} - 10 s_1 + 10000 = 0.$$</p>
-      <p>By Vieta's, $s_1 = \sum r_i = -a_{999}/a_{1000} = 0$. Therefore
-      $$s_{1000} = -10000.$$</p>
     </details>
 
     <div class="thm-block exercise">
