@@ -718,6 +718,26 @@
       where $h : \mathbb{R} \to \mathbb{R}$ is any even function. (Taking $h(t) = t^2$ recovers $f(x) = x + (x - \tfrac{1}{2})^2 = x^2 + \tfrac{1}{4}$.)</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R}^* \to \mathbb{R}^*$ such that $\displaystyle \frac{f(x)}{f(y)} = \frac{y}{x}$ for all $x, y \in \mathbb{R}^*$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Cross-multiplying gives $x f(x) = y f(y)$ for all $x, y$. So $x f(x)$ is independent of $x$: there is a constant $c$ with $x f(x) = c$, i.e. $f(x) = \frac{c}{x}$. Since $f$ is $\mathbb{R}^*$-valued, $c \neq 0$.</p>
+      <p>Conversely, $f(x) = c/x$ satisfies $\frac{c/x}{c/y} = \frac{y}{x}$. So the solutions are $f(x) = \frac{c}{x}$ for $c \in \mathbb{R}^*$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f(x + y) - f(x - y) = 4 x y$ for all $x, y \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Setting $x = y$ gives $f(2x) - f(0) = 4 x^2$, so $f(u) = u^2 + f(0)$ for all $u \in \mathbb{R}$.</p>
+      <p>Conversely, $f(x) = x^2 + c$ satisfies $(x+y)^2 - (x-y)^2 = 4xy$. So the solutions are $f(x) = x^2 + c$, $c \in \mathbb{R}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
