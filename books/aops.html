@@ -538,6 +538,35 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $r$, $s$, $t$ be the roots of $x^3 - 6x^2 + 5x - 7 = 0$. Find $\displaystyle \frac{1}{r^2} + \frac{1}{s^2} + \frac{1}{t^2}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Reversing the coefficients gives the polynomial whose roots are $\frac{1}{r}, \frac{1}{s}, \frac{1}{t}$:
+      $$Q(x) = -7 x^3 + 5 x^2 - 6 x + 1.$$
+      We want $s_2$ for $Q$. Applying Newton's identity $a_n s_2 + a_{n-1} s_1 + 2 a_{n-2} = 0$ with $a_3 = -7$, $a_2 = 5$, $a_1 = -6$:
+      $$-7 s_2 + 5 s_1 - 12 = 0.$$</p>
+      <p>By Vieta's on $Q$, $s_1 = -\frac{a_2}{a_3} = \frac{5}{7}$, so
+      $$-7 s_2 = 12 - 5 \cdot \frac{5}{7} = \frac{59}{7} \implies s_2 = \mathbf{-\frac{59}{49}}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $P(x) = a_n x^n + \cdots + a_0$ with integer coefficients. Show that if $P(0)$ and $P(1)$ are both odd, then $P$ has no integer root.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Since $P$ has integer coefficients, $a \equiv b \pmod 2 \implies P(a) \equiv P(b) \pmod 2$.</p>
+      <p>Suppose $r \in \mathbb{Z}$ is a root of $P$. Then $P(r) = 0$ is even. But $r$ is either even or odd:
+      <ul>
+        <li>if $r$ is even, $P(r) \equiv P(0) \equiv 1 \pmod 2$;</li>
+        <li>if $r$ is odd, $P(r) \equiv P(1) \equiv 1 \pmod 2$.</li>
+      </ul>
+      In either case $P(r)$ is odd, contradicting $P(r) = 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Find the product of the $n$-th roots of unity.</p>
     </div>
 
