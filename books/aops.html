@@ -738,6 +738,21 @@
       <p>Conversely, $f(x) = x^2 + c$ satisfies $(x+y)^2 - (x-y)^2 = 4xy$. So the solutions are $f(x) = x^2 + c$, $c \in \mathbb{R}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all functions $f : \mathbb{R} \to \mathbb{R}$ such that $f(1 - x) = f(x) + 1 - 2 x$ for all $x \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Since $1 - 2x = (1-x) - x$, the equation rewrites as
+      $$f(1-x) - (1-x) = f(x) - x.$$
+      Define $g(x) = f(x) - x$; then $g(1-x) = g(x)$, so $g$ is symmetric about $\tfrac{1}{2}$.</p>
+      <p>Equivalently, letting $h(t) = g(t + \tfrac{1}{2})$, the condition $g(1-x) = g(x)$ becomes $h(-t) = h(t)$: $h$ is even.</p>
+      <p>Hence the solutions are exactly
+      $$f(x) = x + h\!\left(x - \tfrac{1}{2}\right),$$
+      where $h : \mathbb{R} \to \mathbb{R}$ is any even function.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
