@@ -796,6 +796,19 @@
       As $x \to 0$, $\frac{\sin 3x}{3x} \to 1$ and $\cos 3x \to 1$, so the limit is $\displaystyle 1 \cdot \frac{3}{4} = \mathbf{\frac{3}{4}}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $\displaystyle \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n = e$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Take the log:
+      $$\ln\!\left(1 + \tfrac{1}{n}\right)^n = n \ln\!\left(1 + \tfrac{1}{n}\right) = \frac{\ln(1 + 1/n) - \ln 1}{1/n}.$$
+      As $n \to \infty$, $h = 1/n \to 0$, and this is the difference quotient for $\ln$ at $1$:
+      $$\frac{\ln(1+h) - \ln 1}{h} \longrightarrow \ln'(1) = 1.$$
+      By continuity of $\exp$, $\displaystyle \left(1 + \tfrac{1}{n}\right)^n = e^{n \ln(1 + 1/n)} \longrightarrow e^1 = e$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
