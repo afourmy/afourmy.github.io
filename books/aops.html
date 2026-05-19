@@ -861,6 +861,18 @@
       $$\lim_{x \to 0} \frac{1 - \cos x}{x} = -\lim_{x \to 0} \frac{\cos x - \cos 0}{x - 0} = -\cos'(0) = \sin(0) = \mathbf{0}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all asymptotes of $\displaystyle f(x) = \frac{x^3}{x^2 - 1}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Polynomial division: $x^3 = x(x^2 - 1) + x$, so
+      $$f(x) = x + \frac{x}{x^2 - 1}.$$
+      As $x \to \pm \infty$, $\frac{x}{x^2 - 1} \to 0$, giving the oblique asymptote $\mathbf{y = x}$.</p>
+      <p>The denominator $x^2 - 1 = (x-1)(x+1)$ vanishes at $x = \pm 1$ while the numerator does not, so there are vertical asymptotes at $\mathbf{x = 1}$ and $\mathbf{x = -1}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
