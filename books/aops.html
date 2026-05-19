@@ -873,6 +873,32 @@
       <p>The denominator $x^2 - 1 = (x-1)(x+1)$ vanishes at $x = \pm 1$ while the numerator does not, so there are vertical asymptotes at $\mathbf{x = 1}$ and $\mathbf{x = -1}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find all cube roots of $4 + 4 i \sqrt{3}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Convert to polar form:
+      $$|4 + 4 i \sqrt{3}| = \sqrt{16 + 48} = 8, \qquad \arg = \arctan(\sqrt{3}) = \frac{\pi}{3}.$$
+      So $4 + 4 i \sqrt{3} = 8 e^{i \pi / 3}$.</p>
+      <p>The three cube roots are
+      $$w_k = 8^{1/3} \, e^{i(\pi/3 + 2 \pi k)/3} = 2 \, e^{i(\pi/9 + 2 \pi k / 3)}, \qquad k = 0, 1, 2.$$
+      Explicitly: $\displaystyle 2 e^{i \pi / 9}, \; 2 e^{i 7 \pi / 9}, \; 2 e^{i 13 \pi / 9}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Express $\cos(3 \theta)$ in terms of $\cos \theta$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By De Moivre's theorem, $(\cos \theta + i \sin \theta)^3 = \cos(3\theta) + i \sin(3\theta)$. Expanding the left side:
+      $$\cos^3 \theta + 3 i \cos^2 \theta \sin \theta - 3 \cos \theta \sin^2 \theta - i \sin^3 \theta.$$
+      Taking the real part and using $\sin^2 \theta = 1 - \cos^2 \theta$:
+      $$\cos(3 \theta) = \cos^3 \theta - 3 \cos \theta (1 - \cos^2 \theta) = \mathbf{4 \cos^3 \theta - 3 \cos \theta}.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
