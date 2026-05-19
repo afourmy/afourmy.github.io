@@ -29,13 +29,13 @@
     <h3 class="en">Check if a string is a palindrome</h3>
     <h3 class="fr">Vérifier qu'une chaîne est un palindrome</h3>
 
-    <pre><code class="language-python">def is_palindrome(input: str) -> bool:
+    <pre><code class="language-python">def is_palindrome(input):
     return input == input[::-1]</code></pre>
 
     <h3 class="en">Count occurrences of a character</h3>
     <h3 class="fr">Compter les occurrences d'un caractère</h3>
 
-    <pre><code class="language-python">def count_char(input: str, target: str) -> int:
+    <pre><code class="language-python">def count_char(input, target):
     return sum(char == target for char in input)</code></pre>
 
     <h3 class="en">Reverse an array in place</h3>
@@ -51,7 +51,7 @@
     <h3 class="en">Count ones in a binary matrix</h3>
     <h3 class="fr">Compter les uns dans une matrice binaire</h3>
 
-    <pre><code class="language-python">def count_ones(matrix: List[List[int]]) -> int:
+    <pre><code class="language-python">def count_ones(matrix):
     return sum(map(sum, matrix))</code></pre>
 
     <h2 class="en">Hashing</h2>
@@ -67,8 +67,8 @@
       Étant donné un tableau d'entiers et un entier cible, renvoyer les indices des deux nombres dont la somme vaut la cible.
     </p>
 
-    <pre><code class="language-python">def two_sum(array: List[int], target: int) -> List[int]:
-    seen: Dict[int, int] = {}
+    <pre><code class="language-python">def two_sum(array, target):
+    seen = {}
     for index, value in enumerate(array):
         remaining = target - value
         if remaining in seen:
@@ -78,8 +78,8 @@
     <h3 class="en">Count occurrences of all characters</h3>
     <h3 class="fr">Compter les occurrences de tous les caractères</h3>
 
-    <pre><code class="language-python">def count_characters(input: str) -> Dict[str, int]:
-    count: Dict[str, int] = {}
+    <pre><code class="language-python">def count_characters(input):
+    count = {}
     for char in input:
         count[char] = count.get(char, 0) + 1
     return count</code></pre>
@@ -89,13 +89,13 @@
 
     <pre><code class="language-python">from collections import Counter
 
-def count_characters(input: str) -> Counter[str]:
+def count_characters(input):
     return Counter(input)</code></pre>
 
     <h3 class="en">Check if two strings are anagrams</h3>
     <h3 class="fr">Vérifier que deux chaînes sont des anagrammes</h3>
 
-    <pre><code class="language-python">def are_anagrams(str1: str, str2: str) -> bool:
+    <pre><code class="language-python">def are_anagrams(str1, str2):
     return len(str1) == len(str2) and Counter(str1) == Counter(str2)</code></pre>
 
     <h2 class="en">Sorting and Searching</h2>
