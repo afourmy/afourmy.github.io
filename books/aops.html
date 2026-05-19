@@ -829,6 +829,28 @@
       As $x \to \infty$, $u \to \infty$, and $\left(1 + \frac{1}{u}\right)^u \to e$, so the limit is $\mathbf{e^6}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Compute $\displaystyle \lim_{x \to -2} \frac{x^3 + 8}{x + 2}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Factor using the sum of cubes: $x^3 + 8 = (x + 2)(x^2 - 2 x + 4)$, so for $x \neq -2$,
+      $$\frac{x^3 + 8}{x + 2} = x^2 - 2 x + 4.$$
+      Taking $x \to -2$: $(-2)^2 - 2(-2) + 4 = \mathbf{12}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the equations of the asymptotes of $\displaystyle f(x) = \frac{x^2 - x - 2}{x + 2}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Polynomial division gives
+      $$f(x) = x - 3 + \frac{4}{x + 2}.$$
+      As $x \to \pm \infty$, $\frac{4}{x+2} \to 0$, so the oblique asymptote is $\mathbf{y = x - 3}$. Since the numerator does not vanish at $x = -2$ (it equals $4$ there), $f$ also has a vertical asymptote at $\mathbf{x = -2}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
