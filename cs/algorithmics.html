@@ -181,6 +181,13 @@ def count_characters(input):
     <h3 class="en">Fibonacci with memoization</h3>
     <h3 class="fr">Fibonacci avec mémoïsation</h3>
 
+    <p class="en">
+      The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result makes the function run in linear time.
+    </p>
+    <p class="fr">
+      La suite de Fibonacci est définie par <code>F(0) = 0</code>, <code>F(1) = 1</code>, et <code>F(n) = F(n - 1) + F(n - 2)</code>. Une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.
+    </p>
+
     <pre><code class="language-python">from functools import cache
 
 @cache
@@ -238,6 +245,13 @@ def count_paths(n):
     <h3 class="en">Depth-First Search</h3>
     <h3 class="fr">Parcours en profondeur</h3>
 
+    <p class="en">
+      Traverse a graph by exploring each branch as deeply as possible before backtracking. Starting from a source node, use a stack to visit neighbors before siblings; return the set of all reachable nodes.
+    </p>
+    <p class="fr">
+      Parcourir un graphe en explorant chaque branche aussi profondément que possible avant de revenir en arrière. À partir d'un nœud source, utiliser une pile pour visiter les voisins avant les frères ; renvoyer l'ensemble des nœuds accessibles.
+    </p>
+
     <pre><code class="language-python">def dfs(graph, start):
     visited, stack = set(), [start]
     while stack:
@@ -250,6 +264,13 @@ def count_paths(n):
 
     <h3 class="en">Breadth-First Search</h3>
     <h3 class="fr">Parcours en largeur</h3>
+
+    <p class="en">
+      Traverse a graph layer by layer, visiting all neighbors of a node before moving on to their neighbors. Using a queue ensures that nodes are explored in order of distance from the start; return the set of all reachable nodes.
+    </p>
+    <p class="fr">
+      Parcourir un graphe couche par couche, en visitant tous les voisins d'un nœud avant de passer aux voisins suivants. L'utilisation d'une file garantit que les nœuds sont explorés par ordre de distance au nœud de départ ; renvoyer l'ensemble des nœuds accessibles.
+    </p>
 
     <pre><code class="language-python">from collections import deque
 
@@ -265,6 +286,13 @@ def bfs(graph, start):
 
     <h3 class="en">Dijkstra's Algorithm</h3>
     <h3 class="fr">Algorithme de Dijkstra</h3>
+
+    <p class="en">
+      Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
+    </p>
+    <p class="fr">
+      Calculer la plus courte distance d'un nœud source à tous les autres nœuds d'un graphe à poids positifs. Un tas binaire est utilisé pour extraire à chaque étape le nœud non visité le plus proche et relâcher les distances de ses voisins ; renvoyer un dictionnaire associant chaque nœud accessible à sa plus courte distance au nœud de départ.
+    </p>
 
     <pre><code class="language-python">from heapq import heappop, heappush
 
@@ -285,11 +313,25 @@ def dijkstra(graph, start):
     <h3 class="en">Check if an integer is odd</h3>
     <h3 class="fr">Vérifier qu'un entier est impair</h3>
 
+    <p class="en">
+      Return a truthy value if <code>n</code> is odd and a falsy value otherwise. The remainder of <code>n</code> divided by <code>2</code> is <code>1</code> for odd integers and <code>0</code> for even ones.
+    </p>
+    <p class="fr">
+      Renvoyer une valeur vraie si <code>n</code> est impair, et une valeur fausse sinon. Le reste de la division de <code>n</code> par <code>2</code> vaut <code>1</code> pour les entiers impairs et <code>0</code> pour les pairs.
+    </p>
+
     <pre><code class="language-python">def is_odd(n):
     return n % 2</code></pre>
 
     <h3 class="en">FizzBuzz</h3>
     <h3 class="fr">FizzBuzz</h3>
+
+    <p class="en">
+      Given an integer <code>n</code>, return <code>"Fizz"</code> if it is divisible by <code>3</code>, <code>"Buzz"</code> if it is divisible by <code>5</code>, <code>"FizzBuzz"</code> if it is divisible by both, and the number itself as a string otherwise.
+    </p>
+    <p class="fr">
+      Étant donné un entier <code>n</code>, renvoyer <code>"Fizz"</code> s'il est divisible par <code>3</code>, <code>"Buzz"</code> s'il est divisible par <code>5</code>, <code>"FizzBuzz"</code> s'il est divisible par les deux, et le nombre lui-même sous forme de chaîne sinon.
+    </p>
 
     <pre><code class="language-python">def fizz_buzz(n):
     result = ""
@@ -304,6 +346,13 @@ def dijkstra(graph, start):
     <h3 class="en">Fibonacci (iterative)</h3>
     <h3 class="fr">Fibonacci (itératif)</h3>
 
+    <p class="en">
+      Return the <code>n</code>-th term of the Fibonacci sequence using an iterative loop. Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.
+    </p>
+    <p class="fr">
+      Renvoyer le <code>n</code>-ième terme de la suite de Fibonacci à l'aide d'une boucle itérative. Seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.
+    </p>
+
     <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
     for i in range(n):
@@ -314,10 +363,10 @@ def dijkstra(graph, start):
     <h3 class="fr">Longueur d'une suite de Collatz</h3>
 
     <p class="en">
-      The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise.
+      The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise. Starting from <code>n</code>, the function is iterated until the sequence reaches <code>1</code>; return the number of steps required.
     </p>
     <p class="fr">
-      La fonction de Collatz est définie par <code>f(n) = 3n + 1</code> si <code>n</code> est impair, et <code>n // 2</code> sinon.
+      La fonction de Collatz est définie par <code>f(n) = 3n + 1</code> si <code>n</code> est impair, et <code>n // 2</code> sinon. À partir de <code>n</code>, la fonction est itérée jusqu'à ce que la suite atteigne <code>1</code> ; renvoyer le nombre d'étapes nécessaires.
     </p>
 
     <pre><code class="language-python">def collatz(n):
@@ -332,6 +381,13 @@ def collatz_sequence_length(n):
 
     <h3 class="en">Count paths in a grid (combinatorial)</h3>
     <h3 class="fr">Compter les chemins dans une grille (combinatoire)</h3>
+
+    <p class="en">
+      Same problem as in the dynamic programming section: count the paths from the bottom-left to the top-right of an <code>n × n</code> grid using only right and up moves. Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves; the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.
+    </p>
+    <p class="fr">
+      Même problème que dans la section programmation dynamique : compter les chemins du coin inférieur gauche au coin supérieur droit d'une grille <code>n × n</code> en n'utilisant que des déplacements vers la droite et vers le haut. Un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut ; le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.
+    </p>
 
     <pre><code class="language-python">from math import comb
 
