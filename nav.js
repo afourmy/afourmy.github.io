@@ -28,9 +28,9 @@
     ]},
     { en: "Computer Science", fr: "Informatique", columns: [
       [
+        { href: "cs/algorithmics.html", en: "Algorithmics", fr: "Algorithmique" },
         { href: "cs/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
         { href: "cs/graph-theory.html", en: "Graph Theory", fr: "Théorie des graphes" },
-        { href: "cs/algorithmics.html", en: "Algorithmics", fr: "Algorithmique" },
       ]
     ]},
     { en: "Bioinformatics", fr: "Bio-informatique", columns: [
