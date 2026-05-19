@@ -178,22 +178,6 @@ def count_characters(input):
       Cette section couvre à la fois la programmation dynamique ascendante et la récursion mémoïsée descendante. Ce sont deux formulations duales d'une même idée : un problème est décomposé en sous-problèmes qui se chevauchent et dont les solutions sont réutilisées plutôt que recalculées. La programmation dynamique ascendante remplit un tableau de manière itérative à partir des cas de base, tandis que la récursion mémoïsée exprime directement la même récurrence et met en cache les résultats à mesure qu'ils sont calculés. Le choix entre les deux est affaire de style et de commodité ; l'algorithme sous-jacent, ainsi que sa complexité, sont les mêmes.
     </p>
 
-    <h3 class="en">Fibonacci with memoization</h3>
-    <h3 class="fr">Fibonacci avec mémoïsation</h3>
-
-    <p class="en">
-      The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result makes the function run in linear time.
-    </p>
-    <p class="fr">
-      La suite de Fibonacci est définie par <code>F(0) = 0</code>, <code>F(1) = 1</code>, et <code>F(n) = F(n - 1) + F(n - 2)</code>. Une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.
-    </p>
-
-    <pre><code class="language-python">from functools import cache
-
-@cache
-def fibonacci(n):
-    return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
-
     <h3 class="en">Count paths in a grid</h3>
     <h3 class="fr">Compter les chemins dans une grille</h3>
 
@@ -343,21 +327,33 @@ def dijkstra(graph, start):
         result = str(n)
     return result</code></pre>
 
-    <h3 class="en">Fibonacci (iterative)</h3>
-    <h3 class="fr">Fibonacci (itératif)</h3>
+    <h3 class="en">Fibonacci</h3>
+    <h3 class="fr">Fibonacci</h3>
 
     <p class="en">
-      Return the <code>n</code>-th term of the Fibonacci sequence using an iterative loop. Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.
+      The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. Return the <code>n</code>-th term of the sequence.
     </p>
     <p class="fr">
-      Renvoyer le <code>n</code>-ième terme de la suite de Fibonacci à l'aide d'une boucle itérative. Seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.
+      La suite de Fibonacci est définie par <code>F(0) = 0</code>, <code>F(1) = 1</code>, et <code>F(n) = F(n - 1) + F(n - 2)</code>. Renvoyer le <code>n</code>-ième terme de la suite.
     </p>
+
+    <p class="en">Iterative version: only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
+    <p class="fr">Version itérative : seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.</p>
 
     <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
         a, b = b, a + b
     return a</code></pre>
+
+    <p class="en">Recursive version with memoization: a naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
+    <p class="fr">Version récursive avec mémoïsation : une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.</p>
+
+    <pre><code class="language-python">from functools import cache
+
+@cache
+def fibonacci(n):
+    return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
 
     <h3 class="en">Length of a Collatz sequence</h3>
     <h3 class="fr">Longueur d'une suite de Collatz</h3>
