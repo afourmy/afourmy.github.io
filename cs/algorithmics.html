@@ -355,7 +355,7 @@ def dijkstra(graph, start):
 
     <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
-    for i in range(n):
+    for _ in range(n):
         a, b = b, a + b
     return a</code></pre>
 
@@ -419,9 +419,7 @@ def count_paths(n):
     <pre><code class="language-python">def hamming_weight(n):
     weight = 0
     while n > 0:
-        # increment weight if the rightmost bit is 1
-        weight += n & 1 == 1
-        # right-shift the number by 1 to move to the next bit
+        weight += n & 1
         n >>= 1
     return weight</code></pre>
   </main>
