@@ -14,6 +14,9 @@
       ]
     });"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
   <link rel="stylesheet" href="../style.css">
 </head>
 <body>
@@ -23,17 +26,149 @@
     <h2 class="en">Arrays and Strings</h2>
     <h2 class="fr">Tableaux et chaînes</h2>
 
+    <h3 class="en">Check if a string is a palindrome</h3>
+    <h3 class="fr">Vérifier qu'une chaîne est un palindrome</h3>
+
+    <pre><code class="language-python">def is_palindrome(input: str) -> bool:
+    return input == input[::-1]</code></pre>
+
+    <h3 class="en">Count occurrences of a character</h3>
+    <h3 class="fr">Compter les occurrences d'un caractère</h3>
+
+    <pre><code class="language-python">def count_char(input: str, target: str) -> int:
+    return sum(char == target for char in input)</code></pre>
+
+    <h3 class="en">Reverse an array in place</h3>
+    <h3 class="fr">Inverser un tableau sur place</h3>
+
+    <pre><code class="language-python">def reverse_in_place(array):
+    left, right = 0, len(array) - 1
+    while left < right:
+        array[left], array[right] = array[right], array[left]
+        left += 1
+        right -= 1</code></pre>
+
+    <h3 class="en">Count ones in a binary matrix</h3>
+    <h3 class="fr">Compter les uns dans une matrice binaire</h3>
+
+    <pre><code class="language-python">def count_ones(matrix: List[List[int]]) -> int:
+    return sum(map(sum, matrix))</code></pre>
+
     <h2 class="en">Hashing</h2>
     <h2 class="fr">Hachage</h2>
 
+    <h3 class="en">Two Sum</h3>
+    <h3 class="fr">Problème des deux sommes</h3>
+
+    <p class="en">
+      Given an array of integers and a target integer, return the indices of the two numbers that add up to the target.
+    </p>
+    <p class="fr">
+      Étant donné un tableau d'entiers et un entier cible, renvoyer les indices des deux nombres dont la somme vaut la cible.
+    </p>
+
+    <pre><code class="language-python">def two_sum(array: List[int], target: int) -> List[int]:
+    seen: Dict[int, int] = {}
+    for index, value in enumerate(array):
+        remaining = target - value
+        if remaining in seen:
+            return [index, seen[remaining]]
+        seen[value] = index</code></pre>
+
+    <h3 class="en">Count occurrences of all characters</h3>
+    <h3 class="fr">Compter les occurrences de tous les caractères</h3>
+
+    <pre><code class="language-python">def count_characters(input: str) -> Dict[str, int]:
+    count: Dict[str, int] = {}
+    for char in input:
+        count[char] = count.get(char, 0) + 1
+    return count</code></pre>
+
+    <p class="en">With <code>collections.Counter</code>:</p>
+    <p class="fr">Avec <code>collections.Counter</code> :</p>
+
+    <pre><code class="language-python">from collections import Counter
+
+def count_characters(input: str) -> Counter[str]:
+    return Counter(input)</code></pre>
+
+    <h3 class="en">Check if two strings are anagrams</h3>
+    <h3 class="fr">Vérifier que deux chaînes sont des anagrammes</h3>
+
+    <pre><code class="language-python">def are_anagrams(str1: str, str2: str) -> bool:
+    return len(str1) == len(str2) and Counter(str1) == Counter(str2)</code></pre>
+
     <h2 class="en">Sorting and Searching</h2>
     <h2 class="fr">Tri et recherche</h2>
+
+    <h3 class="en">Binary Search</h3>
+    <h3 class="fr">Recherche dichotomique</h3>
+
+    <p class="en">
+      Given an array of integers sorted in ascending order and an integer target, return the index of the target or <code>-1</code> if it does not exist.
+    </p>
+    <p class="fr">
+      Étant donné un tableau d'entiers trié dans l'ordre croissant et un entier cible, renvoyer l'indice de la cible ou <code>-1</code> si elle est absente.
+    </p>
+
+    <pre><code class="language-python">def search(array, target):
+    left, right = 0, len(array) - 1
+    while left <= right:
+        middle = left + (right - left) // 2
+        if array[middle] < target:
+            left = middle + 1
+        elif array[middle] > target:
+            right = middle - 1
+        else:
+            return middle
+    return -1</code></pre>
 
     <h2 class="en">Recursion and Backtracking</h2>
     <h2 class="fr">Récursion et retour sur trace</h2>
 
     <h2 class="en">Dynamic Programming</h2>
     <h2 class="fr">Programmation dynamique</h2>
+
+    <h3 class="en">Fibonacci with memoization</h3>
+    <h3 class="fr">Fibonacci avec mémoïsation</h3>
+
+    <pre><code class="language-python">from functools import cache
+
+@cache
+def fibonacci(n):
+    return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
+
+    <h3 class="en">Count paths in a grid</h3>
+    <h3 class="fr">Compter les chemins dans une grille</h3>
+
+    <p class="en">
+      Count all possible paths from the bottom-left to the top-right of an <code>n × n</code> grid, moving only right or up.
+    </p>
+    <p class="fr">
+      Compter tous les chemins possibles du coin inférieur gauche au coin supérieur droit d'une grille <code>n × n</code>, en se déplaçant uniquement vers la droite ou vers le haut.
+    </p>
+
+    <p class="en">Bottom-up dynamic programming:</p>
+    <p class="fr">Programmation dynamique ascendante :</p>
+
+    <pre><code class="language-python">def count_paths(n: int) -> int:
+    dp = [[0 if i and j else 1 for i in range(n)] for j in range(n)]
+    for i in range(1, n):
+        for j in range(1, n):
+            dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+    return dp[n - 1][n - 1]</code></pre>
+
+    <p class="en">Top-down recursion with memoization:</p>
+    <p class="fr">Récursion descendante avec mémoïsation :</p>
+
+    <pre><code class="language-python">from functools import cache
+
+def count_paths(n: int) -> int:
+    @cache
+    def rec(i, j):
+        return 1 if not i or not j else rec(i - 1, j) + rec(i, j - 1)
+
+    return rec(n - 1, n - 1)</code></pre>
 
     <h2 class="en">Greedy Algorithms</h2>
     <h2 class="fr">Algorithmes gloutons</h2>
@@ -44,11 +179,146 @@
     <h2 class="en">Graphs</h2>
     <h2 class="fr">Graphes</h2>
 
+    <p class="en">
+      A graph is represented as a dictionary of nodes, where each node maps to its list of neighbors.
+    </p>
+    <p class="fr">
+      Un graphe est représenté comme un dictionnaire de nœuds, où chaque nœud est associé à la liste de ses voisins.
+    </p>
+
+    <h3 class="en">Depth-First Search</h3>
+    <h3 class="fr">Parcours en profondeur</h3>
+
+    <pre><code class="language-python">def dfs(graph, start):
+    visited, stack = set(), [start]
+    while stack:
+        node = stack.pop()
+        if node in visited:
+            continue
+        visited.add(node)
+        stack.extend(graph[node])
+    return visited</code></pre>
+
+    <h3 class="en">Breadth-First Search</h3>
+    <h3 class="fr">Parcours en largeur</h3>
+
+    <pre><code class="language-python">from collections import deque
+
+def bfs(graph, start):
+    visited, queue = set(), deque([start])
+    while queue:
+        node = queue.popleft()
+        if node in visited:
+            continue
+        visited.add(node)
+        queue.extend(graph[node])
+    return visited</code></pre>
+
+    <h3 class="en">Dijkstra's Algorithm</h3>
+    <h3 class="fr">Algorithme de Dijkstra</h3>
+
+    <pre><code class="language-python">from heapq import heappop, heappush
+
+def dijkstra(graph, start):
+    stack, result = [(0, start)], {}
+    while stack:
+        dist, node = heappop(stack)
+        if node in result:
+            continue
+        result[node] = dist
+        for neighbor, weight in graph[node].items():
+            heappush(stack, (dist + weight, neighbor))
+    return result</code></pre>
+
     <h2 class="en">Math and Number Theory</h2>
     <h2 class="fr">Mathématiques et théorie des nombres</h2>
 
+    <h3 class="en">Check if an integer is odd</h3>
+    <h3 class="fr">Vérifier qu'un entier est impair</h3>
+
+    <pre><code class="language-python">def is_odd(n: int) -> bool:
+    return n % 2</code></pre>
+
+    <h3 class="en">FizzBuzz</h3>
+    <h3 class="fr">FizzBuzz</h3>
+
+    <pre><code class="language-python">def fizz_buzz(n):
+    result = ""
+    if n % 3 == 0:
+        result += "Fizz"
+    if n % 5 == 0:
+        result += "Buzz"
+    if not result:
+        result = str(n)
+    return result</code></pre>
+
+    <h3 class="en">Fibonacci (iterative)</h3>
+    <h3 class="fr">Fibonacci (itératif)</h3>
+
+    <pre><code class="language-python">def fibonacci(n: int) -> int:
+    a, b = 0, 1
+    for i in range(n):
+        a, b = b, a + b
+    return a</code></pre>
+
+    <h3 class="en">Length of a Collatz sequence</h3>
+    <h3 class="fr">Longueur d'une suite de Collatz</h3>
+
+    <p class="en">
+      The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise.
+    </p>
+    <p class="fr">
+      La fonction de Collatz est définie par <code>f(n) = 3n + 1</code> si <code>n</code> est impair, et <code>n // 2</code> sinon.
+    </p>
+
+    <pre><code class="language-python">def collatz(n: int) -> int:
+    return 3 * n + 1 if n % 2 else n // 2
+
+def collatz_sequence_length(n: int) -> int:
+    count: int = 0
+    while n > 1:
+        n = collatz(n)
+        count += 1
+    return count</code></pre>
+
+    <h3 class="en">Count paths in a grid (combinatorial)</h3>
+    <h3 class="fr">Compter les chemins dans une grille (combinatoire)</h3>
+
+    <pre><code class="language-python">from math import comb
+
+def count_paths(n: int) -> int:
+    return comb(2 * n - 2, n - 1)</code></pre>
+
     <h2 class="en">Bit Manipulation</h2>
     <h2 class="fr">Manipulation de bits</h2>
+
+    <h3 class="en">Hamming weight</h3>
+    <h3 class="fr">Poids de Hamming</h3>
+
+    <p class="en">
+      The Hamming weight of an integer is the number of <code>1</code>s in its binary representation.
+    </p>
+    <p class="fr">
+      Le poids de Hamming d'un entier est le nombre de <code>1</code> dans sa représentation binaire.
+    </p>
+
+    <p class="en">Using the built-in <code>bin</code>:</p>
+    <p class="fr">Avec la fonction native <code>bin</code> :</p>
+
+    <pre><code class="language-python">def hamming_weight(n: int) -> int:
+    return bin(n)[2:].count("1")</code></pre>
+
+    <p class="en">Using the bitwise right-shift operator:</p>
+    <p class="fr">Avec l'opérateur de décalage binaire à droite :</p>
+
+    <pre><code class="language-python">def hamming_weight(n: int) -> int:
+    weight: int = 0
+    while n > 0:
+        # increment weight if the rightmost bit is 1
+        weight += n & 1 == 1
+        # right-shift the number by 1 to move to the next bit
+        n >>= 1
+    return weight</code></pre>
   </main>
 
   <script>
