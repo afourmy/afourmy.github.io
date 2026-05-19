@@ -113,9 +113,9 @@
       Étant donné une chaîne, renvoyer un dictionnaire associant chaque caractère au nombre de fois où il apparaît dans la chaîne.
     </p>
 
-    <pre><code class="language-python">def count_characters(input):
+    <pre><code class="language-python">def count_characters(s):
     count = {}
-    for char in input:
+    for char in s:
         count[char] = count.get(char, 0) + 1
     return count</code></pre>
 
@@ -124,8 +124,8 @@
 
     <pre><code class="language-python">from collections import Counter
 
-def count_characters(input):
-    return Counter(input)</code></pre>
+def count_characters(s):
+    return Counter(s)</code></pre>
 
     <h3 class="en">Check if two strings are anagrams</h3>
     <h3 class="fr">Vérifier que deux chaînes sont des anagrammes</h3>
