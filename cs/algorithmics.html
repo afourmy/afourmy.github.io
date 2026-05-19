@@ -153,6 +153,28 @@ def count_characters(input):
       Étant donné un tableau d'entiers trié dans l'ordre croissant et un entier cible, renvoyer l'indice de la cible ou <code>-1</code> si elle est absente.
     </p>
 
+    <ul class="en">
+      <li>When computing the middle index, we generally use <code>left + (right - left) // 2</code> instead of <code>(left + right) // 2</code> to avoid integer overflow problems.</li>
+      <li>It is best not to use a strict inequality because:
+        <ul>
+          <li>we exit the loop before the case <code>left == right</code>, so we need to check whether the middle index is the target after the loop.</li>
+          <li>we have <code>left = middle + 1</code> and <code>right = middle</code>.</li>
+        </ul>
+      </li>
+      <li>It is better to use <code>&lt;=</code> instead, where <code>left = middle + 1</code> and <code>right = middle - 1</code>.</li>
+    </ul>
+
+    <ul class="fr">
+      <li>Pour calculer l'indice du milieu, on utilise généralement <code>left + (right - left) // 2</code> plutôt que <code>(left + right) // 2</code> afin d'éviter les problèmes de dépassement entier.</li>
+      <li>Il vaut mieux ne pas utiliser une inégalité stricte car :
+        <ul>
+          <li>on sort de la boucle avant le cas <code>left == right</code>, il faut donc vérifier après la boucle si l'indice du milieu est la cible.</li>
+          <li>on a <code>left = middle + 1</code> et <code>right = middle</code>.</li>
+        </ul>
+      </li>
+      <li>Il est préférable d'utiliser <code>&lt;=</code>, avec <code>left = middle + 1</code> et <code>right = middle - 1</code>.</li>
+    </ul>
+
     <pre><code class="language-python">def search(array, target):
     left, right = 0, len(array) - 1
     while left <= right:
@@ -165,6 +187,13 @@ def count_characters(input):
             return middle
     return -1</code></pre>
 
+    <p class="en">With the <code>bisect</code> module from the standard library:</p>
+    <p class="fr">Avec le module <code>bisect</code> de la bibliothèque standard :</p>
+
+    <pre><code class="language-python">from bisect import bisect_left
+
+index = bisect_left(array, target)</code></pre>
+
     <h2 class="en">Recursion and Backtracking</h2>
     <h2 class="fr">Récursion et retour sur trace</h2>
 
@@ -175,7 +204,7 @@ def count_characters(input):
       This section covers both bottom-up dynamic programming and top-down memoized recursion. The two are dual formulations of the same idea: a problem is decomposed into overlapping subproblems whose solutions are reused rather than recomputed. Bottom-up DP fills a table iteratively from the base cases up, while memoized recursion expresses the same recurrence directly and caches results as they are computed.
     </p>
     <p class="fr">
-      Cette section couvre à la fois la programmation dynamique ascendante et la récursion mémoïsée descendante. Ce sont deux formulations duales d'une même idée : un problème est décomposé en sous-problèmes qui se chevauchent et dont les solutions sont réutilisées plutôt que recalculées. La programmation dynamique ascendante remplit un tableau de manière itérative à partir des cas de base, tandis que la récursion mémoïsée exprime directement la même récurrence et met en cache les résultats à mesure qu'ils sont calculés. Le choix entre les deux est affaire de style et de commodité ; l'algorithme sous-jacent, ainsi que sa complexité, sont les mêmes.
+      Cette section couvre à la fois la programmation dynamique ascendante et la récursion mémoïsée descendante. Ce sont deux formulations duales d'une même idée : un problème est décomposé en sous-problèmes qui se chevauchent et dont les solutions sont réutilisées plutôt que recalculées. La programmation dynamique ascendante remplit un tableau de manière itérative à partir des cas de base, tandis que la récursion mémoïsée exprime directement la même récurrence et met en cache les résultats à mesure qu'ils sont calculés.
     </p>
 
     <h3 class="en">Count paths in a grid</h3>
@@ -209,6 +238,14 @@ def count_paths(n):
         return 1 if not i or not j else rec(i - 1, j) + rec(i, j - 1)
 
     return rec(n - 1, n - 1)</code></pre>
+
+    <p class="en">Closed-form combinatorial solution: any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
+    <p class="fr">Solution combinatoire en forme close : un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut, donc le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.</p>
+
+    <pre><code class="language-python">from math import comb
+
+def count_paths(n):
+    return comb(2 * n - 2, n - 1)</code></pre>
 
     <h2 class="en">Greedy Algorithms</h2>
     <h2 class="fr">Algorithmes gloutons</h2>
@@ -374,21 +411,6 @@ def collatz_sequence_length(n):
         n = collatz(n)
         count += 1
     return count</code></pre>
-
-    <h3 class="en">Count paths in a grid (combinatorial)</h3>
-    <h3 class="fr">Compter les chemins dans une grille (combinatoire)</h3>
-
-    <p class="en">
-      Same problem as in the dynamic programming section: count the paths from the bottom-left to the top-right of an <code>n × n</code> grid using only right and up moves. Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves; the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.
-    </p>
-    <p class="fr">
-      Même problème que dans la section programmation dynamique : compter les chemins du coin inférieur gauche au coin supérieur droit d'une grille <code>n × n</code> en n'utilisant que des déplacements vers la droite et vers le haut. Un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut ; le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.
-    </p>
-
-    <pre><code class="language-python">from math import comb
-
-def count_paths(n):
-    return comb(2 * n - 2, n - 1)</code></pre>
 
     <h2 class="en">Bit Manipulation</h2>
     <h2 class="fr">Manipulation de bits</h2>
