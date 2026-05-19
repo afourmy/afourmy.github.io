@@ -30,10 +30,8 @@
       [
         { href: "cs/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
         { href: "cs/graph-theory.html", en: "Graph Theory", fr: "Théorie des graphes" },
+        { href: "cs/algorithmics.html", en: "Algorithmics", fr: "Algorithmique" },
       ]
-    ]},
-    { en: "Algorithmics", fr: "Algorithmique", columns: [
-      []
     ]},
     { en: "Bioinformatics", fr: "Bio-informatique", columns: [
       [
