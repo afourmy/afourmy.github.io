@@ -29,17 +29,38 @@
     <h3 class="en">Check if a string is a palindrome</h3>
     <h3 class="fr">Vérifier qu'une chaîne est un palindrome</h3>
 
+    <p class="en">
+      Return <code>True</code> if the input string reads the same forwards and backwards, <code>False</code> otherwise.
+    </p>
+    <p class="fr">
+      Renvoyer <code>True</code> si la chaîne d'entrée se lit de la même manière de gauche à droite et de droite à gauche, <code>False</code> sinon.
+    </p>
+
     <pre><code class="language-python">def is_palindrome(input):
     return input == input[::-1]</code></pre>
 
     <h3 class="en">Count occurrences of a character</h3>
     <h3 class="fr">Compter les occurrences d'un caractère</h3>
 
+    <p class="en">
+      Given a string and a target character, return the number of times the target appears in the string.
+    </p>
+    <p class="fr">
+      Étant donné une chaîne et un caractère cible, renvoyer le nombre de fois où la cible apparaît dans la chaîne.
+    </p>
+
     <pre><code class="language-python">def count_char(input, target):
     return sum(char == target for char in input)</code></pre>
 
     <h3 class="en">Reverse an array in place</h3>
     <h3 class="fr">Inverser un tableau sur place</h3>
+
+    <p class="en">
+      Reverse the order of an array's elements in place, without allocating a new array. Two pointers start at the ends and swap elements, moving towards the middle.
+    </p>
+    <p class="fr">
+      Inverser l'ordre des éléments d'un tableau sur place, sans allouer un nouveau tableau. Deux pointeurs partent des extrémités et échangent les éléments en se rejoignant au centre.
+    </p>
 
     <pre><code class="language-python">def reverse_in_place(array):
     left, right = 0, len(array) - 1
@@ -50,6 +71,13 @@
 
     <h3 class="en">Count ones in a binary matrix</h3>
     <h3 class="fr">Compter les uns dans une matrice binaire</h3>
+
+    <p class="en">
+      Given a matrix filled with <code>0</code>s and <code>1</code>s, return the total number of <code>1</code>s.
+    </p>
+    <p class="fr">
+      Étant donné une matrice remplie de <code>0</code> et de <code>1</code>, renvoyer le nombre total de <code>1</code>.
+    </p>
 
     <pre><code class="language-python">def count_ones(matrix):
     return sum(map(sum, matrix))</code></pre>
@@ -78,6 +106,13 @@
     <h3 class="en">Count occurrences of all characters</h3>
     <h3 class="fr">Compter les occurrences de tous les caractères</h3>
 
+    <p class="en">
+      Given a string, return a dictionary mapping each character to the number of times it appears in the string.
+    </p>
+    <p class="fr">
+      Étant donné une chaîne, renvoyer un dictionnaire associant chaque caractère au nombre de fois où il apparaît dans la chaîne.
+    </p>
+
     <pre><code class="language-python">def count_characters(input):
     count = {}
     for char in input:
@@ -94,6 +129,13 @@ def count_characters(input):
 
     <h3 class="en">Check if two strings are anagrams</h3>
     <h3 class="fr">Vérifier que deux chaînes sont des anagrammes</h3>
+
+    <p class="en">
+      Two strings are anagrams if one is a rearrangement of the other. Return <code>True</code> if and only if both strings have the same length and the same character counts.
+    </p>
+    <p class="fr">
+      Deux chaînes sont des anagrammes si l'une est une permutation des caractères de l'autre. Renvoyer <code>True</code> si et seulement si les deux chaînes ont la même longueur et les mêmes occurrences de caractères.
+    </p>
 
     <pre><code class="language-python">def are_anagrams(str1, str2):
     return len(str1) == len(str2) and Counter(str1) == Counter(str2)</code></pre>
