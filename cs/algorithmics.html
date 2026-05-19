@@ -158,7 +158,7 @@ def fibonacci(n):
     <p class="en">Bottom-up dynamic programming:</p>
     <p class="fr">Programmation dynamique ascendante :</p>
 
-    <pre><code class="language-python">def count_paths(n: int) -> int:
+    <pre><code class="language-python">def count_paths(n):
     dp = [[0 if i and j else 1 for i in range(n)] for j in range(n)]
     for i in range(1, n):
         for j in range(1, n):
@@ -170,7 +170,7 @@ def fibonacci(n):
 
     <pre><code class="language-python">from functools import cache
 
-def count_paths(n: int) -> int:
+def count_paths(n):
     @cache
     def rec(i, j):
         return 1 if not i or not j else rec(i - 1, j) + rec(i, j - 1)
@@ -243,7 +243,7 @@ def dijkstra(graph, start):
     <h3 class="en">Check if an integer is odd</h3>
     <h3 class="fr">Vérifier qu'un entier est impair</h3>
 
-    <pre><code class="language-python">def is_odd(n: int) -> bool:
+    <pre><code class="language-python">def is_odd(n):
     return n % 2</code></pre>
 
     <h3 class="en">FizzBuzz</h3>
@@ -262,7 +262,7 @@ def dijkstra(graph, start):
     <h3 class="en">Fibonacci (iterative)</h3>
     <h3 class="fr">Fibonacci (itératif)</h3>
 
-    <pre><code class="language-python">def fibonacci(n: int) -> int:
+    <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
     for i in range(n):
         a, b = b, a + b
@@ -278,11 +278,11 @@ def dijkstra(graph, start):
       La fonction de Collatz est définie par <code>f(n) = 3n + 1</code> si <code>n</code> est impair, et <code>n // 2</code> sinon.
     </p>
 
-    <pre><code class="language-python">def collatz(n: int) -> int:
+    <pre><code class="language-python">def collatz(n):
     return 3 * n + 1 if n % 2 else n // 2
 
-def collatz_sequence_length(n: int) -> int:
-    count: int = 0
+def collatz_sequence_length(n):
+    count = 0
     while n > 1:
         n = collatz(n)
         count += 1
@@ -293,7 +293,7 @@ def collatz_sequence_length(n: int) -> int:
 
     <pre><code class="language-python">from math import comb
 
-def count_paths(n: int) -> int:
+def count_paths(n):
     return comb(2 * n - 2, n - 1)</code></pre>
 
     <h2 class="en">Bit Manipulation</h2>
@@ -312,14 +312,14 @@ def count_paths(n: int) -> int:
     <p class="en">Using the built-in <code>bin</code>:</p>
     <p class="fr">Avec la fonction native <code>bin</code> :</p>
 
-    <pre><code class="language-python">def hamming_weight(n: int) -> int:
+    <pre><code class="language-python">def hamming_weight(n):
     return bin(n)[2:].count("1")</code></pre>
 
     <p class="en">Using the bitwise right-shift operator:</p>
     <p class="fr">Avec l'opérateur de décalage binaire à droite :</p>
 
-    <pre><code class="language-python">def hamming_weight(n: int) -> int:
-    weight: int = 0
+    <pre><code class="language-python">def hamming_weight(n):
+    weight = 0
     while n > 0:
         # increment weight if the rightmost bit is 1
         weight += n & 1 == 1
