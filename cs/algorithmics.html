@@ -113,14 +113,17 @@
       Étant donné une chaîne, renvoyer un dictionnaire associant chaque caractère au nombre de fois où il apparaît dans la chaîne.
     </p>
 
+    <h4 class="en">Manual counting</h4>
+    <h4 class="fr">Comptage manuel</h4>
+
     <pre><code class="language-python">def count_characters(s):
     count = {}
     for char in s:
         count[char] = count.get(char, 0) + 1
     return count</code></pre>
 
-    <p class="en">With <code>collections.Counter</code>:</p>
-    <p class="fr">Avec <code>collections.Counter</code> :</p>
+    <h4 class="en">With <code>collections.Counter</code></h4>
+    <h4 class="fr">Avec <code>collections.Counter</code></h4>
 
     <pre><code class="language-python">from collections import Counter
 
@@ -152,6 +155,9 @@ def count_characters(s):
     <p class="fr">
       Étant donné un tableau d'entiers trié dans l'ordre croissant et un entier cible, renvoyer l'indice de la cible ou <code>-1</code> si elle est absente.
     </p>
+
+    <h4 class="en">Manual implementation</h4>
+    <h4 class="fr">Implémentation manuelle</h4>
 
     <ul class="en">
       <li>When computing the middle index, we generally use <code>left + (right - left) // 2</code> instead of <code>(left + right) // 2</code> to avoid integer overflow problems.</li>
@@ -187,8 +193,8 @@ def count_characters(s):
             return middle
     return -1</code></pre>
 
-    <p class="en">With the <code>bisect</code> module from the standard library:</p>
-    <p class="fr">Avec le module <code>bisect</code> de la bibliothèque standard :</p>
+    <h4 class="en">With the <code>bisect</code> module</h4>
+    <h4 class="fr">Avec le module <code>bisect</code></h4>
 
     <pre><code class="language-python">from bisect import bisect_left
 
@@ -217,8 +223,8 @@ index = bisect_left(array, target)</code></pre>
       Compter tous les chemins possibles du coin inférieur gauche au coin supérieur droit d'une grille <code>n × n</code>, en se déplaçant uniquement vers la droite ou vers le haut.
     </p>
 
-    <p class="en">Bottom-up dynamic programming:</p>
-    <p class="fr">Programmation dynamique ascendante :</p>
+    <h4 class="en">Bottom-up dynamic programming</h4>
+    <h4 class="fr">Programmation dynamique ascendante</h4>
 
     <pre><code class="language-python">def count_paths(n):
     dp = [[0 if i and j else 1 for i in range(n)] for j in range(n)]
@@ -227,8 +233,8 @@ index = bisect_left(array, target)</code></pre>
             dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
     return dp[n - 1][n - 1]</code></pre>
 
-    <p class="en">Top-down recursion with memoization:</p>
-    <p class="fr">Récursion descendante avec mémoïsation :</p>
+    <h4 class="en">Top-down recursion with memoization</h4>
+    <h4 class="fr">Récursion descendante avec mémoïsation</h4>
 
     <pre><code class="language-python">from functools import cache
 
@@ -239,8 +245,11 @@ def count_paths(n):
 
     return rec(n - 1, n - 1)</code></pre>
 
-    <p class="en">Closed-form combinatorial solution: any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
-    <p class="fr">Solution combinatoire en forme close : un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut, donc le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.</p>
+    <h4 class="en">Closed-form combinatorial solution</h4>
+    <h4 class="fr">Solution combinatoire en forme close</h4>
+
+    <p class="en">Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
+    <p class="fr">Un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut, donc le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.</p>
 
     <pre><code class="language-python">from math import comb
 
