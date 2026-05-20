@@ -383,8 +383,11 @@ def dijkstra(graph, start):
       La suite de Fibonacci est définie par <code>F(0) = 0</code>, <code>F(1) = 1</code>, et <code>F(n) = F(n - 1) + F(n - 2)</code>. Renvoyer le <code>n</code>-ième terme de la suite.
     </p>
 
-    <p class="en">Iterative version: only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
-    <p class="fr">Version itérative : seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.</p>
+    <h4 class="en">Iterative</h4>
+    <h4 class="fr">Itérative</h4>
+
+    <p class="en">Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
+    <p class="fr">Seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.</p>
 
     <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
@@ -392,8 +395,11 @@ def dijkstra(graph, start):
         a, b = b, a + b
     return a</code></pre>
 
-    <p class="en">Recursive version with memoization: a naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
-    <p class="fr">Version récursive avec mémoïsation : une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.</p>
+    <h4 class="en">Recursive with memoization</h4>
+    <h4 class="fr">Récursive avec mémoïsation</h4>
+
+    <p class="en">A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
+    <p class="fr">Une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.</p>
 
     <pre><code class="language-python">from functools import cache
 
@@ -434,14 +440,14 @@ def collatz_sequence_length(n):
       Le poids de Hamming d'un entier est le nombre de <code>1</code> dans sa représentation binaire.
     </p>
 
-    <p class="en">Using the built-in <code>bin</code>:</p>
-    <p class="fr">Avec la fonction native <code>bin</code> :</p>
+    <h4 class="en">With the built-in <code>bin</code></h4>
+    <h4 class="fr">Avec la fonction native <code>bin</code></h4>
 
     <pre><code class="language-python">def hamming_weight(n):
     return bin(n)[2:].count("1")</code></pre>
 
-    <p class="en">Using the bitwise right-shift operator:</p>
-    <p class="fr">Avec l'opérateur de décalage binaire à droite :</p>
+    <h4 class="en">With the bitwise right-shift operator</h4>
+    <h4 class="fr">Avec l'opérateur de décalage binaire à droite</h4>
 
     <pre><code class="language-python">def hamming_weight(n):
     weight = 0

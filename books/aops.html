@@ -899,6 +899,29 @@
       $$\cos(3 \theta) = \cos^3 \theta - 3 \cos \theta (1 - \cos^2 \theta) = \mathbf{4 \cos^3 \theta - 3 \cos \theta}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $\omega$ be an $n$-th root of unity with $\omega \neq 1$. Show that $1 + \omega + \omega^2 + \cdots + \omega^{n-1} = 0$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>This is a geometric series with ratio $\omega \neq 1$, so
+      $$1 + \omega + \omega^2 + \cdots + \omega^{n-1} = \frac{1 - \omega^n}{1 - \omega}.$$
+      Since $\omega$ is an $n$-th root of unity, $\omega^n = 1$, so the numerator vanishes while the denominator $1 - \omega \neq 0$. Hence the sum is $\mathbf{0}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $\omega$ be a root of $x^3 - 1$. Find the product $(1 - \omega + \omega^2)(1 + \omega - \omega^2)$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Case $\omega = 1$:</em> the product is $(1)(1) = 1$.</p>
+      <p><em>Case $\omega \neq 1$ (a primitive cube root):</em> then $1 + \omega + \omega^2 = 0$, so $\omega^2 = -1 - \omega$. Substituting,
+      $$1 - \omega + \omega^2 = (1 + \omega + \omega^2) - 2\omega = -2\omega, \qquad 1 + \omega - \omega^2 = (1 + \omega + \omega^2) - 2\omega^2 = -2\omega^2.$$
+      Hence the product is $(-2\omega)(-2\omega^2) = 4\omega^3 = 4$ (using $\omega^3 = 1$).</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
