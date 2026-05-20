@@ -567,7 +567,7 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Find the product of the $n$-th roots of unity.</p>
+      <p><span class="thm-label">Exercise.</span> Find the product of the $n$-th roots of unity, using Vieta's formula.</p>
     </div>
 
     <details class="proof">
@@ -920,6 +920,17 @@
       <p><em>Case $\omega \neq 1$ (a primitive cube root):</em> then $1 + \omega + \omega^2 = 0$, so $\omega^2 = -1 - \omega$. Substituting,
       $$1 - \omega + \omega^2 = (1 + \omega + \omega^2) - 2\omega = -2\omega, \qquad 1 + \omega - \omega^2 = (1 + \omega + \omega^2) - 2\omega^2 = -2\omega^2.$$
       Hence the product is $(-2\omega)(-2\omega^2) = 4\omega^3 = 4$ (using $\omega^3 = 1$).</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the product of the $n$-th roots of unity, using their complex form.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The $n$-th roots of unity are $\omega_k = e^{2\pi i k / n}$ for $k = 0, 1, \ldots, n-1$. Their product is
+      $$\prod_{k=0}^{n-1} e^{2\pi i k / n} = e^{\frac{2\pi i}{n} \sum_{k=0}^{n-1} k} = e^{\frac{2\pi i}{n} \cdot \frac{n(n-1)}{2}} = e^{\pi i (n-1)} = (-1)^{n-1} = (-1)^{n+1}.$$
+      So the product is $1$ if $n$ is odd, and $-1$ if $n$ is even.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
