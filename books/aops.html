@@ -929,8 +929,39 @@
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>The $n$-th roots of unity are $\omega_k = e^{2\pi i k / n}$ for $k = 0, 1, \ldots, n-1$. Their product is
-      $$\prod_{k=0}^{n-1} e^{2\pi i k / n} = e^{\frac{2\pi i}{n} \sum_{k=0}^{n-1} k} = e^{\frac{2\pi i}{n} \cdot \frac{n(n-1)}{2}} = e^{\pi i (n-1)} = (-1)^{n-1} = (-1)^{n+1}.$$
+      $$\prod_{k=0}^{n-1} e^{2\pi i k / n} = e^{\frac{2\pi i}{n} \sum_{k=0}^{n-1} k} = e^{\frac{2\pi i}{n} \cdot \frac{n(n-1)}{2}} = e^{\pi i (n-1)} = (-1)^{n+1}.$$
       So the product is $1$ if $n$ is odd, and $-1$ if $n$ is even.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Expand $(a + b + c)^3$ without multiplying out explicitly.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By the multinomial theorem,
+      $$(a + b + c)^3 = \sum_{i+j+k=3} \binom{3}{i,\,j,\,k} a^i b^j c^k, \qquad \binom{3}{i,\,j,\,k} = \frac{3!}{i!\,j!\,k!}.$$
+      Group the terms by the shape of $(i, j, k)$:</p>
+      <ul>
+        <li>$(3,0,0)$ and permutations: coefficient $\frac{3!}{3!} = 1$, giving $a^3 + b^3 + c^3$;</li>
+        <li>$(2,1,0)$ and permutations: coefficient $\frac{3!}{2!\,1!} = 3$, giving $3(a^2 b + a^2 c + b^2 a + b^2 c + c^2 a + c^2 b)$;</li>
+        <li>$(1,1,1)$: coefficient $\frac{3!}{1!\,1!\,1!} = 6$, giving $6abc$.</li>
+      </ul>
+      <p>Hence
+      $$(a + b + c)^3 = a^3 + b^3 + c^3 + 3(a^2 b + a^2 c + b^2 a + b^2 c + c^2 a + c^2 b) + 6abc.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find $x, y, z$ such that $x + y + z = 7$, $xy + yz + zx = -14$, and $xyz = -120$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The three quantities are the elementary symmetric sums of $x, y, z$, so by Vieta's formulas $x, y, z$ are the roots of
+      $$t^3 - 7 t^2 - 14 t + 120 = 0.$$
+      By the rational root theorem, any rational root divides $120$. Testing $t = 5$: $125 - 175 - 70 + 120 = 0$, so $t = 5$ is a root. Factoring,
+      $$t^3 - 7 t^2 - 14 t + 120 = (t - 5)(t^2 - 2 t - 24) = (t - 5)(t - 6)(t + 4).$$
+      Hence $\{x, y, z\} = \{5, 6, -4\}$ (in any order).</p>
     </details>
 
     <!-- Volume 2 content goes here -->
