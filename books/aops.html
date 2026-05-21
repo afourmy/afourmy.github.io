@@ -1071,6 +1071,19 @@
       which is the inequality. Equality holds iff $f$ has a real root, i.e. $a_i t + b_i = 0$ for all $i$ at some $t$, meaning the vectors $(a_i)$ and $(b_i)$ are proportional.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $\displaystyle \sum_{k=1}^{n} k^2 \geq \frac{\left( 1 + 2 + \cdots + n \right)^2}{n}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>We work backwards from the inequality, transforming it into an obviously true statement through reversible steps. Using the closed forms $\displaystyle \sum_{k=1}^n k = \frac{n(n+1)}{2}$ and $\displaystyle \sum_{k=1}^n k^2 = \frac{n(n+1)(2n+1)}{6}$, multiply both sides by $n \gt 0$. The claim is equivalent to:
+      $$n \sum_{k=1}^n k^2 \geq \left( \sum_{k=1}^n k \right)^2 \iff \frac{n^2(n+1)(2n+1)}{6} \geq \frac{n^2(n+1)^2}{4}.$$
+      Both sides share the positive factor $n^2(n+1)$; dividing it out gives the equivalent inequality
+      $$\frac{2n+1}{6} \geq \frac{n+1}{4} \iff 4(2n+1) \geq 6(n+1) \iff 8n + 4 \geq 6n + 6 \iff 2n \geq 2 \iff n \geq 1.$$
+      The final statement $n \geq 1$ holds for every positive integer, and since each step is an equivalence, the original inequality holds as well. (It is also a direct instance of Cauchy&ndash;Schwarz with $a_k = k$, $b_k = 1$: $\left(\sum k\right)^2 \leq \left(\sum k^2\right)\left(\sum 1\right) = n\sum k^2$.)</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
