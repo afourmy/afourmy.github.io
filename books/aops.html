@@ -1151,6 +1151,38 @@
       which is exactly $\mathrm{HM} \leq \mathrm{GM}$. Equality holds iff all the $\frac{1}{a_i}$ are equal, i.e. all the $a_i$ are equal.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $x, y$ be real numbers with $x^2 + y^2 = 1$. Find the maximum value of $(x + y)^2$, and the values of $x, y$ where it is attained.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Method 1 (AM&ndash;GM):</em> Expand using the constraint:
+      $$(x + y)^2 = x^2 + 2xy + y^2 = 1 + 2xy.$$
+      Since $x^2 + y^2 \geq 2xy$ for all reals (it rearranges to $(x - y)^2 \geq 0$), we have $2xy \leq x^2 + y^2 = 1$, so
+      $$(x + y)^2 = 1 + 2xy \leq 2.$$
+      Equality requires $x = y$; combined with $x^2 + y^2 = 1$ this gives $x = y = \pm\frac{1}{\sqrt 2}$. The maximum value is $\mathbf{2}$.</p>
+      <p><em>Method 2 (trigonometry):</em> Since $x^2 + y^2 = 1$, write $x = \cos\theta$, $y = \sin\theta$. Then
+      $$(x + y)^2 = (\cos\theta + \sin\theta)^2 = 1 + 2\sin\theta\cos\theta = 1 + \sin 2\theta.$$
+      Since $\sin 2\theta \leq 1$, we get $(x + y)^2 \leq 2$, with equality when $\sin 2\theta = 1$, i.e. $\theta = \frac{\pi}{4}$ (so $x = y = \frac{1}{\sqrt 2}$) or $\theta = \frac{5\pi}{4}$ (so $x = y = -\frac{1}{\sqrt 2}$). The maximum value is $\mathbf{2}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $x, y, z$ be positive reals with $xyz = 1$. Show that $\min(x + y, \, x + z, \, y + z)$ has no maximum value.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>It suffices to exhibit a family of valid $(x, y, z)$ on which the minimum grows without bound. For a parameter $t \gt 1$, take
+      $$x = y = t, \qquad z = \frac{1}{t^2},$$
+      which is positive and satisfies $xyz = t \cdot t \cdot \frac{1}{t^2} = 1$.</p>
+      <p>The three pairwise sums are
+      $$x + y = 2t, \qquad x + z = y + z = t + \frac{1}{t^2}.$$
+      For $t \gt 1$ we have $\frac{1}{t^2} \lt t$, so $t + \frac{1}{t^2} \lt 2t$, and therefore
+      $$\min(x + y, \, x + z, \, y + z) = t + \frac{1}{t^2} \gt t.$$
+      As $t \to \infty$ this exceeds any fixed bound, so $\min(x + y, x + z, y + z)$ is unbounded above and has no maximum.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
