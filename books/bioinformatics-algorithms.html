@@ -208,15 +208,39 @@ def frequent_words(text, k):
 
     <p>
       The critical asymmetry: the lagging strand template spends much more time as single-stranded
-      DNA while waiting for the fork to advance. Single-stranded DNA is chemically less stable than
-      double-stranded DNA.
+      DNA while waiting for the fork to advance. This matters because single-stranded DNA mutates in
+      a specific, directional way. When DNA is single-stranded, <strong>cytosine (C) spontaneously
+      decays into thymine (T)</strong> at a much higher rate (a reaction called deamination). So a
+      strand that sits single-stranded for a long time slowly loses its C's.
+    </p>
+
+    <p>
+      This is the link between replication and counting letters. Note that no C ever becomes a G:
+      the C's are simply <em>destroyed</em> (turned into T's), so a strand that sat single-stranded
+      ends up with a <strong>deficit of C</strong>. Reading along that strand, G now outnumbers C,
+      not because any G was created but because C's went missing. Each half of the genome was the
+      long-single-stranded one for a different stretch, so <strong>G leads C in the direction the
+      fork traveled</strong> (ori &rarr; ter) and the reverse holds on the other half. The G/C
+      imbalance is a physical fingerprint of which way replication ran, so we can recover ori just by
+      tracking it.
+    </p>
+
+    <p>
+      Wouldn't so many mutations damage the genome? They don't: each deamination is rare per
+      replication, most are caught by DNA repair, and natural selection removes the harmful
+      survivors. What builds up over evolutionary time is only a faint C-deficit at positions where
+      mutations are tolerated, enough to bend the skew but far too little to harm the cell.
     </p>
 
     <h4>The Skew Diagram</h4>
 
     <p>
       Define the <strong>skew</strong> at position $i$ as the running value of $\#G - \#C$ up to
-      position $i$. The <strong>minimum of the skew</strong> marks ori; the maximum marks ter.
+      position $i$: walk along the genome adding $+1$ for each G and $-1$ for each C. On the
+      ori&nbsp;&rarr;&nbsp;ter half G dominates, so the running total <em>rises</em>; on the
+      ter&nbsp;&rarr;&nbsp;ori half C dominates, so it <em>falls</em>. The curve therefore dips to a
+      bottom and climbs back up: the <strong>minimum of the skew</strong> marks ori, and the maximum
+      marks ter.
     </p>
 
     <pre><code class="language-python">def skew(genome):
