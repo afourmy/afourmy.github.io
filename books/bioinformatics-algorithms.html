@@ -275,8 +275,10 @@ def frequent_words(text, k):
     <pre><code class="language-python">def skew(genome):
     skew_values, running_skew = [0], 0
     for base in genome:
-        if base == 'G': running_skew += 1
-        elif base == 'C': running_skew -= 1
+        if base == 'G':
+            running_skew += 1
+        elif base == 'C':
+            running_skew -= 1
         skew_values.append(running_skew)
     return skew_values
 
