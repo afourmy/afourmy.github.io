@@ -964,6 +964,25 @@
       Hence $\{x, y, z\} = \{5, 6, -4\}$. Since the three values are distinct and the system is symmetric, every ordering gives a valid solution, so there are $3! = \mathbf{6}$ ordered solutions $(x, y, z)$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove, using a polynomial in $c$, that
+      $$\frac{1}{a(a-b)(a-c)} + \frac{1}{b(b-c)(b-a)} + \frac{1}{c(c-a)(c-b)} = \frac{1}{abc},$$
+      where $a, b, c$ are distinct and nonzero.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Multiply both sides by the common denominator $L = abc\,(a-b)(a-c)(b-c)$, which is nonzero. The identity is then equivalent to $f(c) = 0$, where
+      $$f(c) = bc(b-c) - ac(a-c) + ab(a-b) - (a-b)(a-c)(b-c).$$</p>
+      <p>Regard $a, b$ as fixed and $f$ as a polynomial in $c$. Each term is at most quadratic in $c$, so $\deg f \leq 2$. We check that $f$ vanishes at three distinct points:</p>
+      <ul>
+        <li>$f(0) = ab(a-b) - (a-b)\,a\,b = 0$;</li>
+        <li>$f(a) = ab(b-a) + ab(a-b) = 0$ (the other two terms carry a factor $a-a$);</li>
+        <li>$f(b) = -ab(a-b) + ab(a-b) = 0$ (the other two terms carry a factor $b-b$).</li>
+      </ul>
+      <p>A polynomial of degree at most $2$ with three distinct roots $c = 0, a, b$ is identically zero. Hence $f \equiv 0$, and dividing back by $L$ gives the identity.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
