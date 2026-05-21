@@ -287,8 +287,11 @@ def min_skew(genome):
 
     <pre><code class="language-python">def approximate_pattern_match(text, pattern, d):
     k = len(pattern)
-    return [i for i in range(len(text) - k + 1)
-            if hamming_distance(text[i:i+k], pattern) <= d]</code></pre>
+    return [
+        i
+        for i in range(len(text) - k + 1)
+        if hamming_distance(text[i : i + k], pattern) <= d
+    ]</code></pre>
 
     <h4>Frequent Words with Mismatches</h4>
 
@@ -299,14 +302,14 @@ def min_skew(genome):
       distance $d$, and accumulate counts across all neighborhood members.
     </p>
 
-    <pre><code class="language-python">def neighbors(pattern, d):
-    result = {pattern}
-    for _ in range(d):
-        for p in list(result):
-            for i in range(len(p)):
-                for base in 'ACGT':
-                    result.add(p[:i] + base + p[i+1:])
-    return result
+    <pre><code class="language-python">def neighbors(pattern, max_mismatches):
+    neighborhood = {pattern}
+    for _ in range(max_mismatches):
+        for kmer in list(neighborhood):
+            for position in range(len(kmer)):
+                for base in "ACGT":
+                    neighborhood.add(kmer[:position] + base + kmer[position + 1 :])
+    return neighborhood
 
 def frequent_words_with_mismatches(text, k, d):
     counts = {}
