@@ -78,14 +78,16 @@ def reverse_complement(pattern):
       Replication does not start at a random position. It begins at a specific region called the
       <strong>origin of replication</strong> (ori). A protein called <strong>DnaA</strong>
       initiates replication by binding to short sequences near ori called <strong>DnaA boxes</strong>.
+      A DnaA box is essentially a short message written in the DNA that tells DnaA "bind here".
       In bacteria, DnaA boxes are roughly 9-mers that appear multiple times clustered within a short
       stretch of DNA near ori.
     </p>
 
     <p>
-      Understanding ori has practical applications. For instance, viral vectors used in gene therapy
-      carry their own ori that hijacks the host cell's replication machinery. Knowing where and how
-      replication begins is essential for engineering such vectors.
+      Understanding ori has practical applications. In <strong>gene therapy</strong>, a patient is
+      deliberately infected with a viral vector carrying an engineered gene that encodes a therapeutic
+      protein. Such vectors carry their own ori to hijack the host cell's replication machinery, so
+      knowing where and how replication begins is essential for engineering them.
     </p>
 
     <h3>Finding the Origin: Frequent k-mers</h3>
@@ -115,6 +117,10 @@ def reverse_complement(pattern):
         counts[kmer] = counts.get(kmer, 0) + 1
     max_count = max(counts.values())
     return [kmer for kmer, c in counts.items() if c == max_count]</code></pre>
+
+    <p>
+      This is also $O(n \cdot k)$: there are $n - k + 1$ windows, and slicing each k-mer costs $O(k)$.
+    </p>
 
     <p>
       An alternative is a <strong>frequency array</strong> of size $4^k$ instead of a dictionary.
@@ -199,19 +205,23 @@ def frequent_words(text, k):
     </p>
 
     <p>
-      DNA synthesis can only proceed in the 5'-to-3' direction. At each fork, one strand (the
-      <strong>leading strand</strong>) is synthesized continuously in the direction the fork is
-      moving. The other (the <strong>lagging strand</strong>) must be synthesized in short fragments
-      called <strong>Okazaki fragments</strong>, going in the direction opposite to fork movement.
-      These fragments are later joined by an enzyme.
+      DNA is copied by an enzyme called <strong>DNA polymerase</strong>, which does not wait for the
+      double helix to fully unwind: it starts synthesizing new DNA at the fork while the strands are
+      still separating. DNA polymerase can only extend a strand in the 5'-to-3' direction. At each
+      fork, one strand (the <strong>leading strand</strong>) is synthesized continuously in the
+      direction the fork is moving. The other (the <strong>lagging strand</strong>) must be
+      synthesized in short fragments called <strong>Okazaki fragments</strong>, going in the direction
+      opposite to fork movement; these fragments are later stitched together by an enzyme called
+      <strong>DNA ligase</strong>.
     </p>
 
     <p>
       The critical asymmetry: the lagging strand template spends much more time as single-stranded
       DNA while waiting for the fork to advance. This matters because single-stranded DNA mutates in
       a specific, directional way. When DNA is single-stranded, <strong>cytosine (C) spontaneously
-      decays into thymine (T)</strong> at a much higher rate (a reaction called deamination). So a
-      strand that sits single-stranded for a long time slowly loses its C's.
+      decays into thymine (T)</strong> at a much higher rate (a reaction called deamination, roughly
+      100 times faster than in double-stranded DNA). So a strand that sits single-stranded for a long
+      time slowly loses its C's.
     </p>
 
     <p>
@@ -244,17 +254,17 @@ def frequent_words(text, k):
     </p>
 
     <pre><code class="language-python">def skew(genome):
-    s, val = [0], 0
+    skew_values, running_skew = [0], 0
     for base in genome:
-        if base == 'G': val += 1
-        elif base == 'C': val -= 1
-        s.append(val)
-    return s
+        if base == 'G': running_skew += 1
+        elif base == 'C': running_skew -= 1
+        skew_values.append(running_skew)
+    return skew_values
 
 def min_skew(genome):
-    s = skew(genome)
-    m = min(s)
-    return [i for i, v in enumerate(s) if v == m]</code></pre>
+    skew_values = skew(genome)
+    minimum = min(skew_values)
+    return [position for position, value in enumerate(skew_values) if value == minimum]</code></pre>
 
     <p>
       The skew approach is $O(n)$ and provides a fast, independent way to locate the ori region
