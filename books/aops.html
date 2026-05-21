@@ -1109,6 +1109,18 @@
       <p>Equality holds when $xy = yz = zx$, i.e. $x = y = z$; then $6x^2 = 96$ gives $x = 4$ (a cube). The largest box has volume $\mathbf{64}$ cubic meters.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $x$ and $y$ be real numbers with $x + y = 4$. Find the maximum value of $\min(x, y)$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p><em>Method 1 (average bound):</em> Since the smaller of two numbers is at most their average,
+      $$\min(x, y) \leq \frac{x + y}{2} = 2,$$
+      with equality precisely when $x = y$, i.e. $x = y = 2$. So the maximum value of $\min(x, y)$ is $\mathbf{2}$.</p>
+      <p><em>Method 2 (order the variables):</em> Without loss of generality, assume $x \geq y$, so $\min(x, y) = y$. Then $x + y \geq 2y$, i.e. $4 \geq 2y$, giving $y \leq 2$. So $\min(x, y) \leq 2$, with equality when $x = y = 2$, and the maximum is $\mathbf{2}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
