@@ -1023,6 +1023,24 @@
       Since $(x+1)^2 \geq 0$, the expression is at least $1$, with equality at $x = -1$. So the minimum value is $\mathbf{1}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> (AM&ndash;GM inequality) For positive reals $a_1, \ldots, a_n$, the arithmetic mean is at least the geometric mean:
+      $$\frac{a_1 + a_2 + \cdots + a_n}{n} \geq \sqrt[n]{a_1 a_2 \cdots a_n}.$$
+      Prove this.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>We use the single elementary fact that $e^{t} \geq 1 + t$ for all real $t$. To justify it, let $g(t) = e^t - 1 - t$. Then $g'(t) = e^t - 1$, which is negative for $t \lt 0$ and positive for $t \gt 0$, so $g$ is decreasing on $(-\infty, 0]$ and increasing on $[0, \infty)$. Thus $g$ attains its global minimum at $t = 0$, where $g(0) = 0$. Hence $g(t) \geq 0$, i.e. $e^t \geq 1 + t$, with equality only at $t = 0$. Replacing $t$ by $t - 1$, this reads $e^{\,t-1} \geq t$.</p>
+      <p>Let $A = \dfrac{a_1 + \cdots + a_n}{n}$ be the arithmetic mean. Apply the inequality with $t = \dfrac{a_i}{A}$ for each $i$:
+      $$e^{\,a_i/A - 1} \geq \frac{a_i}{A}.$$
+      Multiplying these $n$ inequalities (all sides positive),
+      $$\exp\!\left( \frac{a_1 + \cdots + a_n}{A} - n \right) \geq \frac{a_1 a_2 \cdots a_n}{A^n}.$$
+      Since $a_1 + \cdots + a_n = nA$, the exponent on the left is $n - n = 0$, so the left side is $e^0 = 1$. Hence
+      $$a_1 a_2 \cdots a_n \leq A^n \implies \sqrt[n]{a_1 a_2 \cdots a_n} \leq A,$$
+      which is exactly the claim. Equality requires $e^{\,t-1} = t$ at each step, i.e. every $a_i/A = 1$, so all the $a_i$ are equal.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
