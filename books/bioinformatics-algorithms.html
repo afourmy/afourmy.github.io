@@ -171,23 +171,42 @@ def frequent_words(text, k):
       $L$ containing at least $t$ occurrences of that k-mer.
     </p>
 
-    <pre><code class="language-python">def find_clumps(genome, k, L, t):
+    <pre><code class="language-python">def find_clumps_naive(genome, kmer_length, window_length, min_occurrences):
     clumps = set()
-    for i in range(len(genome) - L + 1):
-        window = genome[i:i+L]
-        freq = {}
-        for j in range(L - k + 1):
-            kmer = window[j:j+k]
-            freq[kmer] = freq.get(kmer, 0) + 1
-            if freq[kmer] >= t:
+    for window_start in range(len(genome) - window_length + 1):
+        window = genome[window_start:window_start + window_length]
+        counts = {}
+        for offset in range(window_length - kmer_length + 1):
+            kmer = window[offset:offset + kmer_length]
+            counts[kmer] = counts.get(kmer, 0) + 1
+            if counts[kmer] >= min_occurrences:
                 clumps.add(kmer)
     return clumps</code></pre>
 
     <p>
-      This naive implementation is $O(n \cdot L \cdot k)$. It can be optimized to $O(n \cdot k)$ by
-      sliding the window one position at a time and updating counts incrementally: add the k-mer
-      entering the window on the right, remove the one leaving on the left.
+      This naive implementation is $O(n \cdot L \cdot k)$: it rebuilds the count table from scratch for
+      every window. The fix is to keep a single count table and slide the window one position at a
+      time, updating only at the edges: drop the k-mer leaving on the left, add the k-mer entering on
+      the right. Each slide does $O(k)$ work, giving $O(n \cdot k)$ overall.
     </p>
+
+    <pre><code class="language-python">def find_clumps(genome, kmer_length, window_length, min_occurrences):
+    clumps = set()
+    counts = {}
+    for kmer_start in range(len(genome) - kmer_length + 1):
+        # The k-mer entering on the right of the current window.
+        entering = genome[kmer_start:kmer_start + kmer_length]
+        counts[entering] = counts.get(entering, 0) + 1
+
+        # Once the window is full, drop the k-mer that fell off the left.
+        leaving_start = kmer_start - (window_length - kmer_length)
+        if leaving_start > 0:
+            leaving = genome[leaving_start - 1:leaving_start - 1 + kmer_length]
+            counts[leaving] -= 1
+
+        if counts[entering] >= min_occurrences:
+            clumps.add(entering)
+    return clumps</code></pre>
 
     <p>
       On real genomes, clump finding returns thousands of candidates and is not specific enough on its
