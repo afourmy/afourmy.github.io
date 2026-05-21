@@ -1121,6 +1121,36 @@
       <p><em>Method 2 (order the variables):</em> Without loss of generality, assume $x \geq y$, so $\min(x, y) = y$. Then $x + y \geq 2y$, i.e. $4 \geq 2y$, giving $y \leq 2$. So $\min(x, y) \leq 2$, with equality when $x = y = 2$, and the maximum is $\mathbf{2}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> (RMS&ndash;AM inequality) For real numbers $a_1, \ldots, a_n$, show that the root mean square is at least the arithmetic mean:
+      $$\sqrt{\frac{a_1^2 + a_2^2 + \cdots + a_n^2}{n}} \geq \frac{a_1 + a_2 + \cdots + a_n}{n}.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By the Cauchy&ndash;Schwarz inequality with $b_i = 1$ for all $i$,
+      $$\left( \sum_{i=1}^{n} a_i \right)^2 = \left( \sum_{i=1}^{n} a_i \cdot 1 \right)^2 \leq \left( \sum_{i=1}^{n} a_i^2 \right) \left( \sum_{i=1}^{n} 1^2 \right) = n \sum_{i=1}^{n} a_i^2.$$
+      Dividing by $n^2$ gives
+      $$\left( \frac{a_1 + \cdots + a_n}{n} \right)^2 \leq \frac{a_1^2 + \cdots + a_n^2}{n}.$$
+      The right-hand side is non-negative, so taking square roots,
+      $$\frac{a_1 + \cdots + a_n}{n} \leq \left| \frac{a_1 + \cdots + a_n}{n} \right| \leq \sqrt{\frac{a_1^2 + \cdots + a_n^2}{n}},$$
+      which is the claim. Equality requires the Cauchy&ndash;Schwarz vectors to be proportional, i.e. all the $a_i$ equal, and the arithmetic mean to be non-negative.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> (GM&ndash;HM inequality) For positive reals $a_1, \ldots, a_n$, show that the geometric mean is at least the harmonic mean:
+      $$\sqrt[n]{a_1 a_2 \cdots a_n} \geq \frac{n}{\frac{1}{a_1} + \frac{1}{a_2} + \cdots + \frac{1}{a_n}}.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Apply AM&ndash;GM to the positive reals $\frac{1}{a_1}, \ldots, \frac{1}{a_n}$:
+      $$\frac{\frac{1}{a_1} + \cdots + \frac{1}{a_n}}{n} \geq \sqrt[n]{\frac{1}{a_1} \cdots \frac{1}{a_n}} = \frac{1}{\sqrt[n]{a_1 \cdots a_n}}.$$
+      Both sides are positive, so taking reciprocals reverses the inequality:
+      $$\frac{n}{\frac{1}{a_1} + \cdots + \frac{1}{a_n}} \leq \sqrt[n]{a_1 \cdots a_n},$$
+      which is exactly $\mathrm{HM} \leq \mathrm{GM}$. Equality holds iff all the $\frac{1}{a_i}$ are equal, i.e. all the $a_i$ are equal.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
