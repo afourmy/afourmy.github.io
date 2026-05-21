@@ -283,7 +283,11 @@ def frequent_words(text, k):
 def min_skew(genome):
     skew_values = skew(genome)
     minimum = min(skew_values)
-    return [position for position, value in enumerate(skew_values) if value == minimum]</code></pre>
+    return [
+        position
+        for position, value in enumerate(skew_values)
+        if value == minimum
+    ]</code></pre>
 
     <p>
       The skew approach is $O(n)$ and provides a fast, independent way to locate the ori region
