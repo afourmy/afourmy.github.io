@@ -1225,6 +1225,32 @@
       which is the claim. Equality holds when $2ab = a^2 + b^2$, i.e. $a = b$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $r_1, r_2, \ldots, r_n \geq 0$ and let $x \gt 0$. Prove that
+      $$(x + r_1)(x + r_2) \cdots (x + r_n) \leq \left(x + \frac{r_1 + r_2 + \cdots + r_n}{n}\right)^n.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The $n$ numbers $x + r_1, \ldots, x + r_n$ are positive, so AM&ndash;GM applies:
+      $$\sqrt[n]{(x + r_1)(x + r_2) \cdots (x + r_n)} \leq \frac{(x + r_1) + (x + r_2) + \cdots + (x + r_n)}{n} = x + \frac{r_1 + \cdots + r_n}{n}.$$
+      Raising both sides to the $n$-th power gives the claim. Equality holds when all the $x + r_i$ are equal, i.e. all the $r_i$ are equal.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The polynomial $x^3 - 12x^2 + ax - 64$ has three real, non-negative roots. Find $a$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let the roots be $p, q, r \geq 0$. By Vieta's formulas,
+      $$p + q + r = 12, \qquad pq + qr + rp = a, \qquad pqr = 64.$$
+      By AM&ndash;GM,
+      $$\frac{p + q + r}{3} \geq \sqrt[3]{pqr} \quad\Longrightarrow\quad 4 \geq \sqrt[3]{64} = 4.$$
+      Equality holds, which forces $p = q = r = 4$. Therefore
+      $$a = pq + qr + rp = 3 \cdot 16 = \mathbf{48}.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
