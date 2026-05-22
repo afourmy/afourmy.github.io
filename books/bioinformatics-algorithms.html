@@ -375,47 +375,46 @@ def frequent_words_with_mismatches(text, k, d):
 
     <p>
       Chapter 1 searched a single genome for a pattern that <em>clusters</em> in one place (the ori).
-      This chapter asks the opposite kind of question: find a pattern that recurs (with variation)
-      exactly once in each of many <em>separate</em> regions. The biological motivation is how cells
+      This chapter addresses a different problem: finding a pattern that recurs (with variation)
+      exactly once in each of many <em>separate</em> regions. The biological context is how cells
       keep time.
     </p>
 
     <h3>Biological Motivation: Circadian Clocks and Gene Regulation</h3>
 
     <p>
-      Animals, plants, and even bacteria run on a <strong>circadian clock</strong>: an internal,
-      roughly 24-hour schedule that anticipates day and night. The clock is implemented in DNA. A
-      small set of <strong>circadian genes</strong> drive it, and biologists have identified several -
-      in plants, three are called <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
+      Animals, plants, and bacteria have a <strong>circadian clock</strong>: an internal,
+      roughly 24-hour cycle synchronized with day and night. The clock is implemented in DNA. A
+      small set of <strong>circadian genes</strong> control it; in plants, three of them are called
+      <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
     </p>
 
     <p>
       These genes encode <strong>transcription factors</strong>: master regulatory proteins that turn
-      other genes on and off. A transcription factor works by physically binding to a short, specific
-      stretch of DNA near the gene it controls. That target stretch is called a
-      <strong>regulatory motif</strong> (or transcription factor binding site). Switching thousands of
-      genes on a daily cycle is, mechanically, transcription factors finding and binding their motifs.
+      other genes on and off. A transcription factor binds to a short, specific stretch of DNA near the
+      gene it controls. That stretch is called a <strong>regulatory motif</strong> (or transcription
+      factor binding site). A daily cycle of gene activity is produced by transcription factors
+      locating and binding their motifs.
     </p>
 
     <p>
-      Here is the catch that makes this a hard computational problem: a regulatory motif is
+      The computational difficulty comes from one property: a regulatory motif is
       <strong>not an exact string</strong>. The same factor binds many slightly different sequences.
-      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code> - the pattern
-      varies at a couple of positions. So we are not searching for one fixed word; we are searching for
-      a <em>family</em> of similar words. Recovering that family is the <strong>motif finding</strong>
-      problem.
+      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code>, which differ
+      at two positions. The target is therefore not a single fixed string but a <em>family</em> of
+      similar strings. Identifying that family is the <strong>motif finding</strong> problem.
     </p>
 
     <h3>Motif Finding vs. Finding the Ori</h3>
 
     <p>
-      It is tempting to reuse <em>frequent words with mismatches</em> from Chapter 1. It does not work
-      well here, for two reasons - one about the shape of the signal, one about cost.
+      Reusing <em>frequent words with mismatches</em> from Chapter 1 does not work well here, for two
+      reasons: one concerns the structure of the signal, the other its cost.
     </p>
 
     <p>
-      <strong>The signal is shaped differently.</strong> A DnaA box and a regulatory motif hide in
-      opposite ways:
+      <strong>Different signal structure.</strong> A DnaA box and a regulatory motif occur in
+      opposite patterns:
     </p>
 
     <ul>
@@ -427,18 +426,18 @@ def frequent_words_with_mismatches(text, k, d):
     </ul>
 
     <p>
-      <strong>The cost explodes.</strong> Frequent-words-with-mismatches enumerates the entire
+      <strong>Higher cost.</strong> Frequent-words-with-mismatches enumerates the entire
       <em>neighborhood</em> of every k-mer, and that neighborhood grows rapidly with both the motif
-      length $k$ and the number of allowed mismatches $d$. It simply does not scale to the long,
-      heavily mutated motifs we now face. We need algorithms built around the scattered signal.
+      length $k$ and the number of allowed mismatches $d$. It does not scale to the long, heavily
+      mutated motifs in this setting. A different approach is required.
     </p>
 
     <h3>The Implanted Motif Problem</h3>
 
     <p>
-      Reframe the biology as a clean string problem. The input is a <strong>collection of DNA
-      strings</strong> (one per region). We look for a k-mer hidden (with up to $d$ mutations) once
-      in every string.
+      We restate the biology as a string problem. The input is a <strong>collection of DNA
+      strings</strong> (one per region). We look for a k-mer that occurs (with up to $d$ mutations)
+      once in every string.
     </p>
 
     <p>
@@ -450,9 +449,9 @@ def frequent_words_with_mismatches(text, k, d):
     <h4>Brute Force: Motif Enumeration</h4>
 
     <p>
-      The brute-force solution rests on one observation: a $(k, d)$-motif must appear with $\le d$
+      The brute-force solution is based on one observation: a $(k, d)$-motif must appear with $\le d$
       mismatches in the <em>first</em> string too, so it is within Hamming distance $d$ of some k-mer
-      of that string. Therefore every $(k, d)$-motif lives in the combined $d$-neighborhood of the
+      of that string. Every $(k, d)$-motif therefore belongs to the combined $d$-neighborhood of the
       first string's k-mers. Generate that neighborhood as the candidate set, then keep only the
       candidates that also occur (with $\le d$ mismatches) in all of the strings.
     </p>
@@ -476,35 +475,36 @@ def motif_enumeration(dna, k, d):
 
     <p>
       This reuses <code>hamming_distance</code> and <code>neighbors</code> from Chapter 1. It is
-      correct, but the neighborhood it builds blows up with $k$ and $d$ (the same scaling wall as
-      before). Worse, the definition itself is brittle: it demands that the motif fall under a
-      <em>hard</em> mismatch cutoff in <em>every</em> string, so one noisy region with a single extra
-      mutation silently erases an otherwise real motif.
+      correct, but the neighborhood it builds grows rapidly with $k$ and $d$, the same scaling
+      limitation seen in Chapter 1. The definition is also rigid: a $(k, d)$-motif must stay within
+      $d$ mismatches in <em>every</em> string, so one region with a single extra mutation removes an
+      otherwise valid motif from the results.
     </p>
 
     <h4>The Subtle Motif Problem</h4>
 
     <p>
-      To see where that rigidity breaks, biologists use a benchmark. Take a 15-mer, implant one copy
-      into each of 10 randomly generated 600-nucleotide strings, but <strong>mutate 4 random
-      positions</strong> in every copy. This is the <strong>Subtle Motif Problem</strong>.
+      A standard benchmark illustrates this limitation. Implant one copy of a 15-mer into each of 10
+      randomly generated 600-nucleotide strings, and <strong>mutate 4 random positions</strong> in
+      every copy. This is the <strong>Subtle Motif Problem</strong>.
     </p>
 
     <p>
-      The implanted 15-mer is "subtle" because four mutations out of fifteen is a lot of noise: two
-      implanted copies may differ at up to 8 positions, the motif is usually <em>not</em> the most
+      The implanted 15-mer is "subtle" because four mutations out of fifteen is a high mutation rate:
+      two implanted copies may differ at up to 8 positions, the motif is usually <em>not</em> the most
       frequent k-mer in the data, and <code>motif_enumeration</code> with $k = 15$, $d = 4$ generates
-      an astronomically large neighborhood. We need a method that tolerates noise gracefully instead of
-      counting mismatches against a fixed threshold.
+      a neighborhood far too large to enumerate. A usable method must handle this level of noise
+      without relying on a fixed mismatch threshold.
     </p>
 
     <h3>Scoring a Set of Motifs</h3>
 
     <p>
-      Here is the change in perspective that unlocks the chapter. Instead of <em>searching</em> for a
-      pattern, we <em>choose</em> one k-mer from each string and then measure how similar the chosen
-      k-mers are to one another. A good choice has tightly conserved columns; a bad choice looks
-      random. Turn that measurement into a number and motif finding becomes an optimization problem.
+      The key idea is to change the formulation. Instead of <em>searching</em> for a pattern, we
+      <em>choose</em> one k-mer from each string and measure how similar the chosen k-mers are to one
+      another. A good choice produces columns dominated by a single nucleotide; a poor choice produces
+      columns close to uniform. Expressing this similarity as a single number turns motif finding into
+      an optimization problem.
     </p>
 
     <p>
@@ -541,15 +541,15 @@ def motif_enumeration(dna, k, d):
 
     <p>
       The <strong>consensus string</strong> takes the most frequent nucleotide in each column (here,
-      <code>ACGTA</code>). It is our best single guess for the regulatory motif.
+      <code>ACGTA</code>). It is the candidate regulatory motif for these regions.
     </p>
 
     <p>
       Finally, the <strong>score</strong> measures disagreement: in each column, count the nucleotides
-      that are <em>not</em> the most popular one (the "unpopular" letters) and sum across columns.
-      Columns 1 and 5 are unanimous; columns 2, 3, and 4 each have a single letter out of place, so the
-      score is $0 + 1 + 1 + 1 + 0 = 3$. A perfectly conserved motif scores 0, and the more the chosen
-      k-mers disagree the higher the score climbs. <strong>Our goal is to minimize it.</strong>
+      that are <em>not</em> the most frequent one (the "unpopular" letters) and sum across columns.
+      Columns 1 and 5 are uniform; columns 2, 3, and 4 each contain one differing letter, so the
+      score is $0 + 1 + 1 + 1 + 0 = 3$. A fully conserved motif scores 0, and the more the chosen
+      k-mers differ, the higher the score. <strong>The goal is to minimize it.</strong>
     </p>
 
     <p>The four quantities translate directly into code:</p>
@@ -596,12 +596,12 @@ def score(motifs):
     </p>
 
     <p>
-      This is cleaner than the $(k, d)$-motif definition (no fragile mismatch threshold, just a single
-      number to minimize), but it is just as unforgiving to brute force. Suppose each of the $t$ strings
+      This formulation has no mismatch threshold $d$; it specifies a single quantity to minimize.
+      Solving it by brute force is still expensive. Suppose each of the $t$ strings
       has length $n$. Each string offers $n - k + 1$ possible k-mers, and we pick one per string
       independently, giving $(n - k + 1)^t$ candidate motif matrices. Scoring one matrix costs about
-      $k \cdot t$ steps, and since $k \ll n$ the total cost is $O(k \cdot t \cdot n^t)$. The $n^t$ factor
-      is fatal: the work grows exponentially in the number of strings.
+      $k \cdot t$ steps, and since $k \ll n$ the total cost is $O(k \cdot t \cdot n^t)$. The $n^t$ term makes the cost
+      exponential in the number of strings $t$, which is impractical.
     </p>
 
     <pre><code class="language-python">from itertools import product
@@ -619,9 +619,9 @@ def brute_force_motif_search(dna, k):
     return best_motifs</code></pre>
 
     <p>
-      So we have a clean objective and no efficient way to reach it. The second half of this chapter
-      develops practical algorithms (greedy and randomized motif search) that trade the guarantee of
-      optimality for the ability to actually run on real data.
+      We now have a well-defined objective but no efficient algorithm for it. The second half of this
+      chapter develops practical algorithms (greedy and randomized motif search) that give up
+      guaranteed optimality in exchange for efficiency on real data.
     </p>
 
   </main>

@@ -1251,6 +1251,53 @@
       $$a = pq + qr + rp = 3 \cdot 16 = \mathbf{48}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\sqrt{n} \leq \sqrt[n]{n!}$ for every positive integer $n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Raising both sides to the $2n$-th power, the claim is equivalent to $n^n \leq (n!)^2$. Write
+      $$(n!)^2 = \prod_{k=1}^{n} k \cdot \prod_{k=1}^{n} (n + 1 - k) = \prod_{k=1}^{n} k(n + 1 - k),$$
+      where the second product just runs over the same factors in reverse order. For each $k$ with $1 \leq k \leq n$,
+      $$k(n + 1 - k) - n = (k - 1)(n - k) \geq 0,$$
+      so $k(n + 1 - k) \geq n$. Multiplying these $n$ inequalities gives $(n!)^2 \geq n^n$, which is the claim.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\binom{n}{k}\binom{k}{m} = \binom{n}{m}\binom{n - m}{k - m}$ for integers $0 \leq m \leq k \leq n$. (Combinatorial proof.)</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count pairs $(A, B)$ with $A \subseteq B \subseteq \{1, \ldots, n\}$, $|B| = k$, $|A| = m$ in two ways.</p>
+      <p>Picking $B$ then $A$: $\binom{n}{k}$ ways for $B$, then $\binom{k}{m}$ for $A$ inside $B$.</p>
+      <p>Picking $A$ then $B$: $\binom{n}{m}$ ways for $A$, then $\binom{n - m}{k - m}$ for the remaining elements of $B$, chosen from outside $A$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\sum_{k=0}^{n} k\binom{n}{k} = n \cdot 2^{n-1}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $S = \sum_{k=0}^{n} k\binom{n}{k}$. Using $\binom{n}{k} = \binom{n}{n-k}$ and reindexing, write the same sum in reverse:
+      $$S = \sum_{k=0}^{n} (n - k)\binom{n}{n - k} = \sum_{k=0}^{n} (n - k)\binom{n}{k}.$$
+      Adding the two expressions for $S$,
+      $$2S = \sum_{k=0}^{n} \big(k + (n - k)\big)\binom{n}{k} = n \sum_{k=0}^{n} \binom{n}{k} = n \cdot 2^n,$$
+      so $S = n \cdot 2^{n-1}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\sum_{k=0}^{n} \binom{n}{k}^2 = \binom{2n}{n}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count the ways to choose an $n$-element committee from a group of $n$ men and $n$ women, which is $\binom{2n}{n}$.</p>
+      <p>Split by the number $k$ of men chosen: pick $k$ of the $n$ men in $\binom{n}{k}$ ways and $n - k$ of the $n$ women in $\binom{n}{n - k} = \binom{n}{k}$ ways, giving $\binom{n}{k}^2$ committees. Summing over $k$ from $0$ to $n$ counts every committee once, so $\sum_{k=0}^{n} \binom{n}{k}^2 = \binom{2n}{n}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
