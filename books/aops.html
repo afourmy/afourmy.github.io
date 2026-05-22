@@ -1329,6 +1329,38 @@
       where the sum runs over all non-negative integer triples $(i, j, k)$ with $i + j + k = n$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $\sum_{k=0}^{n} \binom{n}{k}\binom{m}{k} = \binom{n + m}{n}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count the $m$-element subsets of an $(n + m)$-element set partitioned into a part $X$ of size $n$ and a part $Y$ of size $m$. There are $\binom{n + m}{m} = \binom{n + m}{n}$ of them.</p>
+      <p>Split by the number $k$ of elements taken from $X$: pick $k$ from $X$ in $\binom{n}{k}$ ways and the remaining $m - k$ from $Y$ in $\binom{m}{m - k} = \binom{m}{k}$ ways, giving $\binom{n}{k}\binom{m}{k}$ subsets. Summing over $k$ counts every $m$-subset once.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Evaluate $\displaystyle\sum_{i=1}^{10} \sum_{k=1}^{i} \binom{i}{k}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The inner sum is $\sum_{k=1}^{i} \binom{i}{k} = 2^i - \binom{i}{0} = 2^i - 1$. Therefore
+      $$\sum_{i=1}^{10} (2^i - 1) = \sum_{i=1}^{10} 2^i - 10 = (2^{11} - 2) - 10 = 2046 - 10 = \mathbf{2036}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that
+      $$\binom{n - 1}{0} + \binom{n}{1} + \binom{n + 1}{2} + \cdots + \binom{n + k}{k + 1} = \binom{n + k + 1}{k + 1}.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Start from the right-hand side and repeatedly apply Pascal's rule $\binom{m}{j} = \binom{m - 1}{j} + \binom{m - 1}{j - 1}$, each time splitting off one term of the sum:
+      $$\binom{n + k + 1}{k + 1} = \binom{n + k}{k + 1} + \binom{n + k}{k} = \binom{n + k}{k + 1} + \binom{n + k - 1}{k} + \binom{n + k - 1}{k - 1} = \cdots$$
+      Splitting the rightmost binomial each step peels off the terms $\binom{n + k}{k + 1}, \binom{n + k - 1}{k}, \ldots, \binom{n}{1}$ in turn, and the last remainder is $\binom{n}{0} = \binom{n - 1}{0}$. Collecting these is exactly the left-hand side.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
