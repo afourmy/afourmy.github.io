@@ -371,6 +371,259 @@ def frequent_words_with_mismatches(text, k, d):
       replace it with indexed methods (suffix arrays, the FM-index) or probabilistic models.
     </p>
 
+    <h2>Chapter 2: Which DNA Patterns Play the Role of Molecular Clocks?</h2>
+
+    <p>
+      Chapter 1 searched a single genome for a pattern that <em>clusters</em> in one place (the ori).
+      This chapter asks the opposite kind of question: find a pattern that recurs — with variation —
+      exactly once in each of many <em>separate</em> regions. The biological motivation is how cells
+      keep time.
+    </p>
+
+    <h3>Biological Motivation: Circadian Clocks and Gene Regulation</h3>
+
+    <p>
+      Animals, plants, and even bacteria run on a <strong>circadian clock</strong>: an internal,
+      roughly 24-hour schedule that anticipates day and night. The clock is implemented in DNA. A
+      small set of <strong>circadian genes</strong> drive it, and biologists have identified several —
+      in plants, three are called <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
+    </p>
+
+    <p>
+      These genes encode <strong>transcription factors</strong>: master regulatory proteins that turn
+      other genes on and off. A transcription factor works by physically binding to a short, specific
+      stretch of DNA near the gene it controls. That target stretch is called a
+      <strong>regulatory motif</strong> (or transcription factor binding site). Switching thousands of
+      genes on a daily cycle is, mechanically, transcription factors finding and binding their motifs.
+    </p>
+
+    <p>
+      Here is the catch that makes this a hard computational problem: a regulatory motif is
+      <strong>not an exact string</strong>. The same factor binds many slightly different sequences.
+      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code> — the pattern
+      varies at a couple of positions. So we are not searching for one fixed word; we are searching for
+      a <em>family</em> of similar words. Recovering that family is the <strong>motif finding</strong>
+      problem.
+    </p>
+
+    <h3>Motif Finding vs. Finding the Ori</h3>
+
+    <p>
+      It is tempting to reuse <em>frequent words with mismatches</em> from Chapter 1. It does not work
+      well here, for two reasons — one about the shape of the signal, one about cost.
+    </p>
+
+    <p>
+      <strong>The signal is shaped differently.</strong> A DnaA box and a regulatory motif hide in
+      opposite ways:
+    </p>
+
+    <ul>
+      <li>A <strong>DnaA box clumps</strong>: it appears many times within one short interval (the ori
+        region of a single genome).</li>
+      <li>A <strong>regulatory motif is scattered</strong>: it appears just once (perhaps mutated) in
+        each of many different regions — for instance, in the upstream region of every gene that the
+        same factor regulates. No single region contains a clump to detect.</li>
+    </ul>
+
+    <p>
+      <strong>The cost explodes.</strong> Frequent-words-with-mismatches enumerates the entire
+      <em>neighborhood</em> of every k-mer, and that neighborhood grows rapidly with both the motif
+      length $k$ and the number of allowed mismatches $d$. It simply does not scale to the long,
+      heavily mutated motifs we now face. We need algorithms built around the scattered signal.
+    </p>
+
+    <h3>The Implanted Motif Problem</h3>
+
+    <p>
+      Reframe the biology as a clean string problem. The input is a <strong>collection of DNA
+      strings</strong> (one per region). We look for a k-mer hidden — with up to $d$ mutations — once
+      in every string.
+    </p>
+
+    <p>
+      A k-mer is a <strong>$(k, d)$-motif</strong> if it appears in <em>every</em> string of the
+      collection with at most $d$ mismatches (Hamming distance $\le d$). The
+      <strong>Implanted Motif Problem</strong> asks for all $(k, d)$-motifs in a collection.
+    </p>
+
+    <h4>Brute Force: Motif Enumeration</h4>
+
+    <p>
+      The brute-force solution rests on one observation: a $(k, d)$-motif must appear with $\le d$
+      mismatches in the <em>first</em> string too, so it is within Hamming distance $d$ of some k-mer
+      of that string. Therefore every $(k, d)$-motif lives in the combined $d$-neighborhood of the
+      first string's k-mers. Generate that neighborhood as the candidate set, then keep only the
+      candidates that also occur (with $\le d$ mismatches) in all of the strings.
+    </p>
+
+    <pre><code class="language-python">def appears_within(text, pattern, d):
+    """True if pattern occurs somewhere in text with at most d mismatches."""
+    k = len(pattern)
+    return any(
+        hamming_distance(text[i:i + k], pattern) <= d
+        for i in range(len(text) - k + 1)
+    )
+
+def motif_enumeration(dna, k, d):
+    first = dna[0]
+    motifs = set()
+    for i in range(len(first) - k + 1):
+        for candidate in neighbors(first[i:i + k], d):
+            if all(appears_within(text, candidate, d) for text in dna):
+                motifs.add(candidate)
+    return motifs</code></pre>
+
+    <p>
+      This reuses <code>hamming_distance</code> and <code>neighbors</code> from Chapter 1. It is
+      correct, but the neighborhood it builds blows up with $k$ and $d$ — the same scaling wall as
+      before. Worse, the definition itself is brittle: it demands that the motif fall under a
+      <em>hard</em> mismatch cutoff in <em>every</em> string, so one noisy region with a single extra
+      mutation silently erases an otherwise real motif.
+    </p>
+
+    <h4>The Subtle Motif Problem</h4>
+
+    <p>
+      To see where that rigidity breaks, biologists use a benchmark. Take a 15-mer, implant one copy
+      into each of 10 randomly generated 600-nucleotide strings, but <strong>mutate 4 random
+      positions</strong> in every copy. This is the <strong>Subtle Motif Problem</strong>.
+    </p>
+
+    <p>
+      The implanted 15-mer is "subtle" because four mutations out of fifteen is a lot of noise: two
+      implanted copies may differ at up to 8 positions, the motif is usually <em>not</em> the most
+      frequent k-mer in the data, and <code>motif_enumeration</code> with $k = 15$, $d = 4$ generates
+      an astronomically large neighborhood. We need a method that tolerates noise gracefully instead of
+      counting mismatches against a fixed threshold.
+    </p>
+
+    <h3>Scoring a Set of Motifs</h3>
+
+    <p>
+      Here is the change in perspective that unlocks the chapter. Instead of <em>searching</em> for a
+      pattern, we <em>choose</em> one k-mer from each string and then measure how similar the chosen
+      k-mers are to one another. A good choice has tightly conserved columns; a bad choice looks
+      random. Turn that measurement into a number and motif finding becomes an optimization problem.
+    </p>
+
+    <p>
+      Stack the $t$ chosen k-mers as the rows of a $t \times k$ <strong>motif matrix</strong>, then
+      read it <em>column by column</em>. Take this example with $t = 4$ and $k = 5$:
+    </p>
+
+    <pre><code>    A C G T A
+    A C G C A
+    A T G T A
+    A C T T A</code></pre>
+
+    <p>
+      The <strong>count matrix</strong> has 4 rows (one per nucleotide) and $k$ columns (one per
+      position); entry $(i, j)$ is how many times nucleotide $i$ appears in column $j$:
+    </p>
+
+    <pre><code>       1   2   3   4   5
+   A   4   0   0   0   4
+   C   0   3   0   1   0
+   G   0   0   3   0   0
+   T   0   1   1   3   0</code></pre>
+
+    <p>
+      The <strong>profile matrix</strong> divides each count by $t$, giving the frequency $P_{ij}$ of
+      nucleotide $i$ in column $j$ (every column sums to 1):
+    </p>
+
+    <pre><code>        1      2      3      4      5
+   A  1.00   0.00   0.00   0.00   1.00
+   C  0.00   0.75   0.00   0.25   0.00
+   G  0.00   0.00   0.75   0.00   0.00
+   T  0.00   0.25   0.25   0.75   0.00</code></pre>
+
+    <p>
+      The <strong>consensus string</strong> takes the most frequent nucleotide in each column — here
+      <code>ACGTA</code>. It is our best single guess for the regulatory motif.
+    </p>
+
+    <p>
+      Finally, the <strong>score</strong> measures disagreement: in each column, count the nucleotides
+      that are <em>not</em> the most popular one (the "unpopular" letters) and sum across columns.
+      Columns 1 and 5 are unanimous; columns 2, 3, and 4 each have a single letter out of place, so the
+      score is $0 + 1 + 1 + 1 + 0 = 3$. A perfectly conserved motif scores 0, and the more the chosen
+      k-mers disagree the higher the score climbs. <strong>Our goal is to minimize it.</strong>
+    </p>
+
+    <p>The four quantities translate directly into code:</p>
+
+    <pre><code class="language-python">NUCLEOTIDES = "ACGT"
+
+def count_matrix(motifs):
+    k = len(motifs[0])
+    counts = {base: [0] * k for base in NUCLEOTIDES}
+    for motif in motifs:
+        for position, base in enumerate(motif):
+            counts[base][position] += 1
+    return counts
+
+def profile_matrix(motifs):
+    t = len(motifs)
+    counts = count_matrix(motifs)
+    return {base: [value / t for value in row] for base, row in counts.items()}
+
+def consensus(motifs):
+    counts = count_matrix(motifs)
+    return ''.join(
+        max(NUCLEOTIDES, key=lambda base: counts[base][position])
+        for position in range(len(motifs[0]))
+    )
+
+def score(motifs):
+    counts = count_matrix(motifs)
+    t = len(motifs)
+    return sum(
+        t - max(counts[base][position] for base in NUCLEOTIDES)
+        for position in range(len(motifs[0]))
+    )</code></pre>
+
+    <h3>The Motif Finding Problem</h3>
+
+    <p>
+      Scoring lets us restate the goal without ever mentioning $d$:
+    </p>
+
+    <p>
+      <strong>Motif Finding Problem.</strong> Given a collection of DNA strings, choose one k-mer from
+      each string so that the resulting motif matrix has the <em>minimum possible score</em>.
+    </p>
+
+    <p>
+      This is cleaner than the $(k, d)$-motif definition — no fragile mismatch threshold, just a single
+      number to minimize — but it is just as unforgiving to brute force. Suppose each of the $t$ strings
+      has length $n$. Each string offers $n - k + 1$ possible k-mers, and we pick one per string
+      independently, giving $(n - k + 1)^t$ candidate motif matrices. Scoring one matrix costs about
+      $k \cdot t$ steps, and since $k \ll n$ the total cost is $O(k \cdot t \cdot n^t)$. The $n^t$ factor
+      is fatal: the work grows exponentially in the number of strings.
+    </p>
+
+    <pre><code class="language-python">from itertools import product
+
+def brute_force_motif_search(dna, k):
+    kmers_per_string = [
+        [text[i:i + k] for i in range(len(text) - k + 1)]
+        for text in dna
+    ]
+    best_motifs, best_score = None, float('inf')
+    for motifs in product(*kmers_per_string):   # (n - k + 1) ** t combinations
+        current_score = score(list(motifs))
+        if current_score < best_score:
+            best_motifs, best_score = list(motifs), current_score
+    return best_motifs</code></pre>
+
+    <p>
+      So we have a clean objective and no efficient way to reach it. The second half of this chapter
+      develops practical algorithms — greedy and randomized motif search — that trade the guarantee of
+      optimality for the ability to actually run on real data.
+    </p>
+
   </main>
 </body>
 </html>
