@@ -375,7 +375,7 @@ def frequent_words_with_mismatches(text, k, d):
 
     <p>
       Chapter 1 searched a single genome for a pattern that <em>clusters</em> in one place (the ori).
-      This chapter asks the opposite kind of question: find a pattern that recurs — with variation —
+      This chapter asks the opposite kind of question: find a pattern that recurs (with variation)
       exactly once in each of many <em>separate</em> regions. The biological motivation is how cells
       keep time.
     </p>
@@ -385,7 +385,7 @@ def frequent_words_with_mismatches(text, k, d):
     <p>
       Animals, plants, and even bacteria run on a <strong>circadian clock</strong>: an internal,
       roughly 24-hour schedule that anticipates day and night. The clock is implemented in DNA. A
-      small set of <strong>circadian genes</strong> drive it, and biologists have identified several —
+      small set of <strong>circadian genes</strong> drive it, and biologists have identified several -
       in plants, three are called <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
     </p>
 
@@ -400,7 +400,7 @@ def frequent_words_with_mismatches(text, k, d):
     <p>
       Here is the catch that makes this a hard computational problem: a regulatory motif is
       <strong>not an exact string</strong>. The same factor binds many slightly different sequences.
-      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code> — the pattern
+      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code> - the pattern
       varies at a couple of positions. So we are not searching for one fixed word; we are searching for
       a <em>family</em> of similar words. Recovering that family is the <strong>motif finding</strong>
       problem.
@@ -410,7 +410,7 @@ def frequent_words_with_mismatches(text, k, d):
 
     <p>
       It is tempting to reuse <em>frequent words with mismatches</em> from Chapter 1. It does not work
-      well here, for two reasons — one about the shape of the signal, one about cost.
+      well here, for two reasons - one about the shape of the signal, one about cost.
     </p>
 
     <p>
@@ -422,7 +422,7 @@ def frequent_words_with_mismatches(text, k, d):
       <li>A <strong>DnaA box clumps</strong>: it appears many times within one short interval (the ori
         region of a single genome).</li>
       <li>A <strong>regulatory motif is scattered</strong>: it appears just once (perhaps mutated) in
-        each of many different regions — for instance, in the upstream region of every gene that the
+        each of many different regions - for instance, in the upstream region of every gene that the
         same factor regulates. No single region contains a clump to detect.</li>
     </ul>
 
@@ -437,7 +437,7 @@ def frequent_words_with_mismatches(text, k, d):
 
     <p>
       Reframe the biology as a clean string problem. The input is a <strong>collection of DNA
-      strings</strong> (one per region). We look for a k-mer hidden — with up to $d$ mutations — once
+      strings</strong> (one per region). We look for a k-mer hidden (with up to $d$ mutations) once
       in every string.
     </p>
 
@@ -476,8 +476,8 @@ def motif_enumeration(dna, k, d):
 
     <p>
       This reuses <code>hamming_distance</code> and <code>neighbors</code> from Chapter 1. It is
-      correct, but the neighborhood it builds blows up with $k$ and $d$ — the same scaling wall as
-      before. Worse, the definition itself is brittle: it demands that the motif fall under a
+      correct, but the neighborhood it builds blows up with $k$ and $d$ (the same scaling wall as
+      before). Worse, the definition itself is brittle: it demands that the motif fall under a
       <em>hard</em> mismatch cutoff in <em>every</em> string, so one noisy region with a single extra
       mutation silently erases an otherwise real motif.
     </p>
@@ -540,8 +540,8 @@ def motif_enumeration(dna, k, d):
    T  0.00   0.25   0.25   0.75   0.00</code></pre>
 
     <p>
-      The <strong>consensus string</strong> takes the most frequent nucleotide in each column — here
-      <code>ACGTA</code>. It is our best single guess for the regulatory motif.
+      The <strong>consensus string</strong> takes the most frequent nucleotide in each column (here,
+      <code>ACGTA</code>). It is our best single guess for the regulatory motif.
     </p>
 
     <p>
@@ -596,8 +596,8 @@ def score(motifs):
     </p>
 
     <p>
-      This is cleaner than the $(k, d)$-motif definition — no fragile mismatch threshold, just a single
-      number to minimize — but it is just as unforgiving to brute force. Suppose each of the $t$ strings
+      This is cleaner than the $(k, d)$-motif definition (no fragile mismatch threshold, just a single
+      number to minimize), but it is just as unforgiving to brute force. Suppose each of the $t$ strings
       has length $n$. Each string offers $n - k + 1$ possible k-mers, and we pick one per string
       independently, giving $(n - k + 1)^t$ candidate motif matrices. Scoring one matrix costs about
       $k \cdot t$ steps, and since $k \ll n$ the total cost is $O(k \cdot t \cdot n^t)$. The $n^t$ factor
@@ -620,7 +620,7 @@ def brute_force_motif_search(dna, k):
 
     <p>
       So we have a clean objective and no efficient way to reach it. The second half of this chapter
-      develops practical algorithms — greedy and randomized motif search — that trade the guarantee of
+      develops practical algorithms (greedy and randomized motif search) that trade the guarantee of
       optimality for the ability to actually run on real data.
     </p>
 
