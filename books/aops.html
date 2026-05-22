@@ -1316,7 +1316,18 @@
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>The exponents $2 + 3 + 1 + 4 = 10$ match the power, so the coefficient is the multinomial coefficient
-      $$\binom{10}{2,\,3,\,1,\,4} = \frac{10!}{2!\,3!\,1!\,4!} = \frac{3628800}{2 \cdot 6 \cdot 1 \cdot 24} = \mathbf{12600}.$$</p>
+      $$\binom{10}{2,\,3,\,1,\,4} = \frac{10!}{2!\,3!\,1!\,4!} = \mathbf{12600}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Write the expansion of $(x + y + z)^n$ in sigma notation.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>By the multinomial theorem,
+      $$(x + y + z)^n = \sum_{\substack{i + j + k = n \\ i,\, j,\, k \geq 0}} \frac{n!}{i!\,j!\,k!}\, x^i y^j z^k,$$
+      where the sum runs over all non-negative integer triples $(i, j, k)$ with $i + j + k = n$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
