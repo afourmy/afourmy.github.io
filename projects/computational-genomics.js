@@ -534,6 +534,11 @@
         }
         profHtml += '</tr>';
       }
+      profHtml += '<tr class="greedy-consensus"><td></td>';
+      for (var pcc = 0; pcc < k; pcc++) {
+        profHtml += '<td>' + (started ? cons.charAt(pcc) : '') + '</td>';
+      }
+      profHtml += '</tr>';
       profileTable.innerHTML = profHtml;
 
       function line(label, value, valClass) {
@@ -543,7 +548,7 @@
       var total = GREEDY_N - k + 1;
 
       // Every row is always rendered. Before the run, the values are simply blank.
-      var stepText = 'Not started', probVal = '', bestWin = '', candVal = '', bestVal = '';
+      var stepText = '', probVal = '', bestWin = '', candVal = '', bestVal = '';
       var seedVal = '';
       if (started) {
         seedVal = done ? total + ' / ' + total : (seedIndex + 1) + ' / ' + total;
