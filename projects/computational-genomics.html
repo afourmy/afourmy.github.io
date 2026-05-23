@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Computational Genomics</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Computational Genomics</h1>
+
+    <p>
+      This page collects interactive visualizations of algorithms that read structure out of DNA.
+      Each one runs live in the browser: press play and watch the algorithm work. They accompany the
+      <a href="../books/bioinformatics-algorithms.html">Bioinformatics Algorithms</a> notes, and more
+      will be added over time.
+    </p>
+
+    <h2>Finding the Replication Origin</h2>
+
+    <p>
+      Before a cell divides it copies its genome, and copying always starts at a fixed location called
+      the <strong>origin of replication</strong> (ori). Locating ori in a raw genome string turns out
+      to be a clean computational problem that can be solved by counting just two of the four
+      nucleotides.
+    </p>
+
+    <p>
+      As replication proceeds, one template strand spends a long time single-stranded, and
+      single-stranded cytosine (C) slowly mutates into thymine (T). That strand gradually loses its
+      C's, so reading along it G ends up outnumbering C. The imbalance points in one direction on the
+      way into ori and the other on the way out, which is what lets us find it.
+    </p>
+
+    <p>
+      Define the <strong>skew</strong> at each position as the running count of G minus the running
+      count of C, scanning left to right: add $1$ for each G and subtract $1$ for each C. The skew
+      falls along the C-rich stretch leading into ori and rises along the G-rich stretch coming out of
+      it, so the <strong>minimum of the skew marks ori</strong>.
+    </p>
+
+    <p>
+      Press play to walk along a synthetic genome and watch the curve take shape. Green bases (G) push
+      it up, red bases (C) pull it down, and the orange marker tracks the lowest point seen so far,
+      which is the predicted ori. Use <em>New genome</em> for a fresh sequence.
+    </p>
+
+    <div class="skew-viz">
+      <label class="skew-input-label" for="skew-input">Genome (editable). Paste your own A/C/G/T sequence, or generate a random one:</label>
+      <textarea class="skew-input" id="skew-input" rows="4" spellcheck="false"></textarea>
+      <canvas class="skew-canvas"></canvas>
+      <div class="skew-controls">
+        <button class="skew-play">&#9654; Play</button>
+        <button class="skew-step">&#9654;| Step</button>
+        <button class="skew-reset">&#8634; Reset</button>
+        <button class="skew-new">&#10227; New genome</button>
+        <label>Length <select class="skew-length">
+          <option value="300">300 bp</option>
+          <option value="600" selected>600 bp</option>
+          <option value="1200">1200 bp</option>
+        </select></label>
+        <label>Speed <select class="skew-speed">
+          <option value="80">Slow</option>
+          <option value="250" selected>Normal</option>
+          <option value="700">Fast</option>
+          <option value="1600">Very fast</option>
+        </select></label>
+      </div>
+      <div class="skew-readout">
+        <span class="skew-legend"><span class="sw g"></span> G (+1)<span class="sw c"></span> C (&minus;1)<span class="sw at"></span> A/T (0)</span>
+        &nbsp;|&nbsp; Position: <span class="skew-pos">0 / 600</span>
+        &nbsp; Skew: <span class="skew-skew">0</span>
+        &nbsp; Predicted ori: <span class="skew-ori">0</span>
+      </div>
+    </div>
+
+    <p>
+      On a real genome the curve is noisier but shows the same overall valley, and its minimum lands
+      very close to the true origin. This single $O(n)$ scan is enough to narrow ori down to a small
+      region, with no k-mer counting required.
+    </p>
+
+  </main>
+
+  <script src="computational-genomics.js"></script>
+  <script>SKEW.init();</script>
+</body>
+</html>

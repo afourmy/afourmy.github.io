@@ -43,6 +43,7 @@
     { en: "Projects", fr: "Projets", columns: [
       [
         { href: "projects/tsp.html", en: "Traveling Salesman Problem", fr: "Voyageur de commerce" },
+        { href: "projects/computational-genomics.html", en: "Computational Genomics", fr: "Génomique computationnelle" },
       ]
     ]},
     { en: "Books", fr: "Livres", columns: [

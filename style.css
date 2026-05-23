@@ -379,6 +379,115 @@ html[lang="fr"] .en { display: none; }
   margin-left: 0.3rem;
 }
 
+/* ── Computational Genomics page ── */
+.skew-viz {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.skew-input-label {
+  display: block;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 0.25rem;
+}
+
+.skew-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.6rem;
+  resize: vertical;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.skew-input:focus {
+  outline: none;
+  border-color: #4a90d9;
+}
+
+.skew-canvas {
+  width: 100%;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.skew-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.skew-controls button {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.35rem 1rem;
+  border: 1px solid #4a90d9;
+  border-radius: 4px;
+  background: #4a90d9;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.skew-controls button:hover {
+  background: #3a7bc8;
+  border-color: #3a7bc8;
+}
+
+.skew-controls select {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.3rem 2rem 0.3rem 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+  appearance: none;
+  cursor: pointer;
+}
+
+.skew-controls label {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.skew-readout {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.skew-readout .skew-ori {
+  color: #d35400;
+  font-weight: 700;
+}
+
+.skew-legend .sw {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin: 0 2px -1px 8px;
+}
+
+.skew-legend .sw.g { background: #2e7d32; }
+.skew-legend .sw.c { background: #c0392b; }
+.skew-legend .sw.at { background: #d9d9d9; }
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
   body { font-size: 14px; }
