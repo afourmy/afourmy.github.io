@@ -441,26 +441,16 @@ def frequent_words_with_mismatches(text, k, d):
     </p>
 
     <p>
-      It is worth fixing the notation used for the rest of the chapter, since it appears in every
-      function below:
+      In code this collection is the list <code>dna</code>. The quantities used throughout the chapter
+      are:
     </p>
 
     <ul>
-      <li><code>dna</code>: the input collection of DNA strings (in code, a list of strings, one per
-        region).</li>
-      <li>$t$: the number of strings in the collection, that is, <code>len(dna)</code>.</li>
-      <li>$n$: the length of a single string.</li>
       <li>$k$: the length of the motif we are searching for.</li>
-      <li>$d$: the maximum number of mismatches allowed, in the formulations that use a threshold.</li>
+      <li>$t$: the number of strings in the collection.</li>
+      <li>$n$: the length of a single string.</li>
+      <li>$d$: the maximum number of mismatches allowed, where a fixed threshold is used.</li>
     </ul>
-
-    <p>
-      We still use $t$ as a name when talking about sizes: the motif matrix has $t$ rows, because we
-      choose one k-mer per string. But the code never takes it as an argument, since $t$ is just
-      <code>len(dna)</code>; where a count is needed we read it from <code>dna</code> directly. The
-      book and Rosalind do pass $t$ explicitly as part of the problem input, which is why their
-      pseudocode signatures include it.
-    </p>
 
     <p>
       A k-mer is a <strong>$(k, d)$-motif</strong> if it appears in <em>every</em> string of the
