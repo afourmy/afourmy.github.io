@@ -1387,6 +1387,16 @@
       for $n \geq 2$. Hence $S_{\text{odd}} = S_{\text{even}}$, and adding the two relations gives $S_{\text{odd}} = n \cdot 2^{n-2}$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Evaluate $\displaystyle\sum_{k=1}^{n} \binom{n}{k}\binom{n}{k - 1}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count the $(n + 1)$-element subsets of a set split into two parts $X$ and $Y$ of size $n$ each, of which there are $\binom{2n}{n + 1}$. Splitting by the number $k$ of elements taken from $X$: pick $k$ from $X$ in $\binom{n}{k}$ ways and the remaining $n + 1 - k$ from $Y$ in $\binom{n}{n + 1 - k} = \binom{n}{k - 1}$ ways. Summing over $k$ gives
+      $$\sum_{k=1}^{n} \binom{n}{k}\binom{n}{k - 1} = \binom{2n}{n + 1}.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
