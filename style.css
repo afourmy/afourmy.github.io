@@ -581,30 +581,50 @@ html[lang="fr"] .en { display: none; }
 }
 
 .greedy-side {
+  margin-top: 1rem;
+  max-width: 34rem;
   font-size: 0.95rem;
   color: #333;
-  margin-top: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+  overflow: hidden;
 }
 
 .greedy-line {
-  display: flex;
-  gap: 0.6rem;
-  line-height: 1.7;
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 0.4rem 0.9rem;
+  border-top: 1px solid #ececec;
+}
+
+.greedy-status > .greedy-line:first-child {
+  border-top: none;
 }
 
 .greedy-label {
-  flex: 0 0 7.5rem;
-  color: #999;
+  color: #8a8a8a;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .greedy-val {
   color: #333;
 }
 
+.greedy-best .greedy-val {
+  font-weight: 700;
+}
+
 .greedy-calc-val {
   font-family: 'Inconsolata', monospace;
   font-size: 0.85rem;
   color: #555;
+  font-weight: 400;
 }
 
 .greedy-best b {
