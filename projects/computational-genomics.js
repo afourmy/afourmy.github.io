@@ -355,7 +355,7 @@
     var speedSelect = root.querySelector('.greedy-speed');
 
     var seed = 1;
-    var k = parseInt(kSelect.value, 10) || 7;
+    var k = parseInt(kSelect.value, 10) || 9;
     var dna = [];
     var seedIndex = 0;       // which k-mer of the first string is the current seed
     var starts = [];         // committed start positions for the seed currently building
@@ -395,13 +395,17 @@
     }
 
     function reset() {
-      seedIndex = 0; starts = []; bestStarts = null; bestScore = Infinity; done = false;
-      phase = 'seed'; scanRow = 0; scanPos = 0; scanBestPos = 0; scanBestProb = -1; lastProb = 0;
+      seedIndex = 0; starts = []; done = false;
+      phase = 'seed'; scanRow = 0; scanPos = 0; scanBestPos = 0; scanBestProb = -1;
+      lastProb = 0; lastFactors = [];
+      bestStarts = [];                               // initial best: first k-mer of every string
+      for (var r = 0; r < GREEDY_T; r++) { bestStarts.push(0); }
+      bestScore = greedyScore(motifsFrom(bestStarts), k);
     }
 
     function startScan() {
       scanRow = starts.length;
-      scanPos = 0; scanBestPos = 0; scanBestProb = -1; lastProb = 0;
+      scanPos = 0; scanBestPos = 0; scanBestProb = -1; lastProb = 0; lastFactors = [];
       phase = 'scan';
       if (scanRow >= GREEDY_T) { phase = 'scored'; }
     }
@@ -528,26 +532,36 @@
       }
       profileTable.innerHTML = profHtml;
 
-      var seedLabel = 'Seed ' + (seedIndex + 1) + ' / ' + (GREEDY_N - k + 1);
+      function line(label, value) {
+        return '<div class="greedy-line"><span class="greedy-label">' + label +
+          '</span><span class="greedy-val">' + value + '</span></div>';
+      }
+      var total = GREEDY_N - k + 1;
+      var seedRow = line('Seed', (seedIndex + 1) + ' / ' + total);
       if (done) {
-        statusBox.innerHTML = 'Done. All ' + (GREEDY_N - k + 1) + ' seeds tried.';
+        statusBox.innerHTML = line('Done', 'all ' + total + ' seeds tried');
       } else if (phase === 'seed') {
-        statusBox.innerHTML = seedLabel + ' &middot; place the seed k-mer of string 1';
+        statusBox.innerHTML = seedRow + line('Step', 'place the seed k-mer in string 1');
       } else if (phase === 'scan') {
-        statusBox.innerHTML = seedLabel + ' &middot; scanning string ' + (scanRow + 1) +
-          ': window at column ' + (scanPos + 1) + ', P = ' + lastProb.toExponential(1) +
-          ' &middot; best so far column ' + (scanBestPos + 1);
+        var product = lastFactors.map(function (f) { return f.toFixed(2); }).join(' &times; ');
+        statusBox.innerHTML = seedRow +
+          line('Scanning', 'string ' + (scanRow + 1) + ', column ' + (scanPos + 1)) +
+          '<div class="greedy-line"><span class="greedy-label">Probability</span>' +
+          '<span class="greedy-val greedy-calc-val">' + product + ' = ' +
+          lastProb.toExponential(1) + '</span></div>' +
+          line('Best window', 'column ' + (scanBestPos + 1) +
+            ', probability ' + scanBestProb.toExponential(1));
       } else if (phase === 'commit') {
-        statusBox.innerHTML = seedLabel + ' &middot; string ' + (scanRow + 1) +
-          ': most probable k-mer is at column ' + (scanBestPos + 1) + ', add it';
+        statusBox.innerHTML = seedRow +
+          line('String ' + (scanRow + 1), 'best window at column ' + (scanBestPos + 1) + ', adding it');
       } else {
-        statusBox.innerHTML = seedLabel + ' &middot; set complete, score ' +
-          greedyScore(motifsFrom(starts), k);
+        statusBox.innerHTML = seedRow +
+          line('Candidate', 'complete, score ' + greedyScore(motifsFrom(starts), k));
       }
       bestBox.innerHTML = bestStarts
-        ? 'Best so far: <b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
-          '</b> (score ' + bestScore + ')'
-        : 'Best so far: none yet';
+        ? line('Best set', '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
+          '</b> (score ' + bestScore + ')')
+        : line('Best set', 'none yet');
     }
 
     function setPlaying(on) {
@@ -580,7 +594,7 @@
     resetButton.onclick = function () { setPlaying(false); reset(); render(); };
     newButton.onclick = function () { setPlaying(false); seed += 1; buildStrings(); reset(); render(); };
     kSelect.onchange = function () {
-      setPlaying(false); k = parseInt(kSelect.value, 10) || 7; buildStrings(); reset(); render();
+      setPlaying(false); k = parseInt(kSelect.value, 10) || 9; buildStrings(); reset(); render();
     };
 
     buildStrings();
