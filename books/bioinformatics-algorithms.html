@@ -441,6 +441,27 @@ def frequent_words_with_mismatches(text, k, d):
     </p>
 
     <p>
+      It is worth fixing the notation used for the rest of the chapter, since it appears in every
+      function below:
+    </p>
+
+    <ul>
+      <li><code>dna</code>: the input collection of DNA strings (in code, a list of strings, one per
+        region).</li>
+      <li>$t$: the number of strings in the collection, that is, <code>len(dna)</code>.</li>
+      <li>$n$: the length of a single string.</li>
+      <li>$k$: the length of the motif we are searching for.</li>
+      <li>$d$: the maximum number of mismatches allowed, in the formulations that use a threshold.</li>
+    </ul>
+
+    <p>
+      The functions take <code>(dna, k, t)</code> as arguments. Passing $t$ is redundant, since it
+      always equals <code>len(dna)</code>, but we keep it to match the pseudocode in the book and on
+      Rosalind. Because we choose one k-mer per string, a set of chosen motifs always has exactly $t$
+      members, which is why the motif matrix has $t$ rows.
+    </p>
+
+    <p>
       A k-mer is a <strong>$(k, d)$-motif</strong> if it appears in <em>every</em> string of the
       collection with at most $d$ mismatches (Hamming distance $\le d$). The
       <strong>Implanted Motif Problem</strong> asks for all $(k, d)$-motifs in a collection.
@@ -619,10 +640,214 @@ def brute_force_motif_search(dna, k):
     return best_motifs</code></pre>
 
     <p>
-      We now have a well-defined objective but no efficient algorithm for it. The second half of this
-      chapter develops practical algorithms (greedy and randomized motif search) that give up
-      guaranteed optimality in exchange for efficiency on real data.
+      We now have a well-defined objective but no efficient algorithm for it. Practical algorithms
+      (greedy and randomized motif search) give up guaranteed optimality in exchange for efficiency
+      on real data.
     </p>
+
+    <h3>Scoring a k-mer with a Profile: the Most Probable k-mer</h3>
+
+    <p>
+      Both algorithms that follow rely on one new tool. So far a profile has been a way to
+      <em>summarize</em> a chosen set of motifs. We now read it in the other direction, as a
+      <strong>predictive model</strong>: given a profile, how well does an arbitrary k-mer fit it?
+    </p>
+
+    <p>
+      Treat each column of the profile as the probability of seeing each nucleotide at that position,
+      and assume the positions are independent. The <strong>probability of a k-mer given a profile</strong>
+      is then the product of the column frequencies of its letters. For a k-mer with letters
+      $a_1 a_2 \cdots a_k$:
+    </p>
+
+    <p>
+      $\Pr(\text{k-mer} \mid \text{Profile}) = \prod_{j=1}^{k} \text{Profile}(a_j,\ j)$
+    </p>
+
+    <p>
+      Using the profile from the previous section, the consensus <code>ACGTA</code> scores
+      $1.00 \times 0.75 \times 0.75 \times 0.75 \times 1.00 = 0.42$, the highest of any 5-mer. Any
+      k-mer that disagrees with the consensus scores lower, because it must pick up a smaller frequency
+      in at least one column.
+    </p>
+
+    <p>
+      The <strong>profile-most-probable k-mer</strong> in a string is the k-mer that maximizes this
+      probability: the string's single best candidate for the motif the profile describes.
+    </p>
+
+    <pre><code class="language-python">def probability(kmer, profile):
+    prob = 1.0
+    for position, base in enumerate(kmer):
+        prob *= profile[base][position]
+    return prob
+
+def profile_most_probable_kmer(text, k, profile):
+    best_kmer, best_prob = text[:k], -1.0
+    for i in range(len(text) - k + 1):
+        kmer = text[i:i + k]
+        prob = probability(kmer, profile)
+        if prob > best_prob:
+            best_kmer, best_prob = kmer, prob
+    return best_kmer</code></pre>
+
+    <p>
+      Ties are broken in favor of the first occurrence.
+    </p>
+
+    <h3>Greedy Motif Search</h3>
+
+    <p>
+      A <strong>greedy algorithm</strong> builds a solution one piece at a time, and at every step it
+      commits to the choice that looks best at that moment, never going back to revise it. It is the
+      paradigm behind algorithms such as Huffman coding and Dijkstra's shortest paths. It gives up the
+      guarantee of reaching the global optimum in exchange for speed.
+    </p>
+
+    <p>
+      Greedy motif search builds the motif set one string at a time:
+    </p>
+
+    <ul>
+      <li>Pick a k-mer from the first string as a seed. It is the only row of a one-row motif matrix,
+        and its profile is the first (overconfident) guess of what the motif looks like.</li>
+      <li>Move to the second string and select its profile-most-probable k-mer: the k-mer that best
+        fits the current guess. Add it. The profile, now built from two k-mers, is a slightly better
+        guess.</li>
+      <li>Continue down the list of strings. Each new string contributes the k-mer that best fits the
+        profile built from all of the previously chosen k-mers.</li>
+    </ul>
+
+    <p>
+      After the last string we have one complete set of $t$ motifs. Its quality depends entirely on
+      the seed, so we run the whole process once for every k-mer of the first string and keep the
+      lowest-scoring result.
+    </p>
+
+    <pre><code class="language-python">def greedy_motif_search(dna, k, t):
+    best_motifs = [text[:k] for text in dna]
+    first = dna[0]
+    for i in range(len(first) - k + 1):
+        motifs = [first[i:i + k]]
+        for j in range(1, t):
+            profile = profile_matrix(motifs)
+            motifs.append(profile_most_probable_kmer(dna[j], k, profile))
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+    return best_motifs</code></pre>
+
+    <p>
+      This is polynomial, roughly $O(n^2 \cdot k \cdot t)$ for $t$ strings of length $n$: a decisive
+      improvement over the exponential brute force. The weakness is inherent to greed: an early k-mer
+      chosen from a profile based on very little evidence can steer every later choice the wrong way,
+      with no mechanism to recover.
+    </p>
+
+    <h3>The Zero Problem and Pseudocounts</h3>
+
+    <p>
+      There is a flaw in scoring k-mers with a raw profile. When only a few motifs have been chosen,
+      many profile entries are exactly $0$, for nucleotides that have not yet appeared in a column.
+      Because the probability of a k-mer is a <em>product</em>, a single $0$ makes the entire value
+      $0$.
+    </p>
+
+    <p>
+      Take the profile from before, whose consensus is <code>ACGTA</code>. The k-mer <code>GCGTA</code>
+      differs from the consensus at only the first position, yet column 1 has frequency $0$ for G, so
+      $\Pr(\texttt{GCGTA} \mid \text{Profile}) = 0$. A near-perfect match is declared impossible, and
+      all the information from its four matching columns is discarded. This is too strict, and it
+      happens precisely when the profile is built from few motifs, as in both algorithms here.
+    </p>
+
+    <p>
+      The fix is <strong>Laplace's rule of succession</strong>: add a pseudocount of $1$ to every
+      entry of the count matrix before dividing. Each column gains four extra observations, so the
+      frequencies use a denominator of $t + 4$. No entry is ever $0$, so a single unpopular letter
+      lowers a k-mer's probability instead of forcing it to zero.
+    </p>
+
+    <pre><code class="language-python">def profile_with_pseudocounts(motifs):
+    t = len(motifs)
+    counts = count_matrix(motifs)
+    return {
+        base: [(value + 1) / (t + 4) for value in row]
+        for base, row in counts.items()
+    }</code></pre>
+
+    <p>
+      Both greedy and randomized motif search use this pseudocounted profile in place of the raw one.
+      With it, <code>GCGTA</code> above receives column-1 frequency $(0 + 1) / (4 + 4) = 0.125$ and a
+      small but nonzero probability.
+    </p>
+
+    <h3>Randomized Motif Search</h3>
+
+    <p>
+      Randomized motif search rests on a circular relationship:
+    </p>
+
+    <ul>
+      <li>given the motifs, computing the profile is easy;</li>
+      <li>given the profile, finding the motifs is easy (take the profile-most-probable k-mer in each
+        string).</li>
+    </ul>
+
+    <p>
+      The trouble is that we start with neither. The algorithm breaks the circle by guessing: choose
+      one k-mer at random from each string, then alternate the two easy steps. Build a profile from the
+      current motifs, use it to re-select the motifs, and repeat. Each pass replaces the motif set with
+      one that fits its own profile better, so the score never rises; when a pass fails to improve it,
+      the search has settled and stops.
+    </p>
+
+    <pre><code class="language-python">import random
+
+def motifs_from_profile(profile, dna, k):
+    return [profile_most_probable_kmer(text, k, profile) for text in dna]
+
+def random_motifs(dna, k):
+    motifs = []
+    for text in dna:
+        start = random.randint(0, len(text) - k)
+        motifs.append(text[start:start + k])
+    return motifs
+
+def randomized_motif_search(dna, k, t):
+    motifs = random_motifs(dna, k)
+    best_motifs = motifs
+    while True:
+        profile = profile_with_pseudocounts(motifs)
+        motifs = motifs_from_profile(profile, dna, k)
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+        else:
+            return best_motifs</code></pre>
+
+    <p>
+      Why would starting from random k-mers ever find a real motif? Random k-mers produce a profile
+      that is nearly, but not perfectly, uniform. If even a couple of them happen to overlap the true
+      motif, the profile leans slightly toward it, and that lean is enough for the re-selection step to
+      pull in better-matching k-mers from the other strings, which makes the profile lean further. It
+      is a positive feedback loop toward whatever signal the starting set happened to contain.
+    </p>
+
+    <p>
+      The catch is that a single run almost always locks onto noise and converges to a poor local
+      optimum, because a random start usually contains no real signal. The remedy follows from the
+      cost: one run is cheap, so run it thousands of times from independent random starts and keep the
+      best result overall. With enough starts, at least one begins close enough to the true motif to
+      converge to it. This shape, alternating two cheap steps from many random starts, is the same one
+      behind clustering methods such as k-means.
+    </p>
+
+    <pre><code class="language-python">def best_over_many_runs(dna, k, t, runs=1000):
+    best_motifs = randomized_motif_search(dna, k, t)
+    for _ in range(runs - 1):
+        candidate = randomized_motif_search(dna, k, t)
+        if score(candidate) < score(best_motifs):
+            best_motifs = candidate
+    return best_motifs</code></pre>
 
   </main>
 </body>
