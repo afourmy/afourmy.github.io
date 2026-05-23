@@ -532,36 +532,43 @@
       }
       profileTable.innerHTML = profHtml;
 
-      function line(label, value) {
+      function line(label, value, valClass) {
         return '<div class="greedy-line"><span class="greedy-label">' + label +
-          '</span><span class="greedy-val">' + value + '</span></div>';
+          '</span><span class="greedy-val ' + (valClass || '') + '">' + value + '</span></div>';
       }
       var total = GREEDY_N - k + 1;
-      var seedRow = line('Seed', (seedIndex + 1) + ' / ' + total);
+      var dash = '';   // rows that do not apply this phase show an empty value
+
+      // The same rows are always shown; rows that do not apply to the current phase read "—".
+      var stepText, probVal, bestWin;
       if (done) {
-        statusBox.innerHTML = line('Done', 'all ' + total + ' seeds tried');
+        stepText = 'Finished, all ' + total + ' seeds tried';
+        probVal = dash; bestWin = dash;
       } else if (phase === 'seed') {
-        statusBox.innerHTML = seedRow + line('Step', 'place the seed k-mer in string 1');
+        stepText = 'Place the seed k-mer in string 1';
+        probVal = dash; bestWin = dash;
       } else if (phase === 'scan') {
-        var product = lastFactors.map(function (f) { return f.toFixed(2); }).join(' &times; ');
-        statusBox.innerHTML = seedRow +
-          line('Scanning', 'string ' + (scanRow + 1) + ', column ' + (scanPos + 1)) +
-          '<div class="greedy-line"><span class="greedy-label">Probability</span>' +
-          '<span class="greedy-val greedy-calc-val">' + product + ' = ' +
-          lastProb.toExponential(1) + '</span></div>' +
-          line('Best window', 'column ' + (scanBestPos + 1) +
-            ', probability ' + scanBestProb.toExponential(1));
+        stepText = 'Scan string ' + (scanRow + 1) + ', column ' + (scanPos + 1);
+        probVal = lastFactors.map(function (f) { return f.toFixed(2); }).join(' &times; ') +
+          ' = ' + lastProb.toExponential(1);
+        bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
       } else if (phase === 'commit') {
-        statusBox.innerHTML = seedRow +
-          line('String ' + (scanRow + 1), 'best window at column ' + (scanBestPos + 1) + ', adding it');
+        stepText = 'Add best k-mer to string ' + (scanRow + 1);
+        probVal = dash;
+        bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
       } else {
-        statusBox.innerHTML = seedRow +
-          line('Candidate', 'complete, score ' + greedyScore(motifsFrom(starts), k));
+        stepText = 'Candidate complete, score ' + greedyScore(motifsFrom(starts), k);
+        probVal = dash; bestWin = dash;
       }
-      bestBox.innerHTML = bestStarts
-        ? line('Best set', '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
-          '</b> (score ' + bestScore + ')')
-        : line('Best set', 'none yet');
+
+      statusBox.innerHTML =
+        line('Seed', done ? total + ' / ' + total : (seedIndex + 1) + ' / ' + total) +
+        line('Step', stepText) +
+        line('Probability', probVal, phase === 'scan' ? 'greedy-calc-val' : '') +
+        line('Best window', bestWin);
+      bestBox.innerHTML = line('Best so far',
+        '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
+        '</b> (score ' + bestScore + ')');
     }
 
     function setPlaying(on) {
