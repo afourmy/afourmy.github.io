@@ -340,6 +340,7 @@
     var myEpoch = ++greedyEpoch;
 
     var stringsBox = root.querySelector('.greedy-strings');
+    var countsTable = root.querySelector('.greedy-counts');
     var profileTable = root.querySelector('.greedy-profile');
     var statusBox = root.querySelector('.greedy-status');
     var bestBox = root.querySelector('.greedy-best');
@@ -451,7 +452,9 @@
         return { ranges: [{ start: starts[row], cls: row === 0 ? seedCls : 'greedy-kmer' }] };
       }
       if (row === scanRow && phase === 'scan') {
-        if (scanPos === scanBestPos) { return { ranges: [{ start: scanPos, cls: 'greedy-scan' }] }; }
+        if (Math.abs(scanPos - scanBestPos) < k) {
+          return { ranges: [{ start: scanPos, cls: 'greedy-scan' }] };
+        }
         return { ranges: [
           { start: scanPos, cls: 'greedy-scan' },
           { start: scanBestPos, cls: 'greedy-scanbest' }
@@ -475,27 +478,50 @@
 
       var shownStarts = (done && bestStarts) ? bestStarts : (starts.length ? starts : [seedIndex]);
       var counts = greedyCounts(motifsFrom(shownStarts), k);
+      var numRows = shownStarts.length;   // m: rows folded into the profile
 
-      var tableHtml = '<tr><th></th>';
-      for (var col = 0; col < k; col++) { tableHtml += '<th>' + (col + 1) + '</th>'; }
-      tableHtml += '</tr>';
-      for (var b = 0; b < 4; b++) {
-        tableHtml += '<tr><th>' + GREEDY_BASES[b] + '</th>';
-        for (var col2 = 0; col2 < k; col2++) {
-          var value = counts[GREEDY_BASES[b]][col2];
-          var isMax = value > 0;
-          for (var bb = 0; bb < 4; bb++) {
-            if (counts[GREEDY_BASES[bb]][col2] > value) { isMax = false; break; }
-          }
-          tableHtml += '<td class="' + (isMax ? 'max' : '') + '">' + value + '</td>';
+      function headerRow() {
+        var h = '<tr><th></th>';
+        for (var col = 0; col < k; col++) { h += '<th>' + (col + 1) + '</th>'; }
+        return h + '</tr>';
+      }
+
+      // The column max is the same cell for counts and probabilities (constant denominator).
+      function isColMax(base, col) {
+        var value = counts[base][col];
+        if (value <= 0) { return false; }
+        for (var bb = 0; bb < 4; bb++) {
+          if (counts[GREEDY_BASES[bb]][col] > value) { return false; }
         }
-        tableHtml += '</tr>';
+        return true;
+      }
+
+      var countsHtml = headerRow();
+      for (var b = 0; b < 4; b++) {
+        countsHtml += '<tr><th>' + GREEDY_BASES[b] + '</th>';
+        for (var col2 = 0; col2 < k; col2++) {
+          countsHtml += '<td class="' + (isColMax(GREEDY_BASES[b], col2) ? 'max' : '') + '">' +
+            counts[GREEDY_BASES[b]][col2] + '</td>';
+        }
+        countsHtml += '</tr>';
       }
       var cons = greedyConsensus(counts, k);
-      tableHtml += '<tr class="greedy-consensus"><td></td>';
-      for (var col3 = 0; col3 < k; col3++) { tableHtml += '<td>' + cons.charAt(col3) + '</td>'; }
-      tableHtml += '</tr>';
-      profileTable.innerHTML = tableHtml;
+      countsHtml += '<tr class="greedy-consensus"><td></td>';
+      for (var col3 = 0; col3 < k; col3++) { countsHtml += '<td>' + cons.charAt(col3) + '</td>'; }
+      countsHtml += '</tr>';
+      countsTable.innerHTML = countsHtml;
+
+      var profHtml = headerRow();
+      for (var pb = 0; pb < 4; pb++) {
+        profHtml += '<tr><th>' + GREEDY_BASES[pb] + '</th>';
+        for (var pc = 0; pc < k; pc++) {
+          var prob = (counts[GREEDY_BASES[pb]][pc] + 1) / (numRows + 4);
+          profHtml += '<td class="' + (isColMax(GREEDY_BASES[pb], pc) ? 'max' : '') + '">' +
+            prob.toFixed(2) + '</td>';
+        }
+        profHtml += '</tr>';
+      }
+      profileTable.innerHTML = profHtml;
 
       var seedLabel = 'Seed ' + (seedIndex + 1) + ' / ' + (GREEDY_N - k + 1);
       if (done) {

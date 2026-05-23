@@ -123,20 +123,33 @@
     </p>
 
     <p>
-      Press play to watch each seed build a candidate row by row. The table below the strings is the
-      profile: each cell is the count of a base in one column, the most frequent base in each column is
-      highlighted, and the bottom row is the resulting consensus. The current score and the best set
-      found so far are tracked beside it.
+      Press play to watch each seed build a candidate row by row. Strings not yet reached are greyed
+      out. For each one, an amber cursor sweeps every window and scores it against the current profile;
+      the most probable window (outlined in green) is the one added to the candidate. Two matrices sit
+      below the strings. The <strong>counts</strong> matrix tallies each base per column over the rows
+      chosen so far, with the most frequent base highlighted and the consensus on the bottom row. The
+      <strong>profile</strong> turns those counts into probabilities, adding a pseudocount so no entry
+      is zero: an entry is $(\text{count}+1)/(m+4)$ when $m$ rows have been chosen. A window's
+      probability is the product of the profile entries for its own letters, and the scan keeps the
+      window with the largest product. The current score and the best set found so far are reported
+      below the matrices.
     </p>
 
     <div class="greedy-viz">
       <div class="greedy-strings"></div>
       <div class="greedy-panels">
-        <table class="greedy-profile"></table>
-        <div class="greedy-side">
-          <div class="greedy-status"></div>
-          <div class="greedy-best"></div>
-        </div>
+        <figure class="greedy-matrix">
+          <figcaption>Counts</figcaption>
+          <table class="greedy-counts"></table>
+        </figure>
+        <figure class="greedy-matrix">
+          <figcaption>Profile (probabilities)</figcaption>
+          <table class="greedy-profile"></table>
+        </figure>
+      </div>
+      <div class="greedy-side">
+        <div class="greedy-status"></div>
+        <div class="greedy-best"></div>
       </div>
       <div class="greedy-controls">
         <button class="greedy-play">&#9654; Play</button>
