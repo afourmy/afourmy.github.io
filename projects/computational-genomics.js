@@ -361,6 +361,7 @@
     var starts = [];         // committed start positions for the seed currently building
     var bestStarts = null;   // best complete set found (length GREEDY_T)
     var bestScore = Infinity;
+    var started = false;     // becomes true on the first advance, when the baseline best is set
     var done = false;
     var playing = false, rafId = 0, lastTime = 0, carry = 0;
 
