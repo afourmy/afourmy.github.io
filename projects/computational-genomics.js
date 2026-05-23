@@ -565,7 +565,9 @@
         line('Seed', done ? total + ' / ' + total : (seedIndex + 1) + ' / ' + total) +
         line('Step', stepText) +
         line('Probability', probVal, phase === 'scan' ? 'greedy-calc-val' : '') +
-        line('Best window', bestWin);
+        line('Best window', bestWin) +
+        line('Candidate', '<b>' + cons + '</b> (' + shownStarts.length + ' / ' + GREEDY_T +
+          ' rows committed)');
       bestBox.innerHTML = line('Best so far',
         '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
         '</b> (score ' + bestScore + ')');
