@@ -1380,6 +1380,11 @@
       <p>The sum is $\sum_{k \text{ odd}} k\binom{n}{k}$. Using the absorption identity $k\binom{n}{k} = n\binom{n - 1}{k - 1}$,
       $$\sum_{k \text{ odd}} k\binom{n}{k} = n \sum_{k \text{ odd}} \binom{n - 1}{k - 1} = n \sum_{j \text{ even}} \binom{n - 1}{j}.$$
       The even-indexed binomial coefficients of any positive integer $m$ sum to $2^{m - 1}$; with $m = n - 1$ this gives $\mathbf{n \cdot 2^{n-2}}$.</p>
+      <p><em>Alternative proof.</em> Let $S_{\text{odd}} = \sum_{k \text{ odd}} k\binom{n}{k}$ and $S_{\text{even}} = \sum_{k \text{ even}} k\binom{n}{k}$. From the earlier identity $\sum_{k} k\binom{n}{k} = n \cdot 2^{n-1}$,
+      $$S_{\text{odd}} + S_{\text{even}} = n \cdot 2^{n-1}.$$
+      For the difference, use $k\binom{n}{k} = n\binom{n - 1}{k - 1}$:
+      $$S_{\text{even}} - S_{\text{odd}} = \sum_{k} (-1)^k\, k\binom{n}{k} = n \sum_{k} (-1)^k \binom{n - 1}{k - 1} = -n\,(1 - 1)^{n-1} = 0$$
+      for $n \geq 2$. Hence $S_{\text{odd}} = S_{\text{even}}$, and adding the two relations gives $S_{\text{odd}} = n \cdot 2^{n-2}$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
