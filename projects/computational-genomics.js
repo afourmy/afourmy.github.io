@@ -283,7 +283,7 @@
   window.GREEDY = GREEDY;
 
   var greedyEpoch = 0;
-  var GREEDY_T = 6;    // number of DNA strings
+  var GREEDY_T = 5;    // number of DNA strings
   var GREEDY_N = 80;   // length of each string
   var GREEDY_BASES = ['A', 'C', 'G', 'T'];
 
