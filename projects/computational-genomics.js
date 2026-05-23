@@ -100,6 +100,13 @@
       return cleaned.length > MAX_LENGTH ? cleaned.slice(0, MAX_LENGTH) : cleaned;
     }
 
+    // Grow the textarea to fit its content so the whole genome shows without a scrollbar.
+    function fitInput() {
+      if (!inputField) { return; }
+      inputField.style.height = 'auto';
+      inputField.style.height = inputField.scrollHeight + 'px';
+    }
+
     // Adopt a clean sequence as the current genome and redraw from the start.
     function setGenome(sequence, writeField) {
       genome = sequence;
@@ -107,6 +114,7 @@
       computeSkew();
       position = 0;
       if (writeField && inputField) { inputField.value = genome; }
+      fitInput();
       resizeCanvas();
       draw();
     }
@@ -254,6 +262,7 @@
       setPlaying(false);
       var cleaned = sanitizeSequence(inputField.value);
       if (cleaned.length > 0) { setGenome(cleaned, false); }
+      fitInput();
     };
     inputField.onchange = function () {
       var cleaned = sanitizeSequence(inputField.value);
@@ -262,7 +271,7 @@
     };
     window.onresize = function () {
       if (!canvas.isConnected) { return; }
-      resizeCanvas(); draw();
+      fitInput(); resizeCanvas(); draw();
     };
 
     generate();
