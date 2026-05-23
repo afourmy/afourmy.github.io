@@ -276,4 +276,284 @@
 
     generate();
   };
+
+  // ── Greedy motif search: build a shared motif one string at a time ──
+
+  var GREEDY = {};
+  window.GREEDY = GREEDY;
+
+  var greedyEpoch = 0;
+  var GREEDY_T = 6;    // number of DNA strings
+  var GREEDY_N = 24;   // length of each string
+  var GREEDY_BASES = ['A', 'C', 'G', 'T'];
+
+  function greedyCounts(motifs, k) {
+    var counts = { A: [], C: [], G: [], T: [] };
+    for (var col = 0; col < k; col++) {
+      counts.A[col] = 0; counts.C[col] = 0; counts.G[col] = 0; counts.T[col] = 0;
+    }
+    for (var i = 0; i < motifs.length; i++) {
+      for (var col2 = 0; col2 < k; col2++) { counts[motifs[i].charAt(col2)][col2] += 1; }
+    }
+    return counts;
+  }
+
+  function greedyConsensus(counts, k) {
+    var result = '';
+    for (var col = 0; col < k; col++) {
+      var bestBase = 'A', bestVal = -1;
+      for (var b = 0; b < 4; b++) {
+        if (counts[GREEDY_BASES[b]][col] > bestVal) {
+          bestVal = counts[GREEDY_BASES[b]][col]; bestBase = GREEDY_BASES[b];
+        }
+      }
+      result += bestBase;
+    }
+    return result;
+  }
+
+  function greedyScore(motifs, k) {
+    if (motifs.length === 0) { return 0; }
+    var counts = greedyCounts(motifs, k), total = 0;
+    for (var col = 0; col < k; col++) {
+      var maxVal = 0;
+      for (var b = 0; b < 4; b++) {
+        if (counts[GREEDY_BASES[b]][col] > maxVal) { maxVal = counts[GREEDY_BASES[b]][col]; }
+      }
+      total += motifs.length - maxVal;
+    }
+    return total;
+  }
+
+  // Probability of one window of text under the profile, using Laplace pseudocounts.
+  function greedyWindowProb(text, start, counts, numMotifs, k) {
+    var prob = 1;
+    for (var col = 0; col < k; col++) {
+      prob *= (counts[text.charAt(start + col)][col] + 1) / (numMotifs + 4);
+    }
+    return prob;
+  }
+
+  GREEDY.init = function () {
+    var root = document.querySelector('.greedy-viz');
+    if (!root) { return; }
+    var myEpoch = ++greedyEpoch;
+
+    var stringsBox = root.querySelector('.greedy-strings');
+    var profileTable = root.querySelector('.greedy-profile');
+    var statusBox = root.querySelector('.greedy-status');
+    var bestBox = root.querySelector('.greedy-best');
+    var playButton = root.querySelector('.greedy-play');
+    var stepButton = root.querySelector('.greedy-step');
+    var resetButton = root.querySelector('.greedy-reset');
+    var newButton = root.querySelector('.greedy-new');
+    var kSelect = root.querySelector('.greedy-k');
+    var speedSelect = root.querySelector('.greedy-speed');
+
+    var seed = 1;
+    var k = parseInt(kSelect.value, 10) || 4;
+    var dna = [];
+    var seedIndex = 0;       // which k-mer of the first string is the current seed
+    var starts = [];         // committed start positions for the seed currently building
+    var bestStarts = null;   // best complete set found (length GREEDY_T)
+    var bestScore = Infinity;
+    var done = false;
+    var playing = false, rafId = 0, lastTime = 0, carry = 0;
+
+    // Sub-step state for the row currently being chosen.
+    var phase = 'seed';      // 'seed' | 'scan' | 'commit' | 'scored'
+    var scanRow = 0;         // string being scanned (equals starts.length during a scan)
+    var scanPos = 0;         // window start under the scan cursor
+    var scanBestPos = 0;     // best window seen so far this scan
+    var scanBestProb = -1;
+    var lastProb = 0;        // probability of the window just evaluated
+
+    function buildStrings() {
+      var rng = mulberry32(seed);
+      var motif = '';
+      for (var c = 0; c < k; c++) { motif += GREEDY_BASES[Math.floor(rng() * 4)]; }
+      dna = [];
+      for (var s = 0; s < GREEDY_T; s++) {
+        var arr = [];
+        for (var i = 0; i < GREEDY_N; i++) { arr.push(GREEDY_BASES[Math.floor(rng() * 4)]); }
+        var start = Math.floor(rng() * (GREEDY_N - k + 1));
+        for (var c2 = 0; c2 < k; c2++) { arr[start + c2] = motif.charAt(c2); }
+        if (rng() < 0.7) { arr[start + Math.floor(rng() * k)] = GREEDY_BASES[Math.floor(rng() * 4)]; }
+        dna.push(arr.join(''));
+      }
+    }
+
+    function motifsFrom(startList) {
+      var motifs = [];
+      for (var r = 0; r < startList.length; r++) { motifs.push(dna[r].substr(startList[r], k)); }
+      return motifs;
+    }
+
+    function reset() {
+      seedIndex = 0; starts = []; bestStarts = null; bestScore = Infinity; done = false;
+      phase = 'seed'; scanRow = 0; scanPos = 0; scanBestPos = 0; scanBestProb = -1; lastProb = 0;
+    }
+
+    function startScan() {
+      scanRow = starts.length;
+      scanPos = 0; scanBestPos = 0; scanBestProb = -1; lastProb = 0;
+      phase = 'scan';
+      if (scanRow >= GREEDY_T) { phase = 'scored'; }
+    }
+
+    function advance() {
+      if (done) { return; }
+      if (phase === 'seed') {
+        starts = [seedIndex];                          // seed from the first string
+        startScan();
+      } else if (phase === 'scan') {
+        // Score one window of the current string against the profile of committed rows.
+        var counts = greedyCounts(motifsFrom(starts), k);
+        lastProb = greedyWindowProb(dna[scanRow], scanPos, counts, starts.length, k);
+        if (lastProb > scanBestProb) { scanBestProb = lastProb; scanBestPos = scanPos; }
+        if (scanPos >= GREEDY_N - k) { phase = 'commit'; } else { scanPos += 1; }
+      } else if (phase === 'commit') {
+        starts.push(scanBestPos);                      // keep the most-probable window
+        startScan();
+      } else {                                         // 'scored': full set complete
+        var s = greedyScore(motifsFrom(starts), k);
+        if (s < bestScore) { bestScore = s; bestStarts = starts.slice(); }
+        seedIndex += 1;
+        starts = [];
+        if (seedIndex > GREEDY_N - k) { done = true; } else { phase = 'seed'; }
+      }
+    }
+
+    // Wrap one or more non-overlapping k-length windows of text in spans.
+    function highlightRanges(text, ranges) {
+      ranges = ranges.slice().sort(function (a, b) { return a.start - b.start; });
+      var out = '', pos = 0;
+      for (var i = 0; i < ranges.length; i++) {
+        var s = ranges[i].start;
+        if (s < pos) { continue; }
+        out += text.slice(pos, s) + '<span class="' + ranges[i].cls + '">' +
+          text.slice(s, s + k) + '</span>';
+        pos = s + k;
+      }
+      return out + text.slice(pos);
+    }
+
+    // Highlight windows for one string plus whether the row is dimmed (not yet reached).
+    function rowState(row) {
+      var seedCls = 'greedy-kmer greedy-seed';
+      if (done && bestStarts) {
+        return { ranges: [{ start: bestStarts[row], cls: row === 0 ? seedCls : 'greedy-kmer' }] };
+      }
+      if (phase === 'seed') {
+        return row === 0 ? { ranges: [{ start: seedIndex, cls: seedCls }] } : { dim: true };
+      }
+      if (row < starts.length) {
+        return { ranges: [{ start: starts[row], cls: row === 0 ? seedCls : 'greedy-kmer' }] };
+      }
+      if (row === scanRow && phase === 'scan') {
+        if (scanPos === scanBestPos) { return { ranges: [{ start: scanPos, cls: 'greedy-scan' }] }; }
+        return { ranges: [
+          { start: scanPos, cls: 'greedy-scan' },
+          { start: scanBestPos, cls: 'greedy-scanbest' }
+        ] };
+      }
+      if (row === scanRow && phase === 'commit') {
+        return { ranges: [{ start: scanBestPos, cls: 'greedy-kmer' }] };
+      }
+      return { dim: true };
+    }
+
+    function render() {
+      var html = '';
+      for (var row = 0; row < GREEDY_T; row++) {
+        var st = rowState(row);
+        var rowCls = st.dim ? 'greedy-row greedy-dim' : 'greedy-row';
+        var body = st.dim ? dna[row] : highlightRanges(dna[row], st.ranges);
+        html += '<div class="' + rowCls + '">' + body + '</div>';
+      }
+      stringsBox.innerHTML = html;
+
+      var shownStarts = (done && bestStarts) ? bestStarts : (starts.length ? starts : [seedIndex]);
+      var counts = greedyCounts(motifsFrom(shownStarts), k);
+
+      var tableHtml = '<tr><th></th>';
+      for (var col = 0; col < k; col++) { tableHtml += '<th>' + (col + 1) + '</th>'; }
+      tableHtml += '</tr>';
+      for (var b = 0; b < 4; b++) {
+        tableHtml += '<tr><th>' + GREEDY_BASES[b] + '</th>';
+        for (var col2 = 0; col2 < k; col2++) {
+          var value = counts[GREEDY_BASES[b]][col2];
+          var isMax = value > 0;
+          for (var bb = 0; bb < 4; bb++) {
+            if (counts[GREEDY_BASES[bb]][col2] > value) { isMax = false; break; }
+          }
+          tableHtml += '<td class="' + (isMax ? 'max' : '') + '">' + value + '</td>';
+        }
+        tableHtml += '</tr>';
+      }
+      var cons = greedyConsensus(counts, k);
+      tableHtml += '<tr class="greedy-consensus"><td></td>';
+      for (var col3 = 0; col3 < k; col3++) { tableHtml += '<td>' + cons.charAt(col3) + '</td>'; }
+      tableHtml += '</tr>';
+      profileTable.innerHTML = tableHtml;
+
+      var seedLabel = 'Seed ' + (seedIndex + 1) + ' / ' + (GREEDY_N - k + 1);
+      if (done) {
+        statusBox.innerHTML = 'Done. All ' + (GREEDY_N - k + 1) + ' seeds tried.';
+      } else if (phase === 'seed') {
+        statusBox.innerHTML = seedLabel + ' &middot; place the seed k-mer of string 1';
+      } else if (phase === 'scan') {
+        statusBox.innerHTML = seedLabel + ' &middot; scanning string ' + (scanRow + 1) +
+          ': window at column ' + (scanPos + 1) + ', P = ' + lastProb.toExponential(1) +
+          ' &middot; best so far column ' + (scanBestPos + 1);
+      } else if (phase === 'commit') {
+        statusBox.innerHTML = seedLabel + ' &middot; string ' + (scanRow + 1) +
+          ': most probable k-mer is at column ' + (scanBestPos + 1) + ', add it';
+      } else {
+        statusBox.innerHTML = seedLabel + ' &middot; set complete, score ' +
+          greedyScore(motifsFrom(starts), k);
+      }
+      bestBox.innerHTML = bestStarts
+        ? 'Best so far: <b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
+          '</b> (score ' + bestScore + ')'
+        : 'Best so far: none yet';
+    }
+
+    function setPlaying(on) {
+      playing = on;
+      playButton.innerHTML = on ? '&#10074;&#10074; Pause' : '&#9654; Play';
+      if (on) {
+        if (done) { reset(); }
+        lastTime = 0; carry = 0;
+        rafId = requestAnimationFrame(frame);
+      } else if (rafId) {
+        cancelAnimationFrame(rafId); rafId = 0;
+      }
+    }
+
+    function frame(time) {
+      if (myEpoch !== greedyEpoch || !root.isConnected) { playing = false; return; }
+      if (!playing) { return; }
+      if (!lastTime) { lastTime = time; }
+      carry += ((time - lastTime) / 1000) * (parseInt(speedSelect.value, 10) || 6);
+      lastTime = time;
+      var advanced = false;
+      while (carry >= 1 && !done) { advance(); carry -= 1; advanced = true; }
+      if (advanced) { render(); }
+      if (done) { setPlaying(false); return; }
+      rafId = requestAnimationFrame(frame);
+    }
+
+    playButton.onclick = function () { setPlaying(!playing); };
+    stepButton.onclick = function () { setPlaying(false); advance(); render(); };
+    resetButton.onclick = function () { setPlaying(false); reset(); render(); };
+    newButton.onclick = function () { setPlaying(false); seed += 1; buildStrings(); reset(); render(); };
+    kSelect.onchange = function () {
+      setPlaying(false); k = parseInt(kSelect.value, 10) || 4; buildStrings(); reset(); render();
+    };
+
+    buildStrings();
+    reset();
+    render();
+  };
 })();

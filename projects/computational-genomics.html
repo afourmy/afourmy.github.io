@@ -89,9 +89,76 @@
       region, with no k-mer counting required.
     </p>
 
+    <h2>Greedy Motif Search</h2>
+
+    <p>
+      A transcription factor controls many genes by binding a short pattern, a motif, that recurs with
+      mutations in the regulatory region upstream of each gene. Given one such region per gene as a
+      collection of DNA strings, the goal is to recover the shared motif of length $k$.
+    </p>
+
+    <p>
+      A candidate solution is one $k$-mer chosen from each string, aligned into a matrix with one row
+      per string. The <strong>score</strong> counts, column by column, the letters that differ from the
+      most common one, so a well-conserved motif scores low. We want the candidate with the smallest
+      score, but checking every combination is exponential in the number of strings.
+    </p>
+
+    <p>
+      Greedy motif search gives up that guarantee for speed. From a single starting $k$-mer it builds
+      one candidate by scanning the strings in order:
+    </p>
+
+    <ol>
+      <li>Take a $k$-mer of the first string as the seed; it becomes the first row of the candidate.</li>
+      <li>From the rows chosen so far, build a <strong>profile</strong>: the count of each base in each
+        column. Pseudocounts are added so that one mismatch cannot force a count to zero.</li>
+      <li>Move to the next string and add the $k$-mer that is most probable under that profile.</li>
+      <li>Repeat steps 2 and 3 down the remaining strings to complete the candidate, then score it.</li>
+    </ol>
+
+    <p>
+      The whole process runs once for every $k$-mer of the first string as the seed, and the
+      lowest-scoring candidate found over all seeds is the answer.
+    </p>
+
+    <p>
+      Press play to watch each seed build a candidate row by row. The table below the strings is the
+      profile: each cell is the count of a base in one column, the most frequent base in each column is
+      highlighted, and the bottom row is the resulting consensus. The current score and the best set
+      found so far are tracked beside it.
+    </p>
+
+    <div class="greedy-viz">
+      <div class="greedy-strings"></div>
+      <div class="greedy-panels">
+        <table class="greedy-profile"></table>
+        <div class="greedy-side">
+          <div class="greedy-status"></div>
+          <div class="greedy-best"></div>
+        </div>
+      </div>
+      <div class="greedy-controls">
+        <button class="greedy-play">&#9654; Play</button>
+        <button class="greedy-step">&#9654;| Step</button>
+        <button class="greedy-reset">&#8634; Reset</button>
+        <button class="greedy-new">&#10227; New strings</button>
+        <label>Motif length <select class="greedy-k">
+          <option value="3">3</option>
+          <option value="4" selected>4</option>
+          <option value="5">5</option>
+        </select></label>
+        <label>Speed <select class="greedy-speed">
+          <option value="2">Slow</option>
+          <option value="6" selected>Normal</option>
+          <option value="14">Fast</option>
+        </select></label>
+      </div>
+    </div>
+
   </main>
 
   <script src="computational-genomics.js"></script>
-  <script>SKEW.init();</script>
+  <script>SKEW.init(); GREEDY.init();</script>
 </body>
 </html>
