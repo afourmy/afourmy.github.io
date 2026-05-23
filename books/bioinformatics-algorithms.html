@@ -455,10 +455,11 @@ def frequent_words_with_mismatches(text, k, d):
     </ul>
 
     <p>
-      The functions take <code>(dna, k, t)</code> as arguments. Passing $t$ is redundant, since it
-      always equals <code>len(dna)</code>, but we keep it to match the pseudocode in the book and on
-      Rosalind. Because we choose one k-mer per string, a set of chosen motifs always has exactly $t$
-      members, which is why the motif matrix has $t$ rows.
+      We still use $t$ as a name when talking about sizes: the motif matrix has $t$ rows, because we
+      choose one k-mer per string. But the code never takes it as an argument, since $t$ is just
+      <code>len(dna)</code>; where a count is needed we read it from <code>dna</code> directly. The
+      book and Rosalind do pass $t$ explicitly as part of the problem input, which is why their
+      pseudocode signatures include it.
     </p>
 
     <p>
@@ -724,14 +725,14 @@ def profile_most_probable_kmer(text, k, profile):
       lowest-scoring result.
     </p>
 
-    <pre><code class="language-python">def greedy_motif_search(dna, k, t):
+    <pre><code class="language-python">def greedy_motif_search(dna, k):
     best_motifs = [text[:k] for text in dna]
     first = dna[0]
     for i in range(len(first) - k + 1):
         motifs = [first[i:i + k]]
-        for j in range(1, t):
+        for text in dna[1:]:
             profile = profile_matrix(motifs)
-            motifs.append(profile_most_probable_kmer(dna[j], k, profile))
+            motifs.append(profile_most_probable_kmer(text, k, profile))
         if score(motifs) < score(best_motifs):
             best_motifs = motifs
     return best_motifs</code></pre>
@@ -813,7 +814,7 @@ def random_motifs(dna, k):
         motifs.append(text[start:start + k])
     return motifs
 
-def randomized_motif_search(dna, k, t):
+def randomized_motif_search(dna, k):
     motifs = random_motifs(dna, k)
     best_motifs = motifs
     while True:
@@ -841,10 +842,10 @@ def randomized_motif_search(dna, k, t):
       behind clustering methods such as k-means.
     </p>
 
-    <pre><code class="language-python">def best_over_many_runs(dna, k, t, runs=1000):
-    best_motifs = randomized_motif_search(dna, k, t)
+    <pre><code class="language-python">def best_over_many_runs(dna, k, runs=1000):
+    best_motifs = randomized_motif_search(dna, k)
     for _ in range(runs - 1):
-        candidate = randomized_motif_search(dna, k, t)
+        candidate = randomized_motif_search(dna, k)
         if score(candidate) < score(best_motifs):
             best_motifs = candidate
     return best_motifs</code></pre>
