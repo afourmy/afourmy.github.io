@@ -396,12 +396,10 @@
     }
 
     function reset() {
-      seedIndex = 0; starts = []; done = false;
+      seedIndex = 0; starts = []; done = false; started = false;
       phase = 'seed'; scanRow = 0; scanPos = 0; scanBestPos = 0; scanBestProb = -1;
       lastProb = 0; lastFactors = [];
-      bestStarts = [];                               // initial best: first k-mer of every string
-      for (var r = 0; r < GREEDY_T; r++) { bestStarts.push(0); }
-      bestScore = greedyScore(motifsFrom(bestStarts), k);
+      bestStarts = null; bestScore = Infinity;       // no best until the algorithm runs
     }
 
     function startScan() {
@@ -413,6 +411,7 @@
 
     function advance() {
       if (done) { return; }
+      if (!started) { started = true; }              // first step: leave the run blank, no baseline
       if (phase === 'seed') {
         starts = [seedIndex];                          // seed from the first string
         startScan();
@@ -428,7 +427,7 @@
         startScan();
       } else {                                         // 'scored': full set complete
         var s = greedyScore(motifsFrom(starts), k);
-        if (s < bestScore) { bestScore = s; bestStarts = starts.slice(); }
+        if (!bestStarts || s < bestScore) { bestScore = s; bestStarts = starts.slice(); }
         seedIndex += 1;
         starts = [];
         if (seedIndex > GREEDY_N - k) { done = true; } else { phase = 'seed'; }
@@ -452,6 +451,7 @@
     // Highlight windows for one string plus whether the row is dimmed (not yet reached).
     function rowState(row) {
       var seedCls = 'greedy-kmer greedy-seed';
+      if (!started) { return { ranges: [] }; }       // nothing highlighted before the run
       if (done && bestStarts) {
         return { ranges: [{ start: bestStarts[row], cls: row === 0 ? seedCls : 'greedy-kmer' }] };
       }
@@ -486,7 +486,8 @@
       }
       stringsBox.innerHTML = html;
 
-      var shownStarts = (done && bestStarts) ? bestStarts : (starts.length ? starts : [seedIndex]);
+      var shownStarts = (done && bestStarts) ? bestStarts
+        : (started ? (starts.length ? starts : [seedIndex]) : []);
       var counts = greedyCounts(motifsFrom(shownStarts), k);
       var numRows = shownStarts.length;   // m: rows folded into the profile
 
@@ -506,18 +507,20 @@
         return true;
       }
 
+      var cons = greedyConsensus(counts, k);
       var countsHtml = headerRow();
       for (var b = 0; b < 4; b++) {
         countsHtml += '<tr><th>' + GREEDY_BASES[b] + '</th>';
         for (var col2 = 0; col2 < k; col2++) {
           countsHtml += '<td class="' + (isColMax(GREEDY_BASES[b], col2) ? 'max' : '') + '">' +
-            counts[GREEDY_BASES[b]][col2] + '</td>';
+            (started ? counts[GREEDY_BASES[b]][col2] : '') + '</td>';
         }
         countsHtml += '</tr>';
       }
-      var cons = greedyConsensus(counts, k);
       countsHtml += '<tr class="greedy-consensus"><td></td>';
-      for (var col3 = 0; col3 < k; col3++) { countsHtml += '<td>' + cons.charAt(col3) + '</td>'; }
+      for (var col3 = 0; col3 < k; col3++) {
+        countsHtml += '<td>' + (started ? cons.charAt(col3) : '') + '</td>';
+      }
       countsHtml += '</tr>';
       countsTable.innerHTML = countsHtml;
 
@@ -527,7 +530,7 @@
         for (var pc = 0; pc < k; pc++) {
           var prob = (counts[GREEDY_BASES[pb]][pc] + 1) / (numRows + 4);
           profHtml += '<td class="' + (isColMax(GREEDY_BASES[pb], pc) ? 'max' : '') + '">' +
-            prob.toFixed(2) + '</td>';
+            (started ? prob.toFixed(2) : '') + '</td>';
         }
         profHtml += '</tr>';
       }
@@ -538,40 +541,42 @@
           '</span><span class="greedy-val ' + (valClass || '') + '">' + value + '</span></div>';
       }
       var total = GREEDY_N - k + 1;
-      var dash = '';   // rows that do not apply this phase show an empty value
 
-      // The same rows are always shown; rows that do not apply to the current phase read "—".
-      var stepText, probVal, bestWin;
-      if (done) {
-        stepText = 'Finished, all ' + total + ' seeds tried';
-        probVal = dash; bestWin = dash;
-      } else if (phase === 'seed') {
-        stepText = 'Place the seed k-mer in string 1';
-        probVal = dash; bestWin = dash;
-      } else if (phase === 'scan') {
-        stepText = 'Scan string ' + (scanRow + 1) + ', column ' + (scanPos + 1);
-        probVal = lastFactors.map(function (f) { return f.toFixed(2); }).join(' &times; ') +
-          ' = ' + lastProb.toExponential(1);
-        bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
-      } else if (phase === 'commit') {
-        stepText = 'Add best k-mer to string ' + (scanRow + 1);
-        probVal = dash;
-        bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
-      } else {
-        stepText = 'Candidate complete, score ' + greedyScore(motifsFrom(starts), k);
-        probVal = dash; bestWin = dash;
+      // Every row is always rendered. Before the run, the values are simply blank.
+      var stepText = 'Not started', probVal = '', bestWin = '', candVal = '', bestVal = '';
+      var seedVal = '';
+      if (started) {
+        seedVal = done ? total + ' / ' + total : (seedIndex + 1) + ' / ' + total;
+        if (done) {
+          stepText = 'Finished, all ' + total + ' seeds tried';
+        } else if (phase === 'seed') {
+          stepText = 'Place the seed k-mer in string 1';
+        } else if (phase === 'scan') {
+          stepText = 'Scan string ' + (scanRow + 1) + ', column ' + (scanPos + 1);
+          probVal = lastFactors.map(function (f) { return f.toFixed(2); }).join(' &times; ') +
+            ' = ' + lastProb.toExponential(1);
+          bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
+        } else if (phase === 'commit') {
+          stepText = 'Add best k-mer to string ' + (scanRow + 1);
+          bestWin = 'Column ' + (scanBestPos + 1) + ', probability ' + scanBestProb.toExponential(1);
+        } else {
+          stepText = 'Candidate complete, score ' + greedyScore(motifsFrom(starts), k);
+        }
+        candVal = '<b>' + cons + '</b> (score ' + greedyScore(motifsFrom(shownStarts), k) +
+          ', ' + shownStarts.length + ' / ' + GREEDY_T + ' rows)';
+      }
+      if (bestStarts) {                              // only once a candidate has actually completed
+        bestVal = '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
+          '</b> (score ' + bestScore + ')';
       }
 
       statusBox.innerHTML =
-        line('Seed', done ? total + ' / ' + total : (seedIndex + 1) + ' / ' + total) +
+        line('Seed', seedVal) +
         line('Step', stepText) +
-        line('Probability', probVal, phase === 'scan' ? 'greedy-calc-val' : '') +
+        line('Probability', probVal, (started && phase === 'scan') ? 'greedy-calc-val' : '') +
         line('Best window', bestWin) +
-        line('Candidate', '<b>' + cons + '</b> (' + shownStarts.length + ' / ' + GREEDY_T +
-          ' rows committed)');
-      bestBox.innerHTML = line('Best so far',
-        '<b>' + greedyConsensus(greedyCounts(motifsFrom(bestStarts), k), k) +
-        '</b> (score ' + bestScore + ')');
+        line('Candidate', candVal);
+      bestBox.innerHTML = line('Best so far', bestVal);
     }
 
     function setPlaying(on) {
