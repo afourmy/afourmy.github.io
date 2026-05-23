@@ -111,28 +111,17 @@
 
     <ol>
       <li>Take a $k$-mer of the first string as the seed; it becomes the first row of the candidate.</li>
-      <li>From the rows chosen so far, build a <strong>profile</strong>: the count of each base in each
-        column. Pseudocounts are added so that one mismatch cannot force a count to zero.</li>
-      <li>Move to the next string and add the $k$-mer that is most probable under that profile.</li>
+      <li>Count each base in each column of the rows chosen so far, then turn the counts into a
+        <strong>profile</strong> of probabilities: an entry is $(\text{count}+1)/(m+4)$ once $m$ rows
+        are chosen, the added pseudocount keeping any letter from reaching probability zero.</li>
+      <li>Move to the next string and score every $k$-mer by multiplying its profile entries, one per
+        column; add the $k$-mer with the largest product.</li>
       <li>Repeat steps 2 and 3 down the remaining strings to complete the candidate, then score it.</li>
     </ol>
 
     <p>
       The whole process runs once for every $k$-mer of the first string as the seed, and the
       lowest-scoring candidate found over all seeds is the answer.
-    </p>
-
-    <p>
-      Press play to watch each seed build a candidate row by row. Strings not yet reached are greyed
-      out. For each one, an amber cursor sweeps every window and scores it against the current profile;
-      the most probable window (outlined in green) is the one added to the candidate. Two matrices sit
-      below the strings. The <strong>counts</strong> matrix tallies each base per column over the rows
-      chosen so far, with the most frequent base highlighted and the consensus on the bottom row. The
-      <strong>profile</strong> turns those counts into probabilities, adding a pseudocount so no entry
-      is zero: an entry is $(\text{count}+1)/(m+4)$ when $m$ rows have been chosen. A window's
-      probability is the product of the profile entries for its own letters, and the scan keeps the
-      window with the largest product. The current score and the best set found so far are reported
-      below the matrices.
     </p>
 
     <div class="greedy-viz">
@@ -157,9 +146,12 @@
         <button class="greedy-reset">&#8634; Reset</button>
         <button class="greedy-new">&#10227; New strings</button>
         <label>Motif length <select class="greedy-k">
-          <option value="3">3</option>
-          <option value="4" selected>4</option>
           <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7" selected>7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
         </select></label>
         <label>Speed <select class="greedy-speed">
           <option value="2">Slow</option>

@@ -284,7 +284,7 @@
 
   var greedyEpoch = 0;
   var GREEDY_T = 6;    // number of DNA strings
-  var GREEDY_N = 24;   // length of each string
+  var GREEDY_N = 80;   // length of each string
   var GREEDY_BASES = ['A', 'C', 'G', 'T'];
 
   function greedyCounts(motifs, k) {
@@ -352,7 +352,7 @@
     var speedSelect = root.querySelector('.greedy-speed');
 
     var seed = 1;
-    var k = parseInt(kSelect.value, 10) || 4;
+    var k = parseInt(kSelect.value, 10) || 7;
     var dna = [];
     var seedIndex = 0;       // which k-mer of the first string is the current seed
     var starts = [];         // committed start positions for the seed currently building
@@ -575,7 +575,7 @@
     resetButton.onclick = function () { setPlaying(false); reset(); render(); };
     newButton.onclick = function () { setPlaying(false); seed += 1; buildStrings(); reset(); render(); };
     kSelect.onchange = function () {
-      setPlaying(false); k = parseInt(kSelect.value, 10) || 4; buildStrings(); reset(); render();
+      setPlaying(false); k = parseInt(kSelect.value, 10) || 7; buildStrings(); reset(); render();
     };
 
     buildStrings();
