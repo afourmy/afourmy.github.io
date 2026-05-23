@@ -326,12 +326,15 @@
   }
 
   // Probability of one window of text under the profile, using Laplace pseudocounts.
+  // Returns the product and the per-column factors that form it.
   function greedyWindowProb(text, start, counts, numMotifs, k) {
-    var prob = 1;
+    var prob = 1, factors = [];
     for (var col = 0; col < k; col++) {
-      prob *= (counts[text.charAt(start + col)][col] + 1) / (numMotifs + 4);
+      var f = (counts[text.charAt(start + col)][col] + 1) / (numMotifs + 4);
+      factors.push(f);
+      prob *= f;
     }
-    return prob;
+    return { prob: prob, factors: factors };
   }
 
   GREEDY.init = function () {
@@ -368,6 +371,7 @@
     var scanBestPos = 0;     // best window seen so far this scan
     var scanBestProb = -1;
     var lastProb = 0;        // probability of the window just evaluated
+    var lastFactors = [];    // per-column profile entries of that window
 
     function buildStrings() {
       var rng = mulberry32(seed);
@@ -410,7 +414,8 @@
       } else if (phase === 'scan') {
         // Score one window of the current string against the profile of committed rows.
         var counts = greedyCounts(motifsFrom(starts), k);
-        lastProb = greedyWindowProb(dna[scanRow], scanPos, counts, starts.length, k);
+        var win = greedyWindowProb(dna[scanRow], scanPos, counts, starts.length, k);
+        lastProb = win.prob; lastFactors = win.factors;
         if (lastProb > scanBestProb) { scanBestProb = lastProb; scanBestPos = scanPos; }
         if (scanPos >= GREEDY_N - k) { phase = 'commit'; } else { scanPos += 1; }
       } else if (phase === 'commit') {
