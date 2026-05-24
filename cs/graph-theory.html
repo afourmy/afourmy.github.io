@@ -623,6 +623,34 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that if $G$ is bipartite with parts $A$ and $B$ of different sizes ($|A| \neq |B|$), then $G$ has no Hamiltonian cycle.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $G$ est biparti avec des parties $A$ et $B$ de tailles diff&eacute;rentes ($|A| \neq |B|$), alors $G$ n'a pas de cycle hamiltonien.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $G$ had a Hamiltonian cycle $v_1, v_2, \ldots, v_n, v_1$. Since $G$ is bipartite, consecutive vertices lie in different parts, so the cycle alternates between $A$ and $B$. Its length $n$ is therefore even, and exactly half of its $n$ vertices lie in $A$ and half in $B$. Since a Hamiltonian cycle visits every vertex exactly once, this gives $|A| = |B| = n/2$, contradicting $|A| \neq |B|$. So $G$ has no Hamiltonian cycle.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons que $G$ admette un cycle hamiltonien $v_1, v_2, \ldots, v_n, v_1$. Comme $G$ est biparti, deux sommets cons&eacute;cutifs sont dans des parties diff&eacute;rentes, donc le cycle alterne entre $A$ et $B$. Sa longueur $n$ est donc paire, et exactement la moiti&eacute; de ses $n$ sommets sont dans $A$, l'autre moiti&eacute; dans $B$. Comme un cycle hamiltonien passe par chaque sommet exactement une fois, on obtient $|A| = |B| = n/2$, contredisant $|A| \neq |B|$. Donc $G$ n'a pas de cycle hamiltonien.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every simple planar graph has a vertex of degree at most $5$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout graphe planaire simple poss&egrave;de un sommet de degr&eacute; au plus $5$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $G$ has at most $2$ vertices, every degree is at most $1$ and the claim is immediate. So assume $V \geq 3$, giving $E \leq 3V - 6$. Suppose, for contradiction, that every vertex had degree at least $6$. By the handshaking lemma, $2E = \sum_{v} \deg(v) \geq 6V$, so $E \geq 3V$. But $3V > 3V - 6 \geq E$, a contradiction. Hence some vertex has degree at most $5$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Si $G$ a au plus $2$ sommets, tout degr&eacute; est au plus $1$ et la conclusion est imm&eacute;diate. Supposons donc $V \geq 3$, de sorte que $E \leq 3V - 6$. Supposons par l'absurde que tout sommet soit de degr&eacute; au moins $6$. Par le lemme des poign&eacute;es de mains, $2E = \sum_{v} \deg(v) \geq 6V$, donc $E \geq 3V$. Or $3V > 3V - 6 \geq E$, contradiction. Donc un sommet est de degr&eacute; au plus $5$.
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
     </div>
@@ -670,6 +698,20 @@
       <em>$\chi(C_n)$.</em> Si $n$ est pair : $C_n$ est biparti (sans cycle impair), donc $\chi(C_n) \leq 2$. Comme $C_n$ contient des ar&ecirc;tes, $\chi(C_n) \geq 2$. Donc $\chi(C_n) = 2$.
       Si $n$ est impair : $C_n$ est lui-m&ecirc;me un cycle impair, donc non biparti, d'o&ugrave; $\chi(C_n) \geq 3$. Colorons les sommets $v_1, \ldots, v_n$ cycliquement : $c(v_i) = 1$ si $i$ est impair et $i < n$, $c(v_i) = 2$ si $i$ est pair, et $c(v_n) = 3$. C'est une $3$-coloration valide, donc $\chi(C_n) = 3$.
       <em>$\chi(K_{p,q}) = 2$ pour $p, q \geq 1$.</em> $K_{p,q}$ est biparti avec les parties $A$ et $B$ : colorons $A$ avec la couleur $1$ et $B$ avec la couleur $2$. Comme $p, q \geq 1$, il y a une ar&ecirc;te, donc $\chi(K_{p,q}) \geq 2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that a tree has at most one perfect matching.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'un arbre admet au plus un couplage parfait.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By strong induction on the number of vertices $n$. If $n$ is odd, no perfect matching exists and there is nothing to prove; if $n = 0$, the empty matching is the only one. Suppose $n \geq 2$ is even. A tree with at least $2$ vertices has a leaf $\ell$, whose only neighbor is some vertex $u$. In any perfect matching, $\ell$ must be matched, and its only possible partner is $u$, so the edge $\{\ell, u\}$ belongs to every perfect matching. Deleting $\ell$ and $u$ leaves a forest $F$, and a perfect matching of the tree is exactly $\{\ell, u\}$ together with a perfect matching of $F$. Each component of $F$ is a tree on fewer than $n$ vertices, so by the induction hypothesis it has at most one perfect matching; hence $F$ has at most one, and therefore so does the tree.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par r&eacute;currence forte sur le nombre de sommets $n$. Si $n$ est impair, aucun couplage parfait n'existe et il n'y a rien &agrave; montrer ; si $n = 0$, le couplage vide est l'unique. Supposons $n \geq 2$ pair. Un arbre &agrave; au moins $2$ sommets poss&egrave;de une feuille $\ell$, dont l'unique voisin est un sommet $u$. Dans tout couplage parfait, $\ell$ doit &ecirc;tre coupl&eacute;, et son seul partenaire possible est $u$, donc l'ar&ecirc;te $\{\ell, u\}$ appartient &agrave; tout couplage parfait. En supprimant $\ell$ et $u$, on obtient une for&ecirc;t $F$, et un couplage parfait de l'arbre est exactement $\{\ell, u\}$ avec un couplage parfait de $F$. Chaque composante de $F$ est un arbre &agrave; moins de $n$ sommets, donc par hypoth&egrave;se de r&eacute;currence admet au plus un couplage parfait ; ainsi $F$ en a au plus un, et l'arbre aussi.
     </details>
 
     <div class="thm-block exercise">
