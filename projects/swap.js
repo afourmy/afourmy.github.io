@@ -246,7 +246,7 @@
       sim = d3.forceSimulation(graph.nodes)
         .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; })
           .distance(120).strength(1))
-        .force("charge", d3.forceManyBody().strength(-900).distanceMax(width))
+        .force("charge", d3.forceManyBody().strength(-1500).distanceMax(width))
         .force("center", d3.forceCenter(width / 2, height / 2))
         .force("x", d3.forceX(width / 2).strength(0.06))
         .force("y", d3.forceY(height / 2).strength(0.06))
