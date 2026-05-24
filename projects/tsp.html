@@ -43,6 +43,20 @@
       This page is based on work I did in 2018, which you can find in
       <a href="https://github.com/afourmy/pyTSP" target="_blank">this repository</a>.
     </p>
+    <p>
+      The cities in the demos below are real locations, selected by population and drawn on a
+      map. The distance between two of them is therefore not a straight line in the plane but a
+      great-circle distance over the surface of the Earth, computed from their latitudes and
+      longitudes with the haversine formula:
+    </p>
+
+    \[ d(A, B) = 2R \arcsin\!\sqrt{\sin^2\!\frac{\varphi_B - \varphi_A}{2} + \cos\varphi_A \cos\varphi_B \sin^2\!\frac{\lambda_B - \lambda_A}{2}} \]
+
+    <p>
+      where $$\varphi$$ and $$\lambda$$ are latitude and longitude in radians and
+      $$R = 6371$$ km is the Earth's radius. Every algorithm on this page works from the
+      resulting matrix of pairwise distances, never from the raw coordinates.
+    </p>
 
     <h2>Construction heuristics</h2>
 
@@ -72,12 +86,11 @@
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -143,12 +156,11 @@ def nearest_neighbor(cities, distances):
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -209,12 +221,11 @@ def nearest_insertion(cities, distances, farthest=False):
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -278,12 +289,11 @@ def nearest_insertion(cities, distances, farthest=False):
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -340,12 +350,11 @@ def nearest_insertion(cities, distances, farthest=False):
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -412,12 +421,11 @@ node_insertion = partial(substring_insertion, k=1)</code></pre>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -470,12 +478,11 @@ edge_insertion = partial(substring_insertion, k=2)</code></pre>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
@@ -730,12 +737,11 @@ def ILP_solver(distances):
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label>Speed <select class="tsp-speed">
-          <option value="600">Slow</option>
-          <option value="300" selected>Normal</option>
-          <option value="100">Fast</option>
-          <option value="30">Very fast</option>
-        </select></label>
+        <label class="tsp-speed-label">Speed
+          <span>Slow</span>
+          <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
+          <span>Fast</span>
+        </label>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>

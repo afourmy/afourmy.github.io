@@ -1066,6 +1066,12 @@
     tick();
   }
 
+  // map the speed slider (0 = slow, 100 = very fast) to a step delay in ms
+  function speedDelay(speedEl) {
+    if (!speedEl) return 300;
+    return Math.round(600 - 5.7 * parseFloat(speedEl.value));
+  }
+
   function runOn(inst, id) {
     if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
     if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
