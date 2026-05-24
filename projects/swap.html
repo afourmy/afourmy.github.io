@@ -62,11 +62,25 @@
 
     <p>
       When the route taken by each connection is also part of the question, the combined problem is
-      known as Routing and Wavelength Assignment (RWA). The demos on this page assume the routes
-      are fixed in advance, with every connection following the shortest path between its endpoints,
-      which is the variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no
+      known as Routing and Wavelength Assignment (RWA). Here the routes are fixed in advance, which
+      is the variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no
       efficient algorithm is known that solves it exactly in all cases.
     </p>
+
+    <p>
+      Solving it breaks into three steps, which the rest of this page follows in order:
+    </p>
+
+    <ol>
+      <li><strong>Routing</strong> &mdash; choose the fibers each connection runs over. Every
+        connection takes the shortest path between its endpoints, measured by geographic
+        distance.</li>
+      <li><strong>Graph transformation</strong> &mdash; recast the network into a second graph that
+        turns wavelength assignment into a standard problem on that graph.</li>
+      <li><strong>Wavelength assignment</strong> &mdash; assign a wavelength to every connection
+        using as few as possible. Two methods are shown: an exact linear program and a faster
+        heuristic.</li>
+    </ol>
 
     <p>
       This page is based on work I did in 2018, which you can find in
