@@ -85,7 +85,7 @@
       var col = item.columns[c];
       for (var i = 0; i < col.length; i++) {
         var link = col[i];
-        html += '<li><a href="' + prefix + link.href + '" data-en="' + esc(link.en) + '" data-fr="' + esc(link.fr) + '">' + esc(link.en) + '</a></li>';
+        html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '" data-en="' + esc(link.en) + '" data-fr="' + esc(link.fr) + '">' + esc(link.en) + '</a></li>';
       }
       html += '</ul>';
     }
@@ -102,6 +102,30 @@
   container.innerHTML = html;
   var nav = container.firstChild;
   document.body.insertBefore(nav, document.body.firstChild);
+
+  // Highlight the top-level item whose submenu contains the current page.
+  // Exposed globally so SPA navigation can refresh it after each page change.
+  function strip(url) {
+    return url.split("#")[0].split("?")[0];
+  }
+  window.setActiveNav = function () {
+    // Compare against the stable data-path (e.g. "math/groups.html") rather
+    // than the anchor's resolved .href, which drifts when SPA navigation
+    // changes the document base URL.
+    var path = strip(window.location.pathname);
+    var items = nav.querySelectorAll(".nav-item");
+    for (var k = 0; k < items.length; k++) {
+      var topLink = items[k].querySelector(".nav-link");
+      var links = items[k].querySelectorAll(".submenu a");
+      var match = false;
+      for (var l = 0; l < links.length; l++) {
+        var p = links[l].getAttribute("data-path");
+        if (p && path.endsWith(p)) { match = true; break; }
+      }
+      if (topLink) topLink.classList.toggle("nav-active", match);
+    }
+  };
+  window.setActiveNav();
 
   // Wire thm-labels as proof toggles (event delegation – works with SPA)
   document.addEventListener("click", function (e) {
