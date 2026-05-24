@@ -657,7 +657,13 @@ def ILP_solver(distances):
     G, h, A, b = [], [], [], full(n, 2, dtype=float)
     # subtour-elimination constraint for every subset of size 2..n-1
     for subset in chain.from_iterable(combinations(range(n), r) for r in range(2, n)):
-        G.append([float(i in subset and j in subset) for i in range(n) for j in range(i + 1, n)])
+        G.append(
+            [
+                float(i in subset and j in subset)
+                for i in range(n)
+                for j in range(i + 1, n)
+            ]
+        )
         h.append(float(len(subset) - 1))
     # degree constraint: each node has exactly two incident edges
     for k in range(n):
