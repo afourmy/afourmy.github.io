@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
@@ -268,6 +269,50 @@ def shortest_path(switches, fibers, coords, source, destination):
                     matrix(A).T, matrix(b), B=set(range(len(arcs))))
     return [arcs[i] for i in range(len(arcs)) if x[i] > 0.5]</code></pre>
     </details>
+
+    <h2>Reduction to a graph coloring problem</h2>
+
+    <p>
+      Once the routes are fixed, the wavelength constraint only involves pairs of connections that
+      share a fiber: two such connections must get different wavelengths, while any two that share
+      no fiber may reuse the same one. This is exactly the structure of a graph coloring problem, so
+      the network is recast into a second graph:
+    </p>
+
+    <ul>
+      <li>Every connection becomes a vertex.</li>
+      <li>Two vertices are joined by an edge whenever their connections share at least one fiber.</li>
+    </ul>
+
+    <p>
+      Coloring the vertices so that adjacent ones get different colors is then the same as assigning
+      wavelengths so that connections sharing a fiber differ, and the fewest colors needed (the
+      graph's chromatic number) is the fewest wavelengths needed.
+    </p>
+
+    <p>
+      In the five-path example, the pairs of connections sharing a fiber are (P1, P2), (P1, P3),
+      (P2, P3), (P2, P5), (P3, P4), (P3, P5) and (P4, P5), which gives a graph on five vertices. The
+      same construction applies to the backbones routed above. Choose a network to build its graph,
+      and drag the vertices to untangle it:
+    </p>
+
+    <div class="tsp-section" id="swap-graph">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-graph-network">
+          <option value="line" selected>First example (5 connections)</option>
+          <option value="usa">BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+      </div>
+      <div class="tsp-map swap-graph-canvas"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      What remains is to color this graph with as few colors as possible. That is the
+      wavelength-assignment step.
+    </p>
 
   </main>
 
