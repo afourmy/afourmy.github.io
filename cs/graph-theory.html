@@ -48,6 +48,11 @@
     </div>
 
     <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Hamiltonicity.</span> A <em>Hamiltonian cycle</em> visits every vertex exactly once, where an Eulerian circuit uses every edge once. No simple degree condition characterizes which graphs have one. There are useful sufficient conditions: it is enough that every vertex have degree at least $n/2$ (Dirac), or more generally that every two non-adjacent vertices have degree sum at least $n$ (Ore).</p>
+      <p class="fr"><span class="thm-label">Hamiltonicit&eacute;.</span> Un <em>cycle hamiltonien</em> visite chaque sommet exactement une fois, l&agrave; o&ugrave; un circuit eul&eacute;rien utilise chaque ar&ecirc;te une fois. Aucune condition simple sur les degr&eacute;s ne caract&eacute;rise les graphes qui en poss&egrave;dent un. Il existe des conditions suffisantes utiles : il suffit que tout sommet ait un degr&eacute; au moins $n/2$ (Dirac), ou plus g&eacute;n&eacute;ralement que deux sommets non adjacents quelconques aient une somme de degr&eacute;s au moins $n$ (Ore).</p>
+    </div>
+
+    <div class="thm-block remark">
       <p class="en"><span class="thm-label">Planarity.</span> A graph is <em>planar</em> if it can be drawn in the plane without edge crossings. Euler's formula $V - E + F = 2$ relates vertices, edges, and faces of any connected plane graph. This formula implies strong constraints: a simple planar graph satisfies $E \leq 3V - 6$, which immediately shows that $K_5$ and $K_{3,3}$ are non-planar. Kuratowski's theorem states these are the only obstructions, up to subdivision.</p>
       <p class="fr"><span class="thm-label">Planarit&eacute;.</span> Un graphe est <em>planaire</em> s'il peut se dessiner dans le plan sans croisement d'ar&ecirc;tes. La formule d'Euler $V - E + F = 2$ relie sommets, ar&ecirc;tes et faces de tout graphe planaire connexe. Cette formule implique de fortes contraintes : un graphe planaire simple v&eacute;rifie $E \leq 3V - 6$, ce qui montre imm&eacute;diatement que $K_5$ et $K_{3,3}$ ne sont pas planaires. Le th&eacute;or&egrave;me de Kuratowski affirme que ce sont les seuls obstacles, &agrave; subdivision pr&egrave;s.</p>
     </div>
@@ -55,6 +60,11 @@
     <div class="thm-block remark">
       <p class="en"><span class="thm-label">Coloring.</span> A <em>proper $k$-coloring</em> assigns one of $k$ colors to each vertex so that adjacent vertices receive distinct colors. The <em>chromatic number</em> $\chi(G)$ is the smallest such $k$. It satisfies $\chi(G) \geq \omega(G)$ (clique lower bound) and $\chi(G) \leq \Delta(G) + 1$ (greedy upper bound). The five-color theorem states that every planar graph satisfies $\chi(G) \leq 5$, proved via Kempe chains. The four-color theorem ($\chi \leq 4$ for planar graphs) is true but requires a computer-assisted proof.</p>
       <p class="fr"><span class="thm-label">Coloration.</span> Une <em>$k$-coloration propre</em> attribue une des $k$ couleurs &agrave; chaque sommet de sorte que deux sommets adjacents aient des couleurs distinctes. Le <em>nombre chromatique</em> $\chi(G)$ est le plus petit tel $k$. Il satisfait $\chi(G) \geq \omega(G)$ (borne inf&eacute;rieure par clique) et $\chi(G) \leq \Delta(G) + 1$ (borne sup&eacute;rieure gloutonne). Le th&eacute;or&egrave;me des cinq couleurs affirme que tout graphe planaire satisfait $\chi(G) \leq 5$, prouv&eacute; via les cha&icirc;nes de Kempe. Le th&eacute;or&egrave;me des quatre couleurs ($\chi \leq 4$ pour les graphes planaires) est vrai mais n&eacute;cessite une d&eacute;monstration assist&eacute;e par ordinateur.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Interval graphs.</span> When vertices are intervals on a line and edges mark overlaps, the graph is an <em>interval graph</em>. For these, the chromatic number equals the clique number: the fewest colors needed equals the largest number of intervals covering a common point. This is the form taken by resource assignment problems, where overlapping requests must receive distinct values (a wavelength, a frequency, a time slot).</p>
+      <p class="fr"><span class="thm-label">Graphes d'intervalles.</span> Lorsque les sommets sont des intervalles sur une droite et que les ar&ecirc;tes marquent les chevauchements, le graphe est un <em>graphe d'intervalles</em>. Pour ceux-ci, le nombre chromatique &eacute;gale le nombre de clique : le nombre minimal de couleurs &eacute;gale le plus grand nombre d'intervalles couvrant un point commun. C'est la forme que prennent les probl&egrave;mes d'affectation de ressource, o&ugrave; des requ&ecirc;tes qui se chevauchent doivent recevoir des valeurs distinctes (une longueur d'onde, une fr&eacute;quence, un cr&eacute;neau).</p>
     </div>
 
     <div class="thm-block remark">
@@ -273,6 +283,53 @@
       $(\Leftarrow)$ Soient $u$ et $v$ les deux sommets de degr&eacute; impair. Ajoutons une ar&ecirc;te $e = \{u,v\}$ pour former $G'$. Dans $G'$, tous les degr&eacute;s sont pairs et $G'$ est connexe, donc par le th&eacute;or&egrave;me d'Euler, $G'$ admet un circuit eul&eacute;rien. Ce circuit utilise $e$ ; en supprimant $e$, on obtient un chemin eul&eacute;rien de $u$ &agrave; $v$ dans $G$.
     </details>
 
+    <h3 class="en">Hamiltonian graphs</h3>
+    <h3 class="fr">Graphes hamiltoniens</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Hamiltonian path and cycle).</span> A <em>Hamiltonian path</em> in $G$ is a path that visits every vertex exactly once. A <em>Hamiltonian cycle</em> is a cycle that visits every vertex exactly once. A graph is <em>Hamiltonian</em> if it has a Hamiltonian cycle. Where an Eulerian circuit uses every edge once, a Hamiltonian cycle uses every vertex once.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Chemin et cycle hamiltoniens).</span> Un <em>chemin hamiltonien</em> dans $G$ est un chemin qui visite chaque sommet exactement une fois. Un <em>cycle hamiltonien</em> est un cycle qui visite chaque sommet exactement une fois. Un graphe est <em>hamiltonien</em> s'il poss&egrave;de un cycle hamiltonien. L&agrave; o&ugrave; un circuit eul&eacute;rien utilise chaque ar&ecirc;te une fois, un cycle hamiltonien utilise chaque sommet une fois.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark.</span> Unlike Euler's theorem, no simple characterization of Hamiltonian graphs in terms of local conditions such as degrees is known. The two results below give only sufficient conditions: they guarantee a Hamiltonian cycle when the graph has enough edges, but many Hamiltonian graphs fail them.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Contrairement au th&eacute;or&egrave;me d'Euler, on ne conna&icirc;t aucune caract&eacute;risation simple des graphes hamiltoniens par des conditions locales comme les degr&eacute;s. Les deux r&eacute;sultats ci-dessous ne donnent que des conditions suffisantes : ils garantissent un cycle hamiltonien lorsque le graphe a assez d'ar&ecirc;tes, mais de nombreux graphes hamiltoniens ne les v&eacute;rifient pas.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Ore, 1960).</span> Let $G$ be a simple graph with $n \geq 3$ vertices. If $\deg(u) + \deg(v) \geq n$ for every pair of non-adjacent vertices $u, v$, then $G$ is Hamiltonian.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Ore, 1960).</span> Soit $G$ un graphe simple &agrave; $n \geq 3$ sommets. Si $\deg(u) + \deg(v) \geq n$ pour toute paire de sommets non adjacents $u, v$, alors $G$ est hamiltonien.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose, for contradiction, that some graph satisfies the hypothesis but is not Hamiltonian. Adding an edge only increases degrees, so the hypothesis is preserved under adding edges. Starting from $G$ and adding missing edges one at a time as long as the graph stays non-Hamiltonian, we reach a graph $H$ on the same $n$ vertices that is non-Hamiltonian, satisfies Ore's condition, and is maximal with this property: adding any missing edge creates a Hamiltonian cycle.
+      $H$ is not the complete graph $K_n$, since $K_n$ is Hamiltonian for $n \geq 3$. So $H$ has two non-adjacent vertices $u$ and $v$. By maximality, $H + \{u,v\}$ has a Hamiltonian cycle, and that cycle must use the new edge $\{u,v\}$. Removing $\{u,v\}$ leaves a Hamiltonian path from $u$ to $v$ in $H$, which we write $x_1, x_2, \ldots, x_n$ with $x_1 = u$ and $x_n = v$, covering all vertices.
+      Consider the two index sets $S = \{ i : 1 \leq i \leq n-1 \text{ and } \{u, x_{i+1}\} \in E(H) \}$ and $T = \{ i : 1 \leq i \leq n-1 \text{ and } \{v, x_i\} \in E(H) \}$. Each neighbor of $u = x_1$ is some $x_{i+1}$ with $i \in S$, so $|S| = \deg(u)$. Each neighbor of $v = x_n$ is some $x_i$ with $i \in T$, so $|T| = \deg(v)$. Both $S$ and $T$ are subsets of $\{1, \ldots, n-1\}$, a set of size $n-1$. Since $\deg(u) + \deg(v) \geq n$, we have $|S| + |T| \geq n > n-1$, so $S$ and $T$ cannot be disjoint: there is an index $i$ with $\{u, x_{i+1}\} \in E$ and $\{v, x_i\} \in E$. (Note $n-1 \notin S$, since $\{u, x_n\} = \{u,v\}$ is not an edge; so $i \leq n-2$ and the construction below is well defined.)
+      Now form a cycle through all $n$ vertices: $x_1, x_2, \ldots, x_i, x_n, x_{n-1}, \ldots, x_{i+1}, x_1$. It follows the path from $x_1$ to $x_i$, takes the edge $\{x_i, x_n\} = \{x_i, v\}$, runs back down the path from $x_n$ to $x_{i+1}$, then takes the edge $\{x_{i+1}, x_1\} = \{x_{i+1}, u\}$ to close up. Every vertex appears exactly once, so this is a Hamiltonian cycle in $H$, contradicting that $H$ is non-Hamiltonian. Hence no such graph exists, and every graph satisfying Ore's condition is Hamiltonian.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Supposons par l'absurde qu'un graphe v&eacute;rifie l'hypoth&egrave;se sans &ecirc;tre hamiltonien. Ajouter une ar&ecirc;te ne fait qu'augmenter les degr&eacute;s, donc l'hypoth&egrave;se est pr&eacute;serv&eacute;e par ajout d'ar&ecirc;tes. En partant de $G$ et en ajoutant des ar&ecirc;tes manquantes une &agrave; une tant que le graphe reste non hamiltonien, on atteint un graphe $H$ sur les m&ecirc;mes $n$ sommets qui est non hamiltonien, v&eacute;rifie la condition d'Ore, et est maximal pour cette propri&eacute;t&eacute; : ajouter n'importe quelle ar&ecirc;te manquante cr&eacute;e un cycle hamiltonien.
+      $H$ n'est pas le graphe complet $K_n$, car $K_n$ est hamiltonien pour $n \geq 3$. Donc $H$ a deux sommets non adjacents $u$ et $v$. Par maximalit&eacute;, $H + \{u,v\}$ a un cycle hamiltonien, et ce cycle utilise n&eacute;cessairement la nouvelle ar&ecirc;te $\{u,v\}$. En retirant $\{u,v\}$, il reste un chemin hamiltonien de $u$ &agrave; $v$ dans $H$, que l'on &eacute;crit $x_1, x_2, \ldots, x_n$ avec $x_1 = u$ et $x_n = v$, couvrant tous les sommets.
+      Consid&eacute;rons les deux ensembles d'indices $S = \{ i : 1 \leq i \leq n-1 \text{ et } \{u, x_{i+1}\} \in E(H) \}$ et $T = \{ i : 1 \leq i \leq n-1 \text{ et } \{v, x_i\} \in E(H) \}$. Chaque voisin de $u = x_1$ est un $x_{i+1}$ avec $i \in S$, donc $|S| = \deg(u)$. Chaque voisin de $v = x_n$ est un $x_i$ avec $i \in T$, donc $|T| = \deg(v)$. Les deux ensembles $S$ et $T$ sont inclus dans $\{1, \ldots, n-1\}$, de taille $n-1$. Comme $\deg(u) + \deg(v) \geq n$, on a $|S| + |T| \geq n > n-1$, donc $S$ et $T$ ne peuvent &ecirc;tre disjoints : il existe un indice $i$ avec $\{u, x_{i+1}\} \in E$ et $\{v, x_i\} \in E$. (Notons que $n-1 \notin S$, car $\{u, x_n\} = \{u,v\}$ n'est pas une ar&ecirc;te ; donc $i \leq n-2$ et la construction ci-dessous est bien d&eacute;finie.)
+      On forme alors un cycle passant par tous les sommets : $x_1, x_2, \ldots, x_i, x_n, x_{n-1}, \ldots, x_{i+1}, x_1$. Il suit le chemin de $x_1$ &agrave; $x_i$, emprunte l'ar&ecirc;te $\{x_i, x_n\} = \{x_i, v\}$, redescend le chemin de $x_n$ &agrave; $x_{i+1}$, puis emprunte l'ar&ecirc;te $\{x_{i+1}, x_1\} = \{x_{i+1}, u\}$ pour se refermer. Chaque sommet appara&icirc;t exactement une fois : c'est un cycle hamiltonien de $H$, contredisant le fait que $H$ est non hamiltonien. Donc aucun tel graphe n'existe, et tout graphe v&eacute;rifiant la condition d'Ore est hamiltonien.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Dirac, 1952).</span> Let $G$ be a simple graph with $n \geq 3$ vertices. If every vertex has degree at least $n/2$, then $G$ is Hamiltonian.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Dirac, 1952).</span> Soit $G$ un graphe simple &agrave; $n \geq 3$ sommets. Si tout sommet a un degr&eacute; au moins $n/2$, alors $G$ est hamiltonien.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For any two non-adjacent vertices $u, v$, we have $\deg(u) + \deg(v) \geq n/2 + n/2 = n$. So Ore's condition holds, and $G$ is Hamiltonian.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Pour deux sommets non adjacents quelconques $u, v$, on a $\deg(u) + \deg(v) \geq n/2 + n/2 = n$. La condition d'Ore est donc v&eacute;rifi&eacute;e, et $G$ est hamiltonien.
+    </details>
+
     <h3 class="en">Planar graphs</h3>
     <h3 class="fr">Graphes planaires</h3>
 
@@ -422,6 +479,39 @@
       Pour $i \neq j$, notons $H_{ij}$ le sous-graphe de $G - v$ induit par les sommets color&eacute;s $i$ ou $j$. Consid&eacute;rons $H_{13}$. Si $v_1$ et $v_3$ sont dans des composantes connexes diff&eacute;rentes de $H_{13}$, on &eacute;change les couleurs $1$ et $3$ dans la composante de $v_1$ : $v_1$ a maintenant la couleur $3$ et tous les voisins de $v$ n'utilisent que les couleurs de $\{2,3,4,5\}$, donc la couleur $1$ est libre pour $v$.
       Si $v_1$ et $v_3$ sont dans la m&ecirc;me composante de $H_{13}$, il existe un chemin $P$ de $v_1$ &agrave; $v_3$ dans $H_{13}$. Dans le plan, ce chemin $P$ avec les ar&ecirc;tes $\{v, v_1\}$ et $\{v, v_3\}$ forme une courbe ferm&eacute;e s&eacute;parant $v_2$ (d'un c&ocirc;t&eacute;) de $v_4$ et $v_5$ (de l'autre). Ainsi $v_2$ et $v_4$ sont s&eacute;par&eacute;s : tout chemin de $v_2$ &agrave; $v_4$ dans $G - v$ doit croiser $P$, donc passer par un sommet de $H_{13}$, qui n'utilise ni la couleur $2$ ni la couleur $4$. Donc $v_2$ et $v_4$ sont dans des composantes connexes diff&eacute;rentes de $H_{24}$. On &eacute;change les couleurs $2$ et $4$ dans la composante de $v_2$ : $v_2$ a maintenant la couleur $4$, et les voisins de $v$ utilisent les couleurs de $\{1, 3, 4, 5\}$, donc la couleur $2$ est libre pour $v$.
       Dans tous les cas, $v$ peut recevoir une couleur, ce qui compl&egrave;te la r&eacute;currence.
+    </details>
+
+    <h3 class="en">Interval graphs</h3>
+    <h3 class="fr">Graphes d'intervalles</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Interval graph).</span> Let $I_1, \ldots, I_n$ be intervals on the real line. Their <em>interval graph</em> has vertex set $\{1, \ldots, n\}$, with an edge $\{i, j\}$ whenever $I_i \cap I_j \neq \emptyset$. A graph is an <em>interval graph</em> if it arises in this way from some family of intervals.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition (Graphe d'intervalles).</span> Soient $I_1, \ldots, I_n$ des intervalles de la droite r&eacute;elle. Leur <em>graphe d'intervalles</em> a pour ensemble de sommets $\{1, \ldots, n\}$, avec une ar&ecirc;te $\{i, j\}$ d&egrave;s que $I_i \cap I_j \neq \emptyset$. Un graphe est un <em>graphe d'intervalles</em> s'il provient ainsi d'une famille d'intervalles.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p class="en"><span class="thm-label">Remark (Conflict graphs).</span> Interval graphs model the sharing of a resource. Take requests, each active over an interval of time or space; two requests conflict exactly when their intervals overlap. A proper coloring assigns to each request one of $k$ values (a wavelength, a frequency, a time slot) so that two overlapping requests differ, and $\chi(G)$ is the least number of values that suffices.</p>
+      <p class="fr"><span class="thm-label">Remarque (Graphes de conflit).</span> Les graphes d'intervalles mod&eacute;lisent le partage d'une ressource. Prenons des requ&ecirc;tes, chacune active sur un intervalle de temps ou d'espace ; deux requ&ecirc;tes sont en conflit exactement lorsque leurs intervalles se chevauchent. Une coloration propre attribue &agrave; chaque requ&ecirc;te une des $k$ valeurs (une longueur d'onde, une fr&eacute;quence, un cr&eacute;neau) de sorte que deux requ&ecirc;tes qui se chevauchent diff&egrave;rent, et $\chi(G)$ est le plus petit nombre de valeurs qui suffit.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every interval graph $G$ satisfies $\chi(G) = \omega(G)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout graphe d'intervalles $G$ v&eacute;rifie $\chi(G) = \omega(G)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The inequality $\chi(G) \geq \omega(G)$ holds for every graph. We show $\chi(G) \leq \omega(G)$ for an interval graph by coloring its intervals greedily.
+      Order the intervals by left endpoint, breaking ties arbitrarily: $I_1, I_2, \ldots, I_n$ with left endpoints $\ell_1 \leq \ell_2 \leq \cdots \leq \ell_n$. Color them in this order, giving each interval the smallest color not yet used by an earlier interval that overlaps it.
+      Consider the step at which $I_j$ is colored. Its already-colored neighbors are the intervals $I_i$ with $i < j$ (so $\ell_i \leq \ell_j$) that meet $I_j$. Such an $I_i$ shares a point with $I_j$; since $I_i$ starts no later than $\ell_j$, that shared point is at least $\ell_j$, so $I_i$ contains the point $\ell_j$. Hence every already-colored neighbor of $I_j$ contains $\ell_j$, and so does $I_j$ itself.
+      These intervals pairwise overlap, since they all contain $\ell_j$, so they form a clique. Its size is at most $\omega(G)$, so $I_j$ has at most $\omega(G) - 1$ already-colored neighbors, and the smallest available color is at most $\omega(G)$. The greedy coloring therefore uses at most $\omega(G)$ colors, giving $\chi(G) \leq \omega(G)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      L'in&eacute;galit&eacute; $\chi(G) \geq \omega(G)$ vaut pour tout graphe. Montrons $\chi(G) \leq \omega(G)$ pour un graphe d'intervalles en colorant ses intervalles gloutonnement.
+      Ordonnons les intervalles par extr&eacute;mit&eacute; gauche croissante, en d&eacute;partageant arbitrairement : $I_1, I_2, \ldots, I_n$ d'extr&eacute;mit&eacute;s gauches $\ell_1 \leq \ell_2 \leq \cdots \leq \ell_n$. Colorons-les dans cet ordre, en donnant &agrave; chaque intervalle la plus petite couleur non encore utilis&eacute;e par un intervalle pr&eacute;c&eacute;dent qui le chevauche.
+      Consid&eacute;rons l'&eacute;tape o&ugrave; $I_j$ est color&eacute;. Ses voisins d&eacute;j&agrave; color&eacute;s sont les intervalles $I_i$ avec $i < j$ (donc $\ell_i \leq \ell_j$) qui rencontrent $I_j$. Un tel $I_i$ partage un point avec $I_j$ ; comme $I_i$ commence au plus tard en $\ell_j$, ce point partag&eacute; est au moins $\ell_j$, donc $I_i$ contient le point $\ell_j$. Ainsi, tout voisin d&eacute;j&agrave; color&eacute; de $I_j$ contient $\ell_j$, de m&ecirc;me que $I_j$.
+      Ces intervalles se chevauchent deux &agrave; deux, puisqu'ils contiennent tous $\ell_j$ ; ils forment donc une clique. Sa taille est au plus $\omega(G)$, donc $I_j$ a au plus $\omega(G) - 1$ voisins d&eacute;j&agrave; color&eacute;s, et la plus petite couleur disponible est au plus $\omega(G)$. La coloration gloutonne utilise donc au plus $\omega(G)$ couleurs, d'o&ugrave; $\chi(G) \leq \omega(G)$.
     </details>
 
     <h3 class="en">Matchings</h3>
