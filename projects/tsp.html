@@ -235,7 +235,7 @@ def nearest_insertion(cities, distances, farthest=False):
     city = randrange(1, len(cities))
     tour = [city]
     # start with the nearest neighbor
-    neighbor, length = closest_neighbor(distances, tour, city)
+    neighbor, _ = closest_neighbor(distances, tour, city)
     tour.append(neighbor)
     while len(tour) != len(cities):
         # find the (city, position) pair whose insertion
