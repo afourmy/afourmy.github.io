@@ -73,6 +73,126 @@
       <a href="https://github.com/afourmy/swap" target="_blank">this repository</a>.
     </p>
 
+    <h2>Routing: finding the shortest path</h2>
+
+    <p>
+      Before a wavelength can be assigned to a connection, the connection needs a route: an ordered
+      list of fibers leading from its source switch to its destination switch. Here each connection
+      follows the shortest route between its two switches, where the length of a fiber is the
+      geographic distance between its endpoints, computed from their latitudes and longitudes with
+      the haversine formula. Routes are therefore decided in advance, leaving wavelength assignment
+      as the only remaining problem.
+    </p>
+
+    <p>
+      The shortest path is found here with linear programming rather than a dedicated algorithm such
+      as Dijkstra's.
+    </p>
+
+    <h3>Variables and objective</h3>
+
+    <p>
+      The network is a graph $$(S, F)$$ with $$S$$ the set of switches and $$F$$ the set of fibers.
+      To each fiber $$(i, j)$$ we associate a binary variable $$x_{ij}$$:
+    </p>
+
+    \[ x_{ij} = \begin{cases} 1 & \text{if fiber } (i, j) \text{ is used by the path} \\ 0 & \text{otherwise} \end{cases} \]
+
+    <p>
+      Writing $$d_{ij}$$ for the distance along fiber $$(i, j)$$, the length of the path is the
+      quantity we want to minimize:
+    </p>
+
+    \[ L = \sum_{(i,\,j)\,\in\,F} d_{ij}\, x_{ij} \]
+
+    <h3>Flow-conservation constraints</h3>
+
+    <p>
+      Minimizing the length on its own would just select no fibers at all. The variables are tied
+      together by <em>flow-conservation</em> constraints, which force the chosen fibers to form a
+      single connected path from the source to the destination. Thinking of one unit of traffic
+      flowing along the path:
+    </p>
+
+    <ul>
+      <li>At the source $$s$$, one more unit leaves than enters:</li>
+    </ul>
+
+    \[ \sum_{j\,:\,(s,\,j)\,\in\,F} x_{sj} \;-\!\! \sum_{j\,:\,(j,\,s)\,\in\,F} x_{js} = 1 \]
+
+    <ul>
+      <li>At any switch other than the source and the destination, as much traffic leaves as
+        enters, so nothing accumulates:</li>
+    </ul>
+
+    \[ \sum_{j\,:\,(i,\,j)\,\in\,F} x_{ij} \;-\!\! \sum_{j\,:\,(j,\,i)\,\in\,F} x_{ji} = 0 \qquad \forall\, i \in S \setminus \{s, d\} \]
+
+    <ul>
+      <li>The variables are binary:</li>
+    </ul>
+
+    \[ x_{ij} \in \{0, 1\} \qquad \forall\, (i, j) \in F \]
+
+    <p>
+      At the destination $$d$$, one more unit enters than leaves, which would read as a fourth
+      equation equal to $$-1$$. That equation is the sum of all the others, so it is redundant and
+      does not need to be stated.
+    </p>
+
+    <p>
+      Each fiber is undirected, so it is split into two directed arcs, one per direction, and the
+      sums above range over those arcs. Pick a traffic demand below to route it: the dashed gray
+      line is the demand (a request to connect a source to a destination), and the red path is the
+      shortest route the solver lays out over the fibers. Choosing <strong>All demands</strong>
+      routes every connection at once, each in its own color.
+    </p>
+
+    <div class="tsp-section" id="swap-routing">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-network">
+          <option value="usa" selected>BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+        <label><span class="tsp-control-label">Traffic demand</span> <select class="swap-demand"></select></label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from math import asin, cos, radians, sin, sqrt
+from cvxopt import matrix, glpk
+
+def haversine(a, b):
+    # geographic distance (km) between two (latitude, longitude) points
+    lat1, lon1, lat2, lon2 = map(radians, (*a, *b))
+    h = sin((lat2 - lat1) / 2)**2 + cos(lat1) * cos(lat2) * sin((lon2 - lon1) / 2)**2
+    return 2 * 6371 * asin(sqrt(h))
+
+def shortest_path(switches, fibers, coords, source, destination):
+    # each fiber is split into two directed arcs, one per direction
+    arcs = [(u, v) for (a, b) in fibers for (u, v) in ((a, b), (b, a))]
+    # objective: minimize the total length of the chosen arcs
+    cost = [haversine(coords[u], coords[v]) for (u, v) in arcs]
+    # flow conservation: outgoing minus incoming flow equals +1 at the source
+    # and 0 at every switch except the destination (whose equation is implied)
+    A, b = [], []
+    for switch in switches:
+        if switch == destination:
+            continue
+        A.append([1. if u == switch else -1. if v == switch else 0. for (u, v) in arcs])
+        b.append(1. if switch == source else 0.)
+    # minimize cost . x  subject to  A x = b,  x binary
+    empty = matrix(0., (0, len(arcs)))
+    _, x = glpk.ilp(matrix(cost), empty, matrix(0., (0, 1)),
+                    matrix(A).T, matrix(b), B=set(range(len(arcs))))
+    return [arcs[i] for i in range(len(arcs)) if x[i] > 0.5]</code></pre>
+    </details>
+
   </main>
+
+  <script src="swap.js"></script>
+  <script>SWAP.init();</script>
 </body>
 </html>
