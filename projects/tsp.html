@@ -316,6 +316,53 @@
       of moves at higher cost per pass.
     </p>
 
+    <!-- ── 2-opt ── -->
+
+    <h3>2-opt (pairwise exchange)</h3>
+
+    <p>
+      2-opt is the classic local-search move for the TSP. It repeatedly picks two edges of
+      the tour and, if removing them and reconnecting the endpoints the other way shortens
+      the tour, does so. Reconnecting amounts to reversing the segment of the tour between
+      the two edges. Each accepted move removes a pair of crossing edges, so a 2-opt tour is
+      always free of self-intersections.
+    </p>
+
+    <ol>
+      <li>Start with a random tour.</li>
+      <li>For every pair of edges in the tour, remove them and reconnect the four endpoints
+        the other way, which reverses the segment between the two edges. If the new tour is
+        shorter, keep it.</li>
+      <li>Repeat until a full pass produces no improvement (a local optimum).</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-two-opt">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label>Cities <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34)</option>
+          <option value="100000">Pop. &ge; 100,000 (293)</option>
+        </select></label>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Each pass is $$O(n^2)$$, and the segment reversal makes 2-opt strictly more powerful
+      than node or edge insertion: it can undo crossings that no insertion move can fix.
+      Run from several random starts, it routinely lands within a few percent of optimal,
+      which is why it is the standard building block for stronger heuristics.
+    </p>
+
     <h2>Python implementation</h2>
 
     <p>
@@ -431,6 +478,25 @@ def insertion_cost(distances, i, j, k):
 node_insertion = partial(substring_insertion, k=1)
 # edge insertion: move two consecutive cities at a time
 edge_insertion = partial(substring_insertion, k=2)</code></pre>
+
+    <h3>2-opt</h3>
+
+    <pre><code class="language-python">def swap(solution, i, j):
+    # reverse the tour segment between positions i and j
+    return solution[:i] + solution[i:j + 1][::-1] + solution[j + 1:]
+
+def pairwise_exchange(cities, distances):
+    solution = generate_initial_tour(cities)
+    stable, best = False, compute_length(solution, distances)
+    while not stable:
+        stable = True
+        for i in range(1, len(solution) - 1):
+            for j in range(i + 1, len(solution)):
+                candidate = swap(solution, i, j)
+                tour_length = compute_length(candidate, distances)
+                if best > tour_length:
+                    stable, solution, best = False, candidate, tour_length
+    return solution</code></pre>
 
   </main>
 

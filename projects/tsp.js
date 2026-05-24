@@ -500,6 +500,45 @@
     return substringInsertion(cities, dist, 2);
   }
 
+  // 2-opt (pairwise exchange): repeatedly reverse a tour segment whenever
+  // doing so shortens the tour, which removes pairs of crossing edges.
+  function twoOpt(cities, dist) {
+    var n = cities.length;
+    // build a random tour (Fisher-Yates shuffle)
+    var tour = [];
+    for (var i = 0; i < n; i++) tour.push(i);
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = tour[i]; tour[i] = tour[j]; tour[j] = tmp;
+    }
+
+    var best = tourLength(tour, dist);
+    var steps = [formatTour(tour, cities)];
+    var lengths = [best];
+    var stable = false;
+
+    while (!stable) {
+      stable = true;
+      for (var i = 1; i < n - 1; i++) {
+        for (var j = i + 1; j < n; j++) {
+          // reverse the segment between positions i and j
+          var candidate = tour.slice(0, i)
+            .concat(tour.slice(i, j + 1).reverse())
+            .concat(tour.slice(j + 1));
+          var len = tourLength(candidate, dist);
+          if (len < best) {
+            tour = candidate;
+            best = len;
+            steps.push(formatTour(tour, cities));
+            lengths.push(best);
+            stable = false;
+          }
+        }
+      }
+    }
+    return { steps: steps, lengths: lengths };
+  }
+
   // ── Per-section map instances ──
 
   var algorithms = {
@@ -508,7 +547,8 @@
     "cheapest-insertion": cheapestInsertion,
     "farthest-insertion": farthestInsertion,
     "node-insertion": nodeInsertion,
-    "edge-insertion": edgeInsertion
+    "edge-insertion": edgeInsertion,
+    "two-opt": twoOpt
   };
 
   var instances = {};
@@ -661,7 +701,7 @@
   // ── Init all sections ──
   window.TSP = {
     init: function () {
-      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion"];
+      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion", "two-opt"];
       for (var i = 0; i < ids.length; i++) createInstance(ids[i]);
     }
   };
