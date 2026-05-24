@@ -244,10 +244,14 @@
       node.append("title").text(function (d) { return d.endpoints; });
 
       sim = d3.forceSimulation(graph.nodes)
-        .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; }).distance(95))
-        .force("charge", d3.forceManyBody().strength(-340))
+        .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; })
+          .distance(120).strength(1))
+        .force("charge", d3.forceManyBody().strength(-900).distanceMax(width))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("collide", d3.forceCollide(26))
+        .force("x", d3.forceX(width / 2).strength(0.06))
+        .force("y", d3.forceY(height / 2).strength(0.06))
+        .force("collide", d3.forceCollide(30))
+        .alphaDecay(0.015)
         .on("tick", function () {
           link.attr("x1", function (d) { return d.source.x; })
             .attr("y1", function (d) { return d.source.y; })
