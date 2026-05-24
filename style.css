@@ -200,6 +200,46 @@ pre code {
   border-radius: 0;
 }
 
+/* Collapsible per-section Python implementation */
+details.tsp-code {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+details.tsp-code > summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: 'Computer Modern Serif', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #036;
+  padding: 0.55rem 0.9rem;
+  user-select: none;
+}
+
+details.tsp-code > summary::-webkit-details-marker { display: none; }
+
+details.tsp-code > summary::before {
+  content: "\25B8";          /* right-pointing triangle */
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.8em;
+  transition: transform 0.15s;
+}
+
+details.tsp-code[open] > summary::before { transform: rotate(90deg); }
+details.tsp-code > summary:hover { color: #4a90d9; }
+
+details.tsp-code > pre {
+  margin: 0;
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  border-radius: 0 0 6px 6px;
+  background: #fff;
+}
+
 /* ── KaTeX display overrides ── */
 .katex { font-size: 1em !important; white-space: nowrap; }
 

@@ -90,6 +90,33 @@
       one may be far away.
     </p>
 
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def closest_neighbor(distances, tour, node, in_tour=False, farthest=False):
+    """Find the closest (or farthest) neighbor to a node,
+    among cities in the tour or not yet visited.
+    """
+    neighbors = distances[node]
+    candidates = [
+        (city, dist)
+        for city, dist in neighbors.items()
+        if (city in tour if in_tour else city not in tour)
+    ]
+    return sorted(candidates, key=lambda x: x[1])[-1 if farthest else 0]
+
+def nearest_neighbor(cities, distances):
+    city = randrange(1, len(cities))
+    current, tour, tour_length = city, [city], 0
+    while len(tour) != len(cities):
+        nearest, edge_length = closest_neighbor(distances, tour, current)
+        tour_length += edge_length
+        tour.append(nearest)
+        current = nearest
+    # close the tour by adding the last edge
+    tour_length += distances[current][city]
+    return tour, tour_length</code></pre>
+    </details>
+
     <!-- ── Nearest Insertion ── -->
 
     <h3>Nearest Insertion</h3>
@@ -129,6 +156,36 @@
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>
     </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def insertion_cost(distances, i, j, k):
+    """Cost of inserting node k between nodes i and j."""
+    return distances[i][k] + distances[k][j] - distances[i][j]
+
+def nearest_insertion(cities, distances, farthest=False):
+    city = randrange(1, len(cities))
+    tour = [city]
+    select = max if farthest else min
+    # min_dist[c] = distance from c to its nearest tour city
+    min_dist = {node: distances[node][city] for node in cities if node != city}
+    while min_dist:
+        # selection: pick closest (or farthest) city to the tour
+        best = select(min_dist, key=min_dist.get)
+        # insertion: find the position that minimizes tour length increase
+        best_position, best_cost = None, float('inf')
+        for i in range(len(tour)):
+            j = (i + 1) % len(tour)
+            cost = insertion_cost(distances, tour[i], tour[j], best)
+            if cost < best_cost:
+                best_position, best_cost = i, cost
+        tour.insert(best_position + 1, best)
+        del min_dist[best]
+        # update distances with the newly added city
+        for node in min_dist:
+            min_dist[node] = min(min_dist[node], distances[node][best])
+    return tour</code></pre>
+    </details>
 
     <!-- ── Cheapest Insertion ── -->
 
@@ -171,6 +228,31 @@
       This is slower than nearest insertion ($$O(n^3)$$ vs $$O(n^2)$$), but generally produces
       shorter tours because it makes globally cheaper choices at each step.
     </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def cheapest_insertion(cities, distances):
+    city = randrange(1, len(cities))
+    tour = [city]
+    # start with the nearest neighbor
+    neighbor, length = closest_neighbor(distances, tour, city)
+    tour.append(neighbor)
+    while len(tour) != len(cities):
+        # find the (city, position) pair whose insertion
+        # causes the smallest increase in tour length
+        best_dist, new_tour = float('inf'), None
+        for candidate in cities:
+            if candidate in tour:
+                continue
+            for i in range(len(tour)):
+                j = (i + 1) % len(tour)
+                dist = insertion_cost(distances, tour[i], tour[j], candidate)
+                if dist < best_dist:
+                    best_dist = dist
+                    new_tour = tour[:i + 1] + [candidate] + tour[i + 1:]
+        tour = new_tour
+    return tour</code></pre>
+    </details>
 
     <!-- ── Farthest Insertion ── -->
 
@@ -216,6 +298,13 @@
       Farthest insertion produces fewer crossing edges than nearest neighbor and generally
       shorter tours than the other insertion variants.
     </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def farthest_insertion(cities, distances):
+    # same as nearest insertion, but selecting the farthest city
+    return nearest_insertion(cities, distances, farthest=True)</code></pre>
+    </details>
 
     <h2>Optimization heuristics</h2>
 
