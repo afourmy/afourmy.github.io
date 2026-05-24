@@ -80,12 +80,12 @@
     <div class="tsp-section" id="tsp-nearest-neighbor">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -150,12 +150,12 @@ def nearest_neighbor(cities, distances):
     <div class="tsp-section" id="tsp-nearest-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -215,12 +215,12 @@ def nearest_insertion(cities, distances, farthest=False):
     <div class="tsp-section" id="tsp-cheapest-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -283,12 +283,12 @@ def nearest_insertion(cities, distances, farthest=False):
     <div class="tsp-section" id="tsp-farthest-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -344,12 +344,12 @@ def nearest_insertion(cities, distances, farthest=False):
     <div class="tsp-section" id="tsp-node-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -415,12 +415,12 @@ node_insertion = partial(substring_insertion, k=1)</code></pre>
     <div class="tsp-section" id="tsp-edge-insertion">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -472,12 +472,12 @@ edge_insertion = partial(substring_insertion, k=2)</code></pre>
     <div class="tsp-section" id="tsp-two-opt">
       <div class="tsp-controls">
         <button class="tsp-btn-run">&#9654; Run</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
@@ -602,7 +602,7 @@ def pairwise_exchange(cities, distances):
       <div class="tsp-controls">
         <button class="tsp-btn-lp" data-subtour="false">&#9654; Degree constraints only</button>
         <button class="tsp-btn-lp" data-subtour="true">&#9654; With subtour elimination</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000" selected>Pop. &ge; 1,000,000 (9 cities)</option>
         </select></label>
       </div>
@@ -731,12 +731,12 @@ def ILP_solver(distances):
     <div class="tsp-section" id="tsp-genetic-algorithm">
       <div class="tsp-controls">
         <button class="tsp-btn-ga">&#9654; Start</button>
-        <label>Cities <select class="tsp-dataset">
+        <label><span class="tsp-control-label">Cities</span> <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
           <option value="100000">Pop. &ge; 100,000 (293 cities)</option>
         </select></label>
-        <label class="tsp-speed-label"><span class="tsp-speed-title">Speed</span>
+        <label class="tsp-speed-label"><span class="tsp-control-label">Speed</span>
           <span>Slow</span>
           <input type="range" class="tsp-speed" min="0" max="100" step="1" value="50">
           <span>Fast</span>
