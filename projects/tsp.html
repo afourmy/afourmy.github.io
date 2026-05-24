@@ -675,6 +675,204 @@ def ILP_solver(distances):
     return edges_to_tour([edges[k] for k in range(sx) if x[k]])</code></pre>
     </details>
 
+    <h2>Genetic algorithm</h2>
+
+    <p>
+      A genetic algorithm treats a tour as an individual in a population and improves the
+      population over successive generations using operators modelled on natural selection.
+      Each tour is encoded as a permutation of the cities. The population starts random and,
+      at every generation, fitter tours (shorter ones) are more likely to pass their structure
+      to the next generation.
+    </p>
+
+    <h3>One generation</h3>
+
+    <ol>
+      <li>Sort the population by tour length.</li>
+      <li><strong>Elitism:</strong> copy the single best tour unchanged into the next
+        generation.</li>
+      <li>Fill the rest by repeating: pick two parents by <strong>tournament selection</strong>
+        (take five random tours, keep the shortest), apply a <strong>crossover</strong> with
+        probability $$c_r$$ to produce two children, then apply a <strong>mutation</strong> to
+        each child with probability $$m_r$$.</li>
+      <li>Keep the best tours, discard the rest, and repeat for the next generation.</li>
+    </ol>
+
+    <h3>Crossover methods</h3>
+
+    <p>
+      A crossover combines two parent tours into two children that are still valid
+      permutations. Three variants are available:
+    </p>
+
+    <ul>
+      <li><strong>Order (OC):</strong> copy a random segment from one parent, then fill the
+        remaining positions with the other parent's cities in their original order, skipping
+        cities already present.</li>
+      <li><strong>Maximal preservative (MPC):</strong> take a contiguous block of length
+        <em>n</em>/2 from one parent (wrapping around the end), then append the other parent's
+        remaining cities in order.</li>
+      <li><strong>Partially mapped (PMC):</strong> copy a segment from one parent, then place
+        the conflicting cities of the other parent by following the position-by-position
+        mapping the segment induces between the two parents.</li>
+    </ul>
+
+    <h3>Mutation methods</h3>
+
+    <p>
+      A mutation makes a small random change to a single tour, which keeps diversity in the
+      population. Three variants are available:
+    </p>
+
+    <ul>
+      <li><strong>Swap:</strong> exchange the cities at two random positions.</li>
+      <li><strong>Insertion:</strong> remove one city and reinsert it at a random position.</li>
+      <li><strong>Displacement:</strong> remove a random contiguous block of cities and
+        reinsert it at a random position.</li>
+    </ul>
+
+    <div class="tsp-section" id="tsp-genetic-algorithm">
+      <div class="tsp-controls">
+        <button class="tsp-btn-ga">&#9654; Start</button>
+        <label>Crossover <select class="ga-crossover">
+          <option value="order" selected>Order (OC)</option>
+          <option value="mpc">Maximal preservative (MPC)</option>
+          <option value="pmc">Partially mapped (PMC)</option>
+        </select></label>
+        <label>Mutation <select class="ga-mutation">
+          <option value="swap" selected>Swap</option>
+          <option value="insertion">Insertion</option>
+          <option value="displacement">Displacement</option>
+        </select></label>
+        <label>Cities <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34)</option>
+          <option value="100000">Pop. &ge; 100,000 (293)</option>
+        </select></label>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+      </div>
+      <div class="ga-rates">
+        <label>Crossover rate
+          <input type="range" class="ga-cr" min="0" max="1" step="0.01" value="0.5">
+          <span class="ga-cr-val">0.50</span>
+        </label>
+        <label>Mutation rate
+          <input type="range" class="ga-mr" min="0" max="1" step="0.01" value="0.5">
+          <span class="ga-mr-val">0.50</span>
+        </label>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      The population size is 100. The map shows the best tour of the current generation, and
+      the run stops automatically once the best length has not improved for 150 generations.
+      Unlike the construction and optimization heuristics, a genetic algorithm explores many
+      tours in parallel and is not tied to a single starting solution.
+    </p>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from random import randint, random, randrange, sample
+from functools import partial
+
+def crossover_cut(size):
+    first_cut = randint(1, size - 2)
+    return first_cut, randint(first_cut + 1, size)
+
+# ── mutations ──
+
+def swap_mutation(solution):
+    solution = solution[:]
+    i, j = randrange(len(solution)), randrange(len(solution))
+    solution[i], solution[j] = solution[j], solution[i]
+    return solution
+
+def insertion_mutation(solution):
+    solution = solution[:]
+    src, dst = randrange(len(solution)), randrange(len(solution))
+    solution.insert(dst, solution.pop(src))
+    return solution
+
+def displacement_mutation(solution):
+    a, b = crossover_cut(len(solution))
+    at = randint(0, len(solution))
+    substring = solution[a:b]
+    solution = solution[:a] + solution[b:]
+    return solution[:at] + substring + solution[at:]
+
+# ── crossovers (each returns two children) ──
+
+def order_crossover(i1, i2):
+    a, b = crossover_cut(len(i1))
+    ni1, ni2 = i1[a:b], i2[a:b]
+    r1, r2 = i1[b:] + i1[:b], i2[b:] + i2[:b]
+    for x in r1:
+        if x not in ni2:
+            ni2.append(x)
+    for x in r2:
+        if x not in ni1:
+            ni1.append(x)
+    return ni1, ni2
+
+def maximal_preservative_crossover(i1, i2):
+    i1, i2 = i1[:], i2[:]
+    c, r = len(i1) // 2, randrange(len(i1) + 1)
+    s1, s2 = (i1 * 2)[r:r + c], (i2 * 2)[r:r + c]
+    for x in s1:
+        i2.remove(x)
+    for x in s2:
+        i1.remove(x)
+    return s2 + i1, s1 + i2
+
+def partial_mapping(i1, i2, ni1, ni2, a, b):
+    for x in i2[a:b]:
+        if x in i1[a:b]:
+            continue
+        curr = x
+        while True:
+            j = i1[i2.index(curr)]
+            pos = i2.index(j)
+            if ni1[pos] is None:
+                ni1[pos] = x
+                break
+            curr = ni2[pos]
+
+def partially_mapped_crossover(i1, i2):
+    a, b = crossover_cut(len(i1))
+    ni1, ni2 = [None] * len(i1), [None] * len(i1)
+    ni1[a:b], ni2[a:b] = i1[a:b], i2[a:b]
+    partial_mapping(i1, i2, ni1, ni2, a, b)
+    partial_mapping(i2, i1, ni2, ni1, a, b)
+    ni1 = [x if x is not None else i2[i] for i, x in enumerate(ni1)]
+    ni2 = [x if x is not None else i1[i] for i, x in enumerate(ni2)]
+    return ni1, ni2
+
+# ── selection and generation cycle ──
+
+def select(population):
+    # tournament selection: best of five random individuals
+    return min(sample(population, 5), key=compute_length)[:]
+
+def cycle(generation, cities, cr, mr, crossover, mutation):
+    if not generation:
+        generation = [generate_solution(cities) for _ in range(100)]
+    generation = sorted(generation, key=compute_length)
+    next_gen = [generation[0][:]]  # elitism
+    while len(next_gen) &lt; len(generation):
+        p1, p2 = select(generation), select(generation)
+        children = crossover(p1, p2) if random() &lt; cr else (p1, p2)
+        next_gen += [mutation(c) if random() &lt; mr else c for c in children]
+    next_gen = sorted(next_gen[:len(generation)], key=compute_length)
+    return next_gen, compute_length(next_gen[0])</code></pre>
+    </details>
+
   </main>
 
   <script src="tsp.js"></script>

@@ -639,6 +639,162 @@
     return { segments: segments, length: len, subtourCount: cycles.length, rounds: rounds };
   }
 
+  // ── GENETIC ALGORITHM ──
+  //
+  // A population of tours evolves over generations: the best tour is carried
+  // over unchanged (elitism), the rest are produced by tournament selection,
+  // crossover and mutation. Crossover and mutation each have three variants,
+  // chosen in the UI. Ported from the pyTSP GeneticAlgorithm class.
+
+  var GA_POP = 100;          // population size
+  var GA_STALE_LIMIT = 150;  // generations without improvement before stopping
+
+  // inclusive integer in [a, b], matching Python's randint
+  function randint(a, b) {
+    return a + Math.floor(Math.random() * (b - a + 1));
+  }
+
+  function gaRandomTour(n) {
+    var tour = [];
+    for (var i = 0; i < n; i++) tour.push(i);
+    for (var i = n - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = tour[i]; tour[i] = tour[j]; tour[j] = tmp;
+    }
+    return tour;
+  }
+
+  // two cut points (a, b) with 1 <= a < b <= n
+  function crossoverCut(n) {
+    var first = randint(1, n - 2);
+    return [first, randint(first + 1, n)];
+  }
+
+  // ─ Mutations ─
+
+  function swapMutation(solution) {
+    var s = solution.slice(), n = s.length;
+    var i = Math.floor(Math.random() * n), j = Math.floor(Math.random() * n);
+    var tmp = s[i]; s[i] = s[j]; s[j] = tmp;
+    return s;
+  }
+
+  function insertionMutation(solution) {
+    var s = solution.slice(), n = s.length;
+    var from = Math.floor(Math.random() * n), to = Math.floor(Math.random() * n);
+    var city = s.splice(from, 1)[0];
+    s.splice(to, 0, city);
+    return s;
+  }
+
+  function displacementMutation(solution) {
+    var n = solution.length, cut = crossoverCut(n), a = cut[0], b = cut[1];
+    var at = randint(0, n);
+    var substring = solution.slice(a, b);
+    var rest = solution.slice(0, a).concat(solution.slice(b));
+    return rest.slice(0, at).concat(substring, rest.slice(at));
+  }
+
+  // ─ Crossovers (each returns two children) ─
+
+  function orderCrossover(i1, i2) {
+    var n = i1.length, cut = crossoverCut(n), a = cut[0], b = cut[1];
+    var ni1 = i1.slice(a, b), ni2 = i2.slice(a, b);
+    var r1 = i1.slice(b).concat(i1.slice(0, b));   // rotated parents
+    var r2 = i2.slice(b).concat(i2.slice(0, b));
+    for (var k = 0; k < r1.length; k++) if (ni2.indexOf(r1[k]) < 0) ni2.push(r1[k]);
+    for (var k = 0; k < r2.length; k++) if (ni1.indexOf(r2[k]) < 0) ni1.push(r2[k]);
+    return [ni1, ni2];
+  }
+
+  function maximalPreservativeCrossover(i1, i2) {
+    var n = i1.length;
+    i1 = i1.slice(); i2 = i2.slice();
+    var c = Math.floor(n / 2), r = randint(0, n);
+    var s1 = i1.concat(i1).slice(r, r + c);   // circular slice of length c
+    var s2 = i2.concat(i2).slice(r, r + c);
+    for (var k = 0; k < s1.length; k++) { var x = i2.indexOf(s1[k]); if (x >= 0) i2.splice(x, 1); }
+    for (var k = 0; k < s2.length; k++) { var y = i1.indexOf(s2[k]); if (y >= 0) i1.splice(y, 1); }
+    return [s2.concat(i1), s1.concat(i2)];
+  }
+
+  // empty slots in the children are marked null (the city index 0 is a valid
+  // city here, so we cannot use 0 as the sentinel the original Python relied on)
+  function partialMapping(i1, i2, ni1, ni2, a, b) {
+    var segment = i1.slice(a, b);
+    for (var t = a; t < b; t++) {
+      var x = i2[t];
+      if (segment.indexOf(x) >= 0) continue;
+      var curr = x;
+      while (true) {
+        var j = i1[i2.indexOf(curr)];
+        var pos = i2.indexOf(j);
+        if (ni1[pos] === null) { ni1[pos] = x; break; }
+        curr = ni2[pos];
+      }
+    }
+  }
+
+  function partiallyMappedCrossover(i1, i2) {
+    var n = i1.length, cut = crossoverCut(n), a = cut[0], b = cut[1];
+    var ni1 = new Array(n).fill(null), ni2 = new Array(n).fill(null);
+    for (var t = a; t < b; t++) { ni1[t] = i1[t]; ni2[t] = i2[t]; }
+    partialMapping(i1, i2, ni1, ni2, a, b);
+    partialMapping(i2, i1, ni2, ni1, a, b);
+    for (var t = 0; t < n; t++) if (ni1[t] === null) ni1[t] = i2[t];
+    for (var t = 0; t < n; t++) if (ni2[t] === null) ni2[t] = i1[t];
+    return [ni1, ni2];
+  }
+
+  var GA_CROSSOVERS = {
+    order: orderCrossover,
+    mpc: maximalPreservativeCrossover,
+    pmc: partiallyMappedCrossover
+  };
+  var GA_MUTATIONS = {
+    swap: swapMutation,
+    insertion: insertionMutation,
+    displacement: displacementMutation
+  };
+
+  // ─ Selection and generation cycle ─
+
+  // tournament selection: best of five random individuals
+  function gaSelect(population, lengthOf) {
+    var best = null, bestLen = Infinity;
+    for (var s = 0; s < 5; s++) {
+      var cand = population[Math.floor(Math.random() * population.length)];
+      var len = lengthOf(cand);
+      if (len < bestLen) { bestLen = len; best = cand; }
+    }
+    return best.slice();
+  }
+
+  function gaCycle(generation, cities, dist, params) {
+    var n = cities.length;
+    var lengthOf = function (sol) { return tourLength(sol, dist); };
+    if (!generation) {
+      generation = [];
+      for (var p = 0; p < GA_POP; p++) generation.push(gaRandomTour(n));
+    }
+    generation = generation.slice().sort(function (x, y) { return lengthOf(x) - lengthOf(y); });
+
+    var crossover = GA_CROSSOVERS[params.crossover];
+    var mutation = GA_MUTATIONS[params.mutation];
+    var next = [generation[0].slice()];   // elitism: keep the best tour
+    while (next.length < generation.length) {
+      var p1 = gaSelect(generation, lengthOf), p2 = gaSelect(generation, lengthOf);
+      var children = Math.random() < params.cr ? crossover(p1, p2) : [p1, p2];
+      for (var ci = 0; ci < children.length; ci++) {
+        var child = children[ci];
+        next.push(Math.random() < params.mr ? mutation(child) : child);
+      }
+    }
+    next = next.slice(0, generation.length)
+      .sort(function (x, y) { return lengthOf(x) - lengthOf(y); });
+    return { population: next, best: next[0], length: lengthOf(next[0]) };
+  }
+
   // ── Per-section map instances ──
 
   var algorithms = {
@@ -673,7 +829,7 @@
     // The linear-programming section runs an exact solver that only scales to a
     // handful of cities, so it keeps its own small dataset instead of sharing
     // the global one used by the heuristics.
-    var inst = { markers: [], tourLine: null, timer: null, cities: [],
+    var inst = { markers: [], tourLine: null, timer: null, cities: [], id: id,
       independent: id === "linear-programming" };
 
     inst.map = L.map(container.querySelector(".tsp-map")).setView([39.5, -98.35], 4);
@@ -723,12 +879,31 @@
       reloadAll();
     });
 
-    container.querySelector(".tsp-btn-run").addEventListener("click", function () {
-      runOn(inst, id);
-    });
+    if (id === "genetic-algorithm") {
+      container.querySelector(".tsp-btn-ga").addEventListener("click", function () {
+        toggleGA(inst);
+      });
+      wireRateSliders(container);
+    } else {
+      container.querySelector(".tsp-btn-run").addEventListener("click", function () {
+        runOn(inst, id);
+      });
+    }
 
     instances[id] = inst;
     loadCities(inst, sharedCities);
+  }
+
+  // keep each rate slider's numeric label in sync with its value
+  function wireRateSliders(container) {
+    [["ga-mr", "ga-mr-val"], ["ga-cr", "ga-cr-val"]].forEach(function (pair) {
+      var slider = container.querySelector("." + pair[0]);
+      var label = container.querySelector("." + pair[1]);
+      if (!slider || !label) return;
+      var update = function () { label.textContent = parseFloat(slider.value).toFixed(2); };
+      slider.addEventListener("input", update);
+      update();
+    });
   }
 
   function addCity(inst, latlng) {
@@ -757,6 +932,7 @@
   }
 
   function clearInstance(inst) {
+    if (inst.gaRunning) { inst.gaRunning = false; setGAButton(inst, false); }
     if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
     for (var i = 0; i < inst.markers.length; i++) inst.map.removeLayer(inst.markers[i]);
     if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
@@ -816,6 +992,80 @@
     inst.updateStatus(left, "Length: " + Math.round(result.length) + " km");
   }
 
+  // The genetic algorithm evolves continuously, so it runs on its own loop with
+  // a Start/Stop button rather than the precomputed-steps animation.
+  function setGAButton(inst, running) {
+    var btn = document.getElementById("tsp-genetic-algorithm").querySelector(".tsp-btn-ga");
+    if (btn) btn.innerHTML = running ? "&#9632; Stop" : "&#9654; Start";
+  }
+
+  function stopGA(inst) {
+    inst.gaRunning = false;
+    if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
+    setGAButton(inst, false);
+  }
+
+  function toggleGA(inst) {
+    if (inst.gaRunning) { stopGA(inst); return; }
+    if (inst.cities.length < 3) {
+      inst.updateStatus("Place at least 3 cities.");
+      return;
+    }
+    if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
+
+    var container = document.getElementById("tsp-genetic-algorithm");
+    var speedEl = container.querySelector(".tsp-speed");
+    var dist = buildDistances(inst.cities);
+
+    inst.gaRunning = true;
+    inst.gaPopulation = null;
+    inst.gaGeneration = 0;
+    inst.gaBestLen = Infinity;
+    inst.gaStale = 0;
+    setGAButton(inst, true);
+
+    function readParams() {
+      return {
+        cr: parseFloat(container.querySelector(".ga-cr").value),
+        mr: parseFloat(container.querySelector(".ga-mr").value),
+        crossover: container.querySelector(".ga-crossover").value,
+        mutation: container.querySelector(".ga-mutation").value
+      };
+    }
+
+    function tick() {
+      if (!inst.gaRunning) return;
+      var result = gaCycle(inst.gaPopulation, inst.cities, dist, readParams());
+      inst.gaPopulation = result.population;
+      inst.gaGeneration++;
+      if (result.length < inst.gaBestLen - 1e-9) {
+        inst.gaBestLen = result.length;
+        inst.gaStale = 0;
+      } else {
+        inst.gaStale++;
+      }
+
+      var pts = formatTour(result.best, inst.cities);
+      if (!inst.tourLine) {
+        inst.tourLine = L.polyline(pts, { color: "#c44", weight: 2.5, opacity: 0.85 }).addTo(inst.map);
+      } else {
+        inst.tourLine.setLatLngs(pts);
+      }
+      inst.updateStatus("Generation " + inst.gaGeneration,
+        "Best: " + Math.round(result.length) + " km");
+
+      if (inst.gaStale >= GA_STALE_LIMIT) {
+        stopGA(inst);
+        inst.updateStatus("Converged after " + inst.gaGeneration + " generations",
+          "Best: " + Math.round(result.length) + " km");
+        return;
+      }
+      var delay = speedEl ? parseInt(speedEl.value, 10) : 300;
+      inst.timer = setTimeout(tick, delay);
+    }
+    tick();
+  }
+
   function runOn(inst, id) {
     if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
     if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
@@ -858,7 +1108,7 @@
   // ── Init all sections ──
   window.TSP = {
     init: function () {
-      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion", "two-opt", "linear-programming"];
+      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion", "two-opt", "linear-programming", "genetic-algorithm"];
       for (var i = 0; i < ids.length; i++) createInstance(ids[i]);
     }
   };
