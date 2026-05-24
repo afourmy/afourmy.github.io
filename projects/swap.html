@@ -445,6 +445,70 @@ def color_graph(paths, edges, K):
     return [next(l for l in range(K) if x[p * K + l] > 0.5) for p in range(V)]</code></pre>
     </details>
 
+    <h2>Wavelength assignment by the largest-degree-first heuristic</h2>
+
+    <p>
+      The linear program always returns the minimum number of wavelengths, but solving it grows
+      expensive and does not scale to large networks. The largest-degree-first heuristic is a fast
+      alternative. It colors the vertices one at a time, starting with the most constrained:
+    </p>
+
+    <ol>
+      <li>Take the uncolored vertex of largest degree.</li>
+      <li>Give it the lowest-numbered wavelength not already used by one of its neighbors.</li>
+      <li>Repeat until every vertex is colored.</li>
+    </ol>
+
+    <p>
+      This is the second strategy from the first example, now stated on the graph: the degree of a
+      vertex is the number of connections it shares a fiber with, so taking the largest-degree
+      vertex first is taking the most-overlapping connection first.
+    </p>
+
+    <p>
+      Coloring the busiest vertices first keeps the count low, but the heuristic only ever looks at
+      one vertex at a time and can settle for more wavelengths than the optimum the linear program
+      finds. On the backbone below it runs instantly, where the linear program would already be slow.
+    </p>
+
+    <div class="tsp-section" id="swap-ldf">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-lp-network">
+          <option value="line">First example (5 connections)</option>
+          <option value="usa" selected>BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+      </div>
+      <div class="swap-lp-row">
+        <div class="swap-lp-col swap-lp-col--graph">
+          <div class="swap-lp-caption">Graph, colored by wavelength</div>
+          <div class="tsp-map swap-lp-graph"></div>
+        </div>
+        <div class="swap-lp-col swap-lp-col--map">
+          <div class="swap-lp-caption">Routes in their wavelength colors (parallel where a fiber carries several)</div>
+          <div class="tsp-map swap-lp-map"></div>
+        </div>
+      </div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def largest_degree_first(graph):
+    # graph maps each path to the list of paths it shares a fiber with
+    color = {}
+    # color the paths in decreasing order of degree
+    order = sorted(graph, key=lambda path: len(graph[path]), reverse=True)
+    for path in order:
+        used = {color[n] for n in graph[path] if n in color}
+        # lowest wavelength index not used by a neighbor
+        wavelength = 0
+        while wavelength in used:
+            wavelength += 1
+        color[path] = wavelength
+    return color</code></pre>
+    </details>
+
   </main>
 
   <script src="swap.js"></script>

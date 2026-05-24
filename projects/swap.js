@@ -303,21 +303,26 @@
     return adj;
   }
 
-  // largest-degree-first greedy coloring; its color count is an upper bound on
-  // the optimum, which keeps the ILP's number of wavelengths K small
-  function greedyUpperBound(graph) {
+  // ── largest-degree-first heuristic ──
+  // color the vertices in decreasing order of degree, giving each the lowest
+  // wavelength not already used by a neighbor
+  function largestDegreeFirst(graph) {
     var adj = adjacency(graph);
     var order = graph.nodes.map(function (n) { return n.id; })
       .sort(function (a, b) { return adj[b].length - adj[a].length; });
-    var color = {}, maxc = 0;
+    var color = {}, maxc = -1;
     order.forEach(function (v) {
       var used = {};
       adj[v].forEach(function (w) { if (color[w] !== undefined) used[color[w]] = true; });
       var c = 0; while (used[c]) c++;
       color[v] = c; if (c > maxc) maxc = c;
     });
-    return maxc + 1;
+    return { color: color, count: maxc + 1 };
   }
+
+  // the heuristic's color count is also an upper bound on the optimum, which
+  // keeps the ILP's number of wavelengths K small
+  function greedyUpperBound(graph) { return largestDegreeFirst(graph).count; }
 
   // a clique found greedily from the highest-degree vertices; pre-coloring it
   // removes most of the symmetry that otherwise makes the ILP slow
@@ -409,20 +414,21 @@
   }
 
   // ── wavelength-assignment view: colored graph + offset-colored network ──
-  function initLP() {
-    var container = document.getElementById("swap-lp");
+  // shared by both methods; solveFn(graph) returns { color, count }
+  function initAssignment(containerId, solveFn) {
+    var container = document.getElementById(containerId);
     if (!container || typeof d3 === "undefined") return;
     var graphCanvas = container.querySelector(".swap-lp-graph");
     var mapCanvas = container.querySelector(".swap-lp-map");
-    var lpStatus = container.querySelector(".tsp-status");
+    var status = container.querySelector(".tsp-status");
     var select = container.querySelector(".swap-lp-network");
     var sim = null;
 
-    var lpMap = L.map(mapCanvas).setView([39.5, -98.35], 4);
+    var map = L.map(mapCanvas).setView([39.5, -98.35], 4);
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors", maxZoom: 18
-    }).addTo(lpMap);
-    var base = L.layerGroup().addTo(lpMap), routes = L.layerGroup().addTo(lpMap);
+    }).addTo(map);
+    var base = L.layerGroup().addTo(map), routes = L.layerGroup().addTo(map);
 
     function drawMap(net, fibersOf, color) {
       base.clearLayers(); routes.clearLayers();
@@ -453,19 +459,19 @@
           }).addTo(routes);
         });
       });
-      lpMap.invalidateSize();
-      lpMap.fitBounds(L.latLngBounds(net.names.map(function (n) { return net.nodes[n]; })).pad(0.12));
+      map.invalidateSize();
+      map.fitBounds(L.latLngBounds(net.names.map(function (n) { return net.nodes[n]; })).pad(0.12));
     }
 
     function build(key) {
       var net = buildNet(RAW[key]);
       var fibersOf = routeAllFibers(net);
       var graph = conflictGraph(net, fibersOf);
-      var result = colorByLP(graph, greedyUpperBound(graph), greedyClique(graph));
-      if (!result) { if (lpStatus) lpStatus.innerHTML = "<span>Solver failed</span><span></span>"; return; }
+      var result = solveFn(graph);
+      if (!result) { if (status) status.innerHTML = "<span>Solver failed</span><span></span>"; return; }
 
-      if (lpStatus) {
-        lpStatus.innerHTML = "<span>" + result.count + " wavelength" +
+      if (status) {
+        status.innerHTML = "<span>" + result.count + " wavelength" +
           (result.count === 1 ? "" : "s") + "</span><span>" +
           graph.nodes.length + " connections</span>";
       }
@@ -480,6 +486,13 @@
   }
 
   window.SWAP = {
-    init: function () { initRouting(); initGraph(); initLP(); }
+    init: function () {
+      initRouting();
+      initGraph();
+      initAssignment("swap-lp", function (graph) {
+        return colorByLP(graph, greedyUpperBound(graph), greedyClique(graph));
+      });
+      initAssignment("swap-ldf", largestDegreeFirst);
+    }
   };
 })();
