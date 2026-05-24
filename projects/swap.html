@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wavelength Assignment Problem</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Wavelength Assignment Problem</h1>
+
+    <p>
+      Optical networks carry information as light traveling through glass fibers. Wavelength
+      Division Multiplexing (WDM) increases how much a single fiber can carry by sending several
+      beams of light through it at once, each on a different wavelength. Because the beams occupy
+      distinct wavelengths, they travel side by side without interfering: a multiplexer combines
+      them into the fiber at one end, and a demultiplexer separates them again at the other.
+    </p>
+
+    <figure class="tsp-diagram">
+      <img src="images/wdm.png" alt="Wavelength Division Multiplexing: four transponders feed a multiplexer that combines their signals onto one fiber, and a demultiplexer separates them back to four transponders at the far end." />
+      <figcaption>Several signals, each on its own wavelength, share a single fiber between a multiplexer and a demultiplexer.</figcaption>
+    </figure>
+
+    <p>
+      In an all-optical network, a beam of light can pass straight through an optical switch
+      without being converted to an electrical signal and back. Avoiding this
+      optical&ndash;electrical&ndash;optical (OEO) conversion makes the network cheaper and more
+      energy-efficient, but it comes with a constraint: a connection must keep the same wavelength
+      all the way from its source to its destination, a property called <em>wavelength
+      continuity</em>. On top of that, two connections that share a fiber cannot use the same
+      wavelength on it, since their beams would overlap.
+    </p>
+
+    <p>
+      A connection routed across the network on a chosen wavelength is called a <em>lightpath</em>.
+      Given the set of lightpaths the network has to carry, the Wavelength Assignment Problem asks
+      for the smallest number of wavelengths needed, and for an assignment of one wavelength to
+      each lightpath that respects both constraints above. Using fewer wavelengths means more
+      traffic fits on the same fiber.
+    </p>
+
+    <p>
+      When the route taken by each connection is also part of the question, the combined problem is
+      known as Routing and Wavelength Assignment (RWA). The demos on this page assume the routes
+      are fixed in advance, with every connection following the shortest path between its endpoints,
+      which is the variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no
+      efficient algorithm is known that solves it exactly in all cases.
+    </p>
+
+    <p>
+      This page is based on work I did in 2018, which you can find in
+      <a href="https://github.com/afourmy/swap" target="_blank">this repository</a>.
+    </p>
+
+  </main>
+</body>
+</html>
