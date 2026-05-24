@@ -726,16 +726,6 @@ def ILP_solver(distances):
     <div class="tsp-section" id="tsp-genetic-algorithm">
       <div class="tsp-controls">
         <button class="tsp-btn-ga">&#9654; Start</button>
-        <label>Crossover <select class="ga-crossover">
-          <option value="order" selected>Order (OC)</option>
-          <option value="mpc">Maximal preservative (MPC)</option>
-          <option value="pmc">Partially mapped (PMC)</option>
-        </select></label>
-        <label>Mutation <select class="ga-mutation">
-          <option value="swap" selected>Swap</option>
-          <option value="insertion">Insertion</option>
-          <option value="displacement">Displacement</option>
-        </select></label>
         <label>Cities <select class="tsp-dataset">
           <option value="1000000">Pop. &ge; 1,000,000 (9 cities)</option>
           <option value="500000" selected>Pop. &ge; 500,000 (34 cities)</option>
@@ -749,14 +739,30 @@ def ILP_solver(distances):
         </select></label>
       </div>
       <div class="ga-rates">
-        <label>Crossover rate
-          <input type="range" class="ga-cr" min="0" max="1" step="0.01" value="0.5">
-          <span class="ga-cr-val">0.50</span>
-        </label>
-        <label>Mutation rate
-          <input type="range" class="ga-mr" min="0" max="1" step="0.01" value="0.5">
-          <span class="ga-mr-val">0.50</span>
-        </label>
+        <div class="ga-group">
+          <span class="ga-group-title">Crossover</span>
+          <select class="ga-crossover">
+            <option value="order" selected>Order (OC)</option>
+            <option value="mpc">Maximal preservative (MPC)</option>
+            <option value="pmc">Partially mapped (PMC)</option>
+          </select>
+          <label>Rate
+            <input type="range" class="ga-cr" min="0" max="1" step="0.01" value="0.5">
+            <span class="ga-cr-val">0.50</span>
+          </label>
+        </div>
+        <div class="ga-group">
+          <span class="ga-group-title">Mutation</span>
+          <select class="ga-mutation">
+            <option value="swap" selected>Swap</option>
+            <option value="insertion">Insertion</option>
+            <option value="displacement">Displacement</option>
+          </select>
+          <label>Rate
+            <input type="range" class="ga-mr" min="0" max="1" step="0.01" value="0.5">
+            <span class="ga-mr-val">0.50</span>
+          </label>
+        </div>
       </div>
       <div class="tsp-map"></div>
       <div class="tsp-status"></div>

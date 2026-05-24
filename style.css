@@ -423,7 +423,8 @@ html[lang="fr"] .en { display: none; }
   border-color: #3a7bc8;
 }
 
-.tsp-controls select {
+.tsp-controls select,
+.ga-group select {
   font-family: 'Computer Modern Serif', serif;
   font-size: 0.95rem;
   padding: 0.3rem 2rem 0.3rem 0.5rem;
@@ -446,19 +447,36 @@ html[lang="fr"] .en { display: none; }
   margin-left: 0.3rem;
 }
 
-/* Genetic-algorithm rate sliders */
+/* Genetic-algorithm method + rate panel: a Crossover group and a Mutation group */
 .ga-rates {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 0.5rem 2.5rem;
+  gap: 0.9rem 2.5rem;
   margin-bottom: 0.6rem;
-  padding: 0.7rem 1rem;
+  padding: 0.8rem 1rem;
   background: #f0f7ff;
   border: 1px solid #d4e6f7;
   border-radius: 4px;
 }
 
-.ga-rates label {
+.ga-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ga-group-title {
+  font-family: 'Computer Modern Serif', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #036;
+}
+
+.ga-group select {
+  width: 100%;
+}
+
+.ga-group label {
   font-size: 0.95rem;
   display: grid;
   grid-template-columns: auto 1fr 2.6rem;
@@ -466,13 +484,13 @@ html[lang="fr"] .en { display: none; }
   gap: 0.7rem;
 }
 
-.ga-rates input[type="range"] {
+.ga-group input[type="range"] {
   width: 100%;
   accent-color: #4a90d9;
   cursor: pointer;
 }
 
-.ga-rates span {
+.ga-group span {
   font-family: 'Inconsolata', monospace;
   font-weight: 700;
   color: #036;
