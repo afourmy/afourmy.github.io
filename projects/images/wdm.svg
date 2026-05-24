@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="muxFill" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f5f7fa"/>
+      <stop offset="1" stop-color="#e4e9f0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── group headers ── -->
+  <text x="95"  y="24" text-anchor="middle" font-size="16" fill="#333" font-weight="600">Transmitters</text>
+  <text x="665" y="24" text-anchor="middle" font-size="16" fill="#333" font-weight="600">Receivers</text>
+
+  <!-- ── connecting lines: transmitters → MUX (drawn first, behind boxes) ── -->
+  <g stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M150 55  L255 55"  stroke="#d62728"/>
+    <path d="M150 125 L255 125" stroke="#ef8a1b"/>
+    <path d="M150 195 L255 195" stroke="#2ca02c"/>
+    <path d="M150 265 L255 265" stroke="#1f77b4"/>
+  </g>
+
+  <!-- ── shared fiber: all four wavelengths travel together ── -->
+  <path d="M320 170 L440 170" stroke="#c9ced6" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <g stroke-width="2.4" fill="none" stroke-linecap="round">
+    <path d="M320 161 L440 161" stroke="#d62728"/>
+    <path d="M320 167 L440 167" stroke="#ef8a1b"/>
+    <path d="M320 173 L440 173" stroke="#2ca02c"/>
+    <path d="M320 179 L440 179" stroke="#1f77b4"/>
+  </g>
+
+  <!-- ── connecting lines: DEMUX → receivers ── -->
+  <g stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M505 55  L605 55"  stroke="#d62728"/>
+    <path d="M505 125 L605 125" stroke="#ef8a1b"/>
+    <path d="M505 195 L605 195" stroke="#2ca02c"/>
+    <path d="M505 265 L605 265" stroke="#1f77b4"/>
+  </g>
+
+  <!-- ── MUX / DEMUX bodies ── -->
+  <polygon points="255,40 320,150 320,190 255,300" fill="url(#muxFill)" stroke="#7d8794" stroke-width="1.5" stroke-linejoin="round"/>
+  <polygon points="505,40 440,150 440,190 505,300" fill="url(#muxFill)" stroke="#7d8794" stroke-width="1.5" stroke-linejoin="round"/>
+  <text x="280" y="175" text-anchor="middle" font-size="15" fill="#444" font-weight="600">MUX</text>
+  <text x="480" y="175" text-anchor="middle" font-size="15" fill="#444" font-weight="600">DEMUX</text>
+
+  <!-- ── fiber label ── -->
+  <text x="380" y="208" text-anchor="middle" font-size="12.5" fill="#666">one fiber</text>
+
+  <!-- ── transmitter boxes ── -->
+  <g>
+    <rect x="40" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#d62728" stroke-width="2"/>
+    <text x="95" y="60" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">1</tspan></text>
+    <rect x="40" y="105" width="110" height="40" rx="6" fill="#fff" stroke="#ef8a1b" stroke-width="2"/>
+    <text x="95" y="130" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">2</tspan></text>
+    <rect x="40" y="175" width="110" height="40" rx="6" fill="#fff" stroke="#2ca02c" stroke-width="2"/>
+    <text x="95" y="200" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">3</tspan></text>
+    <rect x="40" y="245" width="110" height="40" rx="6" fill="#fff" stroke="#1f77b4" stroke-width="2"/>
+    <text x="95" y="270" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">4</tspan></text>
+  </g>
+
+  <!-- ── receiver boxes ── -->
+  <g>
+    <rect x="605" y="35" width="110" height="40" rx="6" fill="#fff" stroke="#d62728" stroke-width="2"/>
+    <text x="660" y="60" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">1</tspan></text>
+    <rect x="605" y="105" width="110" height="40" rx="6" fill="#fff" stroke="#ef8a1b" stroke-width="2"/>
+    <text x="660" y="130" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">2</tspan></text>
+    <rect x="605" y="175" width="110" height="40" rx="6" fill="#fff" stroke="#2ca02c" stroke-width="2"/>
+    <text x="660" y="200" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">3</tspan></text>
+    <rect x="605" y="245" width="110" height="40" rx="6" fill="#fff" stroke="#1f77b4" stroke-width="2"/>
+    <text x="660" y="270" text-anchor="middle" font-size="16" fill="#222">&#955;<tspan baseline-shift="sub" font-size="11">4</tspan></text>
+  </g>
+</svg>
