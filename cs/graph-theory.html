@@ -58,8 +58,8 @@
     </div>
 
     <div class="thm-block remark">
-      <p class="en"><span class="thm-label">Planarity.</span> A graph is <em>planar</em> if it can be drawn in the plane without edge crossings. Euler's formula $V - E + F = 2$ relates vertices, edges, and faces of any connected plane graph. This formula implies strong constraints: a simple planar graph satisfies $E \leq 3V - 6$, which immediately shows that $K_5$ and $K_{3,3}$ are non-planar. Kuratowski's theorem states these are the only obstructions, up to subdivision.</p>
-      <p class="fr"><span class="thm-label">Planarit&eacute;.</span> Un graphe est <em>planaire</em> s'il peut se dessiner dans le plan sans croisement d'ar&ecirc;tes. La formule d'Euler $V - E + F = 2$ relie sommets, ar&ecirc;tes et faces de tout graphe planaire connexe. Cette formule implique de fortes contraintes : un graphe planaire simple v&eacute;rifie $E \leq 3V - 6$, ce qui montre imm&eacute;diatement que $K_5$ et $K_{3,3}$ ne sont pas planaires. Le th&eacute;or&egrave;me de Kuratowski affirme que ce sont les seuls obstacles, &agrave; subdivision pr&egrave;s.</p>
+      <p class="en"><span class="thm-label">Planarity.</span> A graph is <em>planar</em> if it can be drawn in the plane without edge crossings. Euler's formula $V - E + F = 2$ relates vertices, edges, and faces of any connected plane graph. This formula implies strong constraints: a simple planar graph satisfies $E \leq 3V - 6$, which immediately shows that $K_5$ is non-planar, while the sharper bound $E \leq 2V - 4$ for bipartite planar graphs rules out $K_{3,3}$. Kuratowski's theorem states these are the only obstructions, up to subdivision.</p>
+      <p class="fr"><span class="thm-label">Planarit&eacute;.</span> Un graphe est <em>planaire</em> s'il peut se dessiner dans le plan sans croisement d'ar&ecirc;tes. La formule d'Euler $V - E + F = 2$ relie sommets, ar&ecirc;tes et faces de tout graphe planaire connexe. Cette formule implique de fortes contraintes : un graphe planaire simple v&eacute;rifie $E \leq 3V - 6$, ce qui montre imm&eacute;diatement que $K_5$ n'est pas planaire, tandis que la borne plus fine $E \leq 2V - 4$ pour les graphes planaires bipartis exclut $K_{3,3}$. Le th&eacute;or&egrave;me de Kuratowski affirme que ce sont les seuls obstacles, &agrave; subdivision pr&egrave;s.</p>
     </div>
 
     <div class="thm-block remark">
@@ -651,21 +651,19 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $K_{3,3}$ and the Petersen graph (10 vertices, 15 edges, girth 5) are not planar.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $K_{3,3}$ et le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) ne sont pas planaires.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and at least one cycle, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
-      <em>$K_{3,3}$.</em> Being bipartite, it has no odd cycle and in particular no triangle, so its shortest cycle has length $4$: here $g = 4$, $V = 6$, $E = 9$. If it were planar: $9 \leq \frac{4}{2}(6 - 2) = 8$, a contradiction. So $K_{3,3}$ is not planar.
-      <em>Petersen graph.</em> Here $V = 10$, $E = 15$, $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$, a contradiction. So the Petersen graph is not planar.
+      The Petersen graph is not bipartite (it has $5$-cycles), so neither $E \leq 3V - 6$ nor $E \leq 2V - 4$ settles it: both give $15 \leq 24$ and $15 \leq 16$, which hold. We use instead a refinement that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and at least one cycle, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g$, giving $E \leq \frac{g}{g-2}(V - 2)$.
+      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$, a contradiction. So the Petersen graph is not planar.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et au moins un cycle, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
-      <em>$K_{3,3}$.</em> &Eacute;tant biparti, il n'a aucun cycle impair et en particulier aucun triangle, donc son plus court cycle est de longueur $4$ : ici $g = 4$, $V = 6$, $E = 9$. S'il &eacute;tait planaire : $9 \leq \frac{4}{2}(6 - 2) = 8$, contradiction. Donc $K_{3,3}$ n'est pas planaire.
-      <em>Graphe de Petersen.</em> Ici $V = 10$, $E = 15$, $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$, contradiction. Donc le graphe de Petersen n'est pas planaire.
+      Le graphe de Petersen n'est pas biparti (il a des cycles de longueur $5$), donc ni $E \leq 3V - 6$ ni $E \leq 2V - 4$ ne tranchent : ces bornes donnent $15 \leq 24$ et $15 \leq 16$, qui sont vraies. On utilise plut&ocirc;t un raffinement tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et au moins un cycle, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
+      Le graphe de Petersen a $V = 10$, $E = 15$ et $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$, contradiction. Donc le graphe de Petersen n'est pas planaire.
     </details>
 
     <div class="thm-block exercise">
