@@ -581,11 +581,59 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      A tree is acyclic, so in particular it contains no cycle at all, and a fortiori no odd cycle. By the bipartite characterization, $G$ is bipartite.
+      A tree is acyclic, so in particular it contains no cycle at all, and a fortiori no odd cycle. By the bipartite characterization, the tree is bipartite.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      Un arbre est acyclique, donc il ne contient aucun cycle, et a fortiori aucun cycle impair. Par la caract&eacute;risation des graphes bipartis, $G$ est biparti.
+      Un arbre est acyclique, donc il ne contient aucun cycle, et a fortiori aucun cycle impair. Par la caract&eacute;risation des graphes bipartis, l'arbre est biparti.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un graphe connexe &agrave; $n$ sommets, $m$ ar&ecirc;tes et $k$ sommets de degr&eacute; impair. Montrer que le nombre minimum de cha&icirc;nes n&eacute;cessaires pour d&eacute;composer les ar&ecirc;tes de $G$ est $\max(1, k/2)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the handshaking corollary, $k$ is even, so $k/2$ is an integer.
+      <em>Lower bound.</em> Each trail contributes to exactly $2$ vertices (its endpoints) an odd degree increase of $1$ each (from the trail itself), or $0$ if it is closed. More precisely: in any trail, its two endpoints have odd degree within the trail (contributing $1$ each), and all internal vertices have even degree. A closed trail contributes $0$ odd-degree vertices. So $t$ trails collectively produce at most $2t$ odd-degree vertices in $G$. Since $G$ has $k$ odd-degree vertices, we need $2t \geq k$, i.e., $t \geq k/2$. Also $t \geq 1$ if $m \geq 1$.
+      <em>Upper bound.</em> Add $k/2$ new edges pairing up the odd-degree vertices to obtain $G'$ where all degrees are even. By Euler's theorem, $G'$ has an Eulerian circuit. Removing the $k/2$ added edges splits the circuit into at most $k/2$ trails (each added edge removal can split a circuit into at most one more trail). If $k = 0$, one trail (the Eulerian circuit) suffices.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Par le corollaire du lemme des poign&eacute;es de mains, $k$ est pair, donc $k/2$ est un entier.
+      <em>Borne inf&eacute;rieure.</em> Dans toute cha&icirc;ne, ses deux extr&eacute;mit&eacute;s ont degr&eacute; impair dans la cha&icirc;ne (contribuant 1 chacune), et tous les sommets internes ont degr&eacute; pair. Une cha&icirc;ne ferm&eacute;e contribue $0$ sommet de degr&eacute; impair. Donc $t$ cha&icirc;nes produisent au plus $2t$ sommets de degr&eacute; impair dans $G$. Comme $G$ en a $k$, il faut $2t \geq k$, soit $t \geq k/2$. De plus $t \geq 1$ si $m \geq 1$.
+      <em>Borne sup&eacute;rieure.</em> Ajoutons $k/2$ ar&ecirc;tes couplant les sommets de degr&eacute; impair pour obtenir $G'$ o&ugrave; tous les degr&eacute;s sont pairs. Par le th&eacute;or&egrave;me d'Euler, $G'$ admet un circuit eul&eacute;rien. En supprimant les $k/2$ ar&ecirc;tes ajout&eacute;es, on d&eacute;coupe le circuit en au plus $k/2$ cha&icirc;nes. Si $k = 0$, une seule cha&icirc;ne (le circuit eul&eacute;rien) suffit.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and $E \geq 1$, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
+      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$. This is a contradiction, so the Petersen graph is not planar.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et $E \geq 1$, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
+      Le graphe de Petersen a $V = 10$, $E = 15$ et $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$. C'est une contradiction, donc le graphe de Petersen n'est pas planaire.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that if $G$ is a planar graph (not necessarily connected) with $V$ vertices, $E$ edges, $F$ faces, and $k$ connected components, then $V - E + F = 1 + k$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $G$ est un graphe planaire (pas n&eacute;cessairement connexe) &agrave; $V$ sommets, $E$ ar&ecirc;tes, $F$ faces et $k$ composantes connexes, alors $V - E + F = 1 + k$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Apply Euler's formula to each connected component $G_1, \ldots, G_k$ drawn in the plane. Each component $G_i$ satisfies $V_i - E_i + F_i = 2$ by Euler's formula, where $F_i$ is the number of faces of $G_i$. However, the outer face of each component is shared with the others; summing naively over components over-counts the outer (unbounded) face: each component contributes $1$ outer face, but they all share the same outer face of the whole drawing. Thus $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      Appliquons la formule d'Euler &agrave; chaque composante connexe $G_1, \ldots, G_k$ dessin&eacute;e dans le plan. Chaque composante $G_i$ satisfait $V_i - E_i + F_i = 2$, o&ugrave; $F_i$ est le nombre de faces de $G_i$. Cependant, la face ext&eacute;rieure de chaque composante est partag&eacute;e avec les autres ; en sommant na&iuml;vement, on compte $k$ fois la face non born&eacute;e, alors qu'elle est unique dans le dessin global. Donc $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
     </details>
 
     <div class="thm-block exercise">
@@ -606,22 +654,6 @@
       <em>$\chi(C_n)$.</em> Si $n$ est pair : $C_n$ est biparti (sans cycle impair), donc $\chi(C_n) \leq 2$. Comme $C_n$ contient des ar&ecirc;tes, $\chi(C_n) \geq 2$. Donc $\chi(C_n) = 2$.
       Si $n$ est impair : $C_n$ est lui-m&ecirc;me un cycle impair, donc non biparti, d'o&ugrave; $\chi(C_n) \geq 3$. Colorons les sommets $v_1, \ldots, v_n$ cycliquement : $c(v_i) = 1$ si $i$ est impair et $i < n$, $c(v_i) = 2$ si $i$ est pair, et $c(v_n) = 3$. C'est une $3$-coloration valide, donc $\chi(C_n) = 3$.
       <em>$\chi(K_{p,q}) = 2$ pour $p, q \geq 1$.</em> $K_{p,q}$ est biparti avec les parties $A$ et $B$ : colorons $A$ avec la couleur $1$ et $B$ avec la couleur $2$. Comme $p, q \geq 1$, il y a une ar&ecirc;te, donc $\chi(K_{p,q}) \geq 2$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and $E \geq 1$, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
-      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$. This is a contradiction, so the Petersen graph is not planar.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et $E \geq 1$, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
-      Le graphe de Petersen a $V = 10$, $E = 15$ et $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$. C'est une contradiction, donc le graphe de Petersen n'est pas planaire.
     </details>
 
     <div class="thm-block exercise">
@@ -660,38 +692,6 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>$K_6$ contient toujours un triangle monochrome.</em> Colorons chaque ar&ecirc;te en rouge ou bleu. Prenons un sommet $v$. Il a $5$ voisins, donc par le principe des tiroirs, au moins $\lceil 5/2 \rceil = 3$ ar&ecirc;tes depuis $v$ ont la m&ecirc;me couleur, disons rouge, vers des sommets $a, b, c$. Si l'une des ar&ecirc;tes $\{a,b\}$, $\{b,c\}$, $\{a,c\}$ est rouge, elle forme un triangle rouge avec $v$. Si toutes trois sont bleues, alors $a, b, c$ forment un triangle bleu.
       <em>$K_5$ admet une 2-coloration sans triangle monochrome.</em> Num&eacute;rotons les sommets $0, 1, 2, 3, 4$ disposs&eacute;s en pentagone r&eacute;gulier. Colorons en rouge les ar&ecirc;tes du pentagone (c'est-&agrave;-dire $\{i, i+1 \pmod 5\}$) et en bleu les diagonales ($\{i, i+2 \pmod 5\}$). Tout triplet de sommets implique au moins une ar&ecirc;te rouge et une ar&ecirc;te bleue, donc aucun triangle n'est monochrome.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un graphe connexe &agrave; $n$ sommets, $m$ ar&ecirc;tes et $k$ sommets de degr&eacute; impair. Montrer que le nombre minimum de cha&icirc;nes n&eacute;cessaires pour d&eacute;composer les ar&ecirc;tes de $G$ est $\max(1, k/2)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      By the handshaking corollary, $k$ is even, so $k/2$ is an integer.
-      <em>Lower bound.</em> Each trail contributes to exactly $2$ vertices (its endpoints) an odd degree increase of $1$ each (from the trail itself), or $0$ if it is closed. More precisely: in any trail, its two endpoints have odd degree within the trail (contributing $1$ each), and all internal vertices have even degree. A closed trail contributes $0$ odd-degree vertices. So $t$ trails collectively produce at most $2t$ odd-degree vertices in $G$. Since $G$ has $k$ odd-degree vertices, we need $2t \geq k$, i.e., $t \geq k/2$. Also $t \geq 1$ if $m \geq 1$.
-      <em>Upper bound.</em> Add $k/2$ new edges pairing up the odd-degree vertices to obtain $G'$ where all degrees are even. By Euler's theorem, $G'$ has an Eulerian circuit. Removing the $k/2$ added edges splits the circuit into at most $k/2$ trails (each added edge removal can split a circuit into at most one more trail). If $k = 0$, one trail (the Eulerian circuit) suffices.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par le corollaire du lemme des poign&eacute;es de mains, $k$ est pair, donc $k/2$ est un entier.
-      <em>Borne inf&eacute;rieure.</em> Dans toute cha&icirc;ne, ses deux extr&eacute;mit&eacute;s ont degr&eacute; impair dans la cha&icirc;ne (contribuant 1 chacune), et tous les sommets internes ont degr&eacute; pair. Une cha&icirc;ne ferm&eacute;e contribue $0$ sommet de degr&eacute; impair. Donc $t$ cha&icirc;nes produisent au plus $2t$ sommets de degr&eacute; impair dans $G$. Comme $G$ en a $k$, il faut $2t \geq k$, soit $t \geq k/2$. De plus $t \geq 1$ si $m \geq 1$.
-      <em>Borne sup&eacute;rieure.</em> Ajoutons $k/2$ ar&ecirc;tes couplant les sommets de degr&eacute; impair pour obtenir $G'$ o&ugrave; tous les degr&eacute;s sont pairs. Par le th&eacute;or&egrave;me d'Euler, $G'$ admet un circuit eul&eacute;rien. En supprimant les $k/2$ ar&ecirc;tes ajout&eacute;es, on d&eacute;coupe le circuit en au plus $k/2$ cha&icirc;nes. Si $k = 0$, une seule cha&icirc;ne (le circuit eul&eacute;rien) suffit.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that if $G$ is a connected planar graph with $V$ vertices, $E$ edges, $F$ faces, and $k$ connected components, then $V - E + F = 1 + k$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $G$ est un graphe planaire (pas n&eacute;cessairement connexe) &agrave; $V$ sommets, $E$ ar&ecirc;tes, $F$ faces et $k$ composantes connexes, alors $V - E + F = 1 + k$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Apply Euler's formula to each connected component $G_1, \ldots, G_k$ drawn in the plane. Each component $G_i$ satisfies $V_i - E_i + F_i = 2$ by Euler's formula, where $F_i$ is the number of faces of $G_i$. However, the outer face of each component is shared with the others; summing naively over components over-counts the outer (unbounded) face: each component contributes $1$ outer face, but they all share the same outer face of the whole drawing. Thus $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Appliquons la formule d'Euler &agrave; chaque composante connexe $G_1, \ldots, G_k$ dessin&eacute;e dans le plan. Chaque composante $G_i$ satisfait $V_i - E_i + F_i = 2$, o&ugrave; $F_i$ est le nombre de faces de $G_i$. Cependant, la face ext&eacute;rieure de chaque composante est partag&eacute;e avec les autres ; en sommant na&iuml;vement, on compte $k$ fois la face non born&eacute;e, alors qu'elle est unique dans le dessin global. Donc $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
     </details>
 
   </main>
