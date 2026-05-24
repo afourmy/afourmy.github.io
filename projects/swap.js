@@ -226,7 +226,9 @@
     function render(graph) {
       if (sim) sim.stop();
       canvas.innerHTML = "";
-      var width = canvas.clientWidth || 600, height = 420;
+      var height = 450;
+      canvas.style.height = height + "px";   // a touch taller than the default map
+      var width = canvas.clientWidth || 600;
       var margin = 44;   // keep vertices this far inside the canvas edges
       var svg = d3.select(canvas).append("svg")
         .attr("width", width).attr("height", height);
