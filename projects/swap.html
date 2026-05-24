@@ -61,14 +61,76 @@
     </p>
 
     <p>
+      This page is based on work I did in 2018, which you can find in
+      <a href="https://github.com/afourmy/swap" target="_blank">this repository</a>.
+    </p>
+
+    <h2>A first example</h2>
+
+    <p>
+      Consider five optical switches connected in a line, and five connections to carry across them.
+      Each connection has a source and a destination switch, and occupies every fiber on the line
+      between them. They are drawn below the line as arrows, labelled Path 1 to Path 5:
+    </p>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example.svg" alt="Five switches numbered 1 to 5 in a line, with five connections shown as arrows: Path 1 from switch 3 to 5, Path 2 from 2 to 4, Path 3 from 1 to 5, Path 4 from 1 to 2, Path 5 from 1 to 3." />
+      <figcaption>Five connections over a line of five switches.</figcaption>
+    </figure>
+
+    <p>
+      Two connections can share a wavelength only if they use no fiber in common. One way to assign
+      wavelengths is to take the connections in order and give each the lowest-numbered wavelength
+      not already used on a connection it overlaps:
+    </p>
+
+    <ul>
+      <li>Path 1 takes $\lambda_1$.</li>
+      <li>Path 2 overlaps Path 1 on the fiber between switches 3 and 4, so it needs $\lambda_2$.</li>
+      <li>Path 3 spans the whole line and meets both, so it needs $\lambda_3$.</li>
+      <li>Path 4 shares no fiber with Path 1 or Path 2, so $\lambda_1$ is free to reuse.</li>
+      <li>Path 5 overlaps Paths 2, 3 and 4, leaving $\lambda_4$ as the lowest free one.</li>
+    </ul>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example_naive.svg" alt="The same five connections, coloured by wavelength: Path 1 and Path 4 share lambda 1, Path 2 lambda 2, Path 3 lambda 3, Path 5 lambda 4, for four wavelengths in total." />
+      <figcaption>Taking the connections in order: four wavelengths.</figcaption>
+    </figure>
+
+    <p>
+      This order needs four wavelengths. Taking the connections in a different order changes the
+      result. Ordering them by how many others they overlap (Path 3 overlaps all four, Paths 2 and 5
+      overlap three, Paths 1 and 4 overlap two) and assigning in that order:
+    </p>
+
+    <ul>
+      <li>Path 3 takes $\lambda_1$, Path 2 takes $\lambda_2$, Path 5 takes $\lambda_3$.</li>
+      <li>Path 1 overlaps Paths 3 and 2 but not Path 5, so it can reuse $\lambda_3$.</li>
+      <li>Path 4 overlaps Paths 3 and 5 but not Path 2, so it can reuse $\lambda_2$.</li>
+    </ul>
+
+    <figure class="tsp-diagram">
+      <img src="images/swap_example_better.svg" alt="The same five connections coloured by wavelength under the second order: only lambda 1, lambda 2 and lambda 3 are used, for three wavelengths in total." />
+      <figcaption>Taking the busiest connections first: three wavelengths.</figcaption>
+    </figure>
+
+    <p>
+      Both assignments are valid and differ only in the order the connections were taken, yet one
+      uses four wavelengths and the other three. Choosing a good order is what the
+      wavelength-assignment step has to do.
+    </p>
+
+    <h2>Solving the problem</h2>
+
+    <p>
       When the route taken by each connection is also part of the question, the combined problem is
-      known as Routing and Wavelength Assignment (RWA). Here the routes are fixed in advance, which
-      is the variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no
-      efficient algorithm is known that solves it exactly in all cases.
+      known as Routing and Wavelength Assignment (RWA). Here the routes are fixed in advance, the
+      variant called Static Lightpath Establishment (SLE RWA). It is NP-complete: no efficient
+      algorithm is known that solves it exactly in all cases.
     </p>
 
     <p>
-      Solving it breaks into three steps, which the rest of this page follows in order:
+      It breaks into three steps, which the rest of this page follows in order:
     </p>
 
     <ol>
@@ -81,11 +143,6 @@
         using as few as possible. Two methods are shown: an exact linear program and a faster
         heuristic.</li>
     </ol>
-
-    <p>
-      This page is based on work I did in 2018, which you can find in
-      <a href="https://github.com/afourmy/swap" target="_blank">this repository</a>.
-    </p>
 
     <h2>Routing: finding the shortest path</h2>
 
