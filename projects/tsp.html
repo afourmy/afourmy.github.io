@@ -269,6 +269,53 @@
       require moving two or more cities simultaneously to escape.
     </p>
 
+    <!-- ── Edge Insertion ── -->
+
+    <h3>Edge Insertion</h3>
+
+    <p>
+      Edge insertion generalizes node insertion: instead of relocating a single city, it
+      removes two consecutive cities (an edge of the tour) and reinserts the pair together
+      at the best position. Moving a pair as a unit lets the search escape some local optima
+      that trap node insertion, where no single-city move improves the tour but moving two
+      adjacent cities at once does.
+    </p>
+
+    <ol>
+      <li>Start with a random tour.</li>
+      <li>For each pair of consecutive cities in the tour, remove the pair and try
+        reinserting it at every other position. If any reinsertion reduces the tour length,
+        apply it.</li>
+      <li>Repeat until a full pass produces no improvement.</li>
+    </ol>
+
+    <div class="tsp-section" id="tsp-edge-insertion">
+      <div class="tsp-controls">
+        <button class="tsp-btn-run">&#9654; Run</button>
+        <label>Cities <select class="tsp-dataset">
+          <option value="1000000">Pop. &ge; 1,000,000 (9)</option>
+          <option value="500000" selected>Pop. &ge; 500,000 (34)</option>
+          <option value="100000">Pop. &ge; 100,000 (293)</option>
+        </select></label>
+        <label>Speed <select class="tsp-speed">
+          <option value="600">Slow</option>
+          <option value="300" selected>Normal</option>
+          <option value="100">Fast</option>
+          <option value="30">Very fast</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Both node and edge insertion are instances of a single substring-insertion procedure
+      parameterized by the length <em>k</em> of the moved segment: <em>k</em> = 1 gives node
+      insertion and <em>k</em> = 2 gives edge insertion. Larger segments explore a richer set
+      of moves at higher cost per pass.
+    </p>
+
     <h2>Python implementation</h2>
 
     <p>

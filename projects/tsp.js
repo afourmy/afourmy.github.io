@@ -453,7 +453,9 @@
 
   // ── OPTIMIZATION HEURISTICS ──
 
-  function nodeInsertion(cities, dist) {
+  // substring insertion: remove a run of k consecutive cities and reinsert
+  // it at the best position. k = 1 is node insertion, k = 2 is edge insertion.
+  function substringInsertion(cities, dist, k) {
     var n = cities.length;
     // build a random tour (Fisher-Yates shuffle)
     var tour = [];
@@ -470,15 +472,12 @@
 
     while (!stable) {
       stable = true;
-      for (var i = 0; i < n; i++) {
+      for (var i = 0; i <= n - k; i++) {
         for (var j = 0; j < n; j++) {
-          if (j === i) continue;
-          // remove node at position i, reinsert at position j
-          var node = tour[i];
-          var candidate = tour.slice();
-          candidate.splice(i, 1);
-          var insertAt = j > i ? j - 1 : j;
-          candidate.splice(insertAt, 0, node);
+          // remove the run of k cities starting at i, then splice it back in
+          var substring = tour.slice(i, i + k);
+          var candidate = tour.slice(0, i).concat(tour.slice(i + k));
+          candidate = candidate.slice(0, j).concat(substring, candidate.slice(j));
           var len = tourLength(candidate, dist);
           if (len < best) {
             tour = candidate;
@@ -493,6 +492,14 @@
     return { steps: steps, lengths: lengths };
   }
 
+  function nodeInsertion(cities, dist) {
+    return substringInsertion(cities, dist, 1);
+  }
+
+  function edgeInsertion(cities, dist) {
+    return substringInsertion(cities, dist, 2);
+  }
+
   // ── Per-section map instances ──
 
   var algorithms = {
@@ -500,7 +507,8 @@
     "nearest-insertion": function (c, d) { return nearestInsertion(c, d, false); },
     "cheapest-insertion": cheapestInsertion,
     "farthest-insertion": farthestInsertion,
-    "node-insertion": nodeInsertion
+    "node-insertion": nodeInsertion,
+    "edge-insertion": edgeInsertion
   };
 
   var instances = {};
@@ -653,7 +661,7 @@
   // ── Init all sections ──
   window.TSP = {
     init: function () {
-      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion"];
+      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion"];
       for (var i = 0; i < ids.length; i++) createInstance(ids[i]);
     }
   };
