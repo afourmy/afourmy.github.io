@@ -23,6 +23,10 @@
     }
   };
 
+  // one display color per wavelength index
+  var WL_COLORS = ["#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4",
+    "#1aa3a3", "#f032e6", "#9a6324", "#808000", "#000075"];
+
   // ── geographic distance (km) between two [lat, lng] points ──
   function haversine(a, b) {
     var R = 6371;
@@ -95,14 +99,19 @@
     return { order: order, fibers: fibers, distance: distance };
   }
 
-  // ── conflict graph ──
-  // route every connection, then make one vertex per connection and join two
-  // vertices whenever their routes share at least one fiber
-  function conflictGraph(net) {
-    var fibersOf = net.traffic.map(function (d) {
+  // route every connection; fibersOf[p] = list of fiber indices its route uses
+  function routeAllFibers(net) {
+    return net.traffic.map(function (d) {
       var r = shortestPath(net, d[0], d[1]);
       return r ? r.fibers : [];
     });
+  }
+
+  // ── conflict graph ──
+  // one vertex per connection, with an edge between two vertices whenever their
+  // routes share at least one fiber
+  function conflictGraph(net, fibersOf) {
+    fibersOf = fibersOf || routeAllFibers(net);
     var nodes = net.traffic.map(function (d, i) {
       return { id: i, label: "P" + (i + 1), endpoints: d[0] + " → " + d[1] };
     });
@@ -214,7 +223,169 @@
     loadNetwork(networkSelect.value, demandSelect);
   }
 
-  // ── transformed-graph view (D3 force layout) ──
+  // ── minimum wavelengths by linear programming ──
+  //
+  // Color the conflict graph G(P, E) with as few colors as possible. For a path
+  // p and a wavelength index l, x_p_l = 1 when l is assigned to p, and y_l = 1
+  // when wavelength l is used at all. Minimize the number of wavelengths used,
+  // sum of y_l, subject to: one wavelength per path; two adjacent paths cannot
+  // share a wavelength and using one forces its y_l on (x_p_l + x_q_l <= y_l);
+  // and wavelengths are taken in order (y_l <= y_{l-1}) to break symmetry.
+  function colorByLP(graph, K, clique) {
+    if (typeof solver === "undefined") return null;
+    var V = graph.nodes.length;
+    var variables = {}, binaries = {}, constraints = {};
+
+    for (var p = 0; p < V; p++) constraints["one_" + p] = { equal: 1 };
+    for (var l = 1; l < K; l++) constraints["sym_" + l] = { max: 0 };
+    graph.links.forEach(function (e, ei) {
+      for (var l = 0; l < K; l++) constraints["edge_" + ei + "_" + l] = { max: 0 };
+    });
+
+    for (var p2 = 0; p2 < V; p2++) {
+      for (var l2 = 0; l2 < K; l2++) {
+        var v = {}; v["one_" + p2] = 1;
+        variables["x_" + p2 + "_" + l2] = v;
+        binaries["x_" + p2 + "_" + l2] = 1;
+      }
+    }
+    for (var l3 = 0; l3 < K; l3++) {
+      variables["y_" + l3] = { cost: 1 };
+      binaries["y_" + l3] = 1;
+    }
+    graph.links.forEach(function (e, ei) {
+      var s = e.source.id !== undefined ? e.source.id : e.source;
+      var t = e.target.id !== undefined ? e.target.id : e.target;
+      for (var l = 0; l < K; l++) {
+        variables["x_" + s + "_" + l]["edge_" + ei + "_" + l] = 1;
+        variables["x_" + t + "_" + l]["edge_" + ei + "_" + l] = 1;
+        variables["y_" + l]["edge_" + ei + "_" + l] = -1;
+      }
+    });
+    for (var l4 = 1; l4 < K; l4++) {
+      variables["y_" + l4]["sym_" + l4] = 1;
+      variables["y_" + (l4 - 1)]["sym_" + l4] = -1;
+    }
+    // pre-color the clique: its i-th vertex must take wavelength i. The clique
+    // forces at least its size in wavelengths, so fixing them to the lowest
+    // indices loses no optimal solution and collapses the symmetric ones.
+    if (clique) {
+      clique.forEach(function (v, i) {
+        if (i < K) {
+          constraints["fix_" + v] = { equal: 1 };
+          variables["x_" + v + "_" + i]["fix_" + v] = 1;
+        }
+      });
+    }
+
+    var sol = solver.Solve({ optimize: "cost", opType: "min",
+      constraints: constraints, variables: variables, binaries: binaries });
+    if (!sol.feasible) return null;
+
+    var color = {}, count = 0;
+    for (var p3 = 0; p3 < V; p3++) {
+      for (var l5 = 0; l5 < K; l5++) {
+        if (sol["x_" + p3 + "_" + l5] > 0.5) { color[p3] = l5; break; }
+      }
+    }
+    for (var l6 = 0; l6 < K; l6++) if (sol["y_" + l6] > 0.5) count++;
+    return { color: color, count: count };
+  }
+
+  function adjacency(graph) {
+    var adj = {};
+    graph.nodes.forEach(function (n) { adj[n.id] = []; });
+    graph.links.forEach(function (e) {
+      var s = e.source.id !== undefined ? e.source.id : e.source;
+      var t = e.target.id !== undefined ? e.target.id : e.target;
+      adj[s].push(t); adj[t].push(s);
+    });
+    return adj;
+  }
+
+  // largest-degree-first greedy coloring; its color count is an upper bound on
+  // the optimum, which keeps the ILP's number of wavelengths K small
+  function greedyUpperBound(graph) {
+    var adj = adjacency(graph);
+    var order = graph.nodes.map(function (n) { return n.id; })
+      .sort(function (a, b) { return adj[b].length - adj[a].length; });
+    var color = {}, maxc = 0;
+    order.forEach(function (v) {
+      var used = {};
+      adj[v].forEach(function (w) { if (color[w] !== undefined) used[color[w]] = true; });
+      var c = 0; while (used[c]) c++;
+      color[v] = c; if (c > maxc) maxc = c;
+    });
+    return maxc + 1;
+  }
+
+  // a clique found greedily from the highest-degree vertices; pre-coloring it
+  // removes most of the symmetry that otherwise makes the ILP slow
+  function greedyClique(graph) {
+    var adj = adjacency(graph);
+    var order = graph.nodes.map(function (n) { return n.id; })
+      .sort(function (a, b) { return adj[b].length - adj[a].length; });
+    var clique = [];
+    order.forEach(function (v) {
+      if (clique.every(function (u) { return adj[v].indexOf(u) >= 0; })) clique.push(v);
+    });
+    return clique;
+  }
+
+  // ── reusable D3 force layout; colorOf(id) gives a node fill, or null ──
+  function renderForceGraph(canvas, graph, colorOf) {
+    canvas.innerHTML = "";
+    var height = 450;
+    canvas.style.height = height + "px";
+    var width = canvas.clientWidth || 600;
+    var margin = 44;
+    var svg = d3.select(canvas).append("svg").attr("width", width).attr("height", height);
+
+    var link = svg.append("g")
+      .attr("stroke", "#9aa7b4").attr("stroke-width", 1.6).attr("stroke-opacity", 0.9)
+      .selectAll("line").data(graph.links).join("line");
+
+    var sim = d3.forceSimulation(graph.nodes)
+      .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; })
+        .distance(120).strength(1))
+      .force("charge", d3.forceManyBody().strength(-1500).distanceMax(width))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("x", d3.forceX(width / 2).strength(0.09))
+      .force("y", d3.forceY(height / 2).strength(0.09))
+      .force("collide", d3.forceCollide(30))
+      .alphaDecay(0.015);
+
+    var node = svg.append("g").selectAll("g").data(graph.nodes).join("g")
+      .style("cursor", "grab")
+      .call(d3.drag()
+        .on("start", function (e, d) { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+        .on("drag", function (e, d) { d.fx = e.x; d.fy = e.y; })
+        .on("end", function (e, d) { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; }));
+    node.append("circle").attr("r", 18)
+      .attr("fill", function (d) { return colorOf ? colorOf(d.id) : "#cfe0fb"; })
+      .attr("stroke", function (d) { return colorOf ? "#fff" : "#4a90d9"; })
+      .attr("stroke-width", 2);
+    node.append("text").text(function (d) { return d.label; })
+      .attr("text-anchor", "middle").attr("dy", 4)
+      .attr("font-size", 13).attr("font-weight", 600)
+      .attr("fill", colorOf ? "#fff" : "#1b2733");
+    node.append("title").text(function (d) { return d.endpoints; });
+
+    sim.on("tick", function () {
+      link.attr("x1", function (d) { return d.source.x; })
+        .attr("y1", function (d) { return d.source.y; })
+        .attr("x2", function (d) { return d.target.x; })
+        .attr("y2", function (d) { return d.target.y; });
+      node.attr("transform", function (d) {
+        d.x = Math.max(margin, Math.min(width - margin, d.x));
+        d.y = Math.max(margin, Math.min(height - margin, d.y));
+        return "translate(" + d.x + "," + d.y + ")";
+      });
+    });
+    return sim;
+  }
+
+  // ── transformed-graph view (reduction step, uncolored) ──
   function initGraph() {
     var container = document.getElementById("swap-graph");
     if (!container || typeof d3 === "undefined") return;
@@ -223,65 +394,85 @@
     var select = container.querySelector(".swap-graph-network");
     var sim = null;
 
-    function render(graph) {
-      if (sim) sim.stop();
-      canvas.innerHTML = "";
-      var height = 450;
-      canvas.style.height = height + "px";   // a touch taller than the default map
-      var width = canvas.clientWidth || 600;
-      var margin = 44;   // keep vertices this far inside the canvas edges
-      var svg = d3.select(canvas).append("svg")
-        .attr("width", width).attr("height", height);
-
-      var link = svg.append("g")
-        .attr("stroke", "#9aa7b4").attr("stroke-width", 1.6).attr("stroke-opacity", 0.9)
-        .selectAll("line").data(graph.links).join("line");
-
-      var node = svg.append("g").selectAll("g").data(graph.nodes).join("g")
-        .style("cursor", "grab").call(drag());
-      node.append("circle").attr("r", 18)
-        .attr("fill", "#cfe0fb").attr("stroke", "#4a90d9").attr("stroke-width", 2);
-      node.append("text").text(function (d) { return d.label; })
-        .attr("text-anchor", "middle").attr("dy", 4)
-        .attr("font-size", 13).attr("font-weight", 600).attr("fill", "#1b2733");
-      node.append("title").text(function (d) { return d.endpoints; });
-
-      sim = d3.forceSimulation(graph.nodes)
-        .force("link", d3.forceLink(graph.links).id(function (d) { return d.id; })
-          .distance(120).strength(1))
-        .force("charge", d3.forceManyBody().strength(-1500).distanceMax(width))
-        .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX(width / 2).strength(0.09))
-        .force("y", d3.forceY(height / 2).strength(0.09))
-        .force("collide", d3.forceCollide(30))
-        .alphaDecay(0.015)
-        .on("tick", function () {
-          link.attr("x1", function (d) { return d.source.x; })
-            .attr("y1", function (d) { return d.source.y; })
-            .attr("x2", function (d) { return d.target.x; })
-            .attr("y2", function (d) { return d.target.y; });
-          node.attr("transform", function (d) {
-            d.x = Math.max(margin, Math.min(width - margin, d.x));
-            d.y = Math.max(margin, Math.min(height - margin, d.y));
-            return "translate(" + d.x + "," + d.y + ")";
-          });
-        });
-
-      function drag() {
-        return d3.drag()
-          .on("start", function (e, d) { if (!e.active) sim.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
-          .on("drag", function (e, d) { d.fx = e.x; d.fy = e.y; })
-          .on("end", function (e, d) { if (!e.active) sim.alphaTarget(0); d.fx = null; d.fy = null; });
-      }
-    }
-
     function build(key) {
       var graph = conflictGraph(buildNet(RAW[key]));
       if (graphStatus) {
         graphStatus.innerHTML = "<span>" + graph.nodes.length + " connections</span><span>" +
           graph.links.length + " sharing a fiber</span>";
       }
-      render(graph);
+      if (sim) sim.stop();
+      sim = renderForceGraph(canvas, graph, null);
+    }
+
+    select.addEventListener("change", function () { build(select.value); });
+    build(select.value);
+  }
+
+  // ── wavelength-assignment view: colored graph + offset-colored network ──
+  function initLP() {
+    var container = document.getElementById("swap-lp");
+    if (!container || typeof d3 === "undefined") return;
+    var graphCanvas = container.querySelector(".swap-lp-graph");
+    var mapCanvas = container.querySelector(".swap-lp-map");
+    var lpStatus = container.querySelector(".tsp-status");
+    var select = container.querySelector(".swap-lp-network");
+    var sim = null;
+
+    var lpMap = L.map(mapCanvas).setView([39.5, -98.35], 4);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors", maxZoom: 18
+    }).addTo(lpMap);
+    var base = L.layerGroup().addTo(lpMap), routes = L.layerGroup().addTo(lpMap);
+
+    function drawMap(net, fibersOf, color) {
+      base.clearLayers(); routes.clearLayers();
+      net.fibers.forEach(function (f) {
+        L.polyline([net.nodes[f.a], net.nodes[f.b]],
+          { color: "#c8cfd6", weight: 2, opacity: 1 }).addTo(base);
+      });
+      net.names.forEach(function (name) {
+        L.circleMarker(net.nodes[name],
+          { radius: 4, color: "#036", fillColor: "#036", fillOpacity: 1, weight: 1 })
+          .bindTooltip(name).addTo(base);
+      });
+      // collect, per fiber, the wavelengths of the connections crossing it
+      var perFiber = {};
+      net.traffic.forEach(function (d, p) {
+        fibersOf[p].forEach(function (fi) {
+          (perFiber[fi] = perFiber[fi] || []).push(color[p]);
+        });
+      });
+      var spacing = 5, weight = 4;
+      Object.keys(perFiber).forEach(function (fi) {
+        var wls = perFiber[fi].slice().sort(function (a, b) { return a - b; });
+        var f = net.fibers[fi], pts = [net.nodes[f.a], net.nodes[f.b]];
+        wls.forEach(function (wl, idx) {
+          L.polyline(pts, {
+            color: WL_COLORS[wl % WL_COLORS.length], weight: weight, opacity: 0.95,
+            offset: (idx - (wls.length - 1) / 2) * spacing
+          }).addTo(routes);
+        });
+      });
+      lpMap.invalidateSize();
+      lpMap.fitBounds(L.latLngBounds(net.names.map(function (n) { return net.nodes[n]; })).pad(0.12));
+    }
+
+    function build(key) {
+      var net = buildNet(RAW[key]);
+      var fibersOf = routeAllFibers(net);
+      var graph = conflictGraph(net, fibersOf);
+      var result = colorByLP(graph, greedyUpperBound(graph), greedyClique(graph));
+      if (!result) { if (lpStatus) lpStatus.innerHTML = "<span>Solver failed</span><span></span>"; return; }
+
+      if (lpStatus) {
+        lpStatus.innerHTML = "<span>" + result.count + " wavelength" +
+          (result.count === 1 ? "" : "s") + "</span><span>" +
+          graph.nodes.length + " connections</span>";
+      }
+      var colorOf = function (id) { return WL_COLORS[result.color[id] % WL_COLORS.length]; };
+      if (sim) sim.stop();
+      sim = renderForceGraph(graphCanvas, graph, colorOf);
+      drawMap(net, fibersOf, result.color);
     }
 
     select.addEventListener("change", function () { build(select.value); });
@@ -289,6 +480,6 @@
   }
 
   window.SWAP = {
-    init: function () { initRouting(); initGraph(); }
+    init: function () { initRouting(); initGraph(); initLP(); }
   };
 })();

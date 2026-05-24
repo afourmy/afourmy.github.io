@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/leaflet-polylineoffset@1.1.1/leaflet.polylineoffset.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
@@ -327,6 +328,116 @@ def shortest_path(switches, fibers, coords, source, destination):
       What remains is to color this graph with as few colors as possible. That is the
       wavelength-assignment step.
     </p>
+
+    <h2>Wavelength assignment by linear programming</h2>
+
+    <p>
+      Coloring the graph with the fewest colors can be written as an integer linear program, which
+      returns the optimal assignment. Write $$G(P, E)$$ for the transformed graph, with one vertex
+      per connection $$p \in P$$, and let $$\Lambda = \{\lambda_1, \dots, \lambda_K\}$$ be the
+      available wavelengths. Two families of binary variables describe an assignment:
+    </p>
+
+    \[ x_p^{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is assigned to connection } p \\ 0 & \text{otherwise} \end{cases} \]
+
+    \[ y_{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is used by at least one connection} \\ 0 & \text{otherwise} \end{cases} \]
+
+    <p>
+      The aim is to use as few wavelengths as possible, so the objective minimizes how many are
+      switched on:
+    </p>
+
+    \[ \min \sum_{\lambda \in \Lambda} y_{\lambda} \]
+
+    <h3>Constraints</h3>
+
+    <ul>
+      <li>Every connection is assigned exactly one wavelength.</li>
+    </ul>
+
+    \[ \sum_{\lambda \in \Lambda} x_p^{\lambda} = 1 \qquad \forall\, p \in P \]
+
+    <ul>
+      <li>Two connections that share a fiber (an edge of $$G$$) cannot take the same wavelength, and
+        assigning a wavelength to either one marks that wavelength as used.</li>
+    </ul>
+
+    \[ x_p^{\lambda} + x_{p'}^{\lambda} \le y_{\lambda} \qquad \forall\, (p, p') \in E,\; \forall\, \lambda \in \Lambda \]
+
+    <ul>
+      <li>Wavelengths are switched on in order of index, so that relabelings of the same solution
+        are not counted twice.</li>
+    </ul>
+
+    \[ y_{\lambda_{k+1}} \le y_{\lambda_k} \qquad \forall\, k \in \{1, \dots, K - 1\} \]
+
+    <ul>
+      <li>All variables are binary.</li>
+    </ul>
+
+    \[ x_p^{\lambda},\; y_{\lambda} \in \{0, 1\} \]
+
+    <p>
+      The number of available wavelengths $$K$$ is an upper bound on the answer. Taking it as one
+      more than the largest number of connections meeting at any vertex (the maximum degree of
+      $$G$$) always leaves room for a valid assignment.
+    </p>
+
+    <p>
+      Choose a network below. Its graph is colored with the fewest wavelengths, and the map shows
+      every connection drawn in its assigned wavelength. Where several connections share a fiber,
+      their colors run alongside each other as parallel lines.
+    </p>
+
+    <div class="tsp-section" id="swap-lp">
+      <div class="tsp-controls">
+        <label><span class="tsp-control-label">Network</span> <select class="swap-lp-network">
+          <option value="line" selected>First example (5 connections)</option>
+          <option value="usa">BBN Planet backbone (USA)</option>
+          <option value="europe">European backbone</option>
+        </select></label>
+      </div>
+      <div class="swap-lp-caption">Transformed graph, colored by wavelength</div>
+      <div class="tsp-map swap-lp-graph"></div>
+      <div class="swap-lp-caption">Routes in their wavelength colors (parallel lines where a fiber carries several)</div>
+      <div class="tsp-map swap-lp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from cvxopt import matrix, glpk
+
+def color_graph(paths, edges, K):
+    # variables: x_p_l for each path p and wavelength l, then y_l
+    # laid out as [x_0_0, ..., x_0_{K-1}, x_1_0, ..., y_0, ..., y_{K-1}]
+    V = len(paths)
+    n = V * K + K
+    # objective: minimize the number of wavelengths used, sum of y_l
+    c = [0.] * (V * K) + [1.] * K
+    # each path gets exactly one wavelength: sum_l x_p_l = 1
+    A, b = [], []
+    for p in range(V):
+        A.append([1. if p * K <= i &lt; (p + 1) * K else 0. for i in range(n)])
+        b.append(1.)
+    G, h = [], []
+    # adjacent paths differ, and using a wavelength switches its y_l on:
+    # x_p_l + x_q_l - y_l &lt;= 0
+    for p, q in edges:
+        for l in range(K):
+            row = [0.] * n
+            row[p * K + l], row[q * K + l], row[V * K + l] = 1., 1., -1.
+            G.append(row); h.append(0.)
+    # symmetry breaking: y_l - y_{l-1} &lt;= 0
+    for l in range(1, K):
+        row = [0.] * n
+        row[V * K + l], row[V * K + l - 1] = 1., -1.
+        G.append(row); h.append(0.)
+    A, G, b, c, h = map(matrix, (A, G, b, c, h))
+    _, x = glpk.ilp(c, G.T, h, A.T, b, B=set(range(n)))
+    # the wavelength assigned to each path
+    return [next(l for l in range(K) if x[p * K + l] > 0.5) for p in range(V)]</code></pre>
+    </details>
 
   </main>
 
