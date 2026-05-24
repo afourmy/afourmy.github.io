@@ -651,19 +651,21 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) n'est pas planaire.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $K_{3,3}$ and the Petersen graph (10 vertices, 15 edges, girth 5) are not planar.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $K_{3,3}$ et le graphe de Petersen (10 sommets, 15 ar&ecirc;tes, maille 5) ne sont pas planaires.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and $E \geq 1$, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
-      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$. This is a contradiction, so the Petersen graph is not planar.
+      We use a refinement of the edge bound that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and at least one cycle, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, giving $E \leq \frac{g}{g-2}(V - 2)$.
+      <em>$K_{3,3}$.</em> Being bipartite, it has no odd cycle and in particular no triangle, so its shortest cycle has length $4$: here $g = 4$, $V = 6$, $E = 9$. If it were planar: $9 \leq \frac{4}{2}(6 - 2) = 8$, a contradiction. So $K_{3,3}$ is not planar.
+      <em>Petersen graph.</em> Here $V = 10$, $E = 15$, $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$, a contradiction. So the Petersen graph is not planar.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et $E \geq 1$, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
-      Le graphe de Petersen a $V = 10$, $E = 15$ et $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$. C'est une contradiction, donc le graphe de Petersen n'est pas planaire.
+      On utilise un raffinement de la borne sur les ar&ecirc;tes tenant compte de la <em>maille</em> $g$ (longueur du plus court cycle). Dans tout graphe plan avec $V \geq 3$ et au moins un cycle, chaque face est d&eacute;limit&eacute;e par au moins $g$ ar&ecirc;tes, et chaque ar&ecirc;te borde au plus $2$ faces. Donc $gF \leq 2E$, soit $F \leq 2E/g$. En substituant dans la formule d'Euler : $2 = V - E + F \leq V - E + 2E/g = V - E(1 - 2/g)$, d'o&ugrave; $E \leq \frac{g}{g-2}(V - 2)$.
+      <em>$K_{3,3}$.</em> &Eacute;tant biparti, il n'a aucun cycle impair et en particulier aucun triangle, donc son plus court cycle est de longueur $4$ : ici $g = 4$, $V = 6$, $E = 9$. S'il &eacute;tait planaire : $9 \leq \frac{4}{2}(6 - 2) = 8$, contradiction. Donc $K_{3,3}$ n'est pas planaire.
+      <em>Graphe de Petersen.</em> Ici $V = 10$, $E = 15$, $g = 5$. S'il &eacute;tait planaire : $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13{,}3$, contradiction. Donc le graphe de Petersen n'est pas planaire.
     </details>
 
     <div class="thm-block exercise">
