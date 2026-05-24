@@ -177,10 +177,10 @@
     <h3>Farthest Insertion</h3>
 
     <p>
-      Farthest insertion works like nearest insertion, but with the opposite selection strategy:
-      it picks the city that is <em>farthest</em> from any city in the tour. The intuition is that
-      by incorporating distant outliers first, the tour quickly takes on a shape resembling the
-      convex hull of the point set, and later insertions only fill in the interior.
+      Farthest insertion works like nearest insertion, but with the opposite selection rule:
+      it picks the city that is <em>farthest</em> from any city in the tour. Inserting distant
+      cities first makes the tour approximate the convex hull of the point set early, so later
+      insertions fill in the interior.
     </p>
 
     <ol>
@@ -213,9 +213,8 @@
     </div>
 
     <p>
-      Despite its counterintuitive selection rule, farthest insertion is one of the best
-      construction heuristics. It tends to avoid the crossing edges that plague nearest
-      neighbor and often outperforms the other insertion variants.
+      Farthest insertion produces fewer crossing edges than nearest neighbor and generally
+      shorter tours than the other insertion variants.
     </p>
 
     <h2>Optimization heuristics</h2>
@@ -333,11 +332,11 @@
     <h3>2-opt (pairwise exchange)</h3>
 
     <p>
-      2-opt is the classic local-search move for the TSP. It repeatedly picks two edges of
+      2-opt is a local-search move for the TSP. It repeatedly picks two edges of
       the tour and, if removing them and reconnecting the endpoints the other way shortens
       the tour, does so. Reconnecting amounts to reversing the segment of the tour between
-      the two edges. Each accepted move removes a pair of crossing edges, so a 2-opt tour is
-      always free of self-intersections.
+      the two edges. Each accepted move removes a pair of crossing edges, so a 2-opt tour
+      has no self-intersections.
     </p>
 
     <ol>
@@ -374,10 +373,8 @@
     </div>
 
     <p>
-      Each pass is $$O(n^2)$$, and the segment reversal makes 2-opt strictly more powerful
-      than node or edge insertion: it can undo crossings that no insertion move can fix.
-      Run from several random starts, it routinely lands within a few percent of optimal,
-      which is why it is the standard building block for stronger heuristics.
+      Each pass is $$O(n^2)$$. Reversing a segment lets 2-opt remove crossings that node and
+      edge insertion cannot, and it is commonly used as a component of stronger heuristics.
     </p>
 
     <h2>Exact solution: integer linear programming</h2>
@@ -448,8 +445,7 @@
 
     <p>
       There is one subtour-elimination constraint for every subset of cities, so their number
-      grows exponentially with $$n$$, far too many to write down. The practical fix,
-      used in the visualization, is to add them <em>lazily</em>:
+      grows exponentially with $$n$$. They are instead added <em>lazily</em>:
     </p>
 
     <ol>
@@ -460,8 +456,7 @@
     </ol>
 
     <p>
-      Only the handful of constraints that are actually violated ever get added, so the
-      program stays small. The two buttons below show the difference directly:
+      Only the violated constraints are added. The two buttons below show the difference:
       <strong>Degree constraints only</strong> solves the program without any
       subtour-elimination constraints, so the result is usually several disjoint loops;
       <strong>With subtour elimination</strong> runs the loop above to completion and returns
