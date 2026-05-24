@@ -17,9 +17,6 @@
     }
   };
 
-  var PALETTE = ["#e6194b", "#3cb44b", "#4363d8", "#f58231", "#911eb4", "#1aa3a3",
-    "#f032e6", "#9a6324", "#808000", "#000075", "#e67e22"];
-
   // ── geographic distance (km) between two [lat, lng] points ──
   function haversine(a, b) {
     var R = 6371;
@@ -123,9 +120,13 @@
     var demand = net.traffic[index];
     var source = demand[0], dest = demand[1];
 
-    // the demand itself: a straight dashed line from source to destination
-    L.polyline([net.nodes[source], net.nodes[dest]],
-      { color: "#888", weight: 1.5, opacity: 0.7, dashArray: "5 6" }).addTo(routeLayer);
+    // the demand itself: a straight dashed line from source to destination,
+    // drawn over a white casing so it stands out against the fibers and the route
+    var demandLine = [net.nodes[source], net.nodes[dest]];
+    L.polyline(demandLine,
+      { color: "#fff", weight: 6, opacity: 0.9 }).addTo(routeLayer);
+    L.polyline(demandLine,
+      { color: "#0a3cff", weight: 3, opacity: 1, dashArray: "10 8" }).addTo(routeLayer);
 
     var result = shortestPath(net, source, dest);
     if (!result || result.order[result.order.length - 1] !== dest) {
@@ -140,21 +141,6 @@
       result.fibers.length + " fiber" + (result.fibers.length === 1 ? "" : "s"));
   }
 
-  function routeAll() {
-    routeLayer.clearLayers();
-    var total = 0, routed = 0;
-    net.traffic.forEach(function (demand, i) {
-      var result = shortestPath(net, demand[0], demand[1]);
-      if (!result || result.order[result.order.length - 1] !== demand[1]) return;
-      total += result.distance; routed++;
-      L.polyline(latlngs(net, result.order),
-        { color: PALETTE[i % PALETTE.length], weight: 3.5, opacity: 0.8 })
-        .bindTooltip(demand[0] + " &rarr; " + demand[1])
-        .addTo(routeLayer);
-    });
-    setStatus(routed + " demands routed", "Total: " + Math.round(total) + " km");
-  }
-
   function fillDemands(select) {
     select.innerHTML = "";
     net.traffic.forEach(function (demand, i) {
@@ -163,15 +149,6 @@
       opt.textContent = demand[0] + " → " + demand[1];
       select.appendChild(opt);
     });
-    var all = document.createElement("option");
-    all.value = "all";
-    all.textContent = "All demands";
-    select.appendChild(all);
-  }
-
-  function route(value) {
-    if (value === "all") routeAll();
-    else routeOne(parseInt(value, 10));
   }
 
   function loadNetwork(key, demandSelect) {
@@ -179,7 +156,7 @@
     drawNetwork();
     fillDemands(demandSelect);
     demandSelect.value = "0";
-    route("0");
+    routeOne(0);
   }
 
   window.SWAP = {
@@ -202,7 +179,7 @@
         loadNetwork(networkSelect.value, demandSelect);
       });
       demandSelect.addEventListener("change", function () {
-        route(demandSelect.value);
+        routeOne(parseInt(demandSelect.value, 10));
       });
 
       loadNetwork(networkSelect.value, demandSelect);
