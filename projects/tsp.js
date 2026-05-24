@@ -539,6 +539,106 @@
     return { steps: steps, lengths: lengths };
   }
 
+  // Given a set of degree-2 edges, walk each connected component to recover
+  // the disjoint cycles (subtours) it forms.
+  function extractCycles(n, edges) {
+    var adj = [];
+    for (var i = 0; i < n; i++) adj[i] = [];
+    edges.forEach(function (e) { adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+    var seen = new Array(n).fill(false);
+    var cycles = [];
+    for (var s = 0; s < n; s++) {
+      if (seen[s] || adj[s].length === 0) continue;
+      var cycle = [];
+      var prev = -1, cur = s;
+      while (cur !== -1 && !seen[cur]) {
+        seen[cur] = true;
+        cycle.push(cur);
+        var nb = adj[cur];
+        var next = (nb[0] !== prev && !seen[nb[0]]) ? nb[0]
+          : (nb[1] !== prev && !seen[nb[1]]) ? nb[1] : -1;
+        prev = cur;
+        cur = next;
+      }
+      cycles.push(cycle);
+    }
+    return cycles;
+  }
+
+  // Exact solution via the Dantzig-Fulkerson-Johnson integer linear program.
+  // With eliminateSubtours = false we solve once with only the degree
+  // constraints (the result is usually several disjoint loops); with true we
+  // add subtour-elimination constraints lazily until a single tour remains.
+  var LP_MAX_CITIES = 12;
+
+  function solveLP(cities, dist, eliminateSubtours) {
+    var n = cities.length;
+    if (typeof solver === "undefined") {
+      return { error: "Linear-programming solver failed to load." };
+    }
+    if (n > LP_MAX_CITIES) {
+      return { error: "Exact ILP only scales to " + LP_MAX_CITIES +
+        " cities. Remove a few of the cities you placed." };
+    }
+
+    // one binary variable per unordered pair (i, j), i < j
+    var variables = {}, binaries = {}, pairs = [];
+    for (var i = 0; i < n; i++) {
+      for (var j = i + 1; j < n; j++) {
+        var name = "x_" + i + "_" + j;
+        var v = { cost: dist[i][j] };
+        v["deg_" + i] = 1;
+        v["deg_" + j] = 1;
+        variables[name] = v;
+        binaries[name] = 1;
+        pairs.push([i, j, name]);
+      }
+    }
+    // degree constraint: every city has exactly two incident edges
+    var constraints = {};
+    for (var k = 0; k < n; k++) constraints["deg_" + k] = { equal: 2 };
+
+    var cycles, edges, len, subCount = 0, rounds = 0;
+    for (var iter = 0; iter < 2000; iter++) {
+      var sol = solver.Solve({
+        optimize: "cost", opType: "min",
+        constraints: constraints, variables: variables, binaries: binaries
+      });
+      edges = [];
+      for (var p = 0; p < pairs.length; p++) {
+        if (sol[pairs[p][2]] > 0.5) edges.push([pairs[p][0], pairs[p][1]]);
+      }
+      cycles = extractCycles(n, edges);
+
+      // stop at the raw solution, or once a single tour is reached
+      if (!eliminateSubtours || cycles.length === 1) break;
+
+      // add a subtour-elimination constraint for each disjoint loop
+      rounds++;
+      cycles.forEach(function (cycle) {
+        var cname = "sub_" + (subCount++);
+        constraints[cname] = { max: cycle.length - 1 };
+        var inSet = {};
+        cycle.forEach(function (idx) { inSet[idx] = true; });
+        for (var q = 0; q < pairs.length; q++) {
+          if (inSet[pairs[q][0]] && inSet[pairs[q][1]]) {
+            variables[pairs[q][2]][cname] = 1;
+          }
+        }
+      });
+    }
+
+    // draw each cycle as its own closed polyline segment
+    var segments = cycles.map(function (cycle) {
+      var pts = cycle.map(function (idx) { return cities[idx]; });
+      pts.push(cities[cycle[0]]);
+      return pts;
+    });
+    len = 0;
+    edges.forEach(function (e) { len += dist[e[0]][e[1]]; });
+    return { segments: segments, length: len, subtourCount: cycles.length, rounds: rounds };
+  }
+
   // ── Per-section map instances ──
 
   var algorithms = {
@@ -570,7 +670,11 @@
     var container = document.getElementById("tsp-" + id);
     if (!container) return;
 
-    var inst = { markers: [], tourLine: null, timer: null, cities: [] };
+    // The linear-programming section runs an exact solver that only scales to a
+    // handful of cities, so it keeps its own small dataset instead of sharing
+    // the global one used by the heuristics.
+    var inst = { markers: [], tourLine: null, timer: null, cities: [],
+      independent: id === "linear-programming" };
 
     inst.map = L.map(container.querySelector(".tsp-map")).setView([39.5, -98.35], 4);
 
@@ -594,6 +698,24 @@
     inst.updateCount = function () { if (countEl) countEl.textContent = inst.cities.length; };
 
     var datasetSelect = container.querySelector(".tsp-dataset");
+
+    if (inst.independent) {
+      datasetSelect.addEventListener("change", function () {
+        loadCities(inst, citiesForThreshold(parseInt(datasetSelect.value, 10)));
+      });
+      var lpButtons = container.querySelectorAll(".tsp-btn-lp");
+      for (var b = 0; b < lpButtons.length; b++) {
+        (function (btn) {
+          btn.addEventListener("click", function () {
+            runLP(inst, btn.getAttribute("data-subtour") === "true");
+          });
+        })(lpButtons[b]);
+      }
+      instances[id] = inst;
+      loadCities(inst, citiesForThreshold(parseInt(datasetSelect.value, 10)));
+      return;
+    }
+
     datasetSelect.value = String(currentThreshold);
     datasetSelect.addEventListener("change", function () {
       currentThreshold = parseInt(datasetSelect.value, 10);
@@ -616,6 +738,7 @@
     }).addTo(inst.map);
     inst.markers.push(m);
     inst.updateCount();
+    if (inst.independent) return;
     sharedCities = inst.cities.slice();
     syncOthers(inst);
   }
@@ -646,18 +769,51 @@
   function syncOthers(source) {
     var list = source.cities.slice();
     for (var id in instances) {
-      if (instances[id] !== source) loadCities(instances[id], list);
+      if (instances[id] !== source && !instances[id].independent) loadCities(instances[id], list);
     }
   }
 
   function reloadAll() {
     var list = sharedCities.slice();
     for (var id in instances) {
+      if (instances[id].independent) continue;
       loadCities(instances[id], list);
       // Sync all dropdown values
       var sel = document.getElementById("tsp-" + id).querySelector(".tsp-dataset");
       if (sel) sel.value = String(currentThreshold);
     }
+  }
+
+  // The linear-programming section draws a single static result rather than an
+  // animation: either the raw degree-constrained solution (with subtours) or
+  // the full optimal tour.
+  function runLP(inst, eliminateSubtours) {
+    if (inst.timer) { clearTimeout(inst.timer); inst.timer = null; }
+    if (inst.tourLine) { inst.map.removeLayer(inst.tourLine); inst.tourLine = null; }
+
+    if (inst.cities.length < 3) {
+      inst.updateStatus("Place at least 3 cities.");
+      return;
+    }
+
+    var dist = buildDistances(inst.cities);
+    var result = solveLP(inst.cities, dist, eliminateSubtours);
+    if (result.error) { inst.updateStatus(result.error); return; }
+
+    inst.tourLine = L.polyline(result.segments, {
+      color: "#c44", weight: 2.5, opacity: 0.85
+    }).addTo(inst.map);
+
+    var left;
+    if (eliminateSubtours) {
+      left = "Optimal tour | " + result.rounds +
+        " elimination round" + (result.rounds === 1 ? "" : "s");
+    } else {
+      left = result.subtourCount === 1
+        ? "Single tour (no subtours)"
+        : result.subtourCount + " disjoint subtours";
+    }
+    inst.updateStatus(left, "Length: " + Math.round(result.length) + " km");
   }
 
   function runOn(inst, id) {
@@ -671,6 +827,7 @@
 
     var dist = buildDistances(inst.cities);
     var result = algorithms[id](inst.cities, dist);
+    if (result.error) { inst.updateStatus(result.error); return; }
     var steps = result.steps, lengths = result.lengths;
     var speedEl = document.getElementById("tsp-" + id).querySelector(".tsp-speed");
     var idx = 0;
@@ -701,7 +858,7 @@
   // ── Init all sections ──
   window.TSP = {
     init: function () {
-      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion", "two-opt"];
+      var ids = ["nearest-neighbor", "nearest-insertion", "cheapest-insertion", "farthest-insertion", "node-insertion", "edge-insertion", "two-opt", "linear-programming"];
       for (var i = 0; i < ids.length; i++) createInstance(ids[i]);
     }
   };

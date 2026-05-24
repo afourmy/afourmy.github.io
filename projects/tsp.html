@@ -9,6 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -17,6 +18,7 @@
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/javascript-lp-solver@0.4.24/prod/solver.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
@@ -378,6 +380,114 @@
       which is why it is the standard building block for stronger heuristics.
     </p>
 
+    <h2>Exact solution: integer linear programming</h2>
+
+    <p>
+      All of the algorithms above are heuristics: they return a good tour, but never a
+      guarantee that it is the shortest. The TSP can instead be written as an
+      <em>integer linear program</em> (ILP) and solved exactly. This is the
+      Dantzig&ndash;Fulkerson&ndash;Johnson formulation.
+    </p>
+
+    <h3>Variables and objective</h3>
+
+    <p>
+      A tour is a graph $$(N, E)$$ with $$N$$ the set of cities and $$E$$ the set of edges.
+      We associate a binary variable $$x_{ij}$$ to each pair of cities $$(i, j)$$:
+    </p>
+
+    \[ x_{ij} = \begin{cases} 1 & \text{if the edge } (i, j) \text{ is in the tour} \\ 0 & \text{otherwise} \end{cases} \]
+
+    <p>
+      Writing $$d_{ij}$$ for the distance between $$i$$ and $$j$$, the length of a tour is the
+      quantity we want to minimize:
+    </p>
+
+    \[ L = \sum_{(i,\,j)\,\in\,N \times N} d_{ij}\, x_{ij} \]
+
+    <h3>Degree constraints</h3>
+
+    <p>
+      Each city is visited exactly once, which means every node must be connected to exactly
+      two edges. For each city $$i$$, exactly two variables $$x_{ij}$$ must equal 1:
+    </p>
+
+    \[ \sum_{j \,\in\, N} x_{ij} = 2 \qquad \forall\, i \in N \]
+
+    <h3>Subtour elimination</h3>
+
+    <p>
+      The degree constraints alone are not enough: they force every node to have two edges,
+      but nothing keeps the result connected. The solver is therefore free to return several
+      disjoint loops &mdash; <em>subtours</em> &mdash; whose total length is smaller than any
+      single tour. In the visualization below you can watch these appear as separate closed
+      loops in the first iterations.
+    </p>
+
+    <p>
+      A subtour is a subset $$X \subset N$$ in which the number of selected edges between
+      nodes of $$X$$ equals the size of $$X$$:
+    </p>
+
+    \[ \sum_{i,\,j\,\in\,X,\; i \neq j} x_{ij} = |X| \]
+
+    <p>
+      We can forbid every subtour by requiring that any proper, non-empty subset of cities
+      contain at most $$|X| - 1$$ internal edges, which makes a closed loop on $$X$$ alone
+      impossible:
+    </p>
+
+    \[ \sum_{i,\,j\,\in\,X,\; i \neq j} x_{ij} \le |X| - 1 \qquad \forall\, X \subset N,\; X \notin \{\varnothing, N\} \]
+
+    <p>
+      Together, the objective, the degree constraints and the subtour-elimination constraints
+      describe a tour that is both feasible and the shortest possible.
+    </p>
+
+    <h3>Lazy constraints</h3>
+
+    <p>
+      There is one subtour-elimination constraint for every subset of cities, so their number
+      grows exponentially with $$n$$ &mdash; far too many to write down. The practical fix,
+      used in the visualization, is to add them <em>lazily</em>:
+    </p>
+
+    <ol>
+      <li>Solve the ILP with the degree constraints only. The result is a set of edges where
+        every node has degree two: one or more disjoint loops.</li>
+      <li>If it is a single loop through all cities, it is the optimal tour &mdash; stop.</li>
+      <li>Otherwise, for each subtour found, add its elimination constraint and solve again.</li>
+    </ol>
+
+    <p>
+      Only the handful of constraints that are actually violated ever get added, so the
+      program stays small. The two buttons below show the difference directly:
+      <strong>Degree constraints only</strong> solves the program without any
+      subtour-elimination constraints, so the result is usually several disjoint loops;
+      <strong>With subtour elimination</strong> runs the loop above to completion and returns
+      the single optimal tour.
+    </p>
+
+    <div class="tsp-section" id="tsp-linear-programming">
+      <div class="tsp-controls">
+        <button class="tsp-btn-lp" data-subtour="false">&#9654; Degree constraints only</button>
+        <button class="tsp-btn-lp" data-subtour="true">&#9654; With subtour elimination</button>
+        <label>Cities <select class="tsp-dataset">
+          <option value="1000000" selected>Pop. &ge; 1,000,000 (9)</option>
+        </select></label>
+        <span class="tsp-info">Cities: <strong class="tsp-city-count">0</strong></span>
+      </div>
+      <div class="tsp-map"></div>
+      <div class="tsp-status"></div>
+    </div>
+
+    <p>
+      Solving an ILP is exponential in the worst case, so unlike the heuristics this method
+      only scales to small instances. This section therefore works on the 9-city dataset
+      independently of the selector used above; you can also click the map to place a few
+      cities of your own.
+    </p>
+
     <h2>Python implementation</h2>
 
     <p>
@@ -512,6 +622,54 @@ def pairwise_exchange(cities, distances):
                 if best > tour_length:
                     stable, solution, best = False, candidate, tour_length
     return solution</code></pre>
+
+    <h3>Integer linear programming</h3>
+
+    <p>
+      The original code builds the full Dantzig&ndash;Fulkerson&ndash;Johnson program and hands
+      it to the GLPK solver. It enumerates a subtour-elimination constraint for every subset of
+      cities; the interactive version above instead adds those constraints lazily.
+    </p>
+
+    <pre><code class="language-python">from itertools import chain, combinations
+from cvxopt import matrix, glpk
+from numpy import full
+
+def edges_to_tour(edges):
+    # turn the set of selected edges into an ordered list of cities
+    tour, current = [], None
+    while edges:
+        if current is not None:
+            for edge in edges:
+                if current not in edge:
+                    continue
+                current = edge[0] if current == edge[1] else edge[1]
+                tour.append(current)
+                edges.remove(edge)
+        else:
+            x, y = edges.pop()
+            tour.extend([x, y])
+            current = y
+    return tour[:-1]
+
+def ILP_solver(distances):
+    n = len(distances)
+    sx = n * (n - 1) // 2
+    # objective: minimize total length over the upper-triangular edge variables
+    c = [distances[i + 1][j + 1] for i in range(n) for j in range(i + 1, n)]
+    G, h, A, b = [], [], [], full(n, 2, dtype=float)
+    # subtour-elimination constraint for every subset of size 2..n-1
+    for subset in chain.from_iterable(combinations(range(n), r) for r in range(2, n)):
+        G.append([float(i in subset and j in subset) for i in range(n) for j in range(i + 1, n)])
+        h.append(float(len(subset) - 1))
+    # degree constraint: each node has exactly two incident edges
+    for k in range(n):
+        A.append([float(k in (i, j)) for i in range(n) for j in range(i + 1, n)])
+    A, G, b, c, h = map(matrix, (A, G, b, c, h))
+    # binary integer program: minimize c.x  s.t.  G x <= h  and  A x = b
+    _, x = glpk.ilp(c, G.T, h, A.T, b, B=set(range(sx)))
+    edges = [(i + 1, j + 1) for i in range(n) for j in range(i + 1, n)]
+    return edges_to_tour([edges[k] for k in range(sx) if x[k]])</code></pre>
 
   </main>
 
