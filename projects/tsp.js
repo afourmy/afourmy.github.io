@@ -1060,8 +1060,7 @@
           "Best: " + Math.round(result.length) + " km");
         return;
       }
-      var delay = speedEl ? parseInt(speedEl.value, 10) : 300;
-      inst.timer = setTimeout(tick, delay);
+      inst.timer = setTimeout(tick, speedDelay(speedEl));
     }
     tick();
   }
@@ -1105,10 +1104,9 @@
       inst.tourLine.setLatLngs(steps[idx]);
       inst.updateStatus("Step " + (idx + 1) + " / " + steps.length,
         "Tour: " + Math.round(lengths[idx]) + " km");
-      var curSpeed = speedEl ? parseInt(speedEl.value, 10) : 300;
-      inst.timer = setTimeout(tick, curSpeed);
+      inst.timer = setTimeout(tick, speedDelay(speedEl));
     }
-    inst.timer = setTimeout(tick, speedEl ? parseInt(speedEl.value, 10) : 300);
+    inst.timer = setTimeout(tick, speedDelay(speedEl));
   }
 
   // ── Init all sections ──
