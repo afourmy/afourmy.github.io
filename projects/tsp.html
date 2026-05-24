@@ -419,7 +419,7 @@
     <p>
       The degree constraints alone are not enough: they force every node to have two edges,
       but nothing keeps the result connected. The solver is therefore free to return several
-      disjoint loops &mdash; <em>subtours</em> &mdash; whose total length is smaller than any
+      disjoint loops (<em>subtours</em>) whose total length is smaller than any
       single tour. In the visualization below you can watch these appear as separate closed
       loops in the first iterations.
     </p>
@@ -448,14 +448,14 @@
 
     <p>
       There is one subtour-elimination constraint for every subset of cities, so their number
-      grows exponentially with $$n$$ &mdash; far too many to write down. The practical fix,
+      grows exponentially with $$n$$, far too many to write down. The practical fix,
       used in the visualization, is to add them <em>lazily</em>:
     </p>
 
     <ol>
       <li>Solve the ILP with the degree constraints only. The result is a set of edges where
         every node has degree two: one or more disjoint loops.</li>
-      <li>If it is a single loop through all cities, it is the optimal tour &mdash; stop.</li>
+      <li>If it is a single loop through all cities, it is the optimal tour, so stop.</li>
       <li>Otherwise, for each subtour found, add its elimination constraint and solve again.</li>
     </ol>
 
