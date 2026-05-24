@@ -227,6 +227,7 @@
       if (sim) sim.stop();
       canvas.innerHTML = "";
       var width = canvas.clientWidth || 600, height = 420;
+      var margin = 44;   // keep vertices this far inside the canvas edges
       var svg = d3.select(canvas).append("svg")
         .attr("width", width).attr("height", height);
 
@@ -248,8 +249,8 @@
           .distance(120).strength(1))
         .force("charge", d3.forceManyBody().strength(-1500).distanceMax(width))
         .force("center", d3.forceCenter(width / 2, height / 2))
-        .force("x", d3.forceX(width / 2).strength(0.06))
-        .force("y", d3.forceY(height / 2).strength(0.06))
+        .force("x", d3.forceX(width / 2).strength(0.09))
+        .force("y", d3.forceY(height / 2).strength(0.09))
         .force("collide", d3.forceCollide(30))
         .alphaDecay(0.015)
         .on("tick", function () {
@@ -258,8 +259,8 @@
             .attr("x2", function (d) { return d.target.x; })
             .attr("y2", function (d) { return d.target.y; });
           node.attr("transform", function (d) {
-            d.x = Math.max(20, Math.min(width - 20, d.x));
-            d.y = Math.max(20, Math.min(height - 20, d.y));
+            d.x = Math.max(margin, Math.min(width - margin, d.x));
+            d.y = Math.max(margin, Math.min(height - margin, d.y));
             return "translate(" + d.x + "," + d.y + ")";
           });
         });
