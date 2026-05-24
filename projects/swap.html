@@ -184,17 +184,19 @@
 
     <p>
       The network is a graph $$(S, F)$$ with $$S$$ the set of switches and $$F$$ the set of fibers.
-      To each fiber $$(i, j)$$ we associate a binary variable $$x_{ij}$$:
+      Each fiber is undirected; since a path may cross it either way, every fiber is replaced by two
+      directed arcs, one per direction. Writing $$A$$ for this set of arcs, we associate a binary
+      variable to each arc:
     </p>
 
-    \[ x_{ij} = \begin{cases} 1 & \text{if fiber } (i, j) \text{ is used by the path} \\ 0 & \text{otherwise} \end{cases} \]
+    \[ x_{ij} = \begin{cases} 1 & \text{if the path uses the arc from } i \text{ to } j \\ 0 & \text{otherwise} \end{cases} \]
 
     <p>
-      Writing $$d_{ij}$$ for the distance along fiber $$(i, j)$$, the length of the path is the
-      quantity we want to minimize:
+      Writing $$d_{ij}$$ for the length of the fiber underlying arc $$(i, j)$$, the length of the
+      path is the quantity we want to minimize:
     </p>
 
-    \[ L = \sum_{(i,\,j)\,\in\,F} d_{ij}\, x_{ij} \]
+    \[ L = \sum_{(i,\,j)\,\in\,A} d_{ij}\, x_{ij} \]
 
     <h3>Flow-conservation constraints</h3>
 
@@ -209,26 +211,26 @@
       <li>At the source $$s$$, one more unit leaves than enters:</li>
     </ul>
 
-    \[ \sum_{j\,:\,(s,\,j)\,\in\,F} x_{sj} \;-\!\! \sum_{j\,:\,(j,\,s)\,\in\,F} x_{js} = 1 \]
+    \[ \sum_{j\,:\,(s,\,j)\,\in\,A} x_{sj} \;-\!\! \sum_{j\,:\,(j,\,s)\,\in\,A} x_{js} = 1 \]
 
     <ul>
       <li>At any switch other than the source and the destination, as much traffic leaves as
         enters, so nothing accumulates:</li>
     </ul>
 
-    \[ \sum_{j\,:\,(i,\,j)\,\in\,F} x_{ij} \;-\!\! \sum_{j\,:\,(j,\,i)\,\in\,F} x_{ji} = 0 \qquad \forall\, i \in S \setminus \{s, d\} \]
+    \[ \sum_{j\,:\,(i,\,j)\,\in\,A} x_{ij} \;-\!\! \sum_{j\,:\,(j,\,i)\,\in\,A} x_{ji} = 0 \qquad \forall\, i \in S \setminus \{s, d\} \]
 
     <ul>
       <li>The variables are binary:</li>
     </ul>
 
-    \[ x_{ij} \in \{0, 1\} \qquad \forall\, (i, j) \in F \]
+    \[ x_{ij} \in \{0, 1\} \qquad \forall\, (i, j) \in A \]
 
     <p>
       At the destination $$d$$, one more unit enters than leaves, which reads as a fourth equation:
     </p>
 
-    \[ \sum_{j\,:\,(d,\,j)\,\in\,F} x_{dj} \;-\!\! \sum_{j\,:\,(j,\,d)\,\in\,F} x_{jd} = -1 \]
+    \[ \sum_{j\,:\,(d,\,j)\,\in\,A} x_{dj} \;-\!\! \sum_{j\,:\,(j,\,d)\,\in\,A} x_{jd} = -1 \]
 
     <p>
       This one need not be stated: summing the source and intermediate equations above gives exactly
@@ -236,10 +238,9 @@
     </p>
 
     <p>
-      Each fiber is undirected, so it is split into two directed arcs, one per direction, and the
-      sums above range over those arcs. In the map below, the dashed gray line is a traffic demand
-      (a request to connect a source to a destination), and the red path is the shortest route the
-      solver lays out for it over the fibers.
+      In the map below, the dashed gray line is a traffic demand (a request to connect a source to a
+      destination), and the red path is the shortest route the solver lays out for it over the
+      fibers.
     </p>
 
     <div class="tsp-section" id="swap-routing">
