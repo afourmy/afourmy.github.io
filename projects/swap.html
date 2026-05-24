@@ -338,9 +338,10 @@ def shortest_path(switches, fibers, coords, source, destination):
       available wavelengths. Two families of binary variables describe an assignment:
     </p>
 
-    \[ x_p^{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is assigned to connection } p \\ 0 & \text{otherwise} \end{cases} \]
-
-    \[ y_{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is used by at least one connection} \\ 0 & \text{otherwise} \end{cases} \]
+    \[ \begin{aligned}
+      &x_p^{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is assigned to connection } p \\ 0 & \text{otherwise} \end{cases} \\[1.5ex]
+      &y_{\lambda} = \begin{cases} 1 & \text{if wavelength } \lambda \text{ is used by at least one connection} \\ 0 & \text{otherwise} \end{cases}
+    \end{aligned} \]
 
     <p>
       The aim is to use as few wavelengths as possible, so the objective minimizes how many are
