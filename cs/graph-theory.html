@@ -589,6 +589,22 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that a graph $G$ is a tree if and only if there is exactly one path between every pair of vertices.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'un graphe $G$ est un arbre si et seulement s'il existe exactement un chemin entre chaque paire de sommets.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ Let $G$ be a tree. It is connected, so between any two vertices $u, v$ there is at least one path. Suppose two distinct paths $P$ and $Q$ join $u$ to $v$. Since they differ, there is a first vertex $x$ (going from $u$) after which they diverge; and since both end at $v$, they meet again, so let $y$ be the first vertex on $P$ after $x$ that also lies on $Q$. The portion of $P$ from $x$ to $y$ and the portion of $Q$ from $x$ to $y$ meet only at $x$ and $y$, so together they form a cycle, contradicting that a tree is acyclic. Hence the path is unique.
+      $(\Leftarrow)$ Suppose there is exactly one path between every pair of vertices. In particular at least one path exists between any two vertices, so $G$ is connected. If $G$ contained a cycle, two vertices on that cycle would be joined by two distinct paths (the two arcs of the cycle), contradicting uniqueness. So $G$ is acyclic. Connected and acyclic, $G$ is a tree.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $(\Rightarrow)$ Soit $G$ un arbre. Il est connexe, donc entre deux sommets $u, v$ il existe au moins un chemin. Supposons qu'il existe deux chemins distincts $P$ et $Q$ de $u$ &agrave; $v$. Comme ils diff&egrave;rent, il y a un premier sommet $x$ (en partant de $u$) apr&egrave;s lequel ils divergent ; et comme ils aboutissent tous deux en $v$, ils se rejoignent : soit $y$ le premier sommet de $P$ apr&egrave;s $x$ qui appartient aussi &agrave; $Q$. La portion de $P$ de $x$ &agrave; $y$ et la portion de $Q$ de $x$ &agrave; $y$ ne se rencontrent qu'en $x$ et $y$, donc ensemble elles forment un cycle, contredisant l'acyclicit&eacute; d'un arbre. Le chemin est donc unique.
+      $(\Leftarrow)$ Supposons qu'il existe exactement un chemin entre chaque paire de sommets. En particulier il en existe au moins un, donc $G$ est connexe. Si $G$ contenait un cycle, deux sommets de ce cycle seraient reli&eacute;s par deux chemins distincts (les deux arcs du cycle), contredisant l'unicit&eacute;. Donc $G$ est acyclique. Connexe et acyclique, $G$ est un arbre.
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $G$ un graphe connexe &agrave; $n$ sommets, $m$ ar&ecirc;tes et $k$ sommets de degr&eacute; impair. Montrer que le nombre minimum de cha&icirc;nes n&eacute;cessaires pour d&eacute;composer les ar&ecirc;tes de $G$ est $\max(1, k/2)$.</p>
     </div>
