@@ -352,6 +352,12 @@ def shortest_path(switches, fibers, coords, source, destination):
     <h3>Constraints</h3>
 
     <ul>
+      <li>All variables are binary.</li>
+    </ul>
+
+    \[ x_p^{\lambda},\; y_{\lambda} \in \{0, 1\} \]
+
+    <ul>
       <li>Every connection is assigned exactly one wavelength.</li>
     </ul>
 
@@ -370,12 +376,6 @@ def shortest_path(switches, fibers, coords, source, destination):
     </ul>
 
     \[ y_{\lambda_{k+1}} \le y_{\lambda_k} \qquad \forall\, k \in \{1, \dots, K - 1\} \]
-
-    <ul>
-      <li>All variables are binary.</li>
-    </ul>
-
-    \[ x_p^{\lambda},\; y_{\lambda} \in \{0, 1\} \]
 
     <p>
       The number of available wavelengths $$K$$ is an upper bound on the answer. Taking it as one
