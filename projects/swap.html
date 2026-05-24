@@ -148,9 +148,14 @@
     \[ x_{ij} \in \{0, 1\} \qquad \forall\, (i, j) \in F \]
 
     <p>
-      At the destination $$d$$, one more unit enters than leaves, which would read as a fourth
-      equation equal to $$-1$$. That equation is the sum of all the others, so it is redundant and
-      does not need to be stated.
+      At the destination $$d$$, one more unit enters than leaves, which reads as a fourth equation:
+    </p>
+
+    \[ \sum_{j\,:\,(d,\,j)\,\in\,F} x_{dj} \;-\!\! \sum_{j\,:\,(j,\,d)\,\in\,F} x_{jd} = -1 \]
+
+    <p>
+      This one need not be stated: summing the source and intermediate equations above gives exactly
+      its negative, so it is already implied by them.
     </p>
 
     <p>
