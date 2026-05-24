@@ -403,6 +403,17 @@ html[lang="fr"] .en { display: none; }
   margin-left: auto;
 }
 
+/* wavelength-assignment demo: colored graph (left) beside the network (right) */
+.swap-lp-row {
+  display: flex;
+  gap: 0.8rem;
+  align-items: stretch;
+}
+.swap-lp-col--graph { flex: 0 0 25%; }
+.swap-lp-col--map { flex: 1 1 auto; min-width: 0; }
+.swap-lp-row .tsp-map { height: 450px; margin-bottom: 0; }
+.swap-lp-row .swap-lp-caption { min-height: 2.6em; margin-top: 0; }
+
 .tsp-map .leaflet-control-zoom {
   z-index: 999;
 }

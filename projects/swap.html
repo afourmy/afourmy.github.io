@@ -398,10 +398,16 @@ def shortest_path(switches, fibers, coords, source, destination):
           <option value="europe">European backbone</option>
         </select></label>
       </div>
-      <div class="swap-lp-caption">Transformed graph, colored by wavelength</div>
-      <div class="tsp-map swap-lp-graph"></div>
-      <div class="swap-lp-caption">Routes in their wavelength colors (parallel lines where a fiber carries several)</div>
-      <div class="tsp-map swap-lp-map"></div>
+      <div class="swap-lp-row">
+        <div class="swap-lp-col swap-lp-col--graph">
+          <div class="swap-lp-caption">Graph, colored by wavelength</div>
+          <div class="tsp-map swap-lp-graph"></div>
+        </div>
+        <div class="swap-lp-col swap-lp-col--map">
+          <div class="swap-lp-caption">Routes in their wavelength colors (parallel where a fiber carries several)</div>
+          <div class="tsp-map swap-lp-map"></div>
+        </div>
+      </div>
       <div class="tsp-status"></div>
     </div>
 
