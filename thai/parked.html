@@ -15,7 +15,9 @@
   <script src="../nav.js"></script>
 
   <main>
-    <h1>Parked items</h1>
+    <header class="page-banner">
+      <h1>Parked items</h1>
+    </header>
     <p>Idioms, proverbs, grammar patterns and paired entries set aside from the
       main list. We will come back to these later.</p>
     <p><a href="index.html">&larr; Back to vocabulary</a></p>
@@ -41,6 +43,11 @@
       fetch("parked.json")
         .then(function (r) { return r.json(); })
         .then(function (data) {
+          if (!data.length) {
+            listEl.innerHTML =
+              '<li class="parked-empty">Nothing parked right now.</li>';
+            return;
+          }
           listEl.innerHTML = data
             .map(function (item) {
               return (

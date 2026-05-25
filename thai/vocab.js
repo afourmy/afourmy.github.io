@@ -4,16 +4,25 @@
   var searchEl = document.getElementById("vocab-search");
   var toggleEl = document.getElementById("vocab-toggle");
   var fontToggleEl = document.getElementById("font-toggle");
+  var faceToggleEl = document.getElementById("face-toggle");
+  var showCategoryEl = document.getElementById("show-category");
+  var showSourcesEl = document.getElementById("show-sources");
+  var flipHintEl = document.getElementById("flip-hint");
 
   var words = [];
+  var loaded = false;
   var mode = "frequency"; // or "topic"
   var query = "";
+  var face = "both"; // "both" | "thai" | "english"
+  var showCategory = true;
+  var showSources = true;
 
-  var FREQ_ORDER = ["most", "sometimes", "rarely"];
+  var FREQ_ORDER = ["everyday", "common", "occasional", "rare"];
   var FREQ_LABEL = {
-    most: "Most used",
-    sometimes: "Sometimes used",
-    rarely: "Rarely used",
+    everyday: "Everyday",
+    common: "Common",
+    occasional: "Occasional",
+    rare: "Rare",
   };
   var TOPIC_LABEL = {
     personality: "Personality",
@@ -37,6 +46,19 @@
       .replace(/>/g, "&gt;");
   }
 
+  function lsGet(k) {
+    try {
+      return localStorage.getItem(k);
+    } catch (e) {
+      return null;
+    }
+  }
+  function lsSet(k, v) {
+    try {
+      localStorage.setItem(k, v);
+    } catch (e) {}
+  }
+
   function matches(word) {
     if (!query) return true;
     var q = query.toLowerCase();
@@ -46,9 +68,8 @@
     );
   }
 
-  function card(word) {
-    // Show the complementary dimension as a tag (topic when grouped by
-    // frequency, frequency when grouped by topic), plus the source(s).
+  function tagHtml(word) {
+    // Complementary dimension: topic when grouped by frequency, else frequency.
     var tag, tagClass;
     if (mode === "frequency") {
       tag = TOPIC_LABEL[word.topic] || word.topic;
@@ -57,20 +78,54 @@
       tag = FREQ_LABEL[word.frequency] || word.frequency;
       tagClass = "tag-freq freq-" + word.frequency;
     }
-    var sources = word.sources
+    return '<span class="vocab-tag ' + tagClass + '">' + esc(tag) + "</span>";
+  }
+
+  function sourcesHtml(word) {
+    return word.sources
       .map(function (s) {
         return '<span class="vocab-source">' + esc(s) + "</span>";
       })
       .join("");
+  }
+
+  function metaHtml(word) {
+    var rows = "";
+    if (showCategory)
+      rows += '<div class="vocab-tags">' + tagHtml(word) + "</div>";
+    if (showSources)
+      rows += '<div class="vocab-sources">' + sourcesHtml(word) + "</div>";
+    return rows ? '<div class="vocab-meta">' + rows + "</div>" : "";
+  }
+
+  function thaiHtml(word, extra) {
+    return '<div class="vocab-thai' + (extra || "") + '">' + esc(word.thai) + "</div>";
+  }
+  function enHtml(word, extra) {
+    return '<div class="vocab-en' + (extra || "") + '">' + esc(word.english) + "</div>";
+  }
+
+  function card(word) {
+    if (face === "both") {
+      return (
+        '<div class="vocab-card">' +
+        thaiHtml(word) +
+        enHtml(word) +
+        metaHtml(word) +
+        "</div>"
+      );
+    }
+    // Flashcard: chosen side on the front, the other revealed on flip.
+    var front = face === "thai" ? thaiHtml(word) : enHtml(word, " vocab-prompt");
+    var back =
+      face === "thai"
+        ? enHtml(word, " vocab-answer")
+        : thaiHtml(word, " vocab-answer");
     return (
-      '<div class="vocab-card">' +
-      '<div class="vocab-thai">' + esc(word.thai) + "</div>" +
-      '<div class="vocab-en">' + esc(word.english) + "</div>" +
-      '<div class="vocab-meta">' +
-      '<div class="vocab-tags">' +
-      '<span class="vocab-tag ' + tagClass + '">' + esc(tag) + "</span>" +
-      "</div>" +
-      '<div class="vocab-sources">' + sources + "</div>" +
+      '<div class="vocab-card vocab-card--flip">' +
+      '<div class="vocab-flip-inner">' +
+      '<div class="vocab-face vocab-face--front">' + front + metaHtml(word) + "</div>" +
+      '<div class="vocab-face vocab-face--back">' + back + "</div>" +
       "</div>" +
       "</div>"
     );
@@ -103,6 +158,7 @@
   }
 
   function render() {
+    if (!loaded) return;
     var list = words.filter(matches);
     countEl.textContent =
       list.length + (list.length === 1 ? " word" : " words");
@@ -149,15 +205,47 @@
     render();
   });
 
+  // Flip a card on click (only in single-side modes).
+  groupsEl.addEventListener("click", function (e) {
+    var c = e.target.closest(".vocab-card--flip");
+    if (c) c.classList.toggle("flipped");
+  });
+
+  // ── Display options (card face + what metadata to show), persisted ──
+  function setFace(f, doRender) {
+    face = f;
+    faceToggleEl.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-face") === f);
+    });
+    flipHintEl.style.display = f === "both" ? "none" : "";
+    lsSet("vocabFace", f);
+    if (doRender) render();
+  }
+
+  faceToggleEl.addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-face]");
+    if (btn) setFace(btn.getAttribute("data-face"), true);
+  });
+
+  showCategoryEl.addEventListener("change", function () {
+    showCategory = showCategoryEl.checked;
+    lsSet("vocabShowCategory", showCategory ? "1" : "0");
+    render();
+  });
+
+  showSourcesEl.addEventListener("change", function () {
+    showSources = showSourcesEl.checked;
+    lsSet("vocabShowSources", showSources ? "1" : "0");
+    render();
+  });
+
   // Thai font preference (default Sarabun, the book style), persisted.
   function applyFont(font) {
     document.body.setAttribute("data-thai-font", font);
     fontToggleEl.querySelectorAll("button").forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-font") === font);
     });
-    try {
-      localStorage.setItem("thaiFont", font);
-    } catch (e) {}
+    lsSet("thaiFont", font);
   }
 
   fontToggleEl.addEventListener("click", function (e) {
@@ -165,11 +253,13 @@
     if (btn) applyFont(btn.getAttribute("data-font"));
   });
 
-  var savedFont;
-  try {
-    savedFont = localStorage.getItem("thaiFont");
-  } catch (e) {}
-  applyFont(savedFont || "sarabun");
+  // Restore saved preferences before the first render.
+  applyFont(lsGet("thaiFont") || "sarabun");
+  showCategory = lsGet("vocabShowCategory") !== "0";
+  showSources = lsGet("vocabShowSources") !== "0";
+  showCategoryEl.checked = showCategory;
+  showSourcesEl.checked = showSources;
+  setFace(lsGet("vocabFace") || "both", false);
 
   fetch("vocab.json")
     .then(function (r) {
@@ -177,6 +267,7 @@
     })
     .then(function (data) {
       words = data;
+      loaded = true;
       render();
     })
     .catch(function () {

@@ -15,7 +15,9 @@
   <script src="../nav.js"></script>
 
   <main>
-    <h1>Thai Vocabulary</h1>
+    <header class="page-banner">
+      <h1>Thai Vocabulary</h1>
+    </header>
 
     <div class="vocab-controls">
       <div class="vocab-toggle" id="vocab-toggle">
@@ -29,6 +31,18 @@
       </div>
       <span class="vocab-count" id="vocab-count"></span>
       <a class="vocab-parked-link" href="parked.html">Parked items &rarr;</a>
+    </div>
+
+    <div class="vocab-controls vocab-controls--display">
+      <span class="vocab-control-label">Show</span>
+      <div class="vocab-toggle" id="face-toggle">
+        <button data-face="both" class="active">Both</button>
+        <button data-face="thai">Thai</button>
+        <button data-face="english">English</button>
+      </div>
+      <label class="vocab-check"><input type="checkbox" id="show-category"> Category</label>
+      <label class="vocab-check"><input type="checkbox" id="show-sources"> Sources</label>
+      <span class="vocab-flip-hint" id="flip-hint">Click a card to flip it</span>
     </div>
 
     <div id="vocab-groups"></div>

@@ -846,17 +846,68 @@ html[lang="fr"] .en { display: none; }
   gap: 0.3rem;
 }
 
+/* ── Framed page title (shared) ── */
+.page-banner {
+  text-align: center;
+  margin: 0.6rem 0 1.8rem;
+  padding: 1.5rem 1.6rem;
+  background: #f1f7fd;
+  border: 1px solid #cbddf2;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(3, 51, 102, 0.08);
+}
+
+.page-banner h1 {
+  display: inline-block;
+  margin: 0;
+  padding: 0 0 0.12rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+  border: none;
+  border-bottom: 3px solid #4a90d9;
+}
+
 /* ── Thai vocabulary page ── */
 .vocab-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.6rem 0.8rem;
-  margin-bottom: 1.6rem;
+  margin-bottom: 0.7rem;
   padding: 0.7rem 0.9rem;
   background: #f0f7ff;
   border: 1px solid #d4e6f7;
   border-radius: 6px;
+}
+
+.vocab-controls--display {
+  margin-bottom: 1.8rem;
+}
+
+.vocab-control-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #036;
+}
+
+.vocab-check {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.vocab-check input {
+  accent-color: #4a90d9;
+  cursor: pointer;
+}
+
+.vocab-flip-hint {
+  margin-left: auto;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: #5a7fa3;
 }
 
 .vocab-toggle {
@@ -944,13 +995,17 @@ html[lang="fr"] .en { display: none; }
 }
 
 /* Frequency tiers get a distinguishing accent on the heading rule. */
-.vocab-group--most > .vocab-group-title { border-bottom-color: #2e9e5b; }
-.vocab-group--most > .vocab-group-title .vocab-group-count {
+.vocab-group--everyday > .vocab-group-title { border-bottom-color: #2e9e5b; }
+.vocab-group--everyday > .vocab-group-title .vocab-group-count {
   color: #2e9e5b; background: #e6f4ec;
 }
-.vocab-group--rarely > .vocab-group-title { border-bottom-color: #c98a2b; }
-.vocab-group--rarely > .vocab-group-title .vocab-group-count {
+.vocab-group--occasional > .vocab-group-title { border-bottom-color: #c98a2b; }
+.vocab-group--occasional > .vocab-group-title .vocab-group-count {
   color: #b8791d; background: #faf0df;
+}
+.vocab-group--rare > .vocab-group-title { border-bottom-color: #c0593c; }
+.vocab-group--rare > .vocab-group-title .vocab-group-count {
+  color: #b5482e; background: #f7e9e4;
 }
 
 .vocab-cards {
@@ -975,6 +1030,69 @@ html[lang="fr"] .en { display: none; }
   border-color: #4a90d9;
   box-shadow: 0 6px 16px rgba(74,144,217,0.16);
   transform: translateY(-2px);
+}
+
+/* Flashcard mode: one side shown, flips on click to reveal the other. */
+.vocab-card--flip {
+  position: relative;
+  min-height: 160px;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.vocab-card--flip:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.vocab-flip-inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.vocab-card--flip.flipped .vocab-flip-inner {
+  transform: rotateY(180deg);
+}
+
+.vocab-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.vocab-card--flip:hover .vocab-face {
+  border-color: #4a90d9;
+  box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
+}
+
+.vocab-face--back {
+  transform: rotateY(180deg);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.vocab-en.vocab-prompt,
+.vocab-en.vocab-answer {
+  font-size: 1.25rem;
+  color: #111;
 }
 
 .vocab-thai {
@@ -1019,6 +1137,13 @@ body[data-thai-font="noto"] .parked-thai {
   border-top: 1px solid #efefef;
 }
 
+/* When the category row is hidden, sources sit alone without a divider. */
+.vocab-sources:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
 .vocab-tag {
   font-size: 0.72rem;
   font-weight: 700;
@@ -1032,9 +1157,10 @@ body[data-thai-font="noto"] .parked-thai {
   background: #eaf3fc;
 }
 
-.tag-freq.freq-most { color: #2e9e5b; background: #e6f4ec; }
-.tag-freq.freq-sometimes { color: #036; background: #eaf3fc; }
-.tag-freq.freq-rarely { color: #b8791d; background: #faf0df; }
+.tag-freq.freq-everyday { color: #2e9e5b; background: #e6f4ec; }
+.tag-freq.freq-common { color: #036; background: #eaf3fc; }
+.tag-freq.freq-occasional { color: #b8791d; background: #faf0df; }
+.tag-freq.freq-rare { color: #b5482e; background: #f7e9e4; }
 
 .vocab-source {
   font-size: 0.68rem;
@@ -1084,6 +1210,13 @@ body[data-thai-font="noto"] .parked-thai {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: #999;
+}
+
+.parked-list li.parked-empty {
+  display: block;
+  border-top: none;
+  color: #777;
+  font-style: italic;
 }
 
 /* ── Responsive ── */
