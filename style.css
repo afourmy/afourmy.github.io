@@ -1037,8 +1037,7 @@ html[lang="fr"] .en { display: none; }
 
 /* Flashcard mode: one side shown, flips on click to reveal the other. */
 .vocab-card--flip {
-  display: grid;
-  grid-template-rows: 1fr;
+  position: relative;
   padding: 0;
   background: none;
   border: none;
@@ -1052,29 +1051,28 @@ html[lang="fr"] .en { display: none; }
   box-shadow: none;
 }
 
-/* The rotating card is a plain block with preserve-3d (flips reliably both
-   ways); its two faces are absolutely stacked over each other. */
-.vocab-flip-rotor {
-  grid-area: 1 / 1;
-  position: relative;
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
-}
-
-.vocab-card--flip.flipped .vocab-flip-rotor {
-  transform: rotateY(180deg);
-}
-
-/* A hidden twin in normal flow sizes the card to the taller of the two
-   faces, so it fits its content with no fixed height. */
+/* A hidden twin in normal flow gives the card its height (the taller of the
+   two faces), so it fits its content with no fixed height. */
 .vocab-flip-ghost {
-  grid-area: 1 / 1;
   display: grid;
   visibility: hidden;
   pointer-events: none;
 }
 .vocab-flip-ghost > .vocab-face {
   grid-area: 1 / 1;
+}
+
+/* The rotating card overlays the ghost: a plain block with preserve-3d so it
+   flips reliably both ways, with its two faces absolutely stacked. */
+.vocab-flip-rotor {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+}
+
+.vocab-card--flip.flipped .vocab-flip-rotor {
+  transform: rotateY(180deg);
 }
 
 .vocab-face {
