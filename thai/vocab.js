@@ -213,10 +213,33 @@
     render();
   });
 
-  // Flip a card on click (only in single-side modes).
+  // Flip a card on click (single-side modes): a two-phase 3D turn. The front
+  // rotates to its edge (90 deg); while invisible we swap the visible face and
+  // jump to the opposite edge (-90 deg); then the new face rotates flat. Each
+  // face only ever shows within +/-90 deg, so no backface-visibility is needed.
+  var TURN_MS = 200;
   groupsEl.addEventListener("click", function (e) {
-    var c = e.target.closest(".vocab-card--flip");
-    if (c) c.classList.toggle("flipped");
+    var card = e.target.closest(".vocab-card--flip");
+    if (!card) return;
+    var rotor = card.querySelector(".vocab-flip-rotor");
+    if (!rotor || rotor.dataset.turning) return; // ignore clicks mid-turn
+    rotor.dataset.turning = "1";
+
+    rotor.style.transition = "transform " + TURN_MS + "ms ease-in";
+    rotor.style.transform = "rotateY(90deg)";
+
+    setTimeout(function () {
+      card.classList.toggle("flipped"); // swap faces while edge-on
+      rotor.style.transition = "none";
+      rotor.style.transform = "rotateY(-90deg)";
+      void rotor.offsetWidth; // force reflow so the next change animates
+      rotor.style.transition = "transform " + TURN_MS + "ms ease-out";
+      rotor.style.transform = "rotateY(0deg)";
+      setTimeout(function () {
+        rotor.style.transition = "";
+        delete rotor.dataset.turning;
+      }, TURN_MS);
+    }, TURN_MS);
   });
 
   // ── Display options (card face + what metadata to show), persisted ──

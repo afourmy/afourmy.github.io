@@ -1042,8 +1042,9 @@ html[lang="fr"] .en { display: none; }
   background: none;
   border: none;
   box-shadow: none;
-  perspective: 1000px;
   cursor: pointer;
+  -webkit-perspective: 900px;
+  perspective: 900px;
 }
 
 .vocab-card--flip:hover {
@@ -1062,17 +1063,15 @@ html[lang="fr"] .en { display: none; }
   grid-area: 1 / 1;
 }
 
-/* The rotating card overlays the ghost: a plain block with preserve-3d so it
-   flips reliably both ways, with its two faces absolutely stacked. */
+/* The card overlays the ghost and turns in 3D. JS runs the turn in two
+   halves (front to edge, swap face, new face from edge), so the visible face
+   stays within +/-90 deg and we never rely on backface-visibility (whose
+   per-frame culling glitched sporadically). The transition is set inline. */
 .vocab-flip-rotor {
   position: absolute;
   inset: 0;
-  transition: transform 0.5s;
-  transform-style: preserve-3d;
-}
-
-.vocab-card--flip.flipped .vocab-flip-rotor {
-  transform: rotateY(180deg);
+  transform: rotateY(0deg);
+  transform-origin: center center;
 }
 
 .vocab-face {
@@ -1093,14 +1092,14 @@ html[lang="fr"] .en { display: none; }
 .vocab-face--back {
   position: absolute;
   inset: 0;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   transition: border-color 0.18s, box-shadow 0.18s;
 }
 
-.vocab-face--back {
-  transform: rotateY(180deg);
-}
+/* The visible face is swapped (instantly) by JS while the card is edge-on. */
+.vocab-face--front { opacity: 1; }
+.vocab-face--back { opacity: 0; }
+.vocab-card--flip.flipped .vocab-face--front { opacity: 0; }
+.vocab-card--flip.flipped .vocab-face--back { opacity: 1; }
 
 .vocab-card--flip:hover .vocab-face--front,
 .vocab-card--flip:hover .vocab-face--back {
