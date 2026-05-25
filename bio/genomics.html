@@ -166,11 +166,6 @@ def match_both_strands(pattern, text):
         <li>$d(a,b) = d(b,a)$</li>
         <li>$d(a,c) \leq d(a,b) + d(b,c)$</li>
       </ul>
-        <li>$d(a,b) \geq 0$</li>
-        <li>$d(a,b) = 0 \iff a = b$</li>
-        <li>$d(a,b) = d(b,a)$</li>
-        <li>$d(a,c) \leq d(a,b) + d(b,c)$</li>
-      </ul>
     </div>
 
     <div class="thm-block remark">
@@ -183,10 +178,6 @@ def match_both_strands(pattern, text):
       </ol>
       <p>In every case, removing that last column leaves an alignment of a strictly shorter prefix pair: $(a[1..i-1], b[1..j-1])$, $(a[1..i-1], b[1..j])$, or $(a[1..i], b[1..j-1])$ respectively. If the original alignment is optimal, the leftover prefix alignment must also be optimal for its own prefix pair (otherwise we could swap in a better prefix alignment and improve the total score -- a contradiction). This is the exchange argument that justifies recursion.</p>
       <p>So define $F(i, j)$ as <em>the score of the best alignment of $a[1..i]$ with $b[1..j]$</em>. We can compute $F(i,j)$ from three smaller subproblems, building the table from top-left to bottom-right. Computing the whole $(m+1)\times(n+1)$ table takes $O(mn)$ time and space.</p>
-        <li>$a_i$ est aligné avec $b_j$ (appariement ou mésappariement).</li>
-        <li>$a_i$ est aligné avec un gap du côté de $b$.</li>
-        <li>$b_j$ est aligné avec un gap du côté de $a$.</li>
-      </ol>
     </div>
 
     <div class="thm-block theorem">
@@ -197,10 +188,6 @@ def match_both_strands(pattern, text):
         <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j),\; F(i-1,\, j) - d,\; F(i,\, j-1) - d\}$</li>
       </ul>
       <p>The three terms correspond exactly to cases 1, 2, and 3 above. The optimal global alignment score is $F(m, n)$.</p>
-        <li>$F(i, 0) = -i \cdot d$ (aligner $i$ caractères de $a$ contre $i$ gaps)</li>
-        <li>$F(0, j) = -j \cdot d$ (aligner $j$ caractères de $b$ contre $j$ gaps)</li>
-        <li>$F(i, j) = \max\{F(i-1,\, j-1) + s(a_i, b_j),\; F(i-1,\, j) - d,\; F(i,\, j-1) - d\}$</li>
-      </ul>
     </div>
 
     <details class="proof">
@@ -246,8 +233,6 @@ def match_both_strands(pattern, text):
       <p><span class="thm-label">Definition (Local alignment, Smith–Waterman).</span> A <em>local alignment</em> of $a$ and $b$ is a global alignment of a substring $a[i..i']$ with a substring $b[j..j']$, chosen to maximize the alignment score. The <em>Smith–Waterman algorithm</em> computes the optimal local alignment score using the recurrence
       $$H(i, j) = \max\begin{cases} 0 & \text{(start fresh)} \\ H(i-1,\, j-1) + s(a_i, b_j) & \text{(case 1: match/mismatch)} \\ H(i-1,\, j) - d & \text{(case 2: gap in } b\text{)} \\ H(i,\, j-1) - d & \text{(case 3: gap in } a\text{)} \end{cases}$$
       The first three cases are identical to Needleman–Wunsch. The only addition is the $0$ option: if extending any alignment to position $(i,j)$ would give a negative score, it is better to declare that no useful alignment ends here and start over. The optimal local alignment score is $\max_{i,j} H(i,j)$, and the traceback starts from this maximum and stops when a cell with value $0$ is reached.</p>
-      $$H(i, j) = \max\begin{cases} 0 & \text{(repartir de zéro)} \\ H(i-1,\, j-1) + s(a_i, b_j) & \text{(cas 1 : appariement/mésapp.)} \\ H(i-1,\, j) - d & \text{(cas 2 : gap dans } b\text{)} \\ H(i,\, j-1) - d & \text{(cas 3 : gap dans } a\text{)} \end{cases}$$
-      Les trois premiers cas sont identiques à Needleman–Wunsch. La seule addition est l'option $0$ : si étendre un alignement jusqu'à la position $(i,j)$ donnerait un score négatif, il vaut mieux déclarer qu'aucun alignement utile ne se termine ici et repartir. Le score optimal d'alignement local est $\max_{i,j} H(i,j)$, et le retrace commence à ce maximum et s'arrête quand on atteint une cellule de valeur $0$.</p>
     </div>
 
     <pre><code class="language-python">def smith_waterman(a, b, match=2, mismatch=-1, gap=-1):
@@ -373,9 +358,6 @@ def assemble(reads, k):
         <li><em>Stop codons</em>: <code>TAA</code>, <code>TAG</code>, <code>TGA</code>. They encode no amino acid; they terminate translation.</li>
       </ul>
       <p>Since codons are triplets, there are three possible ways to partition a sequence into consecutive triplets depending on where you start: positions $\{0, 3, 6, \ldots\}$, $\{1, 4, 7, \ldots\}$, or $\{2, 5, 8, \ldots\}$. Each choice is called a <em>reading frame</em>. Since a gene can lie on either strand of the double helix, there are $3 \times 2 = 6$ reading frames to consider for any given sequence.</p>
-        <li><em>Codon initiateur</em> : <code>ATG</code> (code pour la méthionine). La traduction commence ici.</li>
-        <li><em>Codons stop</em> : <code>TAA</code>, <code>TAG</code>, <code>TGA</code>. Ils ne codent pour aucun acide aminé ; ils terminent la traduction.</li>
-      </ul>
     </div>
 
     <div class="thm-block definition">
@@ -440,10 +422,6 @@ def find_all_orfs(seq, min_codons=100):
         <li>$P(\text{data} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$ -- both copies carry $A$, so each read should show $A$ with probability $1-\epsilon$ and $R$ only by error.</li>
       </ul>
       <p>The called genotype is the one maximizing the posterior $P(\text{genotype} \mid \text{data}) \propto P(\text{data} \mid \text{genotype}) \cdot P(\text{genotype})$. The prior $P(\text{genotype})$ encodes how common variants are: variants at known SNP sites (from databases like dbSNP) get a higher prior for $RA$ or $AA$; at novel positions the prior strongly favors $RR$ since most positions are not variant. Variants are reported in <em>VCF</em> (Variant Call Format), a tab-separated text file with one line per variant.</p>
-        <li>$P(\text{données} \mid RR) = (1-\epsilon)^{n-k} \cdot \epsilon^k$ -- les deux copies portent $R$, donc chaque lecture doit montrer $R$ avec probabilité $1-\epsilon$ et $A$ seulement par erreur.</li>
-        <li>$P(\text{données} \mid RA) = \left(\tfrac{1}{2}\right)^n$ -- une copie porte $R$ et l'autre porte $A$ ; chaque lecture provient de l'une des deux copies avec probabilité $\tfrac{1}{2}$, donc chaque lecture montre $R$ ou $A$ chacun avec probabilité $\tfrac{1}{2}$, <em>indépendamment du nombre montrant $R$ ou $A$</em>. Le compte $k$ ne donne aucune information sur ce génotype.</li>
-        <li>$P(\text{données} \mid AA) = \epsilon^{n-k} \cdot (1-\epsilon)^k$ -- les deux copies portent $A$, donc chaque lecture doit montrer $A$ avec probabilité $1-\epsilon$ et $R$ seulement par erreur.</li>
-      </ul>
     </div>
 
     <pre><code class="language-python">from math import log
@@ -480,7 +458,6 @@ def call_genotype(n, k, error=1e-3):
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Jukes–Cantor model).</span> The <em>Jukes–Cantor model</em> is the simplest such correction model. Each site evolves independently as a continuous-time Markov chain on $\{A, C, G, T\}$ with all off-diagonal substitution rates equal. Let $d$ denote the expected number of substitutions per site. Solving the rate equation gives the probability that a site is identical between the two sequences as $p = \frac{1}{4} + \frac{3}{4} e^{-4d/3}$. (At $d = 0$ it is 1; as $d \to \infty$ it decays to $\frac{1}{4}$, the random baseline for 4 equally likely bases.) Inverting, the <em>Jukes–Cantor distance</em> estimated from the observed fraction $p_{\text{obs}}$ of differing sites is:
       $$d = -\frac{3}{4} \ln\!\left(1 - \frac{4}{3} p_{\text{obs}}\right)$$</p>
-      $$d = -\frac{3}{4} \ln\!\left(1 - \frac{4}{3} p_{\text{obs}}\right)$$</p>
     </div>
 
     <div class="thm-block definition">
@@ -491,8 +468,6 @@ def call_genotype(n, k, error=1e-3):
       <p><span class="thm-label">Definition (Neighbor-joining).</span> <em>Neighbor-joining</em> (NJ, Saitou–Nei 1987) does not assume a molecular clock: it produces an unrooted tree whose branch lengths reflect the actual distances rather than equal distance from a putative root. Given the distance matrix $d$ on $n$ current taxa, at each step NJ picks the pair $(i, j)$ minimizing the <em>$Q$-criterion</em>
       $$Q(i, j) = (n - 2)\, d(i, j) - \sum_{k} d(i, k) - \sum_{k} d(j, k),$$
       which favors pairs that are simultaneously close to each other and far from everything else (this is what distinguishes true neighbors from pairs that merely have small pairwise distance because both are close to some third taxon). It joins $i$ and $j$ at a new internal node $u$, sets the branch lengths from $u$ to $i$ and $j$ from the row sums of $d$, then updates the matrix with $d(u, k) = \tfrac{1}{2}(d(i, k) + d(j, k) - d(i, j))$ and recurses on $n - 1$ taxa. NJ runs in $O(n^3)$ time and is the most widely used distance-based tree-building method. When the input distances exactly fit a tree (the <em>additive</em> case), NJ provably recovers it.</p>
-      $$Q(i, j) = (n - 2)\, d(i, j) - \sum_{k} d(i, k) - \sum_{k} d(j, k),$$
-      qui favorise les paires simultanément proches l'une de l'autre et éloignées de tout le reste (c'est ce qui distingue de vrais voisins de paires dont la distance par paire est petite uniquement parce que les deux sont proches d'un troisième taxon). Il joint $i$ et $j$ à un nouveau nœud interne $u$, fixe les longueurs de branche de $u$ à $i$ et $j$ à partir des sommes de lignes de $d$, puis met à jour la matrice par $d(u, k) = \tfrac{1}{2}(d(i, k) + d(j, k) - d(i, j))$ et récurse sur $n - 1$ taxons. Le NJ s'exécute en temps $O(n^3)$ et est la méthode de construction d'arbre basée sur les distances la plus utilisée. Lorsque les distances d'entrée correspondent exactement à un arbre (cas <em>additif</em>), le NJ le retrouve de manière prouvée.</p>
     </div>
 
     <pre><code class="language-python">from math import log, inf
