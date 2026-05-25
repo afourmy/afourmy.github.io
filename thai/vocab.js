@@ -121,11 +121,19 @@
       face === "thai"
         ? enHtml(word, " vocab-answer")
         : thaiHtml(word, " vocab-answer");
+    var frontInner = front + metaHtml(word);
+    var backInner = back;
+    // The rotor holds the two visible faces; the hidden ghost (a normal-flow
+    // copy of both) gives the card the height of the taller face.
     return (
       '<div class="vocab-card vocab-card--flip">' +
-      '<div class="vocab-flip-inner">' +
-      '<div class="vocab-face vocab-face--front">' + front + metaHtml(word) + "</div>" +
-      '<div class="vocab-face vocab-face--back">' + back + "</div>" +
+      '<div class="vocab-flip-rotor">' +
+      '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
+      '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
+      "</div>" +
+      '<div class="vocab-flip-ghost" aria-hidden="true">' +
+      '<div class="vocab-face">' + frontInner + "</div>" +
+      '<div class="vocab-face">' + backInner + "</div>" +
       "</div>" +
       "</div>"
     );
