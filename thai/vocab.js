@@ -66,9 +66,11 @@
       '<div class="vocab-card">' +
       '<div class="vocab-thai">' + esc(word.thai) + "</div>" +
       '<div class="vocab-en">' + esc(word.english) + "</div>" +
+      '<div class="vocab-meta">' +
       '<div class="vocab-tags">' +
       '<span class="vocab-tag ' + tagClass + '">' + esc(tag) + "</span>" +
-      sources +
+      "</div>" +
+      '<div class="vocab-sources">' + sources + "</div>" +
       "</div>" +
       "</div>"
     );

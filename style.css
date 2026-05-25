@@ -996,14 +996,27 @@ body[data-thai-font="noto"] .parked-thai {
   line-height: 1.4;
   color: #333;
   text-align: left;
+}
+
+/* Footer: classification tag on its own row, sources separated below it. */
+.vocab-meta {
   margin-top: auto;
+  padding-top: 0.55rem;
 }
 
 .vocab-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.35rem;
-  margin-top: 0.4rem;
+}
+
+.vocab-sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid #efefef;
 }
 
 .vocab-tag {
@@ -1026,10 +1039,11 @@ body[data-thai-font="noto"] .parked-thai {
 .vocab-source {
   font-size: 0.68rem;
   font-weight: 700;
-  color: #888;
-  background: #f1f1f1;
-  border-radius: 999px;
-  padding: 0.1rem 0.5rem;
+  color: #777;
+  background: #f5f5f5;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px;
+  padding: 0.08rem 0.45rem;
 }
 
 .vocab-empty {
