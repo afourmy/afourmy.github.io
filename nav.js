@@ -137,7 +137,7 @@
   // current path so it stays correct across SPA navigation. Exposed globally
   // so the SPA can refresh it after each page change.
   var langToggleEl = nav.querySelector(".lang-toggle");
-  var HIDE_LANG_TOGGLE = ["thai/", "books/"];
+  var HIDE_LANG_TOGGLE = ["thai/", "books/", "projects/"];
   window.updateLangToggle = function () {
     if (!langToggleEl) return;
     var path = strip(window.location.pathname);
