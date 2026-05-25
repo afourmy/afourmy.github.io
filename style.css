@@ -846,6 +846,232 @@ html[lang="fr"] .en { display: none; }
   gap: 0.3rem;
 }
 
+/* ── Thai vocabulary page ── */
+.vocab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  margin-bottom: 1.6rem;
+  padding: 0.7rem 0.9rem;
+  background: #f0f7ff;
+  border: 1px solid #d4e6f7;
+  border-radius: 6px;
+}
+
+.vocab-toggle {
+  display: flex;
+  border: 1px solid #4a90d9;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.vocab-toggle button {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  background: #fff;
+  color: #4a90d9;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vocab-toggle button:not(:last-child) {
+  border-right: 1px solid #4a90d9;
+}
+
+.vocab-toggle button.active {
+  background: #4a90d9;
+  color: #fff;
+}
+
+.vocab-toggle button:not(.active):hover {
+  background: #e3f0fc;
+}
+
+.vocab-search {
+  flex: 1 1 220px;
+  min-width: 160px;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.7rem;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  background: #fff;
+}
+
+.vocab-search:focus {
+  outline: none;
+  border-color: #4a90d9;
+}
+
+.vocab-count {
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 700;
+}
+
+.vocab-parked-link {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 0.3rem 0.5rem;
+}
+
+.vocab-group {
+  margin-bottom: 2.4rem;
+}
+
+.vocab-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #4a90d9;
+}
+
+.vocab-group-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #4a90d9;
+  background: #eaf3fc;
+  border-radius: 999px;
+  padding: 0.05rem 0.6rem;
+}
+
+/* Frequency tiers get a distinguishing accent on the heading rule. */
+.vocab-group--most > .vocab-group-title { border-bottom-color: #2e9e5b; }
+.vocab-group--most > .vocab-group-title .vocab-group-count {
+  color: #2e9e5b; background: #e6f4ec;
+}
+.vocab-group--rarely > .vocab-group-title { border-bottom-color: #c98a2b; }
+.vocab-group--rarely > .vocab-group-title .vocab-group-count {
+  color: #b8791d; background: #faf0df;
+}
+
+.vocab-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+}
+
+.vocab-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.8rem 0.9rem;
+  background: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+
+.vocab-card:hover {
+  border-color: #4a90d9;
+  box-shadow: 0 6px 16px rgba(74,144,217,0.16);
+  transform: translateY(-2px);
+}
+
+.vocab-thai {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #111;
+}
+
+/* Thai font choice (default Sarabun above; toggle switches to Noto Sans Thai) */
+body[data-thai-font="noto"] .vocab-thai,
+body[data-thai-font="noto"] .parked-thai {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.vocab-en {
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: #333;
+  text-align: left;
+  margin-top: auto;
+}
+
+.vocab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+}
+
+.vocab-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.tag-topic {
+  color: #036;
+  background: #eaf3fc;
+}
+
+.tag-freq.freq-most { color: #2e9e5b; background: #e6f4ec; }
+.tag-freq.freq-sometimes { color: #036; background: #eaf3fc; }
+.tag-freq.freq-rarely { color: #b8791d; background: #faf0df; }
+
+.vocab-source {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #888;
+  background: #f1f1f1;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+}
+
+.vocab-empty {
+  color: #777;
+  font-style: italic;
+}
+
+/* Parked-items page: plain reference list */
+.parked-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.parked-list li {
+  display: grid;
+  grid-template-columns: minmax(8rem, max-content) 1fr;
+  gap: 0.4rem 1rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-top: 1px solid #ececec;
+}
+
+.parked-thai {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.4rem;
+  color: #111;
+}
+
+.parked-en {
+  font-size: 1rem;
+  color: #333;
+}
+
+.parked-reason {
+  grid-column: 2;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #999;
+}
+
 /* ── Responsive ── */
 @media (max-width: 600px) {
   body { font-size: 14px; }

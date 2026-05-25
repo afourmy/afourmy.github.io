@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Thai Vocabulary - Parked</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Parked items</h1>
+    <p>Idioms, proverbs, grammar patterns and paired entries set aside from the
+      main list. We will come back to these later.</p>
+    <p><a href="index.html">&larr; Back to vocabulary</a></p>
+
+    <ul id="parked-list" class="parked-list"></ul>
+  </main>
+
+  <script>
+    (function () {
+      // Match the Thai font chosen on the vocabulary page.
+      try {
+        var f = localStorage.getItem("thaiFont");
+        if (f) document.body.setAttribute("data-thai-font", f);
+      } catch (e) {}
+
+      var listEl = document.getElementById("parked-list");
+      function esc(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      fetch("parked.json")
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          listEl.innerHTML = data
+            .map(function (item) {
+              return (
+                "<li>" +
+                '<span class="parked-thai">' + esc(item.thai) + "</span>" +
+                '<span class="parked-en">' + esc(item.english) + "</span>" +
+                '<span class="parked-reason">' + esc(item.reason) + "</span>" +
+                "</li>"
+              );
+            })
+            .join("");
+        })
+        .catch(function () {
+          listEl.innerHTML = "<li>Could not load parked items.</li>";
+        });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Thai Vocabulary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <h1>Thai Vocabulary</h1>
+
+    <div class="vocab-controls">
+      <div class="vocab-toggle" id="vocab-toggle">
+        <button data-mode="frequency" class="active">By frequency</button>
+        <button data-mode="topic">By topic</button>
+      </div>
+      <input type="search" id="vocab-search" class="vocab-search" placeholder="Search Thai or English…" autocomplete="off">
+      <div class="vocab-toggle vocab-font-toggle" id="font-toggle" title="Thai font">
+        <button data-font="sarabun" class="active">Sarabun</button>
+        <button data-font="noto">Noto Sans</button>
+      </div>
+      <span class="vocab-count" id="vocab-count"></span>
+      <a class="vocab-parked-link" href="parked.html">Parked items &rarr;</a>
+    </div>
+
+    <div id="vocab-groups"></div>
+  </main>
+
+  <script src="vocab.js"></script>
+</body>
+</html>
