@@ -25,7 +25,7 @@
     expressions: "Expressions",
     time: "Time",
     culture: "Culture",
-    religion: "Beliefs",
+    beliefs: "Beliefs",
     monarchy: "Monarchy",
     nature: "Nature",
   };
