@@ -1065,6 +1065,9 @@ html[lang="fr"] .en { display: none; }
   grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 0.35rem;
   padding: 0.8rem 0.9rem;
   background: #fff;
@@ -1081,11 +1084,17 @@ html[lang="fr"] .en { display: none; }
   box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
 }
 
+/* Centered faces: keep the metadata grouped with the word, centered too. */
+.vocab-face .vocab-meta {
+  margin-top: 0.5rem;
+}
+.vocab-face .vocab-tags,
+.vocab-face .vocab-sources {
+  justify-content: center;
+}
+
 .vocab-face--back {
   transform: rotateY(180deg);
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .vocab-en.vocab-prompt,
