@@ -16,18 +16,18 @@
     rarely: "Rarely used",
   };
   var TOPIC_LABEL = {
-    personality: "Personality & character",
-    emotions: "Emotions & feelings",
-    family: "Family & relationships",
-    health: "Health & body",
-    general: "General & abstract",
-    grammar: "Grammar & connectors",
-    expressions: "Expressions & interjections",
+    personality: "Personality",
+    emotions: "Emotions",
+    family: "Family",
+    health: "Health",
+    general: "General",
+    grammar: "Grammar",
+    expressions: "Expressions",
     time: "Time",
-    culture: "Culture & tradition",
-    religion: "Religion, belief & fortune",
-    monarchy: "Monarchy & nation",
-    nature: "Nature & geography",
+    culture: "Culture",
+    religion: "Beliefs",
+    monarchy: "Monarchy",
+    nature: "Nature",
   };
 
   function esc(s) {
