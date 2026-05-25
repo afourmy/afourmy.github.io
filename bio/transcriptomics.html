@@ -387,18 +387,5 @@ def over_representation(hit_set, gene_sets, universe):
     </div>
 
   </main>
-
-  <script>
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('.en').forEach(el => el.style.display = lang === 'en' ? '' : 'none');
-      document.querySelectorAll('.fr').forEach(el => el.style.display = lang === 'fr' ? '' : 'none');
-      document.documentElement.lang = lang;
-    }
-    (function() {
-      var lang = localStorage.getItem('lang') || 'en';
-      setLang(lang);
-    })();
-  </script>
 </body>
 </html>
