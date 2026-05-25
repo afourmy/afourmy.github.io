@@ -40,7 +40,7 @@
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
       }
-      fetch("parked.json")
+      fetch(new URL("parked.json", location.href).href)
         .then(function (r) { return r.json(); })
         .then(function (data) {
           if (!data.length) {

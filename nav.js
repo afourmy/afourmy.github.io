@@ -54,6 +54,11 @@
         { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook", fr: "A Long-Form Mathematics Textbook" },
       ]
     ]},
+    { en: "Thailand", fr: "Thaïlande", columns: [
+      [
+        { href: "thai/index.html", en: "Vocabulary", fr: "Vocabulaire" },
+      ]
+    ]},
   ];
 
   // Compute relative prefix from current page to site root.

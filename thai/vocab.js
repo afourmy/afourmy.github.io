@@ -292,7 +292,15 @@
   showSourcesEl.checked = showSources;
   setFace(lsGet("vocabFace") || "both", false);
 
-  fetch("vocab.json")
+  // Resolve the data file next to this script, so it works both on a direct
+  // visit and when the page is loaded via the site's SPA navigation (which
+  // leaves the document base at the site root).
+  var thisScript = document.querySelector('script[src$="vocab.js"]');
+  var dataUrl = thisScript
+    ? new URL("vocab.json", thisScript.src).href
+    : "vocab.json";
+
+  fetch(dataUrl)
     .then(function (r) {
       return r.json();
     })
