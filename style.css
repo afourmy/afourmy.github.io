@@ -1017,6 +1017,9 @@ html[lang="fr"] .en { display: none; }
 .vocab-card {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   gap: 0.35rem;
   padding: 0.8rem 0.9rem;
   background: #fff;
@@ -1107,15 +1110,6 @@ html[lang="fr"] .en { display: none; }
   box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
 }
 
-/* Centered faces: keep the metadata grouped with the word, centered too. */
-.vocab-face .vocab-meta {
-  margin-top: 0.5rem;
-}
-.vocab-face .vocab-tags,
-.vocab-face .vocab-sources {
-  justify-content: center;
-}
-
 .vocab-en.vocab-prompt,
 .vocab-en.vocab-answer {
   font-size: 1.25rem;
@@ -1140,24 +1134,24 @@ body[data-thai-font="noto"] .parked-thai {
   font-size: 0.98rem;
   line-height: 1.4;
   color: #333;
-  text-align: left;
 }
 
 /* Footer: classification tag on its own row, sources separated below it. */
 .vocab-meta {
-  margin-top: auto;
-  padding-top: 0.55rem;
+  margin-top: 0.5rem;
 }
 
 .vocab-tags {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.35rem;
 }
 
 .vocab-sources {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 0.3rem;
   margin-top: 0.45rem;
   padding-top: 0.45rem;
