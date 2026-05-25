@@ -133,6 +133,21 @@
   };
   window.setActiveNav();
 
+  // Hide the EN/FR toggle on pages that aren't bilingual. Driven by the
+  // current path so it stays correct across SPA navigation. Exposed globally
+  // so the SPA can refresh it after each page change.
+  var langToggleEl = nav.querySelector(".lang-toggle");
+  var HIDE_LANG_TOGGLE = ["thai/", "books/"];
+  window.updateLangToggle = function () {
+    if (!langToggleEl) return;
+    var path = strip(window.location.pathname);
+    var hide = HIDE_LANG_TOGGLE.some(function (p) {
+      return path.indexOf(p) !== -1;
+    });
+    langToggleEl.style.display = hide ? "none" : "";
+  };
+  window.updateLangToggle();
+
   // Wire thm-labels as proof toggles (event delegation – works with SPA)
   document.addEventListener("click", function (e) {
     var label = e.target.closest(".thm-label");

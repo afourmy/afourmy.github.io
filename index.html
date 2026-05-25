@@ -144,6 +144,7 @@
         if (typeof initProofToggles === 'function') initProofToggles();
         setLang(localStorage.getItem('lang') || 'en');
         if (typeof setActiveNav === 'function') setActiveNav();
+        if (typeof updateLangToggle === 'function') updateLangToggle();
         window.scrollTo(0, 0);
 
         // Load and execute body scripts (in order)
