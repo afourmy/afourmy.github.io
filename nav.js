@@ -1,4 +1,14 @@
 (function () {
+  // Apply the saved theme as early as possible to avoid a flash of the wrong one.
+  try {
+    document.documentElement.setAttribute(
+      "data-theme",
+      localStorage.getItem("theme") || "light"
+    );
+  } catch (e) {
+    document.documentElement.setAttribute("data-theme", "light");
+  }
+
   var menu = [
     { en: "Mathematics", fr: "Mathématiques", cssClass: "submenu-sections", columns: [
       [
@@ -81,6 +91,12 @@
   var html = '<nav><div class="nav-inner">';
   html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
 
+  // Language toggle (left side, next to Home)
+  html += '<div class="lang-toggle">';
+  html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
+  html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
+  html += '</div>';
+
   for (var m = 0; m < menu.length; m++) {
     var item = menu[m];
     html += '<div class="nav-item">';
@@ -98,16 +114,36 @@
     html += '</div></div>';
   }
 
-  html += '<div class="lang-toggle">';
-  html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
-  html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
-  html += '</div></div></nav>';
+  // Theme toggle (right side)
+  html += '<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">';
+  html += '<span class="toggle-track">';
+  html += '<svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2"/></svg>';
+  html += '<svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>';
+  html += '<span class="toggle-thumb"></span>';
+  html += '</span>';
+  html += '</button>';
+  html += '</div></nav>';
 
   // Insert nav at the beginning of <body>
   var container = document.createElement("div");
   container.innerHTML = html;
   var nav = container.firstChild;
   document.body.insertBefore(nav, document.body.firstChild);
+
+  // Theme toggle: flip data-theme on <html> and remember the choice.
+  var themeToggle = nav.querySelector("#themeToggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      var next =
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try {
+        localStorage.setItem("theme", next);
+      } catch (e) {}
+    });
+  }
 
   // Highlight the top-level item whose submenu contains the current page.
   // Exposed globally so SPA navigation can refresh it after each page change.
