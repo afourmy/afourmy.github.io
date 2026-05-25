@@ -67,7 +67,7 @@ nav .nav-inner {
   font-weight: 400;
   color: var(--text-soft);
   text-decoration: none;
-  padding: 0.8rem 0.6rem;
+  padding: 0.8rem 1rem;
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -350,10 +350,11 @@ html[lang="en"] .fr { display: none; }
 html[lang="fr"] .en { display: none; }
 
 .lang-toggle {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
-  flex-shrink: 0;
-  align-self: center;
-  margin-left: 0.9rem;
   border: 1px solid var(--border);
   border-radius: 4px;
   overflow: hidden;
@@ -387,13 +388,14 @@ html[lang="fr"] .en { display: none; }
 
 /* ── Theme (light/dark) toggle ── */
 .theme-toggle {
-  margin-left: auto;
-  align-self: center;
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
-  flex-shrink: 0;
 }
 
 .toggle-track {
