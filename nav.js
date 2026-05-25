@@ -40,6 +40,11 @@
         { href: "bio/proteomics.html", en: "Proteomics", fr: "Protéomique" },
       ]
     ]},
+    { en: "Thailand", fr: "Thaïlande", columns: [
+      [
+        { href: "thai/index.html", en: "Vocabulary", fr: "Vocabulaire" },
+      ]
+    ]},
     { en: "Projects", fr: "Projets", columns: [
       [
         { href: "projects/tsp.html", en: "Traveling Salesman Problem", fr: "Voyageur de commerce" },
@@ -52,11 +57,6 @@
         { href: "books/aops.html", en: "The Art of Problem Solving", fr: "L'Art de la résolution de problèmes" },
         { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms", fr: "Algorithmes en bioinformatique" },
         { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook", fr: "A Long-Form Mathematics Textbook" },
-      ]
-    ]},
-    { en: "Thailand", fr: "Thaïlande", columns: [
-      [
-        { href: "thai/index.html", en: "Vocabulary", fr: "Vocabulaire" },
       ]
     ]},
   ];
