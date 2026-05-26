@@ -1185,6 +1185,58 @@ html[lang="fr"] .en { display: none; }
   box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
 }
 
+/* Copy-word control: corner button that copies the visible side without
+   flipping the card. Sits above the rotor and stays put during the turn. */
+.vocab-copy {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.vocab-card--flip:hover .vocab-copy { opacity: 0.8; }
+
+.vocab-copy:hover {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-copy svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vocab-copy-i--check { display: none; }
+
+.vocab-copy.copied {
+  opacity: 1;
+  color: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.vocab-copy.copied .vocab-copy-i--copy { display: none; }
+.vocab-copy.copied .vocab-copy-i--check { display: block; }
+
+/* Extra side room on flip-card faces so the centered word never tucks under
+   the corner copy button. */
+.vocab-card--flip .vocab-face {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
 .vocab-en.vocab-prompt,
 .vocab-en.vocab-answer {
   font-size: 1.25rem;

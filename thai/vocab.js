@@ -274,6 +274,15 @@
   groupsEl.addEventListener("click", function (e) {
     var card = e.target.closest(".vocab-card--flip");
     if (!card) return;
+
+    // Copy button: grab the visible side's word, don't flip the card.
+    var copyBtn = e.target.closest(".vocab-copy");
+    if (copyBtn) {
+      var attr = card.classList.contains("flipped") ? "data-back" : "data-front";
+      copyText(card.getAttribute(attr), copyBtn);
+      return;
+    }
+
     var rotor = card.querySelector(".vocab-flip-rotor");
     if (!rotor || rotor.dataset.turning) return; // ignore clicks mid-turn
     rotor.dataset.turning = "1";
