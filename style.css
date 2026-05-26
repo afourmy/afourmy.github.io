@@ -24,9 +24,9 @@
   --surface: #1b2638;
   --surface-alt: #233149;
   --surface-muted: #18233a;
-  --text: #e8edf5;
-  --text-soft: #cbd5e1;
-  --text-muted: #9aa7b8;
+  --text: #ccd5e2;
+  --text-soft: #aeb9ca;
+  --text-muted: #8b97a9;
   --border: #334155;
   --accent: #60a5fa;
   --accent-strong: #93c5fd;
@@ -1367,3 +1367,42 @@ body[data-thai-font="noto"] .parked-thai {
   background: rgba(192, 89, 60, 0.22);
   color: #f0a591;
 }
+
+/* ── Dark-mode syntax highlighting (Prism) ──
+   Prism copies the language class onto <pre>, so its light theme background
+   wins unless we override it for dark mode. */
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] code[class*="language-"] {
+  background: var(--code-bg);
+  text-shadow: none;
+}
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] code[class*="language-"],
+[data-theme="dark"] pre[class*="language-"] code {
+  color: #ccd5e2;
+}
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.doctype,
+[data-theme="dark"] .token.cdata { color: #7c89a0; }
+[data-theme="dark"] .token.punctuation { color: #a9b4c7; }
+[data-theme="dark"] .token.keyword,
+[data-theme="dark"] .token.boolean { color: #c792ea; }
+[data-theme="dark"] .token.string,
+[data-theme="dark"] .token.char,
+[data-theme="dark"] .token.attr-value,
+[data-theme="dark"] .token.inserted { color: #9ece6a; }
+[data-theme="dark"] .token.function { color: #82aaff; }
+[data-theme="dark"] .token.number,
+[data-theme="dark"] .token.constant,
+[data-theme="dark"] .token.symbol { color: #f78c6c; }
+[data-theme="dark"] .token.operator,
+[data-theme="dark"] .token.entity,
+[data-theme="dark"] .token.url { color: #89ddff; }
+[data-theme="dark"] .token.class-name,
+[data-theme="dark"] .token.builtin,
+[data-theme="dark"] .token.property,
+[data-theme="dark"] .token.tag,
+[data-theme="dark"] .token.attr-name { color: #ffcb6b; }
+[data-theme="dark"] .token.decorator,
+[data-theme="dark"] .token.annotation { color: #ffcb6b; }

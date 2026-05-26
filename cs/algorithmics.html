@@ -38,47 +38,33 @@
 
   <main>
     <header class="page-banner">
-      <h1 class="en">Algorithmics</h1>
-      <h1 class="fr">Algorithmique</h1>
+      <h1>Algorithmics</h1>
     </header>
 
-    <h2 class="en">Arrays and Strings</h2>
-    <h2 class="fr">Tableaux et chaînes</h2>
+    <h2>Arrays and Strings</h2>
 
-    <h3 class="en">Check if a string is a palindrome</h3>
-    <h3 class="fr">Vérifier qu'une chaîne est un palindrome</h3>
+    <h3>Check if a string is a palindrome</h3>
 
-    <p class="en">
+    <p>
       Return <code>True</code> if the input string reads the same forwards and backwards, <code>False</code> otherwise.
-    </p>
-    <p class="fr">
-      Renvoyer <code>True</code> si la chaîne d'entrée se lit de la même manière de gauche à droite et de droite à gauche, <code>False</code> sinon.
     </p>
 
     <pre><code class="language-python">def is_palindrome(s):
     return s == s[::-1]</code></pre>
 
-    <h3 class="en">Count occurrences of a character</h3>
-    <h3 class="fr">Compter les occurrences d'un caractère</h3>
+    <h3>Count occurrences of a character</h3>
 
-    <p class="en">
+    <p>
       Given a string and a target character, return the number of times the target appears in the string.
-    </p>
-    <p class="fr">
-      Étant donné une chaîne et un caractère cible, renvoyer le nombre de fois où la cible apparaît dans la chaîne.
     </p>
 
     <pre><code class="language-python">def count_char(s, target):
     return sum(char == target for char in s)</code></pre>
 
-    <h3 class="en">Reverse an array in place</h3>
-    <h3 class="fr">Inverser un tableau sur place</h3>
+    <h3>Reverse an array in place</h3>
 
-    <p class="en">
+    <p>
       Reverse the order of an array's elements in place, without allocating a new array. Two pointers start at the ends and swap elements, moving towards the middle.
-    </p>
-    <p class="fr">
-      Inverser l'ordre des éléments d'un tableau sur place, sans allouer un nouveau tableau. Deux pointeurs partent des extrémités et échangent les éléments en se rejoignant au centre.
     </p>
 
     <pre><code class="language-python">def reverse_in_place(array):
@@ -88,30 +74,21 @@
         left += 1
         right -= 1</code></pre>
 
-    <h3 class="en">Count ones in a binary matrix</h3>
-    <h3 class="fr">Compter les uns dans une matrice binaire</h3>
+    <h3>Count ones in a binary matrix</h3>
 
-    <p class="en">
+    <p>
       Given a matrix filled with <code>0</code>s and <code>1</code>s, return the total number of <code>1</code>s.
-    </p>
-    <p class="fr">
-      Étant donné une matrice remplie de <code>0</code> et de <code>1</code>, renvoyer le nombre total de <code>1</code>.
     </p>
 
     <pre><code class="language-python">def count_ones(matrix):
     return sum(map(sum, matrix))</code></pre>
 
-    <h2 class="en">Hashing</h2>
-    <h2 class="fr">Hachage</h2>
+    <h2>Hashing</h2>
 
-    <h3 class="en">Two Sum</h3>
-    <h3 class="fr">Problème des deux sommes</h3>
+    <h3>Two Sum</h3>
 
-    <p class="en">
+    <p>
       Given an array of integers and a target integer, return the indices of the two numbers that add up to the target.
-    </p>
-    <p class="fr">
-      Étant donné un tableau d'entiers et un entier cible, renvoyer les indices des deux nombres dont la somme vaut la cible.
     </p>
 
     <pre><code class="language-python">def two_sum(array, target):
@@ -122,18 +99,13 @@
             return [index, seen[remaining]]
         seen[value] = index</code></pre>
 
-    <h3 class="en">Count occurrences of all characters</h3>
-    <h3 class="fr">Compter les occurrences de tous les caractères</h3>
+    <h3>Count occurrences of all characters</h3>
 
-    <p class="en">
+    <p>
       Given a string, return a dictionary mapping each character to the number of times it appears in the string.
     </p>
-    <p class="fr">
-      Étant donné une chaîne, renvoyer un dictionnaire associant chaque caractère au nombre de fois où il apparaît dans la chaîne.
-    </p>
 
-    <h4 class="en">Manual counting</h4>
-    <h4 class="fr">Comptage manuel</h4>
+    <h4>Manual counting</h4>
 
     <pre><code class="language-python">def count_characters(s):
     count = {}
@@ -141,44 +113,33 @@
         count[char] = count.get(char, 0) + 1
     return count</code></pre>
 
-    <h4 class="en">With <code>collections.Counter</code></h4>
-    <h4 class="fr">Avec <code>collections.Counter</code></h4>
+    <h4>With <code>collections.Counter</code></h4>
 
     <pre><code class="language-python">from collections import Counter
 
 def count_characters(s):
     return Counter(s)</code></pre>
 
-    <h3 class="en">Check if two strings are anagrams</h3>
-    <h3 class="fr">Vérifier que deux chaînes sont des anagrammes</h3>
+    <h3>Check if two strings are anagrams</h3>
 
-    <p class="en">
+    <p>
       Two strings are anagrams if one is a rearrangement of the other. Return <code>True</code> if and only if both strings have the same length and the same character counts.
-    </p>
-    <p class="fr">
-      Deux chaînes sont des anagrammes si l'une est une permutation des caractères de l'autre. Renvoyer <code>True</code> si et seulement si les deux chaînes ont la même longueur et les mêmes occurrences de caractères.
     </p>
 
     <pre><code class="language-python">def are_anagrams(s1, s2):
     return len(s1) == len(s2) and Counter(s1) == Counter(s2)</code></pre>
 
-    <h2 class="en">Sorting and Searching</h2>
-    <h2 class="fr">Tri et recherche</h2>
+    <h2>Sorting and Searching</h2>
 
-    <h3 class="en">Binary Search</h3>
-    <h3 class="fr">Recherche dichotomique</h3>
+    <h3>Binary Search</h3>
 
-    <p class="en">
+    <p>
       Given an array of integers sorted in ascending order and an integer target, return the index of the target or <code>-1</code> if it does not exist.
     </p>
-    <p class="fr">
-      Étant donné un tableau d'entiers trié dans l'ordre croissant et un entier cible, renvoyer l'indice de la cible ou <code>-1</code> si elle est absente.
-    </p>
 
-    <h4 class="en">Manual implementation</h4>
-    <h4 class="fr">Implémentation manuelle</h4>
+    <h4>Manual implementation</h4>
 
-    <ul class="en">
+    <ul>
       <li>When computing the middle index, we generally use <code>left + (right - left) // 2</code> instead of <code>(left + right) // 2</code> to avoid integer overflow problems.</li>
       <li>It is best not to use a strict inequality because:
         <ul>
@@ -187,17 +148,6 @@ def count_characters(s):
         </ul>
       </li>
       <li>It is better to use <code>&lt;=</code> instead, where <code>left = middle + 1</code> and <code>right = middle - 1</code>.</li>
-    </ul>
-
-    <ul class="fr">
-      <li>Pour calculer l'indice du milieu, on utilise généralement <code>left + (right - left) // 2</code> plutôt que <code>(left + right) // 2</code> afin d'éviter les problèmes de dépassement entier.</li>
-      <li>Il vaut mieux ne pas utiliser une inégalité stricte car :
-        <ul>
-          <li>on sort de la boucle avant le cas <code>left == right</code>, il faut donc vérifier après la boucle si l'indice du milieu est la cible.</li>
-          <li>on a <code>left = middle + 1</code> et <code>right = middle</code>.</li>
-        </ul>
-      </li>
-      <li>Il est préférable d'utiliser <code>&lt;=</code>, avec <code>left = middle + 1</code> et <code>right = middle - 1</code>.</li>
     </ul>
 
     <pre><code class="language-python">def search(array, target):
@@ -212,38 +162,27 @@ def count_characters(s):
             return middle
     return -1</code></pre>
 
-    <h4 class="en">With the <code>bisect</code> module</h4>
-    <h4 class="fr">Avec le module <code>bisect</code></h4>
+    <h4>With the <code>bisect</code> module</h4>
 
     <pre><code class="language-python">from bisect import bisect_left
 
 index = bisect_left(array, target)</code></pre>
 
-    <h2 class="en">Recursion and Backtracking</h2>
-    <h2 class="fr">Récursion et retour sur trace</h2>
+    <h2>Recursion and Backtracking</h2>
 
-    <h2 class="en">Dynamic Programming</h2>
-    <h2 class="fr">Programmation dynamique</h2>
+    <h2>Dynamic Programming</h2>
 
-    <p class="en">
+    <p>
       This section covers both bottom-up dynamic programming and top-down memoized recursion. The two are dual formulations of the same idea: a problem is decomposed into overlapping subproblems whose solutions are reused rather than recomputed. Bottom-up DP fills a table iteratively from the base cases up, while memoized recursion expresses the same recurrence directly and caches results as they are computed.
     </p>
-    <p class="fr">
-      Cette section couvre à la fois la programmation dynamique ascendante et la récursion mémoïsée descendante. Ce sont deux formulations duales d'une même idée : un problème est décomposé en sous-problèmes qui se chevauchent et dont les solutions sont réutilisées plutôt que recalculées. La programmation dynamique ascendante remplit un tableau de manière itérative à partir des cas de base, tandis que la récursion mémoïsée exprime directement la même récurrence et met en cache les résultats à mesure qu'ils sont calculés.
-    </p>
 
-    <h3 class="en">Count paths in a grid</h3>
-    <h3 class="fr">Compter les chemins dans une grille</h3>
+    <h3>Count paths in a grid</h3>
 
-    <p class="en">
+    <p>
       Count all possible paths from the bottom-left to the top-right of an <code>n × n</code> grid, moving only right or up.
     </p>
-    <p class="fr">
-      Compter tous les chemins possibles du coin inférieur gauche au coin supérieur droit d'une grille <code>n × n</code>, en se déplaçant uniquement vers la droite ou vers le haut.
-    </p>
 
-    <h4 class="en">Bottom-up dynamic programming</h4>
-    <h4 class="fr">Programmation dynamique ascendante</h4>
+    <h4>Bottom-up dynamic programming</h4>
 
     <pre><code class="language-python">def count_paths(n):
     dp = [[0 if i and j else 1 for i in range(n)] for j in range(n)]
@@ -252,8 +191,7 @@ index = bisect_left(array, target)</code></pre>
             dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
     return dp[n - 1][n - 1]</code></pre>
 
-    <h4 class="en">Top-down recursion with memoization</h4>
-    <h4 class="fr">Récursion descendante avec mémoïsation</h4>
+    <h4>Top-down recursion with memoization</h4>
 
     <pre><code class="language-python">from functools import cache
 
@@ -264,41 +202,29 @@ def count_paths(n):
 
     return rec(n - 1, n - 1)</code></pre>
 
-    <h4 class="en">Closed-form combinatorial solution</h4>
-    <h4 class="fr">Solution combinatoire en forme close</h4>
+    <h4>Closed-form combinatorial solution</h4>
 
-    <p class="en">Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
-    <p class="fr">Un tel chemin est constitué de <code>n - 1</code> déplacements vers la droite et <code>n - 1</code> vers le haut, donc le nombre de chemins est le nombre de façons de choisir lesquels des <code>2n - 2</code> pas sont des déplacements vers la droite, soit le coefficient binomial <code>C(2n - 2, n - 1)</code>.</p>
+    <p>Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
 
     <pre><code class="language-python">from math import comb
 
 def count_paths(n):
     return comb(2 * n - 2, n - 1)</code></pre>
 
-    <h2 class="en">Greedy Algorithms</h2>
-    <h2 class="fr">Algorithmes gloutons</h2>
+    <h2>Greedy Algorithms</h2>
 
-    <h2 class="en">Trees</h2>
-    <h2 class="fr">Arbres</h2>
+    <h2>Trees</h2>
 
-    <h2 class="en">Graphs</h2>
-    <h2 class="fr">Graphes</h2>
+    <h2>Graphs</h2>
 
-    <p class="en">
+    <p>
       A graph is represented as a dictionary of nodes, where each node maps to its list of neighbors.
     </p>
-    <p class="fr">
-      Un graphe est représenté comme un dictionnaire de nœuds, où chaque nœud est associé à la liste de ses voisins.
-    </p>
 
-    <h3 class="en">Depth-First Search</h3>
-    <h3 class="fr">Parcours en profondeur</h3>
+    <h3>Depth-First Search</h3>
 
-    <p class="en">
+    <p>
       Traverse a graph by exploring each branch as deeply as possible before backtracking. Starting from a source node, use a stack to visit neighbors before siblings; return the set of all reachable nodes.
-    </p>
-    <p class="fr">
-      Parcourir un graphe en explorant chaque branche aussi profondément que possible avant de revenir en arrière. À partir d'un nœud source, utiliser une pile pour visiter les voisins avant les frères ; renvoyer l'ensemble des nœuds accessibles.
     </p>
 
     <pre><code class="language-python">def dfs(graph, start):
@@ -311,14 +237,10 @@ def count_paths(n):
         stack.extend(graph[node])
     return visited</code></pre>
 
-    <h3 class="en">Breadth-First Search</h3>
-    <h3 class="fr">Parcours en largeur</h3>
+    <h3>Breadth-First Search</h3>
 
-    <p class="en">
+    <p>
       Traverse a graph layer by layer, visiting all neighbors of a node before moving on to their neighbors. Using a queue ensures that nodes are explored in order of distance from the start; return the set of all reachable nodes.
-    </p>
-    <p class="fr">
-      Parcourir un graphe couche par couche, en visitant tous les voisins d'un nœud avant de passer aux voisins suivants. L'utilisation d'une file garantit que les nœuds sont explorés par ordre de distance au nœud de départ ; renvoyer l'ensemble des nœuds accessibles.
     </p>
 
     <pre><code class="language-python">from collections import deque
@@ -333,14 +255,10 @@ def bfs(graph, start):
         queue.extend(graph[node])
     return visited</code></pre>
 
-    <h3 class="en">Dijkstra's Algorithm</h3>
-    <h3 class="fr">Algorithme de Dijkstra</h3>
+    <h3>Dijkstra's Algorithm</h3>
 
-    <p class="en">
+    <p>
       Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
-    </p>
-    <p class="fr">
-      Calculer la plus courte distance d'un nœud source à tous les autres nœuds d'un graphe à poids positifs. Un tas binaire est utilisé pour extraire à chaque étape le nœud non visité le plus proche et relâcher les distances de ses voisins ; renvoyer un dictionnaire associant chaque nœud accessible à sa plus courte distance au nœud de départ.
     </p>
 
     <pre><code class="language-python">from heapq import heappop, heappush
@@ -356,30 +274,21 @@ def dijkstra(graph, start):
             heappush(stack, (dist + weight, neighbor))
     return result</code></pre>
 
-    <h2 class="en">Math and Number Theory</h2>
-    <h2 class="fr">Mathématiques et théorie des nombres</h2>
+    <h2>Math and Number Theory</h2>
 
-    <h3 class="en">Check if an integer is odd</h3>
-    <h3 class="fr">Vérifier qu'un entier est impair</h3>
+    <h3>Check if an integer is odd</h3>
 
-    <p class="en">
+    <p>
       Return <code>True</code> if <code>n</code> is odd, <code>False</code> otherwise.
-    </p>
-    <p class="fr">
-      Renvoyer <code>True</code> si <code>n</code> est impair, <code>False</code> sinon.
     </p>
 
     <pre><code class="language-python">def is_odd(n):
     return n % 2</code></pre>
 
-    <h3 class="en">FizzBuzz</h3>
-    <h3 class="fr">FizzBuzz</h3>
+    <h3>FizzBuzz</h3>
 
-    <p class="en">
+    <p>
       Given an integer <code>n</code>, return <code>"Fizz"</code> if it is divisible by <code>3</code>, <code>"Buzz"</code> if it is divisible by <code>5</code>, <code>"FizzBuzz"</code> if it is divisible by both, and the number itself as a string otherwise.
-    </p>
-    <p class="fr">
-      Étant donné un entier <code>n</code>, renvoyer <code>"Fizz"</code> s'il est divisible par <code>3</code>, <code>"Buzz"</code> s'il est divisible par <code>5</code>, <code>"FizzBuzz"</code> s'il est divisible par les deux, et le nombre lui-même sous forme de chaîne sinon.
     </p>
 
     <pre><code class="language-python">def fizz_buzz(n):
@@ -392,21 +301,15 @@ def dijkstra(graph, start):
         result = str(n)
     return result</code></pre>
 
-    <h3 class="en">Fibonacci</h3>
-    <h3 class="fr">Fibonacci</h3>
+    <h3>Fibonacci</h3>
 
-    <p class="en">
+    <p>
       The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. Return the <code>n</code>-th term of the sequence.
     </p>
-    <p class="fr">
-      La suite de Fibonacci est définie par <code>F(0) = 0</code>, <code>F(1) = 1</code>, et <code>F(n) = F(n - 1) + F(n - 2)</code>. Renvoyer le <code>n</code>-ième terme de la suite.
-    </p>
 
-    <h4 class="en">Iterative</h4>
-    <h4 class="fr">Itérative</h4>
+    <h4>Iterative</h4>
 
-    <p class="en">Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
-    <p class="fr">Seuls les deux termes précédents doivent être conservés en mémoire, ce qui donne une complexité en espace constant et en temps linéaire.</p>
+    <p>Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
 
     <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
@@ -414,11 +317,9 @@ def dijkstra(graph, start):
         a, b = b, a + b
     return a</code></pre>
 
-    <h4 class="en">Recursive with memoization</h4>
-    <h4 class="fr">Récursive avec mémoïsation</h4>
+    <h4>Recursive with memoization</h4>
 
-    <p class="en">A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
-    <p class="fr">Une implémentation récursive naïve est exponentielle car les mêmes sous-problèmes sont recalculés ; mettre en cache chaque résultat ramène la complexité à un temps linéaire.</p>
+    <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
 
     <pre><code class="language-python">from functools import cache
 
@@ -426,14 +327,10 @@ def dijkstra(graph, start):
 def fibonacci(n):
     return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
 
-    <h3 class="en">Length of a Collatz sequence</h3>
-    <h3 class="fr">Longueur d'une suite de Collatz</h3>
+    <h3>Length of a Collatz sequence</h3>
 
-    <p class="en">
+    <p>
       The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise. Starting from <code>n</code>, the function is iterated until the sequence reaches <code>1</code>; return the number of steps required.
-    </p>
-    <p class="fr">
-      La fonction de Collatz est définie par <code>f(n) = 3n + 1</code> si <code>n</code> est impair, et <code>n // 2</code> sinon. À partir de <code>n</code>, la fonction est itérée jusqu'à ce que la suite atteigne <code>1</code> ; renvoyer le nombre d'étapes nécessaires.
     </p>
 
     <pre><code class="language-python">def collatz(n):
@@ -446,27 +343,20 @@ def collatz_sequence_length(n):
         count += 1
     return count</code></pre>
 
-    <h2 class="en">Bit Manipulation</h2>
-    <h2 class="fr">Manipulation de bits</h2>
+    <h2>Bit Manipulation</h2>
 
-    <h3 class="en">Hamming weight</h3>
-    <h3 class="fr">Poids de Hamming</h3>
+    <h3>Hamming weight</h3>
 
-    <p class="en">
+    <p>
       The Hamming weight of an integer is the number of <code>1</code>s in its binary representation.
     </p>
-    <p class="fr">
-      Le poids de Hamming d'un entier est le nombre de <code>1</code> dans sa représentation binaire.
-    </p>
 
-    <h4 class="en">With the built-in <code>bin</code></h4>
-    <h4 class="fr">Avec la fonction native <code>bin</code></h4>
+    <h4>With the built-in <code>bin</code></h4>
 
     <pre><code class="language-python">def hamming_weight(n):
     return bin(n)[2:].count("1")</code></pre>
 
-    <h4 class="en">With the bitwise right-shift operator</h4>
-    <h4 class="fr">Avec l'opérateur de décalage binaire à droite</h4>
+    <h4>With the bitwise right-shift operator</h4>
 
     <pre><code class="language-python">def hamming_weight(n):
     weight = 0
@@ -476,36 +366,5 @@ def collatz_sequence_length(n):
     return weight</code></pre>
   </main>
 
-  <script>
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
-        el.innerHTML = el.getAttribute('data-' + lang);
-      });
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
-      document.documentElement.lang = lang;
-    }
-
-    // Wrap proof content in .proof-body for white-space: pre-line
-    document.querySelectorAll('.proof').forEach(function(el) {
-      var summary = el.querySelector('summary');
-      var wrapper = document.createElement('div');
-      wrapper.className = 'proof-body';
-      while (summary.nextSibling) wrapper.appendChild(summary.nextSibling);
-      // Trim leading newline from first text node
-      var first = wrapper.firstChild;
-      if (first && first.nodeType === 3) {
-        first.textContent = first.textContent.replace(/^\s*\n\s*/, '');
-      }
-      el.appendChild(wrapper);
-    });
-
-    // Apply saved preference on load
-    (function() {
-      var lang = localStorage.getItem('lang') || 'en';
-      if (lang === 'fr') setLang('fr');
-    })();
-  </script>
 </body>
 </html>

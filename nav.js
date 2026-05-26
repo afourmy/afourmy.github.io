@@ -39,7 +39,7 @@
     { en: "Computer Science", fr: "Informatique", columns: [
       [
         { href: "cs/algorithmics.html", en: "Algorithmics", fr: "Algorithmique" },
-        { href: "cs/automata.html", en: "Formal Languages & Automata", fr: "Langages formels & Automates" },
+        { href: "cs/automata.html", en: "Formal Languages", fr: "Langages formels" },
         { href: "cs/graph-theory.html", en: "Graph Theory", fr: "Théorie des graphes" },
       ]
     ]},
@@ -173,7 +173,7 @@
   // current path so it stays correct across SPA navigation. Exposed globally
   // so the SPA can refresh it after each page change.
   var langToggleEl = nav.querySelector(".lang-toggle");
-  var HIDE_LANG_TOGGLE = ["thai/", "books/", "projects/", "bio/"];
+  var HIDE_LANG_TOGGLE = ["thai/", "books/", "projects/", "bio/", "cs/"];
   window.updateLangToggle = function () {
     if (!langToggleEl) return;
     var path = strip(window.location.pathname);
