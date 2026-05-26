@@ -1406,3 +1406,9 @@ body[data-thai-font="noto"] .parked-thai {
 [data-theme="dark"] .token.attr-name { color: #ffcb6b; }
 [data-theme="dark"] .token.decorator,
 [data-theme="dark"] .token.annotation { color: #ffcb6b; }
+
+/* Prism gives operators/entities a translucent white background; drop it in
+   both light and dark themes (it reads as a stray highlight box). */
+.token.operator,
+.token.entity,
+.token.url { background: none; }

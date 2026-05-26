@@ -46,6 +46,49 @@
       .replace(/>/g, "&gt;");
   }
 
+  function escAttr(s) {
+    return esc(s).replace(/"/g, "&quot;");
+  }
+
+  // Small copy-to-clipboard control overlaid on flashcards (front shows a copy
+  // glyph, switches to a check briefly after a successful copy via .copied).
+  var COPY_BTN =
+    '<button class="vocab-copy" type="button" aria-label="Copy word" title="Copy word">' +
+    '<svg class="vocab-copy-i vocab-copy-i--copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>' +
+    '<svg class="vocab-copy-i vocab-copy-i--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
+    "</button>";
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand("copy");
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copyText(text, btn) {
+    function done() {
+      btn.classList.add("copied");
+      setTimeout(function () {
+        btn.classList.remove("copied");
+      }, 1000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {
+        fallbackCopy(text);
+        done();
+      });
+    } else {
+      fallbackCopy(text);
+      done();
+    }
+  }
+
   function lsGet(k) {
     try {
       return localStorage.getItem(k);
@@ -123,10 +166,20 @@
         : thaiHtml(word, " vocab-answer");
     var frontInner = front + metaHtml(word);
     var backInner = back;
+    // Currently-visible word per face, so the copy button can grab whichever
+    // side is showing without re-deriving it from the DOM.
+    var frontText = face === "thai" ? word.thai : word.english;
+    var backText = face === "thai" ? word.english : word.thai;
     // The rotor holds the two visible faces; the hidden ghost (a normal-flow
-    // copy of both) gives the card the height of the taller face.
+    // copy of both) gives the card the height of the taller face. The copy
+    // button sits outside the rotor so it stays put during the 3D turn.
     return (
-      '<div class="vocab-card vocab-card--flip">' +
+      '<div class="vocab-card vocab-card--flip" data-front="' +
+      escAttr(frontText) +
+      '" data-back="' +
+      escAttr(backText) +
+      '">' +
+      COPY_BTN +
       '<div class="vocab-flip-rotor">' +
       '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
       '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
