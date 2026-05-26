@@ -1448,6 +1448,30 @@
       $$\frac{2x - 1}{x^2 - 4x + 3} = -\frac{1}{2(x - 1)} + \frac{5}{2(x - 3)}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Determine whether $\sum_{n=1}^{\infty} \dfrac{n}{(n+1)(n+2)}$ converges.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Write $n = (n+1) - 1$ in the numerator:
+      $$\frac{n}{(n+1)(n+2)} = \frac{(n+1) - 1}{(n+1)(n+2)} = \frac{1}{n+2} - \frac{1}{(n+1)(n+2)}.$$
+      The second piece telescopes: $\dfrac{1}{(n+1)(n+2)} = \dfrac{1}{n+1} - \dfrac{1}{n+2}$, so $\displaystyle\sum_{n=1}^{\infty} \frac{1}{(n+1)(n+2)} = \frac{1}{2}$ converges. The first piece $\displaystyle\sum_{n=1}^{\infty} \frac{1}{n+2}$ is a tail of the harmonic series, which diverges. A convergent series minus a divergent one diverges, so the sum diverges.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find $\sum_{n=1}^{\infty} \dfrac{2n}{3^{n+1}}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $S = \displaystyle\sum_{n=1}^{\infty} \frac{2n}{3^{n+1}}$ and subtract a shifted copy:
+      $$S = \frac{2}{3^2} + \frac{4}{3^3} + \frac{6}{3^4} + \cdots, \qquad \frac{S}{3} = \frac{2}{3^3} + \frac{4}{3^4} + \cdots.$$
+      Subtracting term by term, each numerator difference is $2$:
+      $$S - \frac{S}{3} = \frac{2}{3^2} + \frac{2}{3^3} + \frac{2}{3^4} + \cdots = 2\sum_{k=2}^{\infty} \frac{1}{3^k} = 2 \cdot \frac{1/9}{1 - 1/3} = \frac{1}{3}.$$
+      Thus $\dfrac{2}{3}S = \dfrac{1}{3}$, giving $S = \dfrac{1}{2}$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
