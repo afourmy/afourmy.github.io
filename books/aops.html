@@ -1478,12 +1478,10 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Let $S = \displaystyle\sum_{k=0}^{n} (k+1)i^k$ and subtract $iS$:
-      $$S - iS = \big(1 + 2i + \cdots + (n+1)i^n\big) - \big(i + 2i^2 + \cdots + (n+1)i^{n+1}\big) = \sum_{k=0}^{n} i^k - (n+1)i^{n+1}.$$
-      Since $n$ is a multiple of $4$, $i^n = 1$ and $i^{n+1} = i$. The geometric sum telescopes to $\displaystyle\sum_{k=0}^{n} i^k = \frac{i^{n+1} - 1}{i - 1} = \frac{i - 1}{i - 1} = 1$, so
-      $$(1 - i)S = 1 - (n+1)i.$$
-      Multiplying numerator and denominator by $1 + i$,
-      $$S = \frac{1 - (n+1)i}{1 - i} = \frac{\big(1 - (n+1)i\big)(1 + i)}{2} = \frac{(n+2) - ni}{2} = \frac{n+2}{2} - \frac{n}{2}\,i.$$</p>
+      <p>The powers of $i$ repeat with period $4$: $i^0 = 1$, $i^1 = i$, $i^2 = -1$, $i^3 = -i$. Group the terms into blocks of four starting at $k = 4m$. Using $i^{4m} = 1$, the block is
+      $$(4m+1) + (4m+2)i - (4m+3) - (4m+4)i = -2 - 2i,$$
+      the same constant for every block. Since $n$ is a multiple of $4$, the terms $k = 0, \ldots, n-1$ form exactly $\frac{n}{4}$ complete blocks, leaving the final term $(n+1)i^n = n+1$. Therefore
+      $$S = \frac{n}{4}(-2 - 2i) + (n+1) = -\frac{n}{2} - \frac{n}{2}i + n + 1 = \frac{(n+2) - ni}{2}.$$</p>
     </details>
 
     <!-- Volume 2 content goes here -->
