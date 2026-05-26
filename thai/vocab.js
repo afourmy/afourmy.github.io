@@ -172,15 +172,15 @@
     var backText = face === "thai" ? word.english : word.thai;
     // The rotor holds the two visible faces; the hidden ghost (a normal-flow
     // copy of both) gives the card the height of the taller face. The copy
-    // button sits outside the rotor so it stays put during the 3D turn.
+    // button lives inside the rotor so it turns with the card.
     return (
       '<div class="vocab-card vocab-card--flip" data-front="' +
       escAttr(frontText) +
       '" data-back="' +
       escAttr(backText) +
       '">' +
-      COPY_BTN +
       '<div class="vocab-flip-rotor">' +
+      COPY_BTN +
       '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
       '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
       "</div>" +
