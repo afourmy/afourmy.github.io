@@ -1495,6 +1495,40 @@
       Hence $a_{100} = 100^2 - 100 + 2 = 9902$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> In how many ways can we buy $n$ items chosen from $r$ types, where any number of each type may be taken (order does not matter)?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A purchase is determined by how many of each type we take: nonnegative integers $x_1, x_2, \ldots, x_r$ with
+      $$x_1 + x_2 + \cdots + x_r = n.$$
+      Encode such a solution as a row of $n$ stars and $r - 1$ bars: the stars before the first bar give $x_1$, those between the first and second bar give $x_2$, and so on. Every arrangement of $n$ stars and $r - 1$ bars corresponds to exactly one solution and vice versa. There are $n + r - 1$ symbols, and a purchase is fixed by choosing which $r - 1$ of them are bars, so the number of ways is
+      $$\binom{n + r - 1}{r - 1} = \binom{n + r - 1}{n}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> How many solutions does $x_1 + x_2 + \cdots + x_r = n$ have in nonnegative integers $x_i$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Represent a solution by $n$ stars split into $r$ groups by $r - 1$ bars, where the number of stars in the $i$-th group is $x_i$:
+      $$\underbrace{\star\cdots\star}_{x_1}\;\big|\;\underbrace{\star\cdots\star}_{x_2}\;\big|\;\cdots\;\big|\;\underbrace{\star\cdots\star}_{x_r}.$$
+      Each arrangement of the $n + r - 1$ symbols gives exactly one solution, so the count is the number of ways to place the $r - 1$ bars among the $n + r - 1$ positions:
+      $$\binom{n + r - 1}{r - 1} = \binom{n + r - 1}{n}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> In how many ways can $5$ people be seated in a row of $20$ chairs so that no two of them sit next to each other?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>First choose the $5$ occupied chairs so that no two are adjacent, then seat the $5$ distinct people in them. Line up the $15$ empty chairs; they create $16$ gaps (one before each empty chair, one after the last) into which the occupied chairs may be inserted. Choosing $5$ of these gaps, at most one per gap, guarantees no two occupied chairs are adjacent, so there are $\binom{16}{5}$ valid sets of chairs. The $5$ people can then be arranged in $5!$ ways, giving
+      $$\binom{16}{5}\cdot 5!.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
