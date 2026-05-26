@@ -1495,21 +1495,6 @@
       Hence $a_{100} = 100^2 - 100 + 2 = 9902$.</p>
     </details>
 
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> A collection of $2n$ letters consists of two copies each of $n$ distinct letters. It is partitioned into $n$ pairs; the two letters of a pair may be equal or different. Two partitions are regarded as the same when they consist of the same pairs (neither the order of the pairs nor the order of the two letters within a pair matters). Let $u_n$ be the number of distinct partitions. Prove that
-      $$u_{n+1} = (n+1)u_n - \binom{n}{2}u_{n-2}.$$</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Solution.</summary>
-      <p>Take the letters to be $1,1,\ldots,(n+1),(n+1)$, and split the $u_{n+1}$ partitions according to the pair(s) containing the two copies of $n+1$.</p>
-      <p><strong>The two copies are paired together.</strong> The pair is $\{n+1,\,n+1\}$ and the other $2n$ letters form any of $u_n$ partitions.</p>
-      <p><strong>The two copies lie in separate pairs</strong> $\{n+1,\,x\}$ and $\{n+1,\,y\}$. Erase both copies of $n+1$ and glue their partners into one pair $\{x,\,y\}$: this leaves a partition of the $2n$ letters $1,1,\ldots,n,n$ together with the marked pair $\{x,\,y\}$. The reverse operation splits a marked pair $\{x,\,y\}$ back into $\{n+1,\,x\}$ and $\{n+1,\,y\}$. Each of the $u_n$ partitions has exactly $n$ pairs, so there are $n\,u_n$ choices of (partition, marked pair).</p>
-      <p>This overcounts, because the split depends on the marked pair only through its value. If a partition contains the same mixed pair twice, $\{a,\,b\},\{a,\,b\}$ with $a \neq b$, marking either copy gives the identical partition, so it is counted twice but should count once. (A double $\{a,\,a\}$ cannot occur twice, since $a$ has only two copies.) The number of such duplicated mixed pairs is $\binom{n}{2}u_{n-2}$: choose $\{a,\,b\}$ in $\binom{n}{2}$ ways, which uses both copies of $a$ and $b$, and partition the remaining $2(n-2)$ letters in $u_{n-2}$ ways. So this case contributes $n\,u_n - \binom{n}{2}u_{n-2}$.</p>
-      <p>Adding the two cases,
-      $$u_{n+1} = u_n + \left(n\,u_n - \binom{n}{2}u_{n-2}\right) = (n+1)u_n - \binom{n}{2}u_{n-2}.$$</p>
-    </details>
-
     <!-- Volume 2 content goes here -->
 
   </main>
