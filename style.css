@@ -1049,6 +1049,64 @@ html[lang="fr"] .en { display: none; }
   padding: 0.3rem 0.5rem;
 }
 
+/* Filter bar: two independent chip rows (frequency and topic). Grouping is
+   chosen separately by the "Group by" toggle; these only control visibility. */
+.vocab-filter {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.vocab-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  padding: 0.55rem 0;
+}
+
+.vocab-filter-group:first-child { padding-top: 0; }
+.vocab-filter-group:last-child { padding-bottom: 0; }
+
+.vocab-filter-group + .vocab-filter-group {
+  border-top: 1px solid var(--border);
+}
+
+.vocab-filter-bulk button {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.7rem;
+}
+
+.vocab-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  flex: 1 1 100%;
+}
+
+.vocab-chip {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+/* Deselected: drop the color class, fall back to a muted outline. */
+.vocab-chip--off {
+  background: var(--surface);
+  color: var(--text-muted);
+  border-color: var(--border);
+  opacity: 0.6;
+}
+
+.vocab-chip:hover { opacity: 0.85; }
+.vocab-chip--off:hover { opacity: 1; }
+
 .vocab-group {
   margin-bottom: 2.4rem;
 }

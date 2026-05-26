@@ -19,9 +19,10 @@
     </header>
 
     <div class="vocab-controls">
+      <span class="vocab-control-label">Group by</span>
       <div class="vocab-toggle" id="vocab-toggle">
-        <button data-mode="frequency" class="active">By frequency</button>
-        <button data-mode="topic">By topic</button>
+        <button data-mode="frequency" class="active">Frequency</button>
+        <button data-mode="topic">Topic</button>
       </div>
       <input type="search" id="vocab-search" class="vocab-search" placeholder="Search Thai or English…" autocomplete="off">
       <div class="vocab-toggle vocab-font-toggle" id="font-toggle" title="Thai font">
@@ -30,6 +31,25 @@
       </div>
       <span class="vocab-count" id="vocab-count"></span>
       <a class="vocab-parked-link" href="parked.html">Parked items &rarr;</a>
+    </div>
+
+    <div class="vocab-controls vocab-filter" id="vocab-filter">
+      <div class="vocab-filter-group" data-dim="frequency">
+        <span class="vocab-control-label">Frequency</span>
+        <div class="vocab-toggle vocab-filter-bulk">
+          <button type="button" data-bulk="all">Select all</button>
+          <button type="button" data-bulk="none">Unselect all</button>
+        </div>
+        <div class="vocab-filter-chips"></div>
+      </div>
+      <div class="vocab-filter-group" data-dim="topic">
+        <span class="vocab-control-label">Topics</span>
+        <div class="vocab-toggle vocab-filter-bulk">
+          <button type="button" data-bulk="all">Select all</button>
+          <button type="button" data-bulk="none">Unselect all</button>
+        </div>
+        <div class="vocab-filter-chips"></div>
+      </div>
     </div>
 
     <div class="vocab-controls vocab-controls--display">

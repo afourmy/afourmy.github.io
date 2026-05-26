@@ -3,6 +3,7 @@
   var countEl = document.getElementById("vocab-count");
   var searchEl = document.getElementById("vocab-search");
   var toggleEl = document.getElementById("vocab-toggle");
+  var filterEl = document.getElementById("vocab-filter");
   var fontToggleEl = document.getElementById("font-toggle");
   var faceToggleEl = document.getElementById("face-toggle");
   var showCategoryEl = document.getElementById("show-category");
@@ -11,7 +12,10 @@
 
   var words = [];
   var loaded = false;
-  var mode = "frequency"; // or "topic"
+  var mode = "frequency"; // grouping axis (sections); both axes are filtered below
+  // Independent visibility filters per dimension: { key: bool }. Built (all on)
+  // once on load and kept while regrouping. Not saved to localStorage.
+  var filters = { frequency: {}, topic: {} };
   var query = "";
   var face = "both"; // "both" | "thai" | "english"
   var showCategory = true;
@@ -218,9 +222,79 @@
     });
   }
 
+  // Distinct keys present for a dimension, in chip order: frequencies in
+  // canonical order, topics largest-first (matching how topic mode sections).
+  function keysForDim(dim) {
+    if (dim === "frequency") {
+      var present = {};
+      words.forEach(function (word) {
+        present[word.frequency] = true;
+      });
+      return FREQ_ORDER.filter(function (k) {
+        return present[k];
+      });
+    }
+    var counts = {};
+    words.forEach(function (word) {
+      counts[word.topic] = (counts[word.topic] || 0) + 1;
+    });
+    return Object.keys(counts).sort(function (a, b) {
+      return counts[b] - counts[a];
+    });
+  }
+
+  function labelForDim(dim, key) {
+    return dim === "frequency"
+      ? FREQ_LABEL[key] || key
+      : TOPIC_LABEL[key] || key;
+  }
+
+  function chipColorClass(dim, key) {
+    return dim === "frequency" ? "tag-freq freq-" + key : "tag-topic";
+  }
+
+  // A selected chip wears its tag color; a deselected one is muted.
+  function applyChipState(btn, dim, on) {
+    btn.className = on
+      ? "vocab-chip " + chipColorClass(dim, btn.getAttribute("data-key"))
+      : "vocab-chip vocab-chip--off";
+  }
+
+  // Build both chip rows (frequency and topic) from the data, all selected.
+  function buildFilterBar() {
+    filterEl.querySelectorAll(".vocab-filter-group").forEach(function (group) {
+      var dim = group.getAttribute("data-dim");
+      filters[dim] = {};
+      group.querySelector(".vocab-filter-chips").innerHTML = keysForDim(dim)
+        .map(function (key) {
+          filters[dim][key] = true;
+          return (
+            '<button type="button" class="vocab-chip ' +
+            chipColorClass(dim, key) +
+            '" data-key="' +
+            escAttr(key) +
+            '">' +
+            esc(labelForDim(dim, key)) +
+            "</button>"
+          );
+        })
+        .join("");
+    });
+  }
+
+  // Shown only if both its frequency and its topic are still selected.
+  function passesFilter(word) {
+    return (
+      filters.frequency[word.frequency] !== false &&
+      filters.topic[word.topic] !== false
+    );
+  }
+
   function render() {
     if (!loaded) return;
-    var list = words.filter(matches);
+    var list = words.filter(function (word) {
+      return matches(word) && passesFilter(word);
+    });
     countEl.textContent =
       list.length + (list.length === 1 ? " word" : " words");
 
@@ -259,6 +333,35 @@
       b.classList.toggle("active", b === btn);
     });
     render();
+  });
+
+  // One delegated handler for both rows: toggle a single chip, or flip a whole
+  // row via its Select all / Unselect all. The dimension comes from the group.
+  filterEl.addEventListener("click", function (e) {
+    var group = e.target.closest(".vocab-filter-group");
+    if (!group) return;
+    var dim = group.getAttribute("data-dim");
+
+    var chip = e.target.closest(".vocab-chip");
+    if (chip) {
+      var key = chip.getAttribute("data-key");
+      filters[dim][key] = !filters[dim][key];
+      applyChipState(chip, dim, filters[dim][key]);
+      render();
+      return;
+    }
+
+    var bulk = e.target.closest("button[data-bulk]");
+    if (bulk) {
+      var on = bulk.getAttribute("data-bulk") === "all";
+      Object.keys(filters[dim]).forEach(function (k) {
+        filters[dim][k] = on;
+      });
+      group.querySelectorAll(".vocab-chip").forEach(function (c) {
+        applyChipState(c, dim, on);
+      });
+      render();
+    }
   });
 
   searchEl.addEventListener("input", function () {
@@ -369,6 +472,7 @@
     .then(function (data) {
       words = data;
       loaded = true;
+      buildFilterBar();
       render();
     })
     .catch(function () {
