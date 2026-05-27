@@ -41,6 +41,12 @@
     beliefs: "Beliefs",
     monarchy: "Monarchy",
     nature: "Nature",
+    law: "Law & Crime",
+    economy: "Economy",
+    transport: "Transport",
+    weather: "Weather",
+    travel: "Travel",
+    food: "Food",
   };
 
   function esc(s) {
