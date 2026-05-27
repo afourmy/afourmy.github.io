@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thai Flashcards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main class="fc-main">
+    <!-- Home / setup screen -->
+    <section class="fc-screen fc-home" id="fc-home" hidden>
+      <header class="page-banner fc-banner">
+        <h1>Thai Flashcards</h1>
+      </header>
+
+      <div class="fc-stats" id="fc-stats">
+        <div class="fc-stat fc-stat--due"><span class="fc-stat-num" data-stat="due">0</span><span class="fc-stat-label">Due</span></div>
+        <div class="fc-stat fc-stat--new"><span class="fc-stat-num" data-stat="new">0</span><span class="fc-stat-label">New</span></div>
+        <div class="fc-stat fc-stat--excluded"><span class="fc-stat-num" data-stat="excluded">0</span><span class="fc-stat-label">Excluded</span></div>
+      </div>
+
+      <button class="fc-start" id="fc-start" type="button">Start studying</button>
+      <p class="fc-done-note" id="fc-home-note" hidden>Nothing to study with the current filters.</p>
+
+      <details class="fc-settings" id="fc-settings">
+        <summary>Session settings</summary>
+
+        <div class="fc-setting">
+          <span class="fc-setting-label">New cards per day</span>
+          <div class="fc-stepper">
+            <button type="button" data-step="-1" aria-label="Fewer">&minus;</button>
+            <span class="fc-stepper-val" id="fc-new-per-day">15</span>
+            <button type="button" data-step="1" aria-label="More">+</button>
+          </div>
+        </div>
+
+        <div class="fc-setting fc-setting--col" data-dim="frequency">
+          <span class="fc-setting-label">Include frequencies</span>
+          <div class="fc-chips" data-dim="frequency"></div>
+        </div>
+
+        <div class="fc-setting fc-setting--col" data-dim="topic">
+          <span class="fc-setting-label">Include topics</span>
+          <div class="fc-bulk">
+            <button type="button" data-bulk="all">Select all</button>
+            <button type="button" data-bulk="none">Unselect all</button>
+          </div>
+          <div class="fc-chips" data-dim="topic"></div>
+        </div>
+
+        <div class="fc-setting">
+          <span class="fc-setting-label">Thai font</span>
+          <div class="vocab-toggle fc-font-toggle" id="fc-font-toggle">
+            <button type="button" data-font="sarabun" class="active">Sarabun</button>
+            <button type="button" data-font="noto">Noto Sans</button>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- Review screen -->
+    <section class="fc-screen fc-review" id="fc-review" hidden>
+      <div class="fc-review-top">
+        <button class="fc-exit" id="fc-exit" type="button" aria-label="End session">&times;</button>
+        <div class="fc-progress"><div class="fc-progress-bar" id="fc-progress-bar"></div></div>
+        <span class="fc-remaining" id="fc-remaining"></span>
+      </div>
+
+      <div class="fc-card-wrap">
+        <div class="fc-card" id="fc-card">
+          <button class="fc-speak" id="fc-speak" type="button" aria-label="Play pronunciation" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          </button>
+          <div class="fc-card-face fc-card-front" id="fc-front"></div>
+          <div class="fc-card-divider" id="fc-divider" hidden></div>
+          <div class="fc-card-face fc-card-back" id="fc-back" hidden></div>
+        </div>
+      </div>
+
+      <div class="fc-actions">
+        <button class="fc-show" id="fc-show" type="button">Show answer</button>
+        <div class="fc-grades" id="fc-grades" hidden>
+          <button class="fc-grade fc-grade--again" type="button" data-grade="1">Again<span class="fc-grade-ivl" data-ivl="1"></span></button>
+          <button class="fc-grade fc-grade--hard" type="button" data-grade="2">Hard<span class="fc-grade-ivl" data-ivl="2"></span></button>
+          <button class="fc-grade fc-grade--good" type="button" data-grade="3">Good<span class="fc-grade-ivl" data-ivl="3"></span></button>
+          <button class="fc-grade fc-grade--easy" type="button" data-grade="4">Easy<span class="fc-grade-ivl" data-ivl="4"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Done screen -->
+    <section class="fc-screen fc-done" id="fc-done" hidden>
+      <div class="fc-done-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h2 class="fc-done-title">You're done for today</h2>
+      <p class="fc-done-sub" id="fc-done-sub"></p>
+      <button class="fc-start fc-start--again" id="fc-home-link" type="button">Back to start</button>
+    </section>
+  </main>
+
+  <script src="fsrs.js"></script>
+  <script src="flashcards.js"></script>
+</body>
+</html>

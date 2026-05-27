@@ -41,7 +41,7 @@
     beliefs: "Beliefs",
     monarchy: "Monarchy",
     nature: "Nature",
-    law: "Law & Crime",
+    law: "Legal",
     economy: "Economy",
     transport: "Transport",
     weather: "Weather",
