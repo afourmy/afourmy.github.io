@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;font:13px monospace}#out{padding:6px;background:#ffe;white-space:pre-wrap}</style></head>
+<body>
+<pre id="out">loading root...</pre>
+<iframe id="f" src="/index.html" style="width:900px;height:480px;border:0;background:#fff"></iframe>
+<script>
+var f=document.getElementById('f'),out=document.getElementById('out');
+f.addEventListener('load',function(){
+  var d=f.contentDocument,w=f.contentWindow,tries=0;
+  var iv=setInterval(function(){
+    tries++;
+    var links=d.querySelectorAll('.submenu a[href]');
+    var target=null;
+    links.forEach(function(a){ if(a.textContent.indexOf('Wavelength')!==-1) target=a; });
+    if(target){clearInterval(iv);
+      out.textContent='clicking: '+target.getAttribute('href');
+      target.click();                       // SPA-navigate to swap
+      setTimeout(function(){
+        try{
+          var info={SWAP:typeof w.SWAP, url:w.location.pathname, nets:[]};
+          d.querySelectorAll('.swap-network,.swap-graph-network,.swap-lp-network').forEach(function(s){
+            info.nets.push({cls:s.className,opts:s.options.length,idx:s.selectedIndex,text:(s.options[s.selectedIndex]||{}).text||null});
+          });
+          var dem=d.querySelector('.swap-demand'); info.demandOpts=dem?dem.options.length:null;
+          out.textContent=JSON.stringify(info,null,1);
+        }catch(e){out.textContent='ERR '+e;}
+      },3500);
+    }else if(tries>200){clearInterval(iv);out.textContent='no Wavelength link found';}
+  },30);
+});
+</script></body></html>

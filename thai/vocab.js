@@ -62,6 +62,34 @@
     '<svg class="vocab-copy-i vocab-copy-i--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
     "</button>";
 
+  // Speaker control: plays the word's Thai pronunciation (audio is Thai-only),
+  // rendered only for words with a generated mp3 (see speakerBtn / word.audio).
+  var SPEAKER_SVG =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>';
+
+  var currentAudio = null;
+  var playingBtn = null;
+  function stopAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio = null;
+    }
+    if (playingBtn) {
+      playingBtn.classList.remove("playing");
+      playingBtn = null;
+    }
+  }
+  function playAudio(btn) {
+    var src = btn.getAttribute("data-audio");
+    if (!src) return;
+    stopAudio();
+    currentAudio = new Audio(src);
+    playingBtn = btn;
+    btn.classList.add("playing");
+    currentAudio.addEventListener("ended", stopAudio);
+    currentAudio.play().catch(stopAudio);
+  }
+
   function fallbackCopy(text) {
     var ta = document.createElement("textarea");
     ta.value = text;
@@ -152,10 +180,23 @@
     return '<div class="vocab-en' + (extra || "") + '">' + esc(word.english) + "</div>";
   }
 
+  function speakerBtn(word) {
+    if (!word.audio) return "";
+    return (
+      '<button class="vocab-speak" type="button" aria-label="Play pronunciation"' +
+      ' title="Play pronunciation" data-audio="' +
+      escAttr(audioBase + word.id + ".mp3") +
+      '">' +
+      SPEAKER_SVG +
+      "</button>"
+    );
+  }
+
   function card(word) {
     if (face === "both") {
       return (
         '<div class="vocab-card">' +
+        speakerBtn(word) +
         thaiHtml(word) +
         enHtml(word) +
         metaHtml(word) +
@@ -185,6 +226,7 @@
       '">' +
       '<div class="vocab-flip-rotor">' +
       COPY_BTN +
+      speakerBtn(word) +
       '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
       '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
       "</div>" +
@@ -375,6 +417,13 @@
   // face only ever shows within +/-90 deg, so no backface-visibility is needed.
   var TURN_MS = 200;
   groupsEl.addEventListener("click", function (e) {
+    // Speaker works in every mode, so handle it before the flip-only return.
+    var speakBtn = e.target.closest(".vocab-speak");
+    if (speakBtn) {
+      playAudio(speakBtn);
+      return;
+    }
+
     var card = e.target.closest(".vocab-card--flip");
     if (!card) return;
 
@@ -464,6 +513,9 @@
   var dataUrl = thisScript
     ? new URL("vocab.json", thisScript.src).href
     : "vocab.json";
+  var audioBase = thisScript
+    ? new URL("audio/", thisScript.src).href
+    : "audio/";
 
   fetch(dataUrl)
     .then(function (r) {

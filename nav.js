@@ -91,7 +91,16 @@
   var html = '<nav><div class="nav-inner">';
   html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
 
-  // Language toggle (left side, next to Home)
+  // Hamburger button (mobile only; CSS hides it on desktop).
+  html += '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu">';
+  html += '<span></span><span></span><span></span>';
+  html += '</button>';
+
+  // Collapsible menu: language toggle + category items grouped together so the
+  // mobile hamburger can show/hide them without affecting the desktop layout.
+  html += '<div class="nav-links" id="navLinks">';
+
+  // Language toggle (left gutter on desktop, top of the menu on mobile)
   html += '<div class="lang-toggle">';
   html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
   html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
@@ -113,6 +122,8 @@
     }
     html += '</div></div>';
   }
+
+  html += '</div>'; // close .nav-links
 
   // Theme toggle (right side)
   html += '<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">';
@@ -142,6 +153,28 @@
       try {
         localStorage.setItem("theme", next);
       } catch (e) {}
+    });
+  }
+
+  // Mobile menu: the hamburger shows/hides the collapsible nav; tapping a
+  // category expands its submenu (accordion); tapping a real link closes it.
+  var navToggle = nav.querySelector("#navToggle");
+  var navLinks = nav.querySelector("#navLinks");
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", function () {
+      var open = navLinks.classList.toggle("open");
+      navToggle.classList.toggle("active", open);
+    });
+    navLinks.addEventListener("click", function (e) {
+      var topLink = e.target.closest(".nav-item > .nav-link");
+      if (topLink) {
+        topLink.parentNode.classList.toggle("open");
+        return;
+      }
+      if (e.target.closest(".submenu a[href]")) {
+        navLinks.classList.remove("open");
+        navToggle.classList.remove("active");
+      }
     });
   }
 

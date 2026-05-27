@@ -144,6 +144,36 @@ nav .nav-inner {
   color: var(--accent-strong);
 }
 
+/* Wrapper around the category items + language toggle. On desktop it lays them
+   out exactly as before (a transparent flex row); on mobile it becomes the
+   hamburger-controlled dropdown (see the mobile media query). */
+.nav-links {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Hamburger: hidden on desktop, shown on mobile by the media query. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* ── Main content ── */
 main {
   max-width: 860px;
@@ -543,6 +573,7 @@ html[lang="fr"] .en { display: none; }
   padding: 0.3rem 2rem 0.3rem 0.5rem;
   border: 1px solid #bbb;
   border-radius: 4px;
+  color: var(--text);
   background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
   appearance: none;
   cursor: pointer;
@@ -704,6 +735,7 @@ html[lang="fr"] .en { display: none; }
   padding: 0.3rem 2rem 0.3rem 0.5rem;
   border: 1px solid #bbb;
   border-radius: 4px;
+  color: var(--text);
   background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
   appearance: none;
   cursor: pointer;
@@ -912,6 +944,7 @@ html[lang="fr"] .en { display: none; }
   padding: 0.3rem 2rem 0.3rem 0.5rem;
   border: 1px solid #bbb;
   border-radius: 4px;
+  color: var(--text);
   background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
   appearance: none;
   cursor: pointer;
@@ -1084,6 +1117,12 @@ html[lang="fr"] .en { display: none; }
   flex: 1 1 100%;
 }
 
+/* Frequency has just four chips and no bulk control, so they sit inline with
+   the label instead of wrapping onto their own line. */
+.vocab-filter-group[data-dim="frequency"] .vocab-filter-chips {
+  flex: 0 1 auto;
+}
+
 .vocab-chip {
   font-family: 'Computer Modern Serif', serif;
   font-size: 0.78rem;
@@ -1151,6 +1190,7 @@ html[lang="fr"] .en { display: none; }
 }
 
 .vocab-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1287,6 +1327,46 @@ html[lang="fr"] .en { display: none; }
 }
 .vocab-copy.copied .vocab-copy-i--copy { display: none; }
 .vocab-copy.copied .vocab-copy-i--check { display: block; }
+
+/* Speaker control: mirror of the copy button on the opposite (left) corner;
+   plays the Thai pronunciation. Shown on any card whose word has audio. */
+.vocab-speak {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.4rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.vocab-card:hover .vocab-speak,
+.vocab-card--flip:hover .vocab-speak { opacity: 0.8; }
+
+.vocab-speak:hover {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-speak svg { width: 15px; height: 15px; }
+
+/* Highlighted while its clip is playing. */
+.vocab-speak.playing {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
 
 /* Extra side room on flip-card faces so the centered word never tucks under
    the corner copy button. */
@@ -1429,23 +1509,71 @@ body[data-thai-font="noto"] .parked-thai {
 @media (max-width: 600px) {
   body { font-size: 14px; }
 
+  /* Compact top bar: Home on the left, hamburger + theme toggle on the right. */
   nav .nav-inner {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
+    align-items: center;
+    padding: 0 1rem;
   }
 
-  .nav-item > .submenu {
+  .nav-toggle { display: flex; margin-left: auto; }
+
+  /* Theme toggle joins the bar flow next to the hamburger instead of floating. */
+  .theme-toggle {
     position: static;
-    box-shadow: none;
-    border: none;
-    border-left: 2px solid var(--border);
-    margin-left: 1rem;
+    transform: none;
+    margin-left: 0.6rem;
   }
 
-  .nav-item:hover > .submenu {
-    display: block;
+  /* The menu becomes a full-width dropdown revealed by the hamburger. */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+    max-height: calc(100vh - 3.25rem);
+    overflow-y: auto;
   }
+  .nav-links.open { display: flex; }
+
+  /* Language toggle sits at the top of the open menu rather than floating. */
+  .lang-toggle {
+    position: static;
+    transform: none;
+    margin: 0.6rem 1rem;
+  }
+
+  /* Categories stack as full-width rows. */
+  .nav-item { display: block; }
+  .nav-item > .nav-link {
+    border-top: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+  }
+
+  /* Submenus collapse; tapping a category expands it (accordion). The hover
+     rules are neutralized so sticky touch-hover can't reveal them. */
+  .nav-item > .submenu,
+  .nav-item:hover > .submenu,
+  .nav-item:hover > .submenu.submenu-sections { display: none; }
+  .nav-item.open > .submenu,
+  .nav-item.open > .submenu.submenu-sections {
+    display: block;
+    position: static;
+    min-width: 0;
+    border: none;
+    box-shadow: none;
+    background: var(--surface-alt);
+  }
+
+  /* Stack the math menu's columns and drop the divider; indent the links. */
+  .submenu-col { min-width: 0; }
+  .submenu-col:not(:last-child) { border-right: none; }
+  .submenu li a { padding: 0.6rem 1rem 0.6rem 2rem; }
 
   h1 { font-size: 2rem; }
 }
