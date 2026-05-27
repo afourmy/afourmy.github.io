@@ -203,18 +203,15 @@
   };
   window.setActiveNav();
 
-  // Hide the EN/FR toggle on pages that aren't bilingual. Driven by the
-  // current path so it stays correct across SPA navigation. Exposed globally
-  // so the SPA can refresh it after each page change.
+  // French content exists only in the Mathematics section, so the EN/FR toggle
+  // is shown there and nowhere else (not on Home or any other section). Driven
+  // by the current path so it stays correct across SPA navigation. Exposed
+  // globally so the SPA can refresh it after each page change.
   var langToggleEl = nav.querySelector(".lang-toggle");
-  var HIDE_LANG_TOGGLE = ["thai/", "books/", "projects/", "bio/", "cs/"];
   window.updateLangToggle = function () {
     if (!langToggleEl) return;
     var path = strip(window.location.pathname);
-    var hide = HIDE_LANG_TOGGLE.some(function (p) {
-      return path.indexOf(p) !== -1;
-    });
-    langToggleEl.style.display = hide ? "none" : "";
+    langToggleEl.style.display = path.indexOf("/math/") !== -1 ? "" : "none";
   };
   window.updateLangToggle();
 
