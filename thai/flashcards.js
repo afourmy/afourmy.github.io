@@ -44,7 +44,7 @@
   var states = loadJSON(STATE_KEY, {}); // cardId -> FSRS card state
   var config = loadJSON(CONFIG_KEY, null) || {
     newPerDay: 15,
-    excluded: { frequency: { rare: true }, topic: {} },
+    excluded: { frequency: { rare: true, occasional: true }, topic: {} },
     day: null,
   };
   config.excluded = config.excluded || { frequency: {}, topic: {} };
