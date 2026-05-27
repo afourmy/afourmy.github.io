@@ -1658,10 +1658,6 @@ body[data-thai-font="noto"] .parked-thai {
    grade buttons sit in the thumb zone at the bottom. */
 .fc-main { max-width: 680px; }
 
-/* The screen/element toggles below set display:flex|grid, which would otherwise
-   beat the [hidden] attribute's UA display:none. Make hidden win everywhere. */
-.fc-main [hidden] { display: none; }
-
 .fc-banner { margin-top: 0.6rem; }
 
 /* Stat cards: Due / New / Excluded */
@@ -1833,7 +1829,11 @@ body[data-thai-font="noto"] .parked-thai {
 .fc-chip--off:hover { opacity: 1; }
 
 /* ── Review screen ── */
-.fc-review {
+/* Display gated behind :not([hidden]) so the hidden attribute always wins,
+   with no dependence on an ancestor class. This matters under the site's SPA
+   navigation, which copies only this page's <main> innerHTML into the previous
+   page's class-less <main>, so any guard scoped to .fc-main would miss. */
+.fc-review:not([hidden]) {
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 150px);
@@ -1929,7 +1929,7 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   background: var(--border);
 }
 
-.fc-speak {
+.fc-speak:not([hidden]) {
   position: absolute;
   top: 0.7rem;
   right: 0.7rem;
@@ -1966,7 +1966,7 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
 }
 .fc-show:hover { filter: brightness(1.08); }
 
-.fc-grades {
+.fc-grades:not([hidden]) {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
@@ -1999,7 +1999,7 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
 .fc-grade--easy { color: var(--accent-strong); background: #eaf3fc; }
 
 /* ── Done screen ── */
-.fc-done {
+.fc-done:not([hidden]) {
   display: flex;
   flex-direction: column;
   align-items: center;
