@@ -9,6 +9,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
   <link rel="stylesheet" href="../style.css">
+  <style>
+    /* The screen rules in style.css set display:flex|grid, which beats the
+       [hidden] attribute. This inline guard keeps hidden screens hidden even
+       if a stale style.css is cached, so the page is never half-rendered. */
+    .fc-main [hidden] { display: none !important; }
+  </style>
 </head>
 <body>
   <script src="../nav.js"></script>
