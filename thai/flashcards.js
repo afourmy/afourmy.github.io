@@ -280,12 +280,20 @@
     nextCard();
   }
 
+  // Shown only when the queue empties on its own (nothing left due today).
   function finishSession() {
     var sub = $("fc-done-sub");
     sub.textContent = reviewed
       ? "Reviewed " + reviewed + (reviewed === 1 ? " card." : " cards.")
       : "";
     show(doneEl);
+  }
+
+  // Leave the session early (the × button): graded cards are already saved, so
+  // just return to the start screen with refreshed counts.
+  function goHome() {
+    refreshStats();
+    show(homeEl);
   }
 
   function updateProgress() {
@@ -402,11 +410,8 @@
   // ── Wiring ───────────────────────────────────────────────────────────────
   function wire() {
     $("fc-start").addEventListener("click", startSession);
-    $("fc-home-link").addEventListener("click", function () {
-      refreshStats();
-      show(homeEl);
-    });
-    $("fc-exit").addEventListener("click", finishSession);
+    $("fc-home-link").addEventListener("click", goHome);
+    $("fc-exit").addEventListener("click", goHome);
     $("fc-show").addEventListener("click", revealAnswer);
 
     // Tap the card to reveal (mobile-friendly); replay via the speaker.
