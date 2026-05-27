@@ -10,63 +10,63 @@
   }
 
   var menu = [
-    { en: "Mathematics", fr: "Mathématiques", cssClass: "submenu-sections", columns: [
+    { en: "Mathematics", cssClass: "submenu-sections", columns: [
       [
-        { href: "math/suites.html", en: "Sequences", fr: "Suites" },
-        { href: "math/fonctions-usuelles.html", en: "Standard Functions", fr: "Fonctions usuelles" },
-        { href: "math/continuite.html", en: "Continuity", fr: "Continuité" },
-        { href: "math/derivation.html", en: "Differentiation", fr: "Dérivation" },
-        { href: "math/topologie.html", en: "Topology", fr: "Topologie" },
-        { href: "math/complexes.html", en: "Complex Numbers", fr: "Nombres complexes" },
+        { href: "math/suites.html", en: "Sequences" },
+        { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
+        { href: "math/continuite.html", en: "Continuity" },
+        { href: "math/derivation.html", en: "Differentiation" },
+        { href: "math/topologie.html", en: "Topology" },
+        { href: "math/complexes.html", en: "Complex Numbers" },
       ],
       [
-        { href: "math/ensembles.html", en: "Sets", fr: "Ensembles" },
-        { href: "math/bases.html", en: "Foundations", fr: "Bases" },
-        { href: "math/groups.html", en: "Groups", fr: "Groupes" },
-        { href: "math/arithmetique.html", en: "Arithmetic", fr: "Arithmétique" },
-        { href: "math/anneaux-corps.html", en: "Rings and Fields", fr: "Anneaux et corps" },
-        { href: "math/polynomes.html", en: "Polynomials", fr: "Polynômes" },
+        { href: "math/ensembles.html", en: "Sets" },
+        { href: "math/bases.html", en: "Foundations" },
+        { href: "math/groups.html", en: "Groups" },
+        { href: "math/arithmetique.html", en: "Arithmetic" },
+        { href: "math/anneaux-corps.html", en: "Rings and Fields" },
+        { href: "math/polynomes.html", en: "Polynomials" },
       ],
       [
-        { href: "math/linear-algebra.html", en: "Linear Algebra", fr: "Algèbre linéaire" },
-        { href: "math/matrices.html", en: "Matrices", fr: "Matrices" },
-        { href: "math/determinants.html", en: "Determinants", fr: "Déterminants" },
-        { href: "math/reduction.html", en: "Reduction", fr: "Réduction" },
-        { href: "math/probabilites.html", en: "Probability", fr: "Probabilités" },
-        { href: "math/denombrement.html", en: "Combinatorics", fr: "Dénombrement" },
+        { href: "math/linear-algebra.html", en: "Linear Algebra" },
+        { href: "math/matrices.html", en: "Matrices" },
+        { href: "math/determinants.html", en: "Determinants" },
+        { href: "math/reduction.html", en: "Reduction" },
+        { href: "math/probabilites.html", en: "Probability" },
+        { href: "math/denombrement.html", en: "Combinatorics" },
       ]
     ]},
-    { en: "Computer Science", fr: "Informatique", columns: [
+    { en: "Computer Science", columns: [
       [
-        { href: "cs/algorithmics.html", en: "Algorithmics", fr: "Algorithmique" },
-        { href: "cs/automata.html", en: "Formal Languages", fr: "Langages formels" },
-        { href: "cs/graph-theory.html", en: "Graph Theory", fr: "Théorie des graphes" },
+        { href: "cs/algorithmics.html", en: "Algorithmics" },
+        { href: "cs/automata.html", en: "Formal Languages" },
+        { href: "cs/graph-theory.html", en: "Graph Theory" },
       ]
     ]},
-    { en: "Bioinformatics", fr: "Bio-informatique", columns: [
+    { en: "Bioinformatics", columns: [
       [
-        { href: "bio/genomics.html", en: "Genomics", fr: "Génomique" },
-        { href: "bio/transcriptomics.html", en: "Transcriptomics", fr: "Transcriptomique" },
-        { href: "bio/proteomics.html", en: "Proteomics", fr: "Protéomique" },
+        { href: "bio/genomics.html", en: "Genomics" },
+        { href: "bio/transcriptomics.html", en: "Transcriptomics" },
+        { href: "bio/proteomics.html", en: "Proteomics" },
       ]
     ]},
-    { en: "Thailand", fr: "Thaïlande", columns: [
+    { en: "Thailand", columns: [
       [
-        { href: "thai/index.html", en: "Vocabulary", fr: "Vocabulaire" },
+        { href: "thai/index.html", en: "Vocabulary" },
       ]
     ]},
-    { en: "Projects", fr: "Projets", columns: [
+    { en: "Projects", columns: [
       [
-        { href: "projects/tsp.html", en: "Traveling Salesman Problem", fr: "Voyageur de commerce" },
-        { href: "projects/swap.html", en: "Wavelength Assignment Problem", fr: "Affectation de longueurs d'onde" },
-        { href: "projects/computational-genomics.html", en: "Computational Genomics", fr: "Génomique computationnelle" },
+        { href: "projects/tsp.html", en: "Traveling Salesman Problem" },
+        { href: "projects/swap.html", en: "Wavelength Assignment Problem" },
+        { href: "projects/computational-genomics.html", en: "Computational Genomics" },
       ]
     ]},
-    { en: "Books", fr: "Livres", columns: [
+    { en: "Books", columns: [
       [
-        { href: "books/aops.html", en: "The Art of Problem Solving", fr: "L'Art de la résolution de problèmes" },
-        { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms", fr: "Algorithmes en bioinformatique" },
-        { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook", fr: "A Long-Form Mathematics Textbook" },
+        { href: "books/aops.html", en: "The Art of Problem Solving" },
+        { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms" },
+        { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook" },
       ]
     ]},
   ];
@@ -109,14 +109,14 @@
   for (var m = 0; m < menu.length; m++) {
     var item = menu[m];
     html += '<div class="nav-item">';
-    html += '<a href="#" class="nav-link" data-en="' + esc(item.en) + '" data-fr="' + esc(item.fr) + '" onclick="return false;">' + esc(item.en) + '</a>';
+    html += '<a href="#" class="nav-link" onclick="return false;">' + esc(item.en) + '</a>';
     html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
     for (var c = 0; c < item.columns.length; c++) {
       html += '<ul class="submenu-col">';
       var col = item.columns[c];
       for (var i = 0; i < col.length; i++) {
         var link = col[i];
-        html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '" data-en="' + esc(link.en) + '" data-fr="' + esc(link.fr) + '">' + esc(link.en) + '</a></li>';
+        html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
       }
       html += '</ul>';
     }
