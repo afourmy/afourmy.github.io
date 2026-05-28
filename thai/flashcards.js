@@ -263,6 +263,19 @@
     if (f.frontThai) playAudio();
   }
 
+  function suspendCurrent() {
+    if (!curId) return;
+    var info = parseId(curId);
+    suspended[info.word.id] = true;
+    saveSuspended();
+    stopAudio();
+    // Drop the current word's other direction from this session's queue too,
+    // so we don't immediately show its sibling.
+    var prefix = info.word.id + ":";
+    queue = queue.filter(function (id) { return id.indexOf(prefix) !== 0; });
+    nextCard();
+  }
+
   function copyCurrent() {
     var btn = $("fc-copy");
     var text = revealed ? btn.dataset.thai : btn.dataset.front;

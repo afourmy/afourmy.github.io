@@ -1330,6 +1330,46 @@ html[lang="fr"] .en { display: none; }
 .vocab-copy.copied .vocab-copy-i--copy { display: none; }
 .vocab-copy.copied .vocab-copy-i--check { display: block; }
 
+/* Suspend control: small toggle on the top-right of each vocab card, just
+   left of the copy button. Toggles indefinite suspension. When active, the
+   card itself gets a soft-red background via .vocab-card--suspended. */
+.vocab-suspend {
+  position: absolute;
+  top: 0.4rem;
+  right: 2.2rem;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s, background 0.18s;
+}
+.vocab-card:hover .vocab-suspend,
+.vocab-card--flip:hover .vocab-suspend { opacity: 0.8; }
+.vocab-suspend:hover { opacity: 1; color: #b5482e; border-color: #b5482e; }
+.vocab-suspend svg { width: 14px; height: 14px; }
+
+/* Suspended card: soft red background, persistent indicator. */
+.vocab-card--suspended { background: #fbe9e4; border-color: #f0c8bb; }
+.vocab-card--suspended .vocab-suspend {
+  opacity: 1;
+  color: #fff;
+  background: #b5482e;
+  border-color: #b5482e;
+}
+[data-theme="dark"] .vocab-card--suspended {
+  background: rgba(192, 89, 60, 0.22);
+  border-color: rgba(192, 89, 60, 0.45);
+}
+
 /* Speaker control: mirror of the copy button on the opposite (left) corner;
    plays the Thai pronunciation. Shown on any card whose word has audio. */
 .vocab-speak {
@@ -1895,6 +1935,24 @@ body[data-thai-font="noto"] .parked-thai {
   color: var(--text-muted);
   white-space: nowrap;
 }
+/* Suspend control on the review toolbar: skips the current card and marks
+   the word as suspended (so neither direction will resurface in review). */
+.fc-suspend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--text-muted);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+.fc-suspend svg { width: 1.05rem; height: 1.05rem; }
+.fc-suspend:hover { color: #b5482e; border-color: #b5482e; }
 
 .fc-card-wrap {
   flex: 1;

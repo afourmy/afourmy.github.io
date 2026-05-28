@@ -69,6 +69,14 @@
     '<svg class="vocab-copy-i vocab-copy-i--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' +
     "</button>";
 
+  // Suspend control: toggles indefinite suspension on the word. A suspended
+  // card stays visible on this page with a soft-red background; the flashcards
+  // page skips it. Shared state lives at localStorage["thaiSuspended"].
+  var SUSPEND_BTN =
+    '<button class="vocab-suspend" type="button" aria-label="Suspend word" title="Suspend / unsuspend">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg>' +
+    "</button>";
+
   // Speaker control: plays the word's Thai pronunciation (audio is Thai-only),
   // rendered only for words with a generated mp3 (see speakerBtn / word.audio).
   var SPEAKER_SVG =
@@ -127,6 +135,19 @@
       done();
     }
   }
+
+  // Suspended-words state (shared with flashcards page). { wordId: true }.
+  var SUSPENDED_KEY = "thaiSuspended";
+  var suspended = {};
+  function loadSuspended() {
+    var raw = lsGet(SUSPENDED_KEY);
+    if (!raw) return {};
+    try { return JSON.parse(raw) || {}; } catch (e) { return {}; }
+  }
+  function saveSuspended() {
+    lsSet(SUSPENDED_KEY, JSON.stringify(suspended));
+  }
+  function isSuspended(word) { return suspended[word.id] === true; }
 
   function lsGet(k) {
     try {
@@ -199,12 +220,18 @@
     );
   }
 
+  function cardClasses(word, extra) {
+    return "vocab-card" + (extra || "") + (isSuspended(word) ? " vocab-card--suspended" : "");
+  }
+
   function card(word) {
     if (face === "both") {
       // Both-faces card: copy button is fixed to the Thai word (no flip).
       return (
-        '<div class="vocab-card" data-copy="' + escAttr(word.thai) + '">' +
+        '<div class="' + cardClasses(word) + '" data-id="' + escAttr(word.id) +
+        '" data-copy="' + escAttr(word.thai) + '">' +
         COPY_BTN +
+        SUSPEND_BTN +
         speakerBtn(word) +
         thaiHtml(word) +
         enHtml(word) +
@@ -228,13 +255,14 @@
     // copy of both) gives the card the height of the taller face. The copy
     // button lives inside the rotor so it turns with the card.
     return (
-      '<div class="vocab-card vocab-card--flip" data-front="' +
-      escAttr(frontText) +
-      '" data-back="' +
-      escAttr(backText) +
+      '<div class="' + cardClasses(word, " vocab-card--flip") +
+      '" data-id="' + escAttr(word.id) +
+      '" data-front="' + escAttr(frontText) +
+      '" data-back="' + escAttr(backText) +
       '">' +
       '<div class="vocab-flip-rotor">' +
       COPY_BTN +
+      SUSPEND_BTN +
       speakerBtn(word) +
       '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
       '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
@@ -486,6 +514,24 @@
       return;
     }
 
+    // Suspend toggle: light-red background, no flip, no re-render.
+    var suspendBtn = e.target.closest(".vocab-suspend");
+    if (suspendBtn) {
+      var sCard = e.target.closest(".vocab-card");
+      if (!sCard) return;
+      var id = sCard.getAttribute("data-id");
+      if (!id) return;
+      if (suspended[id]) {
+        delete suspended[id];
+        sCard.classList.remove("vocab-card--suspended");
+      } else {
+        suspended[id] = true;
+        sCard.classList.add("vocab-card--suspended");
+      }
+      saveSuspended();
+      return;
+    }
+
     // Copy button: works in both-mode (data-copy) and flip-mode (visible side).
     var copyBtn = e.target.closest(".vocab-copy");
     if (copyBtn) {
@@ -566,6 +612,7 @@
 
   // Restore saved preferences before the first render.
   applyFont(lsGet("thaiFont") || "sarabun");
+  suspended = loadSuspended();
   showCategory = lsGet("vocabShowCategory") !== "0";
   showSources = lsGet("vocabShowSources") === "1";
   showCategoryEl.checked = showCategory;
