@@ -47,6 +47,7 @@
     weather: "Weather",
     travel: "Travel",
     food: "Food",
+    slang: "Slang",
   };
 
   function esc(s) {
