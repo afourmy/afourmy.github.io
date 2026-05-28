@@ -1190,11 +1190,6 @@ html[lang="fr"] .en { display: none; }
 .vocab-card--freq-common .vocab-face { border-color: var(--freq-common); }
 .vocab-card--freq-occasional .vocab-face { border-color: var(--freq-occasional); }
 .vocab-card--freq-rare .vocab-face { border-color: var(--freq-rare); }
-.fc-card--freq-everyday { border-color: var(--freq-everyday); }
-.fc-card--freq-common { border-color: var(--freq-common); }
-.fc-card--freq-occasional { border-color: var(--freq-occasional); }
-.fc-card--freq-rare { border-color: var(--freq-rare); }
-
 /* Frequency tiers get a distinguishing accent on the heading rule. */
 .vocab-group--everyday > .vocab-group-title { border-bottom-color: #2e9e5b; }
 .vocab-group--everyday > .vocab-group-title .vocab-group-count {
@@ -2001,12 +1996,16 @@ body[data-thai-font="noto"] .parked-thai {
   gap: 1rem;
   padding: 2rem 1.4rem;
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   border-radius: 18px;
   box-shadow: 0 8px 30px rgba(3, 51, 102, 0.10);
   cursor: pointer;
   text-align: center;
 }
+.fc-card--freq-everyday { border-color: var(--freq-everyday); }
+.fc-card--freq-common { border-color: var(--freq-common); }
+.fc-card--freq-occasional { border-color: var(--freq-occasional); }
+.fc-card--freq-rare { border-color: var(--freq-rare); }
 
 .fc-card-face { width: 100%; }
 .fc-card-face.fc-thai {
