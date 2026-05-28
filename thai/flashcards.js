@@ -238,6 +238,14 @@
     speak.hidden = false;
     speak.dataset.src = audioBase + word.id + ".mp3";
 
+    // Copy: before reveal, copies the visible (front) side; after reveal both
+    // sides are visible so copying targets the Thai word (matching vocab Both).
+    var copy = $("fc-copy");
+    copy.hidden = false;
+    copy.classList.remove("copied");
+    copy.dataset.front = f.front;
+    copy.dataset.thai = word.thai;
+
     $("fc-show").hidden = false;
     $("fc-grades").hidden = true;
 
@@ -246,6 +254,33 @@
     // Autoplay Thai when it is on the front (Thai->English cards).
     stopAudio();
     if (f.frontThai) playAudio();
+  }
+
+  function copyCurrent() {
+    var btn = $("fc-copy");
+    var text = revealed ? btn.dataset.thai : btn.dataset.front;
+    if (!text) return;
+    function done() {
+      btn.classList.add("copied");
+      setTimeout(function () { btn.classList.remove("copied"); }, 1000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, function () {
+        fallbackCopy(text); done();
+      });
+    } else {
+      fallbackCopy(text); done();
+    }
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
   }
 
   function revealAnswer() {
@@ -443,9 +478,10 @@
     $("fc-exit").addEventListener("click", goHome);
     $("fc-show").addEventListener("click", revealAnswer);
 
-    // Tap the card to reveal (mobile-friendly); replay via the speaker.
+    // Tap the card to reveal (mobile-friendly); speaker/copy don't reveal.
     $("fc-card").addEventListener("click", function (e) {
       if (e.target.closest("#fc-speak")) { playAudio(); return; }
+      if (e.target.closest("#fc-copy")) { copyCurrent(); return; }
       if (!revealed) revealAnswer();
     });
 

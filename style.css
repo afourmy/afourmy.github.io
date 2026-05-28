@@ -1306,6 +1306,7 @@ html[lang="fr"] .en { display: none; }
   transition: opacity 0.18s, color 0.18s, border-color 0.18s;
 }
 
+.vocab-card:hover .vocab-copy,
 .vocab-card--flip:hover .vocab-copy { opacity: 0.8; }
 
 .vocab-copy:hover {
@@ -1967,6 +1968,34 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
 .fc-speak svg { width: 1.1rem; height: 1.1rem; }
 .fc-speak.playing { color: #fff; background: var(--accent); border-color: var(--accent); }
 
+/* Copy-word control: mirror of the speaker in the opposite corner. Same
+   look-and-feel as .vocab-copy on the vocabulary page. */
+.fc-copy:not([hidden]) {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--accent);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.fc-copy svg { width: 1.05rem; height: 1.05rem; }
+.fc-copy-i--check { display: none; }
+.fc-copy.copied {
+  color: #fff;
+  background: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.fc-copy.copied .fc-copy-i--copy { display: none; }
+.fc-copy.copied .fc-copy-i--check { display: block; }
+
 /* ── Action zone (thumb reach) ── */
 .fc-actions { padding: 0.6rem 0 1rem; }
 .fc-show {
@@ -2066,4 +2095,10 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   .fc-stat { padding: 0.7rem 0.25rem; }
   .fc-stat-label { font-size: 0.66rem; letter-spacing: 0.02em; }
   .fc-start { margin-bottom: 1.6rem; }
+  /* Fill the vertical space so the card no longer floats in empty room, and
+     keep extra top/bottom padding so the speaker/copy icons sit clear of the
+     text rather than touching it. */
+  .fc-card-wrap { flex: 1; padding: 0.8rem 0; align-items: stretch; }
+  .fc-card { min-height: 0; padding: 3.6rem 1.2rem 3rem; gap: 1.4rem; }
+  .fc-speak:not([hidden]), .fc-copy:not([hidden]) { top: 0.6rem; }
 }

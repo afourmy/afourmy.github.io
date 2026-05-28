@@ -201,8 +201,10 @@
 
   function card(word) {
     if (face === "both") {
+      // Both-faces card: copy button is fixed to the Thai word (no flip).
       return (
-        '<div class="vocab-card">' +
+        '<div class="vocab-card" data-copy="' + escAttr(word.thai) + '">' +
+        COPY_BTN +
         speakerBtn(word) +
         thaiHtml(word) +
         enHtml(word) +
@@ -477,23 +479,27 @@
   // face only ever shows within +/-90 deg, so no backface-visibility is needed.
   var TURN_MS = 200;
   groupsEl.addEventListener("click", function (e) {
-    // Speaker works in every mode, so handle it before the flip-only return.
+    // Speaker works in every mode, so handle it before any mode-specific return.
     var speakBtn = e.target.closest(".vocab-speak");
     if (speakBtn) {
       playAudio(speakBtn);
       return;
     }
 
-    var card = e.target.closest(".vocab-card--flip");
-    if (!card) return;
-
-    // Copy button: grab the visible side's word, don't flip the card.
+    // Copy button: works in both-mode (data-copy) and flip-mode (visible side).
     var copyBtn = e.target.closest(".vocab-copy");
     if (copyBtn) {
-      var attr = card.classList.contains("flipped") ? "data-back" : "data-front";
-      copyText(card.getAttribute(attr), copyBtn);
+      var anyCard = e.target.closest(".vocab-card");
+      if (!anyCard) return;
+      var text = anyCard.classList.contains("vocab-card--flip")
+        ? anyCard.getAttribute(anyCard.classList.contains("flipped") ? "data-back" : "data-front")
+        : anyCard.getAttribute("data-copy");
+      copyText(text, copyBtn);
       return;
     }
+
+    var card = e.target.closest(".vocab-card--flip");
+    if (!card) return;
 
     var rotor = card.querySelector(".vocab-flip-rotor");
     if (!rotor || rotor.dataset.turning) return; // ignore clicks mid-turn
