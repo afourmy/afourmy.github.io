@@ -29,28 +29,28 @@
       <button class="fc-start" id="fc-start" type="button">Start studying</button>
       <p class="fc-done-note" id="fc-home-note" hidden>Nothing to study with the current filters.</p>
 
-      <details class="fc-settings" id="fc-settings">
-        <summary>Session settings</summary>
-
+      <div class="fc-settings" id="fc-settings">
         <div class="fc-setting">
           <span class="fc-setting-label">New cards per day</span>
           <div class="fc-stepper">
-            <button type="button" data-step="-1" aria-label="Fewer">&minus;</button>
-            <span class="fc-stepper-val" id="fc-new-per-day">15</span>
-            <button type="button" data-step="1" aria-label="More">+</button>
+            <button type="button" data-step="-5" aria-label="Fewer">&minus;</button>
+            <input type="number" id="fc-new-per-day" class="fc-stepper-val" value="15" min="0" max="999" inputmode="numeric">
+            <button type="button" data-step="5" aria-label="More">+</button>
           </div>
         </div>
 
-        <div class="fc-setting fc-setting--col" data-dim="frequency">
+        <div class="fc-setting" data-dim="frequency">
           <span class="fc-setting-label">Include frequencies</span>
           <div class="fc-chips" data-dim="frequency"></div>
         </div>
 
-        <div class="fc-setting fc-setting--col" data-dim="topic">
-          <span class="fc-setting-label">Include topics</span>
-          <div class="fc-bulk">
-            <button type="button" data-bulk="all">Select all</button>
-            <button type="button" data-bulk="none">Unselect all</button>
+        <div class="fc-setting fc-setting--stacked" data-dim="topic">
+          <div class="fc-setting-head">
+            <span class="fc-setting-label">Include topics</span>
+            <div class="fc-bulk">
+              <button type="button" data-bulk="all">Select all</button>
+              <button type="button" data-bulk="none">Unselect all</button>
+            </div>
           </div>
           <div class="fc-chips" data-dim="topic"></div>
         </div>
@@ -62,7 +62,7 @@
             <button type="button" data-font="noto">Noto Sans</button>
           </div>
         </div>
-      </details>
+      </div>
     </section>
 
     <!-- Review screen -->

@@ -1730,24 +1730,9 @@ body[data-thai-font="noto"] .parked-thai {
 }
 
 /* Collapsible session settings */
-.fc-settings {
-  margin-top: 1.6rem;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--surface-alt);
-  padding: 0 1rem;
-}
-
-.fc-settings > summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: var(--accent-strong);
-  padding: 0.8rem 0;
-  list-style: none;
-}
-.fc-settings > summary::-webkit-details-marker { display: none; }
-.fc-settings > summary::after { content: " ▾"; color: var(--text-muted); }
-.fc-settings[open] > summary::after { content: " ▴"; }
+/* Settings panel is always visible (no collapse), no surrounding box; rows
+   are separated by a thin top border for breathing room. */
+.fc-settings { margin-top: 1.6rem; }
 
 .fc-setting {
   display: flex;
@@ -1756,7 +1741,11 @@ body[data-thai-font="noto"] .parked-thai {
   padding: 0.7rem 0;
   border-top: 1px solid var(--border);
 }
-.fc-setting--col { flex-direction: column; align-items: stretch; }
+.fc-setting:first-child { border-top: none; padding-top: 0.4rem; }
+
+/* Stacked variant: header row (label + bulk) on top, chips wrap below. */
+.fc-setting--stacked { flex-direction: column; align-items: stretch; gap: 0.55rem; }
+.fc-setting-head { display: flex; align-items: center; gap: 0.8rem; }
 
 .fc-setting-label {
   font-size: 0.9rem;
@@ -1767,13 +1756,13 @@ body[data-thai-font="noto"] .parked-thai {
 .fc-stepper {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 0.6rem;
   margin-left: auto;
 }
 .fc-stepper button {
   width: 2rem;
   height: 2rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   line-height: 1;
   color: var(--accent);
@@ -1783,29 +1772,54 @@ body[data-thai-font="noto"] .parked-thai {
   cursor: pointer;
 }
 .fc-stepper button:active { background: var(--accent); color: #fff; }
+
+/* Number input that doubles as the stepper's value field; strip the native
+   spin buttons so the only controls are the round +/- next to it. */
 .fc-stepper-val {
-  min-width: 1.6rem;
+  width: 3rem;
   text-align: center;
   font-family: 'Computer Modern Serif', serif;
   font-size: 1.1rem;
   font-weight: 700;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.1rem 0;
+  -moz-appearance: textfield;
 }
+.fc-stepper-val:focus { outline: none; border-bottom-color: var(--accent); }
+.fc-stepper-val::-webkit-outer-spin-button,
+.fc-stepper-val::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
 .fc-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 0.4rem;
 }
-.fc-bulk { display: flex; gap: 0.5rem; }
+/* When chips sit directly in a setting row (frequencies), push them to the
+   right of the inline label, matching the stepper's right-aligned layout. */
+.fc-setting > .fc-chips { margin-left: auto; }
+
+/* Bulk actions: small pill buttons matching the chip aesthetic. */
+.fc-bulk {
+  display: inline-flex;
+  gap: 0.4rem;
+  margin-left: auto;
+}
 .fc-bulk button {
+  font-family: 'Computer Modern Serif', serif;
   font-size: 0.78rem;
   font-weight: 700;
   color: var(--accent);
-  background: none;
-  border: none;
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
   cursor: pointer;
-  text-decoration: underline;
+  transition: background 0.15s, color 0.15s;
 }
+.fc-bulk button:hover { background: var(--accent); color: #fff; }
 
 /* Filter chips reuse the vocab tag colour tokens (tag-freq / tag-topic). */
 .fc-chip {

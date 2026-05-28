@@ -363,13 +363,30 @@
   }
 
   function wireSettings() {
-    $("fc-new-per-day").textContent = config.newPerDay;
+    var newPerDayEl = $("fc-new-per-day");
+    newPerDayEl.value = config.newPerDay;
+
+    // Manual typing: accept any non-negative integer up to 999. Empty/garbage
+    // is left untouched while typing (don't snap to 0 mid-edit); blur restores
+    // the displayed value to the committed setting.
+    newPerDayEl.addEventListener("input", function () {
+      var v = parseInt(this.value, 10);
+      if (isNaN(v) || v < 0) return;
+      if (v > 999) v = 999;
+      config.newPerDay = v;
+      this.value = v;
+      saveConfig();
+      refreshStats();
+    });
+    newPerDayEl.addEventListener("blur", function () {
+      this.value = config.newPerDay;
+    });
 
     $("fc-settings").addEventListener("click", function (e) {
       var step = e.target.closest("button[data-step]");
       if (step) {
         config.newPerDay = Math.max(0, config.newPerDay + +step.getAttribute("data-step"));
-        $("fc-new-per-day").textContent = config.newPerDay;
+        newPerDayEl.value = config.newPerDay;
         saveConfig();
         refreshStats();
         return;
