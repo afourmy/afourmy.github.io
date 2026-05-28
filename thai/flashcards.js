@@ -384,7 +384,7 @@
     newPerDayEl.addEventListener("input", function () {
       var v = parseInt(this.value, 10);
       if (isNaN(v) || v < 0) return;
-      if (v > 999) v = 999;
+      if (v > 9999) v = 9999;
       config.newPerDay = v;
       this.value = v;
       saveConfig();
