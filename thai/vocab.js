@@ -221,7 +221,12 @@
   }
 
   function cardClasses(word, extra) {
-    return "vocab-card" + (extra || "") + (isSuspended(word) ? " vocab-card--suspended" : "");
+    return (
+      "vocab-card" +
+      (extra || "") +
+      " vocab-card--freq-" + word.frequency +
+      (isSuspended(word) ? " vocab-card--suspended" : "")
+    );
   }
 
   function card(word) {

@@ -23,6 +23,7 @@
     beliefs: "Beliefs", monarchy: "Monarchy", nature: "Nature",
     law: "Legal", economy: "Economy", transport: "Transport",
     weather: "Weather", travel: "Travel", food: "Food",
+    slang: "Slang",
   };
 
   // ── Storage ────────────────────────────────────────────────────────────────
@@ -233,6 +234,8 @@
 
     var frontEl = $("fc-front");
     var backEl = $("fc-back");
+    var cardEl = $("fc-card");
+    cardEl.className = "fc-card fc-card--freq-" + word.frequency;
     frontEl.className = "fc-card-face fc-card-front" + (f.frontThai ? " fc-thai" : " fc-en");
     frontEl.innerHTML = esc(f.front);
     backEl.className = "fc-card-face fc-card-back" + (f.frontThai ? " fc-en" : " fc-thai");
