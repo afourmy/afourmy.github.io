@@ -73,7 +73,7 @@
   // card stays visible on this page with a soft-red background; the flashcards
   // page skips it. Shared state lives at localStorage["thaiSuspended"].
   var SUSPEND_BTN =
-    '<button class="vocab-suspend" type="button" aria-label="Suspend word" title="Suspend / unsuspend">' +
+    '<button class="vocab-suspend" type="button" aria-label="Suspend word" title="Suspend / Unsuspend">' +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg>' +
     "</button>";
 

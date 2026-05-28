@@ -1357,15 +1357,19 @@ html[lang="fr"] .en { display: none; }
 .vocab-suspend:hover { opacity: 1; color: #b5482e; border-color: #b5482e; }
 .vocab-suspend svg { width: 14px; height: 14px; }
 
-/* Suspended card: soft red background, persistent indicator. */
+/* Suspended card: soft red background, persistent indicator. The flip-card
+   variant paints its visible surface on .vocab-face (the card itself is
+   transparent), so we tint that as well. */
 .vocab-card--suspended { background: #fbe9e4; border-color: #f0c8bb; }
+.vocab-card--suspended .vocab-face { background: #fbe9e4; border-color: #f0c8bb; }
 .vocab-card--suspended .vocab-suspend {
   opacity: 1;
   color: #fff;
   background: #b5482e;
   border-color: #b5482e;
 }
-[data-theme="dark"] .vocab-card--suspended {
+[data-theme="dark"] .vocab-card--suspended,
+[data-theme="dark"] .vocab-card--suspended .vocab-face {
   background: rgba(192, 89, 60, 0.22);
   border-color: rgba(192, 89, 60, 0.45);
 }
