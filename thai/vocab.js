@@ -338,6 +338,39 @@
     );
   }
 
+  // Lazy materialization: each group renders only its header + an empty,
+  // height-reserved card container; the cards themselves are built on demand
+  // when the group nears the viewport. Keeps the DOM small even with ~10k
+  // entries, so search/filter re-renders stay snappy.
+  var currentGroups = [];
+  var groupObserver = null;
+
+  function teardownObserver() {
+    if (groupObserver) {
+      groupObserver.disconnect();
+      groupObserver = null;
+    }
+  }
+
+  function estimateGroupHeight(count) {
+    var containerW = groupsEl.clientWidth || window.innerWidth || 800;
+    var gap = 13; // ~0.8rem
+    var minCol = 200;
+    var cols = Math.max(1, Math.floor((containerW + gap) / (minCol + gap)));
+    var rows = Math.ceil(count / cols);
+    return rows * 92; // ~card height incl. gap
+  }
+
+  function materializeGroup(container) {
+    if (container.dataset.materialized) return;
+    var idx = parseInt(container.dataset.gi, 10);
+    var items = currentGroups[idx] && currentGroups[idx].items;
+    if (!items) return;
+    container.innerHTML = items.map(card).join("");
+    container.style.minHeight = "";
+    container.dataset.materialized = "1";
+  }
+
   function render() {
     if (!loaded) return;
     var list = words.filter(function (word) {
@@ -346,16 +379,20 @@
     countEl.textContent =
       list.length + (list.length === 1 ? " word" : " words");
 
+    teardownObserver();
+
     if (!list.length) {
+      currentGroups = [];
       groupsEl.innerHTML = '<p class="vocab-empty">No matching words.</p>';
       return;
     }
 
-    var groups = buildGroups(list);
-    groupsEl.innerHTML = groups
-      .map(function (group) {
+    currentGroups = buildGroups(list);
+    groupsEl.innerHTML = currentGroups
+      .map(function (group, i) {
         var freqMod =
           mode === "frequency" ? " vocab-group--" + group.key : "";
+        var minH = estimateGroupHeight(group.items.length);
         return (
           '<section class="vocab-group' + freqMod + '">' +
           '<h2 class="vocab-group-title">' +
@@ -364,13 +401,27 @@
           group.items.length +
           "</span>" +
           "</h2>" +
-          '<div class="vocab-cards">' +
-          group.items.map(card).join("") +
-          "</div>" +
+          '<div class="vocab-cards" data-gi="' + i +
+          '" style="min-height:' + minH + 'px"></div>' +
           "</section>"
         );
       })
       .join("");
+
+    groupObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            materializeGroup(entry.target);
+            groupObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "600px 0px" }
+    );
+    groupsEl.querySelectorAll(".vocab-cards").forEach(function (c) {
+      groupObserver.observe(c);
+    });
   }
 
   toggleEl.addEventListener("click", function (e) {
@@ -412,9 +463,11 @@
     }
   });
 
+  var searchTimer = null;
   searchEl.addEventListener("input", function () {
     query = searchEl.value.trim();
-    render();
+    if (searchTimer) clearTimeout(searchTimer);
+    searchTimer = setTimeout(render, 120);
   });
 
   // Flip a card on click (single-side modes): a two-phase 3D turn. The front
