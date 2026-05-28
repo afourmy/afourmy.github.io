@@ -1358,14 +1358,9 @@ html[lang="fr"] .en { display: none; }
 .vocab-copy.copied .vocab-copy-i--copy { display: none; }
 .vocab-copy.copied .vocab-copy-i--check { display: block; }
 
-/* Suspend control: small toggle on the top-right of each vocab card, just
-   left of the copy button. Toggles indefinite suspension. When active, the
-   card itself gets a soft-red background via .vocab-card--suspended. */
+/* Suspend control: toggles indefinite suspension. When active, the card
+   itself gets a soft-red background via .vocab-card--suspended. */
 .vocab-suspend {
-  position: absolute;
-  top: 0.4rem;
-  right: 2.2rem;
-  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1402,13 +1397,8 @@ html[lang="fr"] .en { display: none; }
   border-color: rgba(192, 89, 60, 0.45);
 }
 
-/* Speaker control: mirror of the copy button on the opposite (left) corner;
-   plays the Thai pronunciation. Shown on any card whose word has audio. */
+/* Speaker control: plays the Thai pronunciation. */
 .vocab-speak {
-  position: absolute;
-  top: 0.4rem;
-  left: 0.4rem;
-  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1967,24 +1957,6 @@ body[data-thai-font="noto"] .parked-thai {
   color: var(--text-muted);
   white-space: nowrap;
 }
-/* Suspend control on the review toolbar: skips the current card and marks
-   the word as suspended (so neither direction will resurface in review). */
-.fc-suspend {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  padding: 0;
-  color: var(--text-muted);
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: color 0.15s, border-color 0.15s, background 0.15s;
-}
-.fc-suspend svg { width: 1.05rem; height: 1.05rem; }
-.fc-suspend:hover { color: #b5482e; border-color: #b5482e; }
 
 .fc-card-wrap {
   flex: 1;
