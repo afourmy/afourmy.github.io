@@ -161,14 +161,26 @@
   }
 
   // ── Stats (mirror what Start would build) ──────────────────────────────────
+  // Due / New are today's session counts; Left is the deck's remaining unseen
+  // pool (cards never reviewed yet that aren't excluded), which decreases as
+  // new cards get introduced. Excluded counts what filters hide right now.
   function refreshStats() {
     var built = buildQueue();
     var excluded = 0;
+    var left = 0;
     words.forEach(function (word) {
-      if (isExcluded(word)) excluded += DIRS.length;
+      if (isExcluded(word)) {
+        excluded += DIRS.length;
+        return;
+      }
+      DIRS.forEach(function (dir) {
+        var st = states[cardId(word, dir)];
+        if (!st || st.reps === 0) left += 1;
+      });
     });
     homeEl.querySelector('[data-stat="due"]').textContent = built.due.length;
     homeEl.querySelector('[data-stat="new"]').textContent = built.fresh.length;
+    homeEl.querySelector('[data-stat="left"]').textContent = left;
     homeEl.querySelector('[data-stat="excluded"]').textContent = excluded;
 
     var empty = built.queue.length === 0;
