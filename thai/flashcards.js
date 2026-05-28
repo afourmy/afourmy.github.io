@@ -28,6 +28,7 @@
   // ── Storage ────────────────────────────────────────────────────────────────
   var STATE_KEY = "thaiFsrsState";
   var CONFIG_KEY = "thaiFsrsConfig";
+  var SUSPENDED_KEY = "thaiSuspended";
 
   function lsGet(k) {
     try { return localStorage.getItem(k); } catch (e) { return null; }
@@ -53,6 +54,12 @@
 
   function saveStates() { lsSet(STATE_KEY, JSON.stringify(states)); }
   function saveConfig() { lsSet(CONFIG_KEY, JSON.stringify(config)); }
+
+  // Per-word indefinite suspension. Keyed by word.id so both directions are
+  // suspended together. Shared with the vocabulary page (same key).
+  var suspended = loadJSON(SUSPENDED_KEY, {});
+  function saveSuspended() { lsSet(SUSPENDED_KEY, JSON.stringify(suspended)); }
+  function isSuspended(word) { return suspended[word.id] === true; }
 
   // Local-midnight day key, so a card due "today" rolls over at midnight.
   function dayKey(now) {
@@ -119,7 +126,7 @@
     var newCards = [];
 
     words.forEach(function (word) {
-      if (isExcluded(word)) return;
+      if (isExcluded(word) || isSuspended(word)) return;
       if (day.seen[word.id]) return; // a direction was already done today
 
       // Among the word's directions, prefer a due card; else offer it as new.
@@ -169,7 +176,7 @@
     var excluded = 0;
     var left = 0;
     words.forEach(function (word) {
-      if (isExcluded(word)) {
+      if (isExcluded(word) || isSuspended(word)) {
         excluded += DIRS.length;
         return;
       }
@@ -489,6 +496,8 @@
       var btn = e.target.closest("button[data-grade]");
       if (btn) grade(+btn.getAttribute("data-grade"));
     });
+
+    $("fc-suspend").addEventListener("click", suspendCurrent);
 
     // Keyboard: space/enter reveals, 1-4 grade (desktop convenience).
     document.addEventListener("keydown", function (e) {
