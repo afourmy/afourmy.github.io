@@ -1704,11 +1704,11 @@ body[data-thai-font="noto"] .parked-thai {
 .fc-stat--excluded .fc-stat-num { color: #b5482e; }
 [data-theme="dark"] .fc-stat--excluded .fc-stat-num { color: #f0a591; }
 
-/* Primary call to action — sits below the settings on the home screen. */
+/* Primary call to action — sits between the stats and the settings panel. */
 .fc-start {
   display: block;
   width: 100%;
-  margin-top: 1rem;
+  margin: 0.4rem 0 1.4rem;
   font-family: 'Computer Modern Serif', serif;
   font-size: 1.2rem;
   font-weight: 700;
@@ -1983,6 +1983,7 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   cursor: pointer;
   transition: filter 0.12s;
 }
+.fc-show[hidden] { display: none; }
 .fc-show:hover { filter: brightness(1.08); }
 
 .fc-grades:not([hidden]) {
@@ -2061,4 +2062,8 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   .fc-card-face.fc-en { font-size: 1.3rem; }
   .fc-grade { font-size: 0.92rem; padding: 0.6rem 0.15rem; }
   .fc-stat-num { font-size: 1.7rem; }
+  .fc-stats { gap: 0.4rem; }
+  .fc-stat { padding: 0.7rem 0.25rem; }
+  .fc-stat-label { font-size: 0.66rem; letter-spacing: 0.02em; }
+  .fc-start { margin-bottom: 1.6rem; }
 }

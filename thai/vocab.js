@@ -19,7 +19,7 @@
   var query = "";
   var face = "both"; // "both" | "thai" | "english"
   var showCategory = true;
-  var showSources = true;
+  var showSources = false;
 
   var FREQ_ORDER = ["everyday", "common", "occasional", "rare"];
   var FREQ_LABEL = {
@@ -507,7 +507,7 @@
   // Restore saved preferences before the first render.
   applyFont(lsGet("thaiFont") || "sarabun");
   showCategory = lsGet("vocabShowCategory") !== "0";
-  showSources = lsGet("vocabShowSources") !== "0";
+  showSources = lsGet("vocabShowSources") === "1";
   showCategoryEl.checked = showCategory;
   showSourcesEl.checked = showSources;
   setFace(lsGet("vocabFace") || "both", false);

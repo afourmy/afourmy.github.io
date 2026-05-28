@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thai Flashcards</title>
+  <title>Flashcards</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
@@ -17,7 +17,7 @@
     <!-- Home / setup screen -->
     <section class="fc-screen fc-home" id="fc-home" hidden>
       <header class="page-banner fc-banner">
-        <h1>Thai Flashcards</h1>
+        <h1>Flashcards</h1>
       </header>
 
       <div class="fc-stats" id="fc-stats">
@@ -26,6 +26,9 @@
         <div class="fc-stat fc-stat--left"><span class="fc-stat-num" data-stat="left">0</span><span class="fc-stat-label">Left</span></div>
         <div class="fc-stat fc-stat--excluded"><span class="fc-stat-num" data-stat="excluded">0</span><span class="fc-stat-label">Excluded</span></div>
       </div>
+
+      <button class="fc-start" id="fc-start" type="button">Start studying</button>
+      <p class="fc-done-note" id="fc-home-note" hidden>Nothing to study with the current filters.</p>
 
       <div class="fc-settings" id="fc-settings">
         <div class="fc-setting">
@@ -61,9 +64,6 @@
           </div>
         </div>
       </div>
-
-      <button class="fc-start" id="fc-start" type="button">Start studying</button>
-      <p class="fc-done-note" id="fc-home-note" hidden>Nothing to study with the current filters.</p>
     </section>
 
     <!-- Review screen -->
