@@ -243,9 +243,11 @@
     backEl.hidden = true;
     $("fc-divider").hidden = true;
 
-    // Speaker is available whenever this card has a Thai side to hear.
+    // Speaker is available only when the Thai face is currently on screen.
+    // On render that's just the t2e cards (Thai on front); revealAnswer
+    // re-shows the icon for e2t cards once Thai becomes visible.
     var speak = $("fc-speak");
-    speak.hidden = false;
+    speak.hidden = !f.frontThai;
     speak.dataset.src = audioBase + word.id + ".mp3";
 
     // Copy: before reveal, copies the visible (front) side; after reveal both
@@ -322,9 +324,13 @@
     });
     grades.hidden = false;
 
-    // Autoplay Thai when it lives on the back (English->Thai cards).
+    // Autoplay Thai when it lives on the back (English->Thai cards). For
+    // those cards the speaker was hidden until now — un-hide it on reveal.
     var info = parseId(curId);
-    if (!faces(info.word, info.dir).frontThai) playAudio();
+    if (!faces(info.word, info.dir).frontThai) {
+      $("fc-speak").hidden = false;
+      playAudio();
+    }
   }
 
   function grade(g) {
@@ -501,10 +507,11 @@
     $("fc-exit").addEventListener("click", goHome);
     $("fc-show").addEventListener("click", revealAnswer);
 
-    // Tap the card to reveal (mobile-friendly); speaker/copy don't reveal.
+    // Tap the card to reveal (mobile-friendly); icon buttons don't reveal.
     $("fc-card").addEventListener("click", function (e) {
       if (e.target.closest("#fc-speak")) { playAudio(); return; }
       if (e.target.closest("#fc-copy")) { copyCurrent(); return; }
+      if (e.target.closest("#fc-suspend")) { suspendCurrent(); return; }
       if (!revealed) revealAnswer();
     });
 
@@ -512,8 +519,6 @@
       var btn = e.target.closest("button[data-grade]");
       if (btn) grade(+btn.getAttribute("data-grade"));
     });
-
-    $("fc-suspend").addEventListener("click", suspendCurrent);
 
     // Keyboard: space/enter reveals, 1-4 grade (desktop convenience).
     document.addEventListener("keydown", function (e) {

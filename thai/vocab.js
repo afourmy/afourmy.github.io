@@ -209,7 +209,8 @@
   }
 
   function speakerBtn(word) {
-    if (!word.audio) return "";
+    // Only show when the Thai side is visible by default (Both / Thai modes).
+    if (face === "english") return "";
     return (
       '<button class="vocab-speak" type="button" aria-label="Play pronunciation"' +
       ' title="Play pronunciation" data-audio="' +
@@ -218,6 +219,10 @@
       SPEAKER_SVG +
       "</button>"
     );
+  }
+
+  function toolsHtml(word) {
+    return '<div class="vocab-tools">' + speakerBtn(word) + COPY_BTN + SUSPEND_BTN + '</div>';
   }
 
   function cardClasses(word, extra) {
@@ -235,9 +240,7 @@
       return (
         '<div class="' + cardClasses(word) + '" data-id="' + escAttr(word.id) +
         '" data-copy="' + escAttr(word.thai) + '">' +
-        COPY_BTN +
-        SUSPEND_BTN +
-        speakerBtn(word) +
+        toolsHtml(word) +
         thaiHtml(word) +
         enHtml(word) +
         metaHtml(word) +
@@ -266,9 +269,7 @@
       '" data-back="' + escAttr(backText) +
       '">' +
       '<div class="vocab-flip-rotor">' +
-      COPY_BTN +
-      SUSPEND_BTN +
-      speakerBtn(word) +
+      toolsHtml(word) +
       '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
       '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
       "</div>" +

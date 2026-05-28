@@ -1304,13 +1304,21 @@ html[lang="fr"] .en { display: none; }
   box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
 }
 
-/* Copy-word control: corner button that copies the visible side without
-   flipping the card. Sits above the rotor and stays put during the turn. */
-.vocab-copy {
+/* Tools column: vertical stack of speaker / copy / suspend on the right edge
+   of every card (both-mode and flip-mode). The container is the only thing
+   positioned absolutely; each icon button below just flows in the column. */
+.vocab-tools {
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
   z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+/* Copy-word control: copies the visible side without flipping the card. */
+.vocab-copy {
   display: inline-flex;
   align-items: center;
   justify-content: center;
