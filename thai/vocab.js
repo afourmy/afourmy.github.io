@@ -681,7 +681,6 @@
     faceToggleEl.querySelectorAll("button").forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-face") === f);
     });
-    flipHintEl.style.display = f === "both" ? "none" : "";
     lsSet("vocabFace", f);
     if (doRender) render();
   }
