@@ -461,14 +461,6 @@
     else config.excluded[dim][key] = true;
   }
 
-  function applyFont(font) {
-    document.body.setAttribute("data-thai-font", font);
-    $("fc-font-toggle").querySelectorAll("button").forEach(function (b) {
-      b.classList.toggle("active", b.getAttribute("data-font") === font);
-    });
-    lsSet("thaiFont", font);
-  }
-
   function wireSettings() {
     var newPerDayEl = $("fc-new-per-day");
     newPerDayEl.value = config.newPerDay;
@@ -526,8 +518,6 @@
         return;
       }
 
-      var font = e.target.closest("button[data-font]");
-      if (font) applyFont(font.getAttribute("data-font"));
     });
   }
 
@@ -595,8 +585,6 @@
   }
 
   // ── Boot ───────────────────────────────────────────────────────────────────
-  applyFont(lsGet("thaiFont") || "sarabun");
-
   var thisScript = document.querySelector('script[src$="flashcards.js"]');
   var dataUrl = thisScript ? new URL("vocab.json", thisScript.src).href : "vocab.json";
   audioBase = thisScript ? new URL("audio/", thisScript.src).href : "audio/";

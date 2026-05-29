@@ -1015,9 +1015,6 @@ html[lang="fr"] .en { display: none; }
   cursor: pointer;
 }
 
-.vocab-font-label {
-  margin-left: auto;
-}
 
 .vocab-toggle {
   display: flex;
@@ -1209,17 +1206,23 @@ html[lang="fr"] .en { display: none; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 0.35rem;
-  /* Right padding keeps body text from running under the absolutely-
-     positioned tool column. */
-  padding: 0.8rem 2.3rem 0.8rem 0.9rem;
+  padding: 0;
   background: var(--surface);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0,0,0,0.04);
   transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+
+.vocab-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.9rem;
+  margin-right: 2rem;
 }
 
 .vocab-card:hover {
@@ -1269,19 +1272,13 @@ html[lang="fr"] .en { display: none; }
 }
 
 /* Each face provides the visible card surface (border, bg, freq, suspended
-   state). The body content lays out in a flex column; tools live absolutely
-   in the top-right and don't widen the layout. */
+   state). Body + tools follow the same pattern as the both-mode card. */
 .vocab-face {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 0.35rem;
-  /* Right padding mirrors the both-mode card so absolute tools don't
-     collide with the centered text. */
-  padding: 0.8rem 2.3rem 0.8rem 0.9rem;
+  padding: 0;
   background: var(--surface);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -1315,17 +1312,19 @@ html[lang="fr"] .en { display: none; }
 .vocab-card--flip.flipped .vocab-face--front { opacity: 0; }
 .vocab-card--flip.flipped .vocab-face--back { opacity: 1; }
 
-/* Vertical stack of speaker / copy / suspend, overlaid in the top-right
-   corner of the card. Absolute so it adds no horizontal space — the
-   card/face padding-right reserves the room visually. */
 .vocab-tools {
   position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2rem;
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 0.3rem;
+  border-left: 1px solid var(--border);
 }
 
 /* Copy-word control: copies the visible side without flipping the card. */

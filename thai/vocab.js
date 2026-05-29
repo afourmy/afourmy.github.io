@@ -295,34 +295,23 @@
 
   function card(word) {
     if (face === "both") {
-      // Both-faces card: copy button is fixed to the Thai word (no flip).
       return (
         '<div class="' + cardClasses(word) + '" data-id="' + escAttr(word.id) +
         '" data-copy="' + escAttr(word.thai) + '">' +
+        '<div class="vocab-body">' + thaiHtml(word) + enHtml(word) + metaHtml(word) + '</div>' +
         toolsHtml(word) +
-        thaiHtml(word) +
-        enHtml(word) +
-        metaHtml(word) +
         "</div>"
       );
     }
-    // Flashcard: chosen side on the front, the other revealed on flip.
     var front = face === "thai" ? thaiHtml(word) : enHtml(word, " vocab-prompt");
     var back =
       face === "thai"
         ? enHtml(word, " vocab-answer")
         : thaiHtml(word, " vocab-answer");
-    var frontInner = front + metaHtml(word);
-    var backInner = back;
-    // Currently-visible word per face, so the copy button can grab whichever
-    // side is showing without re-deriving it from the DOM.
+    var frontInner = '<div class="vocab-body">' + front + metaHtml(word) + '</div>';
+    var backInner  = '<div class="vocab-body">' + back + '</div>';
     var frontText = face === "thai" ? word.thai : word.english;
     var backText = face === "thai" ? word.english : word.thai;
-    // The rotor holds the two visible faces; the hidden ghost (a normal-flow
-    // copy of both) gives the card the height of the taller face. The copy
-    // button lives inside the rotor so it turns with the card.
-    // Tools sit absolutely inside each face so they don't widen the layout;
-    // the face has right-padding to keep the body text clear of them.
     var tools = toolsHtml(word);
     return (
       '<div class="' + cardClasses(word, " vocab-card--flip") +
@@ -331,12 +320,12 @@
       '" data-back="' + escAttr(backText) +
       '">' +
       '<div class="vocab-flip-rotor">' +
-        '<div class="vocab-face vocab-face--front">' + tools + frontInner + "</div>" +
-        '<div class="vocab-face vocab-face--back">' + tools + backInner + "</div>" +
+        '<div class="vocab-face vocab-face--front">' + frontInner + tools + "</div>" +
+        '<div class="vocab-face vocab-face--back">'  + backInner  + tools + "</div>" +
       "</div>" +
       '<div class="vocab-flip-ghost" aria-hidden="true">' +
-        '<div class="vocab-face">' + frontInner + "</div>" +
-        '<div class="vocab-face">' + backInner + "</div>" +
+        '<div class="vocab-face">' + frontInner + tools + "</div>" +
+        '<div class="vocab-face">' + backInner  + tools + "</div>" +
       "</div>" +
       "</div>"
     );
@@ -810,22 +799,7 @@
     render();
   });
 
-  // Thai font preference (default Sarabun, the book style), persisted.
-  function applyFont(font) {
-    document.body.setAttribute("data-thai-font", font);
-    fontToggleEl.querySelectorAll("button").forEach(function (b) {
-      b.classList.toggle("active", b.getAttribute("data-font") === font);
-    });
-    lsSet("thaiFont", font);
-  }
-
-  fontToggleEl.addEventListener("click", function (e) {
-    var btn = e.target.closest("button[data-font]");
-    if (btn) applyFont(btn.getAttribute("data-font"));
-  });
-
   // Restore saved preferences before the first render.
-  applyFont(lsGet("thaiFont") || "sarabun");
   suspended = loadSuspended();
   loadDecks();
   renderDeckSelector();
