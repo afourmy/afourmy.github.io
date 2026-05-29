@@ -708,11 +708,8 @@
   var deckSelectEl = document.getElementById("deck-select");
   var deckInputEl = document.getElementById("deck-input");
   var deckViewActionsEl = document.getElementById("deck-view-actions");
-  var deckEditActionsEl = document.getElementById("deck-edit-actions");
   var deckRenameBtn = document.getElementById("deck-rename");
   var deckDeleteBtn = document.getElementById("deck-delete");
-  var deckSaveBtn = document.getElementById("deck-save");
-  var deckCancelBtn = document.getElementById("deck-cancel");
   var deckNewBtn = document.getElementById("deck-new");
   var deckCountEl = document.getElementById("deck-count");
   var deckOnlyEl = document.getElementById("deck-only");
@@ -745,18 +742,20 @@
     deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
   }
 
+  // Inline rename: swap the select for a text input. Enter saves, Escape
+  // cancels, and clicking away (blur) also saves — no extra buttons needed.
   function startRename() {
     if (!isCustomDeckSelected()) return;
     deckInputEl.value = decks[currentDeckId].name;
     deckSelectEl.hidden = true;
     deckInputEl.hidden = false;
     deckViewActionsEl.hidden = true;
-    deckEditActionsEl.hidden = false;
     deckInputEl.focus();
     deckInputEl.select();
   }
 
   function endRename(save) {
+    if (deckInputEl.hidden) return;
     if (save && isCustomDeckSelected()) {
       var name = deckInputEl.value.trim();
       if (name) {
@@ -767,7 +766,6 @@
     deckSelectEl.hidden = false;
     deckInputEl.hidden = true;
     deckViewActionsEl.hidden = false;
-    deckEditActionsEl.hidden = true;
     renderDeckSelector();
   }
 
@@ -791,13 +789,12 @@
   });
 
   deckRenameBtn.addEventListener("click", function () { startRename(); });
-  deckSaveBtn.addEventListener("click", function () { endRename(true); });
-  deckCancelBtn.addEventListener("click", function () { endRename(false); });
 
   deckInputEl.addEventListener("keydown", function (e) {
     if (e.key === "Enter") { e.preventDefault(); endRename(true); }
     else if (e.key === "Escape") { e.preventDefault(); endRename(false); }
   });
+  deckInputEl.addEventListener("blur", function () { endRename(true); });
 
   deckDeleteBtn.addEventListener("click", function () {
     if (!isCustomDeckSelected()) return;
