@@ -554,7 +554,7 @@
   searchEl.addEventListener("input", function () {
     query = searchEl.value.trim();
     if (searchTimer) clearTimeout(searchTimer);
-    searchTimer = setTimeout(render, 120);
+    searchTimer = setTimeout(render, 500);
   });
 
   // Flip a card on click (single-side modes): a two-phase 3D turn. The front
