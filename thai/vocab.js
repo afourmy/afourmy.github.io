@@ -264,23 +264,26 @@
     // The rotor holds the two visible faces; the hidden ghost (a normal-flow
     // copy of both) gives the card the height of the taller face. The copy
     // button lives inside the rotor so it turns with the card.
+    // Each face is itself a flex row of body+tools so the full card-shaped
+    // surface turns on flip. Tools are duplicated per face — same handlers
+    // catch them via event delegation either way.
+    var tools = toolsHtml(word);
+    var faceFront = '<div class="vocab-card-body">' + frontInner + '</div>' + tools;
+    var faceBack = '<div class="vocab-card-body">' + backInner + '</div>' + tools;
     return (
       '<div class="' + cardClasses(word, " vocab-card--flip") +
       '" data-id="' + escAttr(word.id) +
       '" data-front="' + escAttr(frontText) +
       '" data-back="' + escAttr(backText) +
       '">' +
-      '<div class="vocab-flip-stage">' +
-        '<div class="vocab-flip-rotor">' +
-          '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
-          '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
-        "</div>" +
-        '<div class="vocab-flip-ghost" aria-hidden="true">' +
-          '<div class="vocab-face">' + frontInner + "</div>" +
-          '<div class="vocab-face">' + backInner + "</div>" +
-        "</div>" +
+      '<div class="vocab-flip-rotor">' +
+        '<div class="vocab-face vocab-face--front">' + faceFront + '</div>' +
+        '<div class="vocab-face vocab-face--back">' + faceBack + '</div>' +
       "</div>" +
-      toolsHtml(word) +
+      '<div class="vocab-flip-ghost" aria-hidden="true">' +
+        '<div class="vocab-face">' + faceFront + '</div>' +
+        '<div class="vocab-face">' + faceBack + '</div>' +
+      "</div>" +
       "</div>"
     );
   }

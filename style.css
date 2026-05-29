@@ -1242,25 +1242,26 @@ html[lang="fr"] .en { display: none; }
   padding: 0.8rem 0.9rem;
 }
 
-/* Flashcard mode: one side shown, flips on click to reveal the other. The
-   outer .vocab-card stays the visible bordered/coloured surface; the flip
-   happens inside the stage band, with tools sitting in the right band as
-   in the both-mode card. */
-.vocab-card--flip { cursor: pointer; }
-
-/* Left band of a flip card: holds the rotor + ghost. flex:1/min-width:0 so
-   long English text wraps inside this band. perspective enables the 3D
-   rotation of the rotor child. */
-.vocab-flip-stage {
-  flex: 1;
-  min-width: 0;
+/* Flip card mode: outer .vocab-card is a transparent perspective wrapper.
+   Each face acts as the visible card surface (border / bg / freq colour);
+   inside, the face splits into body + tools bands just like the both-mode
+   card, so the full card-shaped surface turns on flip. */
+.vocab-card--flip {
+  display: block;
   position: relative;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  cursor: pointer;
   -webkit-perspective: 900px;
   perspective: 900px;
 }
+.vocab-card--flip:hover { transform: none; box-shadow: none; }
 
-/* A hidden twin in normal flow gives the stage its height (the taller of
-   the two faces), so it fits its content with no fixed height. */
+/* A hidden twin in normal flow gives the card its height (the taller of the
+   two faces), so it fits its content with no fixed height. */
 .vocab-flip-ghost {
   display: grid;
   visibility: hidden;
@@ -1268,12 +1269,12 @@ html[lang="fr"] .en { display: none; }
 }
 .vocab-flip-ghost > .vocab-face {
   grid-area: 1 / 1;
+  position: static;
 }
 
 /* The rotor overlays the ghost and turns in 3D. JS runs the turn in two
    halves (front to edge, swap face, new face from edge), so the visible face
-   stays within +/-90 deg and we never rely on backface-visibility (whose
-   per-frame culling glitched sporadically). The transition is set inline. */
+   stays within +/-90 deg and we never rely on backface-visibility. */
 .vocab-flip-rotor {
   position: absolute;
   inset: 0;
@@ -1281,15 +1282,33 @@ html[lang="fr"] .en { display: none; }
   transform-origin: center center;
 }
 
+/* Each face is itself a flex row (body + tools) and provides the visible
+   card surface — border, bg, freq tint all live here on flip cards. */
 .vocab-face {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 0.35rem;
-  padding: 0.8rem 0.9rem;
-  background: transparent;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+/* Freq + suspended states need to land on the face (since the card itself
+   is transparent in flip mode). */
+.vocab-card--flip.vocab-card--freq-everyday .vocab-face { border-color: var(--freq-everyday); }
+.vocab-card--flip.vocab-card--freq-common .vocab-face { border-color: var(--freq-common); }
+.vocab-card--flip.vocab-card--freq-occasional .vocab-face { border-color: var(--freq-occasional); }
+.vocab-card--flip.vocab-card--freq-rare .vocab-face { border-color: var(--freq-rare); }
+.vocab-card--flip.vocab-card--suspended .vocab-face {
+  background: #fbe9e4;
+  border-color: #f0c8bb;
+}
+[data-theme="dark"] .vocab-card--flip.vocab-card--suspended .vocab-face {
+  background: rgba(192, 89, 60, 0.22);
+  border-color: rgba(192, 89, 60, 0.45);
 }
 
 .vocab-face--front,
