@@ -525,21 +525,20 @@
   // Populated from the shared store (created/named on the vocab page). Changing
   // the selection re-runs stats so Due / New / Left / Excluded reflect the
   // chosen deck immediately.
+  function deckOptionLabel(id) {
+    var name = deckStore.decks[id].name;
+    var n = id === ALL_DECK_ID
+      ? words.length
+      : Object.keys(deckStore.decks[id].members).length;
+    return esc(name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
+  }
   function renderDeckBar() {
     var sel = $("fc-deck-select");
     sel.innerHTML = deckStore.order.map(function (id) {
-      var deck = deckStore.decks[id];
       return '<option value="' + esc(id) + '"' +
         (id === deckStore.currentId ? " selected" : "") + ">" +
-        esc(deck.name) + "</option>";
+        deckOptionLabel(id) + "</option>";
     }).join("");
-    updateDeckCount();
-  }
-  function updateDeckCount() {
-    var el = $("fc-deck-count");
-    if (!isCustomDeckSelected()) { el.textContent = ""; return; }
-    var n = Object.keys(deckStore.decks[deckStore.currentId].members).length;
-    el.textContent = n + (n === 1 ? " card" : " cards");
   }
   function wireDeckBar() {
     $("fc-deck-select").addEventListener("change", function (e) {
@@ -547,7 +546,6 @@
       if (!deckStore.decks[id]) id = ALL_DECK_ID;
       deckStore.currentId = id;
       saveDecks();
-      updateDeckCount();
       refreshStats();
     });
   }
