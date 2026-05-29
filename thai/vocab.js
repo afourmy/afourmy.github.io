@@ -252,8 +252,6 @@
   }
 
   function speakerBtn(word) {
-    // Only show when the Thai side is visible by default (Both / Thai modes).
-    if (face === "english") return "";
     return (
       '<button class="vocab-speak" type="button" aria-label="Play pronunciation"' +
       ' title="Play pronunciation" data-audio="' +
