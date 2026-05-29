@@ -1071,12 +1071,6 @@ html[lang="fr"] .en { display: none; }
   font-weight: 700;
 }
 
-.vocab-parked-link {
-  margin-left: auto;
-  font-size: 0.9rem;
-  font-weight: 700;
-  padding: 0.3rem 0.5rem;
-}
 
 /* Filter bar: two independent chip rows (frequency and topic). Grouping is
    chosen separately by the "Group by" toggle; these only control visibility. */
@@ -1714,8 +1708,7 @@ html[lang="fr"] .en { display: none; }
 }
 
 /* Thai font choice (default Sarabun above; toggle switches to Noto Sans Thai) */
-body[data-thai-font="noto"] .vocab-thai,
-body[data-thai-font="noto"] .parked-thai {
+body[data-thai-font="noto"] .vocab-thai {
   font-family: 'Noto Sans Thai', sans-serif;
 }
 
@@ -1788,46 +1781,6 @@ body[data-thai-font="noto"] .parked-thai {
 }
 
 /* Parked-items page: plain reference list */
-.parked-list {
-  list-style: none;
-  padding-left: 0;
-}
-
-.parked-list li {
-  display: grid;
-  grid-template-columns: minmax(8rem, max-content) 1fr;
-  gap: 0.4rem 1rem;
-  align-items: baseline;
-  padding: 0.55rem 0;
-  border-top: 1px solid #ececec;
-}
-
-.parked-thai {
-  font-family: 'Sarabun', sans-serif;
-  font-size: 1.4rem;
-  color: var(--text);
-}
-
-.parked-en {
-  font-size: 1rem;
-  color: var(--text-soft);
-}
-
-.parked-reason {
-  grid-column: 2;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--text-muted);
-}
-
-.parked-list li.parked-empty {
-  display: block;
-  border-top: none;
-  color: var(--text-muted);
-  font-style: italic;
-}
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
