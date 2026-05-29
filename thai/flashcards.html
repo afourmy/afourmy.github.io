@@ -20,12 +20,6 @@
         <h1>Flashcards</h1>
       </header>
 
-      <div class="fc-deck-bar">
-        <span class="fc-deck-bar-label">Deck</span>
-        <select id="fc-deck-select" class="vocab-deck-select" aria-label="Select deck"></select>
-        <span class="fc-deck-bar-count" id="fc-deck-count"></span>
-      </div>
-
       <div class="fc-stats" id="fc-stats">
         <div class="fc-stat fc-stat--due"><span class="fc-stat-num" data-stat="due">0</span><span class="fc-stat-label">Due</span></div>
         <div class="fc-stat fc-stat--new"><span class="fc-stat-num" data-stat="new">0</span><span class="fc-stat-label">New</span></div>
@@ -37,6 +31,12 @@
       <p class="fc-done-note" id="fc-home-note" hidden>Nothing to study with the current filters.</p>
 
       <div class="fc-settings" id="fc-settings">
+        <div class="fc-setting">
+          <span class="fc-setting-label">Deck</span>
+          <select id="fc-deck-select" class="vocab-deck-select" style="margin-left:auto" aria-label="Select deck"></select>
+          <span class="fc-deck-bar-count" id="fc-deck-count"></span>
+        </div>
+
         <div class="fc-setting">
           <span class="fc-setting-label">New cards per day</span>
           <div class="fc-stepper">
