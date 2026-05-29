@@ -1429,6 +1429,14 @@ html[lang="fr"] .en { display: none; }
   cursor: pointer;
 }
 
+.vocab-deck-select {
+  padding-right: 2rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+}
+
 .vocab-deck-input { cursor: text; }
 .vocab-deck-input:focus,
 .vocab-deck-select:focus {
@@ -1891,6 +1899,33 @@ body[data-thai-font="noto"] .parked-thai {
 .fc-main { max-width: 680px; padding-bottom: 2rem; }
 
 .fc-banner { margin: 0.3rem 0 1.3rem; }
+
+/* Deck picker at the very top of the home screen: choose which subset of words
+   this session draws from. Stats below update on change. */
+.fc-deck-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.9rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.fc-deck-bar-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.fc-deck-bar-count {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
 
 /* Stat cards: Due / New / Excluded */
 .fc-stats {

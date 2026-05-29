@@ -62,6 +62,33 @@
   function saveSuspended() { lsSet(SUSPENDED_KEY, JSON.stringify(suspended)); }
   function isSuspended(word) { return suspended[word.id] === true; }
 
+  // Custom decks. Shared with the vocabulary page (same key); the flashcards
+  // page only reads/selects, deck creation/renaming lives on vocab. When a
+  // custom deck is selected, the review pool is restricted to its members and
+  // every stat below reflects only that subset.
+  var DECK_KEY = "thaiDecks";
+  var ALL_DECK_ID = "all";
+  var deckStore = { decks: {}, order: [], currentId: ALL_DECK_ID };
+  function loadDecks() {
+    var data = loadJSON(DECK_KEY, null) || {};
+    deckStore.decks = data.decks || {};
+    deckStore.order = data.order || [];
+    deckStore.currentId = data.currentId || ALL_DECK_ID;
+    if (!deckStore.decks[ALL_DECK_ID]) {
+      deckStore.decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
+    }
+    if (deckStore.order.indexOf(ALL_DECK_ID) === -1) deckStore.order.unshift(ALL_DECK_ID);
+    deckStore.order = deckStore.order.filter(function (id) { return deckStore.decks[id]; });
+    if (!deckStore.decks[deckStore.currentId]) deckStore.currentId = ALL_DECK_ID;
+  }
+  function saveDecks() { lsSet(DECK_KEY, JSON.stringify(deckStore)); }
+  function isCustomDeckSelected() { return deckStore.currentId !== ALL_DECK_ID; }
+  function passesDeck(word) {
+    if (!isCustomDeckSelected()) return true;
+    return deckStore.decks[deckStore.currentId].members[word.id] === true;
+  }
+  loadDecks();
+
   // Local-midnight day key, so a card due "today" rolls over at midnight.
   function dayKey(now) {
     var d = new Date(now || Date.now());
@@ -127,6 +154,7 @@
     var newCards = [];
 
     words.forEach(function (word) {
+      if (!passesDeck(word)) return;
       if (isExcluded(word) || isSuspended(word)) return;
       if (day.seen[word.id]) return; // a direction was already done today
 
@@ -177,6 +205,9 @@
     var excluded = 0;
     var left = 0;
     words.forEach(function (word) {
+      // When a custom deck is selected, words outside the deck aren't part of
+      // the universe — they don't count as excluded, they're simply invisible.
+      if (!passesDeck(word)) return;
       if (isExcluded(word) || isSuspended(word)) {
         excluded += DIRS.length;
         return;
@@ -500,6 +531,37 @@
     });
   }
 
+  // ── Deck picker ────────────────────────────────────────────────────────────
+  // Populated from the shared store (created/named on the vocab page). Changing
+  // the selection re-runs stats so Due / New / Left / Excluded reflect the
+  // chosen deck immediately.
+  function renderDeckBar() {
+    var sel = $("fc-deck-select");
+    sel.innerHTML = deckStore.order.map(function (id) {
+      var deck = deckStore.decks[id];
+      return '<option value="' + esc(id) + '"' +
+        (id === deckStore.currentId ? " selected" : "") + ">" +
+        esc(deck.name) + "</option>";
+    }).join("");
+    updateDeckCount();
+  }
+  function updateDeckCount() {
+    var el = $("fc-deck-count");
+    if (!isCustomDeckSelected()) { el.textContent = ""; return; }
+    var n = Object.keys(deckStore.decks[deckStore.currentId].members).length;
+    el.textContent = n + (n === 1 ? " card" : " cards");
+  }
+  function wireDeckBar() {
+    $("fc-deck-select").addEventListener("change", function (e) {
+      var id = e.target.value;
+      if (!deckStore.decks[id]) id = ALL_DECK_ID;
+      deckStore.currentId = id;
+      saveDecks();
+      updateDeckCount();
+      refreshStats();
+    });
+  }
+
   // ── Wiring ───────────────────────────────────────────────────────────────
   function wire() {
     $("fc-start").addEventListener("click", startSession);
@@ -545,7 +607,9 @@
       words = data;
       words.forEach(function (w) { wordById[w.id] = w; });
       buildChips();
+      renderDeckBar();
       wireSettings();
+      wireDeckBar();
       wire();
       refreshStats();
       show(homeEl);
