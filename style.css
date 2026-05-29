@@ -1208,14 +1208,15 @@ html[lang="fr"] .en { display: none; }
 
 .vocab-card {
   position: relative;
-  /* Split into a content band (left) and a tools band (right) so the word
-     text physically cannot overlap the icons. */
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 0;
-  overflow: hidden;
+  gap: 0.35rem;
+  /* Right padding keeps body text from running under the absolutely-
+     positioned tool column. */
+  padding: 0.8rem 2.3rem 0.8rem 0.9rem;
   background: var(--surface);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -1227,19 +1228,6 @@ html[lang="fr"] .en { display: none; }
   border-color: var(--accent);
   box-shadow: 0 6px 16px rgba(74,144,217,0.16);
   transform: translateY(-2px);
-}
-
-/* Left band: the actual word + meta. flex:1/min-width:0 lets long English
-   strings wrap inside this band instead of leaking right. */
-.vocab-card-body {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  padding: 0.8rem 0.9rem;
 }
 
 /* Flip card mode: outer .vocab-card is a transparent perspective wrapper.
@@ -1282,22 +1270,28 @@ html[lang="fr"] .en { display: none; }
   transform-origin: center center;
 }
 
-/* Each face is itself a flex row (body + tools) and provides the visible
-   card surface — border, bg, freq tint all live here on flip cards. */
+/* Each face provides the visible card surface (border, bg, freq, suspended
+   state). The body content lays out in a flex column; tools live absolutely
+   in the top-right and don't widen the layout. */
 .vocab-face {
+  position: relative;
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  /* Right padding mirrors the both-mode card so absolute tools don't
+     collide with the centered text. */
+  padding: 0.8rem 2.3rem 0.8rem 0.9rem;
   background: var(--surface);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
 }
 
-/* Freq + suspended states need to land on the face (since the card itself
-   is transparent in flip mode). */
+/* Freq + suspended states land on the face since the card itself is
+   transparent in flip mode. */
 .vocab-card--flip.vocab-card--freq-everyday .vocab-face { border-color: var(--freq-everyday); }
 .vocab-card--flip.vocab-card--freq-common .vocab-face { border-color: var(--freq-common); }
 .vocab-card--flip.vocab-card--freq-occasional .vocab-face { border-color: var(--freq-occasional); }
@@ -1323,21 +1317,17 @@ html[lang="fr"] .en { display: none; }
 .vocab-card--flip.flipped .vocab-face--front { opacity: 0; }
 .vocab-card--flip.flipped .vocab-face--back { opacity: 1; }
 
-/* Right band: vertical stack of speaker / copy / suspend. Sits in its own
-   flex column so the body band can never spill into it. */
+/* Vertical stack of speaker / copy / suspend, overlaid in the top-right
+   corner of the card. Absolute so it adds no horizontal space — the
+   card/face padding-right reserves the room visually. */
 .vocab-tools {
-  flex: 0 0 auto;
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 0.3rem;
-  padding: 0.4rem 0.4rem 0.4rem 0.3rem;
-  background: rgba(0, 0, 0, 0.015);
-  border-left: 1px solid rgba(0, 0, 0, 0.06);
-}
-[data-theme="dark"] .vocab-tools {
-  background: rgba(255, 255, 255, 0.03);
-  border-left-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Copy-word control: copies the visible side without flipping the card. */
@@ -1414,6 +1404,177 @@ html[lang="fr"] .en { display: none; }
 [data-theme="dark"] .vocab-card--suspended {
   background: rgba(192, 89, 60, 0.22);
   border-color: rgba(192, 89, 60, 0.45);
+}
+
+/* ── Deck controls bar ──
+   Custom-deck picker: dropdown + rename / delete / new buttons. Sits in its
+   own vocab-controls row, matching the filter/display bars. */
+.vocab-deck-controls {
+  gap: 0.5rem 0.7rem;
+}
+
+.vocab-deck-picker {
+  position: relative;
+  display: inline-flex;
+}
+
+.vocab-deck-select,
+.vocab-deck-input {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.4rem 0.7rem;
+  min-width: 180px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.vocab-deck-input { cursor: text; }
+.vocab-deck-input:focus,
+.vocab-deck-select:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.18);
+}
+
+.vocab-deck-actions {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.vocab-deck-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s, opacity 0.18s;
+}
+
+.vocab-deck-action svg { width: 15px; height: 15px; }
+
+.vocab-deck-action:hover:not(:disabled) {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-deck-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.vocab-deck-action--danger:hover:not(:disabled) {
+  color: #b5482e;
+  border-color: #b5482e;
+}
+
+.vocab-deck-action--save {
+  color: #2e9e5b;
+  border-color: #b4dfc4;
+}
+.vocab-deck-action--save:hover {
+  background: #2e9e5b;
+  border-color: #2e9e5b;
+  color: #fff;
+}
+
+.vocab-deck-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #2e9e5b;
+  border-radius: 5px;
+  background: var(--surface);
+  color: #2e9e5b;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.vocab-deck-new svg { width: 13px; height: 13px; }
+
+.vocab-deck-new:hover {
+  background: #2e9e5b;
+  color: #fff;
+}
+
+.vocab-deck-only {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.vocab-deck-count {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+/* Card marked as in the currently selected custom deck: soft-green surface,
+   mirroring the soft-red treatment used for suspended cards. The JS strips
+   this class when a card is also suspended, so suspended (red) wins. */
+.vocab-card--in-deck {
+  background: #e6f4ec;
+  border-color: #b4dfc4;
+}
+.vocab-card--flip.vocab-card--in-deck .vocab-face {
+  background: #e6f4ec;
+  border-color: #b4dfc4;
+}
+[data-theme="dark"] .vocab-card--in-deck,
+[data-theme="dark"] .vocab-card--flip.vocab-card--in-deck .vocab-face {
+  background: rgba(46, 158, 91, 0.22);
+  border-color: rgba(46, 158, 91, 0.45);
+}
+
+/* Add/Remove control: shown only when a custom deck is selected. Plus icon
+   when the card isn't in the deck; minus icon when it is (toggled via the
+   .in-deck modifier). Matches the suspend-button rhythm. */
+.vocab-deck-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s, background 0.18s;
+}
+.vocab-card:hover .vocab-deck-btn,
+.vocab-card--flip:hover .vocab-deck-btn { opacity: 0.85; }
+.vocab-deck-btn:hover {
+  opacity: 1;
+  color: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.vocab-deck-btn svg { width: 14px; height: 14px; }
+
+.vocab-deck-i--remove { display: none; }
+.vocab-deck-btn.in-deck .vocab-deck-i--add { display: none; }
+.vocab-deck-btn.in-deck .vocab-deck-i--remove { display: block; }
+
+.vocab-deck-btn.in-deck {
+  opacity: 1;
+  color: #fff;
+  background: #2e9e5b;
+  border-color: #2e9e5b;
 }
 
 /* Speaker control: plays the Thai pronunciation. */

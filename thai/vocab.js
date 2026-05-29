@@ -77,6 +77,13 @@
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg>' +
     "</button>";
 
+  // Deck add/remove control: rendered only when a custom deck is selected.
+  // The .in-deck modifier swaps the visible plus icon for a minus icon.
+  var DECK_BTN_ADD_SVG =
+    '<svg class="vocab-deck-i vocab-deck-i--add" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+  var DECK_BTN_REMOVE_SVG =
+    '<svg class="vocab-deck-i vocab-deck-i--remove" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/></svg>';
+
   // Speaker control: plays the word's Thai pronunciation (audio is Thai-only),
   // rendered only for words with a generated mp3 (see speakerBtn / word.audio).
   var SPEAKER_SVG =
@@ -148,6 +155,44 @@
     lsSet(SUSPENDED_KEY, JSON.stringify(suspended));
   }
   function isSuspended(word) { return suspended[word.id] === true; }
+
+  // ── Custom decks ──────────────────────────────────────────────────────────
+  // User-curated subsets of the vocabulary. The default "All cards" deck
+  // implicitly contains every word (no membership map needed, no visual mark).
+  // Custom decks track members by wordId; cards in the currently selected
+  // custom deck get a green background and a minus button (instead of plus).
+  // Persisted at localStorage["thaiDecks"].
+  var DECK_KEY = "thaiDecks";
+  var ALL_DECK_ID = "all";
+  var decks = {};
+  var deckOrder = [];
+  var currentDeckId = ALL_DECK_ID;
+  var deckOnly = false; // when true, hide cards not in the current custom deck
+
+  function loadDecks() {
+    var raw = lsGet(DECK_KEY);
+    var data = null;
+    if (raw) { try { data = JSON.parse(raw); } catch (e) { data = null; } }
+    data = data || {};
+    decks = data.decks || {};
+    deckOrder = data.order || [];
+    currentDeckId = data.currentId || ALL_DECK_ID;
+    if (!decks[ALL_DECK_ID]) {
+      decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
+    }
+    if (deckOrder.indexOf(ALL_DECK_ID) === -1) deckOrder.unshift(ALL_DECK_ID);
+    deckOrder = deckOrder.filter(function (id) { return decks[id]; });
+    if (!decks[currentDeckId]) currentDeckId = ALL_DECK_ID;
+  }
+  function saveDecks() {
+    lsSet(DECK_KEY, JSON.stringify({
+      decks: decks, order: deckOrder, currentId: currentDeckId,
+    }));
+  }
+  function isCustomDeckSelected() { return currentDeckId !== ALL_DECK_ID; }
+  function isInCurrentDeck(word) {
+    return isCustomDeckSelected() && decks[currentDeckId].members[word.id] === true;
+  }
 
   function lsGet(k) {
     try {
@@ -221,16 +266,32 @@
     );
   }
 
+  function deckBtnHtml(word) {
+    if (!isCustomDeckSelected()) return "";
+    var inDeck = isInCurrentDeck(word);
+    var cls = "vocab-deck-btn" + (inDeck ? " in-deck" : "");
+    var label = inDeck ? "Remove from deck" : "Add to deck";
+    return (
+      '<button class="' + cls + '" type="button" aria-label="' + label +
+      '" title="' + label + '">' +
+      DECK_BTN_ADD_SVG + DECK_BTN_REMOVE_SVG + "</button>"
+    );
+  }
+
   function toolsHtml(word) {
-    return '<div class="vocab-tools">' + speakerBtn(word) + COPY_BTN + SUSPEND_BTN + '</div>';
+    return '<div class="vocab-tools">' + speakerBtn(word) + COPY_BTN + SUSPEND_BTN + deckBtnHtml(word) + '</div>';
   }
 
   function cardClasses(word, extra) {
+    // Suspended (red) wins visually over in-deck (green); we just skip the
+    // in-deck class on suspended cards so CSS ordering is irrelevant.
+    var sus = isSuspended(word);
     return (
       "vocab-card" +
       (extra || "") +
       " vocab-card--freq-" + word.frequency +
-      (isSuspended(word) ? " vocab-card--suspended" : "")
+      (sus ? " vocab-card--suspended" : "") +
+      (!sus && isInCurrentDeck(word) ? " vocab-card--in-deck" : "")
     );
   }
 
@@ -240,12 +301,10 @@
       return (
         '<div class="' + cardClasses(word) + '" data-id="' + escAttr(word.id) +
         '" data-copy="' + escAttr(word.thai) + '">' +
-        '<div class="vocab-card-body">' +
+        toolsHtml(word) +
         thaiHtml(word) +
         enHtml(word) +
         metaHtml(word) +
-        '</div>' +
-        toolsHtml(word) +
         "</div>"
       );
     }
@@ -264,12 +323,9 @@
     // The rotor holds the two visible faces; the hidden ghost (a normal-flow
     // copy of both) gives the card the height of the taller face. The copy
     // button lives inside the rotor so it turns with the card.
-    // Each face is itself a flex row of body+tools so the full card-shaped
-    // surface turns on flip. Tools are duplicated per face — same handlers
-    // catch them via event delegation either way.
+    // Tools sit absolutely inside each face so they don't widen the layout;
+    // the face has right-padding to keep the body text clear of them.
     var tools = toolsHtml(word);
-    var faceFront = '<div class="vocab-card-body">' + frontInner + '</div>' + tools;
-    var faceBack = '<div class="vocab-card-body">' + backInner + '</div>' + tools;
     return (
       '<div class="' + cardClasses(word, " vocab-card--flip") +
       '" data-id="' + escAttr(word.id) +
@@ -277,12 +333,12 @@
       '" data-back="' + escAttr(backText) +
       '">' +
       '<div class="vocab-flip-rotor">' +
-        '<div class="vocab-face vocab-face--front">' + faceFront + '</div>' +
-        '<div class="vocab-face vocab-face--back">' + faceBack + '</div>' +
+        '<div class="vocab-face vocab-face--front">' + tools + frontInner + "</div>" +
+        '<div class="vocab-face vocab-face--back">' + tools + backInner + "</div>" +
       "</div>" +
       '<div class="vocab-flip-ghost" aria-hidden="true">' +
-        '<div class="vocab-face">' + faceFront + '</div>' +
-        '<div class="vocab-face">' + faceBack + '</div>' +
+        '<div class="vocab-face">' + frontInner + "</div>" +
+        '<div class="vocab-face">' + backInner + "</div>" +
       "</div>" +
       "</div>"
     );
@@ -374,8 +430,10 @@
     });
   }
 
-  // Shown only if both its frequency and its topic are still selected.
+  // Shown only if both its frequency and its topic are still selected, and
+  // (when "Only show deck cards" is on) the word is in the current custom deck.
   function passesFilter(word) {
+    if (deckOnly && isCustomDeckSelected() && !isInCurrentDeck(word)) return false;
     return (
       filters.frequency[word.frequency] !== false &&
       filters.topic[word.topic] !== false
@@ -537,11 +595,48 @@
       if (suspended[id]) {
         delete suspended[id];
         sCard.classList.remove("vocab-card--suspended");
+        // Restore the green deck mark if this card is in the current deck.
+        if (isCustomDeckSelected() && decks[currentDeckId].members[id]) {
+          sCard.classList.add("vocab-card--in-deck");
+        }
       } else {
         suspended[id] = true;
         sCard.classList.add("vocab-card--suspended");
+        // Suspended (red) hides the in-deck (green) cue while suspended.
+        sCard.classList.remove("vocab-card--in-deck");
       }
       saveSuspended();
+      return;
+    }
+
+    // Deck add/remove: toggles membership in the currently selected custom
+    // deck. Card gets green background while in deck. Suspended cards still
+    // join the deck but show red until unsuspended.
+    var deckBtn = e.target.closest(".vocab-deck-btn");
+    if (deckBtn) {
+      if (!isCustomDeckSelected()) return;
+      var dCard = e.target.closest(".vocab-card");
+      if (!dCard) return;
+      var wid = dCard.getAttribute("data-id");
+      if (!wid) return;
+      var members = decks[currentDeckId].members;
+      var nowIn;
+      if (members[wid]) {
+        delete members[wid];
+        nowIn = false;
+      } else {
+        members[wid] = true;
+        nowIn = true;
+      }
+      deckBtn.classList.toggle("in-deck", nowIn);
+      var label = nowIn ? "Remove from deck" : "Add to deck";
+      deckBtn.setAttribute("aria-label", label);
+      deckBtn.setAttribute("title", label);
+      if (!suspended[wid]) dCard.classList.toggle("vocab-card--in-deck", nowIn);
+      saveDecks();
+      updateDeckCount();
+      // If "Only show deck cards" is on, removed cards should disappear.
+      if (deckOnly && !nowIn) render();
       return;
     }
 
@@ -609,6 +704,118 @@
     render();
   });
 
+  // ── Deck UI ───────────────────────────────────────────────────────────────
+  var deckSelectEl = document.getElementById("deck-select");
+  var deckInputEl = document.getElementById("deck-input");
+  var deckViewActionsEl = document.getElementById("deck-view-actions");
+  var deckEditActionsEl = document.getElementById("deck-edit-actions");
+  var deckRenameBtn = document.getElementById("deck-rename");
+  var deckDeleteBtn = document.getElementById("deck-delete");
+  var deckSaveBtn = document.getElementById("deck-save");
+  var deckCancelBtn = document.getElementById("deck-cancel");
+  var deckNewBtn = document.getElementById("deck-new");
+  var deckCountEl = document.getElementById("deck-count");
+  var deckOnlyEl = document.getElementById("deck-only");
+  var deckOnlyLabelEl = document.getElementById("deck-only-label");
+
+  function renderDeckSelector() {
+    deckSelectEl.innerHTML = deckOrder
+      .map(function (id) {
+        return (
+          '<option value="' + escAttr(id) + '"' +
+          (id === currentDeckId ? " selected" : "") +
+          ">" + esc(decks[id].name) + "</option>"
+        );
+      })
+      .join("");
+    var custom = isCustomDeckSelected();
+    deckRenameBtn.disabled = !custom;
+    deckDeleteBtn.disabled = !custom;
+    deckOnlyLabelEl.hidden = !custom;
+    if (!custom && deckOnly) {
+      deckOnly = false;
+      deckOnlyEl.checked = false;
+    }
+    updateDeckCount();
+  }
+
+  function updateDeckCount() {
+    if (!isCustomDeckSelected()) { deckCountEl.textContent = ""; return; }
+    var n = Object.keys(decks[currentDeckId].members).length;
+    deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
+  }
+
+  function startRename() {
+    if (!isCustomDeckSelected()) return;
+    deckInputEl.value = decks[currentDeckId].name;
+    deckSelectEl.hidden = true;
+    deckInputEl.hidden = false;
+    deckViewActionsEl.hidden = true;
+    deckEditActionsEl.hidden = false;
+    deckInputEl.focus();
+    deckInputEl.select();
+  }
+
+  function endRename(save) {
+    if (save && isCustomDeckSelected()) {
+      var name = deckInputEl.value.trim();
+      if (name) {
+        decks[currentDeckId].name = name;
+        saveDecks();
+      }
+    }
+    deckSelectEl.hidden = false;
+    deckInputEl.hidden = true;
+    deckViewActionsEl.hidden = false;
+    deckEditActionsEl.hidden = true;
+    renderDeckSelector();
+  }
+
+  deckSelectEl.addEventListener("change", function () {
+    currentDeckId = deckSelectEl.value;
+    if (!decks[currentDeckId]) currentDeckId = ALL_DECK_ID;
+    saveDecks();
+    renderDeckSelector();
+    render();
+  });
+
+  deckNewBtn.addEventListener("click", function () {
+    var id = "d" + Date.now().toString(36) + Math.floor(Math.random() * 1e4).toString(36);
+    decks[id] = { id: id, name: "New deck", members: {} };
+    deckOrder.push(id);
+    currentDeckId = id;
+    saveDecks();
+    renderDeckSelector();
+    render();
+    startRename();
+  });
+
+  deckRenameBtn.addEventListener("click", function () { startRename(); });
+  deckSaveBtn.addEventListener("click", function () { endRename(true); });
+  deckCancelBtn.addEventListener("click", function () { endRename(false); });
+
+  deckInputEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); endRename(true); }
+    else if (e.key === "Escape") { e.preventDefault(); endRename(false); }
+  });
+
+  deckDeleteBtn.addEventListener("click", function () {
+    if (!isCustomDeckSelected()) return;
+    var name = decks[currentDeckId].name;
+    if (!confirm('Delete deck "' + name + '"? This cannot be undone.')) return;
+    delete decks[currentDeckId];
+    deckOrder = deckOrder.filter(function (id) { return id !== currentDeckId; });
+    currentDeckId = ALL_DECK_ID;
+    saveDecks();
+    renderDeckSelector();
+    render();
+  });
+
+  deckOnlyEl.addEventListener("change", function () {
+    deckOnly = deckOnlyEl.checked;
+    render();
+  });
+
   // Thai font preference (default Sarabun, the book style), persisted.
   function applyFont(font) {
     document.body.setAttribute("data-thai-font", font);
@@ -626,6 +833,8 @@
   // Restore saved preferences before the first render.
   applyFont(lsGet("thaiFont") || "sarabun");
   suspended = loadSuspended();
+  loadDecks();
+  renderDeckSelector();
   showCategory = lsGet("vocabShowCategory") !== "0";
   showSources = lsGet("vocabShowSources") === "1";
   showCategoryEl.checked = showCategory;
