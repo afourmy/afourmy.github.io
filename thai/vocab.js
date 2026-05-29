@@ -395,7 +395,7 @@
 
   // Build both chip rows (frequency and topic) from the data, all selected.
   function buildFilterBar() {
-    filterEl.querySelectorAll(".vocab-filter-group").forEach(function (group) {
+    filterEl.querySelectorAll(".vocab-filter-group[data-dim]").forEach(function (group) {
       var dim = group.getAttribute("data-dim");
       filters[dim] = {};
       group.querySelector(".vocab-filter-chips").innerHTML = keysForDim(dim)
@@ -525,7 +525,7 @@
   // One delegated handler for both rows: toggle a single chip, or flip a whole
   // row via its Select all / Unselect all. The dimension comes from the group.
   filterEl.addEventListener("click", function (e) {
-    var group = e.target.closest(".vocab-filter-group");
+    var group = e.target.closest(".vocab-filter-group[data-dim]");
     if (!group) return;
     var dim = group.getAttribute("data-dim");
 
