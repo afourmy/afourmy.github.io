@@ -25,10 +25,6 @@
         <button data-mode="topic">Topic</button>
       </div>
       <input type="search" id="vocab-search" class="vocab-search" placeholder="Search Thai or English…" autocomplete="off">
-      <div class="vocab-toggle vocab-font-toggle" id="font-toggle" title="Thai font">
-        <button data-font="sarabun" class="active">Sarabun</button>
-        <button data-font="noto">Noto Sans</button>
-      </div>
       <span class="vocab-count" id="vocab-count"></span>
       <a class="vocab-parked-link" href="parked.html">Parked items &rarr;</a>
     </div>
@@ -81,7 +77,11 @@
       </div>
       <label class="vocab-check"><input type="checkbox" id="show-category"> Category</label>
       <label class="vocab-check"><input type="checkbox" id="show-sources"> Sources</label>
-      <span class="vocab-flip-hint" id="flip-hint">Click a card to flip it</span>
+      <span class="vocab-control-label vocab-font-label">Font</span>
+      <div class="vocab-toggle vocab-font-toggle" id="font-toggle" title="Thai font">
+        <button data-font="sarabun" class="active">Sarabun</button>
+        <button data-font="noto">Noto Sans</button>
+      </div>
     </div>
 
     <div id="vocab-groups"></div>

@@ -8,7 +8,6 @@
   var faceToggleEl = document.getElementById("face-toggle");
   var showCategoryEl = document.getElementById("show-category");
   var showSourcesEl = document.getElementById("show-sources");
-  var flipHintEl = document.getElementById("flip-hint");
 
   var words = [];
   var loaded = false;
