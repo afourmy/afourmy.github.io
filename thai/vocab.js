@@ -430,6 +430,7 @@
   // when the group nears the viewport. Keeps the DOM small even with ~10k
   // entries, so search/filter re-renders stay snappy.
   var currentGroups = [];
+  var currentList = [];
   var groupObserver = null;
 
   function teardownObserver() {
@@ -461,9 +462,10 @@
   function render() {
     if (!loaded) return;
     renderDeckSelector();
-    var list = words.filter(function (word) {
+    currentList = words.filter(function (word) {
       return matches(word) && passesFilter(word);
     });
+    var list = currentList;
     countEl.textContent =
       list.length + (list.length === 1 ? " word" : " words");
 
@@ -698,6 +700,7 @@
   var deckNewBtn = document.getElementById("deck-new");
   var deckOnlyEl = document.getElementById("deck-only");
   var deckOnlyLabelEl = document.getElementById("deck-only-label");
+  var deckAddFilteredBtn = document.getElementById("deck-add-filtered");
 
   function deckOptionLabel(id) {
     var name = decks[id].name;
@@ -721,6 +724,7 @@
     deckRenameBtn.disabled = !custom;
     deckDeleteBtn.disabled = !custom;
     deckOnlyLabelEl.hidden = !custom;
+    deckAddFilteredBtn.hidden = !custom;
     if (!custom && deckOnly) {
       deckOnly = false;
       deckOnlyEl.checked = false;
@@ -815,6 +819,14 @@
       renderDeckSelector();
       render();
     });
+  });
+
+  deckAddFilteredBtn.addEventListener("click", function () {
+    if (!isCustomDeckSelected()) return;
+    var members = decks[currentDeckId].members;
+    currentList.forEach(function (word) { members[word.id] = true; });
+    saveDecks();
+    render();
   });
 
   deckOnlyEl.addEventListener("change", function () {
