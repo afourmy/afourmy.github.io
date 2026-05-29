@@ -4,7 +4,6 @@
   var searchEl = document.getElementById("vocab-search");
   var toggleEl = document.getElementById("vocab-toggle");
   var filterEl = document.getElementById("vocab-filter");
-  var fontToggleEl = document.getElementById("font-toggle");
   var faceToggleEl = document.getElementById("face-toggle");
   var showCategoryEl = document.getElementById("show-category");
   var showSourcesEl = document.getElementById("show-sources");

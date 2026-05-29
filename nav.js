@@ -107,6 +107,12 @@
   html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
   html += '</div>';
 
+  // Thai font toggle (same position, shown only on Thai pages)
+  html += '<div class="lang-toggle" id="thai-font-toggle" style="display:none">';
+  html += '<button id="thai-font-sarabun" data-font="sarabun" class="active">Sarabun</button>';
+  html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
+  html += '</div>';
+
   for (var m = 0; m < menu.length; m++) {
     var item = menu[m];
     html += '<div class="nav-item">';
@@ -214,6 +220,35 @@
     langToggleEl.style.display = path.indexOf("/math/") !== -1 ? "" : "none";
   };
   window.updateLangToggle();
+
+  // Thai font toggle: shown only on Thai pages, persisted in localStorage.
+  var thaiFontToggleEl = nav.querySelector("#thai-font-toggle");
+  window.applyThaiFont = function (font) {
+    document.body.setAttribute("data-thai-font", font);
+    if (thaiFontToggleEl) {
+      thaiFontToggleEl.querySelectorAll("button").forEach(function (b) {
+        b.classList.toggle("active", b.getAttribute("data-font") === font);
+      });
+    }
+    try { localStorage.setItem("thaiFont", font); } catch (e) {}
+  };
+  window.updateThaiFont = function () {
+    if (!thaiFontToggleEl) return;
+    var path = strip(window.location.pathname);
+    thaiFontToggleEl.style.display = path.indexOf("/thai/") !== -1 ? "" : "none";
+  };
+  if (thaiFontToggleEl) {
+    thaiFontToggleEl.addEventListener("click", function (e) {
+      var btn = e.target.closest("button[data-font]");
+      if (btn) window.applyThaiFont(btn.getAttribute("data-font"));
+    });
+  }
+  try {
+    window.applyThaiFont(localStorage.getItem("thaiFont") || "sarabun");
+  } catch (e) {
+    window.applyThaiFont("sarabun");
+  }
+  window.updateThaiFont();
 
   // Wire thm-labels as proof toggles (event delegation – works with SPA)
   document.addEventListener("click", function (e) {
