@@ -460,6 +460,7 @@
 
   function render() {
     if (!loaded) return;
+    updateDeckCount();
     var list = words.filter(function (word) {
       return matches(word) && passesFilter(word);
     });
@@ -721,9 +722,13 @@
   }
 
   function updateDeckCount() {
-    if (!isCustomDeckSelected()) { deckCountEl.textContent = ""; return; }
-    var n = Object.keys(decks[currentDeckId].members).length;
-    deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
+    if (isCustomDeckSelected()) {
+      var n = Object.keys(decks[currentDeckId].members).length;
+      deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
+    } else {
+      var n = words.length;
+      deckCountEl.textContent = n + (n === 1 ? " card" : " cards");
+    }
   }
 
   // Inline rename: swap the select for a text input. Enter saves, Escape
