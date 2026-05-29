@@ -460,7 +460,7 @@
 
   function render() {
     if (!loaded) return;
-    updateDeckCount();
+    renderDeckSelector();
     var list = words.filter(function (word) {
       return matches(word) && passesFilter(word);
     });
@@ -696,9 +696,16 @@
   var deckRenameBtn = document.getElementById("deck-rename");
   var deckDeleteBtn = document.getElementById("deck-delete");
   var deckNewBtn = document.getElementById("deck-new");
-  var deckCountEl = document.getElementById("deck-count");
   var deckOnlyEl = document.getElementById("deck-only");
   var deckOnlyLabelEl = document.getElementById("deck-only-label");
+
+  function deckOptionLabel(id) {
+    var name = decks[id].name;
+    var n = id === ALL_DECK_ID
+      ? words.length
+      : Object.keys(decks[id].members).length;
+    return esc(name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
+  }
 
   function renderDeckSelector() {
     deckSelectEl.innerHTML = deckOrder
@@ -706,7 +713,7 @@
         return (
           '<option value="' + escAttr(id) + '"' +
           (id === currentDeckId ? " selected" : "") +
-          ">" + esc(decks[id].name) + "</option>"
+          ">" + deckOptionLabel(id) + "</option>"
         );
       })
       .join("");
@@ -718,14 +725,6 @@
       deckOnly = false;
       deckOnlyEl.checked = false;
     }
-    updateDeckCount();
-  }
-
-  function updateDeckCount() {
-    var n = isCustomDeckSelected()
-      ? Object.keys(decks[currentDeckId].members).length
-      : words.length;
-    deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
   }
 
   // Inline rename: swap the select for a text input. Enter saves, Escape
