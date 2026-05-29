@@ -722,13 +722,10 @@
   }
 
   function updateDeckCount() {
-    if (isCustomDeckSelected()) {
-      var n = Object.keys(decks[currentDeckId].members).length;
-      deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
-    } else {
-      var n = words.length;
-      deckCountEl.textContent = n + (n === 1 ? " card" : " cards");
-    }
+    var n = isCustomDeckSelected()
+      ? Object.keys(decks[currentDeckId].members).length
+      : words.length;
+    deckCountEl.textContent = n + (n === 1 ? " card in deck" : " cards in deck");
   }
 
   // Inline rename: swap the select for a text input. Enter saves, Escape
