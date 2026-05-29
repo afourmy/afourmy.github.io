@@ -240,10 +240,12 @@
       return (
         '<div class="' + cardClasses(word) + '" data-id="' + escAttr(word.id) +
         '" data-copy="' + escAttr(word.thai) + '">' +
-        toolsHtml(word) +
+        '<div class="vocab-card-body">' +
         thaiHtml(word) +
         enHtml(word) +
         metaHtml(word) +
+        '</div>' +
+        toolsHtml(word) +
         "</div>"
       );
     }
@@ -268,15 +270,17 @@
       '" data-front="' + escAttr(frontText) +
       '" data-back="' + escAttr(backText) +
       '">' +
-      '<div class="vocab-flip-rotor">' +
+      '<div class="vocab-flip-stage">' +
+        '<div class="vocab-flip-rotor">' +
+          '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
+          '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
+        "</div>" +
+        '<div class="vocab-flip-ghost" aria-hidden="true">' +
+          '<div class="vocab-face">' + frontInner + "</div>" +
+          '<div class="vocab-face">' + backInner + "</div>" +
+        "</div>" +
+      "</div>" +
       toolsHtml(word) +
-      '<div class="vocab-face vocab-face--front">' + frontInner + "</div>" +
-      '<div class="vocab-face vocab-face--back">' + backInner + "</div>" +
-      "</div>" +
-      '<div class="vocab-flip-ghost" aria-hidden="true">' +
-      '<div class="vocab-face">' + frontInner + "</div>" +
-      '<div class="vocab-face">' + backInner + "</div>" +
-      "</div>" +
       "</div>"
     );
   }

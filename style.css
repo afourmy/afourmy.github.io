@@ -1186,10 +1186,6 @@ html[lang="fr"] .en { display: none; }
 .vocab-card--freq-common { border-color: var(--freq-common); }
 .vocab-card--freq-occasional { border-color: var(--freq-occasional); }
 .vocab-card--freq-rare { border-color: var(--freq-rare); }
-.vocab-card--freq-everyday .vocab-face { border-color: var(--freq-everyday); }
-.vocab-card--freq-common .vocab-face { border-color: var(--freq-common); }
-.vocab-card--freq-occasional .vocab-face { border-color: var(--freq-occasional); }
-.vocab-card--freq-rare .vocab-face { border-color: var(--freq-rare); }
 /* Frequency tiers get a distinguishing accent on the heading rule. */
 .vocab-group--everyday > .vocab-group-title { border-bottom-color: #2e9e5b; }
 .vocab-group--everyday > .vocab-group-title .vocab-group-count {
@@ -1212,13 +1208,14 @@ html[lang="fr"] .en { display: none; }
 
 .vocab-card {
   position: relative;
+  /* Split into a content band (left) and a tools band (right) so the word
+     text physically cannot overlap the icons. */
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  align-items: stretch;
   text-align: center;
-  gap: 0.35rem;
-  padding: 0.8rem 0.9rem;
+  padding: 0;
+  overflow: hidden;
   background: var(--surface);
   border: 1px solid #e3e3e3;
   border-radius: 8px;
@@ -1232,25 +1229,38 @@ html[lang="fr"] .en { display: none; }
   transform: translateY(-2px);
 }
 
-/* Flashcard mode: one side shown, flips on click to reveal the other. */
-.vocab-card--flip {
+/* Left band: the actual word + meta. flex:1/min-width:0 lets long English
+   strings wrap inside this band instead of leaking right. */
+.vocab-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.8rem 0.9rem;
+}
+
+/* Flashcard mode: one side shown, flips on click to reveal the other. The
+   outer .vocab-card stays the visible bordered/coloured surface; the flip
+   happens inside the stage band, with tools sitting in the right band as
+   in the both-mode card. */
+.vocab-card--flip { cursor: pointer; }
+
+/* Left band of a flip card: holds the rotor + ghost. flex:1/min-width:0 so
+   long English text wraps inside this band. perspective enables the 3D
+   rotation of the rotor child. */
+.vocab-flip-stage {
+  flex: 1;
+  min-width: 0;
   position: relative;
-  padding: 0;
-  background: none;
-  border: none;
-  box-shadow: none;
-  cursor: pointer;
   -webkit-perspective: 900px;
   perspective: 900px;
 }
 
-.vocab-card--flip:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-/* A hidden twin in normal flow gives the card its height (the taller of the
-   two faces), so it fits its content with no fixed height. */
+/* A hidden twin in normal flow gives the stage its height (the taller of
+   the two faces), so it fits its content with no fixed height. */
 .vocab-flip-ghost {
   display: grid;
   visibility: hidden;
@@ -1260,7 +1270,7 @@ html[lang="fr"] .en { display: none; }
   grid-area: 1 / 1;
 }
 
-/* The card overlays the ghost and turns in 3D. JS runs the turn in two
+/* The rotor overlays the ghost and turns in 3D. JS runs the turn in two
    halves (front to edge, swap face, new face from edge), so the visible face
    stays within +/-90 deg and we never rely on backface-visibility (whose
    per-frame culling glitched sporadically). The transition is set inline. */
@@ -1279,17 +1289,13 @@ html[lang="fr"] .en { display: none; }
   text-align: center;
   gap: 0.35rem;
   padding: 0.8rem 0.9rem;
-  background: var(--surface);
-  border: 1px solid #e3e3e3;
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  background: transparent;
 }
 
 .vocab-face--front,
 .vocab-face--back {
   position: absolute;
   inset: 0;
-  transition: border-color 0.18s, box-shadow 0.18s;
 }
 
 /* The visible face is swapped (instantly) by JS while the card is edge-on. */
@@ -1298,23 +1304,21 @@ html[lang="fr"] .en { display: none; }
 .vocab-card--flip.flipped .vocab-face--front { opacity: 0; }
 .vocab-card--flip.flipped .vocab-face--back { opacity: 1; }
 
-.vocab-card--flip:hover .vocab-face--front,
-.vocab-card--flip:hover .vocab-face--back {
-  border-color: var(--accent);
-  box-shadow: 0 6px 16px rgba(74, 144, 217, 0.16);
-}
-
-/* Tools column: vertical stack of speaker / copy / suspend on the right edge
-   of every card (both-mode and flip-mode). The container is the only thing
-   positioned absolutely; each icon button below just flows in the column. */
+/* Right band: vertical stack of speaker / copy / suspend. Sits in its own
+   flex column so the body band can never spill into it. */
 .vocab-tools {
-  position: absolute;
-  top: 0.4rem;
-  right: 0.4rem;
-  z-index: 2;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.3rem;
+  padding: 0.4rem 0.4rem 0.4rem 0.3rem;
+  background: rgba(0, 0, 0, 0.015);
+  border-left: 1px solid rgba(0, 0, 0, 0.06);
+}
+[data-theme="dark"] .vocab-tools {
+  background: rgba(255, 255, 255, 0.03);
+  border-left-color: rgba(255, 255, 255, 0.08);
 }
 
 /* Copy-word control: copies the visible side without flipping the card. */
@@ -1380,19 +1384,15 @@ html[lang="fr"] .en { display: none; }
 .vocab-suspend:hover { opacity: 1; color: #b5482e; border-color: #b5482e; }
 .vocab-suspend svg { width: 14px; height: 14px; }
 
-/* Suspended card: soft red background, persistent indicator. The flip-card
-   variant paints its visible surface on .vocab-face (the card itself is
-   transparent), so we tint that as well. */
+/* Suspended card: soft red background, persistent indicator. */
 .vocab-card--suspended { background: #fbe9e4; border-color: #f0c8bb; }
-.vocab-card--suspended .vocab-face { background: #fbe9e4; border-color: #f0c8bb; }
 .vocab-card--suspended .vocab-suspend {
   opacity: 1;
   color: #fff;
   background: #b5482e;
   border-color: #b5482e;
 }
-[data-theme="dark"] .vocab-card--suspended,
-[data-theme="dark"] .vocab-card--suspended .vocab-face {
+[data-theme="dark"] .vocab-card--suspended {
   background: rgba(192, 89, 60, 0.22);
   border-color: rgba(192, 89, 60, 0.45);
 }
@@ -1965,22 +1965,34 @@ body[data-thai-font="noto"] .parked-thai {
   justify-content: center;
   padding: 1.2rem 0;
 }
+/* Card splits into two side-by-side bands: a body band (Thai/English text)
+   on the left and a tools band (icons) on the right. The bands are flex
+   siblings so the text can never overflow into the icon column. */
 .fc-card {
   position: relative;
   width: 100%;
   min-height: 220px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  padding: 2rem 1.4rem;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
   background: var(--surface);
   border: 2px solid var(--border);
   border-radius: 18px;
   box-shadow: 0 8px 30px rgba(3, 51, 102, 0.10);
   cursor: pointer;
   text-align: center;
+  overflow: hidden;
+}
+.fc-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1.4rem;
 }
 .fc-card--freq-everyday { border-color: var(--freq-everyday); }
 .fc-card--freq-common { border-color: var(--freq-common); }
@@ -2015,10 +2027,20 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   background: var(--border);
 }
 
-.fc-speak:not([hidden]) {
-  position: absolute;
-  top: 0.7rem;
-  right: 0.7rem;
+/* Tools column on the flashcard: speaker / copy / suspend stacked vertically
+   in their own band on the right of the card. As a flex sibling of the body,
+   the body can never spill into this column. */
+.fc-tools {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 0.7rem 0.7rem 0.4rem;
+  background: var(--surface-alt);
+  border-left: 1px solid var(--border);
+}
+.fc-tools > button {
   width: 2.2rem;
   height: 2.2rem;
   display: flex;
@@ -2030,28 +2052,14 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
   border: 1px solid var(--border);
   border-radius: 50%;
   cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
 }
+.fc-tools > button[hidden] { display: none; }
+.fc-tools > button:hover { color: var(--accent-strong); border-color: var(--accent); }
+
 .fc-speak svg { width: 1.1rem; height: 1.1rem; }
 .fc-speak.playing { color: #fff; background: var(--accent); border-color: var(--accent); }
 
-/* Copy-word control: mirror of the speaker in the opposite corner. Same
-   look-and-feel as .vocab-copy on the vocabulary page. */
-.fc-copy:not([hidden]) {
-  position: absolute;
-  top: 0.7rem;
-  left: 0.7rem;
-  width: 2.2rem;
-  height: 2.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  color: var(--accent);
-  background: var(--surface-alt);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  cursor: pointer;
-}
 .fc-copy svg { width: 1.05rem; height: 1.05rem; }
 .fc-copy-i--check { display: none; }
 .fc-copy.copied {
@@ -2061,6 +2069,9 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
 }
 .fc-copy.copied .fc-copy-i--copy { display: none; }
 .fc-copy.copied .fc-copy-i--check { display: block; }
+
+.fc-suspend svg { width: 1.05rem; height: 1.05rem; }
+.fc-suspend:hover { color: #b5482e; border-color: #b5482e; }
 
 /* ── Action zone (thumb reach) ── */
 .fc-actions { padding: 0.6rem 0 1rem; }
@@ -2165,6 +2176,7 @@ body[data-thai-font="noto"] .fc-card-face.fc-thai {
      keep extra top/bottom padding so the speaker/copy icons sit clear of the
      text rather than touching it. */
   .fc-card-wrap { flex: 1; padding: 0.8rem 0; align-items: stretch; }
-  .fc-card { min-height: 0; padding: 3.6rem 1.2rem 3rem; gap: 1.4rem; }
-  .fc-speak:not([hidden]), .fc-copy:not([hidden]) { top: 0.6rem; }
+  .fc-card { min-height: 0; }
+  .fc-card-body { padding: 1.8rem 1.2rem; gap: 1.4rem; }
+  .fc-tools { padding: 0.6rem 0.5rem; gap: 0.35rem; }
 }
