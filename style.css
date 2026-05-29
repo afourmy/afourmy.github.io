@@ -1049,8 +1049,8 @@ html[lang="fr"] .en { display: none; }
 }
 
 .vocab-search {
-  flex: 1 1 220px;
-  min-width: 160px;
+  flex: 0 0 320px;
+  width: 320px;
   font-family: 'Computer Modern Serif', serif;
   font-size: 0.95rem;
   padding: 0.4rem 0.7rem;
@@ -1518,6 +1518,68 @@ html[lang="fr"] .en { display: none; }
   font-weight: 700;
   color: var(--text-muted);
 }
+
+.vocab-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vocab-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  padding: 1.6rem 1.8rem 1.4rem;
+  max-width: 380px;
+  width: 90%;
+  font-family: 'Computer Modern Serif', serif;
+}
+
+.vocab-modal-msg {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+.vocab-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.vocab-modal-cancel {
+  padding: 0.4rem 1rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s;
+}
+.vocab-modal-cancel:hover { border-color: var(--accent); color: var(--accent); }
+
+.vocab-modal-confirm {
+  padding: 0.4rem 1rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1px solid #b5482e;
+  border-radius: 5px;
+  background: #b5482e;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.vocab-modal-confirm:hover { background: #963c26; border-color: #963c26; }
 
 /* Card marked as in the currently selected custom deck: soft-green surface,
    mirroring the soft-red treatment used for suspended cards. The JS strips

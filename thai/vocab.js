@@ -780,16 +780,40 @@
   });
   deckInputEl.addEventListener("blur", function () { endRename(true); });
 
+  function showConfirm(message, onConfirm) {
+    var backdrop = document.createElement("div");
+    backdrop.className = "vocab-modal-backdrop";
+    backdrop.innerHTML =
+      '<div class="vocab-modal">' +
+        '<div class="vocab-modal-msg">' + message + '</div>' +
+        '<div class="vocab-modal-actions">' +
+          '<button class="vocab-modal-cancel" type="button">Cancel</button>' +
+          '<button class="vocab-modal-confirm" type="button">Delete</button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(backdrop);
+    function close() { document.body.removeChild(backdrop); }
+    backdrop.querySelector(".vocab-modal-cancel").addEventListener("click", close);
+    backdrop.querySelector(".vocab-modal-confirm").addEventListener("click", function () {
+      close();
+      onConfirm();
+    });
+    backdrop.addEventListener("click", function (e) {
+      if (e.target === backdrop) close();
+    });
+  }
+
   deckDeleteBtn.addEventListener("click", function () {
     if (!isCustomDeckSelected()) return;
     var name = decks[currentDeckId].name;
-    if (!confirm('Delete deck "' + name + '"? This cannot be undone.')) return;
-    delete decks[currentDeckId];
-    deckOrder = deckOrder.filter(function (id) { return id !== currentDeckId; });
-    currentDeckId = ALL_DECK_ID;
-    saveDecks();
-    renderDeckSelector();
-    render();
+    showConfirm('Delete deck “' + esc(name) + '”? This cannot be undone.', function () {
+      delete decks[currentDeckId];
+      deckOrder = deckOrder.filter(function (id) { return id !== currentDeckId; });
+      currentDeckId = ALL_DECK_ID;
+      saveDecks();
+      renderDeckSelector();
+      render();
+    });
   });
 
   deckOnlyEl.addEventListener("change", function () {
