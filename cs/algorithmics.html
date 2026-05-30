@@ -66,6 +66,48 @@
     return sum(map(sum, matrix))</code></pre>
         </details>
       </li>
+      <li>
+        <span class="thm-label">Number of islands.</span> Given an <code>m × n</code> grid which represents a map of <code>1</code> (land) and <code>0</code> (water), return the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
+        <details class="tsp-code">
+          <summary>Recursive</summary>
+          <p>Mark visited land cells by setting them to <code>"0"</code>, avoiding the need for a separate visited set.</p>
+          <pre><code class="language-python">def number_of_islands(grid):
+    rows, cols, count = len(grid), len(grid[0]), 0
+    def rec(x, y):
+        if not (0 <= x < rows and 0 <= y < cols) or grid[x][y] == "0":
+            return
+        grid[x][y] = "0"
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            rec(x + dx, y + dy)
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == "1":
+                rec(i, j)
+                count += 1
+    return count</code></pre>
+        </details>
+        <details class="tsp-code">
+          <summary>Iterative (DFS)</summary>
+          <pre><code class="language-python">def number_of_islands(grid):
+    rows, cols, count = len(grid), len(grid[0]), 0
+    def dfs(x, y):
+        stack = [(x, y)]
+        grid[x][y] = "0"
+        while stack:
+            x, y = stack.pop()
+            for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nx, ny = x + dx, y + dy
+                if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == "1":
+                    grid[nx][ny] = "0"
+                    stack.append((nx, ny))
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == "1":
+                count += 1
+                dfs(i, j)
+    return count</code></pre>
+        </details>
+      </li>
     </ul>
 
     <h2>Strings</h2>
