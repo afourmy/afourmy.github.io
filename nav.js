@@ -12,22 +12,22 @@
   var menu = [
     { en: "Mathematics", cssClass: "submenu-sections", columns: [
       [
+        { href: "math/groups.html", en: "Groups" },
         { href: "math/suites.html", en: "Sequences" },
         { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
         { href: "math/continuite.html", en: "Continuity" },
         { href: "math/derivation.html", en: "Differentiation" },
-        { href: "math/topologie.html", en: "Topology" },
         { href: "math/complexes.html", en: "Complex Numbers" },
       ],
       [
         { href: "math/ensembles.html", en: "Sets" },
         { href: "math/bases.html", en: "Foundations" },
-        { href: "math/groups.html", en: "Groups" },
         { href: "math/arithmetique.html", en: "Arithmetic" },
         { href: "math/anneaux-corps.html", en: "Rings and Fields" },
         { href: "math/polynomes.html", en: "Polynomials" },
       ],
       [
+        { href: "math/topologie.html", en: "Topology" },
         { href: "math/linear-algebra.html", en: "Linear Algebra" },
         { href: "math/matrices.html", en: "Matrices" },
         { href: "math/determinants.html", en: "Determinants" },
