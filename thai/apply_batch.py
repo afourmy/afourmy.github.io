@@ -1,4 +1,4 @@
-"""Apply batch 8 (rows 211-231) to vocab.json."""
+"""Apply batch 9 (rows 232-252) to vocab.json."""
 
 import json
 import shutil
@@ -8,52 +8,56 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00211", "delete": ["t4k-c02-031", "wlt-c15-063"], "keep": None, "edits": {},
-     "note": "remove both"},
-    # row-00212: keep both — no action
-    {"row_id": "row-00213", "delete": ["t4k-c02-053"], "keep": "wlt-c06-018", "edits": {},
-     "note": "keep wlt-c06-018 (already edited in batch 4)"},
-    # row-00214: keep both — no action
-    {"row_id": "row-00215", "delete": ["t4k-c02-057"], "keep": "thaipod-0276", "edits": {},
-     "note": "keep thaipod-0276"},
-    {"row_id": "row-00216", "delete": ["t4k-c02-067"], "keep": "wlt-c17-037", "edits": {},
-     "note": "keep wlt-c17-037"},
-    {"row_id": "row-00217", "delete": ["t4k-c02-074"], "keep": "t4k-c05-063", "edits": {},
-     "note": "keep t4k-c05-063 (t4k-c02-074 was already deleted in batch 7)"},
-    {"row_id": "row-00218", "delete": ["t4k-c03-067"], "keep": "thaipod-0121", "edits": {},
-     "note": "keep thaipod-0121"},
-    {"row_id": "row-00219", "delete": ["t4k-c03-072"], "keep": "yt-c22-056",
-     "edits": {"yt-c22-056": {"thai": "เลี่ยง, หลีกเลี่ยง"}},
-     "note": "merge as เลี่ยง, หลีกเลี่ยง"},
-    {"row_id": "row-00220", "delete": ["t4k-c03-078"], "keep": "tsl-187", "edits": {},
-     "note": "keep tsl-187"},
-    {"row_id": "row-00221", "delete": ["t4k-c03-082"], "keep": "wlt-c05-078",
-     "edits": {"wlt-c05-078": {"thai": "แข่ง, แข่งขัน"}},
-     "note": "merge as แข่ง, แข่งขัน"},
-    {"row_id": "row-00222", "delete": ["t4k-c03-093"], "keep": "wlt-c21-046",
-     "edits": {"wlt-c21-046": {"english": "next, following; season; face"}},
-     "note": "keep wlt-c21-046; restructure english"},
-    {"row_id": "row-00223", "delete": ["t4k-c06-059"], "keep": "t4k-c04-004", "edits": {},
-     "note": "keep t4k-c04-004"},
-    {"row_id": "row-00224", "delete": ["t4k-c04-013", "thaipod-1396"], "keep": None, "edits": {},
-     "note": "remove both"},
-    # row-00225: keep both — no action
-    {"row_id": "row-00226", "delete": ["t4k-c04-042"], "keep": "tobo-346", "edits": {},
-     "note": "keep tobo-346"},
-    {"row_id": "row-00227", "delete": ["t4k-c04-046"], "keep": "tamago-l12-650", "edits": {},
-     "note": "keep tamago-l12-650"},
-    {"row_id": "row-00228", "delete": ["t4k-c04-056"], "keep": "wlt-c21-005", "edits": {},
-     "note": "keep wlt-c21-005"},
-    {"row_id": "row-00229", "delete": ["tsl-486"], "keep": "t4k-c04-059", "edits": {},
-     "note": "keep t4k-c04-059"},
-    {"row_id": "row-00230", "delete": ["t4k-c04-097"], "keep": "wlt-c15-027", "edits": {},
-     "note": "keep wlt-c15-027"},
-    {"row_id": "row-00231", "delete": [], "keep": "t4k-c05-025",
-     "edits": {"t4k-c05-025": {"english": "to absorb (e.g liquid), to wipe"}},
-     "note": "keep both; tweak t4k-c05-025 english"},
+    # row-00232: keep both — no action
+    {"row_id": "row-00233", "delete": ["wlt-c01-088"], "keep": "t4k-c05-046", "edits": {},
+     "note": "keep t4k-c05-046"},
+    {"row_id": "row-00234", "delete": ["t4k-c09-088"], "keep": "t4k-c05-051", "edits": {},
+     "note": "keep t4k-c05-051"},
+    {"row_id": "row-00235", "delete": ["t4k-c05-055"], "keep": "wlt-c20-065", "edits": {},
+     "note": "keep wlt-c20-065"},
+    {"row_id": "row-00236", "delete": ["tobo-508"], "keep": "t4k-c05-096", "edits": {},
+     "note": "keep t4k-c05-096"},
+    {"row_id": "row-00237", "delete": ["t4k-c06-000"], "keep": "wlt-c06-044", "edits": {},
+     "note": "keep wlt-c06-044"},
+    {"row_id": "row-00238", "delete": ["t4k-c06-007"], "keep": "tamago-l3-276",
+     "edits": {"tamago-l3-276": {"thai": "ทัก, ทักทาย", "english": "to greet, to say hi"}},
+     "note": "merge as ทัก, ทักทาย: to greet, to say hi"},
+    {"row_id": "row-00239", "delete": ["t4k-c06-020"], "keep": "tobo-206", "edits": {},
+     "note": "keep tobo-206"},
+    {"row_id": "row-00240", "delete": ["t4k-c06-044"], "keep": "wlt-c08-064", "edits": {},
+     "note": "keep wlt-c08-064"},
+    # row-00241: keep both — no action
+    {"row_id": "row-00242", "delete": ["t4k-c06-082"], "keep": "wlt-c15-022", "edits": {},
+     "note": "keep wlt-c15-022"},
+    {"row_id": "row-00243", "delete": ["thai9k-006"], "keep": "t4k-c07-012",
+     "edits": {"t4k-c07-012": {"thai": "อรุณ, รุ่งอรุณ"}},
+     "note": "merge as อรุณ, รุ่งอรุณ"},
+    {"row_id": "row-00244", "delete": ["t4k-c07-034"], "keep": "wlt-c17-001",
+     "edits": {"wlt-c17-001": {"thai": "ทอง, ทองคำ"}},
+     "note": "merge as ทอง, ทองคำ"},
+    {"row_id": "row-00245", "delete": [], "keep": "t4k-c07-053",
+     "edits": {"t4k-c07-053": {"english": "peace (opposite of war)"}},
+     "note": "keep both; clarify t4k-c07-053 english"},
+    {"row_id": "row-00246", "delete": [], "keep": "t4k-c07-054",
+     "edits": {"t4k-c07-054": {"frequency": "occasional",
+                                 "english": "to adhere to, to be committed to"}},
+     "note": "keep both; move ยึดมั่น to occasional + update english"},
+    {"row_id": "row-00247", "delete": ["t4k-c07-066"], "keep": "wlt-c20-066", "edits": {},
+     "note": "keep wlt-c20-066"},
+    {"row_id": "row-00248", "delete": ["t4k-c07-094"], "keep": "wlt-c20-080",
+     "edits": {"wlt-c20-080": {"thai": "หน่อย, สักหน่อย"}},
+     "note": "merge as หน่อย, สักหน่อย"},
+    {"row_id": "row-00249", "delete": ["t4k-c08-015"], "keep": "wlt-c20-000", "edits": {},
+     "note": "keep wlt-c20-000"},
+    {"row_id": "row-00250", "delete": ["t4k-c08-038"], "keep": "wlt-c20-064", "edits": {},
+     "note": "keep wlt-c20-064"},
+    {"row_id": "row-00251", "delete": ["t4k-c08-041"], "keep": "tamago-l12-593", "edits": {},
+     "note": "keep tamago-l12-593"},
+    {"row_id": "row-00252", "delete": ["t4k-c08-045"], "keep": "wlt-c20-069", "edits": {},
+     "note": "keep wlt-c20-069"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(211, 232)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(232, 253)}
 
 
 def main():
@@ -105,7 +109,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 8 — rows 211-231", ""]
+    log_lines = ["", "=" * 70, "Batch 9 — rows 232-252", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
