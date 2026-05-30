@@ -1,4 +1,4 @@
-"""Apply batch 4 (rows 119-133) to vocab.json.
+"""Apply batch 6 (rows 162-186) to vocab.json.
 
 Skips IDs that no longer exist (already deleted in a prior batch).
 Appends to apply_log.txt.
@@ -12,40 +12,63 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00119", "delete": [], "keep": "thaipod-0132",
-     "edits": {"thaipod-0132": {"english": "steps, procedure"}},
-     "note": "keep both; rephrase thaipod-0132 english"},
-    {"row_id": "row-00120", "delete": ["thaipod-0787"], "keep": "chula-l5-117", "edits": {},
-     "note": "keep chula-l5-117"},
-    {"row_id": "row-00121", "delete": ["thaipod-0331"], "keep": "chula-l5-121", "edits": {},
-     "note": "keep chula-l5-121"},
-    {"row_id": "row-00122", "delete": ["tsl-184"], "keep": "chula-l5-121", "edits": {},
-     "note": "keep chula-l5-121"},
-    {"row_id": "row-00123", "delete": ["yt-c05-026"], "keep": "chula-l5-121", "edits": {},
-     "note": "keep chula-l5-121"},
-    # row-00124: keep both — no action
-    # row-00125: keep both — no action
-    {"row_id": "row-00126", "delete": ["tobo-146"], "keep": "chula-l5-142", "edits": {},
-     "note": "keep chula-l5-142"},
-    {"row_id": "row-00127", "delete": ["chula-l5-147"], "keep": "thaipod-1360", "edits": {},
-     "note": "keep thaipod-1360"},
-    {"row_id": "row-00128", "delete": ["chula-l5-155"], "keep": "wlt-c06-018",
-     "edits": {"wlt-c06-018": {"english": "to move, shift, displace"}},
-     "note": "keep wlt-c06-018; english='to move, shift, displace'"},
-    # row-00129: keep both — no action
-    # row-00130: keep both — no action
-    {"row_id": "row-00131", "delete": ["chula-l5-161"], "keep": "thaipod-0467",
-     "edits": {"thaipod-0467": {"english": "end, at the back, rear side"}},
-     "note": "keep thaipod-0467; append 'rear side'"},
-    {"row_id": "row-00132", "delete": ["chula-l5-170"], "keep": "thaipod-0848",
-     "edits": {"thaipod-0848": {"thai": "รั้ว - รั้วกั้น"}},
-     "note": "merge as รั้ว - รั้วกั้น"},
-    {"row_id": "row-00133", "delete": [], "keep": "chula-l5-181",
-     "edits": {"chula-l5-181": {"english": "intricate, complicated, convoluted"}},
-     "note": "keep both; append 'convoluted' to chula-l5-181"},
+    {"row_id": "row-00162", "delete": ["yt-c03-034"], "keep": "chula-l6-042", "edits": {},
+     "note": "keep chula-l6-042"},
+    {"row_id": "row-00163", "delete": ["thaipod-1141"], "keep": "chula-l6-053", "edits": {},
+     "note": "keep chula-l6-053"},
+    {"row_id": "row-00164", "delete": ["t4k-c07-016"], "keep": "chula-l6-063", "edits": {},
+     "note": "keep chula-l6-063"},
+    # row-00165: keep both — no action
+    {"row_id": "row-00166", "delete": [], "keep": "wlt-c21-025",
+     "edits": {"wlt-c21-025": {"english": "about; to approximate, to estimate"}},
+     "note": "keep both; tweak wlt-c21-025 english (comma -> semicolon)"},
+    # row-00167: keep both — no action
+    {"row_id": "row-00168", "delete": ["thaipod-0072"], "keep": "chula-l6-084", "edits": {},
+     "note": "keep chula-l6-084"},
+    {"row_id": "row-00169", "delete": ["chula-l6-111"], "keep": "yt-c03-040",
+     "edits": {"yt-c03-040": {"thai": "ปรบ - ปรบมือ"}},
+     "note": "merge as ปรบ - ปรบมือ"},
+    # row-00170: keep both — no action
+    {"row_id": "row-00171", "delete": ["yt-c14-058"], "keep": "chula-l6-147",
+     "edits": {"chula-l6-147": {"thai": "วอน, อ้อนวอน"}},
+     "note": "merge as วอน, อ้อนวอน (user comma)"},
+    {"row_id": "row-00172", "delete": ["t4k-c11-047"], "keep": "chula-l6-163", "edits": {},
+     "note": "keep chula-l6-163"},
+    # row-00173: keep both — no action
+    # row-00174: keep both — no action
+    {"row_id": "row-00175", "delete": ["tamago-l12-363"], "keep": "chula-l6-173",
+     "edits": {"chula-l6-173": {"thai": "รอยฟกช้ำ"}},
+     "note": "rename chula-l6-173 thai to รอยฟกช้ำ (longer form per user)"},
+    {"row_id": "row-00176", "delete": ["tobo-316"], "keep": "chula-l6-175", "edits": {},
+     "note": "keep chula-l6-175"},
+    {"row_id": "row-00177", "delete": ["tamago-l3-180"], "keep": "chula-l6-177", "edits": {},
+     "note": "keep chula-l6-177"},
+    {"row_id": "row-00178", "delete": ["yt-c04-041"], "keep": "chula-l6-180", "edits": {},
+     "note": "keep chula-l6-180"},
+    {"row_id": "row-00179", "delete": ["yt-c06-096"], "keep": "chula-l6-183",
+     "edits": {"chula-l6-183": {"thai": "ก้าง"}},
+     "note": "rename chula-l6-183 thai to ก้าง (shorter form per user)"},
+    {"row_id": "row-00180", "delete": ["chula-l6-187"], "keep": "tamago-l3-739", "edits": {},
+     "note": "keep tamago-l3-739"},
+    {"row_id": "row-00181", "delete": [], "keep": "tamago-l3-645",
+     "edits": {"tamago-l3-645": {"english": "to pressure emotionally, to oppress"}},
+     "note": "keep both; rephrase tamago-l3-645 english"},
+    {"row_id": "row-00182", "delete": ["wlt-c07-087"], "keep": "chula-l6-196",
+     "edits": {"chula-l6-196": {"thai": "ผสม, ผสมผสาน"}},
+     "note": "merge as ผสม, ผสมผสาน"},
+    # row-00183: keep both — no action
+    {"row_id": "row-00184", "delete": [], "keep": "thaipod-0394",
+     "edits": {"thaipod-0394": {"english": "region, habitat, native place"}},
+     "note": "keep both; rephrase thaipod-0394 english"},
+    {"row_id": "row-00185", "delete": ["chula-l6-224"], "keep": "tsl-112",
+     "edits": {"tsl-112": {"thai": "บ่ง, บ่งบอก"}},
+     "note": "merge as บ่ง, บ่งบอก"},
+    {"row_id": "row-00186", "delete": ["tobo-347"], "keep": "chula-l6-233",
+     "edits": {"chula-l6-233": {"thai": "หมวด, หมวดหมู่"}},
+     "note": "merge as หมวด, หมวดหมู่"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(119, 134)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(162, 187)}
 
 
 def main():
@@ -97,7 +120,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 4 — rows 119-133", ""]
+    log_lines = ["", "=" * 70, "Batch 6 — rows 162-186", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
