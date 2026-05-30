@@ -335,6 +335,33 @@ def maximum_depth(root):
     return depth</code></pre>
         </details>
       </li>
+      <li>
+        <span class="thm-label">Minimum depth.</span> Given the <code>root</code> of a binary tree, return the number of nodes along the shortest path from the root down to the nearest leaf.
+        <details class="tsp-code">
+          <summary>Recursive</summary>
+          <p>The expression <code>min(depths) or max(depths)</code> returns the smaller of the two child depths, except when one child is missing (depth zero), in which case it returns the depth of the other child.</p>
+          <pre><code class="language-python">def min_depth(root):
+    if not root:
+        return 0
+    depths = map(min_depth, (root.left, root.right))
+    return 1 + (min(depths) or max(depths))</code></pre>
+        </details>
+        <details class="tsp-code">
+          <summary>Iterative (BFS)</summary>
+          <p>A FIFO queue visits nodes in order of depth, so the algorithm can return as soon as it reaches the first leaf.</p>
+          <pre><code class="language-python">from collections import deque
+
+def min_depth(root):
+    queue = deque([(root, 1)])
+    while queue:
+        node, level = queue.popleft()
+        if not node:
+            continue
+        if not node.left and not node.right:
+            return level
+        queue += [(node.left, level + 1), (node.right, level + 1)]</code></pre>
+        </details>
+      </li>
     </ul>
 
     <h2>Graphs</h2>
