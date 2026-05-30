@@ -38,59 +38,51 @@
       <h1>Algorithmics</h1>
     </header>
 
-    <h2>Arrays and Strings</h2>
+    <h2>Arrays</h2>
 
-    <h3>Check if a string is a palindrome</h3>
-
-    <p>
-      Return <code>True</code> if the input string reads the same forwards and backwards, <code>False</code> otherwise.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def is_palindrome(s):
-    return s == s[::-1]</code></pre>
-    </details>
-
-    <h3>Count occurrences of a character</h3>
-
-    <p>
-      Given a string and a target character, return the number of times the target appears in the string.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def count_char(s, target):
-    return sum(char == target for char in s)</code></pre>
-    </details>
-
-    <h3>Reverse an array in place</h3>
-
-    <p>
-      Reverse the order of an array's elements in place, without allocating a new array. Two pointers start at the ends and swap elements, moving towards the middle.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def reverse_in_place(array):
+    <ul class="fiche-list">
+      <li>
+        <span class="thm-label">Reverse an array in place.</span> Reverse the order of an array's elements in place, without allocating a new array. Two pointers start at the ends and swap elements, moving towards the middle.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def reverse_in_place(array):
     left, right = 0, len(array) - 1
     while left < right:
         array[left], array[right] = array[right], array[left]
         left += 1
         right -= 1</code></pre>
-    </details>
-
-    <h3>Count ones in a binary matrix</h3>
-
-    <p>
-      Given a matrix filled with <code>0</code>s and <code>1</code>s, return the total number of <code>1</code>s.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def count_ones(matrix):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Count ones in a binary matrix.</span> Given a matrix filled with <code>0</code>s and <code>1</code>s, return the total number of <code>1</code>s.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def count_ones(matrix):
     return sum(map(sum, matrix))</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
+
+    <h2>Strings</h2>
+
+    <ul class="fiche-list">
+      <li>
+        <span class="thm-label">Check if a string is a palindrome.</span> Return <code>True</code> if the input string reads the same forwards and backwards, <code>False</code> otherwise.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def is_palindrome(s):
+    return s == s[::-1]</code></pre>
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Count occurrences of a character.</span> Given a string and a target character, return the number of times the target appears in the string.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def count_char(s, target):
+    return sum(char == target for char in s)</code></pre>
+        </details>
+      </li>
+    </ul>
 
     <h2>Hashing</h2>
 
