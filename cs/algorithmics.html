@@ -173,6 +173,7 @@
       <summary>With <code>collections.Counter</code></summary>
       <pre><code class="language-python">from collections import Counter
 
+
 def count_characters(s):
     return Counter(s)</code></pre>
     </details>
@@ -257,6 +258,7 @@ index = bisect_left(array, target)</code></pre>
       <summary>Top-down recursion with memoization</summary>
       <pre><code class="language-python">from functools import cache
 
+
 def count_paths(n):
     @cache
     def rec(i, j):
@@ -269,6 +271,7 @@ def count_paths(n):
       <summary>Closed-form combinatorial solution</summary>
       <p>Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
       <pre><code class="language-python">from math import comb
+
 
 def count_paths(n):
     return comb(2 * n - 2, n - 1)</code></pre>
@@ -366,7 +369,7 @@ def count_paths(n):
           <pre><code class="language-python">from collections import deque
 
 
-defmaximum_depth(root):
+def maximum_depth(root):
     queue, depth = deque([root]), 0
     while queue:
         for _ in range(len(queue)):
@@ -396,7 +399,7 @@ defmaximum_depth(root):
           <pre><code class="language-python">from collections import deque
 
 
-defmin_depth(root):
+def min_depth(root):
     queue = deque([(root, 1)])
     while queue:
         node, level = queue.popleft()
@@ -440,7 +443,7 @@ defmin_depth(root):
           <pre><code class="language-python">from collections import deque
 
 
-defbfs(graph, start):
+def bfs(graph, start):
     visited, queue = set(), deque([start])
     while queue:
         node = queue.popleft()
@@ -461,6 +464,7 @@ defbfs(graph, start):
         <details class="tsp-code">
           <summary>Implementation</summary>
           <pre><code class="language-python">from heapq import heappop, heappush
+
 
 def dijkstra(graph, start):
     stack, result = [(0, start)], {}
@@ -520,6 +524,7 @@ def dijkstra(graph, start):
           <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
           <pre><code class="language-python">from functools import cache
 
+
 @cache
 def fibonacci(n):
     return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
@@ -531,6 +536,7 @@ def fibonacci(n):
           <summary>Implementation</summary>
           <pre><code class="language-python">def collatz(n):
     return 3 * n + 1 if n % 2 else n // 2
+
 
 def collatz_sequence_length(n):
     count = 0
