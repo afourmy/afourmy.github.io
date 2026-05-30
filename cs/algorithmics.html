@@ -559,6 +559,23 @@ def collatz_sequence_length(n):
 
     <h2>Exercises</h2>
 
+    <ul class="fiche-list">
+      <li>
+        <span class="thm-label">Max area of an island.</span> Given an <code>m × n</code> grid which represents a map of <code>1</code> (land) and <code>0</code> (water), return the maximum area of an island. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def maximum_area(grid):
+    rows, cols = len(grid), len(grid[0])
+    def rec(x, y):
+        if not (0 <= x < rows and 0 <= y < cols) or not grid[x][y]:
+            return 0
+        grid[x][y] = 0
+        return 1 + sum(rec(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+    return max(rec(i, j) for i in range(rows) for j in range(cols))</code></pre>
+        </details>
+      </li>
+    </ul>
+
   </main>
 
 </body>
