@@ -361,27 +361,22 @@ def dijkstra(graph, start):
 
     <h2>Math</h2>
 
-    <h3>Check if an integer is odd</h3>
+    <h3>Basic Arithmetic</h3>
 
-    <p>
-      Return <code>True</code> if <code>n</code> is odd, <code>False</code> otherwise.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def is_odd(n):
+    <ul>
+      <li>
+        <span class="thm-label">Check if an integer is odd.</span> Return <code>True</code> if <code>n</code> is odd, <code>False</code> otherwise.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def is_odd(n):
     return n % 2</code></pre>
-    </details>
-
-    <h3>FizzBuzz</h3>
-
-    <p>
-      Given an integer <code>n</code>, return <code>"Fizz"</code> if it is divisible by <code>3</code>, <code>"Buzz"</code> if it is divisible by <code>5</code>, <code>"FizzBuzz"</code> if it is divisible by both, and the number itself as a string otherwise.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def fizz_buzz(n):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">FizzBuzz.</span> Given an integer <code>n</code>, return <code>"Fizz"</code> if it is divisible by <code>3</code>, <code>"Buzz"</code> if it is divisible by <code>5</code>, <code>"FizzBuzz"</code> if it is divisible by both, and the number itself as a string otherwise.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def fizz_buzz(n):
     result = ""
     if n % 3 == 0:
         result += "Fizz"
@@ -390,43 +385,34 @@ def dijkstra(graph, start):
     if not result:
         result = str(n)
     return result</code></pre>
-    </details>
-
-    <h3>Fibonacci</h3>
-
-    <p>
-      The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. Return the <code>n</code>-th term of the sequence.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Iterative</summary>
-      <p>Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
-      <pre><code class="language-python">def fibonacci(n):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Fibonacci.</span> The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. Return the <code>n</code>-th term of the sequence.
+        <details class="tsp-code">
+          <summary>Iterative</summary>
+          <p>Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
+          <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
         a, b = b, a + b
     return a</code></pre>
-    </details>
-
-    <details class="tsp-code">
-      <summary>Recursive with memoization</summary>
-      <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
-      <pre><code class="language-python">from functools import cache
+        </details>
+        <details class="tsp-code">
+          <summary>Recursive with memoization</summary>
+          <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
+          <pre><code class="language-python">from functools import cache
 
 @cache
 def fibonacci(n):
     return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
-    </details>
-
-    <h3>Length of a Collatz sequence</h3>
-
-    <p>
-      The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise. Starting from <code>n</code>, the function is iterated until the sequence reaches <code>1</code>; return the number of steps required.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def collatz(n):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Length of a Collatz sequence.</span> The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise. Starting from <code>n</code>, the function is iterated until the sequence reaches <code>1</code>; return the number of steps required.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def collatz(n):
     return 3 * n + 1 if n % 2 else n // 2
 
 def collatz_sequence_length(n):
@@ -435,31 +421,31 @@ def collatz_sequence_length(n):
         n = collatz(n)
         count += 1
     return count</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
-    <h2>Bit Manipulation</h2>
+    <h3>Bit Manipulation</h3>
 
-    <h3>Hamming weight</h3>
-
-    <p>
-      The Hamming weight of an integer is the number of <code>1</code>s in its binary representation.
-    </p>
-
-    <details class="tsp-code">
-      <summary>With the built-in <code>bin</code></summary>
-      <pre><code class="language-python">def hamming_weight(n):
+    <ul>
+      <li>
+        <span class="thm-label">Hamming weight.</span> The Hamming weight of an integer is the number of <code>1</code>s in its binary representation.
+        <details class="tsp-code">
+          <summary>With the built-in <code>bin</code></summary>
+          <pre><code class="language-python">def hamming_weight(n):
     return bin(n)[2:].count("1")</code></pre>
-    </details>
-
-    <details class="tsp-code">
-      <summary>With the bitwise right-shift operator</summary>
-      <pre><code class="language-python">def hamming_weight(n):
+        </details>
+        <details class="tsp-code">
+          <summary>With the bitwise right-shift operator</summary>
+          <pre><code class="language-python">def hamming_weight(n):
     weight = 0
     while n > 0:
         weight += n & 1
         n >>= 1
     return weight</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
     <h2>Exercises</h2>
 
