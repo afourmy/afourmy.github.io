@@ -73,12 +73,14 @@
           <p>Mark visited land cells by setting them to <code>"0"</code>, avoiding the need for a separate visited set.</p>
           <pre><code class="language-python">def number_of_islands(grid):
     rows, cols, count = len(grid), len(grid[0]), 0
+
     def rec(x, y):
         if not (0 <= x < rows and 0 <= y < cols) or grid[x][y] == "0":
             return
         grid[x][y] = "0"
         for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             rec(x + dx, y + dy)
+
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == "1":
@@ -90,6 +92,7 @@
           <summary>Iterative (DFS)</summary>
           <pre><code class="language-python">def number_of_islands(grid):
     rows, cols, count = len(grid), len(grid[0]), 0
+
     def dfs(x, y):
         stack = [(x, y)]
         grid[x][y] = "0"
@@ -100,6 +103,7 @@
                 if 0 <= nx < rows and 0 <= ny < cols and grid[nx][ny] == "1":
                     grid[nx][ny] = "0"
                     stack.append((nx, ny))
+
     for i in range(rows):
         for j in range(cols):
             if grid[i][j] == "1":
@@ -361,7 +365,8 @@ def count_paths(n):
           <summary>Iterative (BFS)</summary>
           <pre><code class="language-python">from collections import deque
 
-def maximum_depth(root):
+
+defmaximum_depth(root):
     queue, depth = deque([root]), 0
     while queue:
         for _ in range(len(queue)):
@@ -390,7 +395,8 @@ def maximum_depth(root):
           <p>A FIFO queue visits nodes in order of depth, so the algorithm can return as soon as it reaches the first leaf.</p>
           <pre><code class="language-python">from collections import deque
 
-def min_depth(root):
+
+defmin_depth(root):
     queue = deque([(root, 1)])
     while queue:
         node, level = queue.popleft()
@@ -433,7 +439,8 @@ def min_depth(root):
           <summary>Implementation</summary>
           <pre><code class="language-python">from collections import deque
 
-def bfs(graph, start):
+
+defbfs(graph, start):
     visited, queue = set(), deque([start])
     while queue:
         node = queue.popleft()
@@ -566,6 +573,7 @@ def collatz_sequence_length(n):
           <summary>Implementation</summary>
           <pre><code class="language-python">def maximum_area(grid):
     rows, cols = len(grid), len(grid[0])
+
     def rec(x, y):
         if not (0 <= x < rows and 0 <= y < cols) or not grid[x][y]:
             return 0
@@ -573,6 +581,7 @@ def collatz_sequence_length(n):
         return 1 + sum(
             rec(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
         )
+
     return max(rec(i, j) for i in range(rows) for j in range(cols))</code></pre>
         </details>
       </li>
