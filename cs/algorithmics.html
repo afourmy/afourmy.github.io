@@ -293,6 +293,50 @@ def count_paths(n):
       </li>
     </ul>
 
+    <h3>Depth</h3>
+
+    <ul>
+      <li>
+        <span class="thm-label">Maximum depth.</span> Given the <code>root</code> of a binary tree, return its maximum depth.
+        <details class="tsp-code">
+          <summary>Recursive</summary>
+          <pre><code class="language-python">def maximum_depth(root):
+    if not root:
+        return 0
+    return 1 + max(maximum_depth(root.left), maximum_depth(root.right))</code></pre>
+        </details>
+        <details class="tsp-code">
+          <summary>Iterative (DFS)</summary>
+          <pre><code class="language-python">def maximum_depth(root):
+    stack, max_depth = [(root, 1)], 0
+    while stack:
+        node, depth = stack.pop()
+        max_depth = max(max_depth, depth)
+        if node.left:
+            stack.append((node.left, depth + 1))
+        if node.right:
+            stack.append((node.right, depth + 1))
+    return max_depth</code></pre>
+        </details>
+        <details class="tsp-code">
+          <summary>Iterative (BFS)</summary>
+          <pre><code class="language-python">from collections import deque
+
+def maximum_depth(root):
+    queue, depth = deque([root]), 0
+    while queue:
+        for _ in range(len(queue)):
+            node = queue.popleft()
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        depth += 1
+    return depth</code></pre>
+        </details>
+      </li>
+    </ul>
+
     <h2>Graphs</h2>
 
     <p>
