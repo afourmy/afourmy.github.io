@@ -317,6 +317,35 @@ details.tsp-code > p {
   border-top: 1px solid var(--border);
 }
 
+/* ── Fiche-style bullet list (no ul padding, custom accent marker) ── */
+.fiche-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.fiche-list > li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.9rem;
+  line-height: 1.6rem;
+}
+
+.fiche-list > li:last-child {
+  margin-bottom: 0;
+}
+
+.fiche-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
 /* ── KaTeX display overrides ── */
 .katex { font-size: 1em !important; white-space: nowrap; }
 
