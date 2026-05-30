@@ -46,8 +46,11 @@
       Return <code>True</code> if the input string reads the same forwards and backwards, <code>False</code> otherwise.
     </p>
 
-    <pre><code class="language-python">def is_palindrome(s):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def is_palindrome(s):
     return s == s[::-1]</code></pre>
+    </details>
 
     <h3>Count occurrences of a character</h3>
 
@@ -55,8 +58,11 @@
       Given a string and a target character, return the number of times the target appears in the string.
     </p>
 
-    <pre><code class="language-python">def count_char(s, target):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def count_char(s, target):
     return sum(char == target for char in s)</code></pre>
+    </details>
 
     <h3>Reverse an array in place</h3>
 
@@ -64,12 +70,15 @@
       Reverse the order of an array's elements in place, without allocating a new array. Two pointers start at the ends and swap elements, moving towards the middle.
     </p>
 
-    <pre><code class="language-python">def reverse_in_place(array):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def reverse_in_place(array):
     left, right = 0, len(array) - 1
     while left < right:
         array[left], array[right] = array[right], array[left]
         left += 1
         right -= 1</code></pre>
+    </details>
 
     <h3>Count ones in a binary matrix</h3>
 
@@ -77,8 +86,11 @@
       Given a matrix filled with <code>0</code>s and <code>1</code>s, return the total number of <code>1</code>s.
     </p>
 
-    <pre><code class="language-python">def count_ones(matrix):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def count_ones(matrix):
     return sum(map(sum, matrix))</code></pre>
+    </details>
 
     <h2>Hashing</h2>
 
@@ -88,13 +100,16 @@
       Given an array of integers and a target integer, return the indices of the two numbers that add up to the target.
     </p>
 
-    <pre><code class="language-python">def two_sum(array, target):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def two_sum(array, target):
     seen = {}
     for index, value in enumerate(array):
         remaining = target - value
         if remaining in seen:
             return [index, seen[remaining]]
         seen[value] = index</code></pre>
+    </details>
 
     <h3>Count occurrences of all characters</h3>
 
@@ -102,20 +117,22 @@
       Given a string, return a dictionary mapping each character to the number of times it appears in the string.
     </p>
 
-    <h4>Manual counting</h4>
-
-    <pre><code class="language-python">def count_characters(s):
+    <details class="tsp-code">
+      <summary>Manual counting</summary>
+      <pre><code class="language-python">def count_characters(s):
     count = {}
     for char in s:
         count[char] = count.get(char, 0) + 1
     return count</code></pre>
+    </details>
 
-    <h4>With <code>collections.Counter</code></h4>
-
-    <pre><code class="language-python">from collections import Counter
+    <details class="tsp-code">
+      <summary>With <code>collections.Counter</code></summary>
+      <pre><code class="language-python">from collections import Counter
 
 def count_characters(s):
     return Counter(s)</code></pre>
+    </details>
 
     <h3>Check if two strings are anagrams</h3>
 
@@ -123,8 +140,11 @@ def count_characters(s):
       Two strings are anagrams if one is a rearrangement of the other. Return <code>True</code> if and only if both strings have the same length and the same character counts.
     </p>
 
-    <pre><code class="language-python">def are_anagrams(s1, s2):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def are_anagrams(s1, s2):
     return len(s1) == len(s2) and Counter(s1) == Counter(s2)</code></pre>
+    </details>
 
     <h2>Sorting and Searching</h2>
 
@@ -134,20 +154,19 @@ def count_characters(s):
       Given an array of integers sorted in ascending order and an integer target, return the index of the target or <code>-1</code> if it does not exist.
     </p>
 
-    <h4>Manual implementation</h4>
-
-    <ul>
-      <li>When computing the middle index, we generally use <code>left + (right - left) // 2</code> instead of <code>(left + right) // 2</code> to avoid integer overflow problems.</li>
-      <li>It is best not to use a strict inequality because:
-        <ul>
-          <li>we exit the loop before the case <code>left == right</code>, so we need to check whether the middle index is the target after the loop.</li>
-          <li>we have <code>left = middle + 1</code> and <code>right = middle</code>.</li>
-        </ul>
-      </li>
-      <li>It is better to use <code>&lt;=</code> instead, where <code>left = middle + 1</code> and <code>right = middle - 1</code>.</li>
-    </ul>
-
-    <pre><code class="language-python">def search(array, target):
+    <details class="tsp-code">
+      <summary>Manual implementation</summary>
+      <ul>
+        <li>When computing the middle index, we generally use <code>left + (right - left) // 2</code> instead of <code>(left + right) // 2</code> to avoid integer overflow problems.</li>
+        <li>It is best not to use a strict inequality because:
+          <ul>
+            <li>we exit the loop before the case <code>left == right</code>, so we need to check whether the middle index is the target after the loop.</li>
+            <li>we have <code>left = middle + 1</code> and <code>right = middle</code>.</li>
+          </ul>
+        </li>
+        <li>It is better to use <code>&lt;=</code> instead, where <code>left = middle + 1</code> and <code>right = middle - 1</code>.</li>
+      </ul>
+      <pre><code class="language-python">def search(array, target):
     left, right = 0, len(array) - 1
     while left <= right:
         middle = left + (right - left) // 2
@@ -158,12 +177,14 @@ def count_characters(s):
         else:
             return middle
     return -1</code></pre>
+    </details>
 
-    <h4>With the <code>bisect</code> module</h4>
-
-    <pre><code class="language-python">from bisect import bisect_left
+    <details class="tsp-code">
+      <summary>With the <code>bisect</code> module</summary>
+      <pre><code class="language-python">from bisect import bisect_left
 
 index = bisect_left(array, target)</code></pre>
+    </details>
 
     <h2>Recursion and Backtracking</h2>
 
@@ -179,18 +200,19 @@ index = bisect_left(array, target)</code></pre>
       Count all possible paths from the bottom-left to the top-right of an <code>n × n</code> grid, moving only right or up.
     </p>
 
-    <h4>Bottom-up dynamic programming</h4>
-
-    <pre><code class="language-python">def count_paths(n):
+    <details class="tsp-code">
+      <summary>Bottom-up dynamic programming</summary>
+      <pre><code class="language-python">def count_paths(n):
     dp = [[0 if i and j else 1 for i in range(n)] for j in range(n)]
     for i in range(1, n):
         for j in range(1, n):
             dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
     return dp[n - 1][n - 1]</code></pre>
+    </details>
 
-    <h4>Top-down recursion with memoization</h4>
-
-    <pre><code class="language-python">from functools import cache
+    <details class="tsp-code">
+      <summary>Top-down recursion with memoization</summary>
+      <pre><code class="language-python">from functools import cache
 
 def count_paths(n):
     @cache
@@ -198,19 +220,71 @@ def count_paths(n):
         return 1 if not i or not j else rec(i - 1, j) + rec(i, j - 1)
 
     return rec(n - 1, n - 1)</code></pre>
+    </details>
 
-    <h4>Closed-form combinatorial solution</h4>
-
-    <p>Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
-
-    <pre><code class="language-python">from math import comb
+    <details class="tsp-code">
+      <summary>Closed-form combinatorial solution</summary>
+      <p>Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
+      <pre><code class="language-python">from math import comb
 
 def count_paths(n):
     return comb(2 * n - 2, n - 1)</code></pre>
+    </details>
 
     <h2>Greedy Algorithms</h2>
 
     <h2>Trees</h2>
+
+    <div class="thm-block remark">
+      <p><span class="thm-label">Binary tree.</span> A tree where each node has at most two children, referred to as the left and right child.</p>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right</code></pre>
+    </details>
+
+    <div class="thm-block remark">
+      <p><span class="thm-label">Binary search tree.</span> A binary tree where the key stored in each node is greater than every key in its left subtree, and less than or equal to every key in its right subtree.</p>
+    </div>
+
+    <div class="thm-block remark">
+      <p><span class="thm-label">N-ary tree.</span> A tree where each node has an arbitrary number of children.</p>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">class Node:
+    def __init__(self, val=None, children=None):
+        self.val = val
+        self.children = children</code></pre>
+    </details>
+
+    <div class="thm-block remark">
+      <p><span class="thm-label">Tree traversals.</span> Return the list of values of a binary tree visited in depth-first order. Pre-order visits the root first, in-order between the two subtrees, and post-order last.</p>
+    </div>
+
+    <details class="tsp-code">
+      <summary>Pre-order</summary>
+      <pre><code class="language-python">def pre_order(root):
+    return [root.val] + pre_order(root.left) + pre_order(root.right) if root else []</code></pre>
+    </details>
+
+    <details class="tsp-code">
+      <summary>In-order</summary>
+      <pre><code class="language-python">def in_order(root):
+    return in_order(root.left) + [root.val] + in_order(root.right) if root else []</code></pre>
+    </details>
+
+    <details class="tsp-code">
+      <summary>Post-order</summary>
+      <pre><code class="language-python">def post_order(root):
+    return post_order(root.left) + post_order(root.right) + [root.val] if root else []</code></pre>
+    </details>
 
     <h2>Graphs</h2>
 
@@ -224,7 +298,9 @@ def count_paths(n):
       Traverse a graph by exploring each branch as deeply as possible before backtracking. Starting from a source node, use a stack to visit neighbors before siblings; return the set of all reachable nodes.
     </p>
 
-    <pre><code class="language-python">def dfs(graph, start):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def dfs(graph, start):
     visited, stack = set(), [start]
     while stack:
         node = stack.pop()
@@ -233,6 +309,7 @@ def count_paths(n):
         visited.add(node)
         stack.extend(graph[node])
     return visited</code></pre>
+    </details>
 
     <h3>Breadth-First Search</h3>
 
@@ -240,7 +317,9 @@ def count_paths(n):
       Traverse a graph layer by layer, visiting all neighbors of a node before moving on to their neighbors. Using a queue ensures that nodes are explored in order of distance from the start; return the set of all reachable nodes.
     </p>
 
-    <pre><code class="language-python">from collections import deque
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from collections import deque
 
 def bfs(graph, start):
     visited, queue = set(), deque([start])
@@ -251,6 +330,7 @@ def bfs(graph, start):
         visited.add(node)
         queue.extend(graph[node])
     return visited</code></pre>
+    </details>
 
     <h3>Dijkstra's Algorithm</h3>
 
@@ -258,7 +338,9 @@ def bfs(graph, start):
       Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
     </p>
 
-    <pre><code class="language-python">from heapq import heappop, heappush
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">from heapq import heappop, heappush
 
 def dijkstra(graph, start):
     stack, result = [(0, start)], {}
@@ -270,8 +352,9 @@ def dijkstra(graph, start):
         for neighbor, weight in graph[node].items():
             heappush(stack, (dist + weight, neighbor))
     return result</code></pre>
+    </details>
 
-    <h2>Math and Number Theory</h2>
+    <h2>Math</h2>
 
     <h3>Check if an integer is odd</h3>
 
@@ -279,8 +362,11 @@ def dijkstra(graph, start):
       Return <code>True</code> if <code>n</code> is odd, <code>False</code> otherwise.
     </p>
 
-    <pre><code class="language-python">def is_odd(n):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def is_odd(n):
     return n % 2</code></pre>
+    </details>
 
     <h3>FizzBuzz</h3>
 
@@ -288,7 +374,9 @@ def dijkstra(graph, start):
       Given an integer <code>n</code>, return <code>"Fizz"</code> if it is divisible by <code>3</code>, <code>"Buzz"</code> if it is divisible by <code>5</code>, <code>"FizzBuzz"</code> if it is divisible by both, and the number itself as a string otherwise.
     </p>
 
-    <pre><code class="language-python">def fizz_buzz(n):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def fizz_buzz(n):
     result = ""
     if n % 3 == 0:
         result += "Fizz"
@@ -297,6 +385,7 @@ def dijkstra(graph, start):
     if not result:
         result = str(n)
     return result</code></pre>
+    </details>
 
     <h3>Fibonacci</h3>
 
@@ -304,25 +393,25 @@ def dijkstra(graph, start):
       The Fibonacci sequence is defined by <code>F(0) = 0</code>, <code>F(1) = 1</code>, and <code>F(n) = F(n - 1) + F(n - 2)</code>. Return the <code>n</code>-th term of the sequence.
     </p>
 
-    <h4>Iterative</h4>
-
-    <p>Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
-
-    <pre><code class="language-python">def fibonacci(n):
+    <details class="tsp-code">
+      <summary>Iterative</summary>
+      <p>Only the two previous terms need to be kept in memory, giving constant space and linear time complexity.</p>
+      <pre><code class="language-python">def fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
         a, b = b, a + b
     return a</code></pre>
+    </details>
 
-    <h4>Recursive with memoization</h4>
-
-    <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
-
-    <pre><code class="language-python">from functools import cache
+    <details class="tsp-code">
+      <summary>Recursive with memoization</summary>
+      <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
+      <pre><code class="language-python">from functools import cache
 
 @cache
 def fibonacci(n):
     return n if n < 2 else fibonacci(n - 1) + fibonacci(n - 2)</code></pre>
+    </details>
 
     <h3>Length of a Collatz sequence</h3>
 
@@ -330,7 +419,9 @@ def fibonacci(n):
       The Collatz function is defined as <code>f(n) = 3n + 1</code> if <code>n</code> is odd, and <code>n // 2</code> otherwise. Starting from <code>n</code>, the function is iterated until the sequence reaches <code>1</code>; return the number of steps required.
     </p>
 
-    <pre><code class="language-python">def collatz(n):
+    <details class="tsp-code">
+      <summary>Python implementation</summary>
+      <pre><code class="language-python">def collatz(n):
     return 3 * n + 1 if n % 2 else n // 2
 
 def collatz_sequence_length(n):
@@ -339,6 +430,7 @@ def collatz_sequence_length(n):
         n = collatz(n)
         count += 1
     return count</code></pre>
+    </details>
 
     <h2>Bit Manipulation</h2>
 
@@ -348,19 +440,24 @@ def collatz_sequence_length(n):
       The Hamming weight of an integer is the number of <code>1</code>s in its binary representation.
     </p>
 
-    <h4>With the built-in <code>bin</code></h4>
-
-    <pre><code class="language-python">def hamming_weight(n):
+    <details class="tsp-code">
+      <summary>With the built-in <code>bin</code></summary>
+      <pre><code class="language-python">def hamming_weight(n):
     return bin(n)[2:].count("1")</code></pre>
+    </details>
 
-    <h4>With the bitwise right-shift operator</h4>
-
-    <pre><code class="language-python">def hamming_weight(n):
+    <details class="tsp-code">
+      <summary>With the bitwise right-shift operator</summary>
+      <pre><code class="language-python">def hamming_weight(n):
     weight = 0
     while n > 0:
         weight += n & 1
         n >>= 1
     return weight</code></pre>
+    </details>
+
+    <h2>Exercises</h2>
+
   </main>
 
 </body>
