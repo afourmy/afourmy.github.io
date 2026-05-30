@@ -336,15 +336,14 @@ def bfs(graph, start):
       </li>
     </ul>
 
-    <h3>Dijkstra's algorithm</h3>
+    <h3>Shortest Path</h3>
 
-    <p>
-      Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">from heapq import heappop, heappush
+    <ul>
+      <li>
+        <span class="thm-label">Dijkstra's algorithm.</span> Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">from heapq import heappop, heappush
 
 def dijkstra(graph, start):
     stack, result = [(0, start)], {}
@@ -356,7 +355,9 @@ def dijkstra(graph, start):
         for neighbor, weight in graph[node].items():
             heappush(stack, (dist + weight, neighbor))
     return result</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
     <h2>Math</h2>
 
