@@ -235,6 +235,8 @@ def count_paths(n):
 
     <h2>Trees</h2>
 
+    <h3>Definitions</h3>
+
     <ul>
       <li>
         <span class="thm-label">Binary tree.</span> A tree where each node has at most two children, referred to as the left and right child.
@@ -262,27 +264,34 @@ def count_paths(n):
       </li>
     </ul>
 
-    <div class="thm-block remark">
-      <p><span class="thm-label">Tree traversals.</span> Return the list of values of a binary tree visited in depth-first order. Pre-order visits the root first, in-order between the two subtrees, and post-order last.</p>
-    </div>
+    <h3>Traversals</h3>
 
-    <details class="tsp-code">
-      <summary>Pre-order</summary>
-      <pre><code class="language-python">def pre_order(root):
+    <ul>
+      <li>
+        <span class="thm-label">Pre-order.</span> Visit the root, then the left subtree, then the right subtree.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def pre_order(root):
     return [root.val] + pre_order(root.left) + pre_order(root.right) if root else []</code></pre>
-    </details>
-
-    <details class="tsp-code">
-      <summary>In-order</summary>
-      <pre><code class="language-python">def in_order(root):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">In-order.</span> Visit the left subtree, then the root, then the right subtree.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def in_order(root):
     return in_order(root.left) + [root.val] + in_order(root.right) if root else []</code></pre>
-    </details>
-
-    <details class="tsp-code">
-      <summary>Post-order</summary>
-      <pre><code class="language-python">def post_order(root):
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Post-order.</span> Visit the left subtree, then the right subtree, then the root.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def post_order(root):
     return post_order(root.left) + post_order(root.right) + [root.val] if root else []</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
     <h2>Graphs</h2>
 
