@@ -299,15 +299,14 @@ def count_paths(n):
       A graph is represented as a dictionary of nodes, where each node maps to its list of neighbors.
     </p>
 
-    <h3>Depth-First Search</h3>
+    <h3>Traversals</h3>
 
-    <p>
-      Traverse a graph by exploring each branch as deeply as possible before backtracking. Starting from a source node, use a stack to visit neighbors before siblings; return the set of all reachable nodes.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">def dfs(graph, start):
+    <ul>
+      <li>
+        <span class="thm-label">Depth-first search.</span> Explore each branch as deeply as possible before backtracking. Starting from a source node, use a stack to visit neighbors before siblings; return the set of all reachable nodes.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">def dfs(graph, start):
     visited, stack = set(), [start]
     while stack:
         node = stack.pop()
@@ -316,17 +315,13 @@ def count_paths(n):
         visited.add(node)
         stack.extend(graph[node])
     return visited</code></pre>
-    </details>
-
-    <h3>Breadth-First Search</h3>
-
-    <p>
-      Traverse a graph layer by layer, visiting all neighbors of a node before moving on to their neighbors. Using a queue ensures that nodes are explored in order of distance from the start; return the set of all reachable nodes.
-    </p>
-
-    <details class="tsp-code">
-      <summary>Implementation</summary>
-      <pre><code class="language-python">from collections import deque
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Breadth-first search.</span> Visit a graph layer by layer, exploring all neighbors of a node before moving on to their neighbors. Using a queue ensures that nodes are explored in order of distance from the start; return the set of all reachable nodes.
+        <details class="tsp-code">
+          <summary>Implementation</summary>
+          <pre><code class="language-python">from collections import deque
 
 def bfs(graph, start):
     visited, queue = set(), deque([start])
@@ -337,9 +332,11 @@ def bfs(graph, start):
         visited.add(node)
         queue.extend(graph[node])
     return visited</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
-    <h3>Dijkstra's Algorithm</h3>
+    <h3>Dijkstra's algorithm</h3>
 
     <p>
       Compute the shortest distance from a source node to every other node in a graph with non-negative edge weights. A min-heap is used to repeatedly extract the closest unvisited node and relax the distances of its neighbors; return a dictionary mapping each reachable node to its shortest distance from the start.
