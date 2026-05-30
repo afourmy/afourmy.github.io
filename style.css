@@ -375,6 +375,24 @@ details.tsp-code > p {
   margin-bottom: 0.8rem;
 }
 
+/* Accent dot marker on thm-blocks WITHOUT an attached proof (definitions,
+   examples, remarks). Proof-toggle blocks keep their inline ▸ on the label. */
+.thm-block:not(:has(+ .proof)) {
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.thm-block:not(:has(+ .proof))::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
 .thm-label {
   font-weight: 700;
   font-size: 1.05rem;

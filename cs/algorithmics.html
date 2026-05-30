@@ -173,7 +173,6 @@
       <summary>With <code>collections.Counter</code></summary>
       <pre><code class="language-python">from collections import Counter
 
-
 def count_characters(s):
     return Counter(s)</code></pre>
     </details>
@@ -258,7 +257,6 @@ index = bisect_left(array, target)</code></pre>
       <summary>Top-down recursion with memoization</summary>
       <pre><code class="language-python">from functools import cache
 
-
 def count_paths(n):
     @cache
     def rec(i, j):
@@ -271,7 +269,6 @@ def count_paths(n):
       <summary>Closed-form combinatorial solution</summary>
       <p>Any such path consists of <code>n - 1</code> right moves and <code>n - 1</code> up moves, so the count is the number of ways to choose which of the <code>2n - 2</code> steps are right moves, i.e. the binomial coefficient <code>C(2n - 2, n - 1)</code>.</p>
       <pre><code class="language-python">from math import comb
-
 
 def count_paths(n):
     return comb(2 * n - 2, n - 1)</code></pre>
@@ -368,7 +365,6 @@ def count_paths(n):
           <summary>Iterative (BFS)</summary>
           <pre><code class="language-python">from collections import deque
 
-
 def maximum_depth(root):
     queue, depth = deque([root]), 0
     while queue:
@@ -397,7 +393,6 @@ def maximum_depth(root):
           <summary>Iterative (BFS)</summary>
           <p>A FIFO queue visits nodes in order of depth, so the algorithm can return as soon as it reaches the first leaf.</p>
           <pre><code class="language-python">from collections import deque
-
 
 def min_depth(root):
     queue = deque([(root, 1)])
@@ -442,7 +437,6 @@ def min_depth(root):
           <summary>Implementation</summary>
           <pre><code class="language-python">from collections import deque
 
-
 def bfs(graph, start):
     visited, queue = set(), deque([start])
     while queue:
@@ -464,7 +458,6 @@ def bfs(graph, start):
         <details class="tsp-code">
           <summary>Implementation</summary>
           <pre><code class="language-python">from heapq import heappop, heappush
-
 
 def dijkstra(graph, start):
     stack, result = [(0, start)], {}
@@ -523,7 +516,6 @@ def dijkstra(graph, start):
           <summary>Recursive with memoization</summary>
           <p>A naive recursive implementation runs in exponential time because the same subproblems are recomputed; caching each result brings the complexity back down to linear time.</p>
           <pre><code class="language-python">from functools import cache
-
 
 @cache
 def fibonacci(n):
