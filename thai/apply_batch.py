@@ -1,4 +1,4 @@
-"""Apply batch 9 (rows 232-252) to vocab.json."""
+"""Apply batch 13 (rows 307-315) to vocab.json."""
 
 import json
 import shutil
@@ -8,56 +8,29 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    # row-00232: keep both — no action
-    {"row_id": "row-00233", "delete": ["wlt-c01-088"], "keep": "t4k-c05-046", "edits": {},
-     "note": "keep t4k-c05-046"},
-    {"row_id": "row-00234", "delete": ["t4k-c09-088"], "keep": "t4k-c05-051", "edits": {},
-     "note": "keep t4k-c05-051"},
-    {"row_id": "row-00235", "delete": ["t4k-c05-055"], "keep": "wlt-c20-065", "edits": {},
-     "note": "keep wlt-c20-065"},
-    {"row_id": "row-00236", "delete": ["tobo-508"], "keep": "t4k-c05-096", "edits": {},
-     "note": "keep t4k-c05-096"},
-    {"row_id": "row-00237", "delete": ["t4k-c06-000"], "keep": "wlt-c06-044", "edits": {},
-     "note": "keep wlt-c06-044"},
-    {"row_id": "row-00238", "delete": ["t4k-c06-007"], "keep": "tamago-l3-276",
-     "edits": {"tamago-l3-276": {"thai": "ทัก, ทักทาย", "english": "to greet, to say hi"}},
-     "note": "merge as ทัก, ทักทาย: to greet, to say hi"},
-    {"row_id": "row-00239", "delete": ["t4k-c06-020"], "keep": "tobo-206", "edits": {},
-     "note": "keep tobo-206"},
-    {"row_id": "row-00240", "delete": ["t4k-c06-044"], "keep": "wlt-c08-064", "edits": {},
-     "note": "keep wlt-c08-064"},
-    # row-00241: keep both — no action
-    {"row_id": "row-00242", "delete": ["t4k-c06-082"], "keep": "wlt-c15-022", "edits": {},
-     "note": "keep wlt-c15-022"},
-    {"row_id": "row-00243", "delete": ["thai9k-006"], "keep": "t4k-c07-012",
-     "edits": {"t4k-c07-012": {"thai": "อรุณ, รุ่งอรุณ"}},
-     "note": "merge as อรุณ, รุ่งอรุณ"},
-    {"row_id": "row-00244", "delete": ["t4k-c07-034"], "keep": "wlt-c17-001",
-     "edits": {"wlt-c17-001": {"thai": "ทอง, ทองคำ"}},
-     "note": "merge as ทอง, ทองคำ"},
-    {"row_id": "row-00245", "delete": [], "keep": "t4k-c07-053",
-     "edits": {"t4k-c07-053": {"english": "peace (opposite of war)"}},
-     "note": "keep both; clarify t4k-c07-053 english"},
-    {"row_id": "row-00246", "delete": [], "keep": "t4k-c07-054",
-     "edits": {"t4k-c07-054": {"frequency": "occasional",
-                                 "english": "to adhere to, to be committed to"}},
-     "note": "keep both; move ยึดมั่น to occasional + update english"},
-    {"row_id": "row-00247", "delete": ["t4k-c07-066"], "keep": "wlt-c20-066", "edits": {},
-     "note": "keep wlt-c20-066"},
-    {"row_id": "row-00248", "delete": ["t4k-c07-094"], "keep": "wlt-c20-080",
-     "edits": {"wlt-c20-080": {"thai": "หน่อย, สักหน่อย"}},
-     "note": "merge as หน่อย, สักหน่อย"},
-    {"row_id": "row-00249", "delete": ["t4k-c08-015"], "keep": "wlt-c20-000", "edits": {},
-     "note": "keep wlt-c20-000"},
-    {"row_id": "row-00250", "delete": ["t4k-c08-038"], "keep": "wlt-c20-064", "edits": {},
-     "note": "keep wlt-c20-064"},
-    {"row_id": "row-00251", "delete": ["t4k-c08-041"], "keep": "tamago-l12-593", "edits": {},
-     "note": "keep tamago-l12-593"},
-    {"row_id": "row-00252", "delete": ["t4k-c08-045"], "keep": "wlt-c20-069", "edits": {},
-     "note": "keep wlt-c20-069"},
+    {"row_id": "row-00307", "delete": ["tamago-l12-373"], "keep": "thai9k-005",
+     "edits": {"thai9k-005": {"thai": "สายรุ้ง, รุ้ง, รุ้งกินน้ำ"}},
+     "note": "merge as สายรุ้ง, รุ้ง, รุ้งกินน้ำ"},
+    {"row_id": "row-00308", "delete": ["wlt-c11-071"], "keep": "tamago-l12-374",
+     "edits": {"tamago-l12-374": {"thai": "ภาพ, รูปภาพ"}},
+     "note": "merge as ภาพ, รูปภาพ"},
+    {"row_id": "row-00309", "delete": ["tamago-l12-376"], "keep": "wlt-c14-065", "edits": {},
+     "note": "keep wlt-c14-065"},
+    {"row_id": "row-00310", "delete": ["tamago-l12-382"], "keep": "thaipod-0887",
+     "edits": {"thaipod-0887": {"thai": "ลาย, ลวดลาย"}},
+     "note": "merge as ลาย, ลวดลาย"},
+    {"row_id": "row-00311", "delete": ["thaipod-1066"], "keep": "tamago-l12-395", "edits": {},
+     "note": "keep tamago-l12-395"},
+    # row-00312: keep both — no action
+    {"row_id": "row-00313", "delete": ["yt-c12-040"], "keep": "tamago-l12-399", "edits": {},
+     "note": "keep tamago-l12-399"},
+    {"row_id": "row-00314", "delete": [], "keep": "yt-c22-026",
+     "edits": {"yt-c22-026": {"english": "crowded, bustling"}},
+     "note": "keep both; rephrase yt-c22-026 english"},
+    # row-00315: keep both — no action (wlt-c21-046 already edited in batch 8)
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(232, 253)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(307, 316)}
 
 
 def main():
@@ -109,7 +82,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 9 — rows 232-252", ""]
+    log_lines = ["", "=" * 70, "Batch 13 — rows 307-315", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
