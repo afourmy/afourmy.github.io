@@ -235,34 +235,32 @@ def count_paths(n):
 
     <h2>Trees</h2>
 
-    <div class="thm-block remark">
-      <p><span class="thm-label">Binary tree.</span> A tree where each node has at most two children, referred to as the left and right child.</p>
-    </div>
-
-    <details class="tsp-code">
-      <summary>Class</summary>
-      <pre><code class="language-python">class TreeNode:
+    <ul>
+      <li>
+        <span class="thm-label">Binary tree.</span> A tree where each node has at most two children, referred to as the left and right child.
+        <details class="tsp-code">
+          <summary>Class</summary>
+          <pre><code class="language-python">class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
         self.left = left
         self.right = right</code></pre>
-    </details>
-
-    <div class="thm-block remark">
-      <p><span class="thm-label">Binary search tree.</span> A binary tree where the key stored in each node is greater than every key in its left subtree, and less than or equal to every key in its right subtree.</p>
-    </div>
-
-    <div class="thm-block remark">
-      <p><span class="thm-label">N-ary tree.</span> A tree where each node has an arbitrary number of children.</p>
-    </div>
-
-    <details class="tsp-code">
-      <summary>Class</summary>
-      <pre><code class="language-python">class Node:
+        </details>
+      </li>
+      <li>
+        <span class="thm-label">Binary search tree.</span> A binary tree where the key stored in each node is greater than every key in its left subtree, and less than or equal to every key in its right subtree.
+      </li>
+      <li>
+        <span class="thm-label">N-ary tree.</span> A tree where each node has an arbitrary number of children.
+        <details class="tsp-code">
+          <summary>Class</summary>
+          <pre><code class="language-python">class Node:
     def __init__(self, val=None, children=None):
         self.val = val
         self.children = children</code></pre>
-    </details>
+        </details>
+      </li>
+    </ul>
 
     <div class="thm-block remark">
       <p><span class="thm-label">Tree traversals.</span> Return the list of values of a binary tree visited in depth-first order. Pre-order visits the root first, in-order between the two subtrees, and post-order last.</p>
