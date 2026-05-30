@@ -570,7 +570,9 @@ def collatz_sequence_length(n):
         if not (0 <= x < rows and 0 <= y < cols) or not grid[x][y]:
             return 0
         grid[x][y] = 0
-        return 1 + sum(rec(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)))
+        return 1 + sum(
+            rec(x + dx, y + dy) for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))
+        )
     return max(rec(i, j) for i in range(rows) for j in range(cols))</code></pre>
         </details>
       </li>
