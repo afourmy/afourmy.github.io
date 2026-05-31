@@ -1380,6 +1380,7 @@ html[lang="fr"] .en { display: none; }
   gap: 0.3rem;
   border-left: 1px solid var(--border);
   background: var(--surface-alt);
+  border-radius: 0 7px 7px 0;
 }
 
 /* Copy-word control: copies the visible side without flipping the card. */
@@ -1764,6 +1765,15 @@ html[lang="fr"] .en { display: none; }
 
 /* Thai font choice (default Sarabun above; toggle switches to Noto Sans Thai) */
 body[data-thai-font="noto"] .vocab-thai {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+/* Inline Thai text inside prose (etymology and similar courses). */
+.th {
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 500;
+}
+body[data-thai-font="noto"] .th {
   font-family: 'Noto Sans Thai', sans-serif;
 }
 

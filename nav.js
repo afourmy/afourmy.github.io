@@ -53,6 +53,7 @@
     { en: "Thailand", columns: [
       [
         { href: "thai/index.html", en: "Vocabulary" },
+        { href: "thai/etymology.html", en: "Etymology" },
         { href: "thai/flashcards.html", en: "Flashcards" },
       ]
     ]},
