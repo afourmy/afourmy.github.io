@@ -25,6 +25,7 @@
         { href: "math/arithmetique.html", en: "Arithmetic" },
         { href: "math/anneaux-corps.html", en: "Rings and Fields" },
         { href: "math/polynomes.html", en: "Polynomials" },
+        { href: "math/denombrement.html", en: "Combinatorics" },
       ],
       [
         { href: "math/topologie.html", en: "Topology" },
@@ -33,7 +34,6 @@
         { href: "math/determinants.html", en: "Determinants" },
         { href: "math/reduction.html", en: "Reduction" },
         { href: "math/probabilites.html", en: "Probability" },
-        { href: "math/denombrement.html", en: "Combinatorics" },
       ]
     ]},
     { en: "Computer Science", columns: [
