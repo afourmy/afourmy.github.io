@@ -98,10 +98,10 @@
   html += '<span></span><span></span><span></span>';
   html += '</button>';
 
-  // Thai font toggle (shown only on Thai pages). Placed outside .nav-links so
-  // that on mobile it remains visible in the top bar instead of being hidden
-  // inside the hamburger dropdown. On desktop it inherits .lang-toggle's
-  // absolute positioning unchanged.
+  // Thai font toggle (shown only on Thai pages). Placed OUTSIDE .nav-links so
+  // that on mobile it stays visible in the top bar instead of being hidden in
+  // the hamburger dropdown. On desktop the .lang-toggle rule still positions
+  // it absolutely at left: 1.5rem, unchanged from before.
   html += '<div class="lang-toggle" id="thai-font-toggle" style="display:none">';
   html += '<button id="thai-font-sarabun" data-font="sarabun" class="active">Sarabun</button>';
   html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
@@ -112,7 +112,7 @@
   html += '<div class="nav-links" id="navLinks">';
 
   // Language toggle (left gutter on desktop, top of the menu on mobile)
-  html += '<div class="lang-toggle">';
+  html += '<div class="lang-toggle" id="lang-toggle">';
   html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
   html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
   html += '</div>';
@@ -217,7 +217,7 @@
   // is shown there and nowhere else (not on Home or any other section). Driven
   // by the current path so it stays correct across SPA navigation. Exposed
   // globally so the SPA can refresh it after each page change.
-  var langToggleEl = nav.querySelector(".lang-toggle");
+  var langToggleEl = nav.querySelector("#lang-toggle");
   window.updateLangToggle = function () {
     if (!langToggleEl) return;
     var path = strip(window.location.pathname);
