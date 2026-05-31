@@ -98,6 +98,15 @@
   html += '<span></span><span></span><span></span>';
   html += '</button>';
 
+  // Thai font toggle (shown only on Thai pages). Placed outside .nav-links so
+  // that on mobile it remains visible in the top bar instead of being hidden
+  // inside the hamburger dropdown. On desktop it inherits .lang-toggle's
+  // absolute positioning unchanged.
+  html += '<div class="lang-toggle" id="thai-font-toggle" style="display:none">';
+  html += '<button id="thai-font-sarabun" data-font="sarabun" class="active">Sarabun</button>';
+  html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
+  html += '</div>';
+
   // Collapsible menu: language toggle + category items grouped together so the
   // mobile hamburger can show/hide them without affecting the desktop layout.
   html += '<div class="nav-links" id="navLinks">';
@@ -106,12 +115,6 @@
   html += '<div class="lang-toggle">';
   html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
   html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
-  html += '</div>';
-
-  // Thai font toggle (same position, shown only on Thai pages)
-  html += '<div class="lang-toggle" id="thai-font-toggle" style="display:none">';
-  html += '<button id="thai-font-sarabun" data-font="sarabun" class="active">Sarabun</button>';
-  html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
   html += '</div>';
 
   for (var m = 0; m < menu.length; m++) {

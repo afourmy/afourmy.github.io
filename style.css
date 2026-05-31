@@ -1014,8 +1014,9 @@ html[lang="fr"] .en { display: none; }
 /* ── Framed page title (shared) ── */
 .page-banner {
   text-align: center;
-  margin: 0.6rem 0 1.8rem;
-  padding: 1.5rem 1.6rem;
+  width: 70%;
+  margin: 0.6rem auto 1.2rem;
+  padding: 1rem 1.6rem;
   background: var(--surface-alt);
   border: 1px solid var(--border);
   border-radius: 10px;
@@ -1026,10 +1027,17 @@ html[lang="fr"] .en { display: none; }
   display: inline-block;
   margin: 0;
   padding: 0 0 0.12rem;
-  font-size: 2.2rem;
+  font-size: 1.8rem;
   font-weight: 700;
   border: none;
   border-bottom: 3px solid var(--accent);
+}
+
+@media (max-width: 600px) {
+  .page-banner {
+    width: auto;
+    margin: 0.6rem 0 1.2rem;
+  }
 }
 
 /* ── Thai vocabulary page ── */
@@ -1888,6 +1896,17 @@ body[data-thai-font="noto"] .th {
     position: static;
     transform: none;
     margin: 0.6rem 1rem;
+  }
+
+  /* Thai font toggle is a sibling of .nav-links on mobile (not inside the
+     hamburger dropdown), so position it visibly in the top bar. Shifted left
+     of centre to keep clear of the hamburger button on the right. */
+  #thai-font-toggle {
+    position: absolute;
+    left: calc(50% - 15px);
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
   }
 
   /* Categories stack as full-width rows. */
