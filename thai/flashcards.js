@@ -46,12 +46,22 @@
   var states = loadJSON(STATE_KEY, {}); // cardId -> FSRS card state
   var config = loadJSON(CONFIG_KEY, null) || {
     newPerDay: 15,
+    direction: "both",
     excluded: { frequency: { rare: true, occasional: true }, topic: {} },
     day: null,
   };
   config.excluded = config.excluded || { frequency: {}, topic: {} };
   config.excluded.frequency = config.excluded.frequency || {};
   config.excluded.topic = config.excluded.topic || {};
+  if (config.direction !== "e2t" && config.direction !== "t2e") config.direction = "both";
+
+  // Direction filter: which card directions are eligible for the queue and the
+  // stat counts. "both" returns the full DIRS list; the others restrict to one.
+  function activeDirs() {
+    if (config.direction === "e2t") return ["e2t"];
+    if (config.direction === "t2e") return ["t2e"];
+    return DIRS;
+  }
 
   function saveStates() { lsSet(STATE_KEY, JSON.stringify(states)); }
   function saveConfig() { lsSet(CONFIG_KEY, JSON.stringify(config)); }
@@ -161,7 +171,7 @@
       // Among the word's directions, prefer a due card; else offer it as new.
       var dueHere = [];
       var newHere = [];
-      DIRS.forEach(function (dir) {
+      activeDirs().forEach(function (dir) {
         var id = cardId(word, dir);
         var st = states[id];
         if (st && st.due != null && st.reps > 0) {
@@ -204,15 +214,16 @@
     var built = buildQueue();
     var excluded = 0;
     var left = 0;
+    var dirs = activeDirs();
     words.forEach(function (word) {
       // When a custom deck is selected, words outside the deck aren't part of
       // the universe — they don't count as excluded, they're simply invisible.
       if (!passesDeck(word)) return;
       if (isExcluded(word) || isSuspended(word)) {
-        excluded += DIRS.length;
+        excluded += dirs.length;
         return;
       }
-      DIRS.forEach(function (dir) {
+      dirs.forEach(function (dir) {
         var st = states[cardId(word, dir)];
         if (!st || st.reps === 0) left += 1;
       });
@@ -550,6 +561,22 @@
     });
   }
 
+  // ── Direction picker ──────────────────────────────────────────────────────
+  // Restricts the review pool (and the home-screen counts) to one direction or
+  // the other, or keeps the default of mixing both.
+  function renderDirectionSelect() {
+    $("fc-direction-select").value = config.direction;
+  }
+  function wireDirectionSelect() {
+    $("fc-direction-select").addEventListener("change", function (e) {
+      var v = e.target.value;
+      if (v !== "e2t" && v !== "t2e") v = "both";
+      config.direction = v;
+      saveConfig();
+      refreshStats();
+    });
+  }
+
   // ── Wiring ───────────────────────────────────────────────────────────────
   function wire() {
     $("fc-start").addEventListener("click", startSession);
@@ -594,8 +621,10 @@
       words.forEach(function (w) { wordById[w.id] = w; });
       buildChips();
       renderDeckBar();
+      renderDirectionSelect();
       wireSettings();
       wireDeckBar();
+      wireDirectionSelect();
       wire();
       refreshStats();
       show(homeEl);
