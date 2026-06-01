@@ -1,4 +1,4 @@
-"""Apply batch 24 (rows 503-521) to vocab.json."""
+"""Apply batch 26 (rows 545-562) to vocab.json."""
 
 import json
 import shutil
@@ -8,60 +8,57 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    # row-00503: keep both — no action
-    {"row_id": "row-00504", "delete": ["wlt-c18-005"], "keep": "thaipod-1134", "edits": {},
-     "note": "keep thaipod-1134"},
-    {"row_id": "row-00505", "delete": ["thaipod-1137"], "keep": "thaipod-1136",
-     "edits": {"thaipod-1136": {"frequency": "rare", "english": "based on, according to; to lean against"}},
-     "note": "keep thaipod-1136, move to rare, new english"},
-    {"row_id": "row-00506", "delete": [], "keep": None,
-     "edits": {"thaipod-1161": {"frequency": "occasional"}},
-     "note": "keep both; thaipod-1161 to occasional"},
-    {"row_id": "row-00507", "delete": ["wlt-c17-044"], "keep": "thaipod-1167",
-     "edits": {"thaipod-1167": {"thai": "ร่วม, เข้าร่วม"}},
-     "note": "keep thaipod-1167 as ร่วม, เข้าร่วม"},
-    {"row_id": "row-00508", "delete": ["thaipod-1180"], "keep": "tsl-085",
-     "edits": {"tsl-085": {"frequency": "occasional"}},
-     "note": "keep tsl-085, move to occasional"},
-    {"row_id": "row-00509", "delete": ["thaipod-1181"], "keep": "wlt-c21-058", "edits": {},
-     "note": "keep wlt-c21-058"},
-    {"row_id": "row-00510", "delete": [], "keep": None,
-     "edits": {"thaipod-1198": {"english": "to connect, to link up"}},
-     "note": "keep both; thaipod-1198 'to link' -> 'to link up'"},
-    {"row_id": "row-00511", "delete": [], "keep": None,
-     "edits": {"yt-c07-063": {"frequency": "occasional", "english": "to associate, connect, link (e.g. sth abstract, idea, relations)"}},
-     "note": "keep both; yt-c07-063 to occasional, add parenthetical to english"},
-    {"row_id": "row-00512", "delete": ["thaipod-1201"], "keep": "wlt-c10-062", "edits": {},
-     "note": "keep wlt-c10-062"},
-    {"row_id": "row-00513", "delete": [], "keep": None,
-     "edits": {"thaipod-1203": {"english": "to walk, to go on foot"}},
-     "note": "keep both; thaipod-1203 english -> 'to walk, to go on foot'"},
-    {"row_id": "row-00514", "delete": [], "keep": None,
-     "edits": {"thaipod-1204": {"english": "original, former, same as before"}},
-     "note": "keep both; thaipod-1204 english -> 'original, former, same as before'"},
-    {"row_id": "row-00515", "delete": ["tsl-172"], "keep": "thaipod-1217", "edits": {},
-     "note": "keep thaipod-1217"},
-    {"row_id": "row-00516", "delete": ["wlt-c14-055"], "keep": "thaipod-1249",
-     "edits": {"thaipod-1249": {"thai": "เริ่ม, เริ่มต้น"}},
-     "note": "keep thaipod-1249 as เริ่ม, เริ่มต้น"},
-    {"row_id": "row-00517", "delete": ["thaipod-1260"], "keep": "wlt-c21-038", "edits": {},
-     "note": "keep wlt-c21-038"},
-    {"row_id": "row-00518", "delete": [], "keep": None,
-     "edits": {"tsl-222": {"frequency": "rare", "english": "just right, moderate, appropriate"}},
-     "note": "keep both; tsl-222 to rare, english -> 'just right, moderate, appropriate'"},
-    {"row_id": "row-00519", "delete": ["thaipod-1298"], "keep": "thaipod-1297", "edits": {},
-     "note": "keep thaipod-1297"},
-    {"row_id": "row-00520", "delete": ["thaipod-1314"], "keep": "tsl-511", "edits": {},
-     "note": "keep tsl-511"},
-    {"row_id": "row-00521", "delete": [], "keep": None,
+    {"row_id": "row-00545", "delete": ["tobo-353"], "keep": "wlt-c09-028", "edits": {},
+     "note": "keep wlt-c09-028"},
+    {"row_id": "row-00546", "delete": [], "keep": None,
+     "edits": {"tsl-542": {"frequency": "rare", "english": "to crunch, to chew on snacks"}},
+     "note": "keep both; tsl-542 to rare, english -> 'to crunch, to chew on snacks'"},
+    # row-00547: keep both — no action
+    {"row_id": "row-00548", "delete": ["wlt-c03-041"], "keep": "tobo-412", "edits": {},
+     "note": "keep tobo-412"},
+    {"row_id": "row-00549", "delete": [], "keep": None,
+     "edits": {"tobo-419": {"english": "to sweat"}},
+     "note": "keep both; remove 'sweaty' from tobo-419 english"},
+    {"row_id": "row-00550", "delete": [], "keep": None,
+     "edits": {"wlt-c09-080": {"frequency": "everyday", "english": "to permit"}},
+     "note": "keep both; wlt-c09-080 to everyday, english -> 'to permit'"},
+    # row-00551: keep both — no action
+    {"row_id": "row-00552", "delete": ["tobo-500"], "keep": "wlt-c02-022",
+     "edits": {"wlt-c02-022": {"english": "to receive, to welcome"}},
+     "note": "keep wlt-c02-022, english -> 'to receive, to welcome'"},
+    {"row_id": "row-00553", "delete": [], "keep": None,
      "edits": {
-         "yt-c01-008": {"english": "to share with others (e.g. food, experience)"},
-         "thaipod-1329": {"english": "to divide, to separate; to share"},
+         "tobo-515": {"frequency": "everyday"},
+         "yt-c19-074": {"frequency": "occasional"},
      },
-     "note": "keep both; differentiate english for yt-c01-008 and thaipod-1329"},
+     "note": "keep both; tobo-515 to everyday, yt-c19-074 to occasional"},
+    {"row_id": "row-00554", "delete": ["yt-c19-084"], "keep": "tsl-075",
+     "edits": {"tsl-075": {"thai": "บ้านนอก, ชนบท", "english": "countryside, village", "frequency": "everyday"}},
+     "note": "keep tsl-075 as บ้านนอก, ชนบท: countryside, village, move to everyday"},
+    {"row_id": "row-00555", "delete": ["yt-c12-089"], "keep": "tsl-093",
+     "edits": {"tsl-093": {"thai": "มุก, ไข่มุก"}},
+     "note": "keep tsl-093 as มุก, ไข่มุก"},
+    # row-00556: keep both — no action
+    {"row_id": "row-00557", "delete": [], "keep": None,
+     "edits": {"yt-c05-077": {"frequency": "rare"}},
+     "note": "keep both; yt-c05-077 to rare"},
+    {"row_id": "row-00558", "delete": [], "keep": None,
+     "edits": {
+         "tsl-127": {"thai": "โม้", "english": "to brag, to boast, to exaggerate", "frequency": "occasional"},
+         "yt-c14-032": {"frequency": "occasional"},
+     },
+     "note": "keep both at occasional; tsl-127 -> โม้: to brag, to boast, to exaggerate"},
+    {"row_id": "row-00559", "delete": ["wlt-c18-081"], "keep": "tsl-135",
+     "edits": {"tsl-135": {"thai": "บูด, เน่า, บูดเน่า"}},
+     "note": "keep tsl-135 as บูด, เน่า, บูดเน่า"},
+    {"row_id": "row-00560", "delete": ["yt-c08-035"], "keep": "tsl-135", "edits": {},
+     "note": "delete yt-c08-035 (เน่า merged into tsl-135 per row-00559)"},
+    {"row_id": "row-00561", "delete": ["tsl-158"], "keep": "yt-c03-047", "edits": {},
+     "note": "keep yt-c03-047"},
+    # row-00562: keep both — no action
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(503, 522)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(545, 563)}
 
 
 def main():
@@ -113,7 +110,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 24 — rows 503-521", ""]
+    log_lines = ["", "=" * 70, "Batch 26 — rows 545-562", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
