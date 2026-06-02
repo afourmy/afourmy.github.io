@@ -1,4 +1,4 @@
-"""Apply batch 26 (rows 545-562) to vocab.json."""
+"""Apply batch 30 (rows 628-649) to vocab.json."""
 
 import json
 import shutil
@@ -8,57 +8,70 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00545", "delete": ["tobo-353"], "keep": "wlt-c09-028", "edits": {},
-     "note": "keep wlt-c09-028"},
-    {"row_id": "row-00546", "delete": [], "keep": None,
-     "edits": {"tsl-542": {"frequency": "rare", "english": "to crunch, to chew on snacks"}},
-     "note": "keep both; tsl-542 to rare, english -> 'to crunch, to chew on snacks'"},
-    # row-00547: keep both — no action
-    {"row_id": "row-00548", "delete": ["wlt-c03-041"], "keep": "tobo-412", "edits": {},
-     "note": "keep tobo-412"},
-    {"row_id": "row-00549", "delete": [], "keep": None,
-     "edits": {"tobo-419": {"english": "to sweat"}},
-     "note": "keep both; remove 'sweaty' from tobo-419 english"},
-    {"row_id": "row-00550", "delete": [], "keep": None,
-     "edits": {"wlt-c09-080": {"frequency": "everyday", "english": "to permit"}},
-     "note": "keep both; wlt-c09-080 to everyday, english -> 'to permit'"},
-    # row-00551: keep both — no action
-    {"row_id": "row-00552", "delete": ["tobo-500"], "keep": "wlt-c02-022",
-     "edits": {"wlt-c02-022": {"english": "to receive, to welcome"}},
-     "note": "keep wlt-c02-022, english -> 'to receive, to welcome'"},
-    {"row_id": "row-00553", "delete": [], "keep": None,
+    {"row_id": "row-00628", "delete": ["wlt-c20-003"], "keep": "wlt-c06-014", "edits": {},
+     "note": "keep wlt-c06-014"},
+    # row-00629: keep both; wlt-c06-027 frequency="occasional"
+    {"row_id": "row-00629", "delete": [], "keep": None,
+     "edits": {"wlt-c06-027": {"frequency": "occasional"}},
+     "note": "keep both; wlt-c06-027 frequency -> occasional"},
+    {"row_id": "row-00630", "delete": ["wlt-c06-033"], "keep": "wlt-c21-005", "edits": {},
+     "note": "keep wlt-c21-005"},
+    {"row_id": "row-00631", "delete": ["wlt-c06-054"], "keep": "wlt-c06-053",
+     "edits": {"wlt-c06-053": {"thai": "ซื่อ, ซื่อตรง"}},
+     "note": "keep wlt-c06-053 as ซื่อ, ซื่อตรง"},
+    # row-00632: keep both — no action
+    # row-00633: keep both; edits only
+    {"row_id": "row-00633", "delete": [], "keep": None,
+     "edits": {"wlt-c06-071": {"frequency": "everyday", "english": "forever"}},
+     "note": "keep both; wlt-c06-071 frequency -> everyday, english -> forever"},
+    {"row_id": "row-00634", "delete": [], "keep": None,
+     "edits": {"wlt-c06-072": {"frequency": "everyday"}},
+     "note": "keep both; wlt-c06-072 frequency -> everyday"},
+    {"row_id": "row-00635", "delete": ["wlt-c06-088"], "keep": "wlt-c06-089",
+     "edits": {"wlt-c06-089": {"thai": "เต้น, เต้นรำ"}},
+     "note": "keep wlt-c06-089 as เต้น, เต้นรำ"},
+    {"row_id": "row-00636", "delete": [], "keep": None,
      "edits": {
-         "tobo-515": {"frequency": "everyday"},
-         "yt-c19-074": {"frequency": "occasional"},
+         "wlt-c06-090": {"frequency": "occasional"},
+         "wlt-c12-002": {"frequency": "occasional"},
      },
-     "note": "keep both; tobo-515 to everyday, yt-c19-074 to occasional"},
-    {"row_id": "row-00554", "delete": ["yt-c19-084"], "keep": "tsl-075",
-     "edits": {"tsl-075": {"thai": "บ้านนอก, ชนบท", "english": "countryside, village", "frequency": "everyday"}},
-     "note": "keep tsl-075 as บ้านนอก, ชนบท: countryside, village, move to everyday"},
-    {"row_id": "row-00555", "delete": ["yt-c12-089"], "keep": "tsl-093",
-     "edits": {"tsl-093": {"thai": "มุก, ไข่มุก"}},
-     "note": "keep tsl-093 as มุก, ไข่มุก"},
-    # row-00556: keep both — no action
-    {"row_id": "row-00557", "delete": [], "keep": None,
-     "edits": {"yt-c05-077": {"frequency": "rare"}},
-     "note": "keep both; yt-c05-077 to rare"},
-    {"row_id": "row-00558", "delete": [], "keep": None,
+     "note": "keep both at occasional"},
+    {"row_id": "row-00637", "delete": ["yt-c04-049"], "keep": "wlt-c07-009", "edits": {},
+     "note": "keep wlt-c07-009"},
+    # row-00638: absent
+    # row-00639: absent
+    {"row_id": "row-00640", "delete": ["wlt-c07-038"], "keep": "wlt-c20-026", "edits": {},
+     "note": "keep wlt-c20-026"},
+    {"row_id": "row-00641", "delete": ["wlt-c07-071"], "keep": "wlt-c07-070", "edits": {},
+     "note": "keep wlt-c07-070"},
+    {"row_id": "row-00642", "delete": ["wlt-c07-078"], "keep": "wlt-c15-040", "edits": {},
+     "note": "keep wlt-c15-040"},
+    # row-00643: absent
+    {"row_id": "row-00644", "delete": ["wlt-c08-002"], "keep": "wlt-c11-056",
+     "edits": {"wlt-c11-056": {"thai": "ฝึก, หัด, ฝึกหัด", "frequency": "everyday"}},
+     "note": "keep wlt-c11-056 as ฝึก, หัด, ฝึกหัด; frequency -> everyday"},
+    {"row_id": "row-00645", "delete": ["yt-c15-064"], "keep": None, "edits": {},
+     "note": "delete yt-c15-064; wlt-c08-002 already deleted in row-00644"},
+    {"row_id": "row-00646", "delete": ["wlt-c08-009", "wlt-c18-012"], "keep": None, "edits": {},
+     "note": "remove both"},
+    {"row_id": "row-00647", "delete": ["wlt-c08-010"], "keep": "wlt-c16-020", "edits": {},
+     "note": "keep wlt-c16-020"},
+    {"row_id": "row-00648", "delete": [], "keep": None,
      "edits": {
-         "tsl-127": {"thai": "โม้", "english": "to brag, to boast, to exaggerate", "frequency": "occasional"},
-         "yt-c14-032": {"frequency": "occasional"},
+         "wlt-c08-021": {"frequency": "everyday"},
+         "yt-c13-021": {"frequency": "rare", "english": "gender identity"},
      },
-     "note": "keep both at occasional; tsl-127 -> โม้: to brag, to boast, to exaggerate"},
-    {"row_id": "row-00559", "delete": ["wlt-c18-081"], "keep": "tsl-135",
-     "edits": {"tsl-135": {"thai": "บูด, เน่า, บูดเน่า"}},
-     "note": "keep tsl-135 as บูด, เน่า, บูดเน่า"},
-    {"row_id": "row-00560", "delete": ["yt-c08-035"], "keep": "tsl-135", "edits": {},
-     "note": "delete yt-c08-035 (เน่า merged into tsl-135 per row-00559)"},
-    {"row_id": "row-00561", "delete": ["tsl-158"], "keep": "yt-c03-047", "edits": {},
-     "note": "keep yt-c03-047"},
-    # row-00562: keep both — no action
+     "note": "keep both; wlt-c08-021 frequency -> everyday; yt-c13-021 frequency -> rare, english -> gender identity"},
+    {"row_id": "row-00649", "delete": ["wlt-c08-022"], "keep": "wlt-c11-065",
+     "edits": {"wlt-c11-065": {"thai": "เพิ่ม, เพิ่มขึ้น"}},
+     "note": "keep wlt-c11-065 as เพิ่ม, เพิ่มขึ้น"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(545, 563)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(628, 650)}
+
+STALE_ROW_IDS = {
+    "row-00808", "row-01022", "row-01030", "row-01263", "row-01270",
+}
 
 
 def main():
@@ -110,7 +123,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 26 — rows 545-562", ""]
+    log_lines = ["", "=" * 70, "Batch 30 — rows 628-649", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
@@ -140,18 +153,19 @@ def main():
         json.dumps(new_vocab, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
+    remove_ids = APPLIED_ROW_IDS | STALE_ROW_IDS
     doc = json.loads(decisions_path.read_text(encoding="utf-8"))
     before = len(doc["rows"])
-    doc["rows"] = [r for r in doc["rows"] if r["row_id"] not in APPLIED_ROW_IDS]
+    doc["rows"] = [r for r in doc["rows"] if r["row_id"] not in remove_ids]
     doc["total_rows"] = len(doc["rows"])
     decisions_path.write_text(
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
     print(f"vocab.json: {len(vocab)} -> {len(new_vocab)} entries (backup: {backup.name})")
-    print(f"decisions.json: {before} rows -> {doc['total_rows']} rows ({before - doc['total_rows']} removed)")
+    print(f"decisions.json: {before} -> {doc['total_rows']} rows ({before - doc['total_rows']} removed, incl. {len(STALE_ROW_IDS)} stale)")
     if skipped_missing:
-        print(f"Skipped {len(skipped_missing)} references to already-deleted entries (see apply_log.txt)")
+        print(f"Skipped {len(skipped_missing)} already-deleted refs (see apply_log.txt)")
     print(f"log appended to: {log_path.name}")
 
 
