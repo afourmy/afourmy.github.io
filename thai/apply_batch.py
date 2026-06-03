@@ -1,4 +1,4 @@
-"""Apply batch 41 (rows 827-838) to vocab.json."""
+"""Apply batch 42 (rows 839-851) to vocab.json."""
 
 import json
 import shutil
@@ -8,52 +8,48 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    # row-00826: absent
-    {"row_id": "row-00827", "delete": ["wlt-c04-010"], "keep": "chula-l4-102", "edits": {},
-     "note": "keep chula-l4-102"},
-    {"row_id": "row-00828", "delete": [], "keep": None,
-     "edits": {"tobo-210": {"english": "competitive advantage", "frequency": "occasional"}},
-     "note": "keep both; tobo-210 english -> 'competitive advantage', occasional"},
-    # row-00829: absent (stale)
-    {"row_id": "row-00830", "delete": [], "keep": None,
+    {"row_id": "row-00839", "delete": [], "keep": None,
+     "edits": {"t4k-c11-039": {"frequency": "rare", "english": "community, collective society"}},
+     "note": "keep both; t4k-c11-039 -> rare, english -> 'community, collective society'"},
+    {"row_id": "row-00840", "delete": ["t4k-c09-052"], "keep": "chula-l5-192", "edits": {},
+     "note": "keep chula-l5-192"},
+    # row-00841: keep both — no action
+    {"row_id": "row-00842", "delete": [], "keep": None,
+     "edits": {"yt-c03-010": {"frequency": "occasional"}},
+     "note": "keep both; yt-c03-010 -> occasional"},
+    {"row_id": "row-00843", "delete": ["chula-l5-255"], "keep": "wlt-c11-027",
+     "edits": {"wlt-c11-027": {"thai": "บ่อย, มัก"}},
+     "note": "keep wlt-c11-027 as บ่อย, มัก"},
+    {"row_id": "row-00844", "delete": [], "keep": None,
+     "edits": {"t4k-c02-038": {"english": "still, quiet"}},
+     "note": "keep both; t4k-c02-038 english -> 'still, quiet'"},
+    {"row_id": "row-00845", "delete": ["thaipod-0039"], "keep": "chula-l5-299",
+     "edits": {"chula-l5-299": {"thai": "ชาวเรือ, กะลาสี"}},
+     "note": "keep chula-l5-299 as ชาวเรือ, กะลาสี"},
+    {"row_id": "row-00846", "delete": [], "keep": None,
+     "edits": {"chula-l5-314": {"frequency": "occasional"}},
+     "note": "keep both; chula-l5-314 -> occasional"},
+    {"row_id": "row-00847", "delete": ["tamago-l12-291"], "keep": "chula-l5-317",
+     "edits": {"chula-l5-317": {"thai": "ผ่อนจ่าย, แบ่งชำระ"}},
+     "note": "keep chula-l5-317 as ผ่อนจ่าย, แบ่งชำระ"},
+    {"row_id": "row-00848", "delete": ["tobo-437"], "keep": "chula-l5-353",
+     "edits": {"chula-l5-353": {"thai": "เกษตรกรรม, การเกษตร"}},
+     "note": "keep chula-l5-353 as เกษตรกรรม, การเกษตร"},
+    {"row_id": "row-00849", "delete": [], "keep": None,
+     "edits": {"t4k-c11-108": {"frequency": "rare", "english": "relationship (formal)"}},
+     "note": "keep both; t4k-c11-108 -> rare, english -> 'relationship (formal)'"},
+    {"row_id": "row-00850", "delete": [], "keep": None,
+     "edits": {"chula-l5-375": {"english": "assets, wealth"}},
+     "note": "keep both; chula-l5-375 english -> 'assets, wealth'"},
+    {"row_id": "row-00851", "delete": [], "keep": None,
      "edits": {
-         "yt-c22-050": {"frequency": "occasional"},
-         "chula-l5-006": {"english": "cost, expenses"},
+         "chula-l5-376": {"frequency": "rare", "english": "such as (formal)"},
+         "wlt-c02-005": {"english": "namely, consisting of (+ enumeration)"},
      },
-     "note": "keep both; yt-c22-050 -> occasional; chula-l5-006 english -> 'cost, expenses'"},
-    {"row_id": "row-00831", "delete": [], "keep": None,
-     "edits": {"chula-l5-011": {"english": "savings (account)"}},
-     "note": "keep both; chula-l5-011 english -> 'savings (account)'"},
-    {"row_id": "row-00832", "delete": ["tamago-l3-734"], "keep": "chula-l5-073",
-     "edits": {"chula-l5-073": {"thai": "หลักฐาน, เครื่องพิสูจน์"}},
-     "note": "keep chula-l5-073 as หลักฐาน, เครื่องพิสูจน์"},
-    {"row_id": "row-00833", "delete": ["t4k-c05-000", "thaipod-0053"], "keep": "chula-l5-090",
-     "edits": {},
-     "note": "keep chula-l5-090; delete t4k-c05-000, thaipod-0053"},
-    {"row_id": "row-00834", "delete": [], "keep": None,
-     "edits": {
-         "chula-l5-109": {"english": "painting (art)"},
-         "tobo-135": {"english": "painting, drawing"},
-     },
-     "note": "keep both; chula-l5-109 english -> 'painting (art)'; tobo-135 english -> 'painting, drawing'"},
-    {"row_id": "row-00835", "delete": ["wlt-c11-015"], "keep": "chula-l5-114",
-     "edits": {"chula-l5-114": {"thai": "นา, ทุ่งนา"}},
-     "note": "keep chula-l5-114 as นา, ทุ่งนา"},
-    {"row_id": "row-00836", "delete": [], "keep": None,
-     "edits": {
-         "yt-c10-079": {"english": "to be hooked on sth, swept in (slang)"},
-         "chula-l5-116": {"english": "to be infatuated, to be deeply in love"},
-     },
-     "note": "keep all 3; yt-c10-079 and chula-l5-116 english updated"},
-    {"row_id": "row-00837", "delete": ["t4k-c10-043", "wlt-c03-083"], "keep": "chula-l5-120",
-     "edits": {"chula-l5-120": {"thai": "โด่งดัง, ชื่อดัง, มีชื่อเสียง"}},
-     "note": "keep chula-l5-120 as โด่งดัง, ชื่อดัง, มีชื่อเสียง"},
-    {"row_id": "row-00838", "delete": [], "keep": None,
-     "edits": {"chula-l5-139": {"english": "upside down, to overturn, to capsize"}},
-     "note": "keep both; chula-l5-139 english -> 'upside down, to overturn, to capsize'"},
+     "note": "keep all 3; chula-l5-376 -> rare, english 'such as (formal)'; wlt-c02-005 english -> 'namely, consisting of (+ enumeration)'"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(827, 839)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(839, 852)}
 
 STALE_ROW_IDS: set = set()
 
@@ -107,7 +103,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 41 — rows 827-838", ""]
+    log_lines = ["", "=" * 70, "Batch 42 — rows 839-851", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
