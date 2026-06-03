@@ -132,8 +132,14 @@
           if (!isLoaded('script', 'src', src)) await loadScript(src);
         }
 
-        // Replace page content
-        document.querySelector('main').innerHTML = newMain.innerHTML;
+        // Replace page content. Mirror the <main> element's class (and id)
+        // from the target page too, otherwise per-page main styling (e.g.
+        // .fc-main on flashcards.html) never gets applied because innerHTML
+        // alone doesn't carry attributes from newMain.
+        var mainEl = document.querySelector('main');
+        mainEl.innerHTML = newMain.innerHTML;
+        mainEl.className = newMain.className;
+        if (newMain.id) mainEl.id = newMain.id; else mainEl.removeAttribute('id');
         if (pushState !== false) history.pushState(null, '', url);
         document.title = doc.title || 'Home';
         renderMath();

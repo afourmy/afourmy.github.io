@@ -1,4 +1,8 @@
+// Exposes window.VOCAB.init(), called from an inline <script> in vocab.html so
+// the page wires itself up on every SPA visit (the script tag is only loaded
+// once by the SPA router, but inline scripts re-execute on each navigation).
 (function () {
+  function init() {
   var groupsEl = document.getElementById("vocab-groups");
   var countEl = document.getElementById("vocab-count");
   var searchEl = document.getElementById("vocab-search");
@@ -869,4 +873,7 @@
       groupsEl.innerHTML =
         '<p class="vocab-empty">Could not load vocabulary data.</p>';
     });
+  }
+
+  window.VOCAB = { init: init };
 })();

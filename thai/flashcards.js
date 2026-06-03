@@ -4,7 +4,12 @@
 // and English->Thai ("e2t") — each with its own FSRS state. All progress lives
 // in localStorage (no backend, no cross-device sync). Audio (Thai only) plays
 // on whichever face shows the Thai word; missing mp3s simply no-op.
+//
+// Exposes window.FLASHCARDS.init(), called from an inline <script> in
+// flashcards.html so the page wires itself up on every SPA visit (the SPA
+// loader only loads the .js file once, but inline scripts re-execute).
 (function () {
+  function init() {
   var DAY = 86400000;
   var DIRS = ["t2e", "e2t"];
 
@@ -601,7 +606,11 @@
     });
 
     // Keyboard: space/enter reveals, 1-4 grade (desktop convenience).
-    document.addEventListener("keydown", function (e) {
+    // Stashed on window so a subsequent init() (after SPA revisit) can detach
+    // the prior closure's handler before installing the new one — otherwise
+    // zombie listeners pile up and can fire on detached DOM.
+    if (window.__fcKeydown) document.removeEventListener("keydown", window.__fcKeydown);
+    window.__fcKeydown = function (e) {
       if (reviewEl.hidden) return;
       if (!revealed && (e.key === " " || e.key === "Enter")) {
         e.preventDefault();
@@ -609,7 +618,8 @@
       } else if (revealed && e.key >= "1" && e.key <= "4") {
         grade(+e.key);
       }
-    });
+    };
+    document.addEventListener("keydown", window.__fcKeydown);
   }
 
   // ── Boot ───────────────────────────────────────────────────────────────────
@@ -636,4 +646,7 @@
       homeEl.hidden = false;
       homeEl.innerHTML = '<p class="vocab-empty">Could not load vocabulary data.</p>';
     });
+  }
+
+  window.FLASHCARDS = { init: init };
 })();
