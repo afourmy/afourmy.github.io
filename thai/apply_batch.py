@@ -1,4 +1,4 @@
-"""Apply batch 30 (rows 628-649) to vocab.json."""
+"""Apply batch 36 (rows 741-747) to vocab.json."""
 
 import json
 import shutil
@@ -8,70 +8,31 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00628", "delete": ["wlt-c20-003"], "keep": "wlt-c06-014", "edits": {},
-     "note": "keep wlt-c06-014"},
-    # row-00629: keep both; wlt-c06-027 frequency="occasional"
-    {"row_id": "row-00629", "delete": [], "keep": None,
-     "edits": {"wlt-c06-027": {"frequency": "occasional"}},
-     "note": "keep both; wlt-c06-027 frequency -> occasional"},
-    {"row_id": "row-00630", "delete": ["wlt-c06-033"], "keep": "wlt-c21-005", "edits": {},
-     "note": "keep wlt-c21-005"},
-    {"row_id": "row-00631", "delete": ["wlt-c06-054"], "keep": "wlt-c06-053",
-     "edits": {"wlt-c06-053": {"thai": "ซื่อ, ซื่อตรง"}},
-     "note": "keep wlt-c06-053 as ซื่อ, ซื่อตรง"},
-    # row-00632: keep both — no action
-    # row-00633: keep both; edits only
-    {"row_id": "row-00633", "delete": [], "keep": None,
-     "edits": {"wlt-c06-071": {"frequency": "everyday", "english": "forever"}},
-     "note": "keep both; wlt-c06-071 frequency -> everyday, english -> forever"},
-    {"row_id": "row-00634", "delete": [], "keep": None,
-     "edits": {"wlt-c06-072": {"frequency": "everyday"}},
-     "note": "keep both; wlt-c06-072 frequency -> everyday"},
-    {"row_id": "row-00635", "delete": ["wlt-c06-088"], "keep": "wlt-c06-089",
-     "edits": {"wlt-c06-089": {"thai": "เต้น, เต้นรำ"}},
-     "note": "keep wlt-c06-089 as เต้น, เต้นรำ"},
-    {"row_id": "row-00636", "delete": [], "keep": None,
+    # row-00740: absent
+    {"row_id": "row-00741", "delete": [], "keep": None,
+     "edits": {"chula-l5-095": {"english": "to block, to obstruct (e.g. road), to stand in the way"}},
+     "note": "keep both; chula-l5-095 english -> 'to block, to obstruct (e.g. road), to stand in the way'"},
+    {"row_id": "row-00742", "delete": ["chula-l5-123"], "keep": "wlt-c21-015", "edits": {},
+     "note": "keep wlt-c21-015"},
+    # row-00743: keep both — no action
+    {"row_id": "row-00744", "delete": [], "keep": None,
      "edits": {
-         "wlt-c06-090": {"frequency": "occasional"},
-         "wlt-c12-002": {"frequency": "occasional"},
+         "tamago-l12-140": {"english": "excellent, outstanding, distinguished"},
+         "chula-l5-132": {"english": "to stand out, outstanding"},
      },
-     "note": "keep both at occasional"},
-    {"row_id": "row-00637", "delete": ["yt-c04-049"], "keep": "wlt-c07-009", "edits": {},
-     "note": "keep wlt-c07-009"},
-    # row-00638: absent
-    # row-00639: absent
-    {"row_id": "row-00640", "delete": ["wlt-c07-038"], "keep": "wlt-c20-026", "edits": {},
-     "note": "keep wlt-c20-026"},
-    {"row_id": "row-00641", "delete": ["wlt-c07-071"], "keep": "wlt-c07-070", "edits": {},
-     "note": "keep wlt-c07-070"},
-    {"row_id": "row-00642", "delete": ["wlt-c07-078"], "keep": "wlt-c15-040", "edits": {},
-     "note": "keep wlt-c15-040"},
-    # row-00643: absent
-    {"row_id": "row-00644", "delete": ["wlt-c08-002"], "keep": "wlt-c11-056",
-     "edits": {"wlt-c11-056": {"thai": "ฝึก, หัด, ฝึกหัด", "frequency": "everyday"}},
-     "note": "keep wlt-c11-056 as ฝึก, หัด, ฝึกหัด; frequency -> everyday"},
-    {"row_id": "row-00645", "delete": ["yt-c15-064"], "keep": None, "edits": {},
-     "note": "delete yt-c15-064; wlt-c08-002 already deleted in row-00644"},
-    {"row_id": "row-00646", "delete": ["wlt-c08-009", "wlt-c18-012"], "keep": None, "edits": {},
-     "note": "remove both"},
-    {"row_id": "row-00647", "delete": ["wlt-c08-010"], "keep": "wlt-c16-020", "edits": {},
-     "note": "keep wlt-c16-020"},
-    {"row_id": "row-00648", "delete": [], "keep": None,
-     "edits": {
-         "wlt-c08-021": {"frequency": "everyday"},
-         "yt-c13-021": {"frequency": "rare", "english": "gender identity"},
-     },
-     "note": "keep both; wlt-c08-021 frequency -> everyday; yt-c13-021 frequency -> rare, english -> gender identity"},
-    {"row_id": "row-00649", "delete": ["wlt-c08-022"], "keep": "wlt-c11-065",
-     "edits": {"wlt-c11-065": {"thai": "เพิ่ม, เพิ่มขึ้น"}},
-     "note": "keep wlt-c11-065 as เพิ่ม, เพิ่มขึ้น"},
+     "note": "keep both; tamago-l12-140 english -> 'excellent, outstanding, distinguished'; chula-l5-132 english -> 'to stand out, outstanding'"},
+    # row-00745: keep both — no action
+    {"row_id": "row-00746", "delete": ["chula-l6-184"], "keep": "chula-l5-320",
+     "edits": {"chula-l5-320": {"thai": "อัศจรรย์, มหัศจรรย์"}},
+     "note": "keep chula-l5-320 as อัศจรรย์, มหัศจรรย์"},
+    {"row_id": "row-00747", "delete": ["chula-l5-373"], "keep": "thaipod-1095",
+     "edits": {"thaipod-1095": {"thai": "องค์กร, องค์การ", "english": "organization"}},
+     "note": "keep thaipod-1095 as องค์กร, องค์การ: organization"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(628, 650)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(741, 748)}
 
-STALE_ROW_IDS = {
-    "row-00808", "row-01022", "row-01030", "row-01263", "row-01270",
-}
+STALE_ROW_IDS: set = set()
 
 
 def main():
@@ -123,7 +84,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 30 — rows 628-649", ""]
+    log_lines = ["", "=" * 70, "Batch 36 — rows 741-747", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
@@ -163,7 +124,7 @@ def main():
     )
 
     print(f"vocab.json: {len(vocab)} -> {len(new_vocab)} entries (backup: {backup.name})")
-    print(f"decisions.json: {before} -> {doc['total_rows']} rows ({before - doc['total_rows']} removed, incl. {len(STALE_ROW_IDS)} stale)")
+    print(f"decisions.json: {before} -> {doc['total_rows']} rows ({before - doc['total_rows']} removed)")
     if skipped_missing:
         print(f"Skipped {len(skipped_missing)} already-deleted refs (see apply_log.txt)")
     print(f"log appended to: {log_path.name}")
