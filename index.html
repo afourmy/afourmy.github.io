@@ -142,6 +142,7 @@
         setLang(localStorage.getItem('lang') || 'en');
         if (typeof setActiveNav === 'function') setActiveNav();
         if (typeof updateLangToggle === 'function') updateLangToggle();
+        if (typeof updateThaiFont === 'function') updateThaiFont();
         window.scrollTo(0, 0);
 
         // Load and execute body scripts (in order)
