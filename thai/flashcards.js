@@ -517,6 +517,9 @@
 
       var bulk = e.target.closest("button[data-bulk]");
       if (bulk) {
+        // Bulk pills live inside <summary>; suppress the default toggle so the
+        // collapsible filter stays in its current open/closed state.
+        e.preventDefault();
         var group = bulk.closest(".fc-setting");
         var dim2 = group.getAttribute("data-dim");
         var on = bulk.getAttribute("data-bulk") === "all";
