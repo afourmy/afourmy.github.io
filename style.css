@@ -1866,7 +1866,7 @@ body[data-thai-font="noto"] .th {
   }
 
   /* Nudge Home a touch closer to the screen edge so it doesn't feel inset. */
-  .nav-home { margin-left: -5px; }
+  .nav-home { margin-left: -15px; }
 
   .nav-toggle { display: flex; margin-left: auto; }
 
@@ -1910,6 +1910,13 @@ body[data-thai-font="noto"] .th {
     top: 50%;
     transform: translate(-50%, -50%);
     margin: 0;
+  }
+  /* Shrink the Sarabun / Noto Sans pills to ~80% of their default width on
+     mobile: smaller font + tighter horizontal padding, with vertical padding
+     bumped to keep the overall pill height unchanged. */
+  #thai-font-toggle button {
+    font-size: 0.72rem;
+    padding: 0.43rem 0.4rem;
   }
 
   /* Categories stack as full-width rows. */
