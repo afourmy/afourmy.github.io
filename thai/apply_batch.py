@@ -1,4 +1,4 @@
-"""Apply batch 60 (rows 1123-1129) to vocab.json."""
+"""Apply batch 61 (rows 1132-1143) to vocab.json."""
 
 import json
 import shutil
@@ -8,18 +8,39 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-01123", "delete": ["t4k-c05-039", "t4k-c07-063", "wlt-c04-090"],
-     "keep": None, "edits": {},
-     "note": "remove all (style)"},
-    {"row_id": "row-01126", "delete": ["t4k-c06-001", "wlt-c09-052"], "keep": None, "edits": {},
-     "note": "remove both (lady)"},
-    # row-01127: keep all, already differentiated — no changes
-    {"row_id": "row-01129", "delete": ["t4k-c07-017"], "keep": "tobo-406",
-     "edits": {"thaipod-1275": {"english": "minister (royal, historical)"}},
-     "note": "keep tobo-406 and thaipod-1275; thaipod-1275 english -> 'minister (royal, historical)'; delete t4k-c07-017"},
+    {"row_id": "row-01132", "delete": ["t4k-c08-000"], "keep": "wlt-c19-078", "edits": {},
+     "note": "keep wlt-c19-078; delete t4k-c08-000"},
+    {"row_id": "row-01135", "delete": ["wlt-c11-068"], "keep": None, "edits": {},
+     "note": "remove wlt-c11-068; keep t4k-c08-049 and thaipod-0663"},
+    {"row_id": "row-01137", "delete": ["yt-c02-022"], "keep": "t4k-c09-002",
+     "edits": {"t4k-c09-002": {"thai": "พลเอก, นายพล", "english": "general (military)"}},
+     "note": "keep t4k-c09-002 as พลเอก, นายพล: general (military); delete yt-c02-022"},
+    {"row_id": "row-01138", "delete": ["t4k-c09-003"], "keep": "yt-c08-060", "edits": {},
+     "note": "keep yt-c08-060; delete t4k-c09-003"},
+    {"row_id": "row-01139", "delete": [], "keep": None,
+     "edits": {"t4k-c09-042": {"english": "steam (water)"}},
+     "note": "keep both; t4k-c09-042 english -> 'steam (water)'"},
+    {"row_id": "row-01140", "delete": [], "keep": None,
+     "edits": {
+         "t4k-c10-015": {"english": "push (e.g cart, wheelchair)"},
+         "tobo-139": {"english": "to push (e.g a door)"},
+     },
+     "note": "keep both; t4k-c10-015 english -> 'push (e.g cart, wheelchair)'; tobo-139 english -> 'to push (e.g a door)'"},
+    {"row_id": "row-01141", "delete": ["t4k-c10-093"], "keep": "wlt-c16-003",
+     "edits": {"wlt-c16-003": {"english": "satisfied"}},
+     "note": "keep only wlt-c16-003 with eng: 'satisfied'; delete t4k-c10-093"},
+    {"row_id": "row-01142", "delete": ["t4k-c10-095"], "keep": "yt-c10-084",
+     "edits": {"yt-c10-084": {"thai": "โทน, โทนเสียง"}},
+     "note": "keep yt-c10-084 as โทน, โทนเสียง; delete t4k-c10-095"},
+    {"row_id": "row-01143", "delete": [], "keep": None,
+     "edits": {
+         "t4k-c11-014": {"frequency": "rare", "english": "temple hall (Buddhism)"},
+         "yt-c02-047": {"english": "temple (forehead)"},
+     },
+     "note": "keep both; t4k-c11-014 frequency -> rare, english -> 'temple hall (Buddhism)'; yt-c02-047 english -> 'temple (forehead)'"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1123, 1130)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1132, 1144)}
 
 STALE_ROW_IDS: set = set()
 
@@ -73,7 +94,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 60 — rows 1123-1129", ""]
+    log_lines = ["", "=" * 70, "Batch 61 — rows 1132-1143", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
