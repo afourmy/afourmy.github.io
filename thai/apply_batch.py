@@ -1,4 +1,4 @@
-"""Apply batch 46 (rows 914-934) to vocab.json."""
+"""Apply batch 47 (rows 935-950) to vocab.json."""
 
 import json
 import shutil
@@ -8,59 +8,52 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00914", "delete": ["t4k-c08-037"], "keep": "tobo-074", "edits": {},
-     "note": "keep tobo-074"},
-    {"row_id": "row-00915", "delete": ["t4k-c08-087"], "keep": "wlt-c09-003",
-     "edits": {"wlt-c09-003": {"thai": "กระสุน, ลูกปืน"}},
-     "note": "keep wlt-c09-003 as กระสุน, ลูกปืน"},
-    {"row_id": "row-00916", "delete": ["t4k-c09-012", "wlt-c02-021"], "keep": None, "edits": {},
-     "note": "remove both (ละก็ / ตอนนั้น)"},
-    {"row_id": "row-00917", "delete": ["t4k-c09-028"], "keep": "wlt-c12-021", "edits": {},
-     "note": "keep wlt-c12-021"},
-    {"row_id": "row-00918", "delete": ["t4k-c10-016"], "keep": "wlt-c11-037",
-     "edits": {"wlt-c11-037": {"thai": "ประจำวัน, รายวัน"}},
-     "note": "keep wlt-c11-037 as ประจำวัน, รายวัน"},
-    {"row_id": "row-00919", "delete": ["t4k-c10-030"], "keep": "wlt-c13-046", "edits": {},
-     "note": "keep wlt-c13-046"},
-    {"row_id": "row-00920", "delete": ["t4k-c10-082"], "keep": "wlt-c08-039",
-     "edits": {"wlt-c08-039": {"thai": "มือถือ, โทรศัพท์มือถือ"}},
-     "note": "keep wlt-c08-039 as มือถือ, โทรศัพท์มือถือ"},
-    {"row_id": "row-00922", "delete": ["t4k-c11-019"], "keep": "wlt-c20-037",
-     "edits": {"wlt-c11-032": {"frequency": "occasional", "english": "father (formal)"}},
-     "note": "keep wlt-c20-037 + wlt-c11-032; delete t4k-c11-019; wlt-c11-032 -> occasional, 'father (formal)'"},
-    {"row_id": "row-00924", "delete": ["t4k-c11-106"], "keep": "wlt-c02-016", "edits": {},
-     "note": "keep wlt-c02-016"},
-    {"row_id": "row-00926", "delete": ["yt-c09-017"], "keep": "tamago-l12-112",
-     "edits": {"tamago-l12-112": {"thai": "ฉลอง, เฉลิมฉลอง"}},
-     "note": "keep tamago-l12-112 as ฉลอง, เฉลิมฉลอง"},
-    {"row_id": "row-00927", "delete": ["wlt-c01-001"], "keep": "tamago-l12-136", "edits": {},
-     "note": "keep tamago-l12-136"},
-    {"row_id": "row-00928", "delete": ["tamago-l12-162"], "keep": "tobo-501",
-     "edits": {"tobo-501": {"thai": "ต่างหู, ตุ้มหู"}},
-     "note": "keep tobo-501 as ต่างหู, ตุ้มหู"},
-    {"row_id": "row-00930", "delete": ["wlt-c02-078"], "keep": "wlt-c18-062",
-     "edits": {
-         "wlt-c18-062": {"thai": "ทุกครั้ง, ทุกที"},
-         "tamago-l12-208": {"english": "whenever, every time that"},
-     },
-     "note": "keep wlt-c18-062 as ทุกครั้ง, ทุกที; delete wlt-c02-078; tamago-l12-208 english -> 'whenever, every time that'"},
-    {"row_id": "row-00931", "delete": ["tamago-l12-209"], "keep": "tobo-028",
-     "edits": {"tobo-028": {"thai": "ที่เป่าผม, ไดร์เป่าผม"}},
-     "note": "keep tobo-028 as ที่เป่าผม, ไดร์เป่าผม"},
-    {"row_id": "row-00932", "delete": ["tamago-l12-210"], "keep": "tobo-511",
-     "edits": {"tobo-511": {"thai": "ที่โกนหนวด, มีดโกน"}},
-     "note": "keep tobo-511 as ที่โกนหนวด, มีดโกน"},
-    {"row_id": "row-00933", "delete": [], "keep": None,
-     "edits": {"yt-c09-012": {"english": "custom, deep-rooted traditional norm"}},
-     "note": "keep both; yt-c09-012 english -> 'custom, deep-rooted traditional norm'"},
-    {"row_id": "row-00934", "delete": ["tamago-l12-225"], "keep": "tamago-l3-207",
-     "edits": {"tamago-l3-207": {"thai": "นานๆที, นานๆครั้ง"}},
-     "note": "keep tamago-l3-207 as นานๆที, นานๆครั้ง"},
+    {"row_id": "row-00935", "delete": ["tamago-l12-235", "yt-c02-084"], "keep": "yt-c02-094",
+     "edits": {"yt-c02-094": {"thai": "นิ้วโป้ง, นิ้วหัวแม่มือ"}},
+     "note": "keep yt-c02-094 as นิ้วโป้ง, นิ้วหัวแม่มือ"},
+    # row-00936: keep both; wlt-c13-013 already updated by user (thai='ควร, ควรจะ')
+    {"row_id": "row-00937", "delete": [], "keep": None,
+     "edits": {"tobo-194": {"english": "to throw"}},
+     "note": "keep both; tobo-194 english -> 'to throw'"},
+    {"row_id": "row-00938", "delete": ["wlt-c14-016"], "keep": "tamago-l12-317", "edits": {},
+     "note": "keep tamago-l12-317"},
+    {"row_id": "row-00939", "delete": ["yt-c06-063"], "keep": "tamago-l12-344",
+     "edits": {"tamago-l12-344": {"thai": "ยางแบน, ยางรั่ว"}},
+     "note": "keep tamago-l12-344 as ยางแบน, ยางรั่ว"},
+    {"row_id": "row-00940", "delete": ["yt-c08-046"], "keep": "tamago-l12-395",
+     "edits": {"tamago-l12-395": {"thai": "วันหยุดราชการ, วันหยุดนักขัตฤกษ์"}},
+     "note": "keep tamago-l12-395 as วันหยุดราชการ, วันหยุดนักขัตฤกษ์"},
+    {"row_id": "row-00941", "delete": ["wlt-c05-029"], "keep": "tamago-l12-403", "edits": {},
+     "note": "keep tamago-l12-403"},
+    {"row_id": "row-00942", "delete": ["tamago-l12-438"], "keep": "thaipod-0609",
+     "edits": {"thaipod-0609": {"thai": "ผา, หน้าผา"}},
+     "note": "keep thaipod-0609 as ผา, หน้าผา"},
+    {"row_id": "row-00944", "delete": ["yt-c01-032"], "keep": "tamago-l12-496",
+     "edits": {"tamago-l12-496": {"thai": "เครื่องทำน้ำร้อน, เครื่องทำน้ำอุ่น"}},
+     "note": "keep tamago-l12-496 as เครื่องทำน้ำร้อน, เครื่องทำน้ำอุ่น"},
+    {"row_id": "row-00945", "delete": ["yt-c08-045"], "keep": "tamago-l12-506",
+     "edits": {"tamago-l12-506": {"thai": "เจ้าของธุรกิจ, เจ้าของกิจการ"}},
+     "note": "keep tamago-l12-506 as เจ้าของธุรกิจ, เจ้าของกิจการ"},
+    {"row_id": "row-00946", "delete": ["tamago-l12-537"], "keep": "tamago-l3-800",
+     "edits": {"tamago-l3-800": {"thai": "เปล่าๆ, โดยเปล่าประโยชน์"}},
+     "note": "keep tamago-l3-800 as เปล่าๆ, โดยเปล่าประโยชน์"},
+    {"row_id": "row-00947", "delete": [], "keep": None,
+     "edits": {"thaipod-1328": {"frequency": "occasional", "english": "completely flat, flat and smooth"}},
+     "note": "keep both; thaipod-1328 -> occasional, english -> 'completely flat, flat and smooth'"},
+    {"row_id": "row-00948", "delete": ["wlt-c01-038"], "keep": "tamago-l12-632",
+     "edits": {"tamago-l12-632": {"thai": "ไข่คน, ไข่กวน"}},
+     "note": "keep tamago-l12-632 as ไข่คน, ไข่กวน"},
+    {"row_id": "row-00949", "delete": ["wlt-c15-049"], "keep": "tamago-l3-056",
+     "edits": {"tamago-l3-056": {"thai": "ใจ, จิตใจ"}},
+     "note": "keep tamago-l3-056 as ใจ, จิตใจ"},
+    {"row_id": "row-00950", "delete": ["wlt-c02-063"], "keep": "tamago-l3-059",
+     "edits": {"tamago-l3-059": {"thai": "ลงโทษ, ทำโทษ"}},
+     "note": "keep tamago-l3-059 as ลงโทษ, ทำโทษ"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(914, 935)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(935, 951)}
 
-STALE_ROW_IDS = {"row-01130", "row-01133", "row-01134"}
+STALE_ROW_IDS: set = set()
 
 
 def main():
@@ -112,7 +105,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 46 — rows 914-934 + stale cleanup", ""]
+    log_lines = ["", "=" * 70, "Batch 47 — rows 935-950", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
@@ -123,9 +116,6 @@ def main():
             for fk, fv in fields.items():
                 log_lines.append(f"    edit {eid}.{fk} = {fv!r}")
     log_lines.append("")
-    if STALE_ROW_IDS:
-        log_lines.append(f"Stale rows removed: {', '.join(sorted(STALE_ROW_IDS))}")
-        log_lines.append("")
     if skipped_missing:
         log_lines.append("Skipped (entry already deleted in a prior batch):")
         for r, k, eid in skipped_missing:
