@@ -1,4 +1,4 @@
-"""Apply batch 45 (rows 882-913) to vocab.json."""
+"""Apply batch 46 (rows 914-934) to vocab.json."""
 
 import json
 import shutil
@@ -8,51 +8,59 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    # rows 882, 884, 886, 887, 888, 891, 892, 893, 894: no instruction (skipped)
-    {"row_id": "row-00895", "delete": [], "keep": None,
-     "edits": {"t4k-c05-040": {"english": "you (rude)"}},
-     "note": "keep both; t4k-c05-040 english -> 'you (rude)'"},
-    {"row_id": "row-00897", "delete": [], "keep": None,
-     "edits": {"tobo-330": {"english": "cleverness, smartness"}},
-     "note": "keep both; tobo-330 english -> 'cleverness, smartness'"},
-    {"row_id": "row-00898", "delete": ["t4k-c05-078", "t4k-c06-024"], "keep": None, "edits": {},
-     "note": "remove both (เนื่อง / เนื่องมาจาก)"},
-    {"row_id": "row-00900", "delete": ["t4k-c06-022"], "keep": "t4k-c10-041",
-     "edits": {"t4k-c10-041": {"english": "stylish, chic, cool"}},
-     "note": "keep t4k-c10-041 as stylish, chic, cool"},
-    {"row_id": "row-00901", "delete": [], "keep": None,
-     "edits": {"t4k-c06-042": {"english": "administrative office"}},
-     "note": "keep both; t4k-c06-042 english -> 'administrative office'"},
-    {"row_id": "row-00903", "delete": ["t4k-c10-099"], "keep": "t4k-c06-067",
-     "edits": {"t4k-c06-067": {"english": "equal"}},
-     "note": "keep t4k-c06-067 with english -> 'equal'"},
-    {"row_id": "row-00904", "delete": ["wlt-c05-021"], "keep": "t4k-c06-068",
-     "edits": {"t4k-c06-068": {"frequency": "rare"}},
-     "note": "keep t4k-c06-068, set frequency -> rare"},
-    {"row_id": "row-00905", "delete": ["t4k-c06-085"], "keep": "wlt-c21-016", "edits": {},
-     "note": "keep wlt-c21-016"},
-    {"row_id": "row-00906", "delete": ["t4k-c11-096"], "keep": "t4k-c07-011", "edits": {},
-     "note": "keep t4k-c07-011"},
-    {"row_id": "row-00907", "delete": [], "keep": None,
-     "edits": {"t4k-c07-042": {"english": "world (Buddhist cosmology)"}},
-     "note": "keep both; t4k-c07-042 english -> 'world (Buddhist cosmology)'"},
-    {"row_id": "row-00908", "delete": ["t4k-c07-077", "t4k-c08-074"], "keep": None, "edits": {},
-     "note": "remove both (สุทธิ / เน็ต)"},
-    {"row_id": "row-00909", "delete": ["t4k-c07-088"], "keep": "yt-c18-019", "edits": {},
-     "note": "keep yt-c18-019"},
-    {"row_id": "row-00911", "delete": ["t4k-c08-007"], "keep": "wlt-c18-009",
-     "edits": {"wlt-c18-009": {"thai": "ชาวต่างชาติ, คนต่างประเทศ"}},
-     "note": "keep wlt-c18-009 as ชาวต่างชาติ, คนต่างประเทศ"},
-    {"row_id": "row-00912", "delete": ["t4k-c08-024"], "keep": "tobo-280", "edits": {},
-     "note": "keep tobo-280"},
-    {"row_id": "row-00913", "delete": ["t4k-c08-033", "wlt-c08-008"], "keep": "wlt-c06-058",
-     "edits": {"wlt-c06-058": {"thai": "ดวงอาทิตย์, พระอาทิตย์"}},
-     "note": "keep wlt-c06-058 as ดวงอาทิตย์, พระอาทิตย์"},
+    {"row_id": "row-00914", "delete": ["t4k-c08-037"], "keep": "tobo-074", "edits": {},
+     "note": "keep tobo-074"},
+    {"row_id": "row-00915", "delete": ["t4k-c08-087"], "keep": "wlt-c09-003",
+     "edits": {"wlt-c09-003": {"thai": "กระสุน, ลูกปืน"}},
+     "note": "keep wlt-c09-003 as กระสุน, ลูกปืน"},
+    {"row_id": "row-00916", "delete": ["t4k-c09-012", "wlt-c02-021"], "keep": None, "edits": {},
+     "note": "remove both (ละก็ / ตอนนั้น)"},
+    {"row_id": "row-00917", "delete": ["t4k-c09-028"], "keep": "wlt-c12-021", "edits": {},
+     "note": "keep wlt-c12-021"},
+    {"row_id": "row-00918", "delete": ["t4k-c10-016"], "keep": "wlt-c11-037",
+     "edits": {"wlt-c11-037": {"thai": "ประจำวัน, รายวัน"}},
+     "note": "keep wlt-c11-037 as ประจำวัน, รายวัน"},
+    {"row_id": "row-00919", "delete": ["t4k-c10-030"], "keep": "wlt-c13-046", "edits": {},
+     "note": "keep wlt-c13-046"},
+    {"row_id": "row-00920", "delete": ["t4k-c10-082"], "keep": "wlt-c08-039",
+     "edits": {"wlt-c08-039": {"thai": "มือถือ, โทรศัพท์มือถือ"}},
+     "note": "keep wlt-c08-039 as มือถือ, โทรศัพท์มือถือ"},
+    {"row_id": "row-00922", "delete": ["t4k-c11-019"], "keep": "wlt-c20-037",
+     "edits": {"wlt-c11-032": {"frequency": "occasional", "english": "father (formal)"}},
+     "note": "keep wlt-c20-037 + wlt-c11-032; delete t4k-c11-019; wlt-c11-032 -> occasional, 'father (formal)'"},
+    {"row_id": "row-00924", "delete": ["t4k-c11-106"], "keep": "wlt-c02-016", "edits": {},
+     "note": "keep wlt-c02-016"},
+    {"row_id": "row-00926", "delete": ["yt-c09-017"], "keep": "tamago-l12-112",
+     "edits": {"tamago-l12-112": {"thai": "ฉลอง, เฉลิมฉลอง"}},
+     "note": "keep tamago-l12-112 as ฉลอง, เฉลิมฉลอง"},
+    {"row_id": "row-00927", "delete": ["wlt-c01-001"], "keep": "tamago-l12-136", "edits": {},
+     "note": "keep tamago-l12-136"},
+    {"row_id": "row-00928", "delete": ["tamago-l12-162"], "keep": "tobo-501",
+     "edits": {"tobo-501": {"thai": "ต่างหู, ตุ้มหู"}},
+     "note": "keep tobo-501 as ต่างหู, ตุ้มหู"},
+    {"row_id": "row-00930", "delete": ["wlt-c02-078"], "keep": "wlt-c18-062",
+     "edits": {
+         "wlt-c18-062": {"thai": "ทุกครั้ง, ทุกที"},
+         "tamago-l12-208": {"english": "whenever, every time that"},
+     },
+     "note": "keep wlt-c18-062 as ทุกครั้ง, ทุกที; delete wlt-c02-078; tamago-l12-208 english -> 'whenever, every time that'"},
+    {"row_id": "row-00931", "delete": ["tamago-l12-209"], "keep": "tobo-028",
+     "edits": {"tobo-028": {"thai": "ที่เป่าผม, ไดร์เป่าผม"}},
+     "note": "keep tobo-028 as ที่เป่าผม, ไดร์เป่าผม"},
+    {"row_id": "row-00932", "delete": ["tamago-l12-210"], "keep": "tobo-511",
+     "edits": {"tobo-511": {"thai": "ที่โกนหนวด, มีดโกน"}},
+     "note": "keep tobo-511 as ที่โกนหนวด, มีดโกน"},
+    {"row_id": "row-00933", "delete": [], "keep": None,
+     "edits": {"yt-c09-012": {"english": "custom, deep-rooted traditional norm"}},
+     "note": "keep both; yt-c09-012 english -> 'custom, deep-rooted traditional norm'"},
+    {"row_id": "row-00934", "delete": ["tamago-l12-225"], "keep": "tamago-l3-207",
+     "edits": {"tamago-l3-207": {"thai": "นานๆที, นานๆครั้ง"}},
+     "note": "keep tamago-l3-207 as นานๆที, นานๆครั้ง"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(882, 914)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(914, 935)}
 
-STALE_ROW_IDS: set = set()
+STALE_ROW_IDS = {"row-01130", "row-01133", "row-01134"}
 
 
 def main():
@@ -104,7 +112,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 45 — rows 882-913", ""]
+    log_lines = ["", "=" * 70, "Batch 46 — rows 914-934 + stale cleanup", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
@@ -115,6 +123,9 @@ def main():
             for fk, fv in fields.items():
                 log_lines.append(f"    edit {eid}.{fk} = {fv!r}")
     log_lines.append("")
+    if STALE_ROW_IDS:
+        log_lines.append(f"Stale rows removed: {', '.join(sorted(STALE_ROW_IDS))}")
+        log_lines.append("")
     if skipped_missing:
         log_lines.append("Skipped (entry already deleted in a prior batch):")
         for r, k, eid in skipped_missing:
