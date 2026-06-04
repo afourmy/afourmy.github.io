@@ -1,4 +1,4 @@
-"""Apply batch 48 (rows 951-956) to vocab.json."""
+"""Apply batch 49 (rows 960-967) to vocab.json."""
 
 import json
 import shutil
@@ -8,31 +8,35 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00951", "delete": [], "keep": None,
+    {"row_id": "row-00960", "delete": [], "keep": None,
      "edits": {
-         "tamago-l3-181": {"english": "to hide, to conceal (e.g. information, facts)"},
-         "tsl-117": {"english": "to hide, to conceal (e.g. something or someone)"},
+         "tamago-l3-751": {"frequency": "occasional"},
+         "yt-c17-091": {"frequency": "occasional", "english": "to calm down, regain composure, get your mind under control"},
      },
-     "note": "keep both; tamago-l3-181 + tsl-117 english disambiguated"},
-    {"row_id": "row-00952", "delete": ["tamago-l3-217"], "keep": "thaipod-1326", "edits": {},
-     "note": "remove tamago-l3-217; keep thaipod-1326"},
-    {"row_id": "row-00953", "delete": ["tamago-l3-245"], "keep": "tamago-l3-396", "edits": {},
-     "note": "keep tamago-l3-396"},
-    {"row_id": "row-00954", "delete": [], "keep": None,
-     "edits": {
-         "tamago-l3-296": {"frequency": "occasional"},
-         "yt-c03-065": {"english": "tray (ceremonial)"},
-     },
-     "note": "keep both; tamago-l3-296 -> occasional; yt-c03-065 english -> 'tray (ceremonial)'"},
-    {"row_id": "row-00955", "delete": ["tobo-433"], "keep": "tamago-l3-408",
-     "edits": {"tamago-l3-408": {"thai": "น่าแปลกใจ, น่าประหลาดใจ"}},
-     "note": "keep tamago-l3-408 as น่าแปลกใจ, น่าประหลาดใจ"},
-    {"row_id": "row-00956", "delete": ["wlt-c05-099"], "keep": "tamago-l3-482",
-     "edits": {"tamago-l3-482": {"thai": "ความสูง, ส่วนสูง"}},
-     "note": "keep tamago-l3-482 as ความสูง, ส่วนสูง"},
+     "note": "keep both -> occasional; yt-c17-091 english updated"},
+    {"row_id": "row-00961", "delete": ["thai9k-011"], "keep": "yt-c02-049",
+     "edits": {"yt-c02-049": {"thai": "ตาดำ, รูม่านตา", "english": "pupil"}},
+     "note": "keep yt-c02-049 as ตาดำ, รูม่านตา; english -> 'pupil'"},
+    {"row_id": "row-00962", "delete": ["wlt-c07-003"], "keep": "thaipod-0037",
+     "edits": {"thaipod-0037": {"frequency": "occasional", "thai": "กองทัพเรือ, ทหารเรือ"}},
+     "note": "keep thaipod-0037 as กองทัพเรือ, ทหารเรือ, occasional"},
+    {"row_id": "row-00963", "delete": ["wlt-c09-040"], "keep": "thaipod-0234",
+     "edits": {"thaipod-0234": {"thai": "งง, สับสน"}},
+     "note": "keep thaipod-0234 as งง, สับสน"},
+    {"row_id": "row-00964", "delete": ["thaipod-0251", "thaipod-0539"], "keep": "yt-c02-089", "edits": {},
+     "note": "keep yt-c02-089"},
+    {"row_id": "row-00965", "delete": ["tsl-170"], "keep": "thaipod-0335",
+     "edits": {"thaipod-0335": {"frequency": "occasional", "thai": "ด้วยความที่, ด้วยเหตุที่"}},
+     "note": "keep thaipod-0335 as ด้วยความที่, ด้วยเหตุที่, occasional"},
+    {"row_id": "row-00966", "delete": ["thaipod-0358"], "keep": "yt-c13-058",
+     "edits": {"yt-c13-058": {"thai": "ตัดคอ, ตัดเศียร"}},
+     "note": "keep yt-c13-058 as ตัดคอ, ตัดเศียร"},
+    {"row_id": "row-00967", "delete": ["thaipod-0440"], "keep": "tobo-179",
+     "edits": {"tobo-179": {"thai": "ทางเท้า, ทางเดินเท้า"}},
+     "note": "keep tobo-179 as ทางเท้า, ทางเดินเท้า"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(951, 957)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(957, 968)}
 
 STALE_ROW_IDS: set = set()
 
@@ -86,7 +90,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 48 — rows 951-956", ""]
+    log_lines = ["", "=" * 70, "Batch 49 — rows 960-967", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
