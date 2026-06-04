@@ -1,4 +1,4 @@
-"""Apply batch 51 (rows 981-996) to vocab.json."""
+"""Apply batch 52 (rows 997-1014) to vocab.json."""
 
 import json
 import shutil
@@ -8,47 +8,73 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00981", "delete": ["thaipod-1044"], "keep": "thaipod-0818",
-     "edits": {"thaipod-0818": {"thai": "รบ, สู้รบ"}},
-     "note": "keep thaipod-0818 as รบ, สู้รบ"},
-    {"row_id": "row-00983", "delete": ["yt-c05-041"], "keep": "thaipod-0861", "edits": {},
-     "note": "keep thaipod-0861"},
-    {"row_id": "row-00985", "delete": ["tobo-024"], "keep": "thaipod-0913",
-     "edits": {"thaipod-0913": {"thai": "วรรณคดี, วรรณกรรม"}},
-     "note": "keep thaipod-0913 as วรรณคดี, วรรณกรรม"},
-    {"row_id": "row-00986", "delete": ["thaipod-0960"], "keep": "tsl-261",
-     "edits": {"tsl-261": {"frequency": "occasional", "english": "living conditions, way of life"}},
-     "note": "keep tsl-261 in occasional; english -> 'living conditions, way of life'"},
-    {"row_id": "row-00987", "delete": ["wlt-c19-070"], "keep": "thaipod-1119", "edits": {},
-     "note": "keep thaipod-1119"},
-    {"row_id": "row-00988", "delete": ["yt-c22-032"], "keep": "thaipod-1379",
-     "edits": {"thaipod-1379": {"thai": "โรงฆ่า, โรงฆ่าสัตว์"}},
-     "note": "keep thaipod-1379 as โรงฆ่า, โรงฆ่าสัตว์"},
-    {"row_id": "row-00989", "delete": [], "keep": None,
-     "edits": {"yt-c23-013": {"frequency": "occasional", "english": "many people, various people"}},
-     "note": "keep both; yt-c23-013 -> occasional, english -> 'many people, various people'"},
-    {"row_id": "row-00990", "delete": ["wlt-c03-069"], "keep": "tobo-017", "edits": {},
-     "note": "keep tobo-017"},
-    {"row_id": "row-00991", "delete": ["wlt-c05-084"], "keep": "tobo-144", "edits": {},
-     "note": "keep tobo-144"},
-    {"row_id": "row-00992", "delete": [], "keep": None,
-     "edits": {"yt-c04-010": {"frequency": "occasional", "english": "basket (gifts or decorative)"}},
-     "note": "keep both; yt-c04-010 -> occasional, english -> 'basket (gifts or decorative)'"},
-    {"row_id": "row-00993", "delete": [], "keep": None,
-     "edits": {"yt-c01-097": {"english": "inmate, detainee"}},
-     "note": "keep both; yt-c01-097 english -> 'inmate, detainee'"},
-    {"row_id": "row-00994", "delete": ["tobo-329", "wlt-c03-008"], "keep": "wlt-c16-035",
-     "edits": {"wlt-c16-035": {"frequency": "common"}},
-     "note": "keep only wlt-c16-035 in common"},
-    {"row_id": "row-00995", "delete": ["tobo-389"], "keep": "yt-c05-019",
-     "edits": {"yt-c05-019": {"thai": "ถุย, ถุยน้ำลาย"}},
-     "note": "keep yt-c05-019 as ถุย, ถุยน้ำลาย"},
-    {"row_id": "row-00996", "delete": ["wlt-c05-000"], "keep": "tobo-414",
-     "edits": {"tobo-414": {"thai": "ห้องนั่งเล่น, ห้องรับแขก"}},
-     "note": "keep tobo-414 as ห้องนั่งเล่น, ห้องรับแขก"},
+    {"row_id": "row-00997", "delete": [], "keep": None,
+     "edits": {"tobo-450": {"english": "to tease light-heartedly, to gently provoke"}},
+     "note": "keep both; tobo-450 english updated"},
+    {"row_id": "row-00998", "delete": ["tobo-466"], "keep": "yt-c09-058",
+     "edits": {"yt-c09-058": {"thai": "พลุ, ดอกไม้ไฟ"}},
+     "note": "keep yt-c09-058 as พลุ, ดอกไม้ไฟ"},
+    {"row_id": "row-00999", "delete": [], "keep": None,
+     "edits": {
+         "tsl-157": {"english": "hole, small opening, cavity"},
+         "yt-c01-082": {"english": "cavity, hollow space (e.g. in nature)"},
+     },
+     "note": "keep both; tsl-157 and yt-c01-082 english disambiguated"},
+    {"row_id": "row-01000", "delete": ["tsl-420"], "keep": "yt-c03-042",
+     "edits": {"yt-c03-042": {"thai": "สบตา, สบสายตา"}},
+     "note": "keep yt-c03-042 as สบตา, สบสายตา"},
+    {"row_id": "row-01002", "delete": ["wlt-c01-012"], "keep": "yt-c22-069",
+     "edits": {"yt-c22-069": {"thai": "เก็บเงิน, เก็บออมเงิน"}},
+     "note": "keep yt-c22-069 as เก็บเงิน, เก็บออมเงิน"},
+    {"row_id": "row-01003", "delete": ["wlt-c01-031"], "keep": "wlt-c15-007", "edits": {},
+     "note": "keep wlt-c15-007"},
+    {"row_id": "row-01004", "delete": ["wlt-c01-048"], "keep": "wlt-c01-049", "edits": {},
+     "note": "keep only wlt-c01-049"},
+    {"row_id": "row-01005", "delete": [], "keep": None,
+     "edits": {"wlt-c06-021": {"english": "whoever"}},
+     "note": "keep both; wlt-c06-021 english -> 'whoever'"},
+    {"row_id": "row-01006", "delete": ["wlt-c19-012"], "keep": "wlt-c01-066",
+     "edits": {"wlt-c01-066": {"english": "someone, a certain person"}},
+     "note": "keep wlt-c01-066; english -> 'someone, a certain person'"},
+    {"row_id": "row-01007", "delete": ["wlt-c18-046"], "keep": "wlt-c01-099",
+     "edits": {"wlt-c01-099": {"thai": "เด็กชาย, เด็กผู้ชาย"}},
+     "note": "keep wlt-c01-099 as เด็กชาย, เด็กผู้ชาย"},
+    {"row_id": "row-01008", "delete": ["wlt-c18-047"], "keep": "wlt-c02-000",
+     "edits": {"wlt-c02-000": {"thai": "เด็กหญิง, เด็กผู้หญิง"}},
+     "note": "keep wlt-c02-000 as เด็กหญิง, เด็กผู้หญิง"},
+    {"row_id": "row-01010", "delete": ["wlt-c02-014"], "keep": "wlt-c07-011",
+     "edits": {"wlt-c07-011": {"thai": "ตลอดวัน, ทั้งวัน"}},
+     "note": "keep wlt-c07-011 as ตลอดวัน, ทั้งวัน"},
+    {"row_id": "row-01012", "delete": ["wlt-c02-065"], "keep": "wlt-c10-089", "edits": {},
+     "note": "keep wlt-c10-089"},
+    {"row_id": "row-01013", "delete": ["wlt-c11-002"], "keep": None,
+     "edits": {
+         "wlt-c09-019": {"english": "second (unit of time)"},
+         "wlt-c02-071": {"english": "second (2nd)"},
+     },
+     "note": "remove wlt-c11-002; wlt-c09-019 and wlt-c02-071 english disambiguated"},
+    {"row_id": "row-01014", "delete": [], "keep": None,
+     "edits": {
+         "wlt-c03-004": {"thai": "นึกถึง", "english": "to think of, to recall"},
+         "wlt-c06-011": {"thai": "คำนึง, คำนึงถึง", "english": "to think deeply, to take into consideration"},
+     },
+     "note": "keep both; wlt-c03-004 thai -> นึกถึง, english updated; wlt-c06-011 thai/english updated; ดำริ split into new card wlt-c03-004b"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(981, 997)}
+# New entries to insert (splits from existing cards)
+CREATES = [
+    {
+        "id": "wlt-c03-004b",
+        "thai": "ดำริ",
+        "english": "to have an idea, to conceive (royal)",
+        "topic": "monarchy",
+        "frequency": "rare",
+        "sources": ["Anki Basics"],
+        "insert_after": "wlt-c03-004",
+    },
+]
+
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(997, 1015)}
 
 STALE_ROW_IDS: set = set()
 
@@ -102,7 +128,17 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 51 — rows 981-996", ""]
+    # Insert new entries after their anchor
+    for c in CREATES:
+        anchor = c.pop("insert_after")
+        entry = {k: v for k, v in c.items()}
+        idx = next((i for i, e in enumerate(new_vocab) if e["id"] == anchor), None)
+        if idx is not None:
+            new_vocab.insert(idx + 1, entry)
+        else:
+            new_vocab.append(entry)
+
+    log_lines = ["", "=" * 70, "Batch 52 — rows 997-1014", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
@@ -112,6 +148,7 @@ def main():
         for eid, fields in m["edits"].items():
             for fk, fv in fields.items():
                 log_lines.append(f"    edit {eid}.{fk} = {fv!r}")
+    log_lines.append(f"    create: wlt-c03-004b (ดำริ)")
     log_lines.append("")
     if skipped_missing:
         log_lines.append("Skipped (entry already deleted in a prior batch):")
@@ -121,6 +158,7 @@ def main():
     log_lines.append(f"Total deletions this batch: {len(to_delete)}")
     log_lines.append(f"Total source-unions:        {len(sources_into)}")
     log_lines.append(f"Total field-edits:          {sum(len(v) for v in field_edits.values())}")
+    log_lines.append(f"Total creates:              {len(CREATES)}")
     log_lines.append(f"Vocab: {len(vocab)} -> {len(new_vocab)}")
 
     existing_log = log_path.read_text(encoding="utf-8") if log_path.exists() else ""
