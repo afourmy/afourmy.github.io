@@ -1,4 +1,4 @@
-"""Apply batch 50 (rows 968-980) to vocab.json."""
+"""Apply batch 51 (rows 981-996) to vocab.json."""
 
 import json
 import shutil
@@ -8,43 +8,47 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-00968", "delete": [], "keep": None,
-     "edits": {"thaipod-0535": {"english": "to perform meritorious religious rites, to accumulate merit"}},
-     "note": "keep both; thaipod-0535 english updated"},
-    {"row_id": "row-00969", "delete": ["thaipod-0449"], "keep": "thaipod-0500", "edits": {},
-     "note": "keep thaipod-0500"},
-    {"row_id": "row-00970", "delete": ["thaipod-0479"], "keep": "thaipod-0478", "edits": {},
-     "note": "keep thaipod-0478"},
-    {"row_id": "row-00971", "delete": ["thaipod-1354"], "keep": "thaipod-0549",
-     "edits": {"thaipod-0549": {"frequency": "rare"}},
-     "note": "keep thaipod-0549 in rare"},
-    {"row_id": "row-00972", "delete": ["thaipod-0617"], "keep": "thaipod-0616",
-     "edits": {"thaipod-0616": {"thai": "ผู้กำกับ, ผู้กำกับภาพยนตร์"}},
-     "note": "keep thaipod-0616 as ผู้กำกับ, ผู้กำกับภาพยนตร์"},
-    {"row_id": "row-00973", "delete": ["thaipod-0653"], "keep": "thaipod-0650",
-     "edits": {"thaipod-0650": {"thai": "พระชนมายุ, พระชันษา"}},
-     "note": "keep thaipod-0650 as พระชนมายุ, พระชันษา"},
-    {"row_id": "row-00974", "delete": ["tobo-129"], "keep": "thaipod-0657",
-     "edits": {"thaipod-0657": {"thai": "พระนาง, ราชินี"}},
-     "note": "keep thaipod-0657 as พระนาง, ราชินี"},
-    {"row_id": "row-00976", "delete": ["thaipod-1387"], "keep": "thaipod-0712",
-     "edits": {"thaipod-0712": {"thai": "โอรส, พระโอรส, พระราชโอรส"}},
-     "note": "keep thaipod-0712 as โอรส, พระโอรส, พระราชโอรส"},
-    {"row_id": "row-00977", "delete": [], "keep": None,
-     "edits": {"thaipod-0719": {"english": "to sacrifice (literary)"}},
-     "note": "keep both; thaipod-0719 english -> 'to sacrifice (literary)'"},
-    {"row_id": "row-00978", "delete": ["wlt-c14-070"], "keep": "thaipod-0738",
-     "edits": {"thaipod-0738": {"thai": "พุทธศาสนา, ศาสนาพุทธ"}},
-     "note": "keep thaipod-0738 as พุทธศาสนา, ศาสนาพุทธ"},
-    {"row_id": "row-00979", "delete": ["thaipod-0751"], "keep": "yt-c07-028",
-     "edits": {"yt-c07-028": {"thai": "หนังสยองขวัญ, ภาพยนตร์สยองขวัญ"}},
-     "note": "keep yt-c07-028 as หนังสยองขวัญ, ภาพยนตร์สยองขวัญ"},
-    {"row_id": "row-00980", "delete": ["thaipod-0815"], "keep": "wlt-c19-029",
-     "edits": {"wlt-c19-029": {"thai": "รถแอร์, รถปรับอากาศ"}},
-     "note": "keep wlt-c19-029 as รถแอร์, รถปรับอากาศ"},
+    {"row_id": "row-00981", "delete": ["thaipod-1044"], "keep": "thaipod-0818",
+     "edits": {"thaipod-0818": {"thai": "รบ, สู้รบ"}},
+     "note": "keep thaipod-0818 as รบ, สู้รบ"},
+    {"row_id": "row-00983", "delete": ["yt-c05-041"], "keep": "thaipod-0861", "edits": {},
+     "note": "keep thaipod-0861"},
+    {"row_id": "row-00985", "delete": ["tobo-024"], "keep": "thaipod-0913",
+     "edits": {"thaipod-0913": {"thai": "วรรณคดี, วรรณกรรม"}},
+     "note": "keep thaipod-0913 as วรรณคดี, วรรณกรรม"},
+    {"row_id": "row-00986", "delete": ["thaipod-0960"], "keep": "tsl-261",
+     "edits": {"tsl-261": {"frequency": "occasional", "english": "living conditions, way of life"}},
+     "note": "keep tsl-261 in occasional; english -> 'living conditions, way of life'"},
+    {"row_id": "row-00987", "delete": ["wlt-c19-070"], "keep": "thaipod-1119", "edits": {},
+     "note": "keep thaipod-1119"},
+    {"row_id": "row-00988", "delete": ["yt-c22-032"], "keep": "thaipod-1379",
+     "edits": {"thaipod-1379": {"thai": "โรงฆ่า, โรงฆ่าสัตว์"}},
+     "note": "keep thaipod-1379 as โรงฆ่า, โรงฆ่าสัตว์"},
+    {"row_id": "row-00989", "delete": [], "keep": None,
+     "edits": {"yt-c23-013": {"frequency": "occasional", "english": "many people, various people"}},
+     "note": "keep both; yt-c23-013 -> occasional, english -> 'many people, various people'"},
+    {"row_id": "row-00990", "delete": ["wlt-c03-069"], "keep": "tobo-017", "edits": {},
+     "note": "keep tobo-017"},
+    {"row_id": "row-00991", "delete": ["wlt-c05-084"], "keep": "tobo-144", "edits": {},
+     "note": "keep tobo-144"},
+    {"row_id": "row-00992", "delete": [], "keep": None,
+     "edits": {"yt-c04-010": {"frequency": "occasional", "english": "basket (gifts or decorative)"}},
+     "note": "keep both; yt-c04-010 -> occasional, english -> 'basket (gifts or decorative)'"},
+    {"row_id": "row-00993", "delete": [], "keep": None,
+     "edits": {"yt-c01-097": {"english": "inmate, detainee"}},
+     "note": "keep both; yt-c01-097 english -> 'inmate, detainee'"},
+    {"row_id": "row-00994", "delete": ["tobo-329", "wlt-c03-008"], "keep": "wlt-c16-035",
+     "edits": {"wlt-c16-035": {"frequency": "common"}},
+     "note": "keep only wlt-c16-035 in common"},
+    {"row_id": "row-00995", "delete": ["tobo-389"], "keep": "yt-c05-019",
+     "edits": {"yt-c05-019": {"thai": "ถุย, ถุยน้ำลาย"}},
+     "note": "keep yt-c05-019 as ถุย, ถุยน้ำลาย"},
+    {"row_id": "row-00996", "delete": ["wlt-c05-000"], "keep": "tobo-414",
+     "edits": {"tobo-414": {"thai": "ห้องนั่งเล่น, ห้องรับแขก"}},
+     "note": "keep tobo-414 as ห้องนั่งเล่น, ห้องรับแขก"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(968, 981)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(981, 997)}
 
 STALE_ROW_IDS: set = set()
 
@@ -98,7 +102,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 50 — rows 968-980", ""]
+    log_lines = ["", "=" * 70, "Batch 51 — rows 981-996", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
