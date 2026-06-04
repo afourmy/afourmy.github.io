@@ -1,4 +1,4 @@
-"""Apply batch 44 (rows 870-881) to vocab.json."""
+"""Apply batch 45 (rows 882-913) to vocab.json."""
 
 import json
 import shutil
@@ -8,43 +8,49 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    # rows 869, 872, 874: absent
-    {"row_id": "row-00870", "delete": ["t4k-c01-093"], "keep": "tobo-402", "edits": {},
-     "note": "keep tobo-402"},
-    {"row_id": "row-00871", "delete": [], "keep": None,
-     "edits": {"t4k-c02-000": {"frequency": "occasional", "english": "child (formal)"}},
-     "note": "keep both; t4k-c02-000 -> occasional, english -> 'child (formal)'"},
-    {"row_id": "row-00873", "delete": ["t4k-c02-036", "t4k-c04-032"], "keep": None, "edits": {},
-     "note": "remove both (ดิ / เนี่ย)"},
-    {"row_id": "row-00875", "delete": ["t4k-c02-059"], "keep": "wlt-c06-060",
-     "edits": {"wlt-c06-060": {"thai": "ดังนั้น, เพราะฉะนั้น"}},
-     "note": "keep wlt-c06-060 as ดังนั้น, เพราะฉะนั้น"},
-    {"row_id": "row-00876", "delete": ["wlt-c05-039"], "keep": "t4k-c02-065", "edits": {},
-     "note": "keep t4k-c02-065"},
-    {"row_id": "row-00877", "delete": [], "keep": None,
-     "edits": {
-         "t4k-c07-005": {"english": "capital, funds"},
-         "t4k-c02-069": {"english": "capital, asset"},
-     },
-     "note": "keep both; t4k-c07-005 english -> 'capital, funds'; t4k-c02-069 english -> 'capital, asset'"},
-    {"row_id": "row-00878", "delete": ["t4k-c02-085"], "keep": "wlt-c11-096",
-     "edits": {"wlt-c11-096": {"thai": "เปอร์เซ็นต์, ร้อยละ"}},
-     "note": "keep wlt-c11-096 as เปอร์เซ็นต์, ร้อยละ"},
-    {"row_id": "row-00879", "delete": [], "keep": None,
-     "edits": {"t4k-c03-006": {"english": "space (in a text)"}},
-     "note": "keep both; t4k-c03-006 english -> 'space (in a text)'"},
-    {"row_id": "row-00880", "delete": [], "keep": None,
-     "edits": {
-         "t4k-c03-015": {"english": "to go back, to reverse"},
-         "t4k-c05-069": {"frequency": "rare", "english": "to return, circle back, reminisce (literary)"},
-     },
-     "note": "keep both; t4k-c03-015 english updated; t4k-c05-069 -> rare, english updated"},
-    {"row_id": "row-00881", "delete": ["t4k-c03-021"], "keep": "wlt-c05-083",
-     "edits": {"wlt-c05-083": {"thai": "คนไข้, ผู้ป่วย"}},
-     "note": "keep wlt-c05-083 as คนไข้, ผู้ป่วย"},
+    # rows 882, 884, 886, 887, 888, 891, 892, 893, 894: no instruction (skipped)
+    {"row_id": "row-00895", "delete": [], "keep": None,
+     "edits": {"t4k-c05-040": {"english": "you (rude)"}},
+     "note": "keep both; t4k-c05-040 english -> 'you (rude)'"},
+    {"row_id": "row-00897", "delete": [], "keep": None,
+     "edits": {"tobo-330": {"english": "cleverness, smartness"}},
+     "note": "keep both; tobo-330 english -> 'cleverness, smartness'"},
+    {"row_id": "row-00898", "delete": ["t4k-c05-078", "t4k-c06-024"], "keep": None, "edits": {},
+     "note": "remove both (เนื่อง / เนื่องมาจาก)"},
+    {"row_id": "row-00900", "delete": ["t4k-c06-022"], "keep": "t4k-c10-041",
+     "edits": {"t4k-c10-041": {"english": "stylish, chic, cool"}},
+     "note": "keep t4k-c10-041 as stylish, chic, cool"},
+    {"row_id": "row-00901", "delete": [], "keep": None,
+     "edits": {"t4k-c06-042": {"english": "administrative office"}},
+     "note": "keep both; t4k-c06-042 english -> 'administrative office'"},
+    {"row_id": "row-00903", "delete": ["t4k-c10-099"], "keep": "t4k-c06-067",
+     "edits": {"t4k-c06-067": {"english": "equal"}},
+     "note": "keep t4k-c06-067 with english -> 'equal'"},
+    {"row_id": "row-00904", "delete": ["wlt-c05-021"], "keep": "t4k-c06-068",
+     "edits": {"t4k-c06-068": {"frequency": "rare"}},
+     "note": "keep t4k-c06-068, set frequency -> rare"},
+    {"row_id": "row-00905", "delete": ["t4k-c06-085"], "keep": "wlt-c21-016", "edits": {},
+     "note": "keep wlt-c21-016"},
+    {"row_id": "row-00906", "delete": ["t4k-c11-096"], "keep": "t4k-c07-011", "edits": {},
+     "note": "keep t4k-c07-011"},
+    {"row_id": "row-00907", "delete": [], "keep": None,
+     "edits": {"t4k-c07-042": {"english": "world (Buddhist cosmology)"}},
+     "note": "keep both; t4k-c07-042 english -> 'world (Buddhist cosmology)'"},
+    {"row_id": "row-00908", "delete": ["t4k-c07-077", "t4k-c08-074"], "keep": None, "edits": {},
+     "note": "remove both (สุทธิ / เน็ต)"},
+    {"row_id": "row-00909", "delete": ["t4k-c07-088"], "keep": "yt-c18-019", "edits": {},
+     "note": "keep yt-c18-019"},
+    {"row_id": "row-00911", "delete": ["t4k-c08-007"], "keep": "wlt-c18-009",
+     "edits": {"wlt-c18-009": {"thai": "ชาวต่างชาติ, คนต่างประเทศ"}},
+     "note": "keep wlt-c18-009 as ชาวต่างชาติ, คนต่างประเทศ"},
+    {"row_id": "row-00912", "delete": ["t4k-c08-024"], "keep": "tobo-280", "edits": {},
+     "note": "keep tobo-280"},
+    {"row_id": "row-00913", "delete": ["t4k-c08-033", "wlt-c08-008"], "keep": "wlt-c06-058",
+     "edits": {"wlt-c06-058": {"thai": "ดวงอาทิตย์, พระอาทิตย์"}},
+     "note": "keep wlt-c06-058 as ดวงอาทิตย์, พระอาทิตย์"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(870, 882)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(882, 914)}
 
 STALE_ROW_IDS: set = set()
 
@@ -98,7 +104,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 44 — rows 870-881", ""]
+    log_lines = ["", "=" * 70, "Batch 45 — rows 882-913", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
