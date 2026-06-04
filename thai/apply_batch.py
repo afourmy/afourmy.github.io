@@ -1,4 +1,4 @@
-"""Apply batch 54 (rows 1029-1044) to vocab.json."""
+"""Apply batch 55 (rows 1045-1060) to vocab.json."""
 
 import json
 import shutil
@@ -8,58 +8,51 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-01029", "delete": [], "keep": None,
+    {"row_id": "row-01045", "delete": ["wlt-c11-064"], "keep": "wlt-c11-006",
+     "edits": {"wlt-c11-006": {"thai": "น้องเขย, พี่เขย"}},
+     "note": "keep wlt-c11-006 as น้องเขย, พี่เขย"},
+    {"row_id": "row-01048", "delete": ["wlt-c14-042"], "keep": "wlt-c20-014",
+     "edits": {"wlt-c20-014": {"thai": "ดีใจ, ยินดี"}},
+     "note": "keep wlt-c20-014 as ดีใจ, ยินดี"},
+    {"row_id": "row-01049", "delete": ["wlt-c14-074", "wlt-c14-075"], "keep": None, "edits": {},
+     "note": "remove both (สวิตเซอร์แลนด์ / สวิส)"},
+    {"row_id": "row-01050", "delete": ["wlt-c17-021", "wlt-c17-040"], "keep": None, "edits": {},
+     "note": "remove both (เปล่า / ไม่)"},
+    {"row_id": "row-01051", "delete": [], "keep": None,
      "edits": {
-         "wlt-c04-087": {"english": "underwear (upper body)"},
-         "wlt-c05-049": {"english": "underwear (lower body)"},
+         "wlt-c21-010": {"english": "to watch, to look at"},
+         "wlt-c17-033": {"english": "to look, to gaze"},
      },
-     "note": "keep both; wlt-c04-087 english -> 'underwear (upper body)'; wlt-c05-049 -> 'underwear (lower body)'"},
-    {"row_id": "row-01031", "delete": ["wlt-c05-007", "wlt-c20-081"], "keep": None, "edits": {},
-     "note": "remove both (เหลอ / หรือ)"},
-    {"row_id": "row-01032", "delete": ["wlt-c05-019"], "keep": "wlt-c09-092",
-     "edits": {"wlt-c09-092": {"thai": "อาทิตย์ที่แล้ว, อาทิตย์ก่อน"}},
-     "note": "keep wlt-c09-092 as อาทิตย์ที่แล้ว, อาทิตย์ก่อน"},
-    {"row_id": "row-01033", "delete": ["wlt-c05-022"], "keep": "wlt-c12-084", "edits": {},
-     "note": "keep wlt-c12-084"},
-    {"row_id": "row-01034", "delete": ["wlt-c06-001"], "keep": "wlt-c05-094", "edits": {},
-     "note": "keep wlt-c05-094"},
-    {"row_id": "row-01036", "delete": [], "keep": None,
+     "note": "keep both; wlt-c21-010 and wlt-c17-033 english disambiguated"},
+    {"row_id": "row-01052", "delete": ["wlt-c18-014", "wlt-c19-056"], "keep": None, "edits": {},
+     "note": "remove both (คนหนึ่ง / หนึ่งคน)"},
+    {"row_id": "row-01053", "delete": ["wlt-c18-095"], "keep": "wlt-c18-049", "edits": {},
+     "note": "keep wlt-c18-049"},
+    {"row_id": "row-01054", "delete": ["wlt-c19-036", "wlt-c19-037"], "keep": None, "edits": {},
+     "note": "remove both (ลองดู / ลองใส่)"},
+    {"row_id": "row-01055", "delete": ["yt-c07-025"], "keep": "yt-c04-034",
+     "edits": {"yt-c04-034": {"thai": "นอบน้อมถ่อมตน, อ่อนน้อมถ่อมตน"}},
+     "note": "keep yt-c04-034 as นอบน้อมถ่อมตน, อ่อนน้อมถ่อมตน"},
+    {"row_id": "row-01056", "delete": [], "keep": None,
+     "edits": {"yt-c06-022": {"frequency": "occasional", "english": "alone, isolated"}},
+     "note": "keep both; yt-c06-022 -> occasional, english -> 'alone, isolated'"},
+    {"row_id": "row-01057", "delete": ["yt-c10-065"], "keep": "yt-c08-047",
+     "edits": {"yt-c08-047": {"thai": "ความชอบส่วนตัว, ความชอบส่วนบุคคล"}},
+     "note": "keep yt-c08-047 as ความชอบส่วนตัว, ความชอบส่วนบุคคล"},
+    {"row_id": "row-01058", "delete": ["yt-c22-003"], "keep": "yt-c09-032", "edits": {},
+     "note": "keep yt-c09-032"},
+    {"row_id": "row-01059", "delete": [], "keep": None,
      "edits": {
-         "wlt-c07-002": {"english": "to flood"},
-         "yt-c10-085": {"english": "to overflow, to spill over"},
+         "yt-c15-090": {"english": "unlucky, unfortunate", "frequency": "rare"},
+         "yt-c09-039": {"english": "to have bad luck (astrology)"},
      },
-     "note": "keep both; wlt-c07-002 english -> 'to flood'; yt-c10-085 -> 'to overflow, to spill over'"},
-    {"row_id": "row-01037", "delete": [], "keep": None,
-     "edits": {
-         "wlt-c07-007": {"english": "to memorize by repetition"},
-         "yt-c03-005": {"english": "to remember, to retain in memory"},
-     },
-     "note": "keep both; wlt-c07-007 and yt-c03-005 english disambiguated"},
-    {"row_id": "row-01038", "delete": ["wlt-c07-025"], "keep": "wlt-c17-049",
-     "edits": {"wlt-c17-049": {"thai": "แรก, ที่หนึ่ง"}},
-     "note": "keep wlt-c17-049 as แรก, ที่หนึ่ง"},
-    {"row_id": "row-01039", "delete": ["wlt-c07-037"], "keep": "wlt-c08-018",
-     "edits": {"wlt-c08-018": {"frequency": "occasional", "thai": "น้องสะใภ้, พี่สะใภ้"}},
-     "note": "keep wlt-c08-018 as น้องสะใภ้, พี่สะใภ้, occasional"},
-    {"row_id": "row-01040", "delete": ["wlt-c08-015"], "keep": "yt-c11-008",
-     "edits": {"yt-c11-008": {"thai": "พิพิธภัณฑ์, พิพิธภัณฑสถาน"}},
-     "note": "keep yt-c11-008 as พิพิธภัณฑ์, พิพิธภัณฑสถาน"},
-    {"row_id": "row-01041", "delete": ["wlt-c08-054"], "keep": "wlt-c14-063",
-     "edits": {"wlt-c14-063": {"frequency": "occasional", "english": "morally bad, evil"}},
-     "note": "keep wlt-c14-063 occasional; english -> 'morally bad, evil'"},
-    {"row_id": "row-01042", "delete": ["wlt-c12-054"], "keep": "wlt-c08-091",
-     "edits": {"wlt-c08-091": {"thai": "ฤดูฝน, หน้าฝน"}},
-     "note": "keep wlt-c08-091 as ฤดูฝน, หน้าฝน"},
-    {"row_id": "row-01043", "delete": ["wlt-c09-006"], "keep": "wlt-c12-018",
-     "edits": {"wlt-c12-018": {"thai": "เลขา, เลขานุการ"}},
-     "note": "keep wlt-c12-018 as เลขา, เลขานุการ"},
-    # row-01044: wlt-c09-069 already occasional with thai 'หาก, ถ้าหาก'; just add (literary) to english
-    {"row_id": "row-01044", "delete": [], "keep": None,
-     "edits": {"wlt-c09-069": {"english": "if (literary)"}},
-     "note": "keep both; wlt-c09-069 english -> 'if (literary)' (freq/thai already set)"},
+     "note": "keep both; yt-c15-090 -> rare, english updated; yt-c09-039 english -> 'to have bad luck (astrology)'"},
+    {"row_id": "row-01060", "delete": ["yt-c17-026"], "keep": "yt-c09-040",
+     "edits": {"yt-c09-040": {"thai": "ทําโอที, ทํางานนอกเวลา, ทํางานล่วงเวลา"}},
+     "note": "keep yt-c09-040 as ทําโอที, ทํางานนอกเวลา, ทํางานล่วงเวลา"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1029, 1045)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1045, 1061)}
 
 STALE_ROW_IDS: set = set()
 
@@ -113,7 +106,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 54 — rows 1029-1044", ""]
+    log_lines = ["", "=" * 70, "Batch 55 — rows 1045-1060", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
