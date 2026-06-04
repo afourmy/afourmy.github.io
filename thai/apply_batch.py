@@ -1,4 +1,4 @@
-"""Apply batch 57 (rows 1072-1083) to vocab.json."""
+"""Apply batch 58 (rows 1085-1100) to vocab.json."""
 
 import json
 import shutil
@@ -8,34 +8,36 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-01072", "delete": ["wlt-c03-096"], "keep": "chula-l5-129", "edits": {},
-     "note": "keep chula-l5-129"},
-    {"row_id": "row-01073", "delete": ["thaipod-0845"], "keep": "chula-l5-130",
-     "edits": {"chula-l5-130": {"thai": "รับรอง, รับประกัน"}},
-     "note": "keep chula-l5-130 as รับรอง, รับประกัน"},
-    {"row_id": "row-01074", "delete": ["chula-l5-338"], "keep": "chula-l5-156", "edits": {},
-     "note": "keep chula-l5-156"},
-    # row-01075: keep both — no changes
-    {"row_id": "row-01078", "delete": [], "keep": None,
-     "edits": {"chula-l5-253": {"english": "to vomit (formal)"}},
-     "note": "keep both; chula-l5-253 english -> 'to vomit (formal)'"},
-    {"row_id": "row-01079", "delete": ["t4k-c03-024"], "keep": "chula-l5-327",
-     "edits": {"chula-l5-327": {"thai": "แลก, แลกเปลี่ยน"}},
-     "note": "keep chula-l5-327 as แลก, แลกเปลี่ยน"},
-    {"row_id": "row-01080", "delete": [], "keep": None,
-     "edits": {"tsl-174": {"english": "present, token of appreciation (formal)"}},
-     "note": "keep both; tsl-174 english -> 'present, token of appreciation (formal)'"},
-    {"row_id": "row-01081", "delete": [], "keep": None,
-     "edits": {"thaipod-0280": {"english": "rice farmer"}},
-     "note": "keep all; thaipod-0280 english -> 'rice farmer'"},
-    {"row_id": "row-01082", "delete": [], "keep": None,
-     "edits": {"wlt-c11-063": {"english": "vehicle, means of transport"}},
-     "note": "keep all; wlt-c11-063 english -> 'vehicle, means of transport'"},
-    {"row_id": "row-01083", "delete": ["tamago-l3-243"], "keep": "chula-l5-389", "edits": {},
-     "note": "keep chula-l5-389; delete tamago-l3-243"},
+    {"row_id": "row-01085", "delete": ["tsl-292"], "keep": "chula-l5-429", "edits": {},
+     "note": "keep chula-l5-429; delete tsl-292"},
+    {"row_id": "row-01086", "delete": [], "keep": None,
+     "edits": {"chula-l5-436": {"frequency": "rare"}},
+     "note": "keep both; chula-l5-436 frequency -> rare"},
+    {"row_id": "row-01089", "delete": ["thaipod-0826"], "keep": "chula-l6-089", "edits": {},
+     "note": "keep chula-l6-089; delete thaipod-0826"},
+    {"row_id": "row-01090", "delete": ["yt-c02-037"], "keep": "chula-l6-132", "edits": {},
+     "note": "keep chula-l6-132; delete yt-c02-037"},
+    {"row_id": "row-01091", "delete": [], "keep": None,
+     "edits": {"chula-l6-155": {"frequency": "occasional"}},
+     "note": "keep both; chula-l6-155 frequency -> occasional"},
+    {"row_id": "row-01092", "delete": ["chula-l6-219"], "keep": "yt-c02-035",
+     "edits": {"yt-c02-035": {"thai": "ตำ, โขลก"}},
+     "note": "keep yt-c02-035 as ตำ, โขลก; delete chula-l6-219"},
+    {"row_id": "row-01093", "delete": ["thaipod-0096"], "keep": "chula-l6-262", "edits": {},
+     "note": "keep chula-l6-262; delete thaipod-0096"},
+    {"row_id": "row-01095", "delete": ["tsl-085"], "keep": "chula-l6-267",
+     "edits": {"chula-l6-267": {"thai": "เนื้อเรื่อง, โครงเรื่อง"}},
+     "note": "keep chula-l6-267 as เนื้อเรื่อง, โครงเรื่อง; delete tsl-085"},
+    {"row_id": "row-01098", "delete": [], "keep": None,
+     "edits": {"tamago-l12-050": {"frequency": "rare"}},
+     "note": "keep both; tamago-l12-050 frequency -> rare"},
+    {"row_id": "row-01099", "delete": ["wlt-c10-075"], "keep": "t4k-c01-002", "edits": {},
+     "note": "keep t4k-c01-002; delete wlt-c10-075"},
+    {"row_id": "row-01100", "delete": ["t4k-c09-023"], "keep": "t4k-c05-040", "edits": {},
+     "note": "keep t4k-c05-040 (already 'you (rude)'); delete t4k-c09-023"},
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1072, 1084)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1085, 1101)}
 
 STALE_ROW_IDS: set = set()
 
@@ -89,7 +91,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 57 — rows 1072-1083", ""]
+    log_lines = ["", "=" * 70, "Batch 58 — rows 1085-1100", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
