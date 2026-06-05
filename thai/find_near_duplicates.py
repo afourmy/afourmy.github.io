@@ -292,6 +292,48 @@ def find_levenshtein_eng_pairs(entries, min_len_for_d1=3, min_len_for_d2=6):
     return out
 
 
+THAI_PREFIXES = ["อย่าง", "การ", "ความ"]
+
+
+def find_thai_prefix_pairs(entries, prefixes=None):
+    """Root/prefixed-form pairs where one Thai is a known morphological prefix + the other.
+
+    E.g. โดดเด่น / อย่างโดดเด่น, ดี / ความดี, กิน / การกิน.
+    No English gate — the prefix list is specific enough and these pairs always
+    warrant human review regardless of English overlap.
+    """
+    if prefixes is None:
+        prefixes = THAI_PREFIXES
+    by_norm = defaultdict(list)
+    for entry in entries:
+        norm = normalize_thai(entry["thai"])
+        if norm:
+            by_norm[norm].append(entry)
+
+    pairs = []
+    seen = set()
+    for norm, long_entries in list(by_norm.items()):
+        for prefix in prefixes:
+            if not norm.startswith(prefix):
+                continue
+            root = norm[len(prefix):]
+            if len(root) < 2:
+                continue
+            short_entries = by_norm.get(root)
+            if not short_entries:
+                continue
+            for long_entry in long_entries:
+                for short_entry in short_entries:
+                    if long_entry["id"] == short_entry["id"]:
+                        continue
+                    key = tuple(sorted([long_entry["id"], short_entry["id"]]))
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    pairs.append((short_entry, long_entry, prefix))
+    return pairs
+
+
 def find_same_english_dups(entries):
     buckets = group_by_key(entries, lambda e: e["english"].strip())
     # Strip out groups whose Thai are all identical (caught by NORMALIZED_THAI)
@@ -332,6 +374,7 @@ def render_summary(entries):
     n5 = len(find_levenshtein_eng_pairs(entries))
     n6 = len(find_same_english_dups(entries))
     n7 = len(find_same_english_norm_dups(entries))
+    n8 = len(find_thai_prefix_pairs(entries))
     return (
         f"Total entries: {len(entries)}\n"
         f"HIGH-CONFIDENCE:\n"
@@ -340,6 +383,7 @@ def render_summary(entries):
         f"  [3] TONE_STRIP + ENG_MATCH:       {n3}\n"
         f"  [4] SUBSTR + ENG_OVERLAP pairs:   {n4}\n"
         f"  [5] LEV<=2 + ENG_OVERLAP pairs:   {n5}\n"
+        f"  [8] THAI_PREFIX pairs:            {n8}\n"
         f"SOFT (manual review):\n"
         f"  [6] SAME_ENGLISH groups:          {n6}\n"
         f"  [7] SAME_ENGLISH_NORM groups:     {n7}\n"
@@ -393,6 +437,14 @@ def render_report(entries):
         out.append(f"    {fmt_entry(a)}")
         out.append(f"    {fmt_entry(b)}")
 
+    out.append(section("[8] THAI_PREFIX — root / prefix+root pairs (อย่าง, การ, ความ)"))
+    pairs = find_thai_prefix_pairs(entries)
+    out.append(f"Found {len(pairs)} pairs.")
+    for short, long_, prefix in sorted(pairs, key=lambda p: (p[2], p[0]["thai"])):
+        out.append(f"\n  [{prefix}] '{short['thai']}' / '{long_['thai']}':")
+        out.append(f"    {fmt_entry(short)}")
+        out.append(f"    {fmt_entry(long_)}")
+
     out.append(section("[6] SAME_ENGLISH — identical raw English, different Thai (review)"))
     groups = find_same_english_dups(entries)
     out.append(f"Found {len(groups)} groups.")
@@ -420,6 +472,7 @@ SECTION_ORDER = [
     "TONE_STRIP_ENG",
     "SUBSTR_ENG",
     "LEV_ENG",
+    "THAI_PREFIX",
     "SAME_ENGLISH",
     "SAME_ENGLISH_NORM",
 ]
@@ -467,6 +520,9 @@ def collect_decision_rows(entries):
 
     for a, b, d in find_levenshtein_eng_pairs(entries):
         add([a, b], "LEV_ENG", f"d={d}: {a['thai']} ~ {b['thai']}")
+
+    for short, long_, prefix in find_thai_prefix_pairs(entries):
+        add([short, long_], "THAI_PREFIX", f"{prefix}+: {short['thai']} / {long_['thai']}")
 
     for key, items in find_same_english_dups(entries).items():
         add(items, "SAME_ENGLISH", key)
