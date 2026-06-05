@@ -1,4 +1,4 @@
-"""Apply batch 68 (rows pfx-0091 to pfx-0106) to vocab.json."""
+"""Apply batch 69 (rows pfx-0107 to pfx-0131) to vocab.json."""
 
 import json
 import shutil
@@ -8,48 +8,66 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-pfx-0091", "delete": [], "keep": None,
-     "edits": {"yt-c02-013": {"frequency": "occasional"}},
-     "note": "keep both; yt-c02-013 frequency -> occasional"},
-    {"row_id": "row-pfx-0092", "delete": [], "keep": None,
-     "edits": {"yt-c09-020": {"frequency": "occasional"}},
-     "note": "keep both; yt-c09-020 frequency -> occasional"},
-    {"row_id": "row-pfx-0093", "delete": [], "keep": None,
-     "edits": {"thaipod-0186": {"frequency": "occasional"}},
-     "note": "keep both; thaipod-0186 frequency -> occasional"},
-    {"row_id": "row-pfx-0094", "delete": [], "keep": None,
-     "edits": {"t4k-c08-025": {"frequency": "occasional", "english": "justice, fairness"}},
-     "note": "keep both; t4k-c08-025 -> 'justice, fairness', occasional"},
-    # row-pfx-0095: keep both — no changes
-    {"row_id": "row-pfx-0096", "delete": [], "keep": None,
-     "edits": {"thaipod-0187": {"frequency": "occasional"}},
-     "note": "keep both; thaipod-0187 frequency -> occasional"},
-    # row-pfx-0097: keep both — no changes
-    {"row_id": "row-pfx-0098", "delete": [], "keep": None,
-     "edits": {"tamago-l12-367": {"english": "to take responsibility, to be responsible"}},
-     "note": "keep both; tamago-l12-367 english -> 'to take responsibility, to be responsible'"},
-    {"row_id": "row-pfx-0099", "delete": [], "keep": None,
-     "edits": {"wlt-c04-026": {"english": "violent, harsh"}},
-     "note": "keep both; wlt-c04-026 english -> 'violent, harsh'"},
-    # row-pfx-0100: keep both — no changes
-    # row-pfx-0101: keep both — no changes
-    # row-pfx-0102: keep both — no changes
-    {"row_id": "row-pfx-0103", "delete": [], "keep": None,
-     "edits": {"yt-c17-024": {"frequency": "occasional", "english": "precision, resolution, fineness"}},
-     "note": "keep both; yt-c17-024 -> 'precision, resolution, fineness', occasional"},
-    # row-pfx-0104: keep both — no changes
-    {"row_id": "row-pfx-0105", "delete": [], "keep": None,
-     "edits": {
-         "yt-c06-031": {"english": "faith, belief, to have faith in (e.g Buddhism)"},
-         "thaipod-0190": {"frequency": "occasional"},
-     },
-     "note": "keep both; yt-c06-031 -> 'faith, belief, to have faith in (e.g Buddhism)'; thaipod-0190 -> occasional"},
-    {"row_id": "row-pfx-0106", "delete": [], "keep": None,
-     "edits": {"thaipod-0193": {"frequency": "occasional"}},
-     "note": "keep both; thaipod-0193 frequency -> occasional"},
+    {"row_id": "row-pfx-0107", "delete": [], "keep": None,
+     "edits": {"yt-c01-014": {"frequency": "occasional"}},
+     "note": "keep both; yt-c01-014 frequency -> occasional"},
+    {"row_id": "row-pfx-0108", "delete": ["t4k-c01-046"], "keep": "chula-l5-372",
+     "edits": {},
+     "note": "remove t4k-c01-046; keep chula-l5-372"},
+    {"row_id": "row-pfx-0109", "delete": [], "keep": None,
+     "edits": {"wlt-c14-082": {"frequency": "everyday"}},
+     "note": "keep both; wlt-c14-082 frequency -> everyday"},
+    # row-pfx-0110: keep both — no changes
+    {"row_id": "row-pfx-0111", "delete": [], "keep": None,
+     "edits": {"wlt-c21-044": {"english": "tall"}},
+     "note": "keep both; wlt-c21-044 english -> 'tall'"},
+    {"row_id": "row-pfx-0112", "delete": ["t4k-c01-061"], "keep": "wlt-c10-038",
+     "edits": {},
+     "note": "remove t4k-c01-061; keep wlt-c10-038"},
+    {"row_id": "row-pfx-0113", "delete": [], "keep": None,
+     "edits": {"tsl-099": {"frequency": "occasional"}},
+     "note": "keep both; tsl-099 frequency -> occasional"},
+    # row-pfx-0114: keep both — no changes
+    {"row_id": "row-pfx-0115", "delete": [], "keep": None,
+     "edits": {"t4k-c02-029": {"english": "various, many"}},
+     "note": "keep both; t4k-c02-029 english -> 'various, many'"},
+    # row-pfx-0116: keep both — no changes
+    # row-pfx-0117: keep both — no changes
+    # row-pfx-0118: keep both — no changes
+    # row-pfx-0119: keep both — no changes
+    {"row_id": "row-pfx-0120", "delete": [], "keep": None,
+     "edits": {"yt-c06-025": {"english": "gentleness, tenderness"}},
+     "note": "keep both; yt-c06-025 english -> 'gentleness, tenderness'"},
+    # row-pfx-0121: keep both — no changes
+    # row-pfx-0122: keep both — no changes
+    {"row_id": "row-pfx-0123", "delete": [], "keep": None,
+     "edits": {"t4k-c04-066": {"english": "hurt, painful, to be in pain"}},
+     "note": "keep both; t4k-c04-066 english -> 'hurt, painful, to be in pain'"},
+    {"row_id": "row-pfx-0124", "delete": [], "keep": None,
+     "edits": {"wlt-c15-054": {"english": "to believe"}},
+     "note": "keep both; wlt-c15-054 english -> 'to believe'"},
+    {"row_id": "row-pfx-0125", "delete": [], "keep": None,
+     "edits": {"yt-c08-069": {"english": "to be in trouble, to be in difficulty"}},
+     "note": "keep both; yt-c08-069 english -> 'to be in trouble, to be in difficulty'"},
+    {"row_id": "row-pfx-0126", "delete": [], "keep": None,
+     "edits": {"wlt-c02-040": {"english": "willing, glad to do sth"}},
+     "note": "keep both; wlt-c02-040 english -> 'willing, glad to do sth'"},
+    {"row_id": "row-pfx-0127", "delete": ["thaipod-0198"], "keep": "wlt-c20-032",
+     "edits": {"wlt-c20-032": {"english": "to be; to be able"}},
+     "note": "remove thaipod-0198; wlt-c20-032 english -> 'to be; to be able'"},
+    {"row_id": "row-pfx-0128", "delete": [], "keep": None,
+     "edits": {"yt-c02-042": {"frequency": "occasional"}},
+     "note": "keep both; yt-c02-042 frequency -> occasional"},
+    {"row_id": "row-pfx-0129", "delete": [], "keep": None,
+     "edits": {"yt-c03-011": {"english": "compassion, deep kindness"}},
+     "note": "keep both; yt-c03-011 english -> 'compassion, deep kindness'"},
+    {"row_id": "row-pfx-0130", "delete": [], "keep": None,
+     "edits": {"thaipod-0201": {"frequency": "occasional"}},
+     "note": "keep both; thaipod-0201 frequency -> occasional"},
+    # row-pfx-0131: keep both — no changes
 ]
 
-APPLIED_ROW_IDS = {f"row-pfx-{i:04d}" for i in range(91, 107)}
+APPLIED_ROW_IDS = {f"row-pfx-{i:04d}" for i in range(107, 132)}
 
 STALE_ROW_IDS: set = set()
 
@@ -103,7 +121,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 68 — rows pfx-0091 to pfx-0106", ""]
+    log_lines = ["", "=" * 70, "Batch 69 — rows pfx-0107 to pfx-0131", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
