@@ -1,4 +1,4 @@
-"""Apply batch 69 (rows pfx-0107 to pfx-0131) to vocab.json."""
+"""Apply batch 70 (rows pfx-0132 to pfx-0152) to vocab.json."""
 
 import json
 import shutil
@@ -8,66 +8,59 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-pfx-0107", "delete": [], "keep": None,
-     "edits": {"yt-c01-014": {"frequency": "occasional"}},
-     "note": "keep both; yt-c01-014 frequency -> occasional"},
-    {"row_id": "row-pfx-0108", "delete": ["t4k-c01-046"], "keep": "chula-l5-372",
+    {"row_id": "row-pfx-0132", "delete": [], "keep": None,
+     "edits": {"t4k-c02-015": {"english": "to risk, risky"}},
+     "note": "keep both; t4k-c02-015 english -> 'to risk, risky'"},
+    # row-pfx-0133: keep both — no changes
+    {"row_id": "row-pfx-0134", "delete": [], "keep": None,
+     "edits": {"t4k-c01-079": {"english": "real, genuine, really, truly"}},
+     "note": "keep both; t4k-c01-079 english -> 'real, genuine, really, truly'"},
+    # row-pfx-0135: keep both — yt-c05-063 already occasional, no changes
+    {"row_id": "row-pfx-0136", "delete": [], "keep": None,
+     "edits": {"parked-002": {"frequency": "occasional"}},
+     "note": "keep both; parked-002 frequency -> occasional"},
+    {"row_id": "row-pfx-0137", "delete": [], "keep": None,
+     "edits": {"yt-c03-035": {"frequency": "occasional"}},
+     "note": "keep both; yt-c03-035 frequency -> occasional"},
+    # row-pfx-0138: keep both — no changes
+    # row-pfx-0139: keep both — no changes
+    {"row_id": "row-pfx-0140", "delete": [], "keep": None,
+     "edits": {
+         "t4k-c04-034": {"english": "very, so (+ adj)"},
+         "chula-l5-167": {"english": "seriously (+ adj), in a big way"},
+     },
+     "note": "keep both; t4k-c04-034 english -> 'very, so (+ adj)'; chula-l5-167 english -> 'seriously (+ adj), in a big way'"},
+    {"row_id": "row-pfx-0141", "delete": ["tobo-251"], "keep": "wlt-c13-047",
      "edits": {},
-     "note": "remove t4k-c01-046; keep chula-l5-372"},
-    {"row_id": "row-pfx-0109", "delete": [], "keep": None,
-     "edits": {"wlt-c14-082": {"frequency": "everyday"}},
-     "note": "keep both; wlt-c14-082 frequency -> everyday"},
-    # row-pfx-0110: keep both — no changes
-    {"row_id": "row-pfx-0111", "delete": [], "keep": None,
-     "edits": {"wlt-c21-044": {"english": "tall"}},
-     "note": "keep both; wlt-c21-044 english -> 'tall'"},
-    {"row_id": "row-pfx-0112", "delete": ["t4k-c01-061"], "keep": "wlt-c10-038",
+     "note": "remove tobo-251; keep wlt-c13-047"},
+    # row-pfx-0142: keep both — no changes
+    {"row_id": "row-pfx-0143", "delete": ["thaipod-1105"], "keep": "wlt-c11-042",
      "edits": {},
-     "note": "remove t4k-c01-061; keep wlt-c10-038"},
-    {"row_id": "row-pfx-0113", "delete": [], "keep": None,
-     "edits": {"tsl-099": {"frequency": "occasional"}},
-     "note": "keep both; tsl-099 frequency -> occasional"},
-    # row-pfx-0114: keep both — no changes
-    {"row_id": "row-pfx-0115", "delete": [], "keep": None,
-     "edits": {"t4k-c02-029": {"english": "various, many"}},
-     "note": "keep both; t4k-c02-029 english -> 'various, many'"},
-    # row-pfx-0116: keep both — no changes
-    # row-pfx-0117: keep both — no changes
-    # row-pfx-0118: keep both — no changes
-    # row-pfx-0119: keep both — no changes
-    {"row_id": "row-pfx-0120", "delete": [], "keep": None,
-     "edits": {"yt-c06-025": {"english": "gentleness, tenderness"}},
-     "note": "keep both; yt-c06-025 english -> 'gentleness, tenderness'"},
-    # row-pfx-0121: keep both — no changes
-    # row-pfx-0122: keep both — no changes
-    {"row_id": "row-pfx-0123", "delete": [], "keep": None,
-     "edits": {"t4k-c04-066": {"english": "hurt, painful, to be in pain"}},
-     "note": "keep both; t4k-c04-066 english -> 'hurt, painful, to be in pain'"},
-    {"row_id": "row-pfx-0124", "delete": [], "keep": None,
-     "edits": {"wlt-c15-054": {"english": "to believe"}},
-     "note": "keep both; wlt-c15-054 english -> 'to believe'"},
-    {"row_id": "row-pfx-0125", "delete": [], "keep": None,
-     "edits": {"yt-c08-069": {"english": "to be in trouble, to be in difficulty"}},
-     "note": "keep both; yt-c08-069 english -> 'to be in trouble, to be in difficulty'"},
-    {"row_id": "row-pfx-0126", "delete": [], "keep": None,
-     "edits": {"wlt-c02-040": {"english": "willing, glad to do sth"}},
-     "note": "keep both; wlt-c02-040 english -> 'willing, glad to do sth'"},
-    {"row_id": "row-pfx-0127", "delete": ["thaipod-0198"], "keep": "wlt-c20-032",
-     "edits": {"wlt-c20-032": {"english": "to be; to be able"}},
-     "note": "remove thaipod-0198; wlt-c20-032 english -> 'to be; to be able'"},
-    {"row_id": "row-pfx-0128", "delete": [], "keep": None,
-     "edits": {"yt-c02-042": {"frequency": "occasional"}},
-     "note": "keep both; yt-c02-042 frequency -> occasional"},
-    {"row_id": "row-pfx-0129", "delete": [], "keep": None,
-     "edits": {"yt-c03-011": {"english": "compassion, deep kindness"}},
-     "note": "keep both; yt-c03-011 english -> 'compassion, deep kindness'"},
-    {"row_id": "row-pfx-0130", "delete": [], "keep": None,
-     "edits": {"thaipod-0201": {"frequency": "occasional"}},
-     "note": "keep both; thaipod-0201 frequency -> occasional"},
-    # row-pfx-0131: keep both — no changes
+     "note": "remove thaipod-1105; keep wlt-c11-042"},
+    # row-pfx-0144: keep both — no changes
+    {"row_id": "row-pfx-0145", "delete": ["thaipod-1108"], "keep": "wlt-c21-045",
+     "edits": {},
+     "note": "remove thaipod-1108; keep wlt-c21-045"},
+    {"row_id": "row-pfx-0146", "delete": ["thaipod-1109"], "keep": "tamago-l3-678",
+     "edits": {},
+     "note": "remove thaipod-1109; keep tamago-l3-678"},
+    {"row_id": "row-pfx-0147", "delete": [], "keep": None,
+     "edits": {"t4k-c04-017": {"english": "such as, for example"}},
+     "note": "keep both; t4k-c04-017 english -> 'such as, for example'"},
+    {"row_id": "row-pfx-0148", "delete": ["thaipod-1110"], "keep": "wlt-c15-062",
+     "edits": {"wlt-c15-062": {"thai": "เดียว, อย่างเดียว"}},
+     "note": "merge into wlt-c15-062; thai -> 'เดียว, อย่างเดียว'; delete thaipod-1110"},
+    # row-pfx-0149: keep both — no changes
+    {"row_id": "row-pfx-0150", "delete": ["thaipod-1112"], "keep": "t4k-c01-079",
+     "edits": {},
+     "note": "remove thaipod-1112; keep t4k-c01-079"},
+    {"row_id": "row-pfx-0151", "delete": [], "keep": None,
+     "edits": {"tsl-144": {"frequency": "occasional"}},
+     "note": "keep both; tsl-144 frequency -> occasional"},
+    # row-pfx-0152: keep both — no changes
 ]
 
-APPLIED_ROW_IDS = {f"row-pfx-{i:04d}" for i in range(107, 132)}
+APPLIED_ROW_IDS = {f"row-pfx-{i:04d}" for i in range(132, 153)}
 
 STALE_ROW_IDS: set = set()
 
@@ -121,7 +114,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 69 — rows pfx-0107 to pfx-0131", ""]
+    log_lines = ["", "=" * 70, "Batch 70 — rows pfx-0132 to pfx-0152", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
