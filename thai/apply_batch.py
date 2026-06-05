@@ -1,4 +1,4 @@
-"""Apply batch 61 (rows 1132-1143) to vocab.json."""
+"""Apply batch 64 (rows 1187-1200) to vocab.json."""
 
 import json
 import shutil
@@ -8,39 +8,39 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-01132", "delete": ["t4k-c08-000"], "keep": "wlt-c19-078", "edits": {},
-     "note": "keep wlt-c19-078; delete t4k-c08-000"},
-    {"row_id": "row-01135", "delete": ["wlt-c11-068"], "keep": None, "edits": {},
-     "note": "remove wlt-c11-068; keep t4k-c08-049 and thaipod-0663"},
-    {"row_id": "row-01137", "delete": ["yt-c02-022"], "keep": "t4k-c09-002",
-     "edits": {"t4k-c09-002": {"thai": "พลเอก, นายพล", "english": "general (military)"}},
-     "note": "keep t4k-c09-002 as พลเอก, นายพล: general (military); delete yt-c02-022"},
-    {"row_id": "row-01138", "delete": ["t4k-c09-003"], "keep": "yt-c08-060", "edits": {},
-     "note": "keep yt-c08-060; delete t4k-c09-003"},
-    {"row_id": "row-01139", "delete": [], "keep": None,
-     "edits": {"t4k-c09-042": {"english": "steam (water)"}},
-     "note": "keep both; t4k-c09-042 english -> 'steam (water)'"},
-    {"row_id": "row-01140", "delete": [], "keep": None,
+    {"row_id": "row-01187", "delete": [], "keep": None,
      "edits": {
-         "t4k-c10-015": {"english": "push (e.g cart, wheelchair)"},
-         "tobo-139": {"english": "to push (e.g a door)"},
+         "tamago-l3-759": {"english": "club, association (e.g informal, like a school club)"},
+         "wlt-c09-031": {"english": "club, organized association"},
      },
-     "note": "keep both; t4k-c10-015 english -> 'push (e.g cart, wheelchair)'; tobo-139 english -> 'to push (e.g a door)'"},
-    {"row_id": "row-01141", "delete": ["t4k-c10-093"], "keep": "wlt-c16-003",
-     "edits": {"wlt-c16-003": {"english": "satisfied"}},
-     "note": "keep only wlt-c16-003 with eng: 'satisfied'; delete t4k-c10-093"},
-    {"row_id": "row-01142", "delete": ["t4k-c10-095"], "keep": "yt-c10-084",
-     "edits": {"yt-c10-084": {"thai": "โทน, โทนเสียง"}},
-     "note": "keep yt-c10-084 as โทน, โทนเสียง; delete t4k-c10-095"},
-    {"row_id": "row-01143", "delete": [], "keep": None,
-     "edits": {
-         "t4k-c11-014": {"frequency": "rare", "english": "temple hall (Buddhism)"},
-         "yt-c02-047": {"english": "temple (forehead)"},
-     },
-     "note": "keep both; t4k-c11-014 frequency -> rare, english -> 'temple hall (Buddhism)'; yt-c02-047 english -> 'temple (forehead)'"},
+     "note": "keep both; tamago-l3-759 english -> 'club, association (e.g informal, like a school club)'; wlt-c09-031 english -> 'club, organized association'"},
+    {"row_id": "row-01188", "delete": ["tsl-105"], "keep": "tamago-l3-795",
+     "edits": {"tamago-l3-795": {"thai": "บีบคอ, รัดคอ"}},
+     "note": "keep tamago-l3-795 as บีบคอ, รัดคอ; delete tsl-105"},
+    {"row_id": "row-01189", "delete": [], "keep": None,
+     "edits": {"yt-c01-061": {"english": "position, job title"}},
+     "note": "keep both; yt-c01-061 english -> 'position, job title'"},
+    # row-01190: keep both — no changes
+    # row-01191: keep both — no changes
+    {"row_id": "row-01192", "delete": [], "keep": None,
+     "edits": {"thaipod-0041": {"english": "chapter, section (Buddhist text)"}},
+     "note": "keep both; thaipod-0041 english -> 'chapter, section (Buddhist text)'"},
+    {"row_id": "row-01193", "delete": ["thaipod-0078"], "keep": "thaipod-0763", "edits": {},
+     "note": "remove thaipod-0078; keep thaipod-0763"},
+    # row-01195: keep both — no changes
+    {"row_id": "row-01197", "delete": [], "keep": None,
+     "edits": {"thaipod-0252": {"frequency": "occasional"}},
+     "note": "keep both; thaipod-0252 frequency -> occasional"},
+    {"row_id": "row-01198", "delete": ["thaipod-0300"], "keep": "yt-c12-084",
+     "edits": {"yt-c12-084": {"thai": "แต่ประการใด, แต่อย่างใด", "english": "at all, whatsoever (formal)"}},
+     "note": "keep yt-c12-084 as แต่ประการใด, แต่อย่างใด: at all, whatsoever (formal); delete thaipod-0300"},
+    {"row_id": "row-01199", "delete": ["thaipod-0383"], "keep": "wlt-c10-096",
+     "edits": {"wlt-c10-096": {"thai": "ทีหลัง, ต่อมา"}},
+     "note": "keep wlt-c10-096 as ทีหลัง, ต่อมา; delete thaipod-0383"},
+    # row-01200: keep both — no action (user unsure, entries not yet differentiated)
 ]
 
-APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1132, 1144)}
+APPLIED_ROW_IDS = {f"row-{i:05d}" for i in range(1187, 1201)}
 
 STALE_ROW_IDS: set = set()
 
@@ -94,7 +94,7 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 61 — rows 1132-1143", ""]
+    log_lines = ["", "=" * 70, "Batch 64 — rows 1187-1200", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
