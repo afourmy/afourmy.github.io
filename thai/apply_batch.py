@@ -1,4 +1,4 @@
-"""Apply batch 70 (rows pfx-0132 to pfx-0152) to vocab.json."""
+"""Apply batch 71 (rows pfx-0153 to pfx-0155, row-01202 to row-01215) to vocab.json."""
 
 import json
 import shutil
@@ -8,59 +8,46 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-pfx-0132", "delete": [], "keep": None,
-     "edits": {"t4k-c02-015": {"english": "to risk, risky"}},
-     "note": "keep both; t4k-c02-015 english -> 'to risk, risky'"},
-    # row-pfx-0133: keep both — no changes
-    {"row_id": "row-pfx-0134", "delete": [], "keep": None,
-     "edits": {"t4k-c01-079": {"english": "real, genuine, really, truly"}},
-     "note": "keep both; t4k-c01-079 english -> 'real, genuine, really, truly'"},
-    # row-pfx-0135: keep both — yt-c05-063 already occasional, no changes
-    {"row_id": "row-pfx-0136", "delete": [], "keep": None,
-     "edits": {"parked-002": {"frequency": "occasional"}},
-     "note": "keep both; parked-002 frequency -> occasional"},
-    {"row_id": "row-pfx-0137", "delete": [], "keep": None,
-     "edits": {"yt-c03-035": {"frequency": "occasional"}},
-     "note": "keep both; yt-c03-035 frequency -> occasional"},
-    # row-pfx-0138: keep both — no changes
-    # row-pfx-0139: keep both — no changes
-    {"row_id": "row-pfx-0140", "delete": [], "keep": None,
-     "edits": {
-         "t4k-c04-034": {"english": "very, so (+ adj)"},
-         "chula-l5-167": {"english": "seriously (+ adj), in a big way"},
-     },
-     "note": "keep both; t4k-c04-034 english -> 'very, so (+ adj)'; chula-l5-167 english -> 'seriously (+ adj), in a big way'"},
-    {"row_id": "row-pfx-0141", "delete": ["tobo-251"], "keep": "wlt-c13-047",
+    {"row_id": "row-pfx-0153", "delete": [], "keep": None,
+     "edits": {"thaipod-1113": {"frequency": "occasional"}},
+     "note": "keep both; thaipod-1113 frequency -> occasional"},
+    {"row_id": "row-pfx-0154", "delete": [], "keep": None,
+     "edits": {"t4k-c01-056": {"english": "adjacent, next to"}},
+     "note": "keep both; t4k-c01-056 english -> 'adjacent, next to'"},
+    {"row_id": "row-pfx-0155", "delete": ["wlt-c08-088"], "keep": "wlt-c21-048",
      "edits": {},
-     "note": "remove tobo-251; keep wlt-c13-047"},
-    # row-pfx-0142: keep both — no changes
-    {"row_id": "row-pfx-0143", "delete": ["thaipod-1105"], "keep": "wlt-c11-042",
+     "note": "remove wlt-c08-088; keep wlt-c21-048"},
+    {"row_id": "row-01202", "delete": ["thaipod-0403"], "keep": "tsl-090",
      "edits": {},
-     "note": "remove thaipod-1105; keep wlt-c11-042"},
-    # row-pfx-0144: keep both — no changes
-    {"row_id": "row-pfx-0145", "delete": ["thaipod-1108"], "keep": "wlt-c21-045",
+     "note": "remove thaipod-0403; keep tsl-090"},
+    # row-01203: keep both — no changes
+    {"row_id": "row-01204", "delete": [], "keep": None,
+     "edits": {"thaipod-0485": {"thai": "นกนางแอ่น"}},
+     "note": "keep both; thaipod-0485 thai -> 'นกนางแอ่น'"},
+    {"row_id": "row-01205", "delete": ["thaipod-0507"], "keep": "wlt-c10-002",
+     "edits": {"wlt-c10-002": {"thai": "เอามา, นํามา"}},
+     "note": "merge into wlt-c10-002; thai -> 'เอามา, นํามา'; delete thaipod-0507"},
+    {"row_id": "row-01207", "delete": ["yt-c13-097"], "keep": "thaipod-0627",
      "edits": {},
-     "note": "remove thaipod-1108; keep wlt-c21-045"},
-    {"row_id": "row-pfx-0146", "delete": ["thaipod-1109"], "keep": "tamago-l3-678",
+     "note": "remove yt-c13-097; keep thaipod-0627"},
+    {"row_id": "row-01210", "delete": ["thaipod-0679"], "keep": "thaipod-0710",
      "edits": {},
-     "note": "remove thaipod-1109; keep tamago-l3-678"},
-    {"row_id": "row-pfx-0147", "delete": [], "keep": None,
-     "edits": {"t4k-c04-017": {"english": "such as, for example"}},
-     "note": "keep both; t4k-c04-017 english -> 'such as, for example'"},
-    {"row_id": "row-pfx-0148", "delete": ["thaipod-1110"], "keep": "wlt-c15-062",
-     "edits": {"wlt-c15-062": {"thai": "เดียว, อย่างเดียว"}},
-     "note": "merge into wlt-c15-062; thai -> 'เดียว, อย่างเดียว'; delete thaipod-1110"},
-    # row-pfx-0149: keep both — no changes
-    {"row_id": "row-pfx-0150", "delete": ["thaipod-1112"], "keep": "t4k-c01-079",
-     "edits": {},
-     "note": "remove thaipod-1112; keep t4k-c01-079"},
-    {"row_id": "row-pfx-0151", "delete": [], "keep": None,
-     "edits": {"tsl-144": {"frequency": "occasional"}},
-     "note": "keep both; tsl-144 frequency -> occasional"},
-    # row-pfx-0152: keep both — no changes
+     "note": "remove thaipod-0679; keep thaipod-0710"},
+    # row-01211: keep all — no changes
+    # row-01212: keep both — no changes
+    # row-01213: keep both — no changes
+    {"row_id": "row-01214", "delete": [], "keep": None,
+     "edits": {"wlt-c08-095": {"english": "play (TV drama)"}},
+     "note": "keep all; wlt-c08-095 english -> 'play (TV drama)'"},
+    # row-01215: keep both — no changes
 ]
 
-APPLIED_ROW_IDS = {f"row-pfx-{i:04d}" for i in range(132, 153)}
+APPLIED_ROW_IDS = {
+    "row-pfx-0153", "row-pfx-0154", "row-pfx-0155",
+    "row-01202", "row-01203", "row-01204", "row-01205",
+    "row-01207", "row-01210", "row-01211", "row-01212",
+    "row-01213", "row-01214", "row-01215",
+}
 
 STALE_ROW_IDS: set = set()
 
@@ -114,7 +101,8 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 70 — rows pfx-0132 to pfx-0152", ""]
+    log_lines = ["", "=" * 70,
+                 "Batch 71 — rows pfx-0153 to pfx-0155, row-01202 to row-01215", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
