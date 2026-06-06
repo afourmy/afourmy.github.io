@@ -1,4 +1,4 @@
-"""Apply vocab review batch 1 (chula-l4 chunk 1 fixes)."""
+"""Apply vocab review batch 2 (chula-l4-101 to chula-l5-051 fixes)."""
 
 import json
 import shutil
@@ -6,23 +6,23 @@ from pathlib import Path
 
 HERE = Path(__file__).parent
 
-# row_id -> {field: new_value}
 EDITS = {
-    "chula-l4-005": {"english": "acid reflux (GERD)"},
-    "chula-l4-014": {"english": "to have a wound"},
-    "chula-l4-044": {"english": "to squint"},
-    "chula-l4-049": {"english": "deity, god"},
-    "chula-l4-065": {"english": "to predict, to foretell"},
-    "chula-l4-072": {"frequency": "common"},
-    "chula-l4-074": {"thai": "กังวล, วิตกกังวล", "frequency": "common"},
-    "chula-l4-099": {"english": "zodiac sign"},
+    "chula-l4-105": {"english": "womanizer, someone who likes to flirt"},
+    "chula-l4-125": {"english": "regular job, steady job"},
+    "chula-l4-132": {"english": "memory loss, memory deterioration (e.g. from aging)", "frequency": "occasional"},
+    "chula-l4-136": {"english": "rotten, spoiled"},
+    "chula-l5-008": {"english": "channel, pathway"},
+    "chula-l5-014": {"english": "carrier (of a disease), vector"},
+    "chula-l5-017": {"english": "nighttime, late at night"},
+    "chula-l5-024": {"thai": "สื่อ, สื่อสาร", "english": "to convey, to communicate"},
+    "chula-l5-046": {"english": "punch, blow delivered with fist", "frequency": "occasional"},
+    "chula-l5-048": {"english": "to crawl, to squeeze through a narrow space"},
 }
 
-# All row_ids processed this batch (including "no" decisions)
 APPLIED_ROW_IDS = {
-    "chula-l4-005", "chula-l4-011", "chula-l4-014", "chula-l4-030",
-    "chula-l4-044", "chula-l4-049", "chula-l4-065", "chula-l4-072",
-    "chula-l4-074", "chula-l4-099",
+    "chula-l4-105", "chula-l4-125", "chula-l4-132", "chula-l4-134",
+    "chula-l4-136", "chula-l5-008", "chula-l5-014", "chula-l5-017",
+    "chula-l5-024", "chula-l5-046", "chula-l5-048",
 }
 
 
@@ -46,7 +46,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 1 — chula-l4 chunk 1 field fixes", "",
+        "Vocab review batch 2 — chula-l4-101 to chula-l5-051 field fixes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
