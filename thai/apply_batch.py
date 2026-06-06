@@ -1,4 +1,4 @@
-"""Apply vocab review batch 2 (chula-l4-101 to chula-l5-051 fixes)."""
+"""Apply vocab review batch 4 (chula-l5-145 to chula-l5-230 fixes)."""
 
 import json
 import shutil
@@ -7,22 +7,15 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "chula-l4-105": {"english": "womanizer, someone who likes to flirt"},
-    "chula-l4-125": {"english": "regular job, steady job"},
-    "chula-l4-132": {"english": "memory loss, memory deterioration (e.g. from aging)", "frequency": "occasional"},
-    "chula-l4-136": {"english": "rotten, spoiled"},
-    "chula-l5-008": {"english": "channel, pathway"},
-    "chula-l5-014": {"english": "carrier (of a disease), vector"},
-    "chula-l5-017": {"english": "nighttime, late at night"},
-    "chula-l5-024": {"thai": "สื่อ, สื่อสาร", "english": "to convey, to communicate"},
-    "chula-l5-046": {"english": "punch, blow delivered with fist", "frequency": "occasional"},
-    "chula-l5-048": {"english": "to crawl, to squeeze through a narrow space"},
+    "chula-l5-173": {"english": "to doze off while driving"},
+    "chula-l5-184": {"english": "to travel downstream, to drift (on a river)"},
+    "chula-l5-193": {"english": "to lack, to be missing; torn, broken"},
+    "chula-l5-201": {"english": "head (formal)", "frequency": "common"},
+    "chula-l5-211": {"english": "restless, agitated"},
 }
 
 APPLIED_ROW_IDS = {
-    "chula-l4-105", "chula-l4-125", "chula-l4-132", "chula-l4-134",
-    "chula-l4-136", "chula-l5-008", "chula-l5-014", "chula-l5-017",
-    "chula-l5-024", "chula-l5-046", "chula-l5-048",
+    "chula-l5-173", "chula-l5-184", "chula-l5-193", "chula-l5-201", "chula-l5-211",
 }
 
 
@@ -46,7 +39,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 2 — chula-l4-101 to chula-l5-051 field fixes", "",
+        "Vocab review batch 4 — chula-l5-145 to chula-l5-230 field fixes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
