@@ -1,4 +1,4 @@
-"""Apply batch 73 (rows row-01246 to row-01274) to vocab.json."""
+"""Apply batch 75 (rows row-01302 to row-01312) to vocab.json. Final batch."""
 
 import json
 import shutil
@@ -8,71 +8,36 @@ from collections import defaultdict
 HERE = Path(__file__).parent
 
 MUTATIONS = [
-    {"row_id": "row-01246", "delete": [], "keep": None,
-     "edits": {"tsl-350": {"frequency": "rare"}},
-     "note": "keep both; tsl-350 frequency -> rare"},
-    {"row_id": "row-01248", "delete": [], "keep": None,
-     "edits": {"tsl-352": {"english": "I, me (royal, or used jokingly)"}},
-     "note": "keep both; tsl-352 english -> 'I, me (royal, or used jokingly)'"},
-    {"row_id": "row-01249", "delete": ["wlt-c03-050"], "keep": "wlt-c01-037",
-     "edits": {"wlt-c01-037": {"thai": "ไปนอน, เข้านอน"}},
-     "note": "merge into wlt-c01-037; thai -> 'ไปนอน, เข้านอน'; delete wlt-c03-050"},
-    {"row_id": "row-01250", "delete": [], "keep": None,
-     "edits": {"wlt-c07-061": {"frequency": "occasional"}},
-     "note": "keep all; wlt-c07-061 frequency -> occasional"},
-    {"row_id": "row-01251", "delete": ["wlt-c01-098"], "keep": "wlt-c11-058",
+    {"row_id": "row-01302", "delete": [], "park": ["yt-c19-096", "yt-c21-016", "yt-c21-018", "yt-c22-063"],
+     "keep": None,
+     "edits": {"yt-c02-003": {"english": "to have sex (idiom)"}},
+     "note": "keep yt-c02-003 (idiom); park yt-c19-096, yt-c21-016, yt-c21-018, yt-c22-063"},
+    {"row_id": "row-01303", "delete": ["yt-c20-032"], "park": [], "keep": "yt-c02-031",
+     "edits": {"yt-c02-031": {"thai": "หี, จิ๋ม"}},
+     "note": "merge into yt-c02-031; thai -> 'หี, จิ๋ม'; delete yt-c20-032"},
+    {"row_id": "row-01304", "delete": ["yt-c03-031"], "park": [], "keep": "yt-c08-083",
+     "edits": {"yt-c08-083": {"thai": "ทัพพี, กระบวย", "frequency": "occasional"}},
+     "note": "merge into yt-c08-083; thai -> 'ทัพพี, กระบวย'; frequency -> occasional; delete yt-c03-031"},
+    # row-01305: keep both — no changes
+    # row-01306: keep both — no changes
+    {"row_id": "row-01307", "delete": ["yt-c10-046"], "park": [], "keep": "yt-c05-052",
      "edits": {},
-     "note": "remove wlt-c01-098; keep wlt-c11-058"},
-    {"row_id": "row-01252", "delete": ["wlt-c02-004"], "keep": "wlt-c08-082",
+     "note": "remove yt-c10-046; keep yt-c05-052"},
+    {"row_id": "row-01308", "delete": ["yt-c07-096"], "park": [], "keep": "yt-c17-046",
+     "edits": {"yt-c17-046": {"thai": "ไม้เท้า, ไม้นําทาง"}},
+     "note": "merge into yt-c17-046; thai -> 'ไม้เท้า, ไม้นําทาง'; delete yt-c07-096"},
+    # row-01310: keep all — no changes
+    {"row_id": "row-01311", "delete": [], "park": ["yt-c20-003"], "keep": None,
      "edits": {},
-     "note": "remove wlt-c02-004; keep wlt-c08-082"},
-    {"row_id": "row-01254", "delete": ["wlt-c02-027", "wlt-c02-029"], "keep": None,
+     "note": "park yt-c20-003; keep yt-c20-002, yt-c20-005"},
+    {"row_id": "row-01312", "delete": [], "park": ["yt-c20-026"], "keep": "yt-c20-025",
      "edits": {},
-     "note": "remove both wlt-c02-027, wlt-c02-029"},
-    # row-01255: keep both — no changes
-    {"row_id": "row-01256", "delete": ["wlt-c02-062", "wlt-c18-021", "wlt-c18-076"], "keep": None,
-     "edits": {},
-     "note": "remove all wlt-c02-062, wlt-c18-021, wlt-c18-076"},
-    # row-01258: keep both — no changes
-    # row-01259: keep both — no changes
-    {"row_id": "row-01260", "delete": ["wlt-c04-014"], "keep": "wlt-c14-080",
-     "edits": {},
-     "note": "remove wlt-c04-014; keep wlt-c14-080"},
-    {"row_id": "row-01262", "delete": ["wlt-c04-050"], "keep": "yt-c13-001",
-     "edits": {},
-     "note": "remove wlt-c04-050; keep yt-c13-001"},
-    {"row_id": "row-01264", "delete": ["wlt-c04-096", "wlt-c14-090"], "keep": None,
-     "edits": {},
-     "note": "remove both wlt-c04-096, wlt-c14-090"},
-    {"row_id": "row-01265", "delete": ["wlt-c05-033"], "keep": "wlt-c17-089",
-     "edits": {},
-     "note": "remove wlt-c05-033; keep wlt-c17-089"},
-    {"row_id": "row-01266", "delete": ["wlt-c13-050"], "keep": "wlt-c05-062",
-     "edits": {},
-     "note": "remove wlt-c13-050; keep wlt-c05-062"},
-    {"row_id": "row-01267", "delete": ["yt-c10-006"], "keep": None,
-     "edits": {"wlt-c05-064": {"english": "to scratch (in a way that leaves injury or marks)"}},
-     "note": "remove yt-c10-006; wlt-c05-064 english -> 'to scratch (in a way that leaves injury or marks)'"},
-    {"row_id": "row-01268", "delete": ["wlt-c05-067", "wlt-c10-025"], "keep": None,
-     "edits": {},
-     "note": "remove both wlt-c05-067, wlt-c10-025"},
-    # row-01269: keep both — no changes
-    {"row_id": "row-01271", "delete": ["wlt-c09-018"], "keep": "wlt-c05-097",
-     "edits": {},
-     "note": "remove wlt-c09-018; keep wlt-c05-097"},
-    {"row_id": "row-01272", "delete": ["wlt-c06-004"], "keep": "wlt-c10-039",
-     "edits": {"wlt-c10-039": {"thai": "คอม, คอมพิวเตอร์"}},
-     "note": "merge into wlt-c10-039; thai -> 'คอม, คอมพิวเตอร์'; delete wlt-c06-004"},
-    # row-01273: keep both — no changes
-    # row-01274: keep all — no changes
+     "note": "park yt-c20-026; keep yt-c20-025"},
 ]
 
 APPLIED_ROW_IDS = {
-    "row-01246", "row-01248", "row-01249", "row-01250", "row-01251",
-    "row-01252", "row-01254", "row-01255", "row-01256", "row-01258",
-    "row-01259", "row-01260", "row-01262", "row-01264", "row-01265",
-    "row-01266", "row-01267", "row-01268", "row-01269", "row-01271",
-    "row-01272", "row-01273", "row-01274",
+    "row-01302", "row-01303", "row-01304", "row-01305", "row-01306",
+    "row-01307", "row-01308", "row-01310", "row-01311", "row-01312",
 }
 
 STALE_ROW_IDS: set = set()
@@ -81,12 +46,14 @@ STALE_ROW_IDS: set = set()
 def main():
     vocab_path = HERE / "vocab.json"
     decisions_path = HERE / "decisions.json"
+    parked_path = HERE / "parked.json"
     log_path = HERE / "apply_log.txt"
 
     vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
     by_id = {e["id"]: e for e in vocab}
 
     to_delete = set()
+    to_park = set()
     sources_into = defaultdict(set)
     field_edits = defaultdict(dict)
     skipped_missing = []
@@ -105,6 +72,12 @@ def main():
             to_delete.add(eid)
             if keep is not None and keep != eid:
                 sources_into[keep].update(by_id[eid].get("sources", []))
+        for eid in m["park"]:
+            if eid not in by_id:
+                skipped_missing.append((m["row_id"], "park", eid))
+                continue
+            to_park.add(eid)
+            to_delete.add(eid)
         for eid, fields in m["edits"].items():
             if eid not in by_id:
                 skipped_missing.append((m["row_id"], "edit", eid))
@@ -127,11 +100,22 @@ def main():
 
     new_vocab = [e for e in vocab if e["id"] not in to_delete]
 
-    log_lines = ["", "=" * 70, "Batch 73 — rows row-01246 to row-01274", ""]
+    parked_doc = json.loads(parked_path.read_text(encoding="utf-8"))
+    existing_parked_ids = {e["id"] for e in parked_doc["entries"]}
+    for eid in sorted(to_park):
+        if eid not in existing_parked_ids:
+            parked_doc["entries"].append(by_id[eid])
+    parked_path.write_text(
+        json.dumps(parked_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+
+    log_lines = ["", "=" * 70, "Batch 75 — rows row-01302 to row-01312 (final batch)", ""]
     for m in MUTATIONS:
         log_lines.append(f"[{m['row_id']}] {m['note']}")
         if m["delete"]:
             log_lines.append(f"    delete: {', '.join(m['delete'])}")
+        if m["park"]:
+            log_lines.append(f"    park:   {', '.join(m['park'])}")
         if m["keep"]:
             log_lines.append(f"    keep:   {m['keep']}")
         for eid, fields in m["edits"].items():
@@ -144,6 +128,7 @@ def main():
             log_lines.append(f"    {r}: {k} {eid}")
         log_lines.append("")
     log_lines.append(f"Total deletions this batch: {len(to_delete)}")
+    log_lines.append(f"  of which parked:          {len(to_park)}")
     log_lines.append(f"Total source-unions:        {len(sources_into)}")
     log_lines.append(f"Total field-edits:          {sum(len(v) for v in field_edits.values())}")
     log_lines.append(f"Vocab: {len(vocab)} -> {len(new_vocab)}")
@@ -167,6 +152,7 @@ def main():
     )
 
     print(f"vocab.json: {len(vocab)} -> {len(new_vocab)} entries (backup: {backup.name})")
+    print(f"parked.json: {len(parked_doc['entries'])} entries added ({len(to_park)} new)")
     print(f"decisions.json: {before} -> {doc['total_rows']} rows ({before - doc['total_rows']} removed)")
     if skipped_missing:
         print(f"Skipped {len(skipped_missing)} already-deleted refs (see apply_log.txt)")
