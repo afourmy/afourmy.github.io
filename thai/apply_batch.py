@@ -1,4 +1,4 @@
-"""Apply vocab review batch 19 — tamago-l3 frequency and translation fixes."""
+"""Apply vocab review batch 21 — tamago-l3 translation fixes (ขอทาน, กระปุก)."""
 
 import json
 import shutil
@@ -7,41 +7,14 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tamago-l3-075": {"frequency": "everyday"},
-    "tamago-l3-079": {"frequency": "occasional"},
-    "tamago-l3-084": {"frequency": "occasional"},
-    "tamago-l3-114": {"frequency": "occasional"},
-    "tamago-l3-115": {"frequency": "occasional"},
-    "tamago-l3-118": {"frequency": "everyday"},
-    "tamago-l3-137": {"english": "timing, rhythm, beat; moment, opportunity", "frequency": "everyday"},
-    "tamago-l3-152": {"frequency": "everyday"},
-    "tamago-l3-158": {"frequency": "occasional"},
-    "tamago-l3-165": {"frequency": "occasional"},
-    "tamago-l3-167": {"frequency": "occasional"},
-    "tamago-l3-169": {"frequency": "occasional"},
-    "tamago-l3-183": {"frequency": "occasional"},
-    "tamago-l3-185": {"frequency": "occasional"},
-    "tamago-l3-194": {"frequency": "occasional"},
-    "tamago-l3-206": {"frequency": "occasional"},
-    "tamago-l3-210": {"frequency": "everyday"},
-    "tamago-l3-225": {"frequency": "occasional"},
-    "tamago-l3-244": {"frequency": "occasional"},
-    "tamago-l3-266": {"frequency": "everyday"},
+    "tamago-l3-462": {"english": "beggar"},
+    "tamago-l3-465": {"english": "small container, jar (e.g. for medicine, balm)"},
 }
 
-DELETES = {"tamago-l3-271"}
+DELETES = set()
 PARKS = set()
 
-APPLIED_ROW_IDS = {
-    "tamago-l3-075", "tamago-l3-079", "tamago-l3-084", "tamago-l3-114",
-    "tamago-l3-115", "tamago-l3-118", "tamago-l3-137", "tamago-l3-152",
-    "tamago-l3-158", "tamago-l3-165", "tamago-l3-167", "tamago-l3-169",
-    "tamago-l3-170", "tamago-l3-175", "tamago-l3-177", "tamago-l3-183",
-    "tamago-l3-185", "tamago-l3-187", "tamago-l3-188", "tamago-l3-192",
-    "tamago-l3-194", "tamago-l3-206", "tamago-l3-210", "tamago-l3-225",
-    "tamago-l3-241", "tamago-l3-244", "tamago-l3-255", "tamago-l3-265",
-    "tamago-l3-266", "tamago-l3-271",
-}
+APPLIED_ROW_IDS = {"tamago-l3-309", "tamago-l3-462", "tamago-l3-465"}
 
 
 def main():
@@ -77,7 +50,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 19 — tamago-l3 frequency and translation fixes", "",
+        "Vocab review batch 21 — tamago-l3 translation fixes (ขอทาน, กระปุก)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
