@@ -1,4 +1,4 @@
-"""Apply vocab review batch 25 — tsl-227 to tsl-437 (frequency + translation fixes)."""
+"""Apply vocab review batch 27 — thaipod-0004 to thaipod-0257 (frequency + translation fixes)."""
 
 import json
 import shutil
@@ -7,43 +7,21 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tsl-236": {"frequency": "occasional"},
-    "tsl-260": {"frequency": "occasional"},
-    "tsl-268": {"frequency": "occasional"},
-    "tsl-271": {"frequency": "occasional"},
-    "tsl-272": {"frequency": "occasional", "english": "dashboard, control panel"},
-    "tsl-273": {"frequency": "rare"},
-    "tsl-275": {"frequency": "rare"},
-    "tsl-283": {"frequency": "occasional"},
-    "tsl-284": {"frequency": "occasional"},
-    "tsl-287": {"frequency": "occasional"},
-    "tsl-295": {"frequency": "occasional"},
-    "tsl-299": {"frequency": "occasional"},
-    "tsl-319": {"frequency": "occasional"},
-    "tsl-335": {"frequency": "occasional"},
-    "tsl-348": {"frequency": "occasional"},
-    "tsl-358": {"frequency": "occasional"},
-    "tsl-360": {"frequency": "occasional"},
-    "tsl-362": {"frequency": "occasional"},
-    "tsl-368": {"frequency": "common"},
-    "tsl-370": {"frequency": "occasional", "thai": "ยื่นฟ้อง, ยื่นฟ้องร้อง"},
-    "tsl-376": {"frequency": "occasional"},
-    "tsl-377": {"frequency": "occasional"},
-    "tsl-393": {"frequency": "occasional"},
-    "tsl-413": {"frequency": "occasional"},
-    "tsl-424": {"frequency": "occasional"},
-    "tsl-430": {"frequency": "occasional"},
-    "tsl-436": {"frequency": "occasional"},
+    "thaipod-0008": {"frequency": "occasional"},
+    "thaipod-0028": {"english": "to accuse, to allege, to charge"},
+    "thaipod-0060": {"frequency": "occasional"},
+    "thaipod-0074": {"frequency": "common"},
+    "thaipod-0109": {"english": "to found, to establish"},
+    "thaipod-0122": {"frequency": "occasional"},
+    "thaipod-0162": {"frequency": "common"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tsl-236", "tsl-260", "tsl-268", "tsl-271", "tsl-272", "tsl-273", "tsl-275",
-    "tsl-283", "tsl-284", "tsl-287", "tsl-295", "tsl-299", "tsl-319", "tsl-335",
-    "tsl-348", "tsl-358", "tsl-360", "tsl-362", "tsl-368", "tsl-370", "tsl-376",
-    "tsl-377", "tsl-393", "tsl-413", "tsl-424", "tsl-430", "tsl-436",
+    "thaipod-0008", "thaipod-0028", "thaipod-0060", "thaipod-0074",
+    "thaipod-0083", "thaipod-0109", "thaipod-0122", "thaipod-0162",
 }
 
 
@@ -80,7 +58,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 25 — tsl-227 to tsl-437 (frequency + translation fixes)", "",
+        "Vocab review batch 27 — thaipod-0004 to thaipod-0257 (frequency + translation fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
