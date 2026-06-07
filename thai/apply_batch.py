@@ -1,4 +1,4 @@
-"""Apply vocab review batch 34 — tobo-248 to tobo-469 (frequency fixes)."""
+"""Apply vocab review batch 35 — tobo-470 to yt-c02-067 (translation + typo + frequency fixes)."""
 
 import json
 import shutil
@@ -7,25 +7,22 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tobo-262": {"frequency": "rare"},
-    "tobo-272": {"frequency": "occasional"},
-    "tobo-284": {"frequency": "occasional"},
-    "tobo-286": {"frequency": "occasional"},
-    "tobo-291": {"frequency": "occasional"},
-    "tobo-365": {"frequency": "common"},
-    "tobo-391": {"frequency": "occasional"},
-    "tobo-401": {"frequency": "occasional"},
-    "tobo-403": {"frequency": "occasional"},
+    "tobo-472": {"frequency": "occasional"},
+    "tobo-488": {"frequency": "occasional"},
+    "yt-c02-039": {"english": "cocoa"},
+    "yt-c02-043": {"thai": "ปั่นจักรยาน, ถีบจักรยาน"},
+    "yt-c02-058": {"english": "winter melon, wax gourd", "frequency": "rare"},
+    "yt-c02-060": {"thai": "หน่วยงานราชการ"},
+    "yt-c02-065": {"thai": "เอน, เอนเอียง"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tobo-257", "tobo-262", "tobo-272", "tobo-277", "tobo-278",
-    "tobo-284", "tobo-286", "tobo-291", "tobo-307", "tobo-322",
-    "tobo-337", "tobo-365", "tobo-391", "tobo-392", "tobo-394",
-    "tobo-398", "tobo-401", "tobo-403", "tobo-413", "tobo-439",
+    "tobo-472", "tobo-473", "tobo-488", "tobo-504", "tobo-519",
+    "yt-c01-017", "yt-c01-029", "yt-c02-039", "yt-c02-043",
+    "yt-c02-058", "yt-c02-060", "yt-c02-065",
 }
 
 
@@ -62,7 +59,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 34 — tobo-248 to tobo-469 (frequency fixes)", "",
+        "Vocab review batch 35 — tobo-470 to yt-c02-067 (translation + typo + frequency fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
