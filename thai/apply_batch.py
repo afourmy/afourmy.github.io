@@ -1,4 +1,4 @@
-"""Apply vocab review batch 11 — retroactive Thai/English field scan fixes."""
+"""Apply vocab review batch 14 — tamago-l12 frequency fixes."""
 
 import json
 import shutil
@@ -7,62 +7,40 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "chula-l5-035": {"thai": "บุก, บุกรุก", "english": "to storm, to charge in; to trespass, to intrude"},
-    "tamago-l12-008": {"thai": "ไหว"},
-    "tamago-l12-059": {"thai": "ขี้, อึ", "english": "feces, stool (informal and child-speak variants)"},
-    "tamago-l12-076": {"thai": "คนละ", "english": "each one gets their own; different from each other"},
-    "tamago-l12-460": {"english": "to suck at, to be terrible at"},
-    "tamago-l12-475": {"english": "things like that"},
-    "tamago-l12-623": {"english": "kilo (colloquial short form of kilogram)"},
-    "tamago-l12-641": {"thai": "ไม่กี่", "english": "only a few"},
-    "tamago-l3-202": {"thai": "ทีละ"},
-    "tamago-l3-250": {"english": "excellent, fabulous (slang)"},
-    "tamago-l3-358": {"thai": "มั่วๆ"},
-    "tamago-l3-491": {"thai": "ไม่เอาไหน"},
-    "tamago-l3-745": {"thai": "ว่าที่"},
-    "tsl-394": {"english": "Thai Food and Drug Administration (FDA equivalent)"},
-    "thaipod-1178": {"english": "(informal) he, she, I"},
-    "yt-c02-086": {"english": "classifier for monks and novice monks", "frequency": "rare"},
-    "yt-c03-023": {"english": "homework (emphatic redundant variant)"},
-    "yt-c03-024": {"english": "nose (emphatic redundant variant)"},
-    "yt-c03-025": {"english": "have you eaten yet? (emphatic redundant variant)", "frequency": "occasional"},
-    "yt-c03-074": {"thai": "ถ่านไฟ, ถ่าน"},
-    "yt-c03-086": {"english": "prefix (in general); honorific title before someone's name"},
-    "yt-c04-051": {"english": "enthusiast, fan of sth (lit. 'neck of...') - fan of coffee"},
-    "yt-c09-071": {
-        "thai": "ศีลห้าข้อ - ไม่ฆ่าสัตว์ ไม่ขโมยของ ไม่พูดไม่ดี ไม่เป็นชู้กับสามีภรรยาชาวบ้าน ไม่ดื่ม",
-        "english": "the five Buddhist precepts: no killing, no stealing, no sexual misconduct, no lying, no alcohol",
-        "frequency": "common",
-    },
-    "yt-c18-027": {"thai": "ว่าที่"},
-    "wlt-c08-003": {"thai": "พุทธศักราช (พ.ศ.)", "english": "Buddhist Era (B.E.)"},
-    "wlt-c10-046": {"english": "in that case, so, then, therefore (informal short form)"},
-    "wlt-c18-099": {"thai": "พอ + ได้"},
-    "wlt-c21-055": {"english": "you"},
+    "tamago-l12-255": {"frequency": "occasional"},
+    "tamago-l12-262": {"frequency": "occasional"},
+    "tamago-l12-263": {"frequency": "occasional"},
+    "tamago-l12-265": {"frequency": "occasional"},
+    "tamago-l12-269": {"frequency": "rare"},
+    "tamago-l12-279": {"frequency": "occasional"},
+    "tamago-l12-285": {"frequency": "occasional"},
+    "tamago-l12-288": {"frequency": "occasional"},
+    "tamago-l12-293": {"frequency": "occasional"},
+    "tamago-l12-294": {"frequency": "occasional"},
+    "tamago-l12-295": {"frequency": "occasional"},
+    "tamago-l12-304": {"frequency": "occasional"},
+    "tamago-l12-315": {"frequency": "occasional"},
+    "tamago-l12-316": {"frequency": "occasional"},
+    "tamago-l12-322": {"frequency": "occasional"},
+    "tamago-l12-324": {"frequency": "occasional"},
+    "tamago-l12-349": {"frequency": "occasional"},
+    "tamago-l12-356": {"frequency": "occasional"},
 }
 
-DELETES = {
-    "chula-l5-294", "chula-l5-295", "chula-l5-296",
-    "tamago-l12-100", "tamago-l12-653",
-    "thaipod-0299", "thaipod-0303",
-    "yt-c04-040", "yt-c10-073", "yt-c20-066",
-    "wlt-c06-025", "wlt-c07-056", "wlt-c16-073",
-}
-
-PARKS = {"yt-c04-051", "yt-c23-015"}
+DELETES = set()
+PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "chula-l5-035", "chula-l5-294", "chula-l5-295", "chula-l5-296",
-    "tamago-l12-008", "tamago-l12-059", "tamago-l12-076", "tamago-l12-100",
-    "tamago-l12-460", "tamago-l12-475", "tamago-l12-623", "tamago-l12-641",
-    "tamago-l12-653", "tamago-l3-202", "tamago-l3-250", "tamago-l3-358",
-    "tamago-l3-491", "tamago-l3-745",
-    "tsl-394", "thaipod-0299", "thaipod-0303", "thaipod-1178",
-    "yt-c02-086", "yt-c03-023", "yt-c03-024", "yt-c03-025", "yt-c03-074",
-    "yt-c03-086", "yt-c04-040", "yt-c04-051", "yt-c09-071", "yt-c10-073",
-    "yt-c18-027", "yt-c20-066", "yt-c23-015",
-    "wlt-c06-025", "wlt-c07-056", "wlt-c08-003", "wlt-c10-046",
-    "wlt-c16-073", "wlt-c18-099", "wlt-c21-055",
+    "tamago-l12-255", "tamago-l12-262", "tamago-l12-263",
+    "tamago-l12-264", "tamago-l12-265", "tamago-l12-269",
+    "tamago-l12-279", "tamago-l12-282", "tamago-l12-285",
+    "tamago-l12-288", "tamago-l12-293", "tamago-l12-294",
+    "tamago-l12-295", "tamago-l12-301", "tamago-l12-304",
+    "tamago-l12-307", "tamago-l12-313", "tamago-l12-315",
+    "tamago-l12-316", "tamago-l12-320", "tamago-l12-322",
+    "tamago-l12-324", "tamago-l12-326", "tamago-l12-330",
+    "tamago-l12-332", "tamago-l12-340", "tamago-l12-344",
+    "tamago-l12-349", "tamago-l12-350", "tamago-l12-356",
 }
 
 
@@ -75,7 +53,6 @@ def main():
     vocab = json.loads(vocab_path.read_text(encoding="utf-8"))
     by_id = {e["id"]: e for e in vocab}
 
-    # Apply field edits
     applied = []
     skipped = []
     for eid, fields in EDITS.items():
@@ -86,7 +63,6 @@ def main():
             by_id[eid][k] = v
         applied.append((eid, fields))
 
-    # Park entries (edit already applied to by_id above)
     parked = [by_id[eid] for eid in PARKS if eid in by_id]
     skipped += [eid for eid in PARKS if eid not in by_id]
 
@@ -97,7 +73,6 @@ def main():
         json.dumps(parked_doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
-    # Remove deleted and parked entries from vocab
     remove_ids = DELETES | PARKS
     deleted = [eid for eid in DELETES if eid in by_id]
     skipped += [eid for eid in DELETES if eid not in by_id]
@@ -105,7 +80,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 11 — retroactive Thai/English field scan fixes", "",
+        "Vocab review batch 14 — tamago-l12 frequency fixes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
@@ -140,8 +115,8 @@ def main():
     )
 
     print(f"Applied {sum(len(f) for _, f in applied)} field edits across {len(applied)} entries")
-    print(f"Deleted {len(deleted)} entries: {', '.join(deleted)}")
-    print(f"Parked {len(parked)} entries: {', '.join(e['id'] for e in parked)}")
+    print(f"Deleted {len(deleted)} entries")
+    print(f"Parked {len(parked)} entries")
     if skipped:
         print(f"Skipped: {skipped}")
     print(f"decisions.json: {before} -> {doc['total_rows']} rows")
