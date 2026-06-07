@@ -1,4 +1,4 @@
-"""Apply vocab review batch 30 — thaipod-0740 to thaipod-0974 (frequency + translation + typo fixes)."""
+"""Apply vocab review batch 33 — tobo-033 to tobo-247 (frequency + translation + typo fixes)."""
 
 import json
 import shutil
@@ -7,35 +7,27 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "thaipod-0743": {"english": "tooth, teeth; to cut, to slash, to chop"},
-    "thaipod-0756": {"frequency": "occasional"},
-    "thaipod-0768": {"frequency": "occasional"},
-    "thaipod-0793": {"thai": "ยั่งยืน"},
-    "thaipod-0795": {"thai": "ยังไง, อยู่ดี"},
-    "thaipod-0800": {"frequency": "occasional"},
-    "thaipod-0817": {"frequency": "occasional"},
-    "thaipod-0824": {"frequency": "common"},
-    "thaipod-0828": {"thai": "รอยสัก, สัก"},
-    "thaipod-0839": {"frequency": "occasional"},
-    "thaipod-0844": {"frequency": "occasional"},
-    "thaipod-0847": {"thai": "รั่วไหล"},
-    "thaipod-0869": {"frequency": "occasional"},
-    "thaipod-0906": {"frequency": "occasional"},
-    "thaipod-0920": {"thai": "วิชาเอก, สาขาเอก"},
-    "thaipod-0951": {"frequency": "occasional"},
-    "thaipod-0953": {"frequency": "occasional"},
-    "thaipod-0954": {"frequency": "occasional"},
+    "tobo-046": {"frequency": "occasional"},
+    "tobo-082": {"frequency": "occasional"},
+    "tobo-104": {"frequency": "occasional"},
+    "tobo-113": {"frequency": "common"},
+    "tobo-116": {"frequency": "occasional"},
+    "tobo-121": {"frequency": "occasional"},
+    "tobo-126": {"thai": "แผล, บาดแผล"},
+    "tobo-173": {"frequency": "occasional"},
+    "tobo-181": {"frequency": "occasional"},
+    "tobo-186": {"frequency": "occasional"},
+    "tobo-190": {"frequency": "occasional"},
+    "tobo-210": {"english": "advantage, benefit"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "thaipod-0743", "thaipod-0756", "thaipod-0768", "thaipod-0793",
-    "thaipod-0795", "thaipod-0800", "thaipod-0817", "thaipod-0824",
-    "thaipod-0828", "thaipod-0839", "thaipod-0844", "thaipod-0847",
-    "thaipod-0869", "thaipod-0906", "thaipod-0920", "thaipod-0951",
-    "thaipod-0953", "thaipod-0954",
+    "tobo-046", "tobo-049", "tobo-082", "tobo-104", "tobo-113",
+    "tobo-116", "tobo-121", "tobo-126", "tobo-167", "tobo-173",
+    "tobo-181", "tobo-182", "tobo-186", "tobo-190", "tobo-210",
 }
 
 
@@ -72,7 +64,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 30 — thaipod-0740 to thaipod-0974 (frequency + translation + typo fixes)", "",
+        "Vocab review batch 33 — tobo-033 to tobo-247 (frequency + translation + typo fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
