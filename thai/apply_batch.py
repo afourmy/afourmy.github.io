@@ -1,4 +1,4 @@
-"""Apply vocab review batch 35 — tobo-470 to yt-c02-067 (translation + typo + frequency fixes)."""
+"""Apply vocab review batch 39 — yt-c09-010 to yt-c11-021 (typo + translation fixes)."""
 
 import json
 import shutil
@@ -7,22 +7,27 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tobo-472": {"frequency": "occasional"},
-    "tobo-488": {"frequency": "occasional"},
-    "yt-c02-039": {"english": "cocoa"},
-    "yt-c02-043": {"thai": "ปั่นจักรยาน, ถีบจักรยาน"},
-    "yt-c02-058": {"english": "winter melon, wax gourd", "frequency": "rare"},
-    "yt-c02-060": {"thai": "หน่วยงานราชการ"},
-    "yt-c02-065": {"thai": "เอน, เอนเอียง"},
+    "yt-c09-012": {"thai": "จารีต"},
+    "yt-c09-028": {"thai": "เวทมนตร์, คาถา"},
+    "yt-c09-029": {"thai": "เซ่น, เซ่นไหว้"},
+    "yt-c09-044": {"english": "something that happens suddenly, out of nowhere (lit. 'wind blowing here and there')"},
+    "yt-c09-095": {"thai": "ล้ำเส้น"},
+    "yt-c09-098": {"english": "to give power, to strengthen"},
+    "yt-c10-010": {"thai": "คิดตังค์, คิดเงิน, เช็คบิล"},
+    "yt-c10-011": {"thai": "ฉัน + เลี้ยงเอง, จัดการเอง, จ่ายเอง"},
+    "yt-c10-066": {"thai": "ฟู", "english": "fluffy, puffed-up (of hair)"},
+    "yt-c10-068": {"english": "gratuitous gift, giving with affection"},
+    "yt-c10-095": {"thai": "ข้อพิพาท, กรณีพิพาท"},
+    "yt-c11-020": {"thai": "สบู่อาบน้ำสูตรเย็น, ยาสระผมสูตรเย็น"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tobo-472", "tobo-473", "tobo-488", "tobo-504", "tobo-519",
-    "yt-c01-017", "yt-c01-029", "yt-c02-039", "yt-c02-043",
-    "yt-c02-058", "yt-c02-060", "yt-c02-065",
+    "yt-c09-012", "yt-c09-028", "yt-c09-029", "yt-c09-044", "yt-c09-095",
+    "yt-c09-098", "yt-c10-010", "yt-c10-011", "yt-c10-066", "yt-c10-068",
+    "yt-c10-095", "yt-c11-020",
 }
 
 
@@ -59,7 +64,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 35 — tobo-470 to yt-c02-067 (translation + typo + frequency fixes)", "",
+        "Vocab review batch 39 — yt-c09-010 to yt-c11-021 (typo + translation fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
