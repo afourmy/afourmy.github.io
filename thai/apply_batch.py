@@ -1,4 +1,4 @@
-"""Apply vocab review batch 21 — tamago-l3 translation fixes (ขอทาน, กระปุก)."""
+"""Apply vocab review batch 24 — tsl-014 to tsl-226 (frequency + translation fixes)."""
 
 import json
 import shutil
@@ -7,14 +7,42 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tamago-l3-462": {"english": "beggar"},
-    "tamago-l3-465": {"english": "small container, jar (e.g. for medicine, balm)"},
+    "tsl-019": {"frequency": "common"},
+    "tsl-029": {"frequency": "common"},
+    "tsl-037": {"frequency": "rare"},
+    "tsl-060": {"frequency": "occasional"},
+    "tsl-063": {"frequency": "occasional"},
+    "tsl-065": {"frequency": "occasional"},
+    "tsl-067": {"frequency": "occasional"},
+    "tsl-070": {"frequency": "occasional"},
+    "tsl-074": {"frequency": "occasional"},
+    "tsl-087": {"frequency": "occasional"},
+    "tsl-095": {"frequency": "occasional"},
+    "tsl-098": {"english": "needle; (informal) shot, injection"},
+    "tsl-109": {"frequency": "occasional"},
+    "tsl-110": {"frequency": "occasional"},
+    "tsl-127": {"frequency": "common"},
+    "tsl-140": {"frequency": "rare"},
+    "tsl-147": {"frequency": "common"},
+    "tsl-148": {"frequency": "occasional"},
+    "tsl-161": {"frequency": "occasional"},
+    "tsl-166": {"frequency": "occasional"},
+    "tsl-169": {"frequency": "occasional"},
+    "tsl-194": {"frequency": "occasional"},
+    "tsl-200": {"frequency": "occasional"},
+    "tsl-220": {"frequency": "occasional"},
+    "tsl-222": {"frequency": "occasional"},
 }
 
 DELETES = set()
 PARKS = set()
 
-APPLIED_ROW_IDS = {"tamago-l3-309", "tamago-l3-462", "tamago-l3-465"}
+APPLIED_ROW_IDS = {
+    "tsl-019", "tsl-029", "tsl-037", "tsl-060", "tsl-063", "tsl-064", "tsl-065",
+    "tsl-067", "tsl-069", "tsl-070", "tsl-074", "tsl-087", "tsl-095", "tsl-098",
+    "tsl-109", "tsl-110", "tsl-127", "tsl-140", "tsl-147", "tsl-148", "tsl-161",
+    "tsl-166", "tsl-169", "tsl-194", "tsl-200", "tsl-220", "tsl-222",
+}
 
 
 def main():
@@ -50,7 +78,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 21 — tamago-l3 translation fixes (ขอทาน, กระปุก)", "",
+        "Vocab review batch 24 — tsl-014 to tsl-226 (frequency + translation fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
