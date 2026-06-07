@@ -1,4 +1,4 @@
-"""Apply vocab review batch 33 — tobo-033 to tobo-247 (frequency + translation + typo fixes)."""
+"""Apply vocab review batch 34 — tobo-248 to tobo-469 (frequency fixes)."""
 
 import json
 import shutil
@@ -7,27 +7,25 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tobo-046": {"frequency": "occasional"},
-    "tobo-082": {"frequency": "occasional"},
-    "tobo-104": {"frequency": "occasional"},
-    "tobo-113": {"frequency": "common"},
-    "tobo-116": {"frequency": "occasional"},
-    "tobo-121": {"frequency": "occasional"},
-    "tobo-126": {"thai": "แผล, บาดแผล"},
-    "tobo-173": {"frequency": "occasional"},
-    "tobo-181": {"frequency": "occasional"},
-    "tobo-186": {"frequency": "occasional"},
-    "tobo-190": {"frequency": "occasional"},
-    "tobo-210": {"english": "advantage, benefit"},
+    "tobo-262": {"frequency": "rare"},
+    "tobo-272": {"frequency": "occasional"},
+    "tobo-284": {"frequency": "occasional"},
+    "tobo-286": {"frequency": "occasional"},
+    "tobo-291": {"frequency": "occasional"},
+    "tobo-365": {"frequency": "common"},
+    "tobo-391": {"frequency": "occasional"},
+    "tobo-401": {"frequency": "occasional"},
+    "tobo-403": {"frequency": "occasional"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tobo-046", "tobo-049", "tobo-082", "tobo-104", "tobo-113",
-    "tobo-116", "tobo-121", "tobo-126", "tobo-167", "tobo-173",
-    "tobo-181", "tobo-182", "tobo-186", "tobo-190", "tobo-210",
+    "tobo-257", "tobo-262", "tobo-272", "tobo-277", "tobo-278",
+    "tobo-284", "tobo-286", "tobo-291", "tobo-307", "tobo-322",
+    "tobo-337", "tobo-365", "tobo-391", "tobo-392", "tobo-394",
+    "tobo-398", "tobo-401", "tobo-403", "tobo-413", "tobo-439",
 }
 
 
@@ -64,7 +62,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 33 — tobo-033 to tobo-247 (frequency + translation + typo fixes)", "",
+        "Vocab review batch 34 — tobo-248 to tobo-469 (frequency fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
