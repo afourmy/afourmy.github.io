@@ -1,4 +1,4 @@
-"""Apply vocab review batch 56 — t4k-c04-028 to t4k-c06-070 (typo + translation, 1 delete)."""
+"""Apply vocab review batch 58 — t4k-c09-014 to t4k-c11-073 (typo + translation, 7 deletes)."""
 
 import json
 import shutil
@@ -7,19 +7,19 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "t4k-c05-027": {"english": "to dismiss, to let go (from a position)"},
-    "t4k-c05-029": {"thai": "กฎ"},
-    "t4k-c05-037": {"english": "Ministry of the Interior"},
-    "t4k-c05-057": {"english": "walkway, footpath"},
-    "t4k-c06-031": {"english": "to be completely finished, exhausted, used up"},
+    "t4k-c10-025": {"english": "to murder, slay, assassinate", "frequency": "occasional"},
+    "t4k-c11-006": {"english": "minimum"},
 }
 
-DELETES = {"t4k-c05-019"}
+DELETES = {
+    "t4k-c09-014", "t4k-c09-039", "t4k-c09-099", "t4k-c11-029", "t4k-c11-035",
+    "t4k-c11-048", "wlt-c18-029",
+}
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "t4k-c05-019", "t4k-c05-027", "t4k-c05-029", "t4k-c05-037", "t4k-c05-057",
-    "t4k-c06-031",
+    "t4k-c09-014", "t4k-c09-039", "t4k-c09-099", "t4k-c10-025", "t4k-c11-006",
+    "t4k-c11-029", "t4k-c11-035", "t4k-c11-048", "wlt-c18-029",
 }
 
 
@@ -56,7 +56,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 56 — t4k-c04-028 to t4k-c06-070 (typo + translation, 1 delete)", "",
+        "Vocab review batch 57 — t4k-c06-071 to t4k-c09-013 (translation + typo)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
