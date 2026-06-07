@@ -1,4 +1,4 @@
-"""Apply vocab review batch 16 — tamago-l12 frequency and translation fixes."""
+"""Apply vocab review batch 17 — tamago-l12 frequency and translation fixes."""
 
 import json
 import shutil
@@ -7,35 +7,33 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tamago-l12-358": {"frequency": "occasional"},
-    "tamago-l12-369": {"english": "about, approximately; handrail, railing"},
-    "tamago-l12-378": {"frequency": "occasional"},
-    "tamago-l12-383": {"frequency": "occasional"},
-    "tamago-l12-385": {"english": "lace (fabric); trick, maneuver"},
-    "tamago-l12-386": {"frequency": "occasional"},
-    "tamago-l12-389": {"frequency": "occasional"},
-    "tamago-l12-411": {"frequency": "occasional"},
-    "tamago-l12-426": {"frequency": "occasional"},
-    "tamago-l12-428": {"frequency": "occasional"},
-    "tamago-l12-433": {"frequency": "occasional"},
-    "tamago-l12-436": {"frequency": "occasional"},
-    "tamago-l12-441": {"frequency": "occasional"},
-    "tamago-l12-445": {"english": "to pinch; curly, wavy (of hair)"},
-    "tamago-l12-453": {"english": "dormitory, dorm (short for หอพัก); tower"},
-    "tamago-l12-455": {"frequency": "occasional"},
-    "tamago-l12-462": {"frequency": "occasional"},
+    "tamago-l12-464": {"frequency": "common"},
+    "tamago-l12-466": {"frequency": "occasional", "english": "to dry, to dehydrate (food)"},
+    "tamago-l12-479": {"frequency": "occasional"},
+    "tamago-l12-492": {"frequency": "occasional"},
+    "tamago-l12-496": {"frequency": "occasional"},
+    "tamago-l12-498": {"frequency": "occasional"},
+    "tamago-l12-501": {"english": "toy; media player; amusement ride"},
+    "tamago-l12-504": {"frequency": "occasional"},
+    "tamago-l12-511": {"frequency": "occasional"},
+    "tamago-l12-518": {"frequency": "common"},
+    "tamago-l12-544": {"frequency": "common"},
+    "tamago-l12-553": {"frequency": "occasional"},
+    "tamago-l12-557": {"frequency": "occasional"},
+    "tamago-l12-561": {"frequency": "occasional"},
+    "tamago-l12-565": {"frequency": "occasional"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tamago-l12-358", "tamago-l12-362", "tamago-l12-364", "tamago-l12-369",
-    "tamago-l12-378", "tamago-l12-383", "tamago-l12-385", "tamago-l12-386",
-    "tamago-l12-389", "tamago-l12-394", "tamago-l12-411", "tamago-l12-423",
-    "tamago-l12-424", "tamago-l12-426", "tamago-l12-428", "tamago-l12-429",
-    "tamago-l12-433", "tamago-l12-436", "tamago-l12-441", "tamago-l12-445",
-    "tamago-l12-453", "tamago-l12-455", "tamago-l12-459", "tamago-l12-462",
+    "tamago-l12-463", "tamago-l12-464", "tamago-l12-466", "tamago-l12-467",
+    "tamago-l12-471", "tamago-l12-479", "tamago-l12-485", "tamago-l12-492",
+    "tamago-l12-496", "tamago-l12-498", "tamago-l12-499", "tamago-l12-501",
+    "tamago-l12-504", "tamago-l12-511", "tamago-l12-518", "tamago-l12-534",
+    "tamago-l12-538", "tamago-l12-544", "tamago-l12-553", "tamago-l12-557",
+    "tamago-l12-561", "tamago-l12-565",
 }
 
 
@@ -72,7 +70,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 16 — tamago-l12 frequency and translation fixes", "",
+        "Vocab review batch 17 — tamago-l12 frequency and translation fixes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
