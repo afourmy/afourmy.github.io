@@ -1,4 +1,4 @@
-"""Apply vocab review batch 27 — thaipod-0004 to thaipod-0257 (frequency + translation fixes)."""
+"""Apply vocab review batch 30 — thaipod-0740 to thaipod-0974 (frequency + translation + typo fixes)."""
 
 import json
 import shutil
@@ -7,21 +7,35 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "thaipod-0008": {"frequency": "occasional"},
-    "thaipod-0028": {"english": "to accuse, to allege, to charge"},
-    "thaipod-0060": {"frequency": "occasional"},
-    "thaipod-0074": {"frequency": "common"},
-    "thaipod-0109": {"english": "to found, to establish"},
-    "thaipod-0122": {"frequency": "occasional"},
-    "thaipod-0162": {"frequency": "common"},
+    "thaipod-0743": {"english": "tooth, teeth; to cut, to slash, to chop"},
+    "thaipod-0756": {"frequency": "occasional"},
+    "thaipod-0768": {"frequency": "occasional"},
+    "thaipod-0793": {"thai": "ยั่งยืน"},
+    "thaipod-0795": {"thai": "ยังไง, อยู่ดี"},
+    "thaipod-0800": {"frequency": "occasional"},
+    "thaipod-0817": {"frequency": "occasional"},
+    "thaipod-0824": {"frequency": "common"},
+    "thaipod-0828": {"thai": "รอยสัก, สัก"},
+    "thaipod-0839": {"frequency": "occasional"},
+    "thaipod-0844": {"frequency": "occasional"},
+    "thaipod-0847": {"thai": "รั่วไหล"},
+    "thaipod-0869": {"frequency": "occasional"},
+    "thaipod-0906": {"frequency": "occasional"},
+    "thaipod-0920": {"thai": "วิชาเอก, สาขาเอก"},
+    "thaipod-0951": {"frequency": "occasional"},
+    "thaipod-0953": {"frequency": "occasional"},
+    "thaipod-0954": {"frequency": "occasional"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "thaipod-0008", "thaipod-0028", "thaipod-0060", "thaipod-0074",
-    "thaipod-0083", "thaipod-0109", "thaipod-0122", "thaipod-0162",
+    "thaipod-0743", "thaipod-0756", "thaipod-0768", "thaipod-0793",
+    "thaipod-0795", "thaipod-0800", "thaipod-0817", "thaipod-0824",
+    "thaipod-0828", "thaipod-0839", "thaipod-0844", "thaipod-0847",
+    "thaipod-0869", "thaipod-0906", "thaipod-0920", "thaipod-0951",
+    "thaipod-0953", "thaipod-0954",
 }
 
 
@@ -58,7 +72,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 27 — thaipod-0004 to thaipod-0257 (frequency + translation fixes)", "",
+        "Vocab review batch 30 — thaipod-0740 to thaipod-0974 (frequency + translation + typo fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
