@@ -1,4 +1,4 @@
-"""Apply vocab review batch 39 — yt-c09-010 to yt-c11-021 (typo + translation fixes)."""
+"""Apply vocab review batch 56 — t4k-c04-028 to t4k-c06-070 (typo + translation, 1 delete)."""
 
 import json
 import shutil
@@ -7,27 +7,19 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "yt-c09-012": {"thai": "จารีต"},
-    "yt-c09-028": {"thai": "เวทมนตร์, คาถา"},
-    "yt-c09-029": {"thai": "เซ่น, เซ่นไหว้"},
-    "yt-c09-044": {"english": "something that happens suddenly, out of nowhere (lit. 'wind blowing here and there')"},
-    "yt-c09-095": {"thai": "ล้ำเส้น"},
-    "yt-c09-098": {"english": "to give power, to strengthen"},
-    "yt-c10-010": {"thai": "คิดตังค์, คิดเงิน, เช็คบิล"},
-    "yt-c10-011": {"thai": "ฉัน + เลี้ยงเอง, จัดการเอง, จ่ายเอง"},
-    "yt-c10-066": {"thai": "ฟู", "english": "fluffy, puffed-up (of hair)"},
-    "yt-c10-068": {"english": "gratuitous gift, giving with affection"},
-    "yt-c10-095": {"thai": "ข้อพิพาท, กรณีพิพาท"},
-    "yt-c11-020": {"thai": "สบู่อาบน้ำสูตรเย็น, ยาสระผมสูตรเย็น"},
+    "t4k-c05-027": {"english": "to dismiss, to let go (from a position)"},
+    "t4k-c05-029": {"thai": "กฎ"},
+    "t4k-c05-037": {"english": "Ministry of the Interior"},
+    "t4k-c05-057": {"english": "walkway, footpath"},
+    "t4k-c06-031": {"english": "to be completely finished, exhausted, used up"},
 }
 
-DELETES = set()
+DELETES = {"t4k-c05-019"}
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "yt-c09-012", "yt-c09-028", "yt-c09-029", "yt-c09-044", "yt-c09-095",
-    "yt-c09-098", "yt-c10-010", "yt-c10-011", "yt-c10-066", "yt-c10-068",
-    "yt-c10-095", "yt-c11-020",
+    "t4k-c05-019", "t4k-c05-027", "t4k-c05-029", "t4k-c05-037", "t4k-c05-057",
+    "t4k-c06-031",
 }
 
 
@@ -64,7 +56,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 39 — yt-c09-010 to yt-c11-021 (typo + translation fixes)", "",
+        "Vocab review batch 56 — t4k-c04-028 to t4k-c06-070 (typo + translation, 1 delete)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
