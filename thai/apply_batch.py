@@ -1,4 +1,4 @@
-"""Apply vocab review batch 24 — tsl-014 to tsl-226 (frequency + translation fixes)."""
+"""Apply vocab review batch 25 — tsl-227 to tsl-437 (frequency + translation fixes)."""
 
 import json
 import shutil
@@ -7,41 +7,43 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tsl-019": {"frequency": "common"},
-    "tsl-029": {"frequency": "common"},
-    "tsl-037": {"frequency": "rare"},
-    "tsl-060": {"frequency": "occasional"},
-    "tsl-063": {"frequency": "occasional"},
-    "tsl-065": {"frequency": "occasional"},
-    "tsl-067": {"frequency": "occasional"},
-    "tsl-070": {"frequency": "occasional"},
-    "tsl-074": {"frequency": "occasional"},
-    "tsl-087": {"frequency": "occasional"},
-    "tsl-095": {"frequency": "occasional"},
-    "tsl-098": {"english": "needle; (informal) shot, injection"},
-    "tsl-109": {"frequency": "occasional"},
-    "tsl-110": {"frequency": "occasional"},
-    "tsl-127": {"frequency": "common"},
-    "tsl-140": {"frequency": "rare"},
-    "tsl-147": {"frequency": "common"},
-    "tsl-148": {"frequency": "occasional"},
-    "tsl-161": {"frequency": "occasional"},
-    "tsl-166": {"frequency": "occasional"},
-    "tsl-169": {"frequency": "occasional"},
-    "tsl-194": {"frequency": "occasional"},
-    "tsl-200": {"frequency": "occasional"},
-    "tsl-220": {"frequency": "occasional"},
-    "tsl-222": {"frequency": "occasional"},
+    "tsl-236": {"frequency": "occasional"},
+    "tsl-260": {"frequency": "occasional"},
+    "tsl-268": {"frequency": "occasional"},
+    "tsl-271": {"frequency": "occasional"},
+    "tsl-272": {"frequency": "occasional", "english": "dashboard, control panel"},
+    "tsl-273": {"frequency": "rare"},
+    "tsl-275": {"frequency": "rare"},
+    "tsl-283": {"frequency": "occasional"},
+    "tsl-284": {"frequency": "occasional"},
+    "tsl-287": {"frequency": "occasional"},
+    "tsl-295": {"frequency": "occasional"},
+    "tsl-299": {"frequency": "occasional"},
+    "tsl-319": {"frequency": "occasional"},
+    "tsl-335": {"frequency": "occasional"},
+    "tsl-348": {"frequency": "occasional"},
+    "tsl-358": {"frequency": "occasional"},
+    "tsl-360": {"frequency": "occasional"},
+    "tsl-362": {"frequency": "occasional"},
+    "tsl-368": {"frequency": "common"},
+    "tsl-370": {"frequency": "occasional", "thai": "ยื่นฟ้อง, ยื่นฟ้องร้อง"},
+    "tsl-376": {"frequency": "occasional"},
+    "tsl-377": {"frequency": "occasional"},
+    "tsl-393": {"frequency": "occasional"},
+    "tsl-413": {"frequency": "occasional"},
+    "tsl-424": {"frequency": "occasional"},
+    "tsl-430": {"frequency": "occasional"},
+    "tsl-436": {"frequency": "occasional"},
 }
 
 DELETES = set()
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tsl-019", "tsl-029", "tsl-037", "tsl-060", "tsl-063", "tsl-064", "tsl-065",
-    "tsl-067", "tsl-069", "tsl-070", "tsl-074", "tsl-087", "tsl-095", "tsl-098",
-    "tsl-109", "tsl-110", "tsl-127", "tsl-140", "tsl-147", "tsl-148", "tsl-161",
-    "tsl-166", "tsl-169", "tsl-194", "tsl-200", "tsl-220", "tsl-222",
+    "tsl-236", "tsl-260", "tsl-268", "tsl-271", "tsl-272", "tsl-273", "tsl-275",
+    "tsl-283", "tsl-284", "tsl-287", "tsl-295", "tsl-299", "tsl-319", "tsl-335",
+    "tsl-348", "tsl-358", "tsl-360", "tsl-362", "tsl-368", "tsl-370", "tsl-376",
+    "tsl-377", "tsl-393", "tsl-413", "tsl-424", "tsl-430", "tsl-436",
 }
 
 
@@ -78,7 +80,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 24 — tsl-014 to tsl-226 (frequency + translation fixes)", "",
+        "Vocab review batch 25 — tsl-227 to tsl-437 (frequency + translation fixes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
