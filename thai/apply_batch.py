@@ -1,4 +1,4 @@
-"""Apply vocab review batch 18 — tamago-l12/thai9k/tamago-l3 frequency and translation fixes."""
+"""Apply vocab review batch 19 — tamago-l3 frequency and translation fixes."""
 
 import json
 import shutil
@@ -7,42 +7,40 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    "tamago-l12-571": {"frequency": "rare"},
-    "tamago-l12-573": {"frequency": "occasional"},
-    "tamago-l12-574": {"frequency": "occasional"},
-    "tamago-l12-601": {"frequency": "rare"},
-    "tamago-l12-618": {"frequency": "occasional"},
-    "tamago-l12-621": {"frequency": "occasional"},
-    "tamago-l12-629": {"frequency": "occasional"},
-    "tamago-l12-654": {"english": "where; which", "frequency": "everyday"},
-    "thai9k-008": {"frequency": "occasional"},
-    "thai9k-009": {"frequency": "rare"},
-    "thai9k-010": {"frequency": "occasional"},
-    "thai9k-017": {"frequency": "common"},
-    "thai9k-020": {"frequency": "occasional"},
-    "thai9k-021": {"frequency": "occasional"},
-    "thai9k-025": {"frequency": "occasional"},
-    "thai9k-038": {"frequency": "occasional"},
-    "thai9k-041": {"frequency": "occasional"},
-    "thai9k-042": {"frequency": "occasional"},
-    "tamago-l3-027": {"frequency": "occasional"},
-    "tamago-l3-037": {"frequency": "occasional"},
-    "tamago-l3-050": {"frequency": "occasional"},
-    "tamago-l3-056": {"frequency": "everyday"},
+    "tamago-l3-075": {"frequency": "everyday"},
+    "tamago-l3-079": {"frequency": "occasional"},
+    "tamago-l3-084": {"frequency": "occasional"},
+    "tamago-l3-114": {"frequency": "occasional"},
+    "tamago-l3-115": {"frequency": "occasional"},
+    "tamago-l3-118": {"frequency": "everyday"},
+    "tamago-l3-137": {"english": "timing, rhythm, beat; moment, opportunity", "frequency": "everyday"},
+    "tamago-l3-152": {"frequency": "everyday"},
+    "tamago-l3-158": {"frequency": "occasional"},
+    "tamago-l3-165": {"frequency": "occasional"},
+    "tamago-l3-167": {"frequency": "occasional"},
+    "tamago-l3-169": {"frequency": "occasional"},
+    "tamago-l3-183": {"frequency": "occasional"},
+    "tamago-l3-185": {"frequency": "occasional"},
+    "tamago-l3-194": {"frequency": "occasional"},
+    "tamago-l3-206": {"frequency": "occasional"},
+    "tamago-l3-210": {"frequency": "everyday"},
+    "tamago-l3-225": {"frequency": "occasional"},
+    "tamago-l3-244": {"frequency": "occasional"},
+    "tamago-l3-266": {"frequency": "everyday"},
 }
 
-DELETES = {"tamago-l12-641", "tamago-l3-015"}
+DELETES = {"tamago-l3-271"}
 PARKS = set()
 
 APPLIED_ROW_IDS = {
-    "tamago-l12-571", "tamago-l12-573", "tamago-l12-574", "tamago-l12-575",
-    "tamago-l12-577", "tamago-l12-600", "tamago-l12-601", "tamago-l12-618",
-    "tamago-l12-621", "tamago-l12-629", "tamago-l12-641", "tamago-l12-654",
-    "tamago-l12-656", "thai9k-001", "thai9k-008", "thai9k-009", "thai9k-010",
-    "thai9k-015", "thai9k-017", "thai9k-020", "thai9k-021", "thai9k-023",
-    "thai9k-025", "thai9k-030", "thai9k-031", "thai9k-038", "thai9k-041",
-    "thai9k-042", "tamago-l3-015", "tamago-l3-027", "tamago-l3-037",
-    "tamago-l3-050", "tamago-l3-056",
+    "tamago-l3-075", "tamago-l3-079", "tamago-l3-084", "tamago-l3-114",
+    "tamago-l3-115", "tamago-l3-118", "tamago-l3-137", "tamago-l3-152",
+    "tamago-l3-158", "tamago-l3-165", "tamago-l3-167", "tamago-l3-169",
+    "tamago-l3-170", "tamago-l3-175", "tamago-l3-177", "tamago-l3-183",
+    "tamago-l3-185", "tamago-l3-187", "tamago-l3-188", "tamago-l3-192",
+    "tamago-l3-194", "tamago-l3-206", "tamago-l3-210", "tamago-l3-225",
+    "tamago-l3-241", "tamago-l3-244", "tamago-l3-255", "tamago-l3-265",
+    "tamago-l3-266", "tamago-l3-271",
 }
 
 
@@ -79,7 +77,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 18 — tamago-l12/thai9k/tamago-l3 frequency and translation fixes", "",
+        "Vocab review batch 19 — tamago-l3 frequency and translation fixes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
