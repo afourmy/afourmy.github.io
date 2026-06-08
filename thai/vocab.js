@@ -464,6 +464,40 @@
     container.dataset.materialized = "1";
   }
 
+  // Drop a single card from the current view in place (quick fade, then remove)
+  // instead of a full render(). Used when a card leaves the deck while "Only
+  // show deck cards" is on — a full re-render would blank and rebuild the whole
+  // list. Keeps currentList/currentGroups, the total count, and the group count
+  // badge in sync, and clears the group/list if they become empty.
+  function dropCardFromView(cardEl, wordId) {
+    var section = cardEl.closest(".vocab-group");
+    var container = cardEl.parentNode;
+    cardEl.style.transition = "opacity 140ms ease";
+    cardEl.style.opacity = "0";
+    cardEl.style.pointerEvents = "none";
+    setTimeout(function () {
+      cardEl.remove();
+      if (section && container && !container.querySelector(".vocab-card")) {
+        section.remove();
+      } else if (section) {
+        var badge = section.querySelector(".vocab-group-count");
+        if (badge) badge.textContent = String((parseInt(badge.textContent, 10) || 1) - 1);
+      }
+      currentList = currentList.filter(function (w) { return w.id !== wordId; });
+      for (var i = 0; i < currentGroups.length; i++) {
+        currentGroups[i].items = currentGroups[i].items.filter(function (w) {
+          return w.id !== wordId;
+        });
+      }
+      countEl.textContent =
+        currentList.length + (currentList.length === 1 ? " word" : " words");
+      if (!currentList.length) {
+        currentGroups = [];
+        groupsEl.innerHTML = '<p class="vocab-empty">No matching words.</p>';
+      }
+    }, 150);
+  }
+
   function render() {
     if (!loaded) return;
     renderDeckSelector();
@@ -627,9 +661,10 @@
       deckBtn.setAttribute("title", label);
       if (!suspended[wid]) dCard.classList.toggle("vocab-card--in-deck", nowIn);
       saveDecks();
-      updateDeckCount();
-      // If "Only show deck cards" is on, removed cards should disappear.
-      if (deckOnly && !nowIn) render();
+      renderDeckSelector(); // keep the deck's card count in the dropdown current
+      // In "Only show deck cards" mode the removed card no longer belongs in the
+      // list — fade just that one card out, instead of a full (blanking) render.
+      if (deckOnly && !nowIn) dropCardFromView(dCard, wid);
       return;
     }
 
