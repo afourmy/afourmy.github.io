@@ -1,4 +1,4 @@
-"""Apply free-form `decisions` file batch — 36 cards (28 edits, 8 deletes)."""
+"""Apply free-form `decisions` file batch 2 — 23 cards (14 edits, 9 deletes)."""
 
 import json
 import shutil
@@ -7,43 +7,34 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    # frequency only
-    "tamago-l12-013": {"frequency": "occasional"},
-    "tamago-l12-018": {"frequency": "occasional"},
-    "tamago-l12-047": {"frequency": "common"},
-    "tamago-l3-128": {"frequency": "common"},
-    "tsl-088": {"frequency": "occasional"},
-    "yt-c01-027": {"frequency": "common"},
-    "yt-c01-030": {"frequency": "common"},
     # english only
-    "tamago-l12-048": {"english": "size"},
-    "tamago-l12-089": {"english": "to think; to charge (a price)"},
-    "tamago-l12-147": {"english": "temporary market, flea market"},
-    "tamago-l12-299": {"english": "to leave with, to entrust; to give (as a gift)"},
-    "tamago-l12-308": {"english": "enough; when, as soon as, once"},
-    "tamago-l12-336": {"english": "it (pronoun); fun, enjoyable; oily"},
-    "tamago-l12-416": {"english": "to wash one's hair, to shampoo"},
-    "tamago-l12-419": {"english": "to take an exam"},
-    "tamago-l12-430": {"english": "to send; to drop someone off"},
-    "tamago-l12-491": {"english": "island; to cling, to hold on to"},
-    "tamago-l12-509": {"english": "merely, just, nothing special; indifferent"},
-    "tamago-l12-535": {"english": "to change one's mind, to reconsider"},
-    "tamago-l12-528": {"english": "meat; content; flesh"},
-    "tamago-l12-595": {"english": "powder; flour, starch"},
-    "tamago-l12-657": {"english": "(slang) rude pronoun marker for males"},
-    "tamago-l3-051": {"english": "satisfied, relieved (esp. after revenge (schadenfreude) or achievement)"},
-    "tamago-l3-097": {"english": "secretly, without others knowing; a little, slightly"},
-    "tobo-004": {"english": "movie; leather"},
-    "yt-c14-073": {"english": "head; classifier for plants heads (cabbage, bulb of garlic, etc)"},
-    # frequency + english
-    "tamago-l3-094": {"frequency": "common", "english": "to tease, to pick on; to pretend (in a deceptive or playful way)"},
-    # thai + english rename
-    "wlt-c01-010": {"thai": "กี่โมง", "english": "what time"},
+    "wlt-c01-060": {"english": "to chat together"},
+    "wlt-c01-078": {"english": "these days, lately"},
+    "wlt-c02-016": {"english": "at night, during the night"},
+    "wlt-c02-017": {"english": "in the evening (around dusk)"},
+    "wlt-c02-051": {"english": "to go travelling, to travel for pleasure"},
+    "wlt-c03-013": {"english": "often, frequently"},
+    "wlt-c03-023": {"english": "what type?"},
+    "wlt-c03-042": {"english": "to be worried, to be concerned about"},
+    "wlt-c03-085": {"english": "to have an appointment"},
+    "wlt-c03-094": {"english": "the day before yesterday"},
+    "wlt-c04-020": {"english": "sandals, flip-flops"},
+    "wlt-c04-093": {"english": "doctor"},
+    # frequency only
+    "t4k-c01-085": {"frequency": "everyday"},
+    # merge survivor (wlt-c03-090 เมื่อกี้ merged in here, then deleted below)
+    "tamago-l12-551": {
+        "thai": "เมื่อกี้, เมื่อกี้นี้, เมื่อตะกี้นี้",
+        "english": "just now, a moment ago",
+        "frequency": "everyday",
+    },
 }
 
 DELETES = {
-    "tamago-l12-029", "tamago-l12-069", "tamago-l12-242", "thaipod-1349",
-    "wlt-c07-083", "yt-c04-078", "wlt-c01-026", "wlt-c01-003",
+    "wlt-c01-070", "wlt-c02-067", "wlt-c03-068", "wlt-c04-027", "wlt-c04-031",
+    "wlt-c04-032", "wlt-c04-095",
+    "wlt-c03-057",  # พบกัน dup of wlt-c18-096 (delete dup only)
+    "wlt-c03-090",  # merged into tamago-l12-551
 }
 PARKS = set()
 
@@ -83,7 +74,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Free-form decisions file batch — 36 cards (28 edits, 8 deletes)", "",
+        "Free-form decisions file batch 2 — 23 cards (14 edits, 9 deletes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
