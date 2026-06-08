@@ -1,4 +1,4 @@
-"""Apply free-form `decisions` file batch 2 — 23 cards (14 edits, 9 deletes)."""
+"""Apply free-form `decisions` file batch 3 — 31 cards (27 edits, 4 deletes)."""
 
 import json
 import shutil
@@ -8,33 +8,39 @@ HERE = Path(__file__).parent
 
 EDITS = {
     # english only
-    "wlt-c01-060": {"english": "to chat together"},
-    "wlt-c01-078": {"english": "these days, lately"},
-    "wlt-c02-016": {"english": "at night, during the night"},
-    "wlt-c02-017": {"english": "in the evening (around dusk)"},
-    "wlt-c02-051": {"english": "to go travelling, to travel for pleasure"},
-    "wlt-c03-013": {"english": "often, frequently"},
-    "wlt-c03-023": {"english": "what type?"},
-    "wlt-c03-042": {"english": "to be worried, to be concerned about"},
-    "wlt-c03-085": {"english": "to have an appointment"},
-    "wlt-c03-094": {"english": "the day before yesterday"},
-    "wlt-c04-020": {"english": "sandals, flip-flops"},
-    "wlt-c04-093": {"english": "doctor"},
-    # frequency only
-    "t4k-c01-085": {"frequency": "everyday"},
-    # merge survivor (wlt-c03-090 เมื่อกี้ merged in here, then deleted below)
-    "tamago-l12-551": {
-        "thai": "เมื่อกี้, เมื่อกี้นี้, เมื่อตะกี้นี้",
-        "english": "just now, a moment ago",
-        "frequency": "everyday",
-    },
+    "wlt-c05-010": {"english": "to want to get (sth)"},
+    "wlt-c05-032": {"english": "okay (loanword)"},
+    "wlt-c06-037": {"english": "kiss, to kiss"},
+    "wlt-c06-051": {"english": "good luck"},
+    "wlt-c06-086": {"english": "excited, thrilled"},
+    "wlt-c08-055": {"english": "there is no need to"},
+    "wlt-c08-066": {"english": "this evening, this late afternoon"},
+    "wlt-c08-067": {"english": "bad, terrible"},
+    "wlt-c09-076": {"english": "alcohol, liquor"},
+    "wlt-c10-031": {"english": "to ride (when sitting astride on top of animal or vehicle)"},
+    "wlt-c10-032": {"english": "flu, cold"},
+    "wlt-c10-045": {"english": "sleepy"},
+    "wlt-c10-068": {"english": "better"},
+    "wlt-c11-000": {"english": "the same, equal"},
+    "wlt-c11-003": {"english": "to call (by phone)"},
+    "wlt-c11-016": {"english": "scary, frightening"},
+    "wlt-c11-025": {"english": "sure, certain"},
+    "wlt-c11-034": {"english": "bored"},
+    "wlt-c11-044": {"english": "sick, ill"},
+    "wlt-c11-045": {"english": "problem, issue"},
+    "wlt-c11-048": {"english": "to have a cold"},
+    "wlt-c11-076": {"english": "drunk"},
+    "wlt-c08-058": {"english": "to not have, there isn't"},
+    "wlt-c10-046": {"english": "in that case, therefore (informal short form)"},
+    # CHECK glosses — inner quotes kept per user
+    "wlt-c05-012": {"english": "'don't do that yet!', 'hold on!'"},
+    "wlt-c09-075": {"english": "'really?' (particle asking for confirmation)"},
+    # drop the เร็ว form (เร็ว stays as wlt-c08-082); รวดเร็ว -> formal, common
+    "t4k-c01-035": {"thai": "รวดเร็ว", "frequency": "common", "english": "fast, quick (formal)"},
 }
 
 DELETES = {
-    "wlt-c01-070", "wlt-c02-067", "wlt-c03-068", "wlt-c04-027", "wlt-c04-031",
-    "wlt-c04-032", "wlt-c04-095",
-    "wlt-c03-057",  # พบกัน dup of wlt-c18-096 (delete dup only)
-    "wlt-c03-090",  # merged into tamago-l12-551
+    "wlt-c05-080", "wlt-c06-012", "wlt-c09-085", "wlt-c11-008",
 }
 PARKS = set()
 
@@ -74,7 +80,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Free-form decisions file batch 2 — 23 cards (14 edits, 9 deletes)", "",
+        "Free-form decisions file batch 3 — 31 cards (27 edits, 4 deletes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
