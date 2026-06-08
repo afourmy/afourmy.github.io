@@ -1310,6 +1310,14 @@ html[lang="fr"] .en { display: none; }
 }
 .vocab-card--flip:hover { transform: none; box-shadow: none; }
 
+/* In flip mode the in-deck (green) and suspended (red) colours belong on the
+   faces only. Keep the perspective wrapper transparent so the colour doesn't
+   show through behind the rotor while the card is edge-on mid-flip. */
+.vocab-card--flip.vocab-card--in-deck,
+.vocab-card--flip.vocab-card--suspended {
+  background: none;
+}
+
 /* A hidden twin in normal flow gives the card its height (the taller of the
    two faces), so it fits its content with no fixed height. */
 .vocab-flip-ghost {
