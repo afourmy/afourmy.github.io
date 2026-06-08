@@ -258,8 +258,8 @@
 
   function speakerBtn(word) {
     return (
-      '<button class="vocab-speak" type="button" aria-label="Play pronunciation"' +
-      ' title="Play pronunciation" data-audio="' +
+      '<button class="vocab-speak" type="button" aria-label="Copy card ID"' +
+      ' title="Copy card ID" data-audio="' +
       escAttr(audioBase + word.id + ".mp3") +
       '">' +
       SPEAKER_SVG +
@@ -606,9 +606,12 @@
   var TURN_MS = 200;
   groupsEl.addEventListener("click", function (e) {
     // Speaker works in every mode, so handle it before any mode-specific return.
+    // TRANSIENT (deck-review aid): repurposed to copy the card id to the
+    // clipboard instead of playing audio. Restore playAudio(speakBtn) to revert.
     var speakBtn = e.target.closest(".vocab-speak");
     if (speakBtn) {
-      playAudio(speakBtn);
+      var spCard = e.target.closest(".vocab-card");
+      if (spCard) copyText(spCard.getAttribute("data-id"), speakBtn);
       return;
     }
 
