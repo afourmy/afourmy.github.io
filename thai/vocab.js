@@ -258,8 +258,8 @@
 
   function speakerBtn(word) {
     return (
-      '<button class="vocab-speak" type="button" aria-label="Copy card ID"' +
-      ' title="Copy card ID" data-audio="' +
+      '<button class="vocab-speak" type="button" aria-label="Copy card ID + Thai"' +
+      ' title="Copy card ID + Thai" data-audio="' +
       escAttr(audioBase + word.id + ".mp3") +
       '">' +
       SPEAKER_SVG +
@@ -611,7 +611,11 @@
     var speakBtn = e.target.closest(".vocab-speak");
     if (speakBtn) {
       var spCard = e.target.closest(".vocab-card");
-      if (spCard) copyText(spCard.getAttribute("data-id"), speakBtn);
+      if (spCard) {
+        var spId = spCard.getAttribute("data-id");
+        var spWord = words.filter(function (w) { return w.id === spId; })[0];
+        copyText(spWord ? spId + " " + spWord.thai : spId, speakBtn);
+      }
       return;
     }
 
