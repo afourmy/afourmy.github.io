@@ -179,16 +179,18 @@
     decks = data.decks || {};
     deckOrder = data.order || [];
     currentDeckId = data.currentId || ALL_DECK_ID;
+    deckOnly = data.deckOnly === true;
     if (!decks[ALL_DECK_ID]) {
       decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
     }
     if (deckOrder.indexOf(ALL_DECK_ID) === -1) deckOrder.unshift(ALL_DECK_ID);
     deckOrder = deckOrder.filter(function (id) { return decks[id]; });
     if (!decks[currentDeckId]) currentDeckId = ALL_DECK_ID;
+    if (currentDeckId === ALL_DECK_ID) deckOnly = false;
   }
   function saveDecks() {
     lsSet(DECK_KEY, JSON.stringify({
-      decks: decks, order: deckOrder, currentId: currentDeckId,
+      decks: decks, order: deckOrder, currentId: currentDeckId, deckOnly: deckOnly,
     }));
   }
   function isCustomDeckSelected() { return currentDeckId !== ALL_DECK_ID; }
@@ -729,10 +731,8 @@
     deckDeleteBtn.disabled = !custom;
     deckOnlyLabelEl.hidden = !custom;
     deckAddFilteredBtn.hidden = !custom;
-    if (!custom && deckOnly) {
-      deckOnly = false;
-      deckOnlyEl.checked = false;
-    }
+    if (!custom) deckOnly = false;
+    deckOnlyEl.checked = deckOnly;
   }
 
   // Inline rename: swap the select for a text input. Enter saves, Escape
@@ -835,6 +835,7 @@
 
   deckOnlyEl.addEventListener("change", function () {
     deckOnly = deckOnlyEl.checked;
+    saveDecks();
     render();
   });
 
