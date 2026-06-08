@@ -169,7 +169,7 @@
   var decks = {};
   var deckOrder = [];
   var currentDeckId = ALL_DECK_ID;
-  var deckOnly = false; // when true, hide cards not in the current custom deck
+  var deckOnly = true; // when true, hide cards not in the current custom deck; on by default
 
   function loadDecks() {
     var raw = lsGet(DECK_KEY);
@@ -179,14 +179,13 @@
     decks = data.decks || {};
     deckOrder = data.order || [];
     currentDeckId = data.currentId || ALL_DECK_ID;
-    deckOnly = data.deckOnly === true;
+    deckOnly = data.deckOnly !== false; // default on; only an explicit save of false disables it
     if (!decks[ALL_DECK_ID]) {
       decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
     }
     if (deckOrder.indexOf(ALL_DECK_ID) === -1) deckOrder.unshift(ALL_DECK_ID);
     deckOrder = deckOrder.filter(function (id) { return decks[id]; });
     if (!decks[currentDeckId]) currentDeckId = ALL_DECK_ID;
-    if (currentDeckId === ALL_DECK_ID) deckOnly = false;
   }
   function saveDecks() {
     lsSet(DECK_KEY, JSON.stringify({
@@ -731,7 +730,6 @@
     deckDeleteBtn.disabled = !custom;
     deckOnlyLabelEl.hidden = !custom;
     deckAddFilteredBtn.hidden = !custom;
-    if (!custom) deckOnly = false;
     deckOnlyEl.checked = deckOnly;
   }
 
