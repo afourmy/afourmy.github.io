@@ -56,7 +56,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Vocab review batch 57 — t4k-c06-071 to t4k-c09-013 (translation + typo)", "",
+        "Vocab review batch 58 — t4k-c09-014 to t4k-c11-073 (typo + translation, 7 deletes)", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
