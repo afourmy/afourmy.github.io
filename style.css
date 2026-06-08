@@ -1312,9 +1312,13 @@ html[lang="fr"] .en { display: none; }
 
 /* In flip mode the in-deck (green) and suspended (red) colours belong on the
    faces only. Keep the perspective wrapper transparent so the colour doesn't
-   show through behind the rotor while the card is edge-on mid-flip. */
+   show through behind the rotor while the card is edge-on mid-flip. The
+   dark-theme selectors are listed too, with enough specificity to beat the
+   later [data-theme="dark"] .vocab-card--in-deck / --suspended rules. */
 .vocab-card--flip.vocab-card--in-deck,
-.vocab-card--flip.vocab-card--suspended {
+.vocab-card--flip.vocab-card--suspended,
+[data-theme="dark"] .vocab-card--flip.vocab-card--in-deck,
+[data-theme="dark"] .vocab-card--flip.vocab-card--suspended {
   background: none;
 }
 
