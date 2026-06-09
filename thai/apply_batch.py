@@ -1,4 +1,4 @@
-"""Apply free-form `decisions` file batch 5 — 57 edits (incl. 1 merge), 1 delete."""
+"""Apply free-form `decisions` file batch 7 — 45 field edits (44 cards), 17 deletes."""
 
 import json
 import shutil
@@ -7,71 +7,72 @@ from pathlib import Path
 HERE = Path(__file__).parent
 
 EDITS = {
-    # frequency only
-    "chula-l4-033": {"frequency": "common"},
-    "chula-l4-039": {"frequency": "common"},
-    "chula-l4-120": {"frequency": "everyday"},
-    "chula-l4-121": {"frequency": "everyday"},
-    "chula-l4-122": {"frequency": "occasional"},
-    "chula-l4-126": {"frequency": "occasional"},
-    "chula-l5-038": {"frequency": "occasional"},
-    "chula-l5-064": {"frequency": "occasional"},
-    "chula-l5-076": {"frequency": "occasional"},
-    "chula-l5-077": {"frequency": "occasional"},
-    "chula-l5-078": {"frequency": "occasional"},
-    "chula-l5-108": {"frequency": "occasional"},
-    "chula-l5-191": {"frequency": "occasional"},
-    "chula-l5-371": {"frequency": "everyday"},
-    "chula-l5-374": {"frequency": "everyday"},
-    "chula-l5-403": {"frequency": "everyday"},
-    "chula-l6-279": {"frequency": "occasional"},
-    "tamago-l12-042": {"frequency": "occasional"},
-    "tamago-l12-040": {"frequency": "occasional"},
-    "tamago-l12-081": {"frequency": "occasional"},
-    "tamago-l12-114": {"frequency": "occasional"},
     # english only
-    "wlt-c14-050": {"english": "careful"},
-    "wlt-c14-093": {"english": "mall"},
-    "wlt-c15-033": {"english": "above, on top, upstairs"},
-    "wlt-c15-034": {"english": "below, under"},
-    "chula-l4-008": {"english": "private, non-governmental"},
-    "chula-l4-062": {"english": "to pin, to stick"},
-    "chula-l5-087": {"english": "to interview"},
-    "chula-l5-203": {"english": "to take (photo, video); to defecate; to transfer (data)"},
-    "chula-l5-216": {"english": "to get rid of, to eliminate"},
-    "chula-l5-067": {"english": "to extinguish, to put out (a fire); to cease, to stop functioning"},
-    "wlt-c15-043": {"english": "to be, is"},
-    "wlt-c15-048": {"english": "to meet; to encounter (unexpectedly)"},
-    "wlt-c15-050": {"english": "kind-hearted"},
-    "wlt-c15-062": {"english": "only, single, alone"},
-    "wlt-c15-066": {"english": "next, later"},
-    "wlt-c15-068": {"english": "from, since"},
-    "wlt-c15-070": {"english": "low, inferior"},
-    "wlt-c15-078": {"english": "there"},
-    "wlt-c15-079": {"english": "here"},
-    "wlt-c15-082": {"english": "student"},
-    "wlt-c15-089": {"english": "some, a little"},
-    "wlt-c15-090": {"english": "sometimes; maybe, perhaps"},
-    "wlt-c15-091": {"english": "Baht"},
-    "wlt-c16-051": {"english": "to fall asleep"},
-    "wlt-c16-064": {"english": "to take a shower, to bathe"},
-    "wlt-c16-070": {"english": "so, then"},
-    "chula-l6-272": {"english": "to guess, predict, speculate, infer from clues"},
-    "tamago-l12-093": {"english": "to pay back, to refund"},
-    "tamago-l12-115": {"english": "to box (muay thai)"},
-    "tamago-l12-627": {"english": "indoors, under cover (e.g. from rain, sun)"},
-    "tamago-l3-034": {"english": "to accuse (e.g. without proof), to claim (sth negative)"},
-    "tamago-l3-044": {"english": "motivation"},
-    "wlt-c15-055": {"english": "'isn't it so?', 'right?'"},
-    # frequency + english
-    "chula-l4-042": {"frequency": "occasional", "english": "around, surrounding"},
-    "wlt-c16-046": {"frequency": "occasional", "english": "female"},
-    # merge: wlt-c12-068 หิวข้าว folded into wlt-c14-095 (eng/freq already match), then deleted
-    "wlt-c14-095": {"thai": "หิว, หิวข้าว"},
+    "wlt-c17-022": {"english": "to open, to turn on"},
+    "wlt-c17-029": {"english": "(someone older) I, he, she, you, brother, sister"},
+    "wlt-c17-032": {"english": "language"},
+    "wlt-c17-051": {"english": "to go down, to get off"},
+    "wlt-c17-052": {"english": "wind, air, breeze"},
+    "wlt-c17-055": {"english": "day"},
+    "wlt-c17-059": {"english": "to put (down), to place, to lay"},
+    "wlt-c17-064": {"english": "girl, young woman"},
+    "wlt-c17-065": {"english": "ten (10)"},
+    "wlt-c17-071": {"english": "one (1)"},
+    "wlt-c17-078": {"english": "ear"},
+    "wlt-c17-080": {"english": "to want"},
+    "wlt-c17-076": {"english": "to kiss (Thai style, on the cheek); to smell good"},
+    "wlt-c17-074": {"english": "many, several, a lot"},
+    "wlt-c17-092": {"english": "to snack"},
+    "wlt-c17-097": {"english": "nearby, close"},
+    "wlt-c18-069": {"english": "looks delicious"},
+    "wlt-c20-038": {"english": "to rest, to take a break; to stay at (temporarily)"},
+    "wlt-c20-046": {"english": "city, town; country"},
+    "wlt-c20-059": {"english": "small (in size)"},
+    "wlt-c20-079": {"english": "upper body garment (e.g. shirt, T-shirt)"},  # e.g. fixed
+    "wlt-c20-084": {"english": "to look for, to search; (informal) to visit, to go see (someone)"},
+    "t4k-c06-003": {"english": "excellent, awesome, the best"},
+    "t4k-c11-036": {"english": "a little bit, just a little"},
+    "wlt-c10-073": {"english": "in the afternoon (1 pm - 4 pm)"},  # spacing fixed
+    "t4k-c04-024": {"english": "afternoon (1 pm - 4 pm)"},  # spacing fixed
+    "t4k-c02-043": {"english": "to talk, to chat"},
+    "t4k-c01-017": {"english": "to talk about, to refer to"},
+    "wlt-c21-078": {"english": "I (male speaker); hair"},
+    "wlt-c21-076": {"english": "phone"},
+    "wlt-c21-072": {"english": "new; again"},
+    "wlt-c21-073": {"english": "with"},
+    "wlt-c21-074": {"english": "body; classifier for animals, clothes, furniture, etc"},
+    "wlt-c21-077": {"english": "in"},
+    "wlt-c21-071": {"english": "cold"},
+    "wlt-c20-006": {"english": "will (future tense)"},
+    "wlt-c17-082": {"english": "to go out, leave, exit"},
+    "wlt-c18-022": {"english": "just, only"},
+    "wlt-c18-071": {"english": "plain water"},
+    "wlt-c18-082": {"english": "phone number"},
+    "wlt-c19-001": {"english": "free (of charge)"},
+    "wlt-c19-020": {"english": "uneasy, troubled, uncomfortable"},
+    "wlt-c18-054": {"english": "'in that case', 'if so, then...'"},
+    # english + frequency
+    "t4k-c08-049": {"english": "foot (informal, rude)", "frequency": "occasional"},
 }
 
 DELETES = {
-    "wlt-c12-068",
+    "wlt-c18-010",  # คนนี้
+    "wlt-c18-028",  # เจอกัน
+    "wlt-c18-074",  # นึง
+    "t4k-c10-072",  # แค่นั้น (was listed twice in decisions)
+    "t4k-c05-085",  # น้ำเงิน
+    "t4k-c04-055",  # คุณหมอ
+    "t4k-c07-089",  # บาย
+    "t4k-c07-015",  # แค่นี้
+    "t4k-c05-058",  # เทา
+    "t4k-c02-094",  # มั้ย
+    "t4k-c01-020",  # ดังนั้น
+    "t4k-c01-000",  # ทำให้
+    "wlt-c21-075",  # ที่
+    "wlt-c20-017",  # ตอน
+    "wlt-c19-009",  # มาจาก
+    "wlt-c19-019",  # ไม่ว่าง
+    "wlt-c18-073",  # นิดนึง
 }
 PARKS = set()
 
@@ -107,11 +108,12 @@ def main():
 
     remove_ids = DELETES | PARKS
     deleted = [eid for eid in DELETES if eid in by_id]
+    missing_deletes = [eid for eid in DELETES if eid not in by_id]
     new_vocab = [e for e in vocab if e["id"] not in remove_ids]
 
     log_lines = [
         "", "=" * 70,
-        "Free-form decisions file batch 5 — 57 edits (incl. 1 merge), 1 delete", "",
+        "Free-form decisions file batch 7 — 45 field edits (44 cards), 17 deletes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
@@ -120,7 +122,9 @@ def main():
         for eid in deleted:
             log_lines.append(f"    delete {eid}")
     if skipped:
-        log_lines.append(f"Skipped (not found): {', '.join(skipped)}")
+        log_lines.append(f"Skipped edits (not found): {', '.join(skipped)}")
+    if missing_deletes:
+        log_lines.append(f"Skipped deletes (not found): {', '.join(missing_deletes)}")
     log_lines.append(f"Total field edits: {sum(len(f) for _, f in applied)}")
     log_lines.append(f"Deletions: {len(deleted)}")
     log_lines.append(f"Vocab: {len(vocab)} -> {len(new_vocab)}")
@@ -143,11 +147,13 @@ def main():
         json.dumps(doc, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
-    print(f"Applied {sum(len(f) for _, f in applied)} field edits")
-    print(f"Deleted: {deleted}")
+    print(f"Applied {sum(len(f) for _, f in applied)} field edits across {len(applied)} cards")
+    print(f"Deleted ({len(deleted)}): {deleted}")
     if skipped:
-        print(f"Skipped: {skipped}")
-    print(f"decisions.json: {before} -> {doc['total_rows']} rows")
+        print(f"Skipped edits: {skipped}")
+    if missing_deletes:
+        print(f"Skipped deletes: {missing_deletes}")
+    print(f"vocab.json: {len(vocab)} -> {len(new_vocab)}")
     print(f"vocab.json backup: {backup.name}")
 
 
