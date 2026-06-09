@@ -1,4 +1,4 @@
-"""Apply free-form `decisions` file batch 7 — 45 field edits (44 cards), 17 deletes."""
+"""Apply free-form `decisions` file batch 8 — 47 field edits (46 cards, incl. 1 thai+eng), 1 delete."""
 
 import json
 import shutil
@@ -8,71 +8,57 @@ HERE = Path(__file__).parent
 
 EDITS = {
     # english only
-    "wlt-c17-022": {"english": "to open, to turn on"},
-    "wlt-c17-029": {"english": "(someone older) I, he, she, you, brother, sister"},
-    "wlt-c17-032": {"english": "language"},
-    "wlt-c17-051": {"english": "to go down, to get off"},
-    "wlt-c17-052": {"english": "wind, air, breeze"},
-    "wlt-c17-055": {"english": "day"},
-    "wlt-c17-059": {"english": "to put (down), to place, to lay"},
-    "wlt-c17-064": {"english": "girl, young woman"},
-    "wlt-c17-065": {"english": "ten (10)"},
-    "wlt-c17-071": {"english": "one (1)"},
-    "wlt-c17-078": {"english": "ear"},
-    "wlt-c17-080": {"english": "to want"},
-    "wlt-c17-076": {"english": "to kiss (Thai style, on the cheek); to smell good"},
-    "wlt-c17-074": {"english": "many, several, a lot"},
-    "wlt-c17-092": {"english": "to snack"},
-    "wlt-c17-097": {"english": "nearby, close"},
-    "wlt-c18-069": {"english": "looks delicious"},
-    "wlt-c20-038": {"english": "to rest, to take a break; to stay at (temporarily)"},
-    "wlt-c20-046": {"english": "city, town; country"},
-    "wlt-c20-059": {"english": "small (in size)"},
-    "wlt-c20-079": {"english": "upper body garment (e.g. shirt, T-shirt)"},  # e.g. fixed
-    "wlt-c20-084": {"english": "to look for, to search; (informal) to visit, to go see (someone)"},
-    "t4k-c06-003": {"english": "excellent, awesome, the best"},
-    "t4k-c11-036": {"english": "a little bit, just a little"},
-    "wlt-c10-073": {"english": "in the afternoon (1 pm - 4 pm)"},  # spacing fixed
-    "t4k-c04-024": {"english": "afternoon (1 pm - 4 pm)"},  # spacing fixed
-    "t4k-c02-043": {"english": "to talk, to chat"},
-    "t4k-c01-017": {"english": "to talk about, to refer to"},
-    "wlt-c21-078": {"english": "I (male speaker); hair"},
-    "wlt-c21-076": {"english": "phone"},
-    "wlt-c21-072": {"english": "new; again"},
-    "wlt-c21-073": {"english": "with"},
-    "wlt-c21-074": {"english": "body; classifier for animals, clothes, furniture, etc"},
-    "wlt-c21-077": {"english": "in"},
-    "wlt-c21-071": {"english": "cold"},
-    "wlt-c20-006": {"english": "will (future tense)"},
-    "wlt-c17-082": {"english": "to go out, leave, exit"},
-    "wlt-c18-022": {"english": "just, only"},
-    "wlt-c18-071": {"english": "plain water"},
-    "wlt-c18-082": {"english": "phone number"},
-    "wlt-c19-001": {"english": "free (of charge)"},
-    "wlt-c19-020": {"english": "uneasy, troubled, uncomfortable"},
-    "wlt-c18-054": {"english": "'in that case', 'if so, then...'"},
-    # english + frequency
-    "t4k-c08-049": {"english": "foot (informal, rude)", "frequency": "occasional"},
+    "wlt-c19-044": {"english": "'no problem', 'no worries', relaxed"},
+    "wlt-c19-087": {"english": "about, regarding"},
+    "wlt-c19-088": {"english": "almost, nearly"},
+    "wlt-c19-089": {"english": "old"},
+    "wlt-c19-090": {"english": "glass; crystal"},
+    "wlt-c19-091": {"english": "chicken"},
+    "wlt-c19-092": {"english": "to request, to ask"},
+    "wlt-c20-001": {"english": "tight; crowded, packed"},
+    "wlt-c20-005": {"english": "to park"},
+    "wlt-c20-010": {"english": "to use, to be used for"},
+    "wlt-c20-011": {"english": "to wash (clothes)"},
+    "wlt-c20-020": {"english": "short (in height)"},
+    "wlt-c20-047": {"english": "wood"},
+    "wlt-c20-048": {"english": "medicine, drug"},
+    "wlt-c20-076": {"english": "for, meant for, intended for (formal)"},
+    "wlt-c20-082": {"english": "sweet"},
+    "wlt-c20-087": {"english": "to be located at; to live, to stay"},
+    "wlt-c20-089": {"english": "again, once more"},
+    "wlt-c20-090": {"english": "to get, to take, to want"},
+    "wlt-c20-094": {"english": "to eat"},
+    "wlt-c20-095": {"english": "(of things) old; former, previous"},
+    "wlt-c20-098": {"english": "beside, next to, nearby"},
+    "wlt-c21-005": {"english": "to pay, to spend"},
+    "wlt-c21-006": {"english": "to like"},
+    "wlt-c21-007": {"english": "morning (6am - 11am)"},
+    "wlt-c21-018": {"english": "way, path; direction; means, method"},
+    "wlt-c21-019": {"english": "to eat (formal)"},
+    "wlt-c21-000": {"english": "to go up, to rise; to get on (vehicle)"},
+    "wlt-c21-020": {"english": "to do, to make"},
+    "wlt-c21-023": {"english": "milk; breast"},
+    "wlt-c21-025": {"english": "approximately, roughly"},
+    "wlt-c21-027": {"english": "to go"},
+    "wlt-c21-035": {"english": "evening (4pm - 6pm); (of things) cold"},
+    "wlt-c21-036": {"english": "hot"},
+    "wlt-c21-045": {"english": "heavy"},
+    "wlt-c21-050": {"english": "weather"},
+    "wlt-c21-056": {"english": "who"},
+    "wlt-c21-040": {"english": "child; classifier for round objects (balls, fruits, etc)"},
+    "wlt-c21-041": {"english": "to choose"},
+    "wlt-c21-058": {"english": "money; silver"},
+    "wlt-c21-059": {"english": "name"},
+    "wlt-c21-067": {"english": "car, vehicle"},
+    "wlt-c21-061": {"english": "south; under"},
+    "wlt-c21-064": {"english": "paternal grandfather"},
+    "wlt-c21-047": {"english": "to give; to allow"},
+    # make it: clean up thai + english
+    "wlt-c21-063": {"thai": "เที่ยง, เที่ยงวัน", "english": "noon, midday"},
 }
 
 DELETES = {
-    "wlt-c18-010",  # คนนี้
-    "wlt-c18-028",  # เจอกัน
-    "wlt-c18-074",  # นึง
-    "t4k-c10-072",  # แค่นั้น (was listed twice in decisions)
-    "t4k-c05-085",  # น้ำเงิน
-    "t4k-c04-055",  # คุณหมอ
-    "t4k-c07-089",  # บาย
-    "t4k-c07-015",  # แค่นี้
-    "t4k-c05-058",  # เทา
-    "t4k-c02-094",  # มั้ย
-    "t4k-c01-020",  # ดังนั้น
-    "t4k-c01-000",  # ทำให้
-    "wlt-c21-075",  # ที่
-    "wlt-c20-017",  # ตอน
-    "wlt-c19-009",  # มาจาก
-    "wlt-c19-019",  # ไม่ว่าง
-    "wlt-c18-073",  # นิดนึง
+    "wlt-c18-096",  # พบกัน
 }
 PARKS = set()
 
@@ -113,7 +99,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Free-form decisions file batch 7 — 45 field edits (44 cards), 17 deletes", "",
+        "Free-form decisions file batch 8 — 47 field edits (46 cards, incl. 1 thai+eng), 1 delete", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
