@@ -1898,16 +1898,17 @@ body[data-thai-font="noto"] .th {
     padding: 0 1rem;
   }
 
-  /* Nudge Home a touch closer to the screen edge so it doesn't feel inset. */
-  .nav-home { margin-left: -15px; }
+  /* Home link is hidden on mobile; the hamburger takes its place on the left. */
+  .nav-home { display: none; }
 
-  .nav-toggle { display: flex; margin-left: auto; }
+  /* Hamburger sits on the left (where Home used to be). */
+  .nav-toggle { display: flex; }
 
-  /* Theme toggle joins the bar flow next to the hamburger instead of floating. */
+  /* Theme toggle is pushed to the far right of the bar. */
   .theme-toggle {
     position: static;
     transform: none;
-    margin-left: 0.6rem;
+    margin-left: auto;
   }
 
   /* The menu becomes a full-width dropdown revealed by the hamburger. */
@@ -1927,26 +1928,15 @@ body[data-thai-font="noto"] .th {
   }
   .nav-links.open { display: flex; }
 
-  /* Language toggle sits at the top of the open menu rather than floating. */
+  /* Both toggles (EN/FR language and Thai font) sit in the top bar just to the
+     right of the hamburger, in the flow, rather than floating or in the
+     dropdown. At most one of them shows on a given page. */
   .lang-toggle {
     position: static;
     transform: none;
-    margin: 0.6rem 1rem;
+    margin: 0 0 0 0.5rem;
   }
-
-  /* Thai font toggle is a sibling of .nav-links on mobile (not inside the
-     hamburger dropdown), so position it visibly in the top bar. Shifted left
-     of centre to keep clear of the hamburger button on the right. */
-  #thai-font-toggle {
-    position: absolute;
-    left: calc(50% - 15px);
-    top: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
-  }
-  /* Shrink the Sarabun / Noto Sans pills to ~80% of their default width on
-     mobile: smaller font + tighter horizontal padding, with vertical padding
-     bumped to keep the overall pill height unchanged. */
+  /* Shrink the Sarabun / Noto Sans pills a touch on mobile. */
   #thai-font-toggle button {
     font-size: 0.72rem;
     padding: 0.43rem 0.4rem;

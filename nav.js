@@ -114,8 +114,18 @@
   html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
   html += '</div>';
 
-  // Collapsible menu: language toggle + category items grouped together so the
-  // mobile hamburger can show/hide them without affecting the desktop layout.
+  // EN/FR language toggle: a top-bar sibling like the font toggle (shown only on
+  // math pages, hidden until then, never in app mode). On desktop both float to
+  // the left gutter; on mobile both sit in the top bar right of the hamburger.
+  if (!thaiOnly) {
+    html += '<div class="lang-toggle" id="lang-toggle" style="display:none">';
+    html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
+    html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
+    html += '</div>';
+  }
+
+  // Collapsible menu: the hamburger shows/hides these on mobile without
+  // affecting the desktop layout.
   html += '<div class="nav-links" id="navLinks">';
 
   if (thaiOnly) {
@@ -134,12 +144,6 @@
       }
     }
   } else {
-    // Language toggle (left gutter on desktop, top of the menu on mobile)
-    html += '<div class="lang-toggle" id="lang-toggle">';
-    html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
-    html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
-    html += '</div>';
-
     for (var m = 0; m < menu.length; m++) {
       var item = menu[m];
       html += '<div class="nav-item">';
