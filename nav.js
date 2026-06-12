@@ -105,6 +105,10 @@
   html += '<span></span><span></span><span></span>';
   html += '</button>';
 
+  // Mobile-only flex spacer: pushes the toggles + theme toggle to the right of
+  // the bar (hamburger stays left). Hidden on desktop (see CSS).
+  html += '<div class="nav-spacer" aria-hidden="true"></div>';
+
   // Thai font toggle (shown only on Thai pages). Placed OUTSIDE .nav-links so
   // that on mobile it stays visible in the top bar instead of being hidden in
   // the hamburger dropdown. On desktop the .lang-toggle rule still positions

@@ -152,6 +152,9 @@ nav .nav-inner {
   align-items: stretch;
 }
 
+/* Mobile-only spacer that right-aligns the toggles; inert on desktop. */
+.nav-spacer { display: none; }
+
 /* Hamburger: hidden on desktop, shown on mobile by the media query. */
 .nav-toggle {
   display: none;
@@ -1904,11 +1907,14 @@ body[data-thai-font="noto"] .th {
   /* Hamburger sits on the left (where Home used to be). */
   .nav-toggle { display: flex; }
 
-  /* Theme toggle is pushed to the far right of the bar. */
+  /* Spacer grows to fill the bar, pushing the toggle(s) + theme to the right. */
+  .nav-spacer { display: block; flex: 1 1 auto; }
+
+  /* Theme toggle on the far right, with a small gap from the toggle on its left. */
   .theme-toggle {
     position: static;
     transform: none;
-    margin-left: auto;
+    margin-left: 0.6rem;
   }
 
   /* The menu becomes a full-width dropdown revealed by the hamburger. */
@@ -1928,13 +1934,13 @@ body[data-thai-font="noto"] .th {
   }
   .nav-links.open { display: flex; }
 
-  /* Both toggles (EN/FR language and Thai font) sit in the top bar just to the
-     right of the hamburger, in the flow, rather than floating or in the
-     dropdown. At most one of them shows on a given page. */
+  /* Both toggles (EN/FR language and Thai font) sit in the top bar, pushed to
+     the right by the spacer and ending up just left of the theme toggle. At
+     most one of them shows on a given page. */
   .lang-toggle {
     position: static;
     transform: none;
-    margin: 0 0 0 0.5rem;
+    margin: 0;
   }
   /* Shrink the Sarabun / Noto Sans pills a touch on mobile. */
   #thai-font-toggle button {
