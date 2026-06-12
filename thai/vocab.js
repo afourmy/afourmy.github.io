@@ -9,6 +9,7 @@
   var toggleEl = document.getElementById("vocab-toggle");
   var filterEl = document.getElementById("vocab-filter");
   var faceToggleEl = document.getElementById("face-toggle");
+  var audioToggleEl = document.getElementById("audio-toggle");
   var showCategoryEl = document.getElementById("show-category");
   var showSourcesEl = document.getElementById("show-sources");
 
@@ -22,6 +23,8 @@
   var face = "both"; // "both" | "thai" | "english"
   var showCategory = true;
   var showSources = false;
+  var AUDIO_LANG_KEY = "thaiAudioLang";
+  var audioLang = "th"; // "th" | "en": which language the speaker button plays
 
   var FREQ_ORDER = ["everyday", "common", "occasional", "rare"];
   var FREQ_LABEL = {
@@ -74,8 +77,11 @@
   // Suspend control: toggles indefinite suspension on the word. A suspended
   // card stays visible on this page with a soft-red background; the flashcards
   // page skips it. Shared state lives at localStorage["thaiSuspended"].
+  // TRANSIENT (deck-review aid): the suspend button currently copies "<id> <thai>"
+  // to the clipboard instead of suspending (see the handler). Restore aria-label
+  // "Suspend word" / title "Suspend / Unsuspend" when reverting.
   var SUSPEND_BTN =
-    '<button class="vocab-suspend" type="button" aria-label="Suspend word" title="Suspend / Unsuspend">' +
+    '<button class="vocab-suspend" type="button" aria-label="Copy card ID + Thai" title="Copy card ID + Thai">' +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="5.5" y1="5.5" x2="18.5" y2="18.5"/></svg>' +
     "</button>";
 
@@ -104,7 +110,10 @@
     }
   }
   function playAudio(btn) {
-    var src = btn.getAttribute("data-audio");
+    var th = btn.getAttribute("data-audio-th");
+    var en = btn.getAttribute("data-audio-en");
+    // Play the selected language, falling back to the other if it is missing.
+    var src = audioLang === "en" ? (en || th) : (th || en);
     if (!src) return;
     stopAudio();
     currentAudio = new Audio(src);
@@ -166,6 +175,17 @@
   // Persisted at localStorage["thaiDecks"].
   var DECK_KEY = "thaiDecks";
   var ALL_DECK_ID = "all";
+  // Built-in dynamic decks defined by frequency. Membership is computed live
+  // from each card's current frequency (never stored), so changing a card's
+  // frequency or adding cards updates these decks automatically on reload.
+  var FREQ_DECKS = [
+    { id: "freq-beginner", name: "Beginner", freqs: ["everyday"] },
+    { id: "freq-lower", name: "Lower Intermediate", freqs: ["everyday", "common"] },
+    { id: "freq-upper", name: "Upper Intermediate", freqs: ["common", "occasional"] },
+    { id: "freq-advanced", name: "Advanced", freqs: ["occasional", "rare"] },
+  ];
+  var FREQ_DECK_BY_ID = {};
+  FREQ_DECKS.forEach(function (d) { FREQ_DECK_BY_ID[d.id] = d; });
   var decks = {};
   var deckOrder = [];
   var currentDeckId = ALL_DECK_ID;
@@ -183,18 +203,47 @@
     if (!decks[ALL_DECK_ID]) {
       decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
     }
-    if (deckOrder.indexOf(ALL_DECK_ID) === -1) deckOrder.unshift(ALL_DECK_ID);
-    deckOrder = deckOrder.filter(function (id) { return decks[id]; });
+    // Inject the built-in frequency decks fresh (dynamic, never persisted).
+    FREQ_DECKS.forEach(function (d) {
+      decks[d.id] = { id: d.id, name: d.name, members: {}, builtin: true, freqs: d.freqs };
+    });
+    // Order: All cards, then the frequency decks, then any custom decks.
+    var customOrder = deckOrder.filter(function (id) {
+      return id !== ALL_DECK_ID && !FREQ_DECK_BY_ID[id] && decks[id];
+    });
+    deckOrder = [ALL_DECK_ID]
+      .concat(FREQ_DECKS.map(function (d) { return d.id; }))
+      .concat(customOrder);
     if (!decks[currentDeckId]) currentDeckId = ALL_DECK_ID;
   }
   function saveDecks() {
+    // Persist only user decks; built-in frequency decks are re-injected on load.
+    var persistDecks = {};
+    Object.keys(decks).forEach(function (id) {
+      if (!decks[id].builtin) persistDecks[id] = decks[id];
+    });
     lsSet(DECK_KEY, JSON.stringify({
-      decks: decks, order: deckOrder, currentId: currentDeckId, deckOnly: deckOnly,
+      decks: persistDecks,
+      order: deckOrder.filter(function (id) { return !FREQ_DECK_BY_ID[id]; }),
+      currentId: currentDeckId,
+      deckOnly: deckOnly,
     }));
   }
-  function isCustomDeckSelected() { return currentDeckId !== ALL_DECK_ID; }
-  function isInCurrentDeck(word) {
+  // "Custom" = an editable user deck (not All cards, not a built-in freq deck).
+  function isCustomDeckSelected() {
+    return currentDeckId !== ALL_DECK_ID && !FREQ_DECK_BY_ID[currentDeckId];
+  }
+  // Any deck that narrows the visible set (custom or frequency).
+  function isFilteringDeck() { return currentDeckId !== ALL_DECK_ID; }
+  function isInCurrentDeck(word) { // custom membership; drives the green +/- cue
     return isCustomDeckSelected() && decks[currentDeckId].members[word.id] === true;
+  }
+  // Membership used for filtering the view, including dynamic frequency decks.
+  function deckHasWord(id, word) {
+    if (id === ALL_DECK_ID) return true;
+    var fd = FREQ_DECK_BY_ID[id];
+    if (fd) return fd.freqs.indexOf(word.frequency) !== -1;
+    return !!(decks[id] && decks[id].members[word.id]);
   }
 
   function lsGet(k) {
@@ -257,11 +306,12 @@
   }
 
   function speakerBtn(word) {
+    if (!word.audio && !word.audio_en) return ""; // only where an mp3 exists
+    var th = word.audio ? escAttr(audioBase + word.id + ".mp3") : "";
+    var en = word.audio_en ? escAttr(audioBase + word.id + ".en.mp3") : "";
     return (
-      '<button class="vocab-speak" type="button" aria-label="Copy card ID + Thai"' +
-      ' title="Copy card ID + Thai" data-audio="' +
-      escAttr(audioBase + word.id + ".mp3") +
-      '">' +
+      '<button class="vocab-speak" type="button" aria-label="Play pronunciation"' +
+      ' title="Play pronunciation" data-audio-th="' + th + '" data-audio-en="' + en + '">' +
       SPEAKER_SVG +
       "</button>"
     );
@@ -423,7 +473,7 @@
   // Shown only if both its frequency and its topic are still selected, and
   // (when "Only show deck cards" is on) the word is in the current custom deck.
   function passesFilter(word) {
-    if (deckOnly && isCustomDeckSelected() && !isInCurrentDeck(word)) return false;
+    if (deckOnly && isFilteringDeck() && !deckHasWord(currentDeckId, word)) return false;
     return (
       filters.frequency[word.frequency] !== false &&
       filters.topic[word.topic] !== false
@@ -606,16 +656,9 @@
   var TURN_MS = 200;
   groupsEl.addEventListener("click", function (e) {
     // Speaker works in every mode, so handle it before any mode-specific return.
-    // TRANSIENT (deck-review aid): repurposed to copy the card id to the
-    // clipboard instead of playing audio. Restore playAudio(speakBtn) to revert.
     var speakBtn = e.target.closest(".vocab-speak");
     if (speakBtn) {
-      var spCard = e.target.closest(".vocab-card");
-      if (spCard) {
-        var spId = spCard.getAttribute("data-id");
-        var spWord = words.filter(function (w) { return w.id === spId; })[0];
-        copyText(spWord ? spId + " " + spWord.thai : spId, speakBtn);
-      }
+      playAudio(speakBtn);
       return;
     }
 
@@ -626,6 +669,12 @@
       if (!sCard) return;
       var id = sCard.getAttribute("data-id");
       if (!id) return;
+      // TRANSIENT (deck-review aid): copy "<id> <thai>" to the clipboard instead
+      // of suspending. Delete this block (down to the suspend toggle) to revert.
+      var sWord = words.filter(function (w) { return w.id === id; })[0];
+      copyText(sWord ? id + " " + sWord.thai : id, suspendBtn);
+      return;
+      // eslint-disable-next-line no-unreachable
       if (suspended[id]) {
         delete suspended[id];
         sCard.classList.remove("vocab-card--suspended");
@@ -726,6 +775,20 @@
     if (btn) setFace(btn.getAttribute("data-face"), true);
   });
 
+  // Audio language for the speaker button. No re-render needed: button
+  // visibility doesn't depend on language, only the file chosen at play time.
+  function setAudioLang(lang) {
+    audioLang = lang === "en" ? "en" : "th";
+    audioToggleEl.querySelectorAll("button").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-audio") === audioLang);
+    });
+    lsSet(AUDIO_LANG_KEY, audioLang);
+  }
+  audioToggleEl.addEventListener("click", function (e) {
+    var btn = e.target.closest("button[data-audio]");
+    if (btn) setAudioLang(btn.getAttribute("data-audio"));
+  });
+
   showCategoryEl.addEventListener("change", function () {
     showCategory = showCategoryEl.checked;
     lsSet("vocabShowCategory", showCategory ? "1" : "0");
@@ -749,12 +812,19 @@
   var deckOnlyLabelEl = document.getElementById("deck-only-label");
   var deckAddFilteredBtn = document.getElementById("deck-add-filtered");
 
+  function deckSize(id) {
+    if (id === ALL_DECK_ID) return words.length;
+    var fd = FREQ_DECK_BY_ID[id];
+    if (fd) {
+      return words.filter(function (w) {
+        return fd.freqs.indexOf(w.frequency) !== -1;
+      }).length;
+    }
+    return Object.keys(decks[id].members).length;
+  }
   function deckOptionLabel(id) {
-    var name = decks[id].name;
-    var n = id === ALL_DECK_ID
-      ? words.length
-      : Object.keys(decks[id].members).length;
-    return esc(name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
+    var n = deckSize(id);
+    return esc(decks[id].name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
   }
 
   function renderDeckSelector() {
@@ -770,8 +840,9 @@
     var custom = isCustomDeckSelected();
     deckRenameBtn.disabled = !custom;
     deckDeleteBtn.disabled = !custom;
-    deckOnlyLabelEl.hidden = !custom;
     deckAddFilteredBtn.hidden = !custom;
+    // The "Only show deck cards" toggle applies to any filtering deck.
+    deckOnlyLabelEl.hidden = !isFilteringDeck();
     deckOnlyEl.checked = deckOnly;
   }
 
@@ -888,6 +959,7 @@
   showCategoryEl.checked = showCategory;
   showSourcesEl.checked = showSources;
   setFace(lsGet("vocabFace") || "both", false);
+  setAudioLang(lsGet(AUDIO_LANG_KEY) || "th");
 
   // Resolve the data file next to this script, so it works both on a direct
   // visit and when the page is loaded via the site's SPA navigation (which

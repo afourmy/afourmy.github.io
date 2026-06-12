@@ -1,4 +1,4 @@
-"""Apply free-form `decisions` file batch 9 — per-line edits + 2 bulk-freq lists, 1 delete."""
+"""Apply free-form `decisions` file batch 10 — per-line edits + 2 bulk-freq lists, 1 merge, 12 deletes."""
 
 import json
 import shutil
@@ -8,79 +8,45 @@ HERE = Path(__file__).parent
 
 EDITS = {
     # english only
-    "chula-l5-277": {"english": "to drain, to empty; to express strong emotions, to vent"},
-    "chula-l5-417": {"english": "quantity, volume"},
-    "chula-l6-024": {"english": "to focus on, to emphasize"},
-    "chula-l6-075": {"english": "highlight, strong point, distinguishing feature"},
-    "chula-l6-274": {"english": "dented, crushed, distorted"},
-    "tamago-l12-325": {"english": "physically fit, in good shape (loanword)"},
-    "tamago-l12-370": {"english": "edge, rim, side"},
-    "chula-l5-154": {"english": "to head toward, to make one's way to"},
-    "chula-l5-267": {"english": "accidentally, unintentionally"},
-    "chula-l6-159": {"english": "group, cluster"},
-    "chula-l6-222": {"english": "stick, bar, rod; classifier for long solid (stick-shaped) objects"},
-    "chula-l6-338": {"english": "to support, accommodate, handle (e.g a need, a capacity)"},
-    "tamago-l12-036": {"english": "to block, separate, divide"},
-    "tamago-l12-203": {"english": "to spill on"},
-    "tamago-l12-116": {"english": "to start a conversation, to engage someone in talking"},
-    "tamago-l12-465": {"english": "to skip, to abstain from, to go without"},
-    "tamago-l12-486": {"english": "to hold, to carry (mostly children and pets)"},
-    "chula-l6-182": {"english": "wrinkles"},
-    "tamago-l12-055": {"english": "to lock up, imprison, confine"},
-    "tamago-l12-513": {"english": "to hike in the mountains"},
-    "tamago-l12-564": {"english": "pole, pillar"},
-    "tamago-l12-589": {"english": "to soak, to immerse"},
-    "tamago-l12-503": {"english": "clear; to clarify, to sort out (loanword)"},
-    "chula-l6-241": {"english": "to launch, introduce, unveil (event, product); to introduce a romantic partner to friends or family"},
-    # frequency only
-    "chula-l5-329": {"frequency": "everyday"},
-    "chula-l5-424": {"frequency": "everyday"},
-    "chula-l5-457": {"frequency": "everyday"},
-    "chula-l6-003": {"frequency": "occasional"},
-    "chula-l6-004": {"frequency": "occasional"},
-    "chula-l6-006": {"frequency": "occasional"},
-    "chula-l6-010": {"frequency": "occasional"},
-    "chula-l6-023": {"frequency": "occasional"},
-    "chula-l6-046": {"frequency": "occasional"},
-    "chula-l6-050": {"frequency": "occasional"},
-    "chula-l6-054": {"frequency": "occasional"},
-    "chula-l6-038": {"frequency": "occasional"},
-    "chula-l6-089": {"frequency": "occasional"},
-    "chula-l6-117": {"frequency": "occasional"},
-    "chula-l6-163": {"frequency": "occasional"},
-    "chula-l6-259": {"frequency": "occasional"},
-    "chula-l6-263": {"frequency": "occasional"},
-    "chula-l6-258": {"frequency": "occasional"},
-    "chula-l6-264": {"frequency": "occasional"},
-    "chula-l6-302": {"frequency": "everyday"},
-    # english + frequency
-    "chula-l5-139": {"english": "to turn upside down, to capsize", "frequency": "occasional"},
-    "chula-l6-120": {"english": "to end, conclude, finish (e.g a text, a sentence)", "frequency": "occasional"},
-    "tamago-l12-500": {"english": "stationery (office supplies)", "frequency": "occasional"},
-    "chula-l6-327": {"english": "aura, atmosphere; hint of sth", "frequency": "occasional"},
-    "chula-l5-366": {"english": "to assemble, to put together", "frequency": "occasional"},
-    "chula-l6-031": {"english": "to start (e.g a sentence, paragraph, letter, speech)", "frequency": "occasional"},
-    "chula-l6-340": {"english": "to lighten, to relieve (someone's burden, workload, responsibility)", "frequency": "occasional"},
-    "tamago-l12-606": {"english": "to exchange money into coins", "frequency": "occasional"},
+    "tamago-l12-343": {"english": "pronoun to refer to a girl of similar age (informal term, teasing or scolding tone)"},
+    "tamago-l12-597": {"english": "stall, booth; blister pack (e.g pills); panel, board"},
+    "tamago-l12-614": {"english": "to skip school, to skip class"},
+    "tamago-l3-013": {"english": "to make a payment, to settle a bill"},
+    "tamago-l3-080": {"english": "the people around"},
+    "chula-l4-001": {"english": "dizzy, lightheaded"},
+    "chula-l4-020": {"english": "influenza, flu"},
+    "tamago-l3-125": {"english": "to compete for; to seize, to snatch"},
+    "tamago-l3-163": {"english": "story, narrative"},
+    "tamago-l3-344": {"english": "to compete for, to fight over; to grab, to seize"},
+    "tamago-l3-355": {"english": "to claim, to assert; to quote, to cite; to give an excuse"},
+    "tamago-l3-410": {"english": "reputation, hearsay, rumor, what people say"},
+    "tamago-l3-420": {"english": "to glow, to emit light"},
+    "tamago-l3-447": {"english": "wave"},
+    "tamago-l3-397": {"english": "to avoid taking responsibility for a task and try to shift it to others"},
+    "tamago-l3-398": {"english": "to persuade gently, to soothe; to sing a lullaby"},
+    "tamago-l3-422": {"english": "to prank, to trick; to fake, to bluff"},
+    "tamago-l3-600": {"english": "to seek out, search for, dig up; to pick carefully, to recruit"},
+    "tamago-l3-620": {"english": "comfortable and happy, at ease"},
+    "tamago-l3-631": {"english": "inferior, low"},
+    "tamago-l3-650": {"english": "to form a group, to group up"},
+    "tamago-l3-660": {"english": "to introduce (a topic, a presentation), to preface"},
+    "tamago-l3-675": {"english": "gem, precious stone; to also be affected, to be involved indirectly"},
+    "tamago-l3-393": {"english": "very obviously, clearly, 'right in front of you'"},
     # change thai + english
-    "chula-l6-256": {"thai": "ไกลลิบ", "english": "very far away"},
-    "tamago-l12-536": {"thai": "เปลือง", "english": "to use more than necessary, to waste"},
+    "thai9k-002": {"thai": "เข้าร่วม", "english": "to join, attend, participate in"},
+    # merge: fold tamago-l3-112 สมกับ into tamago-l3-409, keep survivor's english
+    "tamago-l3-409": {"thai": "สม, สมกับ"},
 }
 
-# Bulk frequency lines (L49 / L51). tamago-l12-012 was listed twice -> set dedupes it.
-# tamago-l12-202 was in the everyday list but is being removed instead (conflict resolved).
 OCC_BULK = {
-    "chula-l6-253", "chula-l6-255", "chula-l6-268", "chula-l6-292", "chula-l6-309",
-    "chula-l6-310", "chula-l6-315", "chula-l6-317", "chula-l6-318", "tamago-l12-012",
-    "tamago-l12-306", "tamago-l12-407", "chula-l6-307", "chula-l6-096", "chula-l6-226",
-    "chula-l6-244", "chula-l6-333", "tamago-l12-221", "tamago-l12-230", "tamago-l12-397",
-    "chula-l6-316", "chula-l6-331", "chula-l6-334", "chula-l6-335", "chula-l6-336",
-    "tamago-l12-057", "tamago-l12-548", "tamago-l12-569", "tamago-l12-603", "thai9k-004",
-    "tamago-l3-283",
+    "tamago-l12-599", "tamago-l12-602", "tamago-l3-138", "tamago-l3-153", "tamago-l3-173",
+    "tamago-l3-237", "tamago-l3-252", "tamago-l3-274", "tamago-l3-305", "tamago-l3-351",
+    "tamago-l3-361", "tamago-l3-401", "tamago-l3-447", "tamago-l3-481", "tamago-l3-562",
+    "tamago-l3-573", "tamago-l3-475", "tamago-l3-506", "tamago-l3-625", "tamago-l3-655",
+    "tamago-l3-673", "tamago-l3-681",
 }
 EVERYDAY_BULK = {
-    "tamago-l12-218", "tamago-l12-261", "tamago-l12-312", "tamago-l12-380",
-    "tamago-l12-418", "tamago-l12-367",
+    "tamago-l3-187", "chula-l4-045", "chula-l4-046", "tamago-l3-515",
 }
 for _id in OCC_BULK:
     EDITS.setdefault(_id, {})["frequency"] = "occasional"
@@ -88,7 +54,18 @@ for _id in EVERYDAY_BULK:
     EDITS.setdefault(_id, {})["frequency"] = "everyday"
 
 DELETES = {
-    "tamago-l12-202",  # ทำหก (conflict: everyday vs remove -> remove)
+    "tamago-l12-616",  # โดนตัด
+    "tamago-l3-191",   # อินเตอร์
+    "tamago-l3-196",   # ตีกัน
+    "tamago-l3-264",   # บูม
+    "tamago-l3-269",   # บูธ
+    "tamago-l3-329",   # เข้าหา
+    "tamago-l3-373",   # จ้องดู
+    "tamago-l3-477",   # ก้มเก็บ
+    "tamago-l3-519",   # พูดมั่ว
+    "tamago-l3-614",   # สานต่อ
+    "tamago-l3-662",   # บุคคลสำคัญ
+    "tamago-l3-112",   # สมกับ (merged into tamago-l3-409)
 }
 PARKS = set()
 
@@ -129,7 +106,7 @@ def main():
 
     log_lines = [
         "", "=" * 70,
-        "Free-form decisions file batch 9 — per-line edits + 2 bulk-freq lists, 1 delete", "",
+        "Free-form decisions file batch 10 — per-line edits + 2 bulk-freq lists, 1 merge, 12 deletes", "",
     ]
     for eid, fields in applied:
         for k, v in fields.items():
@@ -165,7 +142,7 @@ def main():
     )
 
     print(f"Applied {sum(len(f) for _, f in applied)} field edits across {len(applied)} cards")
-    print(f"Deleted ({len(deleted)}): {deleted}")
+    print(f"Deleted ({len(deleted)}): {sorted(deleted)}")
     if skipped:
         print(f"Skipped edits: {skipped}")
     if missing_deletes:

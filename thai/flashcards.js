@@ -2,8 +2,9 @@
 //
 // Each vocabulary word becomes two independent cards — Thai->English ("t2e")
 // and English->Thai ("e2t") — each with its own FSRS state. All progress lives
-// in localStorage (no backend, no cross-device sync). Audio (Thai only) plays
-// on whichever face shows the Thai word; missing mp3s simply no-op.
+// in localStorage (no backend, no cross-device sync). Audio follows the visible
+// side: the front's language autoplays on render, the back's on reveal, and the
+// speaker button replays whichever side is on screen; missing mp3s simply no-op.
 //
 // Exposes window.FLASHCARDS.init(), called from an inline <script> in
 // flashcards.html so the page wires itself up on every SPA visit (the SPA
@@ -83,6 +84,18 @@
   // every stat below reflects only that subset.
   var DECK_KEY = "thaiDecks";
   var ALL_DECK_ID = "all";
+  // Built-in dynamic decks defined by frequency. Membership is computed live
+  // from each card's current frequency (never stored), so changing a card's
+  // frequency or adding cards updates these decks automatically on reload.
+  // Kept in sync with the same list in vocab.js.
+  var FREQ_DECKS = [
+    { id: "freq-beginner", name: "Beginner", freqs: ["everyday"] },
+    { id: "freq-lower", name: "Lower Intermediate", freqs: ["everyday", "common"] },
+    { id: "freq-upper", name: "Upper Intermediate", freqs: ["common", "occasional"] },
+    { id: "freq-advanced", name: "Advanced", freqs: ["occasional", "rare"] },
+  ];
+  var FREQ_DECK_BY_ID = {};
+  FREQ_DECKS.forEach(function (d) { FREQ_DECK_BY_ID[d.id] = d; });
   var deckStore = { decks: {}, order: [], currentId: ALL_DECK_ID };
   function loadDecks() {
     var data = loadJSON(DECK_KEY, null) || {};
@@ -92,15 +105,41 @@
     if (!deckStore.decks[ALL_DECK_ID]) {
       deckStore.decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
     }
-    if (deckStore.order.indexOf(ALL_DECK_ID) === -1) deckStore.order.unshift(ALL_DECK_ID);
-    deckStore.order = deckStore.order.filter(function (id) { return deckStore.decks[id]; });
+    // Inject the built-in frequency decks fresh (dynamic, never persisted).
+    FREQ_DECKS.forEach(function (d) {
+      deckStore.decks[d.id] = { id: d.id, name: d.name, members: {}, builtin: true, freqs: d.freqs };
+    });
+    // Order: All cards, then the frequency decks, then any custom decks.
+    var customOrder = deckStore.order.filter(function (id) {
+      return id !== ALL_DECK_ID && !FREQ_DECK_BY_ID[id] && deckStore.decks[id];
+    });
+    deckStore.order = [ALL_DECK_ID]
+      .concat(FREQ_DECKS.map(function (d) { return d.id; }))
+      .concat(customOrder);
     if (!deckStore.decks[deckStore.currentId]) deckStore.currentId = ALL_DECK_ID;
   }
-  function saveDecks() { lsSet(DECK_KEY, JSON.stringify(deckStore)); }
-  function isCustomDeckSelected() { return deckStore.currentId !== ALL_DECK_ID; }
+  function saveDecks() {
+    // Persist only user decks; built-in frequency decks are re-injected on load.
+    var persist = { decks: {}, order: [], currentId: deckStore.currentId };
+    Object.keys(deckStore.decks).forEach(function (id) {
+      if (!deckStore.decks[id].builtin) persist.decks[id] = deckStore.decks[id];
+    });
+    persist.order = deckStore.order.filter(function (id) { return !FREQ_DECK_BY_ID[id]; });
+    lsSet(DECK_KEY, JSON.stringify(persist));
+  }
+  function isFilteringDeck() { return deckStore.currentId !== ALL_DECK_ID; }
+  function isCustomDeckSelected() {
+    return deckStore.currentId !== ALL_DECK_ID && !FREQ_DECK_BY_ID[deckStore.currentId];
+  }
+  function deckHasWord(id, word) {
+    if (id === ALL_DECK_ID) return true;
+    var fd = FREQ_DECK_BY_ID[id];
+    if (fd) return fd.freqs.indexOf(word.frequency) !== -1;
+    return !!(deckStore.decks[id] && deckStore.decks[id].members[word.id]);
+  }
   function passesDeck(word) {
-    if (!isCustomDeckSelected()) return true;
-    return deckStore.decks[deckStore.currentId].members[word.id] === true;
+    if (!isFilteringDeck()) return true;
+    return deckHasWord(deckStore.currentId, word);
   }
   loadDecks();
 
@@ -139,6 +178,11 @@
   var words = [];
   var wordById = {};
   var audioBase = "audio/";
+  // mp3 path for one side of a card, or "" if that side's audio wasn't generated.
+  function sideAudio(word, thaiSide) {
+    var has = thaiSide ? word.audio : word.audio_en;
+    return has ? audioBase + word.id + (thaiSide ? "" : ".en") + ".mp3" : "";
+  }
 
   function cardId(word, dir) { return word.id + ":" + dir; }
   function getState(id) { return states[id] || window.FSRS.emptyCard(); }
@@ -290,12 +334,11 @@
     backEl.hidden = true;
     $("fc-divider").hidden = true;
 
-    // Speaker is available only when the Thai face is currently on screen.
-    // On render that's just the t2e cards (Thai on front); revealAnswer
-    // re-shows the icon for e2t cards once Thai becomes visible.
+    // Speaker reflects the side currently on screen (the front, until reveal).
     var speak = $("fc-speak");
-    speak.hidden = !f.frontThai;
-    speak.dataset.src = audioBase + word.id + ".mp3";
+    var frontSrc = sideAudio(word, f.frontThai);
+    speak.dataset.src = frontSrc;
+    speak.hidden = !frontSrc;
 
     // Copy: before reveal, copies the visible (front) side; after reveal both
     // sides are visible so copying targets the Thai word (matching vocab Both).
@@ -310,9 +353,9 @@
 
     updateProgress();
 
-    // Autoplay Thai when it is on the front (Thai->English cards).
+    // Autoplay the front side's audio (Thai for t2e, English for e2t).
     stopAudio();
-    if (f.frontThai) playAudio();
+    if (frontSrc) playAudio();
   }
 
   function suspendCurrent() {
@@ -371,13 +414,15 @@
     });
     grades.hidden = false;
 
-    // Autoplay Thai when it lives on the back (English->Thai cards). For
-    // those cards the speaker was hidden until now — un-hide it on reveal.
+    // Autoplay the back (answer) side's audio — English for t2e, Thai for e2t —
+    // and point the speaker at it so a manual press replays the side now shown.
     var info = parseId(curId);
-    if (!faces(info.word, info.dir).frontThai) {
-      $("fc-speak").hidden = false;
-      playAudio();
-    }
+    var f2 = faces(info.word, info.dir);
+    var backSrc = sideAudio(info.word, !f2.frontThai);
+    var speak = $("fc-speak");
+    speak.dataset.src = backSrc;
+    speak.hidden = !backSrc;
+    if (backSrc) playAudio();
   }
 
   function grade(g) {
@@ -544,12 +589,17 @@
   // Populated from the shared store (created/named on the vocab page). Changing
   // the selection re-runs stats so Due / New / Left / Excluded reflect the
   // chosen deck immediately.
+  function deckSize(id) {
+    if (id === ALL_DECK_ID) return words.length;
+    var fd = FREQ_DECK_BY_ID[id];
+    if (fd) {
+      return words.filter(function (w) { return fd.freqs.indexOf(w.frequency) !== -1; }).length;
+    }
+    return Object.keys(deckStore.decks[id].members).length;
+  }
   function deckOptionLabel(id) {
-    var name = deckStore.decks[id].name;
-    var n = id === ALL_DECK_ID
-      ? words.length
-      : Object.keys(deckStore.decks[id].members).length;
-    return esc(name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
+    var n = deckSize(id);
+    return esc(deckStore.decks[id].name) + " (" + n + " card" + (n === 1 ? "" : "s") + ")";
   }
   function renderDeckBar() {
     var sel = $("fc-deck-select");
