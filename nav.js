@@ -86,12 +86,19 @@
     }
   }
 
+  // Thai-only "app" mode: a stripped nav (just the Thai links + the theme and
+  // Thai-font toggles), triggered by the ?app=1 query that learn-thai.html
+  // redirects into. Content pages are shared/unchanged; only the nav differs.
+  var thaiOnly = (location.search || "").indexOf("app=1") !== -1;
+
   function esc(s) {
     return s.replace(/&/g, "&amp;");
   }
 
   var html = '<nav><div class="nav-inner">';
-  html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
+  if (!thaiOnly) {
+    html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
+  }
 
   // Hamburger button (mobile only; CSS hides it on desktop).
   html += '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu">';
@@ -111,27 +118,44 @@
   // mobile hamburger can show/hide them without affecting the desktop layout.
   html += '<div class="nav-links" id="navLinks">';
 
-  // Language toggle (left gutter on desktop, top of the menu on mobile)
-  html += '<div class="lang-toggle" id="lang-toggle">';
-  html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
-  html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
-  html += '</div>';
-
-  for (var m = 0; m < menu.length; m++) {
-    var item = menu[m];
-    html += '<div class="nav-item">';
-    html += '<a href="#" class="nav-link" onclick="return false;">' + esc(item.en) + '</a>';
-    html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
-    for (var c = 0; c < item.columns.length; c++) {
-      html += '<ul class="submenu-col">';
-      var col = item.columns[c];
-      for (var i = 0; i < col.length; i++) {
-        var link = col[i];
-        html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
-      }
-      html += '</ul>';
+  if (thaiOnly) {
+    // Thai-only app: just the Thai section's links (the menu array above stays
+    // the single source of truth), each carrying ?app=1 so navigation stays in
+    // the app. No Home, no other sections, no EN/FR toggle.
+    var thaiSection = null;
+    for (var ts = 0; ts < menu.length; ts++) {
+      if (menu[ts].en === "Thailand") { thaiSection = menu[ts]; break; }
     }
-    html += '</div></div>';
+    if (thaiSection) {
+      var tcol = thaiSection.columns[0];
+      for (var tk = 0; tk < tcol.length; tk++) {
+        var tlink = tcol[tk];
+        html += '<a href="' + prefix + tlink.href + '?app=1" class="nav-link nav-link--app" data-path="' + esc(tlink.href) + '">' + esc(tlink.en) + '</a>';
+      }
+    }
+  } else {
+    // Language toggle (left gutter on desktop, top of the menu on mobile)
+    html += '<div class="lang-toggle" id="lang-toggle">';
+    html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
+    html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
+    html += '</div>';
+
+    for (var m = 0; m < menu.length; m++) {
+      var item = menu[m];
+      html += '<div class="nav-item">';
+      html += '<a href="#" class="nav-link" onclick="return false;">' + esc(item.en) + '</a>';
+      html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
+      for (var c = 0; c < item.columns.length; c++) {
+        html += '<ul class="submenu-col">';
+        var col = item.columns[c];
+        for (var i = 0; i < col.length; i++) {
+          var link = col[i];
+          html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
+        }
+        html += '</ul>';
+      }
+      html += '</div></div>';
+    }
   }
 
   html += '</div>'; // close .nav-links
@@ -209,6 +233,12 @@
         if (p && path.endsWith(p)) { match = true; break; }
       }
       if (topLink) topLink.classList.toggle("nav-active", match);
+    }
+    // Thai-only app: flat links carry their own data-path.
+    var appLinks = nav.querySelectorAll("a.nav-link--app[data-path]");
+    for (var a2 = 0; a2 < appLinks.length; a2++) {
+      var ap = appLinks[a2].getAttribute("data-path");
+      appLinks[a2].classList.toggle("nav-active", !!(ap && path.endsWith(ap)));
     }
   };
   window.setActiveNav();
