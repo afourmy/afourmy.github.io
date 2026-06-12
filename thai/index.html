@@ -63,23 +63,29 @@
     </div>
 
     <div class="vocab-controls vocab-controls--display">
-      <span class="vocab-control-label">Show</span>
-      <div class="vocab-toggle" id="face-toggle">
-        <button data-face="both" class="active">Both</button>
-        <button data-face="thai">Thai</button>
-        <button data-face="english">English</button>
+      <div class="vocab-display-row">
+        <span class="vocab-control-label">Show</span>
+        <div class="vocab-toggle" id="face-toggle">
+          <button data-face="both" class="active">Both</button>
+          <button data-face="thai">Thai</button>
+          <button data-face="english">English</button>
+        </div>
+        <label class="vocab-check"><input type="checkbox" id="show-category"> Category</label>
+        <label class="vocab-check"><input type="checkbox" id="show-sources"> Sources</label>
       </div>
-      <label class="vocab-check"><input type="checkbox" id="show-category"> Category</label>
-      <label class="vocab-check"><input type="checkbox" id="show-sources"> Sources</label>
-      <span class="vocab-control-label">Audio</span>
-      <div class="vocab-toggle" id="audio-toggle">
-        <button data-audio="th" class="active">Thai</button>
-        <button data-audio="en">English</button>
-      </div>
-      <span class="vocab-control-label" style="margin-left: auto">Group by</span>
-      <div class="vocab-toggle" id="vocab-toggle">
-        <button data-mode="frequency" class="active">Frequency</button>
-        <button data-mode="topic">Topic</button>
+      <div class="vocab-display-row">
+        <span class="vocab-control-label">Audio</span>
+        <div class="vocab-toggle" id="audio-toggle">
+          <button data-audio="th" class="active">Thai</button>
+          <button data-audio="en">English</button>
+        </div>
+        <div class="vocab-display-right">
+          <span class="vocab-control-label">Group by</span>
+          <div class="vocab-toggle" id="vocab-toggle">
+            <button data-mode="frequency" class="active">Frequency</button>
+            <button data-mode="topic">Topic</button>
+          </div>
+        </div>
       </div>
     </div>
 

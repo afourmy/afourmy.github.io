@@ -1053,8 +1053,29 @@ html[lang="fr"] .en { display: none; }
   border-radius: 6px;
 }
 
+/* Display options: two deliberate rows (Show/Category/Sources, then
+   Audio ... Group by) instead of one overflowing, randomly-wrapping row. */
 .vocab-controls--display {
   margin-bottom: 1.8rem;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.6rem;
+}
+
+.vocab-display-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+}
+
+/* "Group by" label + its toggle stay together and float to the right edge,
+   wrapping as one unit when the row runs out of width. */
+.vocab-display-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .vocab-control-label {
