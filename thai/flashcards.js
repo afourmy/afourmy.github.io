@@ -101,7 +101,7 @@
     var data = loadJSON(DECK_KEY, null) || {};
     deckStore.decks = data.decks || {};
     deckStore.order = data.order || [];
-    deckStore.currentId = data.currentId || ALL_DECK_ID;
+    deckStore.currentId = data.currentId || "freq-beginner"; // default to the Beginner deck
     if (!deckStore.decks[ALL_DECK_ID]) {
       deckStore.decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
     }
