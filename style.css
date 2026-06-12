@@ -1895,10 +1895,12 @@ body[data-thai-font="noto"] .th {
 @media (max-width: 600px) {
   body { font-size: 14px; }
 
-  /* Compact top bar: Home on the left, hamburger + theme toggle on the right. */
+  /* Top bar: hamburger on the left, toggles + theme on the right. Vertical
+     padding gives the bar height now that the menu links (which used to supply
+     it) live in the dropdown. */
   nav .nav-inner {
     align-items: center;
-    padding: 0 1rem;
+    padding: 0.55rem 1rem;
   }
 
   /* Home link is hidden on mobile; the hamburger takes its place on the left. */
