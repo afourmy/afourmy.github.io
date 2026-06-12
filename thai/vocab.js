@@ -198,7 +198,7 @@
     data = data || {};
     decks = data.decks || {};
     deckOrder = data.order || [];
-    currentDeckId = data.currentId || ALL_DECK_ID;
+    currentDeckId = data.currentId || "freq-beginner"; // default to the Beginner deck
     deckOnly = data.deckOnly !== false; // default on; only an explicit save of false disables it
     if (!decks[ALL_DECK_ID]) {
       decks[ALL_DECK_ID] = { id: ALL_DECK_ID, name: "All cards", members: {} };
