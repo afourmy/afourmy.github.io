@@ -184,6 +184,23 @@
     return has ? audioBase + word.id + (thaiSide ? "" : ".en") + ".mp3" : "";
   }
 
+  // Preload a card's Thai + English audio (warm the browser cache) so its
+  // autoplay is instant. Only existing files are fetched, each at most once.
+  var warmed = {};
+  function warmAudio(src) {
+    if (!src || warmed[src]) return;
+    warmed[src] = true;
+    try { fetch(src).catch(function () { warmed[src] = false; }); }
+    catch (e) { warmed[src] = false; }
+  }
+  function preloadCard(id) {
+    if (!id) return;
+    var info = parseId(id);
+    if (!info || !info.word) return;
+    warmAudio(sideAudio(info.word, true));   // Thai
+    warmAudio(sideAudio(info.word, false));  // English
+  }
+
   function cardId(word, dir) { return word.id + ":" + dir; }
   function getState(id) { return states[id] || window.FSRS.emptyCard(); }
 
@@ -261,6 +278,8 @@
   // new cards get introduced. Excluded counts what filters hide right now.
   function refreshStats() {
     var built = buildQueue();
+    pendingQueue = built.queue;   // reused by startSession so the preloaded card matches
+    preloadCard(built.queue[0]);  // warm the first card's audio before "Start studying"
     var excluded = 0;
     var left = 0;
     var dirs = activeDirs();
@@ -289,6 +308,7 @@
 
   // ── Session state ──────────────────────────────────────────────────────────
   var queue = [];
+  var pendingQueue = null; // queue built by refreshStats, reused by startSession
   var sessionTotal = 0;
   var reviewed = 0;
   var revealed = false;
@@ -302,8 +322,7 @@
   }
 
   function startSession() {
-    var built = buildQueue();
-    queue = built.queue;
+    queue = pendingQueue ? pendingQueue.slice() : buildQueue().queue;
     sessionTotal = queue.length;
     reviewed = 0;
     if (!queue.length) return finishSession();
@@ -356,6 +375,9 @@
     // Autoplay the front side's audio (Thai for t2e, English for e2t).
     stopAudio();
     if (frontSrc) playAudio();
+
+    // Warm the next card's audio (both files) while this one is on screen.
+    preloadCard(queue[0]);
   }
 
   function suspendCurrent() {
