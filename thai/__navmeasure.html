@@ -1,0 +1,6 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="../style.css"></head>
+<body><script src="../nav.js"></script><main id="out" style="font-size:11px;padding:8px;word-break:break-all"></main>
+<script>setTimeout(function(){
+  function r(sel){var e=document.querySelector(sel); if(!e) return sel+'=NONE'; var b=e.getBoundingClientRect(); return sel+'[x'+Math.round(b.x)+' w'+Math.round(b.width)+' r'+Math.round(b.right)+']';}
+  document.getElementById('out').textContent = ['win'+window.innerWidth,'scrollW'+document.documentElement.scrollWidth,r('.nav-inner'),r('#navToggle'),r('.nav-spacer'),r('#thai-font-toggle'),r('#themeToggle')].join('  ');
+},500);</script></body></html>
