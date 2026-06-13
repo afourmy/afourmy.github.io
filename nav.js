@@ -96,19 +96,12 @@
     return /^https?:\/\//.test(href) ? href : prefix + href;
   }
 
-  // Thai-only "app" mode: a stripped nav (just the Thai links + the theme and
-  // Thai-font toggles), triggered by the ?app=1 query that learn-thai.html
-  // redirects into. Content pages are shared/unchanged; only the nav differs.
-  var thaiOnly = (location.search || "").indexOf("app=1") !== -1;
-
   function esc(s) {
     return s.replace(/&/g, "&amp;");
   }
 
   var html = '<nav><div class="nav-inner">';
-  if (!thaiOnly) {
-    html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
-  }
+  html += '<a href="' + prefix + 'index.html" class="nav-link nav-home">Home</a>';
 
   // Hamburger button (mobile only; CSS hides it on desktop).
   html += '<button class="nav-toggle" id="navToggle" aria-label="Toggle menu">';
@@ -119,61 +112,33 @@
   // the bar (hamburger stays left). Hidden on desktop (see CSS).
   html += '<div class="nav-spacer" aria-hidden="true"></div>';
 
-  // Thai font toggle (shown only on Thai pages). Placed OUTSIDE .nav-links so
-  // that on mobile it stays visible in the top bar instead of being hidden in
-  // the hamburger dropdown. On desktop the .lang-toggle rule still positions
-  // it absolutely at left: 1.5rem, unchanged from before.
-  html += '<div class="lang-toggle" id="thai-font-toggle" style="display:none">';
-  html += '<button id="thai-font-sarabun" data-font="sarabun" class="active">Sarabun</button>';
-  html += '<button id="thai-font-noto" data-font="noto">Noto Sans</button>';
+  // EN/FR language toggle: a top-bar sibling (shown only on math pages, hidden
+  // until then). On desktop it floats to the left gutter; on mobile it sits in
+  // the top bar right of the hamburger.
+  html += '<div class="lang-toggle" id="lang-toggle" style="display:none">';
+  html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
+  html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
   html += '</div>';
-
-  // EN/FR language toggle: a top-bar sibling like the font toggle (shown only on
-  // math pages, hidden until then, never in app mode). On desktop both float to
-  // the left gutter; on mobile both sit in the top bar right of the hamburger.
-  if (!thaiOnly) {
-    html += '<div class="lang-toggle" id="lang-toggle" style="display:none">';
-    html += '<button onclick="setLang(\'en\')" id="lang-en" class="active">EN</button>';
-    html += '<button onclick="setLang(\'fr\')" id="lang-fr">FR</button>';
-    html += '</div>';
-  }
 
   // Collapsible menu: the hamburger shows/hides these on mobile without
   // affecting the desktop layout.
   html += '<div class="nav-links" id="navLinks">';
 
-  if (thaiOnly) {
-    // Thai-only app: just the Thai section's links (the menu array above stays
-    // the single source of truth), each carrying ?app=1 so navigation stays in
-    // the app. No Home, no other sections, no EN/FR toggle.
-    var thaiSection = null;
-    for (var ts = 0; ts < menu.length; ts++) {
-      if (menu[ts].en === "Thailand") { thaiSection = menu[ts]; break; }
-    }
-    if (thaiSection) {
-      var tcol = thaiSection.columns[0];
-      for (var tk = 0; tk < tcol.length; tk++) {
-        var tlink = tcol[tk];
-        html += '<a href="' + withPrefix(tlink.href) + '?app=1" class="nav-link nav-link--app" data-path="' + esc(tlink.href) + '">' + esc(tlink.en) + '</a>';
+  for (var m = 0; m < menu.length; m++) {
+    var item = menu[m];
+    html += '<div class="nav-item">';
+    html += '<a href="#" class="nav-link" onclick="return false;">' + esc(item.en) + '</a>';
+    html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
+    for (var c = 0; c < item.columns.length; c++) {
+      html += '<ul class="submenu-col">';
+      var col = item.columns[c];
+      for (var i = 0; i < col.length; i++) {
+        var link = col[i];
+        html += '<li><a href="' + withPrefix(link.href) + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
       }
+      html += '</ul>';
     }
-  } else {
-    for (var m = 0; m < menu.length; m++) {
-      var item = menu[m];
-      html += '<div class="nav-item">';
-      html += '<a href="#" class="nav-link" onclick="return false;">' + esc(item.en) + '</a>';
-      html += '<div class="submenu' + (item.cssClass ? " " + item.cssClass : "") + '">';
-      for (var c = 0; c < item.columns.length; c++) {
-        html += '<ul class="submenu-col">';
-        var col = item.columns[c];
-        for (var i = 0; i < col.length; i++) {
-          var link = col[i];
-          html += '<li><a href="' + withPrefix(link.href) + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
-        }
-        html += '</ul>';
-      }
-      html += '</div></div>';
-    }
+    html += '</div></div>';
   }
 
   html += '</div>'; // close .nav-links
@@ -252,12 +217,6 @@
       }
       if (topLink) topLink.classList.toggle("nav-active", match);
     }
-    // Thai-only app: flat links carry their own data-path.
-    var appLinks = nav.querySelectorAll("a.nav-link--app[data-path]");
-    for (var a2 = 0; a2 < appLinks.length; a2++) {
-      var ap = appLinks[a2].getAttribute("data-path");
-      appLinks[a2].classList.toggle("nav-active", !!(ap && path.endsWith(ap)));
-    }
   };
   window.setActiveNav();
 
@@ -272,35 +231,6 @@
     langToggleEl.style.display = path.indexOf("/math/") !== -1 ? "" : "none";
   };
   window.updateLangToggle();
-
-  // Thai font toggle: shown only on Thai pages, persisted in localStorage.
-  var thaiFontToggleEl = nav.querySelector("#thai-font-toggle");
-  window.applyThaiFont = function (font) {
-    document.body.setAttribute("data-thai-font", font);
-    if (thaiFontToggleEl) {
-      thaiFontToggleEl.querySelectorAll("button").forEach(function (b) {
-        b.classList.toggle("active", b.getAttribute("data-font") === font);
-      });
-    }
-    try { localStorage.setItem("thaiFont", font); } catch (e) {}
-  };
-  window.updateThaiFont = function () {
-    if (!thaiFontToggleEl) return;
-    var path = strip(window.location.pathname);
-    thaiFontToggleEl.style.display = path.indexOf("/thai/") !== -1 ? "" : "none";
-  };
-  if (thaiFontToggleEl) {
-    thaiFontToggleEl.addEventListener("click", function (e) {
-      var btn = e.target.closest("button[data-font]");
-      if (btn) window.applyThaiFont(btn.getAttribute("data-font"));
-    });
-  }
-  try {
-    window.applyThaiFont(localStorage.getItem("thaiFont") || "sarabun");
-  } catch (e) {
-    window.applyThaiFont("sarabun");
-  }
-  window.updateThaiFont();
 
   // Wire thm-labels as proof toggles (event delegation – works with SPA)
   document.addEventListener("click", function (e) {
