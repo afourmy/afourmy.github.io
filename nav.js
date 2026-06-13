@@ -54,9 +54,11 @@
       [
         // The Thai app lives in its own repo/site (afourmy.github.io/thailand).
         // Absolute URLs so the SPA leaves the main site and loads it directly.
-        { href: "https://afourmy.github.io/thailand/index.html", en: "Vocabulary" },
-        { href: "https://afourmy.github.io/thailand/etymology.html", en: "Etymology" },
-        { href: "https://afourmy.github.io/thailand/flashcards.html", en: "Flashcards" },
+        // ?full=1 tells that site to show the integrated full menu (its default,
+        // for direct visits, is the stripped thai-only app view).
+        { href: "https://afourmy.github.io/thailand/index.html?full=1", en: "Vocabulary" },
+        { href: "https://afourmy.github.io/thailand/etymology.html?full=1", en: "Etymology" },
+        { href: "https://afourmy.github.io/thailand/flashcards.html?full=1", en: "Flashcards" },
       ]
     ]},
     { en: "Projects", columns: [
