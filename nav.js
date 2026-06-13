@@ -52,9 +52,11 @@
     ]},
     { en: "Thailand", columns: [
       [
-        { href: "thai/index.html", en: "Vocabulary" },
-        { href: "thai/etymology.html", en: "Etymology" },
-        { href: "thai/flashcards.html", en: "Flashcards" },
+        // The Thai app lives in its own repo/site (afourmy.github.io/thailand).
+        // Absolute URLs so the SPA leaves the main site and loads it directly.
+        { href: "https://afourmy.github.io/thailand/index.html", en: "Vocabulary" },
+        { href: "https://afourmy.github.io/thailand/etymology.html", en: "Etymology" },
+        { href: "https://afourmy.github.io/thailand/flashcards.html", en: "Flashcards" },
       ]
     ]},
     { en: "Projects", columns: [
@@ -84,6 +86,12 @@
     for (var i = 0; i < parts.length - 1; i++) {
       if (parts[i] === "..") prefix += "../";
     }
+  }
+
+  // Absolute (cross-site) hrefs are used as-is; only local hrefs get the
+  // root-relative prefix.
+  function withPrefix(href) {
+    return /^https?:\/\//.test(href) ? href : prefix + href;
   }
 
   // Thai-only "app" mode: a stripped nav (just the Thai links + the theme and
@@ -144,7 +152,7 @@
       var tcol = thaiSection.columns[0];
       for (var tk = 0; tk < tcol.length; tk++) {
         var tlink = tcol[tk];
-        html += '<a href="' + prefix + tlink.href + '?app=1" class="nav-link nav-link--app" data-path="' + esc(tlink.href) + '">' + esc(tlink.en) + '</a>';
+        html += '<a href="' + withPrefix(tlink.href) + '?app=1" class="nav-link nav-link--app" data-path="' + esc(tlink.href) + '">' + esc(tlink.en) + '</a>';
       }
     }
   } else {
@@ -158,7 +166,7 @@
         var col = item.columns[c];
         for (var i = 0; i < col.length; i++) {
           var link = col[i];
-          html += '<li><a href="' + prefix + link.href + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
+          html += '<li><a href="' + withPrefix(link.href) + '" data-path="' + esc(link.href) + '">' + esc(link.en) + '</a></li>';
         }
         html += '</ul>';
       }
