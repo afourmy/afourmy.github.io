@@ -456,8 +456,9 @@ details.tsp-code > p {
 }
 
 .speed-track {
+  position: relative;
   flex: 1 1 auto;
-  height: 0.5rem;
+  height: 0.6rem;
   background: var(--surface-muted);
   border: 1px solid var(--border);
   border-radius: 999px;
@@ -470,10 +471,30 @@ details.tsp-code > p {
   border-radius: 999px;
 }
 
-.speed-bar--c    { width: 6%;   background: #2e9e5b; }
-.speed-bar--fast { width: 6%;   background: #2e9e5b; }
-.speed-bar--mojo { width: 28%;  background: #c98a2b; }
-.speed-bar--py   { width: 100%; background: #c0593c; }
+/* Linear scale (1x = 10% of the track). C and Fast Mojo are ~equal at 1x;
+   Mojo is 4.1x. Python (230x) overflows, so its bar is clipped and given a
+   fade + chevrons to signal it continues far beyond the chart. */
+.speed-bar--c    { width: 10%; background: #2e9e5b; }
+.speed-bar--fast { width: 10%; background: #2e9e5b; }
+.speed-bar--mojo { width: 41%; background: #c98a2b; }
+.speed-bar--py   {
+  width: 100%;
+  background: linear-gradient(90deg, #c0593c 0%, #c0593c 78%, rgba(192, 89, 60, 0.12) 100%);
+}
+
+/* "Continues beyond" indicator for a clipped bar. */
+.speed-track--clip::after {
+  content: "\203A\203A\203A";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translateY(-50%);
+  font-size: 0.6rem;
+  line-height: 1;
+  letter-spacing: 1px;
+  font-weight: 700;
+  color: #c0593c;
+}
 
 .speed-note {
   margin: 0.95rem 0 0;
