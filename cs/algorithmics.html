@@ -49,13 +49,11 @@
           <div class="code-tabs">
             <input type="radio" name="rev-impl" id="rev-py" class="code-tabs-radio" checked>
             <input type="radio" name="rev-impl" id="rev-mojo" class="code-tabs-radio">
-            <input type="radio" name="rev-impl" id="rev-fast" class="code-tabs-radio">
             <input type="radio" name="rev-impl" id="rev-c" class="code-tabs-radio">
             <input type="radio" name="rev-impl" id="rev-speed" class="code-tabs-radio">
             <div class="code-tabs-bar">
               <label for="rev-py">Python</label>
               <label for="rev-mojo">Mojo</label>
-              <label for="rev-fast">Fast Mojo</label>
               <label for="rev-c">C</label>
               <label for="rev-speed">Speed</label>
             </div>
@@ -73,17 +71,6 @@
         var tmp = array[left]
         array[left] = array[right]
         array[right] = tmp
-        left += 1
-        right -= 1</code></pre></div>
-              <div class="code-tabs-panel" id="panel-fast"><pre><code class="language-python">def reverse_in_place(mut array: List[Int64]):
-    var n = len(array)
-    var p = array.unsafe_ptr()   # raw pointer: no bounds checks
-    var left = 0
-    var right = n - 1
-    while left &lt; right:
-        var tmp = p[left]
-        p[left] = p[right]
-        p[right] = tmp
         left += 1
         right -= 1</code></pre></div>
               <div class="code-tabs-panel" id="panel-c"><pre><code class="language-c">void reverse_in_place(int64_t *array, int64_t n) {
@@ -109,11 +96,6 @@
                     <span class="speed-rel"><b>1.0&times;</b><span class="speed-track"><span class="speed-bar speed-bar--c"></span></span></span>
                   </div>
                   <div class="speed-row">
-                    <span class="speed-name">Fast Mojo</span>
-                    <span class="speed-time">8.6 ms</span>
-                    <span class="speed-rel"><b>1.0&times;</b><span class="speed-track"><span class="speed-bar speed-bar--fast"></span></span></span>
-                  </div>
-                  <div class="speed-row">
                     <span class="speed-name">Mojo</span>
                     <span class="speed-time">36 ms</span>
                     <span class="speed-rel"><b>4.1&times;</b><span class="speed-track"><span class="speed-bar speed-bar--mojo"></span></span></span>
@@ -124,7 +106,7 @@
                     <span class="speed-rel"><b>230&times;</b><span class="speed-track speed-track--clip"><span class="speed-bar speed-bar--py"></span></span></span>
                   </div>
                 </div>
-                <p class="speed-note">Reversing 50 million 64-bit integers. Fast Mojo drops bounds checks so it vectorizes to C speed; the safe Mojo version keeps them.</p>
+                <p class="speed-note">Reversing 50 million 64-bit integers. The Mojo above keeps bounds checks for safety; drop them with a raw <code>unsafe_ptr()</code> loop and Mojo vectorizes to C speed (~8.6 ms).</p>
               </div>
             </div>
           </div>

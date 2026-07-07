@@ -365,7 +365,6 @@ details.tsp-code > p {
 
 #rev-py:checked ~ .code-tabs-bar label[for="rev-py"],
 #rev-mojo:checked ~ .code-tabs-bar label[for="rev-mojo"],
-#rev-fast:checked ~ .code-tabs-bar label[for="rev-fast"],
 #rev-c:checked ~ .code-tabs-bar label[for="rev-c"],
 #rev-speed:checked ~ .code-tabs-bar label[for="rev-speed"] {
   color: var(--accent-strong);
@@ -379,7 +378,6 @@ details.tsp-code > p {
 
 #rev-py:focus-visible ~ .code-tabs-bar label[for="rev-py"],
 #rev-mojo:focus-visible ~ .code-tabs-bar label[for="rev-mojo"],
-#rev-fast:focus-visible ~ .code-tabs-bar label[for="rev-fast"],
 #rev-c:focus-visible ~ .code-tabs-bar label[for="rev-c"],
 #rev-speed:focus-visible ~ .code-tabs-bar label[for="rev-speed"] {
   outline: 2px solid var(--accent);
@@ -398,7 +396,6 @@ details.tsp-code > p {
 
 #rev-py:checked ~ .code-tabs-body #panel-py,
 #rev-mojo:checked ~ .code-tabs-body #panel-mojo,
-#rev-fast:checked ~ .code-tabs-body #panel-fast,
 #rev-c:checked ~ .code-tabs-body #panel-c,
 #rev-speed:checked ~ .code-tabs-body #panel-speed {
   display: block;
@@ -471,11 +468,10 @@ details.tsp-code > p {
   border-radius: 999px;
 }
 
-/* Linear scale (1x = 10% of the track). C and Fast Mojo are ~equal at 1x;
-   Mojo is 4.1x. Python (230x) overflows, so its bar is clipped and given a
-   fade + chevrons to signal it continues far beyond the chart. */
+/* Linear scale (1x = 10% of the track). C is 1x; Mojo is 4.1x. Python (230x)
+   overflows, so its bar is clipped and given a fade + chevrons to signal it
+   continues far beyond the chart. */
 .speed-bar--c    { width: 10%; background: #2e9e5b; }
-.speed-bar--fast { width: 10%; background: #2e9e5b; }
 .speed-bar--mojo { width: 41%; background: #c98a2b; }
 .speed-bar--py   {
   width: 100%;
