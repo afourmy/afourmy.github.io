@@ -137,9 +137,9 @@
     return sum(map(sum, matrix))</code></pre></div>
               <div class="code-tabs-panel" id="co-panel-mojo"><pre><code class="language-python">def count_ones(matrix: List[List[Int]]) -> Int:
     var total = 0
-    for i in range(len(matrix)):
-        for j in range(len(matrix[0])):
-            total += matrix[i][j]
+    for row in matrix:
+        for x in row:
+            total += x
     return total</code></pre></div>
               <div class="code-tabs-panel" id="co-panel-c"><pre><code class="language-c">int64_t count_ones(int64_t **matrix, int64_t rows, int64_t cols) {
     int64_t total = 0;
@@ -160,21 +160,21 @@
                   </div>
                   <div class="speed-row">
                     <span class="speed-name">C</span>
-                    <span class="speed-time">2.0 ms</span>
+                    <span class="speed-time">1.9 ms</span>
                     <span class="speed-rel"><b>1.0&times;</b><span class="speed-track"><span class="speed-bar speed-bar--c"></span></span></span>
                   </div>
                   <div class="speed-row">
                     <span class="speed-name">Mojo</span>
-                    <span class="speed-time">19 ms</span>
-                    <span class="speed-rel"><b>9.5&times;</b><span class="speed-track"><span class="speed-bar speed-bar--co-mojo"></span></span></span>
+                    <span class="speed-time">3.7 ms</span>
+                    <span class="speed-rel"><b>2.0&times;</b><span class="speed-track"><span class="speed-bar speed-bar--co-mojo"></span></span></span>
                   </div>
                   <div class="speed-row">
                     <span class="speed-name">Python</span>
                     <span class="speed-time">45 ms</span>
-                    <span class="speed-rel"><b>22&times;</b><span class="speed-track speed-track--clip"><span class="speed-bar speed-bar--py"></span></span></span>
+                    <span class="speed-rel"><b>24&times;</b><span class="speed-track speed-track--clip"><span class="speed-bar speed-bar--py"></span></span></span>
                   </div>
                 </div>
-                <p class="speed-note">Counting the 1s in a 4000&times;4000 matrix (16 million cells). Python's one-liner stays within ~22&times; because <code>sum</code> runs in C, not the interpreter. The Mojo above keeps bounds checks; dropping them with a raw <code>unsafe_ptr()</code> loop gets it to ~3.7 ms, but counting is a reduction, so matching C's auto-vectorization the rest of the way needs hand-written SIMD.</p>
+                <p class="speed-note">Counting the 1s in a 4000&times;4000 matrix (16 million cells). Python stays within ~24&times; because its built-in <code>sum</code> runs in C, not the interpreter. In Mojo, iterating rows and cells directly (<code>for row in matrix</code> / <code>for x in row</code>) skips the per-element bounds checks that <code>matrix[i][j]</code> indexing pays, so this safe, idiomatic version already reaches ~2&times; C. The last 2&times; is because counting is a reduction that C auto-vectorizes; matching it fully would need hand-written SIMD.</p>
               </div>
             </div>
           </div>
