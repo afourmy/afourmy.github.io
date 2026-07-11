@@ -136,7 +136,7 @@
     }
 
     function draw() {
-      var plotLeft = 46, plotTop = 16, plotBottom = 212;
+      var plotLeft = 58, plotTop = 16, plotBottom = 212;
       var plotRight = viewWidth - 16;
       var plotW = Math.max(10, plotRight - plotLeft);
       var plotH = plotBottom - plotTop;
@@ -165,6 +165,16 @@
         ctx.moveTo(plotLeft, y); ctx.lineTo(plotRight, y); ctx.stroke();
         ctx.setLineDash([]);
       });
+
+      // rotated y-axis label
+      ctx.save();
+      ctx.translate(15, plotTop + plotH / 2);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillStyle = COLOR_TEXT;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('skew (G − C)', 0, 0);
+      ctx.restore();
 
       // genome strip, coloured by base, with 5' / 3' ends
       for (var idx = 0; idx < genomeLength; idx++) {
@@ -491,6 +501,14 @@
       var counts = greedyCounts(motifsFrom(shownStarts), k);
       var numRows = shownStarts.length;   // m: rows folded into the profile
 
+      // During a scan the window under the cursor multiplies one profile cell per
+      // column; mulBase[col] is the base whose cell is multiplied, so we can outline it.
+      var mulBase = null;
+      if (started && !done && phase === 'scan' && scanRow < GREEDY_T) {
+        mulBase = [];
+        for (var mc = 0; mc < k; mc++) { mulBase[mc] = dna[scanRow].charAt(scanPos + mc); }
+      }
+
       function headerRow() {
         var h = '<tr><th></th>';
         for (var col = 0; col < k; col++) { h += '<th>' + (col + 1) + '</th>'; }
@@ -529,7 +547,9 @@
         profHtml += '<tr><th>' + GREEDY_BASES[pb] + '</th>';
         for (var pc = 0; pc < k; pc++) {
           var prob = (counts[GREEDY_BASES[pb]][pc] + 1) / (numRows + 4);
-          profHtml += '<td class="' + (isColMax(GREEDY_BASES[pb], pc) ? 'max' : '') + '">' +
+          var pcls = isColMax(GREEDY_BASES[pb], pc) ? 'max' : '';
+          if (mulBase && mulBase[pc] === GREEDY_BASES[pb]) { pcls += (pcls ? ' ' : '') + 'mul'; }
+          profHtml += '<td class="' + pcls + '">' +
             (started ? prob.toFixed(2) : '') + '</td>';
         }
         profHtml += '</tr>';

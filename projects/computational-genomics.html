@@ -48,10 +48,11 @@
     </p>
 
     <p>
-      As replication proceeds, one template strand spends a long time single-stranded, and
-      single-stranded cytosine (C) slowly mutates into thymine (T). That strand gradually loses its
-      C's, so reading along it G ends up outnumbering C. The imbalance points in one direction on the
-      way into ori and the other on the way out, which is what lets us find it.
+      As replication proceeds, one of the two template strands is left single-stranded for much
+      longer than the other. Cytosine (C) is chemically fragile in that exposed state: it slowly
+      deaminates into thymine (T), so this strand steadily loses its C's while its G count stays put.
+      Reading along it, G therefore ends up outnumbering C. That imbalance runs one way on the stretch
+      leading into ori and the other way on the stretch leading out, which is what lets us pinpoint it.
     </p>
 
     <p>
@@ -89,17 +90,19 @@
         </select></label>
       </div>
       <div class="skew-readout">
-        <span class="skew-legend"><span class="sw g"></span> G (+1)<span class="sw c"></span> C (&minus;1)<span class="sw at"></span> A/T (0)</span>
-        &nbsp;|&nbsp; Position: <span class="skew-pos">0 / 600</span>
-        &nbsp; Skew: <span class="skew-skew">0</span>
-        &nbsp; Predicted ori: <span class="skew-ori">0</span>
+        <div class="skew-stats">
+          <div class="skew-stat"><span class="skew-stat-label">Position</span><span class="skew-stat-val skew-pos">0 / 600</span></div>
+          <div class="skew-stat"><span class="skew-stat-label">Skew (G &minus; C)</span><span class="skew-stat-val skew-skew">0</span></div>
+          <div class="skew-stat"><span class="skew-stat-label">Predicted ori</span><span class="skew-stat-val skew-ori">0</span></div>
+        </div>
+        <div class="skew-legend"><span class="sw g"></span> G (+1)<span class="sw c"></span> C (&minus;1)<span class="sw at"></span> A/T (0)</div>
       </div>
     </div>
 
     <p>
       On a real genome the curve is noisier but shows the same overall valley, and its minimum lands
-      very close to the true origin. This single $O(n)$ scan is enough to narrow ori down to a small
-      region, with no k-mer counting required.
+      very close to the true origin. A single $O(n)$ scan is enough to narrow ori down to a small
+      region, without any alignment or pattern matching, just one running count.
     </p>
 
     <h2>Greedy Motif Search</h2>
@@ -125,8 +128,10 @@
     <ol>
       <li>Take a $k$-mer of the first string as the seed; it becomes the first row of the candidate.</li>
       <li>Count each base in each column of the rows chosen so far, then turn the counts into a
-        <strong>profile</strong> of probabilities: an entry is $(\text{count}+1)/(m+4)$ once $m$ rows
-        are chosen, the added pseudocount keeping any letter from reaching probability zero.</li>
+        <strong>profile</strong> of probabilities. With $m$ rows chosen, a column entry is
+        $(\text{count}+1)/(m+4)$ rather than the plain $\text{count}/m$: the extra $+1$ in every cell,
+        a <strong>pseudocount</strong>, stops a base that happens to be absent from a column from
+        forcing the whole product to zero and discarding an otherwise strong candidate.</li>
       <li>Move to the next string and score every $k$-mer by multiplying its profile entries, one per
         column; add the $k$-mer with the largest product.</li>
       <li>Repeat steps 2 and 3 down the remaining strings to complete the candidate, then score it.</li>
@@ -139,6 +144,12 @@
 
     <div class="greedy-viz">
       <div class="greedy-strings"></div>
+      <div class="greedy-legend">
+        <span class="greedy-key"><span class="gk seed"></span> seed k-mer</span>
+        <span class="greedy-key"><span class="gk kmer"></span> chosen row</span>
+        <span class="greedy-key"><span class="gk scan"></span> scan window</span>
+        <span class="greedy-key"><span class="gk scanbest"></span> best window this scan</span>
+      </div>
       <div class="greedy-panels">
         <figure class="greedy-matrix">
           <figcaption>Counts</figcaption>
