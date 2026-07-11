@@ -43,13 +43,6 @@
         { href: "cs/graph-theory.html", en: "Graph Theory" },
       ]
     ]},
-    { en: "Bioinformatics", columns: [
-      [
-        { href: "bio/genomics.html", en: "Genomics" },
-        { href: "bio/transcriptomics.html", en: "Transcriptomics" },
-        { href: "bio/proteomics.html", en: "Proteomics" },
-      ]
-    ]},
     { en: "Thailand", columns: [
       [
         // The Thai app lives in its own repo/site (afourmy.github.io/thailand).
