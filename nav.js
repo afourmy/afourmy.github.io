@@ -52,6 +52,7 @@
         { href: "https://afourmy.github.io/thailand/index.html?full=1", en: "Vocabulary" },
         { href: "https://afourmy.github.io/thailand/etymology.html?full=1", en: "Etymology" },
         { href: "https://afourmy.github.io/thailand/flashcards.html?full=1", en: "Flashcards" },
+        { href: "https://afourmy.github.io/thailand/culture.html?full=1", en: "Culture" },
       ]
     ]},
     { en: "Projects", columns: [
