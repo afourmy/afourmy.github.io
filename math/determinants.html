@@ -247,6 +247,22 @@
     </details>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Change of basis).</span> Let $\mathcal{B},\mathcal{B}'$ be two bases of $E$. For any family $(x_1,\ldots,x_n)$:
+      \[\det_{\mathcal{B}}(x_1,\ldots,x_n)=\det_{\mathcal{B}}(\mathcal{B}')\cdot\det_{\mathcal{B}'}(x_1,\ldots,x_n)\]</p>
+      <p class="fr"><span class="thm-label">Proposition (Changement de base).</span> Soient $\mathcal{B},\mathcal{B}'$ deux bases de $E$. Pour toute famille $(x_1,\ldots,x_n)$ :
+      \[\det_{\mathcal{B}}(x_1,\ldots,x_n)=\det_{\mathcal{B}}(\mathcal{B}')\cdot\det_{\mathcal{B}'}(x_1,\ldots,x_n)\]</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By dimension $1$, $\det_{\mathcal{B}}=c\cdot\det_{\mathcal{B}'}$. Evaluating at $\mathcal{B}'$ gives $c=\det_{\mathcal{B}}(\mathcal{B}')$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par la dimension $1$, $\det_{\mathcal{B}}=c\cdot\det_{\mathcal{B}'}$. En évaluant en $\mathcal{B}'$ on obtient $c=\det_{\mathcal{B}}(\mathcal{B}')$.
+    </details>
+
+    <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Characterization of bases).</span> $(x_1,\ldots,x_n)$ is a basis of $E$ if and only if $\det_{(e_i)}(x_1,\ldots,x_n)\neq 0$.</p>
       <p class="fr"><span class="thm-label">Proposition (Caractérisation des bases).</span> $(x_1,\ldots,x_n)$ est une base de $E$ si et seulement si $\det_{(e_i)}(x_1,\ldots,x_n)\neq 0$.</p>
     </div>
@@ -396,13 +412,22 @@
     </div>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> $\det(f\circ g)=\det f\cdot\det g$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> $\det(f\circ g)=\det f\cdot\det g$.</p>
+      <p class="en"><span class="thm-label">Proposition (Properties).</span> $\det\mathrm{id}=1$, $\det(f\circ g)=\det f\cdot\det g$, and $\det(\lambda f)=\lambda^n\det f$. If $f$ is an automorphism, $\det(f^{-1})=(\det f)^{-1}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés).</span> $\det\mathrm{id}=1$, $\det(f\circ g)=\det f\cdot\det g$, et $\det(\lambda f)=\lambda^n\det f$. Si $f$ est un automorphisme, $\det(f^{-1})=(\det f)^{-1}$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\det\mathrm{id}=\det I_n=1$; $\det(f\circ g)$ and $\det(\lambda f)$ follow from $\det(AB)=\det A\det B$ and from scaling the $n$ columns of the matrix by $\lambda$. If $f\circ f^{-1}=\mathrm{id}$, then $\det f\cdot\det(f^{-1})=1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\det\mathrm{id}=\det I_n=1$ ; $\det(f\circ g)$ et $\det(\lambda f)$ découlent de $\det(AB)=\det A\det B$ et de la multiplication des $n$ colonnes de la matrice par $\lambda$. Si $f\circ f^{-1}=\mathrm{id}$, alors $\det f\cdot\det(f^{-1})=1$.
+    </details>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Cofactor).</span> Let $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. The <em>cofactor</em> of $a_{ij}$ is $A_{ij}=(-1)^{i+j}\det M_{ij}$, where $M_{ij}\in\mathcal{M}_{n-1}(\mathbb{K})$ is obtained by removing row $i$ and column $j$ from $A$.</p>
-      <p class="fr"><span class="thm-label">Définition (Cofacteur).</span> Soit $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. Le <em>cofacteur</em> de $a_{ij}$ est $A_{ij}=(-1)^{i+j}\det M_{ij}$, où $M_{ij}\in\mathcal{M}_{n-1}(\mathbb{K})$ est obtenue en supprimant la ligne $i$ et la colonne $j$ de $A$.</p>
+      <p class="en"><span class="thm-label">Definition (Cofactor).</span> Let $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. The <em>minor</em> $M_{ij}\in\mathcal{M}_{n-1}(\mathbb{K})$ is obtained by removing row $i$ and column $j$ from $A$. The <em>cofactor</em> of $a_{ij}$ is $A_{ij}=(-1)^{i+j}\det M_{ij}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Cofacteur).</span> Soit $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$. Le <em>mineur</em> $M_{ij}\in\mathcal{M}_{n-1}(\mathbb{K})$ est obtenu en supprimant la ligne $i$ et la colonne $j$ de $A$. Le <em>cofacteur</em> de $a_{ij}$ est $A_{ij}=(-1)^{i+j}\det M_{ij}$.</p>
     </div>
 
     <div class="thm-block theorem">
