@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asymptotic Comparison</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Comparison of sequences</h3>
+    <h3 class="fr">Comparaison des suites</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Domination, negligibility, equivalence).</span> Let $(u_n)$ and $(v_n)$ be two sequences with $v_n \neq 0$ from some rank onward. We say that:</p>
+      <ul class="en">
+        <li>$(u_n)$ is <em>dominated</em> by $(v_n)$, written $u_n = O(v_n)$, if the sequence $\left(\frac{u_n}{v_n}\right)$ is bounded;</li>
+        <li>$(u_n)$ is <em>negligible</em> compared to $(v_n)$, written $u_n = o(v_n)$, if $\frac{u_n}{v_n} \to 0$;</li>
+        <li>$(u_n)$ is <em>equivalent</em> to $(v_n)$, written $u_n \sim v_n$, if $\frac{u_n}{v_n} \to 1$.</li>
+      </ul>
+      <p class="en">$u_n = o(v_n)$ implies $u_n = O(v_n)$ (a convergent sequence is bounded), and $u_n \sim v_n$ implies $u_n = O(v_n)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Domination, négligeabilité, équivalence).</span> Soient $(u_n)$ et $(v_n)$ deux suites avec $v_n \neq 0$ à partir d'un certain rang. On dit que :</p>
+      <ul class="fr">
+        <li>$(u_n)$ est <em>dominée</em> par $(v_n)$, noté $u_n = O(v_n)$, si la suite $\left(\frac{u_n}{v_n}\right)$ est bornée ;</li>
+        <li>$(u_n)$ est <em>négligeable</em> devant $(v_n)$, noté $u_n = o(v_n)$, si $\frac{u_n}{v_n} \to 0$ ;</li>
+        <li>$(u_n)$ est <em>équivalente</em> à $(v_n)$, noté $u_n \sim v_n$, si $\frac{u_n}{v_n} \to 1$.</li>
+      </ul>
+      <p class="fr">$u_n = o(v_n)$ implique $u_n = O(v_n)$ (une suite convergente est bornée), et $u_n \sim v_n$ implique $u_n = O(v_n)$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Characterization of equivalence).</span> $u_n \sim v_n$ if and only if $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation de l'équivalence).</span> $u_n \sim v_n$ si et seulement si $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\frac{u_n - v_n}{v_n} = \frac{u_n}{v_n} - 1$, and this tends to $0$ if and only if $\frac{u_n}{v_n} \to 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\frac{u_n - v_n}{v_n} = \frac{u_n}{v_n} - 1$, et cette quantité tend vers $0$ si et seulement si $\frac{u_n}{v_n} \to 1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of equivalence).</span> The relation $\sim$ is an equivalence relation. If $u_n \sim v_n$, then $u_n$ and $v_n$ have the same sign from some rank onward, and if $v_n \to \ell$ (finite or infinite) then $u_n \to \ell$. Conversely, if $u_n \to \ell \in \mathbb{R}^*$, then $u_n \sim \ell$ (the constant sequence). Beware: a sequence tending to $0$ is not equivalent to $0$; equivalence to a constant only makes sense for a nonzero limit.</p>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de l'équivalence).</span> La relation $\sim$ est une relation d'équivalence. Si $u_n \sim v_n$, alors $u_n$ et $v_n$ sont de même signe à partir d'un certain rang, et si $v_n \to \ell$ (fini ou infini) alors $u_n \to \ell$. Réciproquement, si $u_n \to \ell \in \mathbb{R}^*$, alors $u_n \sim \ell$ (la suite constante). Attention : une suite tendant vers $0$ n'est pas équivalente à $0$ ; l'équivalence à une constante n'a de sens que pour une limite non nulle.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Equivalence relation:</em> $\frac{u_n}{u_n} \to 1$ (reflexivity); if $\frac{u_n}{v_n} \to 1$ then $\frac{v_n}{u_n} \to 1$ by the limit laws, since the quotient is eventually nonzero (symmetry); transitivity by product of limits. <em>Same sign:</em> $\frac{u_n}{v_n} \to 1$ so $\frac{u_n}{v_n} &gt; 0$ from some rank onward. <em>Same limit:</em> $u_n = \frac{u_n}{v_n} \cdot v_n \to 1 \cdot \ell$ by the limit laws (also valid for $\ell = \pm\infty$). <em>Converse:</em> $\frac{u_n}{\ell} \to \frac{\ell}{\ell} = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Relation d'équivalence :</em> $\frac{u_n}{u_n} \to 1$ (réflexivité) ; si $\frac{u_n}{v_n} \to 1$ alors $\frac{v_n}{u_n} \to 1$ par opérations sur les limites, le quotient étant non nul à partir d'un certain rang (symétrie) ; transitivité par produit de limites. <em>Même signe :</em> $\frac{u_n}{v_n} \to 1$ donc $\frac{u_n}{v_n} &gt; 0$ à partir d'un certain rang. <em>Même limite :</em> $u_n = \frac{u_n}{v_n} \cdot v_n \to 1 \cdot \ell$ par opérations sur les limites (aussi valable pour $\ell = \pm\infty$). <em>Réciproque :</em> $\frac{u_n}{\ell} \to \frac{\ell}{\ell} = 1$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations).</span> Suppose $u_n \sim u'_n$ and $v_n \sim v'_n$. Then $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, and $|u_n|^\alpha \sim |u'_n|^\alpha$ for $\alpha \in \mathbb{R}$. Moreover, if $u_n \sim v_n$ and $v_n = o(w_n)$, then $u_n = o(w_n)$; and $u_n = o(w_n)$, $v_n = o(w_n)$ imply $u_n + v_n = o(w_n)$. <em>Warning:</em> equivalents can be neither added nor composed: $n^2 + n \sim n^2$ and $-n^2 \sim -n^2 + 1$, but the sums $n$ and $1$ are not equivalent; likewise $n + 1 \sim n$ but $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations).</span> Supposons $u_n \sim u'_n$ et $v_n \sim v'_n$. Alors $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, et $|u_n|^\alpha \sim |u'_n|^\alpha$ pour $\alpha \in \mathbb{R}$. De plus, si $u_n \sim v_n$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$ ; et $u_n = o(w_n)$, $v_n = o(w_n)$ impliquent $u_n + v_n = o(w_n)$. <em>Attention :</em> les équivalents ne s'additionnent pas et ne se composent pas : $n^2 + n \sim n^2$ et $-n^2 \sim -n^2 + 1$, mais les sommes $n$ et $1$ ne sont pas équivalentes ; de même $n + 1 \sim n$ mais $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\frac{u_n v_n}{u'_n v'_n} = \frac{u_n}{u'_n}\cdot\frac{v_n}{v'_n} \to 1$, and similarly for quotients. For powers, $\left(\frac{|u_n|}{|u'_n|}\right)^{\!\alpha} = e^{\alpha \ln(|u_n|/|u'_n|)} \to e^0 = 1$ by continuity of $\ln$ and $\exp$. For the mixed rules: $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 1 \cdot 0 = 0$, and $\frac{u_n + v_n}{w_n} = \frac{u_n}{w_n} + \frac{v_n}{w_n} \to 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\frac{u_n v_n}{u'_n v'_n} = \frac{u_n}{u'_n}\cdot\frac{v_n}{v'_n} \to 1$, et de même pour les quotients. Pour les puissances, $\left(\frac{|u_n|}{|u'_n|}\right)^{\!\alpha} = e^{\alpha \ln(|u_n|/|u'_n|)} \to e^0 = 1$ par continuité de $\ln$ et $\exp$. Pour les règles mixtes : $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 1 \cdot 0 = 0$, et $\frac{u_n + v_n}{w_n} = \frac{u_n}{w_n} + \frac{v_n}{w_n} \to 0$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Standard comparisons).</span> For $\alpha &gt; 0$ and $q &gt; 1$: $$\ln n = o(n^\alpha), \qquad n^\alpha = o(q^n), \qquad q^n = o(n!), \qquad n! = o(n^n).$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Croissances comparées).</span> Pour $\alpha &gt; 0$ et $q &gt; 1$ : $$\ln n = o(n^\alpha), \qquad n^\alpha = o(q^n), \qquad q^n = o(n!), \qquad n! = o(n^n).$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$\ln n = o(n^\alpha)$:</em> first, $\ln t \le t - 1$ for $t &gt; 0$: the function $t \mapsto t - 1 - \ln t$ has derivative $1 - \frac{1}{t}$, so it is decreasing on $]0,1]$ and increasing on $[1,+\infty[$, with minimum $0$ at $t = 1$. Hence $0 \le \ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}\,n^{\alpha/2}$, so $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}\,n^{-\alpha/2} \to 0$ (squeeze theorem).
+      <br>
+      <em>$n^\alpha = o(q^n)$:</em> set $u_n = \frac{n^\alpha}{q^n} &gt; 0$; then $\frac{u_{n+1}}{u_n} = \frac{(1+1/n)^\alpha}{q} \to \frac{1}{q} &lt; 1$ (continuity of $t \mapsto t^\alpha$). Choose $k$ with $\frac{1}{q} &lt; k &lt; 1$: from some rank $N$ onward, $u_{n+1} \le k\,u_n$, so $0 \le u_n \le k^{n-N} u_N \to 0$.
+      <br>
+      <em>$q^n = o(n!)$:</em> same argument with $u_n = \frac{q^n}{n!}$: $\frac{u_{n+1}}{u_n} = \frac{q}{n+1} \to 0$.
+      <br>
+      <em>$n! = o(n^n)$:</em> $0 \le \frac{n!}{n^n} = \prod_{k=1}^{n} \frac{k}{n} \le \frac{1}{n} \to 0$ (all factors are $\le 1$ and the first is $\frac{1}{n}$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>$\ln n = o(n^\alpha)$ :</em> d'abord, $\ln t \le t - 1$ pour $t &gt; 0$ : la fonction $t \mapsto t - 1 - \ln t$ a pour dérivée $1 - \frac{1}{t}$, donc elle est décroissante sur $]0,1]$ et croissante sur $[1,+\infty[$, de minimum $0$ en $t = 1$. Donc $0 \le \ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}\,n^{\alpha/2}$, donc $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}\,n^{-\alpha/2} \to 0$ (théorème des gendarmes).
+      <br>
+      <em>$n^\alpha = o(q^n)$ :</em> posons $u_n = \frac{n^\alpha}{q^n} &gt; 0$ ; alors $\frac{u_{n+1}}{u_n} = \frac{(1+1/n)^\alpha}{q} \to \frac{1}{q} &lt; 1$ (continuité de $t \mapsto t^\alpha$). Choisissons $k$ avec $\frac{1}{q} &lt; k &lt; 1$ : à partir d'un rang $N$, $u_{n+1} \le k\,u_n$, donc $0 \le u_n \le k^{n-N} u_N \to 0$.
+      <br>
+      <em>$q^n = o(n!)$ :</em> même argument avec $u_n = \frac{q^n}{n!}$ : $\frac{u_{n+1}}{u_n} = \frac{q}{n+1} \to 0$.
+      <br>
+      <em>$n! = o(n^n)$ :</em> $0 \le \frac{n!}{n^n} = \prod_{k=1}^{n} \frac{k}{n} \le \frac{1}{n} \to 0$ (tous les facteurs sont $\le 1$ et le premier vaut $\frac{1}{n}$).
+    </details>
+
+    <h3 class="en">Comparison of functions</h3>
+    <h3 class="fr">Comparaison des fonctions</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ and $f, g$ be defined on a neighborhood of $a$, with $g$ nonvanishing there (except possibly at $a$ itself). As $x \to a$, we say that $f = O(g)$ if $\frac{f}{g}$ is bounded near $a$; $f = o(g)$ if $\frac{f(x)}{g(x)} \to 0$; and $f \sim g$ if $\frac{f(x)}{g(x)} \to 1$. All the propositions of the previous section (characterization $f = g + o(g)$, equivalence relation, same sign and same limit, operations, and the warning about sums and compositions) carry over verbatim, with the same proofs, replacing limits of sequences by limits of functions at $a$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ et $f, g$ définies au voisinage de $a$, avec $g$ ne s'annulant pas sur ce voisinage (sauf éventuellement en $a$). Quand $x \to a$, on dit que $f = O(g)$ si $\frac{f}{g}$ est bornée au voisinage de $a$ ; $f = o(g)$ si $\frac{f(x)}{g(x)} \to 0$ ; et $f \sim g$ si $\frac{f(x)}{g(x)} \to 1$. Toutes les propositions de la section précédente (caractérisation $f = g + o(g)$, relation d'équivalence, même signe et même limite, opérations, et la mise en garde sur les sommes et compositions) se transposent mot pour mot, avec les mêmes preuves, en remplaçant les limites de suites par des limites de fonctions en $a$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Usual equivalents at $0$).</span> As $x \to 0$: $$\sin x \sim x, \quad \tan x \sim x, \quad 1 - \cos x \sim \frac{x^2}{2}, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0).$$ Moreover, a polynomial is equivalent to its term of lowest degree at $0$, and to its term of highest degree at $\pm\infty$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Équivalents usuels en $0$).</span> Quand $x \to 0$ : $$\sin x \sim x, \quad \tan x \sim x, \quad 1 - \cos x \sim \frac{x^2}{2}, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0).$$ De plus, un polynôme est équivalent à son terme de plus bas degré en $0$, et à son terme de plus haut degré en $\pm\infty$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $f$ is differentiable at $0$ with $f(0) = 0$ and $f'(0) \neq 0$, then $\frac{f(x)}{x} = \frac{f(x) - f(0)}{x - 0} \to f'(0)$, so $f(x) \sim f'(0)\,x$. This applies to $\sin$ ($\sin'(0) = 1$), $\tan$ ($\tan'(0) = 1$), $x \mapsto \ln(1+x)$ (derivative $1$ at $0$), $x \mapsto e^x - 1$ (derivative $1$), and $x \mapsto (1+x)^\alpha - 1$ (derivative $\alpha$). For the cosine: $1 - \cos x = 2\sin^2\frac{x}{2}$, and $\sin\frac{x}{2} \sim \frac{x}{2}$ (the quotient $\frac{\sin(x/2)}{x/2} \to 1$ by composition of limits), so by product $1 - \cos x \sim 2\left(\frac{x}{2}\right)^2 = \frac{x^2}{2}$. For a polynomial $P = a_p x^p + \cdots + a_q x^q$ with $a_p, a_q \neq 0$ ($q$ lowest degree, $p$ highest): $\frac{P(x)}{a_q x^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ as $x \to 0$, and $\frac{P(x)}{a_p x^p} = 1 + \frac{a_{p-1}}{a_p}\frac{1}{x} + \cdots \to 1$ as $x \to \pm\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $f$ est dérivable en $0$ avec $f(0) = 0$ et $f'(0) \neq 0$, alors $\frac{f(x)}{x} = \frac{f(x) - f(0)}{x - 0} \to f'(0)$, donc $f(x) \sim f'(0)\,x$. Cela s'applique à $\sin$ ($\sin'(0) = 1$), $\tan$ ($\tan'(0) = 1$), $x \mapsto \ln(1+x)$ (dérivée $1$ en $0$), $x \mapsto e^x - 1$ (dérivée $1$), et $x \mapsto (1+x)^\alpha - 1$ (dérivée $\alpha$). Pour le cosinus : $1 - \cos x = 2\sin^2\frac{x}{2}$, et $\sin\frac{x}{2} \sim \frac{x}{2}$ (le quotient $\frac{\sin(x/2)}{x/2} \to 1$ par composition de limites), donc par produit $1 - \cos x \sim 2\left(\frac{x}{2}\right)^2 = \frac{x^2}{2}$. Pour un polynôme $P = a_p x^p + \cdots + a_q x^q$ avec $a_p, a_q \neq 0$ ($q$ plus bas degré, $p$ plus haut) : $\frac{P(x)}{a_q x^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ quand $x \to 0$, et $\frac{P(x)}{a_p x^p} = 1 + \frac{a_{p-1}}{a_p}\frac{1}{x} + \cdots \to 1$ quand $x \to \pm\infty$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Standard comparisons for functions).</span> For $\alpha, \beta &gt; 0$: as $x \to +\infty$, $\ln x = o(x^\alpha)$ and $x^\alpha = o(e^{\beta x})$; as $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, i.e. $x^\alpha \ln x \to 0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Croissances comparées pour les fonctions).</span> Pour $\alpha, \beta &gt; 0$ : quand $x \to +\infty$, $\ln x = o(x^\alpha)$ et $x^\alpha = o(e^{\beta x})$ ; quand $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, i.e. $x^\alpha \ln x \to 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>$\ln x = o(x^\alpha)$:</em> as in the sequence case, for $x \ge 1$, $0 \le \ln x = \frac{2}{\alpha}\ln\!\big(x^{\alpha/2}\big) \le \frac{2}{\alpha}\,x^{\alpha/2}$ by the inequality $\ln t \le t - 1$ established above, so $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}\,x^{-\alpha/2} \to 0$.
+      <br>
+      <em>$x^\alpha = o(e^{\beta x})$:</em> let $m$ be an integer with $m &gt; \alpha$. We use $e^t \ge t$ for all $t \in \mathbb{R}$: clear for $t \le 0$, and for $t &gt; 0$ it reads $\ln t \le t$, which follows from $\ln t \le t - 1$ established above. For $x &gt; 0$, $e^{\beta x} = \big(e^{\beta x/m}\big)^m \ge \left(\frac{\beta x}{m}\right)^{\!m}$, so $0 \le \frac{x^\alpha}{e^{\beta x}} \le \left(\frac{m}{\beta}\right)^{\!m} x^{\alpha - m} \to 0$ since $\alpha - m &lt; 0$.
+      <br>
+      <em>$|\ln x| = o(x^{-\alpha})$ at $0^+$:</em> set $y = \frac{1}{x} \to +\infty$: $x^\alpha |\ln x| = \frac{\ln y}{y^\alpha} \to 0$ by the first point (composition of limits).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>$\ln x = o(x^\alpha)$ :</em> comme pour les suites, pour $x \ge 1$, $0 \le \ln x = \frac{2}{\alpha}\ln\!\big(x^{\alpha/2}\big) \le \frac{2}{\alpha}\,x^{\alpha/2}$ par l'inégalité $\ln t \le t - 1$ établie plus haut, donc $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}\,x^{-\alpha/2} \to 0$.
+      <br>
+      <em>$x^\alpha = o(e^{\beta x})$ :</em> soit $m$ un entier avec $m &gt; \alpha$. On utilise $e^t \ge t$ pour tout $t \in \mathbb{R}$ : clair pour $t \le 0$, et pour $t &gt; 0$ cela s'écrit $\ln t \le t$, qui découle de $\ln t \le t - 1$ établie plus haut. Pour $x &gt; 0$, $e^{\beta x} = \big(e^{\beta x/m}\big)^m \ge \left(\frac{\beta x}{m}\right)^{\!m}$, donc $0 \le \frac{x^\alpha}{e^{\beta x}} \le \left(\frac{m}{\beta}\right)^{\!m} x^{\alpha - m} \to 0$ car $\alpha - m &lt; 0$.
+      <br>
+      <em>$|\ln x| = o(x^{-\alpha})$ en $0^+$ :</em> on pose $y = \frac{1}{x} \to +\infty$ : $x^\alpha |\ln x| = \frac{\ln y}{y^\alpha} \to 0$ par le premier point (composition de limites).
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Find an equivalent of $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Trouver un équivalent de $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Multiplying by the conjugate: $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$. Now $\frac{\sqrt{n+1} + \sqrt{n}}{2\sqrt{n}} = \frac{\sqrt{1 + 1/n} + 1}{2} \to 1$, so $\sqrt{n+1} + \sqrt{n} \sim 2\sqrt{n}$ and, by quotient, $u_n \sim \frac{1}{2\sqrt{n}}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      En multipliant par la quantité conjuguée : $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$. Or $\frac{\sqrt{n+1} + \sqrt{n}}{2\sqrt{n}} = \frac{\sqrt{1 + 1/n} + 1}{2} \to 1$, donc $\sqrt{n+1} + \sqrt{n} \sim 2\sqrt{n}$ et, par quotient, $u_n \sim \frac{1}{2\sqrt{n}}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Find an equivalent of $u_n = \ln(n+1) - \ln(n)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Trouver un équivalent de $u_n = \ln(n+1) - \ln(n)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $u_n = \ln\!\left(1 + \frac{1}{n}\right)$, and since $\frac{1}{n} \to 0$, the usual equivalent $\ln(1+x) \sim x$ at $0$ gives (by composition of limits, substituting $x = \frac{1}{n}$): $u_n \sim \frac{1}{n}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $u_n = \ln\!\left(1 + \frac{1}{n}\right)$, et comme $\frac{1}{n} \to 0$, l'équivalent usuel $\ln(1+x) \sim x$ en $0$ donne (par composition de limites, en substituant $x = \frac{1}{n}$) : $u_n \sim \frac{1}{n}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\left(1 + \frac{1}{n}\right)^{\!n} \to e$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\left(1 + \frac{1}{n}\right)^{\!n} \to e$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n \ln(1 + 1/n)}$. By the previous exercise, $\ln\!\left(1+\frac{1}{n}\right) \sim \frac{1}{n}$, so $n\ln\!\left(1+\frac{1}{n}\right) \to 1$ (a sequence equivalent to the constant $1$ tends to $1$). By continuity of $\exp$: $\left(1 + \frac{1}{n}\right)^{\!n} \to e^1 = e$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n \ln(1 + 1/n)}$. Par l'exercice précédent, $\ln\!\left(1+\frac{1}{n}\right) \sim \frac{1}{n}$, donc $n\ln\!\left(1+\frac{1}{n}\right) \to 1$ (une suite équivalente à la constante $1$ tend vers $1$). Par continuité de $\exp$ : $\left(1 + \frac{1}{n}\right)^{\!n} \to e^1 = e$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0} \frac{e^x - \cos x}{x}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0} \frac{e^x - \cos x}{x}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Equivalents cannot be added, so we work with $o$'s: $e^x - 1 \sim x$ means $e^x - 1 = x + o(x)$, and $1 - \cos x \sim \frac{x^2}{2}$ implies $1 - \cos x = o(x)$. Hence $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ and the limit is $1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les équivalents ne s'additionnent pas, on passe donc par les $o$ : $e^x - 1 \sim x$ signifie $e^x - 1 = x + o(x)$, et $1 - \cos x \sim \frac{x^2}{2}$ implique $1 - \cos x = o(x)$. Donc $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ et la limite vaut $1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x)}{\tan x}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x)}{\tan x}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $\sin x \to 0$ as $x \to 0$, the equivalent $\ln(1+u) \sim u$ at $0$ gives, by composition of limits ($u = \sin x$): $\ln(1 + \sin x) \sim \sin x \sim x$. Moreover $\tan x \sim x$, so by quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$: the limit is $1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $\sin x \to 0$ quand $x \to 0$, l'équivalent $\ln(1+u) \sim u$ en $0$ donne, par composition de limites ($u = \sin x$) : $\ln(1 + \sin x) \sim \sin x \sim x$. De plus $\tan x \sim x$, donc par quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$ : la limite vaut $1$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

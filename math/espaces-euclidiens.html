@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Euclidean Spaces</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Inner product and norm</h3>
+    <h3 class="fr">Produit scalaire et norme</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Inner product).</span> Let $E$ be a real vector space. An <em>inner product</em> on $E$ is a map $\langle\cdot,\cdot\rangle : E \times E \to \mathbb{R}$ that is <em>bilinear</em> (linear in each variable), <em>symmetric</em> ($\langle x,y\rangle = \langle y,x\rangle$) and <em>positive definite</em> ($\langle x,x\rangle \ge 0$, with $\langle x,x\rangle = 0 \iff x = 0$). A <em>Euclidean space</em> is a finite-dimensional real vector space equipped with an inner product. Standard examples: $\langle x,y\rangle = \sum_{i=1}^n x_i y_i$ on $\mathbb{R}^n$ (canonical inner product), $\langle f,g\rangle = \int_a^b f(t)g(t)\,dt$ on $\mathcal{C}([a,b],\mathbb{R})$.</p>
+      <p class="fr"><span class="thm-label">Définition (Produit scalaire).</span> Soit $E$ un espace vectoriel réel. Un <em>produit scalaire</em> sur $E$ est une application $\langle\cdot,\cdot\rangle : E \times E \to \mathbb{R}$ <em>bilinéaire</em> (linéaire en chaque variable), <em>symétrique</em> ($\langle x,y\rangle = \langle y,x\rangle$) et <em>définie positive</em> ($\langle x,x\rangle \ge 0$, avec $\langle x,x\rangle = 0 \iff x = 0$). Un <em>espace euclidien</em> est un espace vectoriel réel de dimension finie muni d'un produit scalaire. Exemples usuels : $\langle x,y\rangle = \sum_{i=1}^n x_i y_i$ sur $\mathbb{R}^n$ (produit scalaire canonique), $\langle f,g\rangle = \int_a^b f(t)g(t)\,dt$ sur $\mathcal{C}([a,b],\mathbb{R})$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Euclidean norm).</span> The <em>norm</em> associated with the inner product is $\|x\| = \sqrt{\langle x,x\rangle}$. A vector $x$ is a <em>unit vector</em> if $\|x\| = 1$. Every nonzero vector $x$ can be normalized: $x/\|x\|$ is a unit vector.</p>
+      <p class="fr"><span class="thm-label">Définition (Norme euclidienne).</span> La <em>norme</em> associée au produit scalaire est $\|x\| = \sqrt{\langle x,x\rangle}$. Un vecteur $x$ est <em>unitaire</em> si $\|x\| = 1$. Tout vecteur non nul $x$ peut être normalisé : $x/\|x\|$ est unitaire.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cauchy-Schwarz inequality).</span> For all $x, y \in E$, $|\langle x,y\rangle| \le \|x\|\,\|y\|$, with equality if and only if $x$ and $y$ are collinear.</p>
+      <p class="fr"><span class="thm-label">Théorème (Inégalité de Cauchy-Schwarz).</span> Pour tous $x, y \in E$, $|\langle x,y\rangle| \le \|x\|\,\|y\|$, avec égalité si et seulement si $x$ et $y$ sont colinéaires.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $y = 0$, both sides are zero and $x, y$ are collinear. Assume $y \neq 0$. For all $t \in \mathbb{R}$, bilinearity and symmetry give $0 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x,y\rangle + t^2\|y\|^2$. This quadratic polynomial in $t$ is nonnegative on $\mathbb{R}$, so its discriminant is nonpositive: $4\langle x,y\rangle^2 - 4\|x\|^2\|y\|^2 \le 0$, which is the inequality. Equality holds iff the discriminant is zero, iff the polynomial has a real root $t_0$, iff $\|x + t_0 y\| = 0$, iff $x = -t_0 y$ (positive definiteness), i.e. $x$ and $y$ are collinear.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $y = 0$, les deux membres sont nuls et $x, y$ sont colinéaires. Supposons $y \neq 0$. Pour tout $t \in \mathbb{R}$, la bilinéarité et la symétrie donnent $0 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x,y\rangle + t^2\|y\|^2$. Ce trinôme en $t$ est positif sur $\mathbb{R}$, donc son discriminant est négatif : $4\langle x,y\rangle^2 - 4\|x\|^2\|y\|^2 \le 0$, ce qui est l'inégalité voulue. Il y a égalité ssi le discriminant est nul, ssi le trinôme admet une racine réelle $t_0$, ssi $\|x + t_0 y\| = 0$, ssi $x = -t_0 y$ (caractère défini positif), i.e. $x$ et $y$ colinéaires.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of the norm).</span> For all $x, y \in E$ and $\lambda \in \mathbb{R}$: $\|x\| \ge 0$ with $\|x\| = 0 \iff x = 0$; $\|\lambda x\| = |\lambda|\,\|x\|$; and the <em>triangle inequality</em> $\|x + y\| \le \|x\| + \|y\|$, with equality if and only if $x$ and $y$ are positively collinear ($y = \lambda x$ with $\lambda \ge 0$, or $x = 0$).</p>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la norme).</span> Pour tous $x, y \in E$ et $\lambda \in \mathbb{R}$ : $\|x\| \ge 0$ avec $\|x\| = 0 \iff x = 0$ ; $\|\lambda x\| = |\lambda|\,\|x\|$ ; et l'<em>inégalité triangulaire</em> $\|x + y\| \le \|x\| + \|y\|$, avec égalité si et seulement si $x$ et $y$ sont positivement colinéaires ($y = \lambda x$ avec $\lambda \ge 0$, ou $x = 0$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The first two points follow from positive definiteness and bilinearity ($\|\lambda x\|^2 = \lambda^2\|x\|^2$). For the triangle inequality: $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2 \le \|x\|^2 + 2\|x\|\|y\| + \|y\|^2 = (\|x\| + \|y\|)^2$ by Cauchy-Schwarz. Equality holds iff $\langle x,y\rangle = \|x\|\|y\|$, which by the equality case of Cauchy-Schwarz means $x, y$ collinear with $\langle x,y\rangle \ge 0$, i.e. positively collinear.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les deux premiers points découlent du caractère défini positif et de la bilinéarité ($\|\lambda x\|^2 = \lambda^2\|x\|^2$). Pour l'inégalité triangulaire : $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2 \le \|x\|^2 + 2\|x\|\|y\| + \|y\|^2 = (\|x\| + \|y\|)^2$ par Cauchy-Schwarz. Il y a égalité ssi $\langle x,y\rangle = \|x\|\|y\|$, ce qui par le cas d'égalité de Cauchy-Schwarz signifie $x, y$ colinéaires avec $\langle x,y\rangle \ge 0$, i.e. positivement colinéaires.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Polarization identities, parallelogram law).</span> For all $x, y \in E$: $$\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),$$ and the parallelogram law $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. In particular, the inner product is entirely determined by its norm.</p>
+      <p class="fr"><span class="thm-label">Proposition (Identités de polarisation, identité du parallélogramme).</span> Pour tous $x, y \in E$ : $$\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),$$ et l'identité du parallélogramme $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. En particulier, le produit scalaire est entièrement déterminé par sa norme.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Expand by bilinearity: $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2$ and $\|x-y\|^2 = \|x\|^2 - 2\langle x,y\rangle + \|y\|^2$. The first identity is the first expansion rearranged; subtracting the two expansions gives the second identity; adding them gives the parallelogram law.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On développe par bilinéarité : $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2$ et $\|x-y\|^2 = \|x\|^2 - 2\langle x,y\rangle + \|y\|^2$. La première identité est le premier développement réarrangé ; en soustrayant les deux développements on obtient la seconde ; en les additionnant on obtient l'identité du parallélogramme.
+    </details>
+
+    <h3 class="en">Orthogonality</h3>
+    <h3 class="fr">Orthogonalité</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthogonality).</span> Two vectors $x, y \in E$ are <em>orthogonal</em>, written $x \perp y$, if $\langle x,y\rangle = 0$. A family $(x_1, \ldots, x_p)$ is <em>orthogonal</em> if its vectors are pairwise orthogonal, and <em>orthonormal</em> if moreover each vector is a unit vector: $\langle x_i, x_j\rangle = \delta_{ij}$ (equal to $1$ if $i = j$, to $0$ otherwise).</p>
+      <p class="fr"><span class="thm-label">Définition (Orthogonalité).</span> Deux vecteurs $x, y \in E$ sont <em>orthogonaux</em>, noté $x \perp y$, si $\langle x,y\rangle = 0$. Une famille $(x_1, \ldots, x_p)$ est <em>orthogonale</em> si ses vecteurs sont deux à deux orthogonaux, et <em>orthonormée</em> si de plus chaque vecteur est unitaire : $\langle x_i, x_j\rangle = \delta_{ij}$ (valant $1$ si $i = j$, $0$ sinon).</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Pythagoras).</span> $x \perp y$ if and only if $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. More generally, if $(x_1, \ldots, x_p)$ is an orthogonal family, then $\|x_1 + \cdots + x_p\|^2 = \|x_1\|^2 + \cdots + \|x_p\|^2$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Pythagore).</span> $x \perp y$ si et seulement si $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. Plus généralement, si $(x_1, \ldots, x_p)$ est une famille orthogonale, alors $\|x_1 + \cdots + x_p\|^2 = \|x_1\|^2 + \cdots + \|x_p\|^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2$, which equals $\|x\|^2 + \|y\|^2$ iff $\langle x,y\rangle = 0$. For the general case, expand by bilinearity: $\big\|\sum_i x_i\big\|^2 = \sum_{i,j}\langle x_i, x_j\rangle = \sum_i \|x_i\|^2$, since all cross terms $\langle x_i, x_j\rangle$ with $i \neq j$ vanish.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2$, qui vaut $\|x\|^2 + \|y\|^2$ ssi $\langle x,y\rangle = 0$. Pour le cas général, on développe par bilinéarité : $\big\|\sum_i x_i\big\|^2 = \sum_{i,j}\langle x_i, x_j\rangle = \sum_i \|x_i\|^2$, car tous les termes croisés $\langle x_i, x_j\rangle$ avec $i \neq j$ sont nuls.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Orthogonal families are independent).</span> Every orthogonal family of nonzero vectors is linearly independent. In particular, every orthonormal family is linearly independent.</p>
+      <p class="fr"><span class="thm-label">Proposition (Les familles orthogonales sont libres).</span> Toute famille orthogonale de vecteurs non nuls est libre. En particulier, toute famille orthonormée est libre.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $(x_1, \ldots, x_p)$ be orthogonal with $x_i \neq 0$, and suppose $\lambda_1 x_1 + \cdots + \lambda_p x_p = 0$. Taking the inner product with $x_j$: $0 = \sum_i \lambda_i \langle x_i, x_j\rangle = \lambda_j \|x_j\|^2$, and $\|x_j\|^2 \neq 0$, so $\lambda_j = 0$ for every $j$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $(x_1, \ldots, x_p)$ orthogonale avec $x_i \neq 0$, et supposons $\lambda_1 x_1 + \cdots + \lambda_p x_p = 0$. En prenant le produit scalaire avec $x_j$ : $0 = \sum_i \lambda_i \langle x_i, x_j\rangle = \lambda_j \|x_j\|^2$, et $\|x_j\|^2 \neq 0$, donc $\lambda_j = 0$ pour tout $j$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthonormal basis).</span> An <em>orthonormal basis</em> of a Euclidean space $E$ is an orthonormal family that is a basis of $E$. If $\dim E = n$, any orthonormal family of $n$ vectors is an orthonormal basis (it is linearly independent by the previous proposition, and of maximal cardinality).</p>
+      <p class="fr"><span class="thm-label">Définition (Base orthonormée).</span> Une <em>base orthonormée</em> d'un espace euclidien $E$ est une famille orthonormée qui est une base de $E$. Si $\dim E = n$, toute famille orthonormée de $n$ vecteurs est une base orthonormée (elle est libre par la proposition précédente, et de cardinal maximal).</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Coordinates in an orthonormal basis).</span> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$. Then for all $x, y \in E$: $$x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.$$</p>
+      <p class="fr"><span class="thm-label">Proposition (Coordonnées en base orthonormée).</span> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$. Alors pour tous $x, y \in E$ : $$x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Write $x = \sum_i x_i e_i$ in the basis. Taking the inner product with $e_j$: $\langle x, e_j\rangle = \sum_i x_i \langle e_i, e_j\rangle = x_j$, which gives the first formula. Then by bilinearity $\langle x,y\rangle = \sum_{i,j} \langle x,e_i\rangle\langle y,e_j\rangle\langle e_i,e_j\rangle = \sum_i \langle x,e_i\rangle\langle y,e_i\rangle$, and the norm formula is the case $y = x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Écrivons $x = \sum_i x_i e_i$ dans la base. En prenant le produit scalaire avec $e_j$ : $\langle x, e_j\rangle = \sum_i x_i \langle e_i, e_j\rangle = x_j$, ce qui donne la première formule. Puis par bilinéarité $\langle x,y\rangle = \sum_{i,j} \langle x,e_i\rangle\langle y,e_j\rangle\langle e_i,e_j\rangle = \sum_i \langle x,e_i\rangle\langle y,e_i\rangle$, et la formule de la norme est le cas $y = x$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Gram-Schmidt orthonormalization).</span> Let $(x_1, \ldots, x_p)$ be a linearly independent family of $E$. There exists an orthonormal family $(e_1, \ldots, e_p)$ such that $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ for all $k \in \{1, \ldots, p\}$. It is built by induction: $$v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Orthonormalisation de Gram-Schmidt).</span> Soit $(x_1, \ldots, x_p)$ une famille libre de $E$. Il existe une famille orthonormée $(e_1, \ldots, e_p)$ telle que $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ pour tout $k \in \{1, \ldots, p\}$. Elle se construit par récurrence : $$v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $k$. For $k = 1$: $x_1 \neq 0$ (independent family), so $e_1 = x_1/\|x_1\|$ is a unit vector spanning $\operatorname{Vect}(x_1)$. Suppose $(e_1, \ldots, e_{k-1})$ is orthonormal with $\operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$. First, $v_k \neq 0$: otherwise $x_k \in \operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$, contradicting independence. Next, for $j &lt; k$: $\langle v_k, e_j\rangle = \langle x_k, e_j\rangle - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle \langle e_i, e_j\rangle = \langle x_k, e_j\rangle - \langle x_k, e_j\rangle = 0$, so $(e_1, \ldots, e_k)$ is orthonormal after normalization. Finally, $e_k$ is a combination of $x_k$ and $e_1, \ldots, e_{k-1}$, and conversely $x_k$ is a combination of $e_1, \ldots, e_k$, so the spans coincide.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $k$. Pour $k = 1$ : $x_1 \neq 0$ (famille libre), donc $e_1 = x_1/\|x_1\|$ est unitaire et engendre $\operatorname{Vect}(x_1)$. Supposons $(e_1, \ldots, e_{k-1})$ orthonormée avec $\operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$. D'abord, $v_k \neq 0$ : sinon $x_k \in \operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$, ce qui contredit la liberté. Ensuite, pour $j &lt; k$ : $\langle v_k, e_j\rangle = \langle x_k, e_j\rangle - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle \langle e_i, e_j\rangle = \langle x_k, e_j\rangle - \langle x_k, e_j\rangle = 0$, donc $(e_1, \ldots, e_k)$ est orthonormée après normalisation. Enfin, $e_k$ est combinaison de $x_k$ et de $e_1, \ldots, e_{k-1}$, et réciproquement $x_k$ est combinaison de $e_1, \ldots, e_k$, donc les sous-espaces engendrés coïncident.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Every Euclidean space $E \neq \{0\}$ has an orthonormal basis, and every orthonormal family of $E$ can be extended to an orthonormal basis.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Tout espace euclidien $E \neq \{0\}$ admet une base orthonormée, et toute famille orthonormée de $E$ peut être complétée en une base orthonormée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Apply Gram-Schmidt to any basis of $E$: the result is an orthonormal family of $n = \dim E$ vectors, hence an orthonormal basis. For the extension: an orthonormal family $(e_1, \ldots, e_p)$ is linearly independent, so by the incomplete basis theorem it extends to a basis $(e_1, \ldots, e_p, x_{p+1}, \ldots, x_n)$; applying Gram-Schmidt to this basis leaves $e_1, \ldots, e_p$ unchanged (they are already orthonormal) and yields an orthonormal basis extending the family.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On applique Gram-Schmidt à une base quelconque de $E$ : le résultat est une famille orthonormée de $n = \dim E$ vecteurs, donc une base orthonormée. Pour la complétion : une famille orthonormée $(e_1, \ldots, e_p)$ est libre, donc par le théorème de la base incomplète elle se complète en une base $(e_1, \ldots, e_p, x_{p+1}, \ldots, x_n)$ ; en appliquant Gram-Schmidt à cette base, les vecteurs $e_1, \ldots, e_p$ sont inchangés (ils sont déjà orthonormés) et on obtient une base orthonormée qui complète la famille.
+    </details>
+
+    <h3 class="en">Orthogonal complement and orthogonal projection</h3>
+    <h3 class="fr">Supplémentaire orthogonal et projection orthogonale</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthogonal of a subset).</span> For $A \subset E$, the <em>orthogonal</em> of $A$ is $A^\perp = \{x \in E : \forall y \in A,\ \langle x,y\rangle = 0\}$. It is a vector subspace of $E$ (by bilinearity), and $A \subset B \Rightarrow B^\perp \subset A^\perp$. Moreover, if $F$ is a subspace, $F \cap F^\perp = \{0\}$: indeed $x \in F \cap F^\perp$ gives $\langle x,x\rangle = 0$, so $x = 0$.</p>
+      <p class="fr"><span class="thm-label">Définition (Orthogonal d'une partie).</span> Pour $A \subset E$, l'<em>orthogonal</em> de $A$ est $A^\perp = \{x \in E : \forall y \in A,\ \langle x,y\rangle = 0\}$. C'est un sous-espace vectoriel de $E$ (par bilinéarité), et $A \subset B \Rightarrow B^\perp \subset A^\perp$. De plus, si $F$ est un sous-espace, $F \cap F^\perp = \{0\}$ : en effet $x \in F \cap F^\perp$ donne $\langle x,x\rangle = 0$, donc $x = 0$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Orthogonal complement).</span> Let $F$ be a subspace of a Euclidean space $E$. Then $E = F \oplus F^\perp$, $\dim F^\perp = \dim E - \dim F$, and $(F^\perp)^\perp = F$. The subspace $F^\perp$ is called the <em>orthogonal complement</em> of $F$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Supplémentaire orthogonal).</span> Soit $F$ un sous-espace d'un espace euclidien $E$. Alors $E = F \oplus F^\perp$, $\dim F^\perp = \dim E - \dim F$, et $(F^\perp)^\perp = F$. Le sous-espace $F^\perp$ est appelé le <em>supplémentaire orthogonal</em> de $F$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $F = \{0\}$, then $F^\perp = E$ and everything is clear. Otherwise, let $(e_1, \ldots, e_p)$ be an orthonormal basis of $F$ (which exists by the previous corollary). For $x \in E$, set $p(x) = \sum_{i=1}^p \langle x, e_i\rangle e_i \in F$. Then for each $j$: $\langle x - p(x), e_j\rangle = \langle x, e_j\rangle - \langle x, e_j\rangle = 0$, so $x - p(x)$ is orthogonal to every $e_j$, hence to all of $F$ by bilinearity: $x - p(x) \in F^\perp$. Thus $x = p(x) + (x - p(x)) \in F + F^\perp$, and since $F \cap F^\perp = \{0\}$, the sum is direct: $E = F \oplus F^\perp$. The dimension formula follows from $\dim E = \dim F + \dim F^\perp$. Finally, $F \subset (F^\perp)^\perp$ by definition, and $\dim (F^\perp)^\perp = \dim E - \dim F^\perp = \dim F$, so $(F^\perp)^\perp = F$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $F = \{0\}$, alors $F^\perp = E$ et tout est clair. Sinon, soit $(e_1, \ldots, e_p)$ une base orthonormée de $F$ (qui existe par le corollaire précédent). Pour $x \in E$, posons $p(x) = \sum_{i=1}^p \langle x, e_i\rangle e_i \in F$. Alors pour tout $j$ : $\langle x - p(x), e_j\rangle = \langle x, e_j\rangle - \langle x, e_j\rangle = 0$, donc $x - p(x)$ est orthogonal à chaque $e_j$, donc à tout $F$ par bilinéarité : $x - p(x) \in F^\perp$. Ainsi $x = p(x) + (x - p(x)) \in F + F^\perp$, et comme $F \cap F^\perp = \{0\}$, la somme est directe : $E = F \oplus F^\perp$. La formule des dimensions découle de $\dim E = \dim F + \dim F^\perp$. Enfin, $F \subset (F^\perp)^\perp$ par définition, et $\dim (F^\perp)^\perp = \dim E - \dim F^\perp = \dim F$, donc $(F^\perp)^\perp = F$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthogonal projection).</span> The <em>orthogonal projection</em> onto $F$ is the projection $p_F$ onto $F$ parallel to $F^\perp$. For $x \in E$, $p_F(x)$ is the unique vector of $F$ such that $x - p_F(x) \in F^\perp$, and for any orthonormal basis $(e_1, \ldots, e_p)$ of $F$: $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
+      <p class="fr"><span class="thm-label">Définition (Projection orthogonale).</span> La <em>projection orthogonale</em> sur $F$ est la projection $p_F$ sur $F$ parallèlement à $F^\perp$. Pour $x \in E$, $p_F(x)$ est l'unique vecteur de $F$ tel que $x - p_F(x) \in F^\perp$, et pour toute base orthonormée $(e_1, \ldots, e_p)$ de $F$ : $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Distance to a subspace).</span> Let $F$ be a subspace of $E$ and $x \in E$. For all $y \in F$, $\|x - y\| \ge \|x - p_F(x)\|$, with equality if and only if $y = p_F(x)$. Hence the <em>distance</em> from $x$ to $F$, $d(x, F) = \inf_{y \in F} \|x - y\|$, is attained at the unique point $p_F(x)$, and $d(x,F)^2 = \|x\|^2 - \|p_F(x)\|^2$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Distance à un sous-espace).</span> Soit $F$ un sous-espace de $E$ et $x \in E$. Pour tout $y \in F$, $\|x - y\| \ge \|x - p_F(x)\|$, avec égalité si et seulement si $y = p_F(x)$. Ainsi la <em>distance</em> de $x$ à $F$, $d(x, F) = \inf_{y \in F} \|x - y\|$, est atteinte au seul point $p_F(x)$, et $d(x,F)^2 = \|x\|^2 - \|p_F(x)\|^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $y \in F$. Write $x - y = (x - p_F(x)) + (p_F(x) - y)$, where $x - p_F(x) \in F^\perp$ and $p_F(x) - y \in F$. By Pythagoras: $\|x - y\|^2 = \|x - p_F(x)\|^2 + \|p_F(x) - y\|^2 \ge \|x - p_F(x)\|^2$, with equality iff $\|p_F(x) - y\| = 0$, i.e. $y = p_F(x)$. For the last formula, apply Pythagoras to $x = p_F(x) + (x - p_F(x))$: $\|x\|^2 = \|p_F(x)\|^2 + d(x,F)^2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $y \in F$. Écrivons $x - y = (x - p_F(x)) + (p_F(x) - y)$, où $x - p_F(x) \in F^\perp$ et $p_F(x) - y \in F$. Par Pythagore : $\|x - y\|^2 = \|x - p_F(x)\|^2 + \|p_F(x) - y\|^2 \ge \|x - p_F(x)\|^2$, avec égalité ssi $\|p_F(x) - y\| = 0$, i.e. $y = p_F(x)$. Pour la dernière formule, on applique Pythagore à $x = p_F(x) + (x - p_F(x))$ : $\|x\|^2 = \|p_F(x)\|^2 + d(x,F)^2$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Bessel's inequality).</span> Let $(e_1, \ldots, e_p)$ be an orthonormal family of $E$. For all $x \in E$: $\sum_{i=1}^p \langle x, e_i\rangle^2 \le \|x\|^2$, with equality if and only if $x \in \operatorname{Vect}(e_1, \ldots, e_p)$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Inégalité de Bessel).</span> Soit $(e_1, \ldots, e_p)$ une famille orthonormée de $E$. Pour tout $x \in E$ : $\sum_{i=1}^p \langle x, e_i\rangle^2 \le \|x\|^2$, avec égalité si et seulement si $x \in \operatorname{Vect}(e_1, \ldots, e_p)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $F = \operatorname{Vect}(e_1, \ldots, e_p)$, of which $(e_1, \ldots, e_p)$ is an orthonormal basis. By the coordinate formula in $F$, $\|p_F(x)\|^2 = \sum_i \langle p_F(x), e_i\rangle^2 = \sum_i \langle x, e_i\rangle^2$ (since $x - p_F(x) \perp e_i$). The distance theorem gives $\|p_F(x)\|^2 = \|x\|^2 - d(x,F)^2 \le \|x\|^2$, with equality iff $d(x,F) = 0$, i.e. $x \in F$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $F = \operatorname{Vect}(e_1, \ldots, e_p)$, dont $(e_1, \ldots, e_p)$ est une base orthonormée. Par la formule des coordonnées dans $F$, $\|p_F(x)\|^2 = \sum_i \langle p_F(x), e_i\rangle^2 = \sum_i \langle x, e_i\rangle^2$ (car $x - p_F(x) \perp e_i$). Le théorème de la distance donne $\|p_F(x)\|^2 = \|x\|^2 - d(x,F)^2 \le \|x\|^2$, avec égalité ssi $d(x,F) = 0$, i.e. $x \in F$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all real numbers $a_1, \ldots, a_n$: $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, with equality if and only if all the $a_i$ are equal.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tous réels $a_1, \ldots, a_n$ : $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, avec égalité si et seulement si tous les $a_i$ sont égaux.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Apply Cauchy-Schwarz in $\mathbb{R}^n$ with the canonical inner product to $x = (a_1, \ldots, a_n)$ and $y = (1, \ldots, 1)$: $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, and square. Equality holds iff $x$ and $y$ are collinear, i.e. $x = \lambda(1, \ldots, 1)$, i.e. all the $a_i$ are equal.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On applique Cauchy-Schwarz dans $\mathbb{R}^n$ muni du produit scalaire canonique à $x = (a_1, \ldots, a_n)$ et $y = (1, \ldots, 1)$ : $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, puis on élève au carré. Il y a égalité ssi $x$ et $y$ sont colinéaires, i.e. $x = \lambda(1, \ldots, 1)$, i.e. tous les $a_i$ égaux.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle A, B\rangle = \operatorname{tr}(A^\top B)$ defines an inner product on $\mathcal{M}_n(\mathbb{R})$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle A, B\rangle = \operatorname{tr}(A^\top B)$ définit un produit scalaire sur $\mathcal{M}_n(\mathbb{R})$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Bilinearity follows from the linearity of the trace and of matrix product in each factor. Symmetry: $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$ since the trace is invariant under transposition. Positive definiteness: $(A^\top A)_{jj} = \sum_i a_{ij}^2$, so $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, with equality iff all entries vanish, i.e. $A = 0$. This inner product is the canonical inner product of $\mathbb{R}^{n^2}$ read on the entries of the matrices.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La bilinéarité découle de la linéarité de la trace et du produit matriciel en chaque facteur. Symétrie : $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$ car la trace est invariante par transposition. Caractère défini positif : $(A^\top A)_{jj} = \sum_i a_{ij}^2$, donc $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, avec égalité ssi tous les coefficients sont nuls, i.e. $A = 0$. Ce produit scalaire est le produit scalaire canonique de $\mathbb{R}^{n^2}$ lu sur les coefficients des matrices.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, apply Gram-Schmidt to $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, appliquer Gram-Schmidt à $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Then $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, with $\|v_2\| = \sqrt{\frac{3}{2}}$, so $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Finally $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ and $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, so $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, with $\|v_3\| = \frac{2}{\sqrt{3}}$, so $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Puis $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, avec $\|v_2\| = \sqrt{\frac{3}{2}}$, donc $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Enfin $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ et $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, donc $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, avec $\|v_3\| = \frac{2}{\sqrt{3}}$, donc $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Work in $E = \mathcal{C}([0,1],\mathbb{R})$ with $\langle f,g\rangle = \int_0^1 fg$. The quantity to minimize is $\|f - g\|^2$ where $f(t) = t^2$ and $g$ ranges over $F = \operatorname{Vect}(1, t)$: the minimum is $d(f, F)^2 = \|f - p_F(f)\|^2$. Orthonormalize $(1, t)$ by Gram-Schmidt: $e_1 = 1$ (as $\|1\|^2 = 1$), then $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, with $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, so $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Then $\langle f, e_1\rangle = \frac{1}{3}$ and $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, so $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Therefore the minimum is $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, attained at $a = 1$, $b = -\frac{1}{6}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On se place dans $E = \mathcal{C}([0,1],\mathbb{R})$ muni de $\langle f,g\rangle = \int_0^1 fg$. La quantité à minimiser est $\|f - g\|^2$ où $f(t) = t^2$ et $g$ parcourt $F = \operatorname{Vect}(1, t)$ : le minimum est $d(f, F)^2 = \|f - p_F(f)\|^2$. On orthonormalise $(1, t)$ par Gram-Schmidt : $e_1 = 1$ (car $\|1\|^2 = 1$), puis $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, avec $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, donc $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Alors $\langle f, e_1\rangle = \frac{1}{3}$ et $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, donc $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Le minimum vaut donc $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, atteint en $a = 1$, $b = -\frac{1}{6}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Riesz representation).</span> Let $E$ be a Euclidean space and $\varphi$ a linear form on $E$. Show that there exists a unique $a \in E$ such that $\varphi(x) = \langle a, x\rangle$ for all $x \in E$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Représentation de Riesz).</span> Soit $E$ un espace euclidien et $\varphi$ une forme linéaire sur $E$. Montrer qu'il existe un unique $a \in E$ tel que $\varphi(x) = \langle a, x\rangle$ pour tout $x \in E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Existence.</em> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$ and set $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. For all $x \in E$, using the coordinates of $x$ in this basis and the linearity of $\varphi$: $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
+      <br>
+      <em>Uniqueness.</em> If $\langle a, x\rangle = \langle a', x\rangle$ for all $x$, then $\langle a - a', x\rangle = 0$ for all $x$; taking $x = a - a'$ gives $\|a - a'\|^2 = 0$, so $a = a'$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Existence.</em> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$ et posons $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. Pour tout $x \in E$, en utilisant les coordonnées de $x$ dans cette base et la linéarité de $\varphi$ : $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
+      <br>
+      <em>Unicité.</em> Si $\langle a, x\rangle = \langle a', x\rangle$ pour tout $x$, alors $\langle a - a', x\rangle = 0$ pour tout $x$ ; en prenant $x = a - a'$, on obtient $\|a - a'\|^2 = 0$, donc $a = a'$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be a projector of a Euclidean space $E$ (i.e. $p \circ p = p$) such that $\|p(x)\| \le \|x\|$ for all $x \in E$. Show that $p$ is an orthogonal projection.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un projecteur d'un espace euclidien $E$ (i.e. $p \circ p = p$) tel que $\|p(x)\| \le \|x\|$ pour tout $x \in E$. Montrer que $p$ est une projection orthogonale.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $p$ is a projector, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ and $p$ is the projection onto $\operatorname{Im} p$ parallel to $\operatorname{Ker} p$. It suffices to show $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$: both have dimension $\dim E - \dim \operatorname{Im} p$, so they are then equal, and $p$ is the projection onto $\operatorname{Im} p$ parallel to $(\operatorname{Im} p)^\perp$, i.e. the orthogonal projection. Let $x \in \operatorname{Im} p$ and $y \in \operatorname{Ker} p$. For all $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (as $x \in \operatorname{Im} p$ gives $p(x) = x$), so the hypothesis yields $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ for all $t$. Dividing by $t &gt; 0$ and letting $t \to 0^+$ gives $\langle x,y\rangle \ge 0$; dividing by $t &lt; 0$ and letting $t \to 0^-$ gives $\langle x,y\rangle \le 0$. Hence $\langle x, y\rangle = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $p$ est un projecteur, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $\operatorname{Ker} p$. Il suffit de montrer $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$ : les deux ont pour dimension $\dim E - \dim \operatorname{Im} p$, donc ils sont alors égaux, et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $(\operatorname{Im} p)^\perp$, i.e. la projection orthogonale. Soient $x \in \operatorname{Im} p$ et $y \in \operatorname{Ker} p$. Pour tout $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (car $x \in \operatorname{Im} p$ donne $p(x) = x$), donc l'hypothèse fournit $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ pour tout $t$. En divisant par $t &gt; 0$ et en faisant $t \to 0^+$, on obtient $\langle x,y\rangle \ge 0$ ; en divisant par $t &lt; 0$ et en faisant $t \to 0^-$, on obtient $\langle x,y\rangle \le 0$. Donc $\langle x, y\rangle = 0$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convexity</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Convex function).</span> Let $I$ be an interval. A function $f : I \to \mathbb{R}$ is <em>convex</em> on $I$ if $$\forall x, y \in I,\ \forall \lambda \in [0,1],\quad f\big(\lambda x + (1-\lambda) y\big) \le \lambda f(x) + (1-\lambda) f(y).$$ Geometrically: every chord of the graph lies above the graph. $f$ is <em>concave</em> if $-f$ is convex, i.e. if the inequality holds in the other direction (every chord lies below the graph).</p>
+      <p class="fr"><span class="thm-label">Définition (Fonction convexe).</span> Soit $I$ un intervalle. Une fonction $f : I \to \mathbb{R}$ est <em>convexe</em> sur $I$ si $$\forall x, y \in I,\ \forall \lambda \in [0,1],\quad f\big(\lambda x + (1-\lambda) y\big) \le \lambda f(x) + (1-\lambda) f(y).$$ Géométriquement : toute corde du graphe est au-dessus du graphe. $f$ est <em>concave</em> si $-f$ est convexe, i.e. si l'inégalité a lieu dans l'autre sens (toute corde est en dessous du graphe).</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Three slopes lemma).</span> Let $f$ be convex on $I$ and $x &lt; y &lt; z$ in $I$. Then $$\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x} \le \frac{f(z)-f(y)}{z-y}.$$ Conversely, if the first slope is at most the last for all $x &lt; y &lt; z$ in $I$, then $f$ is convex.</p>
+      <p class="fr"><span class="thm-label">Proposition (Lemme des trois pentes).</span> Soit $f$ convexe sur $I$ et $x &lt; y &lt; z$ dans $I$. Alors $$\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x} \le \frac{f(z)-f(y)}{z-y}.$$ Réciproquement, si la première pente est inférieure à la dernière pour tous $x &lt; y &lt; z$ dans $I$, alors $f$ est convexe.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Write $y = \lambda x + (1-\lambda) z$ with $\lambda = \frac{z-y}{z-x} \in\,]0,1[$. Convexity gives $f(y) \le \frac{z-y}{z-x} f(x) + \frac{y-x}{z-x} f(z)$. Subtracting $f(x)$ and dividing by $y - x &gt; 0$: since $\frac{z-y}{z-x} - 1 = -\frac{y-x}{z-x}$, we get $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x}$. Subtracting $f(z)$ and dividing by $y - z &lt; 0$ (which reverses the inequality) gives the second slope inequality. Conversely, the inequality $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(y)}{z-y}$ rearranges, by the same computation run backwards, into $f(y) \le \lambda f(x) + (1-\lambda) f(z)$ for $y = \lambda x + (1-\lambda) z$, which is the convexity inequality (the cases $\lambda \in \{0,1\}$ or $x = z$ being trivial).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Écrivons $y = \lambda x + (1-\lambda) z$ avec $\lambda = \frac{z-y}{z-x} \in\,]0,1[$. La convexité donne $f(y) \le \frac{z-y}{z-x} f(x) + \frac{y-x}{z-x} f(z)$. En soustrayant $f(x)$ et en divisant par $y - x &gt; 0$ : comme $\frac{z-y}{z-x} - 1 = -\frac{y-x}{z-x}$, on obtient $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x}$. En soustrayant $f(z)$ et en divisant par $y - z &lt; 0$ (ce qui renverse l'inégalité), on obtient la seconde inégalité des pentes. Réciproquement, l'inégalité $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(y)}{z-y}$ se réarrange, par le même calcul mené à l'envers, en $f(y) \le \lambda f(x) + (1-\lambda) f(z)$ pour $y = \lambda x + (1-\lambda) z$, qui est l'inégalité de convexité (les cas $\lambda \in \{0,1\}$ ou $x = z$ étant triviaux).
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Jensen's inequality, finite form).</span> Let $f$ be convex on $I$, $x_1, \ldots, x_n \in I$ and $\lambda_1, \ldots, \lambda_n \ge 0$ with $\sum_{i=1}^n \lambda_i = 1$. Then $$f\!\left(\sum_{i=1}^n \lambda_i x_i\right) \le \sum_{i=1}^n \lambda_i f(x_i).$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Inégalité de Jensen, forme finie).</span> Soit $f$ convexe sur $I$, $x_1, \ldots, x_n \in I$ et $\lambda_1, \ldots, \lambda_n \ge 0$ avec $\sum_{i=1}^n \lambda_i = 1$. Alors $$f\!\left(\sum_{i=1}^n \lambda_i x_i\right) \le \sum_{i=1}^n \lambda_i f(x_i).$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $n$. For $n = 1$ there is nothing to prove, and $n = 2$ is the definition. Suppose the result at rank $n$ and let $\lambda_1, \ldots, \lambda_{n+1}$ sum to $1$; we may assume $\lambda_{n+1} &lt; 1$ (otherwise all other $\lambda_i$ are zero and the inequality is trivial). Set $\mu = 1 - \lambda_{n+1} = \sum_{i=1}^n \lambda_i &gt; 0$ and $y = \sum_{i=1}^n \frac{\lambda_i}{\mu} x_i \in I$ (barycenter of points of $I$ with nonnegative weights summing to $1$). By the definition applied to $y$ and $x_{n+1}$ with weights $\mu$ and $\lambda_{n+1}$, then by the induction hypothesis applied to $y$: $$f\!\left(\sum_{i=1}^{n+1} \lambda_i x_i\right) = f\big(\mu y + \lambda_{n+1} x_{n+1}\big) \le \mu f(y) + \lambda_{n+1} f(x_{n+1}) \le \sum_{i=1}^{n} \lambda_i f(x_i) + \lambda_{n+1} f(x_{n+1}).$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Pour $n = 1$ il n'y a rien à démontrer, et $n = 2$ est la définition. Supposons le résultat au rang $n$ et soient $\lambda_1, \ldots, \lambda_{n+1}$ de somme $1$ ; on peut supposer $\lambda_{n+1} &lt; 1$ (sinon tous les autres $\lambda_i$ sont nuls et l'inégalité est triviale). Posons $\mu = 1 - \lambda_{n+1} = \sum_{i=1}^n \lambda_i &gt; 0$ et $y = \sum_{i=1}^n \frac{\lambda_i}{\mu} x_i \in I$ (barycentre de points de $I$ à coefficients positifs de somme $1$). Par la définition appliquée à $y$ et $x_{n+1}$ avec les poids $\mu$ et $\lambda_{n+1}$, puis par l'hypothèse de récurrence appliquée à $y$ : $$f\!\left(\sum_{i=1}^{n+1} \lambda_i x_i\right) = f\big(\mu y + \lambda_{n+1} x_{n+1}\big) \le \mu f(y) + \lambda_{n+1} f(x_{n+1}) \le \sum_{i=1}^{n} \lambda_i f(x_i) + \lambda_{n+1} f(x_{n+1}).$$
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Convexity and derivative).</span> Let $f$ be differentiable on $I$. Then $f$ is convex on $I$ if and only if $f'$ is increasing on $I$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Convexité et dérivée).</span> Soit $f$ dérivable sur $I$. Alors $f$ est convexe sur $I$ si et seulement si $f'$ est croissante sur $I$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ Let $x &lt; z$ in $I$. For $y \in\,]x,z[$, the three slopes lemma gives $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x} \le \frac{f(z)-f(y)}{z-y}$. Letting $y \to x^+$ in the first inequality: $f'(x) \le \frac{f(z)-f(x)}{z-x}$. Letting $y \to z^-$ in the second: $\frac{f(z)-f(x)}{z-x} \le f'(z)$. Hence $f'(x) \le f'(z)$.
+      <br>
+      $(\Leftarrow)$ Let $x &lt; y &lt; z$ in $I$. By the mean value theorem, there exist $c_1 \in\,]x,y[$ and $c_2 \in\,]y,z[$ such that $\frac{f(y)-f(x)}{y-x} = f'(c_1)$ and $\frac{f(z)-f(y)}{z-y} = f'(c_2)$. Since $c_1 &lt; c_2$ and $f'$ is increasing, $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(y)}{z-y}$, and $f$ is convex by the converse of the three slopes lemma.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\Rightarrow)$ Soient $x &lt; z$ dans $I$. Pour $y \in\,]x,z[$, le lemme des trois pentes donne $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(x)}{z-x} \le \frac{f(z)-f(y)}{z-y}$. En faisant $y \to x^+$ dans la première inégalité : $f'(x) \le \frac{f(z)-f(x)}{z-x}$. En faisant $y \to z^-$ dans la seconde : $\frac{f(z)-f(x)}{z-x} \le f'(z)$. Donc $f'(x) \le f'(z)$.
+      <br>
+      $(\Leftarrow)$ Soient $x &lt; y &lt; z$ dans $I$. Par le théorème des accroissements finis, il existe $c_1 \in\,]x,y[$ et $c_2 \in\,]y,z[$ tels que $\frac{f(y)-f(x)}{y-x} = f'(c_1)$ et $\frac{f(z)-f(y)}{z-y} = f'(c_2)$. Comme $c_1 &lt; c_2$ et $f'$ croissante, $\frac{f(y)-f(x)}{y-x} \le \frac{f(z)-f(y)}{z-y}$, et $f$ est convexe par la réciproque du lemme des trois pentes.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Tangent below the graph).</span> Let $f$ be differentiable and convex on $I$. Then the graph of $f$ lies above each of its tangents: $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ For a concave function, the graph lies below each tangent.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Tangente sous le graphe).</span> Soit $f$ dérivable et convexe sur $I$. Alors le graphe de $f$ est au-dessus de chacune de ses tangentes : $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ Pour une fonction concave, le graphe est en dessous de chaque tangente.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $x &gt; a$: in the proof of the previous theorem we obtained $f'(a) \le \frac{f(x)-f(a)}{x-a}$, and multiplying by $x - a &gt; 0$ gives the result. If $x &lt; a$: similarly $\frac{f(a)-f(x)}{a-x} \le f'(a)$, and multiplying by $a - x &gt; 0$ gives $f(a) - f(x) \le f'(a)(a-x)$, which is the result. The case $x = a$ is trivial.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $x &gt; a$ : dans la preuve du théorème précédent, on a obtenu $f'(a) \le \frac{f(x)-f(a)}{x-a}$, et en multipliant par $x - a &gt; 0$ on obtient le résultat. Si $x &lt; a$ : de même $\frac{f(a)-f(x)}{a-x} \le f'(a)$, et en multipliant par $a - x &gt; 0$ on obtient $f(a) - f(x) \le f'(a)(a-x)$, qui est le résultat. Le cas $x = a$ est trivial.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Twice differentiable case).</span> Let $f$ be twice differentiable on $I$. Then $f$ is convex on $I$ if and only if $f'' \ge 0$ on $I$ (and concave if and only if $f'' \le 0$).</p>
+      <p class="fr"><span class="thm-label">Corollaire (Cas deux fois dérivable).</span> Soit $f$ deux fois dérivable sur $I$. Alors $f$ est convexe sur $I$ si et seulement si $f'' \ge 0$ sur $I$ (et concave si et seulement si $f'' \le 0$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $f'$ is increasing on the interval $I$ if and only if its derivative $f''$ is nonnegative (characterization of monotonicity by the sign of the derivative, a consequence of the mean value theorem). Conclude with the previous theorem.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $f'$ est croissante sur l'intervalle $I$ si et seulement si sa dérivée $f''$ est positive (caractérisation de la monotonie par le signe de la dérivée, conséquence du théorème des accroissements finis). On conclut avec le théorème précédent.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Standard examples).</span> $\exp$ is convex on $\mathbb{R}$ ($\exp'' = \exp &gt; 0$); $\ln$ is concave on $\mathbb{R}_+^*$ ($\ln''(x) = -1/x^2 &lt; 0$); $x \mapsto x^2$ is convex on $\mathbb{R}$; $x \mapsto x^\alpha$ is convex on $\mathbb{R}_+^*$ for $\alpha \ge 1$ or $\alpha \le 0$, concave for $0 \le \alpha \le 1$; $\sin$ is concave on $[0,\pi]$ ($\sin'' = -\sin \le 0$ there). Finally $x \mapsto |x|$ is convex on $\mathbb{R}$ although not differentiable at $0$: $|\lambda x + (1-\lambda)y| \le \lambda|x| + (1-\lambda)|y|$ by the triangle inequality.</p>
+      <p class="fr"><span class="thm-label">Proposition (Exemples usuels).</span> $\exp$ est convexe sur $\mathbb{R}$ ($\exp'' = \exp &gt; 0$) ; $\ln$ est concave sur $\mathbb{R}_+^*$ ($\ln''(x) = -1/x^2 &lt; 0$) ; $x \mapsto x^2$ est convexe sur $\mathbb{R}$ ; $x \mapsto x^\alpha$ est convexe sur $\mathbb{R}_+^*$ pour $\alpha \ge 1$ ou $\alpha \le 0$, concave pour $0 \le \alpha \le 1$ ; $\sin$ est concave sur $[0,\pi]$ ($\sin'' = -\sin \le 0$ sur cet intervalle). Enfin $x \mapsto |x|$ est convexe sur $\mathbb{R}$ bien que non dérivable en $0$ : $|\lambda x + (1-\lambda)y| \le \lambda|x| + (1-\lambda)|y|$ par l'inégalité triangulaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      All the differentiable examples follow from the second derivative criterion: $(x^2)'' = 2 &gt; 0$, and $(x^\alpha)'' = \alpha(\alpha-1)x^{\alpha-2}$ has the sign of $\alpha(\alpha - 1)$ on $\mathbb{R}_+^*$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Tous les exemples dérivables découlent du critère de la dérivée seconde : $(x^2)'' = 2 &gt; 0$, et $(x^\alpha)'' = \alpha(\alpha-1)x^{\alpha-2}$ a le signe de $\alpha(\alpha - 1)$ sur $\mathbb{R}_+^*$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $e^x \ge 1 + x$ for all $x \in \mathbb{R}$, and $\ln(1+x) \le x$ for all $x &gt; -1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $e^x \ge 1 + x$ pour tout $x \in \mathbb{R}$, et $\ln(1+x) \le x$ pour tout $x &gt; -1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\exp$ is convex, so its graph lies above its tangent at $0$, which is $y = 1 + x$: $e^x \ge 1 + x$. Likewise $x \mapsto \ln(1+x)$ is concave on $]-1, +\infty[$ (second derivative $-1/(1+x)^2 &lt; 0$), so its graph lies below its tangent at $0$, which is $y = x$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\exp$ est convexe, donc son graphe est au-dessus de sa tangente en $0$, qui est $y = 1 + x$ : $e^x \ge 1 + x$. De même $x \mapsto \ln(1+x)$ est concave sur $]-1, +\infty[$ (dérivée seconde $-1/(1+x)^2 &lt; 0$), donc son graphe est en dessous de sa tangente en $0$, qui est $y = x$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Arithmetic-geometric mean inequality).</span> Let $a_1, \ldots, a_n &gt; 0$. Show that $$\sqrt[n]{a_1 \cdots a_n} \le \frac{a_1 + \cdots + a_n}{n}.$$</p>
+      <p class="fr"><span class="thm-label">Exercice (Inégalité arithmético-géométrique).</span> Soient $a_1, \ldots, a_n &gt; 0$. Montrer que $$\sqrt[n]{a_1 \cdots a_n} \le \frac{a_1 + \cdots + a_n}{n}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\ln$ is concave, so Jensen's inequality (in its concave version, i.e. applied to $-\ln$) with weights $\lambda_i = \frac{1}{n}$ gives $$\ln\!\left(\frac{a_1 + \cdots + a_n}{n}\right) \ge \frac{1}{n}\sum_{i=1}^n \ln a_i = \ln\!\big(\sqrt[n]{a_1 \cdots a_n}\big).$$ Compose with the increasing function $\exp$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\ln$ est concave, donc l'inégalité de Jensen (dans sa version concave, i.e. appliquée à $-\ln$) avec les poids $\lambda_i = \frac{1}{n}$ donne $$\ln\!\left(\frac{a_1 + \cdots + a_n}{n}\right) \ge \frac{1}{n}\sum_{i=1}^n \ln a_i = \ln\!\big(\sqrt[n]{a_1 \cdots a_n}\big).$$ On compose par la fonction croissante $\exp$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Young's inequality).</span> Let $p, q &gt; 1$ with $\frac{1}{p} + \frac{1}{q} = 1$. Show that for all $a, b &gt; 0$: $$ab \le \frac{a^p}{p} + \frac{b^q}{q}.$$</p>
+      <p class="fr"><span class="thm-label">Exercice (Inégalité de Young).</span> Soient $p, q &gt; 1$ avec $\frac{1}{p} + \frac{1}{q} = 1$. Montrer que pour tous $a, b &gt; 0$ : $$ab \le \frac{a^p}{p} + \frac{b^q}{q}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By concavity of $\ln$ applied to the points $a^p$ and $b^q$ with weights $\frac{1}{p}$ and $\frac{1}{q}$ (which are nonnegative and sum to $1$): $$\ln\!\left(\frac{a^p}{p} + \frac{b^q}{q}\right) \ge \frac{1}{p}\ln(a^p) + \frac{1}{q}\ln(b^q) = \ln a + \ln b = \ln(ab).$$ Compose with the increasing function $\exp$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par concavité de $\ln$ appliquée aux points $a^p$ et $b^q$ avec les poids $\frac{1}{p}$ et $\frac{1}{q}$ (positifs et de somme $1$) : $$\ln\!\left(\frac{a^p}{p} + \frac{b^q}{q}\right) \ge \frac{1}{p}\ln(a^p) + \frac{1}{q}\ln(b^q) = \ln a + \ln b = \ln(ab).$$ On compose par la fonction croissante $\exp$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\sin x \ge \frac{2x}{\pi}$ for all $x \in \left[0, \frac{\pi}{2}\right]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\sin x \ge \frac{2x}{\pi}$ pour tout $x \in \left[0, \frac{\pi}{2}\right]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\sin$ is concave on $[0,\pi]$, so its graph lies above its chords on this interval. The chord between the points $(0, 0)$ and $\left(\frac{\pi}{2}, 1\right)$ is the line $y = \frac{2x}{\pi}$: writing $x = \lambda \cdot 0 + (1-\lambda)\frac{\pi}{2}$, concavity gives $\sin x \ge \lambda \sin 0 + (1-\lambda)\sin\frac{\pi}{2} = 1 - \lambda = \frac{2x}{\pi}$ for $x \in \left[0, \frac{\pi}{2}\right]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\sin$ est concave sur $[0,\pi]$, donc son graphe est au-dessus de ses cordes sur cet intervalle. La corde entre les points $(0, 0)$ et $\left(\frac{\pi}{2}, 1\right)$ est la droite $y = \frac{2x}{\pi}$ : en écrivant $x = \lambda \cdot 0 + (1-\lambda)\frac{\pi}{2}$, la concavité donne $\sin x \ge \lambda \sin 0 + (1-\lambda)\sin\frac{\pi}{2} = 1 - \lambda = \frac{2x}{\pi}$ pour $x \in \left[0, \frac{\pi}{2}\right]$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

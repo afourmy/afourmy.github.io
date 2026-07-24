@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Differential Equations</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">First-order linear equations</h3>
+    <h3 class="fr">Équations linéaires du premier ordre</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A <em>first-order linear differential equation</em> is an equation of the form $$(E)\quad y' + a(x)\,y = b(x),$$ where $a, b$ are continuous on an interval $I$. A <em>solution</em> is a differentiable function $y : I \to \mathbb{R}$ satisfying $(E)$ on $I$ (then $y' = b - ay$ is continuous, so every solution is $\mathcal{C}^1$). The <em>homogeneous equation</em> associated with $(E)$ is $(H)\ y' + a(x)y = 0$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Une <em>équation différentielle linéaire du premier ordre</em> est une équation de la forme $$(E)\quad y' + a(x)\,y = b(x),$$ où $a, b$ sont continues sur un intervalle $I$. Une <em>solution</em> est une fonction dérivable $y : I \to \mathbb{R}$ vérifiant $(E)$ sur $I$ (alors $y' = b - ay$ est continue, donc toute solution est $\mathcal{C}^1$). L'<em>équation homogène</em> associée à $(E)$ est $(H)\ y' + a(x)y = 0$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Homogeneous solutions).</span> Let $A$ be a primitive of $a$ on $I$ (which exists since $a$ is continuous). The solutions of $(H)$ on $I$ are exactly the functions $$y : x \mapsto \lambda\, e^{-A(x)}, \qquad \lambda \in \mathbb{R}.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Solutions de l'équation homogène).</span> Soit $A$ une primitive de $a$ sur $I$ (qui existe car $a$ est continue). Les solutions de $(H)$ sur $I$ sont exactement les fonctions $$y : x \mapsto \lambda\, e^{-A(x)}, \qquad \lambda \in \mathbb{R}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      These functions are solutions: $(\lambda e^{-A})' = -\lambda A' e^{-A} = -a \cdot \lambda e^{-A}$. Conversely, let $y$ be a solution and set $z = y\,e^{A}$. Then $z' = (y' + ay)e^{A} = 0$ on the interval $I$, so $z$ is constant, equal to some $\lambda$ (consequence of the mean value theorem), and $y = \lambda e^{-A}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Ces fonctions sont solutions : $(\lambda e^{-A})' = -\lambda A' e^{-A} = -a \cdot \lambda e^{-A}$. Réciproquement, soit $y$ une solution et posons $z = y\,e^{A}$. Alors $z' = (y' + ay)e^{A} = 0$ sur l'intervalle $I$, donc $z$ est constante, égale à un certain $\lambda$ (conséquence du théorème des accroissements finis), et $y = \lambda e^{-A}$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Structure of solutions, variation of the constant).</span> The equation $(E)$ has solutions on all of $I$: setting $y_p = \lambda(x)e^{-A(x)}$ where $\lambda$ is a primitive of $b\,e^{A}$ (<em>variation of the constant</em>) gives a particular solution, and the solutions of $(E)$ are exactly $$y = y_p + \lambda e^{-A}, \qquad \lambda \in \mathbb{R},$$ i.e. the sum of one particular solution and the general solution of $(H)$. Moreover, if $b = b_1 + b_2$ and $y_1, y_2$ are solutions of the equations with right-hand sides $b_1, b_2$, then $y_1 + y_2$ is a solution of the equation with right-hand side $b$ (<em>superposition principle</em>).</p>
+      <p class="fr"><span class="thm-label">Théorème (Structure des solutions, variation de la constante).</span> L'équation $(E)$ admet des solutions sur $I$ tout entier : en posant $y_p = \lambda(x)e^{-A(x)}$ où $\lambda$ est une primitive de $b\,e^{A}$ (<em>variation de la constante</em>), on obtient une solution particulière, et les solutions de $(E)$ sont exactement $$y = y_p + \lambda e^{-A}, \qquad \lambda \in \mathbb{R},$$ i.e. la somme d'une solution particulière et de la solution générale de $(H)$. De plus, si $b = b_1 + b_2$ et si $y_1, y_2$ sont solutions des équations de seconds membres $b_1, b_2$, alors $y_1 + y_2$ est solution de l'équation de second membre $b$ (<em>principe de superposition</em>).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The function $b\,e^{A}$ is continuous on $I$, so it has a primitive $\lambda$ (fundamental theorem of calculus). Then $y_p = \lambda e^{-A}$ satisfies $y_p' + a y_p = (\lambda' - \lambda A')e^{-A} + a\lambda e^{-A} = \lambda' e^{-A} = b$. Now $y$ is a solution of $(E)$ if and only if $(y - y_p)' + a(y - y_p) = b - b = 0$, i.e. $y - y_p$ is a solution of $(H)$: this is the announced structure. Superposition is the same linearity computation.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La fonction $b\,e^{A}$ est continue sur $I$, donc admet une primitive $\lambda$ (théorème fondamental de l'analyse). Alors $y_p = \lambda e^{-A}$ vérifie $y_p' + a y_p = (\lambda' - \lambda A')e^{-A} + a\lambda e^{-A} = \lambda' e^{-A} = b$. Ensuite, $y$ est solution de $(E)$ si et seulement si $(y - y_p)' + a(y - y_p) = b - b = 0$, i.e. $y - y_p$ est solution de $(H)$ : c'est la structure annoncée. La superposition est le même calcul de linéarité.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cauchy problem).</span> Let $x_0 \in I$ and $y_0 \in \mathbb{R}$. The equation $(E)$ has a unique solution on $I$ satisfying $y(x_0) = y_0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Problème de Cauchy).</span> Soient $x_0 \in I$ et $y_0 \in \mathbb{R}$. L'équation $(E)$ admet une unique solution sur $I$ vérifiant $y(x_0) = y_0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The solutions are the $y = y_p + \lambda e^{-A}$, $\lambda \in \mathbb{R}$. The condition $y(x_0) = y_0$ reads $\lambda e^{-A(x_0)} = y_0 - y_p(x_0)$, which determines $\lambda = (y_0 - y_p(x_0))\,e^{A(x_0)}$ uniquely.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les solutions sont les $y = y_p + \lambda e^{-A}$, $\lambda \in \mathbb{R}$. La condition $y(x_0) = y_0$ s'écrit $\lambda e^{-A(x_0)} = y_0 - y_p(x_0)$, ce qui détermine $\lambda = (y_0 - y_p(x_0))\,e^{A(x_0)}$ de manière unique.
+    </details>
+
+    <h3 class="en">Second-order linear equations with constant coefficients</h3>
+    <h3 class="fr">Équations linéaires du second ordre à coefficients constants</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A <em>second-order linear differential equation with constant coefficients</em> is an equation $$(E)\quad y'' + a\,y' + b\,y = f(x),$$ with $a, b \in \mathbb{R}$ and $f$ continuous on an interval $I$; the associated homogeneous equation is $(H)\ y'' + ay' + by = 0$. The <em>characteristic equation</em> of $(H)$ is $$r^2 + ar + b = 0,$$ of discriminant $\Delta = a^2 - 4b$. For a complex number $r$, the function $x \mapsto e^{rx}$ satisfies $(e^{rx})' = r\,e^{rx}$ (differentiate real and imaginary parts, using $e^{(\alpha+i\beta)x} = e^{\alpha x}(\cos\beta x + i\sin\beta x)$), so $e^{rx}$ is a solution of $(H)$ if and only if $r$ is a root of the characteristic equation.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Une <em>équation différentielle linéaire du second ordre à coefficients constants</em> est une équation $$(E)\quad y'' + a\,y' + b\,y = f(x),$$ avec $a, b \in \mathbb{R}$ et $f$ continue sur un intervalle $I$ ; l'équation homogène associée est $(H)\ y'' + ay' + by = 0$. L'<em>équation caractéristique</em> de $(H)$ est $$r^2 + ar + b = 0,$$ de discriminant $\Delta = a^2 - 4b$. Pour un nombre complexe $r$, la fonction $x \mapsto e^{rx}$ vérifie $(e^{rx})' = r\,e^{rx}$ (dériver parties réelle et imaginaire, avec $e^{(\alpha+i\beta)x} = e^{\alpha x}(\cos\beta x + i\sin\beta x)$), donc $e^{rx}$ est solution de $(H)$ si et seulement si $r$ est racine de l'équation caractéristique.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Homogeneous solutions).</span> The real solutions of $(H)$ on $\mathbb{R}$ are:</p>
+      <ul class="en">
+        <li>if $\Delta &gt; 0$, with distinct real roots $r_1, r_2$: $\quad y = \lambda e^{r_1 x} + \mu e^{r_2 x}$, $\ \lambda, \mu \in \mathbb{R}$;</li>
+        <li>if $\Delta = 0$, with double root $r$: $\quad y = (\lambda + \mu x)\,e^{rx}$, $\ \lambda, \mu \in \mathbb{R}$;</li>
+        <li>if $\Delta &lt; 0$, with conjugate complex roots $\alpha \pm i\beta$ ($\beta \neq 0$): $\quad y = e^{\alpha x}\big(\lambda \cos(\beta x) + \mu \sin(\beta x)\big)$, $\ \lambda, \mu \in \mathbb{R}$.</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Théorème (Solutions de l'équation homogène).</span> Les solutions réelles de $(H)$ sur $\mathbb{R}$ sont :</p>
+      <ul class="fr">
+        <li>si $\Delta &gt; 0$, de racines réelles distinctes $r_1, r_2$ : $\quad y = \lambda e^{r_1 x} + \mu e^{r_2 x}$, $\ \lambda, \mu \in \mathbb{R}$ ;</li>
+        <li>si $\Delta = 0$, de racine double $r$ : $\quad y = (\lambda + \mu x)\,e^{rx}$, $\ \lambda, \mu \in \mathbb{R}$ ;</li>
+        <li>si $\Delta &lt; 0$, de racines complexes conjuguées $\alpha \pm i\beta$ ($\beta \neq 0$) : $\quad y = e^{\alpha x}\big(\lambda \cos(\beta x) + \mu \sin(\beta x)\big)$, $\ \lambda, \mu \in \mathbb{R}$.</li>
+      </ul>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $r_1$ be a (possibly complex) root of the characteristic equation and $r_2$ the other root, so that $r_1 + r_2 = -a$. Since $e^{r_1 x}$ never vanishes, every (complex-valued) function $y$ can be written $y = z\,e^{r_1 x}$. Substituting $y' = (z' + r_1 z)e^{r_1 x}$ and $y'' = (z'' + 2r_1 z' + r_1^2 z)e^{r_1 x}$ into $(H)$, and using $r_1^2 + ar_1 + b = 0$: $$y'' + ay' + by = e^{r_1 x}\big(z'' + (2r_1 + a)\,z'\big) = e^{r_1 x}\big(z'' + (r_1 - r_2)\,z'\big),$$ so $y$ solves $(H)$ iff $u = z'$ solves the first-order equation $u' = (r_2 - r_1)u$, iff $z' = \mu_0\,e^{(r_2 - r_1)x}$ (first-order homogeneous theorem, whose proof is identical for complex-valued functions).
+      <br>
+      If $r_1 = r_2$ (case $\Delta = 0$): $z' = \mu_0$ constant, so $z = \lambda + \mu x$ and $y = (\lambda + \mu x)e^{rx}$; for real solutions take $\lambda, \mu \in \mathbb{R}$.
+      <br>
+      If $r_1 \neq r_2$: integrating, $z = \lambda + \mu e^{(r_2 - r_1)x}$, so $y = \lambda e^{r_1 x} + \mu e^{r_2 x}$ with $\lambda, \mu \in \mathbb{C}$. If $\Delta &gt; 0$, the real solutions are obtained for $\lambda, \mu \in \mathbb{R}$ (evaluating $y$ and $y'$ at $0$ shows $\lambda, \mu$ are real when $y$ is real-valued, since the system $\lambda + \mu = y(0)$, $r_1\lambda + r_2\mu = y'(0)$ has real coefficients and nonzero determinant $r_2 - r_1$). If $\Delta &lt; 0$, $r_{1,2} = \alpha \pm i\beta$: $y$ is real iff $\bar{y} = y$, i.e. $\bar{\lambda} e^{(\alpha - i\beta)x} + \bar{\mu} e^{(\alpha + i\beta)x} = \lambda e^{(\alpha+i\beta)x} + \mu e^{(\alpha - i\beta)x}$ for all $x$, which forces $\mu = \bar{\lambda}$ (same determinant argument). Writing $\lambda = \frac{c - id}{2}$ with $c, d \in \mathbb{R}$: $$y = 2\operatorname{Re}\!\big(\lambda e^{(\alpha + i\beta)x}\big) = e^{\alpha x}\big(c\cos(\beta x) + d\sin(\beta x)\big).$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $r_1$ une racine (éventuellement complexe) de l'équation caractéristique et $r_2$ l'autre racine, de sorte que $r_1 + r_2 = -a$. Comme $e^{r_1 x}$ ne s'annule pas, toute fonction $y$ (à valeurs complexes) s'écrit $y = z\,e^{r_1 x}$. En reportant $y' = (z' + r_1 z)e^{r_1 x}$ et $y'' = (z'' + 2r_1 z' + r_1^2 z)e^{r_1 x}$ dans $(H)$, et en utilisant $r_1^2 + ar_1 + b = 0$ : $$y'' + ay' + by = e^{r_1 x}\big(z'' + (2r_1 + a)\,z'\big) = e^{r_1 x}\big(z'' + (r_1 - r_2)\,z'\big),$$ donc $y$ est solution de $(H)$ ssi $u = z'$ est solution de l'équation du premier ordre $u' = (r_2 - r_1)u$, ssi $z' = \mu_0\,e^{(r_2 - r_1)x}$ (théorème sur l'équation homogène du premier ordre, dont la preuve est identique pour les fonctions à valeurs complexes).
+      <br>
+      Si $r_1 = r_2$ (cas $\Delta = 0$) : $z' = \mu_0$ constante, donc $z = \lambda + \mu x$ et $y = (\lambda + \mu x)e^{rx}$ ; pour les solutions réelles, on prend $\lambda, \mu \in \mathbb{R}$.
+      <br>
+      Si $r_1 \neq r_2$ : en intégrant, $z = \lambda + \mu e^{(r_2 - r_1)x}$, donc $y = \lambda e^{r_1 x} + \mu e^{r_2 x}$ avec $\lambda, \mu \in \mathbb{C}$. Si $\Delta &gt; 0$, les solutions réelles s'obtiennent pour $\lambda, \mu \in \mathbb{R}$ (en évaluant $y$ et $y'$ en $0$, on voit que $\lambda, \mu$ sont réels lorsque $y$ est à valeurs réelles, car le système $\lambda + \mu = y(0)$, $r_1\lambda + r_2\mu = y'(0)$ est à coefficients réels et de déterminant $r_2 - r_1$ non nul). Si $\Delta &lt; 0$, $r_{1,2} = \alpha \pm i\beta$ : $y$ est réelle ssi $\bar{y} = y$, i.e. $\bar{\lambda} e^{(\alpha - i\beta)x} + \bar{\mu} e^{(\alpha + i\beta)x} = \lambda e^{(\alpha+i\beta)x} + \mu e^{(\alpha - i\beta)x}$ pour tout $x$, ce qui force $\mu = \bar{\lambda}$ (même argument de déterminant). En écrivant $\lambda = \frac{c - id}{2}$ avec $c, d \in \mathbb{R}$ : $$y = 2\operatorname{Re}\!\big(\lambda e^{(\alpha + i\beta)x}\big) = e^{\alpha x}\big(c\cos(\beta x) + d\sin(\beta x)\big).$$
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Remark (Harmonic oscillator).</span> For $\omega &gt; 0$, the solutions of $y'' + \omega^2 y = 0$ are $y = \lambda\cos(\omega t) + \mu\sin(\omega t)$ (case $\Delta &lt; 0$ with roots $\pm i\omega$). They can also be written $y = C\cos(\omega t - \varphi)$ with $C = \sqrt{\lambda^2 + \mu^2}$ (amplitude) and $\varphi$ a phase, the form used in physics. Similarly, $y'' - \omega^2 y = 0$ has solutions $\lambda e^{\omega t} + \mu e^{-\omega t}$.</p>
+      <p class="fr"><span class="thm-label">Remarque (Oscillateur harmonique).</span> Pour $\omega &gt; 0$, les solutions de $y'' + \omega^2 y = 0$ sont $y = \lambda\cos(\omega t) + \mu\sin(\omega t)$ (cas $\Delta &lt; 0$ de racines $\pm i\omega$). Elles s'écrivent aussi $y = C\cos(\omega t - \varphi)$ avec $C = \sqrt{\lambda^2 + \mu^2}$ (amplitude) et $\varphi$ une phase, forme utilisée en physique. De même, $y'' - \omega^2 y = 0$ a pour solutions $\lambda e^{\omega t} + \mu e^{-\omega t}$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Structure and particular solutions).</span> If $y_p$ is a particular solution of $(E)$, the solutions of $(E)$ are exactly $y_p + y_h$ where $y_h$ runs over the solutions of $(H)$, and the superposition principle holds as in the first-order case. Moreover, if $f(x) = P(x)\,e^{mx}$ with $P$ a polynomial and $m \in \mathbb{C}$, then $(E)$ has a particular solution of the form $y_p = Q(x)\,e^{mx}$ with $Q$ a polynomial, and one can take $\deg Q = \deg P$ if $m$ is not a root of the characteristic equation, $\deg Q = \deg P + 1$ if $m$ is a simple root, $\deg Q = \deg P + 2$ if $m$ is the double root. The case $f(x) = B\cos(\omega x)$ or $B\sin(\omega x)$ is treated by taking real and imaginary parts of the equation with right-hand side $B e^{i\omega x}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Structure et solutions particulières).</span> Si $y_p$ est une solution particulière de $(E)$, les solutions de $(E)$ sont exactement $y_p + y_h$ où $y_h$ parcourt les solutions de $(H)$, et le principe de superposition vaut comme au premier ordre. De plus, si $f(x) = P(x)\,e^{mx}$ avec $P$ polynôme et $m \in \mathbb{C}$, alors $(E)$ admet une solution particulière de la forme $y_p = Q(x)\,e^{mx}$ avec $Q$ polynôme, et on peut prendre $\deg Q = \deg P$ si $m$ n'est pas racine de l'équation caractéristique, $\deg Q = \deg P + 1$ si $m$ est racine simple, $\deg Q = \deg P + 2$ si $m$ est racine double. Le cas $f(x) = B\cos(\omega x)$ ou $B\sin(\omega x)$ se traite en prenant parties réelle et imaginaire de l'équation de second membre $B e^{i\omega x}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The structure follows from linearity exactly as in the first-order case: $y$ solves $(E)$ iff $y - y_p$ solves $(H)$. For the particular solution, substitute $y = Q e^{mx}$: as in the proof of the homogeneous theorem, with $\chi(r) = r^2 + ar + b$, $$y'' + ay' + by = e^{mx}\big(Q'' + (2m + a)\,Q' + \chi(m)\,Q\big),$$ so we need $Q'' + (2m+a)Q' + \chi(m)Q = P$. If $\chi(m) \neq 0$: seeking $Q$ of degree $n = \deg P$ and identifying coefficients from degree $n$ down to $0$ gives a triangular system whose diagonal coefficients are all $\chi(m) \neq 0$, hence a solution. If $m$ is a simple root: $\chi(m) = 0$ but $2m + a \neq 0$ (as $2m + a = m - m'$ with $m'$ the other root); the equation becomes first-order and triangular in $Q'$, solved by a polynomial of degree $n$, and $Q$ of degree $n+1$ is obtained by taking a primitive. If $m$ is the double root: $\chi(m) = 0$ and $2m + a = 0$, so $Q'' = P$ and two successive primitives give $Q$ of degree $n + 2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La structure découle de la linéarité exactement comme au premier ordre : $y$ est solution de $(E)$ ssi $y - y_p$ est solution de $(H)$. Pour la solution particulière, on reporte $y = Q e^{mx}$ : comme dans la preuve du théorème homogène, avec $\chi(r) = r^2 + ar + b$, $$y'' + ay' + by = e^{mx}\big(Q'' + (2m + a)\,Q' + \chi(m)\,Q\big),$$ donc il faut $Q'' + (2m+a)Q' + \chi(m)Q = P$. Si $\chi(m) \neq 0$ : en cherchant $Q$ de degré $n = \deg P$ et en identifiant les coefficients du degré $n$ jusqu'au degré $0$, on obtient un système triangulaire dont les coefficients diagonaux valent tous $\chi(m) \neq 0$, donc une solution. Si $m$ est racine simple : $\chi(m) = 0$ mais $2m + a \neq 0$ (car $2m + a = m - m'$ avec $m'$ l'autre racine) ; l'équation devient du premier ordre et triangulaire en $Q'$, résolue par un polynôme de degré $n$, et $Q$ de degré $n+1$ s'obtient en prenant une primitive. Si $m$ est racine double : $\chi(m) = 0$ et $2m + a = 0$, donc $Q'' = P$ et deux primitives successives donnent $Q$ de degré $n + 2$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cauchy problem).</span> Let $x_0 \in I$, $y_0, y_1 \in \mathbb{R}$, and $f$ continuous with a particular solution $y_p$ on $I$. The equation $(E)$ has a unique solution satisfying $y(x_0) = y_0$ and $y'(x_0) = y_1$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Problème de Cauchy).</span> Soient $x_0 \in I$, $y_0, y_1 \in \mathbb{R}$, et $f$ continue admettant une solution particulière $y_p$ sur $I$. L'équation $(E)$ admet une unique solution vérifiant $y(x_0) = y_0$ et $y'(x_0) = y_1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The solutions are $y = y_p + y_h$ with $y_h$ depending on two parameters $(\lambda, \mu)$. In each of the three cases, the conditions $y(x_0) = y_0$, $y'(x_0) = y_1$ form a linear system of two equations in $(\lambda, \mu)$ whose determinant is nonzero: $(r_2 - r_1)\,e^{(r_1+r_2)x_0}$ if $\Delta &gt; 0$, $e^{2rx_0}$ if $\Delta = 0$, and $\beta\,e^{2\alpha x_0}$ if $\Delta &lt; 0$ (direct computation of the $2\times 2$ determinant). The system therefore has a unique solution $(\lambda, \mu)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les solutions sont $y = y_p + y_h$ avec $y_h$ dépendant de deux paramètres $(\lambda, \mu)$. Dans chacun des trois cas, les conditions $y(x_0) = y_0$, $y'(x_0) = y_1$ forment un système linéaire de deux équations en $(\lambda, \mu)$ dont le déterminant est non nul : $(r_2 - r_1)\,e^{(r_1+r_2)x_0}$ si $\Delta &gt; 0$, $e^{2rx_0}$ si $\Delta = 0$, et $\beta\,e^{2\alpha x_0}$ si $\Delta &lt; 0$ (calcul direct du déterminant $2\times 2$). Le système admet donc un unique couple solution $(\lambda, \mu)$.
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$ the equation $y' + 2y = x$, then find the solution satisfying $y(0) = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ l'équation $y' + 2y = x$, puis déterminer la solution vérifiant $y(0) = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Homogeneous solutions: $\lambda e^{-2x}$. Seek an affine particular solution $y_p = \alpha x + \beta$: $\alpha + 2(\alpha x + \beta) = x$ gives $2\alpha = 1$ and $\alpha + 2\beta = 0$, so $y_p = \frac{x}{2} - \frac{1}{4}$. General solution: $y = \frac{x}{2} - \frac{1}{4} + \lambda e^{-2x}$. The condition $y(0) = 0$ gives $\lambda = \frac{1}{4}$: $y = \frac{x}{2} - \frac{1}{4} + \frac{1}{4}e^{-2x}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Solutions homogènes : $\lambda e^{-2x}$. On cherche une solution particulière affine $y_p = \alpha x + \beta$ : $\alpha + 2(\alpha x + \beta) = x$ donne $2\alpha = 1$ et $\alpha + 2\beta = 0$, donc $y_p = \frac{x}{2} - \frac{1}{4}$. Solution générale : $y = \frac{x}{2} - \frac{1}{4} + \lambda e^{-2x}$. La condition $y(0) = 0$ donne $\lambda = \frac{1}{4}$ : $y = \frac{x}{2} - \frac{1}{4} + \frac{1}{4}e^{-2x}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $]0, +\infty[$ the equation $y' - \dfrac{y}{x} = x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $]0, +\infty[$ l'équation $y' - \dfrac{y}{x} = x$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Here $a(x) = -\frac{1}{x}$, with primitive $A(x) = -\ln x$, so $e^{-A(x)} = x$: the homogeneous solutions are $\lambda x$. Variation of the constant: $y = \lambda(x)\,x$ gives $y' - \frac{y}{x} = \lambda' x = x$, so $\lambda' = 1$, $\lambda(x) = x$, and $y_p = x^2$. General solution on $]0,+\infty[$: $y = x^2 + \lambda x$, $\lambda \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Ici $a(x) = -\frac{1}{x}$, de primitive $A(x) = -\ln x$, donc $e^{-A(x)} = x$ : les solutions homogènes sont $\lambda x$. Variation de la constante : $y = \lambda(x)\,x$ donne $y' - \frac{y}{x} = \lambda' x = x$, donc $\lambda' = 1$, $\lambda(x) = x$, et $y_p = x^2$. Solution générale sur $]0,+\infty[$ : $y = x^2 + \lambda x$, $\lambda \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $y'' - 3y' + 2y = e^x$ with $y(0) = 0$ and $y'(0) = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre $y'' - 3y' + 2y = e^x$ avec $y(0) = 0$ et $y'(0) = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Characteristic equation $r^2 - 3r + 2 = 0$, roots $1$ and $2$: homogeneous solutions $\lambda e^{x} + \mu e^{2x}$. Since $m = 1$ is a simple root, seek $y_p = c\,x e^{x}$: with $(xe^x)' = (1+x)e^x$ and $(xe^x)'' = (2+x)e^x$, $$y_p'' - 3y_p' + 2y_p = c\,e^x\big((2+x) - 3(1+x) + 2x\big) = -c\,e^x,$$ so $c = -1$ and $y_p = -x e^x$. General solution: $y = \lambda e^x + \mu e^{2x} - x e^x$. Conditions: $y(0) = \lambda + \mu = 0$ and $y'(0) = \lambda + 2\mu - 1 = 0$, so $\mu = 1$, $\lambda = -1$: $$y = e^{2x} - (1 + x)\,e^x.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Équation caractéristique $r^2 - 3r + 2 = 0$, de racines $1$ et $2$ : solutions homogènes $\lambda e^{x} + \mu e^{2x}$. Comme $m = 1$ est racine simple, on cherche $y_p = c\,x e^{x}$ : avec $(xe^x)' = (1+x)e^x$ et $(xe^x)'' = (2+x)e^x$, $$y_p'' - 3y_p' + 2y_p = c\,e^x\big((2+x) - 3(1+x) + 2x\big) = -c\,e^x,$$ donc $c = -1$ et $y_p = -x e^x$. Solution générale : $y = \lambda e^x + \mu e^{2x} - x e^x$. Conditions : $y(0) = \lambda + \mu = 0$ et $y'(0) = \lambda + 2\mu - 1 = 0$, donc $\mu = 1$, $\lambda = -1$ : $$y = e^{2x} - (1 + x)\,e^x.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Forced oscillator and resonance).</span> Let $\omega_0 &gt; 0$. Solve $y'' + \omega_0^2\,y = \cos(\omega t)$ for $\omega \neq \omega_0$, then for $\omega = \omega_0$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Oscillateur forcé et résonance).</span> Soit $\omega_0 &gt; 0$. Résoudre $y'' + \omega_0^2\,y = \cos(\omega t)$ pour $\omega \neq \omega_0$, puis pour $\omega = \omega_0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The homogeneous solutions are $\lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$.
+      <br>
+      <em>Case $\omega \neq \omega_0$.</em> Consider the equation with right-hand side $e^{i\omega t}$: since $i\omega$ is not a root of $r^2 + \omega_0^2$, seek $Y = c\,e^{i\omega t}$: $c\,(\omega_0^2 - \omega^2)e^{i\omega t} = e^{i\omega t}$, so $Y = \frac{e^{i\omega t}}{\omega_0^2 - \omega^2}$. Taking the real part: $y_p = \frac{\cos(\omega t)}{\omega_0^2 - \omega^2}$. General solution: $y = \frac{\cos(\omega t)}{\omega_0^2 - \omega^2} + \lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$: bounded oscillations.
+      <br>
+      <em>Case $\omega = \omega_0$ (resonance).</em> Now $i\omega_0$ is a simple root of the characteristic equation, so seek $Y = c\,t\,e^{i\omega_0 t}$ for the right-hand side $e^{i\omega_0 t}$: the general computation gives $Y'' + \omega_0^2 Y = c\,(2i\omega_0)e^{i\omega_0 t}$, so $c = \frac{1}{2i\omega_0}$ and, taking the real part of $\frac{t\,e^{i\omega_0 t}}{2i\omega_0} = \frac{t\,(\sin(\omega_0 t) - i\cos(\omega_0 t))}{2\omega_0}$: $$y_p = \frac{t\sin(\omega_0 t)}{2\omega_0}.$$ General solution: $y = \frac{t\sin(\omega_0 t)}{2\omega_0} + \lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$. The amplitude grows linearly in $t$: this is the resonance phenomenon.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les solutions homogènes sont $\lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$.
+      <br>
+      <em>Cas $\omega \neq \omega_0$.</em> On considère l'équation de second membre $e^{i\omega t}$ : comme $i\omega$ n'est pas racine de $r^2 + \omega_0^2$, on cherche $Y = c\,e^{i\omega t}$ : $c\,(\omega_0^2 - \omega^2)e^{i\omega t} = e^{i\omega t}$, donc $Y = \frac{e^{i\omega t}}{\omega_0^2 - \omega^2}$. En prenant la partie réelle : $y_p = \frac{\cos(\omega t)}{\omega_0^2 - \omega^2}$. Solution générale : $y = \frac{\cos(\omega t)}{\omega_0^2 - \omega^2} + \lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$ : oscillations bornées.
+      <br>
+      <em>Cas $\omega = \omega_0$ (résonance).</em> Cette fois $i\omega_0$ est racine simple de l'équation caractéristique, donc on cherche $Y = c\,t\,e^{i\omega_0 t}$ pour le second membre $e^{i\omega_0 t}$ : le calcul général donne $Y'' + \omega_0^2 Y = c\,(2i\omega_0)e^{i\omega_0 t}$, donc $c = \frac{1}{2i\omega_0}$ et, en prenant la partie réelle de $\frac{t\,e^{i\omega_0 t}}{2i\omega_0} = \frac{t\,(\sin(\omega_0 t) - i\cos(\omega_0 t))}{2\omega_0}$ : $$y_p = \frac{t\sin(\omega_0 t)}{2\omega_0}.$$ Solution générale : $y = \frac{t\sin(\omega_0 t)}{2\omega_0} + \lambda\cos(\omega_0 t) + \mu\sin(\omega_0 t)$. L'amplitude croît linéairement en $t$ : c'est le phénomène de résonance.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

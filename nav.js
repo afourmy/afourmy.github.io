@@ -17,6 +17,10 @@
         { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
         { href: "math/continuite.html", en: "Continuity" },
         { href: "math/derivation.html", en: "Differentiation" },
+        { href: "math/comparaisons.html", en: "Asymptotic Comparison" },
+        { href: "math/calcul-integral.html", en: "Integral Calculus" },
+        { href: "math/convexite.html", en: "Convexity" },
+        { href: "math/equations-differentielles.html", en: "Differential Equations" },
         { href: "math/complexes.html", en: "Complex Numbers" },
       ],
       [
@@ -33,6 +37,7 @@
         { href: "math/matrices.html", en: "Matrices" },
         { href: "math/determinants.html", en: "Determinants" },
         { href: "math/reduction.html", en: "Reduction" },
+        { href: "math/espaces-euclidiens.html", en: "Euclidean Spaces" },
         { href: "math/probabilites.html", en: "Probability" },
       ]
     ]},

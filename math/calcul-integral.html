@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integral Calculus</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Step functions</h3>
+    <h3 class="fr">Fonctions en escalier</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Subdivision).</span> A <em>subdivision</em> of $[a,b]$ is a finite family $\sigma = (x_0, \ldots, x_n)$ with $a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b$. Its <em>mesh</em> is $\max_i (x_i - x_{i-1})$. A subdivision $\sigma'$ <em>refines</em> $\sigma$ if it contains all the points of $\sigma$.</p>
+      <p class="fr"><span class="thm-label">Définition (Subdivision).</span> Une <em>subdivision</em> de $[a,b]$ est une famille finie $\sigma = (x_0, \ldots, x_n)$ avec $a = x_0 &lt; x_1 &lt; \cdots &lt; x_n = b$. Son <em>pas</em> est $\max_i (x_i - x_{i-1})$. Une subdivision $\sigma'$ est <em>plus fine</em> que $\sigma$ si elle contient tous les points de $\sigma$.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Step function).</span> A function $\varphi : [a,b] \to \mathbb{R}$ is a <em>step function</em> if there exists a subdivision $(x_0, \ldots, x_n)$, said to be <em>adapted</em> to $\varphi$, such that $\varphi$ is constant, equal to $c_i$, on each open interval $]x_{i-1}, x_i[$. The <em>integral</em> of $\varphi$ is $$\int_a^b \varphi = \sum_{i=1}^n c_i\,(x_i - x_{i-1}).$$ This value does not depend on the adapted subdivision chosen, nor on the values of $\varphi$ at the points $x_i$.</p>
+      <p class="fr"><span class="thm-label">Définition (Fonction en escalier).</span> Une fonction $\varphi : [a,b] \to \mathbb{R}$ est <em>en escalier</em> s'il existe une subdivision $(x_0, \ldots, x_n)$, dite <em>adaptée</em> à $\varphi$, telle que $\varphi$ soit constante, égale à $c_i$, sur chaque intervalle ouvert $]x_{i-1}, x_i[$. L'<em>intégrale</em> de $\varphi$ est $$\int_a^b \varphi = \sum_{i=1}^n c_i\,(x_i - x_{i-1}).$$ Cette valeur ne dépend ni de la subdivision adaptée choisie, ni des valeurs de $\varphi$ aux points $x_i$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Adding one point $y \in\,]x_{i-1}, x_i[$ to an adapted subdivision replaces the term $c_i(x_i - x_{i-1})$ by $c_i(y - x_{i-1}) + c_i(x_i - y)$, and does not change the sum. By induction, any refinement of an adapted subdivision gives the same value. If $\sigma$ and $\sigma'$ are two adapted subdivisions, their union $\sigma \cup \sigma'$ refines both, so both give the value computed on $\sigma \cup \sigma'$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Ajouter un point $y \in\,]x_{i-1}, x_i[$ à une subdivision adaptée remplace le terme $c_i(x_i - x_{i-1})$ par $c_i(y - x_{i-1}) + c_i(x_i - y)$, et ne change pas la somme. Par récurrence, toute subdivision plus fine qu'une subdivision adaptée donne la même valeur. Si $\sigma$ et $\sigma'$ sont deux subdivisions adaptées, leur réunion $\sigma \cup \sigma'$ est plus fine que chacune, donc toutes deux donnent la valeur calculée sur $\sigma \cup \sigma'$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Integral of step functions).</span> Let $\varphi, \psi$ be step functions on $[a,b]$ and $\lambda \in \mathbb{R}$. Then: <em>linearity</em> $\int_a^b (\varphi + \lambda\psi) = \int_a^b \varphi + \lambda \int_a^b \psi$; <em>monotonicity</em> $\varphi \le \psi \Rightarrow \int_a^b \varphi \le \int_a^b \psi$; the bound $\big|\int_a^b \varphi\big| \le (b-a)\,\sup_{[a,b]}|\varphi|$; and the <em>Chasles relation</em> $\int_a^b \varphi = \int_a^c \varphi + \int_c^b \varphi$ for $c \in\,]a,b[$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Intégrale des fonctions en escalier).</span> Soient $\varphi, \psi$ en escalier sur $[a,b]$ et $\lambda \in \mathbb{R}$. Alors : <em>linéarité</em> $\int_a^b (\varphi + \lambda\psi) = \int_a^b \varphi + \lambda \int_a^b \psi$ ; <em>croissance</em> $\varphi \le \psi \Rightarrow \int_a^b \varphi \le \int_a^b \psi$ ; la majoration $\big|\int_a^b \varphi\big| \le (b-a)\,\sup_{[a,b]}|\varphi|$ ; et la <em>relation de Chasles</em> $\int_a^b \varphi = \int_a^c \varphi + \int_c^b \varphi$ pour $c \in\,]a,b[$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Take a subdivision adapted to both $\varphi$ and $\psi$ (the union of two adapted subdivisions): all properties are read term by term on the sums. The bound follows from $|c_i| \le \sup|\varphi|$ and $\sum_i (x_i - x_{i-1}) = b - a$. For Chasles, add the point $c$ to an adapted subdivision and split the sum.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On prend une subdivision adaptée à la fois à $\varphi$ et à $\psi$ (la réunion de deux subdivisions adaptées) : toutes les propriétés se lisent terme à terme sur les sommes. La majoration découle de $|c_i| \le \sup|\varphi|$ et de $\sum_i (x_i - x_{i-1}) = b - a$. Pour Chasles, on ajoute le point $c$ à une subdivision adaptée et on coupe la somme.
+    </details>
+
+    <h3 class="en">Integral of a continuous function</h3>
+    <h3 class="fr">Intégrale d'une fonction continue</h3>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Uniform approximation by step functions).</span> Let $f$ be continuous on $[a,b]$. For every $\varepsilon &gt; 0$, there exists a step function $\varphi$ on $[a,b]$ such that $\sup_{[a,b]}|f - \varphi| \le \varepsilon$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Approximation uniforme par des fonctions en escalier).</span> Soit $f$ continue sur $[a,b]$. Pour tout $\varepsilon &gt; 0$, il existe une fonction en escalier $\varphi$ sur $[a,b]$ telle que $\sup_{[a,b]}|f - \varphi| \le \varepsilon$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By Heine's theorem, $f$ is uniformly continuous on the segment $[a,b]$: there exists $\delta &gt; 0$ such that $|x - y| &lt; \delta \Rightarrow |f(x) - f(y)| \le \varepsilon$. Choose $n$ with $\frac{b-a}{n} &lt; \delta$ and take the uniform subdivision $x_k = a + k\frac{b-a}{n}$. Define $\varphi = f(x_k)$ on $[x_k, x_{k+1}[$ and $\varphi(b) = f(b)$: this is a step function, and for $x \in [x_k, x_{k+1}[$, $|x - x_k| &lt; \delta$, so $|f(x) - \varphi(x)| = |f(x) - f(x_k)| \le \varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par le théorème de Heine, $f$ est uniformément continue sur le segment $[a,b]$ : il existe $\delta &gt; 0$ tel que $|x - y| &lt; \delta \Rightarrow |f(x) - f(y)| \le \varepsilon$. On choisit $n$ tel que $\frac{b-a}{n} &lt; \delta$ et on prend la subdivision uniforme $x_k = a + k\frac{b-a}{n}$. On pose $\varphi = f(x_k)$ sur $[x_k, x_{k+1}[$ et $\varphi(b) = f(b)$ : c'est une fonction en escalier, et pour $x \in [x_k, x_{k+1}[$, $|x - x_k| &lt; \delta$, donc $|f(x) - \varphi(x)| = |f(x) - f(x_k)| \le \varepsilon$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Integral of a continuous function).</span> Let $f$ be continuous on $[a,b]$. The two sets $\left\{\int_a^b \varphi : \varphi \text{ step function},\ \varphi \le f\right\}$ and $\left\{\int_a^b \psi : \psi \text{ step function},\ \psi \ge f\right\}$ are nonempty and the supremum of the first equals the infimum of the second. This common value is called the <em>integral of $f$ over $[a,b]$</em>, written $\int_a^b f(t)\,dt$. It coincides with the previous definition when $f$ is itself a step function.</p>
+      <p class="fr"><span class="thm-label">Théorème (Intégrale d'une fonction continue).</span> Soit $f$ continue sur $[a,b]$. Les deux ensembles $\left\{\int_a^b \varphi : \varphi \text{ en escalier},\ \varphi \le f\right\}$ et $\left\{\int_a^b \psi : \psi \text{ en escalier},\ \psi \ge f\right\}$ sont non vides et la borne supérieure du premier égale la borne inférieure du second. Cette valeur commune est appelée l'<em>intégrale de $f$ sur $[a,b]$</em>, notée $\int_a^b f(t)\,dt$. Elle coïncide avec la définition précédente lorsque $f$ est elle-même en escalier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $f$ is bounded on $[a,b]$ (extreme value theorem), so constant functions below and above $f$ exist: both sets are nonempty. If $\varphi \le f \le \psi$, then $\int\varphi \le \int\psi$ (monotonicity for step functions), so $I^-(f) = \sup_{\varphi \le f} \int\varphi$ and $I^+(f) = \inf_{\psi \ge f} \int\psi$ exist (supremum property of $\mathbb{R}$) and $I^-(f) \le I^+(f)$. Let $\varepsilon &gt; 0$ and $\varphi$ a step function with $\sup|f - \varphi| \le \varepsilon$ (approximation theorem). Then $\varphi - \varepsilon \le f \le \varphi + \varepsilon$ are step functions, so $I^+(f) - I^-(f) \le \int(\varphi+\varepsilon) - \int(\varphi-\varepsilon) = 2\varepsilon(b-a)$. As $\varepsilon$ is arbitrary, $I^-(f) = I^+(f)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $f$ est bornée sur $[a,b]$ (théorème des bornes atteintes), donc il existe des fonctions constantes en dessous et au-dessus de $f$ : les deux ensembles sont non vides. Si $\varphi \le f \le \psi$, alors $\int\varphi \le \int\psi$ (croissance pour les fonctions en escalier), donc $I^-(f) = \sup_{\varphi \le f} \int\varphi$ et $I^+(f) = \inf_{\psi \ge f} \int\psi$ existent (propriété de la borne supérieure de $\mathbb{R}$) et $I^-(f) \le I^+(f)$. Soit $\varepsilon &gt; 0$ et $\varphi$ en escalier avec $\sup|f - \varphi| \le \varepsilon$ (théorème d'approximation). Alors $\varphi - \varepsilon \le f \le \varphi + \varepsilon$ sont en escalier, donc $I^+(f) - I^-(f) \le \int(\varphi+\varepsilon) - \int(\varphi-\varepsilon) = 2\varepsilon(b-a)$. Comme $\varepsilon$ est arbitraire, $I^-(f) = I^+(f)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Approximation lemma).</span> If $f$ is continuous and $\varphi$ is a step function with $\sup_{[a,b]}|f - \varphi| \le \varepsilon$, then $\big|\int_a^b f - \int_a^b \varphi\big| \le \varepsilon(b-a)$. In particular, if $(\varphi_n)$ is a sequence of step functions with $\sup_{[a,b]}|f - \varphi_n| \to 0$, then $\int_a^b \varphi_n \to \int_a^b f$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Lemme d'approximation).</span> Si $f$ est continue et $\varphi$ en escalier avec $\sup_{[a,b]}|f - \varphi| \le \varepsilon$, alors $\big|\int_a^b f - \int_a^b \varphi\big| \le \varepsilon(b-a)$. En particulier, si $(\varphi_n)$ est une suite de fonctions en escalier avec $\sup_{[a,b]}|f - \varphi_n| \to 0$, alors $\int_a^b \varphi_n \to \int_a^b f$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\varphi - \varepsilon \le f \le \varphi + \varepsilon$, so by definition of the integral as supremum and infimum: $\int\varphi - \varepsilon(b-a) = \int(\varphi - \varepsilon) \le \int f \le \int(\varphi + \varepsilon) = \int\varphi + \varepsilon(b-a)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\varphi - \varepsilon \le f \le \varphi + \varepsilon$, donc par définition de l'intégrale comme borne supérieure et inférieure : $\int\varphi - \varepsilon(b-a) = \int(\varphi - \varepsilon) \le \int f \le \int(\varphi + \varepsilon) = \int\varphi + \varepsilon(b-a)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of the integral).</span> Let $f, g$ be continuous on $[a,b]$ and $\lambda \in \mathbb{R}$. Then:</p>
+      <ul class="en">
+        <li><em>Linearity:</em> $\int_a^b (f + \lambda g) = \int_a^b f + \lambda \int_a^b g$.</li>
+        <li><em>Positivity:</em> if $f \ge 0$ then $\int_a^b f \ge 0$; <em>monotonicity:</em> if $f \le g$ then $\int_a^b f \le \int_a^b g$.</li>
+        <li><em>Triangle inequality:</em> $\big|\int_a^b f\big| \le \int_a^b |f| \le (b-a)\sup_{[a,b]}|f|$.</li>
+        <li><em>Chasles relation:</em> $\int_a^b f = \int_a^c f + \int_c^b f$ for $c \in\,]a,b[$.</li>
+      </ul>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de l'intégrale).</span> Soient $f, g$ continues sur $[a,b]$ et $\lambda \in \mathbb{R}$. Alors :</p>
+      <ul class="fr">
+        <li><em>Linéarité :</em> $\int_a^b (f + \lambda g) = \int_a^b f + \lambda \int_a^b g$.</li>
+        <li><em>Positivité :</em> si $f \ge 0$ alors $\int_a^b f \ge 0$ ; <em>croissance :</em> si $f \le g$ alors $\int_a^b f \le \int_a^b g$.</li>
+        <li><em>Inégalité triangulaire :</em> $\big|\int_a^b f\big| \le \int_a^b |f| \le (b-a)\sup_{[a,b]}|f|$.</li>
+        <li><em>Relation de Chasles :</em> $\int_a^b f = \int_a^c f + \int_c^b f$ pour $c \in\,]a,b[$.</li>
+      </ul>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Linearity.</em> Let $\varepsilon &gt; 0$ and $\varphi, \psi$ step functions with $\sup|f-\varphi| \le \varepsilon$ and $\sup|g-\psi| \le \varepsilon$. Then $\sup|(f+\lambda g)-(\varphi+\lambda\psi)| \le (1+|\lambda|)\varepsilon$, and the approximation lemma applied three times together with linearity for step functions gives $\big|\int(f+\lambda g) - \int f - \lambda\int g\big| \le 2(1+|\lambda|)\varepsilon(b-a)$ for all $\varepsilon$, hence zero.
+      <br>
+      <em>Positivity.</em> The zero function is a step function below $f$, so $\int_a^b f = I^-(f) \ge 0$. Monotonicity follows by linearity applied to $g - f \ge 0$.
+      <br>
+      <em>Triangle inequality.</em> $|f|$ is continuous and $-|f| \le f \le |f|$, so by monotonicity $\pm\int f \le \int|f|$; and $|f| \le \sup|f|$ gives the second bound by monotonicity.
+      <br>
+      <em>Chasles.</em> If $\varphi$ is a step function on $[a,b]$ with $\sup|f-\varphi| \le \varepsilon$, its restrictions to $[a,c]$ and $[c,b]$ are step functions approximating the restrictions of $f$. By Chasles for step functions and the approximation lemma on each of the three segments, $\big|\int_a^b f - \int_a^c f - \int_c^b f\big| \le 3\varepsilon(b-a)$ for all $\varepsilon &gt; 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Linéarité.</em> Soit $\varepsilon &gt; 0$ et $\varphi, \psi$ en escalier avec $\sup|f-\varphi| \le \varepsilon$ et $\sup|g-\psi| \le \varepsilon$. Alors $\sup|(f+\lambda g)-(\varphi+\lambda\psi)| \le (1+|\lambda|)\varepsilon$, et le lemme d'approximation appliqué trois fois, joint à la linéarité pour les fonctions en escalier, donne $\big|\int(f+\lambda g) - \int f - \lambda\int g\big| \le 2(1+|\lambda|)\varepsilon(b-a)$ pour tout $\varepsilon$, donc zéro.
+      <br>
+      <em>Positivité.</em> La fonction nulle est en escalier et en dessous de $f$, donc $\int_a^b f = I^-(f) \ge 0$. La croissance s'en déduit par linéarité appliquée à $g - f \ge 0$.
+      <br>
+      <em>Inégalité triangulaire.</em> $|f|$ est continue et $-|f| \le f \le |f|$, donc par croissance $\pm\int f \le \int|f|$ ; et $|f| \le \sup|f|$ donne la seconde majoration par croissance.
+      <br>
+      <em>Chasles.</em> Si $\varphi$ est en escalier sur $[a,b]$ avec $\sup|f-\varphi| \le \varepsilon$, ses restrictions à $[a,c]$ et $[c,b]$ sont en escalier et approchent les restrictions de $f$. Par Chasles pour les fonctions en escalier et le lemme d'approximation sur chacun des trois segments, $\big|\int_a^b f - \int_a^c f - \int_c^b f\big| \le 3\varepsilon(b-a)$ pour tout $\varepsilon &gt; 0$.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Convention (Order of the bounds).</span> We set $\int_a^a f = 0$ and, for $a &lt; b$, $\int_b^a f = -\int_a^b f$. With this convention, the Chasles relation $\int_a^b f = \int_a^c f + \int_c^b f$ holds for any positions of $a, b, c$ in an interval where $f$ is continuous.</p>
+      <p class="fr"><span class="thm-label">Convention (Ordre des bornes).</span> On pose $\int_a^a f = 0$ et, pour $a &lt; b$, $\int_b^a f = -\int_a^b f$. Avec cette convention, la relation de Chasles $\int_a^b f = \int_a^c f + \int_c^b f$ est valable quelles que soient les positions de $a, b, c$ dans un intervalle où $f$ est continue.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Strict positivity).</span> Let $f$ be continuous on $[a,b]$ with $f \ge 0$ and $\int_a^b f = 0$. Then $f = 0$. Equivalently: if $f$ is continuous, nonnegative and not identically zero, then $\int_a^b f &gt; 0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Positivité stricte).</span> Soit $f$ continue sur $[a,b]$ avec $f \ge 0$ et $\int_a^b f = 0$. Alors $f = 0$. De manière équivalente : si $f$ est continue, positive et non identiquement nulle, alors $\int_a^b f &gt; 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $f(x_0) &gt; 0$ for some $x_0 \in [a,b]$. By continuity at $x_0$ (with $\varepsilon = f(x_0)/2$), there exists a segment $[c,d] \subset [a,b]$ with $c &lt; d$, containing $x_0$, on which $f \ge f(x_0)/2$. By Chasles and positivity on $[a,c]$ and $[d,b]$: $\int_a^b f \ge \int_c^d f \ge \frac{f(x_0)}{2}(d-c) &gt; 0$ (monotonicity against the constant $f(x_0)/2$), contradicting $\int_a^b f = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons $f(x_0) &gt; 0$ pour un $x_0 \in [a,b]$. Par continuité en $x_0$ (avec $\varepsilon = f(x_0)/2$), il existe un segment $[c,d] \subset [a,b]$ avec $c &lt; d$, contenant $x_0$, sur lequel $f \ge f(x_0)/2$. Par Chasles et positivité sur $[a,c]$ et $[d,b]$ : $\int_a^b f \ge \int_c^d f \ge \frac{f(x_0)}{2}(d-c) &gt; 0$ (croissance contre la constante $f(x_0)/2$), ce qui contredit $\int_a^b f = 0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Mean value).</span> Let $f$ be continuous on $[a,b]$, with minimum $m$ and maximum $M$. The <em>mean value</em> of $f$ is $\mu = \frac{1}{b-a}\int_a^b f$. Then $m \le \mu \le M$, and there exists $c \in [a,b]$ such that $f(c) = \mu$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Valeur moyenne).</span> Soit $f$ continue sur $[a,b]$, de minimum $m$ et de maximum $M$. La <em>valeur moyenne</em> de $f$ est $\mu = \frac{1}{b-a}\int_a^b f$. Alors $m \le \mu \le M$, et il existe $c \in [a,b]$ tel que $f(c) = \mu$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $m$ and $M$ exist and are attained (extreme value theorem). From $m \le f \le M$, monotonicity gives $m(b-a) \le \int_a^b f \le M(b-a)$, i.e. $m \le \mu \le M$. Since $f$ attains the values $m$ and $M$, the intermediate value theorem gives $c$ with $f(c) = \mu$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $m$ et $M$ existent et sont atteints (théorème des bornes atteintes). De $m \le f \le M$, la croissance donne $m(b-a) \le \int_a^b f \le M(b-a)$, i.e. $m \le \mu \le M$. Comme $f$ atteint les valeurs $m$ et $M$, le théorème des valeurs intermédiaires fournit $c$ tel que $f(c) = \mu$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Cauchy-Schwarz inequality for integrals).</span> Let $f, g$ be continuous on $[a,b]$. Then $$\left(\int_a^b fg\right)^{\!2} \le \left(\int_a^b f^2\right)\left(\int_a^b g^2\right),$$ with equality if and only if $f$ and $g$ are proportional. Consequently, $\langle f,g\rangle = \int_a^b fg$ defines an inner product on $\mathcal{C}([a,b],\mathbb{R})$: positive definiteness is exactly the strict positivity theorem applied to $f^2$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Inégalité de Cauchy-Schwarz pour les intégrales).</span> Soient $f, g$ continues sur $[a,b]$. Alors $$\left(\int_a^b fg\right)^{\!2} \le \left(\int_a^b f^2\right)\left(\int_a^b g^2\right),$$ avec égalité si et seulement si $f$ et $g$ sont proportionnelles. Par conséquent, $\langle f,g\rangle = \int_a^b fg$ définit un produit scalaire sur $\mathcal{C}([a,b],\mathbb{R})$ : le caractère défini positif est exactement le théorème de positivité stricte appliqué à $f^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $\int g^2 = 0$, then $g = 0$ (strict positivity applied to $g^2 \ge 0$), both sides vanish and $g = 0 \cdot f$. Otherwise, for $t \in \mathbb{R}$, positivity and linearity give $0 \le \int (f + tg)^2 = \int f^2 + 2t\int fg + t^2 \int g^2$. This quadratic polynomial in $t$ is nonnegative on $\mathbb{R}$, so its discriminant is nonpositive: $4\big(\int fg\big)^2 - 4\int f^2 \int g^2 \le 0$. Equality holds iff the polynomial has a real root $t_0$, i.e. $\int (f + t_0 g)^2 = 0$, i.e. $f = -t_0 g$ by strict positivity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\int g^2 = 0$, alors $g = 0$ (positivité stricte appliquée à $g^2 \ge 0$), les deux membres sont nuls et $g = 0 \cdot f$. Sinon, pour $t \in \mathbb{R}$, la positivité et la linéarité donnent $0 \le \int (f + tg)^2 = \int f^2 + 2t\int fg + t^2 \int g^2$. Ce trinôme en $t$ est positif sur $\mathbb{R}$, donc son discriminant est négatif : $4\big(\int fg\big)^2 - 4\int f^2 \int g^2 \le 0$. Il y a égalité ssi le trinôme admet une racine réelle $t_0$, i.e. $\int (f + t_0 g)^2 = 0$, i.e. $f = -t_0 g$ par positivité stricte.
+    </details>
+
+    <h3 class="en">Primitives and the fundamental theorem</h3>
+    <h3 class="fr">Primitives et théorème fondamental</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Primitive).</span> Let $I$ be an interval and $f : I \to \mathbb{R}$. A <em>primitive</em> of $f$ on $I$ is a differentiable function $F : I \to \mathbb{R}$ such that $F' = f$. If $F$ is a primitive of $f$ on $I$, the primitives of $f$ on $I$ are exactly the functions $F + c$, $c \in \mathbb{R}$: indeed if $G' = F' = f$, then $(G - F)' = 0$ on the interval $I$, so $G - F$ is constant (consequence of the mean value theorem).</p>
+      <p class="fr"><span class="thm-label">Définition (Primitive).</span> Soit $I$ un intervalle et $f : I \to \mathbb{R}$. Une <em>primitive</em> de $f$ sur $I$ est une fonction dérivable $F : I \to \mathbb{R}$ telle que $F' = f$. Si $F$ est une primitive de $f$ sur $I$, les primitives de $f$ sur $I$ sont exactement les fonctions $F + c$, $c \in \mathbb{R}$ : en effet si $G' = F' = f$, alors $(G - F)' = 0$ sur l'intervalle $I$, donc $G - F$ est constante (conséquence du théorème des accroissements finis).</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Fundamental theorem of calculus).</span> Let $f$ be continuous on an interval $I$ and $a \in I$. The function $$F : x \mapsto \int_a^x f(t)\,dt$$ is the unique primitive of $f$ on $I$ vanishing at $a$. In particular, every continuous function on an interval has primitives, and $F$ is of class $\mathcal{C}^1$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème fondamental de l'analyse).</span> Soit $f$ continue sur un intervalle $I$ et $a \in I$. La fonction $$F : x \mapsto \int_a^x f(t)\,dt$$ est l'unique primitive de $f$ sur $I$ s'annulant en $a$. En particulier, toute fonction continue sur un intervalle admet des primitives, et $F$ est de classe $\mathcal{C}^1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $x \in I$ and $h \neq 0$ with $x + h \in I$. By Chasles (with the sign convention): $F(x+h) - F(x) = \int_x^{x+h} f(t)\,dt$, so $$F(x+h) - F(x) - h f(x) = \int_x^{x+h} \big(f(t) - f(x)\big)\,dt.$$ Let $\varepsilon &gt; 0$. By continuity of $f$ at $x$, there exists $\delta &gt; 0$ such that $|t - x| \le \delta \Rightarrow |f(t) - f(x)| \le \varepsilon$. For $0 &lt; |h| \le \delta$, the triangle inequality gives $\big|F(x+h) - F(x) - hf(x)\big| \le |h|\,\varepsilon$, i.e. $\left|\frac{F(x+h)-F(x)}{h} - f(x)\right| \le \varepsilon$. Hence $F$ is differentiable at $x$ with $F'(x) = f(x)$; $F' = f$ is continuous, so $F$ is $\mathcal{C}^1$, and $F(a) = 0$. Uniqueness: two primitives vanishing at $a$ differ by a constant, which must be zero.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $x \in I$ et $h \neq 0$ avec $x + h \in I$. Par Chasles (avec la convention de signe) : $F(x+h) - F(x) = \int_x^{x+h} f(t)\,dt$, donc $$F(x+h) - F(x) - h f(x) = \int_x^{x+h} \big(f(t) - f(x)\big)\,dt.$$ Soit $\varepsilon &gt; 0$. Par continuité de $f$ en $x$, il existe $\delta &gt; 0$ tel que $|t - x| \le \delta \Rightarrow |f(t) - f(x)| \le \varepsilon$. Pour $0 &lt; |h| \le \delta$, l'inégalité triangulaire donne $\big|F(x+h) - F(x) - hf(x)\big| \le |h|\,\varepsilon$, i.e. $\left|\frac{F(x+h)-F(x)}{h} - f(x)\right| \le \varepsilon$. Donc $F$ est dérivable en $x$ avec $F'(x) = f(x)$ ; $F' = f$ est continue, donc $F$ est $\mathcal{C}^1$, et $F(a) = 0$. Unicité : deux primitives s'annulant en $a$ diffèrent d'une constante, nécessairement nulle.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Fundamental formula).</span> Let $f$ be continuous on $[a,b]$ and $F$ <em>any</em> primitive of $f$. Then $$\int_a^b f(t)\,dt = F(b) - F(a) =: \big[F(t)\big]_a^b.$$</p>
+      <p class="fr"><span class="thm-label">Corollaire (Formule fondamentale).</span> Soit $f$ continue sur $[a,b]$ et $F$ une primitive <em>quelconque</em> de $f$. Alors $$\int_a^b f(t)\,dt = F(b) - F(a) =: \big[F(t)\big]_a^b.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $F_0 : x \mapsto \int_a^x f$ be the primitive vanishing at $a$. Then $F = F_0 + c$ for some constant $c$, so $F(b) - F(a) = F_0(b) - F_0(a) = \int_a^b f$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $F_0 : x \mapsto \int_a^x f$ la primitive s'annulant en $a$. Alors $F = F_0 + c$ pour une constante $c$, donc $F(b) - F(a) = F_0(b) - F_0(a) = \int_a^b f$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Integration by parts).</span> Let $u, v$ be of class $\mathcal{C}^1$ on $[a,b]$. Then $$\int_a^b u'(t)v(t)\,dt = \big[u(t)v(t)\big]_a^b - \int_a^b u(t)v'(t)\,dt.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Intégration par parties).</span> Soient $u, v$ de classe $\mathcal{C}^1$ sur $[a,b]$. Alors $$\int_a^b u'(t)v(t)\,dt = \big[u(t)v(t)\big]_a^b - \int_a^b u(t)v'(t)\,dt.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $uv$ is a primitive of the continuous function $(uv)' = u'v + uv'$, so by the fundamental formula $\big[uv\big]_a^b = \int_a^b (u'v + uv')$, and we conclude by linearity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $uv$ est une primitive de la fonction continue $(uv)' = u'v + uv'$, donc par la formule fondamentale $\big[uv\big]_a^b = \int_a^b (u'v + uv')$, et on conclut par linéarité.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Change of variables).</span> Let $\varphi$ be of class $\mathcal{C}^1$ on $[\alpha,\beta]$ and $f$ continuous on an interval containing $\varphi([\alpha,\beta])$. Then $$\int_\alpha^\beta f(\varphi(t))\,\varphi'(t)\,dt = \int_{\varphi(\alpha)}^{\varphi(\beta)} f(u)\,du.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Changement de variable).</span> Soit $\varphi$ de classe $\mathcal{C}^1$ sur $[\alpha,\beta]$ et $f$ continue sur un intervalle contenant $\varphi([\alpha,\beta])$. Alors $$\int_\alpha^\beta f(\varphi(t))\,\varphi'(t)\,dt = \int_{\varphi(\alpha)}^{\varphi(\beta)} f(u)\,du.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $f$ is continuous on an interval, so it has a primitive $F$ (fundamental theorem). Then $F \circ \varphi$ is differentiable with $(F \circ \varphi)' = (f \circ \varphi)\,\varphi'$, which is continuous: $F \circ \varphi$ is a primitive of $(f \circ \varphi)\varphi'$. By the fundamental formula, $\int_\alpha^\beta f(\varphi(t))\varphi'(t)\,dt = F(\varphi(\beta)) - F(\varphi(\alpha)) = \int_{\varphi(\alpha)}^{\varphi(\beta)} f(u)\,du$ (using the sign convention if $\varphi(\alpha) \ge \varphi(\beta)$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $f$ est continue sur un intervalle, donc admet une primitive $F$ (théorème fondamental). Alors $F \circ \varphi$ est dérivable avec $(F \circ \varphi)' = (f \circ \varphi)\,\varphi'$, qui est continue : $F \circ \varphi$ est une primitive de $(f \circ \varphi)\varphi'$. Par la formule fondamentale, $\int_\alpha^\beta f(\varphi(t))\varphi'(t)\,dt = F(\varphi(\beta)) - F(\varphi(\alpha)) = \int_{\varphi(\alpha)}^{\varphi(\beta)} f(u)\,du$ (avec la convention de signe si $\varphi(\alpha) \ge \varphi(\beta)$).
+    </details>
+
+    <h3 class="en">Riemann sums and Taylor's formula</h3>
+    <h3 class="fr">Sommes de Riemann et formule de Taylor</h3>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Riemann sums).</span> Let $f$ be continuous on $[a,b]$. Then $$S_n = \frac{b-a}{n}\sum_{k=0}^{n-1} f\!\left(a + k\,\frac{b-a}{n}\right) \xrightarrow[n\to\infty]{} \int_a^b f(t)\,dt.$$ The same holds with $\sum_{k=1}^{n}$ (right endpoints).</p>
+      <p class="fr"><span class="thm-label">Théorème (Sommes de Riemann).</span> Soit $f$ continue sur $[a,b]$. Alors $$S_n = \frac{b-a}{n}\sum_{k=0}^{n-1} f\!\left(a + k\,\frac{b-a}{n}\right) \xrightarrow[n\to\infty]{} \int_a^b f(t)\,dt.$$ Le résultat vaut aussi avec $\sum_{k=1}^{n}$ (extrémités droites).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $x_k = a + k\frac{b-a}{n}$ and $\varphi_n$ the step function equal to $f(x_k)$ on $[x_k, x_{k+1}[$ (and $f(b)$ at $b$): then $S_n = \int_a^b \varphi_n$ by definition of the step integral. Let $\varepsilon &gt; 0$. By Heine's theorem, $f$ is uniformly continuous: there is $\delta &gt; 0$ with $|x-y| &lt; \delta \Rightarrow |f(x)-f(y)| \le \varepsilon$. For $n &gt; \frac{b-a}{\delta}$, every $x \in [x_k, x_{k+1}[$ satisfies $|x - x_k| &lt; \delta$, so $\sup|f - \varphi_n| \le \varepsilon$, and the approximation lemma gives $|S_n - \int_a^b f| \le \varepsilon(b-a)$. Hence $S_n \to \int_a^b f$. For right endpoints, the sum differs from $S_n$ by $\frac{b-a}{n}(f(b) - f(a)) \to 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $x_k = a + k\frac{b-a}{n}$ et $\varphi_n$ la fonction en escalier égale à $f(x_k)$ sur $[x_k, x_{k+1}[$ (et à $f(b)$ en $b$) : alors $S_n = \int_a^b \varphi_n$ par définition de l'intégrale des fonctions en escalier. Soit $\varepsilon &gt; 0$. Par le théorème de Heine, $f$ est uniformément continue : il existe $\delta &gt; 0$ tel que $|x-y| &lt; \delta \Rightarrow |f(x)-f(y)| \le \varepsilon$. Pour $n &gt; \frac{b-a}{\delta}$, tout $x \in [x_k, x_{k+1}[$ vérifie $|x - x_k| &lt; \delta$, donc $\sup|f - \varphi_n| \le \varepsilon$, et le lemme d'approximation donne $|S_n - \int_a^b f| \le \varepsilon(b-a)$. Donc $S_n \to \int_a^b f$. Pour les extrémités droites, la somme diffère de $S_n$ de $\frac{b-a}{n}(f(b) - f(a)) \to 0$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Taylor's formula with integral remainder).</span> Let $f$ be of class $\mathcal{C}^{n+1}$ on an interval $I$, and $a, b \in I$. Then $$f(b) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(b-a)^k + \int_a^b \frac{(b-t)^n}{n!}\,f^{(n+1)}(t)\,dt.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Formule de Taylor avec reste intégral).</span> Soit $f$ de classe $\mathcal{C}^{n+1}$ sur un intervalle $I$, et $a, b \in I$. Alors $$f(b) = \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(b-a)^k + \int_a^b \frac{(b-t)^n}{n!}\,f^{(n+1)}(t)\,dt.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction on $n$. For $n = 0$: $f(b) = f(a) + \int_a^b f'(t)\,dt$ is the fundamental formula. Assume the formula at order $n$ for every $\mathcal{C}^{n+1}$ function, and let $f$ be $\mathcal{C}^{n+2}$. Integrate the remainder by parts with $v(t) = f^{(n+1)}(t)$ and $u(t) = -\frac{(b-t)^{n+1}}{(n+1)!}$ (so that $u'(t) = \frac{(b-t)^n}{n!}$): $$\int_a^b \frac{(b-t)^n}{n!} f^{(n+1)}(t)\,dt = \left[-\frac{(b-t)^{n+1}}{(n+1)!} f^{(n+1)}(t)\right]_a^b + \int_a^b \frac{(b-t)^{n+1}}{(n+1)!} f^{(n+2)}(t)\,dt,$$ which equals $\frac{f^{(n+1)}(a)}{(n+1)!}(b-a)^{n+1} + \int_a^b \frac{(b-t)^{n+1}}{(n+1)!} f^{(n+2)}(t)\,dt$: this is exactly the passage from order $n$ to order $n+1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Pour $n = 0$ : $f(b) = f(a) + \int_a^b f'(t)\,dt$ est la formule fondamentale. Supposons la formule à l'ordre $n$ pour toute fonction $\mathcal{C}^{n+1}$, et soit $f$ de classe $\mathcal{C}^{n+2}$. On intègre le reste par parties avec $v(t) = f^{(n+1)}(t)$ et $u(t) = -\frac{(b-t)^{n+1}}{(n+1)!}$ (de sorte que $u'(t) = \frac{(b-t)^n}{n!}$) : $$\int_a^b \frac{(b-t)^n}{n!} f^{(n+1)}(t)\,dt = \left[-\frac{(b-t)^{n+1}}{(n+1)!} f^{(n+1)}(t)\right]_a^b + \int_a^b \frac{(b-t)^{n+1}}{(n+1)!} f^{(n+2)}(t)\,dt,$$ qui vaut $\frac{f^{(n+1)}(a)}{(n+1)!}(b-a)^{n+1} + \int_a^b \frac{(b-t)^{n+1}}{(n+1)!} f^{(n+2)}(t)\,dt$ : c'est exactement le passage de l'ordre $n$ à l'ordre $n+1$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary (Taylor-Lagrange inequality).</span> Let $f$ be of class $\mathcal{C}^{n+1}$ on $[a,b]$ and $M_{n+1} = \sup_{[a,b]}|f^{(n+1)}|$ (finite by the extreme value theorem). Then $$\left|f(b) - \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(b-a)^k\right| \le M_{n+1}\,\frac{(b-a)^{n+1}}{(n+1)!}.$$</p>
+      <p class="fr"><span class="thm-label">Corollaire (Inégalité de Taylor-Lagrange).</span> Soit $f$ de classe $\mathcal{C}^{n+1}$ sur $[a,b]$ et $M_{n+1} = \sup_{[a,b]}|f^{(n+1)}|$ (fini par le théorème des bornes atteintes). Alors $$\left|f(b) - \sum_{k=0}^{n} \frac{f^{(k)}(a)}{k!}(b-a)^k\right| \le M_{n+1}\,\frac{(b-a)^{n+1}}{(n+1)!}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the triangle inequality applied to the integral remainder: for $t \in [a,b]$, $(b-t)^n \ge 0$, so $$\left|\int_a^b \frac{(b-t)^n}{n!} f^{(n+1)}(t)\,dt\right| \le M_{n+1}\int_a^b \frac{(b-t)^n}{n!}\,dt = M_{n+1}\left[-\frac{(b-t)^{n+1}}{(n+1)!}\right]_a^b = M_{n+1}\frac{(b-a)^{n+1}}{(n+1)!}.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par l'inégalité triangulaire appliquée au reste intégral : pour $t \in [a,b]$, $(b-t)^n \ge 0$, donc $$\left|\int_a^b \frac{(b-t)^n}{n!} f^{(n+1)}(t)\,dt\right| \le M_{n+1}\int_a^b \frac{(b-t)^n}{n!}\,dt = M_{n+1}\left[-\frac{(b-t)^{n+1}}{(n+1)!}\right]_a^b = M_{n+1}\frac{(b-a)^{n+1}}{(n+1)!}.$$
+    </details>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[0,1]$. Show that $\displaystyle\int_0^1 t^n f(t)\,dt \to 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[0,1]$. Montrer que $\displaystyle\int_0^1 t^n f(t)\,dt \to 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $f$ is bounded on $[0,1]$ (extreme value theorem): $|f| \le M$. By the triangle inequality and monotonicity: $\left|\int_0^1 t^n f(t)\,dt\right| \le \int_0^1 t^n |f(t)|\,dt \le M \int_0^1 t^n\,dt = \frac{M}{n+1} \to 0$ (using the fundamental formula with the primitive $t^{n+1}/(n+1)$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $f$ est bornée sur $[0,1]$ (théorème des bornes atteintes) : $|f| \le M$. Par l'inégalité triangulaire et la croissance : $\left|\int_0^1 t^n f(t)\,dt\right| \le \int_0^1 t^n |f(t)|\,dt \le M \int_0^1 t^n\,dt = \frac{M}{n+1} \to 0$ (par la formule fondamentale avec la primitive $t^{n+1}/(n+1)$).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[a,b]$ such that $\int_a^b fg = 0$ for every continuous function $g$ on $[a,b]$. Show that $f = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[a,b]$ telle que $\int_a^b fg = 0$ pour toute fonction $g$ continue sur $[a,b]$. Montrer que $f = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $g = f$: then $\int_a^b f^2 = 0$, with $f^2$ continuous and nonnegative. By the strict positivity theorem, $f^2 = 0$, hence $f = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On prend $g = f$ : alors $\int_a^b f^2 = 0$, avec $f^2$ continue et positive. Par le théorème de positivité stricte, $f^2 = 0$, donc $f = 0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[a,b]$ with $f &gt; 0$. Show that $\displaystyle\left(\int_a^b f\right)\left(\int_a^b \frac{1}{f}\right) \ge (b-a)^2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[a,b]$ avec $f &gt; 0$. Montrer que $\displaystyle\left(\int_a^b f\right)\left(\int_a^b \frac{1}{f}\right) \ge (b-a)^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\sqrt{f}$ and $1/\sqrt{f}$ are continuous (composition, $f &gt; 0$). By Cauchy-Schwarz: $(b-a)^2 = \left(\int_a^b \sqrt{f}\cdot\frac{1}{\sqrt{f}}\right)^{\!2} \le \left(\int_a^b f\right)\left(\int_a^b \frac{1}{f}\right)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\sqrt{f}$ et $1/\sqrt{f}$ sont continues (composition, $f &gt; 0$). Par Cauchy-Schwarz : $(b-a)^2 = \left(\int_a^b \sqrt{f}\cdot\frac{1}{\sqrt{f}}\right)^{\!2} \le \left(\int_a^b f\right)\left(\int_a^b \frac{1}{f}\right)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Wallis integrals).</span> Let $I_n = \displaystyle\int_0^{\pi/2} \sin^n t\,dt$. Compute $I_0$ and $I_1$, and show that $I_n = \frac{n-1}{n}\,I_{n-2}$ for $n \ge 2$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Intégrales de Wallis).</span> Soit $I_n = \displaystyle\int_0^{\pi/2} \sin^n t\,dt$. Calculer $I_0$ et $I_1$, et montrer que $I_n = \frac{n-1}{n}\,I_{n-2}$ pour $n \ge 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $I_0 = \pi/2$ and $I_1 = [-\cos t]_0^{\pi/2} = 1$. For $n \ge 2$, integrate by parts with $u'(t) = \sin t$, $v(t) = \sin^{n-1} t$: $$I_n = \big[-\cos t \sin^{n-1} t\big]_0^{\pi/2} + (n-1)\int_0^{\pi/2} \cos^2 t \sin^{n-2} t\,dt.$$ The bracket vanishes, and $\cos^2 t = 1 - \sin^2 t$ gives $I_n = (n-1)(I_{n-2} - I_n)$, i.e. $n I_n = (n-1) I_{n-2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $I_0 = \pi/2$ et $I_1 = [-\cos t]_0^{\pi/2} = 1$. Pour $n \ge 2$, on intègre par parties avec $u'(t) = \sin t$, $v(t) = \sin^{n-1} t$ : $$I_n = \big[-\cos t \sin^{n-1} t\big]_0^{\pi/2} + (n-1)\int_0^{\pi/2} \cos^2 t \sin^{n-2} t\,dt.$$ Le crochet est nul, et $\cos^2 t = 1 - \sin^2 t$ donne $I_n = (n-1)(I_{n-2} - I_n)$, i.e. $n I_n = (n-1) I_{n-2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle I = \int_0^\pi \frac{t\sin t}{1+\cos^2 t}\,dt$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle I = \int_0^\pi \frac{t\sin t}{1+\cos^2 t}\,dt$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The change of variables $t = \pi - u$ ($\varphi(u) = \pi - u$, $\mathcal{C}^1$) gives, since $\sin(\pi-u) = \sin u$ and $\cos(\pi-u) = -\cos u$: $I = \int_0^\pi \frac{(\pi - u)\sin u}{1+\cos^2 u}\,du = \pi\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du - I$, hence $2I = \pi\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du$. In this last integral, the change of variables $v = \cos u$ ($dv = -\sin u\,du$) gives $\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du = \int_{-1}^{1} \frac{dv}{1+v^2} = \big[\arctan v\big]_{-1}^{1} = \frac{\pi}{2}$ ($\arctan$ is a primitive of $v \mapsto \frac{1}{1+v^2}$). Hence $I = \frac{\pi^2}{4}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Le changement de variable $t = \pi - u$ ($\varphi(u) = \pi - u$, $\mathcal{C}^1$) donne, puisque $\sin(\pi-u) = \sin u$ et $\cos(\pi-u) = -\cos u$ : $I = \int_0^\pi \frac{(\pi - u)\sin u}{1+\cos^2 u}\,du = \pi\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du - I$, d'où $2I = \pi\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du$. Dans cette dernière intégrale, le changement de variable $v = \cos u$ ($dv = -\sin u\,du$) donne $\int_0^\pi \frac{\sin u}{1+\cos^2 u}\,du = \int_{-1}^{1} \frac{dv}{1+v^2} = \big[\arctan v\big]_{-1}^{1} = \frac{\pi}{2}$ ($\arctan$ est une primitive de $v \mapsto \frac{1}{1+v^2}$). Donc $I = \frac{\pi^2}{4}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{k=1}^{n} \frac{n}{n^2+k^2} \xrightarrow[n\to\infty]{} \frac{\pi}{4}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\sum_{k=1}^{n} \frac{n}{n^2+k^2} \xrightarrow[n\to\infty]{} \frac{\pi}{4}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\displaystyle\sum_{k=1}^{n} \frac{n}{n^2+k^2} = \frac{1}{n}\sum_{k=1}^{n} \frac{1}{1+(k/n)^2}$ is a Riemann sum (right endpoints) of $f(t) = \frac{1}{1+t^2}$ on $[0,1]$. Since $f$ is continuous, it converges to $\int_0^1 \frac{dt}{1+t^2} = \big[\arctan t\big]_0^1 = \frac{\pi}{4}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\displaystyle\sum_{k=1}^{n} \frac{n}{n^2+k^2} = \frac{1}{n}\sum_{k=1}^{n} \frac{1}{1+(k/n)^2}$ est une somme de Riemann (extrémités droites) de $f(t) = \frac{1}{1+t^2}$ sur $[0,1]$. Comme $f$ est continue, elle converge vers $\int_0^1 \frac{dt}{1+t^2} = \big[\arctan t\big]_0^1 = \frac{\pi}{4}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{k=0}^{n} \frac{1}{k!} \xrightarrow[n\to\infty]{} e$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\sum_{k=0}^{n} \frac{1}{k!} \xrightarrow[n\to\infty]{} e$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\exp$ is $\mathcal{C}^\infty$ with $\exp^{(k)} = \exp$ for all $k$. The Taylor-Lagrange inequality on $[0,1]$ at order $n$, with $M_{n+1} = \sup_{[0,1]} \exp = e$, gives $$\left|e - \sum_{k=0}^{n} \frac{1}{k!}\right| \le \frac{e}{(n+1)!} \xrightarrow[n\to\infty]{} 0,$$ since $(n+1)! \to +\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\exp$ est $\mathcal{C}^\infty$ avec $\exp^{(k)} = \exp$ pour tout $k$. L'inégalité de Taylor-Lagrange sur $[0,1]$ à l'ordre $n$, avec $M_{n+1} = \sup_{[0,1]} \exp = e$, donne $$\left|e - \sum_{k=0}^{n} \frac{1}{k!}\right| \le \frac{e}{(n+1)!} \xrightarrow[n\to\infty]{} 0,$$ car $(n+1)! \to +\infty$.
+    </details>
+
+  </main>
+
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en]').forEach(function(el) {
+        el.textContent = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>
