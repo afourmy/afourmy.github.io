@@ -1149,6 +1149,62 @@
       <em>Cas 2 :</em> $\ker(f)\cap\mathrm{Im}(f)\neq\{0\}$. Comme $\dim\mathrm{Im}(f)=1$, $\mathrm{Im}(f)\subset\ker(f)$, donc $f^2=0=0\cdot f$.
     </details>
 
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{K})$ with $\mathrm{tr}(A)=0$. Show that $A$ is similar to a matrix all of whose diagonal entries are zero.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ telle que $\mathrm{tr}(A)=0$. Montrer que $A$ est semblable à une matrice dont tous les coefficients diagonaux sont nuls.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By induction on $n$.
+
+      $n=1$: $\mathrm{tr}(A)=0$ means $A=(0)$, which already has zero diagonal.
+
+      $n\ge 2$: First, a lemma. If $A$ is not a scalar matrix $\lambda I_n$, there exists a vector $e_1$ such that $(e_1, Ae_1)$ is linearly independent. Indeed, if $Ax\in\mathrm{Vect}(x)$ for every $x\neq 0$, then every nonzero vector is an eigenvector of $A$; taking $x,y$ linearly independent with $Ax=\lambda x$, $Ay=\mu y$ and $A(x+y)=\nu(x+y)$ forces $\lambda=\mu=\nu$, so $A=\lambda I_n$, a contradiction.
+
+      Identify $A$ with the endomorphism $u$ it represents in the canonical basis.
+
+      <em>If $A=\lambda I_n$:</em> then $\mathrm{tr}(A)=n\lambda=0$ gives $\lambda=0$, so $A=0$, which has zero diagonal.
+
+      <em>Otherwise:</em> pick $e_1$ such that $(e_1, Ae_1)$ is free, set $e_2=Ae_1$, and complete to a basis $\mathcal{B}=(e_1,e_2,\ldots,e_n)$. In $\mathcal{B}$, the first column of $u$ is $(0,1,0,\ldots,0)^\top$, so the matrix of $u$ is $A'=\begin{pmatrix}0 & L\\ C & B\end{pmatrix}$ with $B\in\mathcal{M}_{n-1}(\mathbb{K})$. Since $A'$ is similar to $A$, $\mathrm{tr}(B)=\mathrm{tr}(A')=\mathrm{tr}(A)=0$. By the induction hypothesis, $B=Q^{-1}B'Q$ with $B'$ of zero diagonal. Conjugating by $R=\begin{pmatrix}1 & 0\\ 0 & Q\end{pmatrix}$: \[R^{-1}A'R=\begin{pmatrix}0 & LQ\\ Q^{-1}C & Q^{-1}BQ\end{pmatrix}=\begin{pmatrix}0 & LQ\\ Q^{-1}C & B'\end{pmatrix},\] whose diagonal is $(0,0,\ldots,0)$ since $B'$ has zero diagonal. As $A$ is similar to $A'$, itself similar to this last matrix, $A$ is similar to a matrix with zero diagonal.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par récurrence sur $n$.
+
+      $n=1$ : $\mathrm{tr}(A)=0$ signifie $A=(0)$, dont la diagonale est déjà nulle.
+
+      $n\ge 2$ : Montrons d'abord un lemme. Si $A$ n'est pas une matrice scalaire $\lambda I_n$, il existe un vecteur $e_1$ tel que $(e_1, Ae_1)$ soit libre. En effet, si $Ax\in\mathrm{Vect}(x)$ pour tout $x\neq 0$, tout vecteur non nul est un vecteur propre de $A$ ; en prenant $x,y$ libres avec $Ax=\lambda x$, $Ay=\mu y$ et $A(x+y)=\nu(x+y)$, on obtient $\lambda=\mu=\nu$, donc $A=\lambda I_n$, contradiction.
+
+      Identifions $A$ à l'endomorphisme $u$ qu'elle représente dans la base canonique.
+
+      <em>Si $A=\lambda I_n$ :</em> alors $\mathrm{tr}(A)=n\lambda=0$ donne $\lambda=0$, donc $A=0$, de diagonale nulle.
+
+      <em>Sinon :</em> choisissons $e_1$ tel que $(e_1, Ae_1)$ soit libre, posons $e_2=Ae_1$ et complétons en une base $\mathcal{B}=(e_1,e_2,\ldots,e_n)$. Dans $\mathcal{B}$, la première colonne de $u$ est $(0,1,0,\ldots,0)^\top$, donc la matrice de $u$ est $A'=\begin{pmatrix}0 & L\\ C & B\end{pmatrix}$ avec $B\in\mathcal{M}_{n-1}(\mathbb{K})$. Comme $A'$ est semblable à $A$, $\mathrm{tr}(B)=\mathrm{tr}(A')=\mathrm{tr}(A)=0$. Par hypothèse de récurrence, $B=Q^{-1}B'Q$ avec $B'$ de diagonale nulle. En conjuguant par $R=\begin{pmatrix}1 & 0\\ 0 & Q\end{pmatrix}$ : \[R^{-1}A'R=\begin{pmatrix}0 & LQ\\ Q^{-1}C & Q^{-1}BQ\end{pmatrix}=\begin{pmatrix}0 & LQ\\ Q^{-1}C & B'\end{pmatrix},\] dont la diagonale est $(0,0,\ldots,0)$ puisque celle de $B'$ l'est. Comme $A$ est semblable à $A'$, elle-même semblable à cette dernière matrice, $A$ est semblable à une matrice de diagonale nulle.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $M\in\mathcal{M}_n(\mathbb{K})$. Show that $\mathrm{tr}(M)=0$ if and only if there exist $X,Y\in\mathcal{M}_n(\mathbb{K})$ such that $M=XY-YX$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $M\in\mathcal{M}_n(\mathbb{K})$. Montrer que $\mathrm{tr}(M)=0$ si et seulement s'il existe $X,Y\in\mathcal{M}_n(\mathbb{K})$ telles que $M=XY-YX$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ If $M=XY-YX$, then $\mathrm{tr}(M)=\mathrm{tr}(XY)-\mathrm{tr}(YX)=0$.
+
+      $(\Rightarrow)$ Suppose $\mathrm{tr}(M)=0$. First, being a commutator is invariant under similarity: if $M'=XY-YX$ and $M=PM'P^{-1}$, then $M=(PXP^{-1})(PYP^{-1})-(PYP^{-1})(PXP^{-1})$ is also a commutator. By the previous exercise, $M$ is similar to a matrix $M'=(m_{ij})$ with zero diagonal, so it suffices to write $M'$ as a commutator.
+
+      Let $D=\mathrm{diag}(1,2,\ldots,n)$, whose diagonal entries $d_1,\ldots,d_n$ are pairwise distinct. For any $Y=(y_{ij})$, the entry $(DY-YD)_{ij}=d_iy_{ij}-y_{ij}d_j=(d_i-d_j)y_{ij}$. Define $Y$ by $y_{ij}=\dfrac{m_{ij}}{d_i-d_j}$ for $i\neq j$ (well-defined since $d_i\neq d_j$) and $y_{ii}=0$. Then $(DY-YD)_{ij}=m_{ij}$ for $i\neq j$, and $(DY-YD)_{ii}=0=m_{ii}$. Hence $M'=DY-YD$, and pulling back through the similarity gives $M=XY-YX$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $(\Leftarrow)$ Si $M=XY-YX$, alors $\mathrm{tr}(M)=\mathrm{tr}(XY)-\mathrm{tr}(YX)=0$.
+
+      $(\Rightarrow)$ Supposons $\mathrm{tr}(M)=0$. D'abord, le fait d'être un commutateur est invariant par similitude : si $M'=XY-YX$ et $M=PM'P^{-1}$, alors $M=(PXP^{-1})(PYP^{-1})-(PYP^{-1})(PXP^{-1})$ est aussi un commutateur. D'après l'exercice précédent, $M$ est semblable à une matrice $M'=(m_{ij})$ de diagonale nulle ; il suffit donc d'écrire $M'$ comme un commutateur.
+
+      Soit $D=\mathrm{diag}(1,2,\ldots,n)$, dont les coefficients diagonaux $d_1,\ldots,d_n$ sont deux à deux distincts. Pour toute $Y=(y_{ij})$, le coefficient $(DY-YD)_{ij}=d_iy_{ij}-y_{ij}d_j=(d_i-d_j)y_{ij}$. On définit $Y$ par $y_{ij}=\dfrac{m_{ij}}{d_i-d_j}$ pour $i\neq j$ (bien défini car $d_i\neq d_j$) et $y_{ii}=0$. Alors $(DY-YD)_{ij}=m_{ij}$ pour $i\neq j$, et $(DY-YD)_{ii}=0=m_{ii}$. Ainsi $M'=DY-YD$, et en revenant par la similitude, $M=XY-YX$.
+    </details>
+
   </main>
 
   <script>
