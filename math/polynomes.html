@@ -1020,6 +1020,38 @@
       \[F=X+\frac{1}{4}\left(\frac{1}{X-1}+\frac{1}{X+1}-\frac{1}{X-i}-\frac{1}{X+i}\right).\]
     </details>
 
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 16.</span> Find all $P\in\R[X]$ such that $P'\mid P$.</p>
+      <p class="fr"><span class="thm-label">Exercice 16.</span> Déterminer tous les $P\in\R[X]$ tels que $P'\mid P$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      A nonzero constant has $P'=0$, which divides nothing nonzero, so $n=\deg P\ge 1$. Since $\deg P'=n-1$, $P'\mid P$ means $P=P'R$ with $\deg R=1$. Over $\C$, write $P=c\prod(X-a_i)^{m_i}$; then $a_i$ is a root of $P'$ of multiplicity $m_i-1$, so $R=P/P'$ vanishes at each $a_i$. As $\deg R=1$, $P$ has a single root, real since $P\in\R[X]$. Conversely $P=\lambda(X-a)^n$ gives $P=P'\cdot\frac{X-a}{n}$. The solutions are $P=\lambda(X-a)^n$ with $\lambda\in\R^*$, $a\in\R$, $n\ge 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Une constante non nulle vérifie $P'=0$, qui ne divise rien de non nul, donc $n=\deg P\ge 1$. Comme $\deg P'=n-1$, $P'\mid P$ signifie $P=P'R$ avec $\deg R=1$. Sur $\C$, écrivons $P=c\prod(X-a_i)^{m_i}$ ; alors $a_i$ est racine de $P'$ de multiplicité $m_i-1$, donc $R=P/P'$ s'annule en chaque $a_i$. Comme $\deg R=1$, $P$ n'a qu'une racine, réelle car $P\in\R[X]$. Réciproquement $P=\lambda(X-a)^n$ donne $P=P'\cdot\frac{X-a}{n}$. Les solutions sont $P=\lambda(X-a)^n$ avec $\lambda\in\R^*$, $a\in\R$, $n\ge 1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 17.</span> Show that there do not exist real numbers $u,v,w$ such that $u+v+w=3$ and $uv+vw+wu=6$.</p>
+      <p class="fr"><span class="thm-label">Exercice 17.</span> Montrer qu'il n'existe pas de réels $u,v,w$ tels que $u+v+w=3$ et $uv+vw+wu=6$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Suppose such reals exist. From the identity $u^2+v^2+w^2=(u+v+w)^2-2(uv+vw+wu)$ we get
+      \[u^2+v^2+w^2=3^2-2\cdot 6=9-12=-3.\]
+      But a sum of squares of real numbers is $\ge 0$, so $u^2+v^2+w^2\ge 0$, contradicting $u^2+v^2+w^2=-3$. Hence no such real $u,v,w$ exist.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Supposons que de tels réels existent. L'identité $u^2+v^2+w^2=(u+v+w)^2-2(uv+vw+wu)$ donne
+      \[u^2+v^2+w^2=3^2-2\cdot 6=9-12=-3.\]
+      Or une somme de carrés de réels est $\ge 0$, donc $u^2+v^2+w^2\ge 0$, ce qui contredit $u^2+v^2+w^2=-3$. Il n'existe donc pas de tels réels $u,v,w$.
+    </details>
+
   </main>
   <script>
     function setLang(lang) {
