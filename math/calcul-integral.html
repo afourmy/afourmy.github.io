@@ -225,6 +225,34 @@
       Soit $F_0 : x \mapsto \int_a^x f$ la primitive s'annulant en $a$. Alors $F = F_0 + c$ pour une constante $c$, donc $F(b) - F(a) = F_0(b) - F_0(a) = \int_a^b f$.
     </details>
 
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Usual primitives).</span> On any interval where the functions below are defined, a primitive is given (up to an additive constant) by:</p>
+      <ul class="en">
+        <li>$\displaystyle\int x^{\alpha}\,dx = \frac{x^{\alpha+1}}{\alpha+1}\ (\alpha \neq -1)$, and $\displaystyle\int \frac{dx}{x} = \ln|x|$;</li>
+        <li>$\displaystyle\int e^{x}\,dx = e^{x}$, $\quad\displaystyle\int \cos x\,dx = \sin x$, $\quad\displaystyle\int \sin x\,dx = -\cos x$, $\quad\displaystyle\int \frac{dx}{\cos^2 x} = \tan x$;</li>
+        <li>$\displaystyle\int \frac{dx}{1+x^2} = \arctan x$, $\quad\displaystyle\int \frac{dx}{\sqrt{1-x^2}} = \arcsin x$;</li>
+        <li>$\displaystyle\int \operatorname{ch} x\,dx = \operatorname{sh} x$, $\quad\displaystyle\int \operatorname{sh} x\,dx = \operatorname{ch} x$.</li>
+      </ul>
+      <p class="en">More generally, for $u$ of class $\mathcal{C}^1$, the chain rule gives $\displaystyle\int u'e^{u} = e^{u}$, $\displaystyle\int \frac{u'}{u} = \ln|u|$, and $\displaystyle\int u'\,u^{\alpha} = \frac{u^{\alpha+1}}{\alpha+1}\ (\alpha \neq -1)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Primitives usuelles).</span> Sur tout intervalle où les fonctions ci-dessous sont définies, une primitive est donnée (à une constante additive près) par :</p>
+      <ul class="fr">
+        <li>$\displaystyle\int x^{\alpha}\,dx = \frac{x^{\alpha+1}}{\alpha+1}\ (\alpha \neq -1)$, et $\displaystyle\int \frac{dx}{x} = \ln|x|$ ;</li>
+        <li>$\displaystyle\int e^{x}\,dx = e^{x}$, $\quad\displaystyle\int \cos x\,dx = \sin x$, $\quad\displaystyle\int \sin x\,dx = -\cos x$, $\quad\displaystyle\int \frac{dx}{\cos^2 x} = \tan x$ ;</li>
+        <li>$\displaystyle\int \frac{dx}{1+x^2} = \arctan x$, $\quad\displaystyle\int \frac{dx}{\sqrt{1-x^2}} = \arcsin x$ ;</li>
+        <li>$\displaystyle\int \operatorname{ch} x\,dx = \operatorname{sh} x$, $\quad\displaystyle\int \operatorname{sh} x\,dx = \operatorname{ch} x$.</li>
+      </ul>
+      <p class="fr">Plus généralement, pour $u$ de classe $\mathcal{C}^1$, la dérivation composée donne $\displaystyle\int u'e^{u} = e^{u}$, $\displaystyle\int \frac{u'}{u} = \ln|u|$, et $\displaystyle\int u'\,u^{\alpha} = \frac{u^{\alpha+1}}{\alpha+1}\ (\alpha \neq -1)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Each equality is verified by differentiating the right-hand side, which returns the integrand (definition of a primitive).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Chaque égalité se vérifie en dérivant le membre de droite, qui redonne la fonction à intégrer (définition d'une primitive).
+    </details>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Integration by parts).</span> Let $u, v$ be of class $\mathcal{C}^1$ on $[a,b]$. Then $$\int_a^b u'(t)v(t)\,dt = \big[u(t)v(t)\big]_a^b - \int_a^b u(t)v'(t)\,dt.$$</p>
       <p class="fr"><span class="thm-label">Théorème (Intégration par parties).</span> Soient $u, v$ de classe $\mathcal{C}^1$ sur $[a,b]$. Alors $$\int_a^b u'(t)v(t)\,dt = \big[u(t)v(t)\big]_a^b - \int_a^b u(t)v'(t)\,dt.$$</p>
@@ -359,6 +387,24 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Wallis's formula).</span> With $I_n = \int_0^{\pi/2}\sin^n t\,dt$ as in the previous exercise, show that $n\,I_n I_{n-1} = \frac{\pi}{2}$, then that $I_n \sim I_{n-1}$, and deduce that $I_n \sim \sqrt{\dfrac{\pi}{2n}}$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Formule de Wallis).</span> Avec $I_n = \int_0^{\pi/2}\sin^n t\,dt$ comme à l'exercice précédent, montrer que $n\,I_n I_{n-1} = \frac{\pi}{2}$, puis que $I_n \sim I_{n-1}$, et en déduire que $I_n \sim \sqrt{\dfrac{\pi}{2n}}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The sequence $(I_n)$ is positive ($\sin^n \ge 0$ is continuous and not identically zero, strict positivity) and decreasing (on $[0,\pi/2]$, $0 \le \sin^{n+1} t \le \sin^n t$, monotonicity). Set $a_n = (n+1)I_{n+1}I_n$; the recurrence $I_{n+1} = \frac{n}{n+1}I_{n-1}$ (previous exercise with $n$ replaced by $n+1$) gives $a_n = n\,I_n I_{n-1} = a_{n-1}$, so $a_n$ is constant, equal to $a_0 = I_1 I_0 = \frac{\pi}{2}$. Hence $n\,I_n I_{n-1} = \frac{\pi}{2}$.
+      <br>
+      From $I_{n+1} \le I_n \le I_{n-1}$ and $\frac{I_{n+1}}{I_{n-1}} = \frac{n}{n+1} \to 1$, the squeeze theorem gives $\frac{I_n}{I_{n-1}} \to 1$, i.e. $I_n \sim I_{n-1}$. Therefore $I_n^2 \sim I_n I_{n-1} = \frac{\pi}{2n}$, and taking square roots of these positive equivalents, $I_n \sim \sqrt{\dfrac{\pi}{2n}}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La suite $(I_n)$ est positive ($\sin^n \ge 0$ continue et non identiquement nulle, positivité stricte) et décroissante (sur $[0,\pi/2]$, $0 \le \sin^{n+1} t \le \sin^n t$, croissance). Posons $a_n = (n+1)I_{n+1}I_n$ ; la relation de récurrence $I_{n+1} = \frac{n}{n+1}I_{n-1}$ (exercice précédent, $n$ remplacé par $n+1$) donne $a_n = n\,I_n I_{n-1} = a_{n-1}$, donc $a_n$ est constante, égale à $a_0 = I_1 I_0 = \frac{\pi}{2}$. Donc $n\,I_n I_{n-1} = \frac{\pi}{2}$.
+      <br>
+      De $I_{n+1} \le I_n \le I_{n-1}$ et $\frac{I_{n+1}}{I_{n-1}} = \frac{n}{n+1} \to 1$, le théorème des gendarmes donne $\frac{I_n}{I_{n-1}} \to 1$, i.e. $I_n \sim I_{n-1}$. Donc $I_n^2 \sim I_n I_{n-1} = \frac{\pi}{2n}$, et en prenant la racine de ces équivalents positifs, $I_n \sim \sqrt{\dfrac{\pi}{2n}}$.
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle I = \int_0^\pi \frac{t\sin t}{1+\cos^2 t}\,dt$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle I = \int_0^\pi \frac{t\sin t}{1+\cos^2 t}\,dt$.</p>
     </div>
@@ -398,6 +444,76 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $\exp$ est $\mathcal{C}^\infty$ avec $\exp^{(k)} = \exp$ pour tout $k$. L'inégalité de Taylor-Lagrange sur $[0,1]$ à l'ordre $n$, avec $M_{n+1} = \sup_{[0,1]} \exp = e$, donne $$\left|e - \sum_{k=0}^{n} \frac{1}{k!}\right| \le \frac{e}{(n+1)!} \xrightarrow[n\to\infty]{} 0,$$ car $(n+1)! \to +\infty$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Find a primitive of $\ln$ on $]0, +\infty[$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Trouver une primitive de $\ln$ sur $]0, +\infty[$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Integration by parts with $u'(t) = 1$ and $v(t) = \ln t$: a primitive is $\int \ln t\,dt = t\ln t - \int t\cdot\frac{1}{t}\,dt = t\ln t - t$. (Check: $(t\ln t - t)' = \ln t + 1 - 1 = \ln t$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Intégration par parties avec $u'(t) = 1$ et $v(t) = \ln t$ : une primitive est $\int \ln t\,dt = t\ln t - \int t\cdot\frac{1}{t}\,dt = t\ln t - t$. (Vérification : $(t\ln t - t)' = \ln t + 1 - 1 = \ln t$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\int_0^1 \arctan x\,dx$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\int_0^1 \arctan x\,dx$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Integration by parts with $u'(x) = 1$ and $v(x) = \arctan x$: $$\int_0^1 \arctan x\,dx = \big[x\arctan x\big]_0^1 - \int_0^1 \frac{x}{1+x^2}\,dx = \frac{\pi}{4} - \frac{1}{2}\big[\ln(1+x^2)\big]_0^1 = \frac{\pi}{4} - \frac{\ln 2}{2}.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Intégration par parties avec $u'(x) = 1$ et $v(x) = \arctan x$ : $$\int_0^1 \arctan x\,dx = \big[x\arctan x\big]_0^1 - \int_0^1 \frac{x}{1+x^2}\,dx = \frac{\pi}{4} - \frac{1}{2}\big[\ln(1+x^2)\big]_0^1 = \frac{\pi}{4} - \frac{\ln 2}{2}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the area of the half-disk of radius $1$, that is $\displaystyle\int_{-1}^{1}\sqrt{1-x^2}\,dx$, equals $\frac{\pi}{2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'aire du demi-disque de rayon $1$, à savoir $\displaystyle\int_{-1}^{1}\sqrt{1-x^2}\,dx$, vaut $\frac{\pi}{2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Change of variables $u = \sin t$ ($\varphi(t) = \sin t$, of class $\mathcal{C}^1$ on $[-\frac{\pi}{2}, \frac{\pi}{2}]$, with $\varphi(-\frac{\pi}{2}) = -1$ and $\varphi(\frac{\pi}{2}) = 1$): since $\sqrt{1 - \sin^2 t} = \cos t \ge 0$ on this interval, $$\int_{-1}^{1}\sqrt{1-u^2}\,du = \int_{-\pi/2}^{\pi/2}\sqrt{1-\sin^2 t}\,\cos t\,dt = \int_{-\pi/2}^{\pi/2}\cos^2 t\,dt = \int_{-\pi/2}^{\pi/2}\frac{1+\cos 2t}{2}\,dt = \frac{\pi}{2}.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Changement de variable $u = \sin t$ ($\varphi(t) = \sin t$, de classe $\mathcal{C}^1$ sur $[-\frac{\pi}{2}, \frac{\pi}{2}]$, avec $\varphi(-\frac{\pi}{2}) = -1$ et $\varphi(\frac{\pi}{2}) = 1$) : comme $\sqrt{1 - \sin^2 t} = \cos t \ge 0$ sur cet intervalle, $$\int_{-1}^{1}\sqrt{1-u^2}\,du = \int_{-\pi/2}^{\pi/2}\sqrt{1-\sin^2 t}\,\cos t\,dt = \int_{-\pi/2}^{\pi/2}\cos^2 t\,dt = \int_{-\pi/2}^{\pi/2}\frac{1+\cos 2t}{2}\,dt = \frac{\pi}{2}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{k=1}^{n} \frac{1}{n+k} \xrightarrow[n\to\infty]{} \ln 2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\sum_{k=1}^{n} \frac{1}{n+k} \xrightarrow[n\to\infty]{} \ln 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\displaystyle\sum_{k=1}^{n} \frac{1}{n+k} = \frac{1}{n}\sum_{k=1}^{n} \frac{1}{1 + k/n}$ is a Riemann sum (right endpoints) of the continuous function $f(t) = \frac{1}{1+t}$ on $[0,1]$, so it converges to $\int_0^1 \frac{dt}{1+t} = \big[\ln(1+t)\big]_0^1 = \ln 2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\displaystyle\sum_{k=1}^{n} \frac{1}{n+k} = \frac{1}{n}\sum_{k=1}^{n} \frac{1}{1 + k/n}$ est une somme de Riemann (extrémités droites) de la fonction continue $f(t) = \frac{1}{1+t}$ sur $[0,1]$, donc elle converge vers $\int_0^1 \frac{dt}{1+t} = \big[\ln(1+t)\big]_0^1 = \ln 2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\left(\frac{(2n)!}{n!}\right)^{\!1/n} \sim \frac{4n}{e}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\left(\frac{(2n)!}{n!}\right)^{\!1/n} \sim \frac{4n}{e}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $u_n = \left(\frac{(2n)!}{n!}\right)^{1/n}$. Since $\frac{(2n)!}{n!} = \prod_{k=1}^{n}(n+k)$, $$\ln u_n = \frac{1}{n}\sum_{k=1}^{n}\ln(n+k) = \ln n + \frac{1}{n}\sum_{k=1}^{n}\ln\!\left(1 + \frac{k}{n}\right).$$ The last sum is a Riemann sum of the continuous function $t \mapsto \ln(1+t)$ on $[0,1]$, so it converges to $\int_0^1 \ln(1+t)\,dt = \big[(1+t)\ln(1+t) - (1+t)\big]_0^1 = 2\ln 2 - 1 = \ln 4 - 1$. Hence $\ln\frac{u_n}{n} = \ln u_n - \ln n \to \ln 4 - 1$, so $\frac{u_n}{n} \to e^{\ln 4 - 1} = \frac{4}{e}$, i.e. $u_n \sim \frac{4n}{e}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $u_n = \left(\frac{(2n)!}{n!}\right)^{1/n}$. Comme $\frac{(2n)!}{n!} = \prod_{k=1}^{n}(n+k)$, $$\ln u_n = \frac{1}{n}\sum_{k=1}^{n}\ln(n+k) = \ln n + \frac{1}{n}\sum_{k=1}^{n}\ln\!\left(1 + \frac{k}{n}\right).$$ La dernière somme est une somme de Riemann de la fonction continue $t \mapsto \ln(1+t)$ sur $[0,1]$, donc elle converge vers $\int_0^1 \ln(1+t)\,dt = \big[(1+t)\ln(1+t) - (1+t)\big]_0^1 = 2\ln 2 - 1 = \ln 4 - 1$. Donc $\ln\frac{u_n}{n} = \ln u_n - \ln n \to \ln 4 - 1$, d'où $\frac{u_n}{n} \to e^{\ln 4 - 1} = \frac{4}{e}$, i.e. $u_n \sim \frac{4n}{e}$.
     </details>
 
   </main>
