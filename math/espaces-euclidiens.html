@@ -263,6 +263,20 @@
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> By expanding $\big\|\,\|y\|^2 x - \langle x,y\rangle\,y\,\big\|^2$, prove the Cauchy-Schwarz inequality and its equality case.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> En développant $\big\|\,\|y\|^2 x - \langle x,y\rangle\,y\,\big\|^2$, démontrer l'inégalité de Cauchy-Schwarz et son cas d'égalité.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $v = \|y\|^2 x - \langle x,y\rangle\,y$. Expanding by bilinearity and symmetry, $$\|v\|^2 = \|y\|^4\|x\|^2 - 2\|y\|^2\langle x,y\rangle^2 + \langle x,y\rangle^2\|y\|^2 = \|y\|^2\big(\|x\|^2\|y\|^2 - \langle x,y\rangle^2\big).$$ If $y = 0$, Cauchy-Schwarz is trivial. If $y \neq 0$, then $\|y\|^2 &gt; 0$ and $\|v\|^2 \ge 0$ force $\|x\|^2\|y\|^2 - \langle x,y\rangle^2 \ge 0$, i.e. $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Equality holds iff $\|v\|^2 = 0$, iff $v = 0$, iff $\|y\|^2 x = \langle x,y\rangle\,y$, i.e. $x$ is collinear to $y$ (and collinear vectors conversely give equality).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $v = \|y\|^2 x - \langle x,y\rangle\,y$. En développant par bilinéarité et symétrie, $$\|v\|^2 = \|y\|^4\|x\|^2 - 2\|y\|^2\langle x,y\rangle^2 + \langle x,y\rangle^2\|y\|^2 = \|y\|^2\big(\|x\|^2\|y\|^2 - \langle x,y\rangle^2\big).$$ Si $y = 0$, Cauchy-Schwarz est trivial. Si $y \neq 0$, alors $\|y\|^2 &gt; 0$ et $\|v\|^2 \ge 0$ imposent $\|x\|^2\|y\|^2 - \langle x,y\rangle^2 \ge 0$, i.e. $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Il y a égalité ssi $\|v\|^2 = 0$, ssi $v = 0$, ssi $\|y\|^2 x = \langle x,y\rangle\,y$, i.e. $x$ colinéaire à $y$ (et réciproquement, des vecteurs colinéaires donnent l'égalité).
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that for all real numbers $a_1, \ldots, a_n$: $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, with equality if and only if all the $a_i$ are equal.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tous réels $a_1, \ldots, a_n$ : $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, avec égalité si et seulement si tous les $a_i$ sont égaux.</p>
     </div>
@@ -277,17 +291,35 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle A, B\rangle = \operatorname{tr}(A^\top B)$ defines an inner product on $\mathcal{M}_n(\mathbb{R})$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle A, B\rangle = \operatorname{tr}(A^\top B)$ définit un produit scalaire sur $\mathcal{M}_n(\mathbb{R})$.</p>
+      <div class="en"><p><span class="thm-label">Exercise.</span> For $A, B \in \mathcal{M}_n(\mathbb{R})$, set $\langle A, B\rangle = \operatorname{tr}(A^\top B)$.</p>
+      <ol>
+        <li>Show that $\langle\cdot,\cdot\rangle$ is an inner product on $\mathcal{M}_n(\mathbb{R})$.</li>
+        <li>Show that the subspaces $\mathcal{S}_n$ of symmetric matrices and $\mathcal{A}_n$ of antisymmetric matrices are orthogonal.</li>
+        <li>Find the orthogonal projection of a matrix $A$ onto $\mathcal{A}_n$.</li>
+      </ol></div>
+      <div class="fr"><p><span class="thm-label">Exercice.</span> Pour $A, B \in \mathcal{M}_n(\mathbb{R})$, on pose $\langle A, B\rangle = \operatorname{tr}(A^\top B)$.</p>
+      <ol>
+        <li>Montrer que $\langle\cdot,\cdot\rangle$ est un produit scalaire sur $\mathcal{M}_n(\mathbb{R})$.</li>
+        <li>Montrer que les sous-espaces $\mathcal{S}_n$ des matrices symétriques et $\mathcal{A}_n$ des matrices antisymétriques sont orthogonaux.</li>
+        <li>Trouver la projection orthogonale d'une matrice $A$ sur $\mathcal{A}_n$.</li>
+      </ol></div>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Bilinearity follows from the linearity of the trace and of matrix product in each factor. Symmetry: $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$ since the trace is invariant under transposition. Positive definiteness: $(A^\top A)_{jj} = \sum_i a_{ij}^2$, so $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, with equality iff all entries vanish, i.e. $A = 0$. This inner product is the canonical inner product of $\mathbb{R}^{n^2}$ read on the entries of the matrices.
+      <strong>1.</strong> Bilinearity follows from the linearity of the trace and of the matrix product in each factor. Symmetry: $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$, the trace being invariant under transposition. Positive definiteness: $(A^\top A)_{jj} = \sum_i a_{ij}^2$, so $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, with equality iff all entries vanish, i.e. $A = 0$. (This is the canonical inner product of $\mathbb{R}^{n^2}$ read on the entries.)
+      <br>
+      <strong>2.</strong> Let $S \in \mathcal{S}_n$ and $K \in \mathcal{A}_n$. Then $\langle S, K\rangle = \operatorname{tr}(S^\top K) = \operatorname{tr}(SK)$, while by symmetry $\langle S, K\rangle = \langle K, S\rangle = \operatorname{tr}(K^\top S) = \operatorname{tr}(-KS) = -\operatorname{tr}(SK)$. Hence $\langle S, K\rangle = -\langle S, K\rangle = 0$: $\mathcal{S}_n \perp \mathcal{A}_n$.
+      <br>
+      <strong>3.</strong> Every matrix splits as $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ with $\frac{A+A^\top}{2} \in \mathcal{S}_n$ and $\frac{A - A^\top}{2} \in \mathcal{A}_n$, so $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$; by part 2 the sum is orthogonal, hence $\mathcal{A}_n^\perp = \mathcal{S}_n$. Since $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, the orthogonal projection of $A$ onto $\mathcal{A}_n$ is its antisymmetric part $$p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.$$
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      La bilinéarité découle de la linéarité de la trace et du produit matriciel en chaque facteur. Symétrie : $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$ car la trace est invariante par transposition. Caractère défini positif : $(A^\top A)_{jj} = \sum_i a_{ij}^2$, donc $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, avec égalité ssi tous les coefficients sont nuls, i.e. $A = 0$. Ce produit scalaire est le produit scalaire canonique de $\mathbb{R}^{n^2}$ lu sur les coefficients des matrices.
+      <strong>1.</strong> La bilinéarité découle de la linéarité de la trace et du produit matriciel en chaque facteur. Symétrie : $\operatorname{tr}(B^\top A) = \operatorname{tr}\big((B^\top A)^\top\big) = \operatorname{tr}(A^\top B)$, la trace étant invariante par transposition. Caractère défini positif : $(A^\top A)_{jj} = \sum_i a_{ij}^2$, donc $\operatorname{tr}(A^\top A) = \sum_{i,j} a_{ij}^2 \ge 0$, avec égalité ssi tous les coefficients sont nuls, i.e. $A = 0$. (C'est le produit scalaire canonique de $\mathbb{R}^{n^2}$ lu sur les coefficients.)
+      <br>
+      <strong>2.</strong> Soient $S \in \mathcal{S}_n$ et $K \in \mathcal{A}_n$. Alors $\langle S, K\rangle = \operatorname{tr}(S^\top K) = \operatorname{tr}(SK)$, tandis que par symétrie $\langle S, K\rangle = \langle K, S\rangle = \operatorname{tr}(K^\top S) = \operatorname{tr}(-KS) = -\operatorname{tr}(SK)$. Donc $\langle S, K\rangle = -\langle S, K\rangle = 0$ : $\mathcal{S}_n \perp \mathcal{A}_n$.
+      <br>
+      <strong>3.</strong> Toute matrice se décompose en $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ avec $\frac{A+A^\top}{2} \in \mathcal{S}_n$ et $\frac{A - A^\top}{2} \in \mathcal{A}_n$, donc $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$ ; par la question 2 la somme est orthogonale, d'où $\mathcal{A}_n^\perp = \mathcal{S}_n$. Comme $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, la projection orthogonale de $A$ sur $\mathcal{A}_n$ est sa partie antisymétrique $$p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.$$
     </details>
 
     <div class="thm-block exercise">
