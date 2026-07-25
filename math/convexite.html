@@ -199,6 +199,20 @@
       $\sin$ est concave sur $[0,\pi]$, donc son graphe est au-dessus de ses cordes sur cet intervalle. La corde entre les points $(0, 0)$ et $\left(\frac{\pi}{2}, 1\right)$ est la droite $y = \frac{2x}{\pi}$ : en écrivant $x = \lambda \cdot 0 + (1-\lambda)\frac{\pi}{2}$, la concavité donne $\sin x \ge \lambda \sin 0 + (1-\lambda)\sin\frac{\pi}{2} = 1 - \lambda = \frac{2x}{\pi}$ pour $x \in \left[0, \frac{\pi}{2}\right]$.
     </details>
 
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $a_1, \ldots, a_n &gt; 0$ with $a_1 \cdots a_n = 1$. Show that $$\prod_{i=1}^n (2 + a_i) \ge 3^n.$$</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $a_1, \ldots, a_n &gt; 0$ avec $a_1 \cdots a_n = 1$. Montrer que $$\prod_{i=1}^n (2 + a_i) \ge 3^n.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Write $a_i = e^{x_i}$ with $x_i = \ln a_i$; the constraint $a_1 \cdots a_n = 1$ becomes $\sum_{i=1}^n x_i = 0$. Consider $f(x) = \ln(2 + e^x)$: then $f'(x) = \frac{e^x}{2 + e^x}$ and $f''(x) = \frac{2e^x}{(2 + e^x)^2} &gt; 0$, so $f$ is convex on $\mathbb{R}$. By Jensen's inequality with weights $\lambda_i = \frac{1}{n}$: $$\frac{1}{n}\sum_{i=1}^n f(x_i) \ge f\!\left(\frac{1}{n}\sum_{i=1}^n x_i\right) = f(0) = \ln 3.$$ Hence $\sum_{i=1}^n \ln(2 + a_i) \ge n \ln 3$, and taking exponentials gives $\prod_{i=1}^n (2 + a_i) \ge 3^n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Écrivons $a_i = e^{x_i}$ avec $x_i = \ln a_i$ ; la contrainte $a_1 \cdots a_n = 1$ devient $\sum_{i=1}^n x_i = 0$. Considérons $f(x) = \ln(2 + e^x)$ : alors $f'(x) = \frac{e^x}{2 + e^x}$ et $f''(x) = \frac{2e^x}{(2 + e^x)^2} &gt; 0$, donc $f$ est convexe sur $\mathbb{R}$. Par l'inégalité de Jensen avec les poids $\lambda_i = \frac{1}{n}$ : $$\frac{1}{n}\sum_{i=1}^n f(x_i) \ge f\!\left(\frac{1}{n}\sum_{i=1}^n x_i\right) = f(0) = \ln 3.$$ Donc $\sum_{i=1}^n \ln(2 + a_i) \ge n \ln 3$, et en prenant l'exponentielle, $\prod_{i=1}^n (2 + a_i) \ge 3^n$.
+    </details>
+
   </main>
 
   <script>
