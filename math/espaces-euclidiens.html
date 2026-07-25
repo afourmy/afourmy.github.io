@@ -86,6 +86,11 @@
       <p class="fr"><span class="thm-label">Définition (Orthogonalité).</span> Deux vecteurs $x, y \in E$ sont <em>orthogonaux</em>, noté $x \perp y$, si $\langle x,y\rangle = 0$. Une famille $(x_1, \ldots, x_p)$ est <em>orthogonale</em> si ses vecteurs sont deux à deux orthogonaux, et <em>orthonormée</em> si de plus chaque vecteur est unitaire : $\langle x_i, x_j\rangle = \delta_{ij}$ (valant $1$ si $i = j$, $0$ sinon).</p>
     </div>
 
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthogonal subspaces).</span> Two subspaces $F, G$ of $E$ are <em>orthogonal</em>, written $F \perp G$, if $\langle x, y\rangle = 0$ for all $x \in F$ and $y \in G$. Orthogonal subspaces satisfy $F \cap G = \{0\}$ (a vector of $F \cap G$ is orthogonal to itself, hence zero), so their sum $F + G$ is direct.</p>
+      <p class="fr"><span class="thm-label">Définition (Sous-espaces orthogonaux).</span> Deux sous-espaces $F, G$ de $E$ sont <em>orthogonaux</em>, noté $F \perp G$, si $\langle x, y\rangle = 0$ pour tous $x \in F$ et $y \in G$. Des sous-espaces orthogonaux vérifient $F \cap G = \{0\}$ (un vecteur de $F \cap G$ est orthogonal à lui-même, donc nul), donc leur somme $F + G$ est directe.</p>
+    </div>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Pythagoras).</span> $x \perp y$ if and only if $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. More generally, if $(x_1, \ldots, x_p)$ is an orthogonal family, then $\|x_1 + \cdots + x_p\|^2 = \|x_1\|^2 + \cdots + \|x_p\|^2$.</p>
       <p class="fr"><span class="thm-label">Théorème (Pythagore).</span> $x \perp y$ si et seulement si $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. Plus généralement, si $(x_1, \ldots, x_p)$ est une famille orthogonale, alors $\|x_1 + \cdots + x_p\|^2 = \|x_1\|^2 + \cdots + \|x_p\|^2$.</p>
@@ -161,6 +166,24 @@
       On applique Gram-Schmidt à une base quelconque de $E$ : le résultat est une famille orthonormée de $n = \dim E$ vecteurs, donc une base orthonormée. Pour la complétion : une famille orthonormée $(e_1, \ldots, e_p)$ est libre, donc par le théorème de la base incomplète elle se complète en une base $(e_1, \ldots, e_p, x_{p+1}, \ldots, x_n)$ ; en appliquant Gram-Schmidt à cette base, les vecteurs $e_1, \ldots, e_p$ sont inchangés (ils sont déjà orthonormés) et on obtient une base orthonormée qui complète la famille.
     </details>
 
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Riesz representation).</span> Let $E$ be a Euclidean space and $\varphi$ a linear form on $E$. There exists a unique $a \in E$ such that $\varphi(x) = \langle a, x\rangle$ for all $x \in E$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Représentation de Riesz).</span> Soit $E$ un espace euclidien et $\varphi$ une forme linéaire sur $E$. Il existe un unique $a \in E$ tel que $\varphi(x) = \langle a, x\rangle$ pour tout $x \in E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Existence.</em> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$ and set $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. For all $x \in E$, using $x = \sum_i \langle x, e_i\rangle e_i$ and the linearity of $\varphi$: $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
+      <br>
+      <em>Uniqueness.</em> If $\langle a, x\rangle = \langle a', x\rangle$ for all $x$, then $\langle a - a', x\rangle = 0$ for all $x$; taking $x = a - a'$ gives $\|a - a'\|^2 = 0$, so $a = a'$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Existence.</em> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$ et posons $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. Pour tout $x \in E$, en utilisant $x = \sum_i \langle x, e_i\rangle e_i$ et la linéarité de $\varphi$ : $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
+      <br>
+      <em>Unicité.</em> Si $\langle a, x\rangle = \langle a', x\rangle$ pour tout $x$, alors $\langle a - a', x\rangle = 0$ pour tout $x$ ; en prenant $x = a - a'$, on obtient $\|a - a'\|^2 = 0$, donc $a = a'$.
+    </details>
+
     <h3 class="en">Orthogonal complement and orthogonal projection</h3>
     <h3 class="fr">Supplémentaire orthogonal et projection orthogonale</h3>
 
@@ -187,6 +210,25 @@
       <p class="en"><span class="thm-label">Definition (Orthogonal projection).</span> The <em>orthogonal projection</em> onto $F$ is the projection $p_F$ onto $F$ parallel to $F^\perp$. For $x \in E$, $p_F(x)$ is the unique vector of $F$ such that $x - p_F(x) \in F^\perp$, and for any orthonormal basis $(e_1, \ldots, e_p)$ of $F$: $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
       <p class="fr"><span class="thm-label">Définition (Projection orthogonale).</span> La <em>projection orthogonale</em> sur $F$ est la projection $p_F$ sur $F$ parallèlement à $F^\perp$. Pour $x \in E$, $p_F(x)$ est l'unique vecteur de $F$ tel que $x - p_F(x) \in F^\perp$, et pour toute base orthonormée $(e_1, \ldots, e_p)$ de $F$ : $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
     </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Orthogonal symmetry).</span> The <em>orthogonal symmetry</em> (or reflection) with respect to $F$ is $s_F = 2p_F - \operatorname{Id}_E$. Writing $x = p_F(x) + (x - p_F(x))$ with $x - p_F(x) \in F^\perp$, it reads $s_F(x) = p_F(x) - (x - p_F(x))$: it fixes $F$ pointwise and reverses $F^\perp$.</p>
+      <p class="fr"><span class="thm-label">Définition (Symétrie orthogonale).</span> La <em>symétrie orthogonale</em> (ou réflexion) par rapport à $F$ est $s_F = 2p_F - \operatorname{Id}_E$. En écrivant $x = p_F(x) + (x - p_F(x))$ avec $x - p_F(x) \in F^\perp$, elle s'écrit $s_F(x) = p_F(x) - (x - p_F(x))$ : elle fixe $F$ point par point et renverse $F^\perp$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of the orthogonal symmetry).</span> $s_F$ is an involution ($s_F \circ s_F = \operatorname{Id}$) and an isometry: $\|s_F(x)\| = \|x\|$ for all $x \in E$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de la symétrie orthogonale).</span> $s_F$ est une involution ($s_F \circ s_F = \operatorname{Id}$) et une isométrie : $\|s_F(x)\| = \|x\|$ pour tout $x \in E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $s_F^2 = (2p_F - \operatorname{Id})^2 = 4p_F^2 - 4p_F + \operatorname{Id} = \operatorname{Id}$, since $p_F^2 = p_F$. For the isometry, write $x = a + b$ with $a = p_F(x) \in F$ and $b = x - p_F(x) \in F^\perp$, so $a \perp b$; then $s_F(x) = a - b$, and Pythagoras gives $\|s_F(x)\|^2 = \|a\|^2 + \|b\|^2 = \|x\|^2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $s_F^2 = (2p_F - \operatorname{Id})^2 = 4p_F^2 - 4p_F + \operatorname{Id} = \operatorname{Id}$, car $p_F^2 = p_F$. Pour l'isométrie, écrivons $x = a + b$ avec $a = p_F(x) \in F$ et $b = x - p_F(x) \in F^\perp$, donc $a \perp b$ ; alors $s_F(x) = a - b$, et Pythagore donne $\|s_F(x)\|^2 = \|a\|^2 + \|b\|^2 = \|x\|^2$.
+    </details>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Distance to a subspace).</span> Let $F$ be a subspace of $E$ and $x \in E$. For all $y \in F$, $\|x - y\| \ge \|x - p_F(x)\|$, with equality if and only if $y = p_F(x)$. Hence the <em>distance</em> from $x$ to $F$, $d(x, F) = \inf_{y \in F} \|x - y\|$, is attained at the unique point $p_F(x)$, and $d(x,F)^2 = \|x\|^2 - \|p_F(x)\|^2$.</p>
@@ -249,6 +291,34 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ defines an inner product on $\mathbb{R}_n[X]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ définit un produit scalaire sur $\mathbb{R}_n[X]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Bilinearity and symmetry are clear ($P(k)Q(k) = Q(k)P(k)$, and each side is linear in $P$ and in $Q$). Positivity: $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Definiteness: if $\langle P, P\rangle = 0$, then $P(k) = 0$ for every $k \in \{0, 1, \ldots, n\}$, so $P$ has $n+1$ distinct roots; being of degree $\le n$, it is the zero polynomial. (This is why the sum must run over $n+1$ points: fewer points would not give a definite form.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La bilinéarité et la symétrie sont claires ($P(k)Q(k) = Q(k)P(k)$, et chaque membre est linéaire en $P$ et en $Q$). Positivité : $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Caractère défini : si $\langle P, P\rangle = 0$, alors $P(k) = 0$ pour tout $k \in \{0, 1, \ldots, n\}$, donc $P$ a $n+1$ racines distinctes ; étant de degré $\le n$, c'est le polynôme nul. (C'est pourquoi la somme doit porter sur $n+1$ points : avec moins de points, la forme ne serait pas définie.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ defines an inner product on $\mathcal{C}([0,1], \mathbb{R})$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ définit un produit scalaire sur $\mathcal{C}([0,1], \mathbb{R})$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Bilinearity comes from the linearity of the integral in each factor, and symmetry from $f(t)g(t) = g(t)f(t)$. Positivity: $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ since $f^2 \ge 0$. Definiteness: if $\int_0^1 f^2 = 0$, then $f^2 = 0$ by the strict positivity theorem ($f^2$ is continuous and nonnegative), hence $f = 0$. (This space is not Euclidean, being infinite-dimensional, but it is a well-defined inner product structure.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La bilinéarité provient de la linéarité de l'intégrale en chaque facteur, et la symétrie de $f(t)g(t) = g(t)f(t)$. Positivité : $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ car $f^2 \ge 0$. Caractère défini : si $\int_0^1 f^2 = 0$, alors $f^2 = 0$ par le théorème de positivité stricte ($f^2$ est continue et positive), donc $f = 0$. (Cet espace n'est pas euclidien, étant de dimension infinie, mais la structure de produit scalaire est bien définie.)
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, apply Gram-Schmidt to $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, appliquer Gram-Schmidt à $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
     </div>
@@ -277,21 +347,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Riesz representation).</span> Let $E$ be a Euclidean space and $\varphi$ a linear form on $E$. Show that there exists a unique $a \in E$ such that $\varphi(x) = \langle a, x\rangle$ for all $x \in E$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Représentation de Riesz).</span> Soit $E$ un espace euclidien et $\varphi$ une forme linéaire sur $E$. Montrer qu'il existe un unique $a \in E$ tel que $\varphi(x) = \langle a, x\rangle$ pour tout $x \in E$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $F = \operatorname{Vect}(\sin, \cos)$, a subspace of $\mathcal{C}([-\pi,\pi], \mathbb{R})$ with the inner product $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Compute the orthogonal projection onto $F$ of the identity function $f : t \mapsto t$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $F = \operatorname{Vect}(\sin, \cos)$, sous-espace de $\mathcal{C}([-\pi,\pi], \mathbb{R})$ muni du produit scalaire $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Calculer le projeté orthogonal sur $F$ de la fonction identité $f : t \mapsto t$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      <em>Existence.</em> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$ and set $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. For all $x \in E$, using the coordinates of $x$ in this basis and the linearity of $\varphi$: $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
-      <br>
-      <em>Uniqueness.</em> If $\langle a, x\rangle = \langle a', x\rangle$ for all $x$, then $\langle a - a', x\rangle = 0$ for all $x$; taking $x = a - a'$ gives $\|a - a'\|^2 = 0$, so $a = a'$.
+      The family $(\sin, \cos)$ is orthogonal: $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (odd integrand). Moreover $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ and $\|\cos\|^2 = \pi$, so $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ is an orthonormal basis of $F$. Now $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (even integrand, then integration by parts), while $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (odd integrand). Therefore $$p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,$$ i.e. $p_F(f) : t \mapsto 2\sin t$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      <em>Existence.</em> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$ et posons $a = \sum_{i=1}^n \varphi(e_i)\,e_i$. Pour tout $x \in E$, en utilisant les coordonnées de $x$ dans cette base et la linéarité de $\varphi$ : $\langle a, x\rangle = \sum_i \varphi(e_i)\langle e_i, x\rangle = \varphi\!\left(\sum_i \langle x, e_i\rangle e_i\right) = \varphi(x)$.
-      <br>
-      <em>Unicité.</em> Si $\langle a, x\rangle = \langle a', x\rangle$ pour tout $x$, alors $\langle a - a', x\rangle = 0$ pour tout $x$ ; en prenant $x = a - a'$, on obtient $\|a - a'\|^2 = 0$, donc $a = a'$.
+      La famille $(\sin, \cos)$ est orthogonale : $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (intégrande impaire). De plus $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ et $\|\cos\|^2 = \pi$, donc $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ est une base orthonormée de $F$. Or $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (intégrande paire, puis intégration par parties), tandis que $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (intégrande impaire). Donc $$p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,$$ i.e. $p_F(f) : t \mapsto 2\sin t$.
     </details>
 
     <div class="thm-block exercise">
