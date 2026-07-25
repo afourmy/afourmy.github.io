@@ -44,6 +44,32 @@
     </div>
 
     <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Operations on $o$ and $O$).</span> Let $(a_n)$, $(b_n)$, $(w_n)$ be sequences, with $a_n, b_n$ nonzero from some rank onward. The symbols $o$ and $O$ obey the same rules; we state them for $o$, and they hold verbatim for $O$:</p>
+      <ul class="en">
+        <li>if $u_n = o(a_n)$ and $v_n = o(a_n)$, then $u_n + v_n = o(a_n)$, and $\lambda u_n = o(a_n)$ for every $\lambda \in \mathbb{R}$;</li>
+        <li>if $u_n = o(a_n)$, then $u_n w_n = o(a_n w_n)$;</li>
+        <li>(transitivity) if $u_n = o(v_n)$ and $v_n = o(w_n)$, then $u_n = o(w_n)$.</li>
+      </ul>
+      <p class="en">Finally, $u_n = o(a_n)$ implies $u_n = O(a_n)$, and if $u_n = o(a_n)$ and $v_n = O(b_n)$ then $u_n v_n = o(a_n b_n)$ (the product of an $o$ by an $O$ is an $o$).</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur les $o$ et les $O$).</span> Soient $(a_n)$, $(b_n)$, $(w_n)$ des suites, avec $a_n, b_n$ non nuls à partir d'un certain rang. Les symboles $o$ et $O$ obéissent aux mêmes règles ; on les énonce pour $o$, elles valent mot pour mot pour $O$ :</p>
+      <ul class="fr">
+        <li>si $u_n = o(a_n)$ et $v_n = o(a_n)$, alors $u_n + v_n = o(a_n)$, et $\lambda u_n = o(a_n)$ pour tout $\lambda \in \mathbb{R}$ ;</li>
+        <li>si $u_n = o(a_n)$, alors $u_n w_n = o(a_n w_n)$ ;</li>
+        <li>(transitivité) si $u_n = o(v_n)$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$.</li>
+      </ul>
+      <p class="fr">Enfin, $u_n = o(a_n)$ implique $u_n = O(a_n)$, et si $u_n = o(a_n)$ et $v_n = O(b_n)$ alors $u_n v_n = o(a_n b_n)$ (le produit d'un $o$ par un $O$ est un $o$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      All from the limit laws, applied to $o$ (the case of $O$ is identical, with "tends to $0$" replaced by "is bounded"). If $\frac{u_n}{a_n} \to 0$ and $\frac{v_n}{a_n} \to 0$, then $\frac{u_n + v_n}{a_n} \to 0$ and $\frac{\lambda u_n}{a_n} \to 0$. Next $\frac{u_n w_n}{a_n w_n} = \frac{u_n}{a_n} \to 0$. Transitivity: $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 0$. Finally a convergent sequence is bounded, so $u_n = o(a_n)$ gives $u_n = O(a_n)$; and $\frac{u_n v_n}{a_n b_n} = \frac{u_n}{a_n}\cdot\frac{v_n}{b_n}$ is a sequence tending to $0$ times a bounded one, hence tends to $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Tout découle des opérations sur les limites, appliquées à $o$ (le cas de $O$ est identique, en remplaçant « tend vers $0$ » par « est bornée »). Si $\frac{u_n}{a_n} \to 0$ et $\frac{v_n}{a_n} \to 0$, alors $\frac{u_n + v_n}{a_n} \to 0$ et $\frac{\lambda u_n}{a_n} \to 0$. Ensuite $\frac{u_n w_n}{a_n w_n} = \frac{u_n}{a_n} \to 0$. Transitivité : $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 0$. Enfin une suite convergente est bornée, donc $u_n = o(a_n)$ donne $u_n = O(a_n)$ ; et $\frac{u_n v_n}{a_n b_n} = \frac{u_n}{a_n}\cdot\frac{v_n}{b_n}$ est une suite tendant vers $0$ multipliée par une suite bornée, donc tend vers $0$.
+    </details>
+
+    <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Characterization of equivalence).</span> $u_n \sim v_n$ if and only if $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
       <p class="fr"><span class="thm-label">Proposition (Caractérisation de l'équivalence).</span> $u_n \sim v_n$ si et seulement si $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
     </div>
@@ -72,8 +98,8 @@
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Operations).</span> Suppose $u_n \sim u'_n$ and $v_n \sim v'_n$. Then $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, and $|u_n|^\alpha \sim |u'_n|^\alpha$ for $\alpha \in \mathbb{R}$. Moreover, if $u_n \sim v_n$ and $v_n = o(w_n)$, then $u_n = o(w_n)$; and $u_n = o(w_n)$, $v_n = o(w_n)$ imply $u_n + v_n = o(w_n)$. <em>Warning:</em> equivalents can be neither added nor composed: $n^2 + n \sim n^2$ and $-n^2 \sim -n^2 + 1$, but the sums $n$ and $1$ are not equivalent; likewise $n + 1 \sim n$ but $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Opérations).</span> Supposons $u_n \sim u'_n$ et $v_n \sim v'_n$. Alors $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, et $|u_n|^\alpha \sim |u'_n|^\alpha$ pour $\alpha \in \mathbb{R}$. De plus, si $u_n \sim v_n$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$ ; et $u_n = o(w_n)$, $v_n = o(w_n)$ impliquent $u_n + v_n = o(w_n)$. <em>Attention :</em> les équivalents ne s'additionnent pas et ne se composent pas : $n^2 + n \sim n^2$ et $-n^2 \sim -n^2 + 1$, mais les sommes $n$ et $1$ ne sont pas équivalentes ; de même $n + 1 \sim n$ mais $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
+      <p class="en"><span class="thm-label">Proposition (Operations).</span> Suppose $u_n \sim u'_n$ and $v_n \sim v'_n$. Then $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, and $|u_n|^\alpha \sim |u'_n|^\alpha$ for $\alpha \in \mathbb{R}$. Moreover, if $u_n \sim v_n$ and $v_n = o(w_n)$, then $u_n = o(w_n)$. <em>Warning:</em> equivalents can be neither added nor composed: $n^2 + n \sim n^2$ and $-n^2 \sim -n^2 + 1$, but the sums $n$ and $1$ are not equivalent; likewise $n + 1 \sim n$ but $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations).</span> Supposons $u_n \sim u'_n$ et $v_n \sim v'_n$. Alors $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, et $|u_n|^\alpha \sim |u'_n|^\alpha$ pour $\alpha \in \mathbb{R}$. De plus, si $u_n \sim v_n$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$. <em>Attention :</em> les équivalents ne s'additionnent pas et ne se composent pas : $n^2 + n \sim n^2$ et $-n^2 \sim -n^2 + 1$, mais les sommes $n$ et $1$ ne sont pas équivalentes ; de même $n + 1 \sim n$ mais $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
     </div>
 
     <details class="proof en">
@@ -227,6 +253,32 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Comme $\sin x \to 0$ quand $x \to 0$, l'équivalent $\ln(1+u) \sim u$ en $0$ donne, par composition de limites ($u = \sin x$) : $\ln(1 + \sin x) \sim \sin x \sim x$. De plus $\tan x \sim x$, donc par quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$ : la limite vaut $1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Euler's constant).</span> Let $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Show that $u_n = H_n - \ln n$ converges (its limit $\gamma$ is <em>Euler's constant</em>), and deduce that $H_n \sim \ln n$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Constante d'Euler).</span> Soit $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Montrer que $u_n = H_n - \ln n$ converge (sa limite $\gamma$ est la <em>constante d'Euler</em>), et en déduire que $H_n \sim \ln n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      From $\ln t \le t - 1$ (established in the standard comparisons) we get, for $x &gt; -1$, both $\ln(1+x) \le x$ (take $t = 1+x$) and $\ln(1+x) \ge \frac{x}{1+x}$ (take $t = \frac{1}{1+x}$, giving $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Set $v_n = H_n - \ln(n+1)$. Then:
+      <br>
+      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, since $\ln\!\left(1+\frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$: $(u_n)$ is decreasing.
+      <br>
+      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, since $\ln\!\left(1+\frac{1}{n+1}\right) \le \frac{1}{n+1}$: $(v_n)$ is increasing.
+      <br>
+      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. Hence $(u_n)$ and $(v_n)$ are adjacent, so they converge to a common limit $\gamma$. Finally, since $u_n \to \gamma$ and $\ln n \to +\infty$, $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      De $\ln t \le t - 1$ (établie dans les croissances comparées) on tire, pour $x &gt; -1$, à la fois $\ln(1+x) \le x$ (prendre $t = 1+x$) et $\ln(1+x) \ge \frac{x}{1+x}$ (prendre $t = \frac{1}{1+x}$, ce qui donne $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Posons $v_n = H_n - \ln(n+1)$. Alors :
+      <br>
+      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, car $\ln\!\left(1+\frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$ : $(u_n)$ est décroissante.
+      <br>
+      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, car $\ln\!\left(1+\frac{1}{n+1}\right) \le \frac{1}{n+1}$ : $(v_n)$ est croissante.
+      <br>
+      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. Donc $(u_n)$ et $(v_n)$ sont adjacentes, elles convergent vers une limite commune $\gamma$. Enfin, comme $u_n \to \gamma$ et $\ln n \to +\infty$, $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.
     </details>
 
   </main>
