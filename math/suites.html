@@ -430,13 +430,30 @@
     </div>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 8 (Cesàro).</span> Let $(u_n)$ be a sequence converging to $\ell$. Show that
-      \[\frac{1}{n}\sum_{k=0}^{n-1} u_k \to \ell.\]
-      </p>
-      <p class="fr"><span class="thm-label">Exercice 8 (Cesàro).</span> Soit $(u_n)$ une suite convergeant vers $\ell$. Montrer que
-      \[\frac{1}{n}\sum_{k=0}^{n-1} u_k \to \ell.\]
-      </p>
+      <div class="en"><p><span class="thm-label">Exercise 8 (Cesàro).</span> Let $(u_n)$ be a sequence and $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ its Cesàro means.</p>
+      <ol>
+        <li>Show that if $u_n\to\ell$, then $C_n\to\ell$.</li>
+        <li>Show that the converse fails: find a divergent sequence $(u_n)$ whose means $(C_n)$ converge.</li>
+      </ol></div>
+      <div class="fr"><p><span class="thm-label">Exercice 8 (Cesàro).</span> Soit $(u_n)$ une suite et $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ ses moyennes de Cesàro.</p>
+      <ol>
+        <li>Montrer que si $u_n\to\ell$, alors $C_n\to\ell$.</li>
+        <li>Montrer que la réciproque est fausse : trouver une suite $(u_n)$ divergente dont les moyennes $(C_n)$ convergent.</li>
+      </ol></div>
     </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> Let $\varepsilon&gt;0$. Since $u_n\to\ell$, there is $N$ with $|u_k-\ell|&lt;\frac{\varepsilon}{2}$ for $k\ge N$. Writing $C_n-\ell=\frac{1}{n}\sum_{k=0}^{n-1}(u_k-\ell)$ and splitting the sum at $N$: $$|C_n-\ell|\le\frac{1}{n}\left|\sum_{k=0}^{N-1}(u_k-\ell)\right|+\frac{1}{n}\sum_{k=N}^{n-1}|u_k-\ell|\le\frac{A}{n}+\frac{n-N}{n}\cdot\frac{\varepsilon}{2},$$ where $A=\left|\sum_{k=0}^{N-1}(u_k-\ell)\right|$ is fixed. Since $\frac{A}{n}\to 0$, there is $N'$ with $\frac{A}{n}&lt;\frac{\varepsilon}{2}$ for $n\ge N'$; then for $n\ge\max(N,N')$, $|C_n-\ell|&lt;\varepsilon$. Hence $C_n\to\ell$.
+      <br>
+      <strong>2.</strong> Take $u_n=(-1)^n$, which diverges ($u_{2n}=1$, $u_{2n+1}=-1$). But $\sum_{k=0}^{n-1}(-1)^k$ equals $1$ if $n$ is odd and $0$ if $n$ is even, so $|C_n|\le\frac{1}{n}\to 0$: the means converge (to $0$) while $(u_n)$ diverges.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> Soit $\varepsilon&gt;0$. Comme $u_n\to\ell$, il existe $N$ tel que $|u_k-\ell|&lt;\frac{\varepsilon}{2}$ pour $k\ge N$. En écrivant $C_n-\ell=\frac{1}{n}\sum_{k=0}^{n-1}(u_k-\ell)$ et en coupant la somme en $N$ : $$|C_n-\ell|\le\frac{1}{n}\left|\sum_{k=0}^{N-1}(u_k-\ell)\right|+\frac{1}{n}\sum_{k=N}^{n-1}|u_k-\ell|\le\frac{A}{n}+\frac{n-N}{n}\cdot\frac{\varepsilon}{2},$$ où $A=\left|\sum_{k=0}^{N-1}(u_k-\ell)\right|$ est fixe. Comme $\frac{A}{n}\to 0$, il existe $N'$ tel que $\frac{A}{n}&lt;\frac{\varepsilon}{2}$ pour $n\ge N'$ ; alors pour $n\ge\max(N,N')$, $|C_n-\ell|&lt;\varepsilon$. Donc $C_n\to\ell$.
+      <br>
+      <strong>2.</strong> Prenons $u_n=(-1)^n$, qui diverge ($u_{2n}=1$, $u_{2n+1}=-1$). Mais $\sum_{k=0}^{n-1}(-1)^k$ vaut $1$ si $n$ est impair et $0$ si $n$ est pair, donc $|C_n|\le\frac{1}{n}\to 0$ : les moyennes convergent (vers $0$) tandis que $(u_n)$ diverge.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise 9.</span> Study the convergence of the sequence $(\cos n)$.</p>
@@ -581,6 +598,104 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $I_{n+1}\subset I_n$ donne $a_n\leq a_{n+1}\leq b_{n+1}\leq b_n$, donc $(a_n)$ est croissante et $(b_n)$ est décroissante. De plus $b_n-a_n\to 0$, donc $(a_n)$ et $(b_n)$ sont adjacentes et convergent vers une même limite $\ell$. Comme $a_n\leq\ell\leq b_n$ pour tout $n$, on a $\ell\in I_n$ pour tout $n$, donc $\ell\in\bigcap_{n\geq 0}I_n$. Réciproquement, si $x\in\bigcap_{n\geq 0}I_n$, alors $a_n\leq x\leq b_n$ pour tout $n$, d'où en passant à la limite $\ell\leq x\leq\ell$, soit $x=\ell$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 20.</span> Let $(u_n)$ be a sequence of integers ($u_n\in\mathbb{Z}$ for all $n$) that converges. Show that $(u_n)$ is eventually constant.</p>
+      <p class="fr"><span class="thm-label">Exercice 20.</span> Soit $(u_n)$ une suite d'entiers ($u_n\in\mathbb{Z}$ pour tout $n$) qui converge. Montrer que $(u_n)$ est constante à partir d'un certain rang.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $\ell=\lim u_n$. Applying the definition with $\varepsilon=\frac{1}{2}$: there is $N$ such that $|u_n-\ell|&lt;\frac{1}{2}$ for all $n\ge N$. Then for $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Since $u_n,u_m\in\mathbb{Z}$ and $|u_n-u_m|&lt;1$, we get $u_n=u_m$. Thus $u_n=u_N$ for all $n\ge N$: the sequence is constant from rank $N$ on (and $\ell=u_N\in\mathbb{Z}$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $\ell=\lim u_n$. En appliquant la définition avec $\varepsilon=\frac{1}{2}$ : il existe $N$ tel que $|u_n-\ell|&lt;\frac{1}{2}$ pour tout $n\ge N$. Alors pour $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Comme $u_n,u_m\in\mathbb{Z}$ et $|u_n-u_m|&lt;1$, on a $u_n=u_m$. Ainsi $u_n=u_N$ pour tout $n\ge N$ : la suite est constante à partir du rang $N$ (et $\ell=u_N\in\mathbb{Z}$).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 21.</span> Study the convergence of $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
+      <p class="fr"><span class="thm-label">Exercice 21.</span> Étudier la convergence de $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Monotonicity.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, so $(S_n)$ is increasing. <em>Bound.</em> Each term satisfies $\frac{1}{n+k}\le\frac{1}{n+1}$, so $S_n\le\frac{n}{n+1}&lt;1$. Being increasing and bounded above, $(S_n)$ converges. (Its limit is $\ln 2$, obtained as a Riemann sum of $t\mapsto\frac{1}{1+t}$ on $[0,1]$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Monotonie.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, donc $(S_n)$ est croissante. <em>Majoration.</em> Chaque terme vérifie $\frac{1}{n+k}\le\frac{1}{n+1}$, donc $S_n\le\frac{n}{n+1}&lt;1$. Croissante et majorée, $(S_n)$ converge. (Sa limite est $\ln 2$, obtenue comme somme de Riemann de $t\mapsto\frac{1}{1+t}$ sur $[0,1]$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 22.</span> Study the sequence $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Exercice 22.</span> Étudier la suite $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We show the even and odd partial sums are adjacent. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, so $(u_{2n})$ is decreasing. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, so $(u_{2n+1})$ is increasing. Finally $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. So $(u_{2n})$ and $(u_{2n+1})$ are adjacent and converge to a common limit $\ell$; since both the even and odd subsequences tend to $\ell$, $(u_n)$ converges to $\ell$. (This limit is $\mathrm{e}^{-1}$, the alternating series of $\exp(-1)$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Montrons que les sommes partielles paires et impaires sont adjacentes. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, donc $(u_{2n})$ est décroissante. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, donc $(u_{2n+1})$ est croissante. Enfin $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. Ainsi $(u_{2n})$ et $(u_{2n+1})$ sont adjacentes et convergent vers une limite commune $\ell$ ; les sous-suites paire et impaire tendant toutes deux vers $\ell$, $(u_n)$ converge vers $\ell$. (Cette limite est $\mathrm{e}^{-1}$, la série alternée de $\exp(-1)$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 23.</span> Let $0&lt;a_0\le b_0$, and define $a_{n+1}=\sqrt{a_n b_n}$ and $b_{n+1}=\frac{a_n+b_n}{2}$. Show that $a_n\le b_n$ for all $n$, that $(a_n)$ is increasing and $(b_n)$ decreasing, and that both converge to the same limit.</p>
+      <p class="fr"><span class="thm-label">Exercice 23.</span> Soient $0&lt;a_0\le b_0$, et $a_{n+1}=\sqrt{a_n b_n}$, $b_{n+1}=\frac{a_n+b_n}{2}$. Montrer que $a_n\le b_n$ pour tout $n$, que $(a_n)$ est croissante et $(b_n)$ décroissante, et qu'elles convergent vers la même limite.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>$a_n\le b_n$.</em> True for $n=0$; and the AM-GM inequality $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ gives $a_{n+1}\le b_{n+1}$. <em>Monotonicity.</em> Since $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$; and $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> From $a_0\le a_n\le b_n\le b_0$, the increasing bounded sequence $(a_n)$ and the decreasing bounded sequence $(b_n)$ converge, to $\ell_a$ and $\ell_b$. Passing to the limit in $b_{n+1}=\frac{a_n+b_n}{2}$ gives $\ell_b=\frac{\ell_a+\ell_b}{2}$, so $\ell_a=\ell_b$. (This common value is the arithmetic-geometric mean of $a_0$ and $b_0$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>$a_n\le b_n$.</em> Vrai pour $n=0$ ; et l'inégalité arithmético-géométrique $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ donne $a_{n+1}\le b_{n+1}$. <em>Monotonie.</em> Comme $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$ ; et $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> De $a_0\le a_n\le b_n\le b_0$, la suite croissante majorée $(a_n)$ et la suite décroissante minorée $(b_n)$ convergent, vers $\ell_a$ et $\ell_b$. Par passage à la limite dans $b_{n+1}=\frac{a_n+b_n}{2}$, $\ell_b=\frac{\ell_a+\ell_b}{2}$, d'où $\ell_a=\ell_b$. (Cette valeur commune est la moyenne arithmético-géométrique de $a_0$ et $b_0$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 24.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Find a recurrence relating $u_{n+1}$ and $u_n$, show that $(u_n)$ is increasing, and that it diverges to $+\infty$.</p>
+      <p class="fr"><span class="thm-label">Exercice 24.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Trouver une relation de récurrence entre $u_{n+1}$ et $u_n$, montrer que $(u_n)$ est croissante, puis qu'elle diverge vers $+\infty$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $S_n=\sum_{k=0}^{n}u_k$, so $u_{n+1}^2=S_n$. For $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, hence $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ All terms are positive ($u_1=\sqrt{u_0}&gt;0$, then $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Increasing.</em> For $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, so $u_{n+1}&gt;u_n$. <em>Divergence.</em> Being increasing, $(u_n)$ converges or tends to $+\infty$. If it converged to $\ell$, the limit of $u_{n+1}^2=u_n^2+u_n$ would give $\ell^2=\ell^2+\ell$, i.e. $\ell=0$, contradicting $u_n\ge u_1&gt;0$. Hence $u_n\to+\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $S_n=\sum_{k=0}^{n}u_k$, de sorte que $u_{n+1}^2=S_n$. Pour $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, d'où $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ Tous les termes sont positifs ($u_1=\sqrt{u_0}&gt;0$, puis $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Croissance.</em> Pour $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, donc $u_{n+1}&gt;u_n$. <em>Divergence.</em> Étant croissante, $(u_n)$ converge ou tend vers $+\infty$. Si elle convergeait vers $\ell$, la limite de $u_{n+1}^2=u_n^2+u_n$ donnerait $\ell^2=\ell^2+\ell$, soit $\ell=0$, ce qui contredit $u_n\ge u_1&gt;0$. Donc $u_n\to+\infty$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 25.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{u_n+1}$. Study the sequence.</p>
+      <p class="fr"><span class="thm-label">Exercice 25.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{u_n+1}$. Étudier la suite.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $f(x)=\sqrt{x+1}$ is increasing on $[0,+\infty[$, which is stable ($f\ge 1&gt;0$), so $(u_n)$ is well defined and monotone. The equation $\ell=\sqrt{\ell+1}$ with $\ell\ge 0$ has the unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (root of $x^2=x+1$); and $g(x)=\sqrt{x+1}-x$ is decreasing with $g(\varphi)=0$, so $g&gt;0$ on $[0,\varphi[$ and $g&lt;0$ on $]\varphi,+\infty[$. If $u_0&lt;\varphi$: by induction $u_n&lt;\varphi$ (as $f$ is increasing and $f(\varphi)=\varphi$), and $u_{n+1}-u_n=g(u_n)&gt;0$, so $(u_n)$ increases and is bounded above by $\varphi$. If $u_0&gt;\varphi$: symmetrically $(u_n)$ decreases and is bounded below by $\varphi$. In both cases it converges to the fixed point $\varphi$ (and if $u_0=\varphi$ it is constant). Hence $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $f(x)=\sqrt{x+1}$ est croissante sur $[0,+\infty[$, qui est stable ($f\ge 1&gt;0$), donc $(u_n)$ est bien définie et monotone. L'équation $\ell=\sqrt{\ell+1}$ avec $\ell\ge 0$ a pour unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (racine de $x^2=x+1$) ; et $g(x)=\sqrt{x+1}-x$ est décroissante avec $g(\varphi)=0$, donc $g&gt;0$ sur $[0,\varphi[$ et $g&lt;0$ sur $]\varphi,+\infty[$. Si $u_0&lt;\varphi$ : par récurrence $u_n&lt;\varphi$ ($f$ croissante et $f(\varphi)=\varphi$), et $u_{n+1}-u_n=g(u_n)&gt;0$, donc $(u_n)$ croît et est majorée par $\varphi$. Si $u_0&gt;\varphi$ : symétriquement $(u_n)$ décroît et est minorée par $\varphi$. Dans les deux cas elle converge vers le point fixe $\varphi$ (et si $u_0=\varphi$ elle est constante). Ainsi $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise 26.</span> Let $(u_n)$ and $(v_n)$ converge to $\ell$ and $\ell'$ with $\ell&lt;\ell'$. Show that $u_n&lt;v_n$ for $n$ large enough.</p>
+      <p class="fr"><span class="thm-label">Exercice 26.</span> Soient $(u_n)$ et $(v_n)$ convergeant vers $\ell$ et $\ell'$ avec $\ell&lt;\ell'$. Montrer que $u_n&lt;v_n$ à partir d'un certain rang.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ and $m=\frac{\ell+\ell'}{2}$. There is $N_1$ with $u_n&lt;\ell+\varepsilon=m$ for $n\ge N_1$, and $N_2$ with $v_n&gt;\ell'-\varepsilon=m$ for $n\ge N_2$. For $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ et $m=\frac{\ell+\ell'}{2}$. Il existe $N_1$ tel que $u_n&lt;\ell+\varepsilon=m$ pour $n\ge N_1$, et $N_2$ tel que $v_n&gt;\ell'-\varepsilon=m$ pour $n\ge N_2$. Pour $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
     </details>
 
   </main>
