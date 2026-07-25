@@ -179,6 +179,60 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$ the equation $y' = \dfrac{y}{1 + x^2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ l'équation $y' = \dfrac{y}{1 + x^2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      This is the homogeneous equation $y' - \frac{1}{1 + x^2}\,y = 0$, with $a(x) = -\frac{1}{1 + x^2}$ of primitive $A(x) = -\arctan x$. Hence $e^{-A(x)} = e^{\arctan x}$, and the solutions on $\mathbb{R}$ are $y = \lambda\,e^{\arctan x}$, $\lambda \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      C'est l'équation homogène $y' - \frac{1}{1 + x^2}\,y = 0$, avec $a(x) = -\frac{1}{1 + x^2}$ de primitive $A(x) = -\arctan x$. Donc $e^{-A(x)} = e^{\arctan x}$, et les solutions sur $\mathbb{R}$ sont $y = \lambda\,e^{\arctan x}$, $\lambda \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$ the equation $y' + 2y = 2x\,e^{x} + e^{-2x}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ l'équation $y' + 2y = 2x\,e^{x} + e^{-2x}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Homogeneous solutions: $\lambda e^{-2x}$. We use the superposition principle.
+      <br>
+      For $y' + 2y = 2x\,e^{x}$: since $1 \neq -2$, seek $y_1 = (\alpha x + \beta)e^{x}$; then $y_1' + 2y_1 = (3\alpha x + \alpha + 3\beta)e^{x}$, so $3\alpha = 2$ and $\alpha + 3\beta = 0$, giving $y_1 = \left(\frac{2}{3}x - \frac{2}{9}\right)e^{x}$.
+      <br>
+      For $y' + 2y = e^{-2x}$: here $e^{-2x}$ is itself a homogeneous solution, so seek $y_2 = c\,x\,e^{-2x}$; then $y_2' + 2y_2 = c\,e^{-2x}$, so $c = 1$ and $y_2 = x\,e^{-2x}$.
+      <br>
+      By superposition $y_p = y_1 + y_2$, and the general solution is $$y = \left(\frac{2}{3}x - \frac{2}{9}\right)e^{x} + (x + \lambda)\,e^{-2x}, \qquad \lambda \in \mathbb{R}.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Solutions homogènes : $\lambda e^{-2x}$. On utilise le principe de superposition.
+      <br>
+      Pour $y' + 2y = 2x\,e^{x}$ : comme $1 \neq -2$, on cherche $y_1 = (\alpha x + \beta)e^{x}$ ; alors $y_1' + 2y_1 = (3\alpha x + \alpha + 3\beta)e^{x}$, donc $3\alpha = 2$ et $\alpha + 3\beta = 0$, d'où $y_1 = \left(\frac{2}{3}x - \frac{2}{9}\right)e^{x}$.
+      <br>
+      Pour $y' + 2y = e^{-2x}$ : ici $e^{-2x}$ est elle-même solution homogène, on cherche donc $y_2 = c\,x\,e^{-2x}$ ; alors $y_2' + 2y_2 = c\,e^{-2x}$, donc $c = 1$ et $y_2 = x\,e^{-2x}$.
+      <br>
+      Par superposition $y_p = y_1 + y_2$, et la solution générale est $$y = \left(\frac{2}{3}x - \frac{2}{9}\right)e^{x} + (x + \lambda)\,e^{-2x}, \qquad \lambda \in \mathbb{R}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$ the equation $y' - y = \sin x$ (for a particular solution, consider $y' - y = e^{ix}$).</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ l'équation $y' - y = \sin x$ (pour une solution particulière, on considère $y' - y = e^{ix}$).</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Homogeneous solutions: $a = -1$ has primitive $-x$, so they are $\lambda e^{x}$. For a particular solution, solve $y' - y = e^{ix}$: seeking $Y = c\,e^{ix}$ gives $c(i - 1)e^{ix} = e^{ix}$, so $c = \frac{1}{i - 1} = \frac{-1 - i}{2}$, and $Y = \frac{-1-i}{2}(\cos x + i\sin x)$. Since $\sin x = \operatorname{Im}(e^{ix})$, a particular solution of the original equation is $$y_p = \operatorname{Im}(Y) = -\tfrac{1}{2}(\sin x + \cos x).$$ General solution: $y = \lambda e^{x} - \frac{1}{2}(\sin x + \cos x)$, $\lambda \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Solutions homogènes : $a = -1$ a pour primitive $-x$, ce sont donc les $\lambda e^{x}$. Pour une solution particulière, on résout $y' - y = e^{ix}$ : en cherchant $Y = c\,e^{ix}$, on obtient $c(i - 1)e^{ix} = e^{ix}$, d'où $c = \frac{1}{i - 1} = \frac{-1 - i}{2}$, et $Y = \frac{-1-i}{2}(\cos x + i\sin x)$. Comme $\sin x = \operatorname{Im}(e^{ix})$, une solution particulière de l'équation initiale est $$y_p = \operatorname{Im}(Y) = -\tfrac{1}{2}(\sin x + \cos x).$$ Solution générale : $y = \lambda e^{x} - \frac{1}{2}(\sin x + \cos x)$, $\lambda \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Solve $y'' - 3y' + 2y = e^x$ with $y(0) = 0$ and $y'(0) = 0$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Résoudre $y'' - 3y' + 2y = e^x$ avec $y(0) = 0$ et $y'(0) = 0$.</p>
     </div>
