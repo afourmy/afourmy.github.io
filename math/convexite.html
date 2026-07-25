@@ -75,17 +75,21 @@
     </details>
 
     <div class="thm-block corollary">
-      <p class="en"><span class="thm-label">Corollary (Tangent below the graph).</span> Let $f$ be differentiable and convex on $I$. Then the graph of $f$ lies above each of its tangents: $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ For a concave function, the graph lies below each tangent.</p>
-      <p class="fr"><span class="thm-label">Corollaire (Tangente sous le graphe).</span> Soit $f$ dérivable et convexe sur $I$. Alors le graphe de $f$ est au-dessus de chacune de ses tangentes : $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ Pour une fonction concave, le graphe est en dessous de chaque tangente.</p>
+      <p class="en"><span class="thm-label">Corollary (Characterization by tangents).</span> Let $f$ be differentiable on $I$. Then $f$ is convex on $I$ if and only if its graph lies above each of its tangents: $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ Dually, $f$ is concave if and only if its graph lies below each of its tangents.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Caractérisation par les tangentes).</span> Soit $f$ dérivable sur $I$. Alors $f$ est convexe sur $I$ si et seulement si son graphe est au-dessus de chacune de ses tangentes : $$\forall a, x \in I,\quad f(x) \ge f(a) + f'(a)(x-a).$$ De façon duale, $f$ est concave si et seulement si son graphe est en dessous de chacune de ses tangentes.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      If $x &gt; a$: in the proof of the previous theorem we obtained $f'(a) \le \frac{f(x)-f(a)}{x-a}$, and multiplying by $x - a &gt; 0$ gives the result. If $x &lt; a$: similarly $\frac{f(a)-f(x)}{a-x} \le f'(a)$, and multiplying by $a - x &gt; 0$ gives $f(a) - f(x) \le f'(a)(a-x)$, which is the result. The case $x = a$ is trivial.
+      $(\Rightarrow)$ Assume $f$ convex. If $x &gt; a$: in the proof of the previous theorem we obtained $f'(a) \le \frac{f(x)-f(a)}{x-a}$, and multiplying by $x - a &gt; 0$ gives the result. If $x &lt; a$: similarly $\frac{f(a)-f(x)}{a-x} \le f'(a)$, and multiplying by $a - x &gt; 0$ gives $f(a) - f(x) \le f'(a)(a-x)$. The case $x = a$ is trivial.
+      <br>
+      $(\Leftarrow)$ Assume the graph lies above each tangent. For $a &lt; b$ in $I$, the tangent inequality at $a$ (with $x = b$) gives $f(b) - f(a) \ge f'(a)(b-a)$, and at $b$ (with $x = a$) gives $f(a) - f(b) \ge f'(b)(a-b)$, i.e. $f(b) - f(a) \le f'(b)(b-a)$. Hence $f'(a)(b-a) \le f'(b)(b-a)$, so $f'(a) \le f'(b)$: $f'$ is increasing and $f$ is convex by the previous theorem.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Si $x &gt; a$ : dans la preuve du théorème précédent, on a obtenu $f'(a) \le \frac{f(x)-f(a)}{x-a}$, et en multipliant par $x - a &gt; 0$ on obtient le résultat. Si $x &lt; a$ : de même $\frac{f(a)-f(x)}{a-x} \le f'(a)$, et en multipliant par $a - x &gt; 0$ on obtient $f(a) - f(x) \le f'(a)(a-x)$, qui est le résultat. Le cas $x = a$ est trivial.
+      $(\Rightarrow)$ Supposons $f$ convexe. Si $x &gt; a$ : dans la preuve du théorème précédent, on a obtenu $f'(a) \le \frac{f(x)-f(a)}{x-a}$, et en multipliant par $x - a &gt; 0$ on obtient le résultat. Si $x &lt; a$ : de même $\frac{f(a)-f(x)}{a-x} \le f'(a)$, et en multipliant par $a - x &gt; 0$ on obtient $f(a) - f(x) \le f'(a)(a-x)$. Le cas $x = a$ est trivial.
+      <br>
+      $(\Leftarrow)$ Supposons le graphe au-dessus de chaque tangente. Pour $a &lt; b$ dans $I$, l'inégalité de tangente en $a$ (avec $x = b$) donne $f(b) - f(a) \ge f'(a)(b-a)$, et en $b$ (avec $x = a$) donne $f(a) - f(b) \ge f'(b)(a-b)$, i.e. $f(b) - f(a) \le f'(b)(b-a)$. Donc $f'(a)(b-a) \le f'(b)(b-a)$, d'où $f'(a) \le f'(b)$ : $f'$ est croissante et $f$ est convexe par le théorème précédent.
     </details>
 
     <div class="thm-block corollary">
@@ -100,6 +104,25 @@
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       $f'$ est croissante sur l'intervalle $I$ si et seulement si sa dérivée $f''$ est positive (caractérisation de la monotonie par le signe de la dérivée, conséquence du théorème des accroissements finis). On conclut avec le théorème précédent.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Inflection point).</span> Let $f$ be defined on $I$ and $a$ an interior point of $I$. We say that $a$ is a <em>point of inflection</em> of $f$ if $f$ is convex on one side of $a$ and concave on the other; equivalently, the graph crosses its tangent at $a$.</p>
+      <p class="fr"><span class="thm-label">Définition (Point d'inflexion).</span> Soit $f$ définie sur $I$ et $a$ un point intérieur à $I$. On dit que $a$ est un <em>point d'inflexion</em> de $f$ si $f$ est convexe d'un côté de $a$ et concave de l'autre ; de façon équivalente, le graphe traverse sa tangente en $a$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Detection of inflection points).</span> Let $f$ be twice differentiable on $I$ and $a$ an interior point. Then $a$ is a point of inflection of $f$ if and only if $f''$ changes sign at $a$. In particular $f''(a) = 0$, but this condition alone is not sufficient: $x \mapsto x^4$ satisfies $f''(0) = 0$ yet is convex on $\mathbb{R}$, so $0$ is not a point of inflection.</p>
+      <p class="fr"><span class="thm-label">Proposition (Détection des points d'inflexion).</span> Soit $f$ deux fois dérivable sur $I$ et $a$ un point intérieur. Alors $a$ est un point d'inflexion de $f$ si et seulement si $f''$ change de signe en $a$. En particulier $f''(a) = 0$, mais cette condition seule ne suffit pas : $x \mapsto x^4$ vérifie $f''(0) = 0$ tout en étant convexe sur $\mathbb{R}$, donc $0$ n'est pas un point d'inflexion.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the previous corollary, on each side of $a$, $f$ is convex where $f'' \ge 0$ and concave where $f'' \le 0$; hence $f$ changes convexity at $a$ if and only if $f''$ changes sign at $a$. In that case $f'$ is monotonic of one type just before $a$ and of the other just after, so $f'$ has a local extremum at the interior point $a$; being differentiable there, $f''(a) = (f')'(a) = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par le corollaire précédent, de chaque côté de $a$, $f$ est convexe là où $f'' \ge 0$ et concave là où $f'' \le 0$ ; donc $f$ change de convexité en $a$ si et seulement si $f''$ change de signe en $a$. Dans ce cas $f'$ est monotone d'un type juste avant $a$ et de l'autre juste après, donc $f'$ admet un extremum local au point intérieur $a$ ; étant dérivable en ce point, $f''(a) = (f')'(a) = 0$.
     </details>
 
     <div class="thm-block proposition">
