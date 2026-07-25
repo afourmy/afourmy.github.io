@@ -12,7 +12,6 @@
   var menu = [
     { en: "Mathematics", cssClass: "submenu-sections", columns: [
       [
-        { href: "math/groups.html", en: "Groups" },
         { href: "math/suites.html", en: "Sequences" },
         { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
         { href: "math/continuite.html", en: "Continuity" },
@@ -21,15 +20,16 @@
         { href: "math/calcul-integral.html", en: "Integral Calculus" },
         { href: "math/convexite.html", en: "Convexity" },
         { href: "math/equations-differentielles.html", en: "Differential Equations" },
-        { href: "math/complexes.html", en: "Complex Numbers" },
       ],
       [
+        { href: "math/groups.html", en: "Groups" },
         { href: "math/ensembles.html", en: "Sets" },
         { href: "math/bases.html", en: "Foundations" },
         { href: "math/arithmetique.html", en: "Arithmetic" },
         { href: "math/anneaux-corps.html", en: "Rings and Fields" },
         { href: "math/polynomes.html", en: "Polynomials" },
         { href: "math/denombrement.html", en: "Combinatorics" },
+        { href: "math/probabilites.html", en: "Probability" },
       ],
       [
         { href: "math/topologie.html", en: "Topology" },
@@ -38,7 +38,7 @@
         { href: "math/determinants.html", en: "Determinants" },
         { href: "math/reduction.html", en: "Reduction" },
         { href: "math/espaces-euclidiens.html", en: "Euclidean Spaces" },
-        { href: "math/probabilites.html", en: "Probability" },
+        { href: "math/complexes.html", en: "Complex Numbers" },
       ]
     ]},
     { en: "Computer Science", columns: [
