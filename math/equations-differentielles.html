@@ -233,6 +233,74 @@
     </details>
 
     <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$: $y'' - 3y' + 2y = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ : $y'' - 3y' + 2y = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Characteristic equation $r^2 - 3r + 2 = 0$, roots $1$ and $2$ ($\Delta &gt; 0$): $y = \lambda e^{x} + \mu e^{2x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Équation caractéristique $r^2 - 3r + 2 = 0$, de racines $1$ et $2$ ($\Delta &gt; 0$) : $y = \lambda e^{x} + \mu e^{2x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$: $y'' - 2y' + y = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ : $y'' - 2y' + y = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $r^2 - 2r + 1 = (r-1)^2 = 0$, double root $1$ ($\Delta = 0$): $y = (\lambda + \mu x)e^{x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $r^2 - 2r + 1 = (r-1)^2 = 0$, racine double $1$ ($\Delta = 0$) : $y = (\lambda + \mu x)e^{x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$: $y'' + 4y = 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ : $y'' + 4y = 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $r^2 + 4 = 0$, roots $\pm 2i$ ($\Delta &lt; 0$, $\alpha = 0$, $\beta = 2$): $y = \lambda\cos(2x) + \mu\sin(2x)$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $r^2 + 4 = 0$, racines $\pm 2i$ ($\Delta &lt; 0$, $\alpha = 0$, $\beta = 2$) : $y = \lambda\cos(2x) + \mu\sin(2x)$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve on $\mathbb{R}$: $y'' - y = x^2 + 1 - e^x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Résoudre sur $\mathbb{R}$ : $y'' - y = x^2 + 1 - e^x$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Characteristic equation $r^2 - 1 = 0$, roots $\pm 1$: homogeneous solutions $\lambda e^{x} + \mu e^{-x}$. By superposition:
+      <br>
+      For $y'' - y = x^2 + 1$ ($m = 0$, not a root): seek a polynomial $Q = ax^2 + bx + c$; then $Q'' - Q = -ax^2 - bx + (2a - c) = x^2 + 1$ gives $a = -1$, $b = 0$, $c = -3$, so $y_1 = -x^2 - 3$.
+      <br>
+      For $y'' - y = -e^{x}$ ($m = 1$, simple root: resonance): seek $y_2 = c\,x e^{x}$; then $y_2'' - y_2 = 2c\,e^{x} = -e^{x}$, so $c = -\frac{1}{2}$ and $y_2 = -\frac{1}{2}x e^{x}$.
+      <br>
+      General solution: $y = \lambda e^{x} + \mu e^{-x} - x^2 - 3 - \frac{1}{2}x e^{x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Équation caractéristique $r^2 - 1 = 0$, de racines $\pm 1$ : solutions homogènes $\lambda e^{x} + \mu e^{-x}$. Par superposition :
+      <br>
+      Pour $y'' - y = x^2 + 1$ ($m = 0$, non racine) : on cherche un polynôme $Q = ax^2 + bx + c$ ; alors $Q'' - Q = -ax^2 - bx + (2a - c) = x^2 + 1$ donne $a = -1$, $b = 0$, $c = -3$, d'où $y_1 = -x^2 - 3$.
+      <br>
+      Pour $y'' - y = -e^{x}$ ($m = 1$, racine simple : résonance) : on cherche $y_2 = c\,x e^{x}$ ; alors $y_2'' - y_2 = 2c\,e^{x} = -e^{x}$, donc $c = -\frac{1}{2}$ et $y_2 = -\frac{1}{2}x e^{x}$.
+      <br>
+      Solution générale : $y = \lambda e^{x} + \mu e^{-x} - x^2 - 3 - \frac{1}{2}x e^{x}$, $\lambda, \mu \in \mathbb{R}$.
+    </details>
+
+    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Solve $y'' - 3y' + 2y = e^x$ with $y(0) = 0$ and $y'(0) = 0$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Résoudre $y'' - 3y' + 2y = e^x$ avec $y(0) = 0$ et $y'(0) = 0$.</p>
     </div>
