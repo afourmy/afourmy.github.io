@@ -393,17 +393,57 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be a projector of a Euclidean space $E$ (i.e. $p \circ p = p$) such that $\|p(x)\| \le \|x\|$ for all $x \in E$. Show that $p$ is an orthogonal projection.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un projecteur d'un espace euclidien $E$ (i.e. $p \circ p = p$) tel que $\|p(x)\| \le \|x\|$ pour tout $x \in E$. Montrer que $p$ est une projection orthogonale.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}_n[X]$, define $\langle P, Q\rangle = \int_0^1 t\,P(t)Q(t)\,dt$. Show that this is an inner product, determine an orthogonal basis of $\mathbb{R}_2[X]$ for it, and compute the orthogonal projection of $X^3$ onto $\mathbb{R}_2[X]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}_n[X]$, on définit $\langle P, Q\rangle = \int_0^1 t\,P(t)Q(t)\,dt$. Montrer que c'est un produit scalaire, déterminer une base orthogonale de $\mathbb{R}_2[X]$ pour ce produit scalaire, et calculer le projeté orthogonal de $X^3$ sur $\mathbb{R}_2[X]$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Since $p$ is a projector, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ and $p$ is the projection onto $\operatorname{Im} p$ parallel to $\operatorname{Ker} p$. It suffices to show $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$: both have dimension $\dim E - \dim \operatorname{Im} p$, so they are then equal, and $p$ is the projection onto $\operatorname{Im} p$ parallel to $(\operatorname{Im} p)^\perp$, i.e. the orthogonal projection. Let $x \in \operatorname{Im} p$ and $y \in \operatorname{Ker} p$. For all $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (as $x \in \operatorname{Im} p$ gives $p(x) = x$), so the hypothesis yields $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ for all $t$. Dividing by $t &gt; 0$ and letting $t \to 0^+$ gives $\langle x,y\rangle \ge 0$; dividing by $t &lt; 0$ and letting $t \to 0^-$ gives $\langle x,y\rangle \le 0$. Hence $\langle x, y\rangle = 0$.
+      <em>Inner product.</em> Bilinearity and symmetry are clear. Positivity: $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (the integrand is continuous and $\ge 0$ on $[0,1]$). Definiteness: if $\langle P,P\rangle = 0$, strict positivity gives $t\,P(t)^2 = 0$ on $[0,1]$, so $P(t) = 0$ for all $t \in\,]0,1]$; having infinitely many roots, $P = 0$.
+      <br>
+      <em>Orthogonal basis.</em> Here $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Gram-Schmidt applied to $(1, X, X^2)$ (without normalizing) gives $$P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},$$ with $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
+      <br>
+      <em>Projection.</em> For an orthogonal basis, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Here $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, giving coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Hence $$p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.$$
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Comme $p$ est un projecteur, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $\operatorname{Ker} p$. Il suffit de montrer $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$ : les deux ont pour dimension $\dim E - \dim \operatorname{Im} p$, donc ils sont alors égaux, et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $(\operatorname{Im} p)^\perp$, i.e. la projection orthogonale. Soient $x \in \operatorname{Im} p$ et $y \in \operatorname{Ker} p$. Pour tout $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (car $x \in \operatorname{Im} p$ donne $p(x) = x$), donc l'hypothèse fournit $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ pour tout $t$. En divisant par $t &gt; 0$ et en faisant $t \to 0^+$, on obtient $\langle x,y\rangle \ge 0$ ; en divisant par $t &lt; 0$ et en faisant $t \to 0^-$, on obtient $\langle x,y\rangle \le 0$. Donc $\langle x, y\rangle = 0$.
+      <em>Produit scalaire.</em> Bilinéarité et symétrie claires. Positivité : $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (l'intégrande est continue et $\ge 0$ sur $[0,1]$). Caractère défini : si $\langle P,P\rangle = 0$, la positivité stricte donne $t\,P(t)^2 = 0$ sur $[0,1]$, donc $P(t) = 0$ pour tout $t \in\,]0,1]$ ; ayant une infinité de racines, $P = 0$.
+      <br>
+      <em>Base orthogonale.</em> On a $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Le procédé de Gram-Schmidt appliqué à $(1, X, X^2)$ (sans normaliser) donne $$P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},$$ avec $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
+      <br>
+      <em>Projection.</em> Pour une base orthogonale, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Ici $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, d'où les coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Donc $$p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be a projector of a Euclidean space $E$ (i.e. $p \circ p = p$). Show that $p$ is an orthogonal projection if and only if $\|p(x)\| \le \|x\|$ for all $x \in E$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un projecteur d'un espace euclidien $E$ (i.e. $p \circ p = p$). Montrer que $p$ est une projection orthogonale si et seulement si $\|p(x)\| \le \|x\|$ pour tout $x \in E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $(\Rightarrow)$ If $p$ is the orthogonal projection onto $F = \operatorname{Im} p$, then for all $x \in E$, $p(x) \in F$ and $x - p(x) \in F^\perp$, so Pythagoras gives $\|x\|^2 = \|p(x)\|^2 + \|x - p(x)\|^2 \ge \|p(x)\|^2$.
+      <br>
+      $(\Leftarrow)$ Suppose $\|p(x)\| \le \|x\|$ for all $x$. Since $p$ is a projector, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ and $p$ is the projection onto $\operatorname{Im} p$ parallel to $\operatorname{Ker} p$. It suffices to show $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$: both have dimension $\dim E - \dim \operatorname{Im} p$, so they are then equal, and $p$ is the projection onto $\operatorname{Im} p$ parallel to $(\operatorname{Im} p)^\perp$, i.e. the orthogonal projection. Let $x \in \operatorname{Im} p$ and $y \in \operatorname{Ker} p$. For all $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (as $x \in \operatorname{Im} p$ gives $p(x) = x$), so the hypothesis yields $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ for all $t$. Dividing by $t &gt; 0$ and letting $t \to 0^+$ gives $\langle x,y\rangle \ge 0$; dividing by $t &lt; 0$ and letting $t \to 0^-$ gives $\langle x,y\rangle \le 0$. Hence $\langle x, y\rangle = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $(\Rightarrow)$ Si $p$ est la projection orthogonale sur $F = \operatorname{Im} p$, alors pour tout $x \in E$, $p(x) \in F$ et $x - p(x) \in F^\perp$, donc Pythagore donne $\|x\|^2 = \|p(x)\|^2 + \|x - p(x)\|^2 \ge \|p(x)\|^2$.
+      <br>
+      $(\Leftarrow)$ Supposons $\|p(x)\| \le \|x\|$ pour tout $x$. Comme $p$ est un projecteur, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $\operatorname{Ker} p$. Il suffit de montrer $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$ : les deux ont pour dimension $\dim E - \dim \operatorname{Im} p$, donc ils sont alors égaux, et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $(\operatorname{Im} p)^\perp$, i.e. la projection orthogonale. Soient $x \in \operatorname{Im} p$ et $y \in \operatorname{Ker} p$. Pour tout $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (car $x \in \operatorname{Im} p$ donne $p(x) = x$), donc l'hypothèse fournit $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ pour tout $t$. En divisant par $t &gt; 0$ et en faisant $t \to 0^+$, on obtient $\langle x,y\rangle \ge 0$ ; en divisant par $t &lt; 0$ et en faisant $t \to 0^-$, on obtient $\langle x,y\rangle \le 0$. Donc $\langle x, y\rangle = 0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $F, G$ be subspaces of a Euclidean space $E$. Show that $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $F, G$ des sous-espaces d'un espace euclidien $E$. Montrer que $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $x \in (F \cup G)^\perp$ means $\langle x, y\rangle = 0$ for all $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ for all $y \in F$ <em>and</em> for all $y \in G$, i.e. $x \in F^\perp$ and $x \in G^\perp$. Hence $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Since $\operatorname{Vect}(F \cup G) = F + G$, this also reads $(F + G)^\perp = F^\perp \cap G^\perp$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $x \in (F \cup G)^\perp$ signifie $\langle x, y\rangle = 0$ pour tout $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ pour tout $y \in F$ <em>et</em> pour tout $y \in G$, i.e. $x \in F^\perp$ et $x \in G^\perp$. Donc $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Comme $\operatorname{Vect}(F \cup G) = F + G$, cela s'écrit aussi $(F + G)^\perp = F^\perp \cap G^\perp$.)
     </details>
 
   </main>
