@@ -213,6 +213,24 @@
       Écrivons $a_i = e^{x_i}$ avec $x_i = \ln a_i$ ; la contrainte $a_1 \cdots a_n = 1$ devient $\sum_{i=1}^n x_i = 0$. Considérons $f(x) = \ln(2 + e^x)$ : alors $f'(x) = \frac{e^x}{2 + e^x}$ et $f''(x) = \frac{2e^x}{(2 + e^x)^2} &gt; 0$, donc $f$ est convexe sur $\mathbb{R}$. Par l'inégalité de Jensen avec les poids $\lambda_i = \frac{1}{n}$ : $$\frac{1}{n}\sum_{i=1}^n f(x_i) \ge f\!\left(\frac{1}{n}\sum_{i=1}^n x_i\right) = f(0) = \ln 3.$$ Donc $\sum_{i=1}^n \ln(2 + a_i) \ge n \ln 3$, et en prenant l'exponentielle, $\prod_{i=1}^n (2 + a_i) \ge 3^n$.
     </details>
 
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Jensen's inequality for integrals).</span> Let $f : [0,1] \to \mathbb{R}$ be continuous and $\varphi : \mathbb{R} \to \mathbb{R}$ convex. Show that $$\varphi\!\left(\int_0^1 f(t)\,dt\right) \le \int_0^1 \varphi(f(t))\,dt.$$</p>
+      <p class="fr"><span class="thm-label">Exercice (Inégalité de Jensen pour les intégrales).</span> Soit $f : [0,1] \to \mathbb{R}$ continue et $\varphi : \mathbb{R} \to \mathbb{R}$ convexe. Montrer que $$\varphi\!\left(\int_0^1 f(t)\,dt\right) \le \int_0^1 \varphi(f(t))\,dt.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $m = \int_0^1 f(t)\,dt$. We first find a <em>supporting line</em> for $\varphi$ at $m$: a real $c$ such that $\varphi(x) \ge \varphi(m) + c(x - m)$ for all $x \in \mathbb{R}$. By the three slopes lemma, $t \mapsto \frac{\varphi(t) - \varphi(m)}{t - m}$ is nondecreasing on $\mathbb{R} \setminus \{m\}$, so $\sup_{t &lt; m}\frac{\varphi(t)-\varphi(m)}{t-m} \le \inf_{t &gt; m}\frac{\varphi(t)-\varphi(m)}{t-m}$; take $c$ between the two. For $x &gt; m$ this reads $\frac{\varphi(x)-\varphi(m)}{x-m} \ge c$, and for $x &lt; m$ it reads $\frac{\varphi(x)-\varphi(m)}{x-m} \le c$ with $x - m &lt; 0$; either way $\varphi(x) \ge \varphi(m) + c(x-m)$ (the case $x = m$ is trivial).
+      <br>
+      Since $\varphi$ is convex on $\mathbb{R}$ it is continuous, so $\varphi \circ f$ is continuous and the right-hand integral is well defined. Applying the supporting line at $x = f(t)$ and integrating over $[0,1]$ (the integral being linear and monotonic): $$\int_0^1 \varphi(f(t))\,dt \ge \int_0^1 \big[\varphi(m) + c(f(t) - m)\big]\,dt = \varphi(m) + c\!\left(\int_0^1 f(t)\,dt - m\right) = \varphi(m),$$ which is the desired inequality.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $m = \int_0^1 f(t)\,dt$. Construisons d'abord une <em>droite d'appui</em> de $\varphi$ en $m$ : un réel $c$ tel que $\varphi(x) \ge \varphi(m) + c(x - m)$ pour tout $x \in \mathbb{R}$. Par le lemme des trois pentes, $t \mapsto \frac{\varphi(t) - \varphi(m)}{t - m}$ est croissante sur $\mathbb{R} \setminus \{m\}$, donc $\sup_{t &lt; m}\frac{\varphi(t)-\varphi(m)}{t-m} \le \inf_{t &gt; m}\frac{\varphi(t)-\varphi(m)}{t-m}$ ; choisissons $c$ entre les deux. Pour $x &gt; m$ cela s'écrit $\frac{\varphi(x)-\varphi(m)}{x-m} \ge c$, et pour $x &lt; m$ cela s'écrit $\frac{\varphi(x)-\varphi(m)}{x-m} \le c$ avec $x - m &lt; 0$ ; dans les deux cas $\varphi(x) \ge \varphi(m) + c(x-m)$ (le cas $x = m$ est trivial).
+      <br>
+      Comme $\varphi$ est convexe sur $\mathbb{R}$, elle est continue, donc $\varphi \circ f$ est continue et l'intégrale de droite est bien définie. En appliquant la droite d'appui en $x = f(t)$ et en intégrant sur $[0,1]$ (l'intégrale étant linéaire et croissante) : $$\int_0^1 \varphi(f(t))\,dt \ge \int_0^1 \big[\varphi(m) + c(f(t) - m)\big]\,dt = \varphi(m) + c\!\left(\int_0^1 f(t)\,dt - m\right) = \varphi(m),$$ ce qui est l'inégalité voulue.
+    </details>
+
   </main>
 
   <script>
