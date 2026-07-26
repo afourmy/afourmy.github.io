@@ -136,8 +136,9 @@ def reverse_complement(pattern):
     <p>
       An alternative is a <strong>frequency array</strong> of size $4^k$ instead of a dictionary.
       Each k-mer is mapped to a unique integer index in $[0,\, 4^k - 1]$ by treating the string as
-      a base-4 number (A=0, C=1, G=2, T=3). This gives $O(1)$ index access rather than a hash
-      lookup, and makes the index encoding explicit.
+      a base-4 number (A=0, C=1, G=2, T=3). This replaces a hash lookup with direct indexing, and
+      makes the encoding of a k-mer as an integer explicit, a representation reused throughout
+      bioinformatics.
     </p>
 
     <pre><code class="language-python">BASE  = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
@@ -162,6 +163,14 @@ def frequent_words(text, k):
         freq[kmer_to_index(text[i:i+k])] += 1
     max_count = max(freq)
     return [index_to_kmer(i, k) for i, c in enumerate(freq) if c == max_count]</code></pre>
+
+    <p>
+      It is not a free win. The array costs $O(4^k)$ memory, and the final scan over it costs
+      $O(4^k)$ regardless of how short the genome is. Asymptotically this is
+      $O(n \cdot k + 4^k)$, so it only pays off while $4^k$ stays comparable to $n$: at $k = 9$
+      the array holds 262,144 entries, at $k = 12$ it holds 16 million, and beyond that the
+      dictionary version wins because it only ever stores the k-mers that actually occur.
+    </p>
 
     <p>
       Important: we must search <strong>both</strong> strands. A DnaA box on one strand has its
@@ -258,11 +267,18 @@ def frequent_words(text, k):
       This is the link between replication and counting letters. Note that no C ever becomes a G:
       the C's are simply <em>destroyed</em> (turned into T's), so a strand that sat single-stranded
       ends up with a <strong>deficit of C</strong>. Reading along that strand, G now outnumbers C,
-      not because any G was created but because C's went missing. Each half of the genome was the
-      long-single-stranded one for a different stretch, so <strong>G leads C in the direction the
-      fork traveled</strong> (ori &rarr; ter) and the reverse holds on the other half. The G/C
-      imbalance is a physical fingerprint of which way replication ran, so we can recover ori just by
-      tracking it.
+      not because any G was created but because C's went missing.
+    </p>
+
+    <p>
+      The genome we are handed is the text of <em>one</em> of the two strands, and that single
+      strand plays both roles: because the two forks travel in opposite directions away from ori,
+      the stretch of it between ori and ter is copied as a leading strand, while the stretch
+      between ter and ori serves as the template for a lagging strand and is the one left
+      single-stranded. So the C-deficit falls on one half of the string we are reading and not the
+      other: <strong>G leads C in the direction the fork traveled</strong> (ori &rarr; ter), and
+      the reverse holds on the other half. The G/C imbalance is a physical fingerprint of which way
+      replication ran, so we can recover ori just by tracking it.
     </p>
 
     <p>
@@ -328,7 +344,9 @@ def min_skew(genome):
     <h4>Approximate Pattern Matching</h4>
 
     <p>
-      Find all positions where pattern occurs in text with at most $d$ mismatches.
+      Find all positions where pattern occurs in text with at most $d$ mismatches. This is
+      <code>pattern_match</code> from earlier with the equality test relaxed into a distance
+      test, and it recovers <code>pattern_match</code> exactly at $d = 0$.
     </p>
 
     <pre><code class="language-python">def approximate_pattern_match(text, pattern, d):
@@ -372,14 +390,62 @@ def frequent_words_with_mismatches(text, k, d):
       Total runtime: $O\!\left(n \cdot \sum_{j=0}^{d}\binom{k}{j} 3^j\right)$.
     </p>
 
+    <h4>Frequent Words with Mismatches and Reverse Complements</h4>
+
     <p>
-      In practice, we apply this while also counting reverse complements, so that DnaA box
-      signals from both strands are captured simultaneously.
+      DnaA binds either strand, so a box and its reverse complement are two readings of the same
+      signal and must be counted as one. The function above already accumulates a count per
+      candidate k-mer, so the only change is to add each candidate's count to that of its reverse
+      complement before taking the maximum.
+    </p>
+
+    <pre><code class="language-python">def frequent_words_with_mismatches_rc(text, k, d):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        for neighbor in neighbors(text[i:i+k], d):
+            counts[neighbor] = counts.get(neighbor, 0) + 1
+
+    def total(kmer):
+        return counts.get(kmer, 0) + counts.get(reverse_complement(kmer), 0)
+
+    best = max(total(kmer) for kmer in counts)
+    return [kmer for kmer in counts if total(kmer) == best]</code></pre>
+
+    <p>
+      Both are teaching implementations: enumerating every neighbor does not scale, and real tools
+      replace it with indexed methods (suffix arrays, the FM-index) or probabilistic models.
+    </p>
+
+    <h3>Locating ori: the Full Pipeline</h3>
+
+    <p>
+      The pieces now assemble into a procedure that takes a bacterial genome and returns candidate
+      DnaA boxes:
+    </p>
+
+    <ol>
+      <li>Compute the skew and take its minimum. An $O(n)$ scan narrows a genome of millions of
+        nucleotides to a single position.</li>
+      <li>Extract a window of roughly 500 nucleotides around that position, the expected size of
+        the ori region.</li>
+      <li>Run <code>frequent_words_with_mismatches_rc</code> on that window with $k = 9$ and
+        $d = 1$. Nine because that is the length of a bacterial DnaA box, one mismatch because real
+        boxes are mutated copies of each other.</li>
+    </ol>
+
+    <p>
+      Every step is there because the previous one is insufficient alone: frequent words over a
+      whole genome returns noise, clump finding returns thousands of candidates, and the skew
+      locates a region but says nothing about what is written inside it. Applied to
+      <em>E. coli</em>, whose genome is 4.6 million nucleotides long, this pipeline returns
+      TTATCCACA together with its reverse complement TGTGGATAA, a known DnaA box.
     </p>
 
     <p>
-      This is a teaching implementation: enumerating every neighbor does not scale, and real tools
-      replace it with indexed methods (suffix arrays, the FM-index) or probabilistic models.
+      The output is a candidate, not a proof. The skew minimum is approximate, the 500-nucleotide
+      window is an assumption, and a 9-mer that stands out statistically still has to be confirmed
+      in a lab. What the chapter delivers is a reduction: from four million positions down to a
+      handful of strings worth testing.
     </p>
 
     <h2>Chapter 2: Which DNA Patterns Play the Role of Molecular Clocks?</h2>
@@ -763,6 +829,16 @@ def profile_most_probable_kmer(text, k, profile):
     </p>
 
     <p>
+      Greedy motif search hits the extreme case at its very first step. Its seed profile is built
+      from a single k-mer, so every column contains one entry equal to $1$ and three equal to $0$,
+      and any k-mer that is not character-for-character identical to the seed has probability $0$.
+      Every candidate in the second string is therefore tied at zero,
+      <code>profile_most_probable_kmer</code> falls back on its tie-breaking rule, and the second
+      string contributes its first k-mer: a choice made by position, carrying no information about
+      the motif at all.
+    </p>
+
+    <p>
       The fix is <strong>Laplace's rule of succession</strong>: add a pseudocount of $1$ to every
       entry of the count matrix before dividing. Each column gains four extra observations, so the
       frequencies use a denominator of $t + 4$. No entry is ever $0$, so a single unpopular letter
@@ -778,9 +854,15 @@ def profile_most_probable_kmer(text, k, profile):
     }</code></pre>
 
     <p>
-      Both greedy and randomized motif search use this pseudocounted profile in place of the raw one.
       With it, <code>GCGTA</code> above receives column-1 frequency $(0 + 1) / (4 + 4) = 0.125$ and a
-      small but nonzero probability.
+      small but nonzero probability. Both greedy and randomized motif search use this pseudocounted
+      profile in place of the raw one. In <code>greedy_motif_search</code> that is a one-line
+      substitution of <code>profile_with_pseudocounts</code> for <code>profile_matrix</code>, and it
+      changes the answer outright: on a five-string sample set the raw version selects
+      <code>CAG, CAG, CAA, CAA, CAA</code> and the pseudocounted version selects
+      <code>TTC, ATC, TTC, ATC, TTC</code>, an entirely different motif. Both happen to score 2 on
+      input this small; the gap appears on data long enough for the early degenerate choices to
+      matter.
     </p>
 
     <h3>Randomized Motif Search</h3>
@@ -850,6 +932,25 @@ def randomized_motif_search(dna, k):
         if score(candidate) < score(best_motifs):
             best_motifs = candidate
     return best_motifs</code></pre>
+
+    <h3>Back to the Clock</h3>
+
+    <p>
+      Collect the upstream regions of the genes a plant activates at dusk and run the search over
+      them. The k-mer that comes out is AAAATATCT, known as the <strong>evening element</strong>.
+      It was confirmed experimentally: removing it from those upstream regions abolishes the daily
+      rhythm of the genes it precedes. A search driven by nothing but column statistics recovers a
+      real binding site.
+    </p>
+
+    <p>
+      Note what was given up along the way. The Implanted Motif Problem had an exact answer and an
+      algorithm that provably finds it, and neither survived contact with realistic mutation rates.
+      What replaced them is an objective (minimize the score) plus two heuristics that optimize it
+      without any guarantee of reaching the minimum. This trade is the normal state of affairs in
+      bioinformatics: the biologically faithful formulation is intractable, so the practical
+      algorithm returns a candidate, and the laboratory decides.
+    </p>
 
   </main>
 </body>

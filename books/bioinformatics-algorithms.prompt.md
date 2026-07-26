@@ -38,6 +38,8 @@ probability, and Python. Never explain CS.
   chapters instead of redefining them.
 - State explicitly when an algorithm's limitation is what motivates the next algorithm. The
   chain of "this fails because X, so we do Y instead" is the spine of the course.
+- Close the loop. A chapter opens on a biological question, so it ends by answering it: apply the
+  final algorithm to the motivating case and say what it finds. Never end on a technical aside.
 
 **Freedom to reorganise.** You are not required to follow the order of my notes, or the order of
 the book. Assemble the material into whatever order makes the most sense for a CS student, and
@@ -50,9 +52,12 @@ depth, same rhythm of prose, formalisation, code, and analysis. They define the 
 **Output format.** An HTML fragment to append inside `<main>`, following the conventions of the
 existing file:
 
-- `<h2>` per chapter (`Chapter N: Title`), `<h3>` per section.
-- Python in `<pre><code class="language-python">`, inline identifiers in `<code>`.
-- Math in KaTeX, `$...$` delimiters, inline only.
+- `<h2>` per chapter (`Chapter N: Title`), `<h3>` per section, `<h4>` for subsections within a
+  section that runs long.
+- Python in `<pre><code class="language-python">`. Non-code displays (matrices, tables, worked
+  examples) go in a plain `<pre><code>` with no language class. Inline identifiers in `<code>`.
+- Math in KaTeX, `$...$` delimiters, inline only. The page renders `$$` inline as well, so it
+  buys nothing; never use it.
 - No inline `<style>`; the shared `style.css` covers everything.
 - English only, and never use an em dash.
 
