@@ -1802,6 +1802,28 @@
       <p><em>Alternative solution.</em> A prime larger than $3$ must be congruent to $1$ or $5$ modulo $6$, the classes $0$, $2$, $4$ being even and the class $3$ divisible by $3$. Were $p \equiv 1$, then $p + 2 \equiv 3 \pmod 6$ would be divisible by $3$ and could not be prime. So $p \equiv 5$, which is exactly $p + 1 \equiv 0 \pmod 6$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that a positive integer is a sum of two or more consecutive positive integers if and only if it is not a power of $2$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A run of $k$ consecutive integers starting at $a$ sums to $ka + \frac{k(k-1)}{2}$, so writing $n$ this way with $k \ge 2$ and $a \ge 1$ is the same as factoring
+      $$2n = k\,(2a + k - 1).$$
+      The two factors differ by $2a - 1$, which is odd and positive, so exactly one of them is odd and the second is the larger. If $n = 2^m$, then $2n$ has no odd divisor beyond $1$, forcing the odd factor to be $1$; it cannot be the larger one, so it would have to be $k$, contradicting $k \ge 2$. If instead $n$ is not a power of $2$, write $n = 2^m q$ with $q \ge 3$ odd, so that $2n = 2^{m+1} q$ is a product of an even and an odd factor, each at least $2$. Let $k$ be the smaller of the two and $l$ the larger, and put $a = \frac{l - k + 1}{2}$, a positive integer because $l - k$ is odd and positive. Then $2a + k - 1 = l$, so $k(2a + k - 1) = 2n$ and the run works.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A graph is planar when it can be drawn in the plane with the edges meeting only at shared endpoints, so that no two edges cross. Prove that $K_5$, the complete graph on $5$ vertices, is not planar.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Grant Euler's formula, that a connected graph drawn in the plane without crossings satisfies $V - E + F = 2$, where $F$ counts the faces including the unbounded one. In such a drawing of a simple graph with at least $3$ vertices, every face is bounded by at least $3$ edges while every edge borders at most $2$ faces, so counting the pairs (face, edge on its boundary) two ways gives $3F \le 2E$. Substituting $F \le \frac{2E}{3}$ into Euler's formula leaves
+      $$2 \le V - E + \frac{2E}{3} = V - \frac{E}{3}, \qquad \text{that is} \qquad E \le 3V - 6.$$
+      Now $K_5$ is connected and simple with $V = 5$ and $E = \binom{5}{2} = 10$, whereas $3V - 6 = 9$. A planar drawing would therefore violate the bound, so none exists.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
