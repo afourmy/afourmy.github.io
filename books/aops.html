@@ -1522,10 +1522,8 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Turn the inequality into an equation by introducing a slack variable $x_4 = 50 - (x_1 + x_2 + x_3)$, which is a nonnegative integer exactly when $x_1 + x_2 + x_3 \le 50$. Solutions of the inequality in three nonnegative integers therefore correspond one to one with solutions of
-      $$x_1 + x_2 + x_3 + x_4 = 50$$
-      in four nonnegative integers. By stars and bars with $n = 50$ and $r = 4$, the count is
-      $$\binom{50 + 4 - 1}{4 - 1} = \binom{53}{3}.$$</p>
+      <p>The slack variable $x_4 = 50 - (x_1 + x_2 + x_3)$ is a nonnegative integer exactly when the inequality holds, so solutions correspond to those of $x_1 + x_2 + x_3 + x_4 = 50$. By stars and bars with $n = 50$, $r = 4$,
+      $$\binom{53}{3}.$$</p>
     </details>
 
     <div class="thm-block exercise">
@@ -1539,18 +1537,25 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> In how many ways can $3$ squares be chosen from a $5 \times 5$ grid so that no two lie in the same row or the same column?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The squares occupy $3$ distinct rows and $3$ distinct columns. Choose the rows in $\binom{5}{3}$ ways, the columns in $\binom{5}{3}$ ways, then pair them up in $3!$ ways:
+      $$\binom{5}{3}^{2}\cdot 3!.$$</p>
+      <p><em>Alternative solution.</em> Place the squares in order: $25$ choices for the first, $16$ for the second (a $4 \times 4$ subgrid remains), $9$ for the third, then divide by $3!$ since the squares are unordered, giving $\frac{25 \cdot 16 \cdot 9}{3!}$.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> How many positive integers $n \le 1000$ have none of $2$, $3$, $5$ among their prime factors?</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Having none of $2, 3, 5$ as a prime factor means being divisible by none of them, so count the complement by inclusion-exclusion. Writing $A_d$ for the multiples of $d$ up to $1000$, we have $|A_d| = \lfloor 1000/d \rfloor$, and
-      $$|A_2| = 500, \quad |A_3| = 333, \quad |A_5| = 200,$$
-      $$|A_6| = 166, \quad |A_{10}| = 100, \quad |A_{15}| = 66, \quad |A_{30}| = 33.$$
-      Hence the number divisible by at least one of $2, 3, 5$ is
+      <p>Count the complement by inclusion-exclusion, using $\lfloor 1000/d \rfloor$ for the multiples of $d$. The number divisible by at least one of $2, 3, 5$ is
       $$(500 + 333 + 200) - (166 + 100 + 66) + 33 = 734,$$
-      and the answer is $1000 - 734 = 266$.</p>
-      <p>Equivalently, the density of integers coprime to $2, 3, 5$ is $\left(1 - \tfrac12\right)\left(1 - \tfrac13\right)\left(1 - \tfrac15\right) = \tfrac{4}{15}$, and $\tfrac{4}{15}\cdot 1000 = 266.\overline{6}$, consistent with the exact count $266$.</p>
+      so the answer is $1000 - 734 = 266$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
