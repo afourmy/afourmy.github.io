@@ -1621,6 +1621,36 @@
       <p>With $1000$ doors the same argument gives $\frac{1}{1000}$ for your door against $\frac{999}{1000}$ for the survivor, and at that scale the mechanism is hard to miss: you were almost certainly wrong at the start, and the host, forbidden from opening the prize door, has swept that entire $\frac{999}{1000}$ onto a single door.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Box $X$ holds $5$ white and $2$ black balls, box $Y$ holds $3$ white and $5$ black. One of the two boxes is chosen at random and a ball drawn from it turns out to be white. What is the probability that the box was $X$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $W$ be the event that the drawn ball is white. Drawing from $X$ gives white with probability $\frac{5}{7}$ and from $Y$ with probability $\frac{3}{8}$, and the two boxes are equally likely, so those equal priors cancel in Bayes' theorem:
+      $$P(X \mid W) = \frac{\frac{5}{7}}{\frac{5}{7} + \frac{3}{8}} = \frac{40}{61}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Two teams play a series of games, each won independently by either team with probability $\frac{1}{2}$, until one of them has won $4$ games. What is the probability that the sixth game is the last one?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A team ends the series at game $6$ precisely when it takes game $6$ and exactly $3$ of the first $5$, since winning $4$ of the first $5$ would have ended the series earlier. That leaves $\binom{5}{3}$ sequences for a given team, each of probability $2^{-6}$, and the two teams cannot both win, so the events are disjoint:
+      $$2\binom{5}{3}\frac{1}{2^{6}} = \frac{5}{16}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A fair die is rolled three times. Given that all three results are greater than $3$, what is the probability that they all show the same number?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Conditioning on all three rolls exceeding $3$ leaves each one uniform on $\{4, 5, 6\}$ and still independent of the others, so the $3^3$ triples are equally likely. Three of them are constant, giving
+      $$\frac{3}{27} = \frac{1}{9}.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
