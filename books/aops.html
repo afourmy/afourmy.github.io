@@ -1836,14 +1836,26 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no repeated edges, having $V$ vertices and $E$ edges. Show that
+      $$E \le 3V - 6.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Fix a drawing without crossings and let $F$ be its number of faces. Euler's formula rearranges to $F = E - V + 2$, while the previous exercise gives $F \le \frac{2}{3}E$. Putting the two together,
+      $$E - V + 2 \le \tfrac{2}{3}E, \qquad \text{so} \qquad \tfrac{1}{3}E \le V - 2,$$
+      which is the claim.</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Prove that $K_5$, the complete graph on $5$ vertices, is not planar.</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Suppose $K_5$ were planar and fix a drawing of it without crossings, with $V = 5$ vertices, $E = \binom{5}{2} = 10$ edges and $F$ faces. It has more than $3$ vertices and no repeated edges, so the previous exercise gives $3F \le 2E$, and Euler's formula turns this into
-      $$2 = V - E + F \le V - E + \frac{2E}{3} = V - \frac{E}{3}, \qquad \text{that is} \qquad E \le 3V - 6.$$
-      Here $3V - 6 = 9$ while $E = 10$, so the bound fails and no such drawing can exist.</p>
+      <p>$K_5$ is connected, has more than $3$ vertices and has no repeated edges, so were it planar the previous exercise would apply. But its $V = 5$ vertices and $E = \binom{5}{2} = 10$ edges give
+      $$3V - 6 = 9 \lt 10 = E,$$
+      contradicting that bound. No crossing-free drawing of $K_5$ exists.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
