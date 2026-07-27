@@ -1858,6 +1858,27 @@
       contradicting that bound. No crossing-free drawing of $K_5$ exists.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A tree is a connected graph containing no cycle. How many edges does a tree with $n$ vertices have?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>It has $n - 1$, by induction on $n$. A tree with a single vertex has no edge. For $n \ge 2$, take a path of greatest length in the tree; its last vertex meets exactly one edge, since a second one would either lengthen the path or close a cycle. Removing that vertex together with its edge leaves a graph still connected and still without cycles, so a tree on $n - 1$ vertices, which by induction has $n - 2$ edges. Restoring the vertex gives $n - 1$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A graph is bipartite when its vertices can be split into two groups so that every edge joins a vertex of one group to a vertex of the other. Let $G$ be a connected bipartite planar graph with at least $3$ vertices and no repeated edges, having $V$ vertices and $E$ edges. Show that
+      $$E \le 2V - 4.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A bipartite graph has no cycle of odd length, since travelling along a cycle alternates between the two groups and returning to the starting vertex takes an even number of steps. Its shortest cycle therefore has length at least $4$, so in a crossing-free drawing the boundary of a face closes up only after at least $4$ steps. Counting pairs of a face and an edge on its boundary as before, each edge still contributing $2$, this gives $4F \le 2E$, that is $F \le \frac{E}{2}$. Euler's formula rearranges to $F = E - V + 2$, so
+      $$E - V + 2 \le \tfrac{1}{2}E, \qquad \text{so} \qquad \tfrac{1}{2}E \le V - 2,$$
+      which is the claim.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
