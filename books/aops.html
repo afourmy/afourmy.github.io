@@ -1771,6 +1771,7 @@
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
       <p>Taking $n = 2$ gives $2^5 - 2 = 30$, so any integer dividing them all divides $30$. Conversely $30$ always works. Fermat's little theorem in the form $n^q \equiv n \pmod q$, valid for every integer $n$ since the case $q \mid n$ is immediate, gives $n^5 \equiv n \pmod 5$ at once; modulo $3$ it gives $n^3 \equiv n$, so $n^5 = n^2 n^3 \equiv n^3 \equiv n$; and modulo $2$ it gives $n^2 \equiv n$, so $n^5 \equiv n$ likewise. Thus $2$, $3$ and $5$ each divide $n^5 - n$, and as distinct primes so does their product. The answer is $30$.</p>
+      <p><em>Alternative solution.</em> Fermat can be avoided by factoring further, $n^5 - n = (n-1)\,n\,(n+1)\,(n^2+1)$. The first three factors are consecutive integers, so one is even and one is a multiple of $3$, giving $6$. For the factor $5$, argue on $n$ modulo $5$: if $n \equiv 0$ or $\pm 1$ then one of $n - 1$, $n$, $n + 1$ is divisible by $5$, while if $n \equiv \pm 2$ then $n^2 \equiv 4$ and $5$ divides $n^2 + 1$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
