@@ -1517,6 +1517,18 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> How many solutions does $x_1 + x_2 + x_3 \le 50$ have in nonnegative integers $x_i$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Turn the inequality into an equation by introducing a slack variable $x_4 = 50 - (x_1 + x_2 + x_3)$, which is a nonnegative integer exactly when $x_1 + x_2 + x_3 \le 50$. Solutions of the inequality in three nonnegative integers therefore correspond one to one with solutions of
+      $$x_1 + x_2 + x_3 + x_4 = 50$$
+      in four nonnegative integers. By stars and bars with $n = 50$ and $r = 4$, the count is
+      $$\binom{50 + 4 - 1}{4 - 1} = \binom{53}{3}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> In how many ways can $5$ people be seated in a row of $20$ chairs so that no two of them sit next to each other?</p>
     </div>
 
@@ -1524,6 +1536,21 @@
       <summary class="proof-label">Solution.</summary>
       <p>First choose the $5$ occupied chairs so that no two are adjacent, then seat the $5$ distinct people in them. Line up the $15$ empty chairs; they create $16$ gaps (one before each empty chair, one after the last) into which the occupied chairs may be inserted. Choosing $5$ of these gaps, at most one per gap, guarantees no two occupied chairs are adjacent, so there are $\binom{16}{5}$ valid sets of chairs. The $5$ people can then be arranged in $5!$ ways, giving
       $$\binom{16}{5}\cdot 5!.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> How many positive integers $n \le 1000$ have none of $2$, $3$, $5$ among their prime factors?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Having none of $2, 3, 5$ as a prime factor means being divisible by none of them, so count the complement by inclusion-exclusion. Writing $A_d$ for the multiples of $d$ up to $1000$, we have $|A_d| = \lfloor 1000/d \rfloor$, and
+      $$|A_2| = 500, \quad |A_3| = 333, \quad |A_5| = 200,$$
+      $$|A_6| = 166, \quad |A_{10}| = 100, \quad |A_{15}| = 66, \quad |A_{30}| = 33.$$
+      Hence the number divisible by at least one of $2, 3, 5$ is
+      $$(500 + 333 + 200) - (166 + 100 + 66) + 33 = 734,$$
+      and the answer is $1000 - 734 = 266$.</p>
+      <p>Equivalently, the density of integers coprime to $2, 3, 5$ is $\left(1 - \tfrac12\right)\left(1 - \tfrac13\right)\left(1 - \tfrac15\right) = \tfrac{4}{15}$, and $\tfrac{4}{15}\cdot 1000 = 266.\overline{6}$, consistent with the exact count $266$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
