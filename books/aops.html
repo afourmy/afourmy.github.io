@@ -1665,6 +1665,25 @@
       $$1 - \frac{4!\,5!}{9!} = \frac{125}{126}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> In a certain population $20\%$ of people always lie and the rest always tell the truth. Three people drawn independently from it are asked whether it is raining, and all three answer yes. Taking rain and no rain to be equally likely beforehand, what is the probability that it is raining?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $R$ be the event that it is raining and $Y$ the event that all three answer yes. If it is raining, a person answers yes exactly when truthful, so $P(Y \mid R) = \left(\frac{4}{5}\right)^3$; if it is not, a person answers yes exactly when lying, giving $\left(\frac{1}{5}\right)^3$. The two prior probabilities are equal, so they cancel in Bayes' theorem:
+      $$P(R \mid Y) = \frac{\left(\frac{4}{5}\right)^3}{\left(\frac{4}{5}\right)^3 + \left(\frac{1}{5}\right)^3} = \frac{64}{65}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $a$ and $b$ be positive integers with $\gcd(a, b) = 1$. Show that if $ab$ is a perfect square, then $a$ and $b$ are both perfect squares.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Write $v_p(n)$ for the exponent of the prime $p$ in $n$, so that $n$ is a perfect square precisely when $v_p(n)$ is even for every $p$. Fix a prime $p$. Since $ab$ is a square, $v_p(a) + v_p(b) = v_p(ab)$ is even. Coprimality forbids $p$ from dividing both $a$ and $b$, so one of $v_p(a)$, $v_p(b)$ is $0$ and the other equals that even sum, making both even. As $p$ was arbitrary, every prime occurs to an even power in $a$ and in $b$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
