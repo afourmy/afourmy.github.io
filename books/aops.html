@@ -1590,6 +1590,17 @@
       <p>For the lower bound, restrict to walks that only ever step right or up. Along such a walk the sum $x + y$ of the coordinates increases by $1$ at each step, so all $n + 1$ visited points are distinct and the walk is self-avoiding; the $2^n$ step sequences give $2^n$ distinct walks. For the upper bound, the first step has $4$ choices, and every later step must avoid reversing its predecessor, which would return the walk to the point two steps back, leaving at most $3$ choices.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $n$ be a positive integer. Find the sum of all positive integers whose base $2$ representation has exactly $2n$ digits, of which $n$ are $0$ and $n$ are $1$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The leading digit of a $2n$-digit number is $1$, so the remaining $2n - 1$ digits carry $n - 1$ ones and $n$ zeros. Sum by place value rather than by number. The leading place, worth $2^{2n-1}$, holds a $1$ in every one of the $\binom{2n-1}{n-1}$ such numbers. A lower place $2^k$ with $0 \le k \le 2n-2$ holds a $1$ in $\binom{2n-2}{n-2}$ of them, since fixing that digit and the leading digit to $1$ leaves $n - 2$ ones to distribute among the other $2n - 2$ places. As $\sum_{k=0}^{2n-2} 2^k = 2^{2n-1} - 1$, the total is
+      $$\binom{2n-1}{n-1}2^{2n-1} + \binom{2n-2}{n-2}\left(2^{2n-1} - 1\right),$$
+      where the second binomial is $0$ when $n = 1$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
