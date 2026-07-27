@@ -1774,6 +1774,24 @@
       <p><em>Alternative solution.</em> Fermat can be avoided by factoring further, $n^5 - n = (n-1)\,n\,(n+1)\,(n^2+1)$. The first three factors are consecutive integers, so one is even and one is a multiple of $3$, giving $6$. For the factor $5$, argue on $n$ modulo $5$: if $n \equiv 0$ or $\pm 1$ then one of $n - 1$, $n$, $n + 1$ is divisible by $5$, while if $n \equiv \pm 2$ then $n^2 \equiv 4$ and $5$ divides $n^2 + 1$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> What is the last digit of $7^{7^7}$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The last digit is the residue modulo $10$, where the powers of $7$ repeat with period $4$, running $7, 9, 3, 1$. So only the exponent $7^7$ modulo $4$ matters, and there $7 \equiv -1$, giving $7^7 \equiv (-1)^7 \equiv 3 \pmod 4$. The last digit is thus the same as that of $7^3 = 343$, namely $3$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $n \gt 1$. How many primes $m$ satisfy $n! + 1 \lt m \le n! + n$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>None. Such an $m$ is $n! + k$ for some $k$ with $2 \le k \le n$, and this $k$ is one of the factors making up $n!$, so $k$ divides $n!$ and therefore divides $n! + k$ as well. Since $n! + k$ is strictly larger than $k$, which is itself larger than $1$, this makes $n! + k$ a proper multiple of $k$, hence composite. Letting $n$ grow, this produces runs of consecutive composite numbers of any desired length.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
