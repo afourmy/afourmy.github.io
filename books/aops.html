@@ -1814,13 +1814,25 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> (Euler's formula) A graph is planar if it can be drawn in the plane with no two edges crossing, and connected if any two of its vertices are joined by a path along edges. Let $G$ be a connected planar graph, drawn in the plane without crossings. Its edges cut the plane into regions called faces, the unbounded outer region counting as one of them. Let $V$, $E$ and $F$ be the numbers of vertices, edges and faces. Prove that
+      <p><span class="thm-label">Exercise.</span> (Euler's formula) A graph is connected if any two of its vertices are joined by a path of edges, and planar if it can be drawn in the plane with no two edges crossing. Such a drawing divides the plane into regions called faces, one of them unbounded. Let $G$ be a connected planar graph, drawn in the plane without crossings, with $V$ vertices, $E$ edges and $F$ faces. Prove that
       $$V - E + F = 2.$$</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Induct on the number of edges. If the drawing contains no cycle, the graph is a tree, so $E = V - 1$, as stripping off one leaf at a time removes one vertex and one edge until a single vertex is left; and a tree separates nothing, so $F = 1$. Then $V - E + F = V - (V-1) + 1 = 2$. Otherwise choose an edge $e$ lying on a cycle. That cycle is a closed curve, so the regions on the two sides of $e$ are distinct faces, and erasing $e$ fuses them into one while leaving the graph connected, the rest of the cycle still joining the endpoints of $e$. This lowers $E$ and $F$ by $1$ each and leaves $V$ untouched, so $V - E + F$ is unchanged and the induction hypothesis applies.</p>
+      <p>Induct on the number of edges. With $E = 0$, connectedness leaves $G$ a single vertex and the plane uncut, so $V - E + F = 1 - 0 + 1 = 2$. For $E \ge 1$ there are two cases, and each deletes one edge while keeping the drawing connected and free of crossings, so the induction hypothesis applies to what is left.</p>
+      <p>Suppose first that some edge $e$ lies on a cycle. That cycle is a closed curve, so $e$ has a different face on either side of it. Deleting $e$ merges the two into a single face and leaves $G$ connected, the rest of the cycle still joining the endpoints of $e$. So $V$ stays put while $E$ and $F$ each fall by $1$, and $V - E + F$ is unchanged.</p>
+      <p>Suppose instead that no edge lies on a cycle, and take a path in $G$ of greatest length. Its last vertex $v$ meets only one edge, since a second one would either lengthen the path or close a cycle. Deleting $v$ along with that edge leaves $G$ connected, and leaves the faces alone, an edge with a free end enclosing nothing. So $V$ and $E$ each fall by $1$ while $F$ stays put, and again $V - E + F$ is unchanged.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no repeated edges, drawn in the plane without crossings, with $E$ edges and $F$ faces. Show that
+      $$E \ge \tfrac{3}{2} F.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count the pairs made of a face and an edge on its boundary, an edge that borders the same face on both sides being counted twice. Each edge has two sides and so occurs in exactly $2$ pairs, giving $2E$ in total. Each face contributes at least $3$, since with at least $3$ vertices and no repeated edges the boundary of a region cannot be closed up in fewer than $3$ steps. Comparing the two counts gives $3F \le 2E$.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -1829,9 +1841,9 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Suppose $K_5$ had such a drawing, so that the previous exercise gives $V - E + F = 2$. In a crossing-free drawing of a simple graph with at least $3$ vertices, every face is bounded by at least $3$ edges while every edge borders at most $2$ faces, so counting the pairs (face, edge on its boundary) two ways gives $3F \le 2E$. Substituting $F \le \frac{2E}{3}$ into Euler's formula leaves
-      $$2 \le V - E + \frac{2E}{3} = V - \frac{E}{3}, \qquad \text{that is} \qquad E \le 3V - 6.$$
-      Now $K_5$ is connected and simple with $V = 5$ and $E = \binom{5}{2} = 10$, whereas $3V - 6 = 9$. A planar drawing would therefore violate the bound, so none exists.</p>
+      <p>Suppose $K_5$ were planar and fix a drawing of it without crossings, with $V = 5$ vertices, $E = \binom{5}{2} = 10$ edges and $F$ faces. It has more than $3$ vertices and no repeated edges, so the previous exercise gives $3F \le 2E$, and Euler's formula turns this into
+      $$2 = V - E + F \le V - E + \frac{2E}{3} = V - \frac{E}{3}, \qquad \text{that is} \qquad E \le 3V - 6.$$
+      Here $3V - 6 = 9$ while $E = 10$, so the bound fails and no such drawing can exist.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
