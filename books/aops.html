@@ -1755,6 +1755,24 @@
       $$(p-1)! \equiv 1 \cdot (p-1) \equiv -1 \pmod p.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $24 \mid p^2 - 1$ for every prime $p \gt 3$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Factor $p^2 - 1 = (p-1)(p+1)$. Being a prime above $3$, $p$ is odd, so $p - 1$ and $p + 1$ are consecutive even numbers and one of the two is divisible by $4$, making their product divisible by $8$. Again because $p$ is a prime above $3$, it is not divisible by $3$, yet exactly one of the three consecutive integers $p - 1$, $p$, $p + 1$ must be, so $3$ divides $(p-1)(p+1)$ as well. Since $8$ and $3$ are coprime, their product $24$ divides $p^2 - 1$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the largest integer that divides $n^5 - n$ for every integer $n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Taking $n = 2$ gives $2^5 - 2 = 30$, so any integer dividing them all divides $30$. Conversely $30$ always works. Fermat's little theorem in the form $n^q \equiv n \pmod q$, valid for every integer $n$ since the case $q \mid n$ is immediate, gives $n^5 \equiv n \pmod 5$ at once; modulo $3$ it gives $n^3 \equiv n$, so $n^5 = n^2 n^3 \equiv n^3 \equiv n$; and modulo $2$ it gives $n^2 \equiv n$, so $n^5 \equiv n$ likewise. Thus $2$, $3$ and $5$ each divide $n^5 - n$, and as distinct primes so does their product. The answer is $30$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
