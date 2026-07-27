@@ -1580,6 +1580,16 @@
       <p><em>Alternative solution.</em> Lay out $19$ stars and split them into $8$ nonempty groups by placing $7$ bars in the $18$ gaps between consecutive stars, at most one per gap.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A self-avoiding walk on the square lattice is a path that starts at the origin and repeatedly steps one unit left, right, up or down, never visiting the same point twice. Let $f(n)$ be the number of such walks of $n$ steps. Show that
+      $$2^n \le f(n) \le 4 \cdot 3^{n-1}.$$</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>For the lower bound, restrict to walks that only ever step right or up. Along such a walk the sum $x + y$ of the coordinates increases by $1$ at each step, so all $n + 1$ visited points are distinct and the walk is self-avoiding; the $2^n$ step sequences give $2^n$ distinct walks. For the upper bound, the first step has $4$ choices, and every later step must avoid reversing its predecessor, which would return the walk to the point two steps back, leaving at most $3$ choices.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
