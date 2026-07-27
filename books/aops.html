@@ -1601,6 +1601,26 @@
       where the second binomial is $0$ when $n = 1$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Two numbers are chosen independently and uniformly at random from the interval $[0, 10]$. What is the probability that they differ by no more than $5$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The pair is a point $(x, y)$ distributed uniformly over the square $[0, 10]^2$, so the probability is a ratio of areas. The complementary event $|x - y| \gt 5$ is the union of the two corner triangles above $y = x + 5$ and below $y = x - 5$, each a right triangle with legs $5$, of combined area $25$. Hence the probability is
+      $$1 - \frac{25}{100} = \frac{3}{4}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A prize sits behind one of three closed doors, chosen uniformly at random. You point at a door, and the host, who knows where the prize is, opens one of the two remaining doors, always one that is empty. You may keep your door or switch to the last unopened one. Which is better, and by how much? Answer the same question for $1000$ doors, where the host opens $998$ empty ones.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Your initial guess is correct with probability $\frac{1}{3}$, and the host's move cannot change that number: whatever door you point at, he is able to open an empty one, so seeing him do it tells you nothing about your own door. Its probability stays $\frac{1}{3}$, the prize is somewhere, and the only other closed door absorbs the rest, so switching wins with probability $\frac{2}{3}$, twice as often as staying.</p>
+      <p>With $1000$ doors the same argument gives $\frac{1}{1000}$ for your door against $\frac{999}{1000}$ for the survivor, and at that scale the mechanism is hard to miss: you were almost certainly wrong at the start, and the host, forbidden from opening the prize door, has swept that entire $\frac{999}{1000}$ onto a single door.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
