@@ -1684,6 +1684,28 @@
       <p>Write $v_p(n)$ for the exponent of the prime $p$ in $n$, so that $n$ is a perfect square precisely when $v_p(n)$ is even for every $p$. Fix a prime $p$. Since $ab$ is a square, $v_p(a) + v_p(b) = v_p(ab)$ is even. Coprimality forbids $p$ from dividing both $a$ and $b$, so one of $v_p(a)$, $v_p(b)$ is $0$ and the other equals that even sum, making both even. As $p$ was arbitrary, every prime occurs to an even power in $a$ and in $b$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Solve $1233x + 45 \equiv 9090 \pmod{24}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Reducing the coefficients modulo $24$ gives $1233 \equiv 9$, $45 \equiv 21$ and $9090 \equiv 18$, so the congruence becomes
+      $$9x \equiv -3 \equiv 21 \pmod{24}.$$
+      Here $\gcd(9, 24) = 3$ divides $21$, so the congruence is solvable and dividing it through by $3$, modulus included, yields the equivalent $3x \equiv 7 \pmod 8$. Multiplying by $3$, which is its own inverse modulo $8$, gives $x \equiv 21 \equiv 5 \pmod 8$, that is
+      $$x \equiv 5, \; 13, \; 21 \pmod{24}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $n = p_1^{a_1} \cdots p_k^{a_k}$ be the prime factorization of a positive integer. Find an explicit formula for $\sigma(n)$, the sum of the positive divisors of $n$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The divisors of $n$ are exactly the products $p_1^{b_1} \cdots p_k^{b_k}$ with $0 \le b_i \le a_i$, each arising from one choice of the exponents. Expanding the product below therefore produces every divisor exactly once, so the sum factors into geometric series:
+      $$\sigma(n) = \prod_{i=1}^{k}\left(1 + p_i + p_i^2 + \cdots + p_i^{a_i}\right) = \prod_{i=1}^{k}\frac{p_i^{a_i + 1} - 1}{p_i - 1}.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
