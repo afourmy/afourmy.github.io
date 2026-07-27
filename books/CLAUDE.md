@@ -11,6 +11,9 @@ When adding one:
 - **Leave the answer in closed form.** End at `\binom{53}{3}` or `\binom{5}{3}^2 \cdot 3!`. Do not expand into products or evaluate to a number. Exception: when the answer is intrinsically a plain count, such as an inclusion-exclusion total.
 - **Match the existing markup**, `<div class="thm-block exercise">` for the statement, `<details class="proof">` for the solution.
 
+## Wording of the énoncé
+State hypotheses declaratively ("Let $G$ be a connected graph drawn in the plane..."), never as an instruction to the reader ("Draw a connected graph..."). The only imperative belongs to the task itself: "Prove that", "Show that", "Find".
+
 ## Notation
 Never introduce notation that the page has not defined. Before using a symbol, check it is either defined in the exercise itself or already established on the page with that same meaning, `grep` for it. Prefer plain words ("step right or up") over unexplained symbols.
 

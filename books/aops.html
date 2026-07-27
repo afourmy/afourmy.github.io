@@ -1814,12 +1814,22 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> A graph is planar when it can be drawn in the plane with the edges meeting only at shared endpoints, so that no two edges cross. Prove that $K_5$, the complete graph on $5$ vertices, is not planar.</p>
+      <p><span class="thm-label">Exercise.</span> (Euler's formula) A graph is planar if it can be drawn in the plane with no two edges crossing, and connected if any two of its vertices are joined by a path along edges. Let $G$ be a connected planar graph, drawn in the plane without crossings. Its edges cut the plane into regions called faces, the unbounded outer region counting as one of them. Let $V$, $E$ and $F$ be the numbers of vertices, edges and faces. Prove that
+      $$V - E + F = 2.$$</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Grant Euler's formula, that a connected graph drawn in the plane without crossings satisfies $V - E + F = 2$, where $F$ counts the faces including the unbounded one. In such a drawing of a simple graph with at least $3$ vertices, every face is bounded by at least $3$ edges while every edge borders at most $2$ faces, so counting the pairs (face, edge on its boundary) two ways gives $3F \le 2E$. Substituting $F \le \frac{2E}{3}$ into Euler's formula leaves
+      <p>Induct on the number of edges. If the drawing contains no cycle, the graph is a tree, so $E = V - 1$, as stripping off one leaf at a time removes one vertex and one edge until a single vertex is left; and a tree separates nothing, so $F = 1$. Then $V - E + F = V - (V-1) + 1 = 2$. Otherwise choose an edge $e$ lying on a cycle. That cycle is a closed curve, so the regions on the two sides of $e$ are distinct faces, and erasing $e$ fuses them into one while leaving the graph connected, the rest of the cycle still joining the endpoints of $e$. This lowers $E$ and $F$ by $1$ each and leaves $V$ untouched, so $V - E + F$ is unchanged and the induction hypothesis applies.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $K_5$, the complete graph on $5$ vertices, is not planar.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Suppose $K_5$ had such a drawing, so that the previous exercise gives $V - E + F = 2$. In a crossing-free drawing of a simple graph with at least $3$ vertices, every face is bounded by at least $3$ edges while every edge borders at most $2$ faces, so counting the pairs (face, edge on its boundary) two ways gives $3F \le 2E$. Substituting $F \le \frac{2E}{3}$ into Euler's formula leaves
       $$2 \le V - E + \frac{2E}{3} = V - \frac{E}{3}, \qquad \text{that is} \qquad E \le 3V - 6.$$
       Now $K_5$ is connected and simple with $V = 5$ and $E = \binom{5}{2} = 10$, whereas $3V - 6 = 9$. A planar drawing would therefore violate the bound, so none exists.</p>
     </details>
