@@ -1727,6 +1727,34 @@
       Finally $(p-1)!$ is a product of integers none of which $p$ divides, so it is coprime to $p$ and may be cancelled.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $p$ be a prime and $g$ an integer not divisible by $p$. The order of $g$ modulo $p$ is the smallest positive integer $d$ such that $g^d \equiv 1 \pmod p$, which exists because the previous exercise supplies $g^{p-1} \equiv 1$. Call $g$ a primitive root modulo $p$ when its order is exactly $p - 1$. Show that if $g$ is a primitive root, then every one of $1, 2, \ldots, p-1$ is congruent modulo $p$ to a power of $g$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Consider the $p - 1$ powers $g, g^2, \ldots, g^{p-1}$. None is divisible by $p$, since $p \nmid g$. They are also pairwise incongruent: if $g^i \equiv g^j$ with $1 \le i \lt j \le p - 1$, then cancelling $g^i$, which is legitimate as $g$ is coprime to $p$, leaves $g^{j-i} \equiv 1$ with $0 \lt j - i \lt p - 1$, contradicting that the order of $g$ is $p - 1$. So the powers occupy $p - 1$ distinct classes among the $p - 1$ nonzero classes modulo $p$, which forces them to occupy all of them.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $p$ be a prime admitting a primitive root $g$, and let $d$ be any divisor of $p - 1$. Show that some integer has order exactly $d$ modulo $p$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>First observe that $g^m \equiv 1$ holds precisely when $(p-1) \mid m$: writing $m = q(p-1) + r$ with $0 \le r \lt p - 1$ leaves $g^r \equiv 1$, and the minimality in the definition of the order forces $r = 0$. Now take $h = g^{(p-1)/d}$, which makes sense since $d$ divides $p - 1$. Then $h^d = g^{p-1} \equiv 1$, so $h$ has some order at most $d$, and if $h^e \equiv 1$ then $g^{e(p-1)/d} \equiv 1$, so the observation gives $(p-1) \mid e(p-1)/d$, that is $d \mid e$. The smallest positive $e$ with $h^e \equiv 1$ is therefore $d$ itself.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> (Wilson's theorem) Let $p$ be a prime. Show that $(p-1)! \equiv -1 \pmod p$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>For $p = 2$ the claim reads $1 \equiv -1$, which holds, so take $p$ odd. Every $a$ in $\{1, \ldots, p-1\}$ has an inverse there, since Fermat's little theorem gives $a \cdot a^{p-2} \equiv 1$. Such an $a$ is its own inverse exactly when $a^2 \equiv 1$, that is when $p \mid (a-1)(a+1)$, which for prime $p$ leaves only $a = 1$ and $a = p - 1$. The other $p - 3$ elements therefore fall into pairs $\{a, a^{-1}\}$ of distinct elements, each pair contributing a factor $1$ to the product, so
+      $$(p-1)! \equiv 1 \cdot (p-1) \equiv -1 \pmod p.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
