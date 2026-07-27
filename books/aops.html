@@ -1716,6 +1716,17 @@
       $$\sigma(n) = \frac{2^{k+1} - 1}{2 - 1} \cdot \frac{p^2 - 1}{p - 1} = p(p + 1) = p \cdot 2^{k+1} = 2 \cdot 2^k p = 2n.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> (Fermat's little theorem) Let $p$ be a prime and let $a$ be an integer not divisible by $p$. Show that $a^{p-1} \equiv 1 \pmod p$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Consider the $p - 1$ numbers $a, 2a, \ldots, (p-1)a$ modulo $p$. None is divisible by $p$, since $p$ divides neither $a$ nor any of $1, \ldots, p-1$, and no two are congruent: $ia \equiv ja$ gives $p \mid a(i - j)$, hence $p \mid i - j$ and $i = j$. Being $p - 1$ distinct nonzero residues, they are a rearrangement of $1, 2, \ldots, p-1$, so multiplying them all together gives
+      $$a^{p-1}(p-1)! \equiv (p-1)! \pmod p.$$
+      Finally $(p-1)!$ is a product of integers none of which $p$ divides, so it is coprime to $p$ and may be cancelled.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
