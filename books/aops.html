@@ -1706,6 +1706,16 @@
       $$\sigma(n) = \prod_{i=1}^{k}\left(1 + p_i + p_i^2 + \cdots + p_i^{a_i}\right) = \prod_{i=1}^{k}\frac{p_i^{a_i + 1} - 1}{p_i - 1}.$$</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A positive integer $n$ is called perfect when $\sigma(n) = 2n$. Show that if $2^{k+1} - 1$ is prime, then $2^k\left(2^{k+1} - 1\right)$ is perfect.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Put $p = 2^{k+1} - 1$ and $n = 2^k p$. The hypothesis forces $k \ge 1$, since $2^1 - 1 = 1$ is not prime, so $p \ge 3$ is an odd prime and $2^k p$ is the prime factorization of $n$, with $2$ and $p$ appearing to the exponents $k$ and $1$. The formula above then gives
+      $$\sigma(n) = \frac{2^{k+1} - 1}{2 - 1} \cdot \frac{p^2 - 1}{p - 1} = p(p + 1) = p \cdot 2^{k+1} = 2 \cdot 2^k p = 2n.$$</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
