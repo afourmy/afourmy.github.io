@@ -1558,6 +1558,28 @@
       so the answer is $1000 - 734 = 266$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> For a set $S$, let $n(S)$ denote the number of subsets of $S$. If $n(A) + n(B) + n(C) = n(A \cup B \cup C)$ and $|A| = |B| = 100$, find the minimum possible value of $|A \cap B \cap C|$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Since $n(S) = 2^{|S|}$, the hypothesis reads $2^{101} + 2^{|C|} = 2^{|A \cup B \cup C|}$. A sum of two powers of $2$ is a power of $2$ only when the two are equal, forcing $|C| = 101$ and $|A \cup B \cup C| = 102$. Writing $t = |A \cap B \cap C|$, inclusion-exclusion gives
+      $$102 = 301 - \big(|A \cap B| + |A \cap C| + |B \cap C|\big) + t.$$
+      All three sets lie in the $102$-element union, so $|X \cap Y| \ge |X| + |Y| - 102$, making the pairwise sum at least $98 + 99 + 99 = 296$ and hence $t \ge 97$. Taking $U = \{1, \ldots, 102\}$ with $A = U \setminus \{1,2\}$, $B = U \setminus \{3,4\}$, $C = U \setminus \{102\}$ attains it, so the minimum is $97$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> How many solutions does $x_1 + x_2 + \cdots + x_8 = 19$ have in strictly positive integers $x_i$?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Setting $y_i = x_i - 1$ makes the $y_i$ nonnegative with $y_1 + \cdots + y_8 = 11$, so stars and bars with $n = 11$, $r = 8$ gives
+      $$\binom{18}{7}.$$</p>
+      <p><em>Alternative solution.</em> Lay out $19$ stars and split them into $8$ nonempty groups by placing $7$ bars in the $18$ gaps between consecutive stars, at most one per gap.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
