@@ -1958,6 +1958,45 @@
       <p>The bound $E \le 3V - 6$ proved above turns into $50 \le 3V - 6$, that is $V \ge \frac{56}{3}$, so at least $19$ vertices are needed. Nineteen suffice. Begin with a triangle, which has $V = 3$ and $E = 3 = 3V - 6$, and repeatedly drop a new vertex inside a triangular face, joining it to the three corners of that face: each step keeps the drawing planar while adding one vertex and three edges, so it preserves $E = 3V - 6$. After sixteen steps $V = 19$ and $E = 51$, and deleting a single edge leaves $50$. The answer is $19$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that every planar graph with no loops and no multiple edges has a vertex of degree at most $5$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Work inside a single connected component $H$, which is legitimate because a component carries all the edges at its own vertices, so degrees in $H$ agree with degrees in the whole graph. If $H$ has at most $2$ vertices, no degree there exceeds $1$ and there is nothing to prove. Otherwise suppose every vertex of $H$ had degree at least $6$. Summing over the $V$ vertices of $H$ and using $\sum_v \deg(v) = 2E$ gives $2E \ge 6V$, that is $E \ge 3V$, while $H$ is connected and planar with at least $3$ vertices and so satisfies $E \le 3V - 6$. These cannot both hold.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph in which every vertex has degree $4$, drawn in the plane without crossings so that the drawing has $10$ faces. Find the number $V$ of vertices.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Every vertex having degree $4$, the identity $\sum_v \deg(v) = 2E$ gives $4V = 2E$, so $E = 2V$. Euler's formula then reads $V - 2V + 10 = 2$, leaving $V = 8$. Such a graph does exist: the square antiprism, two squares joined by a band of eight triangles, has $8$ vertices of degree $4$, $16$ edges and $10$ faces.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $A$ be a set with $13$ elements. What fraction of the functions from $A$ to $A$ have a well defined inverse function?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A function has an inverse exactly when it is a bijection. A function from $A$ to $A$ is built by choosing an image for each of the $13$ elements independently, giving $13^{13}$ of them, while a bijection amounts to listing the $13$ images in order with no repetition, giving $13!$. The fraction is
+      $$\frac{13!}{13^{13}}.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The population of a city was a perfect square. After an increase of $100$ it became one more than a perfect square, and after a further increase of $100$ it was a perfect square again. What was the original population?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Write the original population as $a^2$. The two conditions say $a^2 + 100 = b^2 + 1$ and $a^2 + 200 = c^2$, that is
+      $$b^2 - a^2 = 99, \qquad c^2 - a^2 = 200.$$
+      In the second, $(c-a)(c+a) = 200$ has two factors of equal parity, necessarily both even since their product is; writing $c - a = 2m$ and $c + a = 2n$ turns it into $mn = 50$ with $a = n - m$. The factorizations $50 = 1 \cdot 50 = 2 \cdot 25 = 5 \cdot 10$ therefore leave $a = 49$, $23$ or $5$. Only the first also satisfies $b^2 = a^2 + 99$, since $49^2 + 99 = 2500 = 50^2$ while $23^2 + 99 = 628$ and $5^2 + 99 = 124$ are not squares. The population was $49^2 = 2401$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
