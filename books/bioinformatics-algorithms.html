@@ -37,9 +37,9 @@
     <h2>Chapter 1: Where in the Genome Does Replication Begin?</h2>
 
     <p>
-      This chapter frames a fundamental biological problem as a string search problem: given the
-      text of a genome, where does DNA replication start? The algorithms developed here (k-mer
-      counting, pattern matching, approximate search) are foundational to the rest of the course.
+      This chapter states a biological problem, locating the position in a genome where DNA
+      replication starts, as a string search problem. The algorithms developed here (k-mer counting,
+      pattern matching, approximate search) are used throughout the rest of the course.
     </p>
 
     <h3>DNA: The Basics</h3>
@@ -254,23 +254,22 @@ def frequent_words(text, k):
     </p>
 
     <p>
-      The critical asymmetry: the lagging strand template spends much more time as single-stranded
-      DNA while waiting for the fork to advance. This matters because single-stranded DNA mutates in
-      a specific, directional way. When DNA is single-stranded, <strong>cytosine (C) spontaneously
+      The lagging strand template spends much more time single-stranded than the leading strand
+      template, since it waits for the fork to advance before each fragment is copied. When DNA is
+      single-stranded, <strong>cytosine (C) spontaneously
       decays into thymine (T)</strong> at a much higher rate (a reaction called deamination, roughly
       100 times faster than in double-stranded DNA). So a strand that sits single-stranded for a long
       time slowly loses its C's.
     </p>
 
     <p>
-      This is the link between replication and counting letters. The mutation only goes one way:
-      C becomes T, and no G is ever created. A strand that spent time single-stranded therefore
+      The mutation only goes one way: C becomes T, and no G is ever created. A strand that spent time single-stranded therefore
       ends up with a <strong>deficit of C</strong>, and reading along it, the number of G's exceeds
       the number of C's.
     </p>
 
     <p>
-      The genome we are handed is the text of <em>one</em> of the two strands, and that single
+      The available genome sequence is that of <em>one</em> of the two strands, and that single
       strand plays both roles: because the two forks travel in opposite directions away from ori,
       the stretch of it between ori and ter is copied as a leading strand, while the stretch
       between ter and ori serves as the template for a lagging strand and is the one left
@@ -293,9 +292,9 @@ def frequent_words(text, k):
       Define the <strong>skew</strong> at position $i$ as the running value of $\#G - \#C$ up to
       position $i$: walk along the genome adding $+1$ for each G and $-1$ for each C. On the
       ori&nbsp;&rarr;&nbsp;ter half G dominates, so the running total <em>rises</em>; on the
-      ter&nbsp;&rarr;&nbsp;ori half C dominates, so it <em>falls</em>. The curve therefore dips to a
-      bottom and climbs back up: the <strong>minimum of the skew</strong> marks ori, and the maximum
-      marks ter.
+      ter&nbsp;&rarr;&nbsp;ori half C dominates, so it <em>falls</em>. The running total therefore
+      decreases and then increases: the <strong>minimum of the skew</strong> marks ori, and the
+      maximum marks ter.
     </p>
 
     <pre><code class="language-python">def skew(genome):
@@ -418,7 +417,7 @@ def frequent_words_with_mismatches(text, k, d):
     <h3>Locating ori: the Full Pipeline</h3>
 
     <p>
-      The pieces now assemble into a procedure that takes a bacterial genome and returns candidate
+      These components combine into a procedure that takes a bacterial genome and returns candidate
       DnaA boxes:
     </p>
 
@@ -433,15 +432,15 @@ def frequent_words_with_mismatches(text, k, d):
     </ol>
 
     <p>
-      Every step is there because the previous one is insufficient alone: frequent words over a
-      whole genome returns noise, clump finding returns thousands of candidates, and the skew
-      locates a region but says nothing about what is written inside it. Applied to
+      Each step is needed because the others are insufficient alone: frequent words over a whole
+      genome returns noise, clump finding returns thousands of candidates, and the skew locates a
+      region without identifying any k-mer inside it. Applied to
       <em>E. coli</em>, whose genome is 4.6 million nucleotides long, this pipeline returns
       TTATCCACA together with its reverse complement TGTGGATAA, a known DnaA box.
     </p>
 
     <p>
-      The output is a candidate, not a proof. The skew minimum is approximate, the 500-nucleotide
+      The pipeline returns candidates, not confirmed DnaA boxes. The skew minimum is approximate, the 500-nucleotide
       window is an assumption, and a 9-mer that stands out statistically still has to be confirmed
       experimentally. The pipeline reduces four million positions to a few strings worth testing.
     </p>
@@ -451,15 +450,15 @@ def frequent_words_with_mismatches(text, k, d):
     <p>
       Chapter 1 searched a single genome for a pattern that <em>clusters</em> in one place (the ori).
       This chapter addresses a different problem: finding a pattern that recurs (with variation)
-      exactly once in each of many <em>separate</em> regions. The biological context is how cells
-      keep time.
+      exactly once in each of many <em>separate</em> regions. The biological context is the
+      circadian clock.
     </p>
 
     <h3>Biological Motivation: Circadian Clocks and Gene Regulation</h3>
 
     <p>
       Animals, plants, and bacteria have a <strong>circadian clock</strong>: an internal,
-      roughly 24-hour cycle synchronized with day and night. The clock is implemented in DNA. A
+      roughly 24-hour cycle synchronized with day and night. The clock is encoded in DNA. A
       small set of <strong>circadian genes</strong> control it; in plants, three of them are called
       <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
     </p>
@@ -587,7 +586,7 @@ def motif_enumeration(dna, k, d):
     <h3>Scoring a Set of Motifs</h3>
 
     <p>
-      The key idea is to change the formulation. Instead of <em>searching</em> for a pattern, we
+      The formulation changes here. Instead of <em>searching</em> for a pattern, we
       <em>choose</em> one k-mer from each string and measure how similar the chosen k-mers are to one
       another. A good choice produces columns dominated by a single nucleotide; a poor choice produces
       columns close to uniform. Expressing this similarity as a single number turns motif finding into
@@ -714,9 +713,9 @@ def brute_force_motif_search(dna, k):
     <h3>Scoring a k-mer with a Profile: the Most Probable k-mer</h3>
 
     <p>
-      Both algorithms that follow rely on one new tool. So far a profile has been a way to
-      <em>summarize</em> a chosen set of motifs. We now read it in the other direction, as a
-      <strong>predictive model</strong>: given a profile, how well does an arbitrary k-mer fit it?
+      Both algorithms that follow rely on one new tool. So far a profile has been used to
+      <em>summarize</em> a chosen set of motifs. It can also be used in the other direction, as a
+      <strong>predictive model</strong> that measures how well an arbitrary k-mer fits it.
     </p>
 
     <p>
@@ -827,7 +826,7 @@ def profile_most_probable_kmer(text, k, profile):
     </p>
 
     <p>
-      Greedy motif search hits the extreme case at its very first step. Its seed profile is built
+      The extreme case occurs at the first step of greedy motif search. Its seed profile is built
       from a single k-mer, so every column contains one entry equal to $1$ and three equal to $0$,
       and any k-mer that is not character-for-character identical to the seed has probability $0$.
       Every candidate in the second string is therefore tied at zero,
@@ -876,11 +875,11 @@ def profile_most_probable_kmer(text, k, profile):
     </ul>
 
     <p>
-      The trouble is that we start with neither. The algorithm breaks the circle by guessing: choose
-      one k-mer at random from each string, then alternate the two easy steps. Build a profile from the
-      current motifs, use it to re-select the motifs, and repeat. Each pass replaces the motif set with
-      one that fits its own profile better, so the score never rises; when a pass fails to improve it,
-      the search has settled and stops.
+      Neither is available at the start. The algorithm begins from a guess: choose one k-mer at
+      random from each string, then alternate the two steps. Build a profile from the current motifs,
+      use it to re-select the motifs, and repeat. Each pass replaces the motif set with one that fits
+      its own profile better, so the score never rises. The search stops when a pass fails to improve
+      it.
     </p>
 
     <pre><code class="language-python">import random
@@ -930,22 +929,22 @@ def randomized_motif_search(dna, k):
             best_motifs = candidate
     return best_motifs</code></pre>
 
-    <h3>Back to the Clock</h3>
+    <h3>Application: the Evening Element</h3>
 
     <p>
       Collect the upstream regions of the genes a plant activates at dusk and run the search over
-      them. The k-mer that comes out is AAAATATCT, known as the <strong>evening element</strong>.
+      them. It returns AAAATATCT, known as the <strong>evening element</strong>.
       It was confirmed experimentally: removing it from those upstream regions abolishes the daily
       rhythm of the genes it precedes.
     </p>
 
     <p>
-      Note what was given up along the way. The Implanted Motif Problem has an exact answer and an
-      algorithm that provably finds it, but that algorithm is unusable at realistic mutation rates.
-      It was replaced by an objective (minimize the score) and two heuristics that optimize it with
-      no guarantee of reaching the minimum. This is the usual situation in bioinformatics: the
-      formulation that matches the biology is intractable, so the practical algorithm returns a
-      candidate that then has to be tested experimentally.
+      The Implanted Motif Problem has an exact answer and an algorithm that provably finds it, but
+      that algorithm is unusable at realistic mutation rates. It was replaced by an objective
+      (minimize the score) and two heuristics that optimize it with no guarantee of reaching the
+      minimum. This is the usual situation in bioinformatics: the formulation that matches the
+      biology is intractable, so the practical algorithm returns a candidate that then has to be
+      tested experimentally.
     </p>
 
   </main>
