@@ -35,10 +35,6 @@
       <h1>A Long-Form Mathematics Textbook</h1>
     </header>
 
-    <p>
-      These are lecture notes from <em>Proofs: A Long-Form Mathematics Textbook</em> and <em>Real Analysis: A Long-Form Mathematics Textbook</em> from Jay Cummings.
-    </p>
-
     <h2>Proofs</h2>
 
     <div class="thm-block exercise">
@@ -387,6 +383,69 @@
     </details>
 
     <h2>Analysis</h2>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise (Zeno's paradox).</span> Achilles runs at constant speed $v$ and a tortoise at constant speed $w$, with $0 < w < v$, and the tortoise starts a distance $d > 0$ ahead of him. Achilles first runs to the tortoise's starting point; by the time he arrives, the tortoise has advanced to a new position, so Achilles runs to that position, and so on, producing an infinite sequence of stages. Show that the total duration of all the stages is finite, and find it.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $g_n$ be the gap between Achilles and the tortoise at the start of stage $n$, so $g_1 = d$ and stage $n$ lasts $t_n = g_n / v$. During that stage the tortoise advances $w t_n$, which is the new gap, so $g_{n+1} = (w/v) g_n$ and hence $t_n = \frac{d}{v} r^{n-1}$ with $r = w/v \in (0,1)$. The total duration is the geometric series $\sum_{n=1}^{\infty} \frac{d}{v} r^{n-1} = \frac{d}{v} \cdot \frac{1}{1 - w/v} = \frac{d}{v - w}$, which is finite. Infinitely many stages therefore occupy only finitely much time, and $\frac{d}{v-w}$ is exactly the catch-up time obtained by setting $vt = d + wt$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise (Zeno's paradox, the arrow).</span> Zeno argues that at any single instant a flying arrow occupies a space exactly equal to itself and so does not move at that instant, and that since time is made of instants, the arrow never moves. Let the position of the arrow be given by a differentiable function $f : [0,1] \to \mathbb{R}$, and let $t_0 \in [0,1]$ and $x_0 \in \mathbb{R}$. Show that for every $c \in \mathbb{R}$ there is such an $f$ with $f(t_0) = x_0$ and $f'(t_0) = c$, and show that $[0,1]$ is not a countable union of one-element sets.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>For the first part, $f(t) = x_0 + c(t - t_0)$ works. So the state of the arrow at the instant $t_0$, namely the single number $f(t_0)$, is compatible with every velocity: the velocity $f'(t_0) = \lim_{h \to 0} \frac{f(t_0 + h) - f(t_0)}{h}$ is determined by the values of $f$ on a neighborhood of $t_0$, not by its value at $t_0$ alone, so "motionless at an instant" confuses $f$ taking one value at $t_0$ with $f$ being constant near $t_0$. For the second part, a countable union of one-element sets is countable, while $[0,1]$ is uncountable by Cantor's diagonal argument. Zeno's summation over all instants is therefore not a series at all; the correct way to aggregate the motion is the integral $f(1) - f(0) = \int_0^1 f'(t)\,dt$, which is nonzero for the $f$ above whenever $c \neq 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $S = \left\{\frac{1}{n} : n \in \mathbb{N},\, n \geq 1\right\}$. Show that $\sup S = 1$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>For every $n \geq 1$ we have $\frac{1}{n} \leq 1$, so $1$ is an upper bound for $S$. Moreover $1 = \frac{1}{1} \in S$, so every upper bound $b$ of $S$ satisfies $b \geq 1$. Hence $1$ is the least upper bound, i.e. $\sup S = 1$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A single-elimination tournament has 64 teams: every game eliminates its loser, and play continues until a single champion remains. Find the number of games played in the tournament.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Each game eliminates exactly one team, and every team except the champion is eliminated exactly once, so the games are in bijection with the eliminated teams. Since 63 teams are eliminated, exactly 63 games are played, whatever the bracket looks like.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Define $f : \mathbb{N} \times \mathbb{N} \to \mathbb{N}$ by $f(m, n) = 2^{n-1}(2m - 1)$. Show that $f$ is a bijection, and conclude that $\mathbb{N} \times \mathbb{N}$ is countably infinite.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Every positive integer $k$ can be written uniquely as $k = 2^a b$ with $a \geq 0$ and $b$ odd: existence by dividing out factors of 2 until the quotient is odd, and uniqueness because $2^a b = 2^{a'} b'$ with $a < a'$ would make the odd number $b = 2^{a'-a} b'$ even. Since $n \mapsto n - 1$ is a bijection from $\{1, 2, \ldots\}$ onto $\{0, 1, \ldots\}$ and $m \mapsto 2m - 1$ is a bijection from $\{1, 2, \ldots\}$ onto the odd positive integers, the pair $(m, n)$ with $f(m, n) = k$ is exactly $n = a + 1$ and $m = (b+1)/2$, which exists and is unique. So $f$ is a bijection, and $\mathbb{N} \times \mathbb{N}$ is countably infinite.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $a_n = 5 - \dfrac{1}{n^2}$ converges to $5$ using the definition of a limit.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $\varepsilon > 0$. By the Archimedean property, there exists $N \in \mathbb{N}$ with $N > 1/\sqrt{\varepsilon}$. Then for all $n > N$, we have $\left|\left(5 - \frac{1}{n^2}\right) - 5\right| = \frac{1}{n^2} < \frac{1}{N^2} < \varepsilon$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $p$ be a real number. Show that $\sum_{k=1}^{\infty} \frac{1}{k^p}$ converges if and only if $p > 1$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>If $p \leq 0$ then $\frac{1}{k^p} \geq 1$ for all $k$, so the terms do not tend to $0$ and the series diverges. Assume $p > 0$, so all terms are positive and the partial sums increase: the series converges if and only if the partial sums are bounded. Group the terms into dyadic blocks, the $j$-th block consisting of the indices $2^j \leq k < 2^{j+1}$. That block has $2^j$ terms, each at most $2^{-jp}$ and at least $2^{-(j+1)p}$, so its sum lies between $\frac{1}{2^p}\left(2^{1-p}\right)^j$ and $\left(2^{1-p}\right)^j$. The partial sums are therefore bounded if and only if the geometric series $\sum_j \left(2^{1-p}\right)^j$ converges, which happens if and only if $2^{1-p} < 1$, i.e. $p > 1$.</p>
+    </details>
 
   </main>
 </body>
