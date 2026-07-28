@@ -1949,6 +1949,15 @@
       <p>With no loops and no multiple edges, a graph on $V$ vertices has at most one edge per pair of vertices, hence at most $\binom{V}{2}$ edges. Now $\binom{10}{2} = 45$ falls short of $50$, so ten vertices cannot suffice, while $\binom{11}{2} = 55$, and deleting any $5$ edges from $K_{11}$ leaves a graph on eleven vertices with exactly $50$. The answer is $11$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> What is the smallest number of vertices a planar graph with $50$ edges can have, given that it has no loops and no multiple edges?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The bound $E \le 3V - 6$ proved above turns into $50 \le 3V - 6$, that is $V \ge \frac{56}{3}$, so at least $19$ vertices are needed. Nineteen suffice. Begin with a triangle, which has $V = 3$ and $E = 3 = 3V - 6$, and repeatedly drop a new vertex inside a triangular face, joining it to the three corners of that face: each step keeps the drawing planar while adding one vertex and three edges, so it preserves $E = 3V - 6$. After sixteen steps $V = 19$ and $E = 51$, and deleting a single edge leaves $50$. The answer is $19$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
