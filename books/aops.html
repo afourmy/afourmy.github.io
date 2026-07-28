@@ -1879,6 +1879,17 @@
       which is the claim.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The complete bipartite graph $K_{s,t}$ has its vertices split into a group of $s$ and a group of $t$, with an edge joining every vertex of one group to every vertex of the other and no edges inside a group. Prove that $K_{s,t}$ is not planar when $s \ge 3$ and $t \ge 3$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>$K_{s,t}$ is connected and bipartite with no repeated edges, and it has $V = s + t \ge 6$ vertices and $E = st$ edges. Were it planar, the previous exercise would give $E \le 2V - 4$. But
+      $$E - (2V - 4) = st - 2(s + t) + 4 = (s - 2)(t - 2) \ge 1,$$
+      because $s$ and $t$ are both at least $3$. So $E$ exceeds $2V - 4$ and no crossing-free drawing exists.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
