@@ -1826,17 +1826,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no multiple edges, drawn in the plane without crossings, with $E$ edges and $F$ faces. Show that
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices, no loops and no multiple edges, drawn in the plane without crossings, with $E$ edges and $F$ faces. Show that
       $$E \ge \tfrac{3}{2} F.$$</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Count the pairs made of a face and an edge on its boundary, an edge that borders the same face on both sides being counted twice. Each edge has two sides and so occurs in exactly $2$ pairs, giving $2E$ in total. Each face contributes at least $3$, since with at least $3$ vertices and no multiple edges the boundary of a region cannot be closed up in fewer than $3$ steps. Comparing the two counts gives $3F \le 2E$.</p>
+      <p>Count the pairs made of a face and an edge on its boundary, an edge that borders the same face on both sides being counted twice. Each edge has two sides and so occurs in exactly $2$ pairs, giving $2E$ in total. Each face contributes at least $3$, since with at least $3$ vertices, no loops and no multiple edges the boundary of a region cannot be closed up in fewer than $3$ steps. Comparing the two counts gives $3F \le 2E$.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no multiple edges, having $V$ vertices and $E$ edges. Show that
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices, no loops and no multiple edges, having $V$ vertices and $E$ edges. Show that
       $$E \le 3V - 6.$$</p>
     </div>
 
@@ -1853,7 +1853,7 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>$K_5$ is connected, has more than $3$ vertices and has no multiple edges, so were it planar the previous exercise would apply. But its $V = 5$ vertices and $E = \binom{5}{2} = 10$ edges give
+      <p>$K_5$ is connected, has more than $3$ vertices and has neither loops nor multiple edges, so were it planar the previous exercise would apply. But its $V = 5$ vertices and $E = \binom{5}{2} = 10$ edges give
       $$3V - 6 = 9 \lt 10 = E,$$
       contradicting that bound. No crossing-free drawing of $K_5$ exists.</p>
     </details>
