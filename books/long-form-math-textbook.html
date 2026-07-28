@@ -501,6 +501,15 @@
       <p>There are exactly $4$, namely $x$, $-x$, $|x|$ and $-|x|$. The hypothesis forces $f(x) \in \{x, -x\}$ for each $x$, so $f(0) = 0$, and on $(0, \infty)$ the function $g(x) = f(x)/x$ is continuous with values in $\{1, -1\}$; since $(0, \infty)$ is connected and $g$ is continuous, $g$ is constant there, and likewise on $(-\infty, 0)$. The sign may thus be chosen independently on the two half-lines, giving $4$ candidates, and each of them is continuous at $0$ because $|f(x)| = |x| \to 0$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Define $f : \mathbb{R} \to \mathbb{R}$ by $f(x) = \frac{x}{2}$ when $x$ is rational and $f(x) = x$ when $x$ is irrational. Determine whether $f$ is differentiable at $0$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>It is not. Since $f(0) = 0$, the difference quotient is $\frac{f(x) - f(0)}{x} = \frac{1}{2}$ for every rational $x \neq 0$ and $1$ for every irrational $x$. Both the rationals and the irrationals accumulate at $0$, so the quotient takes the values $\frac{1}{2}$ and $1$ arbitrarily close to $0$ and has no limit as $x \to 0$. The function is nevertheless continuous at $0$, since $|f(x)| \leq |x|$.</p>
+    </details>
+
   </main>
 </body>
 </html>
