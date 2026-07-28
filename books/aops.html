@@ -1890,6 +1890,65 @@
       because $s$ and $t$ are both at least $3$. So $E$ exceeds $2V - 4$ and no crossing-free drawing exists.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Prove that $K_{2,t}$ is planar for every $t$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>A drawing suffices. Put the two vertices of the first group at $(0, 1)$ and $(0, -1)$, put the $t$ vertices of the second group at $(1, 0), (2, 0), \ldots, (t, 0)$, and draw every edge as a straight segment. The segments leaving $(0,1)$ head in pairwise distinct directions, so they meet only at that vertex, and the same holds for those leaving $(0,-1)$. A segment of the first kind stays in the half plane $y \ge 0$ and reaches $y = 0$ only at its endpoint on the axis, while a segment of the second kind stays in $y \le 0$ and likewise, so the two kinds can meet only at a shared endpoint. No two edges cross.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The girth of a graph containing a cycle is the length of its shortest cycle. Let $G$ be a connected planar graph with at least $3$ vertices and girth $g$, having $V$ vertices and $E$ edges. Find and prove an upper bound on $E$ in terms of $V$ and $g$ that generalises the bounds $E \le 3V - 6$ and $E \le 2V - 4$ above.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The bound is $E \le \frac{g}{g-2}(V-2)$. Note first that $g \ge 3$ on its own rules out loops and repeated edges, which would be cycles of length $1$ and $2$. In a crossing-free drawing the boundary of a face closes up only after at least $g$ steps, while each edge contributes $2$ to the count of pairs of a face and an edge on its boundary, so $gF \le 2E$, that is $F \le \frac{2E}{g}$. Euler's formula rearranges to $F = E - V + 2$, whence
+      $$E - V + 2 \le \frac{2E}{g}, \qquad \text{so} \qquad E\left(1 - \frac{2}{g}\right) \le V - 2.$$
+      Multiplying by $\frac{g}{g-2}$, which is positive because $g \ge 3$, gives the bound. Setting $g = 3$ and $g = 4$ returns $E \le 3V - 6$ and $E \le 2V - 4$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The degree $\deg(v)$ of a vertex $v$ is the number of edges meeting it, a loop counting twice. Prove that a graph with $E$ edges satisfies
+      $$\sum_{v} \deg(v) = 2E,$$
+      the sum running over all its vertices.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Count in two ways the pairs made of an edge and one of its two ends. Every edge has exactly two ends and so supplies exactly two pairs, giving $2E$ in total. Grouping the same pairs by vertex instead, a vertex $v$ belongs to exactly $\deg(v)$ of them, a loop at $v$ supplying two of its ends and being counted twice, which is precisely the convention above. The two counts agree.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> A graph has $20$ edges, no loops and no repeated edges, and all of its vertices have the same degree. What numbers of vertices are possible?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Write $V$ for the number of vertices and $d$ for the common degree. The previous exercise gives $Vd = 2 \cdot 20 = 40$, so $V$ divides $40$ and $d = 40/V$. Having no loops and no repeated edges caps a degree at $V - 1$, so $40/V \le V - 1$, that is $40 \le V(V-1)$, which forces $V \ge 7$. The divisors of $40$ that are at least $7$ are $8$, $10$, $20$ and $40$, with $d = 5, 4, 2, 1$ respectively, and each is realised: delete an $8$-cycle from $K_8$; join every vertex of a $10$-cycle to the two vertices two steps away; take a $20$-cycle; take $20$ disjoint edges.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> $N$ players are split into seven teams so that every two teams share exactly one member and every player belongs to exactly two teams. Find $N$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Send each player to the pair of teams they belong to, which is well defined because every player is on exactly two. The map is injective, as two players sent to the same pair would leave that pair with two common members. It is surjective, since any two teams share a member and that member, belonging to exactly two teams, belongs to those two. Players therefore correspond one to one with pairs of teams, so
+      $$N = \binom{7}{2} = 21.$$</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> What is the smallest number of vertices a graph with $50$ edges can have, given that it has no loops and no repeated edges?</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>With no loops and no repeated edges, a graph on $V$ vertices has at most one edge per pair of vertices, hence at most $\binom{V}{2}$ edges. Now $\binom{10}{2} = 45$ falls short of $50$, so ten vertices cannot suffice, while $\binom{11}{2} = 55$, and deleting any $5$ edges from $K_{11}$ leaves a graph on eleven vertices with exactly $50$. The answer is $11$.</p>
+    </details>
+
     <!-- Volume 2 content goes here -->
 
   </main>
