@@ -1826,17 +1826,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no repeated edges, drawn in the plane without crossings, with $E$ edges and $F$ faces. Show that
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no multiple edges, drawn in the plane without crossings, with $E$ edges and $F$ faces. Show that
       $$E \ge \tfrac{3}{2} F.$$</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Count the pairs made of a face and an edge on its boundary, an edge that borders the same face on both sides being counted twice. Each edge has two sides and so occurs in exactly $2$ pairs, giving $2E$ in total. Each face contributes at least $3$, since with at least $3$ vertices and no repeated edges the boundary of a region cannot be closed up in fewer than $3$ steps. Comparing the two counts gives $3F \le 2E$.</p>
+      <p>Count the pairs made of a face and an edge on its boundary, an edge that borders the same face on both sides being counted twice. Each edge has two sides and so occurs in exactly $2$ pairs, giving $2E$ in total. Each face contributes at least $3$, since with at least $3$ vertices and no multiple edges the boundary of a region cannot be closed up in fewer than $3$ steps. Comparing the two counts gives $3F \le 2E$.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no repeated edges, having $V$ vertices and $E$ edges. Show that
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected planar graph with at least $3$ vertices and no multiple edges, having $V$ vertices and $E$ edges. Show that
       $$E \le 3V - 6.$$</p>
     </div>
 
@@ -1853,7 +1853,7 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>$K_5$ is connected, has more than $3$ vertices and has no repeated edges, so were it planar the previous exercise would apply. But its $V = 5$ vertices and $E = \binom{5}{2} = 10$ edges give
+      <p>$K_5$ is connected, has more than $3$ vertices and has no multiple edges, so were it planar the previous exercise would apply. But its $V = 5$ vertices and $E = \binom{5}{2} = 10$ edges give
       $$3V - 6 = 9 \lt 10 = E,$$
       contradicting that bound. No crossing-free drawing of $K_5$ exists.</p>
     </details>
@@ -1868,7 +1868,7 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> A graph is bipartite when its vertices can be split into two groups so that every edge joins a vertex of one group to a vertex of the other. Let $G$ be a connected bipartite planar graph with at least $3$ vertices and no repeated edges, having $V$ vertices and $E$ edges. Show that
+      <p><span class="thm-label">Exercise.</span> A graph is bipartite when its vertices can be split into two groups so that every edge joins a vertex of one group to a vertex of the other. Let $G$ be a connected bipartite planar graph with at least $3$ vertices and no multiple edges, having $V$ vertices and $E$ edges. Show that
       $$E \le 2V - 4.$$</p>
     </div>
 
@@ -1885,7 +1885,7 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>$K_{s,t}$ is connected and bipartite with no repeated edges, and it has $V = s + t \ge 6$ vertices and $E = st$ edges. Were it planar, the previous exercise would give $E \le 2V - 4$. But
+      <p>$K_{s,t}$ is connected and bipartite with no multiple edges, and it has $V = s + t \ge 6$ vertices and $E = st$ edges. Were it planar, the previous exercise would give $E \le 2V - 4$. But
       $$E - (2V - 4) = st - 2(s + t) + 4 = (s - 2)(t - 2) \ge 1,$$
       because $s$ and $t$ are both at least $3$. So $E$ exceeds $2V - 4$ and no crossing-free drawing exists.</p>
     </details>
@@ -1905,7 +1905,7 @@
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>The bound is $E \le \frac{g}{g-2}(V-2)$. Note first that $g \ge 3$ on its own rules out loops and repeated edges, which would be cycles of length $1$ and $2$. In a crossing-free drawing the boundary of a face closes up only after at least $g$ steps, while each edge contributes $2$ to the count of pairs of a face and an edge on its boundary, so $gF \le 2E$, that is $F \le \frac{2E}{g}$. Euler's formula rearranges to $F = E - V + 2$, whence
+      <p>The bound is $E \le \frac{g}{g-2}(V-2)$. Note first that $g \ge 3$ on its own rules out loops and multiple edges, which would be cycles of length $1$ and $2$. In a crossing-free drawing the boundary of a face closes up only after at least $g$ steps, while each edge contributes $2$ to the count of pairs of a face and an edge on its boundary, so $gF \le 2E$, that is $F \le \frac{2E}{g}$. Euler's formula rearranges to $F = E - V + 2$, whence
       $$E - V + 2 \le \frac{2E}{g}, \qquad \text{so} \qquad E\left(1 - \frac{2}{g}\right) \le V - 2.$$
       Multiplying by $\frac{g}{g-2}$, which is positive because $g \ge 3$, gives the bound. Setting $g = 3$ and $g = 4$ returns $E \le 3V - 6$ and $E \le 2V - 4$.</p>
     </details>
@@ -1922,12 +1922,12 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> A graph has $20$ edges, no loops and no repeated edges, and all of its vertices have the same degree. What numbers of vertices are possible?</p>
+      <p><span class="thm-label">Exercise.</span> A graph has $20$ edges, no loops and no multiple edges, and all of its vertices have the same degree. What numbers of vertices are possible?</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>Write $V$ for the number of vertices and $d$ for the common degree. The previous exercise gives $Vd = 2 \cdot 20 = 40$, so $V$ divides $40$ and $d = 40/V$. Having no loops and no repeated edges caps a degree at $V - 1$, so $40/V \le V - 1$, that is $40 \le V(V-1)$, which forces $V \ge 7$. The divisors of $40$ that are at least $7$ are $8$, $10$, $20$ and $40$, with $d = 5, 4, 2, 1$ respectively, and each is realised: delete an $8$-cycle from $K_8$; join every vertex of a $10$-cycle to the two vertices two steps away; take a $20$-cycle; take $20$ disjoint edges.</p>
+      <p>Write $V$ for the number of vertices and $d$ for the common degree. The previous exercise gives $Vd = 2 \cdot 20 = 40$, so $V$ divides $40$ and $d = 40/V$. Having no loops and no multiple edges caps a degree at $V - 1$, so $40/V \le V - 1$, that is $40 \le V(V-1)$, which forces $V \ge 7$. The divisors of $40$ that are at least $7$ are $8$, $10$, $20$ and $40$, with $d = 5, 4, 2, 1$ respectively, and each is realised: delete an $8$-cycle from $K_8$; join every vertex of a $10$-cycle to the two vertices two steps away; take a $20$-cycle; take $20$ disjoint edges.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -1941,12 +1941,12 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> What is the smallest number of vertices a graph with $50$ edges can have, given that it has no loops and no repeated edges?</p>
+      <p><span class="thm-label">Exercise.</span> What is the smallest number of vertices a graph with $50$ edges can have, given that it has no loops and no multiple edges?</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Solution.</summary>
-      <p>With no loops and no repeated edges, a graph on $V$ vertices has at most one edge per pair of vertices, hence at most $\binom{V}{2}$ edges. Now $\binom{10}{2} = 45$ falls short of $50$, so ten vertices cannot suffice, while $\binom{11}{2} = 55$, and deleting any $5$ edges from $K_{11}$ leaves a graph on eleven vertices with exactly $50$. The answer is $11$.</p>
+      <p>With no loops and no multiple edges, a graph on $V$ vertices has at most one edge per pair of vertices, hence at most $\binom{V}{2}$ edges. Now $\binom{10}{2} = 45$ falls short of $50$, so ten vertices cannot suffice, while $\binom{11}{2} = 55$, and deleting any $5$ edges from $K_{11}$ leaves a graph on eleven vertices with exactly $50$. The answer is $11$.</p>
     </details>
 
     <!-- Volume 2 content goes here -->
