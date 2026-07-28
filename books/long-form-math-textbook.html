@@ -447,6 +447,60 @@
       <p>If $p \leq 0$ then $\frac{1}{k^p} \geq 1$ for all $k$, so the terms do not tend to $0$ and the series diverges. Assume $p > 0$, so all terms are positive and the partial sums increase: the series converges if and only if the partial sums are bounded. Group the terms into dyadic blocks, the $j$-th block consisting of the indices $2^j \leq k < 2^{j+1}$. That block has $2^j$ terms, each at most $2^{-jp}$ and at least $2^{-(j+1)p}$, so its sum lies between $\frac{1}{2^p}\left(2^{1-p}\right)^j$ and $\left(2^{1-p}\right)^j$. The partial sums are therefore bounded if and only if the geometric series $\sum_j \left(2^{1-p}\right)^j$ converges, which happens if and only if $2^{1-p} < 1$, i.e. $p > 1$.</p>
     </details>
 
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise (Thomae's function).</span> Define $f : \mathbb{R} \to \mathbb{R}$ by $f(x) = \frac{1}{q}$ when $x$ is rational and written as $x = \frac{p}{q}$ in lowest terms with $q \geq 1$, and $f(x) = 0$ when $x$ is irrational. Show that $f$ is continuous at every irrational number and discontinuous at every rational number.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>At a rational $x_0 = \frac{p}{q}$ we have $f(x_0) = \frac{1}{q} > 0$, while every interval around $x_0$ contains an irrational $x$, at which $f(x) = 0$. Taking $\varepsilon = \frac{1}{q}$, no $\delta > 0$ satisfies the definition of continuity, so $f$ is discontinuous at $x_0$. At an irrational $x_0$ we have $f(x_0) = 0$. Let $\varepsilon > 0$ and pick an integer $N > \frac{1}{\varepsilon}$. Only finitely many rationals with denominator at most $N$ lie in $(x_0 - 1, x_0 + 1)$, since for each $q \leq N$ there are at most $2q + 1$ multiples of $\frac{1}{q}$ in that interval. None of them equals $x_0$, so their minimum distance $\delta$ to $x_0$ is positive. If $|x - x_0| < \min(\delta, 1)$, then either $x$ is irrational and $f(x) = 0$, or $x = \frac{p}{q}$ in lowest terms with $q > N$, giving $f(x) = \frac{1}{q} < \frac{1}{N} < \varepsilon$. In both cases $|f(x) - f(x_0)| < \varepsilon$, so $f$ is continuous at $x_0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Define $f : \mathbb{R} \to \mathbb{R}$ by $f(x) = x$ when $x$ is rational and $f(x) = 0$ when $x$ is irrational. Show that $f$ is continuous at $0$ and at no other point.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>At $0$ we have $f(0) = 0$ and $|f(x) - f(0)| = |f(x)| \leq |x|$ for every $x$, so $\delta = \varepsilon$ works and $f$ is continuous there. Now let $x_0 \neq 0$. Since the rationals and the irrationals are both dense in $\mathbb{R}$, choose a sequence of irrationals $x_n \to x_0$ if $x_0$ is rational, and a sequence of rationals $x_n \to x_0$ if $x_0$ is irrational. In the first case $f(x_n) = 0 \to 0 \neq x_0 = f(x_0)$, and in the second case $f(x_n) = x_n \to x_0 \neq 0 = f(x_0)$. Either way $f(x_n)$ does not converge to $f(x_0)$, so $f$ is discontinuous at $x_0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $g(x) = x^2$ and let $f$ be the Dirichlet function, equal to $1$ at every rational number and $0$ at every irrational number. Find $g(f(x)) - f(x)$ for $x \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>The function $f$ takes only the values $0$ and $1$, and both satisfy $t^2 = t$. Hence $g(f(x)) = f(x)^2 = f(x)$ for every $x$, and $g(f(x)) - f(x) = 0$: the difference is the zero function, even though $f$ itself is nowhere continuous.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Define $f : \mathbb{R} \to \mathbb{R}$ by $f(x) = x \sin\left(\frac{1}{x}\right)$ for $x \neq 0$ and $f(0) = 0$. Show that $f$ is continuous at $0$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $\varepsilon > 0$ and take $\delta = \varepsilon$. For $0 < |x| < \delta$, the bound $\left|\sin\left(\frac{1}{x}\right)\right| \leq 1$ gives $|f(x) - f(0)| = \left|x \sin\left(\frac{1}{x}\right)\right| \leq |x| < \varepsilon$, and the inequality is trivial at $x = 0$. So $f$ is continuous at $0$, even though $\sin\left(\frac{1}{x}\right)$ has no limit there.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find a function $f : \mathbb{R} \to \mathbb{R}$ that is discontinuous at $\frac{1}{n}$ for every integer $n \geq 1$ and continuous at every other real number.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>Let $S = \left\{\frac{1}{n} : n \geq 1\right\}$ and define $f(x) = x$ for $x \in S$ and $f(x) = 0$ otherwise. At a point $\frac{1}{n} \in S$ we have $f\left(\frac{1}{n}\right) = \frac{1}{n} > 0$, while every interval around it contains points outside $S$, where $f$ vanishes, so $f$ is discontinuous there. At $0$ we have $f(0) = 0$ and $|f(x)| \leq |x|$ for every $x$, so $\delta = \varepsilon$ gives continuity. At any other point $x_0$, the set $S \cup \{0\}$ is closed and does not contain $x_0$, so some interval around $x_0$ misses it entirely and $f$ is identically $0$ there, hence continuous. Attaching the value $x$ rather than a constant is what saves continuity at $0$, the one accumulation point of $S$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Find the number of continuous functions $f : \mathbb{R} \to \mathbb{R}$ satisfying $f(x)^2 = x^2$ for all $x \in \mathbb{R}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      <p>There are exactly $4$, namely $x$, $-x$, $|x|$ and $-|x|$. The hypothesis forces $f(x) \in \{x, -x\}$ for each $x$, so $f(0) = 0$, and on $(0, \infty)$ the function $g(x) = f(x)/x$ is continuous with values in $\{1, -1\}$; since $(0, \infty)$ is connected and $g$ is continuous, $g$ is constant there, and likewise on $(-\infty, 0)$. The sign may thus be chosen independently on the two half-lines, giving $4$ candidates, and each of them is continuous at $0$ because $|f(x)| = |x| \to 0$.</p>
+    </details>
+
   </main>
 </body>
 </html>
