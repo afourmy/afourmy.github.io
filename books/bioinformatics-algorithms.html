@@ -472,6 +472,13 @@ def frequent_words_with_mismatches(text, k, d):
     </p>
 
     <p>
+      A <strong>gene</strong> is a stretch of DNA coding for a protein. The cell
+      <strong>expresses</strong> a gene by copying it into RNA, a step called
+      <strong>transcription</strong>, and building the protein from that copy. Turning a gene on or
+      off means raising or lowering the rate at which it is transcribed.
+    </p>
+
+    <p>
       These genes encode <strong>transcription factors</strong>: master regulatory proteins that turn
       other genes on and off. A transcription factor binds to a short, specific stretch of DNA near the
       gene it controls. That stretch is called a <strong>regulatory motif</strong> (or transcription
@@ -712,10 +719,81 @@ def brute_force_motif_search(dna, k):
             best_motifs, best_score = list(motifs), current_score
     return best_motifs</code></pre>
 
+    <h3>The Median String Problem</h3>
+
     <p>
-      We now have a well-defined objective but no efficient algorithm for it. Practical algorithms
-      (greedy and randomized motif search) give up guaranteed optimality in exchange for efficiency
-      on real data.
+      The score counts, column by column, the entries that differ from the most frequent nucleotide
+      of their column. The same entries can be counted row by row. The most frequent nucleotide of
+      column $j$ is the $j$-th letter of the consensus, so the entries counted in row $i$ are the
+      positions where $\text{Motif}_i$ differs from the consensus, and there are
+      $d_H(\text{Consensus}(\text{Motifs}),\ \text{Motif}_i)$ of them. Summing over rows instead of
+      columns:
+    </p>
+
+    <p>
+      $\text{Score}(\text{Motifs}) = \sum_{i=1}^{t} d_H(\text{Consensus}(\text{Motifs}),\ \text{Motif}_i)$
+    </p>
+
+    <p>
+      The score is now a function of one string. That allows the roles to be reversed: fix a k-mer
+      $\text{Pattern}$ first, then choose the motifs that fit it. In each string the best choice is
+      the k-mer closest to $\text{Pattern}$, which gives the distance from a k-mer to a whole
+      collection:
+    </p>
+
+    <p>
+      $d(\text{Pattern}, \text{Dna}) = \sum_{\text{text} \,\in\, \text{Dna}} \ \min_{\text{k-mer} \,\in\, \text{text}} d_H(\text{Pattern},\ \text{k-mer})$
+    </p>
+
+    <p>
+      Minimizing $d(\text{Pattern}, \text{Dna})$ over all k-mers gives the same value as minimizing
+      the score over all choices of motifs. For any motifs,
+      $\text{Score}(\text{Motifs}) \ge d(\text{Consensus}(\text{Motifs}), \text{Dna})$, because each
+      term of the sum is at least the smallest distance available in its string. Conversely, given
+      any $\text{Pattern}$, take the closest k-mer in each string; the consensus of those motifs
+      minimizes the sum of distances to them, so their score is at most
+      $d(\text{Pattern}, \text{Dna})$. Neither quantity can be smaller than the other.
+    </p>
+
+    <p>
+      <strong>Median String Problem.</strong> Given a collection of DNA strings and an integer $k$,
+      find a k-mer $\text{Pattern}$ minimizing $d(\text{Pattern}, \text{Dna})$. Such a k-mer is
+      called a <strong>median string</strong>.
+    </p>
+
+    <p>
+      This changes the search space. Brute force ranged over the $(n - k + 1)^t$ ways of choosing
+      motifs; the median string ranges over the $4^k$ k-mers. The motif length $k$ is fixed by the
+      biology, while $t$ grows with the amount of data available.
+    </p>
+
+    <pre><code class="language-python">def distance_to_strings(pattern, dna):
+    k = len(pattern)
+    return sum(
+        min(
+            hamming_distance(pattern, text[i:i + k])
+            for i in range(len(text) - k + 1)
+        )
+        for text in dna
+    )
+
+def median_string(dna, k):
+    best_pattern, best_distance = None, float('inf')
+    for index in range(4 ** k):
+        pattern = index_to_kmer(index, k)
+        distance = distance_to_strings(pattern, dna)
+        if distance < best_distance:
+            best_pattern, best_distance = pattern, distance
+    return best_pattern</code></pre>
+
+    <p>
+      This reuses <code>hamming_distance</code> and <code>index_to_kmer</code> from Chapter 1.
+      Computing $d(\text{Pattern}, \text{Dna})$ costs $O(n \cdot t \cdot k)$, so the total is
+      $O(4^k \cdot n \cdot t \cdot k)$, exponential in the motif length rather than in the number of
+      strings. It returns an exact minimizer, and it is usable for small $k$. At $k = 15$ there are
+      $4^{15} \approx 1.07 \times 10^9$ candidate strings, so the Subtle Motif Problem is out of
+      reach. The three algorithms that follow drop the guarantee of reaching the minimum in exchange
+      for running at the motif lengths that occur in real data.
     </p>
 
     <h3>Scoring a k-mer with a Profile: the Most Probable k-mer</h3>
@@ -937,6 +1015,54 @@ def randomized_motif_search(dna, k):
             best_motifs = candidate
     return best_motifs</code></pre>
 
+    <h3>Gibbs Sampling</h3>
+
+    <p>
+      Randomized motif search replaces all $t$ motifs at every iteration. A motif that is already
+      correct is discarded together with the rest whenever the new profile points elsewhere in its
+      string, so a run can lose ground it has gained.
+    </p>
+
+    <p>
+      Gibbs sampling changes one motif per iteration. Pick a string at random, build the profile
+      from the other $t - 1$ motifs, and replace only that string's motif. The replacement is not
+      the profile-most-probable k-mer: each k-mer of the string is drawn at random with probability
+      proportional to its probability under the profile. Always taking the maximum makes the step
+      deterministic once the profile is fixed, and the search settles into the nearest local
+      optimum. Drawing at random lets a lower-scoring k-mer be picked from time to time, which is
+      what moves the search away from that optimum.
+    </p>
+
+    <pre><code class="language-python">def weighted_random_kmer(text, k, profile):
+    kmers = [text[i:i + k] for i in range(len(text) - k + 1)]
+    weights = [probability(kmer, profile) for kmer in kmers]
+    return random.choices(kmers, weights=weights)[0]
+
+def gibbs_sampler(dna, k, iterations):
+    motifs = random_motifs(dna, k)
+    best_motifs = motifs
+    for _ in range(iterations):
+        i = random.randrange(len(dna))
+        profile = profile_with_pseudocounts(motifs[:i] + motifs[i + 1:])
+        motifs = motifs[:i] + [weighted_random_kmer(dna[i], k, profile)] + motifs[i + 1:]
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+    return best_motifs</code></pre>
+
+    <p>
+      Pseudocounts are required here rather than merely useful. With a raw profile most k-mers of
+      the string would have weight $0$, and the draw would be restricted to those matching every
+      column of a profile built from $t - 1$ motifs.
+    </p>
+
+    <p>
+      The score can rise from one iteration to the next, which is what allows the escape from a
+      local optimum. The loop therefore cannot stop at the first step that fails to improve, as
+      randomized motif search does; it runs a fixed number of iterations and tracks the best motif
+      set seen. Each iteration costs $O(n \cdot k)$. A single run still ends in a local optimum, so
+      Gibbs sampling is restarted many times as well.
+    </p>
+
     <h3>Application: the Evening Element</h3>
 
     <p>
@@ -948,9 +1074,11 @@ def randomized_motif_search(dna, k):
 
     <p>
       The Implanted Motif Problem has an exact answer and an algorithm that provably finds it, but
-      that algorithm is unusable at realistic mutation rates. It was replaced by an objective
-      (minimize the score) and two heuristics that optimize it with no guarantee of reaching the
-      minimum. This is the usual situation in bioinformatics: the formulation that matches the
+      that algorithm is unusable at realistic mutation rates. It was replaced by an objective,
+      minimizing the score. The median string minimizes that objective exactly, but at a cost of
+      $4^k$, which rules out the motif lengths found in real data. Greedy motif search, randomized
+      motif search, and Gibbs sampling optimize the same objective with no guarantee of reaching
+      the minimum. This is the usual situation in bioinformatics: the formulation that matches the
       biology is intractable, so the practical algorithm returns a candidate that then has to be
       tested experimentally.
     </p>
