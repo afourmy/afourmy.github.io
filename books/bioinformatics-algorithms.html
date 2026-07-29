@@ -172,12 +172,9 @@ def frequent_words(text, k):
     </p>
 
     <p>
-      One correction is needed before any of this is applied to a real genome: we must search
-      <strong>both</strong> strands. A DnaA box on one strand has its reverse complement on the
-      other, and DnaA binds either, so a k-mer and its reverse complement denote the same binding
-      site and their counts belong together. The code above does not do this yet. We fold the
-      correction in once mismatches are also in place, since both change the counting step in the
-      same way.
+      Important: we must search <strong>both</strong> strands. A DnaA box on one strand has its
+      reverse complement on the other, and DnaA can bind either. In practice, we count both a k-mer
+      and its reverse complement together.
     </p>
 
     <h3>The Clump Finding Problem</h3>
@@ -403,9 +400,10 @@ def frequent_words_with_mismatches(text, k, d):
     <h4>Frequent Words with Mismatches and Reverse Complements</h4>
 
     <p>
-      This is where the second strand, deferred earlier, is finally accounted for. The function
-      above already accumulates a count per candidate k-mer, so the only change is to add each
-      candidate's count to that of its reverse complement before taking the maximum.
+      DnaA binds either strand, so a k-mer and its reverse complement correspond to the same binding
+      site and must be counted together. The function above already accumulates a count per
+      candidate k-mer, so the only change is to add each candidate's count to that of its reverse
+      complement before taking the maximum.
     </p>
 
     <pre><code class="language-python">def frequent_words_with_mismatches_rc(text, k, d):
