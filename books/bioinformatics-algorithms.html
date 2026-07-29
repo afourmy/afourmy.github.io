@@ -632,7 +632,7 @@ def motif_enumeration(dna, k, d):
 
     <p>
       Finally, the <strong>score</strong> measures disagreement: in each column, count the nucleotides
-      that are <em>not</em> the most frequent one (the "unpopular" letters) and sum across columns.
+      that are <em>not</em> the most frequent one, and sum across columns.
       Columns 1 and 5 are uniform; columns 2, 3, and 4 each contain one differing letter, so the
       score is $0 + 1 + 1 + 1 + 0 = 3$. A fully conserved motif scores 0, and the more the chosen
       k-mers differ, the higher the score. <strong>The goal is to minimize it.</strong>
@@ -775,10 +775,10 @@ def profile_most_probable_kmer(text, k, profile):
 
     <ul>
       <li>Pick a k-mer from the first string as a seed. It is the only row of a one-row motif matrix,
-        and its profile is the first estimate of what the motif looks like.</li>
+        and its profile is the first estimate of the motif.</li>
       <li>Move to the second string and select its profile-most-probable k-mer: the k-mer that best
-        fits the current guess. Add it. The profile, now built from two k-mers, is a slightly better
-        guess.</li>
+        fits the current profile. Add it. The profile is now built from two k-mers instead of
+        one.</li>
       <li>Continue down the list of strings. Each new string contributes the k-mer that best fits the
         profile built from all of the previously chosen k-mers.</li>
     </ul>
