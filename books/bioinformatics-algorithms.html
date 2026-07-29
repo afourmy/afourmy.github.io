@@ -74,7 +74,7 @@ def reverse_complement(pattern):
 
     <p>For example: <code>reverse_complement("ATCGTA")</code> → <code>"TACGAT"</code>.</p>
 
-    <h3>DNA Replication and the Origin</h3>
+    <h3>The Origin of Replication</h3>
 
     <p>
       Before a cell divides, it must copy its entire genome. This process is called
@@ -172,12 +172,24 @@ def frequent_words(text, k):
     </p>
 
     <p>
-      Important: we must search <strong>both</strong> strands. A DnaA box on one strand has its
-      reverse complement on the other, and DnaA can bind either. In practice, we count both a k-mer
-      and its reverse complement together.
+      One correction is needed before any of this is applied to a real genome: we must search
+      <strong>both</strong> strands. A DnaA box on one strand has its reverse complement on the
+      other, and DnaA binds either, so a k-mer and its reverse complement denote the same binding
+      site and their counts belong together. The code above does not do this yet. We fold the
+      correction in once mismatches are also in place, since both change the counting step in the
+      same way.
     </p>
 
     <h3>The Clump Finding Problem</h3>
+
+    <p>
+      Counting k-mers only helps once we know which stretch of DNA to count them in. Applied to a
+      whole bacterial genome the result is noise: the <em>E. coli</em> genome is 4.6 million
+      nucleotides long and only $4^9 = 262{,}144$ distinct 9-mers exist, so every 9-mer occurs
+      roughly 17 times by chance alone and the most frequent one carries no information about ori.
+      A repeated 9-mer is surprising only relative to a region short enough that chance does not
+      account for it. So the search has to be restricted to a window.
+    </p>
 
     <p>
       In a real bacterial genome, ori is a region of roughly 500 base pairs in which DnaA boxes
@@ -391,10 +403,9 @@ def frequent_words_with_mismatches(text, k, d):
     <h4>Frequent Words with Mismatches and Reverse Complements</h4>
 
     <p>
-      DnaA binds either strand, so a k-mer and its reverse complement correspond to the same binding
-      site and must be counted together. The function above already accumulates a count per
-      candidate k-mer, so the only change is to add each candidate's count to that of its reverse
-      complement before taking the maximum.
+      This is where the second strand, deferred earlier, is finally accounted for. The function
+      above already accumulates a count per candidate k-mer, so the only change is to add each
+      candidate's count to that of its reverse complement before taking the maximum.
     </p>
 
     <pre><code class="language-python">def frequent_words_with_mismatches_rc(text, k, d):
@@ -434,9 +445,8 @@ def frequent_words_with_mismatches(text, k, d):
     <p>
       Each step is needed because the others are insufficient alone: frequent words over a whole
       genome returns noise, clump finding returns thousands of candidates, and the skew locates a
-      region without identifying any k-mer inside it. Applied to
-      <em>E. coli</em>, whose genome is 4.6 million nucleotides long, this pipeline returns
-      TTATCCACA together with its reverse complement TGTGGATAA, a known DnaA box.
+      region without identifying any k-mer inside it. Applied to <em>E. coli</em>, the pipeline
+      returns TTATCCACA together with its reverse complement TGTGGATAA, a known DnaA box.
     </p>
 
     <p>
