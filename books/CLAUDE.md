@@ -1,5 +1,17 @@
 # Book pages
 
+## Factual writing only
+Book pages read as factual technical writing, not as a book. Every sentence states a fact, a definition, a cost, or a mechanism. Banned:
+
+- **Rhetorical questions** ("Wouldn't so many mutations damage the genome?"). State the fact directly.
+- **Filler transitions that sound like reasoning but assert nothing**: "The remedy follows from the cost", "Note what was given up along the way", "The pieces now assemble into".
+- **Sentences narrating the page's own structure** rather than its subject: "This is where the second strand, deferred earlier, is finally accounted for", "The code above does not do this yet", "We fold the correction in once mismatches are in place". Never announce that something was postponed or is now being resolved, just state the technical point where it belongs.
+- **Metaphors in place of the technical statement**: "a short message written in the DNA", "a physical fingerprint of which way replication ran", C's being "destroyed".
+- **Dramatic or colloquial framing**: "It is not a free win", "the dictionary version wins", "a decisive improvement".
+- **Bookish headings** ("Back to the Clock"). Headings name the content: "Application: the Evening Element".
+
+When tempted to write a transition, either state the technical point it was decorating or delete the sentence.
+
 ## Adding exercises
 **Every exercise the user sends gets added to the page. Always.** Do not ask whether they want it added, and do not answer in chat only. Any message containing a problem statement is a request to add it, whatever the wording: "add: ...", "then: ...", "show that ...", or a bare question with no verb at all.
 

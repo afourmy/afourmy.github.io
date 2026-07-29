@@ -32,6 +32,14 @@ probability, and Python. Never explain CS.
 
 - Pedagogic and well explained, but straight to the point. No filler, no motivational padding,
   no restating what was just said.
+- Factual technical writing, not a book. Every sentence states a fact, a definition, a cost, or a
+  mechanism. No rhetorical questions, no metaphors standing in for the technical statement, no
+  dramatic or colloquial framing ("it is not a free win", "a decisive improvement"), no bookish
+  headings ("Back to the Clock"). Headings name their content.
+- Never narrate the chapter's own structure. Sentences like "this is where the second strand,
+  deferred earlier, is finally accounted for", "the code above does not do this yet", or "the
+  pieces now assemble into" sound like reasoning but assert nothing. State the technical point
+  where it belongs, or delete the sentence.
 - Every section earns its place: a problem is motivated biologically, then stated formally, then
   solved, then the solution is analysed (complexity, and where it breaks down).
 - Code is Python, short, readable, and self-contained. Reuse function names introduced in earlier
