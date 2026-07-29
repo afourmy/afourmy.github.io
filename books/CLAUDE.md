@@ -9,6 +9,7 @@ Book pages read as factual technical writing, not as a book. Every sentence stat
 - **Metaphors in place of the technical statement**: "a short message written in the DNA", "a physical fingerprint of which way replication ran", C's being "destroyed".
 - **Dramatic or colloquial framing**: "It is not a free win", "the dictionary version wins", "a decisive improvement".
 - **Bookish headings** ("Back to the Clock"). Headings name the content: "Application: the Evening Element".
+- **Rare, obscure, or abstract words** where a common one works, and long sentences the reader has to read twice. Keep the wording simple and direct. This covers the prose only: technical terms stay exact.
 
 When tempted to write a transition, either state the technical point it was decorating or delete the sentence.
 

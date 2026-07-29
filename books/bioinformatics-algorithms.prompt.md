@@ -40,6 +40,8 @@ probability, and Python. Never explain CS.
   deferred earlier, is finally accounted for", "the code above does not do this yet", or "the
   pieces now assemble into" sound like reasoning but assert nothing. State the technical point
   where it belongs, or delete the sentence.
+- Keep the wording simple. Use the common word, not the rare or abstract one, and keep sentences
+  short enough to read once. This covers the prose only: technical terms stay exact.
 - Every section earns its place: a problem is motivated biologically, then stated formally, then
   solved, then the solution is analysed (complexity, and where it breaks down).
 - Code is Python, short, readable, and self-contained. Reuse function names introduced in earlier
