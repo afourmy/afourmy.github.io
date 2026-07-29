@@ -55,9 +55,28 @@ probability, and Python. Never explain CS.
 the book. Assemble the material into whatever order makes the most sense for a CS student, and
 produce a coherent whole rather than a list of the things I happened to write down.
 
+**Leaving things out.** The book digresses. A topic can appear in the book, and in my notes, and
+still not belong in the chapter, typically biological background with no algorithm attached to it,
+or a side definition the chapter never uses again. You may propose leaving such a topic out, but
+never do it on your own: list the topics you want to drop with the reason for each, and wait for
+my answer before writing the chapter.
+
+**Ask before deciding.** This applies to every choice in the chapter, not only to what gets
+dropped: what to add, how to order the sections, what to rename, what to cut from what already
+exists. Put the options to me and wait. Do not settle a decision yourself and report it afterwards.
+
 **Calibration.** Read the chapters already written in
 [bioinformatics-algorithms.html](bioinformatics-algorithms.html) and match them: same voice, same
 depth, same rhythm of prose, formalisation, code, and analysis. They define the target quality.
+
+**Checking the code.** Every algorithm in this course matches a problem in the Rosalind textbook
+track, and each problem page publishes a sample input and a sample output. Those pages are public
+and need no account. When it is a sensible way to confirm an algorithm is correct, fetch the
+sample data from the problem page and run the code against it. Two rules if you do: extract the
+Python from the HTML page instead of retyping it, so the test runs the published source, and read
+the sample data off the page instead of recalling it. For randomized algorithms compare the score
+reached, not the exact output, since several answers tie at the optimum. Cross-checking a fast
+algorithm against the slow one it replaced is worth more than any single sample.
 
 **Output format.** An HTML fragment to append inside `<main>`, following the conventions of the
 existing file:
