@@ -85,25 +85,30 @@
       <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
       <line class="fig-guide" x1="300" y1="100" x2="300" y2="252"/>
       <line class="fig-guide" x1="64" y1="100" x2="300" y2="100"/>
+      <line class="fig-guide" x1="100" y1="230" x2="100" y2="252"/>
+      <line class="fig-guide" x1="64" y1="230" x2="100" y2="230"/>
+      <line class="fig-guide" x1="190" y1="185" x2="190" y2="252"/>
+      <line class="fig-guide" x1="64" y1="185" x2="190" y2="185"/>
+      <line class="fig-guide" x1="250" y1="140" x2="250" y2="252"/>
+      <line class="fig-guide" x1="64" y1="140" x2="250" y2="140"/>
       <path class="fig-curve" d="M78 238 C90 234 95 232 100 230 C130 218 160 202 190 185 C210 172 230 155 250 140 C262 131 271 125 280 119 C287 114 294 106 300 100 C320 85 340 76 360 70"/>
       <circle class="fig-dot" cx="100" cy="230" r="3"/>
       <circle class="fig-dot" cx="190" cy="185" r="3"/>
       <circle class="fig-dot" cx="250" cy="140" r="3"/>
-      <circle class="fig-dot" cx="280" cy="119" r="3"/>
       <circle class="fig-dot" cx="300" cy="100" r="4"/>
       <circle class="fig-dot" cx="100" cy="252" r="2.5"/>
       <circle class="fig-dot" cx="190" cy="252" r="2.5"/>
       <circle class="fig-dot" cx="250" cy="252" r="2.5"/>
-      <circle class="fig-dot" cx="280" cy="252" r="2.5"/>
       <circle class="fig-dot" cx="64" cy="230" r="2.5"/>
       <circle class="fig-dot" cx="64" cy="185" r="2.5"/>
       <circle class="fig-dot" cx="64" cy="140" r="2.5"/>
-      <circle class="fig-dot" cx="64" cy="119" r="2.5"/>
       <text x="94" y="272">x<tspan dy="4" font-size="11">1</tspan></text>
       <text x="184" y="272">x<tspan dy="4" font-size="11">2</tspan></text>
       <text x="244" y="272">x<tspan dy="4" font-size="11">3</tspan></text>
       <text x="296" y="272">a</text>
       <text x="10" y="235">f(x<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></text>
+      <text x="10" y="190">f(x<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">)</tspan></text>
+      <text x="10" y="145">f(x<tspan dy="4" font-size="11">3</tspan><tspan dy="-4">)</tspan></text>
       <text x="24" y="105">f(a)</text>
     </svg>
 
@@ -406,8 +411,8 @@
     <p class="en">In the definition of continuity, $\delta$ is chosen after the point $a$, so it can depend on $a$. Uniform continuity requires one $\delta$ valid for all points at once. The difference is only the position of $\exists \delta$: continuity at every point is $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$; uniform continuity is $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Example: $x \mapsto 1/x$ on $]0,1]$ is continuous, but the graph gets steeper near $0$, so the $\delta$ needed for a given $\varepsilon$ shrinks: no single $\delta$ works for the whole interval.</p>
     <p class="fr">Dans la définition de la continuité, $\delta$ est choisi après le point $a$, donc peut dépendre de $a$. La continuité uniforme exige un $\delta$ valable pour tous les points à la fois. La différence est seulement la position de $\exists \delta$ : la continuité en tout point s'écrit $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$ ; la continuité uniforme s'écrit $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Exemple : $x \mapsto 1/x$ sur $]0,1]$ est continue, mais le graphe devient de plus en plus raide près de $0$, donc le $\delta$ requis pour un $\varepsilon$ donné rétrécit : aucun $\delta$ ne convient pour tout l'intervalle.</p>
 
-    <p class="en">On the graph of $1/x$: the same output margin $\varepsilon$, marked twice on the y-axis, pulls back to input intervals $\delta$ on the x-axis of very different sizes.</p>
-    <p class="fr">Sur le graphe de $1/x$ : la même marge de sortie $\varepsilon$, marquée deux fois sur l'axe des ordonnées, se ramène à des intervalles d'entrée $\delta$ de tailles très différentes sur l'axe des abscisses.</p>
+    <p class="en">On the graph of $1/x$: the two intervals on the y-axis have the same height $\varepsilon$. Near $0$, keeping $|f(x)-f(y)| \le \varepsilon$ forces $|x-y|$ to be tiny; far from $0$, $|x'-y'|$ can be much larger for the same $\varepsilon$. No single $\delta$ suits all points.</p>
+    <p class="fr">Sur le graphe de $1/x$ : les deux intervalles sur l'axe des ordonnées ont la même hauteur $\varepsilon$. Près de $0$, maintenir $|f(x)-f(y)| \le \varepsilon$ force $|x-y|$ à être minuscule ; loin de $0$, $|x'-y'|$ peut être bien plus grand pour le même $\varepsilon$. Aucun $\delta$ unique ne convient à tous les points.</p>
 
     <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
       <line class="fig-axis" x1="64" y1="262" x2="430" y2="262"/>
@@ -425,10 +430,16 @@
       <line class="fig-guide" x1="255.4" y1="185.5" x2="255.4" y2="262"/>
       <line class="fig-guide" x1="378.8" y1="215.5" x2="378.8" y2="262"/>
       <line class="fig-interval" x1="255.4" y1="262" x2="378.8" y2="262"/>
-      <text x="44" y="66">ε</text>
-      <text x="44" y="204">ε</text>
-      <text x="124" y="284">δ</text>
-      <text x="308" y="284">δ</text>
+      <text x="70" y="70">ε</text>
+      <text x="70" y="208">ε</text>
+      <text x="12" y="52">f(x)</text>
+      <text x="12" y="86">f(y)</text>
+      <text x="8" y="190">f(x′)</text>
+      <text x="8" y="224">f(y′)</text>
+      <text x="128" y="284">x</text>
+      <text x="141" y="284">y</text>
+      <text x="249" y="284">x′</text>
+      <text x="370" y="284">y′</text>
     </svg>
 
     <div class="thm-block definition">
