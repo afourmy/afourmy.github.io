@@ -1325,6 +1325,16 @@ TTC -> TCT</code></pre>
       <code>GGCTTACCA</code>.
     </p>
 
+    <p>
+      A bacterial chromosome is circular, as Chapter 1 described. The de Bruijn graph of a circular
+      string is balanced, because every $(k-1)$-mer is entered as many times as it is left, so
+      Euler's theorem applies to it as it stands and the genome is spelled by an Eulerian cycle
+      rather than a path. For a circular genome <code>eulerian_cycle</code> replaces
+      <code>eulerian_path</code> and there are no unbalanced nodes to patch. A linear genome is the
+      nearly balanced case: its first $(k-1)$-mer has one extra outgoing edge and its last one has
+      one extra incoming edge.
+    </p>
+
     <h3>k-Universal Circular Strings</h3>
 
     <p>
@@ -1418,6 +1428,32 @@ TTC -> TCT</code></pre>
       nowhere in the genome. In the graph they form a short detour that leaves the correct path and
       rejoins it a few nodes later, called a <strong>bubble</strong>. Assemblers find bubbles and
       delete the branch that few reads support.
+    </p>
+
+    <h4>Edge Multiplicity</h4>
+
+    <p>
+      An Eulerian path uses every edge exactly once, so the graph has to say how many copies of each
+      edge there are. A stretch of DNA present twice in the genome contributes two copies of each of
+      its edges, and both have to be traversed. <code>de_bruijn</code> takes those counts from its
+      input, one edge per k-mer in the list, which is right when the composition is exact.
+    </p>
+
+    <p>
+      Real reads do not give exact counts. How often a k-mer turns up among the reads depends on how
+      many reads happened to cover that position, so the counts have to be turned into
+      multiplicities. Let $c$ be the average number of reads covering a position. A k-mer from a
+      stretch occurring once in the genome shows up about $c$ times, one from a stretch occurring
+      $m$ times shows up about $m c$ times, so dividing an observed count by $c$ and rounding
+      estimates $m$.
+    </p>
+
+    <p>
+      The estimate is only as good as the evenness of the coverage, and it is least reliable where it
+      matters most. Repeated stretches are the ones with $m &gt; 1$, and they are also where a wrong
+      multiplicity changes which Eulerian paths exist at all. This is the second cost of uneven
+      coverage: a region with no reads breaks the graph, and a region read too few or too many times
+      corrupts the multiplicities.
     </p>
 
     <h3>Contigs</h3>
