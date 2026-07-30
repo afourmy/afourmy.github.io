@@ -26,8 +26,8 @@
     <h3 class="en">$\mathbb{C}$ is the plane with a multiplication</h3>
     <h3 class="fr">$\mathbb{C}$ est le plan muni d'une multiplication</h3>
 
-    <p class="en">A complex number is a pair of real numbers, written $a+ib$ instead of $(a,b)$. So $\mathbb{C}$ is the plane, with the real numbers on the horizontal axis and the multiples of $i$ on the vertical one. What the plane $\mathbb{R}^2$ does not have is a way to multiply two points together. $\mathbb{C}$ has one, and the whole chapter follows from what that multiplication does geometrically.</p>
-    <p class="fr">Un nombre complexe est un couple de r&eacute;els, not&eacute; $a+ib$ au lieu de $(a,b)$. $\mathbb{C}$ est donc le plan, avec les r&eacute;els sur l'axe horizontal et les multiples de $i$ sur l'axe vertical. Ce que le plan $\mathbb{R}^2$ n'a pas, c'est une fa&ccedil;on de multiplier deux points entre eux. $\mathbb{C}$ en a une, et tout le chapitre d&eacute;coule de ce que cette multiplication fait g&eacute;om&eacute;triquement.</p>
+    <p class="en">The definition below is short, and its content is geometric. It turns the plane into a number system, in which two points can be multiplied together and not only added. The plane $\mathbb{R}^2$ has no such multiplication, and everything in this chapter comes from what this one does.</p>
+    <p class="fr">La d&eacute;finition ci-dessous est courte, et son contenu est g&eacute;om&eacute;trique. Elle fait du plan un syst&egrave;me de nombres, dans lequel deux points peuvent &ecirc;tre multipli&eacute;s entre eux et pas seulement additionn&eacute;s. Le plan $\mathbb{R}^2$ n'a pas de telle multiplication, et tout ce chapitre d&eacute;coule de ce que fait celle-ci.</p>
 
     <!-- Definition of C -->
     <div class="thm-block definition">
@@ -115,14 +115,17 @@
     <h3 class="en">Multiplying is rotating and scaling</h3>
     <h3 class="fr">Multiplier, c'est tourner et dilater</h3>
 
-    <p class="en">Set $e^{i\theta} = \cos\theta + i\sin\theta$, the point of the unit circle at angle $\theta$. This notation is justified by one identity, $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$, which is exactly the addition formulas for $\cos$ and $\sin$ written once.</p>
-    <p class="fr">On pose $e^{i\theta} = \cos\theta + i\sin\theta$, le point du cercle unit&eacute; d'angle $\theta$. Cette notation est justifi&eacute;e par une seule identit&eacute;, $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$, qui est exactement les formules d'addition de $\cos$ et $\sin$ &eacute;crites en une fois.</p>
+    <p class="en">Multiplying by $i$ is a quarter turn. The number that turns by an arbitrary angle $\theta$ is defined below.</p>
+    <p class="fr">Multiplier par $i$ est un quart de tour. Le nombre qui fait tourner d'un angle quelconque $\theta$ est d&eacute;fini ci-dessous.</p>
 
     <!-- Complex exponential -->
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Complex exponential).</span> For $\theta \in \mathbb{R}$, we set $e^{i\theta} = \cos\theta + i\sin\theta$. We have $e^{i(\theta + \theta')} = e^{i\theta}e^{i\theta'}$ (addition formulas), $(e^{i\theta})^{-1} = e^{-i\theta}$ (take $\theta' = -\theta$), $|e^{i\theta}| = 1$, $(e^{i\theta})^n = e^{in\theta}$.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition (Exponentielle complexe).</span> Pour $\theta\in\mathbb{R}$, on pose $e^{i\theta}=\cos\theta+i\sin\theta$. On a $e^{i(\theta+\theta')}=e^{i\theta}e^{i\theta'}$ (formules d'addition), $(e^{i\theta})^{-1}=e^{-i\theta}$ (prendre $\theta'=-\theta$), $|e^{i\theta}|=1$, $(e^{i\theta})^n=e^{in\theta}$.</p>
     </div>
+
+    <p class="en">Two facts justify the notation. Since $\cos^2\theta + \sin^2\theta = 1$, we have $|e^{i\theta}| = 1$, so $e^{i\theta}$ is a point of the unit circle, at angle $\theta$. And an exponential must turn sums into products, which this one does: multiplying out gives $e^{i\theta}e^{i\theta'} = (\cos\theta\cos\theta' - \sin\theta\sin\theta') + i(\sin\theta\cos\theta' + \cos\theta\sin\theta')$, and the addition formulas rewrite the right side as $\cos(\theta+\theta') + i\sin(\theta+\theta') = e^{i(\theta+\theta')}$. So the single identity $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$ holds both addition formulas at once.</p>
+    <p class="fr">Deux faits justifient la notation. Comme $\cos^2\theta + \sin^2\theta = 1$, on a $|e^{i\theta}| = 1$, donc $e^{i\theta}$ est un point du cercle unit&eacute;, d'angle $\theta$. Et une exponentielle doit transformer les sommes en produits, ce que celle-ci fait : en d&eacute;veloppant, $e^{i\theta}e^{i\theta'} = (\cos\theta\cos\theta' - \sin\theta\sin\theta') + i(\sin\theta\cos\theta' + \cos\theta\sin\theta')$, et les formules d'addition r&eacute;&eacute;crivent le membre de droite en $\cos(\theta+\theta') + i\sin(\theta+\theta') = e^{i(\theta+\theta')}$. L'unique identit&eacute; $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$ contient donc les deux formules d'addition &agrave; la fois.</p>
 
     <p class="en">The definition drawn: $e^{i\theta}$ is on the unit circle at angle $\theta$, and $\cos\theta$, $\sin\theta$ are its two projections.</p>
     <p class="fr">La d&eacute;finition dessin&eacute;e : $e^{i\theta}$ est sur le cercle unit&eacute; &agrave; l'angle $\theta$, et $\cos\theta$, $\sin\theta$ sont ses deux projections.</p>
