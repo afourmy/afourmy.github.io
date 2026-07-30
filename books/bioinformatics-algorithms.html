@@ -1083,6 +1083,368 @@ def gibbs_sampler(dna, k, iterations):
       tested experimentally.
     </p>
 
+    <h2>Chapter 3: How Do We Assemble Genomes?</h2>
+
+    <p>
+      Chapters 1 and 2 searched a genome that was already known. This chapter builds one. The input
+      is a collection of short fragments read off a DNA sample, and the output is the genome they
+      came from. The problem reduces to finding a path in a graph, and the choice of graph decides
+      whether it is tractable.
+    </p>
+
+    <h3>Reading a Genome in Fragments</h3>
+
+    <p>
+      No machine reads a chromosome from end to end. Sequencing works on short fragments called
+      <strong>reads</strong>. The procedure starts from a small tissue or blood sample holding
+      millions of cells, each with its own copy of the genome. A biochemical step breaks that DNA
+      into fragments, and the machine reads the fragments. Because the copies break in different
+      places, the reads overlap.
+    </p>
+
+    <p>
+      An earlier technology attacked the same problem differently. <strong>DNA arrays</strong>,
+      introduced in 1988, tested a sample against every possible k-mer at once and reported which
+      ones were present. They failed for two reasons: the chemical binding between the sample and
+      the array was not reliable enough to trust the answers, and the largest workable $k$ was around
+      $10$, too short to tell apart the repeated stretches genomes contain. <strong>Next generation
+      sequencing</strong>, from 2005, made whole-genome sequencing practical instead. It produces
+      millions of reads at once, each roughly 100 nucleotides long, at the price of an error rate
+      high enough to matter.
+    </p>
+
+    <p>Four properties of real read data complicate the problem:</p>
+
+    <ul>
+      <li>DNA is double stranded, so a read may come from either strand, and which one is not
+        recorded.</li>
+      <li>Coverage is uneven. Some positions are read many times and some not at all.</li>
+      <li>Reads contain errors.</li>
+      <li>Reads are not all the same length.</li>
+    </ul>
+
+    <h3>The String Reconstruction Problem</h3>
+
+    <p>
+      The idealized problem assumes all four away: every position is covered, no read contains an
+      error, every read has the same length $k$, and every read comes from the same strand.
+    </p>
+
+    <p>
+      The <strong>k-mer composition</strong> of a string is the collection of all of its k-mers,
+      repeats included.
+    </p>
+
+    <pre><code class="language-python">def composition(text, k):
+    return [text[i:i + k] for i in range(len(text) - k + 1)]</code></pre>
+
+    <p>
+      <strong>String Reconstruction Problem.</strong> Given an integer $k$ and a collection of
+      k-mers, find a string whose k-mer composition is that collection.
+    </p>
+
+    <p>
+      Reads already in genome order are easy to merge. Consecutive k-mers overlap in $k - 1$
+      characters, so each one after the first contributes a single new character.
+    </p>
+
+    <pre><code class="language-python">def path_to_genome(path):
+    return path[0] + ''.join(kmer[-1] for kmer in path[1:])</code></pre>
+
+    <p>
+      The input, however, is a collection and carries no order. Recovering the order is the whole
+      problem.
+    </p>
+
+    <h3>The Overlap Graph</h3>
+
+    <p>
+      Two k-mers can sit next to each other in the genome only if the last $k - 1$ characters of the
+      first equal the first $k - 1$ characters of the second. Take the reads as nodes and draw an
+      edge from $a$ to $b$ when the suffix of $a$ equals the prefix of $b$. This is the
+      <strong>overlap graph</strong>.
+    </p>
+
+    <pre><code class="language-python">def overlap_graph(patterns):
+    adjacency = {}
+    for a in patterns:
+        for b in patterns:
+            if a != b and a[1:] == b[:-1]:
+                adjacency.setdefault(a, []).append(b)
+    return adjacency</code></pre>
+
+    <p>
+      A string with the given composition corresponds to a path through the overlap graph that
+      visits every node exactly once, a <strong>Hamiltonian path</strong>. Every read is used, and
+      consecutive reads overlap correctly. Building the graph costs $O(n^2 k)$ for $n$ reads, since
+      every ordered pair is tested.
+    </p>
+
+    <h3>De Bruijn Graphs</h3>
+
+    <p>
+      The same information fits in a graph that carries the k-mers on its <em>edges</em>. Each k-mer
+      becomes an edge from its prefix of length $k - 1$ to its suffix of length $k - 1$, and equal
+      $(k-1)$-mers become a single node. This is the <strong>de Bruijn graph</strong>, named after
+      Nicolaas de Bruijn.
+    </p>
+
+    <pre><code class="language-python">def de_bruijn(patterns):
+    adjacency = {}
+    for pattern in patterns:
+        adjacency.setdefault(pattern[:-1], []).append(pattern[1:])
+    return adjacency</code></pre>
+
+    <p>
+      The de Bruijn graph of a string is the graph of its composition,
+      <code>de_bruijn(composition(text, k))</code>. For <code>AAGATTCTCTAC</code> with $k = 4$:
+    </p>
+
+    <pre><code>AAG -> AGA
+AGA -> GAT
+ATT -> TTC
+CTA -> TAC
+CTC -> TCT
+GAT -> ATT
+TCT -> CTA,CTC
+TTC -> TCT</code></pre>
+
+    <p>
+      Merging equal $(k-1)$-mers is what changes the problem. Every k-mer of the collection is an
+      edge, so a string with the given composition corresponds to a path that uses every edge
+      exactly once, an <strong>Eulerian path</strong>. Building the graph costs $O(n k)$, since each
+      read is handled once.
+    </p>
+
+    <h3>Hamiltonian or Eulerian</h3>
+
+    <p>
+      Both graphs hold the same reads, and for a real genome both have millions of nodes and edges,
+      so their size is not what separates them. The path problem is. Finding an Eulerian path has a
+      polynomial algorithm. Deciding whether a graph has a Hamiltonian path is NP-complete, and no
+      polynomial algorithm is known. Early assemblers used the overlap graph, and the de Bruijn
+      graph replaced it.
+    </p>
+
+    <h3>Euler's Theorem</h3>
+
+    <p>
+      A node is <strong>balanced</strong> when its indegree equals its outdegree, and a graph is
+      balanced when all of its nodes are. A directed graph is <strong>strongly connected</strong>
+      when every node can be reached from every other.
+    </p>
+
+    <p>
+      <strong>Euler's Theorem.</strong> Every balanced, strongly connected directed graph has an
+      Eulerian cycle.
+    </p>
+
+    <p>
+      The proof is constructive, and it is the algorithm. Start at any node and walk along unused
+      edges. Every node is balanced, so a walk that arrives at a node with edges left can always
+      leave again, and the only place it can get stuck is the node it started from, closing a cycle.
+      If that cycle misses some edges, strong connectivity puts an unused outgoing edge at one of
+      the nodes it already passes through. Restart from that node, walk a second cycle through
+      unused edges, and splice it into the first at the shared node. Every round consumes at least
+      one new edge, so the process ends with a cycle that uses all of them.
+    </p>
+
+    <h4>Finding an Eulerian Cycle</h4>
+
+    <p>
+      The iterative form keeps a stack. It pushes along unused edges while any remain at the current
+      node, and pops a node into the output once its edges are spent. Reversing the output gives an
+      Eulerian cycle.
+    </p>
+
+    <pre><code class="language-python">def eulerian_cycle(graph):
+    unused = {node: list(edges) for node, edges in graph.items()}
+    stack, cycle = [next(iter(graph))], []
+    while stack:
+        node = stack[-1]
+        if unused.get(node):
+            stack.append(unused[node].pop())
+        else:
+            cycle.append(stack.pop())
+    return cycle[::-1]</code></pre>
+
+    <p>
+      Every edge is pushed once and popped once, so the cost is $O(E)$ for $E$ edges.
+    </p>
+
+    <h4>From Cycle to Path</h4>
+
+    <p>
+      A graph with an Eulerian path but no Eulerian cycle is <strong>nearly balanced</strong>:
+      exactly one node has one more outgoing edge than incoming, and exactly one has one more
+      incoming than outgoing. Adding an edge from the second to the first balances the graph. If the
+      result is strongly connected it has an Eulerian cycle, and cutting that cycle at the added
+      edge leaves an Eulerian path.
+    </p>
+
+    <pre><code class="language-python">def eulerian_path(graph):
+    out_degree = {node: len(edges) for node, edges in graph.items()}
+    in_degree = {}
+    for edges in graph.values():
+        for node in edges:
+            in_degree[node] = in_degree.get(node, 0) + 1
+
+    start = end = None
+    for node in set(out_degree) | set(in_degree):
+        surplus = out_degree.get(node, 0) - in_degree.get(node, 0)
+        if surplus == 1:
+            start = node
+        elif surplus == -1:
+            end = node
+    if start is None:
+        return eulerian_cycle(graph)
+
+    patched = {node: list(edges) for node, edges in graph.items()}
+    patched.setdefault(end, []).append(start)
+    cycle = eulerian_cycle(patched)[:-1]
+    split = next(
+        i
+        for i in range(len(cycle))
+        if cycle[i] == end and cycle[(i + 1) % len(cycle)] == start
+    )
+    return cycle[split + 1:] + cycle[:split + 1]</code></pre>
+
+    <h3>Reconstructing a String from its k-mer Composition</h3>
+
+    <p>
+      The pieces compose into a solution of the String Reconstruction Problem: build the de Bruijn
+      graph of the reads, find an Eulerian path, and spell the string that path traces.
+    </p>
+
+    <pre><code class="language-python">def string_reconstruction(patterns):
+    return path_to_genome(eulerian_path(de_bruijn(patterns)))</code></pre>
+
+    <p>
+      The whole procedure is linear in the input, $O(n k)$ for $n$ reads of length $k$. On the
+      6 reads <code>CTTA, ACCA, TACC, GGCT, GCTT, TTAC</code> it returns
+      <code>GGCTTACCA</code>.
+    </p>
+
+    <h3>k-Universal Circular Strings</h3>
+
+    <p>
+      De Bruijn introduced the graph for a problem with no biology in it. A binary string is
+      <strong>k-universal</strong> if it contains every binary k-mer exactly once. Read circularly,
+      such a string has length $2^k$, and finding one is string reconstruction over the alphabet
+      $\{0, 1\}$: take all $2^k$ binary k-mers as the composition and find an Eulerian cycle in
+      their de Bruijn graph.
+    </p>
+
+    <pre><code class="language-python">def k_universal_circular_string(k):
+    patterns = [format(i, '0%db' % k) for i in range(2 ** k)]
+    cycle = eulerian_cycle(de_bruijn(patterns))
+    return path_to_genome(cycle)[:2 ** k]</code></pre>
+
+    <p>
+      For $k = 3$ this returns <code>00111010</code>. Reading it circularly gives 001, 011, 111,
+      110, 101, 010, 100, 000, which is all eight binary 3-mers. De Bruijn wanted these strings for
+      every $k$, and the graph settles the question: each $(k-1)$-mer has exactly two outgoing edges,
+      one per way of appending a bit, and two incoming edges, one per way of prepending one. The
+      graph is balanced and strongly connected for every $k$, so Euler's theorem guarantees a
+      k-universal string always exists.
+    </p>
+
+    <h3>Repeats</h3>
+
+    <p>
+      The String Reconstruction Problem asks for <em>a</em> string with the given composition, not
+      <em>the</em> string. The two differ, and repeats are the reason.
+    </p>
+
+    <p>
+      Equal $(k-1)$-mers become one node no matter where in the genome they occur. A stretch that
+      appears twice therefore collapses into one piece of the graph: the node where it begins gains
+      a second outgoing edge and the node where it ends gains a second incoming one. Each way of
+      pairing those edges is a separate Eulerian path, and different pairings spell different
+      strings.
+    </p>
+
+    <p>
+      Five characters are enough to see it. <code>AACAA</code> and <code>ACAAC</code> have the same
+      3-mer composition, AAC, ACA and CAA, so that composition does not determine the string. The
+      ambiguity does not fade with length: <code>TAATGCCATGGGATGTT</code> and
+      <code>TAATGGGATGCCATGTT</code> also share a 3-mer composition.
+    </p>
+
+    <p>
+      A repeat shorter than $k - 1$ costs nothing, because it still produces distinct k-mers and
+      distinct nodes. A repeat of length $k - 1$ or more collapses. Raising $k$ therefore resolves
+      more repeats, which is why DNA arrays failed at $k \approx 10$: genomes hold repeated
+      stretches thousands of nucleotides long. Raising $k$ has a ceiling, since a k-mer has to fit
+      inside a read.
+    </p>
+
+    <h3>Assembling Real Reads</h3>
+
+    <h4>Read Breaking</h4>
+
+    <p>
+      Real reads are longer than any workable $k$ and are not all the same length. Both problems go
+      away if the reads are not used as units: split every read of length $L$ into its $L - k + 1$
+      k-mers and assemble those. This is <strong>read breaking</strong>.
+    </p>
+
+    <pre><code class="language-python">def read_breaking(reads, k):
+    return [kmer for read in reads for kmer in composition(read, k)]</code></pre>
+
+    <p>
+      The choice of $k$ is now independent of the read length. The price is information. Which
+      k-mers came from the same read is discarded, and a single wrong character no longer spoils one
+      read but up to $k$ of the k-mers taken from it.
+    </p>
+
+    <h4>Double Strands, Gaps, and Errors</h4>
+
+    <p>
+      <strong>Double strands.</strong> A read comes from one of the two strands and does not say
+      which. Both the read and its reverse complement have to enter the collection, using
+      <code>reverse_complement</code> from Chapter 1. This doubles the edges and admits paths that
+      cross between the two strands.
+    </p>
+
+    <p>
+      <strong>Gaps in coverage.</strong> A region that no read covers leaves no edge across it, so
+      the graph is not strongly connected and Euler's theorem does not apply. There is no Eulerian
+      path to find.
+    </p>
+
+    <p>
+      <strong>Errors.</strong> One wrong character inside a read yields up to $k$ k-mers that occur
+      nowhere in the genome. In the graph they form a short detour that leaves the correct path and
+      rejoins it a few nodes later, called a <strong>bubble</strong>. Assemblers find bubbles and
+      delete the branch that few reads support.
+    </p>
+
+    <h3>Contigs</h3>
+
+    <p>
+      Even after read breaking and error correction, a de Bruijn graph built from real data has no
+      Eulerian path. Coverage gaps disconnect it, and repeats leave branch points that no quantity
+      of correct reads can resolve. Assembly does not return a chromosome.
+    </p>
+
+    <p>
+      It returns <strong>contigs</strong>: the longest stretches of the genome that the reads pin
+      down unambiguously. In the graph a contig is a path that never branches. It can be extended as
+      long as each node along it has exactly one incoming and one outgoing edge, and it stops at a
+      node where the edges fork, because there the reads do not say which way the genome goes.
+      Producing every contig means finding every maximal non-branching path in the graph.
+    </p>
+
+    <p>
+      Short reads do not produce a chromosome, they produce contigs. A contig ends for one of two
+      reasons. Where no read covered the DNA, the graph has no edge across the gap and there is
+      nothing to continue with. Where a repeat longer than $k$ occurs, the graph branches and the
+      reads give no way to choose between the branches. More short reads fix neither problem. Both
+      need something else: reads long enough to span a repeat in one piece, or a separate experiment
+      that orders the contigs along the chromosome.
+    </p>
+
   </main>
 </body>
 </html>

@@ -164,6 +164,21 @@
       $(1) \Leftrightarrow (4)$. At least one path exists between any two vertices (connectivity). If two paths $P_1, P_2$ connected $u$ to $v$, let $w$ be the first vertex where they diverge and $x$ the first vertex after $w$ where they meet again; the portions of $P_1$ and $P_2$ from $w$ to $x$ form a cycle, contradicting acyclicity.
     </details>
 
+    <div class="thm-block theorem">
+      <p><span class="thm-label">Theorem (Cayley's formula).</span> For $n \geq 2$, the number of trees on the vertex set $\{1, 2, \ldots, n\}$ is $n^{n-2}$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      We construct a bijection between the trees on a set of $n$ labels and the sequences of length $n-2$ with entries in that set. As there are $n^{n-2}$ such sequences, this gives the count. We work with an arbitrary finite set of integers rather than $\{1, \ldots, n\}$, since the induction below deletes labels.
+      <br><br>
+      <em>Encoding.</em> Let $T$ be a tree on a set $L$ of $n \geq 2$ labels. Put $T_1 = T$, and for $i = 1, \ldots, n-2$ let $v_i$ be the leaf of $T_i$ carrying the smallest label, let $a_i$ be its unique neighbor, and put $T_{i+1} = T_i - v_i$. Each $T_i$ is a tree on $n - i + 1 \geq 2$ vertices, so the leaf lemma guarantees $v_i$ exists, and $T_{n-1}$ is a tree on two vertices. The <em>Prüfer sequence</em> of $T$ is $P(T) = (a_1, \ldots, a_{n-2})$, a sequence of elements of $L$.
+      <br><br>
+      <em>Degrees.</em> Every $v \in L$ occurs in $P(T)$ exactly $\deg_T(v) - 1$ times. The label $v$ is recorded as $a_i$ precisely when the vertex deleted at step $i$ is a neighbor of $v$, because that vertex is a leaf of $T_i$ and $v$ is then its only neighbor. Each neighbor of $v$ deleted while $v$ is still present therefore contributes one occurrence of $v$, and no other step does. If $v$ is deleted at some step it is a leaf of that $T_i$, so exactly one of its neighbors remains and the other $\deg_T(v) - 1$ were deleted earlier; if $v$ survives to $T_{n-1}$ it has degree $1$ there, so again $\deg_T(v) - 1$ of its neighbors were deleted. In particular the leaves of $T$ are exactly the labels absent from $P(T)$.
+      <br><br>
+      <em>Bijectivity.</em> By induction on $n$. For $n = 2$ the sequence is empty and there is exactly one tree on two labels. Let $n \geq 3$ and fix a sequence $a = (a_1, \ldots, a_{n-2})$ of elements of $L$. If $P(T) = a$, then $v_1$ is a leaf of $T$, so by the degree count $v_1$ is absent from $a$; being the smallest-labelled leaf, it is the smallest label of $L$ absent from $a$. So $v_1$ is determined by $a$ alone, and the edge $\{v_1, a_1\}$ belongs to $T$. Deleting $v_1$ leaves a tree on $L \setminus \{v_1\}$ whose encoding is the remainder of the encoding of $T$, that is, $(a_2, \ldots, a_{n-2})$. By induction exactly one tree on $L \setminus \{v_1\}$ has that Prüfer sequence, and adding the edge $\{v_1, a_1\}$ to it gives a tree on $L$ with Prüfer sequence $a$. Hence exactly one $T$ satisfies $P(T) = a$, and $P$ is a bijection.
+    </details>
+
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Spanning tree).</span> A <em>spanning tree</em> of a graph $G = (V, E)$ is a spanning subgraph of $G$ that is a tree, i.e., a subgraph $(V, T)$ with $T \subseteq E$ that is connected and acyclic.</p>
     </div>
