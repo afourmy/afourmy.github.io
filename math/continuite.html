@@ -57,8 +57,53 @@
       <text x="8" y="152">f(a)−ε</text>
     </svg>
 
+    <p class="en">At a jump, the definition fails: for an $\varepsilon$ smaller than the jump, every strip contains points sent outside the band.</p>
+    <p class="fr">En un saut, la définition échoue : pour un $\varepsilon$ plus petit que le saut, toute bande verticale contient des points envoyés hors de la bande horizontale.</p>
+
+    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+      <rect class="fig-band" x="64" y="100" width="361" height="40"/>
+      <rect class="fig-band" x="225" y="20" width="50" height="232"/>
+      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+      <line class="fig-guide" x1="64" y1="120" x2="250" y2="120"/>
+      <line class="fig-guide" x1="250" y1="120" x2="250" y2="252"/>
+      <path class="fig-curve" d="M78 235 C130 228 180 205 235 180 C240 178 244 175 248 172"/>
+      <path class="fig-curve" d="M252 119 C280 112 330 105 425 98"/>
+      <circle class="fig-hole" cx="250" cy="170" r="4"/>
+      <circle class="fig-dot" cx="250" cy="120" r="4"/>
+      <text x="246" y="272">a</text>
+      <text x="24" y="125">f(a)</text>
+    </svg>
+
     <p class="en">Continuity can also be stated with sequences: $f$ is continuous at $a$ when $x_n \to a$ implies $f(x_n) \to f(a)$. In other words, $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$. This is the form used in practice.</p>
     <p class="fr">La continuité peut aussi s'énoncer avec des suites : $f$ est continue en $a$ quand $x_n \to a$ implique $f(x_n) \to f(a)$. Autrement dit, $f$ et $\lim$ peuvent être échangés : $f(\lim x_n) = \lim f(x_n)$. C'est la forme utilisée en pratique.</p>
+
+    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+      <line class="fig-guide" x1="300" y1="100" x2="300" y2="252"/>
+      <line class="fig-guide" x1="64" y1="100" x2="300" y2="100"/>
+      <path class="fig-curve" d="M78 238 C90 234 95 232 100 230 C130 218 160 202 190 185 C210 172 230 155 250 140 C262 131 271 125 280 119 C287 114 294 106 300 100 C320 85 340 76 360 70"/>
+      <circle class="fig-dot" cx="100" cy="230" r="3"/>
+      <circle class="fig-dot" cx="190" cy="185" r="3"/>
+      <circle class="fig-dot" cx="250" cy="140" r="3"/>
+      <circle class="fig-dot" cx="280" cy="119" r="3"/>
+      <circle class="fig-dot" cx="300" cy="100" r="4"/>
+      <circle class="fig-dot" cx="100" cy="252" r="2.5"/>
+      <circle class="fig-dot" cx="190" cy="252" r="2.5"/>
+      <circle class="fig-dot" cx="250" cy="252" r="2.5"/>
+      <circle class="fig-dot" cx="280" cy="252" r="2.5"/>
+      <circle class="fig-dot" cx="64" cy="230" r="2.5"/>
+      <circle class="fig-dot" cx="64" cy="185" r="2.5"/>
+      <circle class="fig-dot" cx="64" cy="140" r="2.5"/>
+      <circle class="fig-dot" cx="64" cy="119" r="2.5"/>
+      <text x="94" y="272">x<tspan dy="4" font-size="11">1</tspan></text>
+      <text x="184" y="272">x<tspan dy="4" font-size="11">2</tspan></text>
+      <text x="244" y="272">x<tspan dy="4" font-size="11">3</tspan></text>
+      <text x="296" y="272">a</text>
+      <text x="10" y="235">f(x<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></text>
+      <text x="24" y="105">f(a)</text>
+    </svg>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Sequential characterization).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. The function $f$ is continuous at $a$ if and only if for every sequence $(x_n)$ in $I$ such that $x_n \to a$, we have $f(x_n) \to f(a)$.</p>
@@ -100,6 +145,18 @@
 
     <p class="en">Two variants: continuity from one side only, and the case of a function undefined at one point. If the limit exists at that point, defining $f$ there by the limit fills the hole: for example $x \mapsto \frac{\sin x}{x}$ extended by $1$ at $0$.</p>
     <p class="fr">Deux variantes : la continuité d'un seul côté, et le cas d'une fonction non définie en un point. Si la limite existe en ce point, définir $f$ par cette limite comble le trou : par exemple $x \mapsto \frac{\sin x}{x}$ prolongée par $1$ en $0$.</p>
+
+    <svg class="figure" width="440" height="260" viewBox="0 0 440 260">
+      <line class="fig-axis" x1="64" y1="200" x2="430" y2="200"/>
+      <line class="fig-axis" x1="247" y1="252" x2="247" y2="20"/>
+      <line class="fig-axis" x1="189.5" y1="196" x2="189.5" y2="204"/>
+      <line class="fig-axis" x1="304.5" y1="196" x2="304.5" y2="204"/>
+      <path class="fig-curve" d="M64 207.6 L73.2 201.1 L82.3 193.6 L91.4 186.8 L100.6 182.7 L109.7 182.5 L118.9 186.9 L128.1 195.4 L137.2 206.5 L146.3 218 L155.5 226.9 L164.8 230.4 L173.8 226.5 L182.9 214 L192.1 193.4 L201.2 166.5 L210.4 136.4 L219.5 106.9 L228.7 82.2 L237.8 65.8 L242.4 61.5 L247 60 L251.6 61.5 L256.2 65.8 L265.3 82.2 L274.5 106.9 L283.6 136.4 L292.8 166.5 L301.9 193.4 L311.1 214 L320.2 226.5 L329.2 230.4 L338.5 226.9 L347.7 218 L356.8 206.5 L365.9 195.4 L375.1 186.9 L384.3 182.5 L393.4 182.7 L402.6 186.8 L411.7 193.6 L420.9 201.1 L430 207.6"/>
+      <circle class="fig-hole" cx="247" cy="60" r="4"/>
+      <text x="230" y="57">1</text>
+      <text x="176" y="222">−π</text>
+      <text x="299" y="222">π</text>
+    </svg>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Left and right continuity).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. We say $f$ is <em>left-continuous at $a$</em> if $\lim_{x\to a^-}f(x)=f(a)$, and <em>right-continuous at $a$</em> if $\lim_{x\to a^+}f(x)=f(a)$. The function $f$ is continuous at $a$ if and only if it is both left- and right-continuous at $a$.</p>
@@ -147,11 +204,59 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <p class="en"><em>Idea.</em> Cut $[a,b]$ in half, keep a half where the sign still changes, repeat. The two endpoints converge to a common point (completeness), where $f$ must vanish. This is binary search; each step halves the error.</p>
+      <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
+        <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
+        <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
+        <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
+        <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
+        <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
+        <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
+        <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
+        <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
+        <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
+        <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
+        <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
+        <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
+        <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
+        <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
+        <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
+        <text x="296" y="222">c</text>
+      </svg>
       <p class="en"><em>Proof (by bisection).</em> Replacing $f$ by $f-x$, we may assume $x=0$ with $f(a)\le0\le f(b)$ (if $f(a)\ge0\ge f(b)$, apply the result to $-f$). We construct by induction two sequences $(a_n)$ and $(b_n)$ such that $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ and $b_n-a_n=\frac{b-a}{2^n}$. Given $a_n$ and $b_n$, set $m_n=\frac{a_n+b_n}{2}$. If $f(m_n)\le0$, set $a_{n+1}=m_n$ and $b_{n+1}=b_n$; otherwise $a_{n+1}=a_n$ and $b_{n+1}=m_n$. This ensures $f(a_{n+1})\le0\le f(b_{n+1})$ and $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Thus $(a_n)$ is increasing, $(b_n)$ is decreasing and $b_n-a_n\to0$, so both sequences converge to a common limit $c\in[a,b]$ (completeness of $\mathbb{R}$). By continuity of $f$ at $c$, $f(a_n)\to f(c)$ and $f(b_n)\to f(c)$, but $f(a_n)\le0$ and $f(b_n)\ge0$ for all $n$, so $f(c)\le0$ and $f(c)\ge0$, giving $f(c)=0$.</p>
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr"><em>Idée.</em> Couper $[a,b]$ en deux, garder une moitié où le signe change encore, recommencer. Les deux extrémités convergent vers un point commun (complétude), où $f$ doit s'annuler. C'est la recherche dichotomique ; chaque étape divise l'erreur par deux.</p>
+      <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
+        <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
+        <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
+        <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
+        <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
+        <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
+        <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
+        <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
+        <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
+        <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
+        <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
+        <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
+        <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
+        <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
+        <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
+        <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
+        <text x="296" y="222">c</text>
+      </svg>
       <p class="fr"><em>Démonstration (par dichotomie).</em> Quitte à remplacer $f$ par $f-x$, on se ramène au cas $x=0$ avec $f(a)\le0\le f(b)$ (si $f(a)\ge0\ge f(b)$, on applique le résultat à $-f$). On construit par récurrence deux suites $(a_n)$ et $(b_n)$ telles que $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ et $b_n-a_n=\frac{b-a}{2^n}$. Supposons $a_n$ et $b_n$ construits et posons $m_n=\frac{a_n+b_n}{2}$. Si $f(m_n)\le0$, on pose $a_{n+1}=m_n$ et $b_{n+1}=b_n$, sinon $a_{n+1}=a_n$ et $b_{n+1}=m_n$, ce qui garantit $f(a_{n+1})\le0\le f(b_{n+1})$ et $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Ainsi $(a_n)$ est croissante, $(b_n)$ est décroissante et $b_n-a_n\to0$, donc les suites sont adjacentes et convergent vers une même limite $c\in[a,b]$ (complétude de $\mathbb{R}$). Par continuité de $f$ en $c$, on a $f(a_n)\to f(c)$ et $f(b_n)\to f(c)$, or pour tout $n$, $f(a_n)\le0$ et $f(b_n)\ge0$, donc $f(c)\le0$ et $f(c)\ge0$, d'où $f(c)=0$.</p>
     </details>
 
@@ -181,6 +286,21 @@
 
     <p class="en">The key fact about a segment $[a,b]$: any sequence in it is bounded, so by Bolzano-Weierstrass it has a subsequence converging to a point of $[a,b]$. The proof below applies this twice, with the same three steps each time: take a sequence in $[a,b]$, extract a convergent subsequence, pass to the limit through $f$.</p>
     <p class="fr">Le fait clé sur un segment $[a,b]$ : toute suite qui y vit est bornée, donc par Bolzano-Weierstrass elle a une sous-suite qui converge vers un point de $[a,b]$. La démonstration ci-dessous l'applique deux fois, avec les trois mêmes étapes : prendre une suite dans $[a,b]$, extraire une sous-suite convergente, passer à la limite à travers $f$.</p>
+
+    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+      <line class="fig-guide" x1="64" y1="90" x2="260" y2="90"/>
+      <line class="fig-guide" x1="260" y1="90" x2="260" y2="252"/>
+      <line class="fig-axis" x1="85" y1="247" x2="85" y2="257"/>
+      <line class="fig-axis" x1="410" y1="247" x2="410" y2="257"/>
+      <path class="fig-curve" d="M85 200 C130 170 190 90 260 90 C300 90 360 150 410 195"/>
+      <circle class="fig-dot" cx="260" cy="90" r="4"/>
+      <text x="81" y="272">a</text>
+      <text x="406" y="272">b</text>
+      <text x="256" y="272">c</text>
+      <text x="44" y="95">M</text>
+    </svg>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Extreme value theorem).</span> Every continuous function on a closed interval $[a,b]$ is bounded and attains its bounds.</p>
@@ -237,6 +357,17 @@
     <p class="en">If $f$ is also strictly monotone, it is injective, so it is a bijection from $I$ onto $f(I)$. The continuity of $f^{-1}$ can be seen on the graph: the graph of $f^{-1}$ is the graph of $f$ reflected across the line $y = x$, and the reflection of a curve without jumps has no jumps. The proof below verifies this.</p>
     <p class="fr">Si $f$ est de plus strictement monotone, elle est injective, donc bijective de $I$ sur $f(I)$. La continuité de $f^{-1}$ se voit sur le graphe : le graphe de $f^{-1}$ est celui de $f$ réfléchi par rapport à la droite $y = x$, et le reflet d'une courbe sans saut n'a pas de saut. La démonstration ci-dessous le vérifie.</p>
 
+    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+      <line class="fig-guide" x1="64" y1="252" x2="280" y2="36"/>
+      <path class="fig-curve" d="M75 245 C130 240 190 220 220 170 C240 135 248 90 252 50"/>
+      <path class="fig-curve fig-accent" d="M71 241 C76 186 96 126 146 96 C181 76 226 68 266 64"/>
+      <text x="200" y="190">f</text>
+      <text x="104" y="112">f<tspan dy="-6" font-size="11">−1</tspan></text>
+      <text x="286" y="42">y = x</text>
+    </svg>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Bijection theorem).</span> Let $f$ be continuous and strictly monotone on an interval $I$. Then:</p>
       <ol class="en">
@@ -273,6 +404,20 @@
     <p class="en">In the definition of continuity, $\delta$ is chosen after the point $a$, so it can depend on $a$. Uniform continuity requires one $\delta$ valid for all points at once. The difference is only the position of $\exists \delta$: continuity at every point is $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$; uniform continuity is $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Example: $x \mapsto 1/x$ on $]0,1]$ is continuous, but the graph gets steeper near $0$, so the $\delta$ needed for a given $\varepsilon$ shrinks: no single $\delta$ works for the whole interval.</p>
     <p class="fr">Dans la définition de la continuité, $\delta$ est choisi après le point $a$, donc peut dépendre de $a$. La continuité uniforme exige un $\delta$ valable pour tous les points à la fois. La différence est seulement la position de $\exists \delta$ : la continuité en tout point s'écrit $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$ ; la continuité uniforme s'écrit $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Exemple : $x \mapsto 1/x$ sur $]0,1]$ est continue, mais le graphe devient de plus en plus raide près de $0$, donc le $\delta$ requis pour un $\varepsilon$ donné rétrécit : aucun $\delta$ ne convient pour tout l'intervalle.</p>
 
+    <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
+      <line class="fig-axis" x1="64" y1="262" x2="430" y2="262"/>
+      <line class="fig-axis" x1="64" y1="262" x2="64" y2="16"/>
+      <path class="fig-curve" d="M125 22 L129.9 39.8 L137.2 62 L144.5 80.2 L155.5 102 L166.5 119.1 L181.1 137 L195.8 150.9 L210.4 162 L228.7 173.1 L247 182 L265.3 189.3 L283.6 195.3 L301.9 200.5 L320.2 204.9 L338.5 208.7 L356.8 212 L375.1 214.9 L393.4 217.6 L411.7 219.9 L430 222"/>
+      <rect class="fig-band" x="132.1" y="47" width="11" height="30"/>
+      <rect class="fig-band" x="248.1" y="182.5" width="111.6" height="30"/>
+      <circle class="fig-dot" cx="137.2" cy="62" r="3"/>
+      <circle class="fig-dot" cx="303.9" cy="201" r="3"/>
+      <text x="148" y="66">ε</text>
+      <text x="133" y="95">δ</text>
+      <text x="365" y="201">ε</text>
+      <text x="298" y="230">δ</text>
+    </svg>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval. We say $f : I \to \mathbb{R}$ is <em>uniformly continuous</em> on $I$ if $$\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x,y \in I,\ |x-y|&lt;\delta \Rightarrow |f(x)-f(y)|&lt;\varepsilon.$$</p>
       <p class="fr"><span class="thm-label">Définition.</span> Soit $I$ un intervalle. On dit que $f : I \to \mathbb{R}$ est <em>uniformément continue</em> sur $I$ si $$\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x,y \in I,\ |x-y|&lt;\delta \Rightarrow |f(x)-f(y)|&lt;\varepsilon.$$</p>
@@ -280,6 +425,18 @@
 
     <p class="en">A $k$-Lipschitz function is a function whose chords have slope at most $k$ in absolute value. This bounds how fast $f$ can vary, and gives the chain: Lipschitz $\Rightarrow$ uniformly continuous $\Rightarrow$ continuous. Both implications are strict: $\sqrt{x}$ on $[0,1]$ is uniformly continuous but not Lipschitz, $1/x$ on $]0,1]$ is continuous but not uniformly continuous.</p>
     <p class="fr">Une fonction $k$-lipschitzienne est une fonction dont les cordes ont une pente d'au plus $k$ en valeur absolue. Cela borne la vitesse de variation de $f$ et donne la chaîne : lipschitzienne $\Rightarrow$ uniformément continue $\Rightarrow$ continue. Les deux implications sont strictes : $\sqrt{x}$ sur $[0,1]$ est uniformément continue mais pas lipschitzienne, $1/x$ sur $]0,1]$ est continue mais pas uniformément continue.</p>
+
+    <p class="en">Through each point of the graph, the two lines of slope $k$ and $-k$ enclose the rest of the graph.</p>
+    <p class="fr">Par chaque point du graphe, les deux droites de pente $k$ et $-k$ encadrent le reste du graphe.</p>
+
+    <svg class="figure" width="440" height="280" viewBox="0 0 440 280">
+      <polygon class="fig-band" points="80,228 240,140 80,52"/>
+      <polygon class="fig-band" points="420,41 240,140 420,239"/>
+      <line class="fig-accent" x1="80" y1="228" x2="420" y2="41"/>
+      <line class="fig-accent" x1="80" y1="52" x2="420" y2="239"/>
+      <path class="fig-curve" d="M85 175 C140 160 190 150 240 140 C290 132 340 120 410 100"/>
+      <circle class="fig-dot" cx="240" cy="140" r="4"/>
+    </svg>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval and $k \ge 0$. We say $f : I \to \mathbb{R}$ is <em>$k$-Lipschitz</em> if $$\forall x,y \in I,\ |f(x)-f(y)| \le k\,|x-y|.$$</p>
@@ -317,24 +474,24 @@
       Soit $f$ continue sur $[a,b]$. Supposons par l'absurde que $f$ n'est pas uniformément continue. Alors il existe $\varepsilon_0 &gt; 0$ tel que, pour tout $n \ge 1$, il existe $x_n, y_n \in [a,b]$ vérifiant $|x_n - y_n| &lt; \frac{1}{n}$ et $|f(x_n) - f(y_n)| \ge \varepsilon_0$. La suite $(x_n)$ est bornée, donc par le théorème de Bolzano--Weierstrass elle admet une sous-suite $(x_{\varphi(n)})$ convergeant vers $\ell \in [a,b]$. Comme $|x_{\varphi(n)} - y_{\varphi(n)}| &lt; \frac{1}{\varphi(n)} \to 0$, on a aussi $y_{\varphi(n)} \to \ell$. Par continuité de $f$ en $\ell$, $f(x_{\varphi(n)}) \to f(\ell)$ et $f(y_{\varphi(n)}) \to f(\ell)$, donc $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \to 0$, ce qui contredit $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \ge \varepsilon_0$. Donc $f$ est uniformément continue.
     </details>
 
-    <h3 class="en">The moves of this chapter</h3>
-    <h3 class="fr">Les gestes du chapitre</h3>
+    <h3 class="en">The techniques of this chapter</h3>
+    <h3 class="fr">Les techniques du chapitre</h3>
 
-    <p class="en">Everything above can be rebuilt from five moves:</p>
+    <p class="en">The chapter reduces to five techniques:</p>
     <ul class="en">
-      <li>Read $\forall \varepsilon,\ \exists \delta$ as a game: whoever speaks second may adapt to the first. The order of the quantifiers is the content, in continuity as in uniform continuity.</li>
-      <li>Swap $f$ and $\lim$: continuity is exactly the permission $f(\lim x_n) = \lim f(x_n)$.</li>
-      <li>The $1/n$ trick: a statement that fails for every $\delta$ condenses into one sequence by taking $\delta = 1/n$.</li>
-      <li>The trap: in a segment, extract a convergent subsequence (Bolzano-Weierstrass) and pass to the limit.</li>
-      <li>Completeness of $\mathbb{R}$ is the hidden actor: the root in the intermediate value theorem, the attained maximum, the uniformity in Heine's theorem all exist because the real line has no holes.</li>
+      <li>In $\forall \varepsilon,\ \exists \delta$, the order matters: $\delta$ is chosen after $\varepsilon$, so it can depend on it. Moving a quantifier changes the notion (continuity versus uniform continuity).</li>
+      <li>Continuity means $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$.</li>
+      <li>The $1/n$ trick: a hypothesis valid for every $\delta$, applied with $\delta = 1/n$, produces a sequence.</li>
+      <li>In a segment, every sequence has a subsequence converging inside it (Bolzano-Weierstrass): extract, then pass to the limit.</li>
+      <li>Completeness of $\mathbb{R}$ is behind every existence result of the chapter: the root in the intermediate value theorem, the attained maximum, the uniform $\delta$ in Heine's theorem.</li>
     </ul>
-    <p class="fr">Tout ce qui précède se reconstruit à partir de cinq gestes :</p>
+    <p class="fr">Le chapitre se ramène à cinq techniques :</p>
     <ul class="fr">
-      <li>Lire $\forall \varepsilon,\ \exists \delta$ comme un jeu : celui qui parle en second peut s'adapter au premier. L'ordre des quantificateurs est le contenu, dans la continuité comme dans la continuité uniforme.</li>
-      <li>Échanger $f$ et $\lim$ : la continuité est exactement la permission $f(\lim x_n) = \lim f(x_n)$.</li>
-      <li>L'astuce du $1/n$ : un énoncé mis en défaut pour tout $\delta$ se condense en une seule suite en prenant $\delta = 1/n$.</li>
-      <li>Le piège : dans un segment, extraire une sous-suite convergente (Bolzano-Weierstrass) et passer à la limite.</li>
-      <li>La complétude de $\mathbb{R}$ est l'acteur caché : la racine du théorème des valeurs intermédiaires, le maximum atteint, l'uniformité du théorème de Heine existent parce que la droite réelle n'a pas de trous.</li>
+      <li>Dans $\forall \varepsilon,\ \exists \delta$, l'ordre compte : $\delta$ est choisi après $\varepsilon$, donc peut en dépendre. Déplacer un quantificateur change la notion (continuité contre continuité uniforme).</li>
+      <li>La continuité signifie que $f$ et $\lim$ peuvent être échangés : $f(\lim x_n) = \lim f(x_n)$.</li>
+      <li>L'astuce du $1/n$ : une hypothèse valable pour tout $\delta$, appliquée avec $\delta = 1/n$, produit une suite.</li>
+      <li>Dans un segment, toute suite a une sous-suite qui converge à l'intérieur (Bolzano-Weierstrass) : extraire, puis passer à la limite.</li>
+      <li>La complétude de $\mathbb{R}$ est derrière chaque résultat d'existence du chapitre : la racine du théorème des valeurs intermédiaires, le maximum atteint, le $\delta$ uniforme du théorème de Heine.</li>
     </ul>
 
     <!-- ══════════════════════════════════════════════════════════ -->
