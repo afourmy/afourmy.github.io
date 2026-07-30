@@ -1437,6 +1437,74 @@ TTC -> TCT</code></pre>
     </p>
 
     <p>
+      Call a node <strong>1-in-1-out</strong> when its indegree and its outdegree both equal $1$. A
+      path is <strong>non-branching</strong> when every node strictly inside it is 1-in-1-out, and
+      <strong>maximal</strong> when it cannot be extended at either end. The contigs are the strings
+      spelled by the maximal non-branching paths.
+    </p>
+
+    <p>
+      A maximal non-branching path begins at a node that is not 1-in-1-out, so the paths can be
+      collected by taking each such node in turn and following each of its outgoing edges forward
+      through 1-in-1-out nodes until reaching a node that is not one. One case escapes this: a cycle
+      whose every node is 1-in-1-out contains no starting node, so no walk enters it. A second pass
+      over the nodes no walk visited picks those cycles up.
+    </p>
+
+    <pre><code class="language-python">def maximal_non_branching_paths(graph):
+    out_degree = {node: len(edges) for node, edges in graph.items()}
+    in_degree = {}
+    for edges in graph.values():
+        for node in edges:
+            in_degree[node] = in_degree.get(node, 0) + 1
+    nodes = set(in_degree) | set(out_degree)
+
+    def internal(node):
+        return in_degree.get(node, 0) == 1 and out_degree.get(node, 0) == 1
+
+    paths, visited = [], set()
+    for node in nodes:
+        if internal(node):
+            continue
+        for successor in graph.get(node, []):
+            path = [node, successor]
+            while internal(path[-1]):
+                visited.add(path[-1])
+                path.append(graph[path[-1]][0])
+            paths.append(path)
+
+    for node in nodes:                      # cycles of 1-in-1-out nodes only
+        if internal(node) and node not in visited:
+            cycle = [node]
+            while True:
+                visited.add(cycle[-1])
+                cycle.append(graph[cycle[-1]][0])
+                if cycle[-1] == node:
+                    break
+            paths.append(cycle)
+    return paths
+
+def contigs(patterns):
+    return [
+        path_to_genome(path)
+        for path in maximal_non_branching_paths(de_bruijn(patterns))
+    ]</code></pre>
+
+    <p>
+      Each edge lies in exactly one maximal non-branching path, so the paths partition the edges and
+      the whole procedure costs $O(V + E)$.
+    </p>
+
+    <p>
+      Take <code>AAGATTCTCTAC</code> with $k = 4$, the graph listed earlier. Three of its nodes are
+      not 1-in-1-out: <code>AAG</code> has no incoming edge, <code>TAC</code> has no outgoing edge,
+      and <code>TCT</code> has two of each. The contigs are <code>AAGATTCT</code>,
+      <code>TCTCT</code> and <code>TCTAC</code>, and each one begins or ends at <code>TCT</code>.
+      That 3-mer occurs twice in the string, and the assembly stops exactly where the repeat put a
+      fork in the graph.
+    </p>
+
+    <p>
       Short reads do not produce a chromosome, they produce contigs. A contig ends for one of two
       reasons. Where no read covered the DNA, the graph has no edge across the gap and there is
       nothing to continue with. Where a repeat longer than $k$ occurs, the graph branches and the
