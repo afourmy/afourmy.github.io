@@ -424,6 +424,20 @@ details.tsp-code > p {
   text-align: center;
 }
 
+/* A caption describing several panels: one line per panel, panel name in bold */
+.figure-block figcaption .cap-part {
+  display: block;
+}
+
+.figure-block figcaption .cap-part + .cap-part {
+  margin-top: 0.2rem;
+}
+
+.figure-block figcaption .cap-lead {
+  font-weight: 700;
+  color: var(--text-soft);
+}
+
 .figure text {
   font-family: KaTeX_Math, 'Computer Modern Serif', serif;
   font-style: italic;
