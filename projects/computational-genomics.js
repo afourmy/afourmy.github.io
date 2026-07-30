@@ -1,4 +1,4 @@
-/* Interactive visualizations for the Computational Genomics project page.
+/* Interactive visualizations for the Pattern Finding in DNA project page.
    Each widget exposes an init() that is safe to call again after SPA
    navigation: it re-queries the freshly swapped DOM and an epoch counter
    stops any animation loop left over from a previous page instance. */

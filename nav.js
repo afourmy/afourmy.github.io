@@ -64,7 +64,7 @@
       [
         { href: "projects/tsp.html", en: "Traveling Salesman Problem" },
         { href: "projects/swap.html", en: "Wavelength Assignment Problem" },
-        { href: "projects/computational-genomics.html", en: "Computational Genomics" },
+        { href: "projects/computational-genomics.html", en: "Pattern Finding in DNA" },
       ]
     ]},
     { en: "Books", columns: [
