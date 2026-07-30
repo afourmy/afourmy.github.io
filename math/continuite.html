@@ -73,6 +73,8 @@
       <circle class="fig-dot" cx="250" cy="120" r="4"/>
       <text x="246" y="272">a</text>
       <text x="24" y="125">f(a)</text>
+      <text x="8" y="104">f(a)+ε</text>
+      <text x="8" y="151">f(a)−ε</text>
     </svg>
 
     <p class="en">Continuity can also be stated with sequences: $f$ is continuous at $a$ when $x_n \to a$ implies $f(x_n) \to f(a)$. In other words, $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$. This is the form used in practice.</p>
@@ -404,18 +406,29 @@
     <p class="en">In the definition of continuity, $\delta$ is chosen after the point $a$, so it can depend on $a$. Uniform continuity requires one $\delta$ valid for all points at once. The difference is only the position of $\exists \delta$: continuity at every point is $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$; uniform continuity is $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Example: $x \mapsto 1/x$ on $]0,1]$ is continuous, but the graph gets steeper near $0$, so the $\delta$ needed for a given $\varepsilon$ shrinks: no single $\delta$ works for the whole interval.</p>
     <p class="fr">Dans la définition de la continuité, $\delta$ est choisi après le point $a$, donc peut dépendre de $a$. La continuité uniforme exige un $\delta$ valable pour tous les points à la fois. La différence est seulement la position de $\exists \delta$ : la continuité en tout point s'écrit $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$ ; la continuité uniforme s'écrit $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Exemple : $x \mapsto 1/x$ sur $]0,1]$ est continue, mais le graphe devient de plus en plus raide près de $0$, donc le $\delta$ requis pour un $\varepsilon$ donné rétrécit : aucun $\delta$ ne convient pour tout l'intervalle.</p>
 
+    <p class="en">On the graph of $1/x$: the same output margin $\varepsilon$, marked twice on the y-axis, pulls back to input intervals $\delta$ on the x-axis of very different sizes.</p>
+    <p class="fr">Sur le graphe de $1/x$ : la même marge de sortie $\varepsilon$, marquée deux fois sur l'axe des ordonnées, se ramène à des intervalles d'entrée $\delta$ de tailles très différentes sur l'axe des abscisses.</p>
+
     <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
       <line class="fig-axis" x1="64" y1="262" x2="430" y2="262"/>
       <line class="fig-axis" x1="64" y1="262" x2="64" y2="16"/>
       <path class="fig-curve" d="M125 22 L129.9 39.8 L137.2 62 L144.5 80.2 L155.5 102 L166.5 119.1 L181.1 137 L195.8 150.9 L210.4 162 L228.7 173.1 L247 182 L265.3 189.3 L283.6 195.3 L301.9 200.5 L320.2 204.9 L338.5 208.7 L356.8 212 L375.1 214.9 L393.4 217.6 L411.7 219.9 L430 222"/>
-      <rect class="fig-band" x="132.1" y="47" width="11" height="30"/>
-      <rect class="fig-band" x="248.1" y="182.5" width="111.6" height="30"/>
-      <circle class="fig-dot" cx="137.2" cy="62" r="3"/>
-      <circle class="fig-dot" cx="303.9" cy="201" r="3"/>
-      <text x="148" y="66">ε</text>
-      <text x="133" y="95">δ</text>
-      <text x="365" y="201">ε</text>
-      <text x="298" y="230">δ</text>
+      <line class="fig-interval" x1="64" y1="47" x2="64" y2="77"/>
+      <line class="fig-guide" x1="64" y1="47" x2="132.1" y2="47"/>
+      <line class="fig-guide" x1="64" y1="77" x2="143.1" y2="77"/>
+      <line class="fig-guide" x1="132.1" y1="47" x2="132.1" y2="262"/>
+      <line class="fig-guide" x1="143.1" y1="77" x2="143.1" y2="262"/>
+      <line class="fig-interval" x1="132.1" y1="262" x2="143.1" y2="262"/>
+      <line class="fig-interval" x1="64" y1="185.5" x2="64" y2="215.5"/>
+      <line class="fig-guide" x1="64" y1="185.5" x2="255.4" y2="185.5"/>
+      <line class="fig-guide" x1="64" y1="215.5" x2="378.8" y2="215.5"/>
+      <line class="fig-guide" x1="255.4" y1="185.5" x2="255.4" y2="262"/>
+      <line class="fig-guide" x1="378.8" y1="215.5" x2="378.8" y2="262"/>
+      <line class="fig-interval" x1="255.4" y1="262" x2="378.8" y2="262"/>
+      <text x="44" y="66">ε</text>
+      <text x="44" y="204">ε</text>
+      <text x="124" y="284">δ</text>
+      <text x="308" y="284">δ</text>
     </svg>
 
     <div class="thm-block definition">
@@ -436,6 +449,8 @@
       <line class="fig-accent" x1="80" y1="52" x2="420" y2="239"/>
       <path class="fig-curve" d="M85 175 C140 160 190 150 240 140 C290 132 340 120 410 100"/>
       <circle class="fig-dot" cx="240" cy="140" r="4"/>
+      <text x="396" y="44">k</text>
+      <text x="388" y="244">−k</text>
     </svg>
 
     <div class="thm-block definition">
