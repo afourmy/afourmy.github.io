@@ -431,11 +431,13 @@ details.tsp-code > p {
   fill: var(--text);
 }
 
+/* every stroked shape must opt out of the default black fill, otherwise a
+   <circle> or <path> using one of these classes renders as a solid blob */
 .fig-curve { fill: none; stroke: var(--accent-strong); stroke-width: 2; }
-.fig-axis { stroke: var(--text-muted); stroke-width: 1.2; }
-.fig-guide { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 4 3; }
+.fig-axis { fill: none; stroke: var(--text-muted); stroke-width: 1.2; }
+.fig-guide { fill: none; stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 4 3; }
 .fig-band { fill: var(--accent); opacity: 0.15; }
-.fig-accent { stroke: var(--accent); stroke-width: 1.6; }
+.fig-accent { fill: none; stroke: var(--accent); stroke-width: 1.6; }
 .fig-dot { fill: var(--accent-strong); }
 .fig-hole { fill: var(--bg); stroke: var(--accent-strong); stroke-width: 2; }
 .fig-interval { stroke: var(--accent); stroke-width: 4; }
