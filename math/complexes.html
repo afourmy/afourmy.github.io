@@ -43,32 +43,35 @@
     <p class="en">The point $i$ is at distance $1$ above $0$. Multiply the four numbers $1$, $i$, $-1$, $-i$ by $i$: each one moves a quarter turn counterclockwise. Two quarter turns make a half turn, which is multiplication by $-1$. That is what $i^2 = -1$ says.</p>
     <p class="fr">Le point $i$ est &agrave; distance $1$ au-dessus de $0$. Multiplions les quatre nombres $1$, $i$, $-1$, $-i$ par $i$ : chacun avance d'un quart de tour dans le sens direct. Deux quarts de tour font un demi-tour, c'est-&agrave;-dire la multiplication par $-1$. C'est ce que dit $i^2 = -1$.</p>
 
-    <svg class="figure" width="360" height="320" viewBox="0 0 360 320">
-      <circle class="fig-guide" cx="170.0" cy="160.0" r="72.0"/>
-      <line class="fig-axis" x1="40.0" y1="160.0" x2="300.0" y2="160.0"/>
-      <line class="fig-axis" x1="170.0" y1="30.0" x2="170.0" y2="290.0"/>
-      <circle class="fig-dot" cx="242.0" cy="160.0" r="4.0"/>
-      <circle class="fig-dot" cx="170.0" cy="88.0" r="4.0"/>
-      <circle class="fig-dot" cx="98.0" cy="160.0" r="4.0"/>
-      <circle class="fig-dot" cx="170.0" cy="232.0" r="4.0"/>
-      <text x="328.0" y="166.0">1</text>
-      <text x="180.0" y="74.0">i</text>
-      <text x="0.0" y="166.0">−1</text>
-      <text x="180.0" y="258.0">−i</text>
-      <path class="fig-arc" d="M 265.9 139.6 A 98.0 98.0 0 0 0 190.4 64.1"/>
-      <polygon class="fig-dot" points="190.4,64.1 200.0,62.1 198.3,70.0"/>
-      <text x="241.6" y="84.4">×i</text>
-      <path class="fig-arc" d="M 149.6 64.1 A 98.0 98.0 0 0 0 74.1 139.6"/>
-      <polygon class="fig-dot" points="74.1,139.6 72.1,130.0 80.0,131.7"/>
-      <text x="80.4" y="84.4">×i</text>
-      <path class="fig-arc" d="M 74.1 180.4 A 98.0 98.0 0 0 0 149.6 255.9"/>
-      <polygon class="fig-dot" points="149.6,255.9 140.0,257.9 141.7,250.0"/>
-      <text x="80.4" y="245.6">×i</text>
-      <path class="fig-arc" d="M 190.4 255.9 A 98.0 98.0 0 0 0 265.9 180.4"/>
-      <polygon class="fig-dot" points="265.9,180.4 267.9,190.0 260.0,188.3"/>
-      <text x="241.6" y="245.6">×i</text>
-      <text x="150.0" y="178.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="360" height="320" viewBox="0 0 360 320">
+        <circle class="fig-guide" cx="170.0" cy="160.0" r="72.0"/>
+        <line class="fig-axis" x1="40.0" y1="160.0" x2="300.0" y2="160.0"/>
+        <line class="fig-axis" x1="170.0" y1="30.0" x2="170.0" y2="290.0"/>
+        <circle class="fig-dot" cx="242.0" cy="160.0" r="4.0"/>
+        <circle class="fig-dot" cx="170.0" cy="88.0" r="4.0"/>
+        <circle class="fig-dot" cx="98.0" cy="160.0" r="4.0"/>
+        <circle class="fig-dot" cx="170.0" cy="232.0" r="4.0"/>
+        <text x="328.0" y="166.0">1</text>
+        <text x="180.0" y="74.0">i</text>
+        <text x="0.0" y="166.0">−1</text>
+        <text x="180.0" y="258.0">−i</text>
+        <path class="fig-arc" d="M 265.9 139.6 A 98.0 98.0 0 0 0 190.4 64.1"/>
+        <polygon class="fig-dot" points="190.4,64.1 200.0,62.1 198.3,70.0"/>
+        <text x="241.6" y="84.4">×i</text>
+        <path class="fig-arc" d="M 149.6 64.1 A 98.0 98.0 0 0 0 74.1 139.6"/>
+        <polygon class="fig-dot" points="74.1,139.6 72.1,130.0 80.0,131.7"/>
+        <text x="80.4" y="84.4">×i</text>
+        <path class="fig-arc" d="M 74.1 180.4 A 98.0 98.0 0 0 0 149.6 255.9"/>
+        <polygon class="fig-dot" points="149.6,255.9 140.0,257.9 141.7,250.0"/>
+        <text x="80.4" y="245.6">×i</text>
+        <path class="fig-arc" d="M 190.4 255.9 A 98.0 98.0 0 0 0 265.9 180.4"/>
+        <polygon class="fig-dot" points="265.9,180.4 267.9,190.0 260.0,188.3"/>
+        <text x="241.6" y="245.6">×i</text>
+        <text x="150.0" y="178.0">O</text>
+      </svg>
+      <figcaption><span class="en">Multiplication by $i$, seen as a quarter turn.</span><span class="fr">La multiplication par $i$, vue comme un quart de tour.</span></figcaption>
+    </figure>
 
 
     <!-- Conjugate -->
@@ -83,29 +86,31 @@
       <p class="fr"><span class="thm-label">D&eacute;finition (Module).</span> Le <em>module</em> de $z=a+ib$ est $|z|=\sqrt{a^2+b^2}=\sqrt{z\bar{z}}$.</p>
     </div>
 
-    <p class="en">Both operations are geometric. On the picture below, $a$ and $b$ are read on the axes, $|z|$ is the length of the segment from $0$ to $z$ by Pythagoras, and $\bar{z}$ is the reflection of $z$ in the real axis.</p>
-    <p class="fr">Les deux op&eacute;rations sont g&eacute;om&eacute;triques. Sur l'image ci-dessous, $a$ et $b$ se lisent sur les axes, $|z|$ est la longueur du segment de $0$ &agrave; $z$ par Pythagore, et $\bar{z}$ est la r&eacute;flexion de $z$ dans l'axe r&eacute;el.</p>
-    <svg class="figure" width="440" height="285" viewBox="0 0 440 285">
-      <line class="fig-axis" x1="40.0" y1="140.0" x2="420.0" y2="140.0"/>
-      <line class="fig-axis" x1="150.0" y1="20.0" x2="150.0" y2="268.0"/>
-      <line class="fig-guide" x1="266.0" y1="53.0" x2="266.0" y2="140.0"/>
-      <line class="fig-guide" x1="150.0" y1="53.0" x2="266.0" y2="53.0"/>
-      <line class="fig-guide" x1="266.0" y1="227.0" x2="266.0" y2="140.0"/>
-      <line class="fig-curve" x1="150.0" y1="140.0" x2="266.0" y2="53.0"/>
-      <circle class="fig-dot" cx="266.0" cy="53.0" r="4.0"/>
-      <circle class="fig-dot" cx="266.0" cy="227.0" r="4.0"/>
-      <circle class="fig-dot" cx="266.0" cy="140.0" r="2.5"/>
-      <circle class="fig-dot" cx="150.0" cy="53.0" r="2.5"/>
-      <text x="260.0" y="158.0">a</text>
-      <text x="128.0" y="58.0">b</text>
-      <text x="186.0" y="84.5">|z|</text>
-      <text x="276.0" y="47.0">z</text>
-      <text x="276.0" y="243.0">z</text>
-      <line class="fig-bar" x1="276.0" y1="231.0" x2="284.0" y2="231.0"/>
-      <text x="405.0" y="158.0">Re</text>
-      <text x="158.0" y="30.0">Im</text>
-      <text x="132.0" y="158.0">O</text>
-    </svg>
+
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="285" viewBox="0 0 440 285">
+        <line class="fig-axis" x1="40.0" y1="140.0" x2="420.0" y2="140.0"/>
+        <line class="fig-axis" x1="150.0" y1="20.0" x2="150.0" y2="268.0"/>
+        <line class="fig-guide" x1="266.0" y1="53.0" x2="266.0" y2="140.0"/>
+        <line class="fig-guide" x1="150.0" y1="53.0" x2="266.0" y2="53.0"/>
+        <line class="fig-guide" x1="266.0" y1="227.0" x2="266.0" y2="140.0"/>
+        <line class="fig-curve" x1="150.0" y1="140.0" x2="266.0" y2="53.0"/>
+        <circle class="fig-dot" cx="266.0" cy="53.0" r="4.0"/>
+        <circle class="fig-dot" cx="266.0" cy="227.0" r="4.0"/>
+        <circle class="fig-dot" cx="266.0" cy="140.0" r="2.5"/>
+        <circle class="fig-dot" cx="150.0" cy="53.0" r="2.5"/>
+        <text x="260.0" y="158.0">a</text>
+        <text x="128.0" y="58.0">b</text>
+        <text x="186.0" y="84.5">|z|</text>
+        <text x="276.0" y="47.0">z</text>
+        <text x="276.0" y="243.0">z</text>
+        <line class="fig-bar" x1="276.0" y1="231.0" x2="284.0" y2="231.0"/>
+        <text x="405.0" y="158.0">Re</text>
+        <text x="158.0" y="30.0">Im</text>
+        <text x="132.0" y="158.0">O</text>
+      </svg>
+      <figcaption><span class="en">Both operations are geometric: $a$ and $b$ are read on the axes, $|z|$ is the length of the segment from $0$ to $z$ by Pythagoras, and $\bar{z}$ is the reflection of $z$ in the real axis.</span><span class="fr">Les deux op&eacute;rations sont g&eacute;om&eacute;triques : $a$ et $b$ se lisent sur les axes, $|z|$ est la longueur du segment de $0$ &agrave; $z$ par Pythagore, et $\bar{z}$ est la r&eacute;flexion de $z$ dans l'axe r&eacute;el.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary.</span> For $z, z' \neq 0$: $|z^{-1}| = |z|^{-1}$ and $|z/z'| = |z|/|z'|$.</p>
@@ -127,29 +132,30 @@
     <p class="en">Two facts justify the notation. Since $\cos^2\theta + \sin^2\theta = 1$, we have $|e^{i\theta}| = 1$, so $e^{i\theta}$ is a point of the unit circle, at angle $\theta$. And an exponential must turn sums into products, which this one does: multiplying out gives $e^{i\theta}e^{i\theta'} = (\cos\theta\cos\theta' - \sin\theta\sin\theta') + i(\sin\theta\cos\theta' + \cos\theta\sin\theta')$, and the addition formulas rewrite the right side as $\cos(\theta+\theta') + i\sin(\theta+\theta') = e^{i(\theta+\theta')}$. So the single identity $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$ holds both addition formulas at once.</p>
     <p class="fr">Deux faits justifient la notation. Comme $\cos^2\theta + \sin^2\theta = 1$, on a $|e^{i\theta}| = 1$, donc $e^{i\theta}$ est un point du cercle unit&eacute;, d'angle $\theta$. Et une exponentielle doit transformer les sommes en produits, ce que celle-ci fait : en d&eacute;veloppant, $e^{i\theta}e^{i\theta'} = (\cos\theta\cos\theta' - \sin\theta\sin\theta') + i(\sin\theta\cos\theta' + \cos\theta\sin\theta')$, et les formules d'addition r&eacute;&eacute;crivent le membre de droite en $\cos(\theta+\theta') + i\sin(\theta+\theta') = e^{i(\theta+\theta')}$. L'unique identit&eacute; $e^{i(\theta+\theta')} = e^{i\theta}e^{i\theta'}$ contient donc les deux formules d'addition &agrave; la fois.</p>
 
-    <p class="en">The definition drawn: $e^{i\theta}$ is on the unit circle at angle $\theta$, and $\cos\theta$, $\sin\theta$ are its two projections.</p>
-    <p class="fr">La d&eacute;finition dessin&eacute;e : $e^{i\theta}$ est sur le cercle unit&eacute; &agrave; l'angle $\theta$, et $\cos\theta$, $\sin\theta$ sont ses deux projections.</p>
 
-    <svg class="figure" width="400" height="310" viewBox="0 0 400 310">
-      <circle class="fig-curve" cx="140.0" cy="195.0" r="112.0"/>
-      <line class="fig-axis" x1="40.0" y1="195.0" x2="375.0" y2="195.0"/>
-      <line class="fig-axis" x1="140.0" y1="60.0" x2="140.0" y2="290.0"/>
-      <line class="fig-guide" x1="204.2" y1="103.3" x2="204.2" y2="195.0"/>
-      <line class="fig-guide" x1="140.0" y1="103.3" x2="204.2" y2="103.3"/>
-      <line class="fig-curve" x1="140.0" y1="195.0" x2="204.2" y2="103.3"/>
-      <path class="fig-arc" d="M 174.0 195.0 A 34.0 34.0 0 0 0 159.5 167.1"/>
-      <text x="178.6" y="177.8">θ</text>
-      <circle class="fig-dot" cx="204.2" cy="103.3" r="4.0"/>
-      <circle class="fig-dot" cx="204.2" cy="195.0" r="2.5"/>
-      <circle class="fig-dot" cx="140.0" cy="103.3" r="2.5"/>
-      <text x="180.2" y="214.0">cos θ</text>
-      <text x="88.0" y="108.3">sin θ</text>
-      <text x="152.1" y="141.1">1</text>
-      <text x="214.2" y="95.3">e<tspan dy="-5" font-size="11">iθ</tspan></text>
-      <text x="120.0" y="214.0">O</text>
-      <text x="360.0" y="214.0">Re</text>
-      <text x="148.0" y="72.0">Im</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="310" viewBox="0 0 400 310">
+        <circle class="fig-curve" cx="140.0" cy="195.0" r="112.0"/>
+        <line class="fig-axis" x1="40.0" y1="195.0" x2="375.0" y2="195.0"/>
+        <line class="fig-axis" x1="140.0" y1="60.0" x2="140.0" y2="290.0"/>
+        <line class="fig-guide" x1="204.2" y1="103.3" x2="204.2" y2="195.0"/>
+        <line class="fig-guide" x1="140.0" y1="103.3" x2="204.2" y2="103.3"/>
+        <line class="fig-curve" x1="140.0" y1="195.0" x2="204.2" y2="103.3"/>
+        <path class="fig-arc" d="M 174.0 195.0 A 34.0 34.0 0 0 0 159.5 167.1"/>
+        <text x="178.6" y="177.8">θ</text>
+        <circle class="fig-dot" cx="204.2" cy="103.3" r="4.0"/>
+        <circle class="fig-dot" cx="204.2" cy="195.0" r="2.5"/>
+        <circle class="fig-dot" cx="140.0" cy="103.3" r="2.5"/>
+        <text x="180.2" y="214.0">cos θ</text>
+        <text x="88.0" y="108.3">sin θ</text>
+        <text x="152.1" y="141.1">1</text>
+        <text x="214.2" y="95.3">e<tspan dy="-5" font-size="11">iθ</tspan></text>
+        <text x="120.0" y="214.0">O</text>
+        <text x="360.0" y="214.0">Re</text>
+        <text x="148.0" y="72.0">Im</text>
+      </svg>
+      <figcaption><span class="en">The definition drawn: $e^{i\theta}$ is on the unit circle at angle $\theta$, and $\cos\theta$, $\sin\theta$ are its two projections.</span><span class="fr">La d&eacute;finition dessin&eacute;e : $e^{i\theta}$ est sur le cercle unit&eacute; &agrave; l'angle $\theta$, et $\cos\theta$, $\sin\theta$ sont ses deux projections.</span></figcaption>
+    </figure>
 
     <!-- Argument and exponential form -->
     <div class="thm-block definition">
@@ -175,33 +181,34 @@
       Si $z_k=r_k e^{i\theta_k}$, alors $z_1z_2=r_1r_2\,e^{i(\theta_1+\theta_2)}$ et $\bar{z}=re^{-i\theta}$.
     </details>
 
-    <p class="en">Multiplication in the plane: the lengths multiply and the angles add. The outer arc shows the same angle $\theta_2$ carrying $z_1$ to $z_1z_2$.</p>
-    <p class="fr">La multiplication dans le plan : les longueurs se multiplient et les angles s'ajoutent. L'arc ext&eacute;rieur montre le m&ecirc;me angle $\theta_2$ qui envoie $z_1$ sur $z_1z_2$.</p>
 
-    <svg class="figure" width="440" height="330" viewBox="0 0 440 330">
-      <line class="fig-axis" x1="40.0" y1="278.0" x2="410.0" y2="278.0"/>
-      <line class="fig-axis" x1="62.0" y1="70.0" x2="62.0" y2="315.0"/>
-      <line class="fig-curve" x1="62.0" y1="278.0" x2="234.3" y2="247.6"/>
-      <line class="fig-curve" x1="62.0" y1="278.0" x2="125.1" y2="187.9"/>
-      <line class="fig-curve" x1="62.0" y1="278.0" x2="143.4" y2="103.5"/>
-      <path class="fig-arc" d="M 108.0 278.0 A 46.0 46.0 0 0 0 107.3 270.0"/>
-      <text x="114.8" y="277.9">θ<tspan dy="4" font-size="11">1</tspan></text>
-      <path class="fig-arc" d="M 126.0 278.0 A 64.0 64.0 0 0 0 98.7 225.6"/>
-      <text x="122.7" y="242.8">θ<tspan dy="4" font-size="11">2</tspan></text>
-      <path class="fig-arc" d="M 192.0 255.1 A 132.0 132.0 0 0 0 117.8 158.4"/>
-      <polygon class="fig-dot" points="117.8,158.4 127.7,158.5 124.2,165.8"/>
-      <text x="172.8" y="194.1">θ<tspan dy="4" font-size="11">2</tspan></text>
-      <circle class="fig-dot" cx="234.3" cy="247.6" r="4.0"/>
-      <circle class="fig-dot" cx="125.1" cy="187.9" r="4.0"/>
-      <circle class="fig-dot" cx="143.4" cy="103.5" r="4.0"/>
-      <text x="244.3" y="261.6">z<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="137.1" y="189.9">z<tspan dy="4" font-size="11">2</tspan></text>
-      <text x="153.4" y="95.5">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">z<tspan dy="4" font-size="11">2</tspan></tspan></text>
-      <text x="140.2" y="252.8">r<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="67.5" y="236.9">r<tspan dy="4" font-size="11">2</tspan></text>
-      <text x="62.7" y="194.8">r<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">r<tspan dy="4" font-size="11">2</tspan></tspan></text>
-      <text x="42.0" y="297.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="330" viewBox="0 0 440 330">
+        <line class="fig-axis" x1="40.0" y1="278.0" x2="410.0" y2="278.0"/>
+        <line class="fig-axis" x1="62.0" y1="70.0" x2="62.0" y2="315.0"/>
+        <line class="fig-curve" x1="62.0" y1="278.0" x2="234.3" y2="247.6"/>
+        <line class="fig-curve" x1="62.0" y1="278.0" x2="125.1" y2="187.9"/>
+        <line class="fig-curve" x1="62.0" y1="278.0" x2="143.4" y2="103.5"/>
+        <path class="fig-arc" d="M 108.0 278.0 A 46.0 46.0 0 0 0 107.3 270.0"/>
+        <text x="114.8" y="277.9">θ<tspan dy="4" font-size="11">1</tspan></text>
+        <path class="fig-arc" d="M 126.0 278.0 A 64.0 64.0 0 0 0 98.7 225.6"/>
+        <text x="122.7" y="242.8">θ<tspan dy="4" font-size="11">2</tspan></text>
+        <path class="fig-arc" d="M 192.0 255.1 A 132.0 132.0 0 0 0 117.8 158.4"/>
+        <polygon class="fig-dot" points="117.8,158.4 127.7,158.5 124.2,165.8"/>
+        <text x="172.8" y="194.1">θ<tspan dy="4" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="234.3" cy="247.6" r="4.0"/>
+        <circle class="fig-dot" cx="125.1" cy="187.9" r="4.0"/>
+        <circle class="fig-dot" cx="143.4" cy="103.5" r="4.0"/>
+        <text x="244.3" y="261.6">z<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="137.1" y="189.9">z<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="153.4" y="95.5">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">z<tspan dy="4" font-size="11">2</tspan></tspan></text>
+        <text x="140.2" y="252.8">r<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="67.5" y="236.9">r<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="62.7" y="194.8">r<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">r<tspan dy="4" font-size="11">2</tspan></tspan></text>
+        <text x="42.0" y="297.0">O</text>
+      </svg>
+      <figcaption><span class="en">Multiplication in the plane: the lengths multiply and the angles add. The outer arc shows the same angle $\theta_2$ carrying $z_1$ to $z_1z_2$.</span><span class="fr">La multiplication dans le plan : les longueurs se multiplient et les angles s'ajoutent. L'arc ext&eacute;rieur montre le m&ecirc;me angle $\theta_2$ qui envoie $z_1$ sur $z_1z_2$.</span></figcaption>
+    </figure>
 
     <!-- Real or purely imaginary quotient -->
     <div class="thm-block proposition">
@@ -238,33 +245,34 @@
       La seconde s'obtient en appliquant la premi&egrave;re &agrave; $z_1=(z_1-z_2)+z_2$ : $|z_1|\le|z_1-z_2|+|z_2|$, puis par sym&eacute;trie. Le cas d'&eacute;galit&eacute; se ram&egrave;ne au m&ecirc;me.
     </details>
 
-    <p class="en">Left: the two paths from $0$ to $z_1+z_2$. Right: when $z_1$ and $z_2$ have the same argument the triangle is flat, the two paths coincide, and the inequality becomes an equality.</p>
-    <p class="fr">&Agrave; gauche : les deux chemins de $0$ &agrave; $z_1+z_2$. &Agrave; droite : quand $z_1$ et $z_2$ ont le m&ecirc;me argument, le triangle est plat, les deux chemins co&iuml;ncident, et l'in&eacute;galit&eacute; devient une &eacute;galit&eacute;.</p>
 
-    <svg class="figure" width="440" height="250" viewBox="0 0 440 250">
-      <line class="fig-curve" x1="45.0" y1="205.0" x2="181.4" y2="186.4"/>
-      <line class="fig-curve" x1="181.4" y1="186.4" x2="212.4" y2="87.2"/>
-      <line class="fig-accent" x1="45.0" y1="205.0" x2="212.4" y2="87.2"/>
-      <circle class="fig-dot" cx="45.0" cy="205.0" r="3.0"/>
-      <circle class="fig-dot" cx="181.4" cy="186.4" r="4.0"/>
-      <circle class="fig-dot" cx="212.4" cy="87.2" r="4.0"/>
-      <text x="27.0" y="223.0">O</text>
-      <text x="187.4" y="204.4">z<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="202.4" y="77.2">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan></tspan></text>
-      <text x="97.2" y="215.7">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
-      <text x="206.9" y="142.8">|z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
-      <text x="56.7" y="140.1">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></tspan></text>
-      <line class="fig-curve" x1="252.0" y1="205.0" x2="333.6" y2="175.3"/>
-      <line class="fig-curve" x1="333.6" y1="175.3" x2="391.8" y2="154.1"/>
-      <circle class="fig-dot" cx="252.0" cy="205.0" r="3.0"/>
-      <circle class="fig-dot" cx="333.6" cy="175.3" r="4.0"/>
-      <circle class="fig-dot" cx="391.8" cy="154.1" r="4.0"/>
-      <text x="234.0" y="223.0">O</text>
-      <text x="327.6" y="195.3">z<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="377.8" y="144.1">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan></tspan></text>
-      <text x="276.8" y="182.2">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
-      <text x="354.7" y="184.7">|z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="250" viewBox="0 0 440 250">
+        <line class="fig-curve" x1="45.0" y1="205.0" x2="181.4" y2="186.4"/>
+        <line class="fig-curve" x1="181.4" y1="186.4" x2="212.4" y2="87.2"/>
+        <line class="fig-accent" x1="45.0" y1="205.0" x2="212.4" y2="87.2"/>
+        <circle class="fig-dot" cx="45.0" cy="205.0" r="3.0"/>
+        <circle class="fig-dot" cx="181.4" cy="186.4" r="4.0"/>
+        <circle class="fig-dot" cx="212.4" cy="87.2" r="4.0"/>
+        <text x="27.0" y="223.0">O</text>
+        <text x="187.4" y="204.4">z<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="202.4" y="77.2">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan></tspan></text>
+        <text x="97.2" y="215.7">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
+        <text x="206.9" y="142.8">|z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
+        <text x="56.7" y="140.1">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></tspan></text>
+        <line class="fig-curve" x1="252.0" y1="205.0" x2="333.6" y2="175.3"/>
+        <line class="fig-curve" x1="333.6" y1="175.3" x2="391.8" y2="154.1"/>
+        <circle class="fig-dot" cx="252.0" cy="205.0" r="3.0"/>
+        <circle class="fig-dot" cx="333.6" cy="175.3" r="4.0"/>
+        <circle class="fig-dot" cx="391.8" cy="154.1" r="4.0"/>
+        <text x="234.0" y="223.0">O</text>
+        <text x="327.6" y="195.3">z<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="377.8" y="144.1">z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">+z<tspan dy="4" font-size="11">2</tspan></tspan></text>
+        <text x="276.8" y="182.2">|z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
+        <text x="354.7" y="184.7">|z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
+      </svg>
+      <figcaption><span class="en">Left: the two paths from $0$ to $z_1+z_2$. Right: when $z_1$ and $z_2$ have the same argument the triangle is flat, the two paths coincide, and the inequality becomes an equality.</span><span class="fr">&Agrave; gauche : les deux chemins de $0$ &agrave; $z_1+z_2$. &Agrave; droite : quand $z_1$ et $z_2$ ont le m&ecirc;me argument, le triangle est plat, les deux chemins co&iuml;ncident, et l'in&eacute;galit&eacute; devient une &eacute;galit&eacute;.</span></figcaption>
+    </figure>
 
     <h3 class="en">Trigonometry becomes algebra</h3>
     <h3 class="fr">La trigonom&eacute;trie devient de l'alg&egrave;bre</h3>
@@ -278,27 +286,28 @@
       <p class="fr"><span class="thm-label">Proposition (Formules d'Euler).</span> $\cos\theta=\frac{e^{i\theta}+e^{-i\theta}}{2}$ et $\sin\theta=\frac{e^{i\theta}-e^{-i\theta}}{2i}$. Ces formules permettent de lin&eacute;ariser $\cos^n\theta$ et $\sin^n\theta$.</p>
     </div>
 
-    <p class="en">$e^{i\theta}$ and $e^{-i\theta}$ are mirror points. Their midpoint lies on the real axis at $\cos\theta$, and the vertical segment between them has half-length $\sin\theta$.</p>
-    <p class="fr">$e^{i\theta}$ et $e^{-i\theta}$ sont sym&eacute;triques. Leur milieu est sur l'axe r&eacute;el en $\cos\theta$, et le segment vertical qui les joint a pour demi-longueur $\sin\theta$.</p>
 
-    <svg class="figure" width="400" height="300" viewBox="0 0 400 300">
-      <circle class="fig-curve" cx="125.0" cy="155.0" r="112.0"/>
-      <line class="fig-axis" x1="35.0" y1="155.0" x2="370.0" y2="155.0"/>
-      <line class="fig-axis" x1="125.0" y1="25.0" x2="125.0" y2="285.0"/>
-      <line class="fig-curve" x1="125.0" y1="155.0" x2="197.0" y2="69.2"/>
-      <line class="fig-curve" x1="125.0" y1="155.0" x2="197.0" y2="240.8"/>
-      <line class="fig-guide" x1="197.0" y1="69.2" x2="197.0" y2="240.8"/>
-      <circle class="fig-dot" cx="197.0" cy="69.2" r="4.0"/>
-      <circle class="fig-dot" cx="197.0" cy="240.8" r="4.0"/>
-      <circle class="fig-dot" cx="197.0" cy="155.0" r="4.0"/>
-      <text x="207.0" y="63.2">e<tspan dy="-5" font-size="11">iθ</tspan></text>
-      <text x="207.0" y="256.8">e<tspan dy="-5" font-size="11">−iθ</tspan></text>
-      <text x="167.0" y="175.0">cos θ</text>
-      <text x="205.0" y="117.1">sin θ</text>
-      <text x="105.0" y="175.0">O</text>
-      <text x="355.0" y="175.0">Re</text>
-      <text x="133.0" y="37.0">Im</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="300" viewBox="0 0 400 300">
+        <circle class="fig-curve" cx="125.0" cy="155.0" r="112.0"/>
+        <line class="fig-axis" x1="35.0" y1="155.0" x2="370.0" y2="155.0"/>
+        <line class="fig-axis" x1="125.0" y1="25.0" x2="125.0" y2="285.0"/>
+        <line class="fig-curve" x1="125.0" y1="155.0" x2="197.0" y2="69.2"/>
+        <line class="fig-curve" x1="125.0" y1="155.0" x2="197.0" y2="240.8"/>
+        <line class="fig-guide" x1="197.0" y1="69.2" x2="197.0" y2="240.8"/>
+        <circle class="fig-dot" cx="197.0" cy="69.2" r="4.0"/>
+        <circle class="fig-dot" cx="197.0" cy="240.8" r="4.0"/>
+        <circle class="fig-dot" cx="197.0" cy="155.0" r="4.0"/>
+        <text x="207.0" y="63.2">e<tspan dy="-5" font-size="11">iθ</tspan></text>
+        <text x="207.0" y="256.8">e<tspan dy="-5" font-size="11">−iθ</tspan></text>
+        <text x="167.0" y="175.0">cos θ</text>
+        <text x="205.0" y="117.1">sin θ</text>
+        <text x="105.0" y="175.0">O</text>
+        <text x="355.0" y="175.0">Re</text>
+        <text x="133.0" y="37.0">Im</text>
+      </svg>
+      <figcaption><span class="en">$e^{i\theta}$ and $e^{-i\theta}$ are mirror points. Their midpoint lies on the real axis at $\cos\theta$, and the vertical segment between them has half-length $\sin\theta$.</span><span class="fr">$e^{i\theta}$ et $e^{-i\theta}$ sont sym&eacute;triques. Leur milieu est sur l'axe r&eacute;el en $\cos\theta$, et le segment vertical qui les joint a pour demi-longueur $\sin\theta$.</span></figcaption>
+    </figure>
 
     <p class="en">Read in the other direction, the same rule gives $(e^{i\theta})^n = e^{in\theta}$: raising to the power $n$ multiplies the angle by $n$. Expanding the left side with the binomial theorem and identifying real parts expresses $\cos(n\theta)$ as a polynomial in $\cos\theta$.</p>
     <p class="fr">Lue dans l'autre sens, la m&ecirc;me r&egrave;gle donne $(e^{i\theta})^n = e^{in\theta}$ : &eacute;lever &agrave; la puissance $n$ multiplie l'angle par $n$. En d&eacute;veloppant le membre de gauche par le bin&ocirc;me et en identifiant les parties r&eacute;elles, on exprime $\cos(n\theta)$ comme un polyn&ocirc;me en $\cos\theta$.</p>
@@ -309,37 +318,38 @@
       <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule de Moivre).</span> $(\cos\theta+i\sin\theta)^n=\cos(n\theta)+i\sin(n\theta)$ pour tout $n\in\mathbb{Z}$ (car $(e^{i\theta})^n=e^{in\theta}$). Cette formule permet d'exprimer $\cos(n\theta)$ et $\sin(n\theta)$ en fonction de $\cos\theta$ et $\sin\theta$ (d&eacute;velopper par le bin&ocirc;me et identifier parties r&eacute;elle et imaginaire).</p>
     </div>
 
-    <p class="en">Successive powers of a number of modulus $1$: each power adds the same angle $\theta$, so the points step around the circle.</p>
-    <p class="fr">Puissances successives d'un nombre de module $1$ : chaque puissance ajoute le m&ecirc;me angle $\theta$, donc les points avancent r&eacute;guli&egrave;rement sur le cercle.</p>
 
-    <svg class="figure" width="400" height="360" viewBox="0 0 400 360">
-      <circle class="fig-curve" cx="200.0" cy="205.0" r="128.0"/>
-      <line class="fig-axis" x1="55.0" y1="205.0" x2="350.0" y2="205.0"/>
-      <line class="fig-axis" x1="200.0" y1="65.0" x2="200.0" y2="345.0"/>
-      <circle class="fig-dot" cx="328.0" cy="205.0" r="4.0"/>
-      <text x="340.0" y="211.0">1</text>
-      <circle class="fig-dot" cx="298.1" cy="122.7" r="4.0"/>
-      <text x="308.1" y="112.7">z</text>
-      <circle class="fig-dot" cx="222.2" cy="78.9" r="4.0"/>
-      <text x="218.2" y="64.9">z<tspan dy="-5" font-size="11">2</tspan></text>
-      <circle class="fig-dot" cx="136.0" cy="94.1" r="4.0"/>
-      <text x="110.0" y="82.1">z<tspan dy="-5" font-size="11">3</tspan></text>
-      <circle class="fig-dot" cx="79.7" cy="161.2" r="4.0"/>
-      <text x="47.7" y="165.2">z<tspan dy="-5" font-size="11">4</tspan></text>
-      <path class="fig-arc" d="M 346.9 187.0 A 148.0 148.0 0 0 0 324.1 124.4"/>
-      <polygon class="fig-dot" points="324.1,124.4 332.4,129.7 325.6,134.1"/>
-      <text x="350.1" y="153.9">θ</text>
-      <path class="fig-arc" d="M 300.9 96.8 A 148.0 148.0 0 0 0 243.3 63.5"/>
-      <polygon class="fig-dot" points="243.3,63.5 253.1,62.2 250.7,70.0"/>
-      <text x="278.0" y="68.0">θ</text>
-      <path class="fig-arc" d="M 207.7 57.2 A 148.0 148.0 0 0 0 142.2 68.8"/>
-      <polygon class="fig-dot" points="142.2,68.8 148.9,61.5 152.0,69.0"/>
-      <text x="167.5" y="48.5">θ</text>
-      <path class="fig-arc" d="M 110.9 86.8 A 148.0 148.0 0 0 0 68.1 137.8"/>
-      <polygon class="fig-dot" points="68.1,137.8 68.6,128.0 75.8,131.6"/>
-      <text x="70.4" y="104.6">θ</text>
-      <text x="180.0" y="224.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="360" viewBox="0 0 400 360">
+        <circle class="fig-curve" cx="200.0" cy="205.0" r="128.0"/>
+        <line class="fig-axis" x1="55.0" y1="205.0" x2="350.0" y2="205.0"/>
+        <line class="fig-axis" x1="200.0" y1="65.0" x2="200.0" y2="345.0"/>
+        <circle class="fig-dot" cx="328.0" cy="205.0" r="4.0"/>
+        <text x="340.0" y="211.0">1</text>
+        <circle class="fig-dot" cx="298.1" cy="122.7" r="4.0"/>
+        <text x="308.1" y="112.7">z</text>
+        <circle class="fig-dot" cx="222.2" cy="78.9" r="4.0"/>
+        <text x="218.2" y="64.9">z<tspan dy="-5" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="136.0" cy="94.1" r="4.0"/>
+        <text x="110.0" y="82.1">z<tspan dy="-5" font-size="11">3</tspan></text>
+        <circle class="fig-dot" cx="79.7" cy="161.2" r="4.0"/>
+        <text x="47.7" y="165.2">z<tspan dy="-5" font-size="11">4</tspan></text>
+        <path class="fig-arc" d="M 346.9 187.0 A 148.0 148.0 0 0 0 324.1 124.4"/>
+        <polygon class="fig-dot" points="324.1,124.4 332.4,129.7 325.6,134.1"/>
+        <text x="350.1" y="153.9">θ</text>
+        <path class="fig-arc" d="M 300.9 96.8 A 148.0 148.0 0 0 0 243.3 63.5"/>
+        <polygon class="fig-dot" points="243.3,63.5 253.1,62.2 250.7,70.0"/>
+        <text x="278.0" y="68.0">θ</text>
+        <path class="fig-arc" d="M 207.7 57.2 A 148.0 148.0 0 0 0 142.2 68.8"/>
+        <polygon class="fig-dot" points="142.2,68.8 148.9,61.5 152.0,69.0"/>
+        <text x="167.5" y="48.5">θ</text>
+        <path class="fig-arc" d="M 110.9 86.8 A 148.0 148.0 0 0 0 68.1 137.8"/>
+        <polygon class="fig-dot" points="68.1,137.8 68.6,128.0 75.8,131.6"/>
+        <text x="70.4" y="104.6">θ</text>
+        <text x="180.0" y="224.0">O</text>
+      </svg>
+      <figcaption><span class="en">Successive powers of a number of modulus $1$: each power adds the same angle $\theta$, so the points step around the circle.</span><span class="fr">Puissances successives d'un nombre de module $1$ : chaque puissance ajoute le m&ecirc;me angle $\theta$, donc les points avancent r&eacute;guli&egrave;rement sur le cercle.</span></figcaption>
+    </figure>
 
     <h3 class="en">Roots</h3>
     <h3 class="fr">Racines</h3>
@@ -362,33 +372,34 @@
       $z^n=1\iff|z|=1$ et $n\arg(z)=0\ [2\pi]$, soit $\arg(z)=2k\pi/n$. Les valeurs distinctes modulo $2\pi$ correspondent &agrave; $k\in\{0,\ldots,n-1\}$.
     </details>
 
-    <p class="en">The six sixth roots of unity. Multiplying by $\omega$ rotates by $2\pi/6$ and sends each root to the next one.</p>
-    <p class="fr">Les six racines sixi&egrave;mes de l'unit&eacute;. Multiplier par $\omega$ tourne de $2\pi/6$ et envoie chaque racine sur la suivante.</p>
 
-    <svg class="figure" width="400" height="340" viewBox="0 0 400 340">
-      <circle class="fig-curve" cx="200.0" cy="180.0" r="122.0"/>
-      <line class="fig-axis" x1="55.0" y1="180.0" x2="350.0" y2="180.0"/>
-      <line class="fig-axis" x1="200.0" y1="40.0" x2="200.0" y2="320.0"/>
-      <polygon class="fig-shape" points="322.0,180.0 261.0,74.3 139.0,74.3 78.0,180.0 139.0,285.7 261.0,285.7"/>
-      <circle class="fig-dot" cx="322.0" cy="180.0" r="4.0"/>
-      <text x="334.0" y="186.0">1</text>
-      <circle class="fig-dot" cx="261.0" cy="74.3" r="4.0"/>
-      <text x="269.0" y="62.3">ω</text>
-      <circle class="fig-dot" cx="139.0" cy="74.3" r="4.0"/>
-      <text x="113.0" y="62.3">ω<tspan dy="-5" font-size="11">2</tspan></text>
-      <circle class="fig-dot" cx="78.0" cy="180.0" r="4.0"/>
-      <text x="48.0" y="186.0">ω<tspan dy="-5" font-size="11">3</tspan></text>
-      <circle class="fig-dot" cx="139.0" cy="285.7" r="4.0"/>
-      <text x="109.0" y="305.7">ω<tspan dy="-5" font-size="11">4</tspan></text>
-      <circle class="fig-dot" cx="261.0" cy="285.7" r="4.0"/>
-      <text x="269.0" y="307.7">ω<tspan dy="-5" font-size="11">5</tspan></text>
-      <path class="fig-arc" d="M 244.0 180.0 A 44.0 44.0 0 0 0 222.0 141.9"/>
-      <text x="238.0" y="155.0">2π/6</text>
-      <path class="fig-arc" d="M 342.6 160.0 A 144.0 144.0 0 0 0 288.7 66.5"/>
-      <polygon class="fig-dot" points="288.7,66.5 298.2,68.9 293.3,75.3"/>
-      <text x="330.6" y="105.0">×ω</text>
-      <text x="180.0" y="199.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="340" viewBox="0 0 400 340">
+        <circle class="fig-curve" cx="200.0" cy="180.0" r="122.0"/>
+        <line class="fig-axis" x1="55.0" y1="180.0" x2="350.0" y2="180.0"/>
+        <line class="fig-axis" x1="200.0" y1="40.0" x2="200.0" y2="320.0"/>
+        <polygon class="fig-shape" points="322.0,180.0 261.0,74.3 139.0,74.3 78.0,180.0 139.0,285.7 261.0,285.7"/>
+        <circle class="fig-dot" cx="322.0" cy="180.0" r="4.0"/>
+        <text x="334.0" y="186.0">1</text>
+        <circle class="fig-dot" cx="261.0" cy="74.3" r="4.0"/>
+        <text x="269.0" y="62.3">ω</text>
+        <circle class="fig-dot" cx="139.0" cy="74.3" r="4.0"/>
+        <text x="113.0" y="62.3">ω<tspan dy="-5" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="78.0" cy="180.0" r="4.0"/>
+        <text x="48.0" y="186.0">ω<tspan dy="-5" font-size="11">3</tspan></text>
+        <circle class="fig-dot" cx="139.0" cy="285.7" r="4.0"/>
+        <text x="109.0" y="305.7">ω<tspan dy="-5" font-size="11">4</tspan></text>
+        <circle class="fig-dot" cx="261.0" cy="285.7" r="4.0"/>
+        <text x="269.0" y="307.7">ω<tspan dy="-5" font-size="11">5</tspan></text>
+        <path class="fig-arc" d="M 244.0 180.0 A 44.0 44.0 0 0 0 222.0 141.9"/>
+        <text x="238.0" y="155.0">2π/6</text>
+        <path class="fig-arc" d="M 342.6 160.0 A 144.0 144.0 0 0 0 288.7 66.5"/>
+        <polygon class="fig-dot" points="288.7,66.5 298.2,68.9 293.3,75.3"/>
+        <text x="330.6" y="105.0">×ω</text>
+        <text x="180.0" y="199.0">O</text>
+      </svg>
+      <figcaption><span class="en">The six sixth roots of unity. Multiplying by $\omega$ rotates by $2\pi/6$ and sends each root to the next one.</span><span class="fr">Les six racines sixi&egrave;mes de l'unit&eacute;. Multiplier par $\omega$ tourne de $2\pi/6$ et envoie chaque racine sur la suivante.</span></figcaption>
+    </figure>
 
     <p class="en">Their sum is $0$, and the picture says why. Multiplying by $\omega$ permutes the $n$ roots, so it leaves their sum unchanged. But multiplying by $\omega$ is a rotation of angle $2\pi/n$, and for $n \ge 2$ the only point such a rotation leaves in place is $0$. The proof below obtains the same result as a geometric sum.</p>
     <p class="fr">Leur somme est nulle, et l'image dit pourquoi. Multiplier par $\omega$ permute les $n$ racines, donc laisse leur somme inchang&eacute;e. Or multiplier par $\omega$ est une rotation d'angle $2\pi/n$, et pour $n \ge 2$ le seul point qu'une telle rotation laisse en place est $0$. La d&eacute;monstration ci-dessous obtient le m&ecirc;me r&eacute;sultat par une somme g&eacute;om&eacute;trique.</p>
@@ -426,30 +437,31 @@
       $z^n=W\iff|z|^n=\rho$ et $n\arg(z)=\varphi\ [2\pi]$, d'o&ugrave; $|z|=\rho^{1/n}$ et $\arg(z)=(\varphi+2k\pi)/n$.
     </details>
 
-    <p class="en">The four fourth roots of $W = \rho e^{i\varphi}$: the square of the fourth roots of unity, scaled to radius $\rho^{1/4}$ and rotated by $\varphi/4$.</p>
-    <p class="fr">Les quatre racines quatri&egrave;mes de $W = \rho e^{i\varphi}$ : le carr&eacute; des racines quatri&egrave;mes de l'unit&eacute;, ramen&eacute; au rayon $\rho^{1/4}$ et tourn&eacute; de $\varphi/4$.</p>
 
-    <svg class="figure" width="400" height="330" viewBox="0 0 400 330">
-      <circle class="fig-curve" cx="200.0" cy="175.0" r="110.0"/>
-      <line class="fig-axis" x1="60.0" y1="175.0" x2="345.0" y2="175.0"/>
-      <line class="fig-axis" x1="200.0" y1="45.0" x2="200.0" y2="310.0"/>
-      <polygon class="fig-shape" points="304.9,141.9 166.9,70.1 95.1,208.1 233.1,279.9"/>
-      <circle class="fig-dot" cx="304.9" cy="141.9" r="4.0"/>
-      <text x="316.9" y="145.9">z<tspan dy="4" font-size="11">0</tspan></text>
-      <circle class="fig-dot" cx="166.9" cy="70.1" r="4.0"/>
-      <text x="172.9" y="58.1">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω</tspan></text>
-      <circle class="fig-dot" cx="95.1" cy="208.1" r="4.0"/>
-      <text x="55.1" y="224.1">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω<tspan dy="-5" font-size="11">2</tspan></tspan></text>
-      <circle class="fig-dot" cx="233.1" cy="279.9" r="4.0"/>
-      <text x="239.1" y="301.9">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω<tspan dy="-5" font-size="11">3</tspan></tspan></text>
-      <line class="fig-curve" x1="200.0" y1="175.0" x2="304.9" y2="141.9"/>
-      <path class="fig-arc" d="M 246.0 175.0 A 46.0 46.0 0 0 0 243.9 161.2"/>
-      <text x="255.3" y="171.6">φ/4</text>
-      <path class="fig-arc" d="M 270.6 152.7 A 74.0 74.0 0 0 0 177.7 104.4"/>
-      <text x="225.6" y="97.2">2π/4</text>
-      <text x="222.5" y="146.5">ρ<tspan dy="-5" font-size="11">1/4</tspan></text>
-      <text x="180.0" y="194.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="330" viewBox="0 0 400 330">
+        <circle class="fig-curve" cx="200.0" cy="175.0" r="110.0"/>
+        <line class="fig-axis" x1="60.0" y1="175.0" x2="345.0" y2="175.0"/>
+        <line class="fig-axis" x1="200.0" y1="45.0" x2="200.0" y2="310.0"/>
+        <polygon class="fig-shape" points="304.9,141.9 166.9,70.1 95.1,208.1 233.1,279.9"/>
+        <circle class="fig-dot" cx="304.9" cy="141.9" r="4.0"/>
+        <text x="316.9" y="145.9">z<tspan dy="4" font-size="11">0</tspan></text>
+        <circle class="fig-dot" cx="166.9" cy="70.1" r="4.0"/>
+        <text x="172.9" y="58.1">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω</tspan></text>
+        <circle class="fig-dot" cx="95.1" cy="208.1" r="4.0"/>
+        <text x="55.1" y="224.1">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω<tspan dy="-5" font-size="11">2</tspan></tspan></text>
+        <circle class="fig-dot" cx="233.1" cy="279.9" r="4.0"/>
+        <text x="239.1" y="301.9">z<tspan dy="4" font-size="11">0</tspan><tspan dy="-4">ω<tspan dy="-5" font-size="11">3</tspan></tspan></text>
+        <line class="fig-curve" x1="200.0" y1="175.0" x2="304.9" y2="141.9"/>
+        <path class="fig-arc" d="M 246.0 175.0 A 46.0 46.0 0 0 0 243.9 161.2"/>
+        <text x="255.3" y="171.6">φ/4</text>
+        <path class="fig-arc" d="M 270.6 152.7 A 74.0 74.0 0 0 0 177.7 104.4"/>
+        <text x="225.6" y="97.2">2π/4</text>
+        <text x="222.5" y="146.5">ρ<tspan dy="-5" font-size="11">1/4</tspan></text>
+        <text x="180.0" y="194.0">O</text>
+      </svg>
+      <figcaption><span class="en">The four fourth roots of $W = \rho e^{i\varphi}$: the square of the fourth roots of unity, scaled to radius $\rho^{1/4}$ and rotated by $\varphi/4$.</span><span class="fr">Les quatre racines quatri&egrave;mes de $W = \rho e^{i\varphi}$ : le carr&eacute; des racines quatri&egrave;mes de l'unit&eacute;, ramen&eacute; au rayon $\rho^{1/4}$ et tourn&eacute; de $\varphi/4$.</span></figcaption>
+    </figure>
 
     <p class="en">For $n = 2$ the exponential form needs $\arg(W)$, which is rarely a familiar angle. The identification below avoids it and works directly with $a$ and $b$.</p>
     <p class="fr">Pour $n = 2$, la forme exponentielle demande $\arg(W)$, qui est rarement un angle usuel. L'identification ci-dessous l'&eacute;vite et travaille directement avec $a$ et $b$.</p>
@@ -523,25 +535,26 @@
       $P(\bar{z_0})=a\bar{z_0}^2+b\bar{z_0}+c=\overline{az_0^2+bz_0+c}=\overline{P(z_0)}=0$ (car $\bar{a}=a$, $\bar{b}=b$, $\bar{c}=c$).
     </details>
 
-    <p class="en">The two roots of a real quadratic with $\Delta &lt; 0$. They sit on the vertical line $\operatorname{Re}(z) = -b/2a$, symmetric about the real axis, so their midpoint is real and their sum is $-b/a$.</p>
-    <p class="fr">Les deux racines d'un trin&ocirc;me r&eacute;el de discriminant $\Delta &lt; 0$. Elles sont sur la droite verticale $\operatorname{Re}(z) = -b/2a$, sym&eacute;triques par rapport &agrave; l'axe r&eacute;el ; leur milieu est donc r&eacute;el et leur somme vaut $-b/a$.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <line class="fig-axis" x1="45.0" y1="155.0" x2="385.0" y2="155.0"/>
-      <line class="fig-axis" x1="210.0" y1="35.0" x2="210.0" y2="275.0"/>
-      <line class="fig-guide" x1="140.0" y1="40.0" x2="140.0" y2="270.0"/>
-      <circle class="fig-dot" cx="140.0" cy="56.0" r="4.0"/>
-      <circle class="fig-dot" cx="140.0" cy="254.0" r="4.0"/>
-      <circle class="fig-dot" cx="140.0" cy="155.0" r="2.5"/>
-      <text x="116.0" y="48.0">z<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="116.0" y="272.0">z<tspan dy="4" font-size="11">2</tspan></text>
-      <text x="82.0" y="174.0">−b/2a</text>
-      <text x="190.0" y="174.0">O</text>
-      <text x="368.0" y="174.0">Re</text>
-      <text x="218.0" y="47.0">Im</text>
-      <line class="fig-accent" x1="134.0" y1="105.5" x2="146.0" y2="105.5"/>
-      <line class="fig-accent" x1="146.0" y1="204.5" x2="134.0" y2="204.5"/>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <line class="fig-axis" x1="45.0" y1="155.0" x2="385.0" y2="155.0"/>
+        <line class="fig-axis" x1="210.0" y1="35.0" x2="210.0" y2="275.0"/>
+        <line class="fig-guide" x1="140.0" y1="40.0" x2="140.0" y2="270.0"/>
+        <circle class="fig-dot" cx="140.0" cy="56.0" r="4.0"/>
+        <circle class="fig-dot" cx="140.0" cy="254.0" r="4.0"/>
+        <circle class="fig-dot" cx="140.0" cy="155.0" r="2.5"/>
+        <text x="116.0" y="48.0">z<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="116.0" y="272.0">z<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="82.0" y="174.0">−b/2a</text>
+        <text x="190.0" y="174.0">O</text>
+        <text x="368.0" y="174.0">Re</text>
+        <text x="218.0" y="47.0">Im</text>
+        <line class="fig-accent" x1="134.0" y1="105.5" x2="146.0" y2="105.5"/>
+        <line class="fig-accent" x1="146.0" y1="204.5" x2="134.0" y2="204.5"/>
+      </svg>
+      <figcaption><span class="en">The two roots of a real quadratic with $\Delta &lt; 0$. They sit on the vertical line $\operatorname{Re}(z) = -b/2a$, symmetric about the real axis, so their midpoint is real and their sum is $-b/a$.</span><span class="fr">Les deux racines d'un trin&ocirc;me r&eacute;el de discriminant $\Delta &lt; 0$. Elles sont sur la droite verticale $\operatorname{Re}(z) = -b/2a$, sym&eacute;triques par rapport &agrave; l'axe r&eacute;el ; leur milieu est donc r&eacute;el et leur somme vaut $-b/a$.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Remark.</span> Adding one solution of $z^2 = -1$ to $\mathbb{R}$ is enough to solve every polynomial equation: every non-constant polynomial with complex coefficients has a root in $\mathbb{C}$. This is the fundamental theorem of algebra, not proved here. No further extension of the number system is needed.</p>
@@ -561,47 +574,49 @@
       <p class="fr"><span class="thm-label">D&eacute;finition (Ensembles du plan complexe).</span> La distance entre les points d'affixes $z_1$ et $z_2$ est $|z_1-z_2|$. Cercle de centre $a$ et de rayon $r$ : $\{z : |z-a|=r\}$. Disque ferm&eacute; : $\{z : |z-a|\le r\}$. M&eacute;diatrice de $[z_1,z_2]$ : $\{z : |z-z_1|=|z-z_2|\}$.</p>
     </div>
 
-    <p class="en">The circle $|z-a| = r$ is the boundary; the closed disk $|z-a| \le r$ is the boundary together with the shaded interior.</p>
-    <p class="fr">Le cercle $|z-a| = r$ est le bord ; le disque ferm&eacute; $|z-a| \le r$ est le bord avec l'int&eacute;rieur gris&eacute;.</p>
 
-    <svg class="figure" width="400" height="285" viewBox="0 0 400 285">
-      <circle class="fig-shape" cx="190.0" cy="136.0" r="80.0"/>
-      <line class="fig-axis" x1="40.0" y1="232.0" x2="385.0" y2="232.0"/>
-      <line class="fig-axis" x1="70.0" y1="40.0" x2="70.0" y2="268.0"/>
-      <line class="fig-curve" x1="190.0" y1="136.0" x2="251.3" y2="84.6"/>
-      <circle class="fig-dot" cx="190.0" cy="136.0" r="4.0"/>
-      <circle class="fig-dot" cx="251.3" cy="84.6" r="4.0"/>
-      <text x="184.0" y="156.0">a</text>
-      <text x="259.3" y="78.6">z</text>
-      <text x="226.6" y="126.3">r</text>
-      <text x="52.0" y="250.0">O</text>
-      <text x="368.0" y="250.0">Re</text>
-      <text x="78.0" y="52.0">Im</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="285" viewBox="0 0 400 285">
+        <circle class="fig-shape" cx="190.0" cy="136.0" r="80.0"/>
+        <line class="fig-axis" x1="40.0" y1="232.0" x2="385.0" y2="232.0"/>
+        <line class="fig-axis" x1="70.0" y1="40.0" x2="70.0" y2="268.0"/>
+        <line class="fig-curve" x1="190.0" y1="136.0" x2="251.3" y2="84.6"/>
+        <circle class="fig-dot" cx="190.0" cy="136.0" r="4.0"/>
+        <circle class="fig-dot" cx="251.3" cy="84.6" r="4.0"/>
+        <text x="184.0" y="156.0">a</text>
+        <text x="259.3" y="78.6">z</text>
+        <text x="226.6" y="126.3">r</text>
+        <text x="52.0" y="250.0">O</text>
+        <text x="368.0" y="250.0">Re</text>
+        <text x="78.0" y="52.0">Im</text>
+      </svg>
+      <figcaption><span class="en">The circle $|z-a| = r$ is the boundary; the closed disk $|z-a| \le r$ is the boundary together with the shaded interior.</span><span class="fr">Le cercle $|z-a| = r$ est le bord ; le disque ferm&eacute; $|z-a| \le r$ est le bord avec l'int&eacute;rieur gris&eacute;.</span></figcaption>
+    </figure>
 
-    <p class="en">Every point of the bisector is equidistant from $z_1$ and $z_2$, as the two equal tick marks show. For $z_1 = i$ and $z_2 = -i$ the bisector is the real axis.</p>
-    <p class="fr">Tout point de la m&eacute;diatrice est &eacute;quidistant de $z_1$ et $z_2$, comme le montrent les deux marques &eacute;gales. Pour $z_1 = i$ et $z_2 = -i$, la m&eacute;diatrice est l'axe r&eacute;el.</p>
 
-    <svg class="figure" width="400" height="290" viewBox="0 0 400 290">
-      <line class="fig-axis" x1="40.0" y1="252.0" x2="385.0" y2="252.0"/>
-      <line class="fig-axis" x1="62.0" y1="40.0" x2="62.0" y2="272.0"/>
-      <line class="fig-guide" x1="116.0" y1="99.0" x2="269.0" y2="207.0"/>
-      <line class="fig-accent" x1="130.2" y1="241.2" x2="254.8" y2="64.8"/>
-      <line class="fig-curve" x1="152.1" y1="210.2" x2="116.0" y2="99.0"/>
-      <line class="fig-curve" x1="152.1" y1="210.2" x2="269.0" y2="207.0"/>
-      <line class="fig-accent" x1="128.4" y1="156.4" x2="139.8" y2="152.7"/>
-      <line class="fig-accent" x1="210.4" y1="202.6" x2="210.7" y2="214.6"/>
-      <circle class="fig-dot" cx="116.0" cy="99.0" r="4.0"/>
-      <circle class="fig-dot" cx="269.0" cy="207.0" r="4.0"/>
-      <circle class="fig-dot" cx="152.1" cy="210.2" r="4.0"/>
-      <circle class="fig-dot" cx="192.5" cy="153.0" r="2.5"/>
-      <text x="90.0" y="91.0">z<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="277.0" y="223.0">z<tspan dy="4" font-size="11">2</tspan></text>
-      <text x="160.1" y="202.2">z</text>
-      <text x="104.1" y="142.6">|z−z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
-      <text x="218.6" y="214.6">|z−z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
-      <text x="44.0" y="270.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="290" viewBox="0 0 400 290">
+        <line class="fig-axis" x1="40.0" y1="252.0" x2="385.0" y2="252.0"/>
+        <line class="fig-axis" x1="62.0" y1="40.0" x2="62.0" y2="272.0"/>
+        <line class="fig-guide" x1="116.0" y1="99.0" x2="269.0" y2="207.0"/>
+        <line class="fig-accent" x1="130.2" y1="241.2" x2="254.8" y2="64.8"/>
+        <line class="fig-curve" x1="152.1" y1="210.2" x2="116.0" y2="99.0"/>
+        <line class="fig-curve" x1="152.1" y1="210.2" x2="269.0" y2="207.0"/>
+        <line class="fig-accent" x1="128.4" y1="156.4" x2="139.8" y2="152.7"/>
+        <line class="fig-accent" x1="210.4" y1="202.6" x2="210.7" y2="214.6"/>
+        <circle class="fig-dot" cx="116.0" cy="99.0" r="4.0"/>
+        <circle class="fig-dot" cx="269.0" cy="207.0" r="4.0"/>
+        <circle class="fig-dot" cx="152.1" cy="210.2" r="4.0"/>
+        <circle class="fig-dot" cx="192.5" cy="153.0" r="2.5"/>
+        <text x="90.0" y="91.0">z<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="277.0" y="223.0">z<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="160.1" y="202.2">z</text>
+        <text x="104.1" y="142.6">|z−z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">|</tspan></text>
+        <text x="218.6" y="214.6">|z−z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">|</tspan></text>
+        <text x="44.0" y="270.0">O</text>
+      </svg>
+      <figcaption><span class="en">Every point of the bisector is equidistant from $z_1$ and $z_2$, as the two equal tick marks show. For $z_1 = i$ and $z_2 = -i$ the bisector is the real axis.</span><span class="fr">Tout point de la m&eacute;diatrice est &eacute;quidistant de $z_1$ et $z_2$, comme le montrent les deux marques &eacute;gales. Pour $z_1 = i$ et $z_2 = -i$, la m&eacute;diatrice est l'axe r&eacute;el.</span></figcaption>
+    </figure>
 
     <p class="en">Each basic transformation of the plane is one formula. Adding $b$ translates. Multiplying by $e^{i\alpha}$ rotates about $0$, multiplying by $\lambda$ scales from $0$. To use another center $\omega$, subtract $\omega$ first and add it back at the end.</p>
     <p class="fr">Chaque transformation de base du plan est une formule. Ajouter $b$ translate. Multiplier par $e^{i\alpha}$ tourne autour de $0$, multiplier par $\lambda$ dilate depuis $0$. Pour utiliser un autre centre $\omega$, on retranche $\omega$ d'abord et on le rajoute &agrave; la fin.</p>
@@ -624,46 +639,47 @@
       </ul>
     </div>
 
-    <p class="en">The same triangle $T$ under the four maps. The dashed lines join a vertex to its image through the center $\Omega$.</p>
-    <p class="fr">Le m&ecirc;me triangle $T$ par les quatre applications. Les pointill&eacute;s joignent un sommet &agrave; son image en passant par le centre $\Omega$.</p>
 
-    <svg class="figure" width="440" height="430" viewBox="0 0 440 430">
-      <polygon class="fig-shape" points="54.0,181.0 108.0,169.0 72.0,127.0"/>
-      <polygon class="fig-shape-img" points="105.0,136.0 159.0,124.0 123.0,82.0"/>
-      <line class="fig-accent" x1="54.0" y1="181.0" x2="100.3" y2="140.2"/>
-      <polygon class="fig-dot" points="105.0,136.0 100.9,145.0 95.6,138.9"/>
-      <text x="65.5" y="162.5">b</text>
-      <text x="78.0" y="185.0">T</text>
-      <text x="43.0" y="216.0">z + b</text>
-      <polygon class="fig-shape" points="264.0,181.0 318.0,169.0 282.0,127.0"/>
-      <polygon class="fig-shape-img" points="296.9,190.6 308.8,136.6 255.6,151.5"/>
-      <line class="fig-guide" x1="288.0" y1="160.0" x2="318.0" y2="169.0"/>
-      <line class="fig-guide" x1="288.0" y1="160.0" x2="308.8" y2="136.6"/>
-      <path class="fig-arc" d="M 320.6 169.8 A 34.0 34.0 0 0 0 310.6 134.6"/>
-      <text x="330.2" y="151.9">α</text>
-      <circle class="fig-dot" cx="288.0" cy="160.0" r="3.0"/>
-      <text x="294.0" y="178.0">Ω</text>
-      <text x="248.0" y="175.0">T</text>
-      <text x="253.0" y="216.0">ω + e<tspan dy="-5" font-size="11">iα</tspan>(z − ω)</text>
-      <polygon class="fig-shape-img" points="48.0,394.0 129.0,376.0 75.0,313.0"/>
-      <polygon class="fig-shape" points="54.0,391.0 108.0,379.0 72.0,337.0"/>
-      <line class="fig-guide" x1="66.0" y1="385.0" x2="129.0" y2="376.0"/>
-      <line class="fig-guide" x1="66.0" y1="385.0" x2="75.0" y2="313.0"/>
-      <circle class="fig-dot" cx="66.0" cy="385.0" r="3.0"/>
-      <text x="48.0" y="401.0">Ω</text>
-      <text x="68.0" y="329.0">T</text>
-      <text x="43.0" y="426.0">ω + λ(z − ω)</text>
-      <polygon class="fig-shape-img" points="270.3,402.2 310.4,339.2 235.9,333.5"/>
-      <polygon class="fig-shape" points="264.0,391.0 318.0,379.0 282.0,337.0"/>
-      <line class="fig-guide" x1="276.0" y1="385.0" x2="318.0" y2="379.0"/>
-      <line class="fig-guide" x1="276.0" y1="385.0" x2="310.4" y2="339.2"/>
-      <path class="fig-arc" d="M 315.6 379.3 A 40.0 40.0 0 0 0 300.0 353.0"/>
-      <text x="308.5" y="362.5">arg a</text>
-      <circle class="fig-dot" cx="276.0" cy="385.0" r="3.0"/>
-      <text x="258.0" y="401.0">Ω</text>
-      <text x="278.0" y="329.0">T</text>
-      <text x="253.0" y="426.0">ω + a(z − ω)</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="430" viewBox="0 0 440 430">
+        <polygon class="fig-shape" points="54.0,181.0 108.0,169.0 72.0,127.0"/>
+        <polygon class="fig-shape-img" points="105.0,136.0 159.0,124.0 123.0,82.0"/>
+        <line class="fig-accent" x1="54.0" y1="181.0" x2="100.3" y2="140.2"/>
+        <polygon class="fig-dot" points="105.0,136.0 100.9,145.0 95.6,138.9"/>
+        <text x="65.5" y="162.5">b</text>
+        <text x="78.0" y="185.0">T</text>
+        <text x="43.0" y="216.0">z + b</text>
+        <polygon class="fig-shape" points="264.0,181.0 318.0,169.0 282.0,127.0"/>
+        <polygon class="fig-shape-img" points="296.9,190.6 308.8,136.6 255.6,151.5"/>
+        <line class="fig-guide" x1="288.0" y1="160.0" x2="318.0" y2="169.0"/>
+        <line class="fig-guide" x1="288.0" y1="160.0" x2="308.8" y2="136.6"/>
+        <path class="fig-arc" d="M 320.6 169.8 A 34.0 34.0 0 0 0 310.6 134.6"/>
+        <text x="330.2" y="151.9">α</text>
+        <circle class="fig-dot" cx="288.0" cy="160.0" r="3.0"/>
+        <text x="294.0" y="178.0">Ω</text>
+        <text x="248.0" y="175.0">T</text>
+        <text x="253.0" y="216.0">ω + e<tspan dy="-5" font-size="11">iα</tspan>(z − ω)</text>
+        <polygon class="fig-shape-img" points="48.0,394.0 129.0,376.0 75.0,313.0"/>
+        <polygon class="fig-shape" points="54.0,391.0 108.0,379.0 72.0,337.0"/>
+        <line class="fig-guide" x1="66.0" y1="385.0" x2="129.0" y2="376.0"/>
+        <line class="fig-guide" x1="66.0" y1="385.0" x2="75.0" y2="313.0"/>
+        <circle class="fig-dot" cx="66.0" cy="385.0" r="3.0"/>
+        <text x="48.0" y="401.0">Ω</text>
+        <text x="68.0" y="329.0">T</text>
+        <text x="43.0" y="426.0">ω + λ(z − ω)</text>
+        <polygon class="fig-shape-img" points="270.3,402.2 310.4,339.2 235.9,333.5"/>
+        <polygon class="fig-shape" points="264.0,391.0 318.0,379.0 282.0,337.0"/>
+        <line class="fig-guide" x1="276.0" y1="385.0" x2="318.0" y2="379.0"/>
+        <line class="fig-guide" x1="276.0" y1="385.0" x2="310.4" y2="339.2"/>
+        <path class="fig-arc" d="M 315.6 379.3 A 40.0 40.0 0 0 0 300.0 353.0"/>
+        <text x="308.5" y="362.5">arg a</text>
+        <circle class="fig-dot" cx="276.0" cy="385.0" r="3.0"/>
+        <text x="258.0" y="401.0">Ω</text>
+        <text x="278.0" y="329.0">T</text>
+        <text x="253.0" y="426.0">ω + a(z − ω)</text>
+      </svg>
+      <figcaption><span class="en">The same triangle $T$ under the four maps. The dashed lines join a vertex to its image through the center $\Omega$.</span><span class="fr">Le m&ecirc;me triangle $T$ par les quatre applications. Les pointill&eacute;s joignent un sommet &agrave; son image en passant par le centre $\Omega$.</span></figcaption>
+    </figure>
 
     <p class="en">Conversely, any map $z \mapsto az+b$ with $a \neq 1$ is one of these. Solving $f(\omega) = \omega$ gives a fixed point, and rewriting $f$ around it gives $f(z) = \omega + a(z-\omega)$: a rotation by $\arg(a)$ and a scaling by $|a|$, both centered at $\omega$. The translation part disappears once the origin is moved to the right point.</p>
     <p class="fr">R&eacute;ciproquement, toute application $z \mapsto az+b$ avec $a \neq 1$ est de ce type. R&eacute;soudre $f(\omega) = \omega$ donne un point fixe, et r&eacute;&eacute;crire $f$ autour de lui donne $f(z) = \omega + a(z-\omega)$ : une rotation d'angle $\arg(a)$ et une dilatation de rapport $|a|$, toutes deux centr&eacute;es en $\omega$. La partie translation dispara&icirc;t d&egrave;s que l'origine est plac&eacute;e au bon endroit.</p>
@@ -683,27 +699,28 @@
       Si $a=1$, $f(z)=z+b$ est une translation. Si $a\neq 1$, on cherche le point fixe : $f(\omega)=\omega\iff a\omega+b=\omega\iff\omega=\frac{b}{1-a}$. Alors $f(z)-\omega=az+b-\omega=az-\frac{ab}{1-a}=a\!\left(z-\frac{b}{1-a}\right)=a(z-\omega)$. Donc $f(z)=\omega+a(z-\omega)$, qui est bien une similitude directe de centre $\omega$, de rapport $|a|$ et d'angle $\arg(a)$.
     </details>
 
-    <p class="en">The map $f(z) = 2iz+1$ drawn around its fixed point $\omega = (1+2i)/5$. From $\omega$, the image is turned by $\pi/2$ and twice as far, with $d = |z - \omega|$.</p>
-    <p class="fr">L'application $f(z) = 2iz+1$ dessin&eacute;e autour de son point fixe $\omega = (1+2i)/5$. Vue de $\omega$, l'image est tourn&eacute;e de $\pi/2$ et deux fois plus loin, avec $d = |z - \omega|$.</p>
 
-    <svg class="figure" width="400" height="335" viewBox="0 0 400 335">
-      <line class="fig-axis" x1="50.0" y1="292.0" x2="385.0" y2="292.0"/>
-      <line class="fig-axis" x1="105.0" y1="32.0" x2="105.0" y2="318.0"/>
-      <line class="fig-accent" x1="125.0" y1="252.0" x2="225.0" y2="282.0"/>
-      <line class="fig-accent" x1="125.0" y1="252.0" x2="185.0" y2="52.0"/>
-      <path class="fig-arc" d="M 167.1 264.6 A 44.0 44.0 0 0 0 137.6 209.9"/>
-      <polygon class="fig-dot" points="137.6,209.9 147.4,208.6 145.1,216.3"/>
-      <text x="167.8" y="228.6">π/2</text>
-      <circle class="fig-dot" cx="125.0" cy="252.0" r="4.0"/>
-      <circle class="fig-dot" cx="225.0" cy="282.0" r="4.0"/>
-      <circle class="fig-dot" cx="185.0" cy="52.0" r="4.0"/>
-      <text x="103.0" y="270.0">ω</text>
-      <text x="233.0" y="298.0">z</text>
-      <text x="193.0" y="44.0">f(z)</text>
-      <text x="151.0" y="289.0">d</text>
-      <text x="125.0" y="156.0">2d</text>
-      <text x="87.0" y="310.0">O</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="400" height="335" viewBox="0 0 400 335">
+        <line class="fig-axis" x1="50.0" y1="292.0" x2="385.0" y2="292.0"/>
+        <line class="fig-axis" x1="105.0" y1="32.0" x2="105.0" y2="318.0"/>
+        <line class="fig-accent" x1="125.0" y1="252.0" x2="225.0" y2="282.0"/>
+        <line class="fig-accent" x1="125.0" y1="252.0" x2="185.0" y2="52.0"/>
+        <path class="fig-arc" d="M 167.1 264.6 A 44.0 44.0 0 0 0 137.6 209.9"/>
+        <polygon class="fig-dot" points="137.6,209.9 147.4,208.6 145.1,216.3"/>
+        <text x="167.8" y="228.6">π/2</text>
+        <circle class="fig-dot" cx="125.0" cy="252.0" r="4.0"/>
+        <circle class="fig-dot" cx="225.0" cy="282.0" r="4.0"/>
+        <circle class="fig-dot" cx="185.0" cy="52.0" r="4.0"/>
+        <text x="103.0" y="270.0">ω</text>
+        <text x="233.0" y="298.0">z</text>
+        <text x="193.0" y="44.0">f(z)</text>
+        <text x="151.0" y="289.0">d</text>
+        <text x="125.0" y="156.0">2d</text>
+        <text x="87.0" y="310.0">O</text>
+      </svg>
+      <figcaption><span class="en">The map $f(z) = 2iz+1$ drawn around its fixed point $\omega = (1+2i)/5$. From $\omega$, the image is turned by $\pi/2$ and twice as far, with $d = |z - \omega|$.</span><span class="fr">L'application $f(z) = 2iz+1$ dessin&eacute;e autour de son point fixe $\omega = (1+2i)/5$. Vue de $\omega$, l'image est tourn&eacute;e de $\pi/2$ et deux fois plus loin, avec $d = |z - \omega|$.</span></figcaption>
+    </figure>
 
     <p class="en">A quotient compares two vectors: $|z_2/z_1|$ is the ratio of their lengths and $\arg(z_2/z_1)$ is the angle from the first to the second. Two orientation facts follow, since the quotient is real when the angle is $0$ or $\pi$, and purely imaginary when it is $\pm\pi/2$.</p>
     <p class="fr">Un quotient compare deux vecteurs : $|z_2/z_1|$ est le rapport de leurs longueurs et $\arg(z_2/z_1)$ est l'angle du premier vers le second. Deux faits d'orientation en d&eacute;coulent, car le quotient est r&eacute;el quand l'angle vaut $0$ ou $\pi$, et imaginaire pur quand il vaut $\pm\pi/2$.</p>
@@ -723,38 +740,39 @@
       $z_2/z_1=(|z_2|/|z_1|)\,e^{i(\arg(z_2)-\arg(z_1))}$, et $\arg(z_k)=(\vec{u_x},\vec{w_k})$ o&ugrave; $\vec{w_k}$ est le vecteur d'affixe $z_k$, d'o&ugrave; $\arg(z_2)-\arg(z_1)=(\vec{u},\vec{v})$. Colin&eacute;aires $\iff$ angle $=0$ ou $\pi\ [2\pi]$ $\iff$ quotient r&eacute;el. Orthogonaux $\iff$ angle $=\pm\pi/2\ [2\pi]$ $\iff$ quotient imaginaire pur.
     </details>
 
-    <p class="en">Left: the angle between the two vectors is $\arg(z_2/z_1)$. Middle: collinear vectors, angle $\pi$, so the quotient is real. Right: perpendicular vectors, angle $\pi/2$, so the quotient is purely imaginary.</p>
-    <p class="fr">&Agrave; gauche : l'angle entre les deux vecteurs est $\arg(z_2/z_1)$. Au milieu : vecteurs colin&eacute;aires, angle $\pi$, donc quotient r&eacute;el. &Agrave; droite : vecteurs orthogonaux, angle $\pi/2$, donc quotient imaginaire pur.</p>
 
-    <svg class="figure" width="460" height="235" viewBox="0 0 460 235">
-      <line class="fig-curve" x1="55.0" y1="185.0" x2="132.4" y2="164.3"/>
-      <polygon class="fig-dot" points="138.5,162.6 130.8,168.9 128.7,161.1"/>
-      <line class="fig-curve" x1="55.0" y1="185.0" x2="72.0" y2="121.5"/>
-      <polygon class="fig-dot" points="73.6,115.5 75.2,125.2 67.4,123.1"/>
-      <path class="fig-arc" d="M 93.6 174.6 A 40.0 40.0 0 0 0 65.4 146.4"/>
-      <circle class="fig-dot" cx="55.0" cy="185.0" r="3.0"/>
-      <text x="144.5" y="176.6">u</text>
-      <text x="57.6" y="107.5">v</text>
-      <text x="38.0" y="216.0">arg(z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">/z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></tspan></text>
-      <line class="fig-curve" x1="228.0" y1="185.0" x2="293.1" y2="161.3"/>
-      <polygon class="fig-dot" points="299.0,159.1 292.0,166.0 289.2,158.4"/>
-      <line class="fig-curve" x1="228.0" y1="185.0" x2="192.0" y2="198.1"/>
-      <polygon class="fig-dot" points="186.1,200.3 193.1,193.4 195.9,201.0"/>
-      <path class="fig-arc" d="M 261.8 172.7 A 36.0 36.0 0 0 0 194.2 197.3"/>
-      <text x="206.9" y="143.0">π</text>
-      <circle class="fig-dot" cx="228.0" cy="185.0" r="3.0"/>
-      <text x="305.0" y="173.1">u</text>
-      <text x="170.1" y="216.3">v</text>
-      <line class="fig-curve" x1="372.0" y1="185.0" x2="428.3" y2="164.5"/>
-      <polygon class="fig-dot" points="434.2,162.3 427.2,169.2 424.4,161.6"/>
-      <line class="fig-curve" x1="372.0" y1="185.0" x2="354.0" y2="135.4"/>
-      <polygon class="fig-dot" points="351.8,129.5 358.7,136.6 351.1,139.4"/>
-      <path class="fig-arc" d="M 388.0 179.2 L 382.2 163.2 L 366.2 169.0"/>
-      <text x="382.0" y="142.9">π/2</text>
-      <circle class="fig-dot" cx="372.0" cy="185.0" r="3.0"/>
-      <text x="440.2" y="176.3">u</text>
-      <text x="333.8" y="121.5">v</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="460" height="235" viewBox="0 0 460 235">
+        <line class="fig-curve" x1="55.0" y1="185.0" x2="132.4" y2="164.3"/>
+        <polygon class="fig-dot" points="138.5,162.6 130.8,168.9 128.7,161.1"/>
+        <line class="fig-curve" x1="55.0" y1="185.0" x2="72.0" y2="121.5"/>
+        <polygon class="fig-dot" points="73.6,115.5 75.2,125.2 67.4,123.1"/>
+        <path class="fig-arc" d="M 93.6 174.6 A 40.0 40.0 0 0 0 65.4 146.4"/>
+        <circle class="fig-dot" cx="55.0" cy="185.0" r="3.0"/>
+        <text x="144.5" y="176.6">u</text>
+        <text x="57.6" y="107.5">v</text>
+        <text x="38.0" y="216.0">arg(z<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">/z<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></tspan></text>
+        <line class="fig-curve" x1="228.0" y1="185.0" x2="293.1" y2="161.3"/>
+        <polygon class="fig-dot" points="299.0,159.1 292.0,166.0 289.2,158.4"/>
+        <line class="fig-curve" x1="228.0" y1="185.0" x2="192.0" y2="198.1"/>
+        <polygon class="fig-dot" points="186.1,200.3 193.1,193.4 195.9,201.0"/>
+        <path class="fig-arc" d="M 261.8 172.7 A 36.0 36.0 0 0 0 194.2 197.3"/>
+        <text x="206.9" y="143.0">π</text>
+        <circle class="fig-dot" cx="228.0" cy="185.0" r="3.0"/>
+        <text x="305.0" y="173.1">u</text>
+        <text x="170.1" y="216.3">v</text>
+        <line class="fig-curve" x1="372.0" y1="185.0" x2="428.3" y2="164.5"/>
+        <polygon class="fig-dot" points="434.2,162.3 427.2,169.2 424.4,161.6"/>
+        <line class="fig-curve" x1="372.0" y1="185.0" x2="354.0" y2="135.4"/>
+        <polygon class="fig-dot" points="351.8,129.5 358.7,136.6 351.1,139.4"/>
+        <path class="fig-arc" d="M 388.0 179.2 L 382.2 163.2 L 366.2 169.0"/>
+        <text x="382.0" y="142.9">π/2</text>
+        <circle class="fig-dot" cx="372.0" cy="185.0" r="3.0"/>
+        <text x="440.2" y="176.3">u</text>
+        <text x="333.8" y="121.5">v</text>
+      </svg>
+      <figcaption><span class="en">Left: the angle between the two vectors is $\arg(z_2/z_1)$. Middle: collinear vectors, angle $\pi$, so the quotient is real. Right: perpendicular vectors, angle $\pi/2$, so the quotient is purely imaginary.</span><span class="fr">&Agrave; gauche : l'angle entre les deux vecteurs est $\arg(z_2/z_1)$. Au milieu : vecteurs colin&eacute;aires, angle $\pi$, donc quotient r&eacute;el. &Agrave; droite : vecteurs orthogonaux, angle $\pi/2$, donc quotient imaginaire pur.</span></figcaption>
+    </figure>
 
     <p class="en">Applied to differences of affixes, this turns a statement about a figure into a condition on one number. The quotient $\frac{a-b}{c-d}$ compares $\overrightarrow{BA}$ with $\overrightarrow{DC}$, so alignment, right angles, equal lengths and parallelograms all become conditions on that single quotient.</p>
     <p class="fr">Appliqu&eacute; &agrave; des diff&eacute;rences d'affixes, ceci transforme un &eacute;nonc&eacute; sur une figure en une condition sur un seul nombre. Le quotient $\frac{a-b}{c-d}$ compare $\overrightarrow{BA}$ et $\overrightarrow{DC}$ : alignement, angles droits, longueurs &eacute;gales et parall&eacute;logrammes deviennent donc des conditions sur ce seul quotient.</p>
@@ -779,37 +797,38 @@
       <p class="fr">Cas particulier avec trois points ($D=A$) : $\frac{c-a}{b-a}$ compare $\overrightarrow{AB}$ et $\overrightarrow{AC}$. Alors $A,B,C$ align&eacute;s $\iff$ $(c-a)/(b-a)\in\mathbb{R}$ et $\overrightarrow{AB}\perp\overrightarrow{AC}$ $\iff$ $(c-a)/(b-a)\in i\mathbb{R}$.</p>
     </div>
 
-    <p class="en">Left: with three points, the angle at $A$ is the argument of $\frac{c-a}{b-a}$, which is real exactly when $A$, $B$, $C$ are collinear. Right: $a-b = c-d$ makes $\overrightarrow{BA}$ and $\overrightarrow{DC}$ equal, so $ABDC$ is a parallelogram.</p>
-    <p class="fr">&Agrave; gauche : avec trois points, l'angle en $A$ est l'argument de $\frac{c-a}{b-a}$, qui est r&eacute;el exactement quand $A$, $B$, $C$ sont align&eacute;s. &Agrave; droite : $a-b = c-d$ rend $\overrightarrow{BA}$ et $\overrightarrow{DC}$ &eacute;gaux, donc $ABDC$ est un parall&eacute;logramme.</p>
 
-    <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
-      <line class="fig-curve" x1="78.8" y1="211.6" x2="193.2" y2="183.4"/>
-      <line class="fig-curve" x1="78.8" y1="211.6" x2="131.6" y2="106.0"/>
-      <path class="fig-arc" d="M 115.7 202.5 A 38.0 38.0 0 0 0 95.8 177.6"/>
-      <circle class="fig-dot" cx="78.8" cy="211.6" r="4.0"/>
-      <circle class="fig-dot" cx="193.2" cy="183.4" r="4.0"/>
-      <circle class="fig-dot" cx="131.6" cy="106.0" r="4.0"/>
-      <text x="60.8" y="227.6">A</text>
-      <text x="201.2" y="197.4">B</text>
-      <text x="127.6" y="96.0">C</text>
-      <text x="30.0" y="268.0">arg((c−a)/(b−a))</text>
-      <polygon class="fig-shape" points="333.4,185.4 266.8,229.8 281.6,148.4 348.2,104.0"/>
-      <line class="fig-curve" x1="266.8" y1="229.8" x2="328.2" y2="188.9"/>
-      <polygon class="fig-dot" points="333.4,185.4 328.2,193.8 323.7,187.0"/>
-      <line class="fig-curve" x1="281.6" y1="148.4" x2="343.0" y2="107.5"/>
-      <polygon class="fig-dot" points="348.2,104.0 343.0,112.4 338.5,105.6"/>
-      <line class="fig-accent" x1="296.8" y1="202.6" x2="303.4" y2="212.6"/>
-      <line class="fig-accent" x1="311.6" y1="121.2" x2="318.2" y2="131.2"/>
-      <circle class="fig-dot" cx="333.4" cy="185.4" r="4.0"/>
-      <circle class="fig-dot" cx="266.8" cy="229.8" r="4.0"/>
-      <circle class="fig-dot" cx="348.2" cy="104.0" r="4.0"/>
-      <circle class="fig-dot" cx="281.6" cy="148.4" r="4.0"/>
-      <text x="341.4" y="201.4">A</text>
-      <text x="246.8" y="241.8">B</text>
-      <text x="356.2" y="98.0">C</text>
-      <text x="261.6" y="142.4">D</text>
-      <text x="258.0" y="282.0">a−b = c−d</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
+        <line class="fig-curve" x1="78.8" y1="211.6" x2="193.2" y2="183.4"/>
+        <line class="fig-curve" x1="78.8" y1="211.6" x2="131.6" y2="106.0"/>
+        <path class="fig-arc" d="M 115.7 202.5 A 38.0 38.0 0 0 0 95.8 177.6"/>
+        <circle class="fig-dot" cx="78.8" cy="211.6" r="4.0"/>
+        <circle class="fig-dot" cx="193.2" cy="183.4" r="4.0"/>
+        <circle class="fig-dot" cx="131.6" cy="106.0" r="4.0"/>
+        <text x="60.8" y="227.6">A</text>
+        <text x="201.2" y="197.4">B</text>
+        <text x="127.6" y="96.0">C</text>
+        <text x="30.0" y="268.0">arg((c−a)/(b−a))</text>
+        <polygon class="fig-shape" points="333.4,185.4 266.8,229.8 281.6,148.4 348.2,104.0"/>
+        <line class="fig-curve" x1="266.8" y1="229.8" x2="328.2" y2="188.9"/>
+        <polygon class="fig-dot" points="333.4,185.4 328.2,193.8 323.7,187.0"/>
+        <line class="fig-curve" x1="281.6" y1="148.4" x2="343.0" y2="107.5"/>
+        <polygon class="fig-dot" points="348.2,104.0 343.0,112.4 338.5,105.6"/>
+        <line class="fig-accent" x1="296.8" y1="202.6" x2="303.4" y2="212.6"/>
+        <line class="fig-accent" x1="311.6" y1="121.2" x2="318.2" y2="131.2"/>
+        <circle class="fig-dot" cx="333.4" cy="185.4" r="4.0"/>
+        <circle class="fig-dot" cx="266.8" cy="229.8" r="4.0"/>
+        <circle class="fig-dot" cx="348.2" cy="104.0" r="4.0"/>
+        <circle class="fig-dot" cx="281.6" cy="148.4" r="4.0"/>
+        <text x="341.4" y="201.4">A</text>
+        <text x="246.8" y="241.8">B</text>
+        <text x="356.2" y="98.0">C</text>
+        <text x="261.6" y="142.4">D</text>
+        <text x="258.0" y="282.0">a−b = c−d</text>
+      </svg>
+      <figcaption><span class="en">Left: with three points, the angle at $A$ is the argument of $\frac{c-a}{b-a}$, which is real exactly when $A$, $B$, $C$ are collinear. Right: $a-b = c-d$ makes $\overrightarrow{BA}$ and $\overrightarrow{DC}$ equal, so $ABDC$ is a parallelogram.</span><span class="fr">&Agrave; gauche : avec trois points, l'angle en $A$ est l'argument de $\frac{c-a}{b-a}$, qui est r&eacute;el exactement quand $A$, $B$, $C$ sont align&eacute;s. &Agrave; droite : $a-b = c-d$ rend $\overrightarrow{BA}$ et $\overrightarrow{DC}$ &eacute;gaux, donc $ABDC$ est un parall&eacute;logramme.</span></figcaption>
+    </figure>
 
     <h3 class="en">The techniques of this chapter</h3>
     <h3 class="fr">Les techniques du chapitre</h3>

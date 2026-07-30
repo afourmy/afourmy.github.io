@@ -37,80 +37,85 @@
       <p class="fr"><span class="thm-label">Définition.</span> Soit $I \subset \mathbb{R}$, $f : I \to \mathbb{R}$ et $a \in I$. On dit que $f$ est <em>continue en $a$</em> si $\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x \in I,\ |x-a| &lt; \delta \Rightarrow |f(x)-f(a)| &lt; \varepsilon$.</p>
     </div>
 
-    <p class="en">In a picture: for every horizontal band around $f(a)$, however thin, there is a vertical strip around $a$ whose piece of graph stays inside the band.</p>
-    <p class="fr">En image : pour toute bande horizontale autour de $f(a)$, aussi fine soit-elle, il existe une bande verticale autour de $a$ dont le morceau de graphe reste dans la bande horizontale.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <rect class="fig-band" x="64" y="91" width="361" height="48"/>
-      <rect class="fig-band" x="225" y="20" width="50" height="232"/>
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-guide" x1="64" y1="115" x2="250" y2="115"/>
-      <line class="fig-guide" x1="250" y1="115" x2="250" y2="252"/>
-      <path class="fig-curve" d="M78 240 C130 235 165 200 205 160 C228 132 238 122 250 116 C262 110 300 96 340 86 C380 77 412 70 428 66"/>
-      <circle class="fig-dot" cx="250" cy="115" r="4"/>
-      <text x="246" y="272">a</text>
-      <text x="192" y="272">a−δ</text>
-      <text x="266" y="272">a+δ</text>
-      <text x="24" y="120">f(a)</text>
-      <text x="8" y="95">f(a)+ε</text>
-      <text x="8" y="152">f(a)−ε</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <rect class="fig-band" x="64" y="91" width="361" height="48"/>
+        <rect class="fig-band" x="225" y="20" width="50" height="232"/>
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-guide" x1="64" y1="115" x2="250" y2="115"/>
+        <line class="fig-guide" x1="250" y1="115" x2="250" y2="252"/>
+        <path class="fig-curve" d="M78 240 C130 235 165 200 205 160 C228 132 238 122 250 116 C262 110 300 96 340 86 C380 77 412 70 428 66"/>
+        <circle class="fig-dot" cx="250" cy="115" r="4"/>
+        <text x="246" y="272">a</text>
+        <text x="192" y="272">a−δ</text>
+        <text x="266" y="272">a+δ</text>
+        <text x="24" y="120">f(a)</text>
+        <text x="8" y="95">f(a)+ε</text>
+        <text x="8" y="152">f(a)−ε</text>
+      </svg>
+      <figcaption><span class="en">For every horizontal band around $f(a)$, however thin, there is a vertical strip around $a$ whose piece of graph stays inside the band.</span><span class="fr">Pour toute bande horizontale autour de $f(a)$, aussi fine soit-elle, il existe une bande verticale autour de $a$ dont le morceau de graphe reste dans la bande horizontale.</span></figcaption>
+    </figure>
 
-    <p class="en">At a jump, the definition fails: for an $\varepsilon$ smaller than the jump, every strip contains points sent outside the band.</p>
-    <p class="fr">En un saut, la définition échoue : pour un $\varepsilon$ plus petit que le saut, toute bande verticale contient des points envoyés hors de la bande horizontale.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <rect class="fig-band" x="64" y="100" width="361" height="40"/>
-      <rect class="fig-band" x="225" y="20" width="50" height="232"/>
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-guide" x1="64" y1="120" x2="250" y2="120"/>
-      <line class="fig-guide" x1="250" y1="120" x2="250" y2="252"/>
-      <path class="fig-curve" d="M78 235 C130 228 180 205 235 180 C240 178 244 175 248 172"/>
-      <path class="fig-curve" d="M252 119 C280 112 330 105 425 98"/>
-      <circle class="fig-hole" cx="250" cy="170" r="4"/>
-      <circle class="fig-dot" cx="250" cy="120" r="4"/>
-      <text x="246" y="272">a</text>
-      <text x="24" y="125">f(a)</text>
-      <text x="8" y="104">f(a)+ε</text>
-      <text x="8" y="151">f(a)−ε</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <rect class="fig-band" x="64" y="100" width="361" height="40"/>
+        <rect class="fig-band" x="225" y="20" width="50" height="232"/>
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-guide" x1="64" y1="120" x2="250" y2="120"/>
+        <line class="fig-guide" x1="250" y1="120" x2="250" y2="252"/>
+        <path class="fig-curve" d="M78 235 C130 228 180 205 235 180 C240 178 244 175 248 172"/>
+        <path class="fig-curve" d="M252 119 C280 112 330 105 425 98"/>
+        <circle class="fig-hole" cx="250" cy="170" r="4"/>
+        <circle class="fig-dot" cx="250" cy="120" r="4"/>
+        <text x="246" y="272">a</text>
+        <text x="24" y="125">f(a)</text>
+        <text x="8" y="104">f(a)+ε</text>
+        <text x="8" y="151">f(a)−ε</text>
+      </svg>
+      <figcaption><span class="en">At a jump, the definition fails: for an $\varepsilon$ smaller than the jump, every strip contains points sent outside the band.</span><span class="fr">En un saut, la définition échoue : pour un $\varepsilon$ plus petit que le saut, toute bande verticale contient des points envoyés hors de la bande horizontale.</span></figcaption>
+    </figure>
 
     <p class="en">Continuity can also be stated with sequences: $f$ is continuous at $a$ when $x_n \to a$ implies $f(x_n) \to f(a)$. In other words, $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$. This is the form used in practice.</p>
     <p class="fr">La continuité peut aussi s'énoncer avec des suites : $f$ est continue en $a$ quand $x_n \to a$ implique $f(x_n) \to f(a)$. Autrement dit, $f$ et $\lim$ peuvent être échangés : $f(\lim x_n) = \lim f(x_n)$. C'est la forme utilisée en pratique.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-guide" x1="300" y1="100" x2="300" y2="252"/>
-      <line class="fig-guide" x1="64" y1="100" x2="300" y2="100"/>
-      <line class="fig-guide" x1="100" y1="230" x2="100" y2="252"/>
-      <line class="fig-guide" x1="64" y1="230" x2="100" y2="230"/>
-      <line class="fig-guide" x1="190" y1="185" x2="190" y2="252"/>
-      <line class="fig-guide" x1="64" y1="185" x2="190" y2="185"/>
-      <line class="fig-guide" x1="250" y1="140" x2="250" y2="252"/>
-      <line class="fig-guide" x1="64" y1="140" x2="250" y2="140"/>
-      <path class="fig-curve" d="M78 238 C90 234 95 232 100 230 C130 218 160 202 190 185 C210 172 230 155 250 140 C262 131 271 125 280 119 C287 114 294 106 300 100 C320 85 340 76 360 70"/>
-      <circle class="fig-dot" cx="100" cy="230" r="3"/>
-      <circle class="fig-dot" cx="190" cy="185" r="3"/>
-      <circle class="fig-dot" cx="250" cy="140" r="3"/>
-      <circle class="fig-dot" cx="300" cy="100" r="4"/>
-      <circle class="fig-dot" cx="100" cy="252" r="2.5"/>
-      <circle class="fig-dot" cx="190" cy="252" r="2.5"/>
-      <circle class="fig-dot" cx="250" cy="252" r="2.5"/>
-      <circle class="fig-dot" cx="64" cy="230" r="2.5"/>
-      <circle class="fig-dot" cx="64" cy="185" r="2.5"/>
-      <circle class="fig-dot" cx="64" cy="140" r="2.5"/>
-      <text x="94" y="272">x<tspan dy="4" font-size="11">1</tspan></text>
-      <text x="184" y="272">x<tspan dy="4" font-size="11">2</tspan></text>
-      <text x="244" y="272">x<tspan dy="4" font-size="11">3</tspan></text>
-      <text x="296" y="272">a</text>
-      <text x="10" y="235">f(x<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></text>
-      <text x="10" y="190">f(x<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">)</tspan></text>
-      <text x="10" y="145">f(x<tspan dy="4" font-size="11">3</tspan><tspan dy="-4">)</tspan></text>
-      <text x="24" y="105">f(a)</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-guide" x1="300" y1="100" x2="300" y2="252"/>
+        <line class="fig-guide" x1="64" y1="100" x2="300" y2="100"/>
+        <line class="fig-guide" x1="100" y1="230" x2="100" y2="252"/>
+        <line class="fig-guide" x1="64" y1="230" x2="100" y2="230"/>
+        <line class="fig-guide" x1="190" y1="185" x2="190" y2="252"/>
+        <line class="fig-guide" x1="64" y1="185" x2="190" y2="185"/>
+        <line class="fig-guide" x1="250" y1="140" x2="250" y2="252"/>
+        <line class="fig-guide" x1="64" y1="140" x2="250" y2="140"/>
+        <path class="fig-curve" d="M78 238 C90 234 95 232 100 230 C130 218 160 202 190 185 C210 172 230 155 250 140 C262 131 271 125 280 119 C287 114 294 106 300 100 C320 85 340 76 360 70"/>
+        <circle class="fig-dot" cx="100" cy="230" r="3"/>
+        <circle class="fig-dot" cx="190" cy="185" r="3"/>
+        <circle class="fig-dot" cx="250" cy="140" r="3"/>
+        <circle class="fig-dot" cx="300" cy="100" r="4"/>
+        <circle class="fig-dot" cx="100" cy="252" r="2.5"/>
+        <circle class="fig-dot" cx="190" cy="252" r="2.5"/>
+        <circle class="fig-dot" cx="250" cy="252" r="2.5"/>
+        <circle class="fig-dot" cx="64" cy="230" r="2.5"/>
+        <circle class="fig-dot" cx="64" cy="185" r="2.5"/>
+        <circle class="fig-dot" cx="64" cy="140" r="2.5"/>
+        <text x="94" y="272">x<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="184" y="272">x<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="244" y="272">x<tspan dy="4" font-size="11">3</tspan></text>
+        <text x="296" y="272">a</text>
+        <text x="10" y="235">f(x<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">)</tspan></text>
+        <text x="10" y="190">f(x<tspan dy="4" font-size="11">2</tspan><tspan dy="-4">)</tspan></text>
+        <text x="10" y="145">f(x<tspan dy="4" font-size="11">3</tspan><tspan dy="-4">)</tspan></text>
+        <text x="24" y="105">f(a)</text>
+      </svg>
+      <figcaption><span class="en">As $x_n$ approaches $a$ on the horizontal axis, $f(x_n)$ approaches $f(a)$ on the vertical one.</span><span class="fr">Quand $x_n$ s'approche de $a$ sur l'axe horizontal, $f(x_n)$ s'approche de $f(a)$ sur l'axe vertical.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Sequential characterization).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. The function $f$ is continuous at $a$ if and only if for every sequence $(x_n)$ in $I$ such that $x_n \to a$, we have $f(x_n) \to f(a)$.</p>
@@ -153,17 +158,20 @@
     <p class="en">Two variants: continuity from one side only, and the case of a function undefined at one point. If the limit exists at that point, defining $f$ there by the limit fills the hole: for example $x \mapsto \frac{\sin x}{x}$ extended by $1$ at $0$.</p>
     <p class="fr">Deux variantes : la continuité d'un seul côté, et le cas d'une fonction non définie en un point. Si la limite existe en ce point, définir $f$ par cette limite comble le trou : par exemple $x \mapsto \frac{\sin x}{x}$ prolongée par $1$ en $0$.</p>
 
-    <svg class="figure" width="440" height="260" viewBox="0 0 440 260">
-      <line class="fig-axis" x1="64" y1="200" x2="430" y2="200"/>
-      <line class="fig-axis" x1="247" y1="252" x2="247" y2="20"/>
-      <line class="fig-axis" x1="189.5" y1="196" x2="189.5" y2="204"/>
-      <line class="fig-axis" x1="304.5" y1="196" x2="304.5" y2="204"/>
-      <path class="fig-curve" d="M64 207.6 L73.2 201.1 L82.3 193.6 L91.4 186.8 L100.6 182.7 L109.7 182.5 L118.9 186.9 L128.1 195.4 L137.2 206.5 L146.3 218 L155.5 226.9 L164.8 230.4 L173.8 226.5 L182.9 214 L192.1 193.4 L201.2 166.5 L210.4 136.4 L219.5 106.9 L228.7 82.2 L237.8 65.8 L242.4 61.5 L247 60 L251.6 61.5 L256.2 65.8 L265.3 82.2 L274.5 106.9 L283.6 136.4 L292.8 166.5 L301.9 193.4 L311.1 214 L320.2 226.5 L329.2 230.4 L338.5 226.9 L347.7 218 L356.8 206.5 L365.9 195.4 L375.1 186.9 L384.3 182.5 L393.4 182.7 L402.6 186.8 L411.7 193.6 L420.9 201.1 L430 207.6"/>
-      <circle class="fig-hole" cx="247" cy="60" r="4"/>
-      <text x="230" y="57">1</text>
-      <text x="176" y="222">−π</text>
-      <text x="299" y="222">π</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="260" viewBox="0 0 440 260">
+        <line class="fig-axis" x1="64" y1="200" x2="430" y2="200"/>
+        <line class="fig-axis" x1="247" y1="252" x2="247" y2="20"/>
+        <line class="fig-axis" x1="189.5" y1="196" x2="189.5" y2="204"/>
+        <line class="fig-axis" x1="304.5" y1="196" x2="304.5" y2="204"/>
+        <path class="fig-curve" d="M64 207.6 L73.2 201.1 L82.3 193.6 L91.4 186.8 L100.6 182.7 L109.7 182.5 L118.9 186.9 L128.1 195.4 L137.2 206.5 L146.3 218 L155.5 226.9 L164.8 230.4 L173.8 226.5 L182.9 214 L192.1 193.4 L201.2 166.5 L210.4 136.4 L219.5 106.9 L228.7 82.2 L237.8 65.8 L242.4 61.5 L247 60 L251.6 61.5 L256.2 65.8 L265.3 82.2 L274.5 106.9 L283.6 136.4 L292.8 166.5 L301.9 193.4 L311.1 214 L320.2 226.5 L329.2 230.4 L338.5 226.9 L347.7 218 L356.8 206.5 L365.9 195.4 L375.1 186.9 L384.3 182.5 L393.4 182.7 L402.6 186.8 L411.7 193.6 L420.9 201.1 L430 207.6"/>
+        <circle class="fig-hole" cx="247" cy="60" r="4"/>
+        <text x="230" y="57">1</text>
+        <text x="176" y="222">−π</text>
+        <text x="299" y="222">π</text>
+      </svg>
+      <figcaption><span class="en">The graph of $\sin x / x$. The function is undefined at $0$, and the limit $1$ fills the hole.</span><span class="fr">Le graphe de $\sin x / x$. La fonction n'est pas d&eacute;finie en $0$, et la limite $1$ comble le trou.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Left and right continuity).</span> Let $f : I \to \mathbb{R}$ and $a \in I$. We say $f$ is <em>left-continuous at $a$</em> if $\lim_{x\to a^-}f(x)=f(a)$, and <em>right-continuous at $a$</em> if $\lim_{x\to a^+}f(x)=f(a)$. The function $f$ is continuous at $a$ if and only if it is both left- and right-continuous at $a$.</p>
@@ -181,24 +189,27 @@
     <p class="en">A graph drawn without lifting the pen cannot pass from below a horizontal line to above it without crossing the line. That is the entire statement.</p>
     <p class="fr">Un graphe tracé sans lever le crayon ne peut pas passer de dessous une droite horizontale à dessus sans traverser la droite. C'est tout l'énoncé.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-accent" x1="64" y1="150" x2="425" y2="150"/>
-      <line class="fig-guide" x1="85" y1="215" x2="85" y2="252"/>
-      <line class="fig-guide" x1="64" y1="215" x2="85" y2="215"/>
-      <line class="fig-guide" x1="410" y1="73" x2="410" y2="252"/>
-      <line class="fig-guide" x1="64" y1="73" x2="410" y2="73"/>
-      <line class="fig-guide" x1="245" y1="150" x2="245" y2="252"/>
-      <path class="fig-curve" d="M85 215 C140 208 175 185 215 165 C255 145 285 128 325 108 C360 91 390 80 410 73"/>
-      <circle class="fig-dot" cx="245" cy="150" r="4"/>
-      <text x="81" y="272">a</text>
-      <text x="406" y="272">b</text>
-      <text x="241" y="272">c</text>
-      <text x="20" y="220">f(a)</text>
-      <text x="20" y="78">f(b)</text>
-      <text x="46" y="155">x</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-accent" x1="64" y1="150" x2="425" y2="150"/>
+        <line class="fig-guide" x1="85" y1="215" x2="85" y2="252"/>
+        <line class="fig-guide" x1="64" y1="215" x2="85" y2="215"/>
+        <line class="fig-guide" x1="410" y1="73" x2="410" y2="252"/>
+        <line class="fig-guide" x1="64" y1="73" x2="410" y2="73"/>
+        <line class="fig-guide" x1="245" y1="150" x2="245" y2="252"/>
+        <path class="fig-curve" d="M85 215 C140 208 175 185 215 165 C255 145 285 128 325 108 C360 91 390 80 410 73"/>
+        <circle class="fig-dot" cx="245" cy="150" r="4"/>
+        <text x="81" y="272">a</text>
+        <text x="406" y="272">b</text>
+        <text x="241" y="272">c</text>
+        <text x="20" y="220">f(a)</text>
+        <text x="20" y="78">f(b)</text>
+        <text x="46" y="155">x</text>
+      </svg>
+      <figcaption><span class="en">The curve starts below the level $x$ and ends above it, so it crosses that level at some $c$.</span><span class="fr">La courbe part au-dessous du niveau $x$ et finit au-dessus, donc elle traverse ce niveau en un $c$.</span></figcaption>
+    </figure>
 
     <p class="en">The statement still needs a proof, because it is false in $\mathbb{Q}$: on $[0,2]$, $x \mapsto x^2-2$ goes from $-2$ to $2$ but never equals $0$; the crossing happens at $\sqrt{2}$, which is not rational. The theorem is really about $\mathbb{R}$: it holds because the real line has no holes. Both proofs below use this property, completeness, each in a different form.</p>
     <p class="fr">L'énoncé demande pourtant une démonstration, car il est faux dans $\mathbb{Q}$ : sur $[0,2]$, $x \mapsto x^2-2$ passe de $-2$ à $2$ sans jamais valoir $0$ ; la traversée a lieu en $\sqrt{2}$, qui n'est pas rationnel. Le théorème porte en réalité sur $\mathbb{R}$ : il est vrai parce que la droite réelle n'a pas de trous. Les deux démonstrations ci-dessous utilisent cette propriété, la complétude, chacune sous une forme différente.</p>
@@ -211,59 +222,65 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <p class="en"><em>Idea.</em> Cut $[a,b]$ in half, keep a half where the sign still changes, repeat. The two endpoints converge to a common point (completeness), where $f$ must vanish. This is binary search; each step halves the error.</p>
-      <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
-        <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
-        <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
-        <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
-        <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
-        <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
-        <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
-        <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
-        <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
-        <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
-        <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
-        <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
-        <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
-        <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
-        <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
-        <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
-        <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
-        <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
-        <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
-        <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
-        <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
-        <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
-        <text x="296" y="222">c</text>
-      </svg>
+    <figure class="figure-block">
+        <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
+          <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
+          <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
+          <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
+          <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
+          <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
+          <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
+          <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
+          <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
+          <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
+          <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
+          <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
+          <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
+          <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
+          <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
+          <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
+          <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
+          <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
+          <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
+          <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
+          <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
+          <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
+          <text x="296" y="222">c</text>
+        </svg>
+      <figcaption>Each step halves the interval and keeps a sign change, so the two endpoints close in on $c$.</figcaption>
+    </figure>
       <p class="en"><em>Proof (by bisection).</em> Replacing $f$ by $f-x$, we may assume $x=0$ with $f(a)\le0\le f(b)$ (if $f(a)\ge0\ge f(b)$, apply the result to $-f$). We construct by induction two sequences $(a_n)$ and $(b_n)$ such that $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ and $b_n-a_n=\frac{b-a}{2^n}$. Given $a_n$ and $b_n$, set $m_n=\frac{a_n+b_n}{2}$. If $f(m_n)\le0$, set $a_{n+1}=m_n$ and $b_{n+1}=b_n$; otherwise $a_{n+1}=a_n$ and $b_{n+1}=m_n$. This ensures $f(a_{n+1})\le0\le f(b_{n+1})$ and $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Thus $(a_n)$ is increasing, $(b_n)$ is decreasing and $b_n-a_n\to0$, so both sequences converge to a common limit $c\in[a,b]$ (completeness of $\mathbb{R}$). By continuity of $f$ at $c$, $f(a_n)\to f(c)$ and $f(b_n)\to f(c)$, but $f(a_n)\le0$ and $f(b_n)\ge0$ for all $n$, so $f(c)\le0$ and $f(c)\ge0$, giving $f(c)=0$.</p>
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr"><em>Idée.</em> Couper $[a,b]$ en deux, garder une moitié où le signe change encore, recommencer. Les deux extrémités convergent vers un point commun (complétude), où $f$ doit s'annuler. C'est la recherche dichotomique ; chaque étape divise l'erreur par deux.</p>
-      <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
-        <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
-        <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
-        <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
-        <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
-        <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
-        <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
-        <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
-        <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
-        <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
-        <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
-        <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
-        <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
-        <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
-        <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
-        <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
-        <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
-        <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
-        <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
-        <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
-        <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
-        <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
-        <text x="296" y="222">c</text>
-      </svg>
+    <figure class="figure-block">
+        <svg class="figure" width="440" height="230" viewBox="0 0 440 230">
+          <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
+          <line class="fig-accent" x1="80" y1="60" x2="400" y2="60"/>
+          <line class="fig-accent" x1="80" y1="55" x2="80" y2="65"/>
+          <line class="fig-accent" x1="400" y1="55" x2="400" y2="65"/>
+          <line class="fig-accent" x1="240" y1="100" x2="400" y2="100"/>
+          <line class="fig-accent" x1="240" y1="95" x2="240" y2="105"/>
+          <line class="fig-accent" x1="400" y1="95" x2="400" y2="105"/>
+          <line class="fig-accent" x1="240" y1="140" x2="320" y2="140"/>
+          <line class="fig-accent" x1="240" y1="135" x2="240" y2="145"/>
+          <line class="fig-accent" x1="320" y1="135" x2="320" y2="145"/>
+          <line class="fig-accent" x1="280" y1="180" x2="320" y2="180"/>
+          <line class="fig-accent" x1="280" y1="175" x2="280" y2="185"/>
+          <line class="fig-accent" x1="320" y1="175" x2="320" y2="185"/>
+          <text x="70" y="82">a<tspan dy="4" font-size="11">0</tspan></text>
+          <text x="392" y="82">b<tspan dy="4" font-size="11">0</tspan></text>
+          <text x="230" y="122">a<tspan dy="4" font-size="11">1</tspan></text>
+          <text x="392" y="122">b<tspan dy="4" font-size="11">1</tspan></text>
+          <text x="230" y="162">a<tspan dy="4" font-size="11">2</tspan></text>
+          <text x="312" y="162">b<tspan dy="4" font-size="11">2</tspan></text>
+          <text x="270" y="202">a<tspan dy="4" font-size="11">3</tspan></text>
+          <text x="312" y="202">b<tspan dy="4" font-size="11">3</tspan></text>
+          <text x="296" y="222">c</text>
+        </svg>
+      <figcaption>Chaque &eacute;tape divise l'intervalle par deux en gardant un changement de signe, donc les deux extr&eacute;mit&eacute;s se resserrent sur $c$.</figcaption>
+    </figure>
       <p class="fr"><em>Démonstration (par dichotomie).</em> Quitte à remplacer $f$ par $f-x$, on se ramène au cas $x=0$ avec $f(a)\le0\le f(b)$ (si $f(a)\ge0\ge f(b)$, on applique le résultat à $-f$). On construit par récurrence deux suites $(a_n)$ et $(b_n)$ telles que $a_0=a$, $b_0=b$, $f(a_n)\le0\le f(b_n)$ et $b_n-a_n=\frac{b-a}{2^n}$. Supposons $a_n$ et $b_n$ construits et posons $m_n=\frac{a_n+b_n}{2}$. Si $f(m_n)\le0$, on pose $a_{n+1}=m_n$ et $b_{n+1}=b_n$, sinon $a_{n+1}=a_n$ et $b_{n+1}=m_n$, ce qui garantit $f(a_{n+1})\le0\le f(b_{n+1})$ et $b_{n+1}-a_{n+1}=\frac{b_n-a_n}{2}$. Ainsi $(a_n)$ est croissante, $(b_n)$ est décroissante et $b_n-a_n\to0$, donc les suites sont adjacentes et convergent vers une même limite $c\in[a,b]$ (complétude de $\mathbb{R}$). Par continuité de $f$ en $c$, on a $f(a_n)\to f(c)$ et $f(b_n)\to f(c)$, or pour tout $n$, $f(a_n)\le0$ et $f(b_n)\ge0$, donc $f(c)\le0$ et $f(c)\ge0$, d'où $f(c)=0$.</p>
     </details>
 
@@ -294,20 +311,23 @@
     <p class="en">The key fact about a segment $[a,b]$: any sequence in it is bounded, so by Bolzano-Weierstrass it has a subsequence converging to a point of $[a,b]$. The proof below applies this twice, with the same three steps each time: take a sequence in $[a,b]$, extract a convergent subsequence, pass to the limit through $f$.</p>
     <p class="fr">Le fait clé sur un segment $[a,b]$ : toute suite qui y vit est bornée, donc par Bolzano-Weierstrass elle a une sous-suite qui converge vers un point de $[a,b]$. La démonstration ci-dessous l'applique deux fois, avec les trois mêmes étapes : prendre une suite dans $[a,b]$, extraire une sous-suite convergente, passer à la limite à travers $f$.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-guide" x1="64" y1="90" x2="260" y2="90"/>
-      <line class="fig-guide" x1="260" y1="90" x2="260" y2="252"/>
-      <line class="fig-axis" x1="85" y1="247" x2="85" y2="257"/>
-      <line class="fig-axis" x1="410" y1="247" x2="410" y2="257"/>
-      <path class="fig-curve" d="M85 200 C130 170 190 90 260 90 C300 90 360 150 410 195"/>
-      <circle class="fig-dot" cx="260" cy="90" r="4"/>
-      <text x="81" y="272">a</text>
-      <text x="406" y="272">b</text>
-      <text x="256" y="272">c</text>
-      <text x="44" y="95">M</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-guide" x1="64" y1="90" x2="260" y2="90"/>
+        <line class="fig-guide" x1="260" y1="90" x2="260" y2="252"/>
+        <line class="fig-axis" x1="85" y1="247" x2="85" y2="257"/>
+        <line class="fig-axis" x1="410" y1="247" x2="410" y2="257"/>
+        <path class="fig-curve" d="M85 200 C130 170 190 90 260 90 C300 90 360 150 410 195"/>
+        <circle class="fig-dot" cx="260" cy="90" r="4"/>
+        <text x="81" y="272">a</text>
+        <text x="406" y="272">b</text>
+        <text x="256" y="272">c</text>
+        <text x="44" y="95">M</text>
+      </svg>
+      <figcaption><span class="en">The maximum $M$ is not only approached, it is reached, at a point $c$ of $[a,b]$.</span><span class="fr">Le maximum $M$ n'est pas seulement approch&eacute;, il est atteint, en un point $c$ de $[a,b]$.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Extreme value theorem).</span> Every continuous function on a closed interval $[a,b]$ is bounded and attains its bounds.</p>
@@ -364,16 +384,19 @@
     <p class="en">If $f$ is also strictly monotone, it is injective, so it is a bijection from $I$ onto $f(I)$. The continuity of $f^{-1}$ can be seen on the graph: the graph of $f^{-1}$ is the graph of $f$ reflected across the line $y = x$, and the reflection of a curve without jumps has no jumps. The proof below verifies this.</p>
     <p class="fr">Si $f$ est de plus strictement monotone, elle est injective, donc bijective de $I$ sur $f(I)$. La continuité de $f^{-1}$ se voit sur le graphe : le graphe de $f^{-1}$ est celui de $f$ réfléchi par rapport à la droite $y = x$, et le reflet d'une courbe sans saut n'a pas de saut. La démonstration ci-dessous le vérifie.</p>
 
-    <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
-      <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
-      <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
-      <line class="fig-guide" x1="64" y1="252" x2="280" y2="36"/>
-      <path class="fig-curve" d="M75 245 C130 240 190 220 220 170 C240 135 248 90 252 50"/>
-      <path class="fig-curve fig-accent" d="M71 241 C76 186 96 126 146 96 C181 76 226 68 266 64"/>
-      <text x="200" y="190">f</text>
-      <text x="104" y="112">f<tspan dy="-6" font-size="11">−1</tspan></text>
-      <text x="286" y="42">y = x</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="290" viewBox="0 0 440 290">
+        <line class="fig-axis" x1="64" y1="252" x2="430" y2="252"/>
+        <line class="fig-axis" x1="64" y1="252" x2="64" y2="16"/>
+        <line class="fig-guide" x1="64" y1="252" x2="280" y2="36"/>
+        <path class="fig-curve" d="M75 245 C130 240 190 220 220 170 C240 135 248 90 252 50"/>
+        <path class="fig-curve fig-accent" d="M71 241 C76 186 96 126 146 96 C181 76 226 68 266 64"/>
+        <text x="200" y="190">f</text>
+        <text x="104" y="112">f<tspan dy="-6" font-size="11">−1</tspan></text>
+        <text x="286" y="42">y = x</text>
+      </svg>
+      <figcaption><span class="en">The graph of $f^{-1}$ is the graph of $f$ reflected in the line $y = x$.</span><span class="fr">Le graphe de $f^{-1}$ est celui de $f$ r&eacute;fl&eacute;chi par rapport &agrave; la droite $y = x$.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Bijection theorem).</span> Let $f$ be continuous and strictly monotone on an interval $I$. Then:</p>
@@ -411,36 +434,37 @@
     <p class="en">In the definition of continuity, $\delta$ is chosen after the point $a$, so it can depend on $a$. Uniform continuity requires one $\delta$ valid for all points at once. The difference is only the position of $\exists \delta$: continuity at every point is $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$; uniform continuity is $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Example: $x \mapsto 1/x$ on $]0,1]$ is continuous, but the graph gets steeper near $0$, so the $\delta$ needed for a given $\varepsilon$ shrinks: no single $\delta$ works for the whole interval.</p>
     <p class="fr">Dans la définition de la continuité, $\delta$ est choisi après le point $a$, donc peut dépendre de $a$. La continuité uniforme exige un $\delta$ valable pour tous les points à la fois. La différence est seulement la position de $\exists \delta$ : la continuité en tout point s'écrit $\forall a,\ \forall \varepsilon,\ \exists \delta,\ \forall x$ ; la continuité uniforme s'écrit $\forall \varepsilon,\ \exists \delta,\ \forall x, y$. Exemple : $x \mapsto 1/x$ sur $]0,1]$ est continue, mais le graphe devient de plus en plus raide près de $0$, donc le $\delta$ requis pour un $\varepsilon$ donné rétrécit : aucun $\delta$ ne convient pour tout l'intervalle.</p>
 
-    <p class="en">On the graph of $1/x$: the two intervals on the y-axis have the same height $\varepsilon$. Near $0$, keeping $|f(x)-f(y)| \le \varepsilon$ forces $|x-y|$ to be tiny; far from $0$, $|x'-y'|$ can be much larger for the same $\varepsilon$. No single $\delta$ suits all points.</p>
-    <p class="fr">Sur le graphe de $1/x$ : les deux intervalles sur l'axe des ordonnées ont la même hauteur $\varepsilon$. Près de $0$, maintenir $|f(x)-f(y)| \le \varepsilon$ force $|x-y|$ à être minuscule ; loin de $0$, $|x'-y'|$ peut être bien plus grand pour le même $\varepsilon$. Aucun $\delta$ unique ne convient à tous les points.</p>
 
-    <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
-      <line class="fig-axis" x1="64" y1="262" x2="430" y2="262"/>
-      <line class="fig-axis" x1="64" y1="262" x2="64" y2="16"/>
-      <path class="fig-curve" d="M125 22 L129.9 39.8 L137.2 62 L144.5 80.2 L155.5 102 L166.5 119.1 L181.1 137 L195.8 150.9 L210.4 162 L228.7 173.1 L247 182 L265.3 189.3 L283.6 195.3 L301.9 200.5 L320.2 204.9 L338.5 208.7 L356.8 212 L375.1 214.9 L393.4 217.6 L411.7 219.9 L430 222"/>
-      <line class="fig-interval" x1="64" y1="47" x2="64" y2="77"/>
-      <line class="fig-guide" x1="64" y1="47" x2="132.1" y2="47"/>
-      <line class="fig-guide" x1="64" y1="77" x2="143.1" y2="77"/>
-      <line class="fig-guide" x1="132.1" y1="47" x2="132.1" y2="262"/>
-      <line class="fig-guide" x1="143.1" y1="77" x2="143.1" y2="262"/>
-      <line class="fig-interval" x1="132.1" y1="262" x2="143.1" y2="262"/>
-      <line class="fig-interval" x1="64" y1="185.5" x2="64" y2="215.5"/>
-      <line class="fig-guide" x1="64" y1="185.5" x2="255.4" y2="185.5"/>
-      <line class="fig-guide" x1="64" y1="215.5" x2="378.8" y2="215.5"/>
-      <line class="fig-guide" x1="255.4" y1="185.5" x2="255.4" y2="262"/>
-      <line class="fig-guide" x1="378.8" y1="215.5" x2="378.8" y2="262"/>
-      <line class="fig-interval" x1="255.4" y1="262" x2="378.8" y2="262"/>
-      <text x="70" y="70">ε</text>
-      <text x="70" y="208">ε</text>
-      <text x="12" y="52">f(x)</text>
-      <text x="12" y="86">f(y)</text>
-      <text x="8" y="190">f(x′)</text>
-      <text x="8" y="224">f(y′)</text>
-      <text x="128" y="284">x</text>
-      <text x="141" y="284">y</text>
-      <text x="249" y="284">x′</text>
-      <text x="370" y="284">y′</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="300" viewBox="0 0 440 300">
+        <line class="fig-axis" x1="64" y1="262" x2="430" y2="262"/>
+        <line class="fig-axis" x1="64" y1="262" x2="64" y2="16"/>
+        <path class="fig-curve" d="M125 22 L129.9 39.8 L137.2 62 L144.5 80.2 L155.5 102 L166.5 119.1 L181.1 137 L195.8 150.9 L210.4 162 L228.7 173.1 L247 182 L265.3 189.3 L283.6 195.3 L301.9 200.5 L320.2 204.9 L338.5 208.7 L356.8 212 L375.1 214.9 L393.4 217.6 L411.7 219.9 L430 222"/>
+        <line class="fig-interval" x1="64" y1="47" x2="64" y2="77"/>
+        <line class="fig-guide" x1="64" y1="47" x2="132.1" y2="47"/>
+        <line class="fig-guide" x1="64" y1="77" x2="143.1" y2="77"/>
+        <line class="fig-guide" x1="132.1" y1="47" x2="132.1" y2="262"/>
+        <line class="fig-guide" x1="143.1" y1="77" x2="143.1" y2="262"/>
+        <line class="fig-interval" x1="132.1" y1="262" x2="143.1" y2="262"/>
+        <line class="fig-interval" x1="64" y1="185.5" x2="64" y2="215.5"/>
+        <line class="fig-guide" x1="64" y1="185.5" x2="255.4" y2="185.5"/>
+        <line class="fig-guide" x1="64" y1="215.5" x2="378.8" y2="215.5"/>
+        <line class="fig-guide" x1="255.4" y1="185.5" x2="255.4" y2="262"/>
+        <line class="fig-guide" x1="378.8" y1="215.5" x2="378.8" y2="262"/>
+        <line class="fig-interval" x1="255.4" y1="262" x2="378.8" y2="262"/>
+        <text x="70" y="70">ε</text>
+        <text x="70" y="208">ε</text>
+        <text x="12" y="52">f(x)</text>
+        <text x="12" y="86">f(y)</text>
+        <text x="8" y="190">f(x′)</text>
+        <text x="8" y="224">f(y′)</text>
+        <text x="128" y="284">x</text>
+        <text x="141" y="284">y</text>
+        <text x="249" y="284">x′</text>
+        <text x="370" y="284">y′</text>
+      </svg>
+      <figcaption><span class="en">On the graph of $1/x$: the two intervals on the y-axis have the same height $\varepsilon$. Near $0$, keeping $|f(x)-f(y)| \le \varepsilon$ forces $|x-y|$ to be tiny; far from $0$, $|x'-y'|$ can be much larger for the same $\varepsilon$. No single $\delta$ suits all points.</span><span class="fr">Sur le graphe de $1/x$ : les deux intervalles sur l'axe des ordonnées ont la même hauteur $\varepsilon$. Près de $0$, maintenir $|f(x)-f(y)| \le \varepsilon$ force $|x-y|$ à être minuscule ; loin de $0$, $|x'-y'|$ peut être bien plus grand pour le même $\varepsilon$. Aucun $\delta$ unique ne convient à tous les points.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval. We say $f : I \to \mathbb{R}$ is <em>uniformly continuous</em> on $I$ if $$\forall \varepsilon &gt; 0,\ \exists \delta &gt; 0,\ \forall x,y \in I,\ |x-y|&lt;\delta \Rightarrow |f(x)-f(y)|&lt;\varepsilon.$$</p>
@@ -450,19 +474,20 @@
     <p class="en">A $k$-Lipschitz function is a function whose chords have slope at most $k$ in absolute value. This bounds how fast $f$ can vary, and gives the chain: Lipschitz $\Rightarrow$ uniformly continuous $\Rightarrow$ continuous. Both implications are strict: $\sqrt{x}$ on $[0,1]$ is uniformly continuous but not Lipschitz, $1/x$ on $]0,1]$ is continuous but not uniformly continuous.</p>
     <p class="fr">Une fonction $k$-lipschitzienne est une fonction dont les cordes ont une pente d'au plus $k$ en valeur absolue. Cela borne la vitesse de variation de $f$ et donne la chaîne : lipschitzienne $\Rightarrow$ uniformément continue $\Rightarrow$ continue. Les deux implications sont strictes : $\sqrt{x}$ sur $[0,1]$ est uniformément continue mais pas lipschitzienne, $1/x$ sur $]0,1]$ est continue mais pas uniformément continue.</p>
 
-    <p class="en">Through each point of the graph, the two lines of slope $k$ and $-k$ enclose the rest of the graph.</p>
-    <p class="fr">Par chaque point du graphe, les deux droites de pente $k$ et $-k$ encadrent le reste du graphe.</p>
 
-    <svg class="figure" width="440" height="280" viewBox="0 0 440 280">
-      <polygon class="fig-band" points="80,228 240,140 80,52"/>
-      <polygon class="fig-band" points="420,41 240,140 420,239"/>
-      <line class="fig-accent" x1="80" y1="228" x2="420" y2="41"/>
-      <line class="fig-accent" x1="80" y1="52" x2="420" y2="239"/>
-      <path class="fig-curve" d="M85 175 C140 160 190 150 240 140 C290 132 340 120 410 100"/>
-      <circle class="fig-dot" cx="240" cy="140" r="4"/>
-      <text x="396" y="44">k</text>
-      <text x="388" y="244">−k</text>
-    </svg>
+    <figure class="figure-block">
+      <svg class="figure" width="440" height="280" viewBox="0 0 440 280">
+        <polygon class="fig-band" points="80,228 240,140 80,52"/>
+        <polygon class="fig-band" points="420,41 240,140 420,239"/>
+        <line class="fig-accent" x1="80" y1="228" x2="420" y2="41"/>
+        <line class="fig-accent" x1="80" y1="52" x2="420" y2="239"/>
+        <path class="fig-curve" d="M85 175 C140 160 190 150 240 140 C290 132 340 120 410 100"/>
+        <circle class="fig-dot" cx="240" cy="140" r="4"/>
+        <text x="396" y="44">k</text>
+        <text x="388" y="244">−k</text>
+      </svg>
+      <figcaption><span class="en">Through each point of the graph, the two lines of slope $k$ and $-k$ enclose the rest of the graph.</span><span class="fr">Par chaque point du graphe, les deux droites de pente $k$ et $-k$ encadrent le reste du graphe.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval and $k \ge 0$. We say $f : I \to \mathbb{R}$ is <em>$k$-Lipschitz</em> if $$\forall x,y \in I,\ |f(x)-f(y)| \le k\,|x-y|.$$</p>

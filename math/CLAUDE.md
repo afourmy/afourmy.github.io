@@ -28,6 +28,7 @@ Figures are the main vehicle of the redesign: every result whose idea can be dra
 
 Practical rules:
 
+- **Text that describes a figure is a caption, placed below it**, never body prose above it. Wrap the SVG in `<figure class="figure-block">` and put the caption in a single `<figcaption>` after it, bilingual via `<span class="en">` and `<span class="fr">` inside that one element (two `figcaption` elements would be invalid HTML). A figure inside a language-specific proof takes a plain `<figcaption>` with no spans, since the enclosing `details` is already language-tagged. Prose above a figure is only for text that advances the mathematics; if it describes the drawing, it belongs underneath.
 - Use the shared `.figure` / `.fig-*` classes in `style.css`, extending them in `style.css` if a new kind of mark is needed. Never inline styles.
 - Within a page, keep one visual vocabulary: the same kind of quantity is always drawn the same way across figures.
 - Labels are math symbols only, so one SVG serves both languages. A figure placed inside a proof `details` must be duplicated in the `en` and `fr` versions.
