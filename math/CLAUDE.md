@@ -2,7 +2,7 @@
 
 The base guideline for any course redesign is `ARTISTIC_DIRECTION.md` at the website root: read it first and apply it in full (the one idea per result, seeing before computing, encodings, plain simplicity, the reconstruction test). The rules below do not replace it; they are the math-specific layer on top of it, learned while redoing `continuite.html`. Follow both to avoid repeating the same mistakes.
 
-Before starting, also read the courses already redone and use them as worked examples of the target result: currently `continuite.html` (structure, prose register, figures); more will join it over time.
+Before starting, also read the courses already redone and use them as worked examples of the target result: currently `continuite.html` and `complexes.html` (structure, prose register, figures); more will join it over time.
 
 ## Content
 
