@@ -18,16 +18,18 @@ The base guideline for any course redesign is `ARTISTIC_DIRECTION.md` at the web
 
 ## Figures
 
-Figures are the main vehicle of the redesign: every result whose idea can be drawn gets an SVG figure.
+Figures are the main vehicle of the redesign: every result whose idea can be drawn gets an SVG figure. Three principles, learned the hard way:
 
-- Use the shared `.figure` / `.fig-*` classes in `style.css` (curve, axis, guide, band, accent, dot, hole, interval). Never inline styles.
-- If the text names a function, the curve must be that actual function, plotted from computed coordinates. A generic lookalike captioned as $\sin x / x$ was rejected.
-- Every symbol in a figure labels a visible, anchored element: an interval on an axis, a line, a point. Nothing floats near the curve. Floating ε/δ letters were rejected.
-- Draw the quantities of the statement itself: name the points ($x$, $y$, $x'$, $a$, $c$) and mark their differences as intervals on the axes. If sample points appear ($x_1, x_2, \dots$), each one gets its guides and its labeled image $f(x_i)$ on the y-axis.
-- Keep one visual vocabulary across all figures: shaded bands for output margins, strips or `fig-interval` segments for input margins, dashed `fig-guide` lines for projections, `fig-hole` for removable points.
+- **A figure draws the actual objects of the statement, not a lookalike.** If the text names a specific object (a function, a graph, a group, a matrix), the figure shows that exact object, computed for real, not a generic shape that resembles it. A generic curve captioned as $\sin x/x$ was rejected.
+- **The quantities the statement talks about are the ones marked in the figure.** Whatever the statement quantifies over or compares must be visible and named in the drawing, so the reader can match the symbols of the statement to elements of the picture one for one. (In `continuite.html` this meant naming the points and marking their differences as axis intervals; each course will have its own version of this.)
+- **Every symbol labels a visible, anchored element; nothing floats.** A letter in a figure must sit against the interval, line, or point it names. Floating ε/δ letters were rejected. Test for every figure: the reader should be able to reconstruct the sentence it illustrates from the drawing alone.
+
+Practical rules:
+
+- Use the shared `.figure` / `.fig-*` classes in `style.css`, extending them in `style.css` if a new kind of mark is needed. Never inline styles.
+- Within a page, keep one visual vocabulary: the same kind of quantity is always drawn the same way across figures.
 - Labels are math symbols only, so one SVG serves both languages. A figure placed inside a proof `details` must be duplicated in the `en` and `fr` versions.
 - Minus signs in SVG text are U+2212, never a hyphen or dash.
-- Test for a figure: the reader should be able to reconstruct the sentence it illustrates from the drawing alone.
 
 ## Workflow
 
