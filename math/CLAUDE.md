@@ -16,20 +16,7 @@ Every course page has the same three top-level (`h2`) sections, in this order: *
 
 The mathematics itself, split into `h3` sections: definitions, theorems, proofs, figures. This is what the redone pages already contain.
 
-### 2. Counterexamples
-
-A hypothesis earns its place by being necessary, and the way to show that is to delete it and watch the theorem fail. Each entry takes one theorem of the Course, drops exactly one of its hypotheses, and asks for an object satisfying everything that is left while breaking the conclusion.
-
-- Write it as a task, not a discussion: "Find a counterexample to [theorem] when [hypothesis] is dropped." Same markup as an exercise, statement in a `thm-block`, counterexample hidden in a `details.proof`.
-- The énoncé names the hypothesis being removed, so the reader knows which conditions the counterexample still has to satisfy.
-- One entry per (theorem, hypothesis) pair. A theorem with three hypotheses may appear three times, once, or not at all.
-- **Only mathematically interesting counterexamples. An obvious one is worse than none at all.** This is the first filter and the one that gets ignored: if the reader can see the counterexample straight from the statement, it teaches nothing and must not go on the page. A step function violating the intermediate value theorem, $x^2$ failing to be injective on $[-1,1]$, $f(x) = x$ not attaining its bounds on $]0,1[$: nobody ever believed those statements, so watching them fail is not an insight, it is padding. The bar is whether a competent reader would have hesitated before seeing the answer. Keep the ones where the hypothesis looks removable and the failure is a genuine surprise: $x^2$ is continuous on all of $\mathbb{R}$ and still not uniformly continuous; a continuous strictly increasing bijection can have a discontinuous inverse as soon as its domain stops being an interval.
-- **An entry has to teach something. Most hypotheses teach nothing and get no entry.** The test is not whether a failing object exists, it is what the reader learns from the failure. Never add an entry to fill the section out.
-- **Reject every hypothesis whose removal only makes an expression undefined.** $a \neq 0$ in $az^2 + bz + c = 0$, $z \neq 0$ before $\arg(z)$ or $1/z$, $W \neq 0$ in $z^n = W$, $C \neq D$ before a quotient of affixes, $n \ge 2$ in a sum of $n$ terms: dropping any of these divides by zero, or asks for the argument of $0$, or degenerates an index range. The answer is always "the formula is meaningless here", which is worth nothing on the page. These look like valid entries and are the main way this section goes wrong.
-- **Keep a hypothesis only when removing it leaves every expression well defined and the statement still comes out false.** Then the counterexample shows what the hypothesis was doing, which is the whole point: real coefficients are what force the roots to come in conjugate pairs, the congruence $[2\pi]$ is what makes arguments add. Two entries of that kind are worth more than five, and a page with no Counterexamples section at all is a legitimate outcome.
-- Always the simplest counterexample: a specific function, sequence, or number the reader can check in one line, never a general construction where a particular object does the job.
-
-### 3. Techniques
+### 2. Techniques
 
 The few reusable techniques of the chapter, each stated as a literal fact and each followed immediately by a short exercise that puts it to work.
 
@@ -39,9 +26,22 @@ The few reusable techniques of the chapter, each stated as a literal fact and ea
 - **Never leave a technique without its exercise.** Every technique on the page carries one, with no exceptions: a bare technique is not an acceptable outcome, not even for a framing statement that reads more like a principle than a procedure. If no existing exercise fits and no easy one comes to mind, invent one. If a technique genuinely cannot be exercised it was never a technique: state it in the Course, beside the results it explains, and never as a bare entry here. Do not turn it into a section intro, those are banned. `continuite.html` had "completeness of $\mathbb{R}$ is behind every existence result", which is a true and useful observation and belongs next to the theorems it accounts for, not in a list of things to do.
 - A `<ul>` of bullets no longer serves, since a list item cannot carry a `details.proof`. Each technique becomes its own block: statement, then énoncé, then hidden solution.
 
-### 4. Exercises
+### 3. Exercises
 
-The chapter's exercises, unchanged: statement in `thm-block exercise`, solution in `details.proof`.
+The chapter's exercises: statement in `thm-block exercise`, solution in `details.proof`.
+
+**The Exercises section opens with the counterexamples**, before any ordinary exercise. A hypothesis earns its place by being necessary, and the way to show that is to delete it and watch the theorem fail. Each such exercise takes one theorem of the Course, drops exactly one of its hypotheses, and asks for an object satisfying everything that is left while breaking the conclusion. They are ordinary exercises in every other respect, labelled `Exercise.` / `Exercice.` like the rest.
+
+- Write it as a task, not a discussion: "Find a counterexample to [theorem] when [hypothesis] is dropped." Same markup as an exercise, statement in a `thm-block`, counterexample hidden in a `details.proof`.
+- The énoncé names the hypothesis being removed, so the reader knows which conditions the counterexample still has to satisfy.
+- One entry per (theorem, hypothesis) pair. A theorem with three hypotheses may appear three times, once, or not at all.
+- **Only mathematically interesting counterexamples. An obvious one is worse than none at all.** This is the first filter and the one that gets ignored: if the reader can see the counterexample straight from the statement, it teaches nothing and must not go on the page. A step function violating the intermediate value theorem, $x^2$ failing to be injective on $[-1,1]$, $f(x) = x$ not attaining its bounds on $]0,1[$: nobody ever believed those statements, so watching them fail is not an insight, it is padding. The bar is whether a competent reader would have hesitated before seeing the answer. Keep the ones where the hypothesis looks removable and the failure is a genuine surprise: $x^2$ is continuous on all of $\mathbb{R}$ and still not uniformly continuous; a continuous strictly increasing bijection can have a discontinuous inverse as soon as its domain stops being an interval.
+- **An entry has to teach something. Most hypotheses teach nothing and get no entry.** The test is not whether a failing object exists, it is what the reader learns from the failure. Never add an entry to fill the section out.
+- **Reject every hypothesis whose removal only makes an expression undefined.** $a \neq 0$ in $az^2 + bz + c = 0$, $z \neq 0$ before $\arg(z)$ or $1/z$, $W \neq 0$ in $z^n = W$, $C \neq D$ before a quotient of affixes, $n \ge 2$ in a sum of $n$ terms: dropping any of these divides by zero, or asks for the argument of $0$, or degenerates an index range. The answer is always "the formula is meaningless here", which is worth nothing on the page. These look like valid entries and are the main way these exercises go wrong.
+- **Keep a hypothesis only when removing it leaves every expression well defined and the statement still comes out false.** Then the counterexample shows what the hypothesis was doing, which is the whole point: real coefficients are what force the roots to come in conjugate pairs, the congruence $[2\pi]$ is what makes arguments add. Two entries of that kind are worth more than five, and a page whose Exercises section opens with no counterexample at all is a legitimate outcome.
+- Always the simplest counterexample: a specific function, sequence, or number the reader can check in one line, never a general construction where a particular object does the job.
+
+After the counterexamples come the ordinary exercises, easiest to hardest.
 
 ## Content
 
@@ -85,7 +85,7 @@ Practical rules:
 
 Static checks are not enough. They passed while a circle rendered as a solid black disk, while $f^{-1}$ was a freehand curve instead of a real reflection, and while a quarter of a figure was empty canvas. Before declaring a page done, serve it (`python3 -m http.server`) and screenshot it with headless Chrome, then look at every figure.
 
-Also script these checks: the four `h2` sections present, in order, in both languages; every technique followed by an énoncé; HTML tags balanced; no `details.proof` separated from its block; EN/FR paragraph parity; no em dash; no label out of frame; no two labels overlapping; no axis stopping inside a circle.
+Also script these checks: the three `h2` sections present, in order, in both languages; the counterexamples first inside Exercises; every technique followed by an énoncé; HTML tags balanced; no `details.proof` separated from its block; EN/FR paragraph parity; no em dash; no label out of frame; no two labels overlapping; no axis stopping inside a circle.
 
 ## Workflow
 

@@ -221,7 +221,7 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en"><em>Idea.</em> Cut $[a,b]$ in half, keep a half where the sign still changes, repeat. The two endpoints converge to a common point (completeness), where $f$ must vanish. This is binary search; each step halves the error.</p>
+      <p class="en"><em>Idea.</em> Cut $[a,b]$ in half, keep a half where the sign still changes, repeat. The two endpoints converge to a common point (completeness), where $f$ must be $0$. This is binary search; each step halves the error.</p>
     <figure class="figure-block">
         <svg class="figure" width="354" height="200" viewBox="60.0 35.0 353.9 200.0">
           <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
@@ -253,7 +253,7 @@
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr"><em>Idée.</em> Couper $[a,b]$ en deux, garder une moitié où le signe change encore, recommencer. Les deux extrémités convergent vers un point commun (complétude), où $f$ doit s'annuler. C'est la recherche dichotomique ; chaque étape divise l'erreur par deux.</p>
+      <p class="fr"><em>Idée.</em> Couper $[a,b]$ en deux, garder une moitié où le signe change encore, recommencer. Les deux extrémités convergent vers un point commun (complétude), où $f$ vaut nécessairement $0$. C'est la recherche dichotomique ; chaque étape divise l'erreur par deux.</p>
     <figure class="figure-block">
         <svg class="figure" width="354" height="200" viewBox="60.0 35.0 353.9 200.0">
           <line class="fig-guide" x1="300" y1="45" x2="300" y2="205"/>
@@ -530,24 +530,6 @@
     <p class="fr">La complétude de $\mathbb{R}$ est ce qui rend vrais les trois résultats d'existence : la racine du théorème des valeurs intermédiaires, le maximum atteint du théorème des bornes atteintes, le $\delta$ uniforme du théorème de Heine. Chaque démonstration produit une suite et en extrait une sous-suite convergente, et c'est l'extraction qui fait intervenir la complétude. Sur $\mathbb{Q}$, les trois énoncés sont faux.</p>
 
     <!-- ══════════════════════════════════════════════════════════ -->
-    <h2 class="en">Counterexamples</h2>
-    <h2 class="fr">Contre-exemples</h2>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Counterexample.</span> Every continuous function on a closed bounded interval is uniformly continuous. Find a counterexample when the interval is closed but not bounded.</p>
-      <p class="fr"><span class="thm-label">Contre-exemple.</span> Toute fonction continue sur un segment est uniformément continue. Trouver un contre-exemple quand l'intervalle est fermé mais non borné.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Take $f(x) = x^2$ on $\mathbb{R}$. Set $x_n = n$ and $y_n = n + \frac{1}{n}$. Then $|x_n - y_n| = \frac{1}{n} \to 0$, while $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. So for $\varepsilon = 2$, no $\delta &gt; 0$ works, and $f$ is not uniformly continuous.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Prendre $f(x) = x^2$ sur $\mathbb{R}$. Posons $x_n = n$ et $y_n = n + \frac{1}{n}$. Alors $|x_n - y_n| = \frac{1}{n} \to 0$, tandis que $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. Donc pour $\varepsilon = 2$, aucun $\delta &gt; 0$ ne convient, et $f$ n'est pas uniformément continue.
-    </details>
-
-
     <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Techniques</h2>
     <h2 class="fr">Techniques</h2>
@@ -576,8 +558,8 @@
       <p class="fr"><span class="technique-label">Technique 2.</span> Dans un segment, toute suite a une sous-suite qui converge à l'intérieur (Bolzano-Weierstrass) : extraire, puis passer à la limite.</p>
 
       <div class="thm-block exercise">
-        <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,1] \to \mathbb{R}$ be continuous and let $(u_n)$ be a sequence in $[0,1]$ with $f(u_n) \to 0$. Show that $f$ vanishes somewhere on $[0,1]$.</p>
-        <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,1] \to \mathbb{R}$ continue et $(u_n)$ une suite de $[0,1]$ telle que $f(u_n) \to 0$. Montrer que $f$ s'annule en un point de $[0,1]$.</p>
+        <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,1] \to \mathbb{R}$ be continuous and let $(u_n)$ be a sequence in $[0,1]$ with $f(u_n) \to 0$. Show that there exists $c \in [0,1]$ such that $f(c) = 0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,1] \to \mathbb{R}$ continue et $(u_n)$ une suite de $[0,1]$ telle que $f(u_n) \to 0$. Montrer qu'il existe $c \in [0,1]$ tel que $f(c) = 0$.</p>
       </div>
 
       <details class="proof en">
@@ -632,6 +614,20 @@
     <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Every continuous function on a closed bounded interval is uniformly continuous. Find a counterexample when the interval is closed but not bounded.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Toute fonction continue sur un segment est uniformément continue. Trouver un contre-exemple quand l'intervalle est fermé mais non borné.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $f(x) = x^2$ on $\mathbb{R}$. Set $x_n = n$ and $y_n = n + \frac{1}{n}$. Then $|x_n - y_n| = \frac{1}{n} \to 0$, while $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. So for $\varepsilon = 2$, no $\delta &gt; 0$ works, and $f$ is not uniformly continuous.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $f(x) = x^2$ sur $\mathbb{R}$. Posons $x_n = n$ et $y_n = n + \frac{1}{n}$. Alors $|x_n - y_n| = \frac{1}{n} \to 0$, tandis que $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. Donc pour $\varepsilon = 2$, aucun $\delta &gt; 0$ ne convient, et $f$ n'est pas uniformément continue.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Study the continuity of the function $$f(x)=\begin{cases}x \sin(1/x) & \text{if } x \neq 0, \\ 0 & \text{if } x=0.\end{cases}$$</p>

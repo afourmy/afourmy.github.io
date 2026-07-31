@@ -397,12 +397,14 @@ details.tsp-code > p {
 }
 
 /* ── Techniques ── */
-/* A technique and the exercise demonstrating it are one unit: the rule down
-   the left binds them together and separates each pair from the next. */
+/* A technique and the exercise demonstrating it are one unit: a horizontal
+   rule between consecutive pairs separates each unit from the next. */
 .technique {
-  border-left: 3px solid var(--accent);
-  padding: 0.5rem 0 0.6rem 1.1rem;
-  margin: 1.9rem 0;
+  padding: 1.5rem 0;
+}
+
+.technique + .technique {
+  border-top: 1px solid var(--border);
 }
 
 .technique > p {
