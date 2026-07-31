@@ -26,8 +26,8 @@
     <h3 class="en">$\mathbb{C}$ is the plane with a multiplication</h3>
     <h3 class="fr">$\mathbb{C}$ est le plan muni d'une multiplication</h3>
 
-    <p class="en">The definition below is short, and its content is geometric. It turns the plane into a number system, in which two points can be multiplied together and not only added. The plane $\mathbb{R}^2$ has no such multiplication, and everything in this chapter comes from what this one does.</p>
-    <p class="fr">La d&eacute;finition ci-dessous est courte, et son contenu est g&eacute;om&eacute;trique. Elle fait du plan un syst&egrave;me de nombres, dans lequel deux points peuvent &ecirc;tre multipli&eacute;s entre eux et pas seulement additionn&eacute;s. Le plan $\mathbb{R}^2$ n'a pas de telle multiplication, et tout ce chapitre d&eacute;coule de ce que fait celle-ci.</p>
+    <p class="en">The plane $\mathbb{R}^2$ has no multiplication of points, only addition. Adding one makes it a number system, and that multiplication is geometric.</p>
+    <p class="fr">Le plan $\mathbb{R}^2$ n'a pas de multiplication des points, seulement l'addition. En ajouter une en fait un syst&egrave;me de nombres, et cette multiplication est g&eacute;om&eacute;trique.</p>
 
     <!-- Definition of C -->
     <div class="thm-block definition">
@@ -833,42 +833,190 @@
       <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> with three points, the angle at $A$ is the argument of $\frac{c-a}{b-a}$, which is real exactly when $A$, $B$, $C$ are collinear.</span><span class="cap-part"><span class="cap-lead">Right:</span> $a-b = c-d$ makes $\overrightarrow{BA}$ and $\overrightarrow{DC}$ equal, so $ABDC$ is a parallelogram.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">&Agrave; gauche :</span> avec trois points, l'angle en $A$ est l'argument de $\frac{c-a}{b-a}$, qui est r&eacute;el exactement quand $A$, $B$, $C$ sont align&eacute;s.</span><span class="cap-part"><span class="cap-lead">&Agrave; droite :</span> $a-b = c-d$ rend $\overrightarrow{BA}$ et $\overrightarrow{DC}$ &eacute;gaux, donc $ABDC$ est un parall&eacute;logramme.</span></span></figcaption>
     </figure>
 
-    <h3 class="en">The techniques of this chapter</h3>
-    <h3 class="fr">Les techniques du chapitre</h3>
+    <!-- ============ COUNTEREXAMPLES ============ -->
 
-    <p class="en">The chapter reduces to a short list of techniques:</p>
-    <p class="fr">Le chapitre se ram&egrave;ne &agrave; une courte liste de techniques :</p>
+    <h2 class="en">Counterexamples</h2>
+    <h2 class="fr">Contre-exemples</h2>
 
-    <ul class="en">
-      <li>Encode a point of the plane as a number. Geometric statements become computations, and computations can be read back as geometry.</li>
-      <li>Multiplying by $re^{i\theta}$ scales by $r$ and rotates by $\theta$. Moduli multiply, arguments add.</li>
-      <li>To handle $\cos$ and $\sin$, replace them by exponentials (Euler), compute, then take the real or imaginary part at the end.</li>
-      <li>$|z|^2 = z\bar{z}$ turns a modulus into a product. To prove an identity about moduli, square it.</li>
-      <li>$z$ is real exactly when $z = \bar{z}$, and purely imaginary exactly when $\bar{z} = -z$. To prove a number is real, show it equals its conjugate.</li>
-      <li>$|z - w|$ is the distance from $z$ to $w$. An equation written with moduli is a statement about distances: read it as a circle, a disk, or a perpendicular bisector.</li>
-      <li>To solve $z^n = W$, find one root and multiply it by the $n$-th roots of unity.</li>
-      <li>Symmetry gives invariance: the set of $n$-th roots of unity is unchanged by the rotation of angle $2\pi/n$, so their sum is unchanged by it too, and only $0$ is. Hence the sum is $0$.</li>
-      <li>To identify a map $z \mapsto az+b$, find its fixed point and rewrite the map around it.</li>
-      <li>A quotient compares two vectors: its modulus is the ratio of the lengths, its argument the angle between them.</li>
-    </ul>
-    <ul class="fr">
-      <li>Coder un point du plan par un nombre. Les &eacute;nonc&eacute;s g&eacute;om&eacute;triques deviennent des calculs, et les calculs se relisent en g&eacute;om&eacute;trie.</li>
-      <li>Multiplier par $re^{i\theta}$ dilate de $r$ et tourne de $\theta$. Les modules se multiplient, les arguments s'ajoutent.</li>
-      <li>Pour traiter $\cos$ et $\sin$, les remplacer par des exponentielles (Euler), calculer, puis prendre la partie r&eacute;elle ou imaginaire &agrave; la fin.</li>
-      <li>$|z|^2 = z\bar{z}$ transforme un module en produit. Pour d&eacute;montrer une identit&eacute; de modules, l'&eacute;lever au carr&eacute;.</li>
-      <li>$z$ est r&eacute;el exactement quand $z = \bar{z}$, imaginaire pur exactement quand $\bar{z} = -z$. Pour montrer qu'un nombre est r&eacute;el, montrer qu'il &eacute;gale son conjugu&eacute;.</li>
-      <li>$|z - w|$ est la distance de $z$ &agrave; $w$. Une &eacute;quation &eacute;crite avec des modules est un &eacute;nonc&eacute; sur des distances : la lire comme un cercle, un disque ou une m&eacute;diatrice.</li>
-      <li>Pour r&eacute;soudre $z^n = W$, trouver une racine et la multiplier par les racines $n$-i&egrave;mes de l'unit&eacute;.</li>
-      <li>La sym&eacute;trie donne l'invariance : l'ensemble des racines $n$-i&egrave;mes de l'unit&eacute; est inchang&eacute; par la rotation d'angle $2\pi/n$, donc leur somme aussi, et seul $0$ l'est. La somme vaut donc $0$.</li>
-      <li>Pour identifier une application $z \mapsto az+b$, chercher son point fixe et r&eacute;&eacute;crire l'application autour de lui.</li>
-      <li>Un quotient compare deux vecteurs : son module est le rapport des longueurs, son argument l'angle entre eux.</li>
-    </ul>
+    <p class="en">Removing a hypothesis can turn a true statement into a false one. Each exercise names the hypothesis removed and asks for an object satisfying the others but not the conclusion.</p>
+    <p class="fr">Retirer une hypoth&egrave;se peut rendre faux un &eacute;nonc&eacute; vrai. Chaque exercice nomme l'hypoth&egrave;se retir&eacute;e et demande un objet v&eacute;rifiant les autres mais pas la conclusion.</p>
+
+    <!-- Counterexample: sum of roots of unity, n >= 2 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> The Proposition on the sum of the $n$-th roots of unity assumes $n \ge 2$. Find a counterexample when that hypothesis is dropped.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> La Proposition sur la somme des racines $n$-i&egrave;mes de l'unit&eacute; suppose $n \ge 2$. Trouver un contre-exemple quand cette hypoth&egrave;se est retir&eacute;e.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $n = 1$. Then $\omega = e^{2i\pi} = 1$, and the sum $\sum_{k=0}^{0}\omega^k$ has the single term $\omega^0 = 1$, not $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $n = 1$. Alors $\omega = e^{2i\pi} = 1$, et la somme $\sum_{k=0}^{0}\omega^k$ se r&eacute;duit au seul terme $\omega^0 = 1$, et non $0$.
+    </details>
+
+    <!-- Counterexample: n-th roots of W, W nonzero -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> The Theorem on the $n$-th roots of a complex number assumes $W \neq 0$. Find a counterexample when that hypothesis is dropped.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> Le Th&eacute;or&egrave;me sur les racines $n$-i&egrave;mes d'un nombre complexe suppose $W \neq 0$. Trouver un contre-exemple quand cette hypoth&egrave;se est retir&eacute;e.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $W = 0$ and $n = 2$. The equation $z^2 = 0$ forces $z = 0$, so it has one solution and not the $n$ distinct ones announced. The formula $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$ also needs an argument $\varphi$ for $W$, and $0$ has none.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $W = 0$ et $n = 2$. L'&eacute;quation $z^2 = 0$ impose $z = 0$ : elle a une solution, et non les $n$ solutions distinctes annonc&eacute;es. La formule $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$ demande de plus un argument $\varphi$ pour $W$, et $0$ n'en a pas.
+    </details>
+
+    <!-- Counterexample: quadratic equation, a nonzero -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> The Theorem on the quadratic equation assumes $a \neq 0$. Find a counterexample when that hypothesis is dropped.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> Le Th&eacute;or&egrave;me sur les &eacute;quations du second degr&eacute; suppose $a \neq 0$. Trouver un contre-exemple quand cette hypoth&egrave;se est retir&eacute;e.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $a = 0$, $b = 1$, $c = 1$. The equation is $z + 1 = 0$, whose only solution is $z = -1$. The theorem announces two solutions $(-b \pm \delta)/(2a)$, and that expression divides by $2a = 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $a = 0$, $b = 1$, $c = 1$. L'&eacute;quation est $z + 1 = 0$, de solution unique $z = -1$. Le th&eacute;or&egrave;me annonce deux solutions $(-b \pm \delta)/(2a)$, et cette expression divise par $2a = 0$.
+    </details>
+
+    <!-- Counterexample: argument of a product, mod 2pi -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> The Proposition on arguments states $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)\ [2\pi]$. Find a counterexample when the congruence $[2\pi]$ is dropped and each argument is taken in $\left]-\pi, \pi\right]$.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> La Proposition sur les arguments &eacute;nonce $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)\ [2\pi]$. Trouver un contre-exemple quand la congruence $[2\pi]$ est retir&eacute;e et que chaque argument est pris dans $\left]-\pi, \pi\right]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $z_1 = z_2 = -1$. Then $\arg(z_1) + \arg(z_2) = \pi + \pi = 2\pi$, while $z_1 z_2 = 1$ has argument $0$. The two sides differ by $2\pi$, which is what the congruence allows and a plain equality does not.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $z_1 = z_2 = -1$. Alors $\arg(z_1) + \arg(z_2) = \pi + \pi = 2\pi$, tandis que $z_1 z_2 = 1$ a pour argument $0$. Les deux membres diff&egrave;rent de $2\pi$, ce qu'autorise la congruence et non une &eacute;galit&eacute; stricte.
+    </details>
+
+    <!-- Counterexample: conjugate roots, real coefficients -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> The Proposition on conjugate roots assumes $a$, $b$, $c$ real. Find a counterexample when that hypothesis is dropped.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> La Proposition sur les racines conjugu&eacute;es suppose $a$, $b$, $c$ r&eacute;els. Trouver un contre-exemple quand cette hypoth&egrave;se est retir&eacute;e.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $P = X^2 - iX = X(X - i)$, whose roots are $0$ and $i$. The conjugate of $i$ is $-i$, and $P(-i) = (-i)^2 - i \times (-i) = -1 - 1 = -2 \neq 0$, so $-i$ is not a root.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $P = X^2 - iX = X(X - i)$, dont les racines sont $0$ et $i$. Le conjugu&eacute; de $i$ est $-i$, et $P(-i) = (-i)^2 - i \times (-i) = -1 - 1 = -2 \neq 0$ : $-i$ n'est pas racine.
+    </details>
 
 
-    <!-- ============ EXERCISES ============ -->
+    <!-- ============ TECHNIQUES ============ -->
 
-    <h2 class="en">Exercises</h2>
-    <h2 class="fr">Exercices</h2>
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <p class="en">Each technique is followed by an exercise that uses it.</p>
+    <p class="fr">Chaque technique est suivie d'un exercice qui l'utilise.</p>
+
+    <p class="en">Encode a point of the plane as a number. Geometric statements become computations, and computations can be read back as geometry.</p>
+    <p class="fr">Coder un point du plan par un nombre. Les &eacute;nonc&eacute;s g&eacute;om&eacute;triques deviennent des calculs, et les calculs se relisent en g&eacute;om&eacute;trie.</p>
+
+    <!-- Technique 1: encode a point as a number -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The points $A$, $B$, $C$ have affixes $1$, $3 + 2i$ and $i$. Find the affix of the point $D$ such that $ABCD$ is a parallelogram.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Les points $A$, $B$, $C$ ont pour affixes $1$, $3 + 2i$ et $i$. D&eacute;terminer l'affixe du point $D$ tel que $ABCD$ soit un parall&eacute;logramme.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $ABCD$ is a parallelogram exactly when $\overrightarrow{AB} = \overrightarrow{DC}$, that is $b - a = c - d$. Hence $d = a + c - b = 1 + i - (3 + 2i) = -2 - i$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $ABCD$ est un parall&eacute;logramme exactement quand $\overrightarrow{AB} = \overrightarrow{DC}$, c'est-&agrave;-dire $b - a = c - d$. Donc $d = a + c - b = 1 + i - (3 + 2i) = -2 - i$.
+    </details>
+
+    <p class="en">$|z|^2 = z\bar{z}$ turns a modulus into a product. To prove an identity about moduli, square it.</p>
+    <p class="fr">$|z|^2 = z\bar{z}$ transforme un module en produit. Pour d&eacute;montrer une identit&eacute; de modules, l'&eacute;lever au carr&eacute;.</p>
+
+    <!-- Technique 2: square a modulus -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $|1 + z|^2 = 1 + 2\operatorname{Re}(z) + |z|^2$ for every $z \in \mathbb{C}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $|1 + z|^2 = 1 + 2\operatorname{Re}(z) + |z|^2$ pour tout $z \in \mathbb{C}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $|1 + z|^2 = (1 + z)\overline{(1 + z)} = (1 + z)(1 + \bar{z}) = 1 + z + \bar{z} + z\bar{z} = 1 + 2\operatorname{Re}(z) + |z|^2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $|1 + z|^2 = (1 + z)\overline{(1 + z)} = (1 + z)(1 + \bar{z}) = 1 + z + \bar{z} + z\bar{z} = 1 + 2\operatorname{Re}(z) + |z|^2$.
+    </details>
+
+    <p class="en">To solve $z^n = W$, find one root and multiply it by the $n$-th roots of unity.</p>
+    <p class="fr">Pour r&eacute;soudre $z^n = W$, trouver une racine et la multiplier par les racines $n$-i&egrave;mes de l'unit&eacute;.</p>
+
+    <!-- Technique 3: solve z^n = W -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $z^3 = -8$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $z^3 = -8$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      One root is $z_0 = -2$, since $(-2)^3 = -8$. The cube roots of unity are $1$, $\omega = e^{2i\pi/3}$ and $\omega^2$, so the three solutions are $-2$, $-2\omega = 1 - i\sqrt{3}$ and $-2\omega^2 = 1 + i\sqrt{3}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Une racine est $z_0 = -2$, car $(-2)^3 = -8$. Les racines cubiques de l'unit&eacute; sont $1$, $\omega = e^{2i\pi/3}$ et $\omega^2$, donc les trois solutions sont $-2$, $-2\omega = 1 - i\sqrt{3}$ et $-2\omega^2 = 1 + i\sqrt{3}$.
+    </details>
+
+    <p class="en">A quotient compares two vectors: its modulus is the ratio of the lengths, its argument the angle between them.</p>
+    <p class="fr">Un quotient compare deux vecteurs : son module est le rapport des longueurs, son argument l'angle entre eux.</p>
+
+    <!-- Technique 4: a quotient compares two vectors -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The points $A$, $B$, $C$ have affixes $1$, $i$ and $0$. Compute $\frac{b - c}{a - c}$ and deduce the nature of the triangle $ABC$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Les points $A$, $B$, $C$ ont pour affixes $1$, $i$ et $0$. Calculer $\frac{b - c}{a - c}$ et en d&eacute;duire la nature du triangle $ABC$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $\frac{b - c}{a - c} = \frac{i}{1} = i$. Its modulus is $1$, so $CB = CA$; its argument is $\frac{\pi}{2}$, so the angle at $C$ is right. The triangle is right-angled and isosceles at $C$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $\frac{b - c}{a - c} = \frac{i}{1} = i$. Son module vaut $1$, donc $CB = CA$ ; son argument vaut $\frac{\pi}{2}$, donc l'angle en $C$ est droit. Le triangle est rectangle isoc&egrave;le en $C$.
+    </details>
+
+    <p class="en">To identify a map $z \mapsto az+b$, find its fixed point and rewrite the map around it.</p>
+    <p class="fr">Pour identifier une application $z \mapsto az+b$, chercher son point fixe et r&eacute;&eacute;crire l'application autour de lui.</p>
+
+    <!-- Exercise: Characterize f(z) = 2iz + 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = 2iz + 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z)=2iz+1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We have $a = 2i \neq 1$ and $b = 1$, so $f$ is a direct similarity. Its center is $\omega = \frac{b}{1-a} = \frac{1}{1-2i} = \frac{1+2i}{|1-2i|^2} = \frac{1+2i}{5}$. Its ratio is $|a| = |2i| = 2$ and its angle is $\arg(a) = \arg(2i) = \frac{\pi}{2}$. Thus $f$ is the direct similarity with center $\frac{1+2i}{5}$, ratio $2$ and angle $\frac{\pi}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On a $a=2i\neq 1$ et $b=1$, donc $f$ est une similitude directe. Son centre est $\omega=\frac{b}{1-a}=\frac{1}{1-2i}=\frac{1+2i}{|1-2i|^2}=\frac{1+2i}{5}$. Son rapport est $|a|=|2i|=2$ et son angle est $\arg(a)=\arg(2i)=\frac{\pi}{2}$. Ainsi $f$ est la similitude directe de centre $\frac{1+2i}{5}$, de rapport $2$ et d'angle $\frac{\pi}{2}$.
+    </details>
+
+    <p class="en">To handle $\cos$ and $\sin$, replace them by exponentials (Euler), compute, then take the real or imaginary part at the end.</p>
+    <p class="fr">Pour traiter $\cos$ et $\sin$, les remplacer par des exponentielles (Euler), calculer, puis prendre la partie r&eacute;elle ou imaginaire &agrave; la fin.</p>
 
     <!-- Exercise: Linearize cos^4 -->
     <div class="thm-block exercise">
@@ -883,6 +1031,141 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Par les formules d'Euler, $\cos^4\theta=\left(\frac{e^{i\theta}+e^{-i\theta}}{2}\right)^{\!4}=\frac{1}{16}\big(e^{4i\theta}+4e^{2i\theta}+6+4e^{-2i\theta}+e^{-4i\theta}\big)=\frac{1}{8}\cos(4\theta)+\frac{1}{2}\cos(2\theta)+\frac{3}{8}$.
+    </details>
+
+    <p class="en">$|z - w|$ is the distance from $z$ to $w$. An equation written with moduli is a statement about distances: read it as a circle, a disk, or a perpendicular bisector.</p>
+    <p class="fr">$|z - w|$ est la distance de $z$ &agrave; $w$. Une &eacute;quation &eacute;crite avec des modules est un &eacute;nonc&eacute; sur des distances : la lire comme un cercle, un disque ou une m&eacute;diatrice.</p>
+
+    <!-- Exercise: |z-i|/|z+i| = 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the set of $z \in \mathbb{C}$ such that $\left|\frac{z-i}{z+i}\right| = 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer l'ensemble des $z\in\mathbb{C}$ tels que $\left|\frac{z-i}{z+i}\right|=1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The condition requires $z \neq -i$. Then $\left|\frac{z-i}{z+i}\right| = 1 \iff |z - i| = |z + i|$, which means the point with affix $z$ is equidistant from the points with affixes $i$ and $-i$. The desired set is thus the perpendicular bisector of the segment $[i, -i]$, i.e. the real axis: $z \in \mathbb{R}$.
+      <br>
+      <em>Alternative method.</em> $\left|\frac{z-i}{z+i}\right|^2 = \frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. This equals $1$ iff $(z-i)(\bar{z}+i) = (z+i)(\bar{z}-i)$, i.e. $z\bar{z} + iz - i\bar{z} + 1 = z\bar{z} - iz + i\bar{z} + 1$, hence $2i(z - \bar{z}) = 0$, i.e. $z = \bar{z}$, so $z \in \mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La condition n&eacute;cessite $z\neq -i$. Alors $\left|\frac{z-i}{z+i}\right|=1\iff|z-i|=|z+i|$, ce qui signifie que le point d'affixe $z$ est &eacute;quidistant des points d'affixes $i$ et $-i$. L'ensemble cherch&eacute; est donc la m&eacute;diatrice du segment $[i,-i]$, c'est-&agrave;-dire l'axe r&eacute;el : $z\in\mathbb{R}$.
+      <br>
+      <em>Autre m&eacute;thode.</em> $\left|\frac{z-i}{z+i}\right|^2=\frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. Cette expression vaut $1$ ssi $(z-i)(\bar{z}+i)=(z+i)(\bar{z}-i)$, i.e. $z\bar{z}+iz-i\bar{z}+1=z\bar{z}-iz+i\bar{z}+1$, soit $2i(z-\bar{z})=0$, i.e. $z=\bar{z}$, donc $z\in\mathbb{R}$.
+    </details>
+
+    <p class="en">$z$ is real exactly when $z = \bar{z}$, and purely imaginary exactly when $\bar{z} = -z$. To prove a number is real, show it equals its conjugate.</p>
+    <p class="fr">$z$ est r&eacute;el exactement quand $z = \bar{z}$, imaginaire pur exactement quand $\bar{z} = -z$. Pour montrer qu'un nombre est r&eacute;el, montrer qu'il &eacute;gale son conjugu&eacute;.</p>
+
+    <!-- Exercise: z + 1/z real -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $z \in \mathbb{C}^*$. Show that $z + \frac{1}{z} \in \mathbb{R}$ if and only if $|z| = 1$ or $z \in \mathbb{R}^*$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z\in\mathbb{C}^*$. Montrer que $z+\frac{1}{z}\in\mathbb{R}$ si et seulement si $|z|=1$ ou $z\in\mathbb{R}^*$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $z + \frac{1}{z} \in \mathbb{R} \iff z + \frac{1}{z} = \overline{z + \frac{1}{z}} = \bar{z} + \frac{1}{\bar{z}}$, i.e. $z - \bar{z} = \frac{1}{\bar{z}} - \frac{1}{z} = \frac{z - \bar{z}}{z\bar{z}}$. So $(z - \bar{z})\!\left(1 - \frac{1}{z\bar{z}}\right) = 0$, i.e. $z - \bar{z} = 0$ or $z\bar{z} = 1$, that is $z \in \mathbb{R}^*$ or $|z| = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $z+\frac{1}{z}\in\mathbb{R}\iff z+\frac{1}{z}=\overline{z+\frac{1}{z}}=\bar{z}+\frac{1}{\bar{z}}$, soit $z-\bar{z}=\frac{1}{\bar{z}}-\frac{1}{z}=\frac{z-\bar{z}}{z\bar{z}}$. Donc $(z-\bar{z})\!\left(1-\frac{1}{z\bar{z}}\right)=0$, i.e. $z-\bar{z}=0$ ou $z\bar{z}=1$, c'est-&agrave;-dire $z\in\mathbb{R}^*$ ou $|z|=1$.
+    </details>
+
+    <p class="en">Multiplying by $re^{i\theta}$ scales by $r$ and rotates by $\theta$. Moduli multiply, arguments add.</p>
+    <p class="fr">Multiplier par $re^{i\theta}$ dilate de $r$ et tourne de $\theta$. Les modules se multiplient, les arguments s'ajoutent.</p>
+
+    <!-- Exercise: (1+isqrt3)^n real negative -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the integers $n \in \mathbb{Z}$ such that $(1 + i\sqrt{3})^n \in \mathbb{R}_-^*$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les entiers $n\in\mathbb{Z}$ tels que $(1+i\sqrt{3})^n\in\mathbb{R}_-^*$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $1 + i\sqrt{3} = 2e^{i\pi/3}$, so $(1 + i\sqrt{3})^n = 2^n e^{in\pi/3}$. This number is real negative iff $e^{in\pi/3} = -1$, i.e. $\frac{n\pi}{3} = \pi\ [2\pi]$, hence $n \equiv 3\ [6]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $1+i\sqrt{3}=2e^{i\pi/3}$, donc $(1+i\sqrt{3})^n=2^n e^{in\pi/3}$. Ce nombre est r&eacute;el n&eacute;gatif ssi $e^{in\pi/3}=-1$, i.e. $\frac{n\pi}{3}=\pi\ [2\pi]$, soit $n\equiv 3\ [6]$.
+    </details>
+
+    <p class="en">Symmetry gives invariance: the set of $n$-th roots of unity is unchanged by the rotation of angle $2\pi/n$, so their sum is unchanged by it too, and only $0$ is. Hence the sum is $0$.</p>
+    <p class="fr">La sym&eacute;trie donne l'invariance : l'ensemble des racines $n$-i&egrave;mes de l'unit&eacute; est inchang&eacute; par la rotation d'angle $2\pi/n$, donc leur somme aussi, et seul $0$ l'est. La somme vaut donc $0$.</p>
+
+    <!-- Technique 10: symmetry gives invariance -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $\omega = e^{2i\pi/5}$. Compute $\sum_{k=0}^{4}\omega^k$, then deduce the value of $\cos\frac{2\pi}{5} + \cos\frac{4\pi}{5}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $\omega = e^{2i\pi/5}$. Calculer $\sum_{k=0}^{4}\omega^k$, puis en d&eacute;duire la valeur de $\cos\frac{2\pi}{5} + \cos\frac{4\pi}{5}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The sum is $0$. Now $\omega^4 = \bar{\omega}$ and $\omega^3 = \overline{\omega^2}$, so taking real parts gives $1 + 2\cos\frac{2\pi}{5} + 2\cos\frac{4\pi}{5} = 0$, hence $\cos\frac{2\pi}{5} + \cos\frac{4\pi}{5} = -\frac{1}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La somme vaut $0$. Or $\omega^4 = \bar{\omega}$ et $\omega^3 = \overline{\omega^2}$, donc en prenant les parties r&eacute;elles, $1 + 2\cos\frac{2\pi}{5} + 2\cos\frac{4\pi}{5} = 0$, d'o&ugrave; $\cos\frac{2\pi}{5} + \cos\frac{4\pi}{5} = -\frac{1}{2}$.
+    </details>
+
+
+    <!-- ============ EXERCISES ============ -->
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <!-- Exercise: cos x + sin x -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Transform $\cos x + \sin x$ into the form $R\sin(x + \varphi)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $\cos x+\sin x$ sous la forme $R\sin(x+\varphi)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Direct method.</em> $R = \sqrt{1 + 1} = \sqrt{2}$, then $\cos x + \sin x = \sqrt{2}\big(\sin x\cos\frac{\pi}{4} + \cos x\sin\frac{\pi}{4}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
+      <br>
+      <em>Complex method.</em> $\sin x + \cos x = \operatorname{Im}\big((1+i)(\cos x + i\sin x)\big)$. Now $1 + i = \sqrt{2}\,e^{i\pi/4}$, so $\sin x + \cos x = \operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big) = \operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>M&eacute;thode directe.</em> $R=\sqrt{1+1}=\sqrt{2}$, puis $\cos x+\sin x=\sqrt{2}\big(\sin x\cos\frac{\pi}{4}+\cos x\sin\frac{\pi}{4}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
+      <br>
+      <em>M&eacute;thode complexe.</em> $\sin x+\cos x=\operatorname{Im}\big((1+i)(\cos x+i\sin x)\big)$. Or $1+i=\sqrt{2}\,e^{i\pi/4}$, donc $\sin x+\cos x=\operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big)=\operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
+    </details>
+
+    <!-- Exercise: Square roots of 3+4i -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Find the square roots of $3 + 4i$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les racines carr&eacute;es de $3+4i$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We seek $z = x + iy$ such that $z^2 = 3 + 4i$. We have $|3 + 4i| = 5$, so $x^2 = (5+3)/2 = 4$ and $y^2 = (5-3)/2 = 1$. Since $2xy = 4 > 0$, $x$ and $y$ have the same sign: $z = 2 + i$ or $z = -2 - i$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On cherche $z=x+iy$ tel que $z^2=3+4i$. On a $|3+4i|=5$, d'o&ugrave; $x^2=(5+3)/2=4$ et $y^2=(5-3)/2=1$. Comme $2xy=4>0$, $x$ et $y$ sont de m&ecirc;me signe : $z=2+i$ ou $z=-2-i$.
+    </details>
+
+    <!-- Exercise: a cos x + b sin x -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Transform $a\cos x + b\sin x$ (with $a, b \in \mathbb{R}$ not both zero) into the form $R\cos(x + \varphi)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $a\cos x+b\sin x$ (avec $a,b\in\mathbb{R}$ non tous deux nuls) sous la forme $R\cos(x+\varphi)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Direct method.</em> Set $R = \sqrt{a^2 + b^2} > 0$. Then $a\cos x + b\sin x = R\!\left(\frac{a}{R}\cos x + \frac{b}{R}\sin x\right)$. Since $(a/R)^2 + (b/R)^2 = 1$, there exists $\varphi \in \mathbb{R}$ with $\cos\varphi = a/R$ and $\sin\varphi = -b/R$, whence $a\cos x + b\sin x = R\big(\cos\varphi\cos x - \sin\varphi\sin x\big) = R\cos(x + \varphi)$.
+      <br>
+      <em>Complex method.</em> $a\cos x + b\sin x = \operatorname{Re}\big((a - ib)e^{ix}\big)$. Now $a - ib = Re^{-i\varphi}$ with $R = |a - ib| = \sqrt{a^2 + b^2}$ and $\varphi = \arg(a + ib)$, so $a\cos x + b\sin x = \operatorname{Re}\big(Re^{i(x - \varphi)}\big) = R\cos(x - \varphi) = R\cos(x + \varphi')$ setting $\varphi' = -\varphi$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>M&eacute;thode directe.</em> On pose $R=\sqrt{a^2+b^2}>0$. Alors $a\cos x+b\sin x=R\!\left(\frac{a}{R}\cos x+\frac{b}{R}\sin x\right)$. Comme $(a/R)^2+(b/R)^2=1$, il existe $\varphi\in\mathbb{R}$ tel que $\cos\varphi=a/R$ et $\sin\varphi=-b/R$, d'o&ugrave; $a\cos x+b\sin x=R\big(\cos\varphi\cos x-\sin\varphi\sin x\big)=R\cos(x+\varphi)$.
+      <br>
+      <em>M&eacute;thode complexe.</em> $a\cos x+b\sin x=\operatorname{Re}\big((a-ib)e^{ix}\big)$. Or $a-ib=Re^{-i\varphi}$ avec $R=|a-ib|=\sqrt{a^2+b^2}$ et $\varphi=\arg(a+ib)$, donc $a\cos x+b\sin x=\operatorname{Re}\big(Re^{i(x-\varphi)}\big)=R\cos(x-\varphi)=R\cos(x+\varphi')$ en posant $\varphi'=-\varphi$.
     </details>
 
     <!-- Exercise: cos(3theta) -->
@@ -900,19 +1183,19 @@
       Par Moivre, $\cos(3\theta)+i\sin(3\theta)=(\cos\theta+i\sin\theta)^3$. En d&eacute;veloppant par le bin&ocirc;me et identifiant la partie r&eacute;elle : $\cos(3\theta)=\cos^3\theta-3\cos\theta\sin^2\theta=\cos^3\theta-3\cos\theta(1-\cos^2\theta)=4\cos^3\theta-3\cos\theta$.
     </details>
 
-    <!-- Exercise: Square roots of 3+4i -->
+    <!-- Exercise: Product of roots of unity -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Find the square roots of $3 + 4i$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les racines carr&eacute;es de $3+4i$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\prod_{k=0}^{n-1}\omega^k$ where $\omega = e^{2i\pi/n}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\prod_{k=0}^{n-1}\omega^k$ o&ugrave; $\omega=e^{2i\pi/n}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      We seek $z = x + iy$ such that $z^2 = 3 + 4i$. We have $|3 + 4i| = 5$, so $x^2 = (5+3)/2 = 4$ and $y^2 = (5-3)/2 = 1$. Since $2xy = 4 > 0$, $x$ and $y$ have the same sign: $z = 2 + i$ or $z = -2 - i$.
+      $\prod_{k=0}^{n-1}\omega^k = \omega^{0+1+\cdots+(n-1)} = \omega^{n(n-1)/2} = e^{i(n-1)\pi} = (-1)^{n-1}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      On cherche $z=x+iy$ tel que $z^2=3+4i$. On a $|3+4i|=5$, d'o&ugrave; $x^2=(5+3)/2=4$ et $y^2=(5-3)/2=1$. Comme $2xy=4>0$, $x$ et $y$ sont de m&ecirc;me signe : $z=2+i$ ou $z=-2-i$.
+      $\prod_{k=0}^{n-1}\omega^k=\omega^{0+1+\cdots+(n-1)}=\omega^{n(n-1)/2}=e^{i(n-1)\pi}=(-1)^{n-1}$.
     </details>
 
     <!-- Exercise: Factor X^4+1 -->
@@ -960,123 +1243,6 @@
       $mn=(a^2+b^2)(c^2+d^2)=|a+ib|^2|c+id|^2=|(a+ib)(c+id)|^2=(ac-bd)^2+(ad+bc)^2$.
     </details>
 
-    <!-- Exercise: 7th roots of unity -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $z = e^{2i\pi/7}$. Set $S = z + z^2 + z^4$ and $T = z^3 + z^5 + z^6$. Compute $S$ and $T$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z=e^{2i\pi/7}$. On pose $S=z+z^2+z^4$ et $T=z^3+z^5+z^6$. Calculer $S$ et $T$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $S + T = z + z^2 + \cdots + z^6 = -1$ (sum of 7th roots of unity $\neq 1$). For the product, $ST = (z + z^2 + z^4)(z^3 + z^5 + z^6) = z^4 + z^6 + z^7 + z^5 + z^7 + z^8 + z^7 + z^9 + z^{10}$. Reducing modulo $z^7 = 1$: $ST = 3 + z + z^2 + z^3 + z^4 + z^5 + z^6 = 3 - 1 = 2$. So $S$ and $T$ are roots of $X^2 + X + 2$, with discriminant $\Delta = -7$, whence $S = \frac{-1 + i\sqrt{7}}{2}$ and $T = \frac{-1 - i\sqrt{7}}{2}$ (since $\operatorname{Im}(S) = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} + \sin\frac{8\pi}{7} = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} - \sin\frac{\pi}{7} > 0$ as $\sin\frac{2\pi}{7} > \sin\frac{\pi}{7}$).
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $S+T=z+z^2+\cdots+z^6=-1$ (somme des racines $7$-i&egrave;mes $\neq 1$). Pour le produit, $ST=(z+z^2+z^4)(z^3+z^5+z^6)=z^4+z^6+z^7+z^5+z^7+z^8+z^7+z^9+z^{10}$. En r&eacute;duisant modulo $z^7=1$ : $ST=3+z+z^2+z^3+z^4+z^5+z^6=3-1=2$. Donc $S$ et $T$ sont racines de $X^2+X+2$, de discriminant $\Delta=-7$, d'o&ugrave; $S=\frac{-1+i\sqrt{7}}{2}$ et $T=\frac{-1-i\sqrt{7}}{2}$ (car $\operatorname{Im}(S)=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}+\sin\frac{8\pi}{7}=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}-\sin\frac{\pi}{7}>0$ puisque $\sin\frac{2\pi}{7}>\sin\frac{\pi}{7}$).
-    </details>
-
-    <!-- Exercise: a cos x + b sin x -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Transform $a\cos x + b\sin x$ (with $a, b \in \mathbb{R}$ not both zero) into the form $R\cos(x + \varphi)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $a\cos x+b\sin x$ (avec $a,b\in\mathbb{R}$ non tous deux nuls) sous la forme $R\cos(x+\varphi)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Direct method.</em> Set $R = \sqrt{a^2 + b^2} > 0$. Then $a\cos x + b\sin x = R\!\left(\frac{a}{R}\cos x + \frac{b}{R}\sin x\right)$. Since $(a/R)^2 + (b/R)^2 = 1$, there exists $\varphi \in \mathbb{R}$ with $\cos\varphi = a/R$ and $\sin\varphi = -b/R$, whence $a\cos x + b\sin x = R\big(\cos\varphi\cos x - \sin\varphi\sin x\big) = R\cos(x + \varphi)$.
-      <br>
-      <em>Complex method.</em> $a\cos x + b\sin x = \operatorname{Re}\big((a - ib)e^{ix}\big)$. Now $a - ib = Re^{-i\varphi}$ with $R = |a - ib| = \sqrt{a^2 + b^2}$ and $\varphi = \arg(a + ib)$, so $a\cos x + b\sin x = \operatorname{Re}\big(Re^{i(x - \varphi)}\big) = R\cos(x - \varphi) = R\cos(x + \varphi')$ setting $\varphi' = -\varphi$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>M&eacute;thode directe.</em> On pose $R=\sqrt{a^2+b^2}>0$. Alors $a\cos x+b\sin x=R\!\left(\frac{a}{R}\cos x+\frac{b}{R}\sin x\right)$. Comme $(a/R)^2+(b/R)^2=1$, il existe $\varphi\in\mathbb{R}$ tel que $\cos\varphi=a/R$ et $\sin\varphi=-b/R$, d'o&ugrave; $a\cos x+b\sin x=R\big(\cos\varphi\cos x-\sin\varphi\sin x\big)=R\cos(x+\varphi)$.
-      <br>
-      <em>M&eacute;thode complexe.</em> $a\cos x+b\sin x=\operatorname{Re}\big((a-ib)e^{ix}\big)$. Or $a-ib=Re^{-i\varphi}$ avec $R=|a-ib|=\sqrt{a^2+b^2}$ et $\varphi=\arg(a+ib)$, donc $a\cos x+b\sin x=\operatorname{Re}\big(Re^{i(x-\varphi)}\big)=R\cos(x-\varphi)=R\cos(x+\varphi')$ en posant $\varphi'=-\varphi$.
-    </details>
-
-    <!-- Exercise: cos x + sin x -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Transform $\cos x + \sin x$ into the form $R\sin(x + \varphi)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Transformer $\cos x+\sin x$ sous la forme $R\sin(x+\varphi)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Direct method.</em> $R = \sqrt{1 + 1} = \sqrt{2}$, then $\cos x + \sin x = \sqrt{2}\big(\sin x\cos\frac{\pi}{4} + \cos x\sin\frac{\pi}{4}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
-      <br>
-      <em>Complex method.</em> $\sin x + \cos x = \operatorname{Im}\big((1+i)(\cos x + i\sin x)\big)$. Now $1 + i = \sqrt{2}\,e^{i\pi/4}$, so $\sin x + \cos x = \operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big) = \operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big) = \sqrt{2}\sin\!\left(x + \frac{\pi}{4}\right)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>M&eacute;thode directe.</em> $R=\sqrt{1+1}=\sqrt{2}$, puis $\cos x+\sin x=\sqrt{2}\big(\sin x\cos\frac{\pi}{4}+\cos x\sin\frac{\pi}{4}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
-      <br>
-      <em>M&eacute;thode complexe.</em> $\sin x+\cos x=\operatorname{Im}\big((1+i)(\cos x+i\sin x)\big)$. Or $1+i=\sqrt{2}\,e^{i\pi/4}$, donc $\sin x+\cos x=\operatorname{Im}\big(\sqrt{2}\,e^{i\pi/4}\cdot e^{ix}\big)=\operatorname{Im}\big(\sqrt{2}\,e^{i(x+\pi/4)}\big)=\sqrt{2}\sin\!\left(x+\frac{\pi}{4}\right)$.
-    </details>
-
-    <!-- Exercise: Characterize f(z) = 2iz + 1 -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = 2iz + 1$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z)=2iz+1$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      We have $a = 2i \neq 1$ and $b = 1$, so $f$ is a direct similarity. Its center is $\omega = \frac{b}{1-a} = \frac{1}{1-2i} = \frac{1+2i}{|1-2i|^2} = \frac{1+2i}{5}$. Its ratio is $|a| = |2i| = 2$ and its angle is $\arg(a) = \arg(2i) = \frac{\pi}{2}$. Thus $f$ is the direct similarity with center $\frac{1+2i}{5}$, ratio $2$ and angle $\frac{\pi}{2}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On a $a=2i\neq 1$ et $b=1$, donc $f$ est une similitude directe. Son centre est $\omega=\frac{b}{1-a}=\frac{1}{1-2i}=\frac{1+2i}{|1-2i|^2}=\frac{1+2i}{5}$. Son rapport est $|a|=|2i|=2$ et son angle est $\arg(a)=\arg(2i)=\frac{\pi}{2}$. Ainsi $f$ est la similitude directe de centre $\frac{1+2i}{5}$, de rapport $2$ et d'angle $\frac{\pi}{2}$.
-    </details>
-
-    <!-- Exercise: |z-i|/|z+i| = 1 -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Determine the set of $z \in \mathbb{C}$ such that $\left|\frac{z-i}{z+i}\right| = 1$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer l'ensemble des $z\in\mathbb{C}$ tels que $\left|\frac{z-i}{z+i}\right|=1$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      The condition requires $z \neq -i$. Then $\left|\frac{z-i}{z+i}\right| = 1 \iff |z - i| = |z + i|$, which means the point with affix $z$ is equidistant from the points with affixes $i$ and $-i$. The desired set is thus the perpendicular bisector of the segment $[i, -i]$, i.e. the real axis: $z \in \mathbb{R}$.
-      <br>
-      <em>Alternative method.</em> $\left|\frac{z-i}{z+i}\right|^2 = \frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. This equals $1$ iff $(z-i)(\bar{z}+i) = (z+i)(\bar{z}-i)$, i.e. $z\bar{z} + iz - i\bar{z} + 1 = z\bar{z} - iz + i\bar{z} + 1$, hence $2i(z - \bar{z}) = 0$, i.e. $z = \bar{z}$, so $z \in \mathbb{R}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      La condition n&eacute;cessite $z\neq -i$. Alors $\left|\frac{z-i}{z+i}\right|=1\iff|z-i|=|z+i|$, ce qui signifie que le point d'affixe $z$ est &eacute;quidistant des points d'affixes $i$ et $-i$. L'ensemble cherch&eacute; est donc la m&eacute;diatrice du segment $[i,-i]$, c'est-&agrave;-dire l'axe r&eacute;el : $z\in\mathbb{R}$.
-      <br>
-      <em>Autre m&eacute;thode.</em> $\left|\frac{z-i}{z+i}\right|^2=\frac{z-i}{z+i}\cdot\frac{\bar{z}+i}{\bar{z}-i}$. Cette expression vaut $1$ ssi $(z-i)(\bar{z}+i)=(z+i)(\bar{z}-i)$, i.e. $z\bar{z}+iz-i\bar{z}+1=z\bar{z}-iz+i\bar{z}+1$, soit $2i(z-\bar{z})=0$, i.e. $z=\bar{z}$, donc $z\in\mathbb{R}$.
-    </details>
-
-    <!-- Exercise: z + 1/z real -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $z \in \mathbb{C}^*$. Show that $z + \frac{1}{z} \in \mathbb{R}$ if and only if $|z| = 1$ or $z \in \mathbb{R}^*$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z\in\mathbb{C}^*$. Montrer que $z+\frac{1}{z}\in\mathbb{R}$ si et seulement si $|z|=1$ ou $z\in\mathbb{R}^*$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $z + \frac{1}{z} \in \mathbb{R} \iff z + \frac{1}{z} = \overline{z + \frac{1}{z}} = \bar{z} + \frac{1}{\bar{z}}$, i.e. $z - \bar{z} = \frac{1}{\bar{z}} - \frac{1}{z} = \frac{z - \bar{z}}{z\bar{z}}$. So $(z - \bar{z})\!\left(1 - \frac{1}{z\bar{z}}\right) = 0$, i.e. $z - \bar{z} = 0$ or $z\bar{z} = 1$, that is $z \in \mathbb{R}^*$ or $|z| = 1$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $z+\frac{1}{z}\in\mathbb{R}\iff z+\frac{1}{z}=\overline{z+\frac{1}{z}}=\bar{z}+\frac{1}{\bar{z}}$, soit $z-\bar{z}=\frac{1}{\bar{z}}-\frac{1}{z}=\frac{z-\bar{z}}{z\bar{z}}$. Donc $(z-\bar{z})\!\left(1-\frac{1}{z\bar{z}}\right)=0$, i.e. $z-\bar{z}=0$ ou $z\bar{z}=1$, c'est-&agrave;-dire $z\in\mathbb{R}^*$ ou $|z|=1$.
-    </details>
-
-    <!-- Exercise: (1+isqrt3)^n real negative -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Determine the integers $n \in \mathbb{Z}$ such that $(1 + i\sqrt{3})^n \in \mathbb{R}_-^*$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> D&eacute;terminer les entiers $n\in\mathbb{Z}$ tels que $(1+i\sqrt{3})^n\in\mathbb{R}_-^*$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $1 + i\sqrt{3} = 2e^{i\pi/3}$, so $(1 + i\sqrt{3})^n = 2^n e^{in\pi/3}$. This number is real negative iff $e^{in\pi/3} = -1$, i.e. $\frac{n\pi}{3} = \pi\ [2\pi]$, hence $n \equiv 3\ [6]$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $1+i\sqrt{3}=2e^{i\pi/3}$, donc $(1+i\sqrt{3})^n=2^n e^{in\pi/3}$. Ce nombre est r&eacute;el n&eacute;gatif ssi $e^{in\pi/3}=-1$, i.e. $\frac{n\pi}{3}=\pi\ [2\pi]$, soit $n\equiv 3\ [6]$.
-    </details>
-
     <!-- Exercise: Alternating binomial sums -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Compute $S = \sum_{k=0}^{\lfloor n/2\rfloor}(-1)^k\binom{n}{2k}$ and $S' = \sum_{k=0}^{\lfloor (n-1)/2\rfloor}(-1)^k\binom{n}{2k+1}$.</p>
@@ -1092,19 +1258,19 @@
       Par le bin&ocirc;me, $(1+i)^n=\sum_{k=0}^{n}\binom{n}{k}i^k$. En s&eacute;parant indices pairs et impairs : $(1+i)^n=\sum_{k=0}^{\lfloor n/2\rfloor}\binom{n}{2k}i^{2k}+\sum_{k=0}^{\lfloor (n-1)/2\rfloor}\binom{n}{2k+1}i^{2k+1}=S+iS'$. Or $1+i=\sqrt{2}\,e^{i\pi/4}$, donc $(1+i)^n=2^{n/2}e^{in\pi/4}$. Par identification : $S=2^{n/2}\cos\frac{n\pi}{4}$ et $S'=2^{n/2}\sin\frac{n\pi}{4}$.
     </details>
 
-    <!-- Exercise: Binomial sums mod 3 -->
+    <!-- Exercise: U_n subset U_m -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $S_0 = \sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1 = \sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ and $S_2 = \sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S_0=\sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1=\sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ et $S_2=\sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $\mathbb{U}_n = \{z \in \mathbb{C} : z^n = 1\}$ and $\mathbb{U}_m = \{z \in \mathbb{C} : z^m = 1\}$. Show that $\mathbb{U}_n \subset \mathbb{U}_m$ if and only if $n \mid m$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $\mathbb{U}_n=\{z\in\mathbb{C}:z^n=1\}$ et $\mathbb{U}_m=\{z\in\mathbb{C}:z^m=1\}$. Montrer que $\mathbb{U}_n\subset\mathbb{U}_m$ si et seulement si $n\mid m$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Set $j = e^{2i\pi/3}$. By the binomial theorem, $(1 + \omega)^n = \sum_{k=0}^{n}\binom{n}{k}\omega^k$. Grouping by $k \bmod 3$ and taking $\omega = 1, j, j^2$: $2^n = S_0 + S_1 + S_2$, $(1+j)^n = S_0 + jS_1 + j^2S_2$, $(1+j^2)^n = S_0 + j^2S_1 + jS_2$. Summing these three equalities (and using $1 + j + j^2 = 0$): $3S_0 = 2^n + (1+j)^n + (1+j^2)^n$. Now $1 + j = e^{i\pi/3}$ and $1 + j^2 = e^{-i\pi/3}$, so $(1+j)^n + (1+j^2)^n = 2\cos\frac{n\pi}{3}$, whence $S_0 = \frac{2^n + 2\cos\frac{n\pi}{3}}{3}$. Similarly, summing with weights $1, j^2, j$ and $1, j, j^2$ gives $S_1 = \frac{2^n + 2\cos\frac{(n-2)\pi}{3}}{3}$ and $S_2 = \frac{2^n + 2\cos\frac{(n+2)\pi}{3}}{3}$.
+      $(\Leftarrow)$ If $m = nq$, then for $z \in \mathbb{U}_n$: $z^m = z^{nq} = (z^n)^q = 1$, so $z \in \mathbb{U}_m$. $(\Rightarrow)$ If $\mathbb{U}_n \subset \mathbb{U}_m$, then $e^{2i\pi/n} \in \mathbb{U}_m$, so $e^{2im\pi/n} = 1$, i.e. $m/n \in \mathbb{Z}$, hence $n \mid m$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      On pose $j=e^{2i\pi/3}$. Par le bin&ocirc;me, $(1+\omega)^n=\sum_{k=0}^{n}\binom{n}{k}\omega^k$. En regroupant selon $k\bmod 3$ et en prenant $\omega=1,j,j^2$ : $2^n=S_0+S_1+S_2$, $(1+j)^n=S_0+jS_1+j^2S_2$, $(1+j^2)^n=S_0+j^2S_1+jS_2$. En sommant ces trois &eacute;galit&eacute;s (et utilisant $1+j+j^2=0$) : $3S_0=2^n+(1+j)^n+(1+j^2)^n$. Or $1+j=e^{i\pi/3}$ et $1+j^2=e^{-i\pi/3}$, donc $(1+j)^n+(1+j^2)^n=2\cos\frac{n\pi}{3}$, d'o&ugrave; $S_0=\frac{2^n+2\cos\frac{n\pi}{3}}{3}$. De m&ecirc;me, en sommant avec les poids $1,j^2,j$ puis $1,j,j^2$ on obtient $S_1=\frac{2^n+2\cos\frac{(n-2)\pi}{3}}{3}$ et $S_2=\frac{2^n+2\cos\frac{(n+2)\pi}{3}}{3}$.
+      $(\Leftarrow)$ Si $m=nq$, alors pour $z\in\mathbb{U}_n$ : $z^m=z^{nq}=(z^n)^q=1$, donc $z\in\mathbb{U}_m$. $(\Rightarrow)$ Si $\mathbb{U}_n\subset\mathbb{U}_m$, alors $e^{2i\pi/n}\in\mathbb{U}_m$, donc $e^{2im\pi/n}=1$, i.e. $m/n\in\mathbb{Z}$, soit $n\mid m$.
     </details>
 
     <!-- Exercise: Equality in triangle inequality -->
@@ -1126,36 +1292,35 @@
       $(\Rightarrow)$ Par r&eacute;currence sur $n$. Pour $n=2$, c'est le cas d'&eacute;galit&eacute; de l'in&eacute;galit&eacute; triangulaire. Supposons le r&eacute;sultat vrai pour $n-1$ et posons $S=\sum_{k=1}^{n-1}z_k$. Alors $|S+z_n|\le|S|+|z_n|\le\sum_{k=1}^{n}|z_k|=|S+z_n|$ par l'in&eacute;galit&eacute; triangulaire, donc toutes les in&eacute;galit&eacute;s sont des &eacute;galit&eacute;s. En particulier $|S+z_n|=|S|+|z_n|$ (premi&egrave;re &eacute;galit&eacute;), donc $\arg(z_n)=\arg(S)$ par le cas d'&eacute;galit&eacute; de l'in&eacute;galit&eacute; triangulaire. De plus $|S|=\sum_{k=1}^{n-1}|z_k|$ (seconde &eacute;galit&eacute;), et par hypoth&egrave;se de r&eacute;currence $z_1,\ldots,z_{n-1}$ ont le m&ecirc;me argument $\theta$. Donc $\arg(S)=\theta$, et $\arg(z_n)=\theta$.
     </details>
 
-    <!-- Exercise: U_n subset U_m -->
+    <!-- Exercise: Binomial sums mod 3 -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $\mathbb{U}_n = \{z \in \mathbb{C} : z^n = 1\}$ and $\mathbb{U}_m = \{z \in \mathbb{C} : z^m = 1\}$. Show that $\mathbb{U}_n \subset \mathbb{U}_m$ if and only if $n \mid m$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soient $\mathbb{U}_n=\{z\in\mathbb{C}:z^n=1\}$ et $\mathbb{U}_m=\{z\in\mathbb{C}:z^m=1\}$. Montrer que $\mathbb{U}_n\subset\mathbb{U}_m$ si et seulement si $n\mid m$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $S_0 = \sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1 = \sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ and $S_2 = \sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S_0=\sum_{k=0}^{\lfloor n/3\rfloor}\binom{n}{3k}$, $S_1=\sum_{k=0}^{\lfloor (n-1)/3\rfloor}\binom{n}{3k+1}$ et $S_2=\sum_{k=0}^{\lfloor (n-2)/3\rfloor}\binom{n}{3k+2}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $(\Leftarrow)$ If $m = nq$, then for $z \in \mathbb{U}_n$: $z^m = z^{nq} = (z^n)^q = 1$, so $z \in \mathbb{U}_m$. $(\Rightarrow)$ If $\mathbb{U}_n \subset \mathbb{U}_m$, then $e^{2i\pi/n} \in \mathbb{U}_m$, so $e^{2im\pi/n} = 1$, i.e. $m/n \in \mathbb{Z}$, hence $n \mid m$.
+      Set $j = e^{2i\pi/3}$. By the binomial theorem, $(1 + \omega)^n = \sum_{k=0}^{n}\binom{n}{k}\omega^k$. Grouping by $k \bmod 3$ and taking $\omega = 1, j, j^2$: $2^n = S_0 + S_1 + S_2$, $(1+j)^n = S_0 + jS_1 + j^2S_2$, $(1+j^2)^n = S_0 + j^2S_1 + jS_2$. Summing these three equalities (and using $1 + j + j^2 = 0$): $3S_0 = 2^n + (1+j)^n + (1+j^2)^n$. Now $1 + j = e^{i\pi/3}$ and $1 + j^2 = e^{-i\pi/3}$, so $(1+j)^n + (1+j^2)^n = 2\cos\frac{n\pi}{3}$, whence $S_0 = \frac{2^n + 2\cos\frac{n\pi}{3}}{3}$. Similarly, summing with weights $1, j^2, j$ and $1, j, j^2$ gives $S_1 = \frac{2^n + 2\cos\frac{(n-2)\pi}{3}}{3}$ and $S_2 = \frac{2^n + 2\cos\frac{(n+2)\pi}{3}}{3}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $(\Leftarrow)$ Si $m=nq$, alors pour $z\in\mathbb{U}_n$ : $z^m=z^{nq}=(z^n)^q=1$, donc $z\in\mathbb{U}_m$. $(\Rightarrow)$ Si $\mathbb{U}_n\subset\mathbb{U}_m$, alors $e^{2i\pi/n}\in\mathbb{U}_m$, donc $e^{2im\pi/n}=1$, i.e. $m/n\in\mathbb{Z}$, soit $n\mid m$.
+      On pose $j=e^{2i\pi/3}$. Par le bin&ocirc;me, $(1+\omega)^n=\sum_{k=0}^{n}\binom{n}{k}\omega^k$. En regroupant selon $k\bmod 3$ et en prenant $\omega=1,j,j^2$ : $2^n=S_0+S_1+S_2$, $(1+j)^n=S_0+jS_1+j^2S_2$, $(1+j^2)^n=S_0+j^2S_1+jS_2$. En sommant ces trois &eacute;galit&eacute;s (et utilisant $1+j+j^2=0$) : $3S_0=2^n+(1+j)^n+(1+j^2)^n$. Or $1+j=e^{i\pi/3}$ et $1+j^2=e^{-i\pi/3}$, donc $(1+j)^n+(1+j^2)^n=2\cos\frac{n\pi}{3}$, d'o&ugrave; $S_0=\frac{2^n+2\cos\frac{n\pi}{3}}{3}$. De m&ecirc;me, en sommant avec les poids $1,j^2,j$ puis $1,j,j^2$ on obtient $S_1=\frac{2^n+2\cos\frac{(n-2)\pi}{3}}{3}$ et $S_2=\frac{2^n+2\cos\frac{(n+2)\pi}{3}}{3}$.
     </details>
 
-    <!-- Exercise: Product of roots of unity -->
+    <!-- Exercise: 7th roots of unity -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\prod_{k=0}^{n-1}\omega^k$ where $\omega = e^{2i\pi/n}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\prod_{k=0}^{n-1}\omega^k$ o&ugrave; $\omega=e^{2i\pi/n}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $z = e^{2i\pi/7}$. Set $S = z + z^2 + z^4$ and $T = z^3 + z^5 + z^6$. Compute $S$ and $T$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $z=e^{2i\pi/7}$. On pose $S=z+z^2+z^4$ et $T=z^3+z^5+z^6$. Calculer $S$ et $T$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $\prod_{k=0}^{n-1}\omega^k = \omega^{0+1+\cdots+(n-1)} = \omega^{n(n-1)/2} = e^{i(n-1)\pi} = (-1)^{n-1}$.
+      $S + T = z + z^2 + \cdots + z^6 = -1$ (sum of 7th roots of unity $\neq 1$). For the product, $ST = (z + z^2 + z^4)(z^3 + z^5 + z^6) = z^4 + z^6 + z^7 + z^5 + z^7 + z^8 + z^7 + z^9 + z^{10}$. Reducing modulo $z^7 = 1$: $ST = 3 + z + z^2 + z^3 + z^4 + z^5 + z^6 = 3 - 1 = 2$. So $S$ and $T$ are roots of $X^2 + X + 2$, with discriminant $\Delta = -7$, whence $S = \frac{-1 + i\sqrt{7}}{2}$ and $T = \frac{-1 - i\sqrt{7}}{2}$ (since $\operatorname{Im}(S) = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} + \sin\frac{8\pi}{7} = \sin\frac{2\pi}{7} + \sin\frac{4\pi}{7} - \sin\frac{\pi}{7} > 0$ as $\sin\frac{2\pi}{7} > \sin\frac{\pi}{7}$).
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $\prod_{k=0}^{n-1}\omega^k=\omega^{0+1+\cdots+(n-1)}=\omega^{n(n-1)/2}=e^{i(n-1)\pi}=(-1)^{n-1}$.
+      $S+T=z+z^2+\cdots+z^6=-1$ (somme des racines $7$-i&egrave;mes $\neq 1$). Pour le produit, $ST=(z+z^2+z^4)(z^3+z^5+z^6)=z^4+z^6+z^7+z^5+z^7+z^8+z^7+z^9+z^{10}$. En r&eacute;duisant modulo $z^7=1$ : $ST=3+z+z^2+z^3+z^4+z^5+z^6=3-1=2$. Donc $S$ et $T$ sont racines de $X^2+X+2$, de discriminant $\Delta=-7$, d'o&ugrave; $S=\frac{-1+i\sqrt{7}}{2}$ et $T=\frac{-1-i\sqrt{7}}{2}$ (car $\operatorname{Im}(S)=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}+\sin\frac{8\pi}{7}=\sin\frac{2\pi}{7}+\sin\frac{4\pi}{7}-\sin\frac{\pi}{7}>0$ puisque $\sin\frac{2\pi}{7}>\sin\frac{\pi}{7}$).
     </details>
-
   </main>
 
   <script>
