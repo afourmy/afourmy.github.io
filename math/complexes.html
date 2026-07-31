@@ -958,20 +958,20 @@
       <p class="en"><span class="technique-label">Technique 5.</span> To identify a map $z \mapsto az+b$, find its fixed point and rewrite the map around it.</p>
       <p class="fr"><span class="technique-label">Technique 5.</span> Pour identifier une application $z \mapsto az+b$, chercher son point fixe et r&eacute;&eacute;crire l'application autour de lui.</p>
 
-        <!-- Exercise: Characterize f(z) = 2iz + 1 -->
+        <!-- Technique 5: identify a map by its fixed point -->
         <div class="thm-block exercise">
-          <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = 2iz + 1$.</p>
-          <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z)=2iz+1$.</p>
+          <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = (1 + i)z + 2$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z) = (1 + i)z + 2$.</p>
         </div>
 
         <details class="proof en">
           <summary class="proof-label">Solution.</summary>
-          We have $a = 2i \neq 1$ and $b = 1$, so $f$ is a direct similarity. Its center is $\omega = \frac{b}{1-a} = \frac{1}{1-2i} = \frac{1+2i}{|1-2i|^2} = \frac{1+2i}{5}$. Its ratio is $|a| = |2i| = 2$ and its angle is $\arg(a) = \arg(2i) = \frac{\pi}{2}$. Thus $f$ is the direct similarity with center $\frac{1+2i}{5}$, ratio $2$ and angle $\frac{\pi}{2}$.
+          Here $a = 1 + i \neq 1$ and $b = 2$, so $f$ is a direct similarity. Its center is its fixed point $\omega = \frac{b}{1 - a} = \frac{2}{-i} = 2i$. Its ratio is $|a| = \sqrt{2}$ and its angle is $\arg(a) = \frac{\pi}{4}$. So $f$ is the direct similarity with center $2i$, ratio $\sqrt{2}$ and angle $\frac{\pi}{4}$.
         </details>
-        <details class="proof fr">
-          <summary class="proof-label">Solution.</summary>
-          On a $a=2i\neq 1$ et $b=1$, donc $f$ est une similitude directe. Son centre est $\omega=\frac{b}{1-a}=\frac{1}{1-2i}=\frac{1+2i}{|1-2i|^2}=\frac{1+2i}{5}$. Son rapport est $|a|=|2i|=2$ et son angle est $\arg(a)=\arg(2i)=\frac{\pi}{2}$. Ainsi $f$ est la similitude directe de centre $\frac{1+2i}{5}$, de rapport $2$ et d'angle $\frac{\pi}{2}$.
-        </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Ici $a = 1 + i \neq 1$ et $b = 2$, donc $f$ est une similitude directe. Son centre est son point fixe $\omega = \frac{b}{1 - a} = \frac{2}{-i} = 2i$. Son rapport est $|a| = \sqrt{2}$ et son angle est $\arg(a) = \frac{\pi}{4}$. Ainsi $f$ est la similitude directe de centre $2i$, de rapport $\sqrt{2}$ et d'angle $\frac{\pi}{4}$.
+      </details>
     </div>
 
     <div class="technique">
@@ -1116,6 +1116,21 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       On cherche $z=x+iy$ tel que $z^2=3+4i$. On a $|3+4i|=5$, d'o&ugrave; $x^2=(5+3)/2=4$ et $y^2=(5-3)/2=1$. Comme $2xy=4>0$, $x$ et $y$ sont de m&ecirc;me signe : $z=2+i$ ou $z=-2-i$.
+    </details>
+
+    <!-- Exercise: Characterize f(z) = 2iz + 1 -->
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Characterize the transformation $f(z) = 2iz + 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Caract&eacute;riser la transformation $f(z)=2iz+1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We have $a = 2i \neq 1$ and $b = 1$, so $f$ is a direct similarity. Its center is $\omega = \frac{b}{1-a} = \frac{1}{1-2i} = \frac{1+2i}{|1-2i|^2} = \frac{1+2i}{5}$. Its ratio is $|a| = |2i| = 2$ and its angle is $\arg(a) = \arg(2i) = \frac{\pi}{2}$. Thus $f$ is the direct similarity with center $\frac{1+2i}{5}$, ratio $2$ and angle $\frac{\pi}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On a $a=2i\neq 1$ et $b=1$, donc $f$ est une similitude directe. Son centre est $\omega=\frac{b}{1-a}=\frac{1}{1-2i}=\frac{1+2i}{|1-2i|^2}=\frac{1+2i}{5}$. Son rapport est $|a|=|2i|=2$ et son angle est $\arg(a)=\arg(2i)=\frac{\pi}{2}$. Ainsi $f$ est la similitude directe de centre $\frac{1+2i}{5}$, de rapport $2$ et d'angle $\frac{\pi}{2}$.
     </details>
 
     <!-- Exercise: a cos x + b sin x -->

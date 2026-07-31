@@ -8,6 +8,8 @@ Before starting, also read the courses already redone and use them as worked exa
 
 Every course page has the same four top-level (`h2`) sections, in this order: **Course**, **Counterexamples**, **Techniques**, **Exercises** (`Cours`, `Contre-exemples`, `Techniques`, `Exercices`). Each heading is duplicated in both languages, like the two that are already there.
 
+**Nothing is done twice on the page.** No object, computation or question appears as an entry in two sections, and no entry redoes something the Course already worked through. Applying a general result the Course proved is exactly what an entry should do; re-solving a specific instance the Course already solved is not. The trap is the Course's own examples and figure captions: `complexes.html` had a caption drawing $f(z) = 2iz+1$ around its fixed point and naming the centre, ratio and angle, which silently turned the matching exercise into a copy of the answer. Before keeping an entry, grep the whole page for its concrete objects (the map, the numbers, the function) and read what comes back, captions included.
+
 **Within Counterexamples, Techniques and Exercises, entries run from easiest to hardest.** The reader meets the one-line case first and the long one last. This ordering wins over every other way of arranging the entries: do not group them by theme, by the order the Course introduces them, or by the order they were written in. When a technique's difficulty and its exercise's difficulty disagree, order by the exercise, since that is what the reader has to do.
 
 ### 1. Course
