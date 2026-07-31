@@ -460,6 +460,22 @@ details.tsp-code > p {
 .fig-shape { fill: var(--accent); fill-opacity: 0.10; stroke: var(--accent-strong); stroke-width: 1.8; }
 .fig-shape-img { fill: var(--accent); fill-opacity: 0.24; stroke: var(--accent); stroke-width: 1.8; }
 
+/* cells of a table drawn as a figure, such as the codon wheel */
+.fig-cell { fill: none; stroke: var(--border); stroke-width: 1; }
+.fig-cell-alt { fill: var(--surface-alt); stroke: var(--border); stroke-width: 1; }
+
+/* labels that are letters or numbers rather than mathematical variables, so
+   they are set upright; each rule must out-specify the italic .figure text */
+.figure text.fig-text { font-style: normal; font-family: 'Computer Modern Serif', serif; }
+.figure text.fig-base1 { font-size: 19px; }
+.figure text.fig-base2 { font-size: 13px; }
+.figure text.fig-base3 { font-size: 10px; }
+.figure text.fig-amino { font-size: 11px; }
+.figure text.fig-stop { font-size: 9px; }
+.figure text.fig-tick { font-size: 12px; }
+.figure text.fig-note { font-size: 11px; fill: var(--text-muted); }
+.figure tspan.fig-sup { font-size: 9px; }
+
 .thm-label {
   font-weight: 700;
   font-size: 1.05rem;

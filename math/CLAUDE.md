@@ -13,6 +13,10 @@ Before starting, also read the courses already redone and use them as worked exa
 
 ## Prose register
 
+- **Never state a definition in prose before its `Definition` block.** Introducing the object twice, once informally and once formally, was rejected twice ("Set $e^{i\theta} = \cos\theta + i\sin\theta$..." written above the definition that says the same thing; and a paragraph describing conjugation and modulus placed before either was defined). Prose before a definition may say what the definition is for and why the reader should care, but must not define, name, or use the object. Put the interpretation *after* the block instead. This does not apply to theorems: prose giving the idea of a theorem before stating it is wanted, and is what the artistic direction asks for.
+- Prose that describes a picture must never point at a figure that is not adjacent. Say "below" only when the figure is the next element.
+- **Never state a definition in prose before its `Definition` block.** Introducing the object twice, informally then formally, was rejected twice: "Set $e^{i\theta} = \cos\theta + i\sin\theta$..." written above the definition that says the same thing, and a paragraph describing conjugation and modulus placed before either was defined. Prose before a definition may say what the definition is for, but must not define, name, or use the object; put the interpretation after the block. This does not apply to theorems, where prose giving the idea before the statement is wanted.
+- Prose describing a picture must never point at a non-adjacent figure. Say "below" only when the figure is the next element.
 - Plain AND short. One step per sentence, minimum words, every word literal.
 - No aphorisms, slogans, or metaphors doing load-bearing work. "Commuting with limits makes stability free" was rejected as gibberish; "the limit rules for sequences become rules for continuous functions" is the correct register.
 - Test before keeping a sentence: if it needs a second reading to see what it literally claims, rewrite it.
@@ -30,11 +34,19 @@ Practical rules:
 
 - A caption describing several panels of one figure gets one line per panel, with the panel name in bold: wrap each panel's text in `<span class="cap-part">` and its name in `<span class="cap-lead">` (`Left:`, `Middle:`, `Right:`). Never run the panels together as one paragraph.
 - **Text that describes a figure is a caption, placed below it**, never body prose above it. Wrap the SVG in `<figure class="figure-block">` and put the caption in a single `<figcaption>` after it, bilingual via `<span class="en">` and `<span class="fr">` inside that one element (two `figcaption` elements would be invalid HTML). A figure inside a language-specific proof takes a plain `<figcaption>` with no spans, since the enclosing `details` is already language-tagged. Prose above a figure is only for text that advances the mathematics; if it describes the drawing, it belongs underneath.
-- Use the shared `.figure` / `.fig-*` classes in `style.css`, extending them in `style.css` if a new kind of mark is needed. Never inline styles.
+- Use the shared `.figure` / `.fig-*` classes in `style.css`, extending them in `style.css` if a new kind of mark is needed. Never inline styles. Every stroke-only `.fig-*` class needs `fill: none`, or a `<circle>` or closed `<path>` using it renders as a solid black blob.
+- A curve derived from another (an inverse, a reflection) must be computed from the original's points, never drawn a second time by eye.
 - Within a page, keep one visual vocabulary: the same kind of quantity is always drawn the same way across figures.
+- Never pick the `viewBox` by hand: the leftover canvas ends up lopsided, usually as a wide empty band above the drawing. Measure the rendered content (`svg.getBBox()` in a headless browser) and set the `viewBox` to that box plus a uniform 10px margin, so every figure hugs its content on all four sides.
 - Reference elements must frame what they contain: an axis has to run past every object drawn on it, never stop inside a circle or a curve. Compute the drawn objects' extent first, then set the axis endpoints beyond it, and check afterwards.
 - Labels are math symbols only, so one SVG serves both languages. A figure placed inside a proof `details` must be duplicated in the `en` and `fr` versions.
 - Minus signs in SVG text are U+2212, never a hyphen or dash.
+
+## Checking the result
+
+Static checks are not enough. They passed while a circle rendered as a solid black disk, while $f^{-1}$ was a freehand curve instead of a real reflection, and while a quarter of a figure was empty canvas. Before declaring a page done, serve it (`python3 -m http.server`) and screenshot it with headless Chrome, then look at every figure.
+
+Also script these checks: HTML tags balanced; no `details.proof` separated from its block; EN/FR paragraph parity; no em dash; no label out of frame; no two labels overlapping; no axis stopping inside a circle.
 
 ## Workflow
 
