@@ -509,8 +509,8 @@
       Soit $f$ une fonction $k$-lipschitzienne sur $I$. Soit $\varepsilon &gt; 0$. Posons $\delta = \varepsilon / k$ si $k &gt; 0$ (et $\delta$ quelconque si $k=0$). Alors pour tous $x,y \in I$, $|x-y| &lt; \delta \Rightarrow |f(x)-f(y)| \le k|x-y| &lt; k\delta = \varepsilon$.
     </details>
 
-    <p class="en">On a segment, continuity is automatically uniform: this is Heine's theorem. Its proof combines the two techniques of the chapter: the $1/n$ trick builds two sequences $(x_n)$, $(y_n)$ that violate uniformity, and Bolzano-Weierstrass extracts converging subsequences. The proof of the extreme value theorem used the same two steps.</p>
-    <p class="fr">Sur un segment, la continuité est automatiquement uniforme : c'est le théorème de Heine. Sa démonstration combine les deux techniques du chapitre : l'astuce du $1/n$ construit deux suites $(x_n)$, $(y_n)$ qui violent l'uniformité, et Bolzano-Weierstrass en extrait des sous-suites convergentes. La démonstration du théorème des bornes atteintes utilisait les deux mêmes étapes.</p>
+    <p class="en">On a segment, continuity is automatically uniform: this is Heine's theorem. Its proof combines the $1/n$ trick, which builds two sequences $(x_n)$, $(y_n)$ violating uniformity, with Bolzano-Weierstrass, which extracts converging subsequences. The proof of the extreme value theorem used the same two steps.</p>
+    <p class="fr">Sur un segment, la continuité est automatiquement uniforme : c'est le théorème de Heine. Sa démonstration combine l'astuce du $1/n$, qui construit deux suites $(x_n)$, $(y_n)$ violant l'uniformité, et Bolzano-Weierstrass, qui en extrait des sous-suites convergentes. La démonstration du théorème des bornes atteintes utilisait les deux mêmes étapes.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Heine).</span> Every continuous function on a closed interval is uniformly continuous.</p>
@@ -526,25 +526,108 @@
       Soit $f$ continue sur $[a,b]$. Supposons par l'absurde que $f$ n'est pas uniformément continue. Alors il existe $\varepsilon_0 &gt; 0$ tel que, pour tout $n \ge 1$, il existe $x_n, y_n \in [a,b]$ vérifiant $|x_n - y_n| &lt; \frac{1}{n}$ et $|f(x_n) - f(y_n)| \ge \varepsilon_0$. La suite $(x_n)$ est bornée, donc par le théorème de Bolzano--Weierstrass elle admet une sous-suite $(x_{\varphi(n)})$ convergeant vers $\ell \in [a,b]$. Comme $|x_{\varphi(n)} - y_{\varphi(n)}| &lt; \frac{1}{\varphi(n)} \to 0$, on a aussi $y_{\varphi(n)} \to \ell$. Par continuité de $f$ en $\ell$, $f(x_{\varphi(n)}) \to f(\ell)$ et $f(y_{\varphi(n)}) \to f(\ell)$, donc $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \to 0$, ce qui contredit $|f(x_{\varphi(n)}) - f(y_{\varphi(n)})| \ge \varepsilon_0$. Donc $f$ est uniformément continue.
     </details>
 
-    <h3 class="en">The techniques of this chapter</h3>
-    <h3 class="fr">Les techniques du chapitre</h3>
+    <p class="en">Completeness of $\mathbb{R}$ is what makes the three existence results true: the root in the intermediate value theorem, the attained maximum in the extreme value theorem, the uniform $\delta$ in Heine's theorem. Each proof produces a sequence and extracts a convergent subsequence, and the extraction is where completeness enters. Over $\mathbb{Q}$ all three statements are false.</p>
+    <p class="fr">La complétude de $\mathbb{R}$ est ce qui rend vrais les trois résultats d'existence : la racine du théorème des valeurs intermédiaires, le maximum atteint du théorème des bornes atteintes, le $\delta$ uniforme du théorème de Heine. Chaque démonstration produit une suite et en extrait une sous-suite convergente, et c'est l'extraction qui fait intervenir la complétude. Sur $\mathbb{Q}$, les trois énoncés sont faux.</p>
 
-    <p class="en">The chapter reduces to five techniques:</p>
-    <ul class="en">
-      <li>In $\forall \varepsilon,\ \exists \delta$, the order matters: $\delta$ is chosen after $\varepsilon$, so it can depend on it. Moving a quantifier changes the notion (continuity versus uniform continuity).</li>
-      <li>Continuity means $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$.</li>
-      <li>The $1/n$ trick: a hypothesis valid for every $\delta$, applied with $\delta = 1/n$, produces a sequence.</li>
-      <li>In a segment, every sequence has a subsequence converging inside it (Bolzano-Weierstrass): extract, then pass to the limit.</li>
-      <li>Completeness of $\mathbb{R}$ is behind every existence result of the chapter: the root in the intermediate value theorem, the attained maximum, the uniform $\delta$ in Heine's theorem.</li>
-    </ul>
-    <p class="fr">Le chapitre se ramène à cinq techniques :</p>
-    <ul class="fr">
-      <li>Dans $\forall \varepsilon,\ \exists \delta$, l'ordre compte : $\delta$ est choisi après $\varepsilon$, donc peut en dépendre. Déplacer un quantificateur change la notion (continuité contre continuité uniforme).</li>
-      <li>La continuité signifie que $f$ et $\lim$ peuvent être échangés : $f(\lim x_n) = \lim f(x_n)$.</li>
-      <li>L'astuce du $1/n$ : une hypothèse valable pour tout $\delta$, appliquée avec $\delta = 1/n$, produit une suite.</li>
-      <li>Dans un segment, toute suite a une sous-suite qui converge à l'intérieur (Bolzano-Weierstrass) : extraire, puis passer à la limite.</li>
-      <li>La complétude de $\mathbb{R}$ est derrière chaque résultat d'existence du chapitre : la racine du théorème des valeurs intermédiaires, le maximum atteint, le $\delta$ uniforme du théorème de Heine.</li>
-    </ul>
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Counterexamples</h2>
+    <h2 class="fr">Contre-exemples</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Counterexample.</span> Every continuous function on a closed bounded interval is uniformly continuous. Find a counterexample when the interval is closed but not bounded.</p>
+      <p class="fr"><span class="thm-label">Contre-exemple.</span> Toute fonction continue sur un segment est uniformément continue. Trouver un contre-exemple quand l'intervalle est fermé mais non borné.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $f(x) = x^2$ on $\mathbb{R}$. Set $x_n = n$ and $y_n = n + \frac{1}{n}$. Then $|x_n - y_n| = \frac{1}{n} \to 0$, while $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. So for $\varepsilon = 2$, no $\delta &gt; 0$ works, and $f$ is not uniformly continuous.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $f(x) = x^2$ sur $\mathbb{R}$. Posons $x_n = n$ et $y_n = n + \frac{1}{n}$. Alors $|x_n - y_n| = \frac{1}{n} \to 0$, tandis que $|f(y_n) - f(x_n)| = 2 + \frac{1}{n^2} \ge 2$. Donc pour $\varepsilon = 2$, aucun $\delta &gt; 0$ ne convient, et $f$ n'est pas uniformément continue.
+    </details>
+
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> Continuity means $f$ and $\lim$ can be exchanged: $f(\lim x_n) = \lim f(x_n)$.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> La continuité signifie que $f$ et $\lim$ peuvent être échangés : $f(\lim x_n) = \lim f(x_n)$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ be defined by $u_0 = 1$ and $u_{n+1} = \sqrt{1 + u_n}$. Assuming $(u_n)$ converges, find its limit.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $(u_n)$ définie par $u_0 = 1$ et $u_{n+1} = \sqrt{1 + u_n}$. En admettant que $(u_n)$ converge, déterminer sa limite.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Let $\ell = \lim u_n$, with $\ell \ge 0$. The function $g : x \mapsto \sqrt{1+x}$ is continuous on $\mathbb{R}_+$, so $g(\lim u_n) = \lim g(u_n)$, that is $g(\ell) = \lim u_{n+1} = \ell$. Hence $\ell = \sqrt{1+\ell}$, so $\ell^2 - \ell - 1 = 0$ and $\ell \ge 0$ gives $\ell = \frac{1 + \sqrt{5}}{2}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Soit $\ell = \lim u_n$, avec $\ell \ge 0$. La fonction $g : x \mapsto \sqrt{1+x}$ est continue sur $\mathbb{R}_+$, donc $g(\lim u_n) = \lim g(u_n)$, c'est-à-dire $g(\ell) = \lim u_{n+1} = \ell$. Ainsi $\ell = \sqrt{1+\ell}$, donc $\ell^2 - \ell - 1 = 0$, et $\ell \ge 0$ donne $\ell = \frac{1 + \sqrt{5}}{2}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> In a segment, every sequence has a subsequence converging inside it (Bolzano-Weierstrass): extract, then pass to the limit.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Dans un segment, toute suite a une sous-suite qui converge à l'intérieur (Bolzano-Weierstrass) : extraire, puis passer à la limite.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,1] \to \mathbb{R}$ be continuous and let $(u_n)$ be a sequence in $[0,1]$ with $f(u_n) \to 0$. Show that $f$ vanishes somewhere on $[0,1]$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,1] \to \mathbb{R}$ continue et $(u_n)$ une suite de $[0,1]$ telle que $f(u_n) \to 0$. Montrer que $f$ s'annule en un point de $[0,1]$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The sequence $(u_n)$ lies in the segment $[0,1]$, so by Bolzano-Weierstrass it has a subsequence $(u_{\varphi(n)})$ converging to some $\ell \in [0,1]$. By continuity of $f$ at $\ell$, $f(u_{\varphi(n)}) \to f(\ell)$. But $(f(u_{\varphi(n)}))$ is a subsequence of $(f(u_n))$, which tends to $0$, so $f(\ell) = 0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        La suite $(u_n)$ est dans le segment $[0,1]$, donc par Bolzano-Weierstrass elle admet une sous-suite $(u_{\varphi(n)})$ convergeant vers un $\ell \in [0,1]$. Par continuité de $f$ en $\ell$, $f(u_{\varphi(n)}) \to f(\ell)$. Or $(f(u_{\varphi(n)}))$ est une sous-suite de $(f(u_n))$, qui tend vers $0$, donc $f(\ell) = 0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> The $1/n$ trick: a hypothesis valid for every $\delta$, applied with $\delta = 1/n$, produces a sequence.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> L'astuce du $1/n$ : une hypothèse valable pour tout $\delta$, appliquée avec $\delta = 1/n$, produit une suite.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $x \mapsto \sin(1/x)$ is not uniformly continuous on $]0,1]$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $x \mapsto \sin(1/x)$ n'est pas uniformément continue sur $]0,1]$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Proof.</summary>
+        The function $f:x\mapsto\sin(1/x)$ is continuous on $]0,1]$. Let $\varepsilon=1$ and $\delta&gt;0$ be arbitrary. Choose $n$ large enough so that $x_n=\frac{1}{2n\pi}$ and $y_n=\frac{1}{2n\pi+\pi/2}$ belong to $]0,1]$ with $|x_n-y_n|&lt;\delta$. Then $f(x_n)=\sin(2n\pi)=0$ and $f(y_n)=\sin(2n\pi+\pi/2)=1$, so $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Thus $f$ is not uniformly continuous on $]0,1]$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Démonstration.</summary>
+        La fonction $f:x\mapsto\sin(1/x)$ est continue sur $]0,1]$. Soit $\varepsilon=1$ et $\delta&gt;0$ quelconque. On choisit $n$ assez grand pour que $x_n=\frac{1}{2n\pi}$ et $y_n=\frac{1}{2n\pi+\pi/2}$ appartiennent à $]0,1]$ avec $|x_n-y_n|&lt;\delta$. Or $f(x_n)=\sin(2n\pi)=0$ et $f(y_n)=\sin(2n\pi+\pi/2)=1$, donc $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Ainsi $f$ n'est pas uniformément continue sur $]0,1]$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> In $\forall \varepsilon,\ \exists \delta$, the order matters: $\delta$ is chosen after $\varepsilon$, so it can depend on it. Moving a quantifier changes the notion (continuity versus uniform continuity).</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Dans $\forall \varepsilon,\ \exists \delta$, l'ordre compte : $\delta$ est choisi après $\varepsilon$, donc peut en dépendre. Déplacer un quantificateur change la notion (continuité contre continuité uniforme).</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Prove that $x\mapsto x^n$ is continuous on $\mathbb{R}$ using the definition of continuity.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Démontrer que $x\mapsto x^n$ est continue sur $\mathbb{R}$ en utilisant la définition de la continuité.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Proof.</summary>
+        Let $a\in\mathbb{R}$ and $\varepsilon&gt;0$. Write $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. For $|x-a|&lt;1$, the triangle inequality gives $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, so each term satisfies $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$, and the sum has $n$ terms, giving $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. Set $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Then $|x-a|&lt;\delta$ implies $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Démonstration.</summary>
+        Soit $a\in\mathbb{R}$ et $\varepsilon&gt;0$. On écrit $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. Pour $|x-a|&lt;1$, l'inégalité triangulaire donne $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, donc $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$ pour chaque terme, et la somme en comporte $n$, d'où $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. On pose $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Alors $|x-a|&lt;\delta$ implique $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
+      </details>
+    </div>
+
 
     <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Exercises</h2>
@@ -556,14 +639,41 @@
     </div>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a continuous function on $\mathbb{R}$ that is not uniformly continuous.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction continue non uniformément continue sur $\mathbb{R}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $x\mapsto\frac{1}{x}$ is Lipschitz on $[1,+\infty[$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $x\mapsto\frac{1}{x}$ est lipschitzienne sur $[1,+\infty[$.</p>
     </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Lipschitz on $[1,+\infty[$.</em> For $x,y\in[1,+\infty[$, $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ since $xy\ge1$. So the function is $1$-Lipschitz on $[1,+\infty[$.
+      <br>
+      <em>Not uniformly continuous on $]0,1]$.</em> Set $x_n=\frac{1}{n}$ and $y_n=\frac{1}{n+1}$. Then $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, but $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. So for $\varepsilon=1$, whatever $\delta&gt;0$, one can find $x_n,y_n\in\,]0,1]$ with $|x_n-y_n|&lt;\delta$ and $|f(x_n)-f(y_n)|\ge\varepsilon$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Lipschitzienne sur $[1,+\infty[$.</em> Pour $x,y\in[1,+\infty[$, on a $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ car $xy\ge1$. La fonction est donc $1$-lipschitzienne sur $[1,+\infty[$.
+      <br>
+      <em>Non uniformément continue sur $]0,1]$.</em> Posons $x_n=\frac{1}{n}$ et $y_n=\frac{1}{n+1}$. Alors $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, mais $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. Donc pour $\varepsilon=1$, quel que soit $\delta&gt;0$, on peut trouver $x_n,y_n\in\,]0,1]$ avec $|x_n-y_n|&lt;\delta$ et $|f(x_n)-f(y_n)|\ge\varepsilon$.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[a,b]$. Show that the equation $f(x)=x$ has at least one solution in $[a,b]$ if $f([a,b]) \subset [a,b]$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[a,b]$. Montrer que l'équation $f(x)=x$ admet au moins une solution dans $[a,b]$ si $f([a,b]) \subset [a,b]$.</p>
     </div>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every continuous and periodic function on $\mathbb{R}$ is bounded.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que toute fonction continue et périodique sur $\mathbb{R}$ est bornée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $f$ be continuous and $T$-periodic with $T&gt;0$. By the extreme value theorem, $f$ is bounded on the interval $[0,T]$: there exists $M\ge0$ such that $|f(x)|\le M$ for all $x\in[0,T]$. For any $x\in\mathbb{R}$, setting $n=\lfloor x/T\rfloor$, we have $n\le x/T&lt;n+1$, so $x-nT\in[0,T)$, and $f(x)=f(x-nT)$ by periodicity, giving $|f(x)|\le M$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $f$ continue et $T$-périodique avec $T&gt;0$. Par le théorème des bornes atteintes, $f$ est bornée sur le segment $[0,T]$ : il existe $M\ge0$ tel que $|f(x)|\le M$ pour tout $x\in[0,T]$. Pour tout $x\in\mathbb{R}$, en posant $n=\lfloor x/T\rfloor$, on a $n\le x/T&lt;n+1$ donc $x-nT\in[0,T)$, et $f(x)=f(x-nT)$ par périodicité, donc $|f(x)|\le M$.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $f:\mathbb{R}\to\mathbb{R}_+^*$ defined by $f(0)=1$ and $f(x)=\frac{e^x-1}{x}$ for $x\neq0$ is a bijection.</p>
@@ -588,80 +698,6 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Prove that $x\mapsto x^n$ is continuous on $\mathbb{R}$ using the definition of continuity.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Démontrer que $x\mapsto x^n$ est continue sur $\mathbb{R}$ en utilisant la définition de la continuité.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Let $a\in\mathbb{R}$ and $\varepsilon&gt;0$. Write $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. For $|x-a|&lt;1$, the triangle inequality gives $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, so each term satisfies $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$, and the sum has $n$ terms, giving $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. Set $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Then $|x-a|&lt;\delta$ implies $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Soit $a\in\mathbb{R}$ et $\varepsilon&gt;0$. On écrit $x^n-a^n=(x-a)(x^{n-1}+x^{n-2}a+\cdots+a^{n-1})$. Pour $|x-a|&lt;1$, l'inégalité triangulaire donne $|x|=|a+(x-a)|\le|a|+|x-a|&lt;|a|+1$, donc $|x^{n-1-k}a^k|\le(|a|+1)^{n-1-k}|a|^k\le(|a|+1)^{n-1}$ pour chaque terme, et la somme en comporte $n$, d'où $|x^{n-1}+x^{n-2}a+\cdots+a^{n-1}|\le n(|a|+1)^{n-1}=:M$. On pose $\delta=\min\left(1,\frac{\varepsilon}{M}\right)$. Alors $|x-a|&lt;\delta$ implique $|x^n-a^n|\le|x-a|\cdot M&lt;\varepsilon$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Determine all functions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ such that $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Déterminer les fonctions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ telles que $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Setting $x=y=0$: $f(0)=2f(0)$, so $f(0)=0$. Setting $y=-x$: $f(-x)=-f(x)$. By immediate induction, $f(nx)=nf(x)$ for all $n\in\mathbb{N}$, then for all $n\in\mathbb{Z}$ (since $f(-x)=-f(x)$). Setting $a=f(1)$ and $x=p/q$ with $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$: $qf(p/q)=f(p)=pf(1)=pa$, so $f(p/q)=a\cdot p/q$. Thus $f(r)=ar$ for all $r\in\mathbb{Q}$. By density of $\mathbb{Q}$ in $\mathbb{R}$, for any $x\in\mathbb{R}$ there is a sequence $(r_n)\subset\mathbb{Q}$ with $r_n\to x$. By continuity: $f(x)=\lim f(r_n)=\lim ar_n=ax$. So $f(x)=ax$ for all $x\in\mathbb{R}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      En posant $x=y=0$ : $f(0)=2f(0)$, donc $f(0)=0$. En posant $y=-x$ : $f(-x)=-f(x)$. Par récurrence immédiate, $f(nx)=nf(x)$ pour tout $n\in\mathbb{N}$, puis pour tout $n\in\mathbb{Z}$ (car $f(-x)=-f(x)$). En posant $a=f(1)$ et $x=p/q$ avec $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$ : $qf(p/q)=f(p)=pf(1)=pa$, donc $f(p/q)=a\cdot p/q$. Ainsi $f(r)=ar$ pour tout $r\in\mathbb{Q}$. Par densité de $\mathbb{Q}$ dans $\mathbb{R}$, pour tout $x\in\mathbb{R}$, il existe une suite $(r_n)\subset\mathbb{Q}$ telle que $r_n\to x$. Par continuité de $f$ : $f(x)=\lim f(r_n)=\lim ar_n=ax$. Donc $f(x)=ax$ pour tout $x\in\mathbb{R}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that every continuous and periodic function on $\mathbb{R}$ is bounded.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que toute fonction continue et périodique sur $\mathbb{R}$ est bornée.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Let $f$ be continuous and $T$-periodic with $T&gt;0$. By the extreme value theorem, $f$ is bounded on the interval $[0,T]$: there exists $M\ge0$ such that $|f(x)|\le M$ for all $x\in[0,T]$. For any $x\in\mathbb{R}$, setting $n=\lfloor x/T\rfloor$, we have $n\le x/T&lt;n+1$, so $x-nT\in[0,T)$, and $f(x)=f(x-nT)$ by periodicity, giving $|f(x)|\le M$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Soit $f$ continue et $T$-périodique avec $T&gt;0$. Par le théorème des bornes atteintes, $f$ est bornée sur le segment $[0,T]$ : il existe $M\ge0$ tel que $|f(x)|\le M$ pour tout $x\in[0,T]$. Pour tout $x\in\mathbb{R}$, en posant $n=\lfloor x/T\rfloor$, on a $n\le x/T&lt;n+1$ donc $x-nT\in[0,T)$, et $f(x)=f(x-nT)$ par périodicité, donc $|f(x)|\le M$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $x\mapsto\frac{1}{x}$ is Lipschitz on $[1,+\infty[$, and not uniformly continuous on $]0,1]$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $x\mapsto\frac{1}{x}$ est lipschitzienne sur $[1,+\infty[$, et non uniformément continue sur $]0,1]$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <em>Lipschitz on $[1,+\infty[$.</em> For $x,y\in[1,+\infty[$, $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ since $xy\ge1$. So the function is $1$-Lipschitz on $[1,+\infty[$.
-      <br>
-      <em>Not uniformly continuous on $]0,1]$.</em> Set $x_n=\frac{1}{n}$ and $y_n=\frac{1}{n+1}$. Then $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, but $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. So for $\varepsilon=1$, whatever $\delta&gt;0$, one can find $x_n,y_n\in\,]0,1]$ with $|x_n-y_n|&lt;\delta$ and $|f(x_n)-f(y_n)|\ge\varepsilon$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <em>Lipschitzienne sur $[1,+\infty[$.</em> Pour $x,y\in[1,+\infty[$, on a $\left|\frac{1}{x}-\frac{1}{y}\right|=\frac{|x-y|}{xy}\le|x-y|$ car $xy\ge1$. La fonction est donc $1$-lipschitzienne sur $[1,+\infty[$.
-      <br>
-      <em>Non uniformément continue sur $]0,1]$.</em> Posons $x_n=\frac{1}{n}$ et $y_n=\frac{1}{n+1}$. Alors $|x_n-y_n|=\frac{1}{n(n+1)}\to0$, mais $|f(x_n)-f(y_n)|=|n-(n+1)|=1$. Donc pour $\varepsilon=1$, quel que soit $\delta&gt;0$, on peut trouver $x_n,y_n\in\,]0,1]$ avec $|x_n-y_n|&lt;\delta$ et $|f(x_n)-f(y_n)|\ge\varepsilon$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Give a counterexample to Heine's theorem for a continuous function on an interval that is not a closed interval.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Donner un contre-exemple au théorème de Heine pour une fonction continue sur un intervalle qui n'est pas un segment.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      The function $f:x\mapsto\sin(1/x)$ is continuous on $]0,1]$. Let $\varepsilon=1$ and $\delta&gt;0$ be arbitrary. Choose $n$ large enough so that $x_n=\frac{1}{2n\pi}$ and $y_n=\frac{1}{2n\pi+\pi/2}$ belong to $]0,1]$ with $|x_n-y_n|&lt;\delta$. Then $f(x_n)=\sin(2n\pi)=0$ and $f(y_n)=\sin(2n\pi+\pi/2)=1$, so $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Thus $f$ is not uniformly continuous on $]0,1]$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      La fonction $f:x\mapsto\sin(1/x)$ est continue sur $]0,1]$. Soit $\varepsilon=1$ et $\delta&gt;0$ quelconque. On choisit $n$ assez grand pour que $x_n=\frac{1}{2n\pi}$ et $y_n=\frac{1}{2n\pi+\pi/2}$ appartiennent à $]0,1]$ avec $|x_n-y_n|&lt;\delta$. Or $f(x_n)=\sin(2n\pi)=0$ et $f(y_n)=\sin(2n\pi+\pi/2)=1$, donc $|f(x_n)-f(y_n)|=1\ge\varepsilon$. Ainsi $f$ n'est pas uniformément continue sur $]0,1]$.
-    </details>
-
-    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be continuous and increasing such that there exists $a &gt; 0$ with $\forall x, y \in \mathbb{R},\ |f(x)-f(y)| \ge a\,|x-y|$. Show that $f$ is bijective.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ continue et croissante telle qu'il existe $a &gt; 0$ vérifiant $\forall x, y \in \mathbb{R},\ |f(x)-f(y)| \ge a\,|x-y|$. Montrer que $f$ est bijective.</p>
     </div>
@@ -677,6 +713,20 @@
       <em>Injectivité.</em> Si $x \neq y$, alors $|f(x)-f(y)| \ge a|x-y| &gt; 0$, donc $f(x)\neq f(y)$. Ainsi $f$ est injective.
       <br>
       <em>Surjectivité.</em> Soit $y \in \mathbb{R}$. Pour $x &gt; 0$, $f$ est croissante donc $f(x) \ge f(0)$, d'où $|f(x)-f(0)| = f(x)-f(0) \ge ax$, soit $f(x) \ge f(0)+ax \to +\infty$ quand $x\to+\infty$. De même, pour $x &lt; 0$, $f(x) \le f(0)$, d'où $f(0)-f(x) \ge a|x|$, soit $f(x) \le f(0)-a|x| \to -\infty$ quand $x\to-\infty$. Par le théorème des valeurs intermédiaires, il existe $c\in\mathbb{R}$ tel que $f(c)=y$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine all functions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ such that $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Déterminer les fonctions $f\in\mathcal{C}(\mathbb{R},\mathbb{R})$ telles que $\forall x,y\in\mathbb{R},\ f(x+y)=f(x)+f(y)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Setting $x=y=0$: $f(0)=2f(0)$, so $f(0)=0$. Setting $y=-x$: $f(-x)=-f(x)$. By immediate induction, $f(nx)=nf(x)$ for all $n\in\mathbb{N}$, then for all $n\in\mathbb{Z}$ (since $f(-x)=-f(x)$). Setting $a=f(1)$ and $x=p/q$ with $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$: $qf(p/q)=f(p)=pf(1)=pa$, so $f(p/q)=a\cdot p/q$. Thus $f(r)=ar$ for all $r\in\mathbb{Q}$. By density of $\mathbb{Q}$ in $\mathbb{R}$, for any $x\in\mathbb{R}$ there is a sequence $(r_n)\subset\mathbb{Q}$ with $r_n\to x$. By continuity: $f(x)=\lim f(r_n)=\lim ar_n=ax$. So $f(x)=ax$ for all $x\in\mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      En posant $x=y=0$ : $f(0)=2f(0)$, donc $f(0)=0$. En posant $y=-x$ : $f(-x)=-f(x)$. Par récurrence immédiate, $f(nx)=nf(x)$ pour tout $n\in\mathbb{N}$, puis pour tout $n\in\mathbb{Z}$ (car $f(-x)=-f(x)$). En posant $a=f(1)$ et $x=p/q$ avec $p\in\mathbb{Z}$, $q\in\mathbb{N}^*$ : $qf(p/q)=f(p)=pf(1)=pa$, donc $f(p/q)=a\cdot p/q$. Ainsi $f(r)=ar$ pour tout $r\in\mathbb{Q}$. Par densité de $\mathbb{Q}$ dans $\mathbb{R}$, pour tout $x\in\mathbb{R}$, il existe une suite $(r_n)\subset\mathbb{Q}$ telle que $r_n\to x$. Par continuité de $f$ : $f(x)=\lim f(r_n)=\lim ar_n=ax$. Donc $f(x)=ax$ pour tout $x\in\mathbb{R}$.
     </details>
 
   </main>
