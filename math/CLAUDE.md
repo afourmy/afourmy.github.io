@@ -8,6 +8,8 @@ Before starting, also read the courses already redone and use them as worked exa
 
 Every course page has the same four top-level (`h2`) sections, in this order: **Course**, **Counterexamples**, **Techniques**, **Exercises** (`Cours`, `Contre-exemples`, `Techniques`, `Exercices`). Each heading is duplicated in both languages, like the two that are already there.
 
+**Within Counterexamples, Techniques and Exercises, entries run from easiest to hardest.** The reader meets the one-line case first and the long one last. This ordering wins over every other way of arranging the entries: do not group them by theme, by the order the Course introduces them, or by the order they were written in. When a technique's difficulty and its exercise's difficulty disagree, order by the exercise, since that is what the reader has to do.
+
 ### 1. Course
 
 The mathematics itself, split into `h3` sections: definitions, theorems, proofs, figures. This is what the redone pages already contain.
@@ -29,7 +31,7 @@ The few reusable techniques of the chapter, each stated as a literal fact and ea
 - The technique first, in one or two sentences saying what to do and when, in the register the pages already use: "To solve $z^n = W$, find one root and multiply it by the $n$-th roots of unity."
 - Then one énoncé applying it, solution in a `details.proof`. Its job is to show the technique working once, not to test the reader: choose the easiest instance that still exercises the whole technique.
 - If an exercise already in the Exercises section demonstrates the technique, move it here instead of writing a second one. Moving is not dropping, so the constraint below is untouched.
-- Every technique carries its own exercise. When no short exercise demonstrates one, say so and propose what to do rather than leaving the technique bare.
+- **Never leave a technique without its exercise.** Every technique on the page carries one, with no exceptions: a bare technique is not an acceptable outcome, not even for a framing statement that reads more like a principle than a procedure. If no existing exercise fits and no easy one comes to mind, invent one; if a technique genuinely cannot be exercised, it was prose, so fold it into the section's opening paragraph rather than listing it as a technique.
 - A `<ul>` of bullets no longer serves, since a list item cannot carry a `details.proof`. Each technique becomes its own block: statement, then énoncé, then hidden solution.
 
 ### 4. Exercises
