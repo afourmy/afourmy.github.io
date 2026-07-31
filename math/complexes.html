@@ -838,51 +838,6 @@
     <h2 class="en">Counterexamples</h2>
     <h2 class="fr">Contre-exemples</h2>
 
-    <!-- Counterexample: sum of roots of unity, n >= 2 -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Counterexample.</span> Let $n \ge 2$ and $\omega = e^{2i\pi/n}$. Then $\sum_{k=0}^{n-1}\omega^k = 0$. Find a counterexample when the hypothesis $n \ge 2$ is dropped.</p>
-      <p class="fr"><span class="thm-label">Contre-exemple.</span> Soit $n \ge 2$ et $\omega = e^{2i\pi/n}$. Alors $\sum_{k=0}^{n-1}\omega^k = 0$. Trouver un contre-exemple quand l'hypoth&egrave;se $n \ge 2$ est retir&eacute;e.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Take $n = 1$. Then $\omega = e^{2i\pi} = 1$, and the sum $\sum_{k=0}^{0}\omega^k$ has the single term $\omega^0 = 1$, not $0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Prendre $n = 1$. Alors $\omega = e^{2i\pi} = 1$, et la somme $\sum_{k=0}^{0}\omega^k$ se r&eacute;duit au seul terme $\omega^0 = 1$, et non $0$.
-    </details>
-
-    <!-- Counterexample: n-th roots of W, W nonzero -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Counterexample.</span> Let $W = \rho e^{i\varphi} \neq 0$. Then $z^n = W$ has the $n$ distinct solutions $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$, $k \in \{0, \ldots, n-1\}$. Find a counterexample when the hypothesis $W \neq 0$ is dropped.</p>
-      <p class="fr"><span class="thm-label">Contre-exemple.</span> Soit $W = \rho e^{i\varphi} \neq 0$. Alors $z^n = W$ a les $n$ solutions distinctes $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$, $k \in \{0, \ldots, n-1\}$. Trouver un contre-exemple quand l'hypoth&egrave;se $W \neq 0$ est retir&eacute;e.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Take $W = 0$ and $n = 2$. The equation $z^2 = 0$ forces $z = 0$, so it has one solution and not the $n$ distinct ones announced. The formula $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$ also needs an argument $\varphi$ for $W$, and $0$ has none.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Prendre $W = 0$ et $n = 2$. L'&eacute;quation $z^2 = 0$ impose $z = 0$ : elle a une solution, et non les $n$ solutions distinctes annonc&eacute;es. La formule $\rho^{1/n}e^{i(\varphi + 2k\pi)/n}$ demande de plus un argument $\varphi$ pour $W$, et $0$ n'en a pas.
-    </details>
-
-    <!-- Counterexample: quadratic equation, a nonzero -->
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Counterexample.</span> Let $a \neq 0$, let $\Delta = b^2 - 4ac$ and let $\delta$ be a square root of $\Delta$. Then the solutions of $az^2 + bz + c = 0$ are $z = \frac{-b \pm \delta}{2a}$. Find a counterexample when the hypothesis $a \neq 0$ is dropped.</p>
-      <p class="fr"><span class="thm-label">Contre-exemple.</span> Soit $a \neq 0$, soit $\Delta = b^2 - 4ac$ et soit $\delta$ une racine carr&eacute;e de $\Delta$. Alors les solutions de $az^2 + bz + c = 0$ sont $z = \frac{-b \pm \delta}{2a}$. Trouver un contre-exemple quand l'hypoth&egrave;se $a \neq 0$ est retir&eacute;e.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Take $a = 0$, $b = 1$, $c = 1$. The equation is $z + 1 = 0$, whose only solution is $z = -1$. The theorem announces two solutions $(-b \pm \delta)/(2a)$, and that expression divides by $2a = 0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Prendre $a = 0$, $b = 1$, $c = 1$. L'&eacute;quation est $z + 1 = 0$, de solution unique $z = -1$. Le th&eacute;or&egrave;me annonce deux solutions $(-b \pm \delta)/(2a)$, et cette expression divise par $2a = 0$.
-    </details>
-
     <!-- Counterexample: argument of a product, mod 2pi -->
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Counterexample.</span> For $z_1, z_2 \in \mathbb{C}^*$, $\arg(z_1 z_2) = \arg(z_1) + \arg(z_2)\ [2\pi]$. Find a counterexample when the congruence $[2\pi]$ is dropped and each argument is taken in $\left]-\pi, \pi\right]$.</p>
