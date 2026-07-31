@@ -4,10 +4,41 @@ The base guideline for any course redesign is `ARTISTIC_DIRECTION.md` at the web
 
 Before starting, also read the courses already redone and use them as worked examples of the target result: currently `continuite.html` and `complexes.html` (structure, prose register, figures); more will join it over time.
 
+## Page layout
+
+Every course page has the same four top-level (`h2`) sections, in this order: **Course**, **Counterexamples**, **Techniques**, **Exercises** (`Cours`, `Contre-exemples`, `Techniques`, `Exercices`). Each heading is duplicated in both languages, like the two that are already there.
+
+### 1. Course
+
+The mathematics itself, split into `h3` sections: definitions, theorems, proofs, figures. This is what the redone pages already contain.
+
+### 2. Counterexamples
+
+A hypothesis earns its place by being necessary, and the way to show that is to delete it and watch the theorem fail. Each entry takes one theorem of the Course, drops exactly one of its hypotheses, and asks for an object satisfying everything that is left while breaking the conclusion.
+
+- Write it as a task, not a discussion: "Find a counterexample to [theorem] when [hypothesis] is dropped." Same markup as an exercise, statement in a `thm-block`, counterexample hidden in a `details.proof`.
+- The énoncé names the hypothesis being removed, so the reader knows which conditions the counterexample still has to satisfy.
+- One entry per (theorem, hypothesis) pair. A theorem with three hypotheses may appear three times, once, or not at all.
+- **Be selective: most pairs produce nothing worth writing down.** Removing the hypothesis may leave a statement that is still true, or the hypothesis may be built into the definition of the objects involved, or the only counterexample may need machinery from far beyond the chapter. Include a pair only when a short, concrete counterexample exists. Two or three entries is a normal chapter, and a chapter with none is a legitimate outcome.
+- Always the simplest counterexample: a specific function, sequence, or number the reader can check in one line, never a general construction where a particular object does the job.
+
+### 3. Techniques
+
+The few reusable techniques of the chapter, each stated as a literal fact and each followed immediately by a short exercise that puts it to work.
+
+- The technique first, in one or two sentences saying what to do and when, in the register the pages already use: "To solve $z^n = W$, find one root and multiply it by the $n$-th roots of unity."
+- Then one énoncé applying it, solution in a `details.proof`. Its job is to show the technique working once, not to test the reader: choose the easiest instance that still exercises the whole technique.
+- If an exercise already in the Exercises section demonstrates the technique, move it here instead of writing a second one. Moving is not dropping, so the constraint below is untouched.
+- Every technique carries its own exercise. When no short exercise demonstrates one, say so and propose what to do rather than leaving the technique bare.
+- A `<ul>` of bullets no longer serves, since a list item cannot carry a `details.proof`. Each technique becomes its own block: statement, then énoncé, then hidden solution.
+
+### 4. Exercises
+
+The chapter's exercises, unchanged: statement in `thm-block exercise`, solution in `details.proof`.
+
 ## Content
 
 - The one hard constraint: the new page must never contain fewer ideas than the old one. Statements, proofs, and exercises may all be reworked when that improves them, but every idea of the original must survive; if something seems worth dropping, propose it and wait for approval.
-- Structure the course into `h3` sections. End with a "The techniques of this chapter" section: the few reusable techniques, stated as literal facts.
 - Substantial proofs may get one "Idea." paragraph (`<em>Idea.</em>` / `<em>Idée.</em>`) at the top, inside the `details`, before the original text.
 - Prose goes before a `thm-block`, never between the block and its `details.proof` elements: the proof toggle in `nav.js` walks the sibling chain and anything inserted there breaks it.
 
@@ -46,7 +77,7 @@ Practical rules:
 
 Static checks are not enough. They passed while a circle rendered as a solid black disk, while $f^{-1}$ was a freehand curve instead of a real reflection, and while a quarter of a figure was empty canvas. Before declaring a page done, serve it (`python3 -m http.server`) and screenshot it with headless Chrome, then look at every figure.
 
-Also script these checks: HTML tags balanced; no `details.proof` separated from its block; EN/FR paragraph parity; no em dash; no label out of frame; no two labels overlapping; no axis stopping inside a circle.
+Also script these checks: the four `h2` sections present, in order, in both languages; every technique followed by an énoncé; HTML tags balanced; no `details.proof` separated from its block; EN/FR paragraph parity; no em dash; no label out of frame; no two labels overlapping; no axis stopping inside a circle.
 
 ## Workflow
 
