@@ -23,6 +23,10 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
+    <h3 class="en">Maps, injections, surjections, bijections</h3>
+    <h3 class="fr">Applications, injections, surjections, bijections</h3>
+    <p class="en">A bijection matches the elements of two sets one for one. Anything counted, ordered or computed on one side transfers to the other, so exhibiting a bijection is a way of proving that two sets are the same set under another name.</p>
+    <p class="fr">Une bijection apparie un pour un les &eacute;l&eacute;ments de deux ensembles. Tout ce qui se compte, s'ordonne ou se calcule d'un c&ocirc;t&eacute; se transporte de l'autre : exhiber une bijection revient &agrave; d&eacute;montrer que deux ensembles sont le m&ecirc;me ensemble sous un autre nom.</p>
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> If $f:E\to F$ and $g:F\to G$ are injective (resp. surjective, bijective), then $g\circ f$ is also injective (resp. surjective, bijective).</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Si $f:E\to F$ et $g:F\to G$ sont injectives (resp. surjectives, bijectives), alors $g\circ f$ l'est aussi.</p>
@@ -38,7 +42,6 @@
       <em>Injectivit&eacute; :</em> $(g\circ f)(x)=(g\circ f)(y)\Rightarrow g(f(x))=g(f(y))\Rightarrow f(x)=f(y)\Rightarrow x=y$.
       <em>Surjectivit&eacute; :</em> pour tout $z\in G$, il existe $y\in F$ tel que $g(y)=z$, puis il existe $x\in E$ tel que $f(x)=y$, donc $(g\circ f)(x)=z$.
     </details>
-
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem.</span> Every bijection has an inverse, which is also a bijection.</p>
       <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Toute bijection admet une r&eacute;ciproque, qui est aussi une bijection.</p>
@@ -52,7 +55,6 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       Si $f$ est bijective, pour tout $y\in F$ il existe un unique $x\in E$ tel que $f(x)=y$, ce qui d&eacute;finit $f^{-1}$ v&eacute;rifiant $f^{-1}(f(x))=x$ et $f(f^{-1}(y))=y$, donc $f^{-1}$ est bijective de r&eacute;ciproque $f$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For all subsets $A,B\subset E$: $f(A\cup B)=f(A)\cup f(B)$, $f(A\cap B)\subset f(A)\cap f(B)$, with equality if $f$ is injective.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour toutes parties $A,B\subset E$ : $f(A\cup B)=f(A)\cup f(B)$, $f(A\cap B)\subset f(A)\cap f(B)$, avec &eacute;galit&eacute; si $f$ est injective.</p>
@@ -68,27 +70,26 @@
       <em>Union :</em> $y\in f(A\cup B)\Leftrightarrow y=f(x),\ x\in A\cup B\Leftrightarrow y\in f(A)\cup f(B)$.
       <em>Intersection :</em> $y\in f(A\cap B)\Rightarrow y\in f(A)\cap f(B)$ et si $f$ injective, $y=f(a)=f(b)$ avec $a\in A,\ b\in B\Rightarrow a=b\in A\cap B$.
     </details>
-
+    <h3 class="en">Indicator functions and symmetric difference</h3>
+    <h3 class="fr">Fonctions indicatrices et diff&eacute;rence sym&eacute;trique</h3>
+    <p class="en">A subset of $E$ is the same data as a function $E \to \{0,1\}$. Under that correspondence intersection becomes multiplication and complement becomes $1 - x$, so an identity between sets turns into an identity between functions, settled by arithmetic instead of by chasing elements.</p>
+    <p class="fr">Une partie de $E$ est la m&ecirc;me donn&eacute;e qu'une fonction $E \to \{0,1\}$. Par cette correspondance l'intersection devient un produit et le compl&eacute;mentaire devient $1 - x$ : une identit&eacute; entre ensembles devient une identit&eacute; entre fonctions, que l'arithm&eacute;tique r&egrave;gle sans poursuivre les &eacute;l&eacute;ments.</p>
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> The <em>indicator function</em> of $A\subset E$ is $\mathbf{1}_A:E\to\{0,1\}$ defined by $\mathbf{1}_A(x)=1$ if $x\in A$, $0$ otherwise.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition.</span> La <em>fonction indicatrice</em> de $A\subset E$ est $\mathbf{1}_A:E\to\{0,1\}$ et est d&eacute;finie par $\mathbf{1}_A(x)=1$ si $x\in A$, $0$ sinon.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $A=B\iff\mathbf{1}_A=\mathbf{1}_B$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $A=B\iff\mathbf{1}_A=\mathbf{1}_B$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For all subsets $A,B\subset E$: $\mathbf{1}_{A\cap B}=\mathbf{1}_A\cdot\mathbf{1}_B$, $\mathbf{1}_{A\cup B}=\mathbf{1}_A+\mathbf{1}_B-\mathbf{1}_A\cdot\mathbf{1}_B$, $\mathbf{1}_{\bar A}=1-\mathbf{1}_A$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour toutes parties $A,B\subset E$ : $\mathbf{1}_{A\cap B}=\mathbf{1}_A\cdot\mathbf{1}_B$, $\mathbf{1}_{A\cup B}=\mathbf{1}_A+\mathbf{1}_B-\mathbf{1}_A\cdot\mathbf{1}_B$, $\mathbf{1}_{\bar A}=1-\mathbf{1}_A$.</p>
     </div>
-
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> The <em>symmetric difference</em> of $A$ and $B$ is $A\,\Delta\, B=(A\setminus B)\cup(B\setminus A)$.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition.</span> La <em>diff&eacute;rence sym&eacute;trique</em> de $A$ et $B$ est $A\,\Delta\, B=(A\setminus B)\cup(B\setminus A)$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $A\,\Delta\, B=(A\cup B)\setminus(A\cap B)$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $A\,\Delta\, B=(A\cup B)\setminus(A\cap B)$.</p>
@@ -104,17 +105,41 @@
       <em>Preuve par appartenance :</em> $x\in(A\setminus B)\cup(B\setminus A) \Leftrightarrow (x\in A\text{ et }x\notin B)\text{ ou }(x\in B\text{ et }x\notin A) \Leftrightarrow (x\in A\cup B)\text{ et }(x\notin A\cap B) \Leftrightarrow x\in(A\cup B)\setminus(A\cap B)$.
       <em>Preuve par calcul ensembliste :</em> $(A\cap\bar B)\cup(B\cap\bar A) =\bigl[(A\cap\bar B)\cup B\bigr]\cap\bigl[(A\cap\bar B)\cup\bar A\bigr] =\bigl[(A\cup B)\cap E\bigr]\cap\bigl[E\cap\overline{A\cap B}\bigr] =(A\cup B)\setminus(A\cap B)$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\Delta$ is commutative, associative, $A\,\Delta\,\emptyset=A$, $A\,\Delta\, A=\emptyset$, and $\mathbf{1}_{A\,\Delta\, B}=\mathbf{1}_A+\mathbf{1}_B-2\,\mathbf{1}_A\cdot\mathbf{1}_B$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $\Delta$ est commutative, associative, $A\,\Delta\,\emptyset=A$, $A\,\Delta\, A=\emptyset$, et $\mathbf{1}_{A\,\Delta\, B}=\mathbf{1}_A+\mathbf{1}_B-2\,\mathbf{1}_A\cdot\mathbf{1}_B$.</p>
     </div>
+    <h3 class="en">Equivalence relations and partitions</h3>
+    <h3 class="fr">Relations d'&eacute;quivalence et partitions</h3>
+    <p class="en">An equivalence relation and a partition are two descriptions of one object. From the relation, the classes cut $E$ into disjoint pieces; from the pieces, declaring two elements equivalent when they lie in the same piece returns the relation.</p>
+    <p class="fr">Une relation d'&eacute;quivalence et une partition sont deux descriptions d'un m&ecirc;me objet. &Agrave; partir de la relation, les classes d&eacute;coupent $E$ en morceaux disjoints ; &agrave; partir des morceaux, d&eacute;clarer &eacute;quivalents deux &eacute;l&eacute;ments d'un m&ecirc;me morceau redonne la relation.</p>
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A relation $\mathcal R$ on $E$ is reflexive if $x\mathcal R x$, symmetric if $x\mathcal R y \Rightarrow y\mathcal R x$, antisymmetric if $x\mathcal R y$ and $y\mathcal R x \Rightarrow x=y$, transitive if $x\mathcal R y$ and $y\mathcal R z \Rightarrow x\mathcal R z$. A reflexive, symmetric, and transitive relation is an <em>equivalence relation</em>. A reflexive, antisymmetric, and transitive relation is an order relation.</p>
+      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Une relation $\mathcal R$ sur $E$ est r&eacute;flexive si $x\mathcal R x$, sym&eacute;trique si $x\mathcal R y \Rightarrow y\mathcal R x$, antisym&eacute;trique si $x\mathcal R y$ et $y\mathcal R x \Rightarrow x=y$, transitive si $x\mathcal R y$ et $y\mathcal R z \Rightarrow x\mathcal R z$. Une relation r&eacute;flexive, sym&eacute;trique et transitive est une <em>relation d'&eacute;quivalence</em>. Une relation r&eacute;flexive, antisym&eacute;trique et transitive est une relation d'ordre.</p>
+    </div>
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem.</span> The equivalence classes form a partition of $E$.</p>
+      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Les classes d'&eacute;quivalence forment une partition de $E$.</p>
+    </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Covering:</em> for all $x\in E$, $x\in[x]$ by reflexivity, so $E=\bigcup_{x\in E}[x]$.
+      <em>Disjointness:</em> if $[x]\cap[y]\neq\emptyset$, let $z\in[x]\cap[y]$. Then $z\mathcal R x$ and $z\mathcal R y$, so $x\mathcal R z$ (symmetry) then $x\mathcal R y$ (transitivity). For all $a\in[x]$, $a\mathcal R x\mathcal R y$ so $a\in[y]$, hence $[x]\subset[y]$. By symmetry $[y]\subset[x]$, so $[x]=[y]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Recouvrement :</em> pour tout $x\in E$, $x\in[x]$ par r&eacute;flexivit&eacute;, donc $E=\bigcup_{x\in E}[x]$.
+      <em>Disjonction :</em> si $[x]\cap[y]\neq\emptyset$, soit $z\in[x]\cap[y]$. Alors $z\mathcal R x$ et $z\mathcal R y$, donc $x\mathcal R z$ (sym&eacute;trie) puis $x\mathcal R y$ (transitivit&eacute;). Pour tout $a\in[x]$, $a\mathcal R x\mathcal R y$ donc $a\in[y]$, d'o&ugrave; $[x]\subset[y]$. Par sym&eacute;trie $[y]\subset[x]$, donc $[x]=[y]$.
+    </details>
+    <h3 class="en">Floor and fractional part</h3>
+    <h3 class="fr">Partie enti&egrave;re et partie fractionnaire</h3>
+    <p class="en">Every real number splits in exactly one way as an integer plus a number in $[0,1)$. The two pieces are the floor and the fractional part, and separating them reduces a statement about $\mathbb{R}$ to a statement about $\mathbb{Z}$.</p>
+    <p class="fr">Tout r&eacute;el se d&eacute;compose d'une seule mani&egrave;re en un entier plus un nombre de $[0,1[$. Les deux morceaux sont la partie enti&egrave;re et la partie fractionnaire, et les s&eacute;parer ram&egrave;ne un &eacute;nonc&eacute; sur $\mathbb{R}$ &agrave; un &eacute;nonc&eacute; sur $\mathbb{Z}$.</p>
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Floor function).</span> For every real number $x$, the <em>floor</em> of $x$, denoted $\lfloor x \rfloor$, is the unique integer $n$ such that $n \le x &lt; n+1$.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition (Partie enti&egrave;re).</span> Pour tout r&eacute;el $x$, on appelle <em>partie enti&egrave;re</em> de $x$, not&eacute;e $\lfloor x \rfloor$, l'unique entier $n$ tel que $n \le x &lt; n+1$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Main properties).</span> For all reals $x,y$ and every integer $k$: $\lfloor x+k \rfloor = \lfloor x \rfloor + k$, $x \le y \Rightarrow \lfloor x \rfloor \le \lfloor y \rfloor$, $\lfloor x \rfloor + \lfloor y \rfloor \le \lfloor x+y \rfloor \le \lfloor x \rfloor + \lfloor y \rfloor + 1$.</p>
       <p class="fr"><span class="thm-label">Proposition (Propri&eacute;t&eacute;s principales).</span> Pour tous r&eacute;els $x,y$ et tout entier $k$ : $\lfloor x+k \rfloor = \lfloor x \rfloor + k$, $x \le y \Rightarrow \lfloor x \rfloor \le \lfloor y \rfloor$, $\lfloor x \rfloor + \lfloor y \rfloor \le \lfloor x+y \rfloor \le \lfloor x \rfloor + \lfloor y \rfloor + 1$.</p>
@@ -132,12 +157,10 @@
       <em>Croissance :</em> $\lfloor x\rfloor\le x\le y&lt;\lfloor y\rfloor+1$, donc $\lfloor x\rfloor&lt;\lfloor y\rfloor+1$, et comme ce sont des entiers, $\lfloor x\rfloor\le\lfloor y\rfloor$.
       <em>Encadrement :</em> $\lfloor x\rfloor+\lfloor y\rfloor\le x+y$ et $\lfloor x\rfloor+\lfloor y\rfloor\in\mathbb Z$, donc $\lfloor x\rfloor+\lfloor y\rfloor\le\lfloor x+y\rfloor$. De plus $x+y&lt;\lfloor x\rfloor+\lfloor y\rfloor+2$, donc $\lfloor x+y\rfloor\le\lfloor x\rfloor+\lfloor y\rfloor+1$.
     </details>
-
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Fractional part).</span> For every real number $x$, the <em>fractional part</em> of $x$ is $\{x\} = x - \lfloor x \rfloor$.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition (Partie fractionnaire).</span> Pour tout r&eacute;el $x$, on appelle <em>partie fractionnaire</em> de $x$ le r&eacute;el $\{x\} = x - \lfloor x \rfloor$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The fractional part is $1$-periodic: for every real $x$, $\{x+1\}=\{x\}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> La partie fractionnaire est $1$-p&eacute;riodique : pour tout r&eacute;el $x$, $\{x+1\}=\{x\}$.</p>
@@ -151,28 +174,75 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $\{x+1\}=(x+1)-\lfloor x+1\rfloor=(x+1)-(\lfloor x\rfloor+1)=\{x\}$.
     </details>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> A relation $\mathcal R$ on $E$ is reflexive if $x\mathcal R x$, symmetric if $x\mathcal R y \Rightarrow y\mathcal R x$, antisymmetric if $x\mathcal R y$ and $y\mathcal R x \Rightarrow x=y$, transitive if $x\mathcal R y$ and $y\mathcal R z \Rightarrow x\mathcal R z$. A reflexive, symmetric, and transitive relation is an <em>equivalence relation</em>. A reflexive, antisymmetric, and transitive relation is an order relation.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Une relation $\mathcal R$ sur $E$ est r&eacute;flexive si $x\mathcal R x$, sym&eacute;trique si $x\mathcal R y \Rightarrow y\mathcal R x$, antisym&eacute;trique si $x\mathcal R y$ et $y\mathcal R x \Rightarrow x=y$, transitive si $x\mathcal R y$ et $y\mathcal R z \Rightarrow x\mathcal R z$. Une relation r&eacute;flexive, sym&eacute;trique et transitive est une <em>relation d'&eacute;quivalence</em>. Une relation r&eacute;flexive, antisym&eacute;trique et transitive est une relation d'ordre.</p>
-    </div>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem.</span> The equivalence classes form a partition of $E$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Les classes d'&eacute;quivalence forment une partition de $E$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <em>Covering:</em> for all $x\in E$, $x\in[x]$ by reflexivity, so $E=\bigcup_{x\in E}[x]$.
-      <em>Disjointness:</em> if $[x]\cap[y]\neq\emptyset$, let $z\in[x]\cap[y]$. Then $z\mathcal R x$ and $z\mathcal R y$, so $x\mathcal R z$ (symmetry) then $x\mathcal R y$ (transitivity). For all $a\in[x]$, $a\mathcal R x\mathcal R y$ so $a\in[y]$, hence $[x]\subset[y]$. By symmetry $[y]\subset[x]$, so $[x]=[y]$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      <em>Recouvrement :</em> pour tout $x\in E$, $x\in[x]$ par r&eacute;flexivit&eacute;, donc $E=\bigcup_{x\in E}[x]$.
-      <em>Disjonction :</em> si $[x]\cap[y]\neq\emptyset$, soit $z\in[x]\cap[y]$. Alors $z\mathcal R x$ et $z\mathcal R y$, donc $x\mathcal R z$ (sym&eacute;trie) puis $x\mathcal R y$ (transitivit&eacute;). Pour tout $a\in[x]$, $a\mathcal R x\mathcal R y$ donc $a\in[y]$, d'o&ugrave; $[x]\subset[y]$. Par sym&eacute;trie $[y]\subset[x]$, donc $[x]=[y]$.
-    </details>
-
+    <figure class="figure-block">
+      <svg class="figure" width="494" height="203" viewBox="48.0 60.0 494.0 203.0">
+      <line class="fig-axis" x1="58.0" y1="175.0" x2="232.0" y2="175.0"/>
+      <line class="fig-axis" x1="130.0" y1="253.0" x2="130.0" y2="70.0"/>
+      <line class="fig-axis" x1="70.0" y1="175.0" x2="70.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="70.0" y="193.0" text-anchor="middle">-2</text>
+      <line class="fig-axis" x1="100.0" y1="175.0" x2="100.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="100.0" y="193.0" text-anchor="middle">-1</text>
+      <line class="fig-axis" x1="130.0" y1="175.0" x2="130.0" y2="179.0"/>
+      <line class="fig-axis" x1="160.0" y1="175.0" x2="160.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="160.0" y="193.0" text-anchor="middle">1</text>
+      <line class="fig-axis" x1="190.0" y1="175.0" x2="190.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="190.0" y="193.0" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="220.0" y1="175.0" x2="220.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="220.0" y="193.0" text-anchor="middle">3</text>
+      <line class="fig-curve" x1="70.0" y1="235.0" x2="100.0" y2="235.0"/>
+      <circle class="fig-dot" cx="70.0" cy="235.0" r="3.2"/>
+      <circle class="fig-hole" cx="100.0" cy="235.0" r="3.2"/>
+      <line class="fig-curve" x1="100.0" y1="205.0" x2="130.0" y2="205.0"/>
+      <circle class="fig-dot" cx="100.0" cy="205.0" r="3.2"/>
+      <circle class="fig-hole" cx="130.0" cy="205.0" r="3.2"/>
+      <line class="fig-curve" x1="130.0" y1="175.0" x2="160.0" y2="175.0"/>
+      <circle class="fig-dot" cx="130.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="160.0" cy="175.0" r="3.2"/>
+      <line class="fig-curve" x1="160.0" y1="145.0" x2="190.0" y2="145.0"/>
+      <circle class="fig-dot" cx="160.0" cy="145.0" r="3.2"/>
+      <circle class="fig-hole" cx="190.0" cy="145.0" r="3.2"/>
+      <line class="fig-curve" x1="190.0" y1="115.0" x2="220.0" y2="115.0"/>
+      <circle class="fig-dot" cx="190.0" cy="115.0" r="3.2"/>
+      <circle class="fig-hole" cx="220.0" cy="115.0" r="3.2"/>
+      <text x="217.0" y="88.0" text-anchor="middle">&#8970;x&#8971;</text>
+      <line class="fig-axis" x1="358.0" y1="175.0" x2="532.0" y2="175.0"/>
+      <line class="fig-axis" x1="430.0" y1="190.0" x2="430.0" y2="121.0"/>
+      <line class="fig-axis" x1="370.0" y1="175.0" x2="370.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="370.0" y="193.0" text-anchor="middle">-2</text>
+      <line class="fig-axis" x1="400.0" y1="175.0" x2="400.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="400.0" y="193.0" text-anchor="middle">-1</text>
+      <line class="fig-axis" x1="430.0" y1="175.0" x2="430.0" y2="179.0"/>
+      <line class="fig-axis" x1="460.0" y1="175.0" x2="460.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="460.0" y="193.0" text-anchor="middle">1</text>
+      <line class="fig-axis" x1="490.0" y1="175.0" x2="490.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="490.0" y="193.0" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="520.0" y1="175.0" x2="520.0" y2="179.0"/>
+      <text class="fig-text fig-tick" x="520.0" y="193.0" text-anchor="middle">3</text>
+      <line class="fig-curve" x1="370.0" y1="175.0" x2="400.0" y2="145.0"/>
+      <circle class="fig-dot" cx="370.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="400.0" cy="145.0" r="3.2"/>
+      <line class="fig-curve" x1="400.0" y1="175.0" x2="430.0" y2="145.0"/>
+      <circle class="fig-dot" cx="400.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="430.0" cy="145.0" r="3.2"/>
+      <line class="fig-curve" x1="430.0" y1="175.0" x2="460.0" y2="145.0"/>
+      <circle class="fig-dot" cx="430.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="460.0" cy="145.0" r="3.2"/>
+      <line class="fig-curve" x1="460.0" y1="175.0" x2="490.0" y2="145.0"/>
+      <circle class="fig-dot" cx="460.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="490.0" cy="145.0" r="3.2"/>
+      <line class="fig-curve" x1="490.0" y1="175.0" x2="520.0" y2="145.0"/>
+      <circle class="fig-dot" cx="490.0" cy="175.0" r="3.2"/>
+      <circle class="fig-hole" cx="520.0" cy="145.0" r="3.2"/>
+      <line class="fig-guide" x1="358.0" y1="145.0" x2="532.0" y2="145.0"/>
+      <text class="fig-text fig-tick" x="422.0" y="149.0" text-anchor="end">1</text>
+      <text x="517.0" y="139.0" text-anchor="middle">{x}</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> $\lfloor x \rfloor$ is constant on each $[k, k+1)$, closed on the left and open on the right.</span><span class="cap-part"><span class="cap-lead">Right:</span> $\{x\} = x - \lfloor x \rfloor$ takes every value of $[0,1)$ on each such interval, and repeats with period $1$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">&Agrave; gauche :</span> $\lfloor x \rfloor$ est constante sur chaque $[k, k+1[$, ferm&eacute; &agrave; gauche et ouvert &agrave; droite.</span><span class="cap-part"><span class="cap-lead">&Agrave; droite :</span> $\{x\} = x - \lfloor x \rfloor$ prend toute valeur de $[0,1[$ sur chacun de ces intervalles, et se r&eacute;p&egrave;te avec la p&eacute;riode $1$.</span></span></figcaption>
+    </figure>
+    <h3 class="en">Absolute value, maximum and minimum</h3>
+    <h3 class="fr">Valeur absolue, maximum et minimum</h3>
+    <p class="en">The absolute value turns a case distinction into a formula: $\max(a,b)$ and $\min(a,b)$ are the average of $a$ and $b$ shifted by half the distance between them, so an argument that would split into cases becomes one computation.</p>
+    <p class="fr">La valeur absolue transforme une disjonction de cas en formule : $\max(a,b)$ et $\min(a,b)$ sont la moyenne de $a$ et $b$ d&eacute;cal&eacute;e d'une demi-distance, si bien qu'un raisonnement qui se scinderait en cas devient un seul calcul.</p>
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Triangle inequality).</span> For all reals $a,b$: $\big||a|-|b|\big|\le |a\pm b|\le |a|+|b|$.</p>
       <p class="fr"><span class="thm-label">Proposition (In&eacute;galit&eacute; triangulaire).</span> Pour tous r&eacute;els $a,b$ : $\big||a|-|b|\big|\le |a\pm b|\le |a|+|b|$.</p>
@@ -186,12 +256,14 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       Comme $|x|^2=x^2$, on a $(|a|+|b|)^2-|a+b|^2=a^2+2|a||b|+b^2-(a^2+2ab+b^2)=2(|a||b|-ab)\ge0$, donc $|a+b|\le|a|+|b|$ ; puis $|a|=|(a-b)+b|\le|a-b|+|b|\Rightarrow |a|-|b|\le|a-b|$, et en &eacute;changeant $a,b$ on conclut $\big||a|-|b|\big|\le|a-b|$. Les cas restants s'obtiennent en rempla&ccedil;ant $b$ par $-b$, puisque $|-b|=|b|$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For all reals $a,b$: $\max(a,b)=\frac{a+b+|b-a|}{2}$, $\min(a,b)=\frac{a+b-|b-a|}{2}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour tous r&eacute;els $a,b$ : $\max(a,b)=\frac{a+b+|b-a|}{2}$, $\min(a,b)=\frac{a+b-|b-a|}{2}$.</p>
     </div>
-
+    <h3 class="en">Sums: pairing, telescoping, swapping</h3>
+    <h3 class="fr">Sommes : appariement, t&eacute;lescopage, &eacute;change</h3>
+    <p class="en">A finite sum is a set of terms together with an order in which to add them. Changing that order costs nothing and can make the sum collapse: pairing the terms of $1 + \cdots + n$, cancelling consecutive terms in a telescoping sum, or reading a double sum by columns instead of by rows.</p>
+    <p class="fr">Une somme finie est un ensemble de termes muni d'un ordre d'addition. Changer cet ordre ne co&ucirc;te rien et peut faire s'effondrer la somme : apparier les termes de $1 + \cdots + n$, annuler les termes cons&eacute;cutifs d'une somme t&eacute;lescopique, ou lire une somme double par colonnes plut&ocirc;t que par lignes.</p>
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Classical sums).</span> For every integer $n\ge1$: $\sum_{k=1}^{n}k=\frac{n(n+1)}{2}$, $\sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}{6}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Sommes classiques).</span> Pour tout entier $n\ge1$ : $\sum_{k=1}^{n}k=\frac{n(n+1)}{2}$, $\sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}{6}$.</p>
@@ -207,7 +279,48 @@
       <em>Somme des $k$ :</em> $\sum_{k=1}^{n}k=\sum_{k=1}^{n}(n+1-k)$.
       <em>Somme des $k^2$ :</em> on d&eacute;veloppe $(k+1)^3-k^3=3k^2+3k+1$ et on t&eacute;lescope : $\sum_{k=1}^{n}\bigl[(k+1)^3-k^3\bigr]=(n+1)^3-1=3\sum k^2+3\sum k+n$.
     </details>
-
+    <figure class="figure-block">
+      <svg class="figure" width="225" height="270" viewBox="25.0 30.0 225.0 270.0">
+      <rect class="fig-shape-img" x="70.0" y="210.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="70.0" y="176.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="70.0" y="142.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="70.0" y="108.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="70.0" y="74.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="70.0" y="40.0" width="34.0" height="34.0"/>
+      <text class="fig-text fig-tick" x="87.0" y="264.0" text-anchor="middle">1</text>
+      <rect class="fig-shape-img" x="104.0" y="210.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="104.0" y="176.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="104.0" y="142.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="104.0" y="108.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="104.0" y="74.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="104.0" y="40.0" width="34.0" height="34.0"/>
+      <text class="fig-text fig-tick" x="121.0" y="264.0" text-anchor="middle">2</text>
+      <rect class="fig-shape-img" x="138.0" y="210.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="138.0" y="176.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="138.0" y="142.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="138.0" y="108.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="138.0" y="74.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="138.0" y="40.0" width="34.0" height="34.0"/>
+      <text class="fig-text fig-tick" x="155.0" y="264.0" text-anchor="middle">3</text>
+      <rect class="fig-shape-img" x="172.0" y="210.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="172.0" y="176.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="172.0" y="142.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="172.0" y="108.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="172.0" y="74.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="172.0" y="40.0" width="34.0" height="34.0"/>
+      <text class="fig-text fig-tick" x="189.0" y="264.0" text-anchor="middle">4</text>
+      <rect class="fig-shape-img" x="206.0" y="210.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="206.0" y="176.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="206.0" y="142.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="206.0" y="108.0" width="34.0" height="34.0"/>
+      <rect class="fig-shape-img" x="206.0" y="74.0" width="34.0" height="34.0"/>
+      <rect class="fig-cell-alt" x="206.0" y="40.0" width="34.0" height="34.0"/>
+      <text class="fig-text fig-tick" x="223.0" y="264.0" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="46.0" y="142.0" text-anchor="middle" transform="rotate(-90 46.0 142.0)">n + 1</text>
+      <text class="fig-text fig-tick" x="155.0" y="286.0" text-anchor="middle">n</text>
+      </svg>
+      <figcaption><span class="en">Column $i$ carries $i$ shaded cells and $n+1-i$ unshaded ones, so every column holds $n+1$ cells. The shaded cells count $1 + 2 + \cdots + n$, the unshaded ones count the same sum again, and together they fill an $n \times (n+1)$ rectangle.</span><span class="fr">La colonne $i$ porte $i$ cases teint&eacute;es et $n+1-i$ cases blanches : chaque colonne contient $n+1$ cases. Les cases teint&eacute;es comptent $1 + 2 + \cdots + n$, les blanches comptent la m&ecirc;me somme, et ensemble elles remplissent un rectangle $n \times (n+1)$.</span></figcaption>
+    </figure>
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Geometric sum).</span> For every real $a\neq1$ and all integers $p\le n$: $\sum_{k=p}^{n}a^k=\frac{a^p-a^{n+1}}{1-a}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Somme g&eacute;om&eacute;trique).</span> Pour tout r&eacute;el $a\neq1$ et tous entiers $p\le n$ : $\sum_{k=p}^{n}a^k=\frac{a^p-a^{n+1}}{1-a}$.</p>
@@ -221,7 +334,6 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $(1-a)\sum_{k=p}^{n}a^k=\sum_{k=p}^{n}(a^k-a^{k+1})=a^p-a^{n+1}$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Factorization of $a^n-b^n$).</span> For all reals $a,b$ and every integer $n\ge1$: $a^n-b^n=(a-b)\sum_{k=0}^{n-1}a^k b^{n-1-k}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Factorisation de $a^n-b^n$).</span> Pour tous r&eacute;els $a,b$ et tout entier $n\ge1$ : $a^n-b^n=(a-b)\sum_{k=0}^{n-1}a^k b^{n-1-k}$.</p>
@@ -235,7 +347,6 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $(a-b)\sum_{k=0}^{n-1}a^k b^{n-1-k}=\sum_{k=0}^{n-1}(a^{k+1}b^{n-1-k}-a^k b^{n-k})=a^n-b^n$ par t&eacute;lescopage.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Swapping sums).</span> $\sum_{i=1}^{n}\sum_{j=i}^{n}a_{i,j}=\sum_{j=1}^{n}\sum_{i=1}^{j}a_{i,j}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Interversion de sommes).</span> $\sum_{i=1}^{n}\sum_{j=i}^{n}a_{i,j}=\sum_{j=1}^{n}\sum_{i=1}^{j}a_{i,j}$.</p>
@@ -249,7 +360,50 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $1\le i\le n,\; i\le j\le n \;\Longleftrightarrow\; 1\le i\le j\le n \;\Longleftrightarrow\; 1\le j\le n,\; 1\le i\le j$.
     </details>
-
+    <figure class="figure-block">
+      <svg class="figure" width="221" height="225" viewBox="29.4 5.0 220.6 225.0">
+      <rect class="fig-cell" x="80.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="112.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="144.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="176.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="208.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="112.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="144.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="176.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="208.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="144.0" y="124.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="176.0" y="124.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="208.0" y="124.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="176.0" y="156.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="208.0" y="156.0" width="32.0" height="32.0"/>
+      <rect class="fig-cell" x="208.0" y="188.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape" x="112.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape" x="144.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape" x="176.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape" x="208.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape-img" x="176.0" y="60.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape-img" x="176.0" y="92.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape-img" x="176.0" y="124.0" width="32.0" height="32.0"/>
+      <rect class="fig-shape-img" x="176.0" y="156.0" width="32.0" height="32.0"/>
+      <text class="fig-text fig-tick" x="96.0" y="48.0" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="68.0" y="81.0" text-anchor="end">1</text>
+      <text class="fig-text fig-tick" x="128.0" y="48.0" text-anchor="middle">2</text>
+      <text class="fig-text fig-tick" x="68.0" y="113.0" text-anchor="end">2</text>
+      <text class="fig-text fig-tick" x="160.0" y="48.0" text-anchor="middle">3</text>
+      <text class="fig-text fig-tick" x="68.0" y="145.0" text-anchor="end">3</text>
+      <text class="fig-text fig-tick" x="192.0" y="48.0" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="68.0" y="177.0" text-anchor="end">4</text>
+      <text class="fig-text fig-tick" x="224.0" y="48.0" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="68.0" y="209.0" text-anchor="end">5</text>
+      <text x="160.0" y="26.0" text-anchor="middle">j</text>
+      <text x="42.0" y="140.0" text-anchor="middle">i</text>
+      </svg>
+      <figcaption><span class="en">The pairs $(i,j)$ with $i \le j$. Summing along a row fixes $i$ and lets $j$ run from $i$ to $n$; summing down a column fixes $j$ and lets $i$ run from $1$ to $j$. Both cover every cell once.</span><span class="fr">Les couples $(i,j)$ avec $i \le j$. Sommer le long d'une ligne fixe $i$ et fait courir $j$ de $i$ &agrave; $n$ ; sommer le long d'une colonne fixe $j$ et fait courir $i$ de $1$ &agrave; $j$. Les deux parcourent chaque case une fois.</span></figcaption>
+    </figure>
+    <h3 class="en">Trigonometry: the circle, the formulas, the substitution</h3>
+    <h3 class="fr">Trigonom&eacute;trie : le cercle, les formules, la substitution</h3>
+    <p class="en">Cosine and sine are the coordinates of a point running around the unit circle. Two encodings of that single fact generate every formula here: the point is $e^{ix}$, which reduces the addition formulas to one product rule, and the point is a rational function of $t = \tan\frac{x}{2}$, which turns a trigonometric equation into a polynomial one.</p>
+    <p class="fr">Le cosinus et le sinus sont les coordonn&eacute;es d'un point qui parcourt le cercle unit&eacute;. Deux codages de ce seul fait engendrent toutes les formules : le point vaut $e^{ix}$, ce qui r&eacute;duit les formules d'addition &agrave; une seule r&egrave;gle de produit, et le point est une fonction rationnelle de $t = \tan\frac{x}{2}$, ce qui transforme une &eacute;quation trigonom&eacute;trique en &eacute;quation polynomiale.</p>
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Notable values).</span> $\sin\frac{\pi}{4}=\cos\frac{\pi}{4}=\frac{\sqrt{2}}{2}$, $\sin\frac{\pi}{6}=\cos\frac{\pi}{3}=\frac{1}{2}$, $\cos\frac{\pi}{6}=\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Valeurs remarquables).</span> $\sin\frac{\pi}{4}=\cos\frac{\pi}{4}=\frac{\sqrt{2}}{2}$, $\sin\frac{\pi}{6}=\cos\frac{\pi}{3}=\frac{1}{2}$, $\cos\frac{\pi}{6}=\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$.</p>
@@ -265,27 +419,22 @@
       <em>Cas $\frac{\pi}{4}$ :</em> par sym&eacute;trie $\sin\frac{\pi}{4}=\cos\frac{\pi}{4}$, et $\sin^2\frac{\pi}{4}+\cos^2\frac{\pi}{4}=1$ donne $2\sin^2\frac{\pi}{4}=1$, d'o&ugrave; $\sin\frac{\pi}{4}=\frac{\sqrt{2}}{2}$.
       <em>Cas $\frac{\pi}{6}$ et $\frac{\pi}{3}$ :</em> dans un triangle &eacute;quilat&eacute;ral de c&ocirc;t&eacute; $1$, la hauteur coupe la base en son milieu et cr&eacute;e un triangle rectangle d'hypot&eacute;nuse $1$, de c&ocirc;t&eacute; adjacent $\frac{1}{2}$ et d'angle &agrave; la base $\frac{\pi}{3}$. Donc $\cos\frac{\pi}{3}=\frac{1}{2}$ et par Pythagore $\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$. Les valeurs en $\frac{\pi}{6}$ s'en d&eacute;duisent par compl&eacute;mentarit&eacute;.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Addition formulas).</span> $\cos(a+b)=\cos a\cos b-\sin a\sin b$, $\cos(a-b)=\cos a\cos b+\sin a\sin b$, $\sin(a+b)=\sin a\cos b+\cos a\sin b$, $\sin(a-b)=\sin a\cos b-\cos a\sin b$.</p>
       <p class="fr"><span class="thm-label">Proposition (Formules d'addition).</span> $\cos(a+b)=\cos a\cos b-\sin a\sin b$, $\cos(a-b)=\cos a\cos b+\sin a\sin b$, $\sin(a+b)=\sin a\cos b+\cos a\sin b$, $\sin(a-b)=\sin a\cos b-\cos a\sin b$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Double angle formulas).</span> $\cos(2x)=\cos^2 x-\sin^2 x=2\cos^2 x-1=1-2\sin^2 x$, $\sin(2x)=2\sin x\cos x$.</p>
       <p class="fr"><span class="thm-label">Proposition (Formules de duplication).</span> $\cos(2x)=\cos^2 x-\sin^2 x=2\cos^2 x-1=1-2\sin^2 x$, $\sin(2x)=2\sin x\cos x$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Product-to-sum formulas).</span> $\cos a\cos b = \frac{1}{2}[\cos(a+b)+\cos(a-b)]$, $\sin a\sin b = \frac{1}{2}[\cos(a-b)-\cos(a+b)]$, $\sin a\cos b = \frac{1}{2}[\sin(a+b)+\sin(a-b)]$.</p>
       <p class="fr"><span class="thm-label">Proposition (Formules produit-somme).</span> $\cos a\cos b = \frac{1}{2}[\cos(a+b)+\cos(a-b)]$, $\sin a\sin b = \frac{1}{2}[\cos(a-b)-\cos(a+b)]$, $\sin a\cos b = \frac{1}{2}[\sin(a+b)+\sin(a-b)]$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Sum-to-product formulas).</span> $\cos a+\cos b=2\cos\frac{a+b}{2}\cos\frac{a-b}{2}$, $\cos a-\cos b=-2\sin\frac{a+b}{2}\sin\frac{a-b}{2}$, $\sin a+\sin b=2\sin\frac{a+b}{2}\cos\frac{a-b}{2}$, $\sin a-\sin b=2\cos\frac{a+b}{2}\sin\frac{a-b}{2}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Formules somme-produit).</span> $\cos a+\cos b=2\cos\frac{a+b}{2}\cos\frac{a-b}{2}$, $\cos a-\cos b=-2\sin\frac{a+b}{2}\sin\frac{a-b}{2}$, $\sin a+\sin b=2\sin\frac{a+b}{2}\cos\frac{a-b}{2}$, $\sin a-\sin b=2\cos\frac{a+b}{2}\sin\frac{a-b}{2}$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For every real $x$: $|\sin x|\le |x|$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Pour tout r&eacute;el $x$ : $|\sin x|\le |x|$.</p>
@@ -301,7 +450,6 @@
       <em>Preuve analytique :</em> pour $x=0$ c'est clair. Pour $x&gt;0$, on &eacute;crit $\sin x=\int_0^x\cos t\,dt$, donc $|\sin x|=\left|\int_0^x\cos t\,dt\right|\le\int_0^x|\cos t|\,dt\le\int_0^x 1\,dt=x$. Pour $x&lt;0$, on utilise $|\sin x|=|\sin(-x)|\le|-x|=|x|$.
       <em>Preuve g&eacute;om&eacute;trique :</em> sur le cercle unit&eacute;, $|\sin x|$ est la distance du point $(\cos x,\sin x)$ &agrave; l'axe des abscisses, donc $|\sin x|\le\|(\cos x,\sin x)-(1,0)\|$, qui est la longueur de la corde sous-tendue par l'arc de longueur $|x|$. Or une corde est plus courte que l'arc, donc $|\sin x|\le|x|$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Solving trigonometric equations).</span> For all reals $a,b$: $\cos a=\cos b\iff a\equiv b\,[2\pi]$ or $a\equiv -b\,[2\pi]$; $\sin a=\sin b\iff a\equiv b\,[2\pi]$ or $a\equiv \pi-b\,[2\pi]$; $\tan a=\tan b\iff a\equiv b\,[\pi]$ (for $a,b\not\equiv\frac{\pi}{2}\,[\pi]$).</p>
       <p class="fr"><span class="thm-label">Proposition (R&eacute;solution des &eacute;quations trigonom&eacute;triques).</span> Pour tous r&eacute;els $a,b$ : $\cos a=\cos b\iff a\equiv b\,[2\pi]$ ou $a\equiv -b\,[2\pi]$ ; $\sin a=\sin b\iff a\equiv b\,[2\pi]$ ou $a\equiv \pi-b\,[2\pi]$ ; $\tan a=\tan b\iff a\equiv b\,[\pi]$ (pour $a,b\not\equiv\frac{\pi}{2}\,[\pi]$).</p>
@@ -315,12 +463,10 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $\tan a=\tan b\iff\sin a\cos b-\cos a\sin b=0\iff a\equiv b\,[\pi]$.
     </details>
-
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> The <em>tangent</em> is defined for $x\not\equiv\frac{\pi}{2}\,[\pi]$ by $\tan x=\frac{\sin x}{\cos x}$.</p>
       <p class="fr"><span class="thm-label">D&eacute;finition.</span> La <em>tangente</em> est d&eacute;finie pour $x\not\equiv\frac{\pi}{2}\,[\pi]$ par $\tan x=\frac{\sin x}{\cos x}$.</p>
     </div>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\tan(a+b)=\frac{\tan a+\tan b}{1-\tan a\tan b}$, $\tan(a-b)=\frac{\tan a-\tan b}{1+\tan a\tan b}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $\tan(a+b)=\frac{\tan a+\tan b}{1-\tan a\tan b}$, $\tan(a-b)=\frac{\tan a-\tan b}{1+\tan a\tan b}$.</p>
@@ -334,7 +480,6 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $\tan(a+b)=\frac{\sin(a+b)}{\cos(a+b)}=\frac{\sin a\cos b+\cos a\sin b}{\cos a\cos b-\sin a\sin b}$, puis on divise num&eacute;rateur et d&eacute;nominateur par $\cos a\cos b$. La formule pour $\tan(a-b)$ s'obtient en rempla&ccedil;ant $b$ par $-b$, puisque $\tan(-b)=-\tan b$.
     </details>
-
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Half-angle tangent substitution).</span> Setting $t=\tan\frac{x}{2}$ (for $x\not\equiv\pi\,[2\pi]$): $\cos x=\frac{1-t^2}{1+t^2}$, $\sin x=\frac{2t}{1+t^2}$, $\tan x=\frac{2t}{1-t^2}$.</p>
       <p class="fr"><span class="thm-label">Proposition (Formules de la tangente de l'arc moiti&eacute;).</span> En posant $t=\tan\frac{x}{2}$ (pour $x\not\equiv\pi\,[2\pi]$) : $\cos x=\frac{1-t^2}{1+t^2}$, $\sin x=\frac{2t}{1+t^2}$, $\tan x=\frac{2t}{1-t^2}$.</p>
@@ -348,9 +493,292 @@
       <summary class="proof-label">D&eacute;monstration.</summary>
       $\cos x=\frac{\cos^2\frac{x}{2}-\sin^2\frac{x}{2}}{\cos^2\frac{x}{2}+\sin^2\frac{x}{2}}=\frac{1-t^2}{1+t^2}$, $\sin x=\frac{2\sin\frac{x}{2}\cos\frac{x}{2}}{\cos^2\frac{x}{2}+\sin^2\frac{x}{2}}=\frac{2t}{1+t^2}$, et $\tan x=\frac{\sin x}{\cos x}=\frac{2t}{1-t^2}$.
     </details>
+    <figure class="figure-block">
+      <svg class="figure" width="310" height="298" viewBox="67.0 26.0 310.0 298.0">
+      <circle class="fig-accent" cx="220.0" cy="175.0" r="105.0"/>
+      <line class="fig-axis" x1="77.0" y1="175.0" x2="367.0" y2="175.0"/>
+      <line class="fig-axis" x1="220.0" y1="314.0" x2="220.0" y2="36.0"/>
+      <line class="fig-curve" x1="115.0" y1="175.0" x2="325.3" y2="59.3"/>
+      <line class="fig-guide" x1="220.0" y1="175.0" x2="276.2" y2="86.3"/>
+      <line class="fig-guide" x1="276.2" y1="86.3" x2="276.2" y2="175.0"/>
+      <path class="fig-arc" d="M 252.0 175.0 A 32 32 0 0 0 237.1 148.0"/>
+      <path class="fig-arc" d="M 165.0 175.0 A 50 50 0 0 0 158.8 150.9"/>
+      <circle class="fig-dot" cx="276.2" cy="86.3" r="4"/>
+      <circle class="fig-dot" cx="115.0" cy="175.0" r="4"/>
+      <text x="270.0" y="159.0" text-anchor="middle">x</text>
+      <text x="171.0" y="161.0" text-anchor="start">x/2</text>
+      <text x="107.0" y="195.0" text-anchor="end">&#8722;1</text>
+      <text x="288.2" y="76.3" text-anchor="start">M</text>
+      <text class="fig-text fig-note" x="331.3" y="47.3" text-anchor="middle">slope t</text>
+      </svg>
+      <figcaption><span class="en">The chord from $(-1,0)$ with slope $t$ meets the circle again at $M = (\cos x, \sin x)$. The angle at the centre is $x$ and the angle at $(-1,0)$ is $x/2$, so $t = \tan\frac{x}{2}$, and solving the line against the circle gives $\cos x = \frac{1-t^2}{1+t^2}$ and $\sin x = \frac{2t}{1+t^2}$.</span><span class="fr">La corde issue de $(-1,0)$ de pente $t$ recoupe le cercle en $M = (\cos x, \sin x)$. L'angle au centre vaut $x$ et l'angle en $(-1,0)$ vaut $x/2$, donc $t = \tan\frac{x}{2}$ ; en coupant la droite avec le cercle on obtient $\cos x = \frac{1-t^2}{1+t^2}$ et $\sin x = \frac{2t}{1+t^2}$.</span></figcaption>
+    </figure>
 
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> A bijection is a relabelling: to compare two sets, exhibit one.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Une bijection est un changement de nom : pour comparer deux ensembles, en exhiber une.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $A,B\subset E$ and $f:\mathcal P(E)\to\mathcal P(A)\times\mathcal P(B)$ defined by $f(X)=(X\cap A,\, X\cap B)$. Find a necessary and sufficient condition on $A,B$ for $f$ to be injective, then surjective, and in that case determine $f^{-1}$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soient $A,B\subset E$ et $f:\mathcal P(E)\to\mathcal P(A)\times\mathcal P(B)$ d&eacute;finie par $f(X)=(X\cap A,\, X\cap B)$. D&eacute;terminer une condition n&eacute;cessaire et suffisante sur $A,B$ pour que $f$ soit injective, puis surjective, et dans ce cas d&eacute;terminer $f^{-1}$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Proof.</summary>
+          <em>Injectivity:</em> $f$ is injective $\iff$ $A\cup B=E$. Indeed, if $A\cup B=E$ and $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, then $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. Conversely, if $x\notin A\cup B$, then $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
+          <em>Surjectivity:</em> $f$ is surjective $\iff$ $A\cap B=\emptyset$. Indeed, if $A\cap B=\emptyset$, for $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, set $X=U\cup V$: then $X\cap A=U$ since $V\subset B$ and $A\cap B=\emptyset$, and similarly $X\cap B=V$. Conversely, if $x\in A\cap B$, then $(\{x\},\emptyset)$ has no preimage: $X\cap A=\{x\}$ forces $x\in X$, and since $x\in B$, $x\in X\cap B\neq\emptyset$.
+          If $A\cup B=E$ and $A\cap B=\emptyset$, then $f^{-1}(U,V)=U\cup V$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">D&eacute;monstration.</summary>
+          <em>Injectivit&eacute; :</em> $f$ injective $\iff$ $A\cup B=E$. En effet, si $A\cup B=E$ et $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, alors $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. R&eacute;ciproquement, si $x\notin A\cup B$, alors $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
+          <em>Surjectivit&eacute; :</em> $f$ surjective $\iff$ $A\cap B=\emptyset$. En effet, si $A\cap B=\emptyset$, pour $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, posons $X=U\cup V$ : alors $X\cap A=U$ car $V\subset B$ et $A\cap B=\emptyset$, et de m&ecirc;me $X\cap B=V$. R&eacute;ciproquement, si $x\in A\cap B$, alors $(\{x\},\emptyset)$ n'a pas d'ant&eacute;c&eacute;dent : en effet $X\cap A=\{x\}$ impose $x\in X$, et comme $x\in B$, on a $x\in X\cap B\neq\emptyset$.
+          Si $A\cup B=E$ et $A\cap B=\emptyset$, alors $f^{-1}(U,V)=U\cup V$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To prove an identity between sets, compare indicator functions: $\cap$ is a product, the complement of $A$ is $1 - \mathbf{1}_A$, and $\Delta$ adds modulo $2$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour d&eacute;montrer une identit&eacute; entre ensembles, comparer les fonctions indicatrices : $\cap$ est un produit, le compl&eacute;mentaire de $A$ est $1 - \mathbf{1}_A$, et $\Delta$ s'ajoute modulo $2$.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $A,B,C \subset E$ with $A \,\Delta\, B = A \,\Delta\, C$. Show that $B = C$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soient $A,B,C \subset E$ avec $A \,\Delta\, B = A \,\Delta\, C$. Montrer que $B = C$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          Indicators of $\Delta$ add modulo $2$: $\mathbf{1}_{A\Delta B} = \mathbf{1}_A + \mathbf{1}_B$ in $\mathbb{F}_2$. The hypothesis gives $\mathbf{1}_A + \mathbf{1}_B = \mathbf{1}_A + \mathbf{1}_C$, and adding $\mathbf{1}_A$ to both sides gives $\mathbf{1}_B = \mathbf{1}_C$, hence $B = C$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          Les indicatrices de $\Delta$ s'ajoutent modulo $2$ : $\mathbf{1}_{A\Delta B} = \mathbf{1}_A + \mathbf{1}_B$ dans $\mathbb{F}_2$. L'hypoth&egrave;se donne $\mathbf{1}_A + \mathbf{1}_B = \mathbf{1}_A + \mathbf{1}_C$, et en ajoutant $\mathbf{1}_A$ aux deux membres, $\mathbf{1}_B = \mathbf{1}_C$, donc $B = C$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> Split a real as $x = \lfloor x \rfloor + \{x\}$ with $0 \le \{x\} &lt; 1$, then argue on the two pieces separately.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> D&eacute;couper un r&eacute;el en $x = \lfloor x \rfloor + \{x\}$ avec $0 \le \{x\} &lt; 1$, puis raisonner s&eacute;par&eacute;ment sur les deux morceaux.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Show that $\lfloor x \rfloor + \left\lfloor x + \frac{1}{2} \right\rfloor = \lfloor 2x \rfloor$ for every real $x$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\lfloor x \rfloor + \left\lfloor x + \frac{1}{2} \right\rfloor = \lfloor 2x \rfloor$ pour tout r&eacute;el $x$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          Write $x = n + r$ with $n = \lfloor x \rfloor$ and $r = \{x\} \in [0,1)$. If $r &lt; \frac{1}{2}$ then $\left\lfloor x + \frac{1}{2}\right\rfloor = n$ and $\lfloor 2x \rfloor = \lfloor 2n + 2r \rfloor = 2n$ since $2r &lt; 1$; both sides equal $2n$. If $r \ge \frac{1}{2}$ then $\left\lfloor x + \frac{1}{2}\right\rfloor = n+1$ and $1 \le 2r &lt; 2$ gives $\lfloor 2x \rfloor = 2n+1$; both sides equal $2n+1$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          &Eacute;crivons $x = n + r$ avec $n = \lfloor x \rfloor$ et $r = \{x\} \in [0,1[$. Si $r &lt; \frac{1}{2}$, alors $\left\lfloor x + \frac{1}{2}\right\rfloor = n$ et $\lfloor 2x \rfloor = \lfloor 2n + 2r \rfloor = 2n$ car $2r &lt; 1$ : les deux membres valent $2n$. Si $r \ge \frac{1}{2}$, alors $\left\lfloor x + \frac{1}{2}\right\rfloor = n+1$ et $1 \le 2r &lt; 2$ donne $\lfloor 2x \rfloor = 2n+1$ : les deux membres valent $2n+1$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To sum, look for a telescoping: write the term as $u_{k+1} - u_k$ and everything between the ends cancels.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour sommer, chercher un t&eacute;lescopage : &eacute;crire le terme sous la forme $u_{k+1} - u_k$, et tout s'annule sauf les extr&eacute;mit&eacute;s.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{k=1}^{n}\frac{1}{k(k+1)}$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{k=1}^{n}\frac{1}{k(k+1)}$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Proof.</summary>
+          $\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}$, so $\sum_{k=1}^{n}\frac{1}{k(k+1)}=1-\frac{1}{n+1}=\frac{n}{n+1}$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">D&eacute;monstration.</summary>
+          $\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}$, donc $\sum_{k=1}^{n}\frac{1}{k(k+1)}=1-\frac{1}{n+1}=\frac{n}{n+1}$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> $\cos a = \cos b$ exactly when $a \equiv \pm b\,[2\pi]$, and $\sin a = \sin b$ exactly when $a \equiv b\,[2\pi]$ or $a \equiv \pi - b\,[2\pi]$. Every trigonometric equation of that shape reduces to these two.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> $\cos a = \cos b$ exactement quand $a \equiv \pm b\,[2\pi]$, et $\sin a = \sin b$ exactement quand $a \equiv b\,[2\pi]$ ou $a \equiv \pi - b\,[2\pi]$. Toute &eacute;quation trigonom&eacute;trique de cette forme s'y ram&egrave;ne.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Solve $\cos(3x)=\cos(x)$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\cos(3x)=\cos(x)$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Proof.</summary>
+          $\cos(3x)=\cos(x)\Leftrightarrow 3x\equiv x\,[2\pi]$ or $3x\equiv -x\,[2\pi]$. So $2x\equiv 0\,[2\pi]$ or $4x\equiv 0\,[2\pi]$, i.e. $x\equiv 0\,[\pi]$ or $x\equiv 0\,[\frac{\pi}{2}]$. Since $\{k\pi:k\in\mathbb Z\}\subset\{k\frac{\pi}{2}:k\in\mathbb Z\}$, the solution set is $\bigl\{\frac{k\pi}{2}:k\in\mathbb Z\bigr\}$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">D&eacute;monstration.</summary>
+          $\cos(3x)=\cos(x)\Leftrightarrow 3x\equiv x\,[2\pi]$ ou $3x\equiv -x\,[2\pi]$. Donc $2x\equiv 0\,[2\pi]$ ou $4x\equiv 0\,[2\pi]$, soit $x\equiv 0\,[\pi]$ ou $x\equiv 0\,[\frac{\pi}{2}]$. Comme $\{k\pi:k\in\mathbb Z\}\subset\{k\frac{\pi}{2}:k\in\mathbb Z\}$, l'ensemble des solutions est $\bigl\{\frac{k\pi}{2}:k\in\mathbb Z\bigr\}$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To handle a product of sines and cosines, linearize: replace each factor by exponentials, expand, and read the real or imaginary part at the end.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour traiter un produit de sinus et de cosinus, lin&eacute;ariser : remplacer chaque facteur par des exponentielles, d&eacute;velopper, puis lire la partie r&eacute;elle ou imaginaire &agrave; la fin.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Linearize $\cos^2(x)\sin^2(x)$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Lin&eacute;ariser $\cos^2(x)\sin^2(x)$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Proof.</summary>
+          $\cos^2(x)\sin^2(x)=\bigl(\frac{\sin(2x)}{2}\bigr)^2=\frac{\sin^2(2x)}{4}=\frac{1-\cos(4x)}{8}$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">D&eacute;monstration.</summary>
+          $\cos^2(x)\sin^2(x)=\bigl(\frac{\sin(2x)}{2}\bigr)^2=\frac{\sin^2(2x)}{4}=\frac{1-\cos(4x)}{8}$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To swap the order of a double sum, draw the set of index pairs and read it the other way.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour &eacute;changer l'ordre d'une somme double, dessiner l'ensemble des couples d'indices et le lire dans l'autre sens.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{i=1}^{n}\sum_{j=1}^{n}\min(i,j)$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{i=1}^{n}\sum_{j=1}^{n}\min(i,j)$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Proof.</summary>
+          For fixed $i$, $\sum_{j=1}^{n}\min(i,j)=\sum_{j=1}^{i}j+\sum_{j=i+1}^{n}i=\frac{i(i+1)}{2}+(n-i)i$. Summing over $i$: $S=\frac{1}{2}\sum i^2+\frac{1}{2}\sum i+n\sum i-\sum i^2=\frac{2n+1}{2}\cdot\frac{n(n+1)}{2}-\frac{1}{2}\cdot\frac{n(n+1)(2n+1)}{6}=\frac{n(n+1)(2n+1)}{6}$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">D&eacute;monstration.</summary>
+          Pour $i$ fix&eacute;, $\sum_{j=1}^{n}\min(i,j)=\sum_{j=1}^{i}j+\sum_{j=i+1}^{n}i=\frac{i(i+1)}{2}+(n-i)i$. On somme sur $i$ : $S=\frac{1}{2}\sum i^2+\frac{1}{2}\sum i+n\sum i-\sum i^2=\frac{2n+1}{2}\cdot\frac{n(n+1)}{2}-\frac{1}{2}\cdot\frac{n(n+1)(2n+1)}{6}=\frac{n(n+1)(2n+1)}{6}$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 8.</span> Setting $t = \tan\frac{x}{2}$ makes $\cos x$ and $\sin x$ rational in $t$, so a trigonometric equation becomes a polynomial one.</p>
+      <p class="fr"><span class="technique-label">Technique 8.</span> Poser $t = \tan\frac{x}{2}$ rend $\cos x$ et $\sin x$ rationnels en $t$ : une &eacute;quation trigonom&eacute;trique devient polynomiale.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Solve $\sin x + \cos x = 1$ using the substitution $t = \tan\frac{x}{2}$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\sin x + \cos x = 1$ &agrave; l'aide de la substitution $t = \tan\frac{x}{2}$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          For $x \not\equiv \pi\,[2\pi]$, substituting gives $\frac{2t}{1+t^2} + \frac{1-t^2}{1+t^2} = 1$, that is $2t + 1 - t^2 = 1 + t^2$, so $2t^2 - 2t = 0$ and $t \in \{0, 1\}$. Then $\tan\frac{x}{2} = 0$ gives $x \equiv 0\,[2\pi]$, and $\tan\frac{x}{2} = 1$ gives $x \equiv \frac{\pi}{2}\,[2\pi]$. Checking the excluded value: $x = \pi$ gives $0 - 1 = -1 \neq 1$, so it is not a solution.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          Pour $x \not\equiv \pi\,[2\pi]$, la substitution donne $\frac{2t}{1+t^2} + \frac{1-t^2}{1+t^2} = 1$, soit $2t + 1 - t^2 = 1 + t^2$, donc $2t^2 - 2t = 0$ et $t \in \{0, 1\}$. Alors $\tan\frac{x}{2} = 0$ donne $x \equiv 0\,[2\pi]$, et $\tan\frac{x}{2} = 1$ donne $x \equiv \frac{\pi}{2}\,[2\pi]$. Reste la valeur exclue : $x = \pi$ donne $0 - 1 = -1 \neq 1$, ce n'est pas une solution.
+        </details>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : E \to F$ and $A, B \subset E$. Then $f(A \cap B) \subset f(A) \cap f(B)$, with equality when $f$ is injective. Find a counterexample to equality when injectivity is dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $f : E \to F$ et $A, B \subset E$. Alors $f(A \cap B) \subset f(A) \cap f(B)$, avec &eacute;galit&eacute; lorsque $f$ est injective. Trouver un contre-exemple &agrave; l'&eacute;galit&eacute; quand l'injectivit&eacute; est retir&eacute;e.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $f : \mathbb{R} \to \mathbb{R}$, $f(x) = x^2$, with $A = \{1\}$ and $B = \{-1\}$. Then $A \cap B = \emptyset$, so $f(A \cap B) = \emptyset$, while $f(A) = f(B) = \{1\}$ gives $f(A) \cap f(B) = \{1\}$. The two sides differ as much as they can.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $f : \mathbb{R} \to \mathbb{R}$, $f(x) = x^2$, avec $A = \{1\}$ et $B = \{-1\}$. Alors $A \cap B = \emptyset$, donc $f(A \cap B) = \emptyset$, tandis que $f(A) = f(B) = \{1\}$ donne $f(A) \cap f(B) = \{1\}$. Les deux membres diff&egrave;rent autant que possible.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> A relation that is symmetric and transitive seems to be reflexive: from $x \mathcal{R} y$, symmetry gives $y \mathcal{R} x$, and transitivity then gives $x \mathcal{R} x$. Find a relation that is symmetric and transitive but not reflexive, and say where the argument fails.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Une relation sym&eacute;trique et transitive semble r&eacute;flexive : de $x \mathcal{R} y$, la sym&eacute;trie donne $y \mathcal{R} x$, puis la transitivit&eacute; donne $x \mathcal{R} x$. Trouver une relation sym&eacute;trique et transitive mais non r&eacute;flexive, et dire o&ugrave; l'argument &eacute;choue.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      On $\mathbb{R}$, set $x \mathcal{R} y$ when $xy &gt; 0$. It is symmetric, and transitive since $xy &gt; 0$ and $yz &gt; 0$ force $x$ and $z$ to share the sign of $y$. But $0 \mathcal{R} 0$ is false, so it is not reflexive. The argument needs some $y$ with $x \mathcal{R} y$ to start from, and $0$ is related to nothing.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Sur $\mathbb{R}$, posons $x \mathcal{R} y$ lorsque $xy &gt; 0$. Elle est sym&eacute;trique, et transitive car $xy &gt; 0$ et $yz &gt; 0$ obligent $x$ et $z$ &agrave; avoir le signe de $y$. Mais $0 \mathcal{R} 0$ est faux : elle n'est pas r&eacute;flexive. L'argument exige un $y$ tel que $x \mathcal{R} y$ pour d&eacute;marrer, et $0$ n'est en relation avec rien.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x\ge-1$ and every $n\in\mathbb N$: $(1+x)^n\ge 1+nx$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x\ge-1$ et tout $n\in\mathbb N$ : $(1+x)^n\ge 1+nx$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Proof by induction:</em> for $n=0$: $1\ge1$. Assume $(1+x)^n\ge1+nx$. Since $1+x\ge0$, multiply: $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
+      <em>Proof by the binomial theorem (for $x\ge0$):</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ since $\binom{n}{k}x^k\ge0$ for all $k$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Preuve par r&eacute;currence :</em> pour $n=0$ : $1\ge1$. Supposons $(1+x)^n\ge1+nx$. Comme $1+x\ge0$, on multiplie : $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
+      <em>Preuve par le bin&ocirc;me (pour $x\ge0$) :</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ car $\binom{n}{k}x^k\ge0$ pour tout $k$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Simplify $\sum_{k=1}^{n}k\cdot k!$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Simplifier $\sum_{k=1}^{n}k\cdot k!$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $k\cdot k!=(k+1-1)\cdot k!=(k+1)!-k!$. By telescoping, $\sum_{k=1}^{n}k\cdot k!=\sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr]=(n+1)!-1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $k\cdot k!=(k+1-1)\cdot k!=(k+1)!-k!$. Par t&eacute;lescopage, $\sum_{k=1}^{n}k\cdot k!=\sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr]=(n+1)!-1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $\cos x\le\frac{1}{2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\cos x\le\frac{1}{2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\cos x=\frac{1}{2}$ is equivalent to $x\equiv\frac{\pi}{3}\,[2\pi]$ or $x\equiv-\frac{\pi}{3}\,[2\pi]$. On the unit circle, $\cos x\le\frac{1}{2}$ corresponds to angles in the arc from $\frac{\pi}{3}$ to $-\frac{\pi}{3}$ passing through $\pi$. The solution set is therefore $\bigcup_{k\in\mathbb Z}\bigl[\frac{\pi}{3}+2k\pi,\,\frac{5\pi}{3}+2k\pi\bigr]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\cos x=\frac{1}{2}$ &eacute;quivaut &agrave; $x\equiv\frac{\pi}{3}\,[2\pi]$ ou $x\equiv-\frac{\pi}{3}\,[2\pi]$. Sur le cercle trigonom&eacute;trique, $\cos x\le\frac{1}{2}$ correspond aux angles situ&eacute;s dans l'arc allant de $\frac{\pi}{3}$ &agrave; $-\frac{\pi}{3}$ en passant par $\pi$. L'ensemble des solutions est donc $\bigcup_{k\in\mathbb Z}\bigl[\frac{\pi}{3}+2k\pi,\,\frac{5\pi}{3}+2k\pi\bigr]$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $\sin\theta=\sin 2\theta$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\sin\theta=\sin 2\theta$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\sin\theta=2\sin\theta\cos\theta\Leftrightarrow\sin\theta(2\cos\theta-1)=0$. Either $\sin\theta=0$, i.e. $\theta\equiv 0\,[\pi]$, or $\cos\theta=\frac{1}{2}$, i.e. $\theta\equiv\pm\frac{\pi}{3}\,[2\pi]$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $\sin\theta=2\sin\theta\cos\theta\Leftrightarrow\sin\theta(2\cos\theta-1)=0$. Soit $\sin\theta=0$, i.e. $\theta\equiv 0\,[\pi]$, soit $\cos\theta=\frac{1}{2}$, i.e. $\theta\equiv\pm\frac{\pi}{3}\,[2\pi]$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for every map $f:E\to F$ and all subsets $A,B\subset F$: $f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)$ and $f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour toute application $f:E\to F$ et toutes parties $A,B\subset F$ : $f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)$ et $f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $x\in f^{-1}(A\cup B)\Leftrightarrow f(x)\in A\cup B\Leftrightarrow f(x)\in A\text{ or }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cup f^{-1}(B)$. Similarly, $x\in f^{-1}(A\cap B)\Leftrightarrow f(x)\in A\text{ and }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cap f^{-1}(B)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      $x\in f^{-1}(A\cup B)\Leftrightarrow f(x)\in A\cup B\Leftrightarrow f(x)\in A\text{ ou }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cup f^{-1}(B)$. De m&ecirc;me, $x\in f^{-1}(A\cap B)\Leftrightarrow f(x)\in A\text{ et }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cap f^{-1}(B)$.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $f:E\to F$ is injective if and only if for every subset $A\subset E$, $f^{-1}(f(A))=A$.</p>
@@ -401,59 +829,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for every map $f:E\to F$ and all subsets $A,B\subset F$: $f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)$ and $f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour toute application $f:E\to F$ et toutes parties $A,B\subset F$ : $f^{-1}(A\cup B)=f^{-1}(A)\cup f^{-1}(B)$ et $f^{-1}(A\cap B)=f^{-1}(A)\cap f^{-1}(B)$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Solve $\sin\theta=\cos 2\theta$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\sin\theta=\cos 2\theta$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $x\in f^{-1}(A\cup B)\Leftrightarrow f(x)\in A\cup B\Leftrightarrow f(x)\in A\text{ or }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cup f^{-1}(B)$. Similarly, $x\in f^{-1}(A\cap B)\Leftrightarrow f(x)\in A\text{ and }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cap f^{-1}(B)$.
+      $\cos 2\theta=1-2\sin^2\theta$, so $\sin\theta=1-2\sin^2\theta\Leftrightarrow 2\sin^2\theta+\sin\theta-1=0$. Setting $u=\sin\theta$: $2u^2+u-1=2(u-\frac{1}{2})(u+1)=0$. Either $\sin\theta=\frac{1}{2}$, i.e. $\theta\equiv\frac{\pi}{6}\,[2\pi]$ or $\theta\equiv\frac{5\pi}{6}\,[2\pi]$, or $\sin\theta=-1$, i.e. $\theta\equiv-\frac{\pi}{2}\,[2\pi]$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      $x\in f^{-1}(A\cup B)\Leftrightarrow f(x)\in A\cup B\Leftrightarrow f(x)\in A\text{ ou }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cup f^{-1}(B)$. De m&ecirc;me, $x\in f^{-1}(A\cap B)\Leftrightarrow f(x)\in A\text{ et }f(x)\in B\Leftrightarrow x\in f^{-1}(A)\cap f^{-1}(B)$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Simplify $\sum_{k=1}^{n}k\cdot k!$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Simplifier $\sum_{k=1}^{n}k\cdot k!$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $k\cdot k!=(k+1-1)\cdot k!=(k+1)!-k!$. By telescoping, $\sum_{k=1}^{n}k\cdot k!=\sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr]=(n+1)!-1$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $k\cdot k!=(k+1-1)\cdot k!=(k+1)!-k!$. Par t&eacute;lescopage, $\sum_{k=1}^{n}k\cdot k!=\sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr]=(n+1)!-1$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{k=0}^{n}k\,a^k$ for $a\neq1$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{k=0}^{n}k\,a^k$ pour $a\neq1$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Differentiate the geometric sum $\sum_{k=0}^{n}a^k=\frac{1-a^{n+1}}{1-a}$ with respect to $a$: $\sum_{k=1}^{n}k\,a^{k-1}=\frac{1-(n+1)a^n+na^{n+1}}{(1-a)^2}$, then multiply by $a$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On d&eacute;rive la somme g&eacute;om&eacute;trique $\sum_{k=0}^{n}a^k=\frac{1-a^{n+1}}{1-a}$ par rapport &agrave; $a$ : $\sum_{k=1}^{n}k\,a^{k-1}=\frac{1-(n+1)a^n+na^{n+1}}{(1-a)^2}$, puis on multiplie par $a$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Solve $\cos(3x)=\cos(x)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\cos(3x)=\cos(x)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\cos(3x)=\cos(x)\Leftrightarrow 3x\equiv x\,[2\pi]$ or $3x\equiv -x\,[2\pi]$. So $2x\equiv 0\,[2\pi]$ or $4x\equiv 0\,[2\pi]$, i.e. $x\equiv 0\,[\pi]$ or $x\equiv 0\,[\frac{\pi}{2}]$. Since $\{k\pi:k\in\mathbb Z\}\subset\{k\frac{\pi}{2}:k\in\mathbb Z\}$, the solution set is $\bigl\{\frac{k\pi}{2}:k\in\mathbb Z\bigr\}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\cos(3x)=\cos(x)\Leftrightarrow 3x\equiv x\,[2\pi]$ ou $3x\equiv -x\,[2\pi]$. Donc $2x\equiv 0\,[2\pi]$ ou $4x\equiv 0\,[2\pi]$, soit $x\equiv 0\,[\pi]$ ou $x\equiv 0\,[\frac{\pi}{2}]$. Comme $\{k\pi:k\in\mathbb Z\}\subset\{k\frac{\pi}{2}:k\in\mathbb Z\}$, l'ensemble des solutions est $\bigl\{\frac{k\pi}{2}:k\in\mathbb Z\bigr\}$.
+      $\cos 2\theta=1-2\sin^2\theta$, donc $\sin\theta=1-2\sin^2\theta\Leftrightarrow 2\sin^2\theta+\sin\theta-1=0$. En posant $u=\sin\theta$ : $2u^2+u-1=2(u-\frac{1}{2})(u+1)=0$. Soit $\sin\theta=\frac{1}{2}$, i.e. $\theta\equiv\frac{\pi}{6}\,[2\pi]$ ou $\theta\equiv\frac{5\pi}{6}\,[2\pi]$, soit $\sin\theta=-1$, i.e. $\theta\equiv-\frac{\pi}{2}\,[2\pi]$.
     </details>
 
     <div class="thm-block exercise">
@@ -471,66 +857,6 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Linearize $\cos^2(x)\sin^2(x)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Lin&eacute;ariser $\cos^2(x)\sin^2(x)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\cos^2(x)\sin^2(x)=\bigl(\frac{\sin(2x)}{2}\bigr)^2=\frac{\sin^2(2x)}{4}=\frac{1-\cos(4x)}{8}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\cos^2(x)\sin^2(x)=\bigl(\frac{\sin(2x)}{2}\bigr)^2=\frac{\sin^2(2x)}{4}=\frac{1-\cos(4x)}{8}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x\in\mathbb R$: $\cos x\ge 1-\frac{x^2}{2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x\in\mathbb R$ : $\cos x\ge 1-\frac{x^2}{2}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\cos x=1-2\sin^2\frac{x}{2}\ge 1-2\bigl(\frac{x}{2}\bigr)^2=1-\frac{x^2}{2}$ using $|\sin t|\le|t|$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\cos x=1-2\sin^2\frac{x}{2}\ge 1-2\bigl(\frac{x}{2}\bigr)^2=1-\frac{x^2}{2}$ en utilisant $|\sin t|\le|t|$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A,B\subset E$ and $f:\mathcal P(E)\to\mathcal P(A)\times\mathcal P(B)$ defined by $f(X)=(X\cap A,\, X\cap B)$. Find a necessary and sufficient condition on $A,B$ for $f$ to be injective, then surjective, and in that case determine $f^{-1}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soient $A,B\subset E$ et $f:\mathcal P(E)\to\mathcal P(A)\times\mathcal P(B)$ d&eacute;finie par $f(X)=(X\cap A,\, X\cap B)$. D&eacute;terminer une condition n&eacute;cessaire et suffisante sur $A,B$ pour que $f$ soit injective, puis surjective, et dans ce cas d&eacute;terminer $f^{-1}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <em>Injectivity:</em> $f$ is injective $\iff$ $A\cup B=E$. Indeed, if $A\cup B=E$ and $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, then $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. Conversely, if $x\notin A\cup B$, then $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
-      <em>Surjectivity:</em> $f$ is surjective $\iff$ $A\cap B=\emptyset$. Indeed, if $A\cap B=\emptyset$, for $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, set $X=U\cup V$: then $X\cap A=U$ since $V\subset B$ and $A\cap B=\emptyset$, and similarly $X\cap B=V$. Conversely, if $x\in A\cap B$, then $(\{x\},\emptyset)$ has no preimage: $X\cap A=\{x\}$ forces $x\in X$, and since $x\in B$, $x\in X\cap B\neq\emptyset$.
-      If $A\cup B=E$ and $A\cap B=\emptyset$, then $f^{-1}(U,V)=U\cup V$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      <em>Injectivit&eacute; :</em> $f$ injective $\iff$ $A\cup B=E$. En effet, si $A\cup B=E$ et $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, alors $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. R&eacute;ciproquement, si $x\notin A\cup B$, alors $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
-      <em>Surjectivit&eacute; :</em> $f$ surjective $\iff$ $A\cap B=\emptyset$. En effet, si $A\cap B=\emptyset$, pour $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, posons $X=U\cup V$ : alors $X\cap A=U$ car $V\subset B$ et $A\cap B=\emptyset$, et de m&ecirc;me $X\cap B=V$. R&eacute;ciproquement, si $x\in A\cap B$, alors $(\{x\},\emptyset)$ n'a pas d'ant&eacute;c&eacute;dent : en effet $X\cap A=\{x\}$ impose $x\in X$, et comme $x\in B$, on a $x\in X\cap B\neq\emptyset$.
-      Si $A\cup B=E$ et $A\cap B=\emptyset$, alors $f^{-1}(U,V)=U\cup V$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{k=1}^{n}\frac{1}{k(k+1)}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{k=1}^{n}\frac{1}{k(k+1)}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}$, so $\sum_{k=1}^{n}\frac{1}{k(k+1)}=1-\frac{1}{n+1}=\frac{n}{n+1}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\frac{1}{k(k+1)}=\frac{1}{k}-\frac{1}{k+1}$, donc $\sum_{k=1}^{n}\frac{1}{k(k+1)}=1-\frac{1}{n+1}=\frac{n}{n+1}$.
-    </details>
-
-    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $f:\mathbb R\to\mathbb R$ be defined by $f(x)=\frac{x}{1+|x|}$. Show that $f$ is a bijection from $\mathbb R$ onto $]-1,1[$ and determine $f^{-1}$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f:\mathbb R\to\mathbb R$ d&eacute;finie par $f(x)=\frac{x}{1+|x|}$. Montrer que $f$ est une bijection de $\mathbb R$ sur $]-1,1[$ et d&eacute;terminer $f^{-1}$.</p>
     </div>
@@ -545,103 +871,31 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Solve $\cos x\le\frac{1}{2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\cos x\le\frac{1}{2}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{k=0}^{n}k\,a^k$ for $a\neq1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{k=0}^{n}k\,a^k$ pour $a\neq1$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\cos x=\frac{1}{2}$ is equivalent to $x\equiv\frac{\pi}{3}\,[2\pi]$ or $x\equiv-\frac{\pi}{3}\,[2\pi]$. On the unit circle, $\cos x\le\frac{1}{2}$ corresponds to angles in the arc from $\frac{\pi}{3}$ to $-\frac{\pi}{3}$ passing through $\pi$. The solution set is therefore $\bigcup_{k\in\mathbb Z}\bigl[\frac{\pi}{3}+2k\pi,\,\frac{5\pi}{3}+2k\pi\bigr]$.
+      Differentiate the geometric sum $\sum_{k=0}^{n}a^k=\frac{1-a^{n+1}}{1-a}$ with respect to $a$: $\sum_{k=1}^{n}k\,a^{k-1}=\frac{1-(n+1)a^n+na^{n+1}}{(1-a)^2}$, then multiply by $a$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      $\cos x=\frac{1}{2}$ &eacute;quivaut &agrave; $x\equiv\frac{\pi}{3}\,[2\pi]$ ou $x\equiv-\frac{\pi}{3}\,[2\pi]$. Sur le cercle trigonom&eacute;trique, $\cos x\le\frac{1}{2}$ correspond aux angles situ&eacute;s dans l'arc allant de $\frac{\pi}{3}$ &agrave; $-\frac{\pi}{3}$ en passant par $\pi$. L'ensemble des solutions est donc $\bigcup_{k\in\mathbb Z}\bigl[\frac{\pi}{3}+2k\pi,\,\frac{5\pi}{3}+2k\pi\bigr]$.
+      On d&eacute;rive la somme g&eacute;om&eacute;trique $\sum_{k=0}^{n}a^k=\frac{1-a^{n+1}}{1-a}$ par rapport &agrave; $a$ : $\sum_{k=1}^{n}k\,a^{k-1}=\frac{1-(n+1)a^n+na^{n+1}}{(1-a)^2}$, puis on multiplie par $a$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x\ge-1$ and every $n\in\mathbb N$: $(1+x)^n\ge 1+nx$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x\ge-1$ et tout $n\in\mathbb N$ : $(1+x)^n\ge 1+nx$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x\in\mathbb R$: $\cos x\ge 1-\frac{x^2}{2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x\in\mathbb R$ : $\cos x\ge 1-\frac{x^2}{2}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>Proof by induction:</em> for $n=0$: $1\ge1$. Assume $(1+x)^n\ge1+nx$. Since $1+x\ge0$, multiply: $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
-      <em>Proof by the binomial theorem (for $x\ge0$):</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ since $\binom{n}{k}x^k\ge0$ for all $k$.
+      $\cos x=1-2\sin^2\frac{x}{2}\ge 1-2\bigl(\frac{x}{2}\bigr)^2=1-\frac{x^2}{2}$ using $|\sin t|\le|t|$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      <em>Preuve par r&eacute;currence :</em> pour $n=0$ : $1\ge1$. Supposons $(1+x)^n\ge1+nx$. Comme $1+x\ge0$, on multiplie : $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
-      <em>Preuve par le bin&ocirc;me (pour $x\ge0$) :</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ car $\binom{n}{k}x^k\ge0$ pour tout $k$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Solve $\sin\theta=\sin 2\theta$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\sin\theta=\sin 2\theta$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\sin\theta=2\sin\theta\cos\theta\Leftrightarrow\sin\theta(2\cos\theta-1)=0$. Either $\sin\theta=0$, i.e. $\theta\equiv 0\,[\pi]$, or $\cos\theta=\frac{1}{2}$, i.e. $\theta\equiv\pm\frac{\pi}{3}\,[2\pi]$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\sin\theta=2\sin\theta\cos\theta\Leftrightarrow\sin\theta(2\cos\theta-1)=0$. Soit $\sin\theta=0$, i.e. $\theta\equiv 0\,[\pi]$, soit $\cos\theta=\frac{1}{2}$, i.e. $\theta\equiv\pm\frac{\pi}{3}\,[2\pi]$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Solve $\sin\theta=\cos 2\theta$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> R&eacute;soudre $\sin\theta=\cos 2\theta$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\cos 2\theta=1-2\sin^2\theta$, so $\sin\theta=1-2\sin^2\theta\Leftrightarrow 2\sin^2\theta+\sin\theta-1=0$. Setting $u=\sin\theta$: $2u^2+u-1=2(u-\frac{1}{2})(u+1)=0$. Either $\sin\theta=\frac{1}{2}$, i.e. $\theta\equiv\frac{\pi}{6}\,[2\pi]$ or $\theta\equiv\frac{5\pi}{6}\,[2\pi]$, or $\sin\theta=-1$, i.e. $\theta\equiv-\frac{\pi}{2}\,[2\pi]$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\cos 2\theta=1-2\sin^2\theta$, donc $\sin\theta=1-2\sin^2\theta\Leftrightarrow 2\sin^2\theta+\sin\theta-1=0$. En posant $u=\sin\theta$ : $2u^2+u-1=2(u-\frac{1}{2})(u+1)=0$. Soit $\sin\theta=\frac{1}{2}$, i.e. $\theta\equiv\frac{\pi}{6}\,[2\pi]$ ou $\theta\equiv\frac{5\pi}{6}\,[2\pi]$, soit $\sin\theta=-1$, i.e. $\theta\equiv-\frac{\pi}{2}\,[2\pi]$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Chebyshev's inequality).</span> Let $a_1\le\cdots\le a_n$ and $b_1\le\cdots\le b_n$ be two increasing sequences of reals. Show that $n\sum_{k=1}^{n}a_k b_k\ge\Bigl(\sum_{k=1}^{n}a_k\Bigr)\Bigl(\sum_{k=1}^{n}b_k\Bigr)$.</p>
-      <p class="fr"><span class="thm-label">Exercice (In&eacute;galit&eacute; de Tchebychev).</span> Soient $a_1\le\cdots\le a_n$ et $b_1\le\cdots\le b_n$ deux suites croissantes de r&eacute;els. Montrer que $n\sum_{k=1}^{n}a_k b_k\ge\Bigl(\sum_{k=1}^{n}a_k\Bigr)\Bigl(\sum_{k=1}^{n}b_k\Bigr)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Consider $S=\sum_{i=1}^{n}\sum_{j=1}^{n}(a_i-a_j)(b_i-b_j)$. Since the sequences are increasing, $a_i-a_j$ and $b_i-b_j$ have the same sign for all $i,j$, so each term is $\ge0$ and $S\ge0$. Expanding: $S=2n\sum_{i=1}^{n}a_i b_i-2\bigl(\sum_{i=1}^{n}a_i\bigr)\bigl(\sum_{j=1}^{n}b_j\bigr)\ge0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On consid&egrave;re $S=\sum_{i=1}^{n}\sum_{j=1}^{n}(a_i-a_j)(b_i-b_j)$. Comme les suites sont croissantes, $a_i-a_j$ et $b_i-b_j$ sont de m&ecirc;me signe pour tous $i,j$, donc chaque terme est $\ge0$ et $S\ge0$. En d&eacute;veloppant : $S=2n\sum_{i=1}^{n}a_i b_i-2\bigl(\sum_{i=1}^{n}a_i\bigr)\bigl(\sum_{j=1}^{n}b_j\bigr)\ge0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\sum_{i=1}^{n}\sum_{j=1}^{n}\min(i,j)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\sum_{i=1}^{n}\sum_{j=1}^{n}\min(i,j)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      For fixed $i$, $\sum_{j=1}^{n}\min(i,j)=\sum_{j=1}^{i}j+\sum_{j=i+1}^{n}i=\frac{i(i+1)}{2}+(n-i)i$. Summing over $i$: $S=\frac{1}{2}\sum i^2+\frac{1}{2}\sum i+n\sum i-\sum i^2=\frac{2n+1}{2}\cdot\frac{n(n+1)}{2}-\frac{1}{2}\cdot\frac{n(n+1)(2n+1)}{6}=\frac{n(n+1)(2n+1)}{6}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Pour $i$ fix&eacute;, $\sum_{j=1}^{n}\min(i,j)=\sum_{j=1}^{i}j+\sum_{j=i+1}^{n}i=\frac{i(i+1)}{2}+(n-i)i$. On somme sur $i$ : $S=\frac{1}{2}\sum i^2+\frac{1}{2}\sum i+n\sum i-\sum i^2=\frac{2n+1}{2}\cdot\frac{n(n+1)}{2}-\frac{1}{2}\cdot\frac{n(n+1)(2n+1)}{6}=\frac{n(n+1)(2n+1)}{6}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $S=\sum_{k=0}^{2n}\cos\frac{k\pi}{2n}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S=\sum_{k=0}^{2n}\cos\frac{k\pi}{2n}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Pair $k$ and $2n-k$: $\cos\frac{k\pi}{2n}+\cos\frac{(2n-k)\pi}{2n}=\cos\frac{k\pi}{2n}+\cos\bigl(\pi-\frac{k\pi}{2n}\bigr)=0$. The middle term $k=n$ equals $\cos\frac{\pi}{2}=0$. So $S=0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On apparie $k$ et $2n-k$ : $\cos\frac{k\pi}{2n}+\cos\frac{(2n-k)\pi}{2n}=\cos\frac{k\pi}{2n}+\cos\bigl(\pi-\frac{k\pi}{2n}\bigr)=0$. Le terme central $k=n$ vaut $\cos\frac{\pi}{2}=0$. Donc $S=0$.
+      $\cos x=1-2\sin^2\frac{x}{2}\ge 1-2\bigl(\frac{x}{2}\bigr)^2=1-\frac{x^2}{2}$ en utilisant $|\sin t|\le|t|$.
     </details>
 
     <div class="thm-block exercise">
@@ -660,6 +914,34 @@
       <em>Injectivit&eacute;.</em> $f$ est injective si et seulement si $A\cap B=\emptyset$. En effet, $X\cup A=Y\cup A$ entra&icirc;ne que $X$ et $Y$ co&iuml;ncident hors de $A$, et de m&ecirc;me $X\cup B=Y\cup B$ entra&icirc;ne qu'ils co&iuml;ncident hors de $B$. Donc $X$ et $Y$ co&iuml;ncident hors de $A\cap B$ : si $A\cap B=\emptyset$, alors $X=Y$. R&eacute;ciproquement, par contrapos&eacute;e, si $a\in A\cap B$, alors $f(\{a\})=(A,B)=f(\emptyset)$, donc $f$ n'est pas injective.
       <em>Surjectivit&eacute;.</em> Si $E\neq\emptyset$, $f$ n'est jamais surjective. En effet, $(\emptyset,\emptyset)\in\mathrm{Im}\,f$ impose $X\cup A=\emptyset$, donc $A=B=\emptyset$, mais alors $f(X)=(X,X)$ et $(\emptyset,E)\notin\mathrm{Im}\,f$.
       <em>Bijectivit&eacute;.</em> Si $E\neq\emptyset$, $f$ n'est jamais bijective (car jamais surjective).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $S=\sum_{k=0}^{2n}\cos\frac{k\pi}{2n}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $S=\sum_{k=0}^{2n}\cos\frac{k\pi}{2n}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Pair $k$ and $2n-k$: $\cos\frac{k\pi}{2n}+\cos\frac{(2n-k)\pi}{2n}=\cos\frac{k\pi}{2n}+\cos\bigl(\pi-\frac{k\pi}{2n}\bigr)=0$. The middle term $k=n$ equals $\cos\frac{\pi}{2}=0$. So $S=0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On apparie $k$ et $2n-k$ : $\cos\frac{k\pi}{2n}+\cos\frac{(2n-k)\pi}{2n}=\cos\frac{k\pi}{2n}+\cos\bigl(\pi-\frac{k\pi}{2n}\bigr)=0$. Le terme central $k=n$ vaut $\cos\frac{\pi}{2}=0$. Donc $S=0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Chebyshev's inequality).</span> Let $a_1\le\cdots\le a_n$ and $b_1\le\cdots\le b_n$ be two increasing sequences of reals. Show that $n\sum_{k=1}^{n}a_k b_k\ge\Bigl(\sum_{k=1}^{n}a_k\Bigr)\Bigl(\sum_{k=1}^{n}b_k\Bigr)$.</p>
+      <p class="fr"><span class="thm-label">Exercice (In&eacute;galit&eacute; de Tchebychev).</span> Soient $a_1\le\cdots\le a_n$ et $b_1\le\cdots\le b_n$ deux suites croissantes de r&eacute;els. Montrer que $n\sum_{k=1}^{n}a_k b_k\ge\Bigl(\sum_{k=1}^{n}a_k\Bigr)\Bigl(\sum_{k=1}^{n}b_k\Bigr)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Consider $S=\sum_{i=1}^{n}\sum_{j=1}^{n}(a_i-a_j)(b_i-b_j)$. Since the sequences are increasing, $a_i-a_j$ and $b_i-b_j$ have the same sign for all $i,j$, so each term is $\ge0$ and $S\ge0$. Expanding: $S=2n\sum_{i=1}^{n}a_i b_i-2\bigl(\sum_{i=1}^{n}a_i\bigr)\bigl(\sum_{j=1}^{n}b_j\bigr)\ge0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">D&eacute;monstration.</summary>
+      On consid&egrave;re $S=\sum_{i=1}^{n}\sum_{j=1}^{n}(a_i-a_j)(b_i-b_j)$. Comme les suites sont croissantes, $a_i-a_j$ et $b_i-b_j$ sont de m&ecirc;me signe pour tous $i,j$, donc chaque terme est $\ge0$ et $S\ge0$. En d&eacute;veloppant : $S=2n\sum_{i=1}^{n}a_i b_i-2\bigl(\sum_{i=1}^{n}a_i\bigr)\bigl(\sum_{j=1}^{n}b_j\bigr)\ge0$.
     </details>
 
   </main>
