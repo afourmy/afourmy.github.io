@@ -397,10 +397,11 @@ details.tsp-code > p {
 }
 
 /* ── Techniques ── */
-/* A technique and the exercise demonstrating it are one unit: a horizontal
-   rule between consecutive pairs separates each unit from the next. */
+/* A technique and the exercise demonstrating it are one unit: the rule
+   separates consecutive pairs, and the indent puts the exercise under the
+   technique it belongs to rather than beside it. */
 .technique {
-  padding: 1.5rem 0;
+  padding: 1.4rem 0;
 }
 
 .technique + .technique {
@@ -409,6 +410,11 @@ details.tsp-code > p {
 
 .technique > p {
   margin-bottom: 0.7rem;
+}
+
+.technique > .thm-block,
+.technique > .proof {
+  margin-left: 1.7rem;
 }
 
 .technique-label {

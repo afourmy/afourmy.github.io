@@ -35,11 +35,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Injectivity:</em> $(g\circ f)(x)=(g\circ f)(y)\Rightarrow g(f(x))=g(f(y))\Rightarrow f(x)=f(y)\Rightarrow x=y$.
+      <br>
       <em>Surjectivity:</em> for all $z\in G$, there exists $y\in F$ such that $g(y)=z$, then there exists $x\in E$ such that $f(x)=y$, so $(g\circ f)(x)=z$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Injectivit&eacute; :</em> $(g\circ f)(x)=(g\circ f)(y)\Rightarrow g(f(x))=g(f(y))\Rightarrow f(x)=f(y)\Rightarrow x=y$.
+      <br>
       <em>Surjectivit&eacute; :</em> pour tout $z\in G$, il existe $y\in F$ tel que $g(y)=z$, puis il existe $x\in E$ tel que $f(x)=y$, donc $(g\circ f)(x)=z$.
     </details>
     <div class="thm-block theorem">
@@ -63,11 +65,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Union:</em> $y\in f(A\cup B)\Leftrightarrow y=f(x),\ x\in A\cup B\Leftrightarrow y\in f(A)\cup f(B)$.
+      <br>
       <em>Intersection:</em> $y\in f(A\cap B)\Rightarrow y\in f(A)\cap f(B)$ and if $f$ is injective, $y=f(a)=f(b)$ with $a\in A,\ b\in B\Rightarrow a=b\in A\cap B$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Union :</em> $y\in f(A\cup B)\Leftrightarrow y=f(x),\ x\in A\cup B\Leftrightarrow y\in f(A)\cup f(B)$.
+      <br>
       <em>Intersection :</em> $y\in f(A\cap B)\Rightarrow y\in f(A)\cap f(B)$ et si $f$ injective, $y=f(a)=f(b)$ avec $a\in A,\ b\in B\Rightarrow a=b\in A\cap B$.
     </details>
     <h3 class="en">Indicator functions and symmetric difference</h3>
@@ -97,12 +101,18 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
+      <em>Indicator proof:</em> $A\setminus B$ and $B\setminus A$ are disjoint, so $\mathbf{1}_{A\Delta B}=\mathbf{1}_A(1-\mathbf{1}_B)+\mathbf{1}_B(1-\mathbf{1}_A)=\mathbf{1}_A+\mathbf{1}_B-2\,\mathbf{1}_A\mathbf{1}_B$. On the other side $A\cap B\subset A\cup B$, so $\mathbf{1}_{(A\cup B)\setminus(A\cap B)}=\mathbf{1}_{A\cup B}-\mathbf{1}_{A\cap B}=(\mathbf{1}_A+\mathbf{1}_B-\mathbf{1}_A\mathbf{1}_B)-\mathbf{1}_A\mathbf{1}_B$. The two indicators agree, so the two sets are equal.
+      <br>
       <em>Membership proof:</em> $x\in(A\setminus B)\cup(B\setminus A) \Leftrightarrow (x\in A\text{ and }x\notin B)\text{ or }(x\in B\text{ and }x\notin A) \Leftrightarrow (x\in A\cup B)\text{ and }(x\notin A\cap B) \Leftrightarrow x\in(A\cup B)\setminus(A\cap B)$.
+      <br>
       <em>Set-theoretic proof:</em> $(A\cap\bar B)\cup(B\cap\bar A) =\bigl[(A\cap\bar B)\cup B\bigr]\cap\bigl[(A\cap\bar B)\cup\bar A\bigr] =\bigl[(A\cup B)\cap E\bigr]\cap\bigl[E\cap\overline{A\cap B}\bigr] =(A\cup B)\setminus(A\cap B)$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
+      <em>Preuve par les indicatrices :</em> $A\setminus B$ et $B\setminus A$ sont disjoints, donc $\mathbf{1}_{A\Delta B}=\mathbf{1}_A(1-\mathbf{1}_B)+\mathbf{1}_B(1-\mathbf{1}_A)=\mathbf{1}_A+\mathbf{1}_B-2\,\mathbf{1}_A\mathbf{1}_B$. De l'autre c&ocirc;t&eacute;, $A\cap B\subset A\cup B$, donc $\mathbf{1}_{(A\cup B)\setminus(A\cap B)}=\mathbf{1}_{A\cup B}-\mathbf{1}_{A\cap B}=(\mathbf{1}_A+\mathbf{1}_B-\mathbf{1}_A\mathbf{1}_B)-\mathbf{1}_A\mathbf{1}_B$. Les deux indicatrices co&iuml;ncident, donc les deux ensembles sont &eacute;gaux.
+      <br>
       <em>Preuve par appartenance :</em> $x\in(A\setminus B)\cup(B\setminus A) \Leftrightarrow (x\in A\text{ et }x\notin B)\text{ ou }(x\in B\text{ et }x\notin A) \Leftrightarrow (x\in A\cup B)\text{ et }(x\notin A\cap B) \Leftrightarrow x\in(A\cup B)\setminus(A\cap B)$.
+      <br>
       <em>Preuve par calcul ensembliste :</em> $(A\cap\bar B)\cup(B\cap\bar A) =\bigl[(A\cap\bar B)\cup B\bigr]\cap\bigl[(A\cap\bar B)\cup\bar A\bigr] =\bigl[(A\cup B)\cap E\bigr]\cap\bigl[E\cap\overline{A\cap B}\bigr] =(A\cup B)\setminus(A\cap B)$.
     </details>
     <div class="thm-block proposition">
@@ -125,11 +135,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Covering:</em> for all $x\in E$, $x\in[x]$ by reflexivity, so $E=\bigcup_{x\in E}[x]$.
+      <br>
       <em>Disjointness:</em> if $[x]\cap[y]\neq\emptyset$, let $z\in[x]\cap[y]$. Then $z\mathcal R x$ and $z\mathcal R y$, so $x\mathcal R z$ (symmetry) then $x\mathcal R y$ (transitivity). For all $a\in[x]$, $a\mathcal R x\mathcal R y$ so $a\in[y]$, hence $[x]\subset[y]$. By symmetry $[y]\subset[x]$, so $[x]=[y]$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Recouvrement :</em> pour tout $x\in E$, $x\in[x]$ par r&eacute;flexivit&eacute;, donc $E=\bigcup_{x\in E}[x]$.
+      <br>
       <em>Disjonction :</em> si $[x]\cap[y]\neq\emptyset$, soit $z\in[x]\cap[y]$. Alors $z\mathcal R x$ et $z\mathcal R y$, donc $x\mathcal R z$ (sym&eacute;trie) puis $x\mathcal R y$ (transitivit&eacute;). Pour tout $a\in[x]$, $a\mathcal R x\mathcal R y$ donc $a\in[y]$, d'o&ugrave; $[x]\subset[y]$. Par sym&eacute;trie $[y]\subset[x]$, donc $[x]=[y]$.
     </details>
     <h3 class="en">Floor and fractional part</h3>
@@ -148,13 +160,17 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Translation:</em> set $n=\lfloor x\rfloor$, then $n\le x&lt;n+1$ so $n+k\le x+k&lt;n+k+1$, and since $n+k\in\mathbb Z$, we have $\lfloor x+k\rfloor=n+k=\lfloor x\rfloor+k$.
+      <br>
       <em>Monotonicity:</em> $\lfloor x\rfloor\le x\le y&lt;\lfloor y\rfloor+1$, so $\lfloor x\rfloor&lt;\lfloor y\rfloor+1$, and since these are integers, $\lfloor x\rfloor\le\lfloor y\rfloor$.
+      <br>
       <em>Bounds:</em> $\lfloor x\rfloor+\lfloor y\rfloor\le x+y$ and $\lfloor x\rfloor+\lfloor y\rfloor\in\mathbb Z$, so $\lfloor x\rfloor+\lfloor y\rfloor\le\lfloor x+y\rfloor$. Moreover $x+y&lt;\lfloor x\rfloor+\lfloor y\rfloor+2$, so $\lfloor x+y\rfloor\le\lfloor x\rfloor+\lfloor y\rfloor+1$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Translation :</em> posons $n=\lfloor x\rfloor$, alors $n\le x&lt;n+1$ donc $n+k\le x+k&lt;n+k+1$, et comme $n+k\in\mathbb Z$, on a $\lfloor x+k\rfloor=n+k=\lfloor x\rfloor+k$.
+      <br>
       <em>Croissance :</em> $\lfloor x\rfloor\le x\le y&lt;\lfloor y\rfloor+1$, donc $\lfloor x\rfloor&lt;\lfloor y\rfloor+1$, et comme ce sont des entiers, $\lfloor x\rfloor\le\lfloor y\rfloor$.
+      <br>
       <em>Encadrement :</em> $\lfloor x\rfloor+\lfloor y\rfloor\le x+y$ et $\lfloor x\rfloor+\lfloor y\rfloor\in\mathbb Z$, donc $\lfloor x\rfloor+\lfloor y\rfloor\le\lfloor x+y\rfloor$. De plus $x+y&lt;\lfloor x\rfloor+\lfloor y\rfloor+2$, donc $\lfloor x+y\rfloor\le\lfloor x\rfloor+\lfloor y\rfloor+1$.
     </details>
     <div class="thm-block definition">
@@ -204,9 +220,9 @@
       <line class="fig-curve" x1="190.0" y1="115.0" x2="220.0" y2="115.0"/>
       <circle class="fig-dot" cx="190.0" cy="115.0" r="3.2"/>
       <circle class="fig-hole" cx="220.0" cy="115.0" r="3.2"/>
-      <text x="217.0" y="88.0" text-anchor="middle">&#8970;x&#8971;</text>
+      <text x="65.5" y="86.0" text-anchor="start">&#8970;x&#8971;</text>
       <line class="fig-axis" x1="358.0" y1="175.0" x2="532.0" y2="175.0"/>
-      <line class="fig-axis" x1="430.0" y1="190.0" x2="430.0" y2="121.0"/>
+      <line class="fig-axis" x1="430.0" y1="190.0" x2="430.0" y2="118.0"/>
       <line class="fig-axis" x1="370.0" y1="175.0" x2="370.0" y2="179.0"/>
       <text class="fig-text fig-tick" x="370.0" y="193.0" text-anchor="middle">-2</text>
       <line class="fig-axis" x1="400.0" y1="175.0" x2="400.0" y2="179.0"/>
@@ -234,8 +250,8 @@
       <circle class="fig-dot" cx="490.0" cy="175.0" r="3.2"/>
       <circle class="fig-hole" cx="520.0" cy="145.0" r="3.2"/>
       <line class="fig-guide" x1="358.0" y1="145.0" x2="532.0" y2="145.0"/>
-      <text class="fig-text fig-tick" x="422.0" y="149.0" text-anchor="end">1</text>
-      <text x="517.0" y="139.0" text-anchor="middle">{x}</text>
+      <text class="fig-text fig-tick" x="421.0" y="149.0" text-anchor="end">1</text>
+      <text x="365.5" y="126.4" text-anchor="start">{x}</text>
       </svg>
       <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> $\lfloor x \rfloor$ is constant on each $[k, k+1)$, closed on the left and open on the right.</span><span class="cap-part"><span class="cap-lead">Right:</span> $\{x\} = x - \lfloor x \rfloor$ takes every value of $[0,1)$ on each such interval, and repeats with period $1$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">&Agrave; gauche :</span> $\lfloor x \rfloor$ est constante sur chaque $[k, k+1[$, ferm&eacute; &agrave; gauche et ouvert &agrave; droite.</span><span class="cap-part"><span class="cap-lead">&Agrave; droite :</span> $\{x\} = x - \lfloor x \rfloor$ prend toute valeur de $[0,1[$ sur chacun de ces intervalles, et se r&eacute;p&egrave;te avec la p&eacute;riode $1$.</span></span></figcaption>
     </figure>
@@ -271,12 +287,14 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>Sum of $k$:</em> $\sum_{k=1}^{n}k=\sum_{k=1}^{n}(n+1-k)$.
+      <em>Sum of $k$:</em> set $S=\sum_{k=1}^{n}k$ and reverse the order of the terms, which gives $S=\sum_{k=1}^{n}(n+1-k)$. Adding the two expressions term by term pairs $k$ with $n+1-k$, so each of the $n$ pairs contributes $n+1$ and $2S=n(n+1)$.
+      <br>
       <em>Sum of $k^2$:</em> expand $(k+1)^3-k^3=3k^2+3k+1$ and telescope: $\sum_{k=1}^{n}\bigl[(k+1)^3-k^3\bigr]=(n+1)^3-1=3\sum k^2+3\sum k+n$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
-      <em>Somme des $k$ :</em> $\sum_{k=1}^{n}k=\sum_{k=1}^{n}(n+1-k)$.
+      <em>Somme des $k$ :</em> posons $S=\sum_{k=1}^{n}k$ et renversons l'ordre des termes, ce qui donne $S=\sum_{k=1}^{n}(n+1-k)$. En additionnant les deux expressions terme &agrave; terme, $k$ s'apparie &agrave; $n+1-k$ : chacune des $n$ paires vaut $n+1$, donc $2S=n(n+1)$.
+      <br>
       <em>Somme des $k^2$ :</em> on d&eacute;veloppe $(k+1)^3-k^3=3k^2+3k+1$ et on t&eacute;lescope : $\sum_{k=1}^{n}\bigl[(k+1)^3-k^3\bigr]=(n+1)^3-1=3\sum k^2+3\sum k+n$.
     </details>
     <figure class="figure-block">
@@ -412,11 +430,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Case $\frac{\pi}{4}$:</em> by symmetry $\sin\frac{\pi}{4}=\cos\frac{\pi}{4}$, and $\sin^2\frac{\pi}{4}+\cos^2\frac{\pi}{4}=1$ gives $2\sin^2\frac{\pi}{4}=1$, hence $\sin\frac{\pi}{4}=\frac{\sqrt{2}}{2}$.
+      <br>
       <em>Cases $\frac{\pi}{6}$ and $\frac{\pi}{3}$:</em> in an equilateral triangle with side $1$, the altitude bisects the base and creates a right triangle with hypotenuse $1$, adjacent side $\frac{1}{2}$, and base angle $\frac{\pi}{3}$. So $\cos\frac{\pi}{3}=\frac{1}{2}$ and by Pythagoras $\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$. The values at $\frac{\pi}{6}$ follow by complementarity.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Cas $\frac{\pi}{4}$ :</em> par sym&eacute;trie $\sin\frac{\pi}{4}=\cos\frac{\pi}{4}$, et $\sin^2\frac{\pi}{4}+\cos^2\frac{\pi}{4}=1$ donne $2\sin^2\frac{\pi}{4}=1$, d'o&ugrave; $\sin\frac{\pi}{4}=\frac{\sqrt{2}}{2}$.
+      <br>
       <em>Cas $\frac{\pi}{6}$ et $\frac{\pi}{3}$ :</em> dans un triangle &eacute;quilat&eacute;ral de c&ocirc;t&eacute; $1$, la hauteur coupe la base en son milieu et cr&eacute;e un triangle rectangle d'hypot&eacute;nuse $1$, de c&ocirc;t&eacute; adjacent $\frac{1}{2}$ et d'angle &agrave; la base $\frac{\pi}{3}$. Donc $\cos\frac{\pi}{3}=\frac{1}{2}$ et par Pythagore $\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$. Les valeurs en $\frac{\pi}{6}$ s'en d&eacute;duisent par compl&eacute;mentarit&eacute;.
     </details>
     <div class="thm-block proposition">
@@ -443,11 +463,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Analytic proof:</em> for $x=0$ it is clear. For $x&gt;0$, we write $\sin x=\int_0^x\cos t\,dt$, so $|\sin x|=\left|\int_0^x\cos t\,dt\right|\le\int_0^x|\cos t|\,dt\le\int_0^x 1\,dt=x$. For $x&lt;0$, we use $|\sin x|=|\sin(-x)|\le|-x|=|x|$.
+      <br>
       <em>Geometric proof:</em> on the unit circle, $|\sin x|$ is the distance from the point $(\cos x,\sin x)$ to the $x$-axis, so $|\sin x|\le\|(\cos x,\sin x)-(1,0)\|$, which is the chord length subtended by the arc of length $|x|$. Since a chord is shorter than the arc, $|\sin x|\le|x|$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve analytique :</em> pour $x=0$ c'est clair. Pour $x&gt;0$, on &eacute;crit $\sin x=\int_0^x\cos t\,dt$, donc $|\sin x|=\left|\int_0^x\cos t\,dt\right|\le\int_0^x|\cos t|\,dt\le\int_0^x 1\,dt=x$. Pour $x&lt;0$, on utilise $|\sin x|=|\sin(-x)|\le|-x|=|x|$.
+      <br>
       <em>Preuve g&eacute;om&eacute;trique :</em> sur le cercle unit&eacute;, $|\sin x|$ est la distance du point $(\cos x,\sin x)$ &agrave; l'axe des abscisses, donc $|\sin x|\le\|(\cos x,\sin x)-(1,0)\|$, qui est la longueur de la corde sous-tendue par l'arc de longueur $|x|$. Or une corde est plus courte que l'arc, donc $|\sin x|\le|x|$.
     </details>
     <div class="thm-block proposition">
@@ -531,12 +553,14 @@
         <details class="proof en">
           <summary class="proof-label">Proof.</summary>
           <em>Injectivity:</em> $f$ is injective $\iff$ $A\cup B=E$. Indeed, if $A\cup B=E$ and $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, then $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. Conversely, if $x\notin A\cup B$, then $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
+          <br>
           <em>Surjectivity:</em> $f$ is surjective $\iff$ $A\cap B=\emptyset$. Indeed, if $A\cap B=\emptyset$, for $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, set $X=U\cup V$: then $X\cap A=U$ since $V\subset B$ and $A\cap B=\emptyset$, and similarly $X\cap B=V$. Conversely, if $x\in A\cap B$, then $(\{x\},\emptyset)$ has no preimage: $X\cap A=\{x\}$ forces $x\in X$, and since $x\in B$, $x\in X\cap B\neq\emptyset$.
           If $A\cup B=E$ and $A\cap B=\emptyset$, then $f^{-1}(U,V)=U\cup V$.
         </details>
         <details class="proof fr">
           <summary class="proof-label">D&eacute;monstration.</summary>
           <em>Injectivit&eacute; :</em> $f$ injective $\iff$ $A\cup B=E$. En effet, si $A\cup B=E$ et $X\cap A=Y\cap A$, $X\cap B=Y\cap B$, alors $X=X\cap E=X\cap(A\cup B)=(X\cap A)\cup(X\cap B)=(Y\cap A)\cup(Y\cap B)=Y$. R&eacute;ciproquement, si $x\notin A\cup B$, alors $f(\{x\})=(\emptyset,\emptyset)=f(\emptyset)$.
+          <br>
           <em>Surjectivit&eacute; :</em> $f$ surjective $\iff$ $A\cap B=\emptyset$. En effet, si $A\cap B=\emptyset$, pour $(U,V)\in\mathcal P(A)\times\mathcal P(B)$, posons $X=U\cup V$ : alors $X\cap A=U$ car $V\subset B$ et $A\cap B=\emptyset$, et de m&ecirc;me $X\cap B=V$. R&eacute;ciproquement, si $x\in A\cap B$, alors $(\{x\},\emptyset)$ n'a pas d'ant&eacute;c&eacute;dent : en effet $X\cap A=\{x\}$ impose $x\in X$, et comme $x\in B$, on a $x\in X\cap B\neq\emptyset$.
           Si $A\cup B=E$ et $A\cap B=\emptyset$, alors $f^{-1}(U,V)=U\cup V$.
         </details>
@@ -716,11 +740,13 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Proof by induction:</em> for $n=0$: $1\ge1$. Assume $(1+x)^n\ge1+nx$. Since $1+x\ge0$, multiply: $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
+      <br>
       <em>Proof by the binomial theorem (for $x\ge0$):</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ since $\binom{n}{k}x^k\ge0$ for all $k$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Preuve par r&eacute;currence :</em> pour $n=0$ : $1\ge1$. Supposons $(1+x)^n\ge1+nx$. Comme $1+x\ge0$, on multiplie : $(1+x)^{n+1}\ge(1+nx)(1+x)=1+(n+1)x+nx^2\ge1+(n+1)x$.
+      <br>
       <em>Preuve par le bin&ocirc;me (pour $x\ge0$) :</em> $(1+x)^n=\sum_{k=0}^{n}\binom{n}{k}x^k=1+nx+\sum_{k=2}^{n}\binom{n}{k}x^k\ge1+nx$ car $\binom{n}{k}x^k\ge0$ pour tout $k$.
     </details>
 
@@ -906,13 +932,17 @@
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
       <em>Injectivity.</em> $f$ is injective if and only if $A\cap B=\emptyset$. Indeed, $X\cup A=Y\cup A$ implies that $X$ and $Y$ agree outside $A$, and similarly $X\cup B=Y\cup B$ implies they agree outside $B$. So $X$ and $Y$ agree outside $A\cap B$: if $A\cap B=\emptyset$, then $X=Y$. Conversely, by contrapositive, if $a\in A\cap B$, then $f(\{a\})=(A,B)=f(\emptyset)$, so $f$ is not injective.
+      <br>
       <em>Surjectivity.</em> If $E\neq\emptyset$, $f$ is never surjective. Indeed, $(\emptyset,\emptyset)\in\mathrm{Im}\,f$ requires $X\cup A=\emptyset$, so $A=B=\emptyset$, but then $f(X)=(X,X)$ and $(\emptyset,E)\notin\mathrm{Im}\,f$.
+      <br>
       <em>Bijectivity.</em> If $E\neq\emptyset$, $f$ is never bijective (since never surjective).
     </details>
     <details class="proof fr">
       <summary class="proof-label">D&eacute;monstration.</summary>
       <em>Injectivit&eacute;.</em> $f$ est injective si et seulement si $A\cap B=\emptyset$. En effet, $X\cup A=Y\cup A$ entra&icirc;ne que $X$ et $Y$ co&iuml;ncident hors de $A$, et de m&ecirc;me $X\cup B=Y\cup B$ entra&icirc;ne qu'ils co&iuml;ncident hors de $B$. Donc $X$ et $Y$ co&iuml;ncident hors de $A\cap B$ : si $A\cap B=\emptyset$, alors $X=Y$. R&eacute;ciproquement, par contrapos&eacute;e, si $a\in A\cap B$, alors $f(\{a\})=(A,B)=f(\emptyset)$, donc $f$ n'est pas injective.
+      <br>
       <em>Surjectivit&eacute;.</em> Si $E\neq\emptyset$, $f$ n'est jamais surjective. En effet, $(\emptyset,\emptyset)\in\mathrm{Im}\,f$ impose $X\cup A=\emptyset$, donc $A=B=\emptyset$, mais alors $f(X)=(X,X)$ et $(\emptyset,E)\notin\mathrm{Im}\,f$.
+      <br>
       <em>Bijectivit&eacute;.</em> Si $E\neq\emptyset$, $f$ n'est jamais bijective (car jamais surjective).
     </details>
 

@@ -634,6 +634,15 @@
       <p class="fr"><span class="thm-label">Exercice.</span> Étudier la continuité de la fonction $$f(x)=\begin{cases}x \sin(1/x) & \text{si } x \neq 0, \\ 0 & \text{si } x=0.\end{cases}$$</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Away from $0$, $f$ is a product of continuous functions, $x$ and $x \mapsto \sin(1/x)$, the second being a composition of continuous functions on $\mathbb{R}^*$. At $0$, $|\sin(1/x)| \le 1$ gives $|f(x)| = |x|\,|\sin(1/x)| \le |x|$ for $x \neq 0$, and $|x| \to 0$, so $f(x) \to 0 = f(0)$. Hence $f$ is continuous on $\mathbb{R}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Hors de $0$, $f$ est un produit de fonctions continues, $x$ et $x \mapsto \sin(1/x)$, la seconde étant une composée de fonctions continues sur $\mathbb{R}^*$. En $0$, $|\sin(1/x)| \le 1$ donne $|f(x)| = |x|\,|\sin(1/x)| \le |x|$ pour $x \neq 0$, et $|x| \to 0$, donc $f(x) \to 0 = f(0)$. Ainsi $f$ est continue sur $\mathbb{R}$.
+    </details>
+
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that $x\mapsto\frac{1}{x}$ is Lipschitz on $[1,+\infty[$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $x\mapsto\frac{1}{x}$ est lipschitzienne sur $[1,+\infty[$.</p>
@@ -652,6 +661,15 @@
       <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be continuous on $[a,b]$. Show that the equation $f(x)=x$ has at least one solution in $[a,b]$ if $f([a,b]) \subset [a,b]$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ continue sur $[a,b]$. Montrer que l'équation $f(x)=x$ admet au moins une solution dans $[a,b]$ si $f([a,b]) \subset [a,b]$.</p>
     </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $g(x) = f(x) - x$, continuous on $[a,b]$ as a difference of continuous functions. Since $f([a,b]) \subset [a,b]$, we have $f(a) \ge a$ and $f(b) \le b$, so $g(a) \ge 0$ and $g(b) \le 0$. By the intermediate value theorem $g$ takes the value $0$ at some $c \in [a,b]$, and $g(c) = 0$ means $f(c) = c$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $g(x) = f(x) - x$, continue sur $[a,b]$ comme différence de fonctions continues. Comme $f([a,b]) \subset [a,b]$, on a $f(a) \ge a$ et $f(b) \le b$, donc $g(a) \ge 0$ et $g(b) \le 0$. Par le théorème des valeurs intermédiaires, $g$ prend la valeur $0$ en un $c \in [a,b]$, et $g(c) = 0$ signifie $f(c) = c$.
+    </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Show that every continuous and periodic function on $\mathbb{R}$ is bounded.</p>
