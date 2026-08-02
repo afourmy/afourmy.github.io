@@ -1224,14 +1224,19 @@ html[lang="fr"] .en { display: none; }
   box-shadow: 0 3px 10px rgba(3, 51, 102, 0.08);
 }
 
+/* Inline, not inline-block: a title that wraps then carries the accent rule under
+   every line. An inline-block would draw one border under the last line only. */
 .page-banner h1 {
-  display: inline-block;
+  display: inline;
   margin: 0;
   padding: 0 0 0.12rem;
   font-size: 1.8rem;
   font-weight: 700;
+  line-height: 1.9;
   border: none;
   border-bottom: 2px solid var(--accent);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 @media (max-width: 600px) {
