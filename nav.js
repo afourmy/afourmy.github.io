@@ -56,6 +56,7 @@
         { href: "bioinformatics/genome-assembly.html", en: "Chapter 3: Genome Assembly" },
         { href: "bioinformatics/antibiotic-sequencing.html", en: "Chapter 4: Antibiotic Sequencing" },
         { href: "bioinformatics/sequence-alignment.html", en: "Chapter 5: Sequence Alignment" },
+        { href: "bioinformatics/genome-rearrangements.html", en: "Chapter 6: Genome Rearrangements" },
       ]
     ]},
     { en: "Thailand", columns: [
