@@ -48,6 +48,16 @@
         { href: "cs/graph-theory.html", en: "Graph Theory" },
       ]
     ]},
+    { en: "Bioinformatics", columns: [
+      [
+        { href: "bioinformatics/index.html", en: "Overview" },
+        { href: "bioinformatics/replication-origins.html", en: "Chapter 1: Replication Origins" },
+        { href: "bioinformatics/motif-finding.html", en: "Chapter 2: Motif Finding" },
+        { href: "bioinformatics/genome-assembly.html", en: "Chapter 3: Genome Assembly" },
+        { href: "bioinformatics/antibiotic-sequencing.html", en: "Chapter 4: Antibiotic Sequencing" },
+        { href: "bioinformatics/sequence-alignment.html", en: "Chapter 5: Sequence Alignment" },
+      ]
+    ]},
     { en: "Thailand", columns: [
       [
         // The Thai app lives in its own repo/site (afourmy.github.io/thailand).
@@ -70,7 +80,6 @@
     { en: "Books", columns: [
       [
         { href: "books/aops.html", en: "The Art of Problem Solving" },
-        { href: "books/bioinformatics-algorithms.html", en: "Bioinformatics Algorithms" },
         { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook" },
       ]
     ]},

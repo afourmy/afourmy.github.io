@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bioinformatics</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="A course on bioinformatics algorithms for computer scientists: replication origins, motif finding, genome assembly, peptide sequencing and sequence alignment.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Bioinformatics">
+  <meta property="og:description" content="A course on bioinformatics algorithms for computer scientists: replication origins, motif finding, genome assembly, peptide sequencing and sequence alignment.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/index.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Bioinformatics</h1>
+    </header>
+
+    <p>
+      Notes taken while reading <em>Bioinformatics Algorithms</em> by Phillip Compeau and Pavel
+      Pevzner, the book behind the Rosalind problem set. They are written for a reader who is
+      comfortable with algorithms and Python and knows no biology: every biological term is
+      introduced where it is first needed, and only to the depth the algorithm requires.
+    </p>
+
+    <p>
+      Each chapter opens on a biological question, states it formally, solves it, and analyses where
+      the solution breaks down. The limitation of one algorithm is what motivates the next, and that
+      chain is the spine of the course. Every algorithm here has been run against the sample data
+      published on its Rosalind problem page.
+    </p>
+
+    <h2>Chapters</h2>
+
+    <p>
+      <strong><a href="replication-origins.html">Chapter 1: Replication Origins</a></strong><br>
+      Where on a bacterial chromosome does copying begin? Frequent k-mers, clumps, approximate
+      matching, and the running count of G minus C that locates the origin of
+      <em>Escherichia coli</em> to within 150 nucleotides out of four and a half million.
+    </p>
+
+    <p>
+      <strong><a href="motif-finding.html">Chapter 2: Motif Finding</a></strong><br>
+      A regulatory pattern is shared by a collection of DNA regions but occurs nowhere exactly.
+      Scoring a set of motifs, the median string, greedy search, and the randomized algorithms that
+      beat it.
+    </p>
+
+    <p>
+      <strong><a href="genome-assembly.html">Chapter 3: Genome Assembly</a></strong><br>
+      No machine reads a chromosome end to end. Rebuilding one from short reads is a Hamiltonian
+      path problem until the reads are moved from the nodes of the graph onto its edges, at which
+      point it becomes an Eulerian path problem and is solved in linear time.
+    </p>
+
+    <p>
+      <strong><a href="antibiotic-sequencing.html">Chapter 4: Antibiotic Sequencing</a></strong><br>
+      Some antibiotics are assembled by an enzyme rather than transcribed from a gene, so no gene
+      spells them out. Their sequence has to be recovered from a list of fragment masses, by branch
+      and bound, a leaderboard, and the spectral convolution.
+    </p>
+
+    <p>
+      <strong><a href="sequence-alignment.html">Chapter 5: Sequence Alignment</a></strong><br>
+      Comparing two sequences is finding a longest path in a directed acyclic graph. Global, local,
+      fitting and overlap alignment are one algorithm with different ends freed, and the chapter
+      ends by finding the homeobox shared by a fly gene and a human one.
+    </p>
+  </main>
+</body>
+</html>

@@ -1,7 +1,6 @@
 # Prompt: lecture notes for *Bioinformatics Algorithms*
 
-Reusable prompt for generating each chapter of
-[bioinformatics-algorithms.html](bioinformatics-algorithms.html).
+Reusable prompt for generating each chapter of the course in this directory.
 Paste the whole thing, then append the raw notes for the chapter being written.
 
 ---
@@ -66,7 +65,7 @@ dropped: what to add, how to order the sections, what to rename, what to cut fro
 exists. Put the options to me and wait. Do not settle a decision yourself and report it afterwards.
 
 **Calibration.** Read the chapters already written in
-[bioinformatics-algorithms.html](bioinformatics-algorithms.html) and match them: same voice, same
+the chapter pages in this directory and match them: same voice, same
 depth, same rhythm of prose, formalisation, code, and analysis. They define the target quality.
 
 **Checking the code.** Every algorithm in this course matches a problem in the Rosalind textbook

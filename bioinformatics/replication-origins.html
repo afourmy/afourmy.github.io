@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: Replication Origins</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Where a bacterial chromosome starts copying itself, found by counting k-mers and by counting G against C.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/replication-origins.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 1: Replication Origins">
+  <meta property="og:description" content="Where a bacterial chromosome starts copying itself, found by counting k-mers and by counting G against C.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/replication-origins.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 1: Where in the Genome Does Replication Begin?</h1>
+    </header>
+
+    <p>
+      This chapter states a biological problem, locating the position in a genome where DNA
+      replication starts, as a string search problem. The algorithms developed here (k-mer counting,
+      pattern matching, approximate search) are used throughout the rest of the course.
+    </p>
+
+    <h2>DNA: The Basics</h2>
+
+    <p>
+      DNA is the molecule that encodes the instructions for building and running a cell. It is
+      made of four <strong>nucleotides</strong>: Adenine (A), Thymine (T), Cytosine (C), and
+      Guanine (G). From a CS perspective, a DNA strand is a string over the alphabet {A, T, C, G}.
+    </p>
+
+    <p>
+      DNA is <strong>double-stranded</strong>: two strands are bonded together. The pairing
+      is fixed by chemistry: A always pairs with T, and C always pairs with G.
+    </p>
+
+    <p>
+      The two strands are <strong>antiparallel</strong>: they run in opposite directions.
+      Each strand has a chemical directionality defined by its ends, called 5' and 3'. By convention,
+      DNA sequences are always written 5' to 3'. So if one strand reads 5'-ATCG-3', the paired
+      strand reads 3'-TAGC-5', which in standard 5'-to-3' notation is CGAT.
+    </p>
+
+    <p>
+      To get the complementary strand in 5'-to-3' notation: reverse the original strand, then swap
+      each base with its complement (A↔T, C↔G). This is called the <strong>reverse complement</strong>.
+    </p>
+
+    <pre><code class="language-python">COMPLEMENT = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
+
+def reverse_complement(pattern):
+    return ''.join(COMPLEMENT[b] for b in reversed(pattern))</code></pre>
+
+    <p>For example: <code>reverse_complement("ATCGTA")</code> → <code>"TACGAT"</code>.</p>
+
+    <h2>The Origin of Replication</h2>
+
+    <p>
+      Before a cell divides, it must copy its entire genome. This process is called
+      <strong>DNA replication</strong>. Each strand of the double helix serves as a template for
+      synthesizing a new complementary strand, producing two identical copies of the original.
+      Watson and Crick noted this in their 1953 landmark paper on DNA structure: "it has not
+      escaped our notice that the specific pairing we have postulated immediately suggests a
+      possible copying mechanism for the genetic material."
+    </p>
+
+    <p>
+      Replication does not start at a random position. It begins at a specific region called the
+      <strong>origin of replication</strong> (ori). A protein called <strong>DnaA</strong>
+      initiates replication by binding to short sequences near ori called <strong>DnaA boxes</strong>.
+      In bacteria, DnaA boxes are roughly 9-mers that appear multiple times clustered within a short
+      stretch of DNA near ori.
+    </p>
+
+    <p>
+      Understanding ori has practical applications. In <strong>gene therapy</strong>, a patient is
+      deliberately infected with a viral vector carrying an engineered gene that encodes a therapeutic
+      protein. Such vectors carry their own ori to hijack the host cell's replication machinery, so
+      knowing where and how replication begins is essential for engineering them.
+    </p>
+
+    <h2>Finding the Origin: Frequent k-mers</h2>
+
+    <p>
+      The computational question is: given a genome string, find short substrings (k-mers) that
+      appear unusually often in a region. Those are candidate DnaA boxes.
+    </p>
+
+    <p>
+      A first primitive: find all positions where a pattern occurs exactly in a text.
+    </p>
+
+    <pre><code class="language-python">def pattern_match(text, pattern):
+    k = len(pattern)
+    return [i for i in range(len(text) - k + 1) if text[i:i+k] == pattern]</code></pre>
+
+    <p>
+      This is $O(n \cdot k)$ where $n = |text|$. To find the most frequent k-mers, slide a window
+      across the text and count each k-mer in a dictionary:
+    </p>
+
+    <pre><code class="language-python">def frequent_words_naive(text, k):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        kmer = text[i:i+k]
+        counts[kmer] = counts.get(kmer, 0) + 1
+    max_count = max(counts.values())
+    return [kmer for kmer, c in counts.items() if c == max_count]</code></pre>
+
+    <p>
+      This is also $O(n \cdot k)$: there are $n - k + 1$ windows, and slicing each k-mer costs $O(k)$.
+    </p>
+
+    <p>
+      An alternative is a <strong>frequency array</strong> of size $4^k$ instead of a dictionary.
+      Each k-mer is mapped to a unique integer index in $[0,\, 4^k - 1]$ by treating the string as
+      a base-4 number (A=0, C=1, G=2, T=3). This replaces a hash lookup with direct indexing, and
+      makes the encoding of a k-mer as an integer explicit, a representation reused throughout
+      bioinformatics.
+    </p>
+
+    <pre><code class="language-python">BASE  = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+BASES = 'ACGT'
+
+def kmer_to_index(kmer):
+    index = 0
+    for base in kmer:
+        index = 4 * index + BASE[base]
+    return index
+
+def index_to_kmer(index, k):
+    kmer = []
+    for _ in range(k):
+        kmer.append(BASES[index % 4])
+        index //= 4
+    return ''.join(reversed(kmer))
+
+def frequent_words(text, k):
+    freq = [0] * (4 ** k)
+    for i in range(len(text) - k + 1):
+        freq[kmer_to_index(text[i:i+k])] += 1
+    max_count = max(freq)
+    return [index_to_kmer(i, k) for i, c in enumerate(freq) if c == max_count]</code></pre>
+
+    <p>
+      The cost is memory. The array occupies $O(4^k)$ space, and the final scan over it costs
+      $O(4^k)$ regardless of how short the genome is. Asymptotically this is
+      $O(n \cdot k + 4^k)$, so it is only worthwhile while $4^k$ stays comparable to $n$: at $k = 9$
+      the array holds 262,144 entries, at $k = 12$ it holds 16 million, and beyond that the
+      dictionary version is faster, since it only stores the k-mers that actually occur.
+    </p>
+
+    <p>
+      Important: we must search <strong>both</strong> strands. A DnaA box on one strand has its
+      reverse complement on the other, and DnaA can bind either. In practice, we count both a k-mer
+      and its reverse complement together.
+    </p>
+
+    <h2>The Clump Finding Problem</h2>
+
+    <p>
+      Counting k-mers only helps once we know which stretch of DNA to count them in. Applied to a
+      whole bacterial genome the result is noise: the <em>E. coli</em> genome is 4.6 million
+      nucleotides long and only $4^9 = 262{,}144$ distinct 9-mers exist, so every 9-mer occurs
+      roughly 17 times by chance alone and the most frequent one carries no information about ori.
+      The search has to be restricted to a window short enough that a repeated 9-mer is not
+      explained by chance.
+    </p>
+
+    <p>
+      In a real bacterial genome, ori is a region of roughly 500 base pairs in which DnaA boxes
+      cluster tightly. The <strong>clump finding problem</strong> formalizes this: find all k-mers
+      that appear at least $t$ times within some window of length $L$.
+    </p>
+
+    <p>
+      A k-mer forms an <strong>$(L, t)$-clump</strong> in genome if there exists a window of length
+      $L$ containing at least $t$ occurrences of that k-mer.
+    </p>
+
+    <pre><code class="language-python">def find_clumps_naive(genome, kmer_length, window_length, min_occurrences):
+    clumps = set()
+    for window_start in range(len(genome) - window_length + 1):
+        window = genome[window_start:window_start + window_length]
+        counts = {}
+        for offset in range(window_length - kmer_length + 1):
+            kmer = window[offset:offset + kmer_length]
+            counts[kmer] = counts.get(kmer, 0) + 1
+            if counts[kmer] >= min_occurrences:
+                clumps.add(kmer)
+    return clumps</code></pre>
+
+    <p>
+      This naive implementation is $O(n \cdot L \cdot k)$: it rebuilds the count table from scratch for
+      every window. The fix is to keep a single count table and slide the window one position at a
+      time, updating only at the edges: drop the k-mer leaving on the left, add the k-mer entering on
+      the right. Each slide does $O(k)$ work, giving $O(n \cdot k)$ overall.
+    </p>
+
+    <pre><code class="language-python">def find_clumps(genome, kmer_length, window_length, min_occurrences):
+    clumps = set()
+    counts = {}
+    for kmer_start in range(len(genome) - kmer_length + 1):
+        # The k-mer entering on the right of the current window.
+        entering = genome[kmer_start:kmer_start + kmer_length]
+        counts[entering] = counts.get(entering, 0) + 1
+
+        # Once the window is full, drop the k-mer that fell off the left.
+        leaving_start = kmer_start - (window_length - kmer_length)
+        if leaving_start > 0:
+            leaving = genome[leaving_start - 1:leaving_start - 1 + kmer_length]
+            counts[leaving] -= 1
+
+        if counts[entering] >= min_occurrences:
+            clumps.add(entering)
+    return clumps</code></pre>
+
+    <p>
+      On real genomes, clump finding returns thousands of candidates and is not specific enough on its
+      own. The next section provides a complementary approach that narrows down ori directly.
+    </p>
+
+    <h2>Replication Asymmetry and the Skew</h2>
+
+    <h3>How Replication Works</h3>
+
+    <p>
+      In bacteria, the chromosome is circular. Replication starts at ori and proceeds in both
+      directions simultaneously, creating two <strong>replication forks</strong> that travel around
+      the chromosome until they meet at the <strong>terminus</strong> (ter), roughly opposite ori.
+    </p>
+
+    <p>
+      DNA is copied by an enzyme called <strong>DNA polymerase</strong>, which does not wait for the
+      double helix to fully unwind: it starts synthesizing new DNA at the fork while the strands are
+      still separating. DNA polymerase can only extend a strand in the 5'-to-3' direction. At each
+      fork, one strand (the <strong>leading strand</strong>) is synthesized continuously in the
+      direction the fork is moving. The other (the <strong>lagging strand</strong>) must be
+      synthesized in short fragments called <strong>Okazaki fragments</strong>, going in the direction
+      opposite to fork movement; these fragments are later stitched together by an enzyme called
+      <strong>DNA ligase</strong>.
+    </p>
+
+    <p>
+      The lagging strand template spends much more time single-stranded than the leading strand
+      template, since it waits for the fork to advance before each fragment is copied. When DNA is
+      single-stranded, <strong>cytosine (C) spontaneously
+      decays into thymine (T)</strong> at a much higher rate (a reaction called deamination, roughly
+      100 times faster than in double-stranded DNA). So a strand that sits single-stranded for a long
+      time slowly loses its C's.
+    </p>
+
+    <p>
+      The mutation only goes one way: C becomes T, and no G is ever created. A strand that spent time single-stranded therefore
+      ends up with a <strong>deficit of C</strong>, and reading along it, the number of G's exceeds
+      the number of C's.
+    </p>
+
+    <p>
+      The available genome sequence is that of <em>one</em> of the two strands, and that single
+      strand plays both roles: because the two forks travel in opposite directions away from ori,
+      the stretch of it between ori and ter is copied as a leading strand, while the stretch
+      between ter and ori serves as the template for a lagging strand and is the one left
+      single-stranded. So the C-deficit falls on one half of the string we are reading and not the
+      other: <strong>G leads C in the direction the fork traveled</strong> (ori &rarr; ter), and
+      the reverse holds on the other half. The G/C imbalance therefore records the direction in
+      which replication ran, and tracking it along the genome locates ori.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="500" height="358" viewBox="0 0 500 358">
+      <circle class="fig-accent" cx="250" cy="178" r="112"/>
+      <circle class="fig-hole" cx="250" cy="66" r="5"/>
+      <text class="fig-text fig-tick" x="250" y="50" text-anchor="middle">ori</text>
+      <circle class="fig-hole" cx="250" cy="290" r="5"/>
+      <text class="fig-text fig-tick" x="250" y="316" text-anchor="middle">ter</text>
+      <line class="fig-accent" x1="268.8" y1="66.6" x2="291.7" y2="73.7"/>
+      <path class="fig-dot" d="M 297.4 75.4 L 290.9 76.2 L 292.5 71.1 Z"/>
+      <line class="fig-accent" x1="231.2" y1="66.6" x2="208.3" y2="73.7"/>
+      <path class="fig-dot" d="M 202.6 75.4 L 207.5 71.1 L 209.1 76.2 Z"/>
+      <text class="fig-text fig-note" x="250" y="106" text-anchor="middle">two forks leave ori</text>
+      <text class="fig-text fig-tick" x="384" y="166" text-anchor="start">ori &#8594; ter</text>
+      <text class="fig-text fig-note" x="384" y="188" text-anchor="start">G in surplus</text>
+      <text class="fig-text fig-note" x="384" y="206" text-anchor="start">skew rises</text>
+      <text class="fig-text fig-tick" x="116" y="166" text-anchor="end">ter &#8594; ori</text>
+      <text class="fig-text fig-note" x="116" y="188" text-anchor="end">C in surplus</text>
+      <text class="fig-text fig-note" x="116" y="206" text-anchor="end">skew falls</text>
+      </svg>
+      <figcaption>Replication of a circular bacterial chromosome, with the sequence read clockwise. Copying starts at ori, two forks travel in opposite directions, and they meet at ter. The published sequence is one of the two strands, and that one strand plays both roles: along the ori to ter half it is copied as a leading strand, and along the ter to ori half it is the template of a lagging strand, left single-stranded long enough for its C's to decay into T's. The surplus of G over C therefore reverses at ori and again at ter, which is what the skew of the previous figure is tracking.</figcaption>
+    </figure>
+
+    <p>
+      These mutations do not damage the genome. Each deamination is rare per replication, most are
+      caught by DNA repair, and natural selection removes the harmful ones that remain. What
+      accumulates over evolutionary time is a small C-deficit at positions where mutations are
+      tolerated: large enough to be measurable by counting bases, too small to affect the cell.
+    </p>
+
+    <h3>The Skew Diagram</h3>
+
+    <p>
+      Define the <strong>skew</strong> at position $i$ as the running value of $\#G - \#C$ up to
+      position $i$: walk along the genome adding $+1$ for each G and $-1$ for each C. On the
+      ori&nbsp;&rarr;&nbsp;ter half G dominates, so the running total <em>rises</em>; on the
+      ter&nbsp;&rarr;&nbsp;ori half C dominates, so it <em>falls</em>. The running total therefore
+      decreases and then increases: the <strong>minimum of the skew</strong> marks ori, and the
+      maximum marks ter.
+    </p>
+
+    <pre><code class="language-python">def skew(genome):
+    skew_values, running_skew = [0], 0
+    for base in genome:
+        if base == 'G':
+            running_skew += 1
+        elif base == 'C':
+            running_skew -= 1
+        skew_values.append(running_skew)
+    return skew_values
+
+def min_skew(genome):
+    skew_values = skew(genome)
+    minimum = min(skew_values)
+    return [
+        position
+        for position, value in enumerate(skew_values)
+        if value == minimum
+    ]</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="520" height="312" viewBox="0 0 520 312">
+      <line class="fig-axis" x1="78" y1="252" x2="496" y2="252"/>
+      <line class="fig-axis" x1="78" y1="36" x2="78" y2="252"/>
+      <line class="fig-guide" x1="78" y1="210.1" x2="496" y2="210.1"/>
+      <text class="fig-text fig-tick" x="68" y="214.1" text-anchor="end">-10k</text>
+      <line class="fig-guide" x1="78" y1="170.6" x2="496" y2="170.6"/>
+      <text class="fig-text fig-tick" x="68" y="174.6" text-anchor="end">0</text>
+      <line class="fig-guide" x1="78" y1="131.2" x2="496" y2="131.2"/>
+      <text class="fig-text fig-tick" x="68" y="135.2" text-anchor="end">10k</text>
+      <line class="fig-guide" x1="78" y1="91.8" x2="496" y2="91.8"/>
+      <text class="fig-text fig-tick" x="68" y="95.8" text-anchor="end">20k</text>
+      <line class="fig-axis" x1="78" y1="252" x2="78" y2="257"/>
+      <text class="fig-text fig-tick" x="78" y="272" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="168.1" y1="252" x2="168.1" y2="257"/>
+      <text class="fig-text fig-tick" x="168.1" y="272" text-anchor="middle">1</text>
+      <line class="fig-axis" x1="258.1" y1="252" x2="258.1" y2="257"/>
+      <text class="fig-text fig-tick" x="258.1" y="272" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="348.2" y1="252" x2="348.2" y2="257"/>
+      <text class="fig-text fig-tick" x="348.2" y="272" text-anchor="middle">3</text>
+      <line class="fig-axis" x1="438.2" y1="252" x2="438.2" y2="257"/>
+      <text class="fig-text fig-tick" x="438.2" y="272" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="287" y="296" text-anchor="middle">position in the genome (millions of nucleotides)</text>
+      <text class="fig-text fig-tick" x="68" y="30" text-anchor="end">skew</text>
+      <path class="fig-curve" d="M 78 170.6 L 78.3 170.1 L 78.7 170 L 79 170 L 79.4 169.5 L 79.7 169.2 L 80.1 168.9 L 80.4 168.4 L 80.8 168 L 81.1 167.6 L 81.5 168.1 L 81.8 168.2 L 82.2 167.7 L 82.5 166.8 L 82.9 166.9 L 83.2 166.6 L 83.6 166.5 L 83.9 166.5 L 84.3 166.4 L 84.6 166.2 L 85 166.3 L 85.3 165.9 L 85.7 165.8 L 86 165.1 L 86.4 164.7 L 86.7 164 L 87.1 163 L 87.4 161.9 L 87.8 161.4 L 88.1 160.9 L 88.4 160.9 L 88.8 160.6 L 89.1 160.7 L 89.5 160.1 L 89.8 159.6 L 90.2 159.1 L 90.5 158.7 L 90.9 158.3 L 91.2 157.9 L 91.6 157.6 L 91.9 157.8 L 92.3 157.8 L 92.6 157.7 L 93 156.9 L 93.3 156.7 L 93.7 155.9 L 94 155.7 L 94.4 155.4 L 94.7 155.1 L 95.1 155 L 95.4 154.4 L 95.8 153.6 L 96.1 153 L 96.5 152.4 L 96.8 151.8 L 97.2 151.4 L 97.5 151 L 97.9 151 L 98.2 150.8 L 98.6 149.5 L 98.9 149.4 L 99.2 149.6 L 99.6 149.5 L 99.9 149.8 L 100.3 149.7 L 100.6 149.8 L 101 149.6 L 101.3 149.4 L 101.7 149.3 L 102 148.9 L 102.4 149 L 102.7 148.6 L 103.1 148 L 103.4 148.3 L 103.8 148.2 L 104.1 148.8 L 104.5 148.6 L 104.8 148.4 L 105.2 148.5 L 105.5 148.4 L 105.9 148.4 L 106.2 148.2 L 106.6 147.8 L 106.9 147.9 L 107.3 147 L 107.6 147.2 L 108 146.8 L 108.3 146.7 L 108.7 146.1 L 109 145.7 L 109.3 145.7 L 109.7 145.8 L 110 145.2 L 110.4 145.3 L 110.7 145 L 111.1 145.2 L 111.4 145 L 111.8 144.2 L 112.1 143.8 L 112.5 143.5 L 112.8 143.2 L 113.2 142.8 L 113.5 142.8 L 113.9 142.5 L 114.2 142.4 L 114.6 142 L 114.9 141.9 L 115.3 141.9 L 115.6 141.6 L 116 141.1 L 116.3 140.7 L 116.7 140.2 L 117 139.8 L 117.4 139.3 L 117.7 139.6 L 118.1 139.6 L 118.4 139.9 L 118.8 139.9 L 119.1 139.4 L 119.5 138.8 L 119.8 138.2 L 120.1 138 L 120.5 137.3 L 120.8 136.6 L 121.2 136.5 L 121.5 136.8 L 121.9 136.9 L 122.2 136.8 L 122.6 136.6 L 122.9 136.4 L 123.3 136.9 L 123.6 136.4 L 124 136.9 L 124.3 136.6 L 124.7 136.8 L 125 136.4 L 125.4 135.4 L 125.7 134.3 L 126.1 134.3 L 126.4 133.5 L 126.8 133 L 127.1 132.8 L 127.5 132.5 L 127.8 132 L 128.2 131.9 L 128.5 131.7 L 128.9 131.3 L 129.2 131.2 L 129.6 130.5 L 129.9 130.1 L 130.2 129.8 L 130.6 129 L 130.9 128.8 L 131.3 128.8 L 131.6 129 L 132 128.6 L 132.3 127.6 L 132.7 127.8 L 133 127.5 L 133.4 127.5 L 133.7 127 L 134.1 127.2 L 134.4 126.8 L 134.8 125.9 L 135.1 125.5 L 135.5 125.2 L 135.8 125.1 L 136.2 124.8 L 136.5 124.7 L 136.9 124.1 L 137.2 123.9 L 137.6 123.5 L 137.9 123.4 L 138.3 123.6 L 138.6 123.9 L 139 124 L 139.3 123.6 L 139.7 123.6 L 140 123.8 L 140.4 123.9 L 140.7 123.6 L 141 123.6 L 141.4 123.6 L 141.7 123.3 L 142.1 123.3 L 142.4 123.2 L 142.8 123.6 L 143.1 123.7 L 143.5 124.2 L 143.8 124.3 L 144.2 124.1 L 144.5 123.5 L 144.9 123.5 L 145.2 122.6 L 145.6 122.5 L 145.9 122.2 L 146.3 121.9 L 146.6 121.9 L 147 121.5 L 147.3 121 L 147.7 120.6 L 148 119.8 L 148.4 119.5 L 148.7 119.2 L 149.1 119.2 L 149.4 119.1 L 149.8 118.8 L 150.1 118.6 L 150.5 118.2 L 150.8 118 L 151.1 117.8 L 151.5 117.5 L 151.8 117.3 L 152.2 117.3 L 152.5 117.1 L 152.9 117.5 L 153.2 117.2 L 153.6 116.8 L 153.9 116.4 L 154.3 116.5 L 154.6 116.5 L 155 115.9 L 155.3 115.6 L 155.7 115.7 L 156 115.6 L 156.4 114.9 L 156.7 114.2 L 157.1 113.8 L 157.4 113.3 L 157.8 113.1 L 158.1 113.5 L 158.5 113.1 L 158.8 112.5 L 159.2 112.3 L 159.5 112.1 L 159.9 112.2 L 160.2 112.5 L 160.6 112.4 L 160.9 111.9 L 161.3 111.1 L 161.6 110.8 L 161.9 110.9 L 162.3 111 L 162.6 110.3 L 163 110.1 L 163.3 109.4 L 163.7 109.1 L 164 109.2 L 164.4 108.7 L 164.7 108.2 L 165.1 107.8 L 165.4 107.2 L 165.8 106.8 L 166.1 106.3 L 166.5 105.8 L 166.8 105.6 L 167.2 105.8 L 167.5 106.1 L 167.9 106.2 L 168.2 105.7 L 168.6 105.2 L 168.9 104.9 L 169.3 104.2 L 169.6 103.8 L 170 103.8 L 170.3 103.5 L 170.7 103 L 171 103.2 L 171.4 102.9 L 171.7 102.3 L 172 102.5 L 172.4 102.7 L 172.7 102.6 L 173.1 102.9 L 173.4 102.6 L 173.8 102.3 L 174.1 101.8 L 174.5 102.2 L 174.8 102.1 L 175.2 102.4 L 175.5 101.5 L 175.9 101 L 176.2 101.4 L 176.6 101 L 176.9 100.7 L 177.3 100.4 L 177.6 100.1 L 178 99.8 L 178.3 99.5 L 178.7 99.3 L 179 99.3 L 179.4 99.2 L 179.7 98.6 L 180.1 98.7 L 180.4 98.4 L 180.8 98 L 181.1 98 L 181.5 97.5 L 181.8 96.7 L 182.2 96.1 L 182.5 95.9 L 182.8 95.6 L 183.2 95.2 L 183.5 95.3 L 183.9 95.4 L 184.2 94.5 L 184.6 94.6 L 184.9 94.4 L 185.3 94.6 L 185.6 94.6 L 186 94.3 L 186.3 94.7 L 186.7 93.8 L 187 93.4 L 187.4 93.2 L 187.7 93 L 188.1 92.3 L 188.4 92.4 L 188.8 92 L 189.1 91.8 L 189.5 91.7 L 189.8 91.5 L 190.2 91.2 L 190.5 91.2 L 190.9 91 L 191.2 91.1 L 191.6 91.3 L 191.9 91.3 L 192.3 90.9 L 192.6 90.8 L 192.9 90.6 L 193.3 90.6 L 193.6 90.3 L 194 89.7 L 194.3 89.4 L 194.7 89 L 195 88.7 L 195.4 88.6 L 195.7 88.2 L 196.1 88.2 L 196.4 88.2 L 196.8 88.4 L 197.1 88.4 L 197.5 87.9 L 197.8 87.5 L 198.2 87.1 L 198.5 86.7 L 198.9 86.3 L 199.2 86.1 L 199.6 86 L 199.9 86.2 L 200.3 86.2 L 200.6 86.5 L 201 86.2 L 201.3 86 L 201.7 85.6 L 202 85.3 L 202.4 84.8 L 202.7 84.3 L 203.1 83.6 L 203.4 83.2 L 203.7 83 L 204.1 83 L 204.4 83 L 204.8 82.9 L 205.1 82.6 L 205.5 83.1 L 205.8 83.3 L 206.2 82.6 L 206.5 81.7 L 206.9 81.2 L 207.2 80.7 L 207.6 80.8 L 207.9 80.7 L 208.3 80.2 L 208.6 79.7 L 209 80.1 L 209.3 79.7 L 209.7 78.8 L 210 78.2 L 210.4 77.8 L 210.7 77.1 L 211.1 76.4 L 211.4 75.8 L 211.8 75.4 L 212.1 74.8 L 212.5 74.5 L 212.8 74.1 L 213.2 74 L 213.5 73.7 L 213.8 73.7 L 214.2 73.6 L 214.5 72.8 L 214.9 72.4 L 215.2 72.4 L 215.6 72.6 L 215.9 71.5 L 216.3 71.2 L 216.6 71.5 L 217 71.4 L 217.3 71.2 L 217.7 70.7 L 218 70.8 L 218.4 70.7 L 218.7 71 L 219.1 71 L 219.4 71 L 219.8 71.1 L 220.1 71.1 L 220.5 71 L 220.8 71 L 221.2 71.3 L 221.5 71.8 L 221.9 73 L 222.2 73.6 L 222.6 73.2 L 222.9 72.6 L 223.3 73.1 L 223.6 73.6 L 224 73.9 L 224.3 74.3 L 224.6 74.4 L 225 75 L 225.3 75.5 L 225.7 76.2 L 226 76.9 L 226.4 77.5 L 226.7 77.1 L 227.1 77.5 L 227.4 77.8 L 227.8 77.8 L 228.1 77.6 L 228.5 77.9 L 228.8 78 L 229.2 78.6 L 229.5 78.7 L 229.9 78.9 L 230.2 79.2 L 230.6 79.7 L 230.9 80.1 L 231.3 80.2 L 231.6 80.5 L 232 80.2 L 232.3 80.2 L 232.7 80.4 L 233 80.4 L 233.4 80.5 L 233.7 80.7 L 234.1 80.4 L 234.4 80.8 L 234.7 81.2 L 235.1 81 L 235.4 81.6 L 235.8 82.2 L 236.1 82.9 L 236.5 83.2 L 236.8 83.7 L 237.2 84.3 L 237.5 84.2 L 237.9 84 L 238.2 83.8 L 238.6 83.6 L 238.9 83.7 L 239.3 84.2 L 239.6 84.8 L 240 85.2 L 240.3 85.7 L 240.7 86.1 L 241 86 L 241.4 86.1 L 241.7 86.6 L 242.1 87.3 L 242.4 87.3 L 242.8 87.9 L 243.1 88.3 L 243.5 88.3 L 243.8 88.1 L 244.2 88.2 L 244.5 88.8 L 244.8 88.7 L 245.2 89.5 L 245.5 90.2 L 245.9 90.5 L 246.2 90.7 L 246.6 90.8 L 246.9 90.9 L 247.3 90.9 L 247.6 91.1 L 248 91.1 L 248.3 91.8 L 248.7 91.8 L 249 91.7 L 249.4 91.8 L 249.7 91.8 L 250.1 92.3 L 250.4 92.8 L 250.8 92.7 L 251.1 92.4 L 251.5 92.7 L 251.8 92.8 L 252.2 93.2 L 252.5 93.4 L 252.9 93.6 L 253.2 93.5 L 253.6 94 L 253.9 94.1 L 254.3 94.4 L 254.6 94.7 L 255 95.2 L 255.3 96 L 255.6 96.5 L 256 96.9 L 256.3 97.1 L 256.7 97.7 L 257 98 L 257.4 98.2 L 257.7 98.7 L 258.1 99.1 L 258.4 99.3 L 258.8 99.3 L 259.1 99.3 L 259.5 99.4 L 259.8 99.2 L 260.2 99.1 L 260.5 99.1 L 260.9 99.7 L 261.2 100 L 261.6 100.5 L 261.9 100.7 L 262.3 100.8 L 262.6 100.7 L 263 100.9 L 263.3 100.8 L 263.7 101.5 L 264 102.4 L 264.4 102.9 L 264.7 102.7 L 265.1 102.6 L 265.4 102.8 L 265.7 103.3 L 266.1 103.7 L 266.4 103.9 L 266.8 103.5 L 267.1 103.6 L 267.5 103.9 L 267.8 104.6 L 268.2 105.2 L 268.5 105.8 L 268.9 105.9 L 269.2 106.5 L 269.6 107.1 L 269.9 107.4 L 270.3 107.6 L 270.6 107.6 L 271 107.9 L 271.3 107.6 L 271.7 107.8 L 272 108.1 L 272.4 108.1 L 272.7 107.7 L 273.1 107.6 L 273.4 108 L 273.8 108.4 L 274.1 108.9 L 274.5 108.7 L 274.8 109 L 275.2 109.3 L 275.5 109.9 L 275.9 110.1 L 276.2 110.3 L 276.5 110.4 L 276.9 110.4 L 277.2 110.2 L 277.6 110.7 L 277.9 111.4 L 278.3 111.7 L 278.6 112 L 279 112.2 L 279.3 112 L 279.7 112.2 L 280 112.7 L 280.4 112.8 L 280.7 113.2 L 281.1 113.4 L 281.4 114 L 281.8 114.8 L 282.1 114.9 L 282.5 114.7 L 282.8 114.9 L 283.2 114.8 L 283.5 114.9 L 283.9 115.3 L 284.2 116.1 L 284.6 116.7 L 284.9 117.5 L 285.3 118.3 L 285.6 118.4 L 286 119 L 286.3 119.1 L 286.6 119.1 L 287 119.7 L 287.3 119.9 L 287.7 119.8 L 288 120.4 L 288.4 120.7 L 288.7 121 L 289.1 121.9 L 289.4 122.2 L 289.8 122.8 L 290.1 123 L 290.5 123.4 L 290.8 123.8 L 291.2 124 L 291.5 123.9 L 291.9 124 L 292.2 124.7 L 292.6 125.1 L 292.9 125.5 L 293.3 125.6 L 293.6 125.8 L 294 126.3 L 294.3 126.8 L 294.7 126.9 L 295 127.2 L 295.4 128 L 295.7 128.2 L 296.1 128.4 L 296.4 128.5 L 296.8 128.9 L 297.1 129.5 L 297.4 130.1 L 297.8 130.6 L 298.1 130.5 L 298.5 130.6 L 298.8 130.8 L 299.2 131.1 L 299.5 131.7 L 299.9 131.9 L 300.2 131.8 L 300.6 131.7 L 300.9 132 L 301.3 131.9 L 301.6 131.9 L 302 132 L 302.3 132.5 L 302.7 132.8 L 303 133.1 L 303.4 133.1 L 303.7 133.6 L 304.1 133.9 L 304.4 134.2 L 304.8 134.3 L 305.1 134.4 L 305.5 135 L 305.8 135.7 L 306.2 135.7 L 306.5 135.6 L 306.9 136 L 307.2 136.5 L 307.5 136.3 L 307.9 136.9 L 308.2 137.1 L 308.6 137.3 L 308.9 136.6 L 309.3 136.6 L 309.6 137.4 L 310 137.8 L 310.3 138.3 L 310.7 138.3 L 311 138.4 L 311.4 138.1 L 311.7 138.4 L 312.1 139 L 312.4 138.9 L 312.8 138.8 L 313.1 138.6 L 313.5 138.4 L 313.8 138.7 L 314.2 138.6 L 314.5 138.6 L 314.9 138.8 L 315.2 139.1 L 315.6 139.6 L 315.9 140.4 L 316.3 140.6 L 316.6 141.4 L 317 141.5 L 317.3 142 L 317.7 142.6 L 318 142.9 L 318.3 143.4 L 318.7 143.2 L 319 143.9 L 319.4 144.7 L 319.7 144.7 L 320.1 144.8 L 320.4 145 L 320.8 145.4 L 321.1 145.5 L 321.5 145.8 L 321.8 146.2 L 322.2 146.4 L 322.5 146.8 L 322.9 146.9 L 323.2 146.9 L 323.6 147.2 L 323.9 148.5 L 324.3 149.2 L 324.6 149.5 L 325 149.9 L 325.3 150.5 L 325.7 150.8 L 326 151.1 L 326.4 151.5 L 326.7 151.5 L 327.1 151.5 L 327.4 151.3 L 327.8 151.5 L 328.1 151.6 L 328.4 152.2 L 328.8 153 L 329.1 153.4 L 329.5 153.3 L 329.8 152.7 L 330.2 152.8 L 330.5 152.9 L 330.9 152.7 L 331.2 152.9 L 331.6 152.9 L 331.9 153.5 L 332.3 154.1 L 332.6 154.4 L 333 154.3 L 333.3 154.5 L 333.7 155.1 L 334 155 L 334.4 155.4 L 334.7 155.8 L 335.1 155.4 L 335.4 155.4 L 335.8 155.5 L 336.1 155.3 L 336.5 155.8 L 336.8 156.4 L 337.2 156.5 L 337.5 157.1 L 337.9 157.8 L 338.2 158.4 L 338.6 158.2 L 338.9 158.8 L 339.2 159 L 339.6 158.7 L 339.9 159.1 L 340.3 159.7 L 340.6 160 L 341 160.4 L 341.3 161.1 L 341.7 161.4 L 342 161.3 L 342.4 162 L 342.7 161.8 L 343.1 162.4 L 343.4 162.7 L 343.8 163 L 344.1 163.5 L 344.5 163.9 L 344.8 164.4 L 345.2 164.8 L 345.5 165 L 345.9 165.5 L 346.2 165.7 L 346.6 166.4 L 346.9 166.9 L 347.3 167 L 347.6 167.1 L 348 167.7 L 348.3 168 L 348.7 168.2 L 349 168.3 L 349.3 168.4 L 349.7 169.1 L 350 169.1 L 350.4 169 L 350.7 168.6 L 351.1 169.1 L 351.4 169.2 L 351.8 169.8 L 352.1 170 L 352.5 170.1 L 352.8 170.5 L 353.2 170.9 L 353.5 171.2 L 353.9 171.4 L 354.2 171.4 L 354.6 171.7 L 354.9 172 L 355.3 173 L 355.6 172.8 L 356 173.3 L 356.3 173.4 L 356.7 173.4 L 357 173.3 L 357.4 173.8 L 357.7 173.8 L 358.1 174.3 L 358.4 174.7 L 358.8 175.3 L 359.1 175.5 L 359.5 176.2 L 359.8 176.4 L 360.1 176.8 L 360.5 177 L 360.8 177.3 L 361.2 177.8 L 361.5 178.1 L 361.9 178.2 L 362.2 178.2 L 362.6 178.3 L 362.9 178.6 L 363.3 179 L 363.6 179 L 364 179.5 L 364.3 179.8 L 364.7 179.9 L 365 180 L 365.4 180.1 L 365.7 180 L 366.1 180.7 L 366.4 181.2 L 366.8 181.8 L 367.1 181.9 L 367.5 181.8 L 367.8 182.1 L 368.2 182.4 L 368.5 182.7 L 368.9 182.9 L 369.2 182.5 L 369.6 182.5 L 369.9 182.4 L 370.2 182.6 L 370.6 182.4 L 370.9 182.1 L 371.3 182.8 L 371.6 183.4 L 372 183.7 L 372.3 184.1 L 372.7 184.9 L 373 185 L 373.4 185.2 L 373.7 185.1 L 374.1 184.9 L 374.4 185.1 L 374.8 185.1 L 375.1 185.5 L 375.5 185.7 L 375.8 186.1 L 376.2 186.5 L 376.5 187.1 L 376.9 187.8 L 377.2 187.8 L 377.6 188.6 L 377.9 189 L 378.3 189.9 L 378.6 190.3 L 379 190.7 L 379.3 190.4 L 379.7 190.5 L 380 191.5 L 380.3 191.8 L 380.7 191.5 L 381 191.7 L 381.4 191.6 L 381.7 192.1 L 382.1 192 L 382.4 192.2 L 382.8 192.3 L 383.1 192.7 L 383.5 193 L 383.8 193.4 L 384.2 194.2 L 384.5 194.6 L 384.9 194.4 L 385.2 194 L 385.6 194.1 L 385.9 193.7 L 386.3 193.3 L 386.6 194.5 L 387 195.2 L 387.3 195.5 L 387.7 195.3 L 388 195.8 L 388.4 196.4 L 388.7 196.9 L 389.1 197.5 L 389.4 197.9 L 389.8 198.1 L 390.1 198.4 L 390.5 198.8 L 390.8 199.2 L 391.1 199.5 L 391.5 200.4 L 391.8 200.4 L 392.2 200.5 L 392.5 201.2 L 392.9 201.1 L 393.2 200.9 L 393.6 200.8 L 393.9 201.6 L 394.3 202.4 L 394.6 202.8 L 395 203.4 L 395.3 203.9 L 395.7 203.7 L 396 203.9 L 396.4 204.4 L 396.7 204.3 L 397.1 204.2 L 397.4 204.5 L 397.8 205.1 L 398.1 205.2 L 398.5 205.9 L 398.8 206.1 L 399.2 206.4 L 399.5 206.8 L 399.9 207.1 L 400.2 207.6 L 400.6 207.6 L 400.9 207.8 L 401.2 208.4 L 401.6 208.6 L 401.9 209.2 L 402.3 209.4 L 402.6 210.2 L 403 209.9 L 403.3 210.1 L 403.7 210.3 L 404 210.2 L 404.4 209.8 L 404.7 209.8 L 405.1 210.2 L 405.4 210.4 L 405.8 210.6 L 406.1 210.9 L 406.5 210.9 L 406.8 210.8 L 407.2 211.1 L 407.5 211.1 L 407.9 211.2 L 408.2 211.3 L 408.6 211.7 L 408.9 211.9 L 409.3 212.6 L 409.6 212.6 L 410 212.9 L 410.3 213.5 L 410.7 213.8 L 411 214 L 411.4 214.3 L 411.7 214.7 L 412 214.8 L 412.4 215 L 412.7 215.2 L 413.1 215.3 L 413.4 215.5 L 413.8 215.8 L 414.1 216 L 414.5 215.8 L 414.8 215.8 L 415.2 216 L 415.5 215.9 L 415.9 216 L 416.2 216.4 L 416.6 216.8 L 416.9 217 L 417.3 216.7 L 417.6 216.5 L 418 216.3 L 418.3 216.4 L 418.7 216.4 L 419 216.3 L 419.4 216.3 L 419.7 217 L 420.1 216.7 L 420.4 216.9 L 420.8 217.5 L 421.1 217.8 L 421.5 218.2 L 421.8 218.4 L 422.1 219 L 422.5 219 L 422.8 219.3 L 423.2 219.4 L 423.5 219.8 L 423.9 220 L 424.2 220.5 L 424.6 220.9 L 424.9 221.4 L 425.3 221.3 L 425.6 221.5 L 426 221.7 L 426.3 221.8 L 426.7 222 L 427 222.4 L 427.4 222.6 L 427.7 222.9 L 428.1 223.2 L 428.4 223 L 428.8 222.9 L 429.1 222.9 L 429.5 223.4 L 429.8 224 L 430.2 224.4 L 430.5 224.7 L 430.9 225 L 431.2 225.3 L 431.6 225.5 L 431.9 225.4 L 432.3 225.2 L 432.6 224.5 L 432.9 224.5 L 433.3 223.3 L 433.6 222.8 L 434 222.7 L 434.3 222.4 L 434.7 222.4 L 435 222.1 L 435.4 222.1 L 435.7 221.6 L 436.1 221 L 436.4 220.4 L 436.8 219.8 L 437.1 219.8 L 437.5 219.9 L 437.8 219.7 L 438.2 219.2 L 438.5 219.2 L 438.9 219.1 L 439.2 218.8 L 439.6 218.4 L 439.9 218.1 L 440.3 217.5 L 440.6 217 L 441 217.2 L 441.3 216.8 L 441.7 215.9 L 442 215.3 L 442.4 214.8 L 442.7 214.5 L 443 214.2 L 443.4 214.6 L 443.7 214.3 L 444.1 214.1 L 444.4 214.1 L 444.8 214.2 L 445.1 213.8 L 445.5 213.2 L 445.8 213.6 L 446.2 213.1 L 446.5 213.4 L 446.9 213.3 L 447.2 213.3 L 447.6 213.2 L 447.9 213.1 L 448.3 212.8 L 448.6 212.6 L 449 212.8 L 449.3 213 L 449.7 213.2 L 450 212.8 L 450.4 212.4 L 450.7 212 L 451.1 212.1 L 451.4 211.5 L 451.8 210.9 L 452.1 210.7 L 452.5 210 L 452.8 209.6 L 453.2 209.4 L 453.5 208.3 L 453.8 207.3 L 454.2 206.9 L 454.5 206.4 L 454.9 206.2 L 455.2 205.8 L 455.6 205.9 L 455.9 206.2 L 456.3 205.6 L 456.6 205.1 L 457 205.2 L 457.3 204 L 457.7 203.9 L 458 203.7 L 458.4 203.5 L 458.7 203.1 L 459.1 202.9 L 459.4 203.1 L 459.8 202.8 L 460.1 202.7 L 460.5 202.7 L 460.8 202.7 L 461.2 202.2 L 461.5 201.8 L 461.9 201.2 L 462.2 201.1 L 462.6 201 L 462.9 201.1 L 463.3 200.7 L 463.6 200.2 L 463.9 200.2 L 464.3 200.2 L 464.6 199.5 L 465 199.2 L 465.3 199.4 L 465.7 199.4 L 466 199.3 L 466.4 199.7 L 466.7 199.4 L 467.1 199.3 L 467.4 198.8 L 467.8 198.3 L 468.1 197.8 L 468.5 197.7 L 468.8 197.6 L 469.2 197.1 L 469.5 196.8 L 469.9 196.9 L 470.2 196.9 L 470.6 196.7 L 470.9 196.8 L 471.3 196.6 L 471.6 196.8 L 472 196.2 L 472.3 196.2 L 472.7 196.4 L 473 195.7 L 473.4 195.9 L 473.7 195.9 L 474.1 195.3 L 474.4 194.8 L 474.7 194.1 L 475.1 193.5 L 475.4 192.9 L 475.8 192.3 L 476.1 192.5 L 476.5 191.7 L 476.8 191.5 L 477.2 191.2 L 477.5 191.3 L 477.9 190.9 L 478.2 190.5 L 478.6 189.9 L 478.9 189.6 L 479.3 189.1 L 479.6 188.5 L 480 188.6 L 480.3 188.8 L 480.7 188.1 L 481 188.1 L 481.4 187.8 L 481.7 187.7 L 482.1 187.9 L 482.4 188.2 L 482.8 188.4 L 483.1 188.2 L 483.5 188 L 483.8 187.4 L 484.2 187.3 L 484.5 187.4 L 484.8 187.2 L 485.2 187.3 L 485.5 187.5 L 485.9 187.7 L 486.2 187.8 L 486.6 187.3 L 486.9 187.5 L 487.3 187 L 487.6 186.5 L 488 186.7 L 488.3 186.4 L 488.7 186.3 L 489 186.1 L 489.4 186.6 L 489.7 186.4 L 490.1 185.9 L 490.4 185.7 L 490.8 185.7 L 491.1 185.5 L 491.5 185.4 L 491.8 184.8 L 492.2 184.4 L 492.5 184.4 L 492.9 183.9 L 493.2 183.9 L 493.6 183.6 L 493.9 183.6 L 494.3 183.2 L 494.6 182.9 L 495 182.4 L 495.3 182.2 L 495.6 181.6 L 496 181.1"/>
+      <line class="fig-guide" x1="217.8" y1="70.4" x2="217.8" y2="252"/>
+      <circle class="fig-dot" cx="217.8" cy="70.4" r="4"/>
+      <text class="fig-text fig-tick" x="217.8" y="56.4" text-anchor="middle">ter</text>
+      <line class="fig-guide" x1="431.5" y1="225.6" x2="431.5" y2="252"/>
+      <circle class="fig-dot" cx="431.5" cy="225.6" r="4"/>
+      <text class="fig-text fig-tick" x="431.5" y="245.6" text-anchor="middle">ori</text>
+      </svg>
+      <figcaption>The skew of the <em>Escherichia coli</em> K-12 genome, the running count of G minus C over all 4,641,652 nucleotides. Position 0 is where the published sequence happens to start and means nothing biologically, since the chromosome is a circle. Walking forward from the minimum the skew climbs the whole way to the maximum, then falls back to the minimum again, so the two turning points are the two ends of the replication: the minimum is ori and the maximum is ter. Nothing here counts k-mers; the position of the origin is visible in the base composition alone.</figcaption>
+    </figure>
+
+    <p>
+      Run on the <em>E. coli</em> K-12 genome, 4,641,652 nucleotides, <code>min_skew</code> returns
+      position 3,925,597. The replication origin annotated in that genome record runs from
+      3,925,744 to 3,925,975, so counting G's and C's places ori within about 150 nucleotides of it,
+      out of four and a half million.
+    </p>
+
+    <p>
+      The skew approach is $O(n)$ and provides a fast, independent way to locate the ori region
+      without any k-mer counting.
+    </p>
+
+    <h2>Approximate Pattern Matching</h2>
+
+    <p>
+      Real DnaA boxes are not identical copies of a single 9-mer. They have accumulated mutations
+      over evolutionary time, so exact matching misses many occurrences. We need to find patterns
+      that are "close" to a query string.
+    </p>
+
+    <h3>Hamming Distance</h3>
+
+    <p>
+      The <strong>Hamming distance</strong> $d_H(s_1, s_2)$ between two strings of equal length is
+      the number of positions where they differ.
+    </p>
+
+    <pre><code class="language-python">def hamming_distance(s1, s2):
+    return sum(c1 != c2 for c1, c2 in zip(s1, s2))</code></pre>
+
+    <h3>Approximate Pattern Matching</h3>
+
+    <p>
+      Find all positions where pattern occurs in text with at most $d$ mismatches. This is
+      <code>pattern_match</code> from earlier with the equality test relaxed into a distance
+      test, and it recovers <code>pattern_match</code> exactly at $d = 0$.
+    </p>
+
+    <pre><code class="language-python">def approximate_pattern_match(text, pattern, d):
+    k = len(pattern)
+    return [
+        i
+        for i in range(len(text) - k + 1)
+        if hamming_distance(text[i : i + k], pattern) <= d
+    ]</code></pre>
+
+    <h3>Frequent Words with Mismatches</h3>
+
+    <p>
+      The final formulation: find k-mers that appear most frequently in the text, counting all
+      approximate occurrences (up to $d$ mismatches). The idea is to generate the
+      <strong>neighborhood</strong> of each k-mer in the text, i.e. all k-mers within Hamming
+      distance $d$, and accumulate counts across all neighborhood members.
+    </p>
+
+    <pre><code class="language-python">def neighbors(pattern, max_mismatches):
+    neighborhood = {pattern}
+    for _ in range(max_mismatches):
+        for kmer in list(neighborhood):
+            for position in range(len(kmer)):
+                for base in "ACGT":
+                    neighborhood.add(kmer[:position] + base + kmer[position + 1 :])
+    return neighborhood
+
+def frequent_words_with_mismatches(text, k, d):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        for neighbor in neighbors(text[i:i+k], d):
+            counts[neighbor] = counts.get(neighbor, 0) + 1
+    max_count = max(counts.values())
+    return [kmer for kmer, c in counts.items() if c == max_count]</code></pre>
+
+    <p>
+      The number of neighbors of a k-mer within Hamming distance $d$ is
+      $\sum_{j=0}^{d} \binom{k}{j} 3^j$.
+      For $k = 9,\, d = 1$: each 9-mer has $1 + 9 \times 3 = 28$ neighbors.
+      Total runtime: $O\!\left(n \cdot \sum_{j=0}^{d}\binom{k}{j} 3^j\right)$.
+    </p>
+
+    <h3>Frequent Words with Mismatches and Reverse Complements</h3>
+
+    <p>
+      DnaA binds either strand, so a k-mer and its reverse complement correspond to the same binding
+      site and must be counted together. The function above already accumulates a count per
+      candidate k-mer, so the only change is to add each candidate's count to that of its reverse
+      complement before taking the maximum.
+    </p>
+
+    <pre><code class="language-python">def frequent_words_with_mismatches_rc(text, k, d):
+    counts = {}
+    for i in range(len(text) - k + 1):
+        for neighbor in neighbors(text[i:i+k], d):
+            counts[neighbor] = counts.get(neighbor, 0) + 1
+
+    def total(kmer):
+        return counts.get(kmer, 0) + counts.get(reverse_complement(kmer), 0)
+
+    best = max(total(kmer) for kmer in counts)
+    return [kmer for kmer in counts if total(kmer) == best]</code></pre>
+
+    <p>
+      Both are teaching implementations: enumerating every neighbor does not scale, and real tools
+      replace it with indexed methods (suffix arrays, the FM-index) or probabilistic models.
+    </p>
+
+    <h2>Locating ori: the Full Pipeline</h2>
+
+    <p>
+      These components combine into a procedure that takes a bacterial genome and returns candidate
+      DnaA boxes:
+    </p>
+
+    <ol>
+      <li>Compute the skew and take its minimum. An $O(n)$ scan narrows a genome of millions of
+        nucleotides to a single position.</li>
+      <li>Extract a window of roughly 500 nucleotides around that position, the expected size of
+        the ori region.</li>
+      <li>Run <code>frequent_words_with_mismatches_rc</code> on that window with $k = 9$ and
+        $d = 1$. Nine because that is the length of a bacterial DnaA box, one mismatch because real
+        boxes are mutated copies of each other.</li>
+    </ol>
+
+    <p>
+      Each step is needed because the others are insufficient alone: frequent words over a whole
+      genome returns noise, clump finding returns thousands of candidates, and the skew locates a
+      region without identifying any k-mer inside it. Applied to <em>E. coli</em>, the pipeline
+      returns TTATCCACA together with its reverse complement TGTGGATAA, a known DnaA box.
+    </p>
+
+    <p>
+      The pipeline returns candidates, not confirmed DnaA boxes. The skew minimum is approximate, the 500-nucleotide
+      window is an assumption, and a 9-mer that stands out statistically still has to be confirmed
+      experimentally. The pipeline reduces four million positions to a few strings worth testing.
+    </p>
+
+  </main>
+</body>
+</html>

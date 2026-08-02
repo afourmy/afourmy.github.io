@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2: Motif Finding</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Finding the shared regulatory pattern hidden in a collection of DNA regions, from brute force to Gibbs sampling.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/motif-finding.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 2: Motif Finding">
+  <meta property="og:description" content="Finding the shared regulatory pattern hidden in a collection of DNA regions, from brute force to Gibbs sampling.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/motif-finding.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 2: Which DNA Patterns Play the Role of Molecular Clocks?</h1>
+    </header>
+
+    <p>
+      <a href="replication-origins.html">Chapter 1</a> searched a single genome for a pattern that <em>clusters</em> in one place (the ori).
+      This chapter addresses a different problem: finding a pattern that recurs (with variation)
+      exactly once in each of many <em>separate</em> regions. The biological context is the
+      circadian clock.
+    </p>
+
+    <h2>Biological Motivation: Circadian Clocks and Gene Regulation</h2>
+
+    <p>
+      Animals, plants, and bacteria have a <strong>circadian clock</strong>: an internal,
+      roughly 24-hour cycle synchronized with day and night. The clock is encoded in DNA. A
+      small set of <strong>circadian genes</strong> control it; in plants, three of them are called
+      <strong>LHY</strong>, <strong>CCA1</strong>, and <strong>TOC1</strong>.
+    </p>
+
+    <p>
+      A <strong>gene</strong> is a stretch of DNA coding for a protein. The cell
+      <strong>expresses</strong> a gene by copying it into RNA, a step called
+      <strong>transcription</strong>, and building the protein from that copy. Turning a gene on or
+      off means raising or lowering the rate at which it is transcribed.
+    </p>
+
+    <p>
+      These genes encode <strong>transcription factors</strong>: master regulatory proteins that turn
+      other genes on and off. A transcription factor binds to a short, specific stretch of DNA near the
+      gene it controls. That stretch is called a <strong>regulatory motif</strong> (or transcription
+      factor binding site). A daily cycle of gene activity is produced by transcription factors
+      locating and binding their motifs.
+    </p>
+
+    <p>
+      The computational difficulty comes from one property: a regulatory motif is
+      <strong>not an exact string</strong>. The same factor binds many slightly different sequences.
+      For example, CCA1 binds both <code>AAAAAATCT</code> and <code>AAGAACTCT</code>, which differ
+      at two positions. The target is therefore not a single fixed string but a <em>family</em> of
+      similar strings. Identifying that family is the <strong>motif finding</strong> problem.
+    </p>
+
+    <h2>Motif Finding vs. Finding the Ori</h2>
+
+    <p>
+      Reusing <em>frequent words with mismatches</em> from <a href="replication-origins.html">Chapter 1</a> does not work well here, for two
+      reasons: one concerns the structure of the signal, the other its cost.
+    </p>
+
+    <p>
+      <strong>Different signal structure.</strong> A DnaA box and a regulatory motif occur in
+      opposite patterns:
+    </p>
+
+    <ul>
+      <li>A <strong>DnaA box clumps</strong>: it appears many times within one short interval (the ori
+        region of a single genome).</li>
+      <li>A <strong>regulatory motif is scattered</strong>: it appears just once (perhaps mutated) in
+        each of many different regions - for instance, in the upstream region of every gene that the
+        same factor regulates. No single region contains a clump to detect.</li>
+    </ul>
+
+    <p>
+      <strong>Higher cost.</strong> Frequent-words-with-mismatches enumerates the entire
+      <em>neighborhood</em> of every k-mer, and that neighborhood grows rapidly with both the motif
+      length $k$ and the number of allowed mismatches $d$. It does not scale to the long, heavily
+      mutated motifs in this setting. A different approach is required.
+    </p>
+
+    <h2>The Implanted Motif Problem</h2>
+
+    <p>
+      We restate the biology as a string problem. The input is a <strong>collection of DNA
+      strings</strong> (one per region). We look for a k-mer that occurs (with up to $d$ mutations)
+      once in every string.
+    </p>
+
+    <p>
+      In code this collection is the list <code>dna</code>. The quantities used throughout the chapter
+      are:
+    </p>
+
+    <ul>
+      <li>$k$: the length of the motif we are searching for.</li>
+      <li>$t$: the number of strings in the collection.</li>
+      <li>$n$: the length of a single string.</li>
+      <li>$d$: the maximum number of mismatches allowed, where a fixed threshold is used.</li>
+    </ul>
+
+    <p>
+      A k-mer is a <strong>$(k, d)$-motif</strong> if it appears in <em>every</em> string of the
+      collection with at most $d$ mismatches (Hamming distance $\le d$). The
+      <strong>Implanted Motif Problem</strong> asks for all $(k, d)$-motifs in a collection.
+    </p>
+
+    <h3>Brute Force: Motif Enumeration</h3>
+
+    <p>
+      The brute-force solution is based on one observation: a $(k, d)$-motif must appear with $\le d$
+      mismatches in the <em>first</em> string too, so it is within Hamming distance $d$ of some k-mer
+      of that string. Every $(k, d)$-motif therefore belongs to the combined $d$-neighborhood of the
+      first string's k-mers. Generate that neighborhood as the candidate set, then keep only the
+      candidates that also occur (with $\le d$ mismatches) in all of the strings.
+    </p>
+
+    <pre><code class="language-python">def appears_within(text, pattern, d):
+    """True if pattern occurs somewhere in text with at most d mismatches."""
+    k = len(pattern)
+    return any(
+        hamming_distance(text[i:i + k], pattern) <= d
+        for i in range(len(text) - k + 1)
+    )
+
+def motif_enumeration(dna, k, d):
+    first = dna[0]
+    motifs = set()
+    for i in range(len(first) - k + 1):
+        for candidate in neighbors(first[i:i + k], d):
+            if all(appears_within(text, candidate, d) for text in dna):
+                motifs.add(candidate)
+    return motifs</code></pre>
+
+    <p>
+      This reuses <code>hamming_distance</code> and <code>neighbors</code> from <a href="replication-origins.html">Chapter 1</a>. It is
+      correct, but the neighborhood it builds grows rapidly with $k$ and $d$, the same scaling
+      limitation seen in <a href="replication-origins.html">Chapter 1</a>. The definition is also rigid: a $(k, d)$-motif must stay within
+      $d$ mismatches in <em>every</em> string, so one region with a single extra mutation removes an
+      otherwise valid motif from the results.
+    </p>
+
+    <h3>The Subtle Motif Problem</h3>
+
+    <p>
+      A standard benchmark illustrates this limitation. Implant one copy of a 15-mer into each of 10
+      randomly generated 600-nucleotide strings, and <strong>mutate 4 random positions</strong> in
+      every copy. This is the <strong>Subtle Motif Problem</strong>.
+    </p>
+
+    <p>
+      The implanted 15-mer is "subtle" because four mutations out of fifteen is a high mutation rate:
+      two implanted copies may differ at up to 8 positions, the motif is usually <em>not</em> the most
+      frequent k-mer in the data, and <code>motif_enumeration</code> with $k = 15$, $d = 4$ generates
+      a neighborhood far too large to enumerate. A usable method must handle this level of noise
+      without relying on a fixed mismatch threshold.
+    </p>
+
+    <h2>Scoring a Set of Motifs</h2>
+
+    <p>
+      The formulation changes here. Instead of <em>searching</em> for a pattern, we
+      <em>choose</em> one k-mer from each string and measure how similar the chosen k-mers are to one
+      another. A good choice produces columns dominated by a single nucleotide; a poor choice produces
+      columns close to uniform. Expressing this similarity as a single number turns motif finding into
+      an optimization problem.
+    </p>
+
+    <p>
+      Stack the $t$ chosen k-mers as the rows of a $t \times k$ <strong>motif matrix</strong>, then
+      read it <em>column by column</em>. Take this example with $t = 4$ and $k = 5$:
+    </p>
+
+    <pre><code>    A C G T A
+    A C G C A
+    A T G T A
+    A C T T A</code></pre>
+
+    <p>
+      The <strong>count matrix</strong> has 4 rows (one per nucleotide) and $k$ columns (one per
+      position); entry $(i, j)$ is how many times nucleotide $i$ appears in column $j$:
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="466" height="214" viewBox="0 0 466 214">
+      <text class="fig-text fig-note" x="129" y="50" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="195" y="50" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="261" y="50" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="327" y="50" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="393" y="50" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="82" y="84" text-anchor="end">A</text>
+      <rect class="fig-cell-alt" x="96" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="84" text-anchor="middle">4</text>
+      <rect class="fig-cell" x="162" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="84" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="228" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="84" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="294" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="84" text-anchor="middle">0</text>
+      <rect class="fig-cell-alt" x="360" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="84" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="82" y="118" text-anchor="end">C</text>
+      <rect class="fig-cell" x="96" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="118" text-anchor="middle">0</text>
+      <rect class="fig-cell-alt" x="162" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="118" text-anchor="middle">3</text>
+      <rect class="fig-cell" x="228" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="118" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="294" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="118" text-anchor="middle">1</text>
+      <rect class="fig-cell" x="360" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="118" text-anchor="middle">0</text>
+      <text class="fig-text fig-tick" x="82" y="152" text-anchor="end">G</text>
+      <rect class="fig-cell" x="96" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="152" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="162" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="152" text-anchor="middle">0</text>
+      <rect class="fig-cell-alt" x="228" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="152" text-anchor="middle">3</text>
+      <rect class="fig-cell" x="294" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="152" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="360" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="152" text-anchor="middle">0</text>
+      <text class="fig-text fig-tick" x="82" y="186" text-anchor="end">T</text>
+      <rect class="fig-cell" x="96" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="186" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="162" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="186" text-anchor="middle">1</text>
+      <rect class="fig-cell" x="228" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="186" text-anchor="middle">1</text>
+      <rect class="fig-cell-alt" x="294" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="186" text-anchor="middle">3</text>
+      <rect class="fig-cell" x="360" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="186" text-anchor="middle">0</text>
+      </svg>
+      <figcaption>The count matrix of the four motifs: entry $(i, j)$ is how many of the four chosen 5-mers carry nucleotide $i$ at position $j$. Every column sums to four. The largest entry of each column is filled, and reading those down the columns spells the consensus ACGTA.</figcaption>
+    </figure>
+
+    <p>
+      The <strong>profile matrix</strong> divides each count by $t$, giving the frequency $P_{ij}$ of
+      nucleotide $i$ in column $j$ (every column sums to 1):
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="466" height="214" viewBox="0 0 466 214">
+      <text class="fig-text fig-note" x="129" y="50" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="195" y="50" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="261" y="50" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="327" y="50" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="393" y="50" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="82" y="84" text-anchor="end">A</text>
+      <rect class="fig-cell-alt" x="96" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="84" text-anchor="middle">1.00</text>
+      <rect class="fig-cell" x="162" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="84" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="228" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="84" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="294" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="84" text-anchor="middle">0.00</text>
+      <rect class="fig-cell-alt" x="360" y="62" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="84" text-anchor="middle">1.00</text>
+      <text class="fig-text fig-tick" x="82" y="118" text-anchor="end">C</text>
+      <rect class="fig-cell" x="96" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="118" text-anchor="middle">0.00</text>
+      <rect class="fig-cell-alt" x="162" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="118" text-anchor="middle">0.75</text>
+      <rect class="fig-cell" x="228" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="118" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="294" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="118" text-anchor="middle">0.25</text>
+      <rect class="fig-cell" x="360" y="96" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="118" text-anchor="middle">0.00</text>
+      <text class="fig-text fig-tick" x="82" y="152" text-anchor="end">G</text>
+      <rect class="fig-cell" x="96" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="152" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="162" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="152" text-anchor="middle">0.00</text>
+      <rect class="fig-cell-alt" x="228" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="152" text-anchor="middle">0.75</text>
+      <rect class="fig-cell" x="294" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="152" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="360" y="130" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="152" text-anchor="middle">0.00</text>
+      <text class="fig-text fig-tick" x="82" y="186" text-anchor="end">T</text>
+      <rect class="fig-cell" x="96" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="129" y="186" text-anchor="middle">0.00</text>
+      <rect class="fig-cell" x="162" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="195" y="186" text-anchor="middle">0.25</text>
+      <rect class="fig-cell" x="228" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="261" y="186" text-anchor="middle">0.25</text>
+      <rect class="fig-cell-alt" x="294" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="327" y="186" text-anchor="middle">0.75</text>
+      <rect class="fig-cell" x="360" y="164" width="66" height="34"/>
+      <text class="fig-text fig-tick" x="393" y="186" text-anchor="middle">0.00</text>
+      </svg>
+      <figcaption>The profile matrix, each count divided by the four motifs, so every column is a probability distribution over the four nucleotides and sums to one. The filled entry of each column is the one the consensus takes. A column with a single 1.00 is perfectly conserved; a column of four 0.25 entries carries no information at all.</figcaption>
+    </figure>
+
+    <p>
+      The <strong>consensus string</strong> takes the most frequent nucleotide in each column (here,
+      <code>ACGTA</code>). It is the candidate regulatory motif for these regions.
+    </p>
+
+    <p>
+      Finally, the <strong>score</strong> measures disagreement: in each column, count the nucleotides
+      that are <em>not</em> the most frequent one, and sum across columns.
+      Columns 1 and 5 are uniform; columns 2, 3, and 4 each contain one differing letter, so the
+      score is $0 + 1 + 1 + 1 + 0 = 3$. A fully conserved motif scores 0, and the more the chosen
+      k-mers differ, the higher the score. <strong>The goal is to minimize it.</strong>
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="548" height="370" viewBox="0 0 548 370">
+      <rect class="fig-cell" x="168" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="82" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="82" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="260" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="82" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="306" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="82" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="82" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="112" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="112" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="260" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="112" text-anchor="middle">G</text>
+      <rect class="fig-cell-alt" x="306" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="112" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="352" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="112" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="142" text-anchor="middle">A</text>
+      <rect class="fig-cell-alt" x="214" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="142" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="260" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="142" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="306" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="142" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="142" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="172" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="172" text-anchor="middle">C</text>
+      <rect class="fig-cell-alt" x="260" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="172" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="306" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="172" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="172" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="152" y="127" text-anchor="end">motifs</text>
+      <rect class="fig-shape" x="173" y="222" width="36" height="84"/>
+      <text class="fig-text fig-note" x="191" y="269" text-anchor="middle">A 1.00</text>
+      <rect class="fig-shape" x="219" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="237" y="258.5" text-anchor="middle">C 0.75</text>
+      <rect class="fig-cell" x="219" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="237" y="300.5" text-anchor="middle">T 0.25</text>
+      <rect class="fig-shape" x="265" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="283" y="258.5" text-anchor="middle">G 0.75</text>
+      <rect class="fig-cell" x="265" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="283" y="300.5" text-anchor="middle">T 0.25</text>
+      <rect class="fig-shape" x="311" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="329" y="258.5" text-anchor="middle">T 0.75</text>
+      <rect class="fig-cell" x="311" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="329" y="300.5" text-anchor="middle">C 0.25</text>
+      <rect class="fig-shape" x="357" y="222" width="36" height="84"/>
+      <text class="fig-text fig-note" x="375" y="269" text-anchor="middle">A 1.00</text>
+      <text class="fig-text fig-note" x="152" y="269" text-anchor="end">profile</text>
+      <text class="fig-text fig-tick" x="191" y="340" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="237" y="340" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="283" y="340" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="329" y="340" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="340" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="152" y="340" text-anchor="end">consensus</text>
+      <line class="fig-axis" x1="168" y1="318" x2="398" y2="318"/>
+      <text class="fig-text fig-tick" x="418" y="82" text-anchor="start">score 3</text>
+      <text class="fig-text fig-note" x="418" y="102" text-anchor="start">one shaded cell</text>
+      <text class="fig-text fig-note" x="418" y="118" text-anchor="start">per disagreement</text>
+      </svg>
+      <figcaption>Four chosen 5-mers, stacked as a motif matrix. Reading down each column gives the profile, the frequency of each nucleotide at that position, drawn as the bars; the tallest bar of each column supplies the consensus string ACGTA. A cell is shaded when it disagrees with the consensus of its column, so the score is simply the number of shaded cells, here 3. A perfectly conserved motif has one bar per column and no shaded cells, and motif finding is the search for the choice of k-mers that leaves fewest.</figcaption>
+    </figure>
+
+    <p>The four quantities translate directly into code:</p>
+
+    <pre><code class="language-python">NUCLEOTIDES = "ACGT"
+
+def count_matrix(motifs):
+    k = len(motifs[0])
+    counts = {base: [0] * k for base in NUCLEOTIDES}
+    for motif in motifs:
+        for position, base in enumerate(motif):
+            counts[base][position] += 1
+    return counts
+
+def profile_matrix(motifs):
+    t = len(motifs)
+    counts = count_matrix(motifs)
+    return {base: [value / t for value in row] for base, row in counts.items()}
+
+def consensus(motifs):
+    counts = count_matrix(motifs)
+    return ''.join(
+        max(NUCLEOTIDES, key=lambda base: counts[base][position])
+        for position in range(len(motifs[0]))
+    )
+
+def score(motifs):
+    counts = count_matrix(motifs)
+    t = len(motifs)
+    return sum(
+        t - max(counts[base][position] for base in NUCLEOTIDES)
+        for position in range(len(motifs[0]))
+    )</code></pre>
+
+    <h2>The Motif Finding Problem</h2>
+
+    <p>
+      Scoring lets us restate the goal without ever mentioning $d$:
+    </p>
+
+    <p>
+      <strong>Motif Finding Problem.</strong> Given a collection of DNA strings, choose one k-mer from
+      each string so that the resulting motif matrix has the <em>minimum possible score</em>.
+    </p>
+
+    <p>
+      This formulation has no mismatch threshold $d$; it specifies a single quantity to minimize.
+      Solving it by brute force is still expensive. Suppose each of the $t$ strings
+      has length $n$. Each string offers $n - k + 1$ possible k-mers, and we pick one per string
+      independently, giving $(n - k + 1)^t$ candidate motif matrices. Scoring one matrix costs about
+      $k \cdot t$ steps, and since $k \ll n$ the total cost is $O(k \cdot t \cdot n^t)$. The $n^t$ term makes the cost
+      exponential in the number of strings $t$, which is impractical.
+    </p>
+
+    <pre><code class="language-python">from itertools import product
+
+def brute_force_motif_search(dna, k):
+    kmers_per_string = [
+        [text[i:i + k] for i in range(len(text) - k + 1)]
+        for text in dna
+    ]
+    best_motifs, best_score = None, float('inf')
+    for motifs in product(*kmers_per_string):   # (n - k + 1) ** t combinations
+        current_score = score(list(motifs))
+        if current_score < best_score:
+            best_motifs, best_score = list(motifs), current_score
+    return best_motifs</code></pre>
+
+    <h2>The Median String Problem</h2>
+
+    <p>
+      The score counts, column by column, the entries that differ from the most frequent nucleotide
+      of their column. The same entries can be counted row by row. The most frequent nucleotide of
+      column $j$ is the $j$-th letter of the consensus, so the entries counted in row $i$ are the
+      positions where $\text{Motif}_i$ differs from the consensus, and there are
+      $d_H(\text{Consensus}(\text{Motifs}),\ \text{Motif}_i)$ of them. Summing over rows instead of
+      columns:
+    </p>
+
+    <p>
+      $\text{Score}(\text{Motifs}) = \sum_{i=1}^{t} d_H(\text{Consensus}(\text{Motifs}),\ \text{Motif}_i)$
+    </p>
+
+    <p>
+      The score is now a function of one string. That allows the roles to be reversed: fix a k-mer
+      $\text{Pattern}$ first, then choose the motifs that fit it. In each string the best choice is
+      the k-mer closest to $\text{Pattern}$, which gives the distance from a k-mer to a whole
+      collection:
+    </p>
+
+    <p>
+      $d(\text{Pattern}, \text{Dna}) = \sum_{\text{text} \,\in\, \text{Dna}} \ \min_{\text{k-mer} \,\in\, \text{text}} d_H(\text{Pattern},\ \text{k-mer})$
+    </p>
+
+    <p>
+      Minimizing $d(\text{Pattern}, \text{Dna})$ over all k-mers gives the same value as minimizing
+      the score over all choices of motifs. For any motifs,
+      $\text{Score}(\text{Motifs}) \ge d(\text{Consensus}(\text{Motifs}), \text{Dna})$, because each
+      term of the sum is at least the smallest distance available in its string. Conversely, given
+      any $\text{Pattern}$, take the closest k-mer in each string; the consensus of those motifs
+      minimizes the sum of distances to them, so their score is at most
+      $d(\text{Pattern}, \text{Dna})$. Neither quantity can be smaller than the other.
+    </p>
+
+    <p>
+      <strong>Median String Problem.</strong> Given a collection of DNA strings and an integer $k$,
+      find a k-mer $\text{Pattern}$ minimizing $d(\text{Pattern}, \text{Dna})$. Such a k-mer is
+      called a <strong>median string</strong>.
+    </p>
+
+    <p>
+      This changes the search space. Brute force ranged over the $(n - k + 1)^t$ ways of choosing
+      motifs; the median string ranges over the $4^k$ k-mers. The motif length $k$ is fixed by the
+      biology, while $t$ grows with the amount of data available.
+    </p>
+
+    <pre><code class="language-python">def distance_to_strings(pattern, dna):
+    k = len(pattern)
+    return sum(
+        min(
+            hamming_distance(pattern, text[i:i + k])
+            for i in range(len(text) - k + 1)
+        )
+        for text in dna
+    )
+
+def median_string(dna, k):
+    best_pattern, best_distance = None, float('inf')
+    for index in range(4 ** k):
+        pattern = index_to_kmer(index, k)
+        distance = distance_to_strings(pattern, dna)
+        if distance < best_distance:
+            best_pattern, best_distance = pattern, distance
+    return best_pattern</code></pre>
+
+    <p>
+      This reuses <code>hamming_distance</code> and <code>index_to_kmer</code> from <a href="replication-origins.html">Chapter 1</a>.
+      Computing $d(\text{Pattern}, \text{Dna})$ costs $O(n \cdot t \cdot k)$, so the total is
+      $O(4^k \cdot n \cdot t \cdot k)$, exponential in the motif length rather than in the number of
+      strings. It returns an exact minimizer, and it is usable for small $k$. At $k = 15$ there are
+      $4^{15} \approx 1.07 \times 10^9$ candidate strings, so the Subtle Motif Problem is out of
+      reach. The three algorithms that follow drop the guarantee of reaching the minimum in exchange
+      for running at the motif lengths that occur in real data.
+    </p>
+
+    <h2>Scoring a k-mer with a Profile: the Most Probable k-mer</h2>
+
+    <p>
+      Both algorithms that follow rely on one new tool. So far a profile has been used to
+      <em>summarize</em> a chosen set of motifs. It can also be used in the other direction, as a
+      <strong>predictive model</strong> that measures how well an arbitrary k-mer fits it.
+    </p>
+
+    <p>
+      Treat each column of the profile as the probability of seeing each nucleotide at that position,
+      and assume the positions are independent. The <strong>probability of a k-mer given a profile</strong>
+      is then the product of the column frequencies of its letters. For a k-mer with letters
+      $a_1 a_2 \cdots a_k$:
+    </p>
+
+    <p>
+      $\Pr(\text{k-mer} \mid \text{Profile}) = \prod_{j=1}^{k} \text{Profile}(a_j,\ j)$
+    </p>
+
+    <p>
+      Using the profile from the previous section, the consensus <code>ACGTA</code> scores
+      $1.00 \times 0.75 \times 0.75 \times 0.75 \times 1.00 = 0.42$, the highest of any 5-mer. Any
+      k-mer that disagrees with the consensus scores lower, because it must pick up a smaller frequency
+      in at least one column.
+    </p>
+
+    <p>
+      The <strong>profile-most-probable k-mer</strong> in a string is the k-mer that maximizes this
+      probability: the string's single best candidate for the motif the profile describes.
+    </p>
+
+    <pre><code class="language-python">def probability(kmer, profile):
+    prob = 1.0
+    for position, base in enumerate(kmer):
+        prob *= profile[base][position]
+    return prob
+
+def profile_most_probable_kmer(text, k, profile):
+    best_kmer, best_prob = text[:k], -1.0
+    for i in range(len(text) - k + 1):
+        kmer = text[i:i + k]
+        prob = probability(kmer, profile)
+        if prob > best_prob:
+            best_kmer, best_prob = kmer, prob
+    return best_kmer</code></pre>
+
+    <p>
+      Ties are broken in favor of the first occurrence.
+    </p>
+
+    <h2>Greedy Motif Search</h2>
+
+    <p>
+      A <strong>greedy algorithm</strong> builds a solution one piece at a time, and at every step it
+      commits to the choice that looks best at that moment, never going back to revise it. It is the
+      paradigm behind algorithms such as Huffman coding and Dijkstra's shortest paths. It gives up the
+      guarantee of reaching the global optimum in exchange for speed.
+    </p>
+
+    <p>
+      Greedy motif search builds the motif set one string at a time:
+    </p>
+
+    <ul>
+      <li>Pick a k-mer from the first string as a seed. It is the only row of a one-row motif matrix,
+        and its profile is the first estimate of the motif.</li>
+      <li>Move to the second string and select its profile-most-probable k-mer: the k-mer that best
+        fits the current profile. Add it. The profile is now built from two k-mers instead of
+        one.</li>
+      <li>Continue down the list of strings. Each new string contributes the k-mer that best fits the
+        profile built from all of the previously chosen k-mers.</li>
+    </ul>
+
+    <p>
+      After the last string we have one complete set of $t$ motifs. Its quality depends entirely on
+      the seed, so we run the whole process once for every k-mer of the first string and keep the
+      lowest-scoring result.
+    </p>
+
+    <pre><code class="language-python">def greedy_motif_search(dna, k):
+    best_motifs = [text[:k] for text in dna]
+    first = dna[0]
+    for i in range(len(first) - k + 1):
+        motifs = [first[i:i + k]]
+        for text in dna[1:]:
+            profile = profile_matrix(motifs)
+            motifs.append(profile_most_probable_kmer(text, k, profile))
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+    return best_motifs</code></pre>
+
+    <p>
+      This is polynomial, roughly $O(n^2 \cdot k \cdot t)$ for $t$ strings of length $n$, compared to
+      the exponential cost of brute force. The weakness is inherent to the greedy approach: an early
+      k-mer chosen from a profile built on very little evidence constrains every later choice, and
+      the algorithm never revisits it.
+    </p>
+
+    <h2>The Zero Problem and Pseudocounts</h2>
+
+    <p>
+      There is a flaw in scoring k-mers with a raw profile. When only a few motifs have been chosen,
+      many profile entries are exactly $0$, for nucleotides that have not yet appeared in a column.
+      Because the probability of a k-mer is a <em>product</em>, a single $0$ makes the entire value
+      $0$.
+    </p>
+
+    <p>
+      Take the profile from before, whose consensus is <code>ACGTA</code>. The k-mer <code>GCGTA</code>
+      differs from the consensus at only the first position, yet column 1 has frequency $0$ for G, so
+      $\Pr(\texttt{GCGTA} \mid \text{Profile}) = 0$. A k-mer matching four columns out of five gets the
+      same probability as one matching none, so the information in those four columns is discarded.
+      This happens precisely when the profile is built from few motifs, as in both algorithms here.
+    </p>
+
+    <p>
+      The extreme case occurs at the first step of greedy motif search. Its seed profile is built
+      from a single k-mer, so every column contains one entry equal to $1$ and three equal to $0$,
+      and any k-mer that is not character-for-character identical to the seed has probability $0$.
+      Every candidate in the second string is therefore tied at zero,
+      <code>profile_most_probable_kmer</code> falls back on its tie-breaking rule, and the second
+      string contributes its first k-mer: a choice made by position, carrying no information about
+      the motif at all.
+    </p>
+
+    <p>
+      The fix is <strong>Laplace's rule of succession</strong>: add a pseudocount of $1$ to every
+      entry of the count matrix before dividing. Each column gains four extra observations, so the
+      frequencies use a denominator of $t + 4$. No entry is ever $0$, so a single unpopular letter
+      lowers a k-mer's probability instead of forcing it to zero.
+    </p>
+
+    <pre><code class="language-python">def profile_with_pseudocounts(motifs):
+    t = len(motifs)
+    counts = count_matrix(motifs)
+    return {
+        base: [(value + 1) / (t + 4) for value in row]
+        for base, row in counts.items()
+    }</code></pre>
+
+    <p>
+      With it, <code>GCGTA</code> above receives column-1 frequency $(0 + 1) / (4 + 4) = 0.125$ and a
+      small but nonzero probability. Both greedy and randomized motif search use this pseudocounted
+      profile in place of the raw one. In <code>greedy_motif_search</code> that is a one-line
+      substitution of <code>profile_with_pseudocounts</code> for <code>profile_matrix</code>, and it
+      changes the answer outright: on a five-string sample set the raw version selects
+      <code>CAG, CAG, CAA, CAA, CAA</code> and the pseudocounted version selects
+      <code>TTC, ATC, TTC, ATC, TTC</code>, an entirely different motif. Both happen to score 2 on
+      input this small; the gap appears on data long enough for the early degenerate choices to
+      matter.
+    </p>
+
+    <h2>Randomized Motif Search</h2>
+
+    <p>
+      Randomized motif search rests on a circular relationship:
+    </p>
+
+    <ul>
+      <li>given the motifs, computing the profile is easy;</li>
+      <li>given the profile, finding the motifs is easy (take the profile-most-probable k-mer in each
+        string).</li>
+    </ul>
+
+    <p>
+      Neither is available at the start. The algorithm begins from a guess: choose one k-mer at
+      random from each string, then alternate the two steps. Build a profile from the current motifs,
+      use it to re-select the motifs, and repeat. Each pass replaces the motif set with one that fits
+      its own profile better, so the score never rises. The search stops when a pass fails to improve
+      it.
+    </p>
+
+    <pre><code class="language-python">import random
+
+def motifs_from_profile(profile, dna, k):
+    return [profile_most_probable_kmer(text, k, profile) for text in dna]
+
+def random_motifs(dna, k):
+    motifs = []
+    for text in dna:
+        start = random.randint(0, len(text) - k)
+        motifs.append(text[start:start + k])
+    return motifs
+
+def randomized_motif_search(dna, k):
+    motifs = random_motifs(dna, k)
+    best_motifs = motifs
+    while True:
+        profile = profile_with_pseudocounts(motifs)
+        motifs = motifs_from_profile(profile, dna, k)
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+        else:
+            return best_motifs</code></pre>
+
+    <p>
+      Random k-mers produce a profile that is nearly, but not exactly, uniform. If a few of them
+      overlap the true motif, the profile assigns slightly higher frequencies to the nucleotides of
+      that motif, which makes the re-selection step pick better-matching k-mers in the other strings,
+      which in turn increases those frequencies further. The process amplifies whatever signal the
+      starting set contains.
+    </p>
+
+    <p>
+      A single run usually converges to a poor local optimum, because a random start rarely contains
+      any real signal. One run is cheap, so the algorithm is run thousands of times from independent
+      random starts and the best result is kept. With enough starts, at least one begins close enough
+      to the true motif to converge to it. The same structure, alternating two cheap steps from many
+      random starts, is used by clustering methods such as k-means.
+    </p>
+
+    <pre><code class="language-python">def best_over_many_runs(dna, k, runs=1000):
+    best_motifs = randomized_motif_search(dna, k)
+    for _ in range(runs - 1):
+        candidate = randomized_motif_search(dna, k)
+        if score(candidate) < score(best_motifs):
+            best_motifs = candidate
+    return best_motifs</code></pre>
+
+    <h2>Gibbs Sampling</h2>
+
+    <p>
+      Randomized motif search replaces all $t$ motifs at every iteration. A motif that is already
+      correct is discarded together with the rest whenever the new profile points elsewhere in its
+      string, so a run can lose ground it has gained.
+    </p>
+
+    <p>
+      Gibbs sampling changes one motif per iteration. Pick a string at random, build the profile
+      from the other $t - 1$ motifs, and replace only that string's motif. The replacement is not
+      the profile-most-probable k-mer: each k-mer of the string is drawn at random with probability
+      proportional to its probability under the profile. Always taking the maximum makes the step
+      deterministic once the profile is fixed, and the search settles into the nearest local
+      optimum. Drawing at random lets a lower-scoring k-mer be picked from time to time, which is
+      what moves the search away from that optimum.
+    </p>
+
+    <pre><code class="language-python">def weighted_random_kmer(text, k, profile):
+    kmers = [text[i:i + k] for i in range(len(text) - k + 1)]
+    weights = [probability(kmer, profile) for kmer in kmers]
+    return random.choices(kmers, weights=weights)[0]
+
+def gibbs_sampler(dna, k, iterations):
+    motifs = random_motifs(dna, k)
+    best_motifs = motifs
+    for _ in range(iterations):
+        i = random.randrange(len(dna))
+        profile = profile_with_pseudocounts(motifs[:i] + motifs[i + 1:])
+        motifs = motifs[:i] + [weighted_random_kmer(dna[i], k, profile)] + motifs[i + 1:]
+        if score(motifs) < score(best_motifs):
+            best_motifs = motifs
+    return best_motifs</code></pre>
+
+    <p>
+      Pseudocounts are required here rather than merely useful. With a raw profile most k-mers of
+      the string would have weight $0$, and the draw would be restricted to those matching every
+      column of a profile built from $t - 1$ motifs.
+    </p>
+
+    <p>
+      The score can rise from one iteration to the next, which is what allows the escape from a
+      local optimum. The loop therefore cannot stop at the first step that fails to improve, as
+      randomized motif search does; it runs a fixed number of iterations and tracks the best motif
+      set seen. Each iteration costs $O(n \cdot k)$. A single run still ends in a local optimum, so
+      Gibbs sampling is restarted many times as well.
+    </p>
+
+    <h2>Application: the Evening Element</h2>
+
+    <p>
+      Collect the upstream regions of the genes a plant activates at dusk and run the search over
+      them. It returns AAAATATCT, known as the <strong>evening element</strong>.
+      It was confirmed experimentally: removing it from those upstream regions abolishes the daily
+      rhythm of the genes it precedes.
+    </p>
+
+    <p>
+      The Implanted Motif Problem has an exact answer and an algorithm that provably finds it, but
+      that algorithm is unusable at realistic mutation rates. It was replaced by an objective,
+      minimizing the score. The median string minimizes that objective exactly, but at a cost of
+      $4^k$, which rules out the motif lengths found in real data. Greedy motif search, randomized
+      motif search, and Gibbs sampling optimize the same objective with no guarantee of reaching
+      the minimum. This is the usual situation in bioinformatics: the formulation that matches the
+      biology is intractable, so the practical algorithm returns a candidate that then has to be
+      tested experimentally.
+    </p>
+
+  </main>
+</body>
+</html>

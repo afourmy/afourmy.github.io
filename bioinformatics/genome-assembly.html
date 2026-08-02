@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Genome Assembly</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Rebuilding a genome from short reads, and the de Bruijn graph that turns the problem into an Eulerian path.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/genome-assembly.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 3: Genome Assembly">
+  <meta property="og:description" content="Rebuilding a genome from short reads, and the de Bruijn graph that turns the problem into an Eulerian path.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/genome-assembly.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 3: How Do We Assemble Genomes?</h1>
+    </header>
+
+    <p>
+      Chapters 1 and 2 searched a genome that was already known. This chapter builds one. The input
+      is a collection of short fragments read off a DNA sample, and the output is the genome they
+      came from. The problem reduces to finding a path in a graph, and the choice of graph decides
+      whether it is tractable.
+    </p>
+
+    <h2>Reading a Genome in Fragments</h2>
+
+    <p>
+      No machine reads a chromosome from end to end. Sequencing works on short fragments called
+      <strong>reads</strong>. The procedure starts from a small tissue or blood sample holding
+      millions of cells, each with its own copy of the genome. A biochemical step breaks that DNA
+      into fragments, and the machine reads the fragments. Because the copies break in different
+      places, the reads overlap.
+    </p>
+
+    <p>
+      An earlier technology attacked the same problem differently. <strong>DNA arrays</strong>,
+      introduced in 1988, tested a sample against every possible k-mer at once and reported which
+      ones were present. They failed for two reasons: the chemical binding between the sample and
+      the array was not reliable enough to trust the answers, and the largest workable $k$ was around
+      $10$, too short to tell apart the repeated stretches genomes contain. <strong>Next generation
+      sequencing</strong>, from 2005, made whole-genome sequencing practical instead. It produces
+      millions of reads at once, each roughly 100 nucleotides long, at the price of an error rate
+      high enough to matter.
+    </p>
+
+    <p>Four properties of real read data complicate the problem:</p>
+
+    <ul>
+      <li>DNA is double stranded, so a read may come from either strand, and which one is not
+        recorded.</li>
+      <li>Coverage is uneven. Some positions are read many times and some not at all.</li>
+      <li>Reads contain errors.</li>
+      <li>Reads are not all the same length.</li>
+    </ul>
+
+    <h2>The String Reconstruction Problem</h2>
+
+    <p>
+      The idealized problem assumes all four away: every position is covered, no read contains an
+      error, every read has the same length $k$, and every read comes from the same strand.
+    </p>
+
+    <p>
+      The <strong>k-mer composition</strong> of a string is the collection of all of its k-mers,
+      repeats included.
+    </p>
+
+    <pre><code class="language-python">def composition(text, k):
+    return [text[i:i + k] for i in range(len(text) - k + 1)]</code></pre>
+
+    <p>
+      <strong>String Reconstruction Problem.</strong> Given an integer $k$ and a collection of
+      k-mers, find a string whose k-mer composition is that collection.
+    </p>
+
+    <p>
+      Reads already in genome order are easy to merge. Consecutive k-mers overlap in $k - 1$
+      characters, so each one after the first contributes a single new character.
+    </p>
+
+    <pre><code class="language-python">def path_to_genome(path):
+    return path[0] + ''.join(kmer[-1] for kmer in path[1:])</code></pre>
+
+    <p>
+      The input, however, is a collection and carries no order. Recovering the order is the whole
+      problem.
+    </p>
+
+    <h2>The Overlap Graph</h2>
+
+    <p>
+      Two k-mers can sit next to each other in the genome only if the last $k - 1$ characters of the
+      first equal the first $k - 1$ characters of the second. Take the reads as nodes and draw an
+      edge from $a$ to $b$ when the suffix of $a$ equals the prefix of $b$. This is the
+      <strong>overlap graph</strong>.
+    </p>
+
+    <pre><code class="language-python">def overlap_graph(patterns):
+    adjacency = {}
+    for a in patterns:
+        for b in patterns:
+            if a != b and a[1:] == b[:-1]:
+                adjacency.setdefault(a, []).append(b)
+    return adjacency</code></pre>
+
+    <p>
+      A string with the given composition corresponds to a path through the overlap graph that
+      visits every node exactly once, a <strong>Hamiltonian path</strong>. Every read is used, and
+      consecutive reads overlap correctly. Building the graph costs $O(n^2 k)$ for $n$ reads, since
+      every ordered pair is tested.
+    </p>
+
+    <h2>De Bruijn Graphs</h2>
+
+    <p>
+      The same information fits in a graph that carries the k-mers on its <em>edges</em>. Each k-mer
+      becomes an edge from its prefix of length $k - 1$ to its suffix of length $k - 1$, and equal
+      $(k-1)$-mers become a single node. This is the <strong>de Bruijn graph</strong>, named after
+      Nicolaas de Bruijn.
+    </p>
+
+    <pre><code class="language-python">def de_bruijn(patterns):
+    adjacency = {}
+    for pattern in patterns:
+        adjacency.setdefault(pattern[:-1], []).append(pattern[1:])
+    return adjacency</code></pre>
+
+    <p>
+      The de Bruijn graph of a string is the graph of its composition,
+      <code>de_bruijn(composition(text, k))</code>. For <code>AAGATTCTCTAC</code> with $k = 4$:
+    </p>
+
+    <pre><code>AAG -> AGA
+AGA -> GAT
+ATT -> TTC
+CTA -> TAC
+CTC -> TCT
+GAT -> ATT
+TCT -> CTA,CTC
+TTC -> TCT</code></pre>
+
+    <p>
+      Merging equal $(k-1)$-mers is what changes the problem. Every k-mer of the collection is an
+      edge, so a string with the given composition corresponds to a path that uses every edge
+      exactly once, an <strong>Eulerian path</strong>. Building the graph costs $O(n k)$, since each
+      read is handled once.
+    </p>
+
+    <h2>Hamiltonian or Eulerian</h2>
+
+    <figure class="figure-block">
+      <svg class="figure" width="786" height="312" viewBox="0 0 786 312">
+      <line class="fig-guide" x1="174" y1="76" x2="174" y2="190"/>
+      <line class="fig-guide" x1="258" y1="76" x2="258" y2="190"/>
+      <line class="fig-guide" x1="342" y1="76" x2="342" y2="190"/>
+      <line class="fig-guide" x1="426" y1="76" x2="426" y2="190"/>
+      <line class="fig-guide" x1="510" y1="76" x2="510" y2="190"/>
+      <line class="fig-guide" x1="594" y1="76" x2="594" y2="190"/>
+      <line class="fig-curve" x1="202" y1="62" x2="224" y2="62"/>
+      <path class="fig-dot" d="M 230 62 L 224 64.7 L 224 59.3 Z"/>
+      <line class="fig-curve" x1="286" y1="62" x2="308" y2="62"/>
+      <path class="fig-dot" d="M 314 62 L 308 64.7 L 308 59.3 Z"/>
+      <line class="fig-curve" x1="370" y1="62" x2="392" y2="62"/>
+      <path class="fig-dot" d="M 398 62 L 392 64.7 L 392 59.3 Z"/>
+      <line class="fig-curve" x1="454" y1="62" x2="476" y2="62"/>
+      <path class="fig-dot" d="M 482 62 L 476 64.7 L 476 59.3 Z"/>
+      <line class="fig-curve" x1="538" y1="62" x2="560" y2="62"/>
+      <path class="fig-dot" d="M 566 62 L 560 64.7 L 560 59.3 Z"/>
+      <rect class="fig-cell-alt" x="151" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="174" y="67" text-anchor="middle">GGCT</text>
+      <rect class="fig-cell-alt" x="235" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="258" y="67" text-anchor="middle">GCTT</text>
+      <rect class="fig-cell-alt" x="319" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="342" y="67" text-anchor="middle">CTTA</text>
+      <rect class="fig-cell-alt" x="403" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="426" y="67" text-anchor="middle">TTAC</text>
+      <rect class="fig-cell-alt" x="487" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="510" y="67" text-anchor="middle">TACC</text>
+      <rect class="fig-cell-alt" x="571" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="594" y="67" text-anchor="middle">ACCA</text>
+      <text class="fig-text fig-note" x="130" y="67" text-anchor="end">reads</text>
+      <text class="fig-text fig-note" x="670" y="67" text-anchor="start">visit every node</text>
+      <line class="fig-curve" x1="160" y1="210" x2="182" y2="210"/>
+      <path class="fig-dot" d="M 188 210 L 182 212.7 L 182 207.3 Z"/>
+      <line class="fig-curve" x1="244" y1="210" x2="266" y2="210"/>
+      <path class="fig-dot" d="M 272 210 L 266 212.7 L 266 207.3 Z"/>
+      <line class="fig-curve" x1="328" y1="210" x2="350" y2="210"/>
+      <path class="fig-dot" d="M 356 210 L 350 212.7 L 350 207.3 Z"/>
+      <line class="fig-curve" x1="412" y1="210" x2="434" y2="210"/>
+      <path class="fig-dot" d="M 440 210 L 434 212.7 L 434 207.3 Z"/>
+      <line class="fig-curve" x1="496" y1="210" x2="518" y2="210"/>
+      <path class="fig-dot" d="M 524 210 L 518 212.7 L 518 207.3 Z"/>
+      <line class="fig-curve" x1="580" y1="210" x2="602" y2="210"/>
+      <path class="fig-dot" d="M 608 210 L 602 212.7 L 602 207.3 Z"/>
+      <rect class="fig-cell" x="109" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="132" y="215" text-anchor="middle">GGC</text>
+      <rect class="fig-cell" x="193" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="216" y="215" text-anchor="middle">GCT</text>
+      <rect class="fig-cell" x="277" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="300" y="215" text-anchor="middle">CTT</text>
+      <rect class="fig-cell" x="361" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="384" y="215" text-anchor="middle">TTA</text>
+      <rect class="fig-cell" x="445" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="468" y="215" text-anchor="middle">TAC</text>
+      <rect class="fig-cell" x="529" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="552" y="215" text-anchor="middle">ACC</text>
+      <rect class="fig-cell" x="613" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="636" y="215" text-anchor="middle">CCA</text>
+      <text class="fig-text fig-note" x="88" y="215" text-anchor="end">3-mers</text>
+      <text class="fig-text fig-note" x="670" y="215" text-anchor="start">use every edge</text>
+      <text class="fig-text fig-note" x="174" y="196" text-anchor="middle">GGCT</text>
+      <text class="fig-text fig-note" x="258" y="196" text-anchor="middle">GCTT</text>
+      <text class="fig-text fig-note" x="342" y="196" text-anchor="middle">CTTA</text>
+      <text class="fig-text fig-note" x="426" y="196" text-anchor="middle">TTAC</text>
+      <text class="fig-text fig-note" x="510" y="196" text-anchor="middle">TACC</text>
+      <text class="fig-text fig-note" x="594" y="196" text-anchor="middle">ACCA</text>
+      <text class="fig-text fig-tick" x="384" y="268" text-anchor="middle">GGCTTACCA</text>
+      <text class="fig-text fig-note" x="384" y="288" text-anchor="middle">the string both paths spell</text>
+      </svg>
+      <figcaption><span class="cap-part">The same six reads, encoded twice. <span class="cap-lead">Above:</span> each read is a node, and an edge joins two reads overlapping in three characters, so a string with this composition is a path through every node.</span><span class="cap-part"><span class="cap-lead">Below:</span> each read is an edge running from its first three characters to its last three, equal 3-mers become one node, and a string with this composition is a path through every edge.</span><span class="cap-part">No information was added or discarded. Moving the reads from the nodes to the edges is the entire difference between a problem with no known polynomial algorithm and one solved in linear time.</span></figcaption>
+    </figure>
+
+    <p>
+      Both graphs hold the same reads, and for a real genome both have millions of nodes and edges,
+      so their size is not what separates them. The path problem is. Finding an Eulerian path has a
+      polynomial algorithm. Deciding whether a graph has a Hamiltonian path is NP-complete, and no
+      polynomial algorithm is known. Early assemblers used the overlap graph, and the de Bruijn
+      graph replaced it.
+    </p>
+
+    <h2>Euler's Theorem</h2>
+
+    <p>
+      A node is <strong>balanced</strong> when its indegree equals its outdegree, and a graph is
+      balanced when all of its nodes are. A directed graph is <strong>strongly connected</strong>
+      when every node can be reached from every other.
+    </p>
+
+    <p>
+      <strong>Euler's Theorem.</strong> Every balanced, strongly connected directed graph has an
+      Eulerian cycle.
+    </p>
+
+    <p>
+      The proof is constructive, and it is the algorithm. Start at any node and walk along unused
+      edges. Every node is balanced, so a walk that arrives at a node with edges left can always
+      leave again, and the only place it can get stuck is the node it started from, closing a cycle.
+      If that cycle misses some edges, strong connectivity puts an unused outgoing edge at one of
+      the nodes it already passes through. Restart from that node, walk a second cycle through
+      unused edges, and splice it into the first at the shared node. Every round consumes at least
+      one new edge, so the process ends with a cycle that uses all of them.
+    </p>
+
+    <h3>Finding an Eulerian Cycle</h3>
+
+    <p>
+      The iterative form keeps a stack. It pushes along unused edges while any remain at the current
+      node, and pops a node into the output once its edges are spent. Reversing the output gives an
+      Eulerian cycle.
+    </p>
+
+    <pre><code class="language-python">def eulerian_cycle(graph):
+    unused = {node: list(edges) for node, edges in graph.items()}
+    stack, cycle = [next(iter(graph))], []
+    while stack:
+        node = stack[-1]
+        if unused.get(node):
+            stack.append(unused[node].pop())
+        else:
+            cycle.append(stack.pop())
+    return cycle[::-1]</code></pre>
+
+    <p>
+      Every edge is pushed once and popped once, so the cost is $O(E)$ for $E$ edges.
+    </p>
+
+    <h3>From Cycle to Path</h3>
+
+    <p>
+      A graph with an Eulerian path but no Eulerian cycle is <strong>nearly balanced</strong>:
+      exactly one node has one more outgoing edge than incoming, and exactly one has one more
+      incoming than outgoing. Adding an edge from the second to the first balances the graph. If the
+      result is strongly connected it has an Eulerian cycle, and cutting that cycle at the added
+      edge leaves an Eulerian path.
+    </p>
+
+    <pre><code class="language-python">def eulerian_path(graph):
+    out_degree = {node: len(edges) for node, edges in graph.items()}
+    in_degree = {}
+    for edges in graph.values():
+        for node in edges:
+            in_degree[node] = in_degree.get(node, 0) + 1
+
+    start = end = None
+    for node in set(out_degree) | set(in_degree):
+        surplus = out_degree.get(node, 0) - in_degree.get(node, 0)
+        if surplus == 1:
+            start = node
+        elif surplus == -1:
+            end = node
+    if start is None:
+        return eulerian_cycle(graph)
+
+    patched = {node: list(edges) for node, edges in graph.items()}
+    patched.setdefault(end, []).append(start)
+    cycle = eulerian_cycle(patched)[:-1]
+    split = next(
+        i
+        for i in range(len(cycle))
+        if cycle[i] == end and cycle[(i + 1) % len(cycle)] == start
+    )
+    return cycle[split + 1:] + cycle[:split + 1]</code></pre>
+
+    <h2>Reconstructing a String from its k-mer Composition</h2>
+
+    <p>
+      The pieces compose into a solution of the String Reconstruction Problem: build the de Bruijn
+      graph of the reads, find an Eulerian path, and spell the string that path traces.
+    </p>
+
+    <pre><code class="language-python">def string_reconstruction(patterns):
+    return path_to_genome(eulerian_path(de_bruijn(patterns)))</code></pre>
+
+    <p>
+      The whole procedure is linear in the input, $O(n k)$ for $n$ reads of length $k$. On the
+      6 reads <code>CTTA, ACCA, TACC, GGCT, GCTT, TTAC</code> it returns
+      <code>GGCTTACCA</code>.
+    </p>
+
+    <p>
+      A bacterial chromosome is circular, as <a href="replication-origins.html">Chapter 1</a> described. The de Bruijn graph of a circular
+      string is balanced, because every $(k-1)$-mer is entered as many times as it is left, so
+      Euler's theorem applies to it as it stands and the genome is spelled by an Eulerian cycle
+      rather than a path. For a circular genome <code>eulerian_cycle</code> replaces
+      <code>eulerian_path</code> and there are no unbalanced nodes to patch. A linear genome is the
+      nearly balanced case: its first $(k-1)$-mer has one extra outgoing edge and its last one has
+      one extra incoming edge.
+    </p>
+
+    <h2>k-Universal Circular Strings</h2>
+
+    <p>
+      De Bruijn introduced the graph for a problem with no biology in it. A binary string is
+      <strong>k-universal</strong> if it contains every binary k-mer exactly once. Read circularly,
+      such a string has length $2^k$, and finding one is string reconstruction over the alphabet
+      $\{0, 1\}$: take all $2^k$ binary k-mers as the composition and find an Eulerian cycle in
+      their de Bruijn graph.
+    </p>
+
+    <pre><code class="language-python">def k_universal_circular_string(k):
+    patterns = [format(i, '0%db' % k) for i in range(2 ** k)]
+    cycle = eulerian_cycle(de_bruijn(patterns))
+    return path_to_genome(cycle)[:2 ** k]</code></pre>
+
+    <p>
+      For $k = 3$ this returns <code>00111010</code>. Reading it circularly gives 001, 011, 111,
+      110, 101, 010, 100, 000, which is all eight binary 3-mers. De Bruijn wanted these strings for
+      every $k$, and the graph settles the question: each $(k-1)$-mer has exactly two outgoing edges,
+      one per way of appending a bit, and two incoming edges, one per way of prepending one. The
+      graph is balanced and strongly connected for every $k$, so Euler's theorem guarantees a
+      k-universal string always exists.
+    </p>
+
+    <h2>Repeats</h2>
+
+    <p>
+      The String Reconstruction Problem asks for <em>a</em> string with the given composition, not
+      <em>the</em> string. The two differ, and repeats are the reason.
+    </p>
+
+    <p>
+      Equal $(k-1)$-mers become one node no matter where in the genome they occur. A stretch that
+      appears twice therefore collapses into one piece of the graph: the node where it begins gains
+      a second outgoing edge and the node where it ends gains a second incoming one. Each way of
+      pairing those edges is a separate Eulerian path, and different pairings spell different
+      strings.
+    </p>
+
+    <p>
+      Five characters are enough to see it. <code>AACAA</code> and <code>ACAAC</code> have the same
+      3-mer composition, AAC, ACA and CAA, so that composition does not determine the string. The
+      ambiguity does not fade with length: <code>TAATGCCATGGGATGTT</code> and
+      <code>TAATGGGATGCCATGTT</code> also share a 3-mer composition.
+    </p>
+
+    <p>
+      A repeat shorter than $k - 1$ costs nothing, because it still produces distinct k-mers and
+      distinct nodes. A repeat of length $k - 1$ or more collapses. Raising $k$ therefore resolves
+      more repeats, which is why DNA arrays failed at $k \approx 10$: genomes hold repeated
+      stretches thousands of nucleotides long. Raising $k$ has a ceiling, since a k-mer has to fit
+      inside a read.
+    </p>
+
+    <h2>Assembling Real Reads</h2>
+
+    <h3>Read Breaking</h3>
+
+    <p>
+      Real reads are longer than any workable $k$ and are not all the same length. Both problems go
+      away if the reads are not used as units: split every read of length $L$ into its $L - k + 1$
+      k-mers and assemble those. This is <strong>read breaking</strong>.
+    </p>
+
+    <pre><code class="language-python">def read_breaking(reads, k):
+    return [kmer for read in reads for kmer in composition(read, k)]</code></pre>
+
+    <p>
+      The choice of $k$ is now independent of the read length. The price is information. Which
+      k-mers came from the same read is discarded, and a single wrong character no longer spoils one
+      read but up to $k$ of the k-mers taken from it.
+    </p>
+
+    <h3>Double Strands, Gaps, and Errors</h3>
+
+    <p>
+      <strong>Double strands.</strong> A read comes from one of the two strands and does not say
+      which. Both the read and its reverse complement have to enter the collection, using
+      <code>reverse_complement</code> from <a href="replication-origins.html">Chapter 1</a>. This doubles the edges and admits paths that
+      cross between the two strands.
+    </p>
+
+    <p>
+      <strong>Gaps in coverage.</strong> A region that no read covers leaves no edge across it, so
+      the graph is not strongly connected and Euler's theorem does not apply. There is no Eulerian
+      path to find.
+    </p>
+
+    <p>
+      <strong>Errors.</strong> One wrong character inside a read yields up to $k$ k-mers that occur
+      nowhere in the genome. In the graph they form a short detour that leaves the correct path and
+      rejoins it a few nodes later, called a <strong>bubble</strong>. Assemblers find bubbles and
+      delete the branch that few reads support.
+    </p>
+
+    <h3>Edge Multiplicity</h3>
+
+    <p>
+      An Eulerian path uses every edge exactly once, so the graph has to say how many copies of each
+      edge there are. A stretch of DNA present twice in the genome contributes two copies of each of
+      its edges, and both have to be traversed. <code>de_bruijn</code> takes those counts from its
+      input, one edge per k-mer in the list, which is right when the composition is exact.
+    </p>
+
+    <p>
+      Real reads do not give exact counts. How often a k-mer turns up among the reads depends on how
+      many reads happened to cover that position, so the counts have to be turned into
+      multiplicities. Let $c$ be the average number of reads covering a position. A k-mer from a
+      stretch occurring once in the genome shows up about $c$ times, one from a stretch occurring
+      $m$ times shows up about $m c$ times, so dividing an observed count by $c$ and rounding
+      estimates $m$.
+    </p>
+
+    <p>
+      The estimate is only as good as the evenness of the coverage, and it is least reliable where it
+      matters most. Repeated stretches are the ones with $m &gt; 1$, and they are also where a wrong
+      multiplicity changes which Eulerian paths exist at all. This is the second cost of uneven
+      coverage: a region with no reads breaks the graph, and a region read too few or too many times
+      corrupts the multiplicities.
+    </p>
+
+    <h2>Contigs</h2>
+
+    <p>
+      Even after read breaking and error correction, a de Bruijn graph built from real data has no
+      Eulerian path. Coverage gaps disconnect it, and repeats leave branch points that no quantity
+      of correct reads can resolve. Assembly does not return a chromosome.
+    </p>
+
+    <p>
+      It returns <strong>contigs</strong>: the longest stretches of the genome that the reads pin
+      down unambiguously. In the graph a contig is a path that never branches. It can be extended as
+      long as each node along it has exactly one incoming and one outgoing edge, and it stops at a
+      node where the edges fork, because there the reads do not say which way the genome goes.
+      Producing every contig means finding every maximal non-branching path in the graph.
+    </p>
+
+    <p>
+      Call a node <strong>1-in-1-out</strong> when its indegree and its outdegree both equal $1$. A
+      path is <strong>non-branching</strong> when every node strictly inside it is 1-in-1-out, and
+      <strong>maximal</strong> when it cannot be extended at either end. The contigs are the strings
+      spelled by the maximal non-branching paths.
+    </p>
+
+    <p>
+      A maximal non-branching path begins at a node that is not 1-in-1-out, so the paths can be
+      collected by taking each such node in turn and following each of its outgoing edges forward
+      through 1-in-1-out nodes until reaching a node that is not one. One case escapes this: a cycle
+      whose every node is 1-in-1-out contains no starting node, so no walk enters it. A second pass
+      over the nodes no walk visited picks those cycles up.
+    </p>
+
+    <pre><code class="language-python">def maximal_non_branching_paths(graph):
+    out_degree = {node: len(edges) for node, edges in graph.items()}
+    in_degree = {}
+    for edges in graph.values():
+        for node in edges:
+            in_degree[node] = in_degree.get(node, 0) + 1
+    nodes = set(in_degree) | set(out_degree)
+
+    def internal(node):
+        return in_degree.get(node, 0) == 1 and out_degree.get(node, 0) == 1
+
+    paths, visited = [], set()
+    for node in nodes:
+        if internal(node):
+            continue
+        for successor in graph.get(node, []):
+            path = [node, successor]
+            while internal(path[-1]):
+                visited.add(path[-1])
+                path.append(graph[path[-1]][0])
+            paths.append(path)
+
+    for node in nodes:                      # cycles of 1-in-1-out nodes only
+        if internal(node) and node not in visited:
+            cycle = [node]
+            while True:
+                visited.add(cycle[-1])
+                cycle.append(graph[cycle[-1]][0])
+                if cycle[-1] == node:
+                    break
+            paths.append(cycle)
+    return paths
+
+def contigs(patterns):
+    return [
+        path_to_genome(path)
+        for path in maximal_non_branching_paths(de_bruijn(patterns))
+    ]</code></pre>
+
+    <p>
+      Each edge lies in exactly one maximal non-branching path, so the paths partition the edges and
+      the whole procedure costs $O(V + E)$.
+    </p>
+
+    <p>
+      Take <code>AAGATTCTCTAC</code> with $k = 4$, the graph listed earlier. Three of its nodes are
+      not 1-in-1-out: <code>AAG</code> has no incoming edge, <code>TAC</code> has no outgoing edge,
+      and <code>TCT</code> has two of each. The contigs are <code>AAGATTCT</code>,
+      <code>TCTCT</code> and <code>TCTAC</code>, and each one begins or ends at <code>TCT</code>.
+      That 3-mer occurs twice in the string, and the assembly stops exactly where the repeat put a
+      fork in the graph.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="726" height="308" viewBox="0 0 726 308">
+      <line class="fig-curve" x1="105" y1="158" x2="119" y2="158"/>
+      <path class="fig-dot" d="M 125 158 L 119 160.7 L 119 155.3 Z"/>
+      <line class="fig-curve" x1="179" y1="158" x2="193" y2="158"/>
+      <path class="fig-dot" d="M 199 158 L 193 160.7 L 193 155.3 Z"/>
+      <line class="fig-curve" x1="253" y1="158" x2="267" y2="158"/>
+      <path class="fig-dot" d="M 273 158 L 267 160.7 L 267 155.3 Z"/>
+      <line class="fig-curve" x1="327" y1="158" x2="341" y2="158"/>
+      <path class="fig-dot" d="M 347 158 L 341 160.7 L 341 155.3 Z"/>
+      <line class="fig-curve" x1="401" y1="158" x2="415" y2="158"/>
+      <path class="fig-dot" d="M 421 158 L 415 160.7 L 415 155.3 Z"/>
+      <line class="fig-curve" x1="549" y1="158" x2="563" y2="158"/>
+      <path class="fig-dot" d="M 569 158 L 563 160.7 L 563 155.3 Z"/>
+      <line class="fig-curve" x1="458" y1="170" x2="482.5" y2="224.5"/>
+      <path class="fig-dot" d="M 485 230 L 480.1 225.6 L 485 223.4 Z"/>
+      <line class="fig-curve" x1="475" y1="230" x2="450.5" y2="175.5"/>
+      <path class="fig-dot" d="M 448 170 L 452.9 174.4 L 448 176.6 Z"/>
+      <line class="fig-curve" x1="475" y1="158" x2="489" y2="158"/>
+      <path class="fig-dot" d="M 495 158 L 489 160.7 L 489 155.3 Z"/>
+      <rect class="fig-cell" x="55" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="78" y="163" text-anchor="middle">AAG</text>
+      <rect class="fig-cell" x="129" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="152" y="163" text-anchor="middle">AGA</text>
+      <rect class="fig-cell" x="203" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="226" y="163" text-anchor="middle">GAT</text>
+      <rect class="fig-cell" x="277" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="300" y="163" text-anchor="middle">ATT</text>
+      <rect class="fig-cell" x="351" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="374" y="163" text-anchor="middle">TTC</text>
+      <rect class="fig-cell-alt" x="425" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="448" y="163" text-anchor="middle">TCT</text>
+      <rect class="fig-cell" x="499" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="522" y="163" text-anchor="middle">CTA</text>
+      <rect class="fig-cell" x="573" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="596" y="163" text-anchor="middle">TAC</text>
+      <rect class="fig-cell" x="462" y="231" width="46" height="22"/>
+      <text class="fig-text fig-note" x="485" y="247" text-anchor="middle">CTC</text>
+      <line class="fig-axis" x1="78" y1="138" x2="78" y2="128"/>
+      <line class="fig-axis" x1="78" y1="128" x2="448" y2="128"/>
+      <line class="fig-axis" x1="448" y1="128" x2="448" y2="138"/>
+      <text class="fig-text fig-tick" x="263" y="120" text-anchor="middle">AAGATTCT</text>
+      <line class="fig-axis" x1="448" y1="138" x2="448" y2="128"/>
+      <line class="fig-axis" x1="448" y1="128" x2="596" y2="128"/>
+      <line class="fig-axis" x1="596" y1="128" x2="596" y2="138"/>
+      <text class="fig-text fig-tick" x="522" y="120" text-anchor="middle">TCTAC</text>
+      <text class="fig-text fig-tick" x="529" y="247" text-anchor="start">TCTCT</text>
+      <text class="fig-text fig-note" x="488" y="192" text-anchor="start">TCT: two in, two out</text>
+      </svg>
+      <figcaption>The de Bruijn graph of AAGATTCTCTAC at $k = 4$. The 3-mer TCT occurs twice in the string, so its two copies collapse into a single node with two incoming and two outgoing edges, while every other node has one of each. A walk can run without ambiguity up to that node and away from it, but at the node itself the reads do not say which incoming edge continues into which outgoing one. The three unambiguous stretches are the contigs, bracketed above, and each of them begins or ends at the repeat.</figcaption>
+    </figure>
+
+    <p>
+      Short reads do not produce a chromosome, they produce contigs. A contig ends for one of two
+      reasons. Where no read covered the DNA, the graph has no edge across the gap and there is
+      nothing to continue with. Where a repeat longer than $k$ occurs, the graph branches and the
+      reads give no way to choose between the branches. More short reads fix neither problem. Both
+      need something else: reads long enough to span a repeat in one piece, or a separate experiment
+      that orders the contigs along the chromosome.
+    </p>
+
+  </main>
+</body>
+</html>

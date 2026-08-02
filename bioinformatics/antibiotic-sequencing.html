@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: Antibiotic Sequencing</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Reading the sequence of a cyclic peptide off a list of fragment masses, by branch and bound and spectral convolution.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/antibiotic-sequencing.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 4: Antibiotic Sequencing">
+  <meta property="og:description" content="Reading the sequence of a cyclic peptide off a list of fragment masses, by branch and bound and spectral convolution.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/antibiotic-sequencing.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 4: How Do We Sequence Antibiotics?</h1>
+    </header>
+
+    <p>
+      The first three chapters treated DNA as the only string. This chapter follows the information
+      in a gene out to the protein it codes for, then reverses direction. The input becomes a
+      physical measurement of a molecule, a list of masses, and the output is the sequence of the
+      molecule that produced it.
+    </p>
+
+    <h2>The Central Dogma</h2>
+
+    <p>
+      A <strong>gene</strong> is a stretch of DNA that codes for a protein. Two steps separate one
+      from the other, and together they are called the <strong>central dogma of molecular
+      biology</strong>: DNA makes RNA, and RNA makes protein.
+    </p>
+
+    <p>
+      <strong>Transcription</strong> copies a gene into a strand of <strong>RNA</strong>. RNA is a
+      string over four <strong>ribonucleotides</strong>, written A, C, G and U, and the transcript
+      of a gene is its DNA sequence with every T replaced by U.
+    </p>
+
+    <p>
+      <strong>Translation</strong> turns the transcript into a protein. The RNA is cut into
+      non-overlapping 3-mers called <strong>codons</strong>, and each codon is replaced by one of 20
+      <strong>amino acids</strong>. The result is an <strong>amino acid string</strong>, also called
+      a <strong>peptide</strong>. The molecular machine that performs translation is the
+      <strong>ribosome</strong>.
+    </p>
+
+    <p>
+      There are $4^3 = 64$ codons and 20 amino acids. Three codons, UAA, UAG and UGA, are
+      <strong>stop codons</strong>: they code for no amino acid and end the translation. The
+      remaining 61 are shared among the 20 amino acids, so most amino acids are coded by several
+      codons. This assignment of codons to amino acids is the <strong>genetic code</strong>, and it
+      is nearly identical in every organism.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="392" height="392" viewBox="0 0 392 392">
+      <path class="fig-cell-alt" d="M196.0 196.0 L372.0 196.0 A176.0 176.0 0 0 1 196.0 372.0 Z"/>
+      <path class="fig-cell-alt" d="M196.0 196.0 L20.0 196.0 A176.0 176.0 0 0 1 196.0 20.0 Z"/>
+      <path class="fig-cell" d="M196.0 196.0 L196.0 152.0 A44.0 44.0 0 0 1 240.0 196.0 Z"/>
+      <path class="fig-cell" d="M196.0 196.0 L240.0 196.0 A44.0 44.0 0 0 1 196.0 240.0 Z"/>
+      <path class="fig-cell" d="M196.0 196.0 L196.0 240.0 A44.0 44.0 0 0 1 152.0 196.0 Z"/>
+      <path class="fig-cell" d="M196.0 196.0 L152.0 196.0 A44.0 44.0 0 0 1 196.0 152.0 Z"/>
+      <path class="fig-cell" d="M196.0 152.0 L196.0 108.0 A88.0 88.0 0 0 1 229.7 114.7 L212.8 155.3 A44.0 44.0 0 0 0 196.0 152.0 Z"/>
+      <path class="fig-cell" d="M212.8 155.3 L229.7 114.7 A88.0 88.0 0 0 1 258.2 133.8 L227.1 164.9 A44.0 44.0 0 0 0 212.8 155.3 Z"/>
+      <path class="fig-cell" d="M227.1 164.9 L258.2 133.8 A88.0 88.0 0 0 1 277.3 162.3 L236.7 179.2 A44.0 44.0 0 0 0 227.1 164.9 Z"/>
+      <path class="fig-cell" d="M236.7 179.2 L277.3 162.3 A88.0 88.0 0 0 1 284.0 196.0 L240.0 196.0 A44.0 44.0 0 0 0 236.7 179.2 Z"/>
+      <path class="fig-cell" d="M240.0 196.0 L284.0 196.0 A88.0 88.0 0 0 1 277.3 229.7 L236.7 212.8 A44.0 44.0 0 0 0 240.0 196.0 Z"/>
+      <path class="fig-cell" d="M236.7 212.8 L277.3 229.7 A88.0 88.0 0 0 1 258.2 258.2 L227.1 227.1 A44.0 44.0 0 0 0 236.7 212.8 Z"/>
+      <path class="fig-cell" d="M227.1 227.1 L258.2 258.2 A88.0 88.0 0 0 1 229.7 277.3 L212.8 236.7 A44.0 44.0 0 0 0 227.1 227.1 Z"/>
+      <path class="fig-cell" d="M212.8 236.7 L229.7 277.3 A88.0 88.0 0 0 1 196.0 284.0 L196.0 240.0 A44.0 44.0 0 0 0 212.8 236.7 Z"/>
+      <path class="fig-cell" d="M196.0 240.0 L196.0 284.0 A88.0 88.0 0 0 1 162.3 277.3 L179.2 236.7 A44.0 44.0 0 0 0 196.0 240.0 Z"/>
+      <path class="fig-cell" d="M179.2 236.7 L162.3 277.3 A88.0 88.0 0 0 1 133.8 258.2 L164.9 227.1 A44.0 44.0 0 0 0 179.2 236.7 Z"/>
+      <path class="fig-cell" d="M164.9 227.1 L133.8 258.2 A88.0 88.0 0 0 1 114.7 229.7 L155.3 212.8 A44.0 44.0 0 0 0 164.9 227.1 Z"/>
+      <path class="fig-cell" d="M155.3 212.8 L114.7 229.7 A88.0 88.0 0 0 1 108.0 196.0 L152.0 196.0 A44.0 44.0 0 0 0 155.3 212.8 Z"/>
+      <path class="fig-cell" d="M152.0 196.0 L108.0 196.0 A88.0 88.0 0 0 1 114.7 162.3 L155.3 179.2 A44.0 44.0 0 0 0 152.0 196.0 Z"/>
+      <path class="fig-cell" d="M155.3 179.2 L114.7 162.3 A88.0 88.0 0 0 1 133.8 133.8 L164.9 164.9 A44.0 44.0 0 0 0 155.3 179.2 Z"/>
+      <path class="fig-cell" d="M164.9 164.9 L133.8 133.8 A88.0 88.0 0 0 1 162.3 114.7 L179.2 155.3 A44.0 44.0 0 0 0 164.9 164.9 Z"/>
+      <path class="fig-cell" d="M179.2 155.3 L162.3 114.7 A88.0 88.0 0 0 1 196.0 108.0 L196.0 152.0 A44.0 44.0 0 0 0 179.2 155.3 Z"/>
+      <path class="fig-cell" d="M196.0 108.0 L196.0 70.0 A126.0 126.0 0 0 1 208.4 70.6 L204.6 108.4 A88.0 88.0 0 0 0 196.0 108.0 Z"/>
+      <path class="fig-cell" d="M196.0 70.0 L196.0 20.0 A176.0 176.0 0 0 1 213.3 20.8 L208.4 70.6 A126.0 126.0 0 0 0 196.0 70.0 Z"/>
+      <path class="fig-cell" d="M204.6 108.4 L208.4 70.6 A126.0 126.0 0 0 1 220.6 72.4 L213.2 109.7 A88.0 88.0 0 0 0 204.6 108.4 Z"/>
+      <path class="fig-cell" d="M208.4 70.6 L213.3 20.8 A176.0 176.0 0 0 1 230.3 23.4 L220.6 72.4 A126.0 126.0 0 0 0 208.4 70.6 Z"/>
+      <path class="fig-cell" d="M213.2 109.7 L220.6 72.4 A126.0 126.0 0 0 1 232.6 75.4 L221.5 111.8 A88.0 88.0 0 0 0 213.2 109.7 Z"/>
+      <path class="fig-cell" d="M220.6 72.4 L230.3 23.4 A176.0 176.0 0 0 1 247.1 27.6 L232.6 75.4 A126.0 126.0 0 0 0 220.6 72.4 Z"/>
+      <path class="fig-cell" d="M221.5 111.8 L232.6 75.4 A126.0 126.0 0 0 1 244.2 79.6 L229.7 114.7 A88.0 88.0 0 0 0 221.5 111.8 Z"/>
+      <path class="fig-cell" d="M232.6 75.4 L247.1 27.6 A176.0 176.0 0 0 1 263.4 33.4 L244.2 79.6 A126.0 126.0 0 0 0 232.6 75.4 Z"/>
+      <path class="fig-cell" d="M229.7 114.7 L244.2 79.6 A126.0 126.0 0 0 1 255.4 84.9 L237.5 118.4 A88.0 88.0 0 0 0 229.7 114.7 Z"/>
+      <path class="fig-cell" d="M244.2 79.6 L263.4 33.4 A176.0 176.0 0 0 1 279.0 40.8 L255.4 84.9 A126.0 126.0 0 0 0 244.2 79.6 Z"/>
+      <path class="fig-cell" d="M237.5 118.4 L255.4 84.9 A126.0 126.0 0 0 1 266.0 91.2 L244.9 122.8 A88.0 88.0 0 0 0 237.5 118.4 Z"/>
+      <path class="fig-cell" d="M255.4 84.9 L279.0 40.8 A176.0 176.0 0 0 1 293.8 49.7 L266.0 91.2 A126.0 126.0 0 0 0 255.4 84.9 Z"/>
+      <path class="fig-cell" d="M244.9 122.8 L266.0 91.2 A126.0 126.0 0 0 1 275.9 98.6 L251.8 128.0 A88.0 88.0 0 0 0 244.9 122.8 Z"/>
+      <path class="fig-cell" d="M266.0 91.2 L293.8 49.7 A176.0 176.0 0 0 1 307.7 60.0 L275.9 98.6 A126.0 126.0 0 0 0 266.0 91.2 Z"/>
+      <path class="fig-cell" d="M251.8 128.0 L275.9 98.6 A126.0 126.0 0 0 1 285.1 106.9 L258.2 133.8 A88.0 88.0 0 0 0 251.8 128.0 Z"/>
+      <path class="fig-cell" d="M275.9 98.6 L307.7 60.0 A176.0 176.0 0 0 1 320.5 71.5 L285.1 106.9 A126.0 126.0 0 0 0 275.9 98.6 Z"/>
+      <path class="fig-cell" d="M258.2 133.8 L285.1 106.9 A126.0 126.0 0 0 1 293.4 116.1 L264.0 140.2 A88.0 88.0 0 0 0 258.2 133.8 Z"/>
+      <path class="fig-cell" d="M285.1 106.9 L320.5 71.5 A176.0 176.0 0 0 1 332.0 84.3 L293.4 116.1 A126.0 126.0 0 0 0 285.1 106.9 Z"/>
+      <path class="fig-cell" d="M264.0 140.2 L293.4 116.1 A126.0 126.0 0 0 1 300.8 126.0 L269.2 147.1 A88.0 88.0 0 0 0 264.0 140.2 Z"/>
+      <path class="fig-cell" d="M293.4 116.1 L332.0 84.3 A176.0 176.0 0 0 1 342.3 98.2 L300.8 126.0 A126.0 126.0 0 0 0 293.4 116.1 Z"/>
+      <path class="fig-cell" d="M269.2 147.1 L300.8 126.0 A126.0 126.0 0 0 1 307.1 136.6 L273.6 154.5 A88.0 88.0 0 0 0 269.2 147.1 Z"/>
+      <path class="fig-cell" d="M300.8 126.0 L342.3 98.2 A176.0 176.0 0 0 1 351.2 113.0 L307.1 136.6 A126.0 126.0 0 0 0 300.8 126.0 Z"/>
+      <path class="fig-cell" d="M273.6 154.5 L307.1 136.6 A126.0 126.0 0 0 1 312.4 147.8 L277.3 162.3 A88.0 88.0 0 0 0 273.6 154.5 Z"/>
+      <path class="fig-cell" d="M307.1 136.6 L351.2 113.0 A176.0 176.0 0 0 1 358.6 128.6 L312.4 147.8 A126.0 126.0 0 0 0 307.1 136.6 Z"/>
+      <path class="fig-cell" d="M277.3 162.3 L312.4 147.8 A126.0 126.0 0 0 1 316.6 159.4 L280.2 170.5 A88.0 88.0 0 0 0 277.3 162.3 Z"/>
+      <path class="fig-cell" d="M312.4 147.8 L358.6 128.6 A176.0 176.0 0 0 1 364.4 144.9 L316.6 159.4 A126.0 126.0 0 0 0 312.4 147.8 Z"/>
+      <path class="fig-cell" d="M280.2 170.5 L316.6 159.4 A126.0 126.0 0 0 1 319.6 171.4 L282.3 178.8 A88.0 88.0 0 0 0 280.2 170.5 Z"/>
+      <path class="fig-cell" d="M316.6 159.4 L364.4 144.9 A176.0 176.0 0 0 1 368.6 161.7 L319.6 171.4 A126.0 126.0 0 0 0 316.6 159.4 Z"/>
+      <path class="fig-cell" d="M282.3 178.8 L319.6 171.4 A126.0 126.0 0 0 1 321.4 183.6 L283.6 187.4 A88.0 88.0 0 0 0 282.3 178.8 Z"/>
+      <path class="fig-cell" d="M319.6 171.4 L368.6 161.7 A176.0 176.0 0 0 1 371.2 178.7 L321.4 183.6 A126.0 126.0 0 0 0 319.6 171.4 Z"/>
+      <path class="fig-cell" d="M283.6 187.4 L321.4 183.6 A126.0 126.0 0 0 1 322.0 196.0 L284.0 196.0 A88.0 88.0 0 0 0 283.6 187.4 Z"/>
+      <path class="fig-cell" d="M321.4 183.6 L371.2 178.7 A176.0 176.0 0 0 1 372.0 196.0 L322.0 196.0 A126.0 126.0 0 0 0 321.4 183.6 Z"/>
+      <path class="fig-cell" d="M284.0 196.0 L322.0 196.0 A126.0 126.0 0 0 1 321.4 208.4 L283.6 204.6 A88.0 88.0 0 0 0 284.0 196.0 Z"/>
+      <path class="fig-cell" d="M322.0 196.0 L372.0 196.0 A176.0 176.0 0 0 1 371.2 213.3 L321.4 208.4 A126.0 126.0 0 0 0 322.0 196.0 Z"/>
+      <path class="fig-cell" d="M283.6 204.6 L321.4 208.4 A126.0 126.0 0 0 1 319.6 220.6 L282.3 213.2 A88.0 88.0 0 0 0 283.6 204.6 Z"/>
+      <path class="fig-cell" d="M321.4 208.4 L371.2 213.3 A176.0 176.0 0 0 1 368.6 230.3 L319.6 220.6 A126.0 126.0 0 0 0 321.4 208.4 Z"/>
+      <path class="fig-cell" d="M282.3 213.2 L319.6 220.6 A126.0 126.0 0 0 1 316.6 232.6 L280.2 221.5 A88.0 88.0 0 0 0 282.3 213.2 Z"/>
+      <path class="fig-cell" d="M319.6 220.6 L368.6 230.3 A176.0 176.0 0 0 1 364.4 247.1 L316.6 232.6 A126.0 126.0 0 0 0 319.6 220.6 Z"/>
+      <path class="fig-cell" d="M280.2 221.5 L316.6 232.6 A126.0 126.0 0 0 1 312.4 244.2 L277.3 229.7 A88.0 88.0 0 0 0 280.2 221.5 Z"/>
+      <path class="fig-cell" d="M316.6 232.6 L364.4 247.1 A176.0 176.0 0 0 1 358.6 263.4 L312.4 244.2 A126.0 126.0 0 0 0 316.6 232.6 Z"/>
+      <path class="fig-cell" d="M277.3 229.7 L312.4 244.2 A126.0 126.0 0 0 1 307.1 255.4 L273.6 237.5 A88.0 88.0 0 0 0 277.3 229.7 Z"/>
+      <path class="fig-cell" d="M312.4 244.2 L358.6 263.4 A176.0 176.0 0 0 1 351.2 279.0 L307.1 255.4 A126.0 126.0 0 0 0 312.4 244.2 Z"/>
+      <path class="fig-cell" d="M273.6 237.5 L307.1 255.4 A126.0 126.0 0 0 1 300.8 266.0 L269.2 244.9 A88.0 88.0 0 0 0 273.6 237.5 Z"/>
+      <path class="fig-cell" d="M307.1 255.4 L351.2 279.0 A176.0 176.0 0 0 1 342.3 293.8 L300.8 266.0 A126.0 126.0 0 0 0 307.1 255.4 Z"/>
+      <path class="fig-cell" d="M269.2 244.9 L300.8 266.0 A126.0 126.0 0 0 1 293.4 275.9 L264.0 251.8 A88.0 88.0 0 0 0 269.2 244.9 Z"/>
+      <path class="fig-cell" d="M300.8 266.0 L342.3 293.8 A176.0 176.0 0 0 1 332.0 307.7 L293.4 275.9 A126.0 126.0 0 0 0 300.8 266.0 Z"/>
+      <path class="fig-cell" d="M264.0 251.8 L293.4 275.9 A126.0 126.0 0 0 1 285.1 285.1 L258.2 258.2 A88.0 88.0 0 0 0 264.0 251.8 Z"/>
+      <path class="fig-cell" d="M293.4 275.9 L332.0 307.7 A176.0 176.0 0 0 1 320.5 320.5 L285.1 285.1 A126.0 126.0 0 0 0 293.4 275.9 Z"/>
+      <path class="fig-cell" d="M258.2 258.2 L285.1 285.1 A126.0 126.0 0 0 1 275.9 293.4 L251.8 264.0 A88.0 88.0 0 0 0 258.2 258.2 Z"/>
+      <path class="fig-cell" d="M285.1 285.1 L320.5 320.5 A176.0 176.0 0 0 1 307.7 332.0 L275.9 293.4 A126.0 126.0 0 0 0 285.1 285.1 Z"/>
+      <path class="fig-cell" d="M251.8 264.0 L275.9 293.4 A126.0 126.0 0 0 1 266.0 300.8 L244.9 269.2 A88.0 88.0 0 0 0 251.8 264.0 Z"/>
+      <path class="fig-cell" d="M275.9 293.4 L307.7 332.0 A176.0 176.0 0 0 1 293.8 342.3 L266.0 300.8 A126.0 126.0 0 0 0 275.9 293.4 Z"/>
+      <path class="fig-cell" d="M244.9 269.2 L266.0 300.8 A126.0 126.0 0 0 1 255.4 307.1 L237.5 273.6 A88.0 88.0 0 0 0 244.9 269.2 Z"/>
+      <path class="fig-cell" d="M266.0 300.8 L293.8 342.3 A176.0 176.0 0 0 1 279.0 351.2 L255.4 307.1 A126.0 126.0 0 0 0 266.0 300.8 Z"/>
+      <path class="fig-cell" d="M237.5 273.6 L255.4 307.1 A126.0 126.0 0 0 1 244.2 312.4 L229.7 277.3 A88.0 88.0 0 0 0 237.5 273.6 Z"/>
+      <path class="fig-cell" d="M255.4 307.1 L279.0 351.2 A176.0 176.0 0 0 1 263.4 358.6 L244.2 312.4 A126.0 126.0 0 0 0 255.4 307.1 Z"/>
+      <path class="fig-cell" d="M229.7 277.3 L244.2 312.4 A126.0 126.0 0 0 1 232.6 316.6 L221.5 280.2 A88.0 88.0 0 0 0 229.7 277.3 Z"/>
+      <path class="fig-cell" d="M244.2 312.4 L263.4 358.6 A176.0 176.0 0 0 1 247.1 364.4 L232.6 316.6 A126.0 126.0 0 0 0 244.2 312.4 Z"/>
+      <path class="fig-cell" d="M221.5 280.2 L232.6 316.6 A126.0 126.0 0 0 1 220.6 319.6 L213.2 282.3 A88.0 88.0 0 0 0 221.5 280.2 Z"/>
+      <path class="fig-cell" d="M232.6 316.6 L247.1 364.4 A176.0 176.0 0 0 1 230.3 368.6 L220.6 319.6 A126.0 126.0 0 0 0 232.6 316.6 Z"/>
+      <path class="fig-cell" d="M213.2 282.3 L220.6 319.6 A126.0 126.0 0 0 1 208.4 321.4 L204.6 283.6 A88.0 88.0 0 0 0 213.2 282.3 Z"/>
+      <path class="fig-cell" d="M220.6 319.6 L230.3 368.6 A176.0 176.0 0 0 1 213.3 371.2 L208.4 321.4 A126.0 126.0 0 0 0 220.6 319.6 Z"/>
+      <path class="fig-cell" d="M204.6 283.6 L208.4 321.4 A126.0 126.0 0 0 1 196.0 322.0 L196.0 284.0 A88.0 88.0 0 0 0 204.6 283.6 Z"/>
+      <path class="fig-cell" d="M208.4 321.4 L213.3 371.2 A176.0 176.0 0 0 1 196.0 372.0 L196.0 322.0 A126.0 126.0 0 0 0 208.4 321.4 Z"/>
+      <path class="fig-cell" d="M196.0 284.0 L196.0 322.0 A126.0 126.0 0 0 1 183.6 321.4 L187.4 283.6 A88.0 88.0 0 0 0 196.0 284.0 Z"/>
+      <path class="fig-cell" d="M196.0 322.0 L196.0 372.0 A176.0 176.0 0 0 1 178.7 371.2 L183.6 321.4 A126.0 126.0 0 0 0 196.0 322.0 Z"/>
+      <path class="fig-cell" d="M187.4 283.6 L183.6 321.4 A126.0 126.0 0 0 1 171.4 319.6 L178.8 282.3 A88.0 88.0 0 0 0 187.4 283.6 Z"/>
+      <path class="fig-cell" d="M183.6 321.4 L178.7 371.2 A176.0 176.0 0 0 1 161.7 368.6 L171.4 319.6 A126.0 126.0 0 0 0 183.6 321.4 Z"/>
+      <path class="fig-cell" d="M178.8 282.3 L171.4 319.6 A126.0 126.0 0 0 1 159.4 316.6 L170.5 280.2 A88.0 88.0 0 0 0 178.8 282.3 Z"/>
+      <path class="fig-cell" d="M171.4 319.6 L161.7 368.6 A176.0 176.0 0 0 1 144.9 364.4 L159.4 316.6 A126.0 126.0 0 0 0 171.4 319.6 Z"/>
+      <path class="fig-cell" d="M170.5 280.2 L159.4 316.6 A126.0 126.0 0 0 1 147.8 312.4 L162.3 277.3 A88.0 88.0 0 0 0 170.5 280.2 Z"/>
+      <path class="fig-cell" d="M159.4 316.6 L144.9 364.4 A176.0 176.0 0 0 1 128.6 358.6 L147.8 312.4 A126.0 126.0 0 0 0 159.4 316.6 Z"/>
+      <path class="fig-cell" d="M162.3 277.3 L147.8 312.4 A126.0 126.0 0 0 1 136.6 307.1 L154.5 273.6 A88.0 88.0 0 0 0 162.3 277.3 Z"/>
+      <path class="fig-cell" d="M147.8 312.4 L128.6 358.6 A176.0 176.0 0 0 1 113.0 351.2 L136.6 307.1 A126.0 126.0 0 0 0 147.8 312.4 Z"/>
+      <path class="fig-cell" d="M154.5 273.6 L136.6 307.1 A126.0 126.0 0 0 1 126.0 300.8 L147.1 269.2 A88.0 88.0 0 0 0 154.5 273.6 Z"/>
+      <path class="fig-cell" d="M136.6 307.1 L113.0 351.2 A176.0 176.0 0 0 1 98.2 342.3 L126.0 300.8 A126.0 126.0 0 0 0 136.6 307.1 Z"/>
+      <path class="fig-cell" d="M147.1 269.2 L126.0 300.8 A126.0 126.0 0 0 1 116.1 293.4 L140.2 264.0 A88.0 88.0 0 0 0 147.1 269.2 Z"/>
+      <path class="fig-cell" d="M126.0 300.8 L98.2 342.3 A176.0 176.0 0 0 1 84.3 332.0 L116.1 293.4 A126.0 126.0 0 0 0 126.0 300.8 Z"/>
+      <path class="fig-cell" d="M140.2 264.0 L116.1 293.4 A126.0 126.0 0 0 1 106.9 285.1 L133.8 258.2 A88.0 88.0 0 0 0 140.2 264.0 Z"/>
+      <path class="fig-cell" d="M116.1 293.4 L84.3 332.0 A176.0 176.0 0 0 1 71.5 320.5 L106.9 285.1 A126.0 126.0 0 0 0 116.1 293.4 Z"/>
+      <path class="fig-cell" d="M133.8 258.2 L106.9 285.1 A126.0 126.0 0 0 1 98.6 275.9 L128.0 251.8 A88.0 88.0 0 0 0 133.8 258.2 Z"/>
+      <path class="fig-cell" d="M106.9 285.1 L71.5 320.5 A176.0 176.0 0 0 1 60.0 307.7 L98.6 275.9 A126.0 126.0 0 0 0 106.9 285.1 Z"/>
+      <path class="fig-cell" d="M128.0 251.8 L98.6 275.9 A126.0 126.0 0 0 1 91.2 266.0 L122.8 244.9 A88.0 88.0 0 0 0 128.0 251.8 Z"/>
+      <path class="fig-cell" d="M98.6 275.9 L60.0 307.7 A176.0 176.0 0 0 1 49.7 293.8 L91.2 266.0 A126.0 126.0 0 0 0 98.6 275.9 Z"/>
+      <path class="fig-cell" d="M122.8 244.9 L91.2 266.0 A126.0 126.0 0 0 1 84.9 255.4 L118.4 237.5 A88.0 88.0 0 0 0 122.8 244.9 Z"/>
+      <path class="fig-cell" d="M91.2 266.0 L49.7 293.8 A176.0 176.0 0 0 1 40.8 279.0 L84.9 255.4 A126.0 126.0 0 0 0 91.2 266.0 Z"/>
+      <path class="fig-cell" d="M118.4 237.5 L84.9 255.4 A126.0 126.0 0 0 1 79.6 244.2 L114.7 229.7 A88.0 88.0 0 0 0 118.4 237.5 Z"/>
+      <path class="fig-cell" d="M84.9 255.4 L40.8 279.0 A176.0 176.0 0 0 1 33.4 263.4 L79.6 244.2 A126.0 126.0 0 0 0 84.9 255.4 Z"/>
+      <path class="fig-cell" d="M114.7 229.7 L79.6 244.2 A126.0 126.0 0 0 1 75.4 232.6 L111.8 221.5 A88.0 88.0 0 0 0 114.7 229.7 Z"/>
+      <path class="fig-cell" d="M79.6 244.2 L33.4 263.4 A176.0 176.0 0 0 1 27.6 247.1 L75.4 232.6 A126.0 126.0 0 0 0 79.6 244.2 Z"/>
+      <path class="fig-cell" d="M111.8 221.5 L75.4 232.6 A126.0 126.0 0 0 1 72.4 220.6 L109.7 213.2 A88.0 88.0 0 0 0 111.8 221.5 Z"/>
+      <path class="fig-cell" d="M75.4 232.6 L27.6 247.1 A176.0 176.0 0 0 1 23.4 230.3 L72.4 220.6 A126.0 126.0 0 0 0 75.4 232.6 Z"/>
+      <path class="fig-cell" d="M109.7 213.2 L72.4 220.6 A126.0 126.0 0 0 1 70.6 208.4 L108.4 204.6 A88.0 88.0 0 0 0 109.7 213.2 Z"/>
+      <path class="fig-cell" d="M72.4 220.6 L23.4 230.3 A176.0 176.0 0 0 1 20.8 213.3 L70.6 208.4 A126.0 126.0 0 0 0 72.4 220.6 Z"/>
+      <path class="fig-cell" d="M108.4 204.6 L70.6 208.4 A126.0 126.0 0 0 1 70.0 196.0 L108.0 196.0 A88.0 88.0 0 0 0 108.4 204.6 Z"/>
+      <path class="fig-cell" d="M70.6 208.4 L20.8 213.3 A176.0 176.0 0 0 1 20.0 196.0 L70.0 196.0 A126.0 126.0 0 0 0 70.6 208.4 Z"/>
+      <path class="fig-cell" d="M108.0 196.0 L70.0 196.0 A126.0 126.0 0 0 1 70.6 183.6 L108.4 187.4 A88.0 88.0 0 0 0 108.0 196.0 Z"/>
+      <path class="fig-cell" d="M70.0 196.0 L20.0 196.0 A176.0 176.0 0 0 1 20.8 178.7 L70.6 183.6 A126.0 126.0 0 0 0 70.0 196.0 Z"/>
+      <path class="fig-cell" d="M108.4 187.4 L70.6 183.6 A126.0 126.0 0 0 1 72.4 171.4 L109.7 178.8 A88.0 88.0 0 0 0 108.4 187.4 Z"/>
+      <path class="fig-cell" d="M70.6 183.6 L20.8 178.7 A176.0 176.0 0 0 1 23.4 161.7 L72.4 171.4 A126.0 126.0 0 0 0 70.6 183.6 Z"/>
+      <path class="fig-cell" d="M109.7 178.8 L72.4 171.4 A126.0 126.0 0 0 1 75.4 159.4 L111.8 170.5 A88.0 88.0 0 0 0 109.7 178.8 Z"/>
+      <path class="fig-cell" d="M72.4 171.4 L23.4 161.7 A176.0 176.0 0 0 1 27.6 144.9 L75.4 159.4 A126.0 126.0 0 0 0 72.4 171.4 Z"/>
+      <path class="fig-cell" d="M111.8 170.5 L75.4 159.4 A126.0 126.0 0 0 1 79.6 147.8 L114.7 162.3 A88.0 88.0 0 0 0 111.8 170.5 Z"/>
+      <path class="fig-cell" d="M75.4 159.4 L27.6 144.9 A176.0 176.0 0 0 1 33.4 128.6 L79.6 147.8 A126.0 126.0 0 0 0 75.4 159.4 Z"/>
+      <path class="fig-cell" d="M114.7 162.3 L79.6 147.8 A126.0 126.0 0 0 1 84.9 136.6 L118.4 154.5 A88.0 88.0 0 0 0 114.7 162.3 Z"/>
+      <path class="fig-cell" d="M79.6 147.8 L33.4 128.6 A176.0 176.0 0 0 1 40.8 113.0 L84.9 136.6 A126.0 126.0 0 0 0 79.6 147.8 Z"/>
+      <path class="fig-cell" d="M118.4 154.5 L84.9 136.6 A126.0 126.0 0 0 1 91.2 126.0 L122.8 147.1 A88.0 88.0 0 0 0 118.4 154.5 Z"/>
+      <path class="fig-cell" d="M84.9 136.6 L40.8 113.0 A176.0 176.0 0 0 1 49.7 98.2 L91.2 126.0 A126.0 126.0 0 0 0 84.9 136.6 Z"/>
+      <path class="fig-cell" d="M122.8 147.1 L91.2 126.0 A126.0 126.0 0 0 1 98.6 116.1 L128.0 140.2 A88.0 88.0 0 0 0 122.8 147.1 Z"/>
+      <path class="fig-cell" d="M91.2 126.0 L49.7 98.2 A176.0 176.0 0 0 1 60.0 84.3 L98.6 116.1 A126.0 126.0 0 0 0 91.2 126.0 Z"/>
+      <path class="fig-cell" d="M128.0 140.2 L98.6 116.1 A126.0 126.0 0 0 1 106.9 106.9 L133.8 133.8 A88.0 88.0 0 0 0 128.0 140.2 Z"/>
+      <path class="fig-cell" d="M98.6 116.1 L60.0 84.3 A176.0 176.0 0 0 1 71.5 71.5 L106.9 106.9 A126.0 126.0 0 0 0 98.6 116.1 Z"/>
+      <path class="fig-cell" d="M133.8 133.8 L106.9 106.9 A126.0 126.0 0 0 1 116.1 98.6 L140.2 128.0 A88.0 88.0 0 0 0 133.8 133.8 Z"/>
+      <path class="fig-cell" d="M106.9 106.9 L71.5 71.5 A176.0 176.0 0 0 1 84.3 60.0 L116.1 98.6 A126.0 126.0 0 0 0 106.9 106.9 Z"/>
+      <path class="fig-cell" d="M140.2 128.0 L116.1 98.6 A126.0 126.0 0 0 1 126.0 91.2 L147.1 122.8 A88.0 88.0 0 0 0 140.2 128.0 Z"/>
+      <path class="fig-cell" d="M116.1 98.6 L84.3 60.0 A176.0 176.0 0 0 1 98.2 49.7 L126.0 91.2 A126.0 126.0 0 0 0 116.1 98.6 Z"/>
+      <path class="fig-cell" d="M147.1 122.8 L126.0 91.2 A126.0 126.0 0 0 1 136.6 84.9 L154.5 118.4 A88.0 88.0 0 0 0 147.1 122.8 Z"/>
+      <path class="fig-cell" d="M126.0 91.2 L98.2 49.7 A176.0 176.0 0 0 1 113.0 40.8 L136.6 84.9 A126.0 126.0 0 0 0 126.0 91.2 Z"/>
+      <path class="fig-cell" d="M154.5 118.4 L136.6 84.9 A126.0 126.0 0 0 1 147.8 79.6 L162.3 114.7 A88.0 88.0 0 0 0 154.5 118.4 Z"/>
+      <path class="fig-cell" d="M136.6 84.9 L113.0 40.8 A176.0 176.0 0 0 1 128.6 33.4 L147.8 79.6 A126.0 126.0 0 0 0 136.6 84.9 Z"/>
+      <path class="fig-cell" d="M162.3 114.7 L147.8 79.6 A126.0 126.0 0 0 1 159.4 75.4 L170.5 111.8 A88.0 88.0 0 0 0 162.3 114.7 Z"/>
+      <path class="fig-cell" d="M147.8 79.6 L128.6 33.4 A176.0 176.0 0 0 1 144.9 27.6 L159.4 75.4 A126.0 126.0 0 0 0 147.8 79.6 Z"/>
+      <path class="fig-cell" d="M170.5 111.8 L159.4 75.4 A126.0 126.0 0 0 1 171.4 72.4 L178.8 109.7 A88.0 88.0 0 0 0 170.5 111.8 Z"/>
+      <path class="fig-cell" d="M159.4 75.4 L144.9 27.6 A176.0 176.0 0 0 1 161.7 23.4 L171.4 72.4 A126.0 126.0 0 0 0 159.4 75.4 Z"/>
+      <path class="fig-cell" d="M178.8 109.7 L171.4 72.4 A126.0 126.0 0 0 1 183.6 70.6 L187.4 108.4 A88.0 88.0 0 0 0 178.8 109.7 Z"/>
+      <path class="fig-cell" d="M171.4 72.4 L161.7 23.4 A176.0 176.0 0 0 1 178.7 20.8 L183.6 70.6 A126.0 126.0 0 0 0 171.4 72.4 Z"/>
+      <path class="fig-cell" d="M187.4 108.4 L183.6 70.6 A126.0 126.0 0 0 1 196.0 70.0 L196.0 108.0 A88.0 88.0 0 0 0 187.4 108.4 Z"/>
+      <path class="fig-cell" d="M183.6 70.6 L178.7 20.8 A176.0 176.0 0 0 1 196.0 20.0 L196.0 70.0 A126.0 126.0 0 0 0 183.6 70.6 Z"/>
+      <text class="fig-text fig-base1" x="213.7" y="184.3" text-anchor="middle">U</text>
+      <text class="fig-text fig-base1" x="213.7" y="219.7" text-anchor="middle">C</text>
+      <text class="fig-text fig-base1" x="178.3" y="219.7" text-anchor="middle">A</text>
+      <text class="fig-text fig-base1" x="178.3" y="184.3" text-anchor="middle">G</text>
+      <text class="fig-text fig-base2" x="208.9" y="135.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base2" x="232.7" y="145.6" text-anchor="middle">C</text>
+      <text class="fig-text fig-base2" x="250.9" y="163.8" text-anchor="middle">A</text>
+      <text class="fig-text fig-base2" x="260.7" y="187.6" text-anchor="middle">G</text>
+      <text class="fig-text fig-base2" x="260.7" y="213.4" text-anchor="middle">U</text>
+      <text class="fig-text fig-base2" x="250.9" y="237.2" text-anchor="middle">C</text>
+      <text class="fig-text fig-base2" x="232.7" y="255.4" text-anchor="middle">A</text>
+      <text class="fig-text fig-base2" x="208.9" y="265.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base2" x="183.1" y="265.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base2" x="159.3" y="255.4" text-anchor="middle">C</text>
+      <text class="fig-text fig-base2" x="141.1" y="237.2" text-anchor="middle">A</text>
+      <text class="fig-text fig-base2" x="131.3" y="213.4" text-anchor="middle">G</text>
+      <text class="fig-text fig-base2" x="131.3" y="187.6" text-anchor="middle">U</text>
+      <text class="fig-text fig-base2" x="141.1" y="163.8" text-anchor="middle">C</text>
+      <text class="fig-text fig-base2" x="159.3" y="145.6" text-anchor="middle">A</text>
+      <text class="fig-text fig-base2" x="183.1" y="135.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="201.3" y="92.6" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="211.7" y="93.7" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="222.0" y="95.7" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="232.0" y="98.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="241.7" y="102.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="251.0" y="107.7" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="259.7" y="113.6" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="267.9" y="120.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="275.3" y="127.6" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="281.9" y="135.8" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="287.8" y="144.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="292.7" y="153.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="296.7" y="163.5" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="299.8" y="173.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="301.8" y="183.8" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="302.9" y="194.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="302.9" y="204.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="301.8" y="215.2" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="299.8" y="225.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="296.7" y="235.5" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="292.7" y="245.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="287.8" y="254.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="281.9" y="263.2" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="275.3" y="271.4" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="267.9" y="278.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="259.7" y="285.4" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="251.0" y="291.3" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="241.7" y="296.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="232.0" y="300.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="222.0" y="303.3" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="211.7" y="305.3" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="201.3" y="306.4" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="190.7" y="306.4" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="180.3" y="305.3" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="170.0" y="303.3" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="160.0" y="300.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="150.3" y="296.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="141.0" y="291.3" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="132.3" y="285.4" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="124.1" y="278.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="116.7" y="271.4" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="110.1" y="263.2" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="104.2" y="254.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="99.3" y="245.2" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="95.3" y="235.5" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="92.2" y="225.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="90.2" y="215.2" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="89.1" y="204.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="89.1" y="194.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="90.2" y="183.8" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="92.2" y="173.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="95.3" y="163.5" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="99.3" y="153.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="104.2" y="144.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="110.1" y="135.8" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="116.7" y="127.6" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="124.1" y="120.2" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="132.3" y="113.6" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="141.0" y="107.7" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="150.3" y="102.8" text-anchor="middle">G</text>
+      <text class="fig-text fig-base3" x="160.0" y="98.8" text-anchor="middle">U</text>
+      <text class="fig-text fig-base3" x="170.0" y="95.7" text-anchor="middle">C</text>
+      <text class="fig-text fig-base3" x="180.3" y="93.7" text-anchor="middle">A</text>
+      <text class="fig-text fig-base3" x="190.7" y="92.6" text-anchor="middle">G</text>
+      <text class="fig-text fig-amino" x="203.4" y="49.0" text-anchor="middle">F</text>
+      <text class="fig-text fig-amino" x="218.2" y="50.4" text-anchor="middle">F</text>
+      <text class="fig-text fig-amino" x="232.7" y="53.3" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="246.9" y="57.6" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="260.6" y="63.3" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="273.6" y="70.3" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="286.0" y="78.5" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="297.4" y="87.9" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="307.9" y="98.4" text-anchor="middle">Y</text>
+      <text class="fig-text fig-amino" x="317.3" y="109.8" text-anchor="middle">Y</text>
+      <text class="fig-text fig-stop" x="308.4" y="131.7" text-anchor="start" transform="rotate(-30.938 308.4 131.7)">Stop</text>
+      <text class="fig-text fig-stop" x="314.4" y="143.0" text-anchor="start" transform="rotate(-25.312 314.4 143.0)">Stop</text>
+      <text class="fig-text fig-amino" x="338.2" y="148.9" text-anchor="middle">C</text>
+      <text class="fig-text fig-amino" x="342.5" y="163.1" text-anchor="middle">C</text>
+      <text class="fig-text fig-stop" x="325.6" y="179.8" text-anchor="start" transform="rotate(-8.438 325.6 179.8)">Stop</text>
+      <text class="fig-text fig-amino" x="346.8" y="192.4" text-anchor="middle">W</text>
+      <text class="fig-text fig-amino" x="346.8" y="207.2" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="345.4" y="222.0" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="342.5" y="236.5" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="338.2" y="250.7" text-anchor="middle">L</text>
+      <text class="fig-text fig-amino" x="332.5" y="264.4" text-anchor="middle">P</text>
+      <text class="fig-text fig-amino" x="325.5" y="277.4" text-anchor="middle">P</text>
+      <text class="fig-text fig-amino" x="317.3" y="289.8" text-anchor="middle">P</text>
+      <text class="fig-text fig-amino" x="307.9" y="301.2" text-anchor="middle">P</text>
+      <text class="fig-text fig-amino" x="297.4" y="311.7" text-anchor="middle">H</text>
+      <text class="fig-text fig-amino" x="286.0" y="321.1" text-anchor="middle">H</text>
+      <text class="fig-text fig-amino" x="273.6" y="329.3" text-anchor="middle">Q</text>
+      <text class="fig-text fig-amino" x="260.6" y="336.3" text-anchor="middle">Q</text>
+      <text class="fig-text fig-amino" x="246.9" y="342.0" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="232.7" y="346.3" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="218.2" y="349.2" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="203.4" y="350.6" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="188.6" y="350.6" text-anchor="middle">I</text>
+      <text class="fig-text fig-amino" x="173.8" y="349.2" text-anchor="middle">I</text>
+      <text class="fig-text fig-amino" x="159.3" y="346.3" text-anchor="middle">I</text>
+      <text class="fig-text fig-amino" x="145.1" y="342.0" text-anchor="middle">M</text>
+      <text class="fig-text fig-amino" x="131.4" y="336.3" text-anchor="middle">T</text>
+      <text class="fig-text fig-amino" x="118.4" y="329.3" text-anchor="middle">T</text>
+      <text class="fig-text fig-amino" x="106.0" y="321.1" text-anchor="middle">T</text>
+      <text class="fig-text fig-amino" x="94.6" y="311.7" text-anchor="middle">T</text>
+      <text class="fig-text fig-amino" x="84.1" y="301.2" text-anchor="middle">N</text>
+      <text class="fig-text fig-amino" x="74.7" y="289.8" text-anchor="middle">N</text>
+      <text class="fig-text fig-amino" x="66.5" y="277.4" text-anchor="middle">K</text>
+      <text class="fig-text fig-amino" x="59.5" y="264.4" text-anchor="middle">K</text>
+      <text class="fig-text fig-amino" x="53.8" y="250.7" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="49.5" y="236.5" text-anchor="middle">S</text>
+      <text class="fig-text fig-amino" x="46.6" y="222.0" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="45.2" y="207.2" text-anchor="middle">R</text>
+      <text class="fig-text fig-amino" x="45.2" y="192.4" text-anchor="middle">V</text>
+      <text class="fig-text fig-amino" x="46.6" y="177.6" text-anchor="middle">V</text>
+      <text class="fig-text fig-amino" x="49.5" y="163.1" text-anchor="middle">V</text>
+      <text class="fig-text fig-amino" x="53.8" y="148.9" text-anchor="middle">V</text>
+      <text class="fig-text fig-amino" x="59.5" y="135.2" text-anchor="middle">A</text>
+      <text class="fig-text fig-amino" x="66.5" y="122.2" text-anchor="middle">A</text>
+      <text class="fig-text fig-amino" x="74.7" y="109.8" text-anchor="middle">A</text>
+      <text class="fig-text fig-amino" x="84.1" y="98.4" text-anchor="middle">A</text>
+      <text class="fig-text fig-amino" x="94.6" y="87.9" text-anchor="middle">D</text>
+      <text class="fig-text fig-amino" x="106.0" y="78.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-amino" x="118.4" y="70.3" text-anchor="middle">E</text>
+      <text class="fig-text fig-amino" x="131.4" y="63.3" text-anchor="middle">E</text>
+      <text class="fig-text fig-amino" x="145.1" y="57.6" text-anchor="middle">G</text>
+      <text class="fig-text fig-amino" x="159.3" y="53.3" text-anchor="middle">G</text>
+      <text class="fig-text fig-amino" x="173.8" y="50.4" text-anchor="middle">G</text>
+      <text class="fig-text fig-amino" x="188.6" y="49.0" text-anchor="middle">G</text>
+      </svg>
+      <figcaption>The genetic code. A codon is read from the centre outwards: first base, second base, third base, then the amino acid it codes for, written as its one-letter symbol.</figcaption>
+    </figure>
+
+    <p>
+      Each amino acid has a one-letter symbol and a three-letter symbol. This chapter uses the
+      one-letter symbols, so the peptide Val-Lys-Leu is written VKL.
+    </p>
+
+    <h2>Translating RNA</h2>
+
+    <p>
+      <strong>Protein Translation Problem.</strong> Translate an RNA string into an amino acid
+      string.
+    </p>
+
+    <p>
+      Ordering the bases U, C, A, G and varying the third base fastest lists the 64 codons in a
+      fixed order, so the genetic code is one string of 64 symbols, the codon $abc$ sitting at index
+      $16i + 4j + k$ for the positions $i$, $j$, $k$ of its three bases. A stop codon is written
+      <code>*</code>.
+    </p>
+
+    <pre><code class="language-python">BASES = 'UCAG'
+AMINO = ('FFLLSSSSYY**CC*W'
+         'LLLLPPPPHHQQRRRR'
+         'IIIMTTTTNNKKSSRR'
+         'VVVVAAAADDEEGGGG')
+
+CODON = {a + b + c: AMINO[16 * i + 4 * j + k]
+         for i, a in enumerate(BASES)
+         for j, b in enumerate(BASES)
+         for k, c in enumerate(BASES)}
+
+def protein_translation(rna):
+    protein = []
+    for i in range(0, len(rna) - len(rna) % 3, 3):
+        amino = CODON[rna[i:i + 3]]
+        if amino == '*':
+            break
+        protein.append(amino)
+    return ''.join(protein)</code></pre>
+
+    <p>
+      Translation reads the string once, so it costs $O(n)$ for an RNA string of length $n$.
+      Applied to <code>AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA</code> it returns
+      <code>MAMAPRTEINSTRING</code>, the closing UGA ending it.
+    </p>
+
+    <h2>Finding the Gene Behind a Peptide</h2>
+
+    <p>
+      The reverse direction locates the gene that produced a known protein. A peptide of $k$ amino
+      acids is coded by $3k$ nucleotides, and two things about that stretch are unknown: where it
+      starts, and which of the two strands carries it.
+    </p>
+
+    <p>
+      <strong>Peptide Encoding Problem.</strong> Given a DNA string <em>Text</em> and an amino acid
+      string <em>Peptide</em>, find every substring of <em>Text</em> encoding <em>Peptide</em>.
+    </p>
+
+    <p>
+      A substring encodes the peptide when translating it gives the peptide, or when translating its
+      reverse complement does. Sliding a window of length $3k$ across the text covers every starting
+      position, and so covers all three reading frames of both strands.
+      <code>reverse_complement</code> comes from <a href="replication-origins.html">Chapter 1</a>.
+    </p>
+
+    <pre><code class="language-python">def peptide_encoding(text, peptide):
+    n = 3 * len(peptide)
+    substrings = []
+    for i in range(len(text) - n + 1):
+        window = text[i:i + n]
+        for strand in (window, reverse_complement(window)):
+            if protein_translation(strand.replace('T', 'U')) == peptide:
+                substrings.append(window)
+                break
+    return substrings</code></pre>
+
+    <p>
+      Each of the $n$ windows is translated at most twice at a cost of $O(k)$, so the search costs
+      $O(nk)$. On the text <code>ATGGCCATGGCCCCCAGAACTGAGATCAATAGTACCCGTATTAACGGGTGA</code> and the
+      peptide <code>MA</code> it returns <code>ATGGCC</code>, <code>GGCCAT</code> and
+      <code>ATGGCC</code>. The middle one encodes MA on the reverse strand, since the reverse
+      complement of GGCCAT is ATGGCC.
+    </p>
+
+    <h2>Tyrocidine B1 Is Not in the Genome</h2>
+
+    <p>
+      <strong>Tyrocidine B1</strong> is an antibiotic produced by the bacterium <em>Bacillus
+      brevis</em>. It is a peptide of ten amino acids, VKLFPWFNQY, and it is
+      <strong>cyclic</strong>: its two ends are joined, so the molecule is a ring with no first and
+      no last amino acid.
+    </p>
+
+    <p>
+      Running <code>peptide_encoding</code> on the <em>B. brevis</em> genome with this peptide
+      returns nothing. No stretch of 30 nucleotides on either strand translates to VKLFPWFNQY, and
+      widening the search to peptides one amino acid away from it returns nothing either.
+    </p>
+
+    <p>
+      Tyrocidine B1 is a <strong>non-ribosomal peptide</strong>, or NRP. It is assembled by an
+      enzyme called an <strong>NRP synthetase</strong>, which adds one amino acid at a time in an
+      order fixed by the structure of the enzyme itself. No RNA is read and no ribosome is involved,
+      so no gene spells the peptide out.
+    </p>
+
+    <p>
+      Bacteria and fungi produce NRPs to kill competing organisms, and many NRPs are used as
+      antibiotics and other drugs. They are frequently cyclic, and they contain amino acids outside
+      the standard 20.
+    </p>
+
+    <p>
+      The sequence of an NRP therefore has to be read off the molecule rather than off the genome.
+    </p>
+
+    <h2>Mass Spectrometry</h2>
+
+    <p>
+      A <strong>mass spectrometer</strong> takes many copies of a molecule, breaks them into
+      fragments, and weighs the fragments. Mass is measured in <strong>daltons</strong> (Da), one
+      dalton being roughly the mass of a single proton or neutron. Rounding each amino acid mass to
+      the nearest dalton makes every mass an integer.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="648" height="234" viewBox="0 0 648 234">
+      <rect class="fig-cell" x="54" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="81" y="84" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="81" y="105" text-anchor="middle">57</text>
+      <rect class="fig-cell" x="108" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="135" y="84" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="135" y="105" text-anchor="middle">71</text>
+      <rect class="fig-cell" x="162" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="189" y="84" text-anchor="middle">S</text>
+      <text class="fig-text fig-note" x="189" y="105" text-anchor="middle">87</text>
+      <rect class="fig-cell" x="216" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="243" y="84" text-anchor="middle">P</text>
+      <text class="fig-text fig-note" x="243" y="105" text-anchor="middle">97</text>
+      <rect class="fig-cell" x="270" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="297" y="84" text-anchor="middle">V</text>
+      <text class="fig-text fig-note" x="297" y="105" text-anchor="middle">99</text>
+      <rect class="fig-cell" x="324" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="351" y="84" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="351" y="105" text-anchor="middle">101</text>
+      <rect class="fig-cell" x="378" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="405" y="84" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="405" y="105" text-anchor="middle">103</text>
+      <rect class="fig-cell-alt" x="432" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="459" y="84" text-anchor="middle">I</text>
+      <text class="fig-text fig-note" x="459" y="105" text-anchor="middle">113</text>
+      <rect class="fig-cell-alt" x="486" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="513" y="84" text-anchor="middle">L</text>
+      <text class="fig-text fig-note" x="513" y="105" text-anchor="middle">113</text>
+      <rect class="fig-cell" x="540" y="62" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="567" y="84" text-anchor="middle">N</text>
+      <text class="fig-text fig-note" x="567" y="105" text-anchor="middle">114</text>
+      <rect class="fig-cell" x="54" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="81" y="146" text-anchor="middle">D</text>
+      <text class="fig-text fig-note" x="81" y="167" text-anchor="middle">115</text>
+      <rect class="fig-cell-alt" x="108" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="135" y="146" text-anchor="middle">K</text>
+      <text class="fig-text fig-note" x="135" y="167" text-anchor="middle">128</text>
+      <rect class="fig-cell-alt" x="162" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="189" y="146" text-anchor="middle">Q</text>
+      <text class="fig-text fig-note" x="189" y="167" text-anchor="middle">128</text>
+      <rect class="fig-cell" x="216" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="243" y="146" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="243" y="167" text-anchor="middle">129</text>
+      <rect class="fig-cell" x="270" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="297" y="146" text-anchor="middle">M</text>
+      <text class="fig-text fig-note" x="297" y="167" text-anchor="middle">131</text>
+      <rect class="fig-cell" x="324" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="351" y="146" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="351" y="167" text-anchor="middle">137</text>
+      <rect class="fig-cell" x="378" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="405" y="146" text-anchor="middle">F</text>
+      <text class="fig-text fig-note" x="405" y="167" text-anchor="middle">147</text>
+      <rect class="fig-cell" x="432" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="459" y="146" text-anchor="middle">R</text>
+      <text class="fig-text fig-note" x="459" y="167" text-anchor="middle">156</text>
+      <rect class="fig-cell" x="486" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="513" y="146" text-anchor="middle">Y</text>
+      <text class="fig-text fig-note" x="513" y="167" text-anchor="middle">163</text>
+      <rect class="fig-cell" x="540" y="124" width="54" height="56"/>
+      <text class="fig-text fig-tick" x="567" y="146" text-anchor="middle">W</text>
+      <text class="fig-text fig-note" x="567" y="167" text-anchor="middle">186</text>
+      <text class="fig-text fig-note" x="324" y="210" text-anchor="middle">shaded: I and L both weigh 113, K and Q both weigh 128</text>
+      </svg>
+      <figcaption>The twenty amino acids and their masses in daltons, rounded to whole numbers. Two pairs collide: isoleucine and leucine both weigh 113, lysine and glutamine both weigh 128. A mass spectrometer measures mass and nothing else, so no amount of data separates either pair, and everything that follows works with the eighteen distinct masses rather than twenty letters.</figcaption>
+    </figure>
+
+    <p>
+      The 20 amino acids have only 18 distinct integer masses. Leucine and isoleucine both weigh
+      113, and lysine and glutamine both weigh 128, so no measurement of mass separates either pair.
+      Everything below works with those 18 masses, and a peptide is represented as a list of
+      integers rather than a string of letters.
+    </p>
+
+    <pre><code class="language-python">MASS = {'G': 57, 'A': 71, 'S': 87, 'P': 97, 'V': 99, 'T': 101, 'C': 103,
+        'I': 113, 'L': 113, 'N': 114, 'D': 115, 'K': 128, 'Q': 128,
+        'E': 129, 'M': 131, 'H': 137, 'F': 147, 'R': 156, 'Y': 163, 'W': 186}
+
+MASSES = sorted(set(MASS.values()))
+
+def masses_of(peptide):
+    return [MASS[amino] for amino in peptide]</code></pre>
+
+    <h2>The Theoretical Spectrum</h2>
+
+    <p>
+      A <strong>subpeptide</strong> of a cyclic peptide is a contiguous stretch of it, and the
+      stretch may run past the join. A cyclic peptide of $n$ amino acids has $n$ subpeptides of each
+      length from 1 to $n - 1$, one starting at each position, so $n(n - 1)$ in all.
+    </p>
+
+    <p>
+      The <strong>theoretical spectrum</strong> of a cyclic peptide, its
+      <strong>cyclospectrum</strong>, is the sorted list of the masses of all its subpeptides,
+      together with 0 and the mass of the whole peptide. It has $n(n - 1) + 2$ entries, and it
+      repeats a mass whenever two different subpeptides weigh the same.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="690" height="400" viewBox="0 0 690 400">
+      <circle class="fig-accent" cx="196" cy="196" r="76"/>
+      <circle class="fig-hole" cx="196" cy="120" r="15"/>
+      <text class="fig-text fig-tick" x="196" y="125" text-anchor="middle">N</text>
+      <text class="fig-text fig-note" x="196" y="94" text-anchor="middle">114</text>
+      <circle class="fig-hole" cx="272" cy="196" r="15"/>
+      <text class="fig-text fig-tick" x="272" y="201" text-anchor="middle">Q</text>
+      <text class="fig-text fig-note" x="302" y="200" text-anchor="middle">128</text>
+      <circle class="fig-hole" cx="196" cy="272" r="15"/>
+      <text class="fig-text fig-tick" x="196" y="277" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="196" y="306" text-anchor="middle">129</text>
+      <circle class="fig-hole" cx="120" cy="196" r="15"/>
+      <text class="fig-text fig-tick" x="120" y="201" text-anchor="middle">L</text>
+      <text class="fig-text fig-note" x="90" y="200" text-anchor="middle">113</text>
+      <text class="fig-text fig-note" x="196" y="188" text-anchor="middle">total</text>
+      <text class="fig-text fig-tick" x="196" y="208" text-anchor="middle">484</text>
+      <path class="fig-arc" d="M 196 68 A 128 128 0 0 1 324 196"/>
+      <text class="fig-text fig-tick" x="302.1" y="85.9" text-anchor="middle">NQ</text>
+      <text class="fig-text fig-note" x="302.1" y="102.9" text-anchor="middle">242</text>
+      <path class="fig-arc" d="M 324 196 A 128 128 0 0 1 196 324"/>
+      <text class="fig-text fig-tick" x="302.1" y="298.1" text-anchor="middle">QE</text>
+      <text class="fig-text fig-note" x="302.1" y="315.1" text-anchor="middle">257</text>
+      <path class="fig-arc" d="M 196 324 A 128 128 0 0 1 68 196"/>
+      <text class="fig-text fig-tick" x="89.9" y="298.1" text-anchor="middle">EL</text>
+      <text class="fig-text fig-note" x="89.9" y="315.1" text-anchor="middle">242</text>
+      <path class="fig-curve" d="M 68 196 A 128 128 0 0 1 196 68"/>
+      <text class="fig-text fig-tick" x="89.9" y="85.9" text-anchor="middle">LN</text>
+      <text class="fig-text fig-note" x="89.9" y="102.9" text-anchor="middle">227</text>
+      <text class="fig-text fig-note" x="388" y="100" text-anchor="start">length 1</text>
+      <text class="fig-text fig-tick" x="464" y="100" text-anchor="middle">N</text>
+      <text class="fig-text fig-note" x="464" y="118" text-anchor="middle">114</text>
+      <text class="fig-text fig-tick" x="526" y="100" text-anchor="middle">Q</text>
+      <text class="fig-text fig-note" x="526" y="118" text-anchor="middle">128</text>
+      <text class="fig-text fig-tick" x="588" y="100" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="588" y="118" text-anchor="middle">129</text>
+      <text class="fig-text fig-tick" x="650" y="100" text-anchor="middle">L</text>
+      <text class="fig-text fig-note" x="650" y="118" text-anchor="middle">113</text>
+      <text class="fig-text fig-note" x="388" y="156" text-anchor="start">length 2</text>
+      <text class="fig-text fig-tick" x="464" y="156" text-anchor="middle">NQ</text>
+      <text class="fig-text fig-note" x="464" y="174" text-anchor="middle">242</text>
+      <text class="fig-text fig-tick" x="526" y="156" text-anchor="middle">QE</text>
+      <text class="fig-text fig-note" x="526" y="174" text-anchor="middle">257</text>
+      <text class="fig-text fig-tick" x="588" y="156" text-anchor="middle">EL</text>
+      <text class="fig-text fig-note" x="588" y="174" text-anchor="middle">242</text>
+      <text class="fig-text fig-tick" x="650" y="156" text-anchor="middle">LN</text>
+      <text class="fig-text fig-note" x="650" y="174" text-anchor="middle">227</text>
+      <text class="fig-text fig-note" x="388" y="212" text-anchor="start">length 3</text>
+      <text class="fig-text fig-tick" x="464" y="212" text-anchor="middle">NQE</text>
+      <text class="fig-text fig-note" x="464" y="230" text-anchor="middle">371</text>
+      <text class="fig-text fig-tick" x="526" y="212" text-anchor="middle">QEL</text>
+      <text class="fig-text fig-note" x="526" y="230" text-anchor="middle">370</text>
+      <text class="fig-text fig-tick" x="588" y="212" text-anchor="middle">ELN</text>
+      <text class="fig-text fig-note" x="588" y="230" text-anchor="middle">356</text>
+      <text class="fig-text fig-tick" x="650" y="212" text-anchor="middle">LNQ</text>
+      <text class="fig-text fig-note" x="650" y="230" text-anchor="middle">355</text>
+      <line class="fig-axis" x1="388" y1="246" x2="674" y2="246"/>
+      <text class="fig-text fig-tick" x="388" y="268" text-anchor="start">12 subpeptides, plus 0 and 484</text>
+      <text class="fig-text fig-note" x="388" y="288" text-anchor="start">give the 14 masses of the cyclospectrum</text>
+      </svg>
+      <figcaption>The cyclic peptide NQEL and its subpeptides of length two, one starting at each of the four positions. Because the molecule is a ring there is no first and no last amino acid, so LN is a subpeptide exactly as NQ is; the highlighted arc is the one that crosses the point where the string NQEL happens to be cut open, and it is what a linear peptide would not have. Every length from 1 to $n - 1$ contributes $n$ subpeptides the same way, giving $n(n-1) = 12$ of them, and adding 0 and the mass of the whole ring gives the 14 entries of the cyclospectrum. Read as a linear peptide instead, NQEL would have only 10 subpeptides.</figcaption>
+    </figure>
+
+    <p>
+      <strong>Generating Theoretical Spectrum Problem.</strong> Given a cyclic peptide, compute its
+      cyclospectrum.
+    </p>
+
+    <p>
+      Summing each subpeptide from scratch costs $O(n)$ per subpeptide, $O(n^3)$ in total. Prefix
+      masses remove the inner sum. With $\text{prefix}[i]$ the mass of the first $i$ amino acids,
+      the subpeptide running from $i$ to $j$ weighs $\text{prefix}[j] - \text{prefix}[i]$, and a
+      subpeptide that wraps past the join weighs the total mass minus the mass of the stretch it
+      leaves out.
+    </p>
+
+    <pre><code class="language-python">def prefix_masses(peptide):
+    prefix = [0]
+    for mass in peptide:
+        prefix.append(prefix[-1] + mass)
+    return prefix
+
+def linear_spectrum(peptide):
+    prefix = prefix_masses(peptide)
+    spectrum = [0]
+    for i in range(len(peptide)):
+        for j in range(i + 1, len(peptide) + 1):
+            spectrum.append(prefix[j] - prefix[i])
+    return sorted(spectrum)
+
+def cyclic_spectrum(peptide):
+    prefix = prefix_masses(peptide)
+    total = prefix[-1]
+    spectrum = [0]
+    for i in range(len(peptide)):
+        for j in range(i + 1, len(peptide) + 1):
+            spectrum.append(prefix[j] - prefix[i])
+            if i &gt; 0 and j &lt; len(peptide):
+                spectrum.append(total - (prefix[j] - prefix[i]))
+    return sorted(spectrum)</code></pre>
+
+    <p>
+      Both cost $O(n^2)$, which is the size of their output. A linear peptide has no subpeptides
+      running past a join, so its spectrum holds $n(n + 1)/2 + 1$ masses rather than $n(n - 1) + 2$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="718" height="190" viewBox="0 0 718 190">
+      <rect class="fig-cell" x="118" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="138" y="80" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="118" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="138" y="126" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="158" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="178" y="80" text-anchor="middle">113</text>
+      <rect class="fig-cell" x="158" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="178" y="126" text-anchor="middle">113</text>
+      <rect class="fig-cell" x="198" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="218" y="80" text-anchor="middle">114</text>
+      <rect class="fig-cell" x="198" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="218" y="126" text-anchor="middle">114</text>
+      <rect class="fig-cell" x="238" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="258" y="80" text-anchor="middle">128</text>
+      <rect class="fig-cell" x="238" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="258" y="126" text-anchor="middle">128</text>
+      <rect class="fig-cell" x="278" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="298" y="80" text-anchor="middle">129</text>
+      <rect class="fig-cell" x="278" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="298" y="126" text-anchor="middle">129</text>
+      <rect class="fig-cell" x="318" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="338" y="80" text-anchor="middle">227</text>
+      <rect class="fig-cell-alt" x="318" y="106" width="40" height="30"/>
+      <rect class="fig-cell" x="358" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="378" y="80" text-anchor="middle">242</text>
+      <rect class="fig-cell" x="358" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="378" y="126" text-anchor="middle">242</text>
+      <rect class="fig-cell" x="398" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="418" y="80" text-anchor="middle">242</text>
+      <rect class="fig-cell" x="398" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="418" y="126" text-anchor="middle">242</text>
+      <rect class="fig-cell" x="438" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="458" y="80" text-anchor="middle">257</text>
+      <rect class="fig-cell" x="438" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="458" y="126" text-anchor="middle">257</text>
+      <rect class="fig-cell" x="478" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="498" y="80" text-anchor="middle">355</text>
+      <rect class="fig-cell-alt" x="478" y="106" width="40" height="30"/>
+      <rect class="fig-cell" x="518" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="538" y="80" text-anchor="middle">356</text>
+      <rect class="fig-cell-alt" x="518" y="106" width="40" height="30"/>
+      <rect class="fig-cell" x="558" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="578" y="80" text-anchor="middle">370</text>
+      <rect class="fig-cell" x="558" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="578" y="126" text-anchor="middle">370</text>
+      <rect class="fig-cell" x="598" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="618" y="80" text-anchor="middle">371</text>
+      <rect class="fig-cell" x="598" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="618" y="126" text-anchor="middle">371</text>
+      <rect class="fig-cell" x="638" y="60" width="40" height="30"/>
+      <text class="fig-text fig-note" x="658" y="80" text-anchor="middle">484</text>
+      <rect class="fig-cell" x="638" y="106" width="40" height="30"/>
+      <text class="fig-text fig-note" x="658" y="126" text-anchor="middle">484</text>
+      <text class="fig-text fig-note" x="106" y="80" text-anchor="end">cyclic</text>
+      <text class="fig-text fig-note" x="106" y="126" text-anchor="end">linear</text>
+      <text class="fig-text fig-note" x="398" y="168" text-anchor="middle">the three shaded masses are the subpeptides that run past the join</text>
+      </svg>
+      <figcaption>The theoretical spectrum of NQEL read as a ring and as a straight chain, sorted and placed side by side. The linear peptide is missing exactly three masses, 227, 355 and 356, and each one belongs to a subpeptide that wraps past the point where the ring is cut open: LN, ELN and LNQ. A cyclic peptide of $n$ amino acids therefore has $n(n-1) + 2$ masses where a linear one has $n(n+1)/2 + 1$.</figcaption>
+    </figure>
+
+    <h2>Sequencing a Cyclic Peptide</h2>
+
+    <p>
+      <strong>Cyclopeptide Sequencing Problem.</strong> Given an ideal spectrum, find every cyclic
+      peptide whose cyclospectrum equals it.
+    </p>
+
+    <p>
+      The answer is never a single peptide. Rotating a cyclic peptide changes no subpeptide, and
+      neither does reading it backwards, so all $2n$ rotations and reversals share one spectrum.
+      With the collisions at 113 and 128, this is the limit of what a spectrum can determine.
+    </p>
+
+    <p>
+      The largest mass in a spectrum is the mass of the whole peptide, the <strong>parent
+      mass</strong>. Brute force generates every peptide of that mass and keeps those whose
+      cyclospectrum matches the spectrum. The number of candidates decides whether this is possible.
+    </p>
+
+    <p>
+      <strong>Counting Peptides with Given Mass Problem.</strong> Given an integer $m$, count the
+      linear peptides of total mass $m$.
+    </p>
+
+    <p>
+      A peptide of mass $m$ ends in an amino acid of some mass $w$, and deleting that amino acid
+      leaves a peptide of mass $m - w$. Summing over the 18 masses gives
+      $C(m) = \sum_w C(m - w)$, with $C(0) = 1$ and $C(m) = 0$ for $m &lt; 0$.
+    </p>
+
+    <pre><code class="language-python">def count_peptides(m):
+    counts = [1] + [0] * m
+    for mass in range(1, m + 1):
+        counts[mass] = sum(counts[mass - w] for w in MASSES if w &lt;= mass)
+    return counts[m]</code></pre>
+
+    <p>
+      The table has $m$ entries and each costs 18 additions, so counting costs $O(m)$.
+      <code>count_peptides(1024)</code> is 14712706211.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="448" height="302" viewBox="0 0 448 302">
+      <line class="fig-axis" x1="74.0" y1="250.0" x2="430.0" y2="250.0"/>
+      <line class="fig-axis" x1="74.0" y1="250.0" x2="74.0" y2="20.0"/>
+      <line class="fig-guide" x1="74.0" y1="250.0" x2="424.0" y2="250.0"/>
+      <text class="fig-text fig-tick" x="66.0" y="254.0" text-anchor="end">1</text>
+      <line class="fig-guide" x1="74.0" y1="194.0" x2="424.0" y2="194.0"/>
+      <text class="fig-text fig-tick" x="66.0" y="198.0" text-anchor="end">10<tspan class="fig-sup" dy="-5">4</tspan></text>
+      <line class="fig-guide" x1="74.0" y1="138.0" x2="424.0" y2="138.0"/>
+      <text class="fig-text fig-tick" x="66.0" y="142.0" text-anchor="end">10<tspan class="fig-sup" dy="-5">8</tspan></text>
+      <line class="fig-guide" x1="74.0" y1="82.0" x2="424.0" y2="82.0"/>
+      <text class="fig-text fig-tick" x="66.0" y="86.0" text-anchor="end">10<tspan class="fig-sup" dy="-5">12</tspan></text>
+      <line class="fig-guide" x1="74.0" y1="26.0" x2="424.0" y2="26.0"/>
+      <text class="fig-text fig-tick" x="66.0" y="30.0" text-anchor="end">10<tspan class="fig-sup" dy="-5">16</tspan></text>
+      <line class="fig-axis" x1="74.0" y1="250.0" x2="74.0" y2="254.0"/>
+      <text class="fig-text fig-tick" x="74.0" y="268.0" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="132.3" y1="250.0" x2="132.3" y2="254.0"/>
+      <text class="fig-text fig-tick" x="132.3" y="268.0" text-anchor="middle">250</text>
+      <line class="fig-axis" x1="190.7" y1="250.0" x2="190.7" y2="254.0"/>
+      <text class="fig-text fig-tick" x="190.7" y="268.0" text-anchor="middle">500</text>
+      <line class="fig-axis" x1="249.0" y1="250.0" x2="249.0" y2="254.0"/>
+      <text class="fig-text fig-tick" x="249.0" y="268.0" text-anchor="middle">750</text>
+      <line class="fig-axis" x1="307.3" y1="250.0" x2="307.3" y2="254.0"/>
+      <text class="fig-text fig-tick" x="307.3" y="268.0" text-anchor="middle">1000</text>
+      <line class="fig-axis" x1="365.7" y1="250.0" x2="365.7" y2="254.0"/>
+      <text class="fig-text fig-tick" x="365.7" y="268.0" text-anchor="middle">1250</text>
+      <line class="fig-axis" x1="424.0" y1="250.0" x2="424.0" y2="254.0"/>
+      <text class="fig-text fig-tick" x="424.0" y="268.0" text-anchor="middle">1500</text>
+      <path class="fig-curve" d="M145.6 229.3 L145.9 232.1 L146.1 231.2 L146.3 229.3 L146.6 230.7 L146.8 222.9 L147.0 223.4 L147.3 219.5 L147.5 223.2 L147.7 221.2 L148.0 224.9 L148.2 224.9 L148.4 227.0 L148.7 236.6 L148.9 227.3 L149.1 227.7 L149.4 228.9 L149.6 225.7 L149.8 226.2 L150.1 221.4 L150.3 222.5 L150.5 218.2 L150.8 220.7 L151.0 218.2 L151.2 222.5 L151.5 221.0 L151.7 224.6 L151.9 228.0 L152.2 227.3 L152.4 230.7 L152.6 227.3 L152.9 224.0 L153.1 222.6 L153.3 219.7 L153.6 219.5 L153.8 216.7 L154.0 218.2 L154.3 216.1 L154.5 220.7 L154.7 217.8 L155.0 224.5 L155.2 220.6 L155.4 224.9 L155.7 225.6 L155.9 228.7 L156.1 221.9 L156.4 222.2 L156.6 218.1 L156.8 217.3 L157.1 214.2 L157.3 215.6 L157.5 214.2 L157.8 217.0 L158.0 215.4 L158.2 223.1 L158.5 217.2 L158.7 225.1 L158.9 219.9 L159.2 222.1 L159.4 220.4 L159.6 220.8 L159.9 217.7 L160.1 215.0 L160.3 213.2 L160.6 212.2 L160.8 212.5 L161.0 213.6 L161.3 213.3 L161.5 217.0 L161.7 215.5 L162.0 225.6 L162.2 216.9 L162.4 219.5 L162.7 217.8 L162.9 216.9 L163.1 215.8 L163.4 213.0 L163.6 212.3 L163.8 209.9 L164.1 210.5 L164.3 210.3 L164.5 211.2 L164.8 213.1 L165.0 212.7 L165.2 219.5 L165.5 214.8 L165.7 220.1 L165.9 215.4 L166.2 215.2 L166.4 213.0 L166.6 210.7 L166.9 210.3 L167.1 208.0 L167.3 208.8 L167.6 207.4 L167.8 209.4 L168.0 209.5 L168.3 211.1 L168.5 213.2 L168.7 212.5 L169.0 217.0 L169.2 214.2 L169.4 212.8 L169.7 211.8 L169.9 208.7 L170.1 208.3 L170.4 205.5 L170.6 206.8 L170.8 205.0 L171.1 207.5 L171.3 206.3 L171.5 209.7 L171.8 208.7 L172.0 210.8 L172.2 211.7 L172.5 211.3 L172.7 210.8 L172.9 210.2 L173.2 207.3 L173.4 206.4 L173.6 203.8 L173.9 204.0 L174.1 202.9 L174.3 204.7 L174.6 203.6 L174.8 207.1 L175.0 205.9 L175.3 209.9 L175.5 207.9 L175.7 208.5 L176.0 208.3 L176.2 207.6 L176.4 205.7 L176.7 204.3 L176.9 202.4 L177.1 201.8 L177.4 200.8 L177.6 202.0 L177.8 201.1 L178.1 204.0 L178.3 202.8 L178.5 208.2 L178.8 204.8 L179.0 207.8 L179.2 205.3 L179.5 205.3 L179.7 203.3 L179.9 202.2 L180.2 200.6 L180.4 199.6 L180.6 199.0 L180.9 199.2 L181.1 199.0 L181.3 201.0 L181.6 200.2 L181.8 204.0 L182.0 202.0 L182.3 206.4 L182.5 203.2 L182.7 203.4 L183.0 201.5 L183.2 199.8 L183.4 198.8 L183.7 197.1 L183.9 197.2 L184.1 196.5 L184.4 197.2 L184.6 197.8 L184.8 198.3 L185.1 200.3 L185.3 199.5 L185.5 202.6 L185.8 200.6 L186.0 201.3 L186.2 199.8 L186.5 198.0 L186.7 197.0 L186.9 195.0 L187.2 195.0 L187.4 194.0 L187.6 195.0 L187.9 194.8 L188.1 196.2 L188.3 197.1 L188.6 197.6 L188.8 199.2 L189.0 197.8 L189.3 198.9 L189.5 197.4 L189.7 196.2 L190.0 195.1 L190.2 193.2 L190.4 192.9 L190.7 191.7 L190.9 192.7 L191.1 192.0 L191.4 193.8 L191.6 193.8 L191.8 195.9 L192.1 195.8 L192.3 196.1 L192.5 196.1 L192.8 195.2 L193.0 193.9 L193.2 193.0 L193.5 191.2 L193.7 190.9 L193.9 189.6 L194.2 190.3 L194.4 189.5 L194.6 191.4 L194.9 190.8 L195.1 193.4 L195.3 192.6 L195.6 194.6 L195.8 193.5 L196.0 193.1 L196.3 191.9 L196.5 190.7 L196.7 189.3 L197.0 188.5 L197.2 187.6 L197.4 187.8 L197.7 187.4 L197.9 188.8 L198.1 188.3 L198.4 190.5 L198.6 189.6 L198.8 192.1 L199.1 190.8 L199.3 191.1 L199.5 189.9 L199.8 188.7 L200.0 187.5 L200.2 186.3 L200.5 185.6 L200.7 185.3 L200.9 185.2 L201.2 186.0 L201.4 185.9 L201.6 187.8 L201.9 187.1 L202.1 189.4 L202.3 187.9 L202.6 189.0 L202.8 187.5 L203.0 186.7 L203.3 185.5 L203.5 184.2 L203.7 183.5 L204.0 182.9 L204.2 183.0 L204.4 183.2 L204.7 183.6 L204.9 184.8 L205.1 184.9 L205.4 186.6 L205.6 185.5 L205.8 186.6 L206.1 185.2 L206.3 184.6 L206.5 183.5 L206.8 182.1 L207.0 181.6 L207.2 180.6 L207.5 180.9 L207.7 180.5 L207.9 181.4 L208.2 181.7 L208.4 182.7 L208.6 183.5 L208.9 183.5 L209.1 184.0 L209.3 182.9 L209.6 182.4 L209.8 181.3 L210.0 180.1 L210.3 179.5 L210.5 178.5 L210.7 178.6 L211.0 178.1 L211.2 179.1 L211.4 179.0 L211.7 180.2 L211.9 180.4 L212.1 181.3 L212.4 181.3 L212.6 180.8 L212.8 180.3 L213.1 179.2 L213.3 178.1 L213.5 177.2 L213.8 176.3 L214.0 176.3 L214.2 175.8 L214.5 176.7 L214.7 176.4 L214.9 177.9 L215.2 177.6 L215.4 178.9 L215.6 178.4 L215.9 178.7 L216.1 178.0 L216.3 177.1 L216.6 176.1 L216.8 175.1 L217.0 174.2 L217.3 174.0 L217.5 173.6 L217.7 174.1 L218.0 173.9 L218.2 175.3 L218.4 175.0 L218.7 176.5 L218.9 175.7 L219.1 176.5 L219.4 175.5 L219.6 175.0 L219.8 174.0 L220.1 173.0 L220.3 172.2 L220.5 171.7 L220.8 171.4 L221.0 171.5 L221.2 171.6 L221.5 172.5 L221.7 172.5 L221.9 173.9 L222.2 173.3 L222.4 174.2 L222.6 173.1 L222.9 172.8 L223.1 171.8 L223.3 170.8 L223.6 170.2 L223.8 169.4 L224.0 169.2 L224.3 169.1 L224.5 169.3 L224.7 169.8 L225.0 170.1 L225.2 171.1 L225.4 170.9 L225.7 171.7 L225.9 170.8 L226.1 170.7 L226.4 169.6 L226.6 168.8 L226.8 168.0 L227.1 167.2 L227.3 167.0 L227.5 166.7 L227.8 167.1 L228.0 167.2 L228.2 167.8 L228.5 168.2 L228.7 168.6 L228.9 169.0 L229.2 168.6 L229.4 168.5 L229.6 167.5 L229.9 166.7 L230.1 165.9 L230.3 165.0 L230.6 164.8 L230.8 164.3 L231.0 164.7 L231.3 164.6 L231.5 165.4 L231.7 165.6 L232.0 166.3 L232.2 166.3 L232.4 166.3 L232.7 166.0 L232.9 165.3 L233.1 164.6 L233.4 163.7 L233.6 162.9 L233.8 162.5 L234.1 162.1 L234.3 162.3 L234.5 162.2 L234.8 163.0 L235.0 162.9 L235.2 163.9 L235.5 163.7 L235.7 164.1 L235.9 163.6 L236.2 163.1 L236.4 162.4 L236.6 161.5 L236.9 160.8 L237.1 160.3 L237.3 159.9 L237.6 159.9 L237.8 159.8 L238.0 160.4 L238.3 160.4 L238.5 161.4 L238.7 161.1 L239.0 161.8 L239.2 161.2 L239.4 161.0 L239.7 160.2 L239.9 159.4 L240.1 158.7 L240.4 158.1 L240.6 157.7 L240.8 157.6 L241.1 157.5 L241.3 157.9 L241.5 158.0 L241.8 158.8 L242.0 158.6 L242.2 159.3 L242.5 158.8 L242.7 158.8 L242.9 157.9 L243.2 157.3 L243.4 156.5 L243.6 155.8 L243.9 155.5 L244.1 155.2 L244.3 155.2 L244.6 155.4 L244.8 155.6 L245.0 156.1 L245.3 156.2 L245.5 156.8 L245.7 156.4 L246.0 156.5 L246.2 155.7 L246.4 155.2 L246.7 154.4 L246.9 153.7 L247.1 153.3 L247.4 152.9 L247.6 152.9 L247.8 152.9 L248.1 153.3 L248.3 153.5 L248.5 153.9 L248.8 154.2 L249.0 154.1 L249.2 154.1 L249.5 153.4 L249.7 153.0 L249.9 152.2 L250.2 151.5 L250.4 151.1 L250.6 150.6 L250.9 150.6 L251.1 150.5 L251.3 150.9 L251.6 151.0 L251.8 151.5 L252.0 151.6 L252.3 151.8 L252.5 151.6 L252.7 151.2 L253.0 150.7 L253.2 150.0 L253.4 149.4 L253.7 148.8 L253.9 148.4 L254.1 148.3 L254.4 148.1 L254.6 148.4 L254.8 148.5 L255.1 149.0 L255.3 149.0 L255.5 149.4 L255.8 149.2 L256.0 149.0 L256.2 148.4 L256.5 147.8 L256.7 147.2 L256.9 146.6 L257.2 146.2 L257.4 146.0 L257.6 145.8 L257.9 146.0 L258.1 146.0 L258.3 146.6 L258.6 146.5 L258.8 147.0 L259.0 146.7 L259.3 146.7 L259.5 146.1 L259.7 145.6 L260.0 145.0 L260.2 144.4 L260.4 143.9 L260.7 143.6 L260.9 143.5 L261.1 143.6 L261.4 143.6 L261.6 144.1 L261.8 144.1 L262.1 144.6 L262.3 144.3 L262.5 144.4 L262.8 143.8 L263.0 143.5 L263.2 142.8 L263.5 142.2 L263.7 141.7 L263.9 141.4 L264.2 141.2 L264.4 141.2 L264.6 141.3 L264.9 141.5 L265.1 141.7 L265.3 142.0 L265.6 141.9 L265.8 142.0 L266.0 141.5 L266.3 141.2 L266.5 140.5 L266.7 140.0 L267.0 139.5 L267.2 139.1 L267.4 138.9 L267.7 138.8 L267.9 138.9 L268.1 139.0 L268.4 139.3 L268.6 139.5 L268.8 139.6 L269.1 139.6 L269.3 139.3 L269.5 139.0 L269.8 138.3 L270.0 137.8 L270.2 137.3 L270.5 136.8 L270.7 136.6 L270.9 136.4 L271.2 136.6 L271.4 136.6 L271.6 136.9 L271.9 137.0 L272.1 137.2 L272.3 137.2 L272.6 137.0 L272.8 136.7 L273.0 136.1 L273.3 135.6 L273.5 135.0 L273.7 134.6 L274.0 134.3 L274.2 134.1 L274.4 134.2 L274.7 134.2 L274.9 134.5 L275.1 134.5 L275.4 134.8 L275.6 134.7 L275.8 134.7 L276.1 134.3 L276.3 133.9 L276.5 133.4 L276.8 132.8 L277.0 132.4 L277.2 132.1 L277.5 131.8 L277.7 131.8 L277.9 131.8 L278.2 132.1 L278.4 132.1 L278.6 132.4 L278.9 132.3 L279.1 132.4 L279.3 132.0 L279.6 131.7 L279.8 131.1 L280.0 130.6 L280.3 130.2 L280.5 129.8 L280.7 129.5 L281.0 129.4 L281.2 129.4 L281.4 129.6 L281.7 129.7 L281.9 129.9 L282.1 129.9 L282.4 130.0 L282.6 129.6 L282.8 129.4 L283.1 128.9 L283.3 128.4 L283.5 127.9 L283.8 127.5 L284.0 127.3 L284.2 127.1 L284.5 127.1 L284.7 127.2 L284.9 127.3 L285.2 127.5 L285.4 127.5 L285.6 127.6 L285.9 127.3 L286.1 127.1 L286.3 126.6 L286.6 126.2 L286.8 125.7 L287.0 125.3 L287.3 125.0 L287.5 124.8 L287.7 124.7 L288.0 124.8 L288.2 124.9 L288.4 125.0 L288.7 125.1 L288.9 125.2 L289.1 125.0 L289.4 124.8 L289.6 124.3 L289.8 124.0 L290.1 123.4 L290.3 123.0 L290.5 122.7 L290.8 122.5 L291.0 122.4 L291.2 122.4 L291.5 122.5 L291.7 122.6 L291.9 122.7 L292.2 122.7 L292.4 122.7 L292.6 122.4 L292.9 122.1 L293.1 121.7 L293.3 121.2 L293.6 120.8 L293.8 120.4 L294.0 120.2 L294.3 120.1 L294.5 120.0 L294.7 120.1 L295.0 120.1 L295.2 120.3 L295.4 120.3 L295.7 120.3 L295.9 120.1 L296.1 119.8 L296.4 119.4 L296.6 119.0 L296.8 118.6 L297.1 118.2 L297.3 117.9 L297.5 117.7 L297.8 117.6 L298.0 117.7 L298.2 117.7 L298.5 117.9 L298.7 117.9 L298.9 118.0 L299.2 117.7 L299.4 117.5 L299.6 117.1 L299.9 116.7 L300.1 116.3 L300.3 115.9 L300.6 115.6 L300.8 115.4 L301.0 115.3 L301.3 115.3 L301.5 115.3 L301.7 115.5 L302.0 115.5 L302.2 115.6 L302.4 115.4 L302.7 115.2 L302.9 114.8 L303.1 114.5 L303.4 114.0 L303.6 113.7 L303.8 113.3 L304.1 113.1 L304.3 113.0 L304.5 112.9 L304.8 113.0 L305.0 113.1 L305.2 113.1 L305.5 113.2 L305.7 113.0 L305.9 112.9 L306.2 112.5 L306.4 112.2 L306.6 111.8 L306.9 111.4 L307.1 111.1 L307.3 110.8 L307.6 110.7 L307.8 110.6 L308.0 110.6 L308.3 110.6 L308.5 110.7 L308.7 110.7 L309.0 110.7 L309.2 110.5 L309.4 110.2 L309.7 109.9 L309.9 109.5 L310.1 109.2 L310.4 108.8 L310.6 108.5 L310.8 108.3 L311.1 108.2 L311.3 108.2 L311.5 108.2 L311.8 108.3 L312.0 108.3 L312.2 108.3 L312.5 108.2 L312.7 108.0 L312.9 107.7 L313.2 107.3 L313.4 106.9 L313.6 106.5 L313.9 106.2 L314.1 106.0 L314.3 105.9 L314.6 105.9 L314.8 105.9 L315.0 105.9 L315.3 105.9 L315.5 106.0 L315.7 105.8 L316.0 105.6 L316.2 105.3 L316.4 105.0 L316.7 104.6 L316.9 104.3 L317.1 104.0 L317.4 103.7 L317.6 103.6 L317.8 103.5 L318.1 103.5 L318.3 103.5 L318.5 103.5 L318.8 103.6 L319.0 103.4 L319.2 103.3 L319.5 103.0 L319.7 102.7 L319.9 102.4 L320.2 102.0 L320.4 101.7 L320.6 101.4 L320.9 101.2 L321.1 101.2 L321.3 101.1 L321.6 101.2 L321.8 101.1 L322.0 101.2 L322.3 101.1 L322.5 101.0 L322.7 100.7 L323.0 100.4 L323.2 100.1 L323.4 99.7 L323.7 99.4 L323.9 99.1 L324.1 98.9 L324.4 98.8 L324.6 98.8 L324.8 98.8 L325.1 98.8 L325.3 98.8 L325.5 98.7 L325.8 98.6 L326.0 98.4 L326.2 98.2 L326.5 97.8 L326.7 97.5 L326.9 97.1 L327.2 96.8 L327.4 96.6 L327.6 96.5 L327.9 96.4 L328.1 96.4 L328.3 96.4 L328.6 96.4 L328.8 96.4 L329.0 96.3 L329.3 96.1 L329.5 95.8 L329.7 95.5 L330.0 95.2 L330.2 94.8 L330.4 94.6 L330.7 94.3 L330.9 94.2 L331.1 94.1 L331.4 94.0 L331.6 94.0 L331.8 94.0 L332.1 94.0 L332.3 93.9 L332.5 93.8 L332.8 93.5 L333.0 93.2 L333.2 92.9 L333.5 92.6 L333.7 92.3 L333.9 92.0 L334.2 91.8 L334.4 91.7 L334.6 91.7 L334.9 91.7 L335.1 91.6 L335.3 91.6 L335.6 91.5 L335.8 91.4 L336.0 91.2 L336.3 90.9 L336.5 90.6 L336.7 90.3 L337.0 90.0 L337.2 89.7 L337.4 89.5 L337.7 89.4 L337.9 89.3 L338.1 89.3 L338.4 89.2 L338.6 89.3 L338.8 89.2 L339.1 89.1 L339.3 88.9 L339.5 88.6 L339.8 88.3 L340.0 88.0 L340.2 87.7 L340.5 87.4 L340.7 87.2 L340.9 87.1 L341.2 87.0 L341.4 86.9 L341.6 86.9 L341.9 86.9 L342.1 86.8 L342.3 86.7 L342.6 86.5 L342.8 86.3 L343.0 86.0 L343.3 85.7 L343.5 85.4 L343.7 85.1 L344.0 84.9 L344.2 84.7 L344.4 84.6 L344.7 84.5 L344.9 84.5 L345.1 84.5 L345.4 84.4 L345.6 84.4 L345.8 84.2 L346.1 84.0 L346.3 83.7 L346.5 83.5 L346.8 83.1 L347.0 82.9 L347.2 82.6 L347.5 82.4 L347.7 82.3 L347.9 82.2 L348.2 82.2 L348.4 82.1 L348.6 82.1 L348.9 82.0 L349.1 81.9 L349.3 81.7 L349.6 81.4 L349.8 81.2 L350.0 80.8 L350.3 80.6 L350.5 80.3 L350.7 80.1 L351.0 80.0 L351.2 79.8 L351.4 79.8 L351.7 79.7 L351.9 79.7 L352.1 79.6 L352.4 79.5 L352.6 79.4 L352.8 79.1 L353.1 78.9 L353.3 78.6 L353.5 78.3 L353.8 78.0 L354.0 77.8 L354.2 77.6 L354.5 77.5 L354.7 77.4 L354.9 77.4 L355.2 77.3 L355.4 77.3 L355.6 77.2 L355.9 77.0 L356.1 76.8 L356.3 76.6 L356.6 76.3 L356.8 76.0 L357.0 75.7 L357.3 75.5 L357.5 75.3 L357.7 75.2 L358.0 75.1 L358.2 75.0 L358.4 75.0 L358.7 74.9 L358.9 74.8 L359.1 74.7 L359.4 74.5 L359.6 74.2 L359.8 74.0 L360.1 73.7 L360.3 73.4 L360.5 73.2 L360.8 73.0 L361.0 72.8 L361.2 72.7 L361.5 72.7 L361.7 72.6 L361.9 72.5 L362.2 72.5 L362.4 72.3 L362.6 72.2 L362.9 71.9 L363.1 71.7 L363.3 71.4 L363.6 71.1 L363.8 70.9 L364.0 70.7 L364.3 70.5 L364.5 70.4 L364.7 70.3 L365.0 70.2 L365.2 70.2 L365.4 70.1 L365.7 70.0 L365.9 69.8 L366.1 69.6 L366.4 69.4 L366.6 69.1 L366.8 68.8 L367.1 68.6 L367.3 68.4 L367.5 68.2 L367.8 68.1 L368.0 68.0 L368.2 67.9 L368.5 67.8 L368.7 67.7 L368.9 67.6 L369.2 67.5 L369.4 67.3 L369.6 67.1 L369.9 66.8 L370.1 66.5 L370.3 66.3 L370.6 66.1 L370.8 65.9 L371.0 65.7 L371.3 65.6 L371.5 65.5 L371.7 65.5 L372.0 65.4 L372.2 65.3 L372.4 65.2 L372.7 65.0 L372.9 64.8 L373.1 64.5 L373.4 64.2 L373.6 64.0 L373.8 63.8 L374.1 63.6 L374.3 63.4 L374.5 63.3 L374.8 63.2 L375.0 63.1 L375.2 63.0 L375.5 62.9 L375.7 62.8 L375.9 62.6 L376.2 62.4 L376.4 62.2 L376.6 61.9 L376.9 61.7 L377.1 61.4 L377.3 61.2 L377.6 61.1 L377.8 60.9 L378.0 60.8 L378.3 60.8 L378.5 60.7 L378.7 60.6 L379.0 60.5 L379.2 60.3 L379.4 60.1 L379.7 59.9 L379.9 59.6 L380.1 59.4 L380.4 59.1 L380.6 58.9 L380.8 58.7 L381.1 58.6 L381.3 58.5 L381.5 58.4 L381.8 58.3 L382.0 58.2 L382.2 58.1 L382.5 58.0 L382.7 57.8 L382.9 57.6 L383.2 57.3 L383.4 57.1 L383.6 56.8 L383.9 56.6 L384.1 56.4 L384.3 56.3 L384.6 56.2 L384.8 56.1 L385.0 56.0 L385.3 55.9 L385.5 55.8 L385.7 55.6 L386.0 55.5 L386.2 55.3 L386.4 55.0 L386.7 54.8 L386.9 54.5 L387.1 54.3 L387.4 54.1 L387.6 53.9 L387.8 53.8 L388.1 53.7 L388.3 53.6 L388.5 53.5 L388.8 53.4 L389.0 53.3 L389.2 53.1 L389.5 52.9 L389.7 52.7 L389.9 52.5 L390.2 52.2 L390.4 52.0 L390.6 51.8 L390.9 51.6 L391.1 51.5 L391.3 51.4 L391.6 51.3 L391.8 51.2 L392.0 51.1 L392.3 51.0 L392.5 50.8 L392.7 50.6 L393.0 50.4 L393.2 50.2 L393.4 49.9 L393.7 49.7 L393.9 49.5 L394.1 49.3 L394.4 49.1 L394.6 49.0 L394.8 48.9 L395.1 48.8 L395.3 48.7 L395.5 48.6 L395.8 48.5 L396.0 48.3 L396.2 48.1 L396.5 47.9 L396.7 47.6 L396.9 47.4 L397.2 47.2 L397.4 47.0 L397.6 46.8 L397.9 46.7 L398.1 46.6 L398.3 46.5 L398.6 46.4 L398.8 46.3 L399.0 46.1 L399.3 46.0 L399.5 45.8 L399.7 45.5 L400.0 45.3 L400.2 45.1 L400.4 44.9 L400.7 44.7 L400.9 44.5 L401.1 44.4 L401.4 44.2 L401.6 44.1 L401.8 44.0 L402.1 43.9 L402.3 43.8 L402.5 43.6 L402.8 43.4 L403.0 43.2 L403.2 43.0 L403.5 42.8 L403.7 42.6 L403.9 42.3 L404.2 42.2 L404.4 42.0 L404.6 41.9 L404.9 41.8 L405.1 41.7 L405.3 41.6 L405.6 41.4 L405.8 41.3 L406.0 41.1 L406.3 40.9 L406.5 40.7 L406.7 40.5 L407.0 40.2 L407.2 40.0 L407.4 39.9 L407.7 39.7 L407.9 39.6 L408.1 39.4 L408.4 39.3 L408.6 39.2 L408.8 39.1 L409.1 39.0 L409.3 38.8 L409.5 38.6 L409.8 38.4 L410.0 38.2 L410.2 37.9 L410.5 37.7 L410.7 37.5 L410.9 37.4 L411.2 37.2 L411.4 37.1 L411.6 37.0 L411.9 36.9 L412.1 36.8 L412.3 36.6 L412.6 36.5 L412.8 36.3 L413.0 36.1 L413.3 35.8 L413.5 35.6 L413.7 35.4 L414.0 35.2 L414.2 35.0 L414.4 34.9 L414.7 34.8 L414.9 34.6 L415.1 34.5 L415.4 34.4 L415.6 34.3 L415.8 34.1 L416.1 33.9 L416.3 33.7 L416.5 33.5 L416.8 33.3 L417.0 33.1 L417.2 32.9 L417.5 32.7 L417.7 32.6 L417.9 32.4 L418.2 32.3 L418.4 32.2 L418.6 32.1 L418.9 31.9 L419.1 31.8 L419.3 31.6 L419.6 31.4 L419.8 31.2 L420.0 31.0 L420.3 30.8 L420.5 30.6 L420.7 30.4 L421.0 30.2 L421.2 30.1 L421.4 30.0 L421.7 29.8 L421.9 29.7 L422.1 29.6 L422.4 29.5 L422.6 29.3 L422.8 29.1 L423.1 28.9 L423.3 28.7 L423.5 28.5 L423.8 28.3 L424.0 28.1"/>
+      <line class="fig-guide" x1="382.5" y1="250.0" x2="382.5" y2="58.0"/>
+      <circle class="fig-dot" cx="382.5" cy="58.0" r="3.5"/>
+      <text class="fig-text fig-note" x="352.5" y="82.0" text-anchor="end">5.2 &#215; 10<tspan class="fig-sup" dy="-5">13</tspan> peptides of mass 1322</text>
+      <text class="fig-text fig-note" x="102.0" y="41.4" text-anchor="start">straight on a log scale: &#215;1.028 per dalton</text>
+      <text class="fig-text fig-tick" x="249.0" y="292.0" text-anchor="middle">mass m (daltons)</text>
+      </svg>
+      <figcaption>The number of linear peptides of each integer mass, on a logarithmic scale. Below 307 some masses have no peptide at all, so the curve starts where the count becomes positive for every mass.</figcaption>
+    </figure>
+
+    <p>
+      Tyrocidine B1 has parent mass 1322, and about $5.2 \times 10^{13}$ peptides share that mass.
+      Generating them all is out of reach, so the candidates have to be built up and discarded
+      before they are complete.
+    </p>
+
+    <h2>Branch and Bound</h2>
+
+    <p>
+      Candidates grow one amino acid at a time from the empty peptide, and a candidate is dropped as
+      soon as it cannot be a stretch of the answer.
+    </p>
+
+    <p>
+      A partial candidate is a linear peptide, so the test uses its linear spectrum. A candidate is
+      <strong>consistent</strong> with the experimental spectrum when every mass in its linear
+      spectrum occurs in the experimental spectrum at least as many times. When a subpeptide of a
+      candidate has a mass the spectrum does not contain, that subpeptide survives in every
+      extension of the candidate, so no extension can be correct.
+    </p>
+
+    <pre><code class="language-python">from collections import Counter
+
+def expand(peptides, masses=MASSES):
+    return [peptide + [mass] for peptide in peptides for mass in masses]
+
+def consistent(peptide, spectrum):
+    available = Counter(spectrum)
+    for mass in linear_spectrum(peptide):
+        if available[mass] == 0:
+            return False
+        available[mass] -= 1
+    return True
+
+def cyclopeptide_sequencing(spectrum):
+    parent, target = max(spectrum), sorted(spectrum)
+    peptides, results = [[]], []
+    while peptides:
+        survivors = []
+        for peptide in expand(peptides):
+            if sum(peptide) == parent:
+                if cyclic_spectrum(peptide) == target:
+                    results.append(peptide)
+            elif consistent(peptide, spectrum):
+                survivors.append(peptide)
+        peptides = survivors
+    return results</code></pre>
+
+    <p>
+      On the spectrum 0 113 128 186 241 299 314 427 it returns 186-128-113, 186-113-128,
+      128-186-113, 128-113-186, 113-186-128 and 113-128-186, the six rotations and reversals of one
+      cyclic peptide.
+    </p>
+
+    <p>
+      The pruning carries no worst-case guarantee, and the number of consistent candidates can still
+      grow exponentially. On an ideal spectrum it is fast, because most extensions add an amino acid
+      whose own mass is absent from the spectrum and die at the first test.
+    </p>
+
+    <h2>Spectra with Errors</h2>
+
+    <p>
+      A real spectrum is not ideal. It contains <strong>false masses</strong>, peaks matching no
+      subpeptide, and it lacks <strong>missing masses</strong>, subpeptides that went undetected.
+    </p>
+
+    <p>
+      A single missing mass breaks <code>cyclopeptide_sequencing</code>. The true peptide then has a
+      subpeptide whose mass is absent from the spectrum, so the true peptide fails the consistency
+      test, is discarded, and the algorithm returns nothing at all.
+    </p>
+
+    <p>
+      <strong>Cyclopeptide Scoring Problem.</strong> Given a peptide and a spectrum, compute the
+      number of masses the cyclospectrum of the peptide shares with the spectrum, counting
+      multiplicity.
+    </p>
+
+    <pre><code class="language-python">def score(peptide, spectrum, cyclic=True):
+    theoretical = cyclic_spectrum(peptide) if cyclic else linear_spectrum(peptide)
+    available = Counter(spectrum)
+    matched = 0
+    for mass in theoretical:
+        if available[mass] &gt; 0:
+            available[mass] -= 1
+            matched += 1
+    return matched</code></pre>
+
+    <p>
+      Scoring costs $O(n^2)$, the size of the theoretical spectrum. For NQEL against
+      0 99 113 114 128 227 257 299 355 356 370 371 484 the cyclic score is 11 and the linear score
+      is 8.
+    </p>
+
+    <h2>The Leaderboard</h2>
+
+    <p>
+      Maximizing the score removes the grounds for discarding a candidate, because a low score no
+      longer proves a candidate wrong. The bound becomes a fixed budget instead: keep the $N$
+      highest scoring candidates of each round and drop the others.
+    </p>
+
+    <p>
+      Candidates are linear, so they are ranked by linear score. Every peptide tied with the one at
+      the cutoff is kept, so the leaderboard can hold more than $N$ peptides.
+    </p>
+
+    <pre><code class="language-python">def trim(leaderboard, spectrum, n):
+    ranked = sorted(leaderboard, key=lambda p: score(p, spectrum, False), reverse=True)
+    if len(ranked) &lt;= n:
+        return ranked
+    cutoff = score(ranked[n - 1], spectrum, False)
+    return [p for p in ranked if score(p, spectrum, False) &gt;= cutoff]
+
+def leaderboard_cyclopeptide_sequencing(spectrum, n, masses=MASSES):
+    parent = max(spectrum)
+    leaderboard, leader = [[]], []
+    while leaderboard:
+        survivors = []
+        for peptide in expand(leaderboard, masses):
+            if sum(peptide) == parent:
+                if score(peptide, spectrum) &gt; score(leader, spectrum):
+                    leader = peptide
+                survivors.append(peptide)
+            elif sum(peptide) &lt; parent:
+                survivors.append(peptide)
+        leaderboard = trim(survivors, spectrum, n)
+    return leader</code></pre>
+
+    <p>
+      A round expands the leaderboard by a factor of 18 and scores every candidate at $O(n^2)$, so
+      it costs $O(Nn^2)$, and a peptide of $n$ amino acids takes $n$ rounds, $O(Nn^3)$ in all. With
+      $N = 10$ on 0 71 113 129 147 200 218 260 313 331 347 389 460 it returns 71-147-113-129, a
+      rotation of the reversal of 113-147-71-129, and both score 13.
+    </p>
+
+    <p>
+      The result is a heuristic. A prefix of the highest scoring cyclic peptide is a linear peptide,
+      and its linear score can be low enough to be trimmed in an early round, after which the
+      algorithm can no longer reach that peptide. Raising $N$ makes this less likely at a cost
+      linear in $N$.
+    </p>
+
+    <h2>Spectral Convolution</h2>
+
+    <p>
+      <code>expand</code> draws on the 18 masses of the standard amino acids, which assumes the
+      peptide is built from them. NRPs contain amino acids outside the standard 20, whose masses are
+      not in the table, and for those peptides the correct answer is not reachable at all.
+    </p>
+
+    <p>
+      The spectrum itself supplies the masses. Two subpeptides differing by one amino acid have
+      masses differing by the mass of that amino acid, and a spectrum contains many such pairs, so
+      the masses of the amino acids in the peptide occur often among the differences between masses.
+    </p>
+
+    <p>
+      <strong>Spectral Convolution Problem.</strong> Given a spectrum, return the positive
+      differences between all pairs of its masses, in decreasing order of multiplicity.
+    </p>
+
+    <pre><code class="language-python">def spectral_convolution(spectrum):
+    differences = Counter(a - b for a in spectrum for b in spectrum if a &gt; b)
+    return [d for d, k in differences.most_common() for _ in range(k)]</code></pre>
+
+    <p>
+      A spectrum of $s$ masses has a convolution of $O(s^2)$ elements, computed in $O(s^2)$. For
+      0 137 186 323 it returns 137 and 186 twice each, then 49 and 323 once each; elements of equal
+      multiplicity may come out in any order.
+    </p>
+
+    <h2>Sequencing with the Convolution</h2>
+
+    <p>
+      The convolution supplies the alphabet the search expands over. Differences below 57 or above
+      200 fall outside the range of amino acid masses and are dropped, and the $M$ most frequent of
+      the rest, ties included, become the masses the search may use.
+    </p>
+
+    <pre><code class="language-python">def convolution_cyclopeptide_sequencing(spectrum, m, n):
+    counts = Counter(d for d in spectral_convolution(spectrum) if 57 &lt;= d &lt;= 200)
+    ranked = counts.most_common()
+    cutoff = ranked[min(m, len(ranked)) - 1][1]
+    masses = [d for d, k in ranked if k &gt;= cutoff]
+    return leaderboard_cyclopeptide_sequencing(spectrum, n, masses)</code></pre>
+
+    <p>
+      With $M = 20$ and $N = 60$ on 57 57 71 99 129 137 170 186 194 208 228 265 285 299 307 323 356
+      364 394 422 493 it returns 99-71-137-57-57-72, scoring 21. The published answer
+      99-71-137-57-72-57 is a different cyclic peptide with the same score. Ties at the maximum are
+      normal, since the score is the only thing separating candidates.
+    </p>
+
+    <h2>Sequencing Tyrocidine B1</h2>
+
+    <p>
+      Tyrocidine B1 is VKLFPWFNQY, so its masses are 99, 128, 113, 147, 97, 186, 147, 114, 128, 163
+      and its parent mass is 1322. Its cyclospectrum holds $10 \times 9 + 2 = 92$ masses, which is
+      the entire input the algorithm is given.
+    </p>
+
+    <p>
+      <code>convolution_cyclopeptide_sequencing</code> on that spectrum with $M = 20$ and
+      $N = 1000$ returns 147-97-186-147-114-128-163-99-128-113. It scores 92, matching the spectrum
+      in full. Rotating it to begin at 99 gives 99-128-113-147-97-186-147-114-128-163, the masses of
+      tyrocidine B1 in order.
+    </p>
+
+    <p>
+      The convolution found the alphabet as well as the peptide: the masses it selected from the
+      spectrum are the ones the molecule is built from. Reading them back through the mass table
+      gives VKLFPWFNQY, with 113 standing for either L or I and each 128 for either K or Q.
+    </p>
+
+    <p>
+      A search of the <em>B. brevis</em> genome finds no gene for this peptide, and 92 numbers
+      produced by weighing its fragments determine it up to rotation, reversal, and the two pairs of
+      amino acids that share a mass.
+    </p>
+
+  </main>
+</body>
+</html>
