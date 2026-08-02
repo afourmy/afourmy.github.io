@@ -288,6 +288,28 @@ def frequent_words(text, k):
       which replication ran, and tracking it along the genome locates ori.
     </p>
 
+    <figure class="figure-block">
+      <svg class="figure" width="500" height="358" viewBox="0 0 500 358">
+      <circle class="fig-accent" cx="250" cy="178" r="112"/>
+      <circle class="fig-hole" cx="250" cy="66" r="5"/>
+      <text class="fig-text fig-tick" x="250" y="50" text-anchor="middle">ori</text>
+      <circle class="fig-hole" cx="250" cy="290" r="5"/>
+      <text class="fig-text fig-tick" x="250" y="316" text-anchor="middle">ter</text>
+      <line class="fig-accent" x1="268.8" y1="66.6" x2="291.7" y2="73.7"/>
+      <path class="fig-dot" d="M 297.4 75.4 L 290.9 76.2 L 292.5 71.1 Z"/>
+      <line class="fig-accent" x1="231.2" y1="66.6" x2="208.3" y2="73.7"/>
+      <path class="fig-dot" d="M 202.6 75.4 L 207.5 71.1 L 209.1 76.2 Z"/>
+      <text class="fig-text fig-note" x="250" y="106" text-anchor="middle">two forks leave ori</text>
+      <text class="fig-text fig-tick" x="384" y="166" text-anchor="start">ori &#8594; ter</text>
+      <text class="fig-text fig-note" x="384" y="188" text-anchor="start">G in surplus</text>
+      <text class="fig-text fig-note" x="384" y="206" text-anchor="start">skew rises</text>
+      <text class="fig-text fig-tick" x="116" y="166" text-anchor="end">ter &#8594; ori</text>
+      <text class="fig-text fig-note" x="116" y="188" text-anchor="end">C in surplus</text>
+      <text class="fig-text fig-note" x="116" y="206" text-anchor="end">skew falls</text>
+      </svg>
+      <figcaption>Replication of a circular bacterial chromosome, with the sequence read clockwise. Copying starts at ori, two forks travel in opposite directions, and they meet at ter. The published sequence is one of the two strands, and that one strand plays both roles: along the ori to ter half it is copied as a leading strand, and along the ter to ori half it is the template of a lagging strand, left single-stranded long enough for its C's to decay into T's. The surplus of G over C therefore reverses at ori and again at ter, which is what the skew of the previous figure is tracking.</figcaption>
+    </figure>
+
     <p>
       These mutations do not damage the genome. Each deamination is rare per replication, most are
       caught by DNA repair, and natural selection removes the harmful ones that remain. What
@@ -324,6 +346,48 @@ def min_skew(genome):
         for position, value in enumerate(skew_values)
         if value == minimum
     ]</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="520" height="312" viewBox="0 0 520 312">
+      <line class="fig-axis" x1="78" y1="252" x2="496" y2="252"/>
+      <line class="fig-axis" x1="78" y1="36" x2="78" y2="252"/>
+      <line class="fig-guide" x1="78" y1="210.1" x2="496" y2="210.1"/>
+      <text class="fig-text fig-tick" x="68" y="214.1" text-anchor="end">-10k</text>
+      <line class="fig-guide" x1="78" y1="170.6" x2="496" y2="170.6"/>
+      <text class="fig-text fig-tick" x="68" y="174.6" text-anchor="end">0</text>
+      <line class="fig-guide" x1="78" y1="131.2" x2="496" y2="131.2"/>
+      <text class="fig-text fig-tick" x="68" y="135.2" text-anchor="end">10k</text>
+      <line class="fig-guide" x1="78" y1="91.8" x2="496" y2="91.8"/>
+      <text class="fig-text fig-tick" x="68" y="95.8" text-anchor="end">20k</text>
+      <line class="fig-axis" x1="78" y1="252" x2="78" y2="257"/>
+      <text class="fig-text fig-tick" x="78" y="272" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="168.1" y1="252" x2="168.1" y2="257"/>
+      <text class="fig-text fig-tick" x="168.1" y="272" text-anchor="middle">1</text>
+      <line class="fig-axis" x1="258.1" y1="252" x2="258.1" y2="257"/>
+      <text class="fig-text fig-tick" x="258.1" y="272" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="348.2" y1="252" x2="348.2" y2="257"/>
+      <text class="fig-text fig-tick" x="348.2" y="272" text-anchor="middle">3</text>
+      <line class="fig-axis" x1="438.2" y1="252" x2="438.2" y2="257"/>
+      <text class="fig-text fig-tick" x="438.2" y="272" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="287" y="296" text-anchor="middle">position in the genome (millions of nucleotides)</text>
+      <text class="fig-text fig-tick" x="68" y="30" text-anchor="end">skew</text>
+      <path class="fig-curve" d="M 78 170.6 L 78.3 170.1 L 78.7 170 L 79 170 L 79.4 169.5 L 79.7 169.2 L 80.1 168.9 L 80.4 168.4 L 80.8 168 L 81.1 167.6 L 81.5 168.1 L 81.8 168.2 L 82.2 167.7 L 82.5 166.8 L 82.9 166.9 L 83.2 166.6 L 83.6 166.5 L 83.9 166.5 L 84.3 166.4 L 84.6 166.2 L 85 166.3 L 85.3 165.9 L 85.7 165.8 L 86 165.1 L 86.4 164.7 L 86.7 164 L 87.1 163 L 87.4 161.9 L 87.8 161.4 L 88.1 160.9 L 88.4 160.9 L 88.8 160.6 L 89.1 160.7 L 89.5 160.1 L 89.8 159.6 L 90.2 159.1 L 90.5 158.7 L 90.9 158.3 L 91.2 157.9 L 91.6 157.6 L 91.9 157.8 L 92.3 157.8 L 92.6 157.7 L 93 156.9 L 93.3 156.7 L 93.7 155.9 L 94 155.7 L 94.4 155.4 L 94.7 155.1 L 95.1 155 L 95.4 154.4 L 95.8 153.6 L 96.1 153 L 96.5 152.4 L 96.8 151.8 L 97.2 151.4 L 97.5 151 L 97.9 151 L 98.2 150.8 L 98.6 149.5 L 98.9 149.4 L 99.2 149.6 L 99.6 149.5 L 99.9 149.8 L 100.3 149.7 L 100.6 149.8 L 101 149.6 L 101.3 149.4 L 101.7 149.3 L 102 148.9 L 102.4 149 L 102.7 148.6 L 103.1 148 L 103.4 148.3 L 103.8 148.2 L 104.1 148.8 L 104.5 148.6 L 104.8 148.4 L 105.2 148.5 L 105.5 148.4 L 105.9 148.4 L 106.2 148.2 L 106.6 147.8 L 106.9 147.9 L 107.3 147 L 107.6 147.2 L 108 146.8 L 108.3 146.7 L 108.7 146.1 L 109 145.7 L 109.3 145.7 L 109.7 145.8 L 110 145.2 L 110.4 145.3 L 110.7 145 L 111.1 145.2 L 111.4 145 L 111.8 144.2 L 112.1 143.8 L 112.5 143.5 L 112.8 143.2 L 113.2 142.8 L 113.5 142.8 L 113.9 142.5 L 114.2 142.4 L 114.6 142 L 114.9 141.9 L 115.3 141.9 L 115.6 141.6 L 116 141.1 L 116.3 140.7 L 116.7 140.2 L 117 139.8 L 117.4 139.3 L 117.7 139.6 L 118.1 139.6 L 118.4 139.9 L 118.8 139.9 L 119.1 139.4 L 119.5 138.8 L 119.8 138.2 L 120.1 138 L 120.5 137.3 L 120.8 136.6 L 121.2 136.5 L 121.5 136.8 L 121.9 136.9 L 122.2 136.8 L 122.6 136.6 L 122.9 136.4 L 123.3 136.9 L 123.6 136.4 L 124 136.9 L 124.3 136.6 L 124.7 136.8 L 125 136.4 L 125.4 135.4 L 125.7 134.3 L 126.1 134.3 L 126.4 133.5 L 126.8 133 L 127.1 132.8 L 127.5 132.5 L 127.8 132 L 128.2 131.9 L 128.5 131.7 L 128.9 131.3 L 129.2 131.2 L 129.6 130.5 L 129.9 130.1 L 130.2 129.8 L 130.6 129 L 130.9 128.8 L 131.3 128.8 L 131.6 129 L 132 128.6 L 132.3 127.6 L 132.7 127.8 L 133 127.5 L 133.4 127.5 L 133.7 127 L 134.1 127.2 L 134.4 126.8 L 134.8 125.9 L 135.1 125.5 L 135.5 125.2 L 135.8 125.1 L 136.2 124.8 L 136.5 124.7 L 136.9 124.1 L 137.2 123.9 L 137.6 123.5 L 137.9 123.4 L 138.3 123.6 L 138.6 123.9 L 139 124 L 139.3 123.6 L 139.7 123.6 L 140 123.8 L 140.4 123.9 L 140.7 123.6 L 141 123.6 L 141.4 123.6 L 141.7 123.3 L 142.1 123.3 L 142.4 123.2 L 142.8 123.6 L 143.1 123.7 L 143.5 124.2 L 143.8 124.3 L 144.2 124.1 L 144.5 123.5 L 144.9 123.5 L 145.2 122.6 L 145.6 122.5 L 145.9 122.2 L 146.3 121.9 L 146.6 121.9 L 147 121.5 L 147.3 121 L 147.7 120.6 L 148 119.8 L 148.4 119.5 L 148.7 119.2 L 149.1 119.2 L 149.4 119.1 L 149.8 118.8 L 150.1 118.6 L 150.5 118.2 L 150.8 118 L 151.1 117.8 L 151.5 117.5 L 151.8 117.3 L 152.2 117.3 L 152.5 117.1 L 152.9 117.5 L 153.2 117.2 L 153.6 116.8 L 153.9 116.4 L 154.3 116.5 L 154.6 116.5 L 155 115.9 L 155.3 115.6 L 155.7 115.7 L 156 115.6 L 156.4 114.9 L 156.7 114.2 L 157.1 113.8 L 157.4 113.3 L 157.8 113.1 L 158.1 113.5 L 158.5 113.1 L 158.8 112.5 L 159.2 112.3 L 159.5 112.1 L 159.9 112.2 L 160.2 112.5 L 160.6 112.4 L 160.9 111.9 L 161.3 111.1 L 161.6 110.8 L 161.9 110.9 L 162.3 111 L 162.6 110.3 L 163 110.1 L 163.3 109.4 L 163.7 109.1 L 164 109.2 L 164.4 108.7 L 164.7 108.2 L 165.1 107.8 L 165.4 107.2 L 165.8 106.8 L 166.1 106.3 L 166.5 105.8 L 166.8 105.6 L 167.2 105.8 L 167.5 106.1 L 167.9 106.2 L 168.2 105.7 L 168.6 105.2 L 168.9 104.9 L 169.3 104.2 L 169.6 103.8 L 170 103.8 L 170.3 103.5 L 170.7 103 L 171 103.2 L 171.4 102.9 L 171.7 102.3 L 172 102.5 L 172.4 102.7 L 172.7 102.6 L 173.1 102.9 L 173.4 102.6 L 173.8 102.3 L 174.1 101.8 L 174.5 102.2 L 174.8 102.1 L 175.2 102.4 L 175.5 101.5 L 175.9 101 L 176.2 101.4 L 176.6 101 L 176.9 100.7 L 177.3 100.4 L 177.6 100.1 L 178 99.8 L 178.3 99.5 L 178.7 99.3 L 179 99.3 L 179.4 99.2 L 179.7 98.6 L 180.1 98.7 L 180.4 98.4 L 180.8 98 L 181.1 98 L 181.5 97.5 L 181.8 96.7 L 182.2 96.1 L 182.5 95.9 L 182.8 95.6 L 183.2 95.2 L 183.5 95.3 L 183.9 95.4 L 184.2 94.5 L 184.6 94.6 L 184.9 94.4 L 185.3 94.6 L 185.6 94.6 L 186 94.3 L 186.3 94.7 L 186.7 93.8 L 187 93.4 L 187.4 93.2 L 187.7 93 L 188.1 92.3 L 188.4 92.4 L 188.8 92 L 189.1 91.8 L 189.5 91.7 L 189.8 91.5 L 190.2 91.2 L 190.5 91.2 L 190.9 91 L 191.2 91.1 L 191.6 91.3 L 191.9 91.3 L 192.3 90.9 L 192.6 90.8 L 192.9 90.6 L 193.3 90.6 L 193.6 90.3 L 194 89.7 L 194.3 89.4 L 194.7 89 L 195 88.7 L 195.4 88.6 L 195.7 88.2 L 196.1 88.2 L 196.4 88.2 L 196.8 88.4 L 197.1 88.4 L 197.5 87.9 L 197.8 87.5 L 198.2 87.1 L 198.5 86.7 L 198.9 86.3 L 199.2 86.1 L 199.6 86 L 199.9 86.2 L 200.3 86.2 L 200.6 86.5 L 201 86.2 L 201.3 86 L 201.7 85.6 L 202 85.3 L 202.4 84.8 L 202.7 84.3 L 203.1 83.6 L 203.4 83.2 L 203.7 83 L 204.1 83 L 204.4 83 L 204.8 82.9 L 205.1 82.6 L 205.5 83.1 L 205.8 83.3 L 206.2 82.6 L 206.5 81.7 L 206.9 81.2 L 207.2 80.7 L 207.6 80.8 L 207.9 80.7 L 208.3 80.2 L 208.6 79.7 L 209 80.1 L 209.3 79.7 L 209.7 78.8 L 210 78.2 L 210.4 77.8 L 210.7 77.1 L 211.1 76.4 L 211.4 75.8 L 211.8 75.4 L 212.1 74.8 L 212.5 74.5 L 212.8 74.1 L 213.2 74 L 213.5 73.7 L 213.8 73.7 L 214.2 73.6 L 214.5 72.8 L 214.9 72.4 L 215.2 72.4 L 215.6 72.6 L 215.9 71.5 L 216.3 71.2 L 216.6 71.5 L 217 71.4 L 217.3 71.2 L 217.7 70.7 L 218 70.8 L 218.4 70.7 L 218.7 71 L 219.1 71 L 219.4 71 L 219.8 71.1 L 220.1 71.1 L 220.5 71 L 220.8 71 L 221.2 71.3 L 221.5 71.8 L 221.9 73 L 222.2 73.6 L 222.6 73.2 L 222.9 72.6 L 223.3 73.1 L 223.6 73.6 L 224 73.9 L 224.3 74.3 L 224.6 74.4 L 225 75 L 225.3 75.5 L 225.7 76.2 L 226 76.9 L 226.4 77.5 L 226.7 77.1 L 227.1 77.5 L 227.4 77.8 L 227.8 77.8 L 228.1 77.6 L 228.5 77.9 L 228.8 78 L 229.2 78.6 L 229.5 78.7 L 229.9 78.9 L 230.2 79.2 L 230.6 79.7 L 230.9 80.1 L 231.3 80.2 L 231.6 80.5 L 232 80.2 L 232.3 80.2 L 232.7 80.4 L 233 80.4 L 233.4 80.5 L 233.7 80.7 L 234.1 80.4 L 234.4 80.8 L 234.7 81.2 L 235.1 81 L 235.4 81.6 L 235.8 82.2 L 236.1 82.9 L 236.5 83.2 L 236.8 83.7 L 237.2 84.3 L 237.5 84.2 L 237.9 84 L 238.2 83.8 L 238.6 83.6 L 238.9 83.7 L 239.3 84.2 L 239.6 84.8 L 240 85.2 L 240.3 85.7 L 240.7 86.1 L 241 86 L 241.4 86.1 L 241.7 86.6 L 242.1 87.3 L 242.4 87.3 L 242.8 87.9 L 243.1 88.3 L 243.5 88.3 L 243.8 88.1 L 244.2 88.2 L 244.5 88.8 L 244.8 88.7 L 245.2 89.5 L 245.5 90.2 L 245.9 90.5 L 246.2 90.7 L 246.6 90.8 L 246.9 90.9 L 247.3 90.9 L 247.6 91.1 L 248 91.1 L 248.3 91.8 L 248.7 91.8 L 249 91.7 L 249.4 91.8 L 249.7 91.8 L 250.1 92.3 L 250.4 92.8 L 250.8 92.7 L 251.1 92.4 L 251.5 92.7 L 251.8 92.8 L 252.2 93.2 L 252.5 93.4 L 252.9 93.6 L 253.2 93.5 L 253.6 94 L 253.9 94.1 L 254.3 94.4 L 254.6 94.7 L 255 95.2 L 255.3 96 L 255.6 96.5 L 256 96.9 L 256.3 97.1 L 256.7 97.7 L 257 98 L 257.4 98.2 L 257.7 98.7 L 258.1 99.1 L 258.4 99.3 L 258.8 99.3 L 259.1 99.3 L 259.5 99.4 L 259.8 99.2 L 260.2 99.1 L 260.5 99.1 L 260.9 99.7 L 261.2 100 L 261.6 100.5 L 261.9 100.7 L 262.3 100.8 L 262.6 100.7 L 263 100.9 L 263.3 100.8 L 263.7 101.5 L 264 102.4 L 264.4 102.9 L 264.7 102.7 L 265.1 102.6 L 265.4 102.8 L 265.7 103.3 L 266.1 103.7 L 266.4 103.9 L 266.8 103.5 L 267.1 103.6 L 267.5 103.9 L 267.8 104.6 L 268.2 105.2 L 268.5 105.8 L 268.9 105.9 L 269.2 106.5 L 269.6 107.1 L 269.9 107.4 L 270.3 107.6 L 270.6 107.6 L 271 107.9 L 271.3 107.6 L 271.7 107.8 L 272 108.1 L 272.4 108.1 L 272.7 107.7 L 273.1 107.6 L 273.4 108 L 273.8 108.4 L 274.1 108.9 L 274.5 108.7 L 274.8 109 L 275.2 109.3 L 275.5 109.9 L 275.9 110.1 L 276.2 110.3 L 276.5 110.4 L 276.9 110.4 L 277.2 110.2 L 277.6 110.7 L 277.9 111.4 L 278.3 111.7 L 278.6 112 L 279 112.2 L 279.3 112 L 279.7 112.2 L 280 112.7 L 280.4 112.8 L 280.7 113.2 L 281.1 113.4 L 281.4 114 L 281.8 114.8 L 282.1 114.9 L 282.5 114.7 L 282.8 114.9 L 283.2 114.8 L 283.5 114.9 L 283.9 115.3 L 284.2 116.1 L 284.6 116.7 L 284.9 117.5 L 285.3 118.3 L 285.6 118.4 L 286 119 L 286.3 119.1 L 286.6 119.1 L 287 119.7 L 287.3 119.9 L 287.7 119.8 L 288 120.4 L 288.4 120.7 L 288.7 121 L 289.1 121.9 L 289.4 122.2 L 289.8 122.8 L 290.1 123 L 290.5 123.4 L 290.8 123.8 L 291.2 124 L 291.5 123.9 L 291.9 124 L 292.2 124.7 L 292.6 125.1 L 292.9 125.5 L 293.3 125.6 L 293.6 125.8 L 294 126.3 L 294.3 126.8 L 294.7 126.9 L 295 127.2 L 295.4 128 L 295.7 128.2 L 296.1 128.4 L 296.4 128.5 L 296.8 128.9 L 297.1 129.5 L 297.4 130.1 L 297.8 130.6 L 298.1 130.5 L 298.5 130.6 L 298.8 130.8 L 299.2 131.1 L 299.5 131.7 L 299.9 131.9 L 300.2 131.8 L 300.6 131.7 L 300.9 132 L 301.3 131.9 L 301.6 131.9 L 302 132 L 302.3 132.5 L 302.7 132.8 L 303 133.1 L 303.4 133.1 L 303.7 133.6 L 304.1 133.9 L 304.4 134.2 L 304.8 134.3 L 305.1 134.4 L 305.5 135 L 305.8 135.7 L 306.2 135.7 L 306.5 135.6 L 306.9 136 L 307.2 136.5 L 307.5 136.3 L 307.9 136.9 L 308.2 137.1 L 308.6 137.3 L 308.9 136.6 L 309.3 136.6 L 309.6 137.4 L 310 137.8 L 310.3 138.3 L 310.7 138.3 L 311 138.4 L 311.4 138.1 L 311.7 138.4 L 312.1 139 L 312.4 138.9 L 312.8 138.8 L 313.1 138.6 L 313.5 138.4 L 313.8 138.7 L 314.2 138.6 L 314.5 138.6 L 314.9 138.8 L 315.2 139.1 L 315.6 139.6 L 315.9 140.4 L 316.3 140.6 L 316.6 141.4 L 317 141.5 L 317.3 142 L 317.7 142.6 L 318 142.9 L 318.3 143.4 L 318.7 143.2 L 319 143.9 L 319.4 144.7 L 319.7 144.7 L 320.1 144.8 L 320.4 145 L 320.8 145.4 L 321.1 145.5 L 321.5 145.8 L 321.8 146.2 L 322.2 146.4 L 322.5 146.8 L 322.9 146.9 L 323.2 146.9 L 323.6 147.2 L 323.9 148.5 L 324.3 149.2 L 324.6 149.5 L 325 149.9 L 325.3 150.5 L 325.7 150.8 L 326 151.1 L 326.4 151.5 L 326.7 151.5 L 327.1 151.5 L 327.4 151.3 L 327.8 151.5 L 328.1 151.6 L 328.4 152.2 L 328.8 153 L 329.1 153.4 L 329.5 153.3 L 329.8 152.7 L 330.2 152.8 L 330.5 152.9 L 330.9 152.7 L 331.2 152.9 L 331.6 152.9 L 331.9 153.5 L 332.3 154.1 L 332.6 154.4 L 333 154.3 L 333.3 154.5 L 333.7 155.1 L 334 155 L 334.4 155.4 L 334.7 155.8 L 335.1 155.4 L 335.4 155.4 L 335.8 155.5 L 336.1 155.3 L 336.5 155.8 L 336.8 156.4 L 337.2 156.5 L 337.5 157.1 L 337.9 157.8 L 338.2 158.4 L 338.6 158.2 L 338.9 158.8 L 339.2 159 L 339.6 158.7 L 339.9 159.1 L 340.3 159.7 L 340.6 160 L 341 160.4 L 341.3 161.1 L 341.7 161.4 L 342 161.3 L 342.4 162 L 342.7 161.8 L 343.1 162.4 L 343.4 162.7 L 343.8 163 L 344.1 163.5 L 344.5 163.9 L 344.8 164.4 L 345.2 164.8 L 345.5 165 L 345.9 165.5 L 346.2 165.7 L 346.6 166.4 L 346.9 166.9 L 347.3 167 L 347.6 167.1 L 348 167.7 L 348.3 168 L 348.7 168.2 L 349 168.3 L 349.3 168.4 L 349.7 169.1 L 350 169.1 L 350.4 169 L 350.7 168.6 L 351.1 169.1 L 351.4 169.2 L 351.8 169.8 L 352.1 170 L 352.5 170.1 L 352.8 170.5 L 353.2 170.9 L 353.5 171.2 L 353.9 171.4 L 354.2 171.4 L 354.6 171.7 L 354.9 172 L 355.3 173 L 355.6 172.8 L 356 173.3 L 356.3 173.4 L 356.7 173.4 L 357 173.3 L 357.4 173.8 L 357.7 173.8 L 358.1 174.3 L 358.4 174.7 L 358.8 175.3 L 359.1 175.5 L 359.5 176.2 L 359.8 176.4 L 360.1 176.8 L 360.5 177 L 360.8 177.3 L 361.2 177.8 L 361.5 178.1 L 361.9 178.2 L 362.2 178.2 L 362.6 178.3 L 362.9 178.6 L 363.3 179 L 363.6 179 L 364 179.5 L 364.3 179.8 L 364.7 179.9 L 365 180 L 365.4 180.1 L 365.7 180 L 366.1 180.7 L 366.4 181.2 L 366.8 181.8 L 367.1 181.9 L 367.5 181.8 L 367.8 182.1 L 368.2 182.4 L 368.5 182.7 L 368.9 182.9 L 369.2 182.5 L 369.6 182.5 L 369.9 182.4 L 370.2 182.6 L 370.6 182.4 L 370.9 182.1 L 371.3 182.8 L 371.6 183.4 L 372 183.7 L 372.3 184.1 L 372.7 184.9 L 373 185 L 373.4 185.2 L 373.7 185.1 L 374.1 184.9 L 374.4 185.1 L 374.8 185.1 L 375.1 185.5 L 375.5 185.7 L 375.8 186.1 L 376.2 186.5 L 376.5 187.1 L 376.9 187.8 L 377.2 187.8 L 377.6 188.6 L 377.9 189 L 378.3 189.9 L 378.6 190.3 L 379 190.7 L 379.3 190.4 L 379.7 190.5 L 380 191.5 L 380.3 191.8 L 380.7 191.5 L 381 191.7 L 381.4 191.6 L 381.7 192.1 L 382.1 192 L 382.4 192.2 L 382.8 192.3 L 383.1 192.7 L 383.5 193 L 383.8 193.4 L 384.2 194.2 L 384.5 194.6 L 384.9 194.4 L 385.2 194 L 385.6 194.1 L 385.9 193.7 L 386.3 193.3 L 386.6 194.5 L 387 195.2 L 387.3 195.5 L 387.7 195.3 L 388 195.8 L 388.4 196.4 L 388.7 196.9 L 389.1 197.5 L 389.4 197.9 L 389.8 198.1 L 390.1 198.4 L 390.5 198.8 L 390.8 199.2 L 391.1 199.5 L 391.5 200.4 L 391.8 200.4 L 392.2 200.5 L 392.5 201.2 L 392.9 201.1 L 393.2 200.9 L 393.6 200.8 L 393.9 201.6 L 394.3 202.4 L 394.6 202.8 L 395 203.4 L 395.3 203.9 L 395.7 203.7 L 396 203.9 L 396.4 204.4 L 396.7 204.3 L 397.1 204.2 L 397.4 204.5 L 397.8 205.1 L 398.1 205.2 L 398.5 205.9 L 398.8 206.1 L 399.2 206.4 L 399.5 206.8 L 399.9 207.1 L 400.2 207.6 L 400.6 207.6 L 400.9 207.8 L 401.2 208.4 L 401.6 208.6 L 401.9 209.2 L 402.3 209.4 L 402.6 210.2 L 403 209.9 L 403.3 210.1 L 403.7 210.3 L 404 210.2 L 404.4 209.8 L 404.7 209.8 L 405.1 210.2 L 405.4 210.4 L 405.8 210.6 L 406.1 210.9 L 406.5 210.9 L 406.8 210.8 L 407.2 211.1 L 407.5 211.1 L 407.9 211.2 L 408.2 211.3 L 408.6 211.7 L 408.9 211.9 L 409.3 212.6 L 409.6 212.6 L 410 212.9 L 410.3 213.5 L 410.7 213.8 L 411 214 L 411.4 214.3 L 411.7 214.7 L 412 214.8 L 412.4 215 L 412.7 215.2 L 413.1 215.3 L 413.4 215.5 L 413.8 215.8 L 414.1 216 L 414.5 215.8 L 414.8 215.8 L 415.2 216 L 415.5 215.9 L 415.9 216 L 416.2 216.4 L 416.6 216.8 L 416.9 217 L 417.3 216.7 L 417.6 216.5 L 418 216.3 L 418.3 216.4 L 418.7 216.4 L 419 216.3 L 419.4 216.3 L 419.7 217 L 420.1 216.7 L 420.4 216.9 L 420.8 217.5 L 421.1 217.8 L 421.5 218.2 L 421.8 218.4 L 422.1 219 L 422.5 219 L 422.8 219.3 L 423.2 219.4 L 423.5 219.8 L 423.9 220 L 424.2 220.5 L 424.6 220.9 L 424.9 221.4 L 425.3 221.3 L 425.6 221.5 L 426 221.7 L 426.3 221.8 L 426.7 222 L 427 222.4 L 427.4 222.6 L 427.7 222.9 L 428.1 223.2 L 428.4 223 L 428.8 222.9 L 429.1 222.9 L 429.5 223.4 L 429.8 224 L 430.2 224.4 L 430.5 224.7 L 430.9 225 L 431.2 225.3 L 431.6 225.5 L 431.9 225.4 L 432.3 225.2 L 432.6 224.5 L 432.9 224.5 L 433.3 223.3 L 433.6 222.8 L 434 222.7 L 434.3 222.4 L 434.7 222.4 L 435 222.1 L 435.4 222.1 L 435.7 221.6 L 436.1 221 L 436.4 220.4 L 436.8 219.8 L 437.1 219.8 L 437.5 219.9 L 437.8 219.7 L 438.2 219.2 L 438.5 219.2 L 438.9 219.1 L 439.2 218.8 L 439.6 218.4 L 439.9 218.1 L 440.3 217.5 L 440.6 217 L 441 217.2 L 441.3 216.8 L 441.7 215.9 L 442 215.3 L 442.4 214.8 L 442.7 214.5 L 443 214.2 L 443.4 214.6 L 443.7 214.3 L 444.1 214.1 L 444.4 214.1 L 444.8 214.2 L 445.1 213.8 L 445.5 213.2 L 445.8 213.6 L 446.2 213.1 L 446.5 213.4 L 446.9 213.3 L 447.2 213.3 L 447.6 213.2 L 447.9 213.1 L 448.3 212.8 L 448.6 212.6 L 449 212.8 L 449.3 213 L 449.7 213.2 L 450 212.8 L 450.4 212.4 L 450.7 212 L 451.1 212.1 L 451.4 211.5 L 451.8 210.9 L 452.1 210.7 L 452.5 210 L 452.8 209.6 L 453.2 209.4 L 453.5 208.3 L 453.8 207.3 L 454.2 206.9 L 454.5 206.4 L 454.9 206.2 L 455.2 205.8 L 455.6 205.9 L 455.9 206.2 L 456.3 205.6 L 456.6 205.1 L 457 205.2 L 457.3 204 L 457.7 203.9 L 458 203.7 L 458.4 203.5 L 458.7 203.1 L 459.1 202.9 L 459.4 203.1 L 459.8 202.8 L 460.1 202.7 L 460.5 202.7 L 460.8 202.7 L 461.2 202.2 L 461.5 201.8 L 461.9 201.2 L 462.2 201.1 L 462.6 201 L 462.9 201.1 L 463.3 200.7 L 463.6 200.2 L 463.9 200.2 L 464.3 200.2 L 464.6 199.5 L 465 199.2 L 465.3 199.4 L 465.7 199.4 L 466 199.3 L 466.4 199.7 L 466.7 199.4 L 467.1 199.3 L 467.4 198.8 L 467.8 198.3 L 468.1 197.8 L 468.5 197.7 L 468.8 197.6 L 469.2 197.1 L 469.5 196.8 L 469.9 196.9 L 470.2 196.9 L 470.6 196.7 L 470.9 196.8 L 471.3 196.6 L 471.6 196.8 L 472 196.2 L 472.3 196.2 L 472.7 196.4 L 473 195.7 L 473.4 195.9 L 473.7 195.9 L 474.1 195.3 L 474.4 194.8 L 474.7 194.1 L 475.1 193.5 L 475.4 192.9 L 475.8 192.3 L 476.1 192.5 L 476.5 191.7 L 476.8 191.5 L 477.2 191.2 L 477.5 191.3 L 477.9 190.9 L 478.2 190.5 L 478.6 189.9 L 478.9 189.6 L 479.3 189.1 L 479.6 188.5 L 480 188.6 L 480.3 188.8 L 480.7 188.1 L 481 188.1 L 481.4 187.8 L 481.7 187.7 L 482.1 187.9 L 482.4 188.2 L 482.8 188.4 L 483.1 188.2 L 483.5 188 L 483.8 187.4 L 484.2 187.3 L 484.5 187.4 L 484.8 187.2 L 485.2 187.3 L 485.5 187.5 L 485.9 187.7 L 486.2 187.8 L 486.6 187.3 L 486.9 187.5 L 487.3 187 L 487.6 186.5 L 488 186.7 L 488.3 186.4 L 488.7 186.3 L 489 186.1 L 489.4 186.6 L 489.7 186.4 L 490.1 185.9 L 490.4 185.7 L 490.8 185.7 L 491.1 185.5 L 491.5 185.4 L 491.8 184.8 L 492.2 184.4 L 492.5 184.4 L 492.9 183.9 L 493.2 183.9 L 493.6 183.6 L 493.9 183.6 L 494.3 183.2 L 494.6 182.9 L 495 182.4 L 495.3 182.2 L 495.6 181.6 L 496 181.1"/>
+      <line class="fig-guide" x1="217.8" y1="70.4" x2="217.8" y2="252"/>
+      <circle class="fig-dot" cx="217.8" cy="70.4" r="4"/>
+      <text class="fig-text fig-tick" x="217.8" y="56.4" text-anchor="middle">ter</text>
+      <line class="fig-guide" x1="431.5" y1="225.6" x2="431.5" y2="252"/>
+      <circle class="fig-dot" cx="431.5" cy="225.6" r="4"/>
+      <text class="fig-text fig-tick" x="431.5" y="245.6" text-anchor="middle">ori</text>
+      </svg>
+      <figcaption>The skew of the <em>Escherichia coli</em> K-12 genome, the running count of G minus C over all 4,641,652 nucleotides. Position 0 is where the published sequence happens to start and means nothing biologically, since the chromosome is a circle. Walking forward from the minimum the skew climbs the whole way to the maximum, then falls back to the minimum again, so the two turning points are the two ends of the replication: the minimum is ori and the maximum is ter. Nothing here counts k-mers; the position of the origin is visible in the base composition alone.</figcaption>
+    </figure>
+
+    <p>
+      Run on the <em>E. coli</em> K-12 genome, 4,641,652 nucleotides, <code>min_skew</code> returns
+      position 3,925,597. The replication origin annotated in that genome record runs from
+      3,925,744 to 3,925,975, so counting G's and C's places ori within about 150 nucleotides of it,
+      out of four and a half million.
+    </p>
 
     <p>
       The skew approach is $O(n)$ and provides a fast, independent way to locate the ori region
@@ -652,6 +716,80 @@ def motif_enumeration(dna, k, d):
       score is $0 + 1 + 1 + 1 + 0 = 3$. A fully conserved motif scores 0, and the more the chosen
       k-mers differ, the higher the score. <strong>The goal is to minimize it.</strong>
     </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="548" height="370" viewBox="0 0 548 370">
+      <rect class="fig-cell" x="168" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="82" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="82" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="260" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="82" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="306" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="82" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="62" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="82" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="112" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="112" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="260" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="112" text-anchor="middle">G</text>
+      <rect class="fig-cell-alt" x="306" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="112" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="352" y="92" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="112" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="142" text-anchor="middle">A</text>
+      <rect class="fig-cell-alt" x="214" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="142" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="260" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="142" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="306" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="142" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="122" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="142" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="168" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="191" y="172" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="214" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="237" y="172" text-anchor="middle">C</text>
+      <rect class="fig-cell-alt" x="260" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="283" y="172" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="306" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="329" y="172" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="352" y="152" width="46" height="30"/>
+      <text class="fig-text fig-tick" x="375" y="172" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="152" y="127" text-anchor="end">motifs</text>
+      <rect class="fig-shape" x="173" y="222" width="36" height="84"/>
+      <text class="fig-text fig-note" x="191" y="269" text-anchor="middle">A 1.00</text>
+      <rect class="fig-shape" x="219" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="237" y="258.5" text-anchor="middle">C 0.75</text>
+      <rect class="fig-cell" x="219" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="237" y="300.5" text-anchor="middle">T 0.25</text>
+      <rect class="fig-shape" x="265" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="283" y="258.5" text-anchor="middle">G 0.75</text>
+      <rect class="fig-cell" x="265" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="283" y="300.5" text-anchor="middle">T 0.25</text>
+      <rect class="fig-shape" x="311" y="222" width="36" height="63"/>
+      <text class="fig-text fig-note" x="329" y="258.5" text-anchor="middle">T 0.75</text>
+      <rect class="fig-cell" x="311" y="285" width="36" height="21"/>
+      <text class="fig-text fig-note" x="329" y="300.5" text-anchor="middle">C 0.25</text>
+      <rect class="fig-shape" x="357" y="222" width="36" height="84"/>
+      <text class="fig-text fig-note" x="375" y="269" text-anchor="middle">A 1.00</text>
+      <text class="fig-text fig-note" x="152" y="269" text-anchor="end">profile</text>
+      <text class="fig-text fig-tick" x="191" y="340" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="237" y="340" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="283" y="340" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="329" y="340" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="340" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="152" y="340" text-anchor="end">consensus</text>
+      <line class="fig-axis" x1="168" y1="318" x2="398" y2="318"/>
+      <text class="fig-text fig-tick" x="418" y="82" text-anchor="start">score 3</text>
+      <text class="fig-text fig-note" x="418" y="102" text-anchor="start">one shaded cell</text>
+      <text class="fig-text fig-note" x="418" y="118" text-anchor="start">per disagreement</text>
+      </svg>
+      <figcaption>Four chosen 5-mers, stacked as a motif matrix. Reading down each column gives the profile, the frequency of each nucleotide at that position, drawn as the bars; the tallest bar of each column supplies the consensus string ACGTA. A cell is shaded when it disagrees with the consensus of its column, so the score is simply the number of shaded cells, here 3. A perfectly conserved motif has one bar per column and no shaded cells, and motif finding is the search for the choice of k-mers that leaves fewest.</figcaption>
+    </figure>
 
     <p>The four quantities translate directly into code:</p>
 
@@ -1218,6 +1356,78 @@ TTC -> TCT</code></pre>
 
     <h3>Hamiltonian or Eulerian</h3>
 
+    <figure class="figure-block">
+      <svg class="figure" width="786" height="312" viewBox="0 0 786 312">
+      <line class="fig-guide" x1="174" y1="76" x2="174" y2="190"/>
+      <line class="fig-guide" x1="258" y1="76" x2="258" y2="190"/>
+      <line class="fig-guide" x1="342" y1="76" x2="342" y2="190"/>
+      <line class="fig-guide" x1="426" y1="76" x2="426" y2="190"/>
+      <line class="fig-guide" x1="510" y1="76" x2="510" y2="190"/>
+      <line class="fig-guide" x1="594" y1="76" x2="594" y2="190"/>
+      <line class="fig-curve" x1="202" y1="62" x2="224" y2="62"/>
+      <path class="fig-dot" d="M 230 62 L 224 64.7 L 224 59.3 Z"/>
+      <line class="fig-curve" x1="286" y1="62" x2="308" y2="62"/>
+      <path class="fig-dot" d="M 314 62 L 308 64.7 L 308 59.3 Z"/>
+      <line class="fig-curve" x1="370" y1="62" x2="392" y2="62"/>
+      <path class="fig-dot" d="M 398 62 L 392 64.7 L 392 59.3 Z"/>
+      <line class="fig-curve" x1="454" y1="62" x2="476" y2="62"/>
+      <path class="fig-dot" d="M 482 62 L 476 64.7 L 476 59.3 Z"/>
+      <line class="fig-curve" x1="538" y1="62" x2="560" y2="62"/>
+      <path class="fig-dot" d="M 566 62 L 560 64.7 L 560 59.3 Z"/>
+      <rect class="fig-cell-alt" x="151" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="174" y="67" text-anchor="middle">GGCT</text>
+      <rect class="fig-cell-alt" x="235" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="258" y="67" text-anchor="middle">GCTT</text>
+      <rect class="fig-cell-alt" x="319" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="342" y="67" text-anchor="middle">CTTA</text>
+      <rect class="fig-cell-alt" x="403" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="426" y="67" text-anchor="middle">TTAC</text>
+      <rect class="fig-cell-alt" x="487" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="510" y="67" text-anchor="middle">TACC</text>
+      <rect class="fig-cell-alt" x="571" y="51" width="46" height="22"/>
+      <text class="fig-text fig-note" x="594" y="67" text-anchor="middle">ACCA</text>
+      <text class="fig-text fig-note" x="130" y="67" text-anchor="end">reads</text>
+      <text class="fig-text fig-note" x="670" y="67" text-anchor="start">visit every node</text>
+      <line class="fig-curve" x1="160" y1="210" x2="182" y2="210"/>
+      <path class="fig-dot" d="M 188 210 L 182 212.7 L 182 207.3 Z"/>
+      <line class="fig-curve" x1="244" y1="210" x2="266" y2="210"/>
+      <path class="fig-dot" d="M 272 210 L 266 212.7 L 266 207.3 Z"/>
+      <line class="fig-curve" x1="328" y1="210" x2="350" y2="210"/>
+      <path class="fig-dot" d="M 356 210 L 350 212.7 L 350 207.3 Z"/>
+      <line class="fig-curve" x1="412" y1="210" x2="434" y2="210"/>
+      <path class="fig-dot" d="M 440 210 L 434 212.7 L 434 207.3 Z"/>
+      <line class="fig-curve" x1="496" y1="210" x2="518" y2="210"/>
+      <path class="fig-dot" d="M 524 210 L 518 212.7 L 518 207.3 Z"/>
+      <line class="fig-curve" x1="580" y1="210" x2="602" y2="210"/>
+      <path class="fig-dot" d="M 608 210 L 602 212.7 L 602 207.3 Z"/>
+      <rect class="fig-cell" x="109" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="132" y="215" text-anchor="middle">GGC</text>
+      <rect class="fig-cell" x="193" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="216" y="215" text-anchor="middle">GCT</text>
+      <rect class="fig-cell" x="277" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="300" y="215" text-anchor="middle">CTT</text>
+      <rect class="fig-cell" x="361" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="384" y="215" text-anchor="middle">TTA</text>
+      <rect class="fig-cell" x="445" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="468" y="215" text-anchor="middle">TAC</text>
+      <rect class="fig-cell" x="529" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="552" y="215" text-anchor="middle">ACC</text>
+      <rect class="fig-cell" x="613" y="199" width="46" height="22"/>
+      <text class="fig-text fig-note" x="636" y="215" text-anchor="middle">CCA</text>
+      <text class="fig-text fig-note" x="88" y="215" text-anchor="end">3-mers</text>
+      <text class="fig-text fig-note" x="670" y="215" text-anchor="start">use every edge</text>
+      <text class="fig-text fig-note" x="174" y="196" text-anchor="middle">GGCT</text>
+      <text class="fig-text fig-note" x="258" y="196" text-anchor="middle">GCTT</text>
+      <text class="fig-text fig-note" x="342" y="196" text-anchor="middle">CTTA</text>
+      <text class="fig-text fig-note" x="426" y="196" text-anchor="middle">TTAC</text>
+      <text class="fig-text fig-note" x="510" y="196" text-anchor="middle">TACC</text>
+      <text class="fig-text fig-note" x="594" y="196" text-anchor="middle">ACCA</text>
+      <text class="fig-text fig-tick" x="384" y="268" text-anchor="middle">GGCTTACCA</text>
+      <text class="fig-text fig-note" x="384" y="288" text-anchor="middle">the string both paths spell</text>
+      </svg>
+      <figcaption><span class="cap-part">The same six reads, encoded twice. <span class="cap-lead">Above:</span> each read is a node, and an edge joins two reads overlapping in three characters, so a string with this composition is a path through every node.</span><span class="cap-part"><span class="cap-lead">Below:</span> each read is an edge running from its first three characters to its last three, equal 3-mers become one node, and a string with this composition is a path through every edge.</span><span class="cap-part">No information was added or discarded. Moving the reads from the nodes to the edges is the entire difference between a problem with no known polynomial algorithm and one solved in linear time.</span></figcaption>
+    </figure>
+
     <p>
       Both graphs hold the same reads, and for a real genome both have millions of nodes and edges,
       so their size is not what separates them. The path problem is. Finding an Eulerian path has a
@@ -1539,6 +1749,58 @@ def contigs(patterns):
       That 3-mer occurs twice in the string, and the assembly stops exactly where the repeat put a
       fork in the graph.
     </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="726" height="308" viewBox="0 0 726 308">
+      <line class="fig-curve" x1="105" y1="158" x2="119" y2="158"/>
+      <path class="fig-dot" d="M 125 158 L 119 160.7 L 119 155.3 Z"/>
+      <line class="fig-curve" x1="179" y1="158" x2="193" y2="158"/>
+      <path class="fig-dot" d="M 199 158 L 193 160.7 L 193 155.3 Z"/>
+      <line class="fig-curve" x1="253" y1="158" x2="267" y2="158"/>
+      <path class="fig-dot" d="M 273 158 L 267 160.7 L 267 155.3 Z"/>
+      <line class="fig-curve" x1="327" y1="158" x2="341" y2="158"/>
+      <path class="fig-dot" d="M 347 158 L 341 160.7 L 341 155.3 Z"/>
+      <line class="fig-curve" x1="401" y1="158" x2="415" y2="158"/>
+      <path class="fig-dot" d="M 421 158 L 415 160.7 L 415 155.3 Z"/>
+      <line class="fig-curve" x1="549" y1="158" x2="563" y2="158"/>
+      <path class="fig-dot" d="M 569 158 L 563 160.7 L 563 155.3 Z"/>
+      <line class="fig-curve" x1="458" y1="170" x2="482.5" y2="224.5"/>
+      <path class="fig-dot" d="M 485 230 L 480.1 225.6 L 485 223.4 Z"/>
+      <line class="fig-curve" x1="475" y1="230" x2="450.5" y2="175.5"/>
+      <path class="fig-dot" d="M 448 170 L 452.9 174.4 L 448 176.6 Z"/>
+      <line class="fig-curve" x1="475" y1="158" x2="489" y2="158"/>
+      <path class="fig-dot" d="M 495 158 L 489 160.7 L 489 155.3 Z"/>
+      <rect class="fig-cell" x="55" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="78" y="163" text-anchor="middle">AAG</text>
+      <rect class="fig-cell" x="129" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="152" y="163" text-anchor="middle">AGA</text>
+      <rect class="fig-cell" x="203" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="226" y="163" text-anchor="middle">GAT</text>
+      <rect class="fig-cell" x="277" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="300" y="163" text-anchor="middle">ATT</text>
+      <rect class="fig-cell" x="351" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="374" y="163" text-anchor="middle">TTC</text>
+      <rect class="fig-cell-alt" x="425" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="448" y="163" text-anchor="middle">TCT</text>
+      <rect class="fig-cell" x="499" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="522" y="163" text-anchor="middle">CTA</text>
+      <rect class="fig-cell" x="573" y="147" width="46" height="22"/>
+      <text class="fig-text fig-note" x="596" y="163" text-anchor="middle">TAC</text>
+      <rect class="fig-cell" x="462" y="231" width="46" height="22"/>
+      <text class="fig-text fig-note" x="485" y="247" text-anchor="middle">CTC</text>
+      <line class="fig-axis" x1="78" y1="138" x2="78" y2="128"/>
+      <line class="fig-axis" x1="78" y1="128" x2="448" y2="128"/>
+      <line class="fig-axis" x1="448" y1="128" x2="448" y2="138"/>
+      <text class="fig-text fig-tick" x="263" y="120" text-anchor="middle">AAGATTCT</text>
+      <line class="fig-axis" x1="448" y1="138" x2="448" y2="128"/>
+      <line class="fig-axis" x1="448" y1="128" x2="596" y2="128"/>
+      <line class="fig-axis" x1="596" y1="128" x2="596" y2="138"/>
+      <text class="fig-text fig-tick" x="522" y="120" text-anchor="middle">TCTAC</text>
+      <text class="fig-text fig-tick" x="529" y="247" text-anchor="start">TCTCT</text>
+      <text class="fig-text fig-note" x="488" y="192" text-anchor="start">TCT: two in, two out</text>
+      </svg>
+      <figcaption>The de Bruijn graph of AAGATTCTCTAC at $k = 4$. The 3-mer TCT occurs twice in the string, so its two copies collapse into a single node with two incoming and two outgoing edges, while every other node has one of each. A walk can run without ambiguity up to that node and away from it, but at the node itself the reads do not say which incoming edge continues into which outgoing one. The three unambiguous stretches are the contigs, bracketed above, and each of them begins or ends at the repeat.</figcaption>
+    </figure>
 
     <p>
       Short reads do not produce a chromosome, they produce contigs. A contig ends for one of two
@@ -2052,6 +2314,69 @@ def masses_of(peptide):
       repeats a mass whenever two different subpeptides weigh the same.
     </p>
 
+    <figure class="figure-block">
+      <svg class="figure" width="690" height="400" viewBox="0 0 690 400">
+      <circle class="fig-accent" cx="196" cy="196" r="76"/>
+      <circle class="fig-hole" cx="196" cy="120" r="15"/>
+      <text class="fig-text fig-tick" x="196" y="125" text-anchor="middle">N</text>
+      <text class="fig-text fig-note" x="196" y="94" text-anchor="middle">114</text>
+      <circle class="fig-hole" cx="272" cy="196" r="15"/>
+      <text class="fig-text fig-tick" x="272" y="201" text-anchor="middle">Q</text>
+      <text class="fig-text fig-note" x="302" y="200" text-anchor="middle">128</text>
+      <circle class="fig-hole" cx="196" cy="272" r="15"/>
+      <text class="fig-text fig-tick" x="196" y="277" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="196" y="306" text-anchor="middle">129</text>
+      <circle class="fig-hole" cx="120" cy="196" r="15"/>
+      <text class="fig-text fig-tick" x="120" y="201" text-anchor="middle">L</text>
+      <text class="fig-text fig-note" x="90" y="200" text-anchor="middle">113</text>
+      <text class="fig-text fig-note" x="196" y="188" text-anchor="middle">total</text>
+      <text class="fig-text fig-tick" x="196" y="208" text-anchor="middle">484</text>
+      <path class="fig-arc" d="M 196 68 A 128 128 0 0 1 324 196"/>
+      <text class="fig-text fig-tick" x="302.1" y="85.9" text-anchor="middle">NQ</text>
+      <text class="fig-text fig-note" x="302.1" y="102.9" text-anchor="middle">242</text>
+      <path class="fig-arc" d="M 324 196 A 128 128 0 0 1 196 324"/>
+      <text class="fig-text fig-tick" x="302.1" y="298.1" text-anchor="middle">QE</text>
+      <text class="fig-text fig-note" x="302.1" y="315.1" text-anchor="middle">257</text>
+      <path class="fig-arc" d="M 196 324 A 128 128 0 0 1 68 196"/>
+      <text class="fig-text fig-tick" x="89.9" y="298.1" text-anchor="middle">EL</text>
+      <text class="fig-text fig-note" x="89.9" y="315.1" text-anchor="middle">242</text>
+      <path class="fig-curve" d="M 68 196 A 128 128 0 0 1 196 68"/>
+      <text class="fig-text fig-tick" x="89.9" y="85.9" text-anchor="middle">LN</text>
+      <text class="fig-text fig-note" x="89.9" y="102.9" text-anchor="middle">227</text>
+      <text class="fig-text fig-note" x="388" y="100" text-anchor="start">length 1</text>
+      <text class="fig-text fig-tick" x="464" y="100" text-anchor="middle">N</text>
+      <text class="fig-text fig-note" x="464" y="118" text-anchor="middle">114</text>
+      <text class="fig-text fig-tick" x="526" y="100" text-anchor="middle">Q</text>
+      <text class="fig-text fig-note" x="526" y="118" text-anchor="middle">128</text>
+      <text class="fig-text fig-tick" x="588" y="100" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="588" y="118" text-anchor="middle">129</text>
+      <text class="fig-text fig-tick" x="650" y="100" text-anchor="middle">L</text>
+      <text class="fig-text fig-note" x="650" y="118" text-anchor="middle">113</text>
+      <text class="fig-text fig-note" x="388" y="156" text-anchor="start">length 2</text>
+      <text class="fig-text fig-tick" x="464" y="156" text-anchor="middle">NQ</text>
+      <text class="fig-text fig-note" x="464" y="174" text-anchor="middle">242</text>
+      <text class="fig-text fig-tick" x="526" y="156" text-anchor="middle">QE</text>
+      <text class="fig-text fig-note" x="526" y="174" text-anchor="middle">257</text>
+      <text class="fig-text fig-tick" x="588" y="156" text-anchor="middle">EL</text>
+      <text class="fig-text fig-note" x="588" y="174" text-anchor="middle">242</text>
+      <text class="fig-text fig-tick" x="650" y="156" text-anchor="middle">LN</text>
+      <text class="fig-text fig-note" x="650" y="174" text-anchor="middle">227</text>
+      <text class="fig-text fig-note" x="388" y="212" text-anchor="start">length 3</text>
+      <text class="fig-text fig-tick" x="464" y="212" text-anchor="middle">NQE</text>
+      <text class="fig-text fig-note" x="464" y="230" text-anchor="middle">371</text>
+      <text class="fig-text fig-tick" x="526" y="212" text-anchor="middle">QEL</text>
+      <text class="fig-text fig-note" x="526" y="230" text-anchor="middle">370</text>
+      <text class="fig-text fig-tick" x="588" y="212" text-anchor="middle">ELN</text>
+      <text class="fig-text fig-note" x="588" y="230" text-anchor="middle">356</text>
+      <text class="fig-text fig-tick" x="650" y="212" text-anchor="middle">LNQ</text>
+      <text class="fig-text fig-note" x="650" y="230" text-anchor="middle">355</text>
+      <line class="fig-axis" x1="388" y1="246" x2="674" y2="246"/>
+      <text class="fig-text fig-tick" x="388" y="268" text-anchor="start">12 subpeptides, plus 0 and 484</text>
+      <text class="fig-text fig-note" x="388" y="288" text-anchor="start">give the 14 masses of the cyclospectrum</text>
+      </svg>
+      <figcaption>The cyclic peptide NQEL and its subpeptides of length two, one starting at each of the four positions. Because the molecule is a ring there is no first and no last amino acid, so LN is a subpeptide exactly as NQ is; the highlighted arc is the one that crosses the point where the string NQEL happens to be cut open, and it is what a linear peptide would not have. Every length from 1 to $n - 1$ contributes $n$ subpeptides the same way, giving $n(n-1) = 12$ of them, and adding 0 and the mass of the whole ring gives the 14 entries of the cyclospectrum. Read as a linear peptide instead, NQEL would have only 10 subpeptides.</figcaption>
+    </figure>
+
     <p>
       <strong>Generating Theoretical Spectrum Problem.</strong> Given a cyclic peptide, compute its
       cyclospectrum.
@@ -2397,6 +2722,1957 @@ def leaderboard_cyclopeptide_sequencing(spectrum, n, masses=MASSES):
       A search of the <em>B. brevis</em> genome finds no gene for this peptide, and 92 numbers
       produced by weighing its fragments determine it up to rotation, reversal, and the two pairs of
       amino acids that share a mass.
+    </p>
+
+    <h2>Chapter 5: How Do We Compare Biological Sequences?</h2>
+
+    <p>
+      The first four chapters worked inside one sequence at a time. This chapter takes two and asks
+      which of their positions correspond. Every problem in it reduces to finding a longest path in
+      a directed acyclic graph, and the variants differ only in which graph is searched.
+    </p>
+
+    <h3>The Homeobox</h3>
+
+    <p>
+      Some genes control where body parts form. A mutation in the <em>Drosophila</em> gene
+      <strong>Antennapedia</strong> grows legs on the head in place of antennae, which places the
+      gene upstream of the decision about what that part of the animal becomes.
+    </p>
+
+    <p>
+      In 1984 a stretch of about 180 nucleotides, the <strong>homeobox</strong>, was found in
+      Antennapedia and in several other fly genes of the same kind. The 60 amino acids it codes for
+      are the <strong>homeodomain</strong>, the part of the protein that binds DNA. The same
+      sequence then turned up in frogs, mice and humans, in genes with the same role, although those
+      animals and flies last shared an ancestor around 600 million years ago.
+    </p>
+
+    <p>
+      The conservation is confined to that stretch. Outside it the fly gene and its human
+      counterpart differ in length and in sequence. Comparing the two genes end to end therefore
+      says little, and the problem is to find the conserved segment without being told where it is.
+    </p>
+
+    <h3>Comparing Two Sequences</h3>
+
+    <p>
+      Hamming distance, from Chapter 1, compares position $i$ of one string to position $i$ of the
+      other. It requires equal lengths, and it assumes the two strings are in register. A single
+      nucleotide inserted or deleted breaks that assumption for every position after it.
+    </p>
+
+    <p>
+      <code>ATGCATGC</code> and <code>TGCATGCA</code> differ at all 8 positions, the largest Hamming
+      distance two strings of that length can have. They also share 7 of their 8 characters in
+      order, which is visible once one of them is shifted:
+    </p>
+
+    <pre><code>ATGCATGC-
+-TGCATGCA</code></pre>
+
+    <p>
+      Mutation deletes and inserts nucleotides as well as substituting them, so the comparison has
+      to allow for that shift. An <strong>alignment</strong> of two strings $v$ and $w$ is a matrix
+      of two rows: the first is $v$ with gap symbols inserted, the second is $w$ with gap symbols
+      inserted, the two rows have the same length, and no column holds two gaps. Removing the gaps
+      from a row returns the original string.
+    </p>
+
+    <p>
+      A column is a <strong>match</strong> when its two symbols are equal, a
+      <strong>mismatch</strong> when they differ, and an <strong>indel</strong> when one of them is
+      a gap. An indel with a gap in the second row is a <strong>deletion</strong>, and one with a
+      gap in the first row is an <strong>insertion</strong>. The alignment above has 7 matches, no
+      mismatches, and 2 indels.
+    </p>
+
+    <h3>Maximizing Matches: the Longest Common Subsequence</h3>
+
+    <p>
+      A <strong>common subsequence</strong> of $v$ and $w$ is a string obtained by deleting symbols
+      from each, without reordering what is left. The matched columns of an alignment spell one:
+      they appear in both strings, in order.
+    </p>
+
+    <p>
+      An alignment with no mismatched columns therefore corresponds to a common subsequence, and an
+      alignment with as many matches as possible corresponds to a longest one.
+    </p>
+
+    <p>
+      <strong>Longest Common Subsequence Problem.</strong> Given two strings, find a longest string
+      that is a subsequence of both.
+    </p>
+
+    <p>
+      Deleting symbols from $v$ can be done in $2^{|v|}$ ways, so enumerating candidates is out of
+      reach for strings of any useful length.
+    </p>
+
+    <h3>Dynamic Programming: the Change Problem</h3>
+
+    <p>
+      <strong>Change Problem.</strong> Given an integer <em>money</em> and an array of $d$ positive
+      integers <em>coins</em>, find the smallest number of coins with total <em>money</em>.
+    </p>
+
+    <p>
+      Taking the largest coin that fits and repeating does not solve it. With coins 5, 4 and 1 and
+      <em>money</em> equal to 8, that rule takes a 5 and then three 1s, four coins, while two 4s
+      suffice.
+    </p>
+
+    <p>
+      An optimal solution for <em>money</em> contains some coin $c$, and removing it leaves an
+      optimal solution for $\textit{money} - c$. Writing $C(m)$ for the answer at $m$,
+      $C(m) = 1 + \min_c C(m - c)$ over the coins $c \le m$, with $C(0) = 0$. Read as a recursion
+      this recomputes the same values repeatedly: $C(m)$ calls $C(m - c)$ for every coin, and those
+      calls overlap.
+    </p>
+
+    <pre><code class="language-python">def recursive_change(money, coins):
+    if money == 0:
+        return 0
+    return 1 + min(recursive_change(money - c, coins) for c in coins if c &lt;= money)</code></pre>
+
+    <p>
+      Filling a table from $0$ upward computes each value once, and every value it needs is already
+      in the table when it is needed.
+    </p>
+
+    <pre><code class="language-python">def dp_change(money, coins):
+    counts = [0] * (money + 1)
+    for m in range(1, money + 1):
+        counts[m] = 1 + min(counts[m - c] for c in coins if c &lt;= m)
+    return counts[money]</code></pre>
+
+    <p>
+      The table has <em>money</em> entries and each costs $d$ comparisons, so the cost is
+      $O(\textit{money} \cdot d)$. <code>dp_change(8, [5, 4, 1])</code> returns 2.
+    </p>
+
+    <h3>The Manhattan Tourist Problem</h3>
+
+    <p>
+      <strong>Manhattan Tourist Problem.</strong> The input is a rectangular grid of $n + 1$ rows and
+      $m + 1$ columns whose edges point right and down and carry weights. The output is a longest
+      path from the top left node $(0, 0)$ to the bottom right node $(n, m)$.
+    </p>
+
+    <p>
+      Choosing the heavier of the two edges at each step fails for the same reason as the greedy
+      change rule: a heavy edge early can lead into a region of light ones.
+    </p>
+
+    <p>
+      Every path into $(i, j)$ arrives on one of two edges, from $(i - 1, j)$ or from $(i, j - 1)$,
+      and its part before that edge is a path into the earlier node. Writing $s_{i,j}$ for the
+      weight of a longest path from $(0, 0)$ to $(i, j)$,
+    </p>
+
+    <p>
+      $s_{i,j} = \max(s_{i-1,j} + \text{down}_{i-1,j},\ s_{i,j-1} + \text{right}_{i,j-1})$,
+    </p>
+
+    <p>
+      with $s_{0,0} = 0$. The nodes of row $i$ depend only on row $i$ and row $i - 1$, so filling
+      the table row by row has every value ready when it is used. The first row and the first column
+      have a single incoming edge each and are filled separately.
+    </p>
+
+    <pre><code class="language-python">def manhattan_tourist(down, right):
+    n, m = len(down), len(right[0])
+    best = [[0] * (m + 1) for _ in range(n + 1)]
+    for i in range(1, n + 1):
+        best[i][0] = best[i - 1][0] + down[i - 1][0]
+    for j in range(1, m + 1):
+        best[0][j] = best[0][j - 1] + right[0][j - 1]
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            best[i][j] = max(best[i - 1][j] + down[i - 1][j],
+                             best[i][j - 1] + right[i][j - 1])
+    return best[n][m]</code></pre>
+
+    <p>
+      Each of the $(n + 1)(m + 1)$ nodes costs constant work, so the cost is $O(nm)$. A
+      $4 \times 4$ grid fills 25 nodes, and for the weights drawn here the longest path weighs 34.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="454" height="400" viewBox="0 0 454 400">
+      <line class="fig-axis" x1="62" y1="54" x2="150" y2="54"/>
+      <line class="fig-curve" x1="62" y1="54" x2="62" y2="132"/>
+      <line class="fig-axis" x1="150" y1="54" x2="238" y2="54"/>
+      <line class="fig-axis" x1="150" y1="54" x2="150" y2="132"/>
+      <line class="fig-axis" x1="238" y1="54" x2="326" y2="54"/>
+      <line class="fig-axis" x1="238" y1="54" x2="238" y2="132"/>
+      <line class="fig-axis" x1="326" y1="54" x2="414" y2="54"/>
+      <line class="fig-axis" x1="326" y1="54" x2="326" y2="132"/>
+      <line class="fig-axis" x1="414" y1="54" x2="414" y2="132"/>
+      <line class="fig-curve" x1="62" y1="132" x2="150" y2="132"/>
+      <line class="fig-axis" x1="62" y1="132" x2="62" y2="210"/>
+      <line class="fig-axis" x1="150" y1="132" x2="238" y2="132"/>
+      <line class="fig-curve" x1="150" y1="132" x2="150" y2="210"/>
+      <line class="fig-axis" x1="238" y1="132" x2="326" y2="132"/>
+      <line class="fig-axis" x1="238" y1="132" x2="238" y2="210"/>
+      <line class="fig-axis" x1="326" y1="132" x2="414" y2="132"/>
+      <line class="fig-axis" x1="326" y1="132" x2="326" y2="210"/>
+      <line class="fig-axis" x1="414" y1="132" x2="414" y2="210"/>
+      <line class="fig-axis" x1="62" y1="210" x2="150" y2="210"/>
+      <line class="fig-axis" x1="62" y1="210" x2="62" y2="288"/>
+      <line class="fig-curve" x1="150" y1="210" x2="238" y2="210"/>
+      <line class="fig-axis" x1="150" y1="210" x2="150" y2="288"/>
+      <line class="fig-axis" x1="238" y1="210" x2="326" y2="210"/>
+      <line class="fig-curve" x1="238" y1="210" x2="238" y2="288"/>
+      <line class="fig-axis" x1="326" y1="210" x2="414" y2="210"/>
+      <line class="fig-axis" x1="326" y1="210" x2="326" y2="288"/>
+      <line class="fig-axis" x1="414" y1="210" x2="414" y2="288"/>
+      <line class="fig-axis" x1="62" y1="288" x2="150" y2="288"/>
+      <line class="fig-axis" x1="62" y1="288" x2="62" y2="366"/>
+      <line class="fig-axis" x1="150" y1="288" x2="238" y2="288"/>
+      <line class="fig-axis" x1="150" y1="288" x2="150" y2="366"/>
+      <line class="fig-axis" x1="238" y1="288" x2="326" y2="288"/>
+      <line class="fig-curve" x1="238" y1="288" x2="238" y2="366"/>
+      <line class="fig-axis" x1="326" y1="288" x2="414" y2="288"/>
+      <line class="fig-axis" x1="326" y1="288" x2="326" y2="366"/>
+      <line class="fig-axis" x1="414" y1="288" x2="414" y2="366"/>
+      <line class="fig-axis" x1="62" y1="366" x2="150" y2="366"/>
+      <line class="fig-axis" x1="150" y1="366" x2="238" y2="366"/>
+      <line class="fig-curve" x1="238" y1="366" x2="326" y2="366"/>
+      <line class="fig-curve" x1="326" y1="366" x2="414" y2="366"/>
+      <text class="fig-text fig-note" x="54" y="97" text-anchor="end">1</text>
+      <text class="fig-text fig-note" x="142" y="97" text-anchor="end">0</text>
+      <text class="fig-text fig-note" x="230" y="97" text-anchor="end">2</text>
+      <text class="fig-text fig-note" x="318" y="97" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="406" y="97" text-anchor="end">3</text>
+      <text class="fig-text fig-note" x="54" y="175" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="142" y="175" text-anchor="end">6</text>
+      <text class="fig-text fig-note" x="230" y="175" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="318" y="175" text-anchor="end">2</text>
+      <text class="fig-text fig-note" x="406" y="175" text-anchor="end">1</text>
+      <text class="fig-text fig-note" x="54" y="253" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="142" y="253" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="230" y="253" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="318" y="253" text-anchor="end">2</text>
+      <text class="fig-text fig-note" x="406" y="253" text-anchor="end">1</text>
+      <text class="fig-text fig-note" x="54" y="331" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="142" y="331" text-anchor="end">6</text>
+      <text class="fig-text fig-note" x="230" y="331" text-anchor="end">8</text>
+      <text class="fig-text fig-note" x="318" y="331" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="406" y="331" text-anchor="end">3</text>
+      <text class="fig-text fig-note" x="106" y="45" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="194" y="45" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="282" y="45" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="370" y="45" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="106" y="123" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="194" y="123" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="282" y="123" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="370" y="123" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="106" y="201" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="194" y="201" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="282" y="201" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="370" y="201" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="106" y="279" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="194" y="279" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="282" y="279" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="370" y="279" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="106" y="357" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="194" y="357" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="282" y="357" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="370" y="357" text-anchor="middle">2</text>
+      <circle class="fig-hole" cx="62" cy="54" r="14"/>
+      <text class="fig-text fig-tick" x="62" y="59" text-anchor="middle">0</text>
+      <circle class="fig-hole" cx="150" cy="54" r="14"/>
+      <text class="fig-text fig-tick" x="150" y="59" text-anchor="middle">3</text>
+      <circle class="fig-hole" cx="238" cy="54" r="14"/>
+      <text class="fig-text fig-tick" x="238" y="59" text-anchor="middle">5</text>
+      <circle class="fig-hole" cx="326" cy="54" r="14"/>
+      <text class="fig-text fig-tick" x="326" y="59" text-anchor="middle">9</text>
+      <circle class="fig-hole" cx="414" cy="54" r="14"/>
+      <text class="fig-text fig-tick" x="414" y="59" text-anchor="middle">9</text>
+      <circle class="fig-hole" cx="62" cy="132" r="14"/>
+      <text class="fig-text fig-tick" x="62" y="137" text-anchor="middle">1</text>
+      <circle class="fig-hole" cx="150" cy="132" r="14"/>
+      <text class="fig-text fig-tick" x="150" y="137" text-anchor="middle">4</text>
+      <circle class="fig-hole" cx="238" cy="132" r="14"/>
+      <text class="fig-text fig-tick" x="238" y="137" text-anchor="middle">7</text>
+      <circle class="fig-hole" cx="326" cy="132" r="14"/>
+      <text class="fig-text fig-tick" x="326" y="137" text-anchor="middle">13</text>
+      <circle class="fig-hole" cx="414" cy="132" r="14"/>
+      <text class="fig-text fig-tick" x="414" y="137" text-anchor="middle">15</text>
+      <circle class="fig-hole" cx="62" cy="210" r="14"/>
+      <text class="fig-text fig-tick" x="62" y="215" text-anchor="middle">5</text>
+      <circle class="fig-hole" cx="150" cy="210" r="14"/>
+      <text class="fig-text fig-tick" x="150" y="215" text-anchor="middle">10</text>
+      <circle class="fig-hole" cx="238" cy="210" r="14"/>
+      <text class="fig-text fig-tick" x="238" y="215" text-anchor="middle">17</text>
+      <circle class="fig-hole" cx="326" cy="210" r="14"/>
+      <text class="fig-text fig-tick" x="326" y="215" text-anchor="middle">20</text>
+      <circle class="fig-hole" cx="414" cy="210" r="14"/>
+      <text class="fig-text fig-tick" x="414" y="215" text-anchor="middle">23</text>
+      <circle class="fig-hole" cx="62" cy="288" r="14"/>
+      <text class="fig-text fig-tick" x="62" y="293" text-anchor="middle">9</text>
+      <circle class="fig-hole" cx="150" cy="288" r="14"/>
+      <text class="fig-text fig-tick" x="150" y="293" text-anchor="middle">14</text>
+      <circle class="fig-hole" cx="238" cy="288" r="14"/>
+      <text class="fig-text fig-tick" x="238" y="293" text-anchor="middle">22</text>
+      <circle class="fig-hole" cx="326" cy="288" r="14"/>
+      <text class="fig-text fig-tick" x="326" y="293" text-anchor="middle">22</text>
+      <circle class="fig-hole" cx="414" cy="288" r="14"/>
+      <text class="fig-text fig-tick" x="414" y="293" text-anchor="middle">24</text>
+      <circle class="fig-hole" cx="62" cy="366" r="14"/>
+      <text class="fig-text fig-tick" x="62" y="371" text-anchor="middle">14</text>
+      <circle class="fig-hole" cx="150" cy="366" r="14"/>
+      <text class="fig-text fig-tick" x="150" y="371" text-anchor="middle">20</text>
+      <circle class="fig-hole" cx="238" cy="366" r="14"/>
+      <text class="fig-text fig-tick" x="238" y="371" text-anchor="middle">30</text>
+      <circle class="fig-hole" cx="326" cy="366" r="14"/>
+      <text class="fig-text fig-tick" x="326" y="371" text-anchor="middle">32</text>
+      <circle class="fig-hole" cx="414" cy="366" r="14"/>
+      <text class="fig-text fig-tick" x="414" y="371" text-anchor="middle">34</text>
+      </svg>
+      <figcaption>The Manhattan Tourist Problem on the sample grid. Small numbers are the edge weights of the input. The number inside each node is the weight of a longest path reaching it, so every node equals the larger of its two neighbours plus the edge between them. The highlighted path is the answer, and the sink holds its weight, 34.</figcaption>
+    </figure>
+
+    <h3>Longest Path in a Directed Acyclic Graph</h3>
+
+    <p>
+      The grid recurrence used two facts: a longest path into a node extends a longest path into one
+      of its predecessors, and the predecessors can be computed first. Neither depends on the graph
+      being a grid.
+    </p>
+
+    <p>
+      <strong>Longest Path in a DAG Problem.</strong> Given an edge weighted directed acyclic graph
+      with a source and a sink, find a longest path between them.
+    </p>
+
+    <p>
+      For a node $b$ with incoming edges from $a_1, \dots, a_k$,
+      $s_b = \max_i (s_{a_i} + w(a_i, b))$. The order of computation is the only remaining
+      requirement: every predecessor of a node must be settled before the node itself. A
+      <strong>topological order</strong> of a directed graph is an order of its nodes in which every
+      edge points forward, and a directed graph has one exactly when it is acyclic.
+    </p>
+
+    <p>
+      A node with no incoming edges can be placed first. Removing it, and the edges leaving it, may
+      leave other nodes with no incoming edges, and repeating empties the graph. Each node is
+      emitted once and each edge is examined once when its tail is emitted.
+    </p>
+
+    <pre><code class="language-python">def topological_order(graph):
+    in_degree = {node: 0 for node in graph}
+    for edges in graph.values():
+        for successor, _ in edges:
+            in_degree.setdefault(successor, 0)
+    for edges in graph.values():
+        for successor, _ in edges:
+            in_degree[successor] += 1
+    ready = [node for node, degree in in_degree.items() if degree == 0]
+    order = []
+    while ready:
+        node = ready.pop()
+        order.append(node)
+        for successor, _ in graph.get(node, []):
+            in_degree[successor] -= 1
+            if in_degree[successor] == 0:
+                ready.append(successor)
+    return order</code></pre>
+
+    <p>
+      The graph is an adjacency map from a node to a list of <code>(successor, weight)</code> pairs,
+      which is Chapter 3's format with a weight added. Scanning the nodes in topological order and
+      pushing each node's value along its outgoing edges settles every node before it is read.
+      Recording which predecessor won gives the path.
+    </p>
+
+    <pre><code class="language-python">def longest_path(graph, source, sink):
+    best, came = {source: 0}, {}
+    for node in topological_order(graph):
+        if node not in best:
+            continue
+        for successor, weight in graph.get(node, []):
+            if best[node] + weight &gt; best.get(successor, float('-inf')):
+                best[successor] = best[node] + weight
+                came[successor] = node
+    path = [sink]
+    while path[-1] != source:
+        path.append(came[path[-1]])
+    return best[sink], path[::-1]</code></pre>
+
+    <p>
+      Ordering and scanning each cost $O(V + E)$. On the graph with edges
+      $0 \to 1$ of weight 7, $0 \to 2$ of weight 4, $2 \to 3$ of weight 2, $1 \to 4$ of weight 1 and
+      $3 \to 4$ of weight 3, the longest path from 0 to 4 has weight 9 and visits 0, 2, 3, 4.
+    </p>
+
+    <h3>The Alignment Graph</h3>
+
+    <p>
+      An alignment of $v$ and $w$ is built column by column, and each column consumes a symbol of
+      $v$, a symbol of $w$, or one of each. Tracking how much of each string has been consumed gives
+      a node $(i, j)$, meaning the first $i$ symbols of $v$ and the first $j$ symbols of $w$. The
+      three kinds of column are the three kinds of edge leaving that node:
+    </p>
+
+    <ul>
+      <li>a <strong>right</strong> edge to $(i, j + 1)$ consumes $w_{j+1}$ against a gap, an
+        insertion;</li>
+      <li>a <strong>down</strong> edge to $(i + 1, j)$ consumes $v_{i+1}$ against a gap, a
+        deletion;</li>
+      <li>a <strong>diagonal</strong> edge to $(i + 1, j + 1)$ consumes both, a match or a
+        mismatch.</li>
+    </ul>
+
+    <p>
+      This is the <strong>alignment graph</strong>. It is the Manhattan grid with diagonals added,
+      it is acyclic because every edge increases $i + j$, and a path from $(0, 0)$ to $(n, m)$ is an
+      alignment of $v$ and $w$. The correspondence is exact in both directions: every alignment
+      traces one such path and every such path spells one alignment.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="578" height="284" viewBox="0 0 578 284">
+      <line class="fig-axis" x1="300" y1="96" x2="378" y2="96"/>
+      <line class="fig-axis" x1="300" y1="96" x2="300" y2="162"/>
+      <line class="fig-curve" x1="300" y1="96" x2="378" y2="162"/>
+      <line class="fig-axis" x1="378" y1="96" x2="456" y2="96"/>
+      <line class="fig-axis" x1="378" y1="96" x2="378" y2="162"/>
+      <line class="fig-axis" x1="378" y1="96" x2="456" y2="162"/>
+      <line class="fig-axis" x1="456" y1="96" x2="534" y2="96"/>
+      <line class="fig-axis" x1="456" y1="96" x2="456" y2="162"/>
+      <line class="fig-axis" x1="456" y1="96" x2="534" y2="162"/>
+      <line class="fig-axis" x1="534" y1="96" x2="534" y2="162"/>
+      <line class="fig-axis" x1="300" y1="162" x2="378" y2="162"/>
+      <line class="fig-axis" x1="300" y1="162" x2="300" y2="228"/>
+      <line class="fig-axis" x1="300" y1="162" x2="378" y2="228"/>
+      <line class="fig-curve" x1="378" y1="162" x2="456" y2="162"/>
+      <line class="fig-axis" x1="378" y1="162" x2="378" y2="228"/>
+      <line class="fig-axis" x1="378" y1="162" x2="456" y2="228"/>
+      <line class="fig-axis" x1="456" y1="162" x2="534" y2="162"/>
+      <line class="fig-axis" x1="456" y1="162" x2="456" y2="228"/>
+      <line class="fig-curve" x1="456" y1="162" x2="534" y2="228"/>
+      <line class="fig-axis" x1="534" y1="162" x2="534" y2="228"/>
+      <line class="fig-axis" x1="300" y1="228" x2="378" y2="228"/>
+      <line class="fig-axis" x1="378" y1="228" x2="456" y2="228"/>
+      <line class="fig-axis" x1="456" y1="228" x2="534" y2="228"/>
+      <circle class="fig-dot" cx="300" cy="96" r="3"/>
+      <circle class="fig-dot" cx="378" cy="96" r="3"/>
+      <circle class="fig-dot" cx="456" cy="96" r="3"/>
+      <circle class="fig-dot" cx="534" cy="96" r="3"/>
+      <circle class="fig-dot" cx="300" cy="162" r="3"/>
+      <circle class="fig-dot" cx="378" cy="162" r="3"/>
+      <circle class="fig-dot" cx="456" cy="162" r="3"/>
+      <circle class="fig-dot" cx="534" cy="162" r="3"/>
+      <circle class="fig-dot" cx="300" cy="228" r="3"/>
+      <circle class="fig-dot" cx="378" cy="228" r="3"/>
+      <circle class="fig-dot" cx="456" cy="228" r="3"/>
+      <circle class="fig-dot" cx="534" cy="228" r="3"/>
+      <text class="fig-text fig-tick" x="276" y="133" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="276" y="199" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="339" y="74" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="417" y="74" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="495" y="74" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="50" y="155" text-anchor="end">v</text>
+      <text class="fig-text fig-tick" x="50" y="189" text-anchor="end">w</text>
+      <rect class="fig-cell" x="67" y="133" width="34" height="73"/>
+      <text class="fig-text fig-tick" x="84" y="155" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="84" y="189" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="84" y="228" text-anchor="middle">1</text>
+      <rect class="fig-cell" x="107" y="133" width="34" height="73"/>
+      <text class="fig-text fig-tick" x="124" y="155" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="124" y="189" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="124" y="228" text-anchor="middle">2</text>
+      <rect class="fig-cell" x="147" y="133" width="34" height="73"/>
+      <text class="fig-text fig-tick" x="164" y="155" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="164" y="189" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="164" y="228" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="352" y="133" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="417" y="156" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="508" y="199" text-anchor="start">3</text>
+      </svg>
+      <figcaption>One alignment written twice. On the left its three columns: a match, an insertion, a match. On the right the path those columns trace through the alignment graph of AT against AGT, one edge per column, numbered to match. A diagonal edge consumes a symbol of each string, a right edge one symbol of $w$ against a gap, and a down edge one symbol of $v$ against a gap. Every alignment is a path and every path is an alignment.</figcaption>
+    </figure>
+
+    <p>
+      Giving a diagonal edge weight 1 when $v_{i+1} = w_{j+1}$ and 0 otherwise, and every other edge
+      weight 0, makes the weight of a path the number of matched columns of its alignment. A longest
+      path is then a longest common subsequence.
+    </p>
+
+    <p>
+      The grid needs no topological sort. Row-major order is already topological, since the
+      predecessors of $(i, j)$ are $(i - 1, j)$, $(i, j - 1)$ and $(i - 1, j - 1)$, all of them
+      earlier.
+    </p>
+
+    <pre><code class="language-python">def lcs_backtrack(v, w):
+    best = [[0] * (len(w) + 1) for _ in range(len(v) + 1)]
+    for i in range(1, len(v) + 1):
+        for j in range(1, len(w) + 1):
+            best[i][j] = max(best[i - 1][j],
+                             best[i][j - 1],
+                             best[i - 1][j - 1] + (v[i - 1] == w[j - 1]))
+    return best</code></pre>
+
+    <p>
+      The table holds the length of the answer. Recovering the subsequence itself means walking back
+      from $(n, m)$ and asking, at each node, which incoming edge produced its value. A value equal
+      to that of the node above or to the left came along an indel edge and contributes nothing; otherwise
+      the diagonal edge was used and its symbol belongs to the subsequence.
+    </p>
+
+    <pre><code class="language-python">def output_lcs(best, v, w):
+    i, j, common = len(v), len(w), []
+    while i &gt; 0 and j &gt; 0:
+        if best[i][j] == best[i - 1][j]:
+            i -= 1
+        elif best[i][j] == best[i][j - 1]:
+            j -= 1
+        else:
+            common.append(v[i - 1])
+            i, j = i - 1, j - 1
+    return ''.join(reversed(common))</code></pre>
+
+    <p>
+      Filling the table costs $O(nm)$ and the walk back costs $O(n + m)$. For
+      <code>AACCTTGG</code> and <code>ACACTGTGA</code> the table gives 6 and the walk gives
+      <code>AACTTG</code>. Other longest common subsequences of the same pair exist, such as
+      <code>AACTGG</code>, and which one comes out depends on the order the three cases are tested.
+    </p>
+
+    <h3>Scoring an Alignment</h3>
+
+    <p>
+      Counting matches alone treats indels as free, so a longest common subsequence will spend any
+      number of them to gain one more match. Each indel is a separate mutation, and an alignment
+      asserting many of them asserts a history that is unlikely to have happened.
+    </p>
+
+    <p>
+      Weighting the three kinds of column against each other removes that. A match is worth $+1$, a
+      mismatch costs $\mu$, and an indel costs $\sigma$, and the score of an alignment is the sum
+      over its columns. A larger $\sigma$ produces alignments with fewer indels, and the highest
+      scoring alignment is the one those weights describe.
+    </p>
+
+    <p>
+      Substitutions are not equally likely either. Some nucleotide changes occur more often than
+      others, and in proteins some amino acids replace each other without changing what the protein
+      does while others do not. A <strong>scoring matrix</strong> gives a separate score to every
+      pair of symbols, with the indel penalty in an added row and column:
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="592" height="338" viewBox="0 0 592 338">
+      <rect class="fig-cell" x="74" y="74" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="97" y="102" text-anchor="middle">+1</text>
+      <rect class="fig-cell" x="120" y="74" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="143" y="102" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="166" y="74" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="189" y="102" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="212" y="74" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="235" y="102" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell-alt" x="258" y="74" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="281" y="102" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="74" y="120" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="97" y="148" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="120" y="120" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="143" y="148" text-anchor="middle">+1</text>
+      <rect class="fig-cell" x="166" y="120" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="189" y="148" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="212" y="120" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="235" y="148" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="258" y="120" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="281" y="148" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="74" y="166" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="97" y="194" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell-alt" x="120" y="166" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="143" y="194" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="166" y="166" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="189" y="194" text-anchor="middle">+1</text>
+      <rect class="fig-cell" x="212" y="166" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="235" y="194" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="258" y="166" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="281" y="194" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="74" y="212" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="97" y="240" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell" x="120" y="212" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="143" y="240" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell-alt" x="166" y="212" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="189" y="240" text-anchor="middle">-&mu;</text>
+      <rect class="fig-cell-alt" x="212" y="212" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="235" y="240" text-anchor="middle">+1</text>
+      <rect class="fig-cell" x="258" y="212" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="281" y="240" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="74" y="258" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="97" y="286" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="120" y="258" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="143" y="286" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="166" y="258" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="189" y="286" text-anchor="middle">-&sigma;</text>
+      <rect class="fig-cell" x="212" y="258" width="46" height="46"/>
+      <text class="fig-text fig-tick" x="235" y="286" text-anchor="middle">-&sigma;</text>
+      <text class="fig-text fig-tick" x="97" y="61" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="59" y="102" text-anchor="end">A</text>
+      <text class="fig-text fig-tick" x="143" y="61" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="59" y="148" text-anchor="end">C</text>
+      <text class="fig-text fig-tick" x="189" y="61" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="59" y="194" text-anchor="end">G</text>
+      <text class="fig-text fig-tick" x="235" y="61" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="59" y="240" text-anchor="end">T</text>
+      <text class="fig-text fig-tick" x="281" y="61" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="59" y="286" text-anchor="end">-</text>
+      <text class="fig-text fig-tick" x="370" y="145" text-anchor="end">v</text>
+      <text class="fig-text fig-tick" x="370" y="179" text-anchor="end">w</text>
+      <text class="fig-text fig-tick" x="400" y="145" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="400" y="179" text-anchor="middle">T</text>
+      <line class="fig-guide" x1="400" y1="192" x2="400" y2="210"/>
+      <text class="fig-text fig-tick" x="400" y="228" text-anchor="middle">+1</text>
+      <text class="fig-text fig-tick" x="436" y="145" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="436" y="179" text-anchor="middle">C</text>
+      <line class="fig-guide" x1="436" y1="192" x2="436" y2="210"/>
+      <text class="fig-text fig-tick" x="436" y="228" text-anchor="middle">-&mu;</text>
+      <text class="fig-text fig-tick" x="472" y="145" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="472" y="179" text-anchor="middle">G</text>
+      <line class="fig-guide" x1="472" y1="192" x2="472" y2="210"/>
+      <text class="fig-text fig-tick" x="472" y="228" text-anchor="middle">-&mu;</text>
+      <text class="fig-text fig-tick" x="508" y="145" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="508" y="179" text-anchor="middle">T</text>
+      <line class="fig-guide" x1="508" y1="192" x2="508" y2="210"/>
+      <text class="fig-text fig-tick" x="508" y="228" text-anchor="middle">+1</text>
+      <text class="fig-text fig-tick" x="544" y="145" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="544" y="179" text-anchor="middle">-</text>
+      <line class="fig-guide" x1="544" y1="192" x2="544" y2="210"/>
+      <text class="fig-text fig-tick" x="544" y="228" text-anchor="middle">-&sigma;</text>
+      <line class="fig-axis" x1="378" y1="246" x2="566" y2="246"/>
+      <text class="fig-text fig-tick" x="472" y="270" text-anchor="middle">2 &#8722; 2&mu; &#8722; &sigma;</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left.</span> The scoring matrix. The diagonal holds the matches, the last row and column the indels. The shaded cells are the four the alignment on the right reads.</span><span class="cap-part"><span class="cap-lead">Right.</span> Each column of an alignment is one lookup in that matrix, and the score of the alignment is the sum down the column scores. With $\mu = 1$ and $\sigma = 2$ the total is $-2$.</span></figcaption>
+    </figure>
+
+    <p>
+      That matrix is the $+1$, $-\mu$, $-\sigma$ scheme written out, and in general every entry is
+      set on its own. Below, a scoring matrix is a dictionary indexed by a pair of symbols, and the
+      indel penalty stays a separate number.
+    </p>
+
+    <pre><code class="language-python">def uniform_score(match, mismatch, letters):
+    return {(a, b): match if a == b else mismatch for a in letters for b in letters}</code></pre>
+
+    <h3>Global Alignment</h3>
+
+    <p>
+      <strong>Global Alignment Problem.</strong> Given two strings, a scoring matrix and an indel
+      penalty, find an alignment of the two strings maximizing the score.
+    </p>
+
+    <p>
+      This is a longest path from $(0, 0)$ to $(n, m)$ in the alignment graph with the weights
+      renamed: a diagonal edge into $(i, j)$ weighs $\text{score}(v_i, w_j)$ and an indel edge
+      weighs $-\sigma$. The recurrence is
+    </p>
+
+    <p>
+      $s_{i,j} = \max(s_{i-1,j} - \sigma,\ s_{i,j-1} - \sigma,\ s_{i-1,j-1} + \text{score}(v_i, w_j))$,
+    </p>
+
+    <p>
+      with $s_{0,0} = 0$. A node in the first row or column has only its one indel edge, so
+      $s_{i,0} = -i\sigma$ and $s_{0,j} = -j\sigma$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="406" height="386" viewBox="0 0 406 386">
+      <line class="fig-axis" x1="78" y1="62" x2="136" y2="62"/>
+      <line class="fig-axis" x1="78" y1="62" x2="78" y2="120"/>
+      <line class="fig-curve" x1="78" y1="62" x2="136" y2="120"/>
+      <line class="fig-axis" x1="136" y1="62" x2="194" y2="62"/>
+      <line class="fig-axis" x1="136" y1="62" x2="136" y2="120"/>
+      <line class="fig-axis" x1="136" y1="62" x2="194" y2="120"/>
+      <line class="fig-axis" x1="194" y1="62" x2="252" y2="62"/>
+      <line class="fig-axis" x1="194" y1="62" x2="194" y2="120"/>
+      <line class="fig-axis" x1="194" y1="62" x2="252" y2="120"/>
+      <line class="fig-axis" x1="252" y1="62" x2="310" y2="62"/>
+      <line class="fig-axis" x1="252" y1="62" x2="252" y2="120"/>
+      <line class="fig-axis" x1="252" y1="62" x2="310" y2="120"/>
+      <line class="fig-axis" x1="310" y1="62" x2="310" y2="120"/>
+      <line class="fig-axis" x1="78" y1="120" x2="136" y2="120"/>
+      <line class="fig-axis" x1="78" y1="120" x2="78" y2="178"/>
+      <line class="fig-axis" x1="78" y1="120" x2="136" y2="178"/>
+      <line class="fig-axis" x1="136" y1="120" x2="194" y2="120"/>
+      <line class="fig-axis" x1="136" y1="120" x2="136" y2="178"/>
+      <line class="fig-curve" x1="136" y1="120" x2="194" y2="178"/>
+      <line class="fig-axis" x1="194" y1="120" x2="252" y2="120"/>
+      <line class="fig-axis" x1="194" y1="120" x2="194" y2="178"/>
+      <line class="fig-axis" x1="194" y1="120" x2="252" y2="178"/>
+      <line class="fig-axis" x1="252" y1="120" x2="310" y2="120"/>
+      <line class="fig-axis" x1="252" y1="120" x2="252" y2="178"/>
+      <line class="fig-axis" x1="252" y1="120" x2="310" y2="178"/>
+      <line class="fig-axis" x1="310" y1="120" x2="310" y2="178"/>
+      <line class="fig-axis" x1="78" y1="178" x2="136" y2="178"/>
+      <line class="fig-axis" x1="78" y1="178" x2="78" y2="236"/>
+      <line class="fig-axis" x1="78" y1="178" x2="136" y2="236"/>
+      <line class="fig-axis" x1="136" y1="178" x2="194" y2="178"/>
+      <line class="fig-axis" x1="136" y1="178" x2="136" y2="236"/>
+      <line class="fig-axis" x1="136" y1="178" x2="194" y2="236"/>
+      <line class="fig-axis" x1="194" y1="178" x2="252" y2="178"/>
+      <line class="fig-axis" x1="194" y1="178" x2="194" y2="236"/>
+      <line class="fig-curve" x1="194" y1="178" x2="252" y2="236"/>
+      <line class="fig-axis" x1="252" y1="178" x2="310" y2="178"/>
+      <line class="fig-axis" x1="252" y1="178" x2="252" y2="236"/>
+      <line class="fig-axis" x1="252" y1="178" x2="310" y2="236"/>
+      <line class="fig-axis" x1="310" y1="178" x2="310" y2="236"/>
+      <line class="fig-axis" x1="78" y1="236" x2="136" y2="236"/>
+      <line class="fig-axis" x1="78" y1="236" x2="78" y2="294"/>
+      <line class="fig-axis" x1="78" y1="236" x2="136" y2="294"/>
+      <line class="fig-axis" x1="136" y1="236" x2="194" y2="236"/>
+      <line class="fig-axis" x1="136" y1="236" x2="136" y2="294"/>
+      <line class="fig-axis" x1="136" y1="236" x2="194" y2="294"/>
+      <line class="fig-axis" x1="194" y1="236" x2="252" y2="236"/>
+      <line class="fig-axis" x1="194" y1="236" x2="194" y2="294"/>
+      <line class="fig-axis" x1="194" y1="236" x2="252" y2="294"/>
+      <line class="fig-axis" x1="252" y1="236" x2="310" y2="236"/>
+      <line class="fig-axis" x1="252" y1="236" x2="252" y2="294"/>
+      <line class="fig-curve" x1="252" y1="236" x2="310" y2="294"/>
+      <line class="fig-axis" x1="310" y1="236" x2="310" y2="294"/>
+      <line class="fig-axis" x1="78" y1="294" x2="136" y2="294"/>
+      <line class="fig-axis" x1="78" y1="294" x2="78" y2="352"/>
+      <line class="fig-axis" x1="78" y1="294" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="294" x2="194" y2="294"/>
+      <line class="fig-axis" x1="136" y1="294" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="294" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="294" x2="252" y2="294"/>
+      <line class="fig-axis" x1="194" y1="294" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="294" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="294" x2="310" y2="294"/>
+      <line class="fig-axis" x1="252" y1="294" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="294" x2="310" y2="352"/>
+      <line class="fig-curve" x1="310" y1="294" x2="310" y2="352"/>
+      <line class="fig-axis" x1="78" y1="352" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="352" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="352" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="352" x2="310" y2="352"/>
+      <circle class="fig-dot" cx="78" cy="62" r="3"/>
+      <circle class="fig-dot" cx="136" cy="62" r="3"/>
+      <circle class="fig-dot" cx="194" cy="62" r="3"/>
+      <circle class="fig-dot" cx="252" cy="62" r="3"/>
+      <circle class="fig-dot" cx="310" cy="62" r="3"/>
+      <circle class="fig-dot" cx="78" cy="120" r="3"/>
+      <circle class="fig-dot" cx="136" cy="120" r="3"/>
+      <circle class="fig-dot" cx="194" cy="120" r="3"/>
+      <circle class="fig-dot" cx="252" cy="120" r="3"/>
+      <circle class="fig-dot" cx="310" cy="120" r="3"/>
+      <circle class="fig-dot" cx="78" cy="178" r="3"/>
+      <circle class="fig-dot" cx="136" cy="178" r="3"/>
+      <circle class="fig-dot" cx="194" cy="178" r="3"/>
+      <circle class="fig-dot" cx="252" cy="178" r="3"/>
+      <circle class="fig-dot" cx="310" cy="178" r="3"/>
+      <circle class="fig-dot" cx="78" cy="236" r="3"/>
+      <circle class="fig-dot" cx="136" cy="236" r="3"/>
+      <circle class="fig-dot" cx="194" cy="236" r="3"/>
+      <circle class="fig-dot" cx="252" cy="236" r="3"/>
+      <circle class="fig-dot" cx="310" cy="236" r="3"/>
+      <circle class="fig-dot" cx="78" cy="294" r="3"/>
+      <circle class="fig-dot" cx="136" cy="294" r="3"/>
+      <circle class="fig-dot" cx="194" cy="294" r="3"/>
+      <circle class="fig-dot" cx="252" cy="294" r="3"/>
+      <circle class="fig-dot" cx="310" cy="294" r="3"/>
+      <circle class="fig-dot" cx="78" cy="352" r="3"/>
+      <circle class="fig-dot" cx="136" cy="352" r="3"/>
+      <circle class="fig-dot" cx="194" cy="352" r="3"/>
+      <circle class="fig-dot" cx="252" cy="352" r="3"/>
+      <circle class="fig-dot" cx="310" cy="352" r="3"/>
+      <text class="fig-text fig-tick" x="107" y="36" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="165" y="36" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="223" y="36" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="281" y="36" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="52" y="95" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="52" y="153" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="52" y="211" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="52" y="269" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="52" y="327" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="328" y="352" text-anchor="start">score -2</text>
+      </svg>
+      <figcaption>The alignment graph of TGTTA against TCGT. Rows consume TGTTA, columns consume TCGT, and every edge points right, down, or diagonally down and right. The highlighted path is the highest scoring alignment for a match of +1, a mismatch of -1 and an indel of -2.</figcaption>
+    </figure>
+
+    <p>
+      The path drawn above takes four diagonal edges and one down edge, which is the alignment
+    </p>
+
+    <pre><code>TGTTA
+TCGT-</code></pre>
+
+    <p>
+      with two matches, two mismatches and one indel, scoring $2 - 2 - 2 = -2$.
+    </p>
+
+    <h3>Local Alignment</h3>
+
+    <p>
+      A global alignment runs from one corner of the graph to the other, so it must account for
+      every symbol of both strings. When two sequences share a segment and nothing else, that
+      requirement is what dominates the answer.
+    </p>
+
+    <p>
+      <code>ACGTGGATTACAGGGT</code> and <code>TTTTGATTACAGCCCC</code> share
+      <code>GATTACAG</code>. With a match of $+1$, a mismatch of $-1$ and $\sigma = 2$, the best
+      global alignment scores $-1$ and spends most of its columns on the flanks:
+    </p>
+
+    <pre><code>ACGTGGATTACAGGGT-
+TTTTG-ATTACAGCCCC</code></pre>
+
+    <p>
+      <strong>Local Alignment Problem.</strong> Given two strings, a scoring matrix and an indel
+      penalty, find a substring of each whose global alignment scores highest among all pairs of
+      substrings.
+    </p>
+
+    <p>
+      Aligning every pair of substrings separately means solving $O(n^2 m^2)$ global alignment
+      problems. Instead, add to the alignment graph a source node with a weight 0 edge to every
+      node, and a weight 0 edge from every node to a sink. A path from source to sink now enters the
+      grid at any node and leaves at any node, and the segment between them is an alignment of a
+      substring of $v$ with a substring of $w$. The edges added cost nothing, so the weight of the
+      path is the score of that alignment.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="468" height="422" viewBox="0 0 468 422">
+      <g transform="translate(46,0)">
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="62"/>
+      <line class="fig-guide" x1="78" y1="62" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="62"/>
+      <line class="fig-guide" x1="136" y1="62" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="62"/>
+      <line class="fig-guide" x1="194" y1="62" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="62"/>
+      <line class="fig-guide" x1="252" y1="62" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="62"/>
+      <line class="fig-guide" x1="310" y1="62" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="120"/>
+      <line class="fig-guide" x1="78" y1="120" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="120"/>
+      <line class="fig-guide" x1="136" y1="120" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="120"/>
+      <line class="fig-guide" x1="194" y1="120" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="120"/>
+      <line class="fig-guide" x1="252" y1="120" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="120"/>
+      <line class="fig-guide" x1="310" y1="120" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="178"/>
+      <line class="fig-guide" x1="78" y1="178" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="178"/>
+      <line class="fig-guide" x1="136" y1="178" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="178"/>
+      <line class="fig-guide" x1="194" y1="178" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="178"/>
+      <line class="fig-guide" x1="252" y1="178" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="178"/>
+      <line class="fig-guide" x1="310" y1="178" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="236"/>
+      <line class="fig-guide" x1="78" y1="236" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="236"/>
+      <line class="fig-guide" x1="136" y1="236" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="236"/>
+      <line class="fig-guide" x1="194" y1="236" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="236"/>
+      <line class="fig-guide" x1="252" y1="236" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="236"/>
+      <line class="fig-guide" x1="310" y1="236" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="294"/>
+      <line class="fig-guide" x1="78" y1="294" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="294"/>
+      <line class="fig-guide" x1="136" y1="294" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="294"/>
+      <line class="fig-guide" x1="194" y1="294" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="294"/>
+      <line class="fig-guide" x1="252" y1="294" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="294"/>
+      <line class="fig-guide" x1="310" y1="294" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="78" y2="352"/>
+      <line class="fig-guide" x1="78" y1="352" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="136" y2="352"/>
+      <line class="fig-guide" x1="136" y1="352" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="194" y2="352"/>
+      <line class="fig-guide" x1="194" y1="352" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="252" y2="352"/>
+      <line class="fig-guide" x1="252" y1="352" x2="368" y2="396"/>
+      <line class="fig-guide" x1="20" y1="18" x2="310" y2="352"/>
+      <line class="fig-guide" x1="310" y1="352" x2="368" y2="396"/>
+      <line class="fig-axis" x1="78" y1="62" x2="136" y2="62"/>
+      <line class="fig-axis" x1="78" y1="62" x2="78" y2="120"/>
+      <line class="fig-axis" x1="78" y1="62" x2="136" y2="120"/>
+      <line class="fig-axis" x1="136" y1="62" x2="194" y2="62"/>
+      <line class="fig-axis" x1="136" y1="62" x2="136" y2="120"/>
+      <line class="fig-axis" x1="136" y1="62" x2="194" y2="120"/>
+      <line class="fig-axis" x1="194" y1="62" x2="252" y2="62"/>
+      <line class="fig-axis" x1="194" y1="62" x2="194" y2="120"/>
+      <line class="fig-axis" x1="194" y1="62" x2="252" y2="120"/>
+      <line class="fig-axis" x1="252" y1="62" x2="310" y2="62"/>
+      <line class="fig-axis" x1="252" y1="62" x2="252" y2="120"/>
+      <line class="fig-axis" x1="252" y1="62" x2="310" y2="120"/>
+      <line class="fig-axis" x1="310" y1="62" x2="310" y2="120"/>
+      <line class="fig-axis" x1="78" y1="120" x2="136" y2="120"/>
+      <line class="fig-axis" x1="78" y1="120" x2="78" y2="178"/>
+      <line class="fig-axis" x1="78" y1="120" x2="136" y2="178"/>
+      <line class="fig-axis" x1="136" y1="120" x2="194" y2="120"/>
+      <line class="fig-axis" x1="136" y1="120" x2="136" y2="178"/>
+      <line class="fig-axis" x1="136" y1="120" x2="194" y2="178"/>
+      <line class="fig-axis" x1="194" y1="120" x2="252" y2="120"/>
+      <line class="fig-axis" x1="194" y1="120" x2="194" y2="178"/>
+      <line class="fig-curve" x1="194" y1="120" x2="252" y2="178"/>
+      <line class="fig-axis" x1="252" y1="120" x2="310" y2="120"/>
+      <line class="fig-axis" x1="252" y1="120" x2="252" y2="178"/>
+      <line class="fig-axis" x1="252" y1="120" x2="310" y2="178"/>
+      <line class="fig-axis" x1="310" y1="120" x2="310" y2="178"/>
+      <line class="fig-axis" x1="78" y1="178" x2="136" y2="178"/>
+      <line class="fig-axis" x1="78" y1="178" x2="78" y2="236"/>
+      <line class="fig-axis" x1="78" y1="178" x2="136" y2="236"/>
+      <line class="fig-axis" x1="136" y1="178" x2="194" y2="178"/>
+      <line class="fig-axis" x1="136" y1="178" x2="136" y2="236"/>
+      <line class="fig-axis" x1="136" y1="178" x2="194" y2="236"/>
+      <line class="fig-axis" x1="194" y1="178" x2="252" y2="178"/>
+      <line class="fig-axis" x1="194" y1="178" x2="194" y2="236"/>
+      <line class="fig-axis" x1="194" y1="178" x2="252" y2="236"/>
+      <line class="fig-axis" x1="252" y1="178" x2="310" y2="178"/>
+      <line class="fig-axis" x1="252" y1="178" x2="252" y2="236"/>
+      <line class="fig-curve" x1="252" y1="178" x2="310" y2="236"/>
+      <line class="fig-axis" x1="310" y1="178" x2="310" y2="236"/>
+      <line class="fig-axis" x1="78" y1="236" x2="136" y2="236"/>
+      <line class="fig-axis" x1="78" y1="236" x2="78" y2="294"/>
+      <line class="fig-axis" x1="78" y1="236" x2="136" y2="294"/>
+      <line class="fig-axis" x1="136" y1="236" x2="194" y2="236"/>
+      <line class="fig-axis" x1="136" y1="236" x2="136" y2="294"/>
+      <line class="fig-axis" x1="136" y1="236" x2="194" y2="294"/>
+      <line class="fig-axis" x1="194" y1="236" x2="252" y2="236"/>
+      <line class="fig-axis" x1="194" y1="236" x2="194" y2="294"/>
+      <line class="fig-axis" x1="194" y1="236" x2="252" y2="294"/>
+      <line class="fig-axis" x1="252" y1="236" x2="310" y2="236"/>
+      <line class="fig-axis" x1="252" y1="236" x2="252" y2="294"/>
+      <line class="fig-axis" x1="252" y1="236" x2="310" y2="294"/>
+      <line class="fig-axis" x1="310" y1="236" x2="310" y2="294"/>
+      <line class="fig-axis" x1="78" y1="294" x2="136" y2="294"/>
+      <line class="fig-axis" x1="78" y1="294" x2="78" y2="352"/>
+      <line class="fig-axis" x1="78" y1="294" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="294" x2="194" y2="294"/>
+      <line class="fig-axis" x1="136" y1="294" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="294" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="294" x2="252" y2="294"/>
+      <line class="fig-axis" x1="194" y1="294" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="294" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="294" x2="310" y2="294"/>
+      <line class="fig-axis" x1="252" y1="294" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="294" x2="310" y2="352"/>
+      <line class="fig-axis" x1="310" y1="294" x2="310" y2="352"/>
+      <line class="fig-axis" x1="78" y1="352" x2="136" y2="352"/>
+      <line class="fig-axis" x1="136" y1="352" x2="194" y2="352"/>
+      <line class="fig-axis" x1="194" y1="352" x2="252" y2="352"/>
+      <line class="fig-axis" x1="252" y1="352" x2="310" y2="352"/>
+      <circle class="fig-dot" cx="78" cy="62" r="3"/>
+      <circle class="fig-dot" cx="136" cy="62" r="3"/>
+      <circle class="fig-dot" cx="194" cy="62" r="3"/>
+      <circle class="fig-dot" cx="252" cy="62" r="3"/>
+      <circle class="fig-dot" cx="310" cy="62" r="3"/>
+      <circle class="fig-dot" cx="78" cy="120" r="3"/>
+      <circle class="fig-dot" cx="136" cy="120" r="3"/>
+      <circle class="fig-dot" cx="194" cy="120" r="3"/>
+      <circle class="fig-dot" cx="252" cy="120" r="3"/>
+      <circle class="fig-dot" cx="310" cy="120" r="3"/>
+      <circle class="fig-dot" cx="78" cy="178" r="3"/>
+      <circle class="fig-dot" cx="136" cy="178" r="3"/>
+      <circle class="fig-dot" cx="194" cy="178" r="3"/>
+      <circle class="fig-dot" cx="252" cy="178" r="3"/>
+      <circle class="fig-dot" cx="310" cy="178" r="3"/>
+      <circle class="fig-dot" cx="78" cy="236" r="3"/>
+      <circle class="fig-dot" cx="136" cy="236" r="3"/>
+      <circle class="fig-dot" cx="194" cy="236" r="3"/>
+      <circle class="fig-dot" cx="252" cy="236" r="3"/>
+      <circle class="fig-dot" cx="310" cy="236" r="3"/>
+      <circle class="fig-dot" cx="78" cy="294" r="3"/>
+      <circle class="fig-dot" cx="136" cy="294" r="3"/>
+      <circle class="fig-dot" cx="194" cy="294" r="3"/>
+      <circle class="fig-dot" cx="252" cy="294" r="3"/>
+      <circle class="fig-dot" cx="310" cy="294" r="3"/>
+      <circle class="fig-dot" cx="78" cy="352" r="3"/>
+      <circle class="fig-dot" cx="136" cy="352" r="3"/>
+      <circle class="fig-dot" cx="194" cy="352" r="3"/>
+      <circle class="fig-dot" cx="252" cy="352" r="3"/>
+      <circle class="fig-dot" cx="310" cy="352" r="3"/>
+      <circle class="fig-hole" cx="20" cy="18" r="5"/>
+      <circle class="fig-hole" cx="368" cy="396" r="5"/>
+      <text class="fig-text fig-note" x="10" y="22" text-anchor="end">source</text>
+      <text class="fig-text fig-note" x="378" y="400" text-anchor="start">sink</text>
+      </g>
+      </svg>
+      <figcaption>The same alignment graph with the free edges of local alignment added, dashed. Every node is reachable from the source at zero cost and reaches the sink at zero cost, so the highlighted path may start and end anywhere in the grid.</figcaption>
+    </figure>
+
+    <p>
+      In the recurrence the source edge is one more option worth 0, which prevents any node from
+      holding a negative value, and the sink edge means the answer is the largest value in the whole
+      table rather than the value at $(n, m)$:
+    </p>
+
+    <p>
+      $s_{i,j} = \max(0,\ s_{i-1,j} - \sigma,\ s_{i,j-1} - \sigma,\ s_{i-1,j-1} + \text{score}(v_i, w_j))$.
+    </p>
+
+    <p>
+      The walk back starts at the largest entry and stops where the 0 was taken. On the pair above
+      it returns <code>GATTACAG</code> against <code>GATTACAG</code>, scoring 8. The cost is
+      unchanged at $O(nm)$: the added edges are never stored, since the two changes to the
+      recurrence account for all of them.
+    </p>
+
+    <h3>Edit Distance, Fitting, and Overlap Alignment</h3>
+
+    <p>
+      Global and local alignment differ in one respect: which nodes a path may start at and which it
+      may end at. Fixing both ends at the corners gives global alignment, freeing both gives local
+      alignment, and the intermediate choices are useful problems in their own right.
+    </p>
+
+    <p>
+      A <strong>fitting alignment</strong> of $v$ and $w$ aligns a substring of $v$ against all of
+      $w$. It is used when $w$ is short and is expected to occur inside $v$. A path may therefore
+      start anywhere in column 0, having skipped a prefix of $v$ for free, and must end in column
+      $m$, having consumed all of $w$.
+    </p>
+
+    <p>
+      An <strong>overlap alignment</strong> aligns a suffix of $v$ against a prefix of $w$. It is
+      used to decide whether two reads overlap, which is the question Chapter 3's overlap graph
+      answered by exact suffix and prefix matching. A path starts anywhere in column 0 and ends
+      anywhere in row $n$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="756" height="222" viewBox="0 0 756 222">
+      <rect class="fig-band" x="31" y="67" width="18" height="18"/>
+      <rect class="fig-shape" x="143" y="179" width="18" height="18"/>
+      <line class="fig-axis" x1="40" y1="76" x2="68" y2="76"/>
+      <line class="fig-axis" x1="40" y1="76" x2="40" y2="104"/>
+      <line class="fig-axis" x1="40" y1="76" x2="68" y2="104"/>
+      <line class="fig-axis" x1="68" y1="76" x2="96" y2="76"/>
+      <line class="fig-axis" x1="68" y1="76" x2="68" y2="104"/>
+      <line class="fig-axis" x1="68" y1="76" x2="96" y2="104"/>
+      <line class="fig-axis" x1="96" y1="76" x2="124" y2="76"/>
+      <line class="fig-axis" x1="96" y1="76" x2="96" y2="104"/>
+      <line class="fig-axis" x1="96" y1="76" x2="124" y2="104"/>
+      <line class="fig-axis" x1="124" y1="76" x2="152" y2="76"/>
+      <line class="fig-axis" x1="124" y1="76" x2="124" y2="104"/>
+      <line class="fig-axis" x1="124" y1="76" x2="152" y2="104"/>
+      <line class="fig-axis" x1="152" y1="76" x2="152" y2="104"/>
+      <line class="fig-axis" x1="40" y1="104" x2="68" y2="104"/>
+      <line class="fig-axis" x1="40" y1="104" x2="40" y2="132"/>
+      <line class="fig-axis" x1="40" y1="104" x2="68" y2="132"/>
+      <line class="fig-axis" x1="68" y1="104" x2="96" y2="104"/>
+      <line class="fig-axis" x1="68" y1="104" x2="68" y2="132"/>
+      <line class="fig-axis" x1="68" y1="104" x2="96" y2="132"/>
+      <line class="fig-axis" x1="96" y1="104" x2="124" y2="104"/>
+      <line class="fig-axis" x1="96" y1="104" x2="96" y2="132"/>
+      <line class="fig-axis" x1="96" y1="104" x2="124" y2="132"/>
+      <line class="fig-axis" x1="124" y1="104" x2="152" y2="104"/>
+      <line class="fig-axis" x1="124" y1="104" x2="124" y2="132"/>
+      <line class="fig-axis" x1="124" y1="104" x2="152" y2="132"/>
+      <line class="fig-axis" x1="152" y1="104" x2="152" y2="132"/>
+      <line class="fig-axis" x1="40" y1="132" x2="68" y2="132"/>
+      <line class="fig-axis" x1="40" y1="132" x2="40" y2="160"/>
+      <line class="fig-axis" x1="40" y1="132" x2="68" y2="160"/>
+      <line class="fig-axis" x1="68" y1="132" x2="96" y2="132"/>
+      <line class="fig-axis" x1="68" y1="132" x2="68" y2="160"/>
+      <line class="fig-axis" x1="68" y1="132" x2="96" y2="160"/>
+      <line class="fig-axis" x1="96" y1="132" x2="124" y2="132"/>
+      <line class="fig-axis" x1="96" y1="132" x2="96" y2="160"/>
+      <line class="fig-axis" x1="96" y1="132" x2="124" y2="160"/>
+      <line class="fig-axis" x1="124" y1="132" x2="152" y2="132"/>
+      <line class="fig-axis" x1="124" y1="132" x2="124" y2="160"/>
+      <line class="fig-axis" x1="124" y1="132" x2="152" y2="160"/>
+      <line class="fig-axis" x1="152" y1="132" x2="152" y2="160"/>
+      <line class="fig-axis" x1="40" y1="160" x2="68" y2="160"/>
+      <line class="fig-axis" x1="40" y1="160" x2="40" y2="188"/>
+      <line class="fig-axis" x1="40" y1="160" x2="68" y2="188"/>
+      <line class="fig-axis" x1="68" y1="160" x2="96" y2="160"/>
+      <line class="fig-axis" x1="68" y1="160" x2="68" y2="188"/>
+      <line class="fig-axis" x1="68" y1="160" x2="96" y2="188"/>
+      <line class="fig-axis" x1="96" y1="160" x2="124" y2="160"/>
+      <line class="fig-axis" x1="96" y1="160" x2="96" y2="188"/>
+      <line class="fig-axis" x1="96" y1="160" x2="124" y2="188"/>
+      <line class="fig-axis" x1="124" y1="160" x2="152" y2="160"/>
+      <line class="fig-axis" x1="124" y1="160" x2="124" y2="188"/>
+      <line class="fig-axis" x1="124" y1="160" x2="152" y2="188"/>
+      <line class="fig-axis" x1="152" y1="160" x2="152" y2="188"/>
+      <line class="fig-axis" x1="40" y1="188" x2="68" y2="188"/>
+      <line class="fig-axis" x1="68" y1="188" x2="96" y2="188"/>
+      <line class="fig-axis" x1="96" y1="188" x2="124" y2="188"/>
+      <line class="fig-axis" x1="124" y1="188" x2="152" y2="188"/>
+      <circle class="fig-dot" cx="40" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="68" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="96" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="124" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="152" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="40" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="68" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="96" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="124" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="152" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="40" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="68" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="96" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="124" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="152" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="40" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="68" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="96" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="124" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="152" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="40" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="68" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="96" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="124" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="152" cy="188" r="2.5"/>
+      <text class="fig-text fig-tick" x="96" y="42" text-anchor="middle">global</text>
+      <rect class="fig-band" x="219" y="67" width="130" height="130"/>
+      <rect class="fig-shape" x="219" y="67" width="130" height="130"/>
+      <line class="fig-axis" x1="228" y1="76" x2="256" y2="76"/>
+      <line class="fig-axis" x1="228" y1="76" x2="228" y2="104"/>
+      <line class="fig-axis" x1="228" y1="76" x2="256" y2="104"/>
+      <line class="fig-axis" x1="256" y1="76" x2="284" y2="76"/>
+      <line class="fig-axis" x1="256" y1="76" x2="256" y2="104"/>
+      <line class="fig-axis" x1="256" y1="76" x2="284" y2="104"/>
+      <line class="fig-axis" x1="284" y1="76" x2="312" y2="76"/>
+      <line class="fig-axis" x1="284" y1="76" x2="284" y2="104"/>
+      <line class="fig-axis" x1="284" y1="76" x2="312" y2="104"/>
+      <line class="fig-axis" x1="312" y1="76" x2="340" y2="76"/>
+      <line class="fig-axis" x1="312" y1="76" x2="312" y2="104"/>
+      <line class="fig-axis" x1="312" y1="76" x2="340" y2="104"/>
+      <line class="fig-axis" x1="340" y1="76" x2="340" y2="104"/>
+      <line class="fig-axis" x1="228" y1="104" x2="256" y2="104"/>
+      <line class="fig-axis" x1="228" y1="104" x2="228" y2="132"/>
+      <line class="fig-axis" x1="228" y1="104" x2="256" y2="132"/>
+      <line class="fig-axis" x1="256" y1="104" x2="284" y2="104"/>
+      <line class="fig-axis" x1="256" y1="104" x2="256" y2="132"/>
+      <line class="fig-axis" x1="256" y1="104" x2="284" y2="132"/>
+      <line class="fig-axis" x1="284" y1="104" x2="312" y2="104"/>
+      <line class="fig-axis" x1="284" y1="104" x2="284" y2="132"/>
+      <line class="fig-axis" x1="284" y1="104" x2="312" y2="132"/>
+      <line class="fig-axis" x1="312" y1="104" x2="340" y2="104"/>
+      <line class="fig-axis" x1="312" y1="104" x2="312" y2="132"/>
+      <line class="fig-axis" x1="312" y1="104" x2="340" y2="132"/>
+      <line class="fig-axis" x1="340" y1="104" x2="340" y2="132"/>
+      <line class="fig-axis" x1="228" y1="132" x2="256" y2="132"/>
+      <line class="fig-axis" x1="228" y1="132" x2="228" y2="160"/>
+      <line class="fig-axis" x1="228" y1="132" x2="256" y2="160"/>
+      <line class="fig-axis" x1="256" y1="132" x2="284" y2="132"/>
+      <line class="fig-axis" x1="256" y1="132" x2="256" y2="160"/>
+      <line class="fig-axis" x1="256" y1="132" x2="284" y2="160"/>
+      <line class="fig-axis" x1="284" y1="132" x2="312" y2="132"/>
+      <line class="fig-axis" x1="284" y1="132" x2="284" y2="160"/>
+      <line class="fig-axis" x1="284" y1="132" x2="312" y2="160"/>
+      <line class="fig-axis" x1="312" y1="132" x2="340" y2="132"/>
+      <line class="fig-axis" x1="312" y1="132" x2="312" y2="160"/>
+      <line class="fig-axis" x1="312" y1="132" x2="340" y2="160"/>
+      <line class="fig-axis" x1="340" y1="132" x2="340" y2="160"/>
+      <line class="fig-axis" x1="228" y1="160" x2="256" y2="160"/>
+      <line class="fig-axis" x1="228" y1="160" x2="228" y2="188"/>
+      <line class="fig-axis" x1="228" y1="160" x2="256" y2="188"/>
+      <line class="fig-axis" x1="256" y1="160" x2="284" y2="160"/>
+      <line class="fig-axis" x1="256" y1="160" x2="256" y2="188"/>
+      <line class="fig-axis" x1="256" y1="160" x2="284" y2="188"/>
+      <line class="fig-axis" x1="284" y1="160" x2="312" y2="160"/>
+      <line class="fig-axis" x1="284" y1="160" x2="284" y2="188"/>
+      <line class="fig-axis" x1="284" y1="160" x2="312" y2="188"/>
+      <line class="fig-axis" x1="312" y1="160" x2="340" y2="160"/>
+      <line class="fig-axis" x1="312" y1="160" x2="312" y2="188"/>
+      <line class="fig-axis" x1="312" y1="160" x2="340" y2="188"/>
+      <line class="fig-axis" x1="340" y1="160" x2="340" y2="188"/>
+      <line class="fig-axis" x1="228" y1="188" x2="256" y2="188"/>
+      <line class="fig-axis" x1="256" y1="188" x2="284" y2="188"/>
+      <line class="fig-axis" x1="284" y1="188" x2="312" y2="188"/>
+      <line class="fig-axis" x1="312" y1="188" x2="340" y2="188"/>
+      <circle class="fig-dot" cx="228" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="256" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="284" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="312" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="340" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="228" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="256" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="284" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="312" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="340" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="228" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="256" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="284" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="312" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="340" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="228" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="256" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="284" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="312" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="340" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="228" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="256" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="284" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="312" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="340" cy="188" r="2.5"/>
+      <text class="fig-text fig-tick" x="284" y="42" text-anchor="middle">local</text>
+      <rect class="fig-band" x="407" y="67" width="18" height="130"/>
+      <rect class="fig-shape" x="519" y="67" width="18" height="130"/>
+      <line class="fig-axis" x1="416" y1="76" x2="444" y2="76"/>
+      <line class="fig-axis" x1="416" y1="76" x2="416" y2="104"/>
+      <line class="fig-axis" x1="416" y1="76" x2="444" y2="104"/>
+      <line class="fig-axis" x1="444" y1="76" x2="472" y2="76"/>
+      <line class="fig-axis" x1="444" y1="76" x2="444" y2="104"/>
+      <line class="fig-axis" x1="444" y1="76" x2="472" y2="104"/>
+      <line class="fig-axis" x1="472" y1="76" x2="500" y2="76"/>
+      <line class="fig-axis" x1="472" y1="76" x2="472" y2="104"/>
+      <line class="fig-axis" x1="472" y1="76" x2="500" y2="104"/>
+      <line class="fig-axis" x1="500" y1="76" x2="528" y2="76"/>
+      <line class="fig-axis" x1="500" y1="76" x2="500" y2="104"/>
+      <line class="fig-axis" x1="500" y1="76" x2="528" y2="104"/>
+      <line class="fig-axis" x1="528" y1="76" x2="528" y2="104"/>
+      <line class="fig-axis" x1="416" y1="104" x2="444" y2="104"/>
+      <line class="fig-axis" x1="416" y1="104" x2="416" y2="132"/>
+      <line class="fig-axis" x1="416" y1="104" x2="444" y2="132"/>
+      <line class="fig-axis" x1="444" y1="104" x2="472" y2="104"/>
+      <line class="fig-axis" x1="444" y1="104" x2="444" y2="132"/>
+      <line class="fig-axis" x1="444" y1="104" x2="472" y2="132"/>
+      <line class="fig-axis" x1="472" y1="104" x2="500" y2="104"/>
+      <line class="fig-axis" x1="472" y1="104" x2="472" y2="132"/>
+      <line class="fig-axis" x1="472" y1="104" x2="500" y2="132"/>
+      <line class="fig-axis" x1="500" y1="104" x2="528" y2="104"/>
+      <line class="fig-axis" x1="500" y1="104" x2="500" y2="132"/>
+      <line class="fig-axis" x1="500" y1="104" x2="528" y2="132"/>
+      <line class="fig-axis" x1="528" y1="104" x2="528" y2="132"/>
+      <line class="fig-axis" x1="416" y1="132" x2="444" y2="132"/>
+      <line class="fig-axis" x1="416" y1="132" x2="416" y2="160"/>
+      <line class="fig-axis" x1="416" y1="132" x2="444" y2="160"/>
+      <line class="fig-axis" x1="444" y1="132" x2="472" y2="132"/>
+      <line class="fig-axis" x1="444" y1="132" x2="444" y2="160"/>
+      <line class="fig-axis" x1="444" y1="132" x2="472" y2="160"/>
+      <line class="fig-axis" x1="472" y1="132" x2="500" y2="132"/>
+      <line class="fig-axis" x1="472" y1="132" x2="472" y2="160"/>
+      <line class="fig-axis" x1="472" y1="132" x2="500" y2="160"/>
+      <line class="fig-axis" x1="500" y1="132" x2="528" y2="132"/>
+      <line class="fig-axis" x1="500" y1="132" x2="500" y2="160"/>
+      <line class="fig-axis" x1="500" y1="132" x2="528" y2="160"/>
+      <line class="fig-axis" x1="528" y1="132" x2="528" y2="160"/>
+      <line class="fig-axis" x1="416" y1="160" x2="444" y2="160"/>
+      <line class="fig-axis" x1="416" y1="160" x2="416" y2="188"/>
+      <line class="fig-axis" x1="416" y1="160" x2="444" y2="188"/>
+      <line class="fig-axis" x1="444" y1="160" x2="472" y2="160"/>
+      <line class="fig-axis" x1="444" y1="160" x2="444" y2="188"/>
+      <line class="fig-axis" x1="444" y1="160" x2="472" y2="188"/>
+      <line class="fig-axis" x1="472" y1="160" x2="500" y2="160"/>
+      <line class="fig-axis" x1="472" y1="160" x2="472" y2="188"/>
+      <line class="fig-axis" x1="472" y1="160" x2="500" y2="188"/>
+      <line class="fig-axis" x1="500" y1="160" x2="528" y2="160"/>
+      <line class="fig-axis" x1="500" y1="160" x2="500" y2="188"/>
+      <line class="fig-axis" x1="500" y1="160" x2="528" y2="188"/>
+      <line class="fig-axis" x1="528" y1="160" x2="528" y2="188"/>
+      <line class="fig-axis" x1="416" y1="188" x2="444" y2="188"/>
+      <line class="fig-axis" x1="444" y1="188" x2="472" y2="188"/>
+      <line class="fig-axis" x1="472" y1="188" x2="500" y2="188"/>
+      <line class="fig-axis" x1="500" y1="188" x2="528" y2="188"/>
+      <circle class="fig-dot" cx="416" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="444" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="472" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="500" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="528" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="416" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="444" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="472" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="500" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="528" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="416" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="444" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="472" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="500" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="528" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="416" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="444" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="472" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="500" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="528" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="416" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="444" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="472" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="500" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="528" cy="188" r="2.5"/>
+      <text class="fig-text fig-tick" x="472" y="42" text-anchor="middle">fitting</text>
+      <rect class="fig-band" x="595" y="67" width="18" height="130"/>
+      <rect class="fig-shape" x="595" y="179" width="130" height="18"/>
+      <line class="fig-axis" x1="604" y1="76" x2="632" y2="76"/>
+      <line class="fig-axis" x1="604" y1="76" x2="604" y2="104"/>
+      <line class="fig-axis" x1="604" y1="76" x2="632" y2="104"/>
+      <line class="fig-axis" x1="632" y1="76" x2="660" y2="76"/>
+      <line class="fig-axis" x1="632" y1="76" x2="632" y2="104"/>
+      <line class="fig-axis" x1="632" y1="76" x2="660" y2="104"/>
+      <line class="fig-axis" x1="660" y1="76" x2="688" y2="76"/>
+      <line class="fig-axis" x1="660" y1="76" x2="660" y2="104"/>
+      <line class="fig-axis" x1="660" y1="76" x2="688" y2="104"/>
+      <line class="fig-axis" x1="688" y1="76" x2="716" y2="76"/>
+      <line class="fig-axis" x1="688" y1="76" x2="688" y2="104"/>
+      <line class="fig-axis" x1="688" y1="76" x2="716" y2="104"/>
+      <line class="fig-axis" x1="716" y1="76" x2="716" y2="104"/>
+      <line class="fig-axis" x1="604" y1="104" x2="632" y2="104"/>
+      <line class="fig-axis" x1="604" y1="104" x2="604" y2="132"/>
+      <line class="fig-axis" x1="604" y1="104" x2="632" y2="132"/>
+      <line class="fig-axis" x1="632" y1="104" x2="660" y2="104"/>
+      <line class="fig-axis" x1="632" y1="104" x2="632" y2="132"/>
+      <line class="fig-axis" x1="632" y1="104" x2="660" y2="132"/>
+      <line class="fig-axis" x1="660" y1="104" x2="688" y2="104"/>
+      <line class="fig-axis" x1="660" y1="104" x2="660" y2="132"/>
+      <line class="fig-axis" x1="660" y1="104" x2="688" y2="132"/>
+      <line class="fig-axis" x1="688" y1="104" x2="716" y2="104"/>
+      <line class="fig-axis" x1="688" y1="104" x2="688" y2="132"/>
+      <line class="fig-axis" x1="688" y1="104" x2="716" y2="132"/>
+      <line class="fig-axis" x1="716" y1="104" x2="716" y2="132"/>
+      <line class="fig-axis" x1="604" y1="132" x2="632" y2="132"/>
+      <line class="fig-axis" x1="604" y1="132" x2="604" y2="160"/>
+      <line class="fig-axis" x1="604" y1="132" x2="632" y2="160"/>
+      <line class="fig-axis" x1="632" y1="132" x2="660" y2="132"/>
+      <line class="fig-axis" x1="632" y1="132" x2="632" y2="160"/>
+      <line class="fig-axis" x1="632" y1="132" x2="660" y2="160"/>
+      <line class="fig-axis" x1="660" y1="132" x2="688" y2="132"/>
+      <line class="fig-axis" x1="660" y1="132" x2="660" y2="160"/>
+      <line class="fig-axis" x1="660" y1="132" x2="688" y2="160"/>
+      <line class="fig-axis" x1="688" y1="132" x2="716" y2="132"/>
+      <line class="fig-axis" x1="688" y1="132" x2="688" y2="160"/>
+      <line class="fig-axis" x1="688" y1="132" x2="716" y2="160"/>
+      <line class="fig-axis" x1="716" y1="132" x2="716" y2="160"/>
+      <line class="fig-axis" x1="604" y1="160" x2="632" y2="160"/>
+      <line class="fig-axis" x1="604" y1="160" x2="604" y2="188"/>
+      <line class="fig-axis" x1="604" y1="160" x2="632" y2="188"/>
+      <line class="fig-axis" x1="632" y1="160" x2="660" y2="160"/>
+      <line class="fig-axis" x1="632" y1="160" x2="632" y2="188"/>
+      <line class="fig-axis" x1="632" y1="160" x2="660" y2="188"/>
+      <line class="fig-axis" x1="660" y1="160" x2="688" y2="160"/>
+      <line class="fig-axis" x1="660" y1="160" x2="660" y2="188"/>
+      <line class="fig-axis" x1="660" y1="160" x2="688" y2="188"/>
+      <line class="fig-axis" x1="688" y1="160" x2="716" y2="160"/>
+      <line class="fig-axis" x1="688" y1="160" x2="688" y2="188"/>
+      <line class="fig-axis" x1="688" y1="160" x2="716" y2="188"/>
+      <line class="fig-axis" x1="716" y1="160" x2="716" y2="188"/>
+      <line class="fig-axis" x1="604" y1="188" x2="632" y2="188"/>
+      <line class="fig-axis" x1="632" y1="188" x2="660" y2="188"/>
+      <line class="fig-axis" x1="660" y1="188" x2="688" y2="188"/>
+      <line class="fig-axis" x1="688" y1="188" x2="716" y2="188"/>
+      <circle class="fig-dot" cx="604" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="632" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="660" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="688" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="716" cy="76" r="2.5"/>
+      <circle class="fig-dot" cx="604" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="632" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="660" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="688" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="716" cy="104" r="2.5"/>
+      <circle class="fig-dot" cx="604" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="632" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="660" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="688" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="716" cy="132" r="2.5"/>
+      <circle class="fig-dot" cx="604" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="632" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="660" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="688" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="716" cy="160" r="2.5"/>
+      <circle class="fig-dot" cx="604" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="632" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="660" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="688" cy="188" r="2.5"/>
+      <circle class="fig-dot" cx="716" cy="188" r="2.5"/>
+      <text class="fig-text fig-tick" x="660" y="42" text-anchor="middle">overlap</text>
+      </svg>
+      <figcaption>The four alignment problems are one graph with different ends freed. The solid shaded region holds the nodes where a path may start, the outlined region the nodes where it may end, and for local alignment the two coincide over the whole grid. Global alignment pins both corners. Fitting alignment frees the left and right columns, so a substring of $v$ is aligned against all of $w$. Overlap alignment frees the left column and the bottom row, so a suffix of $v$ is aligned against a prefix of $w$.</figcaption>
+    </figure>
+
+    <pre><code>problem     may start at        may end at
+global      (0, 0)              (n, m)
+local       any node            any node
+fitting     column 0            column m
+overlap     column 0            row n</code></pre>
+
+    <p>
+      Each column of that table is a predicate on nodes. A node that may start an alignment gets 0
+      as an extra option, and the answer is the best value among the nodes that may end one.
+    </p>
+
+    <pre><code class="language-python">STARTS = {'corner': lambda i, j: i == 0 and j == 0,
+          'any':    lambda i, j: True,
+          'left':   lambda i, j: j == 0}
+
+SINKS = {'corner': lambda n, m: [(n, m)],
+         'any':    lambda n, m: [(i, j) for i in range(n + 1) for j in range(m + 1)],
+         'right':  lambda n, m: [(i, m) for i in range(n + 1)],
+         'bottom': lambda n, m: [(n, j) for j in range(m + 1)]}
+
+MODES = {'global':  ('corner', 'corner'),
+         'local':   ('any',    'any'),
+         'fitting': ('left',   'right'),
+         'overlap': ('left',   'bottom')}
+
+
+def alignment(v, w, score, sigma, mode='global'):
+    starts, sinks = MODES[mode]
+    n, m = len(v), len(w)
+    best = [[0] * (m + 1) for _ in range(n + 1)]
+    came = [[None] * (m + 1) for _ in range(n + 1)]
+    for i in range(n + 1):
+        for j in range(m + 1):
+            options = []
+            if STARTS[starts](i, j):
+                options.append((0, None))
+            if i &gt; 0:
+                options.append((best[i - 1][j] - sigma, (-1, 0)))
+            if j &gt; 0:
+                options.append((best[i][j - 1] - sigma, (0, -1)))
+            if i &gt; 0 and j &gt; 0:
+                options.append((best[i - 1][j - 1] + score[v[i - 1], w[j - 1]], (-1, -1)))
+            if options:
+                best[i][j], came[i][j] = max(options, key=lambda option: option[0])
+    i, j = max(SINKS[sinks](n, m), key=lambda node: best[node[0]][node[1]])
+    total, top, bottom = best[i][j], [], []
+    while came[i][j] is not None:
+        di, dj = came[i][j]
+        top.append(v[i - 1] if di else '-')
+        bottom.append(w[j - 1] if dj else '-')
+        i, j = i + di, j + dj
+    return total, ''.join(reversed(top)), ''.join(reversed(bottom))</code></pre>
+
+    <p>
+      All four modes cost $O(nm)$, the choice of sink scanning at most the whole table. On
+      <code>GTAGGCTTAAGGTTA</code> and <code>TAGATA</code> with a
+      match of $+1$ and a mismatch and indel of $1$, the fitting alignment scores 2, matching
+      <code>TAGGCTTA</code> against <code>TAGA-T-A</code>. On <code>GATTACAGGGT</code> and
+      <code>GGGTACCTAA</code> with $\sigma = 2$ the overlap alignment scores 4 and pairs the suffix
+      <code>GGGT</code> with the prefix <code>GGGT</code>.
+    </p>
+
+    <p>
+      The <strong>edit distance</strong> of two strings, introduced by Vladimir Levenshtein in 1965,
+      is the smallest number of substitutions, insertions and deletions that turn one into the
+      other. Each such operation is one non-matching column of an alignment, so the edit distance is
+      the smallest number of non-matching columns over all alignments. Scoring a match 0 and
+      everything else $-1$ makes the score of an alignment the negative of that count, and a global
+      alignment maximizing it minimizes the count.
+    </p>
+
+    <pre><code class="language-python">def edit_distance(v, w):
+    return -alignment(v, w, uniform_score(0, -1, set(v) | set(w)), 1)[0]</code></pre>
+
+    <p>
+      <code>edit_distance('PLEASANTLY', 'MEANLY')</code> is 5, and
+      <code>edit_distance('ATGCATGC', 'TGCATGCA')</code> is 2, the one deletion and one insertion
+      of the shifted alignment at the start of the chapter.
+    </p>
+
+    <h3>Affine Gap Penalties</h3>
+
+    <p>
+      A run of $k$ consecutive indels in one row is a <strong>gap</strong>. Charging $k\sigma$ for it
+      treats it as $k$ separate mutations, but a single event can insert or delete many nucleotides
+      at once, so one gap of length $k$ is more likely than $k$ gaps of length 1. Under a constant
+      penalty per indel the two cost the same, and the alignment returned scatters the indels.
+    </p>
+
+    <p>
+      An <strong>affine gap penalty</strong> charges $\sigma + \varepsilon(k - 1)$ for a gap of
+      length $k$, with the <strong>gap opening penalty</strong> $\sigma$ larger than the
+      <strong>gap extension penalty</strong> $\varepsilon$. The cost is no longer a sum over
+      columns, since what a column costs depends on whether the column before it was part of the
+      same gap.
+    </p>
+
+    <p>
+      Recording that in the graph means three copies of it. The <em>middle</em> layer holds the
+      nodes reached by a diagonal edge, the <em>lower</em> layer those inside a run of down edges,
+      and the <em>upper</em> layer those inside a run of right edges. Moving from the middle layer
+      into another costs $\sigma$ and opens a gap, staying inside it costs $\varepsilon$, and
+      returning to the middle is free and closes the gap. The graph is still acyclic and still has
+      $O(nm)$ nodes, three per cell, and each node has at most three incoming edges.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="558" height="330" viewBox="0 0 558 330">
+      <circle class="fig-dot" cx="128" cy="90" r="3.5"/>
+      <circle class="fig-dot" cx="198" cy="90" r="3.5"/>
+      <circle class="fig-dot" cx="268" cy="90" r="3.5"/>
+      <circle class="fig-dot" cx="338" cy="90" r="3.5"/>
+      <circle class="fig-dot" cx="408" cy="90" r="3.5"/>
+      <line class="fig-axis" x1="136" y1="90" x2="184" y2="90"/>
+      <path class="fig-dot" d="M 190 90 L 184 92.7 L 184 87.3 Z"/>
+      <line class="fig-axis" x1="206" y1="90" x2="254" y2="90"/>
+      <path class="fig-dot" d="M 260 90 L 254 92.7 L 254 87.3 Z"/>
+      <line class="fig-axis" x1="276" y1="90" x2="324" y2="90"/>
+      <path class="fig-dot" d="M 330 90 L 324 92.7 L 324 87.3 Z"/>
+      <text class="fig-text fig-note" x="303" y="78" text-anchor="middle">&#8722;&epsilon;</text>
+      <line class="fig-axis" x1="346" y1="90" x2="394" y2="90"/>
+      <path class="fig-dot" d="M 400 90 L 394 92.7 L 394 87.3 Z"/>
+      <text class="fig-text fig-tick" x="102" y="95" text-anchor="end">upper</text>
+      <text class="fig-text fig-note" x="428" y="95" text-anchor="start">gap in v</text>
+      <circle class="fig-dot" cx="128" cy="190" r="3.5"/>
+      <circle class="fig-dot" cx="198" cy="190" r="3.5"/>
+      <circle class="fig-dot" cx="268" cy="190" r="3.5"/>
+      <circle class="fig-dot" cx="338" cy="190" r="3.5"/>
+      <circle class="fig-dot" cx="408" cy="190" r="3.5"/>
+      <line class="fig-axis" x1="136" y1="190" x2="184" y2="190"/>
+      <path class="fig-dot" d="M 190 190 L 184 192.7 L 184 187.3 Z"/>
+      <line class="fig-axis" x1="206" y1="190" x2="254" y2="190"/>
+      <path class="fig-dot" d="M 260 190 L 254 192.7 L 254 187.3 Z"/>
+      <line class="fig-axis" x1="276" y1="190" x2="324" y2="190"/>
+      <path class="fig-dot" d="M 330 190 L 324 192.7 L 324 187.3 Z"/>
+      <text class="fig-text fig-note" x="303" y="178" text-anchor="middle">score</text>
+      <line class="fig-axis" x1="346" y1="190" x2="394" y2="190"/>
+      <path class="fig-dot" d="M 400 190 L 394 192.7 L 394 187.3 Z"/>
+      <text class="fig-text fig-tick" x="102" y="195" text-anchor="end">middle</text>
+      <text class="fig-text fig-note" x="428" y="195" text-anchor="start">match or mismatch</text>
+      <circle class="fig-dot" cx="128" cy="290" r="3.5"/>
+      <circle class="fig-dot" cx="198" cy="290" r="3.5"/>
+      <circle class="fig-dot" cx="268" cy="290" r="3.5"/>
+      <circle class="fig-dot" cx="338" cy="290" r="3.5"/>
+      <circle class="fig-dot" cx="408" cy="290" r="3.5"/>
+      <line class="fig-axis" x1="136" y1="290" x2="184" y2="290"/>
+      <path class="fig-dot" d="M 190 290 L 184 292.7 L 184 287.3 Z"/>
+      <line class="fig-axis" x1="206" y1="290" x2="254" y2="290"/>
+      <path class="fig-dot" d="M 260 290 L 254 292.7 L 254 287.3 Z"/>
+      <line class="fig-axis" x1="276" y1="290" x2="324" y2="290"/>
+      <path class="fig-dot" d="M 330 290 L 324 292.7 L 324 287.3 Z"/>
+      <text class="fig-text fig-note" x="303" y="278" text-anchor="middle">&#8722;&epsilon;</text>
+      <line class="fig-axis" x1="346" y1="290" x2="394" y2="290"/>
+      <path class="fig-dot" d="M 400 290 L 394 292.7 L 394 287.3 Z"/>
+      <text class="fig-text fig-tick" x="102" y="295" text-anchor="end">lower</text>
+      <text class="fig-text fig-note" x="428" y="295" text-anchor="start">gap in w</text>
+      <line class="fig-accent" x1="198" y1="178" x2="198" y2="108"/>
+      <path class="fig-dot" d="M 198 102 L 200.7 108 L 195.3 108 Z"/>
+      <line class="fig-accent" x1="198" y1="202" x2="198" y2="272"/>
+      <path class="fig-dot" d="M 198 278 L 195.3 272 L 200.7 272 Z"/>
+      <line class="fig-accent" x1="338" y1="102" x2="338" y2="172"/>
+      <path class="fig-dot" d="M 338 178 L 335.3 172 L 340.7 172 Z"/>
+      <line class="fig-accent" x1="338" y1="278" x2="338" y2="208"/>
+      <path class="fig-dot" d="M 338 202 L 340.7 208 L 335.3 208 Z"/>
+      <text class="fig-text fig-note" x="188" y="144" text-anchor="end">open &#8722;&sigma;</text>
+      <text class="fig-text fig-note" x="348" y="144" text-anchor="start">close 0</text>
+      <text class="fig-text fig-note" x="188" y="244" text-anchor="end">open &#8722;&sigma;</text>
+      <text class="fig-text fig-note" x="348" y="244" text-anchor="start">close 0</text>
+      </svg>
+      <figcaption>The three layers an affine gap penalty needs. A path in the middle layer is matching symbols. Leaving it opens a gap and costs $\sigma$, every further step inside the upper or lower layer extends that gap and costs $\varepsilon$, and returning to the middle closes the gap and is free. Which layer the path is in records whether the previous column was already part of a gap, and that is the one thing a sum over independent columns cannot express.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">def best_of(options):
+    return max(options, key=lambda option: option[0])
+
+
+def affine_alignment(v, w, score, sigma, epsilon):
+    n, m = len(v), len(w)
+    down = [[float('-inf')] * (m + 1) for _ in range(n + 1)]
+    right = [[float('-inf')] * (m + 1) for _ in range(n + 1)]
+    diag = [[float('-inf')] * (m + 1) for _ in range(n + 1)]
+    came = {}
+    diag[0][0] = 0
+    for i in range(n + 1):
+        for j in range(m + 1):
+            if i &gt; 0:
+                down[i][j], came['down', i, j] = best_of([
+                    (down[i - 1][j] - epsilon, 'down'),
+                    (diag[i - 1][j] - sigma, 'diag')])
+            if j &gt; 0:
+                right[i][j], came['right', i, j] = best_of([
+                    (right[i][j - 1] - epsilon, 'right'),
+                    (diag[i][j - 1] - sigma, 'diag')])
+            if i &gt; 0 or j &gt; 0:
+                options = [(down[i][j], 'down'), (right[i][j], 'right')]
+                if i &gt; 0 and j &gt; 0:
+                    options.append(
+                        (diag[i - 1][j - 1] + score[v[i - 1], w[j - 1]], 'diag'))
+                diag[i][j], came['diag', i, j] = best_of(options)
+    total, layer, i, j, top, bottom = diag[n][m], 'diag', n, m, [], []
+    while (i, j) != (0, 0):
+        previous = came[layer, i, j]
+        if layer == 'diag' and previous != 'diag':
+            layer = previous
+            continue
+        if layer == 'down':
+            top.append(v[i - 1]), bottom.append('-')
+            i -= 1
+        elif layer == 'right':
+            top.append('-'), bottom.append(w[j - 1])
+            j -= 1
+        else:
+            top.append(v[i - 1]), bottom.append(w[j - 1])
+            i, j = i - 1, j - 1
+        layer = previous
+    return total, ''.join(reversed(top)), ''.join(reversed(bottom))</code></pre>
+
+    <p>
+      The middle layer absorbs the other two, so <code>diag[i][j]</code> is the best score of any
+      alignment of the first $i$ symbols against the first $j$, and the answer sits at
+      <code>diag[n][m]</code>. The walk back moves between layers without consuming a symbol, then
+      emits one column per step inside a layer. Three tables of $O(nm)$ entries with constant work
+      each keep the cost at $O(nm)$.
+    </p>
+
+    <p>
+      Take <code>ACGTACGTACGT</code> and <code>ACGTGT</code> with a match of $+1$ and a mismatch of
+      $-1$. With a constant penalty $\sigma = 2$ the best score is $-6$, reached by splitting the
+      six deleted characters into two gaps:
+    </p>
+
+    <pre><code>ACGTACGTACGT
+ACGT--GT----</code></pre>
+
+    <p>
+      With $\sigma = 4$ and $\varepsilon = 1$ those two gaps cost $5 + 7 = 12$ while a single gap of
+      length 6 costs $4 + 5 = 9$. The alignment above now scores $-6$, and the highest scoring one
+      becomes
+    </p>
+
+    <pre><code>ACGTACGTACGT
+ACGT------GT</code></pre>
+
+    <p>
+      scoring $-3$.
+    </p>
+
+    <h3>Aligning in Linear Space</h3>
+
+    <p>
+      The table holds $(n + 1)(m + 1)$ entries. Two sequences of $10^4$ symbols need $10^8$ of them.
+      Memory is what runs out first, not the $10^8$ operations that fill them.
+    </p>
+
+    <p>
+      The score alone needs far less. Column $j$ of the table depends only on column $j - 1$, so
+      keeping one column at a time computes $s_{n,m}$ in $O(n)$ space.
+    </p>
+
+    <pre><code class="language-python">def last_column(v, w, score, sigma):
+    column = [-sigma * i for i in range(len(v) + 1)]
+    for j in range(1, len(w) + 1):
+        previous, column = column, [-sigma * j] + [0] * len(v)
+        for i in range(1, len(v) + 1):
+            column[i] = max(previous[i] - sigma,
+                            column[i - 1] - sigma,
+                            previous[i - 1] + score[v[i - 1], w[j - 1]])
+    return column</code></pre>
+
+    <p>
+      This discards the alignment: the walk back needs the table that was thrown away. What it can
+      recover is one edge of the answer. Let $j$ be the middle column. For each $i$,
+      <code>last_column</code> on $v$ and $w[:j]$ gives the best score from $(0, 0)$ to $(i, j)$,
+      and the same routine on the two strings reversed gives the best score from $(i, j)$ to
+      $(n, m)$. Their sum is the best score of a path through $(i, j)$, so the largest sum locates a
+      node of an optimal path in the middle column, and comparing the three edges leaving it picks
+      one. This is the <strong>middle edge</strong>.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="572" height="404" viewBox="0 0 572 404">
+      <rect class="fig-band" x="92" y="58" width="160" height="322"/>
+      <line class="fig-axis" x1="108" y1="74" x2="180" y2="74"/>
+      <line class="fig-axis" x1="108" y1="74" x2="108" y2="132"/>
+      <line class="fig-axis" x1="108" y1="74" x2="180" y2="132"/>
+      <line class="fig-axis" x1="180" y1="74" x2="252" y2="74"/>
+      <line class="fig-axis" x1="180" y1="74" x2="180" y2="132"/>
+      <line class="fig-axis" x1="180" y1="74" x2="252" y2="132"/>
+      <line class="fig-axis" x1="252" y1="74" x2="324" y2="74"/>
+      <line class="fig-axis" x1="252" y1="74" x2="252" y2="132"/>
+      <line class="fig-axis" x1="252" y1="74" x2="324" y2="132"/>
+      <line class="fig-axis" x1="324" y1="74" x2="396" y2="74"/>
+      <line class="fig-axis" x1="324" y1="74" x2="324" y2="132"/>
+      <line class="fig-axis" x1="324" y1="74" x2="396" y2="132"/>
+      <line class="fig-axis" x1="396" y1="74" x2="396" y2="132"/>
+      <line class="fig-axis" x1="108" y1="132" x2="180" y2="132"/>
+      <line class="fig-axis" x1="108" y1="132" x2="108" y2="190"/>
+      <line class="fig-axis" x1="108" y1="132" x2="180" y2="190"/>
+      <line class="fig-axis" x1="180" y1="132" x2="252" y2="132"/>
+      <line class="fig-axis" x1="180" y1="132" x2="180" y2="190"/>
+      <line class="fig-axis" x1="180" y1="132" x2="252" y2="190"/>
+      <line class="fig-axis" x1="252" y1="132" x2="324" y2="132"/>
+      <line class="fig-axis" x1="252" y1="132" x2="252" y2="190"/>
+      <line class="fig-axis" x1="252" y1="132" x2="324" y2="190"/>
+      <line class="fig-axis" x1="324" y1="132" x2="396" y2="132"/>
+      <line class="fig-axis" x1="324" y1="132" x2="324" y2="190"/>
+      <line class="fig-axis" x1="324" y1="132" x2="396" y2="190"/>
+      <line class="fig-axis" x1="396" y1="132" x2="396" y2="190"/>
+      <line class="fig-axis" x1="108" y1="190" x2="180" y2="190"/>
+      <line class="fig-axis" x1="108" y1="190" x2="108" y2="248"/>
+      <line class="fig-axis" x1="108" y1="190" x2="180" y2="248"/>
+      <line class="fig-axis" x1="180" y1="190" x2="252" y2="190"/>
+      <line class="fig-axis" x1="180" y1="190" x2="180" y2="248"/>
+      <line class="fig-axis" x1="180" y1="190" x2="252" y2="248"/>
+      <line class="fig-axis" x1="252" y1="190" x2="324" y2="190"/>
+      <line class="fig-axis" x1="252" y1="190" x2="252" y2="248"/>
+      <line class="fig-curve" x1="252" y1="190" x2="324" y2="248"/>
+      <line class="fig-axis" x1="324" y1="190" x2="396" y2="190"/>
+      <line class="fig-axis" x1="324" y1="190" x2="324" y2="248"/>
+      <line class="fig-axis" x1="324" y1="190" x2="396" y2="248"/>
+      <line class="fig-axis" x1="396" y1="190" x2="396" y2="248"/>
+      <line class="fig-axis" x1="108" y1="248" x2="180" y2="248"/>
+      <line class="fig-axis" x1="108" y1="248" x2="108" y2="306"/>
+      <line class="fig-axis" x1="108" y1="248" x2="180" y2="306"/>
+      <line class="fig-axis" x1="180" y1="248" x2="252" y2="248"/>
+      <line class="fig-axis" x1="180" y1="248" x2="180" y2="306"/>
+      <line class="fig-axis" x1="180" y1="248" x2="252" y2="306"/>
+      <line class="fig-axis" x1="252" y1="248" x2="324" y2="248"/>
+      <line class="fig-axis" x1="252" y1="248" x2="252" y2="306"/>
+      <line class="fig-axis" x1="252" y1="248" x2="324" y2="306"/>
+      <line class="fig-axis" x1="324" y1="248" x2="396" y2="248"/>
+      <line class="fig-axis" x1="324" y1="248" x2="324" y2="306"/>
+      <line class="fig-axis" x1="324" y1="248" x2="396" y2="306"/>
+      <line class="fig-axis" x1="396" y1="248" x2="396" y2="306"/>
+      <line class="fig-axis" x1="108" y1="306" x2="180" y2="306"/>
+      <line class="fig-axis" x1="108" y1="306" x2="108" y2="364"/>
+      <line class="fig-axis" x1="108" y1="306" x2="180" y2="364"/>
+      <line class="fig-axis" x1="180" y1="306" x2="252" y2="306"/>
+      <line class="fig-axis" x1="180" y1="306" x2="180" y2="364"/>
+      <line class="fig-axis" x1="180" y1="306" x2="252" y2="364"/>
+      <line class="fig-axis" x1="252" y1="306" x2="324" y2="306"/>
+      <line class="fig-axis" x1="252" y1="306" x2="252" y2="364"/>
+      <line class="fig-axis" x1="252" y1="306" x2="324" y2="364"/>
+      <line class="fig-axis" x1="324" y1="306" x2="396" y2="306"/>
+      <line class="fig-axis" x1="324" y1="306" x2="324" y2="364"/>
+      <line class="fig-axis" x1="324" y1="306" x2="396" y2="364"/>
+      <line class="fig-axis" x1="396" y1="306" x2="396" y2="364"/>
+      <line class="fig-axis" x1="108" y1="364" x2="180" y2="364"/>
+      <line class="fig-axis" x1="180" y1="364" x2="252" y2="364"/>
+      <line class="fig-axis" x1="252" y1="364" x2="324" y2="364"/>
+      <line class="fig-axis" x1="324" y1="364" x2="396" y2="364"/>
+      <circle class="fig-dot" cx="108" cy="74" r="3"/>
+      <circle class="fig-dot" cx="180" cy="74" r="3"/>
+      <circle class="fig-dot" cx="252" cy="74" r="3"/>
+      <circle class="fig-dot" cx="324" cy="74" r="3"/>
+      <circle class="fig-dot" cx="396" cy="74" r="3"/>
+      <circle class="fig-dot" cx="108" cy="132" r="3"/>
+      <circle class="fig-dot" cx="180" cy="132" r="3"/>
+      <circle class="fig-dot" cx="252" cy="132" r="3"/>
+      <circle class="fig-dot" cx="324" cy="132" r="3"/>
+      <circle class="fig-dot" cx="396" cy="132" r="3"/>
+      <circle class="fig-dot" cx="108" cy="190" r="3"/>
+      <circle class="fig-dot" cx="180" cy="190" r="3"/>
+      <circle class="fig-dot" cx="252" cy="190" r="3"/>
+      <circle class="fig-dot" cx="324" cy="190" r="3"/>
+      <circle class="fig-dot" cx="396" cy="190" r="3"/>
+      <circle class="fig-dot" cx="108" cy="248" r="3"/>
+      <circle class="fig-dot" cx="180" cy="248" r="3"/>
+      <circle class="fig-dot" cx="252" cy="248" r="3"/>
+      <circle class="fig-dot" cx="324" cy="248" r="3"/>
+      <circle class="fig-dot" cx="396" cy="248" r="3"/>
+      <circle class="fig-dot" cx="108" cy="306" r="3"/>
+      <circle class="fig-dot" cx="180" cy="306" r="3"/>
+      <circle class="fig-dot" cx="252" cy="306" r="3"/>
+      <circle class="fig-dot" cx="324" cy="306" r="3"/>
+      <circle class="fig-dot" cx="396" cy="306" r="3"/>
+      <circle class="fig-dot" cx="108" cy="364" r="3"/>
+      <circle class="fig-dot" cx="180" cy="364" r="3"/>
+      <circle class="fig-dot" cx="252" cy="364" r="3"/>
+      <circle class="fig-dot" cx="324" cy="364" r="3"/>
+      <circle class="fig-dot" cx="396" cy="364" r="3"/>
+      <text class="fig-text fig-tick" x="86" y="107" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="86" y="165" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="86" y="223" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="86" y="281" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="86" y="339" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="144" y="54" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="216" y="54" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="288" y="54" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="360" y="54" text-anchor="middle">T</text>
+      <line class="fig-guide" x1="252" y1="46" x2="252" y2="380"/>
+      <text class="fig-text fig-note" x="252" y="34" text-anchor="middle">middle column</text>
+      <text class="fig-text fig-note" x="484" y="34" text-anchor="middle">forward + backward</text>
+      <line class="fig-guide" x1="260" y1="74" x2="430" y2="74"/>
+      <text class="fig-text fig-note" x="440" y="78" text-anchor="start">-4 + -4 = -8</text>
+      <line class="fig-guide" x1="260" y1="132" x2="430" y2="132"/>
+      <text class="fig-text fig-note" x="440" y="136" text-anchor="start">-1 + -2 = -3</text>
+      <line class="fig-guide" x1="260" y1="190" x2="430" y2="190"/>
+      <text class="fig-text fig-tick" x="440" y="194" text-anchor="start">0 + 0 = 0</text>
+      <line class="fig-guide" x1="260" y1="248" x2="430" y2="248"/>
+      <text class="fig-text fig-note" x="440" y="252" text-anchor="start">-2 + -2 = -4</text>
+      <line class="fig-guide" x1="260" y1="306" x2="430" y2="306"/>
+      <text class="fig-text fig-note" x="440" y="310" text-anchor="start">-2 + -1 = -3</text>
+      <line class="fig-guide" x1="260" y1="364" x2="430" y2="364"/>
+      <text class="fig-text fig-note" x="440" y="368" text-anchor="start">-4 + -4 = -8</text>
+      <circle class="fig-hole" cx="252" cy="190" r="7"/>
+      </svg>
+      <figcaption>Finding one edge of an optimal alignment without storing the table. The shaded half is scored forward and the unshaded half backward, each by <code>last_column</code> in $O(n)$ memory. For every node of the middle column the two scores add to the best score of any path through that node, so the largest sum marks a node an optimal path passes through, and comparing the three edges leaving it picks the middle edge. Splitting the problem there leaves two smaller problems of the same kind.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">def middle_edge(v, w, score, sigma):
+    middle = len(w) // 2
+    to_middle = last_column(v, w[:middle], score, sigma)
+    from_middle = last_column(v[::-1], w[middle:][::-1], score, sigma)[::-1]
+    from_next = last_column(v[::-1], w[middle + 1:][::-1], score, sigma)[::-1]
+    i = max(range(len(v) + 1), key=lambda i: to_middle[i] + from_middle[i])
+    options = []
+    if i &lt; len(v):
+        options.append((to_middle[i] - sigma + from_middle[i + 1], (i + 1, middle)))
+    if middle &lt; len(w):
+        options.append((to_middle[i] - sigma + from_next[i], (i, middle + 1)))
+        if i &lt; len(v):
+            options.append((to_middle[i] + score[v[i], w[middle]] + from_next[i + 1],
+                            (i + 1, middle + 1)))
+    return (i, middle), best_of(options)[1]</code></pre>
+
+    <p>
+      One edge of an optimal path splits the problem into the part before it and the part after it,
+      each of which is a global alignment of shorter strings and can be solved the same way.
+    </p>
+
+    <pre><code class="language-python">def linear_space_alignment(v, w, score, sigma):
+    if not w:
+        return v, '-' * len(v)
+    if not v:
+        return '-' * len(w), w
+    (i, j), (next_i, next_j) = middle_edge(v, w, score, sigma)
+    top, bottom = linear_space_alignment(v[:i], w[:j], score, sigma)
+    top += v[i] if next_i &gt; i else '-'
+    bottom += w[j] if next_j &gt; j else '-'
+    tail_top, tail_bottom = linear_space_alignment(v[next_i:], w[next_j:], score, sigma)
+    return top + tail_top, bottom + tail_bottom</code></pre>
+
+    <p>
+      Finding the middle edge touches every cell a constant number of times, costing $O(nm)$. The
+      two recursive calls together cover at most half the area, their calls a quarter, and so on, so
+      the total is $O(nm) \cdot (1 + 1/2 + 1/4 + \cdots) = O(nm)$. Only $O(n)$ columns are alive at
+      any moment. The alignment returned is optimal but need not be the one the quadratic algorithm
+      returns, since ties are broken differently. On
+      <code>ACGTGGATTACAGGGT</code> and <code>TTTTGATTACAGCCCC</code> with $\sigma = 2$ it returns
+    </p>
+
+    <pre><code>ACGTGGATTACAG-GGT
+TTTT-GATTACAGCCCC</code></pre>
+
+    <p>
+      which scores $-1$, the same as the alignment the quadratic algorithm returns.
+    </p>
+
+    <h3>Multiple Alignment</h3>
+
+    <p>
+      A segment conserved across ten sequences is stronger evidence than the same segment in two,
+      and comparing the sequences in pairs can miss what all of them share. A
+      <strong>multiple alignment</strong> of $k$ strings
+      is a matrix of $k$ rows, one string per row with gaps inserted, all rows of equal length and
+      no column entirely gaps.
+    </p>
+
+    <p>
+      The construction carries over. For $k$ strings the alignment graph is a $k$-dimensional grid,
+      a node records how much of each string has been consumed, and an edge chooses a non-empty
+      subset of the strings to advance by one. A node therefore has $2^k - 1$ incoming edges, 3 for
+      two strings and 7 for three.
+    </p>
+
+    <p>
+      <strong>Multiple Alignment Problem.</strong> Given several strings and a scoring scheme, find
+      a multiple alignment maximizing the score.
+    </p>
+
+    <p>
+      One scheme scores an alignment by the number of columns in which every row holds the same
+      symbol. Under it an edge advancing all three strings weighs 1 when the three symbols it
+      consumes are equal and 0 otherwise, and every other edge weighs 0.
+    </p>
+
+    <pre><code class="language-python">STEPS = [(-1, -1, -1), (-1, -1, 0), (-1, 0, -1), (0, -1, -1),
+         (-1, 0, 0), (0, -1, 0), (0, 0, -1)]
+
+
+def multiple_alignment(u, v, w):
+    a, b, c = len(u), len(v), len(w)
+    best = [[[0] * (c + 1) for _ in range(b + 1)] for _ in range(a + 1)]
+    came = {}
+    for i in range(a + 1):
+        for j in range(b + 1):
+            for k in range(c + 1):
+                options = []
+                for di, dj, dk in STEPS:
+                    if i + di &lt; 0 or j + dj &lt; 0 or k + dk &lt; 0:
+                        continue
+                    match = di and dj and dk and u[i - 1] == v[j - 1] == w[k - 1]
+                    options.append((best[i + di][j + dj][k + dk] + bool(match), (di, dj, dk)))
+                if options:
+                    best[i][j][k], came[i, j, k] = best_of(options)
+    rows = [[], [], []]
+    while (i, j, k) != (0, 0, 0):
+        di, dj, dk = came[i, j, k]
+        rows[0].append(u[i - 1] if di else '-')
+        rows[1].append(v[j - 1] if dj else '-')
+        rows[2].append(w[k - 1] if dk else '-')
+        i, j, k = i + di, j + dj, k + dk
+    return best[a][b][c], [''.join(reversed(row)) for row in rows]</code></pre>
+
+    <p>
+      For strings of length $n$ the grid holds $O(n^k)$ nodes and each has $2^k - 1$ incoming edges,
+      so the cost is $O(2^k n^k)$ in time and $O(n^k)$ in space. Both are exponential in the number
+      of strings, and memory runs out first here too: three sequences of $10^3$ symbols already need
+      $10^9$ entries. Aligning many sequences in practice uses heuristics built on
+      pairwise alignments rather than this graph.
+    </p>
+
+    <p>
+      On <code>ATATCCG</code>, <code>TCCGA</code> and <code>ATGTACTG</code> the score is 3:
+    </p>
+
+    <pre><code>AT-ATCCG-
+-T---CCGA
+ATGTACTG-</code></pre>
+
+    <p>
+      Three columns hold the same symbol in all three rows. Other alignments reach 3 as well.
+    </p>
+
+    <h3>Application: Finding the Homeobox</h3>
+
+    <p>
+      The Antennapedia gene of <em>Drosophila melanogaster</em> has a coding sequence of 1137
+      nucleotides, coding for 378 amino acids. The human gene HOXB7 has a coding sequence of 654
+      nucleotides, coding for 217. Neither is annotated for this purpose; the input is the two
+      strings.
+    </p>
+
+    <p>
+      Aligning them globally with a match of $+1$, a mismatch of $-1$ and $\sigma = 3$ scores
+      $-1021$ over 1137 columns, 541 of them matches. Two random DNA strings of those same two
+      lengths, aligned with the same weights, score about $-1070$ with about 45 percent of their
+      columns matching. By its score the global alignment of the two genes is barely distinguishable
+      from an alignment of two random strings.
+    </p>
+
+    <p>
+      Its matches are not spread evenly. Over the first eight tenths of the alignment between 36 and
+      49 percent of the columns match, and over the ninth tenth 82 percent do. The conserved segment
+      is inside the global alignment, and the flanks the alignment is forced to include outweigh it.
+    </p>
+
+    <p>
+      Aligning them locally with the same weights scores $+129$. The alignment is 195 columns wide,
+      it contains no indel at all, 162 of its columns are matches, and it covers positions 885 to
+      1080 of the fly gene against positions 405 to 600 of the human gene.
+    </p>
+
+    <p>
+      Positions 891 to 1071 of the fly gene are its homeobox. The local alignment found it with 6
+      nucleotides to spare at one end and 9 at the other, and inside those 180 positions 151 of the
+      two genes' nucleotides agree. Translating both with <code>protein_translation</code> from
+      Chapter 4 gives the two homeodomains:
+    </p>
+
+    <pre><code>KRGRQTYTRYQTLELEKEFHFNRYLTRRRRIEIAHALCLTERQIKIWFQNRRMKWKKENK
+KRGRQTYTRYQTLELEKEFHYNRYLTRRRRIEIAHTLCLTERQIKIWFQNRRMKWKKENK</code></pre>
+
+    <p>
+      They differ at 2 of 60 positions, F against Y at position 21 and A against T at position 36.
+      Around that block the two genes have nothing in common, which is why the global alignment
+      could not report it: an alignment forced to run corner to corner has to pay for the flanks,
+      and the segment worth finding is 16 percent of the fly gene.
     </p>
 
   </main>
