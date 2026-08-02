@@ -64,9 +64,15 @@ my answer before writing the chapter.
 dropped: what to add, how to order the sections, what to rename, what to cut from what already
 exists. Put the options to me and wait. Do not settle a decision yourself and report it afterwards.
 
-**Calibration.** Read the chapters already written in
-the chapter pages in this directory and match them: same voice, same
-depth, same rhythm of prose, formalisation, code, and analysis. They define the target quality.
+**Calibration.** Read the chapters already written in this directory and match them: same voice,
+same depth, same rhythm of prose, figures, formalisation, code, and analysis. They define the
+target quality.
+
+**What carries over from the site's artistic direction.** `ARTISTIC_DIRECTION.md` at the site root
+is written for the mathematics course. Three things in it apply to this course and the rest does
+not: the general idea rather than the coverage, what the result says about the fabric of reality,
+and above all the visual form. The prose rules above still win over it: no reflection, no aphorism,
+no essay voice.
 
 **Checking the code.** Every algorithm in this course matches a problem in the Rosalind textbook
 track, and each problem page publishes a sample input and a sample output. Those pages are public
@@ -77,13 +83,39 @@ the sample data off the page instead of recalling it. For randomized algorithms 
 reached, not the exact output, since several answers tie at the optimum. Cross-checking a fast
 algorithm against the slow one it replaced is worth more than any single sample.
 
-**Output format.** An HTML fragment to append inside `<main>`, following the conventions of the
-existing file:
+**Figures.** A drawing that makes an idea visible beats a paragraph describing it, and a figure is
+the explanation rather than decoration. Look for the drawing first, for every section. A chapter
+with no figure in it is a chapter that is not finished.
 
-- `<h2>` per chapter (`Chapter N: Title`), `<h3>` per section, `<h4>` for subsections within a
-  section that runs long.
-- Python in `<pre><code class="language-python">`. Non-code displays (matrices, tables, worked
-  examples) go in a plain `<pre><code>` with no language class. Inline identifiers in `<code>`.
+- Hand-generated inline `<svg class="figure">` inside `<figure class="figure-block">`, with a
+  `<figcaption>`. Compute the coordinates with a throwaway script rather than writing them by hand,
+  and render the result to look at it before shipping it.
+- Use only classes that already exist in `style.css`: `fig-cell`, `fig-cell-alt`, `fig-axis`,
+  `fig-guide`, `fig-curve`, `fig-accent`, `fig-band`, `fig-shape`, `fig-dot`, `fig-hole`, `fig-arc`,
+  `fig-free`, `fig-free-solid`, `fig-hole-alt`, `fig-text fig-tick`, `fig-text fig-note`.
+- When a figure holds two kinds of edge that must not be confused, draw the second kind in the
+  second hue (`fig-free`) and put a legend inside the figure naming every kind of line it uses.
+- KaTeX does not run inside `<svg>`. Never put `$...$` in SVG text, it renders literally. Math
+  belongs in the prose and in the `<figcaption>`, which is ordinary HTML.
+- Multi-panel captions use `<span class="cap-part">`, each opening with
+  `<span class="cap-lead">Left.</span>`.
+- In an alignment figure, matched columns are filled and tied with a vertical rule so the eye counts
+  them; mismatched columns and gaps stay plain.
+
+**Output format.** A complete HTML page in `bioinformatics/`, named by slug, following the
+conventions of the chapters already there:
+
+- One page per chapter. The book's full question is the `<h1>` inside
+  `<header class="page-banner">`, then `<h2>` per section and `<h3>` for subsections within a
+  section that runs long. Add the page to `nav.js` under **Bioinformatics** as
+  `Chapter N: Short Title`, at most three words in the title, and add a row to
+  `bioinformatics/index.html`.
+- **`<pre>` is for code and for nothing else.** Python goes in
+  `<pre><code class="language-python">`. Inline identifiers in `<code>`.
+- Anything that is data rather than code is a figure, not a monospace block: alignments, scoring
+  matrices, count and profile matrices, weight grids, spectra, comparison tables, worked examples.
+  A plain `<pre><code>` is acceptable only for something that genuinely is text, such as an
+  adjacency listing.
 - Math in KaTeX, `$...$` delimiters, inline only. The page renders `$$` inline as well, so it
   buys nothing; never use it.
 - No inline `<style>`; the shared `style.css` covers everything.
