@@ -497,6 +497,11 @@ details.tsp-code > p {
 .fig-cell { fill: none; stroke: var(--border); stroke-width: 1; }
 .fig-cell-alt { fill: var(--surface-alt); stroke: var(--border); stroke-width: 1; }
 
+/* Second hue, for figures holding two kinds of edge that must not be confused. */
+.fig-free { fill: none; stroke: var(--fig-alt); stroke-width: 1; stroke-dasharray: 4 3; }
+.fig-free-solid { fill: none; stroke: var(--fig-alt); stroke-width: 1.6; }
+.fig-hole-alt { fill: var(--bg); stroke: var(--fig-alt); stroke-width: 2; }
+
 /* labels that are letters or numbers rather than mathematical variables, so
    they are set upright; each rule must out-specify the italic .figure text */
 .figure text.fig-text { font-style: normal; font-family: 'Computer Modern Serif', serif; }
