@@ -153,14 +153,73 @@
       <code>de_bruijn(composition(text, k))</code>. For <code>AAGATTCTCTAC</code> with $k = 4$:
     </p>
 
-    <pre><code>AAG -> AGA
-AGA -> GAT
-ATT -> TTC
-CTA -> TAC
-CTC -> TCT
-GAT -> ATT
-TCT -> CTA,CTC
-TTC -> TCT</code></pre>
+    <figure class="figure-block">
+      <svg class="figure" width="700" height="258" viewBox="0 0 700 258">
+      <text class="fig-text fig-tick" x="88" y="74" text-anchor="end">AAG</text>
+      <text class="fig-text fig-note" x="102" y="74" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="74" text-anchor="start">AGA</text>
+      <text class="fig-text fig-tick" x="88" y="100" text-anchor="end">AGA</text>
+      <text class="fig-text fig-note" x="102" y="100" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="100" text-anchor="start">GAT</text>
+      <text class="fig-text fig-tick" x="88" y="126" text-anchor="end">ATT</text>
+      <text class="fig-text fig-note" x="102" y="126" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="126" text-anchor="start">TTC</text>
+      <text class="fig-text fig-tick" x="88" y="152" text-anchor="end">CTA</text>
+      <text class="fig-text fig-note" x="102" y="152" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="152" text-anchor="start">TAC</text>
+      <text class="fig-text fig-tick" x="88" y="178" text-anchor="end">CTC</text>
+      <text class="fig-text fig-note" x="102" y="178" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="178" text-anchor="start">TCT</text>
+      <text class="fig-text fig-tick" x="88" y="204" text-anchor="end">GAT</text>
+      <text class="fig-text fig-note" x="102" y="204" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="204" text-anchor="start">ATT</text>
+      <text class="fig-text fig-tick" x="88" y="230" text-anchor="end">TCT</text>
+      <text class="fig-text fig-note" x="102" y="230" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="230" text-anchor="start">CTA, CTC</text>
+      <text class="fig-text fig-tick" x="88" y="256" text-anchor="end">TTC</text>
+      <text class="fig-text fig-note" x="102" y="256" text-anchor="middle">&#8594;</text>
+      <text class="fig-text fig-tick" x="116" y="256" text-anchor="start">TCT</text>
+      <text class="fig-text fig-note" x="114" y="48" text-anchor="middle">what de_bruijn returns</text>
+      <line class="fig-curve" x1="245" y1="138" x2="251" y2="138"/>
+      <path class="fig-dot" d="M 257 138 L 251 140.7 L 251 135.3 Z"/>
+      <line class="fig-curve" x1="307" y1="138" x2="313" y2="138"/>
+      <path class="fig-dot" d="M 319 138 L 313 140.7 L 313 135.3 Z"/>
+      <line class="fig-curve" x1="369" y1="138" x2="375" y2="138"/>
+      <path class="fig-dot" d="M 381 138 L 375 140.7 L 375 135.3 Z"/>
+      <line class="fig-curve" x1="431" y1="138" x2="437" y2="138"/>
+      <path class="fig-dot" d="M 443 138 L 437 140.7 L 437 135.3 Z"/>
+      <line class="fig-curve" x1="493" y1="138" x2="499" y2="138"/>
+      <path class="fig-dot" d="M 505 138 L 499 140.7 L 499 135.3 Z"/>
+      <line class="fig-curve" x1="555" y1="138" x2="561" y2="138"/>
+      <path class="fig-dot" d="M 567 138 L 561 140.7 L 561 135.3 Z"/>
+      <line class="fig-curve" x1="617" y1="138" x2="623" y2="138"/>
+      <path class="fig-dot" d="M 629 138 L 623 140.7 L 623 135.3 Z"/>
+      <line class="fig-curve" x1="539" y1="150" x2="558.6" y2="194.5"/>
+      <path class="fig-dot" d="M 561 200 L 556.1 195.6 L 561.1 193.4 Z"/>
+      <line class="fig-curve" x1="552" y1="200" x2="532.4" y2="155.5"/>
+      <path class="fig-dot" d="M 530 150 L 534.9 154.4 L 529.9 156.6 Z"/>
+      <rect class="fig-cell" x="197" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="220" y="143" text-anchor="middle">AAG</text>
+      <rect class="fig-cell" x="259" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="282" y="143" text-anchor="middle">AGA</text>
+      <rect class="fig-cell" x="321" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="344" y="143" text-anchor="middle">GAT</text>
+      <rect class="fig-cell" x="383" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="406" y="143" text-anchor="middle">ATT</text>
+      <rect class="fig-cell" x="445" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="468" y="143" text-anchor="middle">TTC</text>
+      <rect class="fig-cell" x="507" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="530" y="143" text-anchor="middle">TCT</text>
+      <rect class="fig-cell" x="569" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="592" y="143" text-anchor="middle">CTA</text>
+      <rect class="fig-cell" x="631" y="127" width="46" height="22"/>
+      <text class="fig-text fig-note" x="654" y="143" text-anchor="middle">TAC</text>
+      <rect class="fig-cell" x="538" y="201" width="46" height="22"/>
+      <text class="fig-text fig-note" x="561" y="217" text-anchor="middle">CTC</text>
+      <text class="fig-text fig-note" x="437" y="98" text-anchor="middle">the same graph, drawn</text>
+      </svg>
+      <figcaption>The de Bruijn graph of AAGATTCTCTAC at $k = 4$, written as the adjacency map that <code>de_bruijn</code> returns and drawn as the graph that map denotes. Each 4-mer of the composition is one edge, running from its first three characters to its last three. Every 3-mer of the string appears once as a node, which is why TCT, the only 3-mer occurring twice, is the only node with two outgoing edges.</figcaption>
+    </figure>
 
     <p>
       Merging equal $(k-1)$-mers is what changes the problem. Every k-mer of the collection is an
