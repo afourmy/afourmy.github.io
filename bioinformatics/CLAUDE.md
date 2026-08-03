@@ -8,6 +8,20 @@ page. The reusable generation prompt is `bioinformatics-algorithms.prompt.md`.
 Each page keeps the book's full question as its `<h1>` inside `<header class="page-banner">`,
 `<h2>` per section, `<h3>` for subsections. Chapters link to each other by slug.
 
+## Develop the notes, do not transcribe them
+The user's notes are shorthand. A line like "Theorem: limblength(j) = Min(...)" is a reminder to
+them, not a paragraph of a course: it has to be turned into what the quantity is, why it is
+recoverable from the matrix at all, what the minimum is doing, and a proof. A bolded restatement of
+the note with nothing around it is the recurring failure. The written chapters run about six
+sentences and three hundred characters per paragraph, developing each idea rather than naming it.
+
+## Answer the chapter's question by computation
+Where it can be done, fetch the real sequences (NCBI, UniProt) and run the chapter's own code:
+the skew of the real *E. coli* genome, the homeobox recovered by local alignment, the coronavirus
+tree from neighbour-joining. A computed answer beats a cited one and proves the code works. Where
+it genuinely cannot be computed, say plainly that the result is quoted, and say what the method can
+and cannot establish.
+
 ## Factual writing only
 These pages read as factual technical writing, not as a book. Every sentence states a fact, a
 definition, a cost, or a mechanism. Banned:
@@ -73,11 +87,17 @@ The recurring mistakes, all of which the user has had to point out at least once
 - **Nothing exceeds the 812px content column**, or the browser scales it down and shrinks the text.
 
 ## Theorems
-Use the site's markup, as `cs/graph-theory.html` does: `<div class="thm-block theorem">` with a
-`<span class="thm-label">`, followed by `<details class="proof"><summary class="proof-label">`. A
-bolded sentence in a paragraph is not a theorem. Every theorem the notes mark "Proof" gets one
-written out; where the real proof is long machinery, give the idea and say plainly that the full
-argument is not reproduced.
+Match the chapters already written: flowing prose, no special markup. The statement is a bolded
+lead-in inside an ordinary paragraph, named where it has one (`Euler's Theorem.`, `Cycle Theorem.`,
+`Limb Length Theorem.`) and plain `Theorem.` where it does not. The proof is the paragraph that
+follows, announcing itself in its first clause, as Chapter 3 does with "The proof is constructive,
+and it is the algorithm."
+
+Do **not** use `thm-block`, `<details class="proof">` or the other theorem markup, even though
+`cs/graph-theory.html` and the mathematics pages do. This course does not.
+
+Every theorem the notes mark "Proof" gets a real proof written out. Where the real argument is long
+machinery, give the idea it turns on and say plainly that the full argument is not reproduced.
 
 ## Verifying the code
 Every algorithm matches a problem in the Rosalind textbook track, whose pages publish sample input
@@ -86,5 +106,7 @@ and read the sample data off the problem page rather than recalling it. For rand
 compare the score reached, not the exact output. Cross-checking a fast algorithm against the slow one
 it replaced, or against brute force on random inputs, is worth more than any single sample.
 
-Numbers quoted in the prose (genome lengths, positions, scores, counts) are computed or fetched, not
-recalled.
+Every number in the prose or in a figure caption is computed or fetched, never recalled: genome
+lengths, positions, scores, counts, and the intermediate matrices of a traced algorithm. Write the
+check as an assertion and run it. Hand-typed intermediate values have been the single most reliable
+source of errors in this course, and every one was caught this way rather than by reading.

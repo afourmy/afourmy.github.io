@@ -63,7 +63,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="700" height="300" viewBox="0 0 700 300">
+      <svg class="figure" width="390.7" height="231.6" viewBox="143.8 20 390.7 231.6">
       <line class="fig-axis" x1="250" y1="150" x2="340" y2="96"/>
       <line class="fig-axis" x1="340" y1="96" x2="300" y2="60"/>
       <line class="fig-axis" x1="340" y1="96" x2="420" y2="40"/>
@@ -100,7 +100,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="616" height="282" viewBox="0 0 616 282">
+      <svg class="figure" width="538.4" height="233" viewBox="59.6 41 538.4 233">
       <text class="fig-text fig-note" x="78" y="94" text-anchor="end">0</text>
       <rect class="fig-cell-alt" x="92" y="76" width="26" height="26"/>
       <text class="fig-text fig-tick" x="105" y="94" text-anchor="middle">A</text>
@@ -249,7 +249,7 @@
     return matrix</code></pre>
 
     <figure class="figure-block">
-      <svg class="figure" width="660" height="320" viewBox="0 0 660 320">
+      <svg class="figure" width="632.7" height="264.6" viewBox="11 9 632.7 264.6">
       <line class="fig-curve" x1="204.3" y1="254" x2="107.5" y2="157.3"/>
       <text class="fig-text fig-note" x="147.4" y="218.1" text-anchor="middle">11</text>
       <line class="fig-axis" x1="90" y1="174.9" x2="107.5" y2="157.3"/>
@@ -345,7 +345,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="720" height="300" viewBox="0 0 720 300">
+      <svg class="figure" width="536.1" height="251" viewBox="85.6 17 536.1 251">
       <text class="fig-text fig-note" x="133" y="80" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="175" y="80" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="217" y="80" text-anchor="middle">2</text>
@@ -419,7 +419,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="280" viewBox="0 0 760 280">
+      <svg class="figure" width="678.2" height="216.6" viewBox="5 3 678.2 216.6">
       <line class="fig-axis" x1="175.3" y1="200" x2="134.7" y2="159.4"/>
       <text class="fig-text fig-note" x="146.5" y="192.2" text-anchor="middle">3</text>
       <line class="fig-axis" x1="134.7" y1="159.4" x2="107.6" y2="132.4"/>
@@ -487,24 +487,23 @@
       Two leaves are <strong>neighbours</strong> when they share a parent.
     </p>
 
-    <div class="thm-block theorem">
-      <p><span class="thm-label">Theorem.</span> Every simple tree with at least three nodes has a
-      pair of neighbouring leaves.</p>
-    </div>
+    <p>
+      <strong>Theorem.</strong> Every simple tree with at least three nodes has a pair of
+      neighbouring leaves.
+    </p>
 
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Take a longest path in the tree, and let $v$ be one of its two ends. It is a leaf, since
-      otherwise the path could be continued. Let $m$ be its parent. In a simple tree no node has
-      degree two, so $m$ has degree at least three: one edge to $v$, one continuing along the path,
-      and at least one more, to some $u$. If $u$ were not a leaf the walk could go on from $u$ to
-      some further leaf $w$, and the path from $w$ through $u$ and $m$ to the far end would be
-      longer than the one we chose, because it uses at least two edges where the chosen path used
+    <p>
+      The proof is a walk. Take a longest path in the tree and let $v$ be one of its two ends, which
+      is a leaf since otherwise the path could be continued, and let $m$ be its parent. No node of a
+      simple tree has degree two, so $m$ has at least three edges: one to $v$, one continuing along
+      the path, and at least one more, to some node $u$. If $u$ were not a leaf the walk could go on
+      from $u$ to some further leaf $w$, and the path from $w$ through $u$ and $m$ to the far end
+      would beat the one we chose, since it spends at least two edges where the chosen path spent
       only the edge $mv$. So $u$ is a leaf, and $u$ and $v$ share the parent $m$.
-    </details>
+    </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="460" height="290" viewBox="0 0 460 290">
+      <svg class="figure" width="272.2" height="226.6" viewBox="5 3 272.2 226.6">
       <line class="fig-curve" x1="169.3" y1="210" x2="90.3" y2="131"/>
       <text class="fig-text fig-note" x="121.3" y="183" text-anchor="middle">11</text>
       <line class="fig-curve" x1="75.9" y1="145.3" x2="90.3" y2="131"/>
@@ -546,7 +545,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="640" height="300" viewBox="0 0 640 300">
+      <svg class="figure" width="607" height="226" viewBox="5 20 607 226">
       <line class="fig-axis" x1="161.7" y1="200" x2="87.3" y2="125.6"/>
       <text class="fig-text fig-note" x="116.1" y="175.3" text-anchor="middle">11</text>
       <line class="fig-curve" x1="73.8" y1="139.1" x2="87.3" y2="125.6"/>
@@ -624,14 +623,14 @@
       of the edge joining $j$ to its parent.
     </p>
 
-    <div class="thm-block theorem">
-      <p><span class="thm-label">Theorem (Limb length).</span> For an additive matrix and a leaf
-      $j$, $\ \text{LimbLength}(j) = \min_{i,k}\ (D_{ij} + D_{jk} - D_{ik}) / 2$, the minimum
-      taken over all leaves $i$ and $k$ distinct from $j$ and from each other.</p>
-    </div>
+    <p>
+      <strong>Limb Length Theorem.</strong> For an additive matrix and a leaf $j$,
+      $\text{LimbLength}(j) = \min_{i,k}\ (D_{ij} + D_{jk} - D_{ik}) / 2$, the minimum taken over
+      all leaves $i$ and $k$ distinct from $j$ and from each other.
+    </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="420" height="290" viewBox="0 0 420 290">
+      <svg class="figure" width="233.5" height="206.6" viewBox="5 3 233.5 206.6">
       <line class="fig-axis" x1="154.1" y1="190" x2="84.4" y2="120.3"/>
       <text class="fig-text fig-note" x="110.8" y="167.6" text-anchor="middle">11</text>
       <line class="fig-curve" x1="71.7" y1="132.9" x2="84.4" y2="120.3"/>
@@ -657,18 +656,17 @@
       <figcaption>The length of a leaf's limb is readable from the matrix alone. If the paths from $i$ and $k$ to leaf $j$ meet exactly at $j$'s parent, then $D_{ij} + D_{jk} - D_{ik}$ is twice the limb, because everything except the two copies of the limb cancels. If they meet further away the expression is larger, so the minimum over all pairs is the limb length. Here the pair 2, 3 meets further out and gives 6; the true limb is 2. This is the fact that makes the whole reconstruction possible.</figcaption>
     </figure>
 
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Write $m$ for the parent of $j$, so that $D_{ij} = d_{im} + \text{LimbLength}(j)$ for every
-      leaf $i$. Then
-      $D_{ij} + D_{jk} - D_{ik} = 2\,\text{LimbLength}(j) + (d_{im} + d_{mk} - d_{ik})$.
-      The bracket is the amount by which going from $i$ to $k$ via $m$ beats going directly, and it
-      is never negative. It is zero exactly when $m$ lies on the path from $i$ to $k$, that is when
-      $i$ and $k$ hang off $m$ in different directions. Since $m$ has degree at least three, one of
-      its directions leads away from $j$ on each side, so such a pair $i, k$ exists. The expression
-      is therefore never below $2\,\text{LimbLength}(j)$ and attains it, and halving gives the
-      claim.
-    </details>
+    <p>
+      The proof is one line of algebra and one observation. Write $m$ for the parent of $j$, so that
+      $D_{ij} = d_{im} + \text{LimbLength}(j)$ for every leaf $i$. Substituting three times gives
+      $D_{ij} + D_{jk} - D_{ik} = 2\,\text{LimbLength}(j) + (d_{im} + d_{mk} - d_{ik})$. The
+      bracket is the amount by which travelling from $i$ to $k$ through $m$ loses against going
+      directly, so it is never negative, and it is zero exactly when $m$ lies on the path from $i$
+      to $k$, which happens when $i$ and $k$ hang off $m$ in different directions. Since $m$ has
+      degree at least three, one direction leads away from $j$ on each side and such a pair exists.
+      The expression therefore never drops below $2\,\text{LimbLength}(j)$ and does reach it, and
+      halving gives the theorem.
+    </p>
 
     <pre><code class="language-python">def limb_length(n, j, matrix):
     return min((matrix[i][j] + matrix[j][k] - matrix[i][k]) / 2
@@ -688,7 +686,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="622" height="276" viewBox="0 0 622 276">
+      <svg class="figure" width="518.4" height="227" viewBox="75.6 37 518.4 227">
       <text class="fig-text fig-note" x="123" y="76" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="165" y="76" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="207" y="76" text-anchor="middle">2</text>
@@ -778,109 +776,118 @@
     </figure>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="790" viewBox="0 0 760 790">
-      <text class="fig-text fig-note" x="133" y="60" text-anchor="middle">0</text>
-      <text class="fig-text fig-note" x="175" y="60" text-anchor="middle">1</text>
-      <text class="fig-text fig-note" x="217" y="60" text-anchor="middle">2</text>
-      <text class="fig-text fig-note" x="259" y="60" text-anchor="middle">3</text>
-      <text class="fig-text fig-note" x="104" y="94" text-anchor="end">0</text>
-      <rect class="fig-cell" x="112" y="68" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="94" text-anchor="middle">0</text>
-      <rect class="fig-cell" x="154" y="68" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="94" text-anchor="middle">13</text>
-      <rect class="fig-cell" x="196" y="68" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="94" text-anchor="middle">21</text>
-      <rect class="fig-cell" x="238" y="68" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="259" y="94" text-anchor="middle">22</text>
-      <text class="fig-text fig-note" x="104" y="136" text-anchor="end">1</text>
-      <rect class="fig-cell" x="112" y="110" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="136" text-anchor="middle">13</text>
-      <rect class="fig-cell" x="154" y="110" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="136" text-anchor="middle">0</text>
-      <rect class="fig-cell" x="196" y="110" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="136" text-anchor="middle">12</text>
-      <rect class="fig-cell" x="238" y="110" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="259" y="136" text-anchor="middle">13</text>
-      <text class="fig-text fig-note" x="104" y="178" text-anchor="end">2</text>
-      <rect class="fig-cell" x="112" y="152" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="178" text-anchor="middle">21</text>
-      <rect class="fig-cell" x="154" y="152" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="178" text-anchor="middle">12</text>
-      <rect class="fig-cell" x="196" y="152" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="178" text-anchor="middle">0</text>
-      <rect class="fig-cell" x="238" y="152" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="259" y="178" text-anchor="middle">13</text>
-      <text class="fig-text fig-note" x="104" y="220" text-anchor="end">3</text>
-      <rect class="fig-cell" x="112" y="194" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="220" text-anchor="middle">22</text>
-      <rect class="fig-cell" x="154" y="194" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="220" text-anchor="middle">13</text>
-      <rect class="fig-cell" x="196" y="194" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="220" text-anchor="middle">13</text>
-      <rect class="fig-cell-alt" x="238" y="194" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="259" y="220" text-anchor="middle">0</text>
-      <text class="fig-text fig-note" x="196" y="46" text-anchor="middle">trim leaf 3: its limb is 7</text>
-      <text class="fig-text fig-note" x="133" y="310" text-anchor="middle">0</text>
-      <text class="fig-text fig-note" x="175" y="310" text-anchor="middle">1</text>
-      <text class="fig-text fig-note" x="217" y="310" text-anchor="middle">2</text>
-      <text class="fig-text fig-note" x="104" y="344" text-anchor="end">0</text>
-      <rect class="fig-cell" x="112" y="318" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="344" text-anchor="middle">0</text>
-      <rect class="fig-cell" x="154" y="318" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="344" text-anchor="middle">13</text>
-      <rect class="fig-cell" x="196" y="318" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="344" text-anchor="middle">21</text>
-      <text class="fig-text fig-note" x="104" y="386" text-anchor="end">1</text>
-      <rect class="fig-cell" x="112" y="360" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="386" text-anchor="middle">13</text>
-      <rect class="fig-cell" x="154" y="360" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="386" text-anchor="middle">0</text>
-      <rect class="fig-cell" x="196" y="360" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="386" text-anchor="middle">12</text>
-      <text class="fig-text fig-note" x="104" y="428" text-anchor="end">2</text>
-      <rect class="fig-cell" x="112" y="402" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="133" y="428" text-anchor="middle">21</text>
-      <rect class="fig-cell" x="154" y="402" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="175" y="428" text-anchor="middle">12</text>
-      <rect class="fig-cell" x="196" y="402" width="42" height="42"/>
-      <text class="fig-text fig-tick" x="217" y="428" text-anchor="middle">0</text>
-      <text class="fig-text fig-note" x="175" y="296" text-anchor="middle">the trimmed matrix on leaves 0, 1, 2 is solved first</text>
-      <line class="fig-axis" x1="382.3" y1="462" x2="345.4" y2="398.1"/>
-      <text class="fig-text fig-note" x="353.5" y="440" text-anchor="middle">11</text>
-      <line class="fig-axis" x1="345.4" y1="398.1" x2="332" y2="398.1"/>
-      <text class="fig-text fig-note" x="338.7" y="390.1" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="345.4" y1="398.1" x2="379" y2="340"/>
-      <text class="fig-text fig-note" x="351.8" y="367" text-anchor="middle">10</text>
-      <circle class="fig-dot" cx="345.4" cy="398.1" r="3.5"/>
-      <circle class="fig-hole" cx="382.3" cy="462" r="4.5"/>
-      <text class="fig-text fig-tick" x="398.3" y="466" text-anchor="start">0</text>
-      <circle class="fig-hole" cx="332" cy="398.1" r="4.5"/>
-      <text class="fig-text fig-tick" x="316" y="402.1" text-anchor="end">1</text>
-      <circle class="fig-hole" cx="379" cy="340" r="4.5"/>
-      <text class="fig-text fig-tick" x="395" y="344" text-anchor="start">2</text>
-      <line class="fig-axis" x1="336" y1="726" x2="270" y2="660"/>
-      <text class="fig-text fig-note" x="294.5" y="705.5" text-anchor="middle">11</text>
-      <line class="fig-axis" x1="270" y1="660" x2="258" y2="672"/>
-      <text class="fig-text fig-note" x="272.5" y="678.5" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="270" y1="660" x2="270" y2="626"/>
-      <text class="fig-text fig-note" x="258" y="647" text-anchor="middle">4</text>
-      <line class="fig-axis" x1="270" y1="626" x2="234" y2="590"/>
-      <text class="fig-text fig-note" x="260.5" y="603.5" text-anchor="middle">6</text>
-      <line class="fig-curve" x1="270" y1="626" x2="312" y2="584"/>
-      <text class="fig-text fig-note" x="282.5" y="600.5" text-anchor="middle">7</text>
-      <circle class="fig-dot" cx="270" cy="660" r="3.5"/>
-      <circle class="fig-hole" cx="336" cy="726" r="4.5"/>
-      <text class="fig-text fig-tick" x="352" y="730" text-anchor="start">0</text>
-      <circle class="fig-hole" cx="258" cy="672" r="4.5"/>
-      <text class="fig-text fig-tick" x="242" y="676" text-anchor="end">1</text>
-      <circle class="fig-dot" cx="270" cy="626" r="3.5"/>
-      <circle class="fig-hole" cx="234" cy="590" r="4.5"/>
-      <text class="fig-text fig-tick" x="218" y="594" text-anchor="end">2</text>
-      <circle class="fig-hole" cx="312" cy="584" r="4.5"/>
-      <text class="fig-text fig-tick" x="328" y="588" text-anchor="start">3</text>
-      <text class="fig-text fig-note" x="350" y="536" text-anchor="middle">leaf 3 hangs where D(0,3) puts it, at distance 15 from leaf 0</text>
+      <svg class="figure" width="476" height="676.6" viewBox="80.7 7 476 676.6">
+      <text class="fig-text fig-note" x="300" y="30" text-anchor="middle">strip leaf 3: its limb is 7, so subtract it from row and column 3</text>
+      <text class="fig-text fig-note" x="158" y="52" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="198" y="52" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="238" y="52" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="278" y="52" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="130" y="85" text-anchor="end">0</text>
+      <rect class="fig-cell" x="138" y="60" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="85" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="178" y="60" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="85" text-anchor="middle">13</text>
+      <rect class="fig-cell" x="218" y="60" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="85" text-anchor="middle">21</text>
+      <rect class="fig-cell-alt" x="258" y="60" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="278" y="85" text-anchor="middle">15</text>
+      <text class="fig-text fig-note" x="130" y="125" text-anchor="end">1</text>
+      <rect class="fig-cell" x="138" y="100" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="125" text-anchor="middle">13</text>
+      <rect class="fig-cell" x="178" y="100" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="125" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="218" y="100" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="125" text-anchor="middle">12</text>
+      <rect class="fig-cell-alt" x="258" y="100" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="278" y="125" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="130" y="165" text-anchor="end">2</text>
+      <rect class="fig-cell" x="138" y="140" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="165" text-anchor="middle">21</text>
+      <rect class="fig-cell" x="178" y="140" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="165" text-anchor="middle">12</text>
+      <rect class="fig-cell" x="218" y="140" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="165" text-anchor="middle">0</text>
+      <rect class="fig-cell-alt" x="258" y="140" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="278" y="165" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="130" y="205" text-anchor="end">3</text>
+      <rect class="fig-cell-alt" x="138" y="180" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="205" text-anchor="middle">15</text>
+      <rect class="fig-cell-alt" x="178" y="180" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="205" text-anchor="middle">6</text>
+      <rect class="fig-cell-alt" x="218" y="180" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="205" text-anchor="middle">6</text>
+      <rect class="fig-cell" x="258" y="180" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="278" y="205" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="300" y="264" text-anchor="middle">solve what is left, a matrix on three leaves</text>
+      <text class="fig-text fig-note" x="158" y="286" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="198" y="286" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="238" y="286" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="130" y="319" text-anchor="end">0</text>
+      <rect class="fig-cell" x="138" y="294" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="319" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="178" y="294" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="319" text-anchor="middle">13</text>
+      <rect class="fig-cell" x="218" y="294" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="319" text-anchor="middle">21</text>
+      <text class="fig-text fig-note" x="130" y="359" text-anchor="end">1</text>
+      <rect class="fig-cell" x="138" y="334" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="359" text-anchor="middle">13</text>
+      <rect class="fig-cell" x="178" y="334" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="359" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="218" y="334" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="359" text-anchor="middle">12</text>
+      <text class="fig-text fig-note" x="130" y="399" text-anchor="end">2</text>
+      <rect class="fig-cell" x="138" y="374" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="158" y="399" text-anchor="middle">21</text>
+      <rect class="fig-cell" x="178" y="374" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="198" y="399" text-anchor="middle">12</text>
+      <rect class="fig-cell" x="218" y="374" width="40" height="40"/>
+      <text class="fig-text fig-tick" x="238" y="399" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="484.3" y1="430" x2="447.4" y2="366.1"/>
+      <text class="fig-text fig-note" x="455.5" y="408" text-anchor="middle">11</text>
+      <line class="fig-axis" x1="447.4" y1="366.1" x2="434" y2="366.1"/>
+      <text class="fig-text fig-note" x="440.7" y="358.1" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="447.4" y1="366.1" x2="481" y2="308"/>
+      <text class="fig-text fig-note" x="453.8" y="335" text-anchor="middle">10</text>
+      <circle class="fig-dot" cx="447.4" cy="366.1" r="3.5"/>
+      <circle class="fig-hole" cx="484.3" cy="430" r="4.5"/>
+      <text class="fig-text fig-tick" x="500.3" y="434" text-anchor="start">0</text>
+      <circle class="fig-hole" cx="434" cy="366.1" r="4.5"/>
+      <text class="fig-text fig-tick" x="418" y="370.1" text-anchor="end">1</text>
+      <circle class="fig-hole" cx="481" cy="308" r="4.5"/>
+      <text class="fig-text fig-tick" x="497" y="312" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="300" y="498" text-anchor="middle">hang leaf 3 back on, 15 along the path from 0, with a limb of 7</text>
+      <line class="fig-axis" x1="521.7" y1="664" x2="464.9" y2="607.3"/>
+      <text class="fig-text fig-note" x="484.8" y="648.1" text-anchor="middle">11</text>
+      <line class="fig-axis" x1="464.9" y1="607.3" x2="454.6" y2="617.6"/>
+      <text class="fig-text fig-note" x="468.3" y="624.9" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="464.9" y1="607.3" x2="464.9" y2="578.1"/>
+      <text class="fig-text fig-note" x="452.9" y="596.7" text-anchor="middle">4</text>
+      <line class="fig-axis" x1="464.9" y1="578.1" x2="434" y2="547.2"/>
+      <text class="fig-text fig-note" x="458" y="558.1" text-anchor="middle">6</text>
+      <line class="fig-curve" x1="464.9" y1="578.1" x2="501" y2="542"/>
+      <text class="fig-text fig-note" x="474.5" y="555.6" text-anchor="middle">7</text>
+      <circle class="fig-dot" cx="464.9" cy="607.3" r="3.5"/>
+      <circle class="fig-hole" cx="521.7" cy="664" r="4.5"/>
+      <text class="fig-text fig-tick" x="537.7" y="668" text-anchor="start">0</text>
+      <circle class="fig-hole" cx="454.6" cy="617.6" r="4.5"/>
+      <text class="fig-text fig-tick" x="438.6" y="621.6" text-anchor="end">1</text>
+      <circle class="fig-dot" cx="464.9" cy="578.1" r="3.5"/>
+      <circle class="fig-hole" cx="434" cy="547.2" r="4.5"/>
+      <text class="fig-text fig-tick" x="418" y="551.2" text-anchor="end">2</text>
+      <circle class="fig-hole" cx="501" cy="542" r="4.5"/>
+      <text class="fig-text fig-tick" x="517" y="546" text-anchor="start">3</text>
+      <line class="fig-curve" x1="200" y1="234" x2="200" y2="244"/>
+      <path class="fig-dot" d="M 200 250 L 197.3 244 L 202.7 244 Z"/>
+      <text class="fig-text fig-note" x="210" y="245" text-anchor="start">delete it</text>
+      <line class="fig-curve" x1="276" y1="354" x2="324" y2="354"/>
+      <path class="fig-dot" d="M 330 354 L 324 356.7 L 324 351.3 Z"/>
+      <text class="fig-text fig-note" x="303" y="342" text-anchor="middle">solve</text>
+      <line class="fig-curve" x1="460" y1="468" x2="460" y2="478"/>
+      <path class="fig-dot" d="M 460 484 L 457.3 478 L 462.7 478 Z"/>
+      <text class="fig-text fig-note" x="470" y="479" text-anchor="start">put it back</text>
       </svg>
-      <figcaption>AdditivePhylogeny on the running matrix, one leaf at a time. The limb of leaf 3 is read off the matrix and subtracted from its row and column, which makes leaf 3 bald: its limb has length zero and it now sits exactly on a point of the tree built from the other three leaves. Solve that smaller problem, find the point at the right distance along the path, split the edge there if no node is already at that spot, and hang the limb back on. Each round removes one leaf, so the whole reconstruction is $O(n^3)$.</figcaption>
+      <figcaption>AdditivePhylogeny on the running matrix, one leaf at a time, with the matrix on the left and the tree it stands for on the right. Subtracting leaf 3's limb from its row and column makes it bald, so it lies on the tree rather than hanging off it. Delete it, solve the three-leaf problem, then walk the path from 0 to find the point 15 along it, splitting an edge if no node is already there, and hang the limb back on. Each round removes one leaf, so the whole reconstruction costs $O(n^3)$.</figcaption>
     </figure>
 
     <pre><code class="language-python">def additive_phylogeny(matrix, n, fresh=None):
@@ -938,7 +945,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="600" height="312" viewBox="0 0 600 312">
+      <svg class="figure" width="496.4" height="264.6" viewBox="75.6 37 496.4 264.6">
       <text class="fig-text fig-note" x="123" y="76" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="165" y="76" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="207" y="76" text-anchor="middle">2</text>
@@ -1046,7 +1053,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="560" height="300" viewBox="0 0 560 300">
+      <svg class="figure" width="445" height="266.6" viewBox="48 19 445 266.6">
       <line class="fig-axis" x1="90" y1="250" x2="90" y2="150"/>
       <line class="fig-axis" x1="90" y1="150" x2="125" y2="150"/>
       <line class="fig-axis" x1="170" y1="250" x2="170" y2="150"/>
@@ -1080,7 +1087,7 @@
     </figure>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="330" viewBox="0 0 760 330">
+      <svg class="figure" width="483.4" height="248.6" viewBox="81.6 21 483.4 248.6">
       <text class="fig-text fig-note" x="129" y="70" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="171" y="70" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="213" y="70" text-anchor="middle">2</text>
@@ -1175,7 +1182,7 @@
     return tree</code></pre>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="600" viewBox="0 0 760 600">
+      <svg class="figure" width="599.3" height="547" viewBox="48 21 599.3 547">
       <text class="fig-text fig-note" x="60" y="60" text-anchor="start">round 1: closest are 2 and 3 at 10, so their parent has age 5</text>
       <text class="fig-text fig-note" x="119" y="74" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="157" y="74" text-anchor="middle">1</text>
@@ -1291,7 +1298,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="780" height="258" viewBox="0 0 780 258">
+      <svg class="figure" width="747.7" height="186.6" viewBox="-1 -1 747.7 186.6">
       <line class="fig-curve" x1="148.1" y1="166" x2="46.7" y2="64.6"/>
       <text class="fig-text fig-note" x="88.9" y="127.8" text-anchor="middle">8</text>
       <line class="fig-axis" x1="46.7" y1="64.6" x2="34" y2="77.3"/>
@@ -1361,7 +1368,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="644" height="300" viewBox="0 0 644 300">
+      <svg class="figure" width="572.2" height="228" viewBox="81.6 28 572.2 228">
       <text class="fig-text fig-note" x="129" y="68" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="171" y="68" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="213" y="68" text-anchor="middle">2</text>
@@ -1452,25 +1459,23 @@
       <figcaption>Neighbour-joining does not look for the smallest distance, which the counterexample above showed can mislead. It first subtracts from every entry the total distance of each of its two leaves to everything else, which penalises leaves that are far from the whole tree rather than only from each other. In $D$ the smallest entry is $D_{0,3} = 20$; in $D^*$ the smallest is the same pair, and the theorem says that for an additive matrix the smallest entry of $D^*$ is always a pair of genuine neighbours.</figcaption>
     </figure>
 
-    <div class="thm-block theorem">
-      <p><span class="thm-label">Theorem (Neighbour-joining).</span> For an additive matrix, the
-      smallest element of $D^*$ is attained at a pair of neighbouring leaves.</p>
-    </div>
+    <p>
+      <strong>Neighbour-Joining Theorem.</strong> For an additive matrix, the smallest element of
+      $D^*$ is attained at a pair of neighbouring leaves.
+    </p>
 
-    <details class="proof">
-      <summary class="proof-label">Where this comes from.</summary>
-      The idea is that $D^*_{ij}$ measures a total tree length rather than a distance. Fix a pair
-      $i, j$, join them to a new node, and attach every remaining leaf to that node as a star. Up to
-      a constant that does not depend on the pair, the total edge weight of that tree is exactly
-      $D^*_{ij}$, so choosing the smallest entry of $D^*$ is choosing the join that leaves the
+    <p>
+      What the transformation is doing is measuring a total tree length rather than a distance. Fix
+      a pair $i, j$, join them to a new node, and attach every remaining leaf to that node as a
+      star. Up to a constant that does not depend on the pair, the total edge weight of that tree is
+      $D^*_{ij}$, so taking the smallest entry of $D^*$ is choosing the join that leaves the
       shortest tree. On an additive matrix the shortest tree is the true one, and the true tree
-      joins only genuine neighbours. Subtracting $\text{Total}(i)$ and $\text{Total}(j)$ is what
-      converts a distance into that length, and it is why a leaf sitting far from everything is no
-      longer punished for it: the counterexample of Section 6 fails precisely because plain $D_{ij}$
-      has no such correction. Turning this into a full proof means checking that no non-neighbouring
-      pair can tie or beat a neighbouring one, which is a case analysis over the shapes the two
-      pairs can take, and it is not reproduced here.
-    </details>
+      joins only genuine neighbours. Subtracting the two total distances is what converts a distance
+      into that length, and it is why a leaf far from everything is no longer punished for it, which
+      is exactly what went wrong with the plain minimum. Turning this into a full proof means
+      checking that no non-neighbouring pair can tie or beat a neighbouring one, a case analysis
+      over the shapes the two pairs can take, and it is not reproduced here.
+    </p>
 
     <pre><code class="language-python">def total_distance(matrix):
     return [sum(row) for row in matrix]
@@ -1513,7 +1518,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     return tree</code></pre>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="516" viewBox="0 0 760 516">
+      <svg class="figure" width="714.5" height="416.6" viewBox="48 37 714.5 416.6">
       <text class="fig-text fig-note" x="60" y="60" text-anchor="start">round 1: build D*, and take its smallest entry</text>
       <text class="fig-text fig-note" x="119" y="74" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="157" y="74" text-anchor="middle">1</text>
@@ -1671,7 +1676,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="780" height="264" viewBox="0 0 780 264">
+      <svg class="figure" width="658.4" height="223" viewBox="99.6 19 658.4 223">
       <text class="fig-text fig-note" x="194" y="64" text-anchor="middle">alignment A</text>
       <text class="fig-text fig-note" x="118" y="92" text-anchor="end">0</text>
       <rect class="fig-cell-alt" x="128" y="76" width="22" height="22"/>
@@ -1879,7 +1884,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="590" height="266" viewBox="0 0 590 266">
+      <svg class="figure" width="467" height="205" viewBox="75 51 467 205">
       <text class="fig-text fig-note" x="188" y="74" text-anchor="middle">wings</text>
       <text class="fig-text fig-note" x="264" y="74" text-anchor="middle">feathers</text>
       <text class="fig-text fig-note" x="340" y="74" text-anchor="middle">fur</text>
@@ -1954,7 +1959,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="620" height="250" viewBox="0 0 620 250">
+      <svg class="figure" width="443.7" height="195.5" viewBox="84.1 20 443.7 195.5">
       <line class="fig-axis" x1="110" y1="60" x2="170" y2="130"/>
       <line class="fig-axis" x1="230" y1="60" x2="170" y2="130"/>
       <line class="fig-axis" x1="350" y1="60" x2="410" y2="130"/>
@@ -2014,7 +2019,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="300" viewBox="0 0 760 300">
+      <svg class="figure" width="693" height="264.6" viewBox="73 1 693 264.6">
       <line class="fig-axis" x1="90" y1="60" x2="140" y2="150"/>
       <line class="fig-axis" x1="190" y1="60" x2="140" y2="150"/>
       <line class="fig-axis" x1="330" y1="60" x2="380" y2="150"/>
@@ -2124,7 +2129,7 @@ def small_parsimony(children, labels, root):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="620" height="250" viewBox="0 0 620 250">
+      <svg class="figure" width="374" height="220.6" viewBox="93 17 374 220.6">
       <line class="fig-axis" x1="110" y1="200" x2="160" y2="130"/>
       <line class="fig-axis" x1="210" y1="200" x2="160" y2="130"/>
       <line class="fig-axis" x1="350" y1="200" x2="400" y2="130"/>
@@ -2205,7 +2210,7 @@ def small_parsimony(children, labels, root):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="200" viewBox="0 0 760 200">
+      <svg class="figure" width="683.7" height="166.6" viewBox="38.2 3 683.7 166.6">
       <line class="fig-axis" x1="71.2" y1="50" x2="110" y2="100"/>
       <line class="fig-axis" x1="71.2" y1="150" x2="110" y2="100"/>
       <line class="fig-axis" x1="189" y1="50" x2="176" y2="100"/>
@@ -2313,7 +2318,7 @@ def nearest_neighbour_interchange(tree, labels):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="396" viewBox="0 0 760 396">
+      <svg class="figure" width="480.1" height="325.5" viewBox="54.1 1 480.1 325.5">
       <line class="fig-axis" x1="294.3" y1="295.3" x2="260.3" y2="252.7"/>
       <line class="fig-curve" x1="294.3" y1="295.3" x2="294.9" y2="295.6"/>
       <line class="fig-curve" x1="294.3" y1="295.3" x2="294.4" y2="295.9"/>

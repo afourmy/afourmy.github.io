@@ -21,6 +21,14 @@ corresponding chapter of the course.
 2. Read as a course, not as a book summary. Chapters build on each other and may refer back to
    results, definitions, and code from earlier ones.
 
+**Develop the notes, do not transcribe them.** My notes are shorthand: a line like "Theorem:
+limblength(j) = Min(...)" is a reminder to me, not a paragraph of a course. Turning it into one
+means saying what the quantity is, why it can be recovered from the matrix at all, what the minimum
+is doing there, and then proving it. A bolded restatement of my line with nothing around it is the
+failure mode to avoid, and it is the one I keep having to point out. As a rough gauge, the written
+chapters run about six sentences and three hundred characters per paragraph and every idea gets
+developed rather than named; match that.
+
 **Audience.** A computer science student who is interested in genomics but knows no biology.
 Assume no biology or genomics background at all: every biological term is introduced the first
 time it is used, in one or two plain sentences, and only to the depth the algorithm requires.
@@ -49,6 +57,13 @@ probability, and Python. Never explain CS.
   chain of "this fails because X, so we do Y instead" is the spine of the course.
 - Close the loop. A chapter opens on a biological question, so it ends by answering it: apply the
   final algorithm to the motivating case and say what it finds. Never end on a technical aside.
+- Answer it by computation wherever that is possible. Fetch the real sequences from NCBI or UniProt
+  and run the chapter's own code on them: the skew of the real *E. coli* genome locating ori to
+  within 150 nucleotides, the local alignment of a fly gene against a human one recovering the
+  homeobox, neighbour-joining on seven real coronavirus genomes naming the civet. A computed answer
+  is worth far more than a cited one, and it also proves the code works. Where the honest answer
+  cannot be computed here, say plainly that the result is quoted rather than derived, and say what
+  the method can and cannot establish.
 
 **Freedom to reorganise.** You are not required to follow the order of my notes, or the order of
 the book. Assemble the material into whatever order makes the most sense for a CS student, and
@@ -82,6 +97,12 @@ Python from the HTML page instead of retyping it, so the test runs the published
 the sample data off the page instead of recalling it. For randomized algorithms compare the score
 reached, not the exact output, since several answers tie at the optimum. Cross-checking a fast
 algorithm against the slow one it replaced is worth more than any single sample.
+
+Every number that appears in the prose or in a figure caption is computed or fetched, never recalled:
+genome lengths, positions, scores, counts, the intermediate matrices of a traced algorithm. Write the
+check as an assertion and run it. Hand-typed intermediate values are the single most reliable source
+of errors in this course so far, and every one of them has been caught this way rather than by
+reading.
 
 **Figures.** A drawing that makes an idea visible beats a paragraph describing it, and a figure is
 the explanation rather than decoration. Look for the drawing first, for every section. A chapter
@@ -120,23 +141,29 @@ figure:
 - **Every figure fits the 812px content column.** Wider figures are scaled down by the browser,
   which shrinks the text with them, and the page must never scroll sideways.
 
-**Theorems.** A theorem is not a bolded sentence. Use the site's own markup, as `cs/graph-theory.html`
-does:
+**Theorems.** Match the house style of the chapters already written, which is flowing prose
+throughout and no special markup:
 
 ```html
-<div class="thm-block theorem">
-  <p><span class="thm-label">Theorem (Name).</span> Statement.</p>
-</div>
+<p>
+  <strong>Cycle Theorem.</strong> Statement, in one or two sentences.
+</p>
 
-<details class="proof">
-  <summary class="proof-label">Proof.</summary>
-  Body.
-</details>
+<p>
+  The proof is constructive, and it is the algorithm. ... 
+</p>
 ```
 
-Every theorem the notes mark with "Proof" gets a real proof in that block, written out rather than
-gestured at. Where a proof is genuinely long machinery, give the idea it turns on and say plainly
-that the full argument is not reproduced; never let a sketch masquerade as a proof.
+The statement is a bolded lead-in inside an ordinary paragraph, named where it has a name
+(`Euler's Theorem.`, `Cycle Theorem.`, `Limb Length Theorem.`) and plain `Theorem.` where it does
+not. The proof is the paragraph that follows and it announces itself in its first clause: "The
+proof is constructive", "The proof is one line of algebra and one observation", "The proof is a
+walk". Do not use `thm-block`, `<details>` or any other markup the earlier chapters do not use, even
+though the mathematics pages do.
+
+Every theorem the notes mark with "Proof" gets a real proof written out. Where the real argument is
+long machinery, give the idea it turns on and say plainly that the full argument is not reproduced;
+never let a sketch masquerade as a proof.
 
 **Output format.** A complete HTML page in `bioinformatics/`, named by slug, following the
 conventions of the chapters already there:
@@ -145,7 +172,7 @@ conventions of the chapters already there:
   `<header class="page-banner">`, then `<h2>` per section and `<h3>` for subsections within a
   section that runs long. Add the page to `nav.js` under **Bioinformatics** as
   `Chapter N: Short Title`, at most three words in the title, and add a row to
-  `bioinformatics/index.html`.
+  `bioinformatics/index.html`. Link mentions of other chapters to their slugs.
 - **`<pre>` is for code and for nothing else.** Python goes in
   `<pre><code class="language-python">`. Inline identifiers in `<code>`.
 - Anything that is data rather than code is a figure, not a monospace block: alignments, scoring
