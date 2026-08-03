@@ -57,6 +57,28 @@ and above all the visual form. The prose rules above still win over it.
 - In an alignment figure, matched columns are filled and tied with a vertical rule so the eye counts
   them; mismatches and gaps are left plain.
 
+## Figure layout
+The recurring mistakes, all of which the user has had to point out at least once:
+
+- **Nothing touches anything.** Edge labels are offset *perpendicular* to their edge, not nudged
+  vertically from the midpoint, which lands them on diagonal lines. Coincident leaf labels get
+  nudged apart.
+- **Prose goes in the `<figcaption>`, never inside the SVG.** In the drawing put only short panel
+  labels of two or three words. Derivations and conclusions go in the caption; a column of text
+  beside a drawing is a caption in the wrong place.
+- **Panel labels go above their panel and nothing goes below it.** Never both.
+- **Arrows between panels use `fig-curve` weight and sit centred** on the gap they span.
+- **Render every figure and look at it** before shipping. Right-anchored text falling off the
+  canvas is the usual failure.
+- **Nothing exceeds the 812px content column**, or the browser scales it down and shrinks the text.
+
+## Theorems
+Use the site's markup, as `cs/graph-theory.html` does: `<div class="thm-block theorem">` with a
+`<span class="thm-label">`, followed by `<details class="proof"><summary class="proof-label">`. A
+bolded sentence in a paragraph is not a theorem. Every theorem the notes mark "Proof" gets one
+written out; where the real proof is long machinery, give the idea and say plainly that the full
+argument is not reproduced.
+
 ## Verifying the code
 Every algorithm matches a problem in the Rosalind textbook track, whose pages publish sample input
 and output and need no account. Extract the Python from the rendered page rather than retyping it,

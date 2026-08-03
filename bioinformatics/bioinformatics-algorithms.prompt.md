@@ -102,6 +102,42 @@ with no figure in it is a chapter that is not finished.
 - In an alignment figure, matched columns are filled and tied with a vertical rule so the eye counts
   them; mismatched columns and gaps stay plain.
 
+**Figure layout.** These are the mistakes that keep recurring, so check each one before shipping a
+figure:
+
+- **Nothing touches anything.** A label on an edge is offset perpendicular to that edge, never
+  placed at the midpoint with a small vertical nudge, which puts it on top of diagonal lines. Leaf
+  labels that land on the same spot get nudged apart.
+- **Prose belongs in the `<figcaption>`, not in the SVG.** Inside the drawing put only short panel
+  labels: two or three words naming what a panel is. Derivations, conclusions and full sentences go
+  in the caption. A column of explanatory text beside a drawing is a caption in the wrong place.
+- **Panel labels go above their panel, always, and nothing goes below it.** Never label one panel
+  above and annotate another below; never do both to the same panel.
+- **Arrows between panels are `fig-curve` weight and centred** on the gap between what they join.
+  A thin arrow floating off-centre reads as a mistake.
+- **Check the canvas actually contains the drawing.** Right-anchored text and long notes are the
+  usual things that fall off the edge. Render it and look before shipping.
+- **Every figure fits the 812px content column.** Wider figures are scaled down by the browser,
+  which shrinks the text with them, and the page must never scroll sideways.
+
+**Theorems.** A theorem is not a bolded sentence. Use the site's own markup, as `cs/graph-theory.html`
+does:
+
+```html
+<div class="thm-block theorem">
+  <p><span class="thm-label">Theorem (Name).</span> Statement.</p>
+</div>
+
+<details class="proof">
+  <summary class="proof-label">Proof.</summary>
+  Body.
+</details>
+```
+
+Every theorem the notes mark with "Proof" gets a real proof in that block, written out rather than
+gestured at. Where a proof is genuinely long machinery, give the idea it turns on and say plainly
+that the full argument is not reproduced; never let a sketch masquerade as a proof.
+
 **Output format.** A complete HTML page in `bioinformatics/`, named by slug, following the
 conventions of the chapters already there:
 

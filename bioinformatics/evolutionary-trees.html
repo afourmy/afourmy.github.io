@@ -476,10 +476,24 @@
     <h2>Neighbouring Leaves</h2>
 
     <p>
-      Two leaves are <strong>neighbours</strong> when they share a parent. Every simple tree with at
-      least three nodes has a pair of them, which can be seen by walking away from any leaf until the
-      path can go no further: the node reached last has at least two leaves hanging off it.
+      Two leaves are <strong>neighbours</strong> when they share a parent.
     </p>
+
+    <div class="thm-block theorem">
+      <p><span class="thm-label">Theorem.</span> Every simple tree with at least three nodes has a
+      pair of neighbouring leaves.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Take a longest path in the tree, and let $v$ be one of its two ends. It is a leaf, since
+      otherwise the path could be continued. Let $m$ be its parent. In a simple tree no node has
+      degree two, so $m$ has degree at least three: one edge to $v$, one continuing along the path,
+      and at least one more, to some $u$. If $u$ were not a leaf the walk could go on from $u$ to
+      some further leaf $w$, and the path from $w$ through $u$ and $m$ to the far end would be
+      longer than the one we chose, because it uses at least two edges where the chosen path used
+      only the edge $mv$. So $u$ is a leaf, and $u$ and $v$ share the parent $m$.
+    </details>
 
     <figure class="figure-block">
       <svg class="figure" width="740" height="290" viewBox="0 0 740 290">
@@ -609,11 +623,11 @@
       of the edge joining $j$ to its parent.
     </p>
 
-    <p>
-      <strong>Theorem.</strong>
-      $\text{LimbLength}(j) = \min_{i,k}\ (D_{ij} + D_{jk} - D_{ik}) / 2$ over all leaves $i$ and
-      $k$ distinct from $j$ and from each other.
-    </p>
+    <div class="thm-block theorem">
+      <p><span class="thm-label">Theorem (Limb length).</span> For an additive matrix and a leaf
+      $j$, $\ \text{LimbLength}(j) = \min_{i,k}\ (D_{ij} + D_{jk} - D_{ik}) / 2$, the minimum
+      taken over all leaves $i$ and $k$ distinct from $j$ and from each other.</p>
+    </div>
 
     <figure class="figure-block">
       <svg class="figure" width="740" height="300" viewBox="0 0 740 300">
@@ -649,14 +663,18 @@
       <figcaption>The length of a leaf's limb is readable from the matrix alone. If the paths from $i$ and $k$ to leaf $j$ meet exactly at $j$'s parent, then $D_{ij} + D_{jk} - D_{ik}$ is twice the limb, because everything except the two copies of the limb cancels. If they meet further away the expression is larger, so the minimum over all pairs is the limb length. Here the pair 2, 3 meets further out and gives 6; the true limb is 2. This is the fact that makes the whole reconstruction possible.</figcaption>
     </figure>
 
-    <p>
-      The path from $i$ to $j$ and the path from $j$ to $k$ both end with $j$'s limb. Adding them
-      counts the limb twice and counts the rest of both paths once; subtracting $D_{ik}$ removes
-      exactly the rest, provided the two paths separate at $j$'s parent. If they separate further
-      from $j$ the subtraction leaves something over, so the expression is never below twice the
-      limb and reaches it whenever $i$ and $k$ lie on opposite sides of the parent. Such a pair
-      always exists, so the minimum is the limb.
-    </p>
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Write $m$ for the parent of $j$, so that $D_{ij} = d_{im} + \text{LimbLength}(j)$ for every
+      leaf $i$. Then
+      $D_{ij} + D_{jk} - D_{ik} = 2\,\text{LimbLength}(j) + (d_{im} + d_{mk} - d_{ik})$.
+      The bracket is the amount by which going from $i$ to $k$ via $m$ beats going directly, and it
+      is never negative. It is zero exactly when $m$ lies on the path from $i$ to $k$, that is when
+      $i$ and $k$ hang off $m$ in different directions. Since $m$ has degree at least three, one of
+      its directions leads away from $j$ on each side, so such a pair $i, k$ exists. The expression
+      is therefore never below $2\,\text{LimbLength}(j)$ and attains it, and halving gives the
+      claim.
+    </details>
 
     <pre><code class="language-python">def limb_length(n, j, matrix):
     return min((matrix[i][j] + matrix[j][k] - matrix[i][k]) / 2
@@ -1445,10 +1463,25 @@
       <figcaption>Neighbour-joining does not look for the smallest distance, which the counterexample above showed can mislead. It first subtracts from every entry the total distance of each of its two leaves to everything else, which penalises leaves that are far from the whole tree rather than only from each other. In $D$ the smallest entry is $D_{0,3} = 20$; in $D^*$ the smallest is the same pair, and the theorem says that for an additive matrix the smallest entry of $D^*$ is always a pair of genuine neighbours.</figcaption>
     </figure>
 
-    <p>
-      <strong>Neighbour-Joining Theorem.</strong> For an additive matrix, the smallest element of
-      $D^*$ corresponds to a pair of neighbouring leaves.
-    </p>
+    <div class="thm-block theorem">
+      <p><span class="thm-label">Theorem (Neighbour-joining).</span> For an additive matrix, the
+      smallest element of $D^*$ is attained at a pair of neighbouring leaves.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Where this comes from.</summary>
+      The idea is that $D^*_{ij}$ measures a total tree length rather than a distance. Fix a pair
+      $i, j$, join them to a new node, and attach every remaining leaf to that node as a star. Up to
+      a constant that does not depend on the pair, the total edge weight of that tree is exactly
+      $D^*_{ij}$, so choosing the smallest entry of $D^*$ is choosing the join that leaves the
+      shortest tree. On an additive matrix the shortest tree is the true one, and the true tree
+      joins only genuine neighbours. Subtracting $\text{Total}(i)$ and $\text{Total}(j)$ is what
+      converts a distance into that length, and it is why a leaf sitting far from everything is no
+      longer punished for it: the counterexample of Section 6 fails precisely because plain $D_{ij}$
+      has no such correction. Turning this into a full proof means checking that no non-neighbouring
+      pair can tie or beat a neighbouring one, which is a case analysis over the shapes the two
+      pairs can take, and it is not reproduced here.
+    </details>
 
     <pre><code class="language-python">def total_distance(matrix):
     return [sum(row) for row in matrix]
