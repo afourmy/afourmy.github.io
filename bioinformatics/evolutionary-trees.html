@@ -170,7 +170,6 @@
       <rect class="fig-cell-alt" x="274" y="154" width="26" height="26"/>
       <text class="fig-text fig-tick" x="287" y="172" text-anchor="middle">A</text>
       <text class="fig-text fig-note" x="196" y="64" text-anchor="middle">aligned sequences</text>
-      <text class="fig-text fig-note" x="196" y="202" text-anchor="middle">shaded columns are the ones that differ</text>
       <text class="fig-text fig-note" x="439" y="86" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="481" y="86" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="523" y="86" text-anchor="middle">2</text>
@@ -213,7 +212,7 @@
       <text class="fig-text fig-tick" x="565" y="246" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="502" y="64" text-anchor="middle">pairwise distances</text>
       </svg>
-      <figcaption>Sequences go in, a matrix comes out. Each entry counts the positions at which two of the aligned sequences differ, so row 0 against row 1 is 1 because they differ at one column. Any measure will do provided it is symmetric, zero only between identical sequences, and never takes a detour that beats the direct route. From here on the sequences are gone and only the matrix is left, which is both the strength of these methods and their weakness.</figcaption>
+      <figcaption>Sequences go in, a matrix comes out. Shaded columns are the ones where the four sequences do not all agree. Each entry counts the positions at which two of the aligned sequences differ, so row 0 against row 1 is 1 because they differ at one column. Any measure will do provided it is symmetric, zero only between identical sequences, and never takes a detour that beats the direct route. From here on the sequences are gone and only the matrix is left, which is both the strength of these methods and their weakness.</figcaption>
     </figure>
 
     <p>
@@ -252,15 +251,15 @@
     <figure class="figure-block">
       <svg class="figure" width="660" height="320" viewBox="0 0 660 320">
       <line class="fig-curve" x1="204.3" y1="254" x2="107.5" y2="157.3"/>
-      <text class="fig-text fig-note" x="155.9" y="200.6" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="147.4" y="218.1" text-anchor="middle">11</text>
       <line class="fig-axis" x1="90" y1="174.9" x2="107.5" y2="157.3"/>
-      <text class="fig-text fig-note" x="98.8" y="161.1" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="107.2" y="178.6" text-anchor="middle">2</text>
       <line class="fig-curve" x1="160.3" y1="54.8" x2="107.5" y2="107.5"/>
-      <text class="fig-text fig-note" x="133.9" y="76.2" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="125.4" y="76.7" text-anchor="middle">6</text>
       <line class="fig-axis" x1="46" y1="46" x2="107.5" y2="107.5"/>
-      <text class="fig-text fig-note" x="76.8" y="71.8" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="85.3" y="72.3" text-anchor="middle">7</text>
       <line class="fig-curve" x1="107.5" y1="157.3" x2="107.5" y2="107.5"/>
-      <text class="fig-text fig-note" x="107.5" y="127.4" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="95.5" y="136.4" text-anchor="middle">4</text>
       <circle class="fig-dot" cx="107.5" cy="157.3" r="3.5"/>
       <circle class="fig-hole" cx="204.3" cy="254" r="4.5"/>
       <text class="fig-text fig-tick" x="220.3" y="258" text-anchor="start">0</text>
@@ -313,7 +312,6 @@
       <text class="fig-text fig-tick" x="599" y="244" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="536" y="66" text-anchor="middle">the distance matrix it induces</text>
       <text class="fig-text fig-note" x="180" y="32" text-anchor="middle">a weighted tree</text>
-      <text class="fig-text fig-tick" x="536" y="286" text-anchor="middle">the path from 0 to 2 weighs 11 + 4 + 6 = 21</text>
       </svg>
       <figcaption>A weighted unrooted tree and the distance matrix it induces. Entry $(i, j)$ is the total weight of the unique path between leaf $i$ and leaf $j$, so the highlighted path gives the shaded entry: $11 + 4 + 6 = 21$. Going this way is a walk over the tree and costs $O(n^2)$. The chapter is about going the other way, from the matrix to the tree, which is the direction biology needs: only the sequences are observed, so only the matrix is.</figcaption>
     </figure>
@@ -331,12 +329,23 @@
     <h2>Which Matrices Fit a Tree</h2>
 
     <p>
-      The problem as stated need not have a solution. A matrix for which some tree exists is called
-      <strong>additive</strong>, and most matrices are not.
+      The problem as stated need not have a solution, and usually does not. Four leaves are enough
+      to see why. Any tree on four leaves has a middle edge with two leaves hanging off each end, so
+      of the three ways of pairing the leaves up, one pairing is the true split. Take the three sums
+      $D_{01} + D_{23}$, $D_{02} + D_{13}$ and $D_{03} + D_{12}$. The pairing that matches the tree
+      never crosses the middle edge, while the other two cross it twice each, so those two sums are
+      equal to one another and both exceed the first by twice the weight of that edge.
+    </p>
+
+    <p>
+      That is a condition the numbers must satisfy: of the three sums, the two largest are equal. A
+      matrix violating it comes from no weighted tree whatever, and since the three sums of an
+      arbitrary matrix have no reason to line up that way, most matrices come from no tree. One that
+      does is called <strong>additive</strong>.
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="720" height="340" viewBox="0 0 720 340">
+      <svg class="figure" width="720" height="300" viewBox="0 0 720 300">
       <text class="fig-text fig-note" x="133" y="80" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="175" y="80" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="217" y="80" text-anchor="middle">2</text>
@@ -379,15 +388,15 @@
       <text class="fig-text fig-tick" x="259" y="240" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="196" y="64" text-anchor="middle">a matrix that fits no tree</text>
       <line class="fig-axis" x1="515.1" y1="204.3" x2="483.4" y2="172.6"/>
-      <text class="fig-text fig-note" x="499.3" y="183.4" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="490.8" y="200.9" text-anchor="middle">1</text>
       <line class="fig-axis" x1="483.4" y1="172.6" x2="420" y2="236"/>
-      <text class="fig-text fig-note" x="451.7" y="199.3" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="460.2" y="216.8" text-anchor="middle">2</text>
       <line class="fig-axis" x1="483.4" y1="172.6" x2="483.4" y2="127.7"/>
-      <text class="fig-text fig-note" x="483.4" y="145.1" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="495.4" y="154.1" text-anchor="middle">1</text>
       <line class="fig-axis" x1="483.4" y1="127.7" x2="451.7" y2="96"/>
-      <text class="fig-text fig-note" x="467.6" y="106.9" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="476.1" y="107.4" text-anchor="middle">1</text>
       <line class="fig-axis" x1="483.4" y1="127.7" x2="515.1" y2="96"/>
-      <text class="fig-text fig-note" x="499.3" y="106.9" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="490.8" y="107.4" text-anchor="middle">1</text>
       <circle class="fig-dot" cx="483.4" cy="172.6" r="3.5"/>
       <circle class="fig-hole" cx="515.1" cy="204.3" r="4.5"/>
       <text class="fig-text fig-tick" x="531.1" y="208.3" text-anchor="start">0</text>
@@ -398,10 +407,9 @@
       <text class="fig-text fig-tick" x="435.7" y="100" text-anchor="end">2</text>
       <circle class="fig-hole" cx="515.1" cy="96" r="4.5"/>
       <text class="fig-text fig-tick" x="531.1" y="100" text-anchor="start">3</text>
-      <text class="fig-text fig-note" x="530" y="44" text-anchor="middle">the closest tree, and it is wrong</text>
-      <text class="fig-text fig-tick" x="530" y="300" text-anchor="middle">it gives D(1,3) = 4, not 5</text>
+      <text class="fig-text fig-note" x="530" y="40" text-anchor="middle">the closest tree there is</text>
       </svg>
-      <figcaption>Not every matrix comes from a tree. For four leaves, additivity requires that of the three ways of pairing them, $D_{01}+D_{23}$, $D_{02}+D_{13}$ and $D_{03}+D_{12}$, the two largest are equal. Here they are 5, 9 and 7, so no weighted tree induces this matrix and the best any tree can do is miss some entries. A matrix for which a tree does exist is called <strong>additive</strong>, and for an additive matrix that tree is unique.</figcaption>
+      <figcaption>Not every matrix comes from a tree. For four leaves, additivity requires that of the three ways of pairing them, $D_{01}+D_{23}$, $D_{02}+D_{13}$ and $D_{03}+D_{12}$, the two largest are equal. Here they are 5, 9 and 7, so no weighted tree induces this matrix: the tree drawn is the closest there is, and it still gives $D_{1,3} = 4$ where the data says 5. A matrix for which a tree does exist is called <strong>additive</strong>, and for an additive matrix that tree is unique.</figcaption>
     </figure>
 
     <p>
@@ -411,59 +419,59 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="720" height="250" viewBox="0 0 720 250">
-      <line class="fig-axis" x1="144.2" y1="164" x2="111.7" y2="131.5"/>
-      <text class="fig-text fig-note" x="128" y="142.8" text-anchor="middle">3</text>
-      <line class="fig-axis" x1="111.7" y1="131.5" x2="90.1" y2="109.9"/>
-      <text class="fig-text fig-note" x="100.9" y="115.7" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="90.1" y1="109.9" x2="68.5" y2="131.5"/>
-      <text class="fig-text fig-note" x="79.3" y="115.7" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="90.1" y1="109.9" x2="90.1" y2="79.3"/>
-      <text class="fig-text fig-note" x="90.1" y="89.6" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="68.5" y1="131.5" x2="36" y2="164"/>
-      <text class="fig-text fig-note" x="52.2" y="142.8" text-anchor="middle">3</text>
-      <line class="fig-axis" x1="90.1" y1="79.3" x2="46.8" y2="36"/>
-      <text class="fig-text fig-note" x="68.5" y="52.6" text-anchor="middle">4</text>
-      <line class="fig-axis" x1="90.1" y1="79.3" x2="133.4" y2="36"/>
-      <text class="fig-text fig-note" x="111.7" y="52.6" text-anchor="middle">4</text>
-      <circle class="fig-dot" cx="90.1" cy="109.9" r="3.5"/>
-      <circle class="fig-dot" cx="111.7" cy="131.5" r="3.5"/>
-      <text class="fig-text fig-tick" x="127.7" y="135.5" text-anchor="start">4</text>
-      <circle class="fig-hole" cx="144.2" cy="164" r="4.5"/>
-      <text class="fig-text fig-tick" x="160.2" y="168" text-anchor="start">0</text>
-      <circle class="fig-dot" cx="68.5" cy="131.5" r="3.5"/>
-      <text class="fig-text fig-tick" x="52.5" y="135.5" text-anchor="end">5</text>
-      <circle class="fig-hole" cx="36" cy="164" r="4.5"/>
-      <text class="fig-text fig-tick" x="20" y="168" text-anchor="end">1</text>
-      <circle class="fig-dot" cx="90.1" cy="79.3" r="3.5"/>
-      <circle class="fig-hole" cx="46.8" cy="36" r="4.5"/>
-      <text class="fig-text fig-tick" x="30.8" y="40" text-anchor="end">2</text>
-      <circle class="fig-hole" cx="133.4" cy="36" r="4.5"/>
-      <text class="fig-text fig-tick" x="149.4" y="40" text-anchor="start">3</text>
+      <svg class="figure" width="760" height="280" viewBox="0 0 760 280">
+      <line class="fig-axis" x1="175.3" y1="200" x2="134.7" y2="159.4"/>
+      <text class="fig-text fig-note" x="146.5" y="192.2" text-anchor="middle">3</text>
+      <line class="fig-axis" x1="134.7" y1="159.4" x2="107.6" y2="132.4"/>
+      <text class="fig-text fig-note" x="112.7" y="158.4" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="107.6" y1="132.4" x2="80.6" y2="159.4"/>
+      <text class="fig-text fig-note" x="102.6" y="158.4" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="107.6" y1="132.4" x2="107.6" y2="94.1"/>
+      <text class="fig-text fig-note" x="119.6" y="117.2" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="80.6" y1="159.4" x2="40" y2="200"/>
+      <text class="fig-text fig-note" x="68.8" y="192.2" text-anchor="middle">3</text>
+      <line class="fig-axis" x1="107.6" y1="94.1" x2="53.5" y2="40"/>
+      <text class="fig-text fig-note" x="89.1" y="62.6" text-anchor="middle">4</text>
+      <line class="fig-axis" x1="107.6" y1="94.1" x2="161.7" y2="40"/>
+      <text class="fig-text fig-note" x="126.2" y="62.6" text-anchor="middle">4</text>
+      <circle class="fig-dot" cx="107.6" cy="132.4" r="3.5"/>
+      <circle class="fig-dot" cx="134.7" cy="159.4" r="3.5"/>
+      <text class="fig-text fig-tick" x="150.7" y="163.4" text-anchor="start">4</text>
+      <circle class="fig-hole" cx="175.3" cy="200" r="4.5"/>
+      <text class="fig-text fig-tick" x="191.3" y="204" text-anchor="start">0</text>
+      <circle class="fig-dot" cx="80.6" cy="159.4" r="3.5"/>
+      <text class="fig-text fig-tick" x="64.6" y="163.4" text-anchor="end">5</text>
+      <circle class="fig-hole" cx="40" cy="200" r="4.5"/>
+      <text class="fig-text fig-tick" x="24" y="204" text-anchor="end">1</text>
+      <circle class="fig-dot" cx="107.6" cy="94.1" r="3.5"/>
+      <circle class="fig-hole" cx="53.5" cy="40" r="4.5"/>
+      <text class="fig-text fig-tick" x="37.5" y="44" text-anchor="end">2</text>
+      <circle class="fig-hole" cx="161.7" cy="40" r="4.5"/>
+      <text class="fig-text fig-tick" x="177.7" y="44" text-anchor="start">3</text>
       <text class="fig-text fig-note" x="150" y="26" text-anchor="middle">nodes 4 and 5 have degree two</text>
-      <line class="fig-axis" x1="544.2" y1="164" x2="490.1" y2="109.9"/>
-      <text class="fig-text fig-note" x="517.2" y="131.9" text-anchor="middle">5</text>
-      <line class="fig-axis" x1="490.1" y1="109.9" x2="436" y2="164"/>
-      <text class="fig-text fig-note" x="463.1" y="131.9" text-anchor="middle">5</text>
-      <line class="fig-axis" x1="490.1" y1="109.9" x2="490.1" y2="79.3"/>
-      <text class="fig-text fig-note" x="490.1" y="89.6" text-anchor="middle">2</text>
-      <line class="fig-axis" x1="490.1" y1="79.3" x2="446.8" y2="36"/>
-      <text class="fig-text fig-note" x="468.5" y="52.6" text-anchor="middle">4</text>
-      <line class="fig-axis" x1="490.1" y1="79.3" x2="533.4" y2="36"/>
-      <text class="fig-text fig-note" x="511.7" y="52.6" text-anchor="middle">4</text>
-      <circle class="fig-dot" cx="490.1" cy="109.9" r="3.5"/>
-      <circle class="fig-hole" cx="544.2" cy="164" r="4.5"/>
-      <text class="fig-text fig-tick" x="560.2" y="168" text-anchor="start">0</text>
-      <circle class="fig-hole" cx="436" cy="164" r="4.5"/>
-      <text class="fig-text fig-tick" x="420" y="168" text-anchor="end">1</text>
-      <circle class="fig-dot" cx="490.1" cy="79.3" r="3.5"/>
-      <circle class="fig-hole" cx="446.8" cy="36" r="4.5"/>
-      <text class="fig-text fig-tick" x="430.8" y="40" text-anchor="end">2</text>
-      <circle class="fig-hole" cx="533.4" cy="36" r="4.5"/>
-      <text class="fig-text fig-tick" x="549.4" y="40" text-anchor="start">3</text>
+      <line class="fig-axis" x1="595.3" y1="200" x2="527.6" y2="132.4"/>
+      <text class="fig-text fig-note" x="553" y="178.7" text-anchor="middle">5</text>
+      <line class="fig-axis" x1="527.6" y1="132.4" x2="460" y2="200"/>
+      <text class="fig-text fig-note" x="502.3" y="178.7" text-anchor="middle">5</text>
+      <line class="fig-axis" x1="527.6" y1="132.4" x2="527.6" y2="94.1"/>
+      <text class="fig-text fig-note" x="539.6" y="117.2" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="527.6" y1="94.1" x2="473.5" y2="40"/>
+      <text class="fig-text fig-note" x="509.1" y="62.6" text-anchor="middle">4</text>
+      <line class="fig-axis" x1="527.6" y1="94.1" x2="581.7" y2="40"/>
+      <text class="fig-text fig-note" x="546.2" y="62.6" text-anchor="middle">4</text>
+      <circle class="fig-dot" cx="527.6" cy="132.4" r="3.5"/>
+      <circle class="fig-hole" cx="595.3" cy="200" r="4.5"/>
+      <text class="fig-text fig-tick" x="611.3" y="204" text-anchor="start">0</text>
+      <circle class="fig-hole" cx="460" cy="200" r="4.5"/>
+      <text class="fig-text fig-tick" x="444" y="204" text-anchor="end">1</text>
+      <circle class="fig-dot" cx="527.6" cy="94.1" r="3.5"/>
+      <circle class="fig-hole" cx="473.5" cy="40" r="4.5"/>
+      <text class="fig-text fig-tick" x="457.5" y="44" text-anchor="end">2</text>
+      <circle class="fig-hole" cx="581.7" cy="40" r="4.5"/>
+      <text class="fig-text fig-tick" x="597.7" y="44" text-anchor="start">3</text>
       <text class="fig-text fig-note" x="550" y="26" text-anchor="middle">the same distances, no degree-two node</text>
-      <line class="fig-accent" x1="330" y1="120" x2="374" y2="120"/>
-      <path class="fig-dot" d="M 380 120 L 374 122.7 L 374 117.3 Z"/>
+      <line class="fig-curve" x1="340" y1="140" x2="394" y2="140"/>
+      <path class="fig-dot" d="M 400 140 L 394 142.7 L 394 137.3 Z"/>
       </svg>
       <figcaption>A node of degree two says nothing: the path through it could be one edge carrying the sum of the two weights, and every leaf-to-leaf distance is unchanged. Replacing every such path by a single edge gives the <strong>simple tree</strong>. Restricting attention to simple trees is what makes the answer unique, since otherwise any tree could be padded with extra nodes along its edges.</figcaption>
     </figure>
@@ -496,17 +504,17 @@
     </details>
 
     <figure class="figure-block">
-      <svg class="figure" width="740" height="290" viewBox="0 0 740 290">
+      <svg class="figure" width="460" height="290" viewBox="0 0 460 290">
       <line class="fig-curve" x1="169.3" y1="210" x2="90.3" y2="131"/>
-      <text class="fig-text fig-note" x="129.8" y="165.5" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="121.3" y="183" text-anchor="middle">11</text>
       <line class="fig-curve" x1="75.9" y1="145.3" x2="90.3" y2="131"/>
-      <text class="fig-text fig-note" x="83.1" y="133.1" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="91.6" y="150.6" text-anchor="middle">2</text>
       <line class="fig-axis" x1="133.4" y1="47.2" x2="90.3" y2="90.3"/>
-      <text class="fig-text fig-note" x="111.9" y="63.7" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="103.4" y="64.3" text-anchor="middle">6</text>
       <line class="fig-axis" x1="40" y1="40" x2="90.3" y2="90.3"/>
-      <text class="fig-text fig-note" x="65.2" y="60.2" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="73.6" y="60.7" text-anchor="middle">7</text>
       <line class="fig-axis" x1="90.3" y1="131" x2="90.3" y2="90.3"/>
-      <text class="fig-text fig-note" x="90.3" y="105.6" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="78.3" y="114.6" text-anchor="middle">4</text>
       <circle class="fig-dot" cx="90.3" cy="131" r="3.5"/>
       <text class="fig-text fig-tick" x="74.3" y="135" text-anchor="end">m</text>
       <circle class="fig-hole" cx="169.3" cy="210" r="4.5"/>
@@ -520,13 +528,8 @@
       <circle class="fig-hole" cx="133.4" cy="47.2" r="4.5"/>
       <text class="fig-text fig-tick" x="149.4" y="51.2" text-anchor="start">2</text>
       <text class="fig-text fig-note" x="160" y="26" text-anchor="middle">leaves 0 and 1 share the parent m</text>
-      <text class="fig-text fig-note" x="400" y="96" text-anchor="start">D(0,1) = limb(0) + limb(1)</text>
-      <text class="fig-text fig-note" x="400" y="130" text-anchor="start">D(0,2) = limb(0) + d(m,2)</text>
-      <text class="fig-text fig-note" x="400" y="164" text-anchor="start">D(1,2) = limb(1) + d(m,2)</text>
-      <text class="fig-text fig-tick" x="400" y="198" text-anchor="start">so  d(m,2) = ( D(0,2) + D(1,2) &#8722; D(0,1) ) / 2</text>
-      <text class="fig-text fig-note" x="400" y="232" text-anchor="start">two leaves can be deleted and replaced by their parent</text>
       </svg>
-      <figcaption>Two leaves sharing a parent are <strong>neighbours</strong>. Every simple tree with at least three nodes has such a pair. Adding the first two lines and subtracting the third cancels both limbs and leaves twice the distance from the parent to any other leaf, so a pair of neighbouring leaves can be struck out of the matrix and replaced by a single row for their parent. That would give a recursion on a smaller matrix, if only the neighbours could be found.</figcaption>
+      <figcaption>Two leaves sharing a parent are <strong>neighbours</strong>. Every simple tree with at least three nodes has such a pair. Adding the first two lines and subtracting the third cancels both limbs and leaves twice the distance from the parent to any other leaf: $D_{0,1} = \text{limb}(0) + \text{limb}(1)$, $D_{0,2} = \text{limb}(0) + d_{m,2}$ and $D_{1,2} = \text{limb}(1) + d_{m,2}$ give $d_{m,2} = (D_{0,2} + D_{1,2} - D_{0,1})/2$. So a pair of neighbouring leaves can be struck out of the matrix and replaced by a single row for their parent. That would give a recursion on a smaller matrix, if only the neighbours could be found.</figcaption>
     </figure>
 
     <p>
@@ -543,17 +546,17 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="640" height="304" viewBox="0 0 640 304">
+      <svg class="figure" width="640" height="300" viewBox="0 0 640 300">
       <line class="fig-axis" x1="161.7" y1="200" x2="87.3" y2="125.6"/>
-      <text class="fig-text fig-note" x="124.5" y="157.8" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="116.1" y="175.3" text-anchor="middle">11</text>
       <line class="fig-curve" x1="73.8" y1="139.1" x2="87.3" y2="125.6"/>
-      <text class="fig-text fig-note" x="80.6" y="127.4" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="89.1" y="144.9" text-anchor="middle">2</text>
       <line class="fig-curve" x1="127.9" y1="46.8" x2="87.3" y2="87.3"/>
-      <text class="fig-text fig-note" x="107.6" y="62.1" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="99.1" y="62.6" text-anchor="middle">6</text>
       <line class="fig-axis" x1="40" y1="40" x2="87.3" y2="87.3"/>
-      <text class="fig-text fig-note" x="63.7" y="58.7" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="72.2" y="59.2" text-anchor="middle">7</text>
       <line class="fig-curve" x1="87.3" y1="125.6" x2="87.3" y2="87.3"/>
-      <text class="fig-text fig-note" x="87.3" y="101.5" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="75.3" y="110.5" text-anchor="middle">4</text>
       <circle class="fig-dot" cx="87.3" cy="125.6" r="3.5"/>
       <circle class="fig-hole" cx="161.7" cy="200" r="4.5"/>
       <text class="fig-text fig-tick" x="177.7" y="204" text-anchor="start">0</text>
@@ -604,8 +607,6 @@
       <text class="fig-text fig-tick" x="537" y="218" text-anchor="middle">13</text>
       <rect class="fig-cell" x="558" y="192" width="42" height="42"/>
       <text class="fig-text fig-tick" x="579" y="218" text-anchor="middle">0</text>
-      <text class="fig-text fig-tick" x="516" y="260" text-anchor="middle">the smallest entry is D(1,2) = 12</text>
-      <text class="fig-text fig-note" x="516" y="282" text-anchor="middle">but 1 and 2 are not neighbours</text>
       </svg>
       <figcaption>The obvious recursion fails. The smallest entry of this matrix is $D_{1,2} = 12$, yet leaves 1 and 2 sit on opposite sides of the tree: 1 is a neighbour of 0 and 2 is a neighbour of 3. Closest is not the same as adjacent, because a leaf on a very short limb can be nearer to a distant leaf than to its own neighbour on a long one. Picking the minimum entry and merging would build the wrong tree.</figcaption>
     </figure>
@@ -630,17 +631,17 @@
     </div>
 
     <figure class="figure-block">
-      <svg class="figure" width="740" height="300" viewBox="0 0 740 300">
+      <svg class="figure" width="420" height="290" viewBox="0 0 420 290">
       <line class="fig-axis" x1="154.1" y1="190" x2="84.4" y2="120.3"/>
-      <text class="fig-text fig-note" x="119.3" y="150.1" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="110.8" y="167.6" text-anchor="middle">11</text>
       <line class="fig-curve" x1="71.7" y1="132.9" x2="84.4" y2="120.3"/>
-      <text class="fig-text fig-note" x="78" y="121.6" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="86.5" y="139.1" text-anchor="middle">2</text>
       <line class="fig-axis" x1="122.4" y1="46.3" x2="84.4" y2="84.4"/>
-      <text class="fig-text fig-note" x="103.4" y="60.4" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="94.9" y="60.9" text-anchor="middle">6</text>
       <line class="fig-axis" x1="40" y1="40" x2="84.4" y2="84.4"/>
-      <text class="fig-text fig-note" x="62.2" y="57.2" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="70.7" y="57.7" text-anchor="middle">7</text>
       <line class="fig-axis" x1="84.4" y1="120.3" x2="84.4" y2="84.4"/>
-      <text class="fig-text fig-note" x="84.4" y="97.3" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="72.4" y="106.3" text-anchor="middle">4</text>
       <circle class="fig-dot" cx="84.4" cy="120.3" r="3.5"/>
       <circle class="fig-hole" cx="154.1" cy="190" r="4.5"/>
       <text class="fig-text fig-tick" x="170.1" y="194" text-anchor="start">0</text>
@@ -652,13 +653,6 @@
       <circle class="fig-hole" cx="122.4" cy="46.3" r="4.5"/>
       <text class="fig-text fig-tick" x="138.4" y="50.3" text-anchor="start">2</text>
       <text class="fig-text fig-note" x="150" y="26" text-anchor="middle">limb of leaf 1, weight 2</text>
-      <text class="fig-text fig-note" x="372" y="74" text-anchor="start">for any two other leaves i and k</text>
-      <text class="fig-text fig-note" x="372" y="104" text-anchor="start">whose path passes through the parent of 1:</text>
-      <text class="fig-text fig-tick" x="372" y="134" text-anchor="start">limb(1) = ( D(i,1) + D(1,k) &#8722; D(i,k) ) / 2</text>
-      <text class="fig-text fig-note" x="372" y="164" text-anchor="start">i = 0, k = 2:  (13 + 12 &#8722; 21) / 2 = 2</text>
-      <text class="fig-text fig-note" x="372" y="194" text-anchor="start">i = 0, k = 3:  (13 + 13 &#8722; 22) / 2 = 2</text>
-      <text class="fig-text fig-note" x="372" y="224" text-anchor="start">i = 2, k = 3:  (12 + 13 &#8722; 13) / 2 = 6</text>
-      <text class="fig-text fig-tick" x="372" y="254" text-anchor="start">the minimum over all pairs is the limb</text>
       </svg>
       <figcaption>The length of a leaf's limb is readable from the matrix alone. If the paths from $i$ and $k$ to leaf $j$ meet exactly at $j$'s parent, then $D_{ij} + D_{jk} - D_{ik}$ is twice the limb, because everything except the two copies of the limb cancels. If they meet further away the expression is larger, so the minimum over all pairs is the limb length. Here the pair 2, 3 meets further out and gives 6; the true limb is 2. This is the fact that makes the whole reconstruction possible.</figcaption>
     </figure>
@@ -694,7 +688,7 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="622" height="302" viewBox="0 0 622 302">
+      <svg class="figure" width="622" height="276" viewBox="0 0 622 276">
       <text class="fig-text fig-note" x="123" y="76" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="165" y="76" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="207" y="76" text-anchor="middle">2</text>
@@ -779,7 +773,6 @@
       <rect class="fig-cell" x="540" y="210" width="42" height="42"/>
       <text class="fig-text fig-tick" x="561" y="236" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="498" y="60" text-anchor="middle">after: leaf 3 is bald</text>
-      <text class="fig-text fig-tick" x="316" y="282" text-anchor="middle">now D(0,3) + D(3,2) = 15 + 6 = 21 = D(0,2), so leaf 3 lies on that path</text>
       </svg>
       <figcaption>Subtracting the limb length from a leaf’s row and column makes it <strong>bald</strong>. A bald leaf is no longer hanging off the tree; it lies exactly on it. The pair of leaves whose distances now add exactly through it, here $15 + 6 = 21$, is the path it lies on, and 15 is how far along that path. That is the attachment point, and once the smaller tree is built the limb is simply hung back there.</figcaption>
     </figure>
@@ -826,8 +819,7 @@
       <text class="fig-text fig-tick" x="217" y="220" text-anchor="middle">13</text>
       <rect class="fig-cell-alt" x="238" y="194" width="42" height="42"/>
       <text class="fig-text fig-tick" x="259" y="220" text-anchor="middle">0</text>
-      <text class="fig-text fig-note" x="196" y="46" text-anchor="middle">trim leaf 3: its limb is 7, so subtract 7 from row and column 3</text>
-      <text class="fig-text fig-tick" x="320" y="116" text-anchor="start">limb(3) = 7</text>
+      <text class="fig-text fig-note" x="196" y="46" text-anchor="middle">trim leaf 3: its limb is 7</text>
       <text class="fig-text fig-note" x="133" y="310" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="175" y="310" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="217" y="310" text-anchor="middle">2</text>
@@ -854,11 +846,11 @@
       <text class="fig-text fig-tick" x="217" y="428" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="175" y="296" text-anchor="middle">the trimmed matrix on leaves 0, 1, 2 is solved first</text>
       <line class="fig-axis" x1="382.3" y1="462" x2="345.4" y2="398.1"/>
-      <text class="fig-text fig-note" x="363.9" y="425" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="353.5" y="440" text-anchor="middle">11</text>
       <line class="fig-axis" x1="345.4" y1="398.1" x2="332" y2="398.1"/>
-      <text class="fig-text fig-note" x="338.7" y="393.1" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="338.7" y="390.1" text-anchor="middle">2</text>
       <line class="fig-axis" x1="345.4" y1="398.1" x2="379" y2="340"/>
-      <text class="fig-text fig-note" x="362.2" y="364" text-anchor="middle">10</text>
+      <text class="fig-text fig-note" x="351.8" y="367" text-anchor="middle">10</text>
       <circle class="fig-dot" cx="345.4" cy="398.1" r="3.5"/>
       <circle class="fig-hole" cx="382.3" cy="462" r="4.5"/>
       <text class="fig-text fig-tick" x="398.3" y="466" text-anchor="start">0</text>
@@ -867,15 +859,15 @@
       <circle class="fig-hole" cx="379" cy="340" r="4.5"/>
       <text class="fig-text fig-tick" x="395" y="344" text-anchor="start">2</text>
       <line class="fig-axis" x1="336" y1="726" x2="270" y2="660"/>
-      <text class="fig-text fig-note" x="303" y="688" text-anchor="middle">11</text>
+      <text class="fig-text fig-note" x="294.5" y="705.5" text-anchor="middle">11</text>
       <line class="fig-axis" x1="270" y1="660" x2="258" y2="672"/>
-      <text class="fig-text fig-note" x="264" y="661" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="272.5" y="678.5" text-anchor="middle">2</text>
       <line class="fig-axis" x1="270" y1="660" x2="270" y2="626"/>
-      <text class="fig-text fig-note" x="270" y="638" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="258" y="647" text-anchor="middle">4</text>
       <line class="fig-axis" x1="270" y1="626" x2="234" y2="590"/>
-      <text class="fig-text fig-note" x="252" y="603" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="260.5" y="603.5" text-anchor="middle">6</text>
       <line class="fig-curve" x1="270" y1="626" x2="312" y2="584"/>
-      <text class="fig-text fig-note" x="291" y="600" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="282.5" y="600.5" text-anchor="middle">7</text>
       <circle class="fig-dot" cx="270" cy="660" r="3.5"/>
       <circle class="fig-hole" cx="336" cy="726" r="4.5"/>
       <text class="fig-text fig-tick" x="352" y="730" text-anchor="start">0</text>
@@ -1088,7 +1080,7 @@
     </figure>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="360" viewBox="0 0 760 360">
+      <svg class="figure" width="760" height="330" viewBox="0 0 760 330">
       <text class="fig-text fig-note" x="129" y="70" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="171" y="70" text-anchor="middle">1</text>
       <text class="fig-text fig-note" x="213" y="70" text-anchor="middle">2</text>
@@ -1131,17 +1123,17 @@
       <text class="fig-text fig-tick" x="255" y="230" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="192" y="54" text-anchor="middle">closest pair is 2 and 3, at 10</text>
       <line class="fig-axis" x1="366" y1="216.3" x2="430.3" y2="152"/>
-      <text class="fig-text fig-note" x="398.2" y="179.1" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="389.7" y="179.6" text-anchor="middle">7</text>
       <line class="fig-axis" x1="528.4" y1="250" x2="447.2" y2="168.8"/>
-      <text class="fig-text fig-note" x="487.8" y="204.4" text-anchor="middle">8.83</text>
+      <text class="fig-text fig-note" x="479.3" y="221.9" text-anchor="middle">8.83</text>
       <line class="fig-axis" x1="384.4" y1="80" x2="430.3" y2="126"/>
-      <text class="fig-text fig-note" x="407.4" y="98" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="415.8" y="98.5" text-anchor="middle">5</text>
       <line class="fig-axis" x1="476.3" y1="80" x2="430.3" y2="126"/>
-      <text class="fig-text fig-note" x="453.3" y="98" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="444.8" y="98.5" text-anchor="middle">5</text>
       <line class="fig-axis" x1="430.3" y1="126" x2="430.3" y2="152"/>
-      <text class="fig-text fig-note" x="430.3" y="134" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="418.3" y="143" text-anchor="middle">2</text>
       <line class="fig-axis" x1="430.3" y1="152" x2="447.2" y2="168.8"/>
-      <text class="fig-text fig-note" x="438.8" y="155.4" text-anchor="middle">1.83</text>
+      <text class="fig-text fig-note" x="430.3" y="172.9" text-anchor="middle">1.83</text>
       <circle class="fig-dot" cx="447.2" cy="168.8" r="3.5"/>
       <circle class="fig-hole" cx="528.4" cy="250" r="4.5"/>
       <text class="fig-text fig-tick" x="544.4" y="254" text-anchor="start">1</text>
@@ -1154,9 +1146,8 @@
       <circle class="fig-hole" cx="476.3" cy="80" r="4.5"/>
       <text class="fig-text fig-tick" x="492.3" y="84" text-anchor="start">3</text>
       <text class="fig-text fig-note" x="486" y="44" text-anchor="middle">the tree UPGMA builds</text>
-      <text class="fig-text fig-note" x="486" y="320" text-anchor="middle">every leaf sits the same distance from the root</text>
       </svg>
-      <figcaption>UPGMA merges the two closest clusters, gives their new parent an age of half their distance, and replaces them by one row whose distances are the averages of theirs, weighted by cluster size. Repeating until one cluster is left gives an <strong>ultrametric</strong> tree: every leaf is the same distance from the root, which is what a constant molecular clock would produce. The assumption is the problem. When lineages evolve at different rates the true tree is not ultrametric, and UPGMA returns a tree that fits the clock rather than the data.</figcaption>
+      <figcaption>Every leaf of the tree on the right sits the same distance from its root. UPGMA merges the two closest clusters, gives their new parent an age of half their distance, and replaces them by one row whose distances are the averages of theirs, weighted by cluster size. Repeating until one cluster is left gives an <strong>ultrametric</strong> tree: every leaf is the same distance from the root, which is what a constant molecular clock would produce. The assumption is the problem. When lineages evolve at different rates the true tree is not ultrametric, and UPGMA returns a tree that fits the clock rather than the data.</figcaption>
     </figure>
 
     <pre><code class="language-python">def upgma(matrix, n):
@@ -1265,17 +1256,17 @@
       <rect class="fig-cell" x="138" y="518" width="38" height="38"/>
       <text class="fig-text fig-tick" x="157" y="542" text-anchor="middle">0</text>
       <line class="fig-axis" x1="420" y1="236.3" x2="484.3" y2="172"/>
-      <text class="fig-text fig-note" x="452.2" y="199.1" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="443.7" y="199.6" text-anchor="middle">7</text>
       <line class="fig-axis" x1="582.4" y1="270" x2="501.2" y2="188.8"/>
-      <text class="fig-text fig-note" x="541.8" y="224.4" text-anchor="middle">8.83</text>
+      <text class="fig-text fig-note" x="533.3" y="241.9" text-anchor="middle">8.83</text>
       <line class="fig-axis" x1="438.4" y1="100" x2="484.3" y2="146"/>
-      <text class="fig-text fig-note" x="461.4" y="118" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="469.8" y="118.5" text-anchor="middle">5</text>
       <line class="fig-axis" x1="530.3" y1="100" x2="484.3" y2="146"/>
-      <text class="fig-text fig-note" x="507.3" y="118" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="498.8" y="118.5" text-anchor="middle">5</text>
       <line class="fig-axis" x1="484.3" y1="146" x2="484.3" y2="172"/>
-      <text class="fig-text fig-note" x="484.3" y="154" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="472.3" y="163" text-anchor="middle">2</text>
       <line class="fig-axis" x1="484.3" y1="172" x2="501.2" y2="188.8"/>
-      <text class="fig-text fig-note" x="492.8" y="175.4" text-anchor="middle">1.83</text>
+      <text class="fig-text fig-note" x="484.3" y="192.9" text-anchor="middle">1.83</text>
       <circle class="fig-dot" cx="501.2" cy="188.8" r="3.5"/>
       <circle class="fig-hole" cx="582.4" cy="270" r="4.5"/>
       <text class="fig-text fig-tick" x="598.4" y="274" text-anchor="start">1</text>
@@ -1300,17 +1291,17 @@
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="780" height="300" viewBox="0 0 780 300">
+      <svg class="figure" width="780" height="258" viewBox="0 0 780 258">
       <line class="fig-curve" x1="148.1" y1="166" x2="46.7" y2="64.6"/>
-      <text class="fig-text fig-note" x="97.4" y="110.3" text-anchor="middle">8</text>
+      <text class="fig-text fig-note" x="88.9" y="127.8" text-anchor="middle">8</text>
       <line class="fig-axis" x1="46.7" y1="64.6" x2="34" y2="77.3"/>
-      <text class="fig-text fig-note" x="40.3" y="65.9" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="31.9" y="66.5" text-anchor="middle">1</text>
       <line class="fig-axis" x1="46.7" y1="64.6" x2="46.7" y2="46.7"/>
-      <text class="fig-text fig-note" x="46.7" y="50.6" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="34.7" y="59.6" text-anchor="middle">1</text>
       <line class="fig-axis" x1="46.7" y1="46.7" x2="34" y2="34"/>
-      <text class="fig-text fig-note" x="40.3" y="35.3" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="48.8" y="35.9" text-anchor="middle">1</text>
       <line class="fig-axis" x1="46.7" y1="46.7" x2="59.3" y2="34"/>
-      <text class="fig-text fig-note" x="53" y="35.3" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="44.5" y="35.9" text-anchor="middle">1</text>
       <circle class="fig-dot" cx="46.7" cy="64.6" r="3.5"/>
       <circle class="fig-hole" cx="148.1" cy="166" r="4.5"/>
       <text class="fig-text fig-tick" x="164.1" y="170" text-anchor="start">0</text>
@@ -1356,7 +1347,6 @@
       <circle class="fig-hole" cx="583.3" cy="34" r="4.5"/>
       <text class="fig-text fig-tick" x="567.3" y="48" text-anchor="end">3</text>
       <text class="fig-text fig-note" x="639" y="22" text-anchor="middle">what neighbour-joining returns</text>
-      <text class="fig-text fig-tick" x="380" y="258" text-anchor="middle">true grouping {0,1} and {2,3}: UPGMA loses it, neighbour-joining keeps it</text>
       </svg>
       <figcaption>The cost of assuming a clock. In the true tree leaves 0 and 1 are neighbours, but 0 sits on a limb eight times longer because its lineage mutated faster. UPGMA sees only that 0 is far from everything, cannot express an unequal rate, and puts it alone outside a group of the other three, so the pairing $\{0,1\}$ is lost. Neighbour-joining, which subtracts each leaf’s total distance before choosing, recovers the true grouping from the same matrix.</figcaption>
     </figure>
@@ -1458,7 +1448,6 @@
       <rect class="fig-cell" x="562" y="202" width="42" height="42"/>
       <text class="fig-text fig-tick" x="583" y="228" text-anchor="middle">0</text>
       <text class="fig-text fig-tick" x="520" y="52" text-anchor="middle">D* = (n &#8722; 2)D &#8722; total(i) &#8722; total(j)</text>
-      <text class="fig-text fig-note" x="520" y="270" text-anchor="middle">the smallest entry of D* is a neighbouring pair</text>
       </svg>
       <figcaption>Neighbour-joining does not look for the smallest distance, which the counterexample above showed can mislead. It first subtracts from every entry the total distance of each of its two leaves to everything else, which penalises leaves that are far from the whole tree rather than only from each other. In $D$ the smallest entry is $D_{0,3} = 20$; in $D^*$ the smallest is the same pair, and the theorem says that for an additive matrix the smallest entry of $D^*$ is always a pair of genuine neighbours.</figcaption>
     </figure>
@@ -1635,15 +1624,15 @@ def neighbor_joining(matrix, labels=None, fresh=None):
       <rect class="fig-cell" x="176" y="384" width="38" height="38"/>
       <text class="fig-text fig-tick" x="195" y="408" text-anchor="middle">0</text>
       <line class="fig-axis" x1="508.6" y1="351.3" x2="508.6" y2="363.4"/>
-      <text class="fig-text fig-note" x="508.6" y="352.4" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="496.6" y="361.4" text-anchor="middle">2</text>
       <line class="fig-axis" x1="508.6" y1="351.3" x2="474.4" y2="317.1"/>
-      <text class="fig-text fig-note" x="491.5" y="329.2" text-anchor="middle">8</text>
+      <text class="fig-text fig-note" x="500" y="329.7" text-anchor="middle">8</text>
       <line class="fig-axis" x1="508.6" y1="351.3" x2="559.9" y2="300"/>
-      <text class="fig-text fig-note" x="534.2" y="320.7" text-anchor="middle">12</text>
+      <text class="fig-text fig-note" x="525.8" y="321.2" text-anchor="middle">12</text>
       <line class="fig-axis" x1="508.6" y1="363.4" x2="566.3" y2="421.2"/>
-      <text class="fig-text fig-note" x="537.4" y="387.3" text-anchor="middle">13.5</text>
+      <text class="fig-text fig-note" x="545.9" y="387.8" text-anchor="middle">13.5</text>
       <line class="fig-axis" x1="508.6" y1="363.4" x2="438" y2="434"/>
-      <text class="fig-text fig-note" x="473.3" y="393.7" text-anchor="middle">16.5</text>
+      <text class="fig-text fig-note" x="464.8" y="394.2" text-anchor="middle">16.5</text>
       <circle class="fig-dot" cx="508.6" cy="351.3" r="3.5"/>
       <circle class="fig-dot" cx="508.6" cy="363.4" r="3.5"/>
       <circle class="fig-hole" cx="566.3" cy="421.2" r="4.5"/>
@@ -1667,14 +1656,22 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     <h2>What Distances Throw Away</h2>
 
     <p>
-      Every method so far reads only the matrix. Two alignments that differ in which sequences share
-      which changes can produce the same matrix, and once the sequences are reduced to numbers that
-      difference is unrecoverable. A distance says how many positions two sequences differ at; it
-      does not say which, and which is exactly the evidence that says who inherited what from whom.
+      Every method so far reads only the matrix, and the matrix is a summary. Building it discards
+      the alignment: a distance records how many positions two sequences differ at and not which
+      ones. That distinction is the whole of the evidence. Two sequences sharing a change at one
+      particular position is a reason to think they inherited it from a common ancestor; two
+      sequences differing in the same number of places is not.
+    </p>
+
+    <p>
+      The loss is not hypothetical. Two alignments can produce the same matrix and yet be explained
+      best by different trees, in which case every method in the first half of this chapter is
+      obliged to return one answer for both, and at least one of the two answers is wrong. The
+      remedy is to stop summarising and work from the columns.
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="780" height="336" viewBox="0 0 780 336">
+      <svg class="figure" width="780" height="264" viewBox="0 0 780 264">
       <text class="fig-text fig-note" x="194" y="64" text-anchor="middle">alignment A</text>
       <text class="fig-text fig-note" x="118" y="92" text-anchor="end">0</text>
       <rect class="fig-cell-alt" x="128" y="76" width="22" height="22"/>
@@ -1868,8 +1865,6 @@ def neighbor_joining(matrix, labels=None, fresh=None):
       <rect class="fig-cell" x="712" y="196" width="34" height="34"/>
       <text class="fig-text fig-tick" x="729" y="218" text-anchor="middle">0</text>
       <text class="fig-text fig-note" x="661" y="42" text-anchor="middle">one distance matrix</text>
-      <text class="fig-text fig-tick" x="70" y="276" text-anchor="start">A: parsimony says 1 joins {0,2}, and {3,4} pair</text>
-      <text class="fig-text fig-tick" x="70" y="300" text-anchor="start">B: parsimony says 3 joins {0,2}, and {1,4} pair</text>
       </svg>
       <figcaption>Two alignments over five sequences that produce exactly the same distance matrix. Every method in the first half of this chapter reads only that matrix, so all of them must return the same tree for both. Parsimony reads the columns instead, and returns a different tree for each: in A the unique cheapest topology joins leaf 1 to the group $\{0,2\}$, in B it joins leaf 3 there instead, both at a score of 7. The matrix cannot tell the two apart because it records how many positions differ and not which.</figcaption>
     </figure>
@@ -1884,7 +1879,7 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="590" height="290" viewBox="0 0 590 290">
+      <svg class="figure" width="590" height="266" viewBox="0 0 590 266">
       <text class="fig-text fig-note" x="188" y="74" text-anchor="middle">wings</text>
       <text class="fig-text fig-note" x="264" y="74" text-anchor="middle">feathers</text>
       <text class="fig-text fig-note" x="340" y="74" text-anchor="middle">fur</text>
@@ -1945,9 +1940,8 @@ def neighbor_joining(matrix, labels=None, fresh=None):
       <text class="fig-text fig-tick" x="416" y="233" text-anchor="middle">1</text>
       <rect class="fig-cell-alt" x="454" y="212" width="76" height="32"/>
       <text class="fig-text fig-tick" x="492" y="233" text-anchor="middle">1</text>
-      <text class="fig-text fig-note" x="340" y="270" text-anchor="middle">each column splits the species into two groups</text>
       </svg>
-      <figcaption>A character table. Each row is a species, each column a feature it has or lacks, and each column proposes a grouping: the species carrying the feature may have inherited it from a common ancestor. The columns disagree here, which is the whole difficulty. Feathers group the hawk with the penguin, flight groups the hawk with the bat and the housefly, and no tree can honour every column at once. Parsimony picks the tree that has to break fewest.</figcaption>
+      <figcaption>A character table; each column splits the species into two groups. Each row is a species, each column a feature it has or lacks, and each column proposes a grouping: the species carrying the feature may have inherited it from a common ancestor. The columns disagree here, which is the whole difficulty. Feathers group the hawk with the penguin, flight groups the hawk with the bat and the housefly, and no tree can honour every column at once. Parsimony picks the tree that has to break fewest.</figcaption>
     </figure>
 
     <p>
@@ -1989,8 +1983,18 @@ def neighbor_joining(matrix, labels=None, fresh=None):
     </figure>
 
     <p>
-      Counting changes on a tree whose leaves carry strings, the <strong>parsimony score</strong> is
-      the total Hamming distance summed over all edges.
+      This turns into arithmetic as follows. Label every node of a tree with a string, the leaves
+      with the observed sequences and the internal nodes with the ancestral sequences being
+      proposed. Each edge then asserts a number of changes, namely the Hamming distance between the
+      two strings it joins, and the <strong>parsimony score</strong> of the labelled tree is the
+      total over all edges.
+    </p>
+
+    <p>
+      A tree with a low score explains the data with few mutations; a tree with a high score needs
+      many. Since the ancestral sequences are not observed, scoring a tree means choosing the
+      ancestral labels that make it look as good as possible, and comparing trees means comparing
+      those best-case scores. Two problems are hidden here, and they have very different costs.
     </p>
 
     <h2>Small Parsimony</h2>
@@ -2063,8 +2067,6 @@ def neighbor_joining(matrix, labels=None, fresh=None):
       <text class="fig-text fig-tick" x="691" y="167" text-anchor="middle">3</text>
       <rect class="fig-cell" x="712" y="142" width="42" height="38"/>
       <text class="fig-text fig-tick" x="733" y="167" text-anchor="middle">4</text>
-      <text class="fig-text fig-note" x="670" y="204" text-anchor="middle">the smallest root entry is the score</text>
-      <text class="fig-text fig-note" x="670" y="224" text-anchor="middle">here 2, with C at every internal node</text>
       </svg>
       <figcaption>Small parsimony, at one position. For each node and each of the four symbols, the table holds the least number of changes the subtree below that node can be explained by if the node itself carries that symbol. A leaf costs 0 for the symbol it has and infinity for the rest; an internal node adds, for each child, the cheapest child entry plus one if the symbol changes across the edge. The smallest entry at the root is the score for this position, and walking the choices back down assigns every ancestor a symbol. Positions are independent, so the whole string costs $O(nm)$ for $n$ nodes and length $m$.</figcaption>
     </figure>
@@ -2122,7 +2124,7 @@ def small_parsimony(children, labels, root):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="620" height="290" viewBox="0 0 620 290">
+      <svg class="figure" width="620" height="250" viewBox="0 0 620 250">
       <line class="fig-axis" x1="110" y1="200" x2="160" y2="130"/>
       <line class="fig-axis" x1="210" y1="200" x2="160" y2="130"/>
       <line class="fig-axis" x1="350" y1="200" x2="400" y2="130"/>
@@ -2150,7 +2152,6 @@ def small_parsimony(children, labels, root):
       <text class="fig-text fig-note" x="280" y="40" text-anchor="middle">the root takes C, its cheapest symbol</text>
       <circle class="fig-hole-alt" cx="185" cy="165" r="7"/>
       <circle class="fig-hole-alt" cx="425" cy="165" r="7"/>
-      <text class="fig-text fig-tick" x="280" y="244" text-anchor="middle">two edges change symbol, so the score is 2</text>
       </svg>
       <figcaption>The second pass. Having filled the table upward, the labelling is read back downward: the root takes the symbol with the smallest entry, and each child takes whichever symbol was the cheapest choice given what its parent took. Here every internal node ends up C, and only the two marked edges carry a change, which is the score of 2 the table predicted. The upward pass finds the cost; the downward pass finds the ancestors.</figcaption>
     </figure>
@@ -2190,9 +2191,17 @@ def small_parsimony(children, labels, root):
     </p>
 
     <p>
-      This is NP-complete, and the number of unrooted binary trees on $n$ leaves is
-      $(2n-5)!!$, which is already over two million at $n = 10$. What is done instead is local
-      search.
+      This is NP-complete, and the reason is visible in the count. An unrooted binary tree on $n$
+      leaves is built by adding leaves one at a time, each new leaf splitting one of the existing
+      edges, so the number of trees is the product $1 \cdot 3 \cdot 5 \cdots (2n-5)$, written
+      $(2n-5)!!$. That is 15 trees on five leaves, over two million on ten, and more than
+      $10^{20}$ on twenty. Scoring every one is not an option at any size worth doing.
+    </p>
+
+    <p>
+      What is done instead is local search: hold a tree, look only at the trees a single small
+      change away from it, move to the best of those if any is an improvement, and stop when none
+      is. The small change is the one that respects the structure of a binary tree.
     </p>
 
     <figure class="figure-block">
@@ -2304,7 +2313,7 @@ def nearest_neighbour_interchange(tree, labels):
     </p>
 
     <figure class="figure-block">
-      <svg class="figure" width="760" height="420" viewBox="0 0 760 420">
+      <svg class="figure" width="760" height="396" viewBox="0 0 760 396">
       <line class="fig-axis" x1="294.3" y1="295.3" x2="260.3" y2="252.7"/>
       <line class="fig-curve" x1="294.3" y1="295.3" x2="294.9" y2="295.6"/>
       <line class="fig-curve" x1="294.3" y1="295.3" x2="294.4" y2="295.9"/>
@@ -2336,7 +2345,6 @@ def nearest_neighbour_interchange(tree, labels):
       <circle class="fig-hole" cx="387.9" cy="130.2" r="4.5"/>
       <text class="fig-text fig-tick" x="403.9" y="134.2" text-anchor="start">HCoV-229E (human)</text>
       <text class="fig-text fig-note" x="380" y="24" text-anchor="middle">neighbour-joining on seven real genomes</text>
-      <text class="fig-text fig-tick" x="380" y="392" text-anchor="middle">human and civet SARS-CoV meet first, at distance 0.0020</text>
       </svg>
       <figcaption>The tree this chapter’s own code builds from seven complete coronavirus genomes downloaded from GenBank. The distance between two genomes is estimated from the proportion of 12-mers they share, and the tree is the output of <code>neighbor_joining</code>. Human SARS-CoV and the virus sequenced from a masked palm civet differ by 0.0020 and are joined first; the nearest thing after that is eighty times further away. The bat virus sits one node beyond the civet, and MERS, OC43 and 229E form the outgroup.</figcaption>
     </figure>
