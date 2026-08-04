@@ -185,8 +185,8 @@
       A first attempt at saying what "nearby" should mean is a condition on the partition rather than
       a quantity to optimise. The <strong>Good Clustering Principle</strong> asks that every pair of
       points in the same cluster be closer to each other than any pair of points in different
-      clusters. It is exactly the statement that the clusters are separated: no within-cluster
-      distance exceeds any between-cluster distance.
+      clusters. It is exactly the statement that the largest within-cluster distance is smaller than
+      the smallest between-cluster distance.
     </p>
     <figure class="figure-block">
       <svg class="figure" width="494" height="293.4" viewBox="-9 15 494 293.4">
@@ -308,7 +308,7 @@
       and an integer $k$, find the set $\mathrm{Centers}$ of $k$ points minimising
       $\mathrm{MaxDistance}(\mathrm{Data}, \mathrm{Centers})$. Geometrically it asks for $k$ balls of
       equal radius covering all the data, with the radius as small as possible. The problem is
-      NP-hard, so no algorithm is known that solves it exactly in polynomial time, and the practical
+      NP-hard, so unless P = NP no polynomial-time algorithm solves it exactly, and the practical
       question is what a heuristic gives instead.
     </p>
 
@@ -317,9 +317,11 @@
     <p>
       The obvious greedy heuristic puts the next centre wherever the current centres serve worst.
       Start from an arbitrary data point, then repeatedly add as a new centre the data point that is
-      farthest from every centre chosen so far, stopping at $k$. Each round scans the data once and
-      measures every point against the centres already chosen, so the cost is
-      $O(n k m)$ for $n$ points in $m$ dimensions.
+      farthest from every centre chosen so far, stopping at $k$. Round $j$ measures each of the $n$
+      points against the $j$ centres already chosen at $O(m)$ per measurement, so the code below costs
+      $\sum_{j=1}^{k} O(njm) = O(nk^{2}m)$ for $n$ points in $m$ dimensions. Storing each point's
+      distance to the nearest centre so far and updating it against the single new centre each round
+      removes a factor of $k$ and brings this to $O(nkm)$.
     </p>
 
     <pre><code class="language-python">def distance(v, w):
@@ -440,15 +442,25 @@ def farthest_first_traversal(data, k):
     </p>
 
     <p>
-      The proof is the pigeonhole principle applied to $k + 1$ points. Let $r$ be the value the
-      algorithm achieves, realised by some point $p$ at distance $r$ from all $k$ chosen centres.
-      Every chosen centre was, at the moment it was chosen, at least as far from its predecessors as
-      the current worst point is now, because the algorithm always takes the farthest point and that
-      farthest distance only shrinks as centres are added. So the $k + 1$ points consisting of the
-      centres together with $p$ are pairwise at distance at least $r$. An optimal solution with
-      radius $r^{*}$ has only $k$ centres, so two of those $k + 1$ points are assigned to the same
-      optimal centre, and each lies within $r^{*}$ of it. The triangle inequality puts them within
-      $2r^{*}$ of each other, and they are at least $r$ apart, so $r \leq 2r^{*}$.
+      The proof is the pigeonhole principle applied to $k + 1$ points. Write $C_j$ for the first $j$
+      centres the algorithm chooses and $r_j = \max_{p \in \mathrm{Data}} d(p, C_j)$, so the value
+      returned is $r = r_k$, attained at some point $p$. Adding a centre to a set can only decrease
+      $d(p, C)$ for every $p$, so $r_1 \geq r_2 \geq \cdots \geq r_k = r$. The centre $c_{j+1}$ is by
+      definition a point at which $r_j$ is attained, so $d(c_{j+1}, C_j) = r_j \geq r$, which says
+      that $c_{j+1}$ is at distance at least $r$ from every centre chosen before it, and
+      $d(p, C_k) = r$ puts $p$ at distance at least $r$ from all $k$ of them. The $k + 1$ points
+      $c_1, \ldots, c_k, p$ are therefore pairwise at distance at least $r$.
+    </p>
+
+    <p>
+      Let $r^{*}$ be the optimal value, attained by some set of $k$ centres. Every data point lies
+      within $r^{*}$ of one of those centres, so assign each of the $k + 1$ points above to such a
+      centre. There are $k + 1$ points and $k$ optimal centres, so two of the points, $u$ and $v$, are
+      assigned to the same one, say $c^{*}$. Then
+      $d(u, v) \leq d(u, c^{*}) + d(c^{*}, v) \leq 2r^{*}$ by the triangle inequality, while
+      $d(u, v) \geq r$ because those $k + 1$ points are pairwise that far apart. Hence
+      $r \leq 2r^{*}$. The factor 2 is the best any polynomial-time algorithm can guarantee, since
+      approximating the k-Center Clustering Problem within any smaller factor is itself NP-hard.
     </p>
 
     <p>
@@ -589,8 +601,10 @@ def farthest_first_traversal(data, k):
       This gives two problems. The <strong>Squared Error Distortion Problem</strong> is the easy one:
       given $\mathrm{Data}$ and $\mathrm{Centers}$, compute the distortion, which the function above
       does in $O(n k m)$. The <strong>k-Means Clustering Problem</strong> is the hard one: given
-      $\mathrm{Data}$ and $k$, find the $k$ centres minimising the distortion. It is NP-hard for every
-      $k > 1$, and unlike the k-centre problem it is also NP-hard in the plane.
+      $\mathrm{Data}$ and $k$, find the $k$ centres minimising the distortion. It is NP-hard already for
+      $k = 2$ when the dimension is part of the input, and NP-hard in the plane when $k$ is part of
+      the input. With $k$ and $m$ both fixed it can be solved in polynomial time, which is no help
+      here, since $m$ is the number of timepoints and $k$ is exactly what is being chosen.
     </p>
 
     <p>
@@ -614,8 +628,9 @@ def farthest_first_traversal(data, k):
     </p>
 
     <p>
-      The proof is one line of algebra. Write $g$ for the centre of gravity and $c$ for any candidate
-      centre. Then $\sum_i \lVert x_i - c \rVert^2 = \sum_i \lVert (x_i - g) + (g - c) \rVert^2 =
+      The proof is one line of algebra. Distortion is a sum divided by the positive constant $n$, so
+      minimising it is the same as minimising the sum. Write $g$ for the centre of gravity and $c$ for
+      any candidate centre. Then $\sum_i \lVert x_i - c \rVert^2 = \sum_i \lVert (x_i - g) + (g - c) \rVert^2 =
       \sum_i \lVert x_i - g \rVert^2 + 2 (g - c) \cdot \sum_i (x_i - g) + n \lVert g - c \rVert^2$.
       The middle term vanishes because $\sum_i (x_i - g) = 0$, which is exactly the statement that $g$
       is the mean. What is left is $\sum_i \lVert x_i - g \rVert^2 + n \lVert g - c \rVert^2$, a
@@ -939,12 +954,16 @@ def farthest_first_traversal(data, k):
     </figure>
 
     <p>
-      Neither step can raise the distortion. Reassigning a point to a nearer centre lowers that
-      point's contribution or leaves it alone, and replacing a cluster's centre by its mean lowers
-      that cluster's contribution or leaves it alone by the Center of Gravity Theorem. The distortion
-      is therefore non-increasing, and since each round is determined by the partition and there are
-      finitely many partitions, no partition can recur without the algorithm having already stopped.
-      Each round costs $O(nkm)$, dominated by measuring every point against every centre.
+      Write $\phi(P, C) = \sum_{i} \sum_{x \in P_i} \lVert x - c_i \rVert^2$ for a partition $P$ into
+      $k$ parts and a list $C$ of $k$ centres, which is $n$ times the distortion when $P$ puts every
+      point with its nearest centre. The first step minimises $\phi$ over $P$ with $C$ held fixed,
+      because the sum splits into one independent term per point and each point is put with the centre
+      nearest it, and the second minimises $\phi$ over $C$ with $P$ held fixed, by the Center of
+      Gravity Theorem applied to each part separately. So $\phi$ never increases. If ties are broken so
+      that a point moves only when some centre is strictly nearer than the one it currently has, then
+      any round that changes the partition strictly decreases $\phi$, so no partition can occur twice;
+      there are finitely many partitions, so the algorithm stops. Each round costs $O(nkm)$, dominated
+      by measuring every point against every centre.
     </p>
 
     <h2>When Lloyd Fails</h2>
@@ -1284,8 +1303,14 @@ def kmeans_plus_plus(data, k):
       A coin comes up heads with unknown probability $\theta$. Flipping it $n$ times and seeing $i$
       heads, the probability of that outcome is $\theta^{i} (1 - \theta)^{n - i}$, which as a function
       of $\theta$ is the <strong>likelihood</strong>. The estimate of $\theta$ is the value maximising
-      it. Differentiating $i \log \theta + (n - i) \log(1 - \theta)$ gives
-      $\frac{i}{\theta} - \frac{n - i}{1 - \theta}$, which is zero exactly at $\theta = i/n$.
+      it. Taking the logarithm first leaves the maximum where it is, because $\log$ is increasing, and
+      turns the product into the sum $i \log \theta + (n - i) \log(1 - \theta)$, whose derivative with
+      respect to $\theta$ is $\frac{i}{\theta} - \frac{n - i}{1 - \theta}$. A maximum in the interior
+      of the interval is a point where that derivative vanishes, so setting it to zero gives
+      $i(1 - \theta) = \theta(n - i)$, which expands to $i - i\theta = n\theta - i\theta$ and leaves
+      $\theta = i/n$. For $0 < i < n$ the likelihood is zero at $\theta = 0$ and at $\theta = 1$ and
+      positive between them, so this one stationary point is the maximum, and the estimated bias is
+      the observed fraction of heads.
     </p>
     <figure class="figure-block">
       <svg class="figure" width="334.7" height="297.9" viewBox="42.6 15 334.7 297.9">
@@ -1338,8 +1363,8 @@ def kmeans_plus_plus(data, k):
       Alternating those two implications is <strong>expectation maximization</strong>. The
       <strong>E-step</strong> takes the current parameters and computes the hidden data, and the
       <strong>M-step</strong> takes the hidden data and recomputes the parameters by maximum
-      likelihood. The Lloyd algorithm is the special case in which the hidden data is forced to be a
-      0/1 assignment, which is why it behaves the way it does: it converges, it never worsens the
+      likelihood. The Lloyd algorithm is the case in which the hidden data is forced to be a 0/1
+      assignment, which is why it behaves the way it does: it converges, it never worsens its
       objective, and it lands in a local optimum that its starting point selected.
     </p>
 
@@ -1355,12 +1380,23 @@ def kmeans_plus_plus(data, k):
     <h2>Soft k-Means Clustering</h2>
 
     <p>
-      What remains is to give $\Pr(\mathrm{Data}_j \mid x_i)$ a form. Soft k-means uses
-      $e^{-\beta \, d(\mathrm{Data}_j, x_i)}$, so that responsibility falls off with distance, and the
-      normalisation makes the column sum to 1. The parameter $\beta$ is the
-      <strong>stiffness</strong>, and it is the whole content of the model: at $\beta$ near zero every
-      centre is equally responsible for every point, and as $\beta$ grows the nearest centre takes
-      everything, which is the hard assignment again.
+      What remains is to give $\Pr(\mathrm{Data}_j \mid x_i)$ a form. Soft k-means takes it
+      proportional to $e^{-\beta \, d(\mathrm{Data}_j, x_i)}$, with a constant of proportionality that
+      does not depend on $i$ and so cancels between the numerator and the denominator, which is why
+      only the exponentials are ever computed. The parameter $\beta \geq 0$ is the
+      <strong>stiffness</strong>.
+    </p>
+
+    <p>
+      Both extremes follow from the formula. At $\beta = 0$ every exponential equals 1, so every
+      responsibility is exactly $1/k$ and the assignment carries no information. At the other end, let
+      $x_1$ be the centre nearest $\mathrm{Data}_j$ and let $\delta > 0$ be the amount by which the
+      second nearest is further away. Dividing the numerator and the denominator by
+      $e^{-\beta d(\mathrm{Data}_j, x_1)}$ makes the responsibility of $x_1$ equal to
+      $1 / \left(1 + \sum_{t \geq 2} e^{-\beta (d(\mathrm{Data}_j, x_t) - d(\mathrm{Data}_j, x_1))}
+      \right)$, and every exponent in that sum is at most $-\beta \delta$. So as $\beta \to \infty$ the
+      sum tends to 0, the responsibility of the nearest centre tends to 1 and the rest to 0, and the
+      soft assignment becomes the hard one, provided the nearest centre is unique.
     </p>
     <figure class="figure-block">
       <svg class="figure" width="607.3" height="315" viewBox="22.7 25 607.3 315">
@@ -1537,7 +1573,9 @@ def kmeans_plus_plus(data, k):
 
 
 def responsibilities(data, centers, beta):
-    pull = [[exp(-beta * distance(c, p)) for p in data] for c in centers]
+    near = [min(distance(c, p) for c in centers) for p in data]
+    pull = [[exp(-beta * (distance(c, p) - near[j])) for j, p in enumerate(data)]
+            for c in centers]
     total = [sum(row[j] for row in pull) for j in range(len(data))]
     return [[row[j] / total[j] for j in range(len(data))] for row in pull]
 
@@ -1551,12 +1589,21 @@ def soft_lloyd(data, k, beta, steps=100):
     return centers</code></pre>
 
     <p>
+      The subtraction of <code>near[j]</code> in the E-step is the cancellation derived above, chosen
+      so that the smallest exponent for each point is exactly 0. It is not an optimisation but a
+      requirement: a double underflows to exactly zero once its exponent drops below $-745.13$, so
+      without the shift every entry of a column becomes 0 at large $\beta$ and the normalisation
+      divides by zero. With the shift the largest term in every column is 1, so the denominator is at
+      least 1 whatever $\beta$ is.
+    </p>
+
+    <p>
       The M-step here is the weighted centre of gravity: each coordinate of centre $i$ is
       $\frac{\sum_j \mathrm{HiddenMatrix}_{i,j} \cdot \mathrm{Data}_{j}}
       {\sum_j \mathrm{HiddenMatrix}_{i,j}}$, which reduces to the ordinary mean when the
       responsibilities are 0 and 1. Unlike <code>lloyd</code> there is no convergence test, because
-      the centres move by ever smaller amounts without ever repeating exactly, so the loop runs a
-      fixed number of steps.
+      the centres in general move by ever smaller amounts without ever repeating exactly, so the loop
+      runs a fixed number of steps.
     </p>
 
     <h2>Hierarchical Clustering</h2>
