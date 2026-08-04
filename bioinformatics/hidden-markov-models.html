@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 10: Hidden Markov Models</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Hidden Markov models, the Viterbi algorithm, profile HMMs and Baum-Welch, applied to CG-islands on human chromosome X and to the HIV envelope V3 loop.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/hidden-markov-models.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 10: Hidden Markov Models">
+  <meta property="og:description" content="Hidden Markov models, the Viterbi algorithm, profile HMMs and Baum-Welch, applied to CG-islands on human chromosome X and to the HIV envelope V3 loop.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/hidden-markov-models.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 10: Why Have Biologists Still Not Developed an HIV Vaccine?</h1>
+    </header>
+
+    <p>
+      Every chapter so far has compared sequences to each other. This one builds a model of what a
+      family of sequences looks like, and then asks of a new sequence how well the model explains it.
+      The model is a machine that emits symbols while moving between states that cannot be seen, and
+      the algorithms in this chapter recover what the machine was doing from what it produced.
+    </p>
+
+    <h2>HIV and the Limits of Alignment</h2>
+
+    <p>
+      HIV is a retrovirus that infects the immune cells meant to clear it. It carries only nine
+      genes, and the one that matters here is <strong>env</strong>, which codes for the envelope
+      protein on the surface of the virus. That protein is what an antibody would have to recognise,
+      and it is the hardest possible target. The virus copies its genome with an error-prone enzyme
+      and produces new generations in days, so <em>env</em> accumulates changes at one to two percent
+      per nucleotide per year, faster than an immune response can be raised against any one version
+      of it. The protein is also coated in sugars added by the host cell, a covering that hides much
+      of the surface an antibody would otherwise bind.
+    </p>
+
+    <p>
+      Different versions of <em>env</em> behave differently in a patient. Some strains make infected
+      cells fuse into large clumps in culture and are called <strong>syncytium-inducing</strong>, or
+      SI; others do not and are called <strong>non-syncytium-inducing</strong>, NSI. The distinction
+      matters because it tracks which cells the virus can enter and how fast the disease progresses,
+      and the difference is carried in a short stretch of <em>env</em> called the
+      <strong>V3 loop</strong>, about 35 amino acids long. Given the V3 loop of a new isolate, the
+      question is which kind it is.
+    </p>
+
+    <p>
+      <a href="sequence-alignment.html">Chapter 5</a> compared two sequences and returned a score.
+      That is the wrong shape of answer here. A score says how similar two sequences are as wholes,
+      and what separates SI from NSI is which positions of the loop are fixed across the family and
+      which are free, and what each position prefers. Chapter 5's multiple alignment does produce
+      columns, but it aligns exactly three sequences and its cost grows exponentially with the
+      number of them, so it cannot look at a family of fifty. A single alignment also has no way to
+      say that a position usually holds arginine, sometimes lysine, and never proline. That
+      statement is a probability distribution per column, and a model made of those distributions is
+      what this chapter builds.
+    </p>
+
+    <h2>The Crooked Dealer</h2>
+
+    <p>
+      Strip the biology away and the problem has a simpler form. A dealer flips a coin repeatedly and
+      announces the outcomes. Most of the time the coin is fair, but sometimes the dealer switches to
+      a biased coin that comes up heads three times in four, and later switches back. The sequence of
+      outcomes is seen; the sequence of coins is not.
+    </p>
+
+    <p>
+      <strong>Casino Problem.</strong> Given a string $x = x_1 \dots x_n$ of outcomes, find the
+      string $\pi = \pi_1 \dots \pi_n$ saying which coin produced each outcome.
+    </p>
+
+    <p>
+      The obvious attack is a sliding window: at each position, count the heads in a window around it
+      and call the window biased when the share is closer to $0.75$ than to $0.5$. The trouble is the
+      width. A short window is dominated by chance, since a fair coin easily gives four heads in six
+      flips, so it reports biased stretches that are not there. A long window averages the noise away
+      but also averages the biased stretch together with the fair flips on either side of it, so a
+      short stretch is flattened until it disappears and the ends of a long one are placed wherever
+      the window happens to cross the threshold.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="667.16" height="269" viewBox="-23.38 29 667.16 269">
+      <text class="fig-text fig-note" x="48" y="50" text-anchor="end">flips</text>
+      <line class="fig-cell" x1="60" y1="41" x2="60" y2="51"/>
+      <line class="fig-cell" x1="64.6" y1="41" x2="64.6" y2="51"/>
+      <line class="fig-curve" x1="69.2" y1="41" x2="69.2" y2="51"/>
+      <line class="fig-cell" x1="73.8" y1="41" x2="73.8" y2="51"/>
+      <line class="fig-curve" x1="78.4" y1="41" x2="78.4" y2="51"/>
+      <line class="fig-curve" x1="83" y1="41" x2="83" y2="51"/>
+      <line class="fig-curve" x1="87.6" y1="41" x2="87.6" y2="51"/>
+      <line class="fig-curve" x1="92.2" y1="41" x2="92.2" y2="51"/>
+      <line class="fig-cell" x1="96.8" y1="41" x2="96.8" y2="51"/>
+      <line class="fig-cell" x1="101.4" y1="41" x2="101.4" y2="51"/>
+      <line class="fig-curve" x1="106" y1="41" x2="106" y2="51"/>
+      <line class="fig-cell" x1="110.6" y1="41" x2="110.6" y2="51"/>
+      <line class="fig-curve" x1="115.2" y1="41" x2="115.2" y2="51"/>
+      <line class="fig-curve" x1="119.8" y1="41" x2="119.8" y2="51"/>
+      <line class="fig-curve" x1="124.4" y1="41" x2="124.4" y2="51"/>
+      <line class="fig-curve" x1="129" y1="41" x2="129" y2="51"/>
+      <line class="fig-cell" x1="133.6" y1="41" x2="133.6" y2="51"/>
+      <line class="fig-cell" x1="138.2" y1="41" x2="138.2" y2="51"/>
+      <line class="fig-curve" x1="142.8" y1="41" x2="142.8" y2="51"/>
+      <line class="fig-cell" x1="147.4" y1="41" x2="147.4" y2="51"/>
+      <line class="fig-curve" x1="152" y1="41" x2="152" y2="51"/>
+      <line class="fig-curve" x1="156.6" y1="41" x2="156.6" y2="51"/>
+      <line class="fig-curve" x1="161.2" y1="41" x2="161.2" y2="51"/>
+      <line class="fig-cell" x1="165.8" y1="41" x2="165.8" y2="51"/>
+      <line class="fig-curve" x1="170.4" y1="41" x2="170.4" y2="51"/>
+      <line class="fig-curve" x1="175" y1="41" x2="175" y2="51"/>
+      <line class="fig-curve" x1="179.6" y1="41" x2="179.6" y2="51"/>
+      <line class="fig-curve" x1="184.2" y1="41" x2="184.2" y2="51"/>
+      <line class="fig-curve" x1="188.8" y1="41" x2="188.8" y2="51"/>
+      <line class="fig-curve" x1="193.4" y1="41" x2="193.4" y2="51"/>
+      <line class="fig-curve" x1="198" y1="41" x2="198" y2="51"/>
+      <line class="fig-curve" x1="202.6" y1="41" x2="202.6" y2="51"/>
+      <line class="fig-cell" x1="207.2" y1="41" x2="207.2" y2="51"/>
+      <line class="fig-cell" x1="211.8" y1="41" x2="211.8" y2="51"/>
+      <line class="fig-curve" x1="216.4" y1="41" x2="216.4" y2="51"/>
+      <line class="fig-curve" x1="221" y1="41" x2="221" y2="51"/>
+      <line class="fig-curve" x1="225.6" y1="41" x2="225.6" y2="51"/>
+      <line class="fig-curve" x1="230.2" y1="41" x2="230.2" y2="51"/>
+      <line class="fig-cell" x1="234.8" y1="41" x2="234.8" y2="51"/>
+      <line class="fig-cell" x1="239.4" y1="41" x2="239.4" y2="51"/>
+      <line class="fig-curve" x1="244" y1="41" x2="244" y2="51"/>
+      <line class="fig-cell" x1="248.6" y1="41" x2="248.6" y2="51"/>
+      <line class="fig-cell" x1="253.2" y1="41" x2="253.2" y2="51"/>
+      <line class="fig-curve" x1="257.8" y1="41" x2="257.8" y2="51"/>
+      <line class="fig-curve" x1="262.4" y1="41" x2="262.4" y2="51"/>
+      <line class="fig-curve" x1="267" y1="41" x2="267" y2="51"/>
+      <line class="fig-curve" x1="271.6" y1="41" x2="271.6" y2="51"/>
+      <line class="fig-cell" x1="276.2" y1="41" x2="276.2" y2="51"/>
+      <line class="fig-curve" x1="280.8" y1="41" x2="280.8" y2="51"/>
+      <line class="fig-curve" x1="285.4" y1="41" x2="285.4" y2="51"/>
+      <line class="fig-curve" x1="290" y1="41" x2="290" y2="51"/>
+      <line class="fig-curve" x1="294.6" y1="41" x2="294.6" y2="51"/>
+      <line class="fig-curve" x1="299.2" y1="41" x2="299.2" y2="51"/>
+      <line class="fig-curve" x1="303.8" y1="41" x2="303.8" y2="51"/>
+      <line class="fig-curve" x1="308.4" y1="41" x2="308.4" y2="51"/>
+      <line class="fig-curve" x1="313" y1="41" x2="313" y2="51"/>
+      <line class="fig-curve" x1="317.6" y1="41" x2="317.6" y2="51"/>
+      <line class="fig-curve" x1="322.2" y1="41" x2="322.2" y2="51"/>
+      <line class="fig-curve" x1="326.8" y1="41" x2="326.8" y2="51"/>
+      <line class="fig-cell" x1="331.4" y1="41" x2="331.4" y2="51"/>
+      <line class="fig-cell" x1="336" y1="41" x2="336" y2="51"/>
+      <line class="fig-curve" x1="340.6" y1="41" x2="340.6" y2="51"/>
+      <line class="fig-curve" x1="345.2" y1="41" x2="345.2" y2="51"/>
+      <line class="fig-curve" x1="349.8" y1="41" x2="349.8" y2="51"/>
+      <line class="fig-curve" x1="354.4" y1="41" x2="354.4" y2="51"/>
+      <line class="fig-curve" x1="359" y1="41" x2="359" y2="51"/>
+      <line class="fig-cell" x1="363.6" y1="41" x2="363.6" y2="51"/>
+      <line class="fig-curve" x1="368.2" y1="41" x2="368.2" y2="51"/>
+      <line class="fig-curve" x1="372.8" y1="41" x2="372.8" y2="51"/>
+      <line class="fig-curve" x1="377.4" y1="41" x2="377.4" y2="51"/>
+      <line class="fig-cell" x1="382" y1="41" x2="382" y2="51"/>
+      <line class="fig-curve" x1="386.6" y1="41" x2="386.6" y2="51"/>
+      <line class="fig-curve" x1="391.2" y1="41" x2="391.2" y2="51"/>
+      <line class="fig-cell" x1="395.8" y1="41" x2="395.8" y2="51"/>
+      <line class="fig-curve" x1="400.4" y1="41" x2="400.4" y2="51"/>
+      <line class="fig-cell" x1="405" y1="41" x2="405" y2="51"/>
+      <line class="fig-cell" x1="409.6" y1="41" x2="409.6" y2="51"/>
+      <line class="fig-cell" x1="414.2" y1="41" x2="414.2" y2="51"/>
+      <line class="fig-curve" x1="418.8" y1="41" x2="418.8" y2="51"/>
+      <line class="fig-cell" x1="423.4" y1="41" x2="423.4" y2="51"/>
+      <line class="fig-cell" x1="428" y1="41" x2="428" y2="51"/>
+      <line class="fig-curve" x1="432.6" y1="41" x2="432.6" y2="51"/>
+      <line class="fig-cell" x1="437.2" y1="41" x2="437.2" y2="51"/>
+      <line class="fig-curve" x1="441.8" y1="41" x2="441.8" y2="51"/>
+      <line class="fig-curve" x1="446.4" y1="41" x2="446.4" y2="51"/>
+      <line class="fig-cell" x1="451" y1="41" x2="451" y2="51"/>
+      <line class="fig-cell" x1="455.6" y1="41" x2="455.6" y2="51"/>
+      <line class="fig-curve" x1="460.2" y1="41" x2="460.2" y2="51"/>
+      <line class="fig-cell" x1="464.8" y1="41" x2="464.8" y2="51"/>
+      <line class="fig-cell" x1="469.4" y1="41" x2="469.4" y2="51"/>
+      <line class="fig-curve" x1="474" y1="41" x2="474" y2="51"/>
+      <line class="fig-cell" x1="478.6" y1="41" x2="478.6" y2="51"/>
+      <line class="fig-cell" x1="483.2" y1="41" x2="483.2" y2="51"/>
+      <line class="fig-cell" x1="487.8" y1="41" x2="487.8" y2="51"/>
+      <line class="fig-curve" x1="492.4" y1="41" x2="492.4" y2="51"/>
+      <line class="fig-curve" x1="497" y1="41" x2="497" y2="51"/>
+      <line class="fig-curve" x1="501.6" y1="41" x2="501.6" y2="51"/>
+      <line class="fig-cell" x1="506.2" y1="41" x2="506.2" y2="51"/>
+      <line class="fig-cell" x1="510.8" y1="41" x2="510.8" y2="51"/>
+      <line class="fig-curve" x1="515.4" y1="41" x2="515.4" y2="51"/>
+      <line class="fig-curve" x1="520" y1="41" x2="520" y2="51"/>
+      <line class="fig-curve" x1="524.6" y1="41" x2="524.6" y2="51"/>
+      <line class="fig-cell" x1="529.2" y1="41" x2="529.2" y2="51"/>
+      <line class="fig-curve" x1="533.8" y1="41" x2="533.8" y2="51"/>
+      <line class="fig-curve" x1="538.4" y1="41" x2="538.4" y2="51"/>
+      <line class="fig-cell" x1="543" y1="41" x2="543" y2="51"/>
+      <line class="fig-cell" x1="547.6" y1="41" x2="547.6" y2="51"/>
+      <line class="fig-cell" x1="552.2" y1="41" x2="552.2" y2="51"/>
+      <line class="fig-cell" x1="556.8" y1="41" x2="556.8" y2="51"/>
+      <line class="fig-curve" x1="561.4" y1="41" x2="561.4" y2="51"/>
+      <line class="fig-curve" x1="566" y1="41" x2="566" y2="51"/>
+      <line class="fig-curve" x1="570.6" y1="41" x2="570.6" y2="51"/>
+      <line class="fig-cell" x1="575.2" y1="41" x2="575.2" y2="51"/>
+      <line class="fig-cell" x1="579.8" y1="41" x2="579.8" y2="51"/>
+      <line class="fig-curve" x1="584.4" y1="41" x2="584.4" y2="51"/>
+      <line class="fig-curve" x1="589" y1="41" x2="589" y2="51"/>
+      <line class="fig-curve" x1="593.6" y1="41" x2="593.6" y2="51"/>
+      <line class="fig-cell" x1="598.2" y1="41" x2="598.2" y2="51"/>
+      <line class="fig-curve" x1="602.8" y1="41" x2="602.8" y2="51"/>
+      <line class="fig-curve" x1="607.4" y1="41" x2="607.4" y2="51"/>
+      <text class="fig-text fig-note" x="48" y="76" text-anchor="end">truth</text>
+      <line class="fig-cell" x1="60" y1="74" x2="607.4" y2="74"/>
+      <line class="fig-free-solid" x1="267" y1="74" x2="405" y2="74"/>
+      <text class="fig-text fig-note" x="48" y="134" text-anchor="end">window 11</text>
+      <line class="fig-axis" x1="60" y1="156" x2="607.4" y2="156"/>
+      <path class="fig-curve" d="M 60 156 L 64.6 147 L 69.2 140.3 L 73.8 149 L 78.4 156 L 83 150.3 L 87.6 150.3 L 92.2 138.9 L 96.8 138.9 L 101.4 127.4 L 106 127.4 L 110.6 138.9 L 115.2 150.3 L 119.8 150.3 L 124.4 150.3 L 129 138.9 L 133.6 138.9 L 138.2 127.4 L 142.8 138.9 L 147.4 138.9 L 152 138.9 L 156.6 138.9 L 161.2 127.4 L 165.8 116 L 170.4 116 L 175 104.6 L 179.6 104.6 L 184.2 116 L 188.8 127.4 L 193.4 116 L 198 116 L 202.6 116 L 207.2 116 L 211.8 127.4 L 216.4 138.9 L 221 138.9 L 225.6 150.3 L 230.2 161.7 L 234.8 150.3 L 239.4 138.9 L 244 138.9 L 248.6 138.9 L 253.2 150.3 L 257.8 150.3 L 262.4 138.9 L 267 127.4 L 271.6 127.4 L 276.2 116 L 280.8 104.6 L 285.4 104.6 L 290 104.6 L 294.6 104.6 L 299.2 104.6 L 303.8 93.14 L 308.4 104.6 L 313 116 L 317.6 116 L 322.2 116 L 326.8 116 L 331.4 116 L 336 116 L 340.6 127.4 L 345.2 127.4 L 349.8 127.4 L 354.4 127.4 L 359 127.4 L 363.6 116 L 368.2 116 L 372.8 127.4 L 377.4 127.4 L 382 138.9 L 386.6 150.3 L 391.2 150.3 L 395.8 150.3 L 400.4 161.7 L 405 173.1 L 409.6 161.7 L 414.2 173.1 L 418.8 173.1 L 423.4 161.7 L 428 173.1 L 432.6 173.1 L 437.2 161.7 L 441.8 161.7 L 446.4 173.1 L 451 161.7 L 455.6 161.7 L 460.2 173.1 L 464.8 173.1 L 469.4 173.1 L 474 173.1 L 478.6 161.7 L 483.2 161.7 L 487.8 173.1 L 492.4 161.7 L 497 150.3 L 501.6 150.3 L 506.2 150.3 L 510.8 138.9 L 515.4 127.4 L 520 138.9 L 524.6 150.3 L 529.2 161.7 L 533.8 161.7 L 538.4 150.3 L 543 150.3 L 547.6 150.3 L 552.2 161.7 L 556.8 161.7 L 561.4 161.7 L 566 161.7 L 570.6 150.3 L 575.2 150.3 L 579.8 138.9 L 584.4 127.4 L 589 130.9 L 593.6 135 L 598.2 140.3 L 602.8 129.1 L 607.4 114.1"/>
+      <line class="fig-guide" x1="60" y1="140.286" x2="607.4" y2="140.286"/>
+      <text class="fig-text fig-note" x="48" y="190" text-anchor="end">window 31</text>
+      <line class="fig-axis" x1="60" y1="212" x2="607.4" y2="212"/>
+      <path class="fig-curve" d="M 60 196.3 L 64.6 200.9 L 69.2 205 L 73.8 202.1 L 78.4 205.7 L 83 203 L 87.6 200.6 L 92.2 198.3 L 96.8 201.5 L 101.4 199.4 L 106 197.5 L 110.6 195.7 L 115.2 194 L 119.8 192.5 L 124.4 191 L 129 189.7 L 133.6 185.6 L 138.2 185.6 L 142.8 189.7 L 147.4 185.6 L 152 185.6 L 156.6 185.6 L 161.2 185.6 L 165.8 189.7 L 170.4 189.7 L 175 185.6 L 179.6 189.7 L 184.2 189.7 L 188.8 189.7 L 193.4 189.7 L 198 189.7 L 202.6 189.7 L 207.2 189.7 L 211.8 185.6 L 216.4 185.6 L 221 181.6 L 225.6 181.6 L 230.2 181.6 L 234.8 181.6 L 239.4 177.5 L 244 177.5 L 248.6 177.5 L 253.2 177.5 L 257.8 177.5 L 262.4 181.6 L 267 185.6 L 271.6 185.6 L 276.2 185.6 L 280.8 181.6 L 285.4 177.5 L 290 177.5 L 294.6 181.6 L 299.2 181.6 L 303.8 181.6 L 308.4 177.5 L 313 177.5 L 317.6 177.5 L 322.2 173.5 L 326.8 173.5 L 331.4 173.5 L 336 177.5 L 340.6 181.6 L 345.2 185.6 L 349.8 181.6 L 354.4 185.6 L 359 189.7 L 363.6 189.7 L 368.2 193.8 L 372.8 193.8 L 377.4 193.8 L 382 197.8 L 386.6 201.9 L 391.2 201.9 L 395.8 205.9 L 400.4 210 L 405 205.9 L 409.6 205.9 L 414.2 210 L 418.8 214 L 423.4 214 L 428 214 L 432.6 214 L 437.2 214 L 441.8 218.1 L 446.4 218.1 L 451 218.1 L 455.6 214 L 460.2 218.1 L 464.8 218.1 L 469.4 214 L 474 218.1 L 478.6 218.1 L 483.2 218.1 L 487.8 218.1 L 492.4 218.1 L 497 214 L 501.6 210 L 506.2 214 L 510.8 214 L 515.4 214 L 520 214 L 524.6 210 L 529.2 210 L 533.8 210 L 538.4 205.9 L 543 203.6 L 547.6 205.5 L 552.2 203 L 556.8 200.4 L 561.4 197.5 L 566 199.4 L 570.6 201.5 L 575.2 203.8 L 579.8 200.6 L 584.4 197 L 589 199.4 L 593.6 202.1 L 598.2 205 L 602.8 200.9 L 607.4 204.1"/>
+      <line class="fig-guide" x1="60" y1="196.286" x2="607.4" y2="196.286"/>
+      <text class="fig-text fig-note" x="48" y="246" text-anchor="end">window 61</text>
+      <line class="fig-axis" x1="60" y1="268" x2="607.4" y2="268"/>
+      <path class="fig-curve" d="M 60 245.7 L 64.6 244.4 L 69.2 247 L 73.8 249.5 L 78.4 248.2 L 83 247 L 87.6 245.9 L 92.2 244.8 L 96.8 247 L 101.4 249.1 L 106 248.1 L 110.6 250 L 115.2 251.9 L 119.8 250.9 L 124.4 249.8 L 129 248.9 L 133.6 247.9 L 138.2 249.7 L 142.8 248.8 L 147.4 247.9 L 152 247 L 156.6 246.2 L 161.2 245.5 L 165.8 244.7 L 170.4 244 L 175 243.3 L 179.6 242.6 L 184.2 242 L 188.8 241.4 L 193.4 242.9 L 198 244.3 L 202.6 242.2 L 207.2 240.2 L 211.8 240.2 L 216.4 238.1 L 221 238.1 L 225.6 240.2 L 230.2 240.2 L 234.8 240.2 L 239.4 238.1 L 244 238.1 L 248.6 238.1 L 253.2 236.1 L 257.8 238.1 L 262.4 238.1 L 267 240.2 L 271.6 242.2 L 276.2 242.2 L 280.8 240.2 L 285.4 242.2 L 290 242.2 L 294.6 242.2 L 299.2 244.3 L 303.8 244.3 L 308.4 242.2 L 313 244.3 L 317.6 246.4 L 322.2 246.4 L 326.8 248.4 L 331.4 250.5 L 336 250.5 L 340.6 252.5 L 345.2 254.6 L 349.8 254.6 L 354.4 252.5 L 359 252.5 L 363.6 252.5 L 368.2 254.6 L 372.8 256.7 L 377.4 254.6 L 382 252.5 L 386.6 252.5 L 391.2 252.5 L 395.8 250.5 L 400.4 250.5 L 405 252.5 L 409.6 254.6 L 414.2 256.7 L 418.8 256.7 L 423.4 256.7 L 428 256.7 L 432.6 256.7 L 437.2 258.7 L 441.8 260.8 L 446.4 260.8 L 451 260.8 L 455.6 260.8 L 460.2 262.8 L 464.8 262.8 L 469.4 262.8 L 474 261.7 L 478.6 260.5 L 483.2 261.5 L 487.8 262.5 L 492.4 263.5 L 497 264.6 L 501.6 265.7 L 506.2 264.4 L 510.8 265.6 L 515.4 266.8 L 520 268 L 524.6 266.7 L 529.2 268 L 533.8 269.3 L 538.4 268 L 543 269.4 L 547.6 268 L 552.2 266.5 L 556.8 265 L 561.4 266.5 L 566 264.9 L 570.6 263.2 L 575.2 264.7 L 579.8 262.9 L 584.4 264.5 L 589 266.2 L 593.6 264.3 L 598.2 262.3 L 602.8 264.1 L 607.4 261.9"/>
+      <line class="fig-guide" x1="60" y1="252.286" x2="607.4" y2="252.286"/>
+      <line class="fig-curve" x1="60" y1="280" x2="80" y2="280"/>
+      <text class="fig-text fig-note" x="86" y="284" text-anchor="start">heads</text>
+      <line class="fig-free-solid" x1="152" y1="280" x2="172" y2="280"/>
+      <text class="fig-text fig-note" x="178" y="284" text-anchor="start">where the biased coin was really used</text>
+      <line class="fig-guide" x1="410" y1="280" x2="430" y2="280"/>
+      <text class="fig-text fig-note" x="436" y="284" text-anchor="start">halfway between the two coins</text>
+      </svg>
+      <figcaption>
+    A run of 120 flips in which the biased coin was used for 30 of them, and the share of heads in a
+    window centred on each position. A short window follows the noise and crosses the halfway line
+    many times outside the biased stretch. A long window smooths the noise away but also flattens the
+    stretch it is meant to find and blurs both of its ends. No width is right, because the width
+    encodes an assumption about how long a stretch lasts, and that assumption belongs in the model
+    rather than in the measurement.</figcaption>
+    </figure>
+
+    <p>
+      The width is doing work that the data should be doing. Choosing it is a statement about how
+      long the dealer keeps a coin before switching, and that is exactly the kind of statement a
+      model can hold explicitly and a measurement cannot.
+    </p>
+
+    <h2>CG-Islands</h2>
+
+    <p>
+      The same problem appears in a genome. Reading a chromosome as a string over
+      $\{$A, C, G, T$\}$, the dinucleotide CG is far rarer than the letter frequencies predict. The
+      cause is chemical. A C followed by a G is the site at which the cell attaches a methyl group,
+      a small chemical tag used to switch genes off, and a methylated C changes into a T
+      comparatively easily, so over evolutionary time CG pairs have been eroded into TG pairs. In the
+      real window of human chromosome X used later in this chapter, CG occurs at $2.5689$ percent of
+      positions where the C and G counts alone predict $5.9536$ percent, which is a rate of $0.431$
+      of what composition would give.
+    </p>
+
+    <p>
+      The erosion is not uniform. Around the start of many genes the methylation machinery is kept
+      away, the CG pairs there are not eroded, and the result is a short stretch with much more CG
+      than its surroundings. These are <strong>CG-islands</strong>, and finding them locates gene
+      starts. The naive method is again a sliding window over CG density, and it fails for the same
+      reason with the same freedom in its width.
+    </p>
+
+    <h2>Hidden Markov Models</h2>
+
+    <p>
+      A <strong>hidden Markov model</strong> is four things. An <strong>alphabet</strong> of symbols
+      that can be emitted. A set of <strong>states</strong>. A <strong>transition matrix</strong>
+      whose entry $\textit{transition}(k, l)$ is the probability that a chain in state $k$ moves to
+      state $l$ next. An <strong>emission matrix</strong> whose entry
+      $\textit{emission}(k, b)$ is the probability that state $k$ emits symbol $b$. The chain starts
+      in a state chosen uniformly, and at every step it emits one symbol and then moves.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="342.46" height="235" viewBox="95.77 7 342.46 235">
+      <circle class="fig-shape" cx="150" cy="90" r="26"/>
+      <text class="fig-text fig-tick" x="150" y="96" text-anchor="middle">F</text>
+      <circle class="fig-shape" cx="380" cy="90" r="26"/>
+      <text class="fig-text fig-tick" x="380" y="96" text-anchor="middle">B</text>
+      <path class="fig-arc" d="M 176 82 Q 265 116 354 82"/>
+      <path class="fig-dot" d="M 354 82 L 348.585 87.4407 L 346.337 81.5555 Z"/>
+      <path class="fig-arc" d="M 354 98 Q 265 64 176 98"/>
+      <path class="fig-dot" d="M 176 98 L 181.415 92.5593 L 183.663 98.4445 Z"/>
+      <text class="fig-text fig-note" x="265" y="58" text-anchor="middle">0.1</text>
+      <text class="fig-text fig-note" x="265" y="136" text-anchor="middle">0.2</text>
+      <path class="fig-arc" d="M 130.0 72.0 C 80.0 20.0 170.0 10.0 164.0 66.0"/>
+      <text class="fig-text fig-note" x="116" y="28" text-anchor="middle">0.9</text>
+      <path class="fig-arc" d="M 400.0 72.0 C 450.0 20.0 360.0 10.0 366.0 66.0"/>
+      <text class="fig-text fig-note" x="418" y="28" text-anchor="middle">0.8</text>
+      <rect class="fig-band" x="130" y="150" width="15" height="42"/>
+      <rect class="fig-cell" x="130" y="150" width="15" height="42"/>
+      <text class="fig-text fig-note" x="137.5" y="205" text-anchor="middle">H</text>
+      <rect class="fig-band" x="149" y="150" width="15" height="42"/>
+      <rect class="fig-cell" x="149" y="150" width="15" height="42"/>
+      <text class="fig-text fig-note" x="156.5" y="205" text-anchor="middle">T</text>
+      <rect class="fig-band" x="360" y="150" width="15" height="42"/>
+      <rect class="fig-cell" x="360" y="150" width="15" height="42"/>
+      <text class="fig-text fig-note" x="367.5" y="205" text-anchor="middle">H</text>
+      <rect class="fig-band" x="379" y="178" width="15" height="14"/>
+      <rect class="fig-cell" x="379" y="178" width="15" height="14"/>
+      <text class="fig-text fig-note" x="386.5" y="205" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="265" y="228" text-anchor="middle">what each state emits</text>
+      </svg>
+      <figcaption>
+    A hidden Markov model with two states. The arrows carry the probability of moving from one state
+    to the next, and the columns under each state carry the probability of each symbol it emits. The
+    fair coin emits heads and tails equally, the biased one emits heads three times in four, and both
+    stay where they are far more often than they switch, which is what makes the stretches long
+    enough to find.</figcaption>
+    </figure>
+
+    <p>
+      A run of the machine produces two strings of the same length: the <strong>hidden path</strong>
+      $\pi$ of states it passed through, and the string $x$ of symbols it emitted. Only $x$ is seen.
+      The probability of the path alone is the product of the transitions along it, and the
+      probability of the emissions given the path is the product of the emissions, so the two
+      together give $\Pr(x, \pi) = \Pr(\pi) \Pr(x \mid \pi)$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="511.74" height="132" viewBox="6.26 26 511.74 132">
+      <text class="fig-text fig-note" x="64" y="48" text-anchor="end">emitted</text>
+      <text class="fig-text fig-note" x="64" y="106" text-anchor="end">hidden</text>
+      <text class="fig-text fig-tick" x="90" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="90" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="90" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="90" y1="86" x2="90" y2="65"/>
+      <path class="fig-dot" d="M 90 60 L 92.25 65 L 87.75 65 Z"/>
+      <text class="fig-text fig-tick" x="134" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="134" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="134" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="134" y1="86" x2="134" y2="65"/>
+      <path class="fig-dot" d="M 134 60 L 136.25 65 L 131.75 65 Z"/>
+      <line class="fig-curve" x1="105" y1="102" x2="113" y2="102"/>
+      <path class="fig-dot" d="M 119 102 L 113 104.7 L 113 99.3 Z"/>
+      <text class="fig-text fig-tick" x="178" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="178" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="178" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="178" y1="86" x2="178" y2="65"/>
+      <path class="fig-dot" d="M 178 60 L 180.25 65 L 175.75 65 Z"/>
+      <line class="fig-curve" x1="149" y1="102" x2="157" y2="102"/>
+      <path class="fig-dot" d="M 163 102 L 157 104.7 L 157 99.3 Z"/>
+      <text class="fig-text fig-tick" x="222" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="222" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="222" y="106" text-anchor="middle">B</text>
+      <line class="fig-cell" x1="222" y1="86" x2="222" y2="65"/>
+      <path class="fig-dot" d="M 222 60 L 224.25 65 L 219.75 65 Z"/>
+      <line class="fig-curve" x1="193" y1="102" x2="201" y2="102"/>
+      <path class="fig-dot" d="M 207 102 L 201 104.7 L 201 99.3 Z"/>
+      <text class="fig-text fig-tick" x="266" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="266" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="266" y="106" text-anchor="middle">B</text>
+      <line class="fig-cell" x1="266" y1="86" x2="266" y2="65"/>
+      <path class="fig-dot" d="M 266 60 L 268.25 65 L 263.75 65 Z"/>
+      <line class="fig-curve" x1="237" y1="102" x2="245" y2="102"/>
+      <path class="fig-dot" d="M 251 102 L 245 104.7 L 245 99.3 Z"/>
+      <text class="fig-text fig-tick" x="310" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="310" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="310" y="106" text-anchor="middle">B</text>
+      <line class="fig-cell" x1="310" y1="86" x2="310" y2="65"/>
+      <path class="fig-dot" d="M 310 60 L 312.25 65 L 307.75 65 Z"/>
+      <line class="fig-curve" x1="281" y1="102" x2="289" y2="102"/>
+      <path class="fig-dot" d="M 295 102 L 289 104.7 L 289 99.3 Z"/>
+      <text class="fig-text fig-tick" x="354" y="48" text-anchor="middle">T</text>
+      <circle class="fig-shape" cx="354" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="354" y="106" text-anchor="middle">B</text>
+      <line class="fig-cell" x1="354" y1="86" x2="354" y2="65"/>
+      <path class="fig-dot" d="M 354 60 L 356.25 65 L 351.75 65 Z"/>
+      <line class="fig-curve" x1="325" y1="102" x2="333" y2="102"/>
+      <path class="fig-dot" d="M 339 102 L 333 104.7 L 333 99.3 Z"/>
+      <text class="fig-text fig-tick" x="398" y="48" text-anchor="middle">T</text>
+      <circle class="fig-shape" cx="398" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="398" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="398" y1="86" x2="398" y2="65"/>
+      <path class="fig-dot" d="M 398 60 L 400.25 65 L 395.75 65 Z"/>
+      <line class="fig-curve" x1="369" y1="102" x2="377" y2="102"/>
+      <path class="fig-dot" d="M 383 102 L 377 104.7 L 377 99.3 Z"/>
+      <text class="fig-text fig-tick" x="442" y="48" text-anchor="middle">T</text>
+      <circle class="fig-shape" cx="442" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="442" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="442" y1="86" x2="442" y2="65"/>
+      <path class="fig-dot" d="M 442 60 L 444.25 65 L 439.75 65 Z"/>
+      <line class="fig-curve" x1="413" y1="102" x2="421" y2="102"/>
+      <path class="fig-dot" d="M 427 102 L 421 104.7 L 421 99.3 Z"/>
+      <text class="fig-text fig-tick" x="486" y="48" text-anchor="middle">H</text>
+      <circle class="fig-shape" cx="486" cy="102" r="14"/>
+      <text class="fig-text fig-note" x="486" y="106" text-anchor="middle">F</text>
+      <line class="fig-cell" x1="486" y1="86" x2="486" y2="65"/>
+      <path class="fig-dot" d="M 486 60 L 488.25 65 L 483.75 65 Z"/>
+      <line class="fig-curve" x1="457" y1="102" x2="465" y2="102"/>
+      <path class="fig-dot" d="M 471 102 L 465 104.7 L 465 99.3 Z"/>
+      <text class="fig-text fig-note" x="288" y="144" text-anchor="middle">the path is what has to be recovered</text>
+      </svg>
+      <figcaption>
+    Ten flips and the path that produced them. Only the top row is seen. The chain moves along the
+    bottom row with the transition probabilities, and at each step the state it has reached emits one
+    symbol with its own emission probabilities, so the two rows together have probability
+    $\Pr(x, \pi) = \Pr(\pi)\Pr(x \mid \pi)$ and the problem is to find the bottom row that makes
+    that product largest.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">def path_probability(path, states, transition):
+    probability = 1 / len(states)
+    for previous, current in zip(path, path[1:]):
+        probability *= transition[previous, current]
+    return probability
+
+
+def outcome_given_path(x, path, emission):
+    probability = 1
+    for symbol, state in zip(x, path):
+        probability *= emission[state, symbol]
+    return probability</code></pre>
+
+    <p>
+      An HMM is written here as four plain Python objects: a list of state names, a list of alphabet
+      symbols, and two dictionaries keyed by pairs. Nothing else in the chapter needs more than that.
+      The casino problem now has a precise statement: among all $|\textit{States}|^n$ hidden paths,
+      find the one that makes $\Pr(x, \pi)$ largest.
+    </p>
+
+    <h2>Decoding</h2>
+
+    <p>
+      <strong>Decoding Problem.</strong> Given a string $x$ emitted by an HMM, find a hidden path
+      $\pi$ maximising $\Pr(x, \pi)$ over all hidden paths.
+    </p>
+
+    <p>
+      Lay the states out as rows and the positions of $x$ as columns, and draw an edge from every
+      state in one column to every state in the next. This is the <strong>Viterbi graph</strong>.
+      Give the edge from $(k, i-1)$ to $(l, i)$ the weight
+      $\textit{transition}(k, l) \cdot \textit{emission}(l, x_i)$, which is exactly the factor that a
+      path contributes by making that move and emitting that symbol.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="547.82" height="150" viewBox="33.18 17 547.82 150">
+      <line class="fig-cell" x1="103" y1="90" x2="151" y2="90"/>
+      <line class="fig-cell" x1="103" y1="90" x2="151" y2="144"/>
+      <line class="fig-cell" x1="103" y1="144" x2="151" y2="90"/>
+      <line class="fig-curve" x1="103" y1="144" x2="151" y2="144"/>
+      <line class="fig-cell" x1="177" y1="90" x2="225" y2="90"/>
+      <line class="fig-cell" x1="177" y1="90" x2="225" y2="144"/>
+      <line class="fig-cell" x1="177" y1="144" x2="225" y2="90"/>
+      <line class="fig-curve" x1="177" y1="144" x2="225" y2="144"/>
+      <line class="fig-cell" x1="251" y1="90" x2="299" y2="90"/>
+      <line class="fig-cell" x1="251" y1="90" x2="299" y2="144"/>
+      <line class="fig-cell" x1="251" y1="144" x2="299" y2="90"/>
+      <line class="fig-curve" x1="251" y1="144" x2="299" y2="144"/>
+      <line class="fig-cell" x1="325" y1="90" x2="373" y2="90"/>
+      <line class="fig-cell" x1="325" y1="90" x2="373" y2="144"/>
+      <line class="fig-cell" x1="325" y1="144" x2="373" y2="90"/>
+      <line class="fig-curve" x1="325" y1="144" x2="373" y2="144"/>
+      <line class="fig-cell" x1="399" y1="90" x2="447" y2="90"/>
+      <line class="fig-cell" x1="399" y1="90" x2="447" y2="144"/>
+      <line class="fig-curve" x1="399" y1="144" x2="447" y2="90"/>
+      <line class="fig-cell" x1="399" y1="144" x2="447" y2="144"/>
+      <line class="fig-curve" x1="473" y1="90" x2="521" y2="90"/>
+      <line class="fig-cell" x1="473" y1="90" x2="521" y2="144"/>
+      <line class="fig-cell" x1="473" y1="144" x2="521" y2="90"/>
+      <line class="fig-cell" x1="473" y1="144" x2="521" y2="144"/>
+      <circle class="fig-cell" cx="90" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="90" y="94" text-anchor="middle">F</text>
+      <circle class="fig-cell" cx="164" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="164" y="94" text-anchor="middle">F</text>
+      <circle class="fig-cell" cx="238" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="238" y="94" text-anchor="middle">F</text>
+      <circle class="fig-cell" cx="312" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="312" y="94" text-anchor="middle">F</text>
+      <circle class="fig-cell" cx="386" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="386" y="94" text-anchor="middle">F</text>
+      <circle class="fig-shape" cx="460" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="460" y="94" text-anchor="middle">F</text>
+      <circle class="fig-shape" cx="534" cy="90" r="13"/>
+      <text class="fig-text fig-note" x="534" y="94" text-anchor="middle">F</text>
+      <circle class="fig-shape" cx="90" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="90" y="148" text-anchor="middle">B</text>
+      <circle class="fig-shape" cx="164" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="164" y="148" text-anchor="middle">B</text>
+      <circle class="fig-shape" cx="238" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="238" y="148" text-anchor="middle">B</text>
+      <circle class="fig-shape" cx="312" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="312" y="148" text-anchor="middle">B</text>
+      <circle class="fig-shape" cx="386" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="386" y="148" text-anchor="middle">B</text>
+      <circle class="fig-cell" cx="460" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="460" y="148" text-anchor="middle">B</text>
+      <circle class="fig-cell" cx="534" cy="144" r="13"/>
+      <text class="fig-text fig-note" x="534" y="148" text-anchor="middle">B</text>
+      <text class="fig-text fig-tick" x="90" y="56" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="90" y="38" text-anchor="middle">0</text>
+      <text class="fig-text fig-tick" x="164" y="56" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="164" y="38" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="238" y="56" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="238" y="38" text-anchor="middle">2</text>
+      <text class="fig-text fig-tick" x="312" y="56" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="312" y="38" text-anchor="middle">3</text>
+      <text class="fig-text fig-tick" x="386" y="56" text-anchor="middle">H</text>
+      <text class="fig-text fig-note" x="386" y="38" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="460" y="56" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="460" y="38" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="534" y="56" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="534" y="38" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="50" y="90" text-anchor="end">F</text>
+      <text class="fig-text fig-note" x="50" y="144" text-anchor="end">B</text>
+      </svg>
+      <figcaption>
+    The Viterbi graph of the same model for seven flips: one column per position, one node per state,
+    and an edge for every way of following one state with another. The weight on the edge into a node
+    is the transition probability that reaches it times the probability that it emits the symbol in
+    its column, so the probability of a hidden path is the product of the weights along it. The
+    heavier path is the one Viterbi returns for HHHHHTT, which is BBBBBFF. The two tails at the
+    end are enough to make the fair coin the better explanation of the last two positions, and the
+    switch costs one transition rather than being forced by any threshold.</figcaption>
+    </figure>
+
+    <p>
+      <strong>Theorem.</strong> The probability $\Pr(x, \pi)$ of a hidden path is the product of the
+      weights of the edges along the corresponding path through the Viterbi graph, so a most likely
+      hidden path is a longest path in a directed acyclic graph.
+    </p>
+
+    <p>
+      The proof is the definition rearranged.
+      $\Pr(x, \pi) = \Pr(\pi)\Pr(x \mid \pi)$ expands to
+      $\frac{1}{|\textit{States}|}\prod_{i=2}^{n} \textit{transition}(\pi_{i-1}, \pi_i)
+      \cdot \prod_{i=1}^{n} \textit{emission}(\pi_i, x_i)$. Pairing each transition factor with the
+      emission factor of the position it moves into groups the product into exactly the edge weights
+      defined above, with the first emission and the uniform start left over as the weight of
+      entering the first column. Taking logarithms turns the product into a sum, and because the
+      logarithm is increasing, the path maximising the product is the path maximising the sum. The
+      graph has an edge only from column $i-1$ to column $i$, so it is acyclic, and the longest path
+      problem in a weighted directed acyclic graph is the one
+      <a href="sequence-alignment.html">Chapter 5</a> solved.
+    </p>
+
+    <p>
+      That reduction also gives the size of the problem. The graph has $|\textit{States}|$ nodes per
+      column and $n$ columns, and a full set of edges between consecutive columns, so it has
+      $|\textit{States}|^2 (n-1)$ edges between columns plus $2|\textit{States}|$ joining the source
+      and sink, and the longest path costs one step per edge.
+    </p>
+
+    <p>
+      <strong>Theorem.</strong> If a longest path into $(l, i)$ arrives along the edge from
+      $(k, i-1)$, then its initial part is a longest path into $(k, i-1)$.
+    </p>
+
+    <p>
+      The proof is an exchange. Suppose some path into $(k, i-1)$ were heavier than the initial part
+      of the path in question. Appending the same final edge to it would give a path into $(l, i)$
+      heavier than the original, since both differ only in that final factor, contradicting that the
+      original was longest. So the best score at a node depends only on the best scores one column to
+      its left, and one pass from left to right computes them all.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="341.38" height="212" viewBox="15.9 15 341.38 212">
+      <circle class="fig-cell" cx="120" cy="60" r="15"/>
+      <text class="fig-text fig-note" x="120" y="64" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="120" y="36" text-anchor="middle">s(A, i-1)</text>
+      <line class="fig-curve" x1="135" y1="60" x2="297.371" y2="119.923"/>
+      <path class="fig-dot" d="M 303 122 L 296.436 122.456 L 298.306 117.39 Z"/>
+      <circle class="fig-cell" cx="120" cy="122" r="15"/>
+      <text class="fig-text fig-note" x="120" y="126" text-anchor="middle">B</text>
+      <text class="fig-text fig-note" x="120" y="98" text-anchor="middle">s(B, i-1)</text>
+      <line class="fig-curve" x1="135" y1="122" x2="297" y2="122"/>
+      <path class="fig-dot" d="M 303 122 L 297 124.7 L 297 119.3 Z"/>
+      <circle class="fig-cell" cx="120" cy="184" r="15"/>
+      <text class="fig-text fig-note" x="120" y="188" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="120" y="160" text-anchor="middle">s(C, i-1)</text>
+      <line class="fig-curve" x1="135" y1="184" x2="297.371" y2="124.077"/>
+      <path class="fig-dot" d="M 303 122 L 298.306 126.61 L 296.436 121.544 Z"/>
+      <circle class="fig-shape" cx="320" cy="122" r="17"/>
+      <text class="fig-text fig-note" x="320" y="126" text-anchor="middle">l</text>
+      <text class="fig-text fig-note" x="320" y="94" text-anchor="middle">s(l, i)</text>
+      <text class="fig-text fig-note" x="240" y="66" text-anchor="middle">weight</text>
+      <text class="fig-text fig-note" x="60" y="213" text-anchor="middle">column i-1</text>
+      <text class="fig-text fig-note" x="320" y="213" text-anchor="middle">column i</text>
+      </svg>
+      <figcaption>
+    Every path into a node arrives along one of the edges from the column before it. If the best path
+    into $(l, i)$ arrives from $(k, i-1)$, then the part of it before that edge is itself a best path
+    into $(k, i-1)$, since a better one could be substituted and would improve the whole. So the best
+    score at a node is the best over the states of the column before it,
+    $s(l, i) = \max_k s(k, i-1) \cdot \textit{weight}$, and one pass from left to right fills the
+    graph.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">def safe_log(p):
+    return log(p) if p > 0 else -inf
+
+
+def viterbi(x, states, transition, emission):
+    """The most likely hidden path: the longest path in the Viterbi graph."""
+    best = {k: safe_log(emission[k, x[0]] / len(states)) for k in states}
+    back = []
+    for symbol in x[1:]:
+        step = {l: max(states, key=lambda k: best[k] + safe_log(transition[k, l]))
+                for l in states}
+        best = {l: best[step[l]] + safe_log(transition[step[l], l])
+                + safe_log(emission[l, symbol]) for l in states}
+        back.append(step)
+    state = max(states, key=best.__getitem__)
+    path = [state]
+    for step in reversed(back):
+        state = step[state]
+        path.append(state)
+    return list(reversed(path))</code></pre>
+
+    <p>
+      The scores are kept as logarithms throughout. A path of a few hundred steps has a probability
+      below the smallest positive number a machine can hold, so multiplying the weights directly
+      would give zero for every path and the comparison would be meaningless. Adding logarithms
+      costs nothing extra and the answer is the same path.
+    </p>
+
+    <h2>Application: CG-Islands in Chromosome X</h2>
+
+    <p>
+      The window used here is positions $226{,}352$ to $1{,}000{,}000$ of human chromosome X in
+      assembly GRCh38, fetched from NCBI as record NC_000023.11. It is $773{,}649$ nucleotides long
+      and is the longest stretch of the first megabase of that chromosome carrying no ambiguous
+      nucleotide. Its GC content is $48.80$ percent, and its CG rate of $0.431$ of what composition
+      predicts is the depletion described earlier.
+    </p>
+
+    <p>
+      A model over the four nucleotides cannot express what a CG-island is, because a state's
+      emission distribution would only say how often each single letter appears, which is GC content
+      rather than CG frequency. The sequence is therefore read as a string over the sixteen
+      dinucleotides. Consecutive pairs are taken end to end rather than overlapping, because an
+      overlapping pair shares a nucleotide with its neighbour and an HMM assumes each emission
+      depends on nothing but its own state. That gives $386{,}824$ observations over an alphabet of
+      sixteen, and two states, one for island and one for everything else.
+    </p>
+
+    <p>
+      Viterbi needs parameters before it can run, and the simplest way to get them is to count on a
+      stretch where the answer is already known.
+    </p>
+
+    <p>
+      <strong>HMM Parameter Estimation Problem.</strong> Given a string $x$ emitted by an HMM with
+      unknown matrices, together with the hidden path $\pi$ that produced it, find the transition and
+      emission matrices that maximise $\Pr(x, \pi)$.
+    </p>
+
+    <p>
+      The answer is counting. The likelihood is a product of one factor per step, each factor an
+      entry of one of the two matrices, so it factorises into independent problems, one per row.
+      Maximising a row subject to its entries summing to one puts each entry at the share of the
+      transitions out of that state, or the emissions from it, that took that option. A state the
+      path never leaves gives no evidence at all, and its row is left flat.
+    </p>
+
+    <pre><code class="language-python">def normalise(counts, rows, columns, allowed=None):
+    """Turn a table of counts into rows that sum to one. A row with no counts
+    in it stays zero, and entries the row is not allowed to use stay zero."""
+    table = {}
+    for row in rows:
+        options = columns if allowed is None else allowed(row)
+        total = sum(counts[row, column] for column in options)
+        for column in columns:
+            table[row, column] = (counts[row, column] / total
+                                  if total and column in options else 0.0)
+    return table
+
+
+def flatten_empty_rows(counts, rows, columns):
+    """A state the path never uses leaves no evidence behind, so its row is
+    made flat rather than left at zero."""
+    for row in rows:
+        if not any(counts[row, column] for column in columns):
+            for column in columns:
+                counts[row, column] = 1
+
+
+def estimate_parameters(x, path, states, alphabet):
+    transition = {(k, l): 0.0 for k in states for l in states}
+    emission = {(k, symbol): 0.0 for k in states for symbol in alphabet}
+    for previous, current in zip(path, path[1:]):
+        transition[previous, current] += 1
+    for state, symbol in zip(path, x):
+        emission[state, symbol] += 1
+    flatten_empty_rows(transition, states, states)
+    flatten_empty_rows(emission, states, alphabet)
+    return (normalise(transition, states, states),
+            normalise(emission, states, alphabet))</code></pre>
+
+    <p>
+      The labels come from the published compositional definition of a CG-island, applied to a $300$
+      nucleotide window around each position: GC content above $55$ percent and observed CG at least
+      $0.65$ of what the C and G counts predict. That marks $6.49$ percent of the
+      sequence. Counting on the first half of the window gives a model in which an island emits CG
+      with probability $0.0774$ against $0.0258$ outside, an enrichment of
+      $3.0$ times, and in which both states are far more likely to persist than to switch.
+    </p>
+
+    <p>
+      Viterbi then decodes the whole window in $0.68$ seconds. Runs of at least $200$
+      nucleotides marked island number $80$, covering $10.99$ percent of the sequence
+      with a median length of $724$ nucleotides. Their mean GC content is $66.5$ percent
+      against $48.8$ percent for the window as a whole, and their mean observed CG rate is
+      $0.63$ of what composition predicts, against $0.431$ for the window.
+    </p>
+
+    <p>
+      $44$ of the $80$ stretches pass the published test outright, needing GC above
+      $50$ percent and a CG rate of at least $0.6$ along their whole length. The rest are GC-rich
+      without being CG-rich, which is the limit of a model with two states: one state has to describe
+      everything that is not ordinary sequence, and a region that is unusual in its letter
+      composition alone is enough to reach it.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="730.89" height="146" viewBox="-27.02 50 730.89 146">
+      <line class="fig-axis" x1="70" y1="86" x2="670" y2="86"/>
+      <rect class="fig-band" x="70" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="72.9254" y="60" width="2.07691" height="26"/>
+      <rect class="fig-band" x="88.2145" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="91.0933" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="92.0472" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="92.9546" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="94.4467" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="96.9921" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="102.111" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="104.732" y="60" width="5.50172" height="26"/>
+      <rect class="fig-band" x="111.648" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="114.33" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="119.582" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="120.44" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="121.645" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="123.418" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="126.368" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="130.744" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="132.765" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="135.372" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="136.854" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="137.998" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="138.49" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="140.071" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="140.733" y="60" width="2.24288" height="26"/>
+      <rect class="fig-band" x="145.783" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="148.659" y="60" width="1.43321" height="26"/>
+      <rect class="fig-band" x="150.658" y="60" width="3.00136" height="26"/>
+      <rect class="fig-band" x="153.72" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="156.148" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="156.717" y="60" width="2.44452" height="26"/>
+      <rect class="fig-band" x="159.268" y="60" width="2.63685" height="26"/>
+      <rect class="fig-band" x="162.034" y="60" width="2.35766" height="26"/>
+      <rect class="fig-band" x="166.112" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="167.939" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="168.71" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="172.031" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="174.092" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="174.621" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="175.499" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="176.734" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="179.912" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="181.072" y="60" width="1.65501" height="26"/>
+      <rect class="fig-band" x="183.866" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="185.521" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="186.276" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="193.98" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="202.646" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="204.656" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="207.073" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="209.054" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="210.31" y="60" width="1.27655" height="26"/>
+      <rect class="fig-band" x="212.714" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="215.027" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="219.252" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="221.487" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="221.757" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="224.062" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="225.753" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="230.913" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="232.281" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="234.568" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="252.005" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="253.384" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="267.769" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="282.315" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="291.522" y="60" width="3.14716" height="26"/>
+      <rect class="fig-band" x="347.326" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="350.989" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="374.361" y="60" width="1.35565" height="26"/>
+      <rect class="fig-band" x="378.21" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="382.798" y="60" width="1.40529" height="26"/>
+      <rect class="fig-band" x="384.395" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="384.692" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="386.133" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="386.554" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="392.276" y="60" width="2.36076" height="26"/>
+      <rect class="fig-band" x="412.354" y="60" width="1.2" height="26"/>
+      <rect class="fig-band" x="545.14" y="60" width="1.33704" height="26"/>
+      <rect class="fig-band" x="654.94" y="60" width="1.2" height="26"/>
+      <text class="fig-text fig-note" x="58" y="78" text-anchor="end">islands</text>
+      <text class="fig-text fig-note" x="58" y="122" text-anchor="end">gene starts</text>
+      <line class="fig-free-solid" x1="108.78" y1="94" x2="108.78" y2="116"/>
+      <circle class="fig-dot" cx="108.78" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="141.695" y1="94" x2="141.695" y2="116"/>
+      <circle class="fig-dot" cx="141.695" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="141.965" y1="94" x2="141.965" y2="116"/>
+      <circle class="fig-dot" cx="141.965" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="194.518" y1="94" x2="194.518" y2="116"/>
+      <circle class="fig-dot" cx="194.518" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="227.955" y1="94" x2="227.955" y2="116"/>
+      <circle class="fig-hole-alt" cx="227.955" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="300.918" y1="94" x2="300.918" y2="116"/>
+      <circle class="fig-hole-alt" cx="300.918" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="317.399" y1="94" x2="317.399" y2="116"/>
+      <circle class="fig-hole-alt" cx="317.399" cy="120" r="3.5"/>
+      <line class="fig-free-solid" x1="378.661" y1="94" x2="378.661" y2="116"/>
+      <circle class="fig-dot" cx="378.661" cy="120" r="3.5"/>
+      <line class="fig-axis" x1="70" y1="86" x2="70" y2="90"/>
+      <text class="fig-text fig-note" x="70" y="152" text-anchor="middle">226 kb</text>
+      <line class="fig-axis" x1="225.109" y1="86" x2="225.109" y2="90"/>
+      <text class="fig-text fig-note" x="225.109" y="152" text-anchor="middle">426 kb</text>
+      <line class="fig-axis" x1="380.218" y1="86" x2="380.218" y2="90"/>
+      <text class="fig-text fig-note" x="380.218" y="152" text-anchor="middle">626 kb</text>
+      <line class="fig-axis" x1="535.327" y1="86" x2="535.327" y2="90"/>
+      <text class="fig-text fig-note" x="535.327" y="152" text-anchor="middle">826 kb</text>
+      <line class="fig-axis" x1="670" y1="86" x2="670" y2="90"/>
+      <text class="fig-text fig-note" x="670" y="152" text-anchor="middle">1000 kb</text>
+      <circle class="fig-dot" cx="74" cy="178" r="3.5"/>
+      <text class="fig-text fig-note" x="86" y="182" text-anchor="start">gene start with an island within 500 nt</text>
+      <circle class="fig-hole-alt" cx="370" cy="178" r="3.5"/>
+      <text class="fig-text fig-note" x="382" y="182" text-anchor="start">gene start without one</text>
+      </svg>
+      <figcaption>
+        The 80 stretches of at least 200 nucleotides that Viterbi marks as island across
+        773 kb of human chromosome X, and the 8 annotated
+        gene starts in the same window. 5 of the 8
+        begin within 500 nucleotides of an island, where a position drawn at random from this window
+        would do so 19.5 percent of the time. Nothing in the
+        estimation used a gene.</figcaption>
+    </figure>
+
+    <p>
+      Nothing in that calculation used a gene. The window carries $8$ annotated genes, and
+      $5$ of them start within $500$ nucleotides of a decoded island, against
+      $19.5$ percent for positions drawn at random from the same window, which would happen by
+      chance with probability $0.0093$. The islands are sitting where genes start, which is what
+      the biology says they should do and what nothing in the estimation told them to do.
+    </p>
+
+    <p>
+      The width that the sliding window could not choose has become a transition probability that
+      the counting supplied. Applying the same compositional test through a sliding window instead,
+      and varying only its width, gives $501$ regions at a width of $100$, $125$ at $300$,
+      $30$ at $1000$ and $8$ at $3000$: the answer moves by a factor of $63$ with a
+      parameter that nothing in the data fixes.
+    </p>
+
+    <h2>The Likelihood of an Outcome</h2>
+
+    <p>
+      Viterbi returns one path. A different question is how well the model explains the string at
+      all, summing over every path it could have taken.
+    </p>
+
+    <p>
+      <strong>Outcome Likelihood Problem.</strong> Given a string $x$ and an HMM, find $\Pr(x)$, the
+      probability that the model emits $x$.
+    </p>
+
+    <p>
+      Summing $|\textit{States}|^n$ terms directly is impossible, and it is also unnecessary. The
+      same Viterbi graph carries the answer: if $\textit{forward}(k, i)$ is the total weight of all
+      paths from the source to node $(k, i)$, then every path into $(l, i)$ passes through exactly
+      one node of column $i-1$, so the totals obey the same recurrence as before with the maximum
+      replaced by a sum, and $\Pr(x)$ is the total over the last column.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="468" height="223" viewBox="67 9 468 223">
+      <text class="fig-text fig-note" x="150" y="30" text-anchor="middle">Viterbi</text>
+      <circle class="fig-cell" cx="90" cy="70" r="13"/>
+      <line class="fig-cell" x1="103" y1="70" x2="191.75" y2="119.096"/>
+      <path class="fig-dot" d="M 197 122 L 190.443 121.458 L 193.057 116.733 Z"/>
+      <circle class="fig-cell" cx="90" cy="122" r="13"/>
+      <line class="fig-curve" x1="103" y1="122" x2="191" y2="122"/>
+      <path class="fig-dot" d="M 197 122 L 191 124.7 L 191 119.3 Z"/>
+      <circle class="fig-cell" cx="90" cy="174" r="13"/>
+      <line class="fig-cell" x1="103" y1="174" x2="191.75" y2="124.904"/>
+      <path class="fig-dot" d="M 197 122 L 193.057 127.267 L 190.443 122.542 Z"/>
+      <circle class="fig-shape" cx="210" cy="122" r="15"/>
+      <text class="fig-text fig-note" x="150" y="218" text-anchor="middle">keeps the best one</text>
+      <text class="fig-text fig-note" x="450" y="30" text-anchor="middle">forward</text>
+      <circle class="fig-cell" cx="390" cy="70" r="13"/>
+      <line class="fig-curve" x1="403" y1="70" x2="491.75" y2="119.096"/>
+      <path class="fig-dot" d="M 497 122 L 490.443 121.458 L 493.057 116.733 Z"/>
+      <circle class="fig-cell" cx="390" cy="122" r="13"/>
+      <line class="fig-curve" x1="403" y1="122" x2="491" y2="122"/>
+      <path class="fig-dot" d="M 497 122 L 491 124.7 L 491 119.3 Z"/>
+      <circle class="fig-cell" cx="390" cy="174" r="13"/>
+      <line class="fig-curve" x1="403" y1="174" x2="491.75" y2="124.904"/>
+      <path class="fig-dot" d="M 497 122 L 493.057 127.267 L 490.443 122.542 Z"/>
+      <circle class="fig-shape" cx="510" cy="122" r="15"/>
+      <text class="fig-text fig-note" x="450" y="218" text-anchor="middle">adds them all up</text>
+      </svg>
+      <figcaption>
+    <span class="cap-part"><span class="cap-lead">Left.</span> Viterbi keeps, at each node, the
+    single best path reaching it, so what it computes is the largest $\Pr(x, \pi)$ over
+    paths.</span>
+    <span class="cap-part"><span class="cap-lead">Right.</span> The forward algorithm keeps the total
+    weight of every path reaching the node instead, so the value at the last column is
+    $\Pr(x) = \sum_\pi \Pr(x, \pi)$. The graph, the weights and the order of the pass are
+    identical; only max has become a sum.</span></figcaption>
+    </figure>
+
+    <pre><code class="language-python">def forward(x, states, transition, emission):
+    """Forward probabilities, each column rescaled to sum to one. The scale
+    factors are returned as well, and their product is Pr(x)."""
+    column = {k: emission[k, x[0]] / len(states) for k in states}
+    total = sum(column.values())
+    columns, scales = [{k: v / total for k, v in column.items()}], [total]
+    for symbol in x[1:]:
+        column = {l: emission[l, symbol] * sum(columns[-1][k] * transition[k, l]
+                                               for k in states) for l in states}
+        total = sum(column.values())
+        columns.append({k: v / total for k, v in column.items()})
+        scales.append(total)
+    return columns, scales
+
+
+def outcome_probability(x, states, transition, emission):
+    _, scales = forward(x, states, transition, emission)
+    probability = 1.0
+    for scale in scales:
+        probability *= scale
+    return probability
+
+
+def log_likelihood(x, states, transition, emission):
+    _, scales = forward(x, states, transition, emission)
+    return sum(safe_log(scale) for scale in scales)</code></pre>
+
+    <p>
+      Logarithms cannot be used here, because the recurrence adds probabilities rather than
+      multiplying them and the logarithm of a sum is not a sum of logarithms. Each column is divided
+      by its own total instead, which keeps the numbers near one, and the totals are kept so that
+      their product is $\Pr(x)$ and the sum of their logarithms is $\log \Pr(x)$. The rescaling
+      cancels out of every ratio taken later, which is why the same columns can be reused without
+      correction.
+    </p>
+
+    <h2>The Most Likely Outcome</h2>
+
+    <p>
+      Turning the question around asks not which path explains a string but which string the model is
+      most likely to produce. Two different questions hide behind that. Maximising $\Pr(x)$, summed
+      over all paths, does not decompose along the graph, because the sum over paths of one prefix
+      cannot be combined with the sum over paths of a suffix without knowing which state joins them.
+      Maximising $\Pr(x, \pi)$ over strings and paths together does decompose, and it is the question
+      solved here.
+    </p>
+
+    <p>
+      <strong>Most Likely Outcome Problem.</strong> Given an HMM and a length $m$, find a string $x$
+      of length $m$ and a path $\pi$ maximising $\Pr(x, \pi)$.
+    </p>
+
+    <p>
+      The Viterbi graph gains a third dimension, one axis for the symbol emitted at each step, so a
+      node becomes a triple of state, position and symbol. It collapses again immediately: the symbol
+      emitted at a step appears in exactly one factor of the product, $\textit{emission}(l, b)$, and
+      that factor is independent of everything else in the path. The best symbol for a state can
+      therefore be chosen once, before any path is considered, and the search returns to the ordinary
+      Viterbi graph with each state's emission factor fixed at its largest value.
+    </p>
+
+    <pre><code class="language-python">def most_likely_outcome(length, states, transition, emission, alphabet):
+    """The string and path maximising Pr(x, pi) together. At every step the
+    symbol is chosen after the state, so the choice is one lookup per state."""
+    pick = {k: max(alphabet, key=lambda s: emission[k, s]) for k in states}
+    best = {k: safe_log(emission[k, pick[k]] / len(states)) for k in states}
+    back = []
+    for _ in range(length - 1):
+        step = {l: max(states, key=lambda k: best[k] + safe_log(transition[k, l]))
+                for l in states}
+        best = {l: best[step[l]] + safe_log(transition[step[l], l])
+                + safe_log(emission[l, pick[l]]) for l in states}
+        back.append(step)
+    state = max(states, key=best.__getitem__)
+    path = [state]
+    for step in reversed(back):
+        state = step[state]
+        path.append(state)
+    path.reverse()
+    return ''.join(pick[state] for state in path), path</code></pre>
+
+    <h2>Profile HMMs</h2>
+
+    <p>
+      Everything so far has taken the model as given. For a family of sequences the model has to be
+      built from the family itself, and the structure that does it is a
+      <strong>profile HMM</strong>.
+    </p>
+
+    <p>
+      The input is a multiple alignment of sequences already known to belong together, called a
+      <strong>seed alignment</strong>. Some of its columns are filled in nearly every sequence and
+      describe positions the family shares; others are mostly gaps and describe material that only a
+      few members carry. A threshold $\theta$ separates them: a column whose share of gaps reaches
+      $\theta$ is dropped, and the rest are kept.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="431.39" height="205" viewBox="12.52 25 431.39 205">
+      <rect class="fig-band" x="130" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="156" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="182" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="208" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="234" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="312" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="338" y="56" width="26" height="118"/>
+      <rect class="fig-band" x="364" y="56" width="26" height="118"/>
+      <text class="fig-text fig-tick" x="143" y="76.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="169" y="76.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="195" y="76.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="221" y="76.5" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="247" y="76.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="273" y="76.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="299" y="76.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="325" y="76.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="351" y="76.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="377" y="76.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="143" y="98.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="169" y="98.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="195" y="98.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="221" y="98.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="247" y="98.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="273" y="98.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="299" y="98.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="325" y="98.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="351" y="98.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="377" y="98.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="143" y="120.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="169" y="120.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="195" y="120.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="221" y="120.5" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="247" y="120.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="273" y="120.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="299" y="120.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="325" y="120.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="351" y="120.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="377" y="120.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="143" y="142.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="169" y="142.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="195" y="142.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="221" y="142.5" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="247" y="142.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="273" y="142.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="299" y="142.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="325" y="142.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="351" y="142.5" text-anchor="middle">-</text>
+      <text class="fig-text fig-tick" x="377" y="142.5" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="143" y="164.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="169" y="164.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="195" y="164.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="221" y="164.5" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="247" y="164.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="273" y="164.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="299" y="164.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="325" y="164.5" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="351" y="164.5" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="377" y="164.5" text-anchor="middle">F</text>
+      <text class="fig-text fig-note" x="118" y="194" text-anchor="end">share of gaps</text>
+      <text class="fig-text fig-note" x="143" y="194" text-anchor="middle">0.0</text>
+      <text class="fig-text fig-note" x="169" y="194" text-anchor="middle">0.2</text>
+      <text class="fig-text fig-note" x="195" y="194" text-anchor="middle">0.2</text>
+      <text class="fig-text fig-note" x="221" y="194" text-anchor="middle">0.0</text>
+      <text class="fig-text fig-note" x="247" y="194" text-anchor="middle">0.2</text>
+      <text class="fig-text fig-note" x="273" y="194" text-anchor="middle">0.4</text>
+      <text class="fig-text fig-note" x="299" y="194" text-anchor="middle">0.6</text>
+      <text class="fig-text fig-note" x="325" y="194" text-anchor="middle">0.0</text>
+      <text class="fig-text fig-note" x="351" y="194" text-anchor="middle">0.2</text>
+      <text class="fig-text fig-note" x="377" y="194" text-anchor="middle">0.0</text>
+      <text class="fig-text fig-note" x="118" y="46" text-anchor="end">seed alignment</text>
+      <text class="fig-text fig-note" x="260" y="216" text-anchor="middle">shaded columns are kept, the rest become insertions</text>
+      </svg>
+      <figcaption>
+    Five aligned sequences, and the share of each column that is a gap. With a threshold of
+    $\theta = 0.4$ the two columns whose gap share reaches it are dropped and the remaining eight
+    become the match states of the model, one per column. Dropping a column does not throw its
+    residues away; they are emitted by an insertion state instead, which is what lets the model
+    accept a sequence carrying material the family does not share.</figcaption>
+    </figure>
+
+    <p>
+      The model is then built in three stages. One <strong>match state</strong> per kept column,
+      chained in order, each emitting with the distribution of residues in its column. One
+      <strong>insertion state</strong> between consecutive match states and one at each end, which
+      absorb the residues of the dropped columns and can be visited repeatedly, so a sequence
+      carrying extra material can still be explained. One <strong>deletion state</strong> under each
+      match state, which emits nothing at all and exists so that a sequence missing a column the
+      family has can skip it, and a run of them can skip several.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="363.45" height="510" viewBox="100 -5 363.45 510">
+      <text class="fig-text fig-note" x="300" y="16" text-anchor="middle">one match state per kept column</text>
+      <line class="fig-cell" x1="195" y1="90" x2="226" y2="90"/>
+      <path class="fig-dot" d="M 231 90 L 226 92.25 L 226 87.75 Z"/>
+      <line class="fig-cell" x1="257" y1="90" x2="288" y2="90"/>
+      <path class="fig-dot" d="M 293 90 L 288 92.25 L 288 87.75 Z"/>
+      <line class="fig-cell" x1="319" y1="90" x2="350" y2="90"/>
+      <path class="fig-dot" d="M 355 90 L 350 92.25 L 350 87.75 Z"/>
+      <line class="fig-cell" x1="133" y1="90" x2="164" y2="90"/>
+      <path class="fig-dot" d="M 169 90 L 164 92.25 L 164 87.75 Z"/>
+      <line class="fig-cell" x1="381" y1="90" x2="412" y2="90"/>
+      <path class="fig-dot" d="M 417 90 L 412 92.25 L 412 87.75 Z"/>
+      <rect class="fig-cell" x="169" y="77" width="26" height="26"/>
+      <text class="fig-text fig-note" x="182" y="94" text-anchor="middle">M1</text>
+      <rect class="fig-cell" x="231" y="77" width="26" height="26"/>
+      <text class="fig-text fig-note" x="244" y="94" text-anchor="middle">M2</text>
+      <rect class="fig-cell" x="293" y="77" width="26" height="26"/>
+      <text class="fig-text fig-note" x="306" y="94" text-anchor="middle">M3</text>
+      <rect class="fig-cell" x="355" y="77" width="26" height="26"/>
+      <text class="fig-text fig-note" x="368" y="94" text-anchor="middle">M4</text>
+      <text class="fig-text fig-note" x="120" y="94" text-anchor="middle">S</text>
+      <text class="fig-text fig-note" x="430" y="94" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="300" y="166" text-anchor="middle">insertion states for what the columns dropped</text>
+      <line class="fig-cell" x1="195" y1="240" x2="226" y2="240"/>
+      <path class="fig-dot" d="M 231 240 L 226 242.25 L 226 237.75 Z"/>
+      <line class="fig-cell" x1="257" y1="240" x2="288" y2="240"/>
+      <path class="fig-dot" d="M 293 240 L 288 242.25 L 288 237.75 Z"/>
+      <line class="fig-cell" x1="319" y1="240" x2="350" y2="240"/>
+      <path class="fig-dot" d="M 355 240 L 350 242.25 L 350 237.75 Z"/>
+      <line class="fig-cell" x1="133" y1="240" x2="164" y2="240"/>
+      <path class="fig-dot" d="M 169 240 L 164 242.25 L 164 237.75 Z"/>
+      <line class="fig-cell" x1="381" y1="240" x2="412" y2="240"/>
+      <path class="fig-dot" d="M 417 240 L 412 242.25 L 412 237.75 Z"/>
+      <line class="fig-cell" x1="130" y1="234" x2="141" y2="204"/>
+      <line class="fig-cell" x1="161" y1="204" x2="172" y2="234"/>
+      <line class="fig-cell" x1="192" y1="234" x2="203" y2="204"/>
+      <line class="fig-cell" x1="223" y1="204" x2="234" y2="234"/>
+      <line class="fig-cell" x1="254" y1="234" x2="265" y2="204"/>
+      <line class="fig-cell" x1="285" y1="204" x2="296" y2="234"/>
+      <line class="fig-cell" x1="316" y1="234" x2="327" y2="204"/>
+      <line class="fig-cell" x1="347" y1="204" x2="358" y2="234"/>
+      <line class="fig-cell" x1="378" y1="234" x2="389" y2="204"/>
+      <line class="fig-cell" x1="409" y1="204" x2="420" y2="234"/>
+      <rect class="fig-cell" x="169" y="227" width="26" height="26"/>
+      <text class="fig-text fig-note" x="182" y="244" text-anchor="middle">M1</text>
+      <rect class="fig-cell" x="231" y="227" width="26" height="26"/>
+      <text class="fig-text fig-note" x="244" y="244" text-anchor="middle">M2</text>
+      <rect class="fig-cell" x="293" y="227" width="26" height="26"/>
+      <text class="fig-text fig-note" x="306" y="244" text-anchor="middle">M3</text>
+      <rect class="fig-cell" x="355" y="227" width="26" height="26"/>
+      <text class="fig-text fig-note" x="368" y="244" text-anchor="middle">M4</text>
+      <circle class="fig-cell" cx="151" cy="196" r="12"/>
+      <text class="fig-text fig-note" x="151" y="200" text-anchor="middle">I0</text>
+      <circle class="fig-cell" cx="213" cy="196" r="12"/>
+      <text class="fig-text fig-note" x="213" y="200" text-anchor="middle">I1</text>
+      <circle class="fig-cell" cx="275" cy="196" r="12"/>
+      <text class="fig-text fig-note" x="275" y="200" text-anchor="middle">I2</text>
+      <circle class="fig-cell" cx="337" cy="196" r="12"/>
+      <text class="fig-text fig-note" x="337" y="200" text-anchor="middle">I3</text>
+      <circle class="fig-cell" cx="399" cy="196" r="12"/>
+      <text class="fig-text fig-note" x="399" y="200" text-anchor="middle">I4</text>
+      <text class="fig-text fig-note" x="120" y="244" text-anchor="middle">S</text>
+      <text class="fig-text fig-note" x="430" y="244" text-anchor="middle">E</text>
+      <text class="fig-text fig-note" x="300" y="316" text-anchor="middle">deletion states, which emit nothing</text>
+      <line class="fig-cell" x1="195" y1="390" x2="226" y2="390"/>
+      <path class="fig-dot" d="M 231 390 L 226 392.25 L 226 387.75 Z"/>
+      <line class="fig-cell" x1="257" y1="390" x2="288" y2="390"/>
+      <path class="fig-dot" d="M 293 390 L 288 392.25 L 288 387.75 Z"/>
+      <line class="fig-cell" x1="319" y1="390" x2="350" y2="390"/>
+      <path class="fig-dot" d="M 355 390 L 350 392.25 L 350 387.75 Z"/>
+      <line class="fig-cell" x1="133" y1="390" x2="164" y2="390"/>
+      <path class="fig-dot" d="M 169 390 L 164 392.25 L 164 387.75 Z"/>
+      <line class="fig-cell" x1="381" y1="390" x2="412" y2="390"/>
+      <path class="fig-dot" d="M 417 390 L 412 392.25 L 412 387.75 Z"/>
+      <line class="fig-cell" x1="130" y1="384" x2="141" y2="354"/>
+      <line class="fig-cell" x1="161" y1="354" x2="172" y2="384"/>
+      <line class="fig-cell" x1="192" y1="384" x2="203" y2="354"/>
+      <line class="fig-cell" x1="223" y1="354" x2="234" y2="384"/>
+      <line class="fig-cell" x1="254" y1="384" x2="265" y2="354"/>
+      <line class="fig-cell" x1="285" y1="354" x2="296" y2="384"/>
+      <line class="fig-cell" x1="316" y1="384" x2="327" y2="354"/>
+      <line class="fig-cell" x1="347" y1="354" x2="358" y2="384"/>
+      <line class="fig-cell" x1="378" y1="384" x2="389" y2="354"/>
+      <line class="fig-cell" x1="409" y1="354" x2="420" y2="384"/>
+      <line class="fig-cell" x1="195" y1="436" x2="231" y2="436"/>
+      <line class="fig-cell" x1="257" y1="436" x2="293" y2="436"/>
+      <line class="fig-cell" x1="319" y1="436" x2="355" y2="436"/>
+      <line class="fig-cell" x1="128" y1="398" x2="172" y2="428"/>
+      <line class="fig-cell" x1="192" y1="428" x2="236" y2="398"/>
+      <line class="fig-cell" x1="190" y1="398" x2="234" y2="428"/>
+      <line class="fig-cell" x1="254" y1="428" x2="298" y2="398"/>
+      <line class="fig-cell" x1="252" y1="398" x2="296" y2="428"/>
+      <line class="fig-cell" x1="316" y1="428" x2="360" y2="398"/>
+      <line class="fig-cell" x1="314" y1="398" x2="358" y2="428"/>
+      <line class="fig-cell" x1="378" y1="428" x2="422" y2="398"/>
+      <rect class="fig-cell" x="169" y="377" width="26" height="26"/>
+      <text class="fig-text fig-note" x="182" y="394" text-anchor="middle">M1</text>
+      <rect class="fig-cell" x="231" y="377" width="26" height="26"/>
+      <text class="fig-text fig-note" x="244" y="394" text-anchor="middle">M2</text>
+      <rect class="fig-cell" x="293" y="377" width="26" height="26"/>
+      <text class="fig-text fig-note" x="306" y="394" text-anchor="middle">M3</text>
+      <rect class="fig-cell" x="355" y="377" width="26" height="26"/>
+      <text class="fig-text fig-note" x="368" y="394" text-anchor="middle">M4</text>
+      <circle class="fig-cell" cx="151" cy="346" r="12"/>
+      <text class="fig-text fig-note" x="151" y="350" text-anchor="middle">I0</text>
+      <circle class="fig-cell" cx="213" cy="346" r="12"/>
+      <text class="fig-text fig-note" x="213" y="350" text-anchor="middle">I1</text>
+      <circle class="fig-cell" cx="275" cy="346" r="12"/>
+      <text class="fig-text fig-note" x="275" y="350" text-anchor="middle">I2</text>
+      <circle class="fig-cell" cx="337" cy="346" r="12"/>
+      <text class="fig-text fig-note" x="337" y="350" text-anchor="middle">I3</text>
+      <circle class="fig-cell" cx="399" cy="346" r="12"/>
+      <text class="fig-text fig-note" x="399" y="350" text-anchor="middle">I4</text>
+      <circle class="fig-hole-alt" cx="182" cy="436" r="12"/>
+      <text class="fig-text fig-note" x="182" y="440" text-anchor="middle">D1</text>
+      <circle class="fig-hole-alt" cx="244" cy="436" r="12"/>
+      <text class="fig-text fig-note" x="244" y="440" text-anchor="middle">D2</text>
+      <circle class="fig-hole-alt" cx="306" cy="436" r="12"/>
+      <text class="fig-text fig-note" x="306" y="440" text-anchor="middle">D3</text>
+      <circle class="fig-hole-alt" cx="368" cy="436" r="12"/>
+      <text class="fig-text fig-note" x="368" y="440" text-anchor="middle">D4</text>
+      <text class="fig-text fig-note" x="120" y="394" text-anchor="middle">S</text>
+      <text class="fig-text fig-note" x="430" y="394" text-anchor="middle">E</text>
+      <rect class="fig-cell" x="140" y="477" width="18" height="18"/>
+      <text class="fig-text fig-note" x="166" y="490" text-anchor="start">emits a symbol</text>
+      <circle class="fig-hole-alt" cx="300" cy="486" r="9"/>
+      <text class="fig-text fig-note" x="316" y="490" text-anchor="start">emits nothing</text>
+      </svg>
+      <figcaption>
+    <span class="cap-part"><span class="cap-lead">Top.</span> One match state per kept column, in
+    order, which spells the family's shared backbone and nothing else.</span>
+    <span class="cap-part"><span class="cap-lead">Middle.</span> An insertion state between every
+    pair of match states, and one at each end, so a sequence can carry extra residues without
+    breaking the chain.</span>
+    <span class="cap-part"><span class="cap-lead">Bottom.</span> A deletion state under every match
+    state, drawn in the second colour because it emits nothing. It lets a sequence skip a column the
+    family has, and a run of them skips several. Every path from S to E now spells some string, and
+    the probabilities on the arrows say which strings the family finds likely.</figcaption>
+    </figure>
+
+    <p>
+      A deletion state is <strong>silent</strong>. That is not a detail: it means a path can move
+      between states without consuming a symbol, so the graph is no longer one column per position
+      and the decoding has to handle moves that stay in the same column.
+    </p>
+
+    <p>
+      The probabilities come from the seed alignment by counting, exactly as in the estimation
+      problem earlier, with the path of each sequence through the model read off the alignment: a
+      residue in a kept column is a match, a gap in a kept column is a deletion, and a residue in a
+      dropped column is an insertion.
+    </p>
+
+    <pre><code class="language-python">def profile_states(n):
+    states = ['S', 'I0']
+    for i in range(1, n + 1):
+        states += ['M%d' % i, 'D%d' % i, 'I%d' % i]
+    return states + ['E']
+
+
+def level(state, n):
+    return 0 if state == 'S' else n + 1 if state == 'E' else int(state[1:])
+
+
+def successors(state, n):
+    """The three states a profile HMM can move to, or two at the last column."""
+    i = level(state, n)
+    if state == 'E':
+        return []
+    if i &lt; n:
+        return ['I%d' % i, 'M%d' % (i + 1), 'D%d' % (i + 1)]
+    return ['I%d' % i, 'E']
+
+
+def profile_path(row, kept):
+    """The states one row of the alignment walks through, with what it emits."""
+    steps, matched = [('S', '')], 0
+    for j, symbol in enumerate(row):
+        if j in kept:
+            matched += 1
+            steps.append(('M%d' % matched, symbol) if symbol != '-'
+                         else ('D%d' % matched, ''))
+        elif symbol != '-':
+            steps.append(('I%d' % matched, symbol))
+    return steps + [('E', '')]</code></pre>
+
+    <p>
+      Counting alone leaves a column that happens to hold one residue in every sequence assigning
+      probability zero to all the others, so a single unexpected residue would make an entire
+      sequence impossible rather than merely unusual. A <strong>pseudocount</strong> $\sigma$ fixes
+      that by being added to every entry the model is allowed to use before the row is renormalised.
+      It is added to the probability rather than to the count, so how much a column is softened does
+      not depend on how many sequences the alignment happens to hold.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="429.38" height="128" viewBox="118 19 429.38 128">
+      <text class="fig-text fig-note" x="176" y="40" text-anchor="middle">counted</text>
+      <rect class="fig-band" x="130" y="120" width="17" height="0"/>
+      <rect class="fig-cell" x="130" y="120" width="17" height="0"/>
+      <text class="fig-text fig-note" x="138.5" y="133" text-anchor="middle">A</text>
+      <rect class="fig-band" x="151" y="120" width="17" height="0"/>
+      <rect class="fig-cell" x="151" y="120" width="17" height="0"/>
+      <text class="fig-text fig-note" x="159.5" y="133" text-anchor="middle">C</text>
+      <rect class="fig-band" x="172" y="110.857" width="17" height="9.14286"/>
+      <rect class="fig-cell" x="172" y="110.857" width="17" height="9.14286"/>
+      <text class="fig-text fig-note" x="180.5" y="133" text-anchor="middle">D</text>
+      <rect class="fig-band" x="193" y="56" width="17" height="64"/>
+      <rect class="fig-cell" x="193" y="56" width="17" height="64"/>
+      <text class="fig-text fig-note" x="201.5" y="133" text-anchor="middle">E</text>
+      <rect class="fig-band" x="214" y="120" width="17" height="0"/>
+      <rect class="fig-cell" x="214" y="120" width="17" height="0"/>
+      <text class="fig-text fig-note" x="222.5" y="133" text-anchor="middle">F</text>
+      <text class="fig-text fig-note" x="138.5" y="114" text-anchor="middle">0.00</text>
+      <text class="fig-text fig-note" x="159.5" y="114" text-anchor="middle">0.00</text>
+      <text class="fig-text fig-note" x="180.5" y="104.857" text-anchor="middle">0.12</text>
+      <text class="fig-text fig-note" x="201.5" y="50" text-anchor="middle">0.88</text>
+      <text class="fig-text fig-note" x="222.5" y="114" text-anchor="middle">0.00</text>
+      <text class="fig-text fig-note" x="476" y="40" text-anchor="middle">with a pseudocount</text>
+      <rect class="fig-band" x="430" y="113.436" width="17" height="6.5641"/>
+      <rect class="fig-cell" x="430" y="113.436" width="17" height="6.5641"/>
+      <text class="fig-text fig-note" x="438.5" y="133" text-anchor="middle">A</text>
+      <rect class="fig-band" x="451" y="113.436" width="17" height="6.5641"/>
+      <rect class="fig-cell" x="451" y="113.436" width="17" height="6.5641"/>
+      <text class="fig-text fig-note" x="459.5" y="133" text-anchor="middle">C</text>
+      <rect class="fig-band" x="472" y="105.231" width="17" height="14.7692"/>
+      <rect class="fig-cell" x="472" y="105.231" width="17" height="14.7692"/>
+      <text class="fig-text fig-note" x="480.5" y="133" text-anchor="middle">D</text>
+      <rect class="fig-band" x="493" y="56" width="17" height="64"/>
+      <rect class="fig-cell" x="493" y="56" width="17" height="64"/>
+      <text class="fig-text fig-note" x="501.5" y="133" text-anchor="middle">E</text>
+      <rect class="fig-band" x="514" y="113.436" width="17" height="6.5641"/>
+      <rect class="fig-cell" x="514" y="113.436" width="17" height="6.5641"/>
+      <text class="fig-text fig-note" x="522.5" y="133" text-anchor="middle">F</text>
+      <text class="fig-text fig-note" x="438.5" y="107.436" text-anchor="middle">0.07</text>
+      <text class="fig-text fig-note" x="459.5" y="107.436" text-anchor="middle">0.07</text>
+      <text class="fig-text fig-note" x="480.5" y="99.2308" text-anchor="middle">0.15</text>
+      <text class="fig-text fig-note" x="501.5" y="50" text-anchor="middle">0.65</text>
+      <text class="fig-text fig-note" x="522.5" y="107.436" text-anchor="middle">0.07</text>
+      </svg>
+      <figcaption>
+    <span class="cap-part"><span class="cap-lead">Left.</span> A match column in which seven of eight
+    sequences carry E and one carries D. Counted directly, every other residue has probability zero,
+    so a single sequence carrying A at this position is judged impossible rather than
+    unusual.</span>
+    <span class="cap-part"><span class="cap-lead">Right.</span> The same column after a small amount
+    is added to every residue and the column is renormalised. Nothing is impossible any more, and the
+    order of preference is unchanged. The amount is added to the probability rather than to the
+    count, so how much a column is softened does not depend on how many sequences the alignment
+    happens to hold.</span></figcaption>
+    </figure>
+
+    <pre><code class="language-python">def profile_hmm(alignment, alphabet, theta, sigma=0.0):
+    gaps = [column.count('-') / len(column) for column in zip(*alignment)]
+    kept = {j for j, share in enumerate(gaps) if share &lt; theta}
+    n = len(kept)
+    states = profile_states(n)
+    transition = {(k, l): 0.0 for k in states for l in states}
+    emission = {(k, symbol): 0.0 for k in states for symbol in alphabet}
+    for row in alignment:
+        steps = profile_path(row, kept)
+        for (k, _), (l, _) in zip(steps, steps[1:]):
+            transition[k, l] += 1
+        for state, symbol in steps:
+            if symbol:
+                emission[state, symbol] += 1
+
+    def emits(state):
+        return alphabet if state[0] in 'MI' else []
+
+    def leaves(state):
+        return successors(state, n)
+
+    transition = normalise(transition, states, states, leaves)
+    emission = normalise(emission, states, alphabet, emits)
+    if sigma:
+        for state in states:
+            for l in leaves(state):
+                transition[state, l] += sigma
+            for symbol in emits(state):
+                emission[state, symbol] += sigma
+        transition = normalise(transition, states, states, leaves)
+        emission = normalise(emission, states, alphabet, emits)
+    return states, transition, emission</code></pre>
+
+    <p>
+      Aligning a new sequence to the family is now decoding: find the most likely path through the
+      profile HMM that emits it. The silent states are what makes this more than a copy of Viterbi.
+      Emitting states are reached from the column to the left, as before, but a deletion state is
+      reached within the same column, and a run of deletions chains through several of them before
+      any symbol is consumed. Taking the deletion states in order of their column lets each one see
+      the finished value of the one before it.
+    </p>
+
+    <pre><code class="language-python">def profile_alignment(text, states, transition, emission):
+    """Viterbi through a profile HMM, whose deletion states emit nothing."""
+    n = max(level(state, 0) for state in states if state[0] == 'M')
+    silent = [state for state in states if state[0] == 'D'] + ['E']
+    parent = {}
+
+    def enter_silent(score, column):
+        """Deletion states emit nothing, so they are reached within a column.
+        Taking them in order of level lets a run of deletions chain."""
+        for l in silent:
+            for k in states:
+                weight = score[k] + safe_log(transition[k, l])
+                if weight &gt; score[l]:
+                    score[l], parent[l, column] = weight, k
+
+    score = {state: -inf for state in states}
+    score['S'] = 0.0
+    enter_silent(score, 0)
+    columns = [score]
+    for i, symbol in enumerate(text, start=1):
+        score = {state: -inf for state in states}
+        for l in states:
+            if l[0] not in 'MI':
+                continue
+            for k in states:
+                weight = columns[-1][k] + safe_log(transition[k, l]) \
+                    + safe_log(emission[l, symbol])
+                if weight &gt; score[l]:
+                    score[l], parent[l, i] = weight, k
+        enter_silent(score, i)
+        columns.append(score)
+
+    path, state, i = [], 'E', len(text)
+    while state != 'S':
+        if state != 'E':
+            path.append(state)
+        previous = parent[state, i]
+        if state[0] in 'MI':
+            i -= 1
+        state = previous
+    return list(reversed(path))</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="598" height="175" viewBox="70 13 598 175">
+      <line class="fig-cell" x1="165" y1="120" x2="196" y2="120"/>
+      <path class="fig-dot" d="M 201 120 L 196 122.25 L 196 117.75 Z"/>
+      <line class="fig-cell" x1="227" y1="120" x2="258" y2="120"/>
+      <path class="fig-dot" d="M 263 120 L 258 122.25 L 258 117.75 Z"/>
+      <line class="fig-cell" x1="289" y1="120" x2="320" y2="120"/>
+      <path class="fig-dot" d="M 325 120 L 320 122.25 L 320 117.75 Z"/>
+      <line class="fig-curve" x1="351" y1="120" x2="382" y2="120"/>
+      <path class="fig-dot" d="M 387 120 L 382 122.25 L 382 117.75 Z"/>
+      <line class="fig-curve" x1="413" y1="120" x2="444" y2="120"/>
+      <path class="fig-dot" d="M 449 120 L 444 122.25 L 444 117.75 Z"/>
+      <line class="fig-curve" x1="475" y1="120" x2="506" y2="120"/>
+      <path class="fig-dot" d="M 511 120 L 506 122.25 L 506 117.75 Z"/>
+      <line class="fig-curve" x1="537" y1="120" x2="568" y2="120"/>
+      <path class="fig-dot" d="M 573 120 L 568 122.25 L 568 117.75 Z"/>
+      <line class="fig-curve" x1="103" y1="120" x2="134" y2="120"/>
+      <path class="fig-dot" d="M 139 120 L 134 122.25 L 134 117.75 Z"/>
+      <line class="fig-curve" x1="599" y1="120" x2="630" y2="120"/>
+      <path class="fig-dot" d="M 635 120 L 630 122.25 L 630 117.75 Z"/>
+      <line class="fig-cell" x1="100" y1="114" x2="111" y2="84"/>
+      <line class="fig-cell" x1="131" y1="84" x2="142" y2="114"/>
+      <line class="fig-cell" x1="162" y1="114" x2="173" y2="84"/>
+      <line class="fig-cell" x1="193" y1="84" x2="204" y2="114"/>
+      <line class="fig-cell" x1="224" y1="114" x2="235" y2="84"/>
+      <line class="fig-cell" x1="255" y1="84" x2="266" y2="114"/>
+      <line class="fig-cell" x1="286" y1="114" x2="297" y2="84"/>
+      <line class="fig-cell" x1="317" y1="84" x2="328" y2="114"/>
+      <line class="fig-cell" x1="348" y1="114" x2="359" y2="84"/>
+      <line class="fig-cell" x1="379" y1="84" x2="390" y2="114"/>
+      <line class="fig-curve" x1="410" y1="114" x2="421" y2="84"/>
+      <line class="fig-curve" x1="441" y1="84" x2="452" y2="114"/>
+      <line class="fig-cell" x1="472" y1="114" x2="483" y2="84"/>
+      <line class="fig-cell" x1="503" y1="84" x2="514" y2="114"/>
+      <line class="fig-cell" x1="534" y1="114" x2="545" y2="84"/>
+      <line class="fig-cell" x1="565" y1="84" x2="576" y2="114"/>
+      <line class="fig-cell" x1="596" y1="114" x2="607" y2="84"/>
+      <line class="fig-cell" x1="627" y1="84" x2="638" y2="114"/>
+      <line class="fig-cell" x1="165" y1="166" x2="201" y2="166"/>
+      <line class="fig-curve" x1="227" y1="166" x2="263" y2="166"/>
+      <line class="fig-cell" x1="289" y1="166" x2="325" y2="166"/>
+      <line class="fig-cell" x1="351" y1="166" x2="387" y2="166"/>
+      <line class="fig-cell" x1="413" y1="166" x2="449" y2="166"/>
+      <line class="fig-cell" x1="475" y1="166" x2="511" y2="166"/>
+      <line class="fig-cell" x1="537" y1="166" x2="573" y2="166"/>
+      <line class="fig-cell" x1="98" y1="128" x2="142" y2="158"/>
+      <line class="fig-cell" x1="162" y1="158" x2="206" y2="128"/>
+      <line class="fig-curve" x1="160" y1="128" x2="204" y2="158"/>
+      <line class="fig-cell" x1="224" y1="158" x2="268" y2="128"/>
+      <line class="fig-cell" x1="222" y1="128" x2="266" y2="158"/>
+      <line class="fig-curve" x1="286" y1="158" x2="330" y2="128"/>
+      <line class="fig-cell" x1="284" y1="128" x2="328" y2="158"/>
+      <line class="fig-cell" x1="348" y1="158" x2="392" y2="128"/>
+      <line class="fig-cell" x1="346" y1="128" x2="390" y2="158"/>
+      <line class="fig-cell" x1="410" y1="158" x2="454" y2="128"/>
+      <line class="fig-cell" x1="408" y1="128" x2="452" y2="158"/>
+      <line class="fig-cell" x1="472" y1="158" x2="516" y2="128"/>
+      <line class="fig-cell" x1="470" y1="128" x2="514" y2="158"/>
+      <line class="fig-cell" x1="534" y1="158" x2="578" y2="128"/>
+      <line class="fig-cell" x1="532" y1="128" x2="576" y2="158"/>
+      <line class="fig-cell" x1="596" y1="158" x2="640" y2="128"/>
+      <rect class="fig-shape" x="139" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="152" y="124" text-anchor="middle">M1</text>
+      <rect class="fig-cell" x="201" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="214" y="124" text-anchor="middle">M2</text>
+      <rect class="fig-cell" x="263" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="276" y="124" text-anchor="middle">M3</text>
+      <rect class="fig-shape" x="325" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="338" y="124" text-anchor="middle">M4</text>
+      <rect class="fig-shape" x="387" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="400" y="124" text-anchor="middle">M5</text>
+      <rect class="fig-shape" x="449" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="462" y="124" text-anchor="middle">M6</text>
+      <rect class="fig-shape" x="511" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="524" y="124" text-anchor="middle">M7</text>
+      <rect class="fig-shape" x="573" y="107" width="26" height="26"/>
+      <text class="fig-text fig-note" x="586" y="124" text-anchor="middle">M8</text>
+      <circle class="fig-cell" cx="121" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="121" y="80" text-anchor="middle">I0</text>
+      <circle class="fig-cell" cx="183" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="183" y="80" text-anchor="middle">I1</text>
+      <circle class="fig-cell" cx="245" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="245" y="80" text-anchor="middle">I2</text>
+      <circle class="fig-cell" cx="307" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="307" y="80" text-anchor="middle">I3</text>
+      <circle class="fig-cell" cx="369" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="369" y="80" text-anchor="middle">I4</text>
+      <circle class="fig-shape" cx="431" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="431" y="80" text-anchor="middle">I5</text>
+      <circle class="fig-cell" cx="493" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="493" y="80" text-anchor="middle">I6</text>
+      <circle class="fig-cell" cx="555" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="555" y="80" text-anchor="middle">I7</text>
+      <circle class="fig-cell" cx="617" cy="76" r="12"/>
+      <text class="fig-text fig-note" x="617" y="80" text-anchor="middle">I8</text>
+      <circle class="fig-hole-alt" cx="152" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="152" y="170" text-anchor="middle">D1</text>
+      <circle class="fig-hole-alt" cx="214" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="214" y="170" text-anchor="middle">D2</text>
+      <circle class="fig-hole-alt" cx="276" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="276" y="170" text-anchor="middle">D3</text>
+      <circle class="fig-hole-alt" cx="338" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="338" y="170" text-anchor="middle">D4</text>
+      <circle class="fig-hole-alt" cx="400" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="400" y="170" text-anchor="middle">D5</text>
+      <circle class="fig-hole-alt" cx="462" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="462" y="170" text-anchor="middle">D6</text>
+      <circle class="fig-hole-alt" cx="524" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="524" y="170" text-anchor="middle">D7</text>
+      <circle class="fig-hole-alt" cx="586" cy="166" r="12"/>
+      <text class="fig-text fig-note" x="586" y="170" text-anchor="middle">D8</text>
+      <text class="fig-text fig-note" x="90" y="124" text-anchor="middle">S</text>
+      <text class="fig-text fig-note" x="648" y="124" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="152" y="96" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="338" y="96" text-anchor="middle">E</text>
+      <text class="fig-text fig-tick" x="400" y="96" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="431" y="56" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="462" y="96" text-anchor="middle">F</text>
+      <text class="fig-text fig-tick" x="524" y="96" text-anchor="middle">D</text>
+      <text class="fig-text fig-tick" x="586" y="96" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="369" y="34" text-anchor="middle">AEFDFDC placed on the model</text>
+      </svg>
+      <figcaption>
+    The most likely way the model can produce AEFDFDC, which is M1 D2 D3 M4 M5 I5 M6 M7 M8. The first residue matches
+    column 1, columns 2 and 3 are skipped through deletion states that emit nothing, four more
+    residues match, one extra residue is absorbed by the insertion state after column 5, and the last
+    two match. Reading the match and deletion states off this path gives the alignment of the new
+    sequence against the family, which is what the model was built to produce.</figcaption>
+    </figure>
+
+    <p>
+      The score of that path is what turns the model into a classifier. On its own the number means
+      little, because a longer sequence has a smaller probability whatever it is. Comparing it
+      against a background model that emits residues independently at their usual frequencies removes
+      the length and leaves how much better the family explains the sequence than chance does.
+    </p>
+
+    <pre><code class="language-python">def path_score(path, text, transition, emission):
+    """The log probability of one path through a profile HMM, and of what it emits."""
+    total, state, i = 0.0, 'S', 0
+    for l in path:
+        total += safe_log(transition[state, l])
+        if l[0] in 'MI':
+            total += safe_log(emission[l, text[i]])
+            i += 1
+        state = l
+    return total + safe_log(transition[state, 'E'])</code></pre>
+
+    <h2>Learning Without a Path</h2>
+
+    <p>
+      Estimating parameters from a known path was easy. The situation that matters is the one where
+      the path is not known, which is every situation where the model is being fitted to raw data.
+    </p>
+
+    <p>
+      <strong>HMM Parameter Learning Problem.</strong> Given a string $x$ emitted by an HMM with
+      unknown matrices, find the matrices and the hidden path maximising $\Pr(x, \pi)$.
+    </p>
+
+    <p>
+      The two unknowns depend on each other, and each is easy given the other. That suggests
+      alternating: decode with the current parameters, re-estimate from the decoded path, repeat.
+    </p>
+
+    <pre><code class="language-python">def viterbi_learning(x, states, alphabet, transition, emission, rounds):
+    for _ in range(rounds):
+        path = viterbi(x, states, transition, emission)
+        transition, emission = estimate_parameters(x, path, states, alphabet)
+    return transition, emission</code></pre>
+
+    <p>
+      What this throws away is everything the model knew except its single best guess. A position
+      that the current parameters place in one state with probability $0.51$ contributes to the
+      counts exactly as much as one placed there with probability $0.999$, and the doubt is gone by
+      the next round. Recovering it means asking, for each position separately, how much of the total
+      probability passes through each state.
+    </p>
+
+    <p>
+      <strong>Soft Decoding Problem.</strong> Given a string $x$ and an HMM, find
+      $\Pr(\pi_i = k \mid x)$ for every position $i$ and state $k$.
+    </p>
+
+    <p>
+      <strong>Theorem.</strong>
+      $\Pr(\pi_i = k \mid x) = \textit{forward}(k, i) \cdot \textit{backward}(k, i) / \Pr(x)$, where
+      $\textit{backward}(k, i)$ is the total weight of paths from $(k, i)$ to the end.
+    </p>
+
+    <p>
+      The proof is a bijection. Any path through $(k, i)$ splits at that node into a prefix ending
+      there and a suffix starting there, its weight is the product of the two parts, and every choice
+      of a prefix with a suffix is again a path through that node. Summing the products over all
+      pairs therefore factorises into the sum over prefixes times the sum over suffixes, which are
+      the forward and backward values. Dividing by $\Pr(x)$, the total weight of all paths, turns the
+      weight into a conditional probability.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="481.65" height="178" viewBox="67.47 16 481.65 178">
+      <circle class="fig-shape" cx="310" cy="90" r="17"/>
+      <text class="fig-text fig-note" x="310" y="94" text-anchor="middle">k</text>
+      <text class="fig-text fig-note" x="310" y="60" text-anchor="middle">state k at position i</text>
+      <circle class="fig-cell" cx="130" cy="38" r="12"/>
+      <line class="fig-curve" x1="142" y1="38" x2="286.331" y2="88.0347"/>
+      <path class="fig-dot" d="M 292 90 L 285.447 90.5858 L 287.215 85.4837 Z"/>
+      <circle class="fig-cell" cx="490" cy="38" r="12"/>
+      <line class="fig-curve" x1="328" y1="90" x2="472.331" y2="39.9653"/>
+      <path class="fig-dot" d="M 478 38 L 473.215 42.5163 L 471.447 37.4142 Z"/>
+      <circle class="fig-cell" cx="130" cy="90" r="12"/>
+      <line class="fig-curve" x1="142" y1="90" x2="286" y2="90"/>
+      <path class="fig-dot" d="M 292 90 L 286 92.7 L 286 87.3 Z"/>
+      <circle class="fig-cell" cx="490" cy="90" r="12"/>
+      <line class="fig-curve" x1="328" y1="90" x2="472" y2="90"/>
+      <path class="fig-dot" d="M 478 90 L 472 92.7 L 472 87.3 Z"/>
+      <circle class="fig-cell" cx="130" cy="142" r="12"/>
+      <line class="fig-curve" x1="142" y1="142" x2="286.331" y2="91.9653"/>
+      <path class="fig-dot" d="M 292 90 L 287.215 94.5163 L 285.447 89.4142 Z"/>
+      <circle class="fig-cell" cx="490" cy="142" r="12"/>
+      <line class="fig-curve" x1="328" y1="90" x2="472.331" y2="140.035"/>
+      <path class="fig-dot" d="M 478 142 L 471.447 142.586 L 473.215 137.484 Z"/>
+      <text class="fig-text fig-note" x="190" y="180" text-anchor="middle">forward: every way of reaching it</text>
+      <text class="fig-text fig-note" x="430" y="180" text-anchor="middle">backward: every way of finishing</text>
+      </svg>
+      <figcaption>
+    The paths that pass through one node split into a part before it and a part after it, and every
+    pairing of the two is a path. The total weight of paths through the node is therefore the forward
+    value times the backward value, and dividing by $\Pr(x)$ gives the probability that the chain was
+    in that state at that moment. One left to right pass and one right to left pass give this for
+    every node at once.</figcaption>
+    </figure>
+
+    <pre><code class="language-python">def backward(x, states, transition, emission):
+    """Backward probabilities, rescaled column by column in the same way."""
+    columns = [{k: 1.0 for k in states}]
+    for symbol in reversed(x[1:]):
+        ahead = columns[0]
+        column = {k: sum(transition[k, l] * emission[l, symbol] * ahead[l]
+                         for l in states) for k in states}
+        total = sum(column.values())
+        columns.insert(0, {k: v / total for k, v in column.items()})
+    return columns
+
+
+def soft_decoding(x, states, transition, emission):
+    ahead, _ = forward(x, states, transition, emission)
+    behind = backward(x, states, transition, emission)
+    profile = []
+    for i in range(len(x)):
+        weight = {k: ahead[i][k] * behind[i][k] for k in states}
+        total = sum(weight.values())
+        profile.append({k: weight[k] / total for k in states})
+    return profile</code></pre>
+
+    <p>
+      <strong>Baum-Welch learning</strong> is Viterbi learning with those shares in place of the hard
+      decision. Instead of counting one visit to the state the best path chose, it counts a fraction
+      of a visit to every state, weighted by how much probability passes through it, and it does the
+      same for the edges. The counts are no longer integers, and nothing else changes.
+    </p>
+
+    <pre><code class="language-python">def baum_welch(x, states, alphabet, transition, emission, rounds):
+    for _ in range(rounds):
+        ahead, _ = forward(x, states, transition, emission)
+        behind = backward(x, states, transition, emission)
+        node = soft_decoding(x, states, transition, emission)
+        edge = {(k, l): 0.0 for k in states for l in states}
+        for i in range(len(x) - 1):
+            weight = {(k, l): ahead[i][k] * transition[k, l]
+                      * emission[l, x[i + 1]] * behind[i + 1][l]
+                      for k in states for l in states}
+            total = sum(weight.values())
+            for pair in weight:
+                edge[pair] += weight[pair] / total
+        seen = {(k, symbol): sum(node[i][k] for i in range(len(x)) if x[i] == symbol)
+                for k in states for symbol in alphabet}
+        transition = normalise(edge, states, states)
+        emission = normalise(seen, states, alphabet)
+    return transition, emission</code></pre>
+
+    <p>
+      This is expectation maximization, the procedure <a href="clustering.html">Chapter 8</a> used
+      for soft clustering, with hidden states in place of hidden cluster memberships. Each round
+      computes the expected counts under the current parameters and then maximises with those counts
+      held fixed, and the standard argument for expectation maximization shows that a round can never
+      lower $\Pr(x)$. The argument turns on the fact that the expected log likelihood is a lower
+      bound on the true one which touches it at the current parameters, so improving the bound cannot
+      worsen what it bounds. The full proof is not reproduced here.
+    </p>
+
+    <p>
+      Rising likelihood is not the same as a better answer, and the chromosome X sequence shows the
+      difference plainly. Started from the counted parameters of the earlier section and run for
+      eight rounds on the same $386{,}824$ observations, Baum-Welch raises the log likelihood at
+      every round, from $-1{,}059{,}094$ to $-1{,}045{,}258$. Over the same eight rounds the share of the window
+      decoded as island climbs from $11.43$ percent to $63.99$ percent. The model is
+      fitting better and describing something else: broad variation in GC content across hundreds of
+      thousands of nucleotides, which is real structure in a chromosome and is not what a CG-island
+      is. Maximum likelihood optimises the fit, not the interpretation, and when the two part company
+      it is the fit that wins.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="486.82" height="351" viewBox="96.59 23 486.82 351">
+      <text class="fig-text fig-note" x="340" y="44" text-anchor="middle">log likelihood of the sequence</text>
+      <line class="fig-axis" x1="110" y1="156" x2="570" y2="156"/>
+      <line class="fig-axis" x1="110" y1="60" x2="110" y2="156"/>
+      <circle class="fig-dot" cx="110" cy="146.71" r="3"/>
+      <circle class="fig-dot" cx="167.5" cy="110.987" r="3"/>
+      <circle class="fig-dot" cx="225" cy="96.7025" r="3"/>
+      <circle class="fig-dot" cx="282.5" cy="87.0669" r="3"/>
+      <circle class="fig-dot" cx="340" cy="80.4076" r="3"/>
+      <circle class="fig-dot" cx="397.5" cy="75.8562" r="3"/>
+      <circle class="fig-dot" cx="455" cy="72.7982" r="3"/>
+      <circle class="fig-dot" cx="512.5" cy="70.7289" r="3"/>
+      <circle class="fig-dot" cx="570" cy="69.2903" r="3"/>
+      <path class="fig-curve" d="M 110 146.7 L 167.5 111 L 225 96.7 L 282.5 87.07 L 340 80.41 L 397.5 75.86 L 455 72.8 L 512.5 70.73 L 570 69.29"/>
+      <text class="fig-text fig-note" x="120" y="162.71" text-anchor="start">-1,059,094</text>
+      <text class="fig-text fig-note" x="560" y="85.2903" text-anchor="end">-1,045,258</text>
+      <text class="fig-text fig-note" x="110" y="174" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="225" y="174" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="340" y="174" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="455" y="174" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="570" y="174" text-anchor="middle">8</text>
+      <text class="fig-text fig-note" x="340" y="192" text-anchor="middle">rounds of Baum-Welch</text>
+      <text class="fig-text fig-note" x="340" y="212" text-anchor="middle">share of the window called island</text>
+      <line class="fig-axis" x1="110" y1="324" x2="570" y2="324"/>
+      <line class="fig-axis" x1="110" y1="228" x2="110" y2="324"/>
+      <circle class="fig-dot" cx="110" cy="314.71" r="3"/>
+      <circle class="fig-dot" cx="167.5" cy="299.7" r="3"/>
+      <circle class="fig-dot" cx="225" cy="283.556" r="3"/>
+      <circle class="fig-dot" cx="282.5" cy="269.843" r="3"/>
+      <circle class="fig-dot" cx="340" cy="258.928" r="3"/>
+      <circle class="fig-dot" cx="397.5" cy="250.753" r="3"/>
+      <circle class="fig-dot" cx="455" cy="245.333" r="3"/>
+      <circle class="fig-dot" cx="512.5" cy="240.958" r="3"/>
+      <circle class="fig-dot" cx="570" cy="237.29" r="3"/>
+      <path class="fig-curve" d="M 110 314.7 L 167.5 299.7 L 225 283.6 L 282.5 269.8 L 340 258.9 L 397.5 250.8 L 455 245.3 L 512.5 241 L 570 237.3"/>
+      <text class="fig-text fig-note" x="120" y="304.71" text-anchor="start">11.4 percent</text>
+      <text class="fig-text fig-note" x="560" y="227.29" text-anchor="end">64.0 percent</text>
+      <text class="fig-text fig-note" x="110" y="342" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="225" y="342" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="340" y="342" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="455" y="342" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="570" y="342" text-anchor="middle">8</text>
+      <text class="fig-text fig-note" x="340" y="360" text-anchor="middle">rounds of Baum-Welch</text>
+      </svg>
+      <figcaption>
+        <span class="cap-part"><span class="cap-lead">Top.</span> Every round of Baum-Welch on the
+        chromosome X sequence raises the log likelihood, as the theory says it must.</span>
+        <span class="cap-part"><span class="cap-lead">Bottom.</span> Over the same rounds the share
+        of the window decoded as island climbs from 11.43 percent to
+        63.99 percent. What the model gains by fitting better it spends on
+        describing broad variation in GC content rather than the short islands the section set out to
+        find.</span></figcaption>
+    </figure>
+
+    <h2>Application: Classifying an HIV Sequence</h2>
+
+    <p>
+      The sequences are real. Fetching the $120$ GenBank records for HIV-1 whose titles name the V3
+      loop, and keeping the translated peptides of the canonical length written over the twenty
+      standard amino acids, gives $72$ loops of between $34$ and $36$ residues. Two thirds of them, $48$
+      sequences, build the model, and the remaining $24$ are held back.
+    </p>
+
+    <p>
+      A profile HMM needs a seed alignment and Chapter 5 stopped at three sequences, so the alignment
+      is built progressively: each sequence in turn is aligned against the consensus of what has been
+      aligned so far, using Chapter 5's <code>alignment</code> as the engine, and every gap the
+      consensus picks up is opened in all the rows already placed. The substitution scores are
+      BLOSUM62, read from the file published by NCBI rather than typed in. The result is $37$
+      columns wide and $5.6$ percent gaps.
+    </p>
+
+    <p>
+      With $\theta = 0.35$ and a pseudocount of $0.01$ the model has $35$ match states and
+      $108$ states in all. Reading the most probable residue off each match state in order
+      gives CTRPNNNTRKSVRIGPGQTFYATGDIIGDIRQAHC. That string was never supplied to the program. It is the known consensus
+      of the V3 loop, and its landmarks are the model's most confident columns: the cysteine at the
+      first match state and the cysteine at the last, which in the folded protein join to close the
+      loop, and the glycine-proline-glycine at match states $15$ to $17$, the tip of the loop.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="719.46" height="179" viewBox="15.54 15 719.46 179">
+      <line class="fig-axis" x1="52" y1="124" x2="725" y2="124"/>
+      <text class="fig-text fig-note" x="46" y="91" text-anchor="end">0.5</text>
+      <line class="fig-axis" x1="52" y1="87" x2="56" y2="87"/>
+      <text class="fig-text fig-note" x="46" y="54" text-anchor="end">1.0</text>
+      <line class="fig-axis" x1="52" y1="50" x2="56" y2="50"/>
+      <rect class="fig-shape" x="62.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="62.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="69.5" y="139" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="69.5" y="154" text-anchor="middle">1</text>
+      <rect class="fig-band" x="81.5" y="75.826" width="14" height="48.174"/>
+      <rect class="fig-cell" x="81.5" y="75.826" width="14" height="48.174"/>
+      <text class="fig-text fig-note" x="88.5" y="139" text-anchor="middle">T</text>
+      <rect class="fig-band" x="100.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="100.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="107.5" y="139" text-anchor="middle">R</text>
+      <rect class="fig-band" x="119.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="119.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="126.5" y="139" text-anchor="middle">P</text>
+      <rect class="fig-band" x="138.5" y="86.112" width="14" height="37.888"/>
+      <rect class="fig-cell" x="138.5" y="86.112" width="14" height="37.888"/>
+      <text class="fig-text fig-note" x="145.5" y="139" text-anchor="middle">N</text>
+      <rect class="fig-band" x="157.5" y="63.024" width="14" height="60.976"/>
+      <rect class="fig-cell" x="157.5" y="63.024" width="14" height="60.976"/>
+      <text class="fig-text fig-note" x="164.5" y="139" text-anchor="middle">N</text>
+      <rect class="fig-band" x="176.5" y="64.282" width="14" height="59.718"/>
+      <rect class="fig-cell" x="176.5" y="64.282" width="14" height="59.718"/>
+      <text class="fig-text fig-note" x="183.5" y="139" text-anchor="middle">N</text>
+      <rect class="fig-band" x="195.5" y="68.13" width="14" height="55.87"/>
+      <rect class="fig-cell" x="195.5" y="68.13" width="14" height="55.87"/>
+      <text class="fig-text fig-note" x="202.5" y="139" text-anchor="middle">T</text>
+      <rect class="fig-band" x="214.5" y="65.54" width="14" height="58.46"/>
+      <rect class="fig-cell" x="214.5" y="65.54" width="14" height="58.46"/>
+      <text class="fig-text fig-note" x="221.5" y="139" text-anchor="middle">R</text>
+      <rect class="fig-band" x="233.5" y="82.264" width="14" height="41.736"/>
+      <rect class="fig-cell" x="233.5" y="82.264" width="14" height="41.736"/>
+      <text class="fig-text fig-note" x="240.5" y="139" text-anchor="middle">K</text>
+      <text class="fig-text fig-note" x="240.5" y="154" text-anchor="middle">10</text>
+      <rect class="fig-band" x="252.5" y="70.72" width="14" height="53.28"/>
+      <rect class="fig-cell" x="252.5" y="70.72" width="14" height="53.28"/>
+      <text class="fig-text fig-note" x="259.5" y="139" text-anchor="middle">S</text>
+      <rect class="fig-band" x="271.5" y="93.956" width="14" height="30.044"/>
+      <rect class="fig-cell" x="271.5" y="93.956" width="14" height="30.044"/>
+      <text class="fig-text fig-note" x="278.5" y="139" text-anchor="middle">V</text>
+      <rect class="fig-band" x="290.5" y="73.31" width="14" height="50.69"/>
+      <rect class="fig-cell" x="290.5" y="73.31" width="14" height="50.69"/>
+      <text class="fig-text fig-note" x="297.5" y="139" text-anchor="middle">R</text>
+      <rect class="fig-band" x="309.5" y="63.024" width="14" height="60.976"/>
+      <rect class="fig-cell" x="309.5" y="63.024" width="14" height="60.976"/>
+      <text class="fig-text fig-note" x="316.5" y="139" text-anchor="middle">I</text>
+      <rect class="fig-shape" x="328.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="328.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="335.5" y="139" text-anchor="middle">G</text>
+      <rect class="fig-shape" x="347.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="347.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="354.5" y="139" text-anchor="middle">P</text>
+      <rect class="fig-shape" x="366.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="366.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="373.5" y="139" text-anchor="middle">G</text>
+      <rect class="fig-band" x="385.5" y="71.978" width="14" height="52.022"/>
+      <rect class="fig-cell" x="385.5" y="71.978" width="14" height="52.022"/>
+      <text class="fig-text fig-note" x="392.5" y="139" text-anchor="middle">Q</text>
+      <rect class="fig-band" x="404.5" y="83.522" width="14" height="40.478"/>
+      <rect class="fig-cell" x="404.5" y="83.522" width="14" height="40.478"/>
+      <text class="fig-text fig-note" x="411.5" y="139" text-anchor="middle">T</text>
+      <rect class="fig-band" x="423.5" y="63.024" width="14" height="60.976"/>
+      <rect class="fig-cell" x="423.5" y="63.024" width="14" height="60.976"/>
+      <text class="fig-text fig-note" x="430.5" y="139" text-anchor="middle">F</text>
+      <text class="fig-text fig-note" x="430.5" y="154" text-anchor="middle">20</text>
+      <rect class="fig-band" x="442.5" y="69.462" width="14" height="54.538"/>
+      <rect class="fig-cell" x="442.5" y="69.462" width="14" height="54.538"/>
+      <text class="fig-text fig-note" x="449.5" y="139" text-anchor="middle">Y</text>
+      <rect class="fig-band" x="461.5" y="68.13" width="14" height="55.87"/>
+      <rect class="fig-cell" x="461.5" y="68.13" width="14" height="55.87"/>
+      <text class="fig-text fig-note" x="468.5" y="139" text-anchor="middle">A</text>
+      <rect class="fig-band" x="480.5" y="64.282" width="14" height="59.718"/>
+      <rect class="fig-cell" x="480.5" y="64.282" width="14" height="59.718"/>
+      <text class="fig-text fig-note" x="487.5" y="139" text-anchor="middle">T</text>
+      <rect class="fig-band" x="499.5" y="74.938" width="14" height="49.062"/>
+      <rect class="fig-cell" x="499.5" y="74.938" width="14" height="49.062"/>
+      <text class="fig-text fig-note" x="506.5" y="139" text-anchor="middle">G</text>
+      <rect class="fig-band" x="518.5" y="89.96" width="14" height="34.04"/>
+      <rect class="fig-cell" x="518.5" y="89.96" width="14" height="34.04"/>
+      <text class="fig-text fig-note" x="525.5" y="139" text-anchor="middle">D</text>
+      <rect class="fig-band" x="537.5" y="65.54" width="14" height="58.46"/>
+      <rect class="fig-cell" x="537.5" y="65.54" width="14" height="58.46"/>
+      <text class="fig-text fig-note" x="544.5" y="139" text-anchor="middle">I</text>
+      <rect class="fig-band" x="556.5" y="68.278" width="14" height="55.722"/>
+      <rect class="fig-cell" x="556.5" y="68.278" width="14" height="55.722"/>
+      <text class="fig-text fig-note" x="563.5" y="139" text-anchor="middle">I</text>
+      <rect class="fig-band" x="575.5" y="63.024" width="14" height="60.976"/>
+      <rect class="fig-cell" x="575.5" y="63.024" width="14" height="60.976"/>
+      <text class="fig-text fig-note" x="582.5" y="139" text-anchor="middle">G</text>
+      <rect class="fig-band" x="594.5" y="78.786" width="14" height="45.214"/>
+      <rect class="fig-cell" x="594.5" y="78.786" width="14" height="45.214"/>
+      <text class="fig-text fig-note" x="601.5" y="139" text-anchor="middle">D</text>
+      <rect class="fig-band" x="613.5" y="63.024" width="14" height="60.976"/>
+      <rect class="fig-cell" x="613.5" y="63.024" width="14" height="60.976"/>
+      <text class="fig-text fig-note" x="620.5" y="139" text-anchor="middle">I</text>
+      <text class="fig-text fig-note" x="620.5" y="154" text-anchor="middle">30</text>
+      <rect class="fig-band" x="632.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="632.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="639.5" y="139" text-anchor="middle">R</text>
+      <rect class="fig-band" x="651.5" y="71.978" width="14" height="52.022"/>
+      <rect class="fig-cell" x="651.5" y="71.978" width="14" height="52.022"/>
+      <text class="fig-text fig-note" x="658.5" y="139" text-anchor="middle">Q</text>
+      <rect class="fig-band" x="670.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="670.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="677.5" y="139" text-anchor="middle">A</text>
+      <rect class="fig-band" x="689.5" y="70.72" width="14" height="53.28"/>
+      <rect class="fig-cell" x="689.5" y="70.72" width="14" height="53.28"/>
+      <text class="fig-text fig-note" x="696.5" y="139" text-anchor="middle">H</text>
+      <rect class="fig-shape" x="708.5" y="61.692" width="14" height="62.308"/>
+      <rect class="fig-cell" x="708.5" y="61.692" width="14" height="62.308"/>
+      <text class="fig-text fig-note" x="715.5" y="139" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="715.5" y="154" text-anchor="middle">35</text>
+      <text class="fig-text fig-note" x="392.5" y="36" text-anchor="middle">probability of the commonest residue in each match state</text>
+      <rect class="fig-shape" x="60" y="167" width="16" height="16"/>
+      <text class="fig-text fig-note" x="84" y="180" text-anchor="start">the two cysteines that close the loop, and its glycine-proline-glycine tip</text>
+      </svg>
+      <figcaption>
+    The profile HMM built from 48 real V3 loops, read one match state at a time. The
+    bars give the probability of the commonest residue in each of the 35 match
+    states and the letters below them spell CTRPNNNTRKSVRIGPGQTFYATGDIIGDIRQAHC, which is the known consensus of
+    this loop and was never given to the program. The marked columns are the cysteine at each end,
+    which bond to each other and hold the loop closed, and the glycine-proline-glycine at its tip.</figcaption>
+    </figure>
+
+    <p>
+      The test is whether the model recognises V3 loops it has not seen. Each held-out sequence is
+      aligned to the profile and scored against a background model built from the amino acid
+      composition of HIV-1 Gag, a real protein of the same virus from a different family. Three
+      controls are scored the same way: the held-out loops with their residues shuffled, which have
+      the same composition and the same length but no order; $35$ residue windows of Gag; and $35$
+      residue windows of the human KAT6B protein of <a href="read-mapping.html">Chapter 9</a>.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="583.58" height="259" viewBox="56.42 7 583.58 259">
+      <text class="fig-text fig-note" x="196" y="60" text-anchor="end">held-out V3 loops</text>
+      <line class="fig-cell" x1="501.979" y1="56" x2="615.027" y2="56"/>
+      <line class="fig-cell" x1="501.979" y1="50" x2="501.979" y2="62"/>
+      <line class="fig-cell" x1="615.027" y1="50" x2="615.027" y2="62"/>
+      <circle class="fig-dot" cx="600.802" cy="56" r="5"/>
+      <text class="fig-text fig-note" x="196" y="102" text-anchor="end">shuffled V3 loops</text>
+      <line class="fig-cell" x1="285.865" y1="98" x2="339.02" y2="98"/>
+      <line class="fig-cell" x1="285.865" y1="92" x2="285.865" y2="104"/>
+      <line class="fig-cell" x1="339.02" y1="92" x2="339.02" y2="104"/>
+      <circle class="fig-hole-alt" cx="310.071" cy="98" r="5"/>
+      <text class="fig-text fig-note" x="196" y="144" text-anchor="end">HIV-1 Gag windows</text>
+      <line class="fig-cell" x1="251.176" y1="140" x2="315.312" y2="140"/>
+      <line class="fig-cell" x1="251.176" y1="134" x2="251.176" y2="146"/>
+      <line class="fig-cell" x1="315.312" y1="134" x2="315.312" y2="146"/>
+      <circle class="fig-hole-alt" cx="279.127" cy="140" r="5"/>
+      <text class="fig-text fig-note" x="196" y="186" text-anchor="end">human KAT6B windows</text>
+      <line class="fig-cell" x1="224.973" y1="182" x2="310.57" y2="182"/>
+      <line class="fig-cell" x1="224.973" y1="176" x2="224.973" y2="188"/>
+      <line class="fig-cell" x1="310.57" y1="176" x2="310.57" y2="188"/>
+      <circle class="fig-hole-alt" cx="281.373" cy="182" r="5"/>
+      <line class="fig-guide" x1="420.624" y1="36" x2="420.624" y2="202"/>
+      <text class="fig-text fig-note" x="420.624" y="28" text-anchor="middle">any threshold in the gap</text>
+      <line class="fig-axis" x1="210" y1="216" x2="630" y2="216"/>
+      <line class="fig-axis" x1="238.449" y1="216" x2="238.449" y2="220"/>
+      <text class="fig-text fig-note" x="238.449" y="234" text-anchor="middle">-60</text>
+      <line class="fig-axis" x1="288.36" y1="216" x2="288.36" y2="220"/>
+      <text class="fig-text fig-note" x="288.36" y="234" text-anchor="middle">-40</text>
+      <line class="fig-axis" x1="338.271" y1="216" x2="338.271" y2="220"/>
+      <text class="fig-text fig-note" x="338.271" y="234" text-anchor="middle">-20</text>
+      <line class="fig-axis" x1="388.182" y1="216" x2="388.182" y2="220"/>
+      <text class="fig-text fig-note" x="388.182" y="234" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="438.093" y1="216" x2="438.093" y2="220"/>
+      <text class="fig-text fig-note" x="438.093" y="234" text-anchor="middle">20</text>
+      <line class="fig-axis" x1="488.004" y1="216" x2="488.004" y2="220"/>
+      <text class="fig-text fig-note" x="488.004" y="234" text-anchor="middle">40</text>
+      <line class="fig-axis" x1="537.914" y1="216" x2="537.914" y2="220"/>
+      <text class="fig-text fig-note" x="537.914" y="234" text-anchor="middle">60</text>
+      <line class="fig-axis" x1="587.825" y1="216" x2="587.825" y2="220"/>
+      <text class="fig-text fig-note" x="587.825" y="234" text-anchor="middle">80</text>
+      <text class="fig-text fig-note" x="420" y="252" text-anchor="middle">log odds against the background model</text>
+      </svg>
+      <figcaption>
+    Every group scored against the profile, drawn from its lowest to its highest value with the
+    median marked. The 24 held-out V3 loops sit between
+    45.6 and 90.9; all
+    104 controls sit below -19.7. The
+    shuffled loops are the informative control, since they have the same residues in the same
+    numbers as the real ones and differ only in their order.</figcaption>
+    </figure>
+
+    <p>
+      The held-out V3 loops score between $45.6$ and $90.9$. All $104$ controls
+      score below $-19.7$. The two groups do not overlap, and any threshold in the gap
+      between them classifies every one of the $24$ real loops correctly with no false positives.
+      The shuffled control is the one that matters: it holds composition and length fixed, so the
+      $65.3$ units separating it from the real loops are entirely the order of the residues,
+      which is what the profile encodes and a single alignment score cannot.
+    </p>
+
+    <p>
+      What this establishes is that a profile HMM built by the chapter's own code from real sequences
+      recognises further real members of the same family and rejects sequences that merely look like
+      them in composition. It does not establish the SI and NSI classification the chapter opened
+      with. That needs sequences labelled by what the virus did in culture, and those labels are not
+      carried by the public sequence records, so the phenotype question is quoted here rather than
+      computed: the distinction is known to turn on the charge of a few positions of this same loop.
+      The machinery that would answer it is what has just been built. What is missing is the labels.
+    </p>
+  </main>
+</body>
+</html>
