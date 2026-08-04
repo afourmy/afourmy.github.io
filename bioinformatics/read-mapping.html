@@ -1,0 +1,2297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9: Read Mapping</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Placing a billion short reads on a reference genome, with tries, suffix trees, suffix arrays and the Burrows-Wheeler transform.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/read-mapping.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 9: Read Mapping">
+  <meta property="og:description" content="Placing a billion short reads on a reference genome, with tries, suffix trees, suffix arrays and the Burrows-Wheeler transform.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/read-mapping.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 9: How Do We Locate Disease-Causing Mutations?</h1>
+    </header>
+
+    <p>
+      <a href="genome-assembly.html">Chapter 3</a> built a genome out of reads. This chapter starts
+      from a genome that is already known and places reads on it. The input is a reference sequence
+      of three billion nucleotides and a billion short strings taken from a patient, and the output
+      is the position of each string in the reference. Every structure in the chapter solves that
+      problem, and each one appears because the previous one does not fit in a machine.
+    </p>
+
+    <h2>Reading a Patient's Genome</h2>
+
+    <p>
+      <strong>Ohdo syndrome</strong> is a rare inherited developmental disorder. Several different
+      genes cause forms of it, and one form, the Say-Barber-Biesecker-Young-Simpson type, is caused
+      by mutations in a gene called <strong>KAT6B</strong> on human chromosome 10. A patient arrives
+      with the disorder and without a diagnosis, and the question is which position of which
+      chromosome differs from what it should be.
+    </p>
+
+    <p>
+      A <strong>gene</strong> is a stretch of a chromosome that codes for a protein, and a
+      <strong>mutation</strong> is a difference between the sequence a patient carries and the
+      sequence carried by most people. The commonest kind is a
+      <strong>single nucleotide polymorphism</strong>, or SNP, in which one nucleotide is replaced
+      by another. Any two people differ at millions of positions and almost all of those differences
+      are harmless, so the work is not to find differences but to find the one difference that
+      matters.
+    </p>
+
+    <p>
+      Sequencing the patient produces reads, and Chapter 3 turned reads into a genome. That is the
+      wrong tool here. Assembly from error-prone reads is expensive, and it stops at contigs rather
+      than at whole chromosomes, so the answer would still have to be lined up against something
+      before any difference could be read off. A reference human genome already exists. Placing the
+      patient's reads directly on it is cheaper, and it produces the comparison as its output rather
+      than as an extra step.
+    </p>
+
+    <p>
+      <strong>Read mapping</strong> is that placement: given a reference and a collection of reads,
+      find where each read belongs. Once every read sits at a position, each position of the
+      reference carries a column of nucleotides, one per read covering it. A column where the reads
+      agree with the reference says nothing. A column where they disagree is a mutation, and a
+      column split in two says the patient carries the difference on one copy of the chromosome and
+      not the other.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="584.88" height="271" viewBox="32.62 -1 584.88 271">
+      <text class="fig-text fig-note" x="104" y="40" text-anchor="end">reference</text>
+      <rect class="fig-band" x="352.5" y="10" width="15" height="250"/>
+      <text class="fig-text fig-tick" x="120" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="135" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="150" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="165" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="375" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="525" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="540" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="555" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="570" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="585" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="600" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="360" y="20" text-anchor="middle">chr10:74,981,902</text>
+      <text class="fig-text fig-tick" x="120" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="135" y="66" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="150" y="66" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="165" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="66" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="66" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="66" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="66" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="66" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="66" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="66" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="375" y="66" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="66" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="66" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="66" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="66" text-anchor="middle">A</text>
+      <line class="fig-cell" x1="112.5" y1="71" x2="472.5" y2="71"/>
+      <text class="fig-text fig-tick" x="165" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="90" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="90" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="90" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="90" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="90" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="90" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="90" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="90" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="90" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="90" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="90" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="90" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="90" text-anchor="middle">A</text>
+      <line class="fig-cell" x1="157.5" y1="95" x2="517.5" y2="95"/>
+      <text class="fig-text fig-tick" x="135" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="150" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="165" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="375" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="114" text-anchor="middle">G</text>
+      <line class="fig-cell" x1="127.5" y1="119" x2="502.5" y2="119"/>
+      <text class="fig-text fig-tick" x="195" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="138" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="138" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="138" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="138" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="138" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="138" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="138" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="138" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="138" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="138" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="138" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="138" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="525" y="138" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="540" y="138" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="555" y="138" text-anchor="middle">T</text>
+      <line class="fig-cell" x1="187.5" y1="143" x2="562.5" y2="143"/>
+      <text class="fig-text fig-tick" x="120" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="135" y="162" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="150" y="162" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="165" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="162" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="162" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="162" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="162" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="162" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="162" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="162" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="162" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="162" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="162" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="162" text-anchor="middle">G</text>
+      <line class="fig-cell" x1="112.5" y1="167" x2="442.5" y2="167"/>
+      <text class="fig-text fig-tick" x="225" y="186" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="186" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="186" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="186" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="186" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="186" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="375" y="186" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="186" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="186" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="186" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="186" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="525" y="186" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="540" y="186" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="555" y="186" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="570" y="186" text-anchor="middle">T</text>
+      <line class="fig-cell" x1="217.5" y1="191" x2="577.5" y2="191"/>
+      <text class="fig-text fig-tick" x="150" y="210" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="165" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="180" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="210" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="210" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="210" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="210" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="210" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="210" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="210" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="375" y="210" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="210" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="210" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="210" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="210" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="525" y="210" text-anchor="middle">C</text>
+      <line class="fig-cell" x1="142.5" y1="215" x2="532.5" y2="215"/>
+      <text class="fig-text fig-tick" x="180" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="195" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="210" y="234" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="225" y="234" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="240" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="255" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="270" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="285" y="234" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="300" y="234" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="315" y="234" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="330" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="345" y="234" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="360" y="234" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="375" y="234" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="405" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="420" y="234" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="435" y="234" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="450" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="465" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="480" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="495" y="234" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="510" y="234" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="525" y="234" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="540" y="234" text-anchor="middle">C</text>
+      <line class="fig-cell" x1="172.5" y1="239" x2="547.5" y2="239"/>
+      <text class="fig-text fig-note" x="104" y="150" text-anchor="end">reads</text>
+      </svg>
+      <figcaption>
+    Eight reads placed on a 33 nucleotide window of human chromosome 10, drawn at the position each
+    one matches. The shaded column is chr10:74,981,902. Four reads read C there and four read T,
+    which is what one copy of a chromosome carrying a substitution looks like. Away from that column
+    the reads agree with the reference, so a single disagreeing column stands out against the
+    coverage around it.</figcaption>
+    </figure>
+
+    <h2>Multiple Pattern Matching</h2>
+
+    <p>
+      <strong>Multiple Pattern Matching Problem.</strong> Given a string $\textit{Text}$ and a
+      collection $\textit{Patterns}$ of shorter strings, find all starting positions in
+      $\textit{Text}$ where a string from $\textit{Patterns}$ occurs.
+    </p>
+
+    <p>
+      The direct method takes one pattern at a time and slides it along the text, comparing at every
+      position. A pattern of length $k$ costs $O(|\textit{Text}| \cdot k)$, and the whole collection
+      costs $O(|\textit{Text}| \cdot \sum_i |\textit{Pattern}_i|)$. Both factors are large here. A
+      human genome is about $3.1$ billion nucleotides, and an experiment that reads every position
+      thirty times over with reads of length $100$ produces about $930$ million of them.
+    </p>
+
+    <p>
+      Measuring the rate makes the size of that product concrete. Searching a real $100$ kb window of
+      human chromosome 10 for $300$ patterns of length $30$ by direct comparison takes $7.13$
+      seconds. The genome is $31{,}000$ times longer than that window and a real experiment has
+      $3.1$ million times as many patterns, so the same code on the real problem would run for about
+      $6.8 \times 10^{11}$ seconds, which is twenty-one thousand years.
+    </p>
+
+    <p>
+      Nothing in that estimate is wasted on a bad constant. The cost is the product of two large
+      numbers, so the only way out is to stop paying one of them, and there are two ways to try.
+      Preprocess the patterns into a structure that matches all of them in one pass over the text,
+      or preprocess the text into a structure that answers a pattern without looking at the text at
+      all.
+    </p>
+
+    <h2>The Trie</h2>
+
+    <p>
+      A <strong>trie</strong> is a rooted tree whose edges carry single symbols, in which no node has
+      two outgoing edges with the same symbol, and in which each pattern of the collection is spelled
+      by the symbols along the path from the root to some leaf. Patterns that begin the same way
+      share the beginning of their path, so the shared prefix is stored once. Building it is one
+      walk per pattern, creating an edge whenever the symbol needed is missing.
+    </p>
+
+    <pre><code class="language-python">def trie_construction(patterns):
+    trie = {0: {}}
+    for pattern in patterns:
+        node = 0
+        for symbol in pattern:
+            if symbol not in trie[node]:
+                child = len(trie)
+                trie[node][symbol] = child
+                trie[child] = {}
+            node = trie[node][symbol]
+    return trie</code></pre>
+
+    <p>
+      The trie is a dictionary from node number to a dictionary from symbol to child, so the root is
+      node $0$ and a leaf is a node whose dictionary is empty. Node numbers are handed out in the
+      order the nodes are created, which is why <code>len(trie)</code> is the next free number.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="462.6" height="139" viewBox="25.5 7 462.6 139">
+      <line class="fig-curve" x1="40" y1="95" x2="118" y2="62"/>
+      <text class="fig-text fig-note" x="79.3932" y="71.5613" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="40" y1="95" x2="118" y2="128"/>
+      <text class="fig-text fig-note" x="86.4068" y="107.861" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="118" y1="62" x2="196" y2="62"/>
+      <text class="fig-text fig-note" x="160.9" y="56" text-anchor="middle">T</text>
+      <line class="fig-curve" x1="196" y1="62" x2="274" y2="40"/>
+      <text class="fig-text fig-note" x="236.457" y="44.238" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="196" y1="62" x2="274" y2="84"/>
+      <text class="fig-text fig-note" x="241.343" y="68.438" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="274" y1="40" x2="352" y2="40"/>
+      <text class="fig-text fig-note" x="316.9" y="34" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="352" y1="40" x2="430" y2="40"/>
+      <text class="fig-text fig-note" x="394.9" y="34" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="118" y1="128" x2="196" y2="128"/>
+      <text class="fig-text fig-note" x="160.9" y="122" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="196" y1="128" x2="274" y2="128"/>
+      <text class="fig-text fig-note" x="238.9" y="122" text-anchor="middle">T</text>
+      <circle class="fig-dot" cx="40" cy="95" r="4.5"/>
+      <text class="fig-text fig-note" x="40" y="83" text-anchor="middle">0</text>
+      <circle class="fig-dot" cx="118" cy="62" r="4.5"/>
+      <text class="fig-text fig-note" x="118" y="50" text-anchor="middle">1</text>
+      <circle class="fig-dot" cx="196" cy="62" r="4.5"/>
+      <text class="fig-text fig-note" x="196" y="50" text-anchor="middle">2</text>
+      <circle class="fig-dot" cx="274" cy="40" r="4.5"/>
+      <text class="fig-text fig-note" x="274" y="28" text-anchor="middle">3</text>
+      <circle class="fig-dot" cx="352" cy="40" r="4.5"/>
+      <text class="fig-text fig-note" x="352" y="28" text-anchor="middle">4</text>
+      <circle class="fig-hole" cx="430" cy="40" r="5.5"/>
+      <text class="fig-text fig-note" x="430" y="28" text-anchor="middle">5</text>
+      <circle class="fig-hole" cx="274" cy="84" r="5.5"/>
+      <text class="fig-text fig-note" x="274" y="72" text-anchor="middle">6</text>
+      <circle class="fig-dot" cx="118" cy="128" r="4.5"/>
+      <text class="fig-text fig-note" x="118" y="116" text-anchor="middle">7</text>
+      <circle class="fig-dot" cx="196" cy="128" r="4.5"/>
+      <text class="fig-text fig-note" x="196" y="116" text-anchor="middle">8</text>
+      <circle class="fig-hole" cx="274" cy="128" r="5.5"/>
+      <text class="fig-text fig-note" x="274" y="116" text-anchor="middle">9</text>
+      <text class="fig-text fig-note" x="444" y="44" text-anchor="start">ATAGA</text>
+      <text class="fig-text fig-note" x="288" y="88" text-anchor="start">ATC</text>
+      <text class="fig-text fig-note" x="288" y="132" text-anchor="start">GAT</text>
+      </svg>
+      <figcaption>
+    The trie of $\{$ATAGA, ATC, GAT$\}$. Each pattern is spelled by the symbols on the path from
+    the root, node 0, to a leaf, and the two patterns beginning with AT share the path to node 2
+    instead of storing those symbols twice. No node has two outgoing edges with the same symbol, so
+    at each step of a walk down the trie there is at most one edge to follow.</figcaption>
+    </figure>
+
+    <p>
+      Matching starts at a fixed position of the text and walks down. At each step there is at most
+      one edge to follow, because no node repeats a symbol, so no search or backtracking is
+      involved. Reaching a leaf means a whole pattern has been spelled and therefore occurs at the
+      position the walk started from. Running out of matching edges means no pattern starts there.
+    </p>
+
+    <pre><code class="language-python">def prefix_trie_matching(text, trie, start):
+    node, i = 0, start
+    while True:
+        if not trie[node]:
+            return text[start:i]
+        if i == len(text) or text[i] not in trie[node]:
+            return None
+        node = trie[node][text[i]]
+        i += 1
+
+
+def trie_matching(text, patterns):
+    trie = trie_construction(patterns)
+    return [i for i in range(len(text)) if prefix_trie_matching(text, trie, i)]</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="435.28" height="143" viewBox="40 3 435.28 143">
+      <rect class="fig-band" x="70" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="90" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="110" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="130" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="130" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="150" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="170" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="190" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="270" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="290" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="310" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="330" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="350" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="370" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="390" y="27" width="20" height="18"/>
+      <rect class="fig-band" x="410" y="27" width="20" height="18"/>
+      <text class="fig-text fig-tick" x="60" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="80" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="100" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="120" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="140" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="160" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="180" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="200" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="220" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="240" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="260" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="280" y="40" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="300" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="320" y="40" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="340" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="360" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="380" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="400" y="40" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="420" y="40" text-anchor="middle">T</text>
+      <text class="fig-text fig-note" x="60" y="24" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="160" y="24" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="260" y="24" text-anchor="middle">10</text>
+      <text class="fig-text fig-note" x="360" y="24" text-anchor="middle">15</text>
+      <line class="fig-curve" x1="70" y1="62" x2="150" y2="62"/>
+      <text class="fig-text fig-note" x="158" y="66" text-anchor="start">ATCG</text>
+      <text class="fig-text fig-note" x="62" y="66" text-anchor="end">1</text>
+      <line class="fig-curve" x1="130" y1="84" x2="210" y2="84"/>
+      <text class="fig-text fig-note" x="218" y="88" text-anchor="start">GGGT</text>
+      <text class="fig-text fig-note" x="122" y="88" text-anchor="end">4</text>
+      <line class="fig-curve" x1="270" y1="106" x2="350" y2="106"/>
+      <text class="fig-text fig-note" x="358" y="110" text-anchor="start">ATCG</text>
+      <text class="fig-text fig-note" x="262" y="110" text-anchor="end">11</text>
+      <line class="fig-curve" x1="350" y1="128" x2="430" y2="128"/>
+      <text class="fig-text fig-note" x="438" y="132" text-anchor="start">GGGT</text>
+      <text class="fig-text fig-note" x="342" y="132" text-anchor="end">15</text>
+      </svg>
+      <figcaption>
+    Trie matching runs the same walk from every position of the text and reports the position
+    whenever the walk reaches a leaf. Against the trie of $\{$ATCG, GGGT$\}$ the text
+    AATCGGGTTCAATCGGGGT gives four occurrences, at 1, 4, 11 and 15. Nineteen walks are started and
+    only four of them reach a leaf, but every one of the nineteen costs up to the length of the
+    longest pattern.</figcaption>
+    </figure>
+
+    <p>
+      This is already better than the direct method. Building the trie costs one step per symbol of
+      the input, and the search costs $O(|\textit{Text}| \cdot \ell)$ where $\ell$ is the length of
+      the longest pattern, with no dependence on how many patterns there are. The direct method paid
+      for every pattern separately; the trie pays for the longest one.
+    </p>
+
+    <p>
+      Its size is the problem. Two random reads of length $100$ agree on their first few symbols and
+      then diverge, so almost nothing is shared. Building the trie of $100{,}000$ real reads of
+      length $100$ taken from the <em>Escherichia coli</em> genome gives $9{,}223{,}868$ nodes for
+      $10{,}000{,}000$ symbols of input, which is $92$ percent of the symbols stored separately.
+      Scaled to the $930$ million reads of a human experiment that is about $8.6 \times 10^{10}$
+      nodes, and a node holding even a few bytes puts the structure far beyond the memory of any
+      machine.
+    </p>
+
+    <p>
+      There is a second objection that no amount of memory would fix. The reads change with every
+      patient and the reference does not, so a structure built from the reads has to be rebuilt from
+      nothing for each new sample, and the whole genome has to be walked again. The fixed object is
+      the reference. It is the one worth preprocessing.
+    </p>
+
+    <h2>The Suffix Trie</h2>
+
+    <p>
+      Every occurrence of a pattern in a text is a prefix of some suffix of that text, and that
+      observation turns matching into a lookup. Store all $|\textit{Text}|$ suffixes in a trie, and a
+      pattern occurs in the text exactly when it can be spelled from the root. The
+      <strong>suffix trie</strong> is that structure, and it is the trie of the suffixes and nothing
+      more.
+    </p>
+
+    <p>
+      A terminal symbol is appended to the text first, written $\$$ and chosen to be smaller than
+      every symbol of the alphabet and to occur nowhere else. Without it a suffix can be a prefix of
+      another suffix and would end in the middle of a path; with it every suffix ends at a leaf of
+      its own. The construction records, alongside each child, the position in the text of the
+      symbol on the edge, which the next section needs.
+    </p>
+
+    <pre><code class="language-python">def suffix_trie(text):
+    trie = {0: {}}
+    for start in range(len(text)):
+        node = 0
+        for i in range(start, len(text)):
+            if text[i] not in trie[node]:
+                child = len(trie)
+                trie[node][text[i]] = (child, i)
+                trie[child] = {}
+            node = trie[node][text[i]][0]
+    return trie</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="602.32" height="273" viewBox="16.5 13 602.32 273">
+      <line class="fig-curve" x1="30" y1="138.375" x2="100" y2="30"/>
+      <text class="fig-text fig-note" x="68.6399" y="64.9644" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="30" y1="138.375" x2="100" y2="89.5"/>
+      <text class="fig-text fig-note" x="71.0477" y="101.738" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="30" y1="138.375" x2="100" y2="183"/>
+      <text class="fig-text fig-note" x="81.038" y="163.238" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="30" y1="138.375" x2="100" y2="251"/>
+      <text class="fig-text fig-note" x="83.8439" y="210.957" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="100" y1="89.5" x2="170" y2="64"/>
+      <text class="fig-text fig-note" x="143.119" y="67.2136" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="100" y1="89.5" x2="170" y2="115"/>
+      <text class="fig-text fig-note" x="149.281" y="100.874" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="170" y1="115" x2="240" y2="115"/>
+      <text class="fig-text fig-note" x="216.2" y="109" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="240" y1="115" x2="310" y2="115"/>
+      <text class="fig-text fig-note" x="286.2" y="109" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="310" y1="115" x2="380" y2="98"/>
+      <text class="fig-text fig-note" x="354.076" y="98.0342" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="310" y1="115" x2="380" y2="132"/>
+      <text class="fig-text fig-note" x="358.324" y="120.474" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="380" y1="132" x2="450" y2="132"/>
+      <text class="fig-text fig-note" x="426.2" y="126" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="450" y1="132" x2="520" y2="132"/>
+      <text class="fig-text fig-note" x="496.2" y="126" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="520" y1="132" x2="590" y2="132"/>
+      <text class="fig-text fig-note" x="566.2" y="126" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="100" y1="251" x2="170" y2="251"/>
+      <text class="fig-text fig-note" x="146.2" y="245" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="170" y1="251" x2="240" y2="251"/>
+      <text class="fig-text fig-note" x="216.2" y="245" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="240" y1="251" x2="310" y2="234"/>
+      <text class="fig-text fig-note" x="284.076" y="234.034" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="240" y1="251" x2="310" y2="268"/>
+      <text class="fig-text fig-note" x="288.324" y="256.474" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="310" y1="268" x2="380" y2="268"/>
+      <text class="fig-text fig-note" x="356.2" y="262" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="380" y1="268" x2="450" y2="268"/>
+      <text class="fig-text fig-note" x="426.2" y="262" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="450" y1="268" x2="520" y2="268"/>
+      <text class="fig-text fig-note" x="496.2" y="262" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="100" y1="183" x2="170" y2="183"/>
+      <text class="fig-text fig-note" x="146.2" y="177" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="170" y1="183" x2="240" y2="166"/>
+      <text class="fig-text fig-note" x="214.076" y="166.034" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="170" y1="183" x2="240" y2="200"/>
+      <text class="fig-text fig-note" x="218.324" y="188.474" text-anchor="middle">G</text>
+      <line class="fig-curve" x1="240" y1="200" x2="310" y2="200"/>
+      <text class="fig-text fig-note" x="286.2" y="194" text-anchor="middle">C</text>
+      <line class="fig-curve" x1="310" y1="200" x2="380" y2="200"/>
+      <text class="fig-text fig-note" x="356.2" y="194" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="380" y1="200" x2="450" y2="200"/>
+      <text class="fig-text fig-note" x="426.2" y="194" text-anchor="middle">$</text>
+      <circle class="fig-dot" cx="30" cy="138.375" r="3.5"/>
+      <circle class="fig-dot" cx="100" cy="89.5" r="3.5"/>
+      <circle class="fig-dot" cx="170" cy="115" r="3.5"/>
+      <circle class="fig-dot" cx="240" cy="115" r="3.5"/>
+      <circle class="fig-dot" cx="310" cy="115" r="3.5"/>
+      <circle class="fig-dot" cx="380" cy="132" r="3.5"/>
+      <circle class="fig-dot" cx="450" cy="132" r="3.5"/>
+      <circle class="fig-dot" cx="520" cy="132" r="3.5"/>
+      <circle class="fig-hole" cx="590" cy="132" r="4.5"/>
+      <circle class="fig-dot" cx="100" cy="251" r="3.5"/>
+      <circle class="fig-dot" cx="170" cy="251" r="3.5"/>
+      <circle class="fig-dot" cx="240" cy="251" r="3.5"/>
+      <circle class="fig-dot" cx="310" cy="268" r="3.5"/>
+      <circle class="fig-dot" cx="380" cy="268" r="3.5"/>
+      <circle class="fig-dot" cx="450" cy="268" r="3.5"/>
+      <circle class="fig-hole" cx="520" cy="268" r="4.5"/>
+      <circle class="fig-dot" cx="100" cy="183" r="3.5"/>
+      <circle class="fig-dot" cx="170" cy="183" r="3.5"/>
+      <circle class="fig-dot" cx="240" cy="200" r="3.5"/>
+      <circle class="fig-dot" cx="310" cy="200" r="3.5"/>
+      <circle class="fig-dot" cx="380" cy="200" r="3.5"/>
+      <circle class="fig-hole" cx="450" cy="200" r="4.5"/>
+      <circle class="fig-hole" cx="380" cy="98" r="4.5"/>
+      <circle class="fig-hole" cx="310" cy="234" r="4.5"/>
+      <circle class="fig-hole" cx="240" cy="166" r="4.5"/>
+      <circle class="fig-hole" cx="170" cy="64" r="4.5"/>
+      <circle class="fig-hole" cx="100" cy="30" r="4.5"/>
+      <text class="fig-text fig-note" x="602" y="136" text-anchor="start">0</text>
+      <text class="fig-text fig-note" x="532" y="272" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="462" y="204" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="392" y="102" text-anchor="start">3</text>
+      <text class="fig-text fig-note" x="322" y="238" text-anchor="start">4</text>
+      <text class="fig-text fig-note" x="252" y="170" text-anchor="start">5</text>
+      <text class="fig-text fig-note" x="182" y="68" text-anchor="start">6</text>
+      <text class="fig-text fig-note" x="112" y="34" text-anchor="start">7</text>
+      </svg>
+      <figcaption>
+    The suffix trie of AGCAGCA$\$$, one path per suffix, with each leaf labelled by the position the
+    suffix starts at. A pattern occurs in the text exactly when it can be spelled from the root, so
+    a search costs one step per symbol of the pattern and does not look at the text at all. The
+    price is the size: this trie has 27 nodes for a text of 8 symbols, and most of them lie on paths
+    that never branch.</figcaption>
+    </figure>
+
+    <p>
+      The cost of a search has changed shape. A walk down the suffix trie takes one step per symbol
+      of the pattern and stops, so it costs $O(|\textit{Pattern}|)$ and does not depend on the length
+      of the text at all. Searching a $100$ kb reference for a pattern of length $30$ and searching a
+      $10$ kb reference for the same pattern take, measured, $49.8$ and $48.2$ microseconds. That is
+      the property the whole chapter is buying, and every structure that follows keeps it.
+    </p>
+
+    <p>
+      The size is now hopeless in a different way. The suffix trie has one node per distinct
+      substring of the text, plus the root, and a text of length $n$ has $\Theta(n^2)$ substrings.
+      Counting them exactly for the real <em>E. coli</em> genome, which is $4{,}641{,}652$
+      nucleotides long, gives $10{,}772{,}390{,}977{,}166$ nodes: nearly eleven trillion nodes for a
+      genome of four and a half million symbols, and <em>E. coli</em> is six hundred times smaller
+      than a human genome.
+    </p>
+
+    <p>
+      The figure shows where the waste is. Most nodes have exactly one child and sit on a path that
+      branches nowhere, carrying one symbol each when the whole path could carry one string.
+    </p>
+
+    <h2>The Suffix Tree</h2>
+
+    <p>
+      The <strong>suffix tree</strong> is the suffix trie with every non-branching path replaced by a
+      single edge labelled with the whole string along that path. The label is not stored either. An
+      edge keeps a pair, the position in the text where its string starts and its length, so an edge
+      costs two integers no matter how long its label is.
+    </p>
+
+    <pre><code class="language-python">def suffix_tree(text):
+    trie, tree = suffix_trie(text), {}
+
+    def collapse(node):
+        tree[node] = []
+        for child, position in trie[node].values():
+            length = 1
+            while len(trie[child]) == 1:
+                (child, _), = trie[child].values()
+                length += 1
+            tree[node].append((child, position, length))
+            collapse(child)
+
+    collapse(0)
+    return tree</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="555.62" height="317" viewBox="26 23 555.62 317">
+      <line class="fig-curve" x1="40" y1="154.75" x2="152" y2="40"/>
+      <text class="fig-text fig-note" x="102.284" y="79.6202" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="40" y1="154.75" x2="152" y2="103"/>
+      <text class="fig-text fig-note" x="105.246" y="116.587" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="40" y1="154.75" x2="152" y2="202"/>
+      <text class="fig-text fig-note" x="113.327" y="177.831" text-anchor="middle">CA</text>
+      <line class="fig-curve" x1="40" y1="154.75" x2="152" y2="274"/>
+      <text class="fig-text fig-note" x="116.729" y="224.839" text-anchor="middle">GCA</text>
+      <line class="fig-curve" x1="152" y1="103" x2="264" y2="76"/>
+      <text class="fig-text fig-note" x="219.096" y="79.5385" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="152" y1="103" x2="264" y2="130"/>
+      <text class="fig-text fig-note" x="223.784" y="113.018" text-anchor="middle">GCA</text>
+      <line class="fig-curve" x1="264" y1="130" x2="376" y2="112"/>
+      <text class="fig-text fig-note" x="331.853" y="111.967" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="264" y1="130" x2="376" y2="148"/>
+      <text class="fig-text fig-note" x="335.027" y="134.287" text-anchor="middle">GCA$</text>
+      <line class="fig-curve" x1="152" y1="274" x2="264" y2="256"/>
+      <text class="fig-text fig-note" x="219.853" y="255.967" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="152" y1="274" x2="264" y2="292"/>
+      <text class="fig-text fig-note" x="223.027" y="278.287" text-anchor="middle">GCA$</text>
+      <line class="fig-curve" x1="152" y1="202" x2="264" y2="184"/>
+      <text class="fig-text fig-note" x="219.853" y="183.967" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="152" y1="202" x2="264" y2="220"/>
+      <text class="fig-text fig-note" x="223.027" y="206.287" text-anchor="middle">GCA$</text>
+      <circle class="fig-dot" cx="40" cy="154.75" r="4"/>
+      <circle class="fig-dot" cx="152" cy="103" r="4"/>
+      <circle class="fig-hole-alt" cx="264" cy="130" r="6"/>
+      <circle class="fig-hole" cx="376" cy="148" r="5"/>
+      <text class="fig-text fig-note" x="389" y="152" text-anchor="start">0</text>
+      <circle class="fig-hole" cx="376" cy="112" r="5"/>
+      <text class="fig-text fig-note" x="389" y="116" text-anchor="start">3</text>
+      <circle class="fig-hole" cx="264" cy="76" r="5"/>
+      <text class="fig-text fig-note" x="277" y="80" text-anchor="start">6</text>
+      <circle class="fig-dot" cx="152" cy="274" r="4"/>
+      <circle class="fig-hole" cx="264" cy="292" r="5"/>
+      <text class="fig-text fig-note" x="277" y="296" text-anchor="start">1</text>
+      <circle class="fig-hole" cx="264" cy="256" r="5"/>
+      <text class="fig-text fig-note" x="277" y="260" text-anchor="start">4</text>
+      <circle class="fig-dot" cx="152" cy="202" r="4"/>
+      <circle class="fig-hole" cx="264" cy="220" r="5"/>
+      <text class="fig-text fig-note" x="277" y="224" text-anchor="start">2</text>
+      <circle class="fig-hole" cx="264" cy="184" r="5"/>
+      <text class="fig-text fig-note" x="277" y="188" text-anchor="start">5</text>
+      <circle class="fig-hole" cx="152" cy="40" r="5"/>
+      <text class="fig-text fig-note" x="165" y="44" text-anchor="start">7</text>
+      <circle class="fig-hole-alt" cx="60" cy="322" r="6"/>
+      <text class="fig-text fig-note" x="72" y="326" text-anchor="start">deepest branching node</text>
+      <circle class="fig-hole" cx="280" cy="322" r="5"/>
+      <text class="fig-text fig-note" x="292" y="326" text-anchor="start">leaf, labelled by where its suffix starts</text>
+      </svg>
+      <figcaption>
+    The suffix tree of AGCAGCA$\$$ is the suffix trie with every non-branching path replaced by a
+    single edge carrying the whole string along it. It has 13 nodes where the trie had 27, and its
+    8 leaves still name the 8 suffixes. The circled node is the deepest one that branches; the
+    string AGCA spelled from the root to it is the longest repeat of AGCAGCA, and it branches
+    precisely because AGCA is followed by two different symbols in the text.</figcaption>
+    </figure>
+
+    <p>
+      <strong>Theorem.</strong> The suffix tree of a text of length $n$ ending in a terminal symbol
+      has at most $2n - 1$ nodes.
+    </p>
+
+    <p>
+      The proof counts edges twice. The terminal symbol occurs once and is smaller than everything
+      else, so no suffix is a prefix of another suffix, so each of the $n$ suffixes ends at a leaf of
+      its own and there are exactly $n$ leaves. Every internal node has at least two children,
+      because a node with one child was collapsed into its parent's edge. Writing $I$ for the number
+      of internal nodes, the edges leaving internal nodes number at least $2I$, and a tree on
+      $n + I$ nodes has exactly $n + I - 1$ edges, so $n + I - 1 \geq 2I$ and $I \leq n - 1$. The
+      total is at most $2n - 1$. The bound counts nodes and says nothing about how many bytes a node
+      costs, which is where the trouble returns.
+    </p>
+
+    <p>
+      Measured on the <em>E. coli</em> genome the tree has $4{,}641{,}653$ leaves and $2{,}979{,}546$
+      internal nodes, $7{,}621{,}199$ in total, or $1.64$ nodes per nucleotide. Eleven trillion has
+      become seven and a half million.
+    </p>
+
+    <p>
+      The construction above builds the trie first, so it costs $\Theta(n^2)$ time and $\Theta(n^2)$
+      space and cannot be run on a genome. Suffix trees can be built in $O(n)$ time and $O(n)$ space
+      by the algorithms of Weiner and of Ukkonen, which grow the tree one suffix at a time while
+      keeping shortcut links between nodes that spell strings differing by their first symbol. That
+      machinery is not reproduced here, and none of what follows depends on it.
+    </p>
+
+    <h3>The Longest Repeat</h3>
+
+    <p>
+      An internal node of the suffix tree spells a string that is followed by at least two different
+      symbols in the text, so that string occurs at least twice. A leaf spells a string that occurs
+      once. The longest repeated substring is therefore the string spelled by the deepest internal
+      node, measured in symbols rather than in edges.
+    </p>
+
+    <pre><code class="language-python">def tree_walk(tree, text):
+    """Yield (node, label) for every node of the suffix tree."""
+    stack = [(0, '')]
+    while stack:
+        node, label = stack.pop()
+        yield node, label
+        for child, position, length in tree[node]:
+            stack.append((child, label + text[position:position + length]))
+
+
+def longest_repeat(text):
+    tree = suffix_tree(text + '$')
+    internal = (label for node, label in tree_walk(tree, text + '$') if tree[node])
+    return max(internal, key=len)</code></pre>
+
+    <p>
+      Run on the real <em>E. coli</em> genome, this returns a repeat of $2{,}815$ nucleotides,
+      occurring exactly twice, at positions $4{,}168{,}619$ and $4{,}210{,}021$. The two copies are
+      the 23S ribosomal RNA gene, carried by the <em>rrlB</em> and <em>rrlE</em> operons. Ribosomal
+      RNA is needed in quantity, so the cell keeps several identical copies of the gene, and the
+      longest exact repeat in the genome is one of them.
+    </p>
+
+    <h3>Two Strings at Once</h3>
+
+    <p>
+      Comparing two texts uses one tree built from both. Join them with a separator that occurs
+      nowhere else, build the suffix tree of the join, and colour each leaf by which of the two
+      strings its suffix begins in. Colour every other node by what lies below it: a node with only
+      one colour below it takes that colour, and a node with both takes a third, purple. A purple
+      node spells a string that occurs in both inputs.
+    </p>
+
+    <pre><code class="language-python">def colour_tree(tree, text, cut):
+    """Colour every leaf by the string its suffix starts in, every internal
+    node by its children: red, blue, or purple when both are below it."""
+    colour = {}
+
+    def paint(node, depth):
+        if not tree[node]:
+            colour[node] = 'red' if len(text) - depth &lt; cut else 'blue'
+        else:
+            below = set()
+            for child, _, length in tree[node]:
+                below.add(paint(child, depth + length))
+            colour[node] = below.pop() if len(below) == 1 else 'purple'
+        return colour[node]
+
+    paint(0, 0)
+    return colour
+
+
+def longest_shared_substring(text1, text2):
+    text = text1 + '#' + text2 + '$'
+    tree = suffix_tree(text)
+    colour = colour_tree(tree, text, len(text1))
+    shared = (label for node, label in tree_walk(tree, text) if colour[node] == 'purple')
+    return max(shared, key=len)</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="389.2" height="333" viewBox="23 21 389.2 333">
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="36"/>
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="66"/>
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="126"/>
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="201"/>
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="261"/>
+      <line class="fig-curve" x1="40" y1="166" x2="140" y2="306"/>
+      <line class="fig-curve" x1="140" y1="126" x2="240" y2="96"/>
+      <line class="fig-curve" x1="140" y1="126" x2="240" y2="126"/>
+      <line class="fig-curve" x1="140" y1="126" x2="240" y2="156"/>
+      <line class="fig-curve" x1="140" y1="261" x2="240" y2="246"/>
+      <line class="fig-curve" x1="140" y1="261" x2="240" y2="276"/>
+      <line class="fig-curve" x1="140" y1="201" x2="240" y2="186"/>
+      <line class="fig-curve" x1="140" y1="201" x2="240" y2="216"/>
+      <circle class="fig-free-solid" cx="40" cy="166" r="7"/>
+      <circle class="fig-dot" cx="40" cy="166" r="3.5"/>
+      <circle class="fig-free-solid" cx="140" cy="126" r="7"/>
+      <circle class="fig-dot" cx="140" cy="126" r="3.5"/>
+      <text class="fig-text fig-note" x="140" y="113" text-anchor="middle">A</text>
+      <circle class="fig-dot" cx="240" cy="126" r="4.5"/>
+      <circle class="fig-dot" cx="240" cy="96" r="4.5"/>
+      <circle class="fig-hole-alt" cx="240" cy="156" r="5"/>
+      <circle class="fig-free-solid" cx="140" cy="261" r="7"/>
+      <circle class="fig-dot" cx="140" cy="261" r="3.5"/>
+      <text class="fig-text fig-note" x="140" y="248" text-anchor="middle">GCA</text>
+      <circle class="fig-dot" cx="240" cy="246" r="4.5"/>
+      <circle class="fig-hole-alt" cx="240" cy="276" r="5"/>
+      <circle class="fig-free-solid" cx="140" cy="201" r="7"/>
+      <circle class="fig-dot" cx="140" cy="201" r="3.5"/>
+      <text class="fig-text fig-note" x="140" y="188" text-anchor="middle">CA</text>
+      <circle class="fig-dot" cx="240" cy="186" r="4.5"/>
+      <circle class="fig-hole-alt" cx="240" cy="216" r="5"/>
+      <circle class="fig-hole-alt" cx="140" cy="36" r="5"/>
+      <circle class="fig-hole-alt" cx="140" cy="306" r="5"/>
+      <circle class="fig-hole-alt" cx="140" cy="66" r="5"/>
+      <circle class="fig-dot" cx="58" cy="336" r="4.5"/>
+      <text class="fig-text fig-note" x="70" y="340" text-anchor="start">AGCA only</text>
+      <circle class="fig-hole-alt" cx="190" cy="336" r="5"/>
+      <text class="fig-text fig-note" x="202" y="340" text-anchor="start">GCAT only</text>
+      <circle class="fig-free-solid" cx="322" cy="336" r="7"/>
+      <circle class="fig-dot" cx="322" cy="336" r="3.5"/>
+      <text class="fig-text fig-note" x="334" y="340" text-anchor="start">below both</text>
+      </svg>
+      <figcaption>
+    The suffix tree of AGCA#GCAT$\$$, with every leaf coloured by the string its suffix begins in and
+    every other node coloured by what lies below it. A node below which both strings appear spells a
+    string that occurs in both, so the deepest such node gives the longest shared substring, GCA
+    here. The separator # cannot appear inside the label of a branching node, because only one
+    suffix carries it at any given offset, so no node reached this way spells a string that straddles
+    the join.</figcaption>
+    </figure>
+
+    <p>
+      No purple node can spell a string containing the separator. Only one suffix has the separator
+      at any given offset from its start, so a string containing it is a prefix of exactly one
+      suffix, so the node spelling it is a leaf and not a branching node. The colouring therefore
+      needs no special case for strings that straddle the join.
+    </p>
+
+    <p>
+      The shortest string that appears in one text and not the other comes off the same coloured
+      tree. Take a purple node, whose string does occur in both, and an edge from it to a node that
+      is red, meaning nothing below that edge comes from the second text. The purple node's string
+      followed by the first symbol of that edge occurs in the first text and not in the second, and
+      it is one symbol longer than a string that occurs in both, so no shorter answer can be built
+      at that node.
+    </p>
+
+    <pre><code class="language-python">def shortest_non_shared_substring(text1, text2):
+    text = text1 + '#' + text2 + '$'
+    tree = suffix_tree(text)
+    colour = colour_tree(tree, text, len(text1))
+    candidates = []
+    for node, label in tree_walk(tree, text):
+        if colour[node] != 'purple':
+            continue
+        for child, position, _ in tree[node]:
+            if colour[child] == 'red' and text[position] not in '#$':
+                candidates.append(label + text[position])
+    return min(candidates, key=len)</code></pre>
+
+    <p>
+      What stops the suffix tree from being the answer to the chapter is the constant factor. A node
+      holds a child list, a parent, and the two integers on its incoming edge, which is about $20$
+      bytes in a careful implementation. At $1.64$ nodes per nucleotide, a human genome gives roughly
+      $101.68$ gigabytes. The structure is linear in the genome and still does not fit in a machine.
+    </p>
+
+    <h2>The Suffix Array</h2>
+
+    <p>
+      The <strong>suffix array</strong> keeps the order the tree imposed and throws away the tree. It
+      is the list of starting positions of all suffixes, sorted by the suffixes themselves, and it is
+      $n$ integers.
+    </p>
+
+    <pre><code class="language-python">def suffix_array(text):
+    return sorted(range(len(text)), key=lambda i: text[i:])</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="325.57" height="222.56" viewBox="90.59 9 325.57 222.56">
+      <text class="fig-text fig-note" x="104" y="30" text-anchor="middle">i</text>
+      <text class="fig-text fig-note" x="234" y="30" text-anchor="middle">the suffixes in order</text>
+      <text class="fig-text fig-note" x="351.6" y="30" text-anchor="start">array[i]</text>
+      <text class="fig-text fig-note" x="104" y="56.56" text-anchor="middle">0</text>
+      <text class="fig-text fig-tick" x="160.5" y="56.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="43" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="56.56" text-anchor="middle">7</text>
+      <text class="fig-text fig-note" x="104" y="79.56" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="160.5" y="79.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="79.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="66" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="79.56" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="104" y="102.56" text-anchor="middle">2</text>
+      <text class="fig-text fig-tick" x="160.5" y="102.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="102.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="202.5" y="102.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="223.5" y="102.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="244.5" y="102.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="89" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="102.56" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="104" y="125.56" text-anchor="middle">3</text>
+      <text class="fig-text fig-tick" x="160.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="125.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="202.5" y="125.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="223.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="244.5" y="125.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="265.5" y="125.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="286.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="307.5" y="125.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="112" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="125.56" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="104" y="148.56" text-anchor="middle">4</text>
+      <text class="fig-text fig-tick" x="160.5" y="148.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="181.5" y="148.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="202.5" y="148.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="135" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="148.56" text-anchor="middle">5</text>
+      <text class="fig-text fig-note" x="104" y="171.56" text-anchor="middle">5</text>
+      <text class="fig-text fig-tick" x="160.5" y="171.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="181.5" y="171.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="202.5" y="171.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="223.5" y="171.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="244.5" y="171.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="265.5" y="171.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="158" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="171.56" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="104" y="194.56" text-anchor="middle">6</text>
+      <text class="fig-text fig-tick" x="160.5" y="194.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="181.5" y="194.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="202.5" y="194.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="223.5" y="194.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="181" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="194.56" text-anchor="middle">4</text>
+      <text class="fig-text fig-note" x="104" y="217.56" text-anchor="middle">7</text>
+      <text class="fig-text fig-tick" x="160.5" y="217.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="181.5" y="217.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="202.5" y="217.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="223.5" y="217.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="244.5" y="217.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="265.5" y="217.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="286.5" y="217.56" text-anchor="middle">$</text>
+      <rect class="fig-cell" x="351.6" y="204" width="21" height="17"/>
+      <text class="fig-text fig-tick" x="362.1" y="217.56" text-anchor="middle">1</text>
+      </svg>
+      <figcaption>
+    The suffix array of AGCAGCA$\$$ is the list of starting positions of its suffixes in
+    lexicographic order, $[7, 6, 3, 0, 5, 2, 4, 1]$. The suffixes themselves are not stored; they
+    are read out of the text when needed. Every occurrence of a pattern is the start of some suffix
+    that has the pattern as a prefix, and those suffixes are adjacent in this order, so an
+    occurrence list is always one contiguous block of the array.</figcaption>
+    </figure>
+
+    <p>
+      That one line costs $O(n^2 \log n)$, because each of the $O(n \log n)$ comparisons compares
+      strings of length up to $n$, and the keys themselves take $\Theta(n^2)$ space. It is the
+      definition rather than the method. Suffix arrays are built in $O(n \log n)$ time by sorting on
+      prefixes of doubling length, and in $O(n)$ time by algorithms that recurse on a subset of the
+      positions; the <em>E. coli</em> array used for the measurements in this chapter was built by
+      the doubling method in $190$ seconds.
+    </p>
+
+    <p>
+      Searching is binary search. The suffixes beginning with the pattern are consecutive in sorted
+      order, so the occurrences form one contiguous block of the array, and its two ends are found by
+      comparing the pattern against the first $|\textit{Pattern}|$ symbols of a suffix.
+    </p>
+
+    <pre><code class="language-python">def suffix_array_matching(text, pattern, array):
+    def bound(past):
+        """The first row whose prefix is at least the pattern, or past it."""
+        low, high = 0, len(array)
+        while low &lt; high:
+            middle = (low + high) // 2
+            prefix = text[array[middle]:array[middle] + len(pattern)]
+            if prefix &lt; pattern or (past and prefix == pattern):
+                low = middle + 1
+            else:
+                high = middle
+        return low
+
+    return sorted(array[bound(False):bound(True)])</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="391.84" height="227" viewBox="113.18 7 391.84 227">
+      <text class="fig-text fig-tick" x="160.5" y="56.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="56.56" text-anchor="end">0</text>
+      <text class="fig-text fig-tick" x="160.5" y="79.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="79.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="79.56" text-anchor="end">1</text>
+      <text class="fig-text fig-tick" x="160.5" y="102.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="102.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="202.5" y="102.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="223.5" y="102.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="244.5" y="102.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="102.56" text-anchor="end">2</text>
+      <text class="fig-text fig-tick" x="160.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="181.5" y="125.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="202.5" y="125.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="223.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="244.5" y="125.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="265.5" y="125.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="286.5" y="125.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="307.5" y="125.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="125.56" text-anchor="end">3</text>
+      <text class="fig-text fig-tick" x="160.5" y="148.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="181.5" y="148.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="202.5" y="148.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="148.56" text-anchor="end">4</text>
+      <text class="fig-text fig-tick" x="160.5" y="171.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="181.5" y="171.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="202.5" y="171.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="223.5" y="171.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="244.5" y="171.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="265.5" y="171.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="171.56" text-anchor="end">5</text>
+      <rect class="fig-band" x="146" y="178" width="176" height="23"/>
+      <text class="fig-text fig-tick" x="160.5" y="194.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="181.5" y="194.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="202.5" y="194.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="223.5" y="194.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="194.56" text-anchor="end">6</text>
+      <rect class="fig-band" x="146" y="201" width="176" height="23"/>
+      <text class="fig-text fig-tick" x="160.5" y="217.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="181.5" y="217.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="202.5" y="217.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="223.5" y="217.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="244.5" y="217.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="265.5" y="217.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="286.5" y="217.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="130" y="217.56" text-anchor="end">7</text>
+      <line class="fig-curve" x1="414" y1="143.5" x2="346" y2="143.5"/>
+      <path class="fig-dot" d="M 340 143.5 L 346 140.8 L 346 146.2 Z"/>
+      <text class="fig-text fig-note" x="420" y="147.5" text-anchor="start">first probe</text>
+      <line class="fig-curve" x1="414" y1="189.5" x2="346" y2="189.5"/>
+      <path class="fig-dot" d="M 340 189.5 L 346 186.8 L 346 192.2 Z"/>
+      <text class="fig-text fig-note" x="420" y="193.5" text-anchor="start">second</text>
+      <line class="fig-curve" x1="414" y1="166.5" x2="346" y2="166.5"/>
+      <path class="fig-dot" d="M 340 166.5 L 346 163.8 L 346 169.2 Z"/>
+      <text class="fig-text fig-note" x="420" y="170.5" text-anchor="start">third</text>
+      <text class="fig-text fig-note" x="234" y="28" text-anchor="middle">suffixes of AGCAGCA$ in order</text>
+      </svg>
+      <figcaption>
+    Searching for GCA by binary search. Each probe compares the pattern against the first three
+    symbols of one suffix and throws away half of what is left, so the block of suffixes beginning
+    with GCA, shaded here, is found in $\log_2 8 = 3$ probes rather than by reading the array.
+    Its two rows are positions 4 and 1 of the text, the two occurrences of GCA. A comparison costs
+    up to $|\textit{Pattern}|$ symbols, so the search costs
+    $O(|\textit{Pattern}| \log |\textit{Text}|)$.</figcaption>
+    </figure>
+
+    <p>
+      Each probe costs up to $|\textit{Pattern}|$ symbol comparisons and there are
+      $\log_2 |\textit{Text}|$ probes, so a search costs
+      $O(|\textit{Pattern}| \log |\textit{Text}|)$. That is worse than the suffix tree's
+      $O(|\textit{Pattern}|)$ by the logarithmic factor, and the trade is worth it: four bytes per
+      nucleotide gives $12.4$ gigabytes for a human genome instead of $101.68$. It is a factor of
+      eight, and it is still more memory than the machine doing the mapping is likely to have.
+    </p>
+
+    <h2>The Burrows-Wheeler Transform</h2>
+
+    <p>
+      The next structure was invented for compression rather than for search. Run-length encoding
+      replaces a run of identical symbols by the symbol and a count, so it shrinks a string in
+      proportion to how long its runs are. Genomes have almost no runs, so run-length encoding does
+      nothing to them directly. The <strong>Burrows-Wheeler transform</strong> is a reordering of the
+      symbols of a string that creates runs where the string has repeats, and it is reversible, which
+      is what makes it usable as a compression step.
+    </p>
+
+    <p>
+      Form all cyclic rotations of the text, sort them, and read off the last column. Sorting the
+      rotations groups together the rows that begin the same way, and rows that begin the same way
+      tend to be preceded by the same symbol, so the last column collects equal symbols next to each
+      other.
+    </p>
+
+    <pre><code class="language-python">def burrows_wheeler(text):
+    matrix = sorted(text[i:] + text[:i] for i in range(len(text)))
+    return ''.join(row[-1] for row in matrix)</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="307.38" height="227" viewBox="155.18 13 307.38 227">
+      <rect class="fig-band" x="190" y="138" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="46" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="207" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="92" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="115" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="161" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="184" width="21" height="23"/>
+      <rect class="fig-band" x="190" y="69" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="46" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="207" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="92" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="115" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="161" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="184" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="69" width="21" height="23"/>
+      <rect class="fig-band" x="337" y="138" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="200.5" y="62.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="221.5" y="62.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="242.5" y="62.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="263.5" y="62.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="284.5" y="62.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="305.5" y="62.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="326.5" y="62.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="347.5" y="62.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="200.5" y="85.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="221.5" y="85.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="242.5" y="85.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="263.5" y="85.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="284.5" y="85.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="305.5" y="85.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="326.5" y="85.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="347.5" y="85.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="200.5" y="108.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="221.5" y="108.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="242.5" y="108.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="263.5" y="108.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="284.5" y="108.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="305.5" y="108.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="326.5" y="108.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="347.5" y="108.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="200.5" y="131.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="221.5" y="131.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="242.5" y="131.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="263.5" y="131.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="284.5" y="131.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="305.5" y="131.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="326.5" y="131.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="347.5" y="131.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="200.5" y="154.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="221.5" y="154.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="242.5" y="154.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="263.5" y="154.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="284.5" y="154.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="305.5" y="154.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="326.5" y="154.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="347.5" y="154.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="200.5" y="177.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="221.5" y="177.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="242.5" y="177.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="263.5" y="177.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="284.5" y="177.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="305.5" y="177.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="326.5" y="177.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="347.5" y="177.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="200.5" y="200.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="221.5" y="200.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="242.5" y="200.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="263.5" y="200.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="284.5" y="200.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="305.5" y="200.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="326.5" y="200.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="347.5" y="200.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="200.5" y="223.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="221.5" y="223.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="242.5" y="223.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="263.5" y="223.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="284.5" y="223.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="305.5" y="223.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="326.5" y="223.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="347.5" y="223.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="172" y="62.56" text-anchor="end">0</text>
+      <text class="fig-text fig-note" x="172" y="85.56" text-anchor="end">1</text>
+      <text class="fig-text fig-note" x="172" y="108.56" text-anchor="end">2</text>
+      <text class="fig-text fig-note" x="172" y="131.56" text-anchor="end">3</text>
+      <text class="fig-text fig-note" x="172" y="154.56" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="172" y="177.56" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="172" y="200.56" text-anchor="end">6</text>
+      <text class="fig-text fig-note" x="172" y="223.56" text-anchor="end">7</text>
+      <text class="fig-text fig-note" x="200.5" y="34" text-anchor="middle">first</text>
+      <text class="fig-text fig-note" x="347.5" y="34" text-anchor="middle">last</text>
+      <text class="fig-text fig-note" x="398" y="34" text-anchor="start">array[i]</text>
+      <text class="fig-text fig-note" x="398" y="62.56" text-anchor="start">7</text>
+      <text class="fig-text fig-note" x="398" y="85.56" text-anchor="start">6</text>
+      <text class="fig-text fig-note" x="398" y="108.56" text-anchor="start">3</text>
+      <text class="fig-text fig-note" x="398" y="131.56" text-anchor="start">0</text>
+      <text class="fig-text fig-note" x="398" y="154.56" text-anchor="start">5</text>
+      <text class="fig-text fig-note" x="398" y="177.56" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="398" y="200.56" text-anchor="start">4</text>
+      <text class="fig-text fig-note" x="398" y="223.56" text-anchor="start">1</text>
+      </svg>
+      <figcaption>
+    The Burrows-Wheeler matrix of AGCAGCA$\$$: all 8 cyclic rotations of the text, sorted. Because
+    the terminator occurs once and is smaller than every other symbol, sorting the rotations sorts them by the
+    suffix that precedes the wrap, so row $i$ begins at position $\textit{array}[i]$ of the text and
+    the first column is the suffix array in disguise. The transform is the last column read
+    downwards, ACC$\$$GGAA, and it is the only column that is kept.</figcaption>
+    </figure>
+
+    <p>
+      The matrix is never built by a real implementation, and it does not have to be. Because the
+      terminal symbol is unique and smallest, sorting the rotations sorts them by the suffix that
+      begins each one, so row $i$ of the matrix begins at position $\textit{array}[i]$ of the text
+      and the last symbol of that row is the one just before it. The transform is one line away from
+      the suffix array:
+    </p>
+
+    <pre><code class="language-python">def burrows_wheeler_from_array(text, array):
+    return ''.join(text[i - 1] for i in array)</code></pre>
+
+    <p>
+      How much this buys depends entirely on the sequence, and measuring it on real DNA gives an
+      honest and uneven answer. A megabase of the <em>E. coli</em> genome has runs of mean length
+      $1.353$, and its transform has runs of mean length $1.408$. A $100$ kb window of human
+      chromosome 10 goes from $1.429$ to $1.447$. Both are almost nothing, because a bacterial genome
+      and an ordinary human gene region are close to random over four letters and have few long
+      repeats to convert. A $100$ kb window of the centromere of human chromosome 1, which is
+      satellite DNA built from a repeating unit, goes from $1.390$ to $12.62$. The mechanism is real
+      and it pays in proportion to repetition.
+    </p>
+
+    <h3>Inverting the Transform</h3>
+
+    <p>
+      The transform keeps only the last column, and the first column is recovered from it for free by
+      sorting, since both columns hold the same multiset of symbols. Recovering the rest of the text
+      rests on one fact about the two columns.
+    </p>
+
+    <p>
+      <strong>First-Last Property.</strong> The $k$th occurrence of a symbol $c$ in the first column
+      and the $k$th occurrence of $c$ in the last column are the same occurrence of $c$ in the text.
+    </p>
+
+    <p>
+      The proof compares two sorted lists. A row beginning with $c$ has the form $c\,w$, and the rows
+      beginning with $c$ appear in the matrix in the order their $w$ parts sort, since the leading
+      $c$ is shared. A row ending with $c$ has the form $w\,c$, and because the rows are rotations of
+      one string, $w\,c$ is a row exactly when $c\,w$ is a row, with the same $w$. All rows have the
+      same length and are distinct, so comparing $w\,c$ against $w'c$ compares $w$ against $w'$, and
+      the rows ending with $c$ also appear in the order their $w$ parts sort. The two lists are
+      indexed by the same $w$ in the same order, so their $k$th entries carry the same occurrence of
+      $c$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="437.56" height="263" viewBox="69.08 11 437.56 263">
+      <text class="fig-text fig-note" x="120" y="32" text-anchor="middle">first column</text>
+      <text class="fig-text fig-note" x="330" y="32" text-anchor="middle">last column</text>
+      <rect class="fig-cell" x="109.5" y="46" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="62.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="133" y="62.56" text-anchor="start">1</text>
+      <rect class="fig-cell" x="319.5" y="46" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="62.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="343" y="62.56" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="86" y="62.56" text-anchor="end">0</text>
+      <text class="fig-text fig-note" x="364" y="62.56" text-anchor="start">0</text>
+      <rect class="fig-cell" x="109.5" y="69" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="85.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="133" y="85.56" text-anchor="start">1</text>
+      <rect class="fig-cell" x="319.5" y="69" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="85.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="343" y="85.56" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="86" y="85.56" text-anchor="end">1</text>
+      <text class="fig-text fig-note" x="364" y="85.56" text-anchor="start">1</text>
+      <rect class="fig-cell" x="109.5" y="92" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="108.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="133" y="108.56" text-anchor="start">2</text>
+      <rect class="fig-cell" x="319.5" y="92" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="108.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="343" y="108.56" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="86" y="108.56" text-anchor="end">2</text>
+      <text class="fig-text fig-note" x="364" y="108.56" text-anchor="start">2</text>
+      <rect class="fig-cell" x="109.5" y="115" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="131.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="133" y="131.56" text-anchor="start">3</text>
+      <rect class="fig-cell" x="319.5" y="115" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="131.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="343" y="131.56" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="86" y="131.56" text-anchor="end">3</text>
+      <text class="fig-text fig-note" x="364" y="131.56" text-anchor="start">3</text>
+      <rect class="fig-cell" x="109.5" y="138" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="154.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="133" y="154.56" text-anchor="start">1</text>
+      <rect class="fig-cell" x="319.5" y="138" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="154.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="343" y="154.56" text-anchor="start">1</text>
+      <text class="fig-text fig-note" x="86" y="154.56" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="364" y="154.56" text-anchor="start">4</text>
+      <rect class="fig-cell" x="109.5" y="161" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="177.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="133" y="177.56" text-anchor="start">2</text>
+      <rect class="fig-cell" x="319.5" y="161" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="177.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="343" y="177.56" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="86" y="177.56" text-anchor="end">5</text>
+      <text class="fig-text fig-note" x="364" y="177.56" text-anchor="start">5</text>
+      <rect class="fig-cell" x="109.5" y="184" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="200.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="133" y="200.56" text-anchor="start">1</text>
+      <rect class="fig-cell" x="319.5" y="184" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="200.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="343" y="200.56" text-anchor="start">2</text>
+      <text class="fig-text fig-note" x="86" y="200.56" text-anchor="end">6</text>
+      <text class="fig-text fig-note" x="364" y="200.56" text-anchor="start">6</text>
+      <rect class="fig-cell" x="109.5" y="207" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="120" y="223.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="133" y="223.56" text-anchor="start">2</text>
+      <rect class="fig-cell" x="319.5" y="207" width="21" height="23"/>
+      <text class="fig-text fig-tick" x="330" y="223.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="343" y="223.56" text-anchor="start">3</text>
+      <text class="fig-text fig-note" x="86" y="223.56" text-anchor="end">7</text>
+      <text class="fig-text fig-note" x="364" y="223.56" text-anchor="start">7</text>
+      <path class="fig-free" d="M 315.5 57.5 Q 234.568 59.103 156.5 80.5"/>
+      <path class="fig-free" d="M 315.5 195.5 Q 241.008 140.844 156.5 103.5"/>
+      <path class="fig-free" d="M 315.5 218.5 Q 241.008 163.844 156.5 126.5"/>
+      <line class="fig-free" x1="96" y1="256" x2="136" y2="256"/>
+      <text class="fig-text fig-note" x="142" y="260" text-anchor="start">the same A of the text, drawn for the three A’s only</text>
+      </svg>
+      <figcaption>
+    The first-last property. Each symbol is written with the number of times it has occurred so far
+    in its column, and the dashed curves join equal pairs: the $k$th A of the last column and the
+    $k$th A of the first column are the same A of the text. Following a curve therefore steps one
+    position backwards through the text, which is all that is needed to invert the transform and to
+    search with it.</figcaption>
+    </figure>
+
+    <p>
+      Following the correspondence from the last column to the first therefore moves one position
+      backwards through the text. Starting at row $0$, the row beginning with the terminal symbol,
+      and following it $n$ times visits every position of the text in reverse.
+    </p>
+
+    <pre><code class="language-python">def last_to_first(transform):
+    first = sorted(range(len(transform)), key=lambda i: (transform[i], i))
+    mapping = [0] * len(transform)
+    for row, i in enumerate(first):
+        mapping[i] = row
+    return mapping
+
+
+def inverse_burrows_wheeler(transform):
+    first, mapping = sorted(transform), last_to_first(transform)
+    row, text = 0, []
+    for _ in range(len(transform)):
+        text.append(first[row])
+        row = mapping[row]
+    return ''.join(reversed(text))</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="619.28" height="171" viewBox="-11.28 21 619.28 171">
+      <rect class="fig-cell" x="45" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="60" y="70" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="60" y="42" text-anchor="middle">row 0</text>
+      <line class="fig-curve" x1="77" y1="64" x2="111" y2="64"/>
+      <path class="fig-dot" d="M 117 64 L 111 66.7 L 111 61.3 Z"/>
+      <rect class="fig-cell" x="119" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="134" y="70" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="134" y="42" text-anchor="middle">row 1</text>
+      <line class="fig-curve" x1="151" y1="64" x2="185" y2="64"/>
+      <path class="fig-dot" d="M 191 64 L 185 66.7 L 185 61.3 Z"/>
+      <rect class="fig-cell" x="193" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="208" y="70" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="208" y="42" text-anchor="middle">row 4</text>
+      <line class="fig-curve" x1="225" y1="64" x2="259" y2="64"/>
+      <path class="fig-dot" d="M 265 64 L 259 66.7 L 259 61.3 Z"/>
+      <rect class="fig-cell" x="267" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="282" y="70" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="282" y="42" text-anchor="middle">row 6</text>
+      <line class="fig-curve" x1="299" y1="64" x2="333" y2="64"/>
+      <path class="fig-dot" d="M 339 64 L 333 66.7 L 333 61.3 Z"/>
+      <rect class="fig-cell" x="341" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="356" y="70" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="356" y="42" text-anchor="middle">row 2</text>
+      <line class="fig-curve" x1="373" y1="64" x2="407" y2="64"/>
+      <path class="fig-dot" d="M 413 64 L 407 66.7 L 407 61.3 Z"/>
+      <rect class="fig-cell" x="415" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="430" y="70" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="430" y="42" text-anchor="middle">row 5</text>
+      <line class="fig-curve" x1="447" y1="64" x2="481" y2="64"/>
+      <path class="fig-dot" d="M 487 64 L 481 66.7 L 481 61.3 Z"/>
+      <rect class="fig-cell" x="489" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="504" y="70" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="504" y="42" text-anchor="middle">row 7</text>
+      <line class="fig-curve" x1="521" y1="64" x2="555" y2="64"/>
+      <path class="fig-dot" d="M 561 64 L 555 66.7 L 555 61.3 Z"/>
+      <rect class="fig-cell" x="563" y="50" width="30" height="28"/>
+      <text class="fig-text fig-tick" x="578" y="70" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="578" y="42" text-anchor="middle">row 3</text>
+      <text class="fig-text fig-note" x="26" y="140" text-anchor="end">text</text>
+      <text class="fig-text fig-tick" x="578" y="144" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="504" y="144" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="430" y="144" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="356" y="144" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="282" y="144" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="208" y="144" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="134" y="144" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="60" y="144" text-anchor="middle">$</text>
+      <line class="fig-curve" x1="598" y1="160" x2="46" y2="160"/>
+      <path class="fig-dot" d="M 40 160 L 46 157.3 L 46 162.7 Z"/>
+      <text class="fig-text fig-note" x="319" y="178" text-anchor="middle">read out backwards</text>
+      </svg>
+      <figcaption>
+    Inverting the transform of AGCAGCA$\$$. The walk starts at row 0, the row beginning with the
+    terminator, and each step follows the first-last correspondence to the row one position earlier
+    in the text. Reading the first column along the walk gives the text backwards, so the eight
+    stored symbols are enough to rebuild all eight symbols of the text and nothing else has to be
+    kept.</figcaption>
+    </figure>
+
+    <h2>Pattern Matching with the Transform</h2>
+
+    <p>
+      The same correspondence searches. The rows whose first column begins with a given string are
+      consecutive, exactly as in the suffix array, so a search maintains a band of rows and shrinks
+      it one symbol at a time. The pattern is consumed from the right, because the last column holds
+      the symbol that precedes each row and prepending is what the correspondence supports.
+    </p>
+
+    <p>
+      At each step the band holds the rows beginning with the part of the pattern matched so far. The
+      rows of the band whose last column holds the next symbol to the left are the ones that survive,
+      and following the correspondence sends them to the new band. When the pattern runs out, the
+      height of the band is the number of occurrences.
+    </p>
+
+    <pre><code class="language-python">def bw_matching(transform, pattern):
+    mapping = last_to_first(transform)
+    top, bottom = 0, len(transform) - 1
+    while pattern:
+        symbol, pattern = pattern[-1], pattern[:-1]
+        rows = [i for i in range(top, bottom + 1) if transform[i] == symbol]
+        if not rows:
+            return 0
+        top, bottom = mapping[rows[0]], mapping[rows[-1]]
+    return bottom - top + 1</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="452.33" height="241" viewBox="49.18 9 452.33 241">
+      <text class="fig-text fig-note" x="102" y="30" text-anchor="middle">matched A</text>
+      <text class="fig-text fig-tick" x="90" y="72.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="114" y="72.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="66" y="72.56" text-anchor="end">0</text>
+      <rect class="fig-band" x="74" y="79" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="90" y="95.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="114" y="95.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="66" y="95.56" text-anchor="end">1</text>
+      <rect class="fig-band" x="74" y="102" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="90" y="118.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="114" y="118.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="66" y="118.56" text-anchor="end">2</text>
+      <rect class="fig-band" x="74" y="125" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="90" y="141.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="114" y="141.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="66" y="141.56" text-anchor="end">3</text>
+      <text class="fig-text fig-tick" x="90" y="164.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="114" y="164.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="66" y="164.56" text-anchor="end">4</text>
+      <text class="fig-text fig-tick" x="90" y="187.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="114" y="187.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="66" y="187.56" text-anchor="end">5</text>
+      <text class="fig-text fig-tick" x="90" y="210.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="114" y="210.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="66" y="210.56" text-anchor="end">6</text>
+      <text class="fig-text fig-tick" x="90" y="233.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="114" y="233.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="66" y="233.56" text-anchor="end">7</text>
+      <text class="fig-text fig-note" x="90" y="46" text-anchor="middle">first</text>
+      <text class="fig-text fig-note" x="114" y="46" text-anchor="middle">last</text>
+      <text class="fig-text fig-note" x="278" y="30" text-anchor="middle">matched CA</text>
+      <text class="fig-text fig-tick" x="266" y="72.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="290" y="72.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="242" y="72.56" text-anchor="end">0</text>
+      <text class="fig-text fig-tick" x="266" y="95.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="290" y="95.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="242" y="95.56" text-anchor="end">1</text>
+      <text class="fig-text fig-tick" x="266" y="118.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="290" y="118.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="242" y="118.56" text-anchor="end">2</text>
+      <text class="fig-text fig-tick" x="266" y="141.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="290" y="141.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="242" y="141.56" text-anchor="end">3</text>
+      <rect class="fig-band" x="250" y="148" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="266" y="164.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="290" y="164.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="242" y="164.56" text-anchor="end">4</text>
+      <rect class="fig-band" x="250" y="171" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="266" y="187.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="290" y="187.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="242" y="187.56" text-anchor="end">5</text>
+      <text class="fig-text fig-tick" x="266" y="210.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="290" y="210.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="242" y="210.56" text-anchor="end">6</text>
+      <text class="fig-text fig-tick" x="266" y="233.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="290" y="233.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="242" y="233.56" text-anchor="end">7</text>
+      <text class="fig-text fig-note" x="266" y="46" text-anchor="middle">first</text>
+      <text class="fig-text fig-note" x="290" y="46" text-anchor="middle">last</text>
+      <text class="fig-text fig-note" x="454" y="30" text-anchor="middle">matched GCA</text>
+      <text class="fig-text fig-tick" x="442" y="72.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="466" y="72.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="418" y="72.56" text-anchor="end">0</text>
+      <text class="fig-text fig-tick" x="442" y="95.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="466" y="95.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="418" y="95.56" text-anchor="end">1</text>
+      <text class="fig-text fig-tick" x="442" y="118.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="466" y="118.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-note" x="418" y="118.56" text-anchor="end">2</text>
+      <text class="fig-text fig-tick" x="442" y="141.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="466" y="141.56" text-anchor="middle">$</text>
+      <text class="fig-text fig-note" x="418" y="141.56" text-anchor="end">3</text>
+      <text class="fig-text fig-tick" x="442" y="164.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="466" y="164.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="418" y="164.56" text-anchor="end">4</text>
+      <text class="fig-text fig-tick" x="442" y="187.56" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="466" y="187.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="418" y="187.56" text-anchor="end">5</text>
+      <rect class="fig-band" x="426" y="194" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="442" y="210.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="466" y="210.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="418" y="210.56" text-anchor="end">6</text>
+      <rect class="fig-band" x="426" y="217" width="56" height="23"/>
+      <text class="fig-text fig-tick" x="442" y="233.56" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="466" y="233.56" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="418" y="233.56" text-anchor="end">7</text>
+      <text class="fig-text fig-note" x="442" y="46" text-anchor="middle">first</text>
+      <text class="fig-text fig-note" x="466" y="46" text-anchor="middle">last</text>
+      </svg>
+      <figcaption>
+    Searching for GCA one symbol at a time, from the right. The shaded band is the block of rows
+    whose first column begins with the part of the pattern matched so far: three rows begin with A,
+    two of those are preceded by C, and both of those are preceded by G. The band can only shrink,
+    the pattern is never compared against the text, and the answer is the height of the last band,
+    two occurrences.</figcaption>
+    </figure>
+
+    <h3>Counting in Constant Time</h3>
+
+    <p>
+      That code scans the band at every step, and the first band is the whole matrix, so a single
+      search can touch every row of a three billion row matrix. Only two facts about the band are
+      ever used: how many copies of the symbol lie above the top of it, and how many lie above the
+      bottom. Both are values of one function, $\textit{count}(\textit{symbol}, i)$, the number of
+      occurrences of the symbol in the first $i$ positions of the last column, and precomputing that
+      function removes the scan.
+    </p>
+
+    <p>
+      The other ingredient is $\textit{firstOccurrence}(\textit{symbol})$, the row where the block of
+      rows beginning with that symbol starts. The first column is sorted, so a symbol occupies one
+      block, and the $k$th row of that block is the $k$th occurrence of the symbol in the first
+      column. Combining the two gives both ends of the new band by arithmetic.
+    </p>
+
+    <pre><code class="language-python">def bw_index(transform):
+    symbols = sorted(set(transform))
+    count = {symbol: [0] * (len(transform) + 1) for symbol in symbols}
+    for i, symbol in enumerate(transform):
+        for s in symbols:
+            count[s][i + 1] = count[s][i] + (s == symbol)
+    first_occurrence, total = {}, 0
+    for symbol in symbols:
+        first_occurrence[symbol] = total
+        total += count[symbol][len(transform)]
+    return first_occurrence, count
+
+
+def bw_range(transform, pattern, index):
+    first_occurrence, count = index
+    top, bottom = 0, len(transform) - 1
+    for symbol in reversed(pattern):
+        if symbol not in count:
+            return 0, -1
+        top = first_occurrence[symbol] + count[symbol][top]
+        bottom = first_occurrence[symbol] + count[symbol][bottom + 1] - 1
+        if top &gt; bottom:
+            return 0, -1
+    return top, bottom
+
+
+def better_bw_matching(transform, pattern, index):
+    top, bottom = bw_range(transform, pattern, index)
+    return bottom - top + 1</code></pre>
+
+    <p>
+      A search now costs $O(|\textit{Pattern}|)$ with a small constant, and it never reads the text.
+      Measured against direct comparison on the same $100$ kb human window, $300$ patterns of length
+      $30$ take $7.13$ seconds by sliding and $0.014$ seconds through the transform, a factor of
+      $509$, and the whole gap is in the algorithm rather than in the language.
+    </p>
+
+    <p>
+      Stored plainly, $\textit{count}$ is one integer per symbol per position, which for four symbols
+      and four byte integers is $49.6$ gigabytes for a human genome, four times worse than the suffix
+      array it was meant to replace. It is stored at only every $C$th position instead, and the
+      values in between are recovered by counting forward from the nearest stored row, which costs
+      at most $C$ reads of the transform.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="511.76" height="104" viewBox="10 24 511.76 104">
+      <text class="fig-text fig-note" x="104" y="46" text-anchor="end">last column</text>
+      <text class="fig-text fig-note" x="104" y="76" text-anchor="end">count of A</text>
+      <text class="fig-text fig-tick" x="150" y="46" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="190" y="46" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="230" y="46" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="270" y="46" text-anchor="middle">$</text>
+      <text class="fig-text fig-tick" x="310" y="46" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="350" y="46" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="390" y="46" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="430" y="46" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="130" y="76" text-anchor="middle">0</text>
+      <rect class="fig-cell" x="117" y="60" width="26" height="22"/>
+      <text class="fig-text fig-note" x="170" y="76" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="210" y="76" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="250" y="76" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="290" y="76" text-anchor="middle">1</text>
+      <rect class="fig-cell" x="277" y="60" width="26" height="22"/>
+      <text class="fig-text fig-note" x="330" y="76" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="370" y="76" text-anchor="middle">1</text>
+      <text class="fig-text fig-note" x="410" y="76" text-anchor="middle">2</text>
+      <text class="fig-text fig-tick" x="450" y="76" text-anchor="middle">3</text>
+      <rect class="fig-cell" x="437" y="60" width="26" height="22"/>
+      <rect class="fig-cell" x="20" y="100" width="22" height="18"/>
+      <text class="fig-text fig-note" x="48" y="114" text-anchor="start">kept, one row in 4; the rest are recounted from the nearest kept row</text>
+      </svg>
+      <figcaption>
+    The running count of A along the transform ACC$\$$GGAA, and the checkpoints that replace it.
+    Storing $\textit{count}$ for every symbol at every position costs as much as the suffix array
+    it was meant to avoid, so only every fourth row is kept and the rest is recovered by counting
+    forward from the nearest kept row. Real read mappers keep one row in about a hundred, which
+    turns a table the size of the genome into one about a hundredth of it.</figcaption>
+    </figure>
+
+    <h3>From a Row to a Position</h3>
+
+    <p>
+      A band of rows answers how many times a pattern occurs and not where, and a read mapper needs
+      where. The suffix array holds exactly that translation, and storing it would undo the saving,
+      so it is stored for one row in $k$ and the rest is recovered by walking.
+    </p>
+
+    <pre><code class="language-python">def partial_suffix_array(text, k):
+    return {i: p for i, p in enumerate(suffix_array(text)) if p % k == 0}
+
+
+def previous_row(row, transform, index):
+    first_occurrence, count = index
+    symbol = transform[row]
+    return first_occurrence[symbol] + count[symbol][row]
+
+
+def locate(row, transform, index, partial):
+    steps = 0
+    while row not in partial:
+        row = previous_row(row, transform, index)
+        steps += 1
+    return partial[row] + steps
+
+
+def bw_search(pattern, transform, index, partial):
+    top, bottom = bw_range(transform, pattern, index)
+    return [locate(row, transform, index, partial) for row in range(top, bottom + 1)]</code></pre>
+
+    <p>
+      Each step of the walk moves one position earlier in the text, so a row reached after $s$ steps
+      from a stored row holding position $p$ is itself at position $p + s$. The walk stops at the
+      first position divisible by $k$, so it takes at most $k - 1$ steps.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="436.02" height="253" viewBox="-48.51 17 436.02 253">
+      <text class="fig-text fig-note" x="120" y="66.56" text-anchor="end">0</text>
+      <rect class="fig-cell" x="138" y="50" width="63" height="23"/>
+      <text class="fig-text fig-note" x="120" y="89.56" text-anchor="end">1</text>
+      <rect class="fig-cell" x="138" y="73" width="63" height="23"/>
+      <text class="fig-text fig-tick" x="169.5" y="89.56" text-anchor="middle">6</text>
+      <text class="fig-text fig-note" x="120" y="112.56" text-anchor="end">2</text>
+      <rect class="fig-cell" x="138" y="96" width="63" height="23"/>
+      <text class="fig-text fig-tick" x="169.5" y="112.56" text-anchor="middle">3</text>
+      <text class="fig-text fig-note" x="120" y="135.56" text-anchor="end">3</text>
+      <rect class="fig-cell" x="138" y="119" width="63" height="23"/>
+      <text class="fig-text fig-tick" x="169.5" y="135.56" text-anchor="middle">0</text>
+      <text class="fig-text fig-note" x="120" y="158.56" text-anchor="end">4</text>
+      <rect class="fig-cell" x="138" y="142" width="63" height="23"/>
+      <text class="fig-text fig-note" x="120" y="181.56" text-anchor="end">5</text>
+      <rect class="fig-cell" x="138" y="165" width="63" height="23"/>
+      <text class="fig-text fig-note" x="120" y="204.56" text-anchor="end">6</text>
+      <rect class="fig-cell" x="138" y="188" width="63" height="23"/>
+      <text class="fig-text fig-note" x="120" y="227.56" text-anchor="end">7</text>
+      <rect class="fig-cell" x="138" y="211" width="63" height="23"/>
+      <text class="fig-text fig-note" x="169.5" y="38" text-anchor="middle">partial array</text>
+      <line class="fig-free-solid" x1="201" y1="153.5" x2="217" y2="153.5"/>
+      <line class="fig-free-solid" x1="217" y1="153.5" x2="217" y2="199.5"/>
+      <line class="fig-free-solid" x1="217" y1="199.5" x2="207" y2="199.5"/>
+      <path class="fig-dot" d="M 201 199.5 L 207 196.8 L 207 202.2 Z"/>
+      <text class="fig-text fig-note" x="225" y="180.5" text-anchor="start">step 1</text>
+      <line class="fig-free-solid" x1="201" y1="199.5" x2="269" y2="199.5"/>
+      <line class="fig-free-solid" x1="269" y1="199.5" x2="269" y2="107.5"/>
+      <line class="fig-free-solid" x1="269" y1="107.5" x2="207" y2="107.5"/>
+      <path class="fig-dot" d="M 201 107.5 L 207 104.8 L 207 110.2 Z"/>
+      <text class="fig-text fig-note" x="277" y="157.5" text-anchor="start">step 2</text>
+      <text class="fig-text fig-tick" x="120" y="158.56" text-anchor="end">4</text>
+      <text class="fig-text fig-note" x="169.5" y="256" text-anchor="middle">row 4 is not stored, so its position is counted back to row 2</text>
+      </svg>
+      <figcaption>
+    Recovering a position from a row when only one position in three is stored. Row 4 is not stored,
+    so the first-last correspondence is followed until a stored row is reached, here row 2 after two
+    steps. Each step moves one position earlier in the text, so the position of row 4 is
+    $3 + 2 = 5$. At most $k - 1$ steps are ever needed, which buys a factor of $k$ in memory for a
+    factor of $k$ in the work of reporting one occurrence.</figcaption>
+    </figure>
+
+    <p>
+      The parts now add up to something that fits. Two bits per nucleotide store the transform, which
+      is $775$ megabytes for a human genome; checkpoints every $128$ positions add $387.5$ megabytes;
+      a partial suffix array holding one position in $32$ adds another $387.5$. The total is about
+      $1.55$ gigabytes, and this is why the read mappers in general use, Bowtie and BWA among them,
+      are built on the transform rather than on the tree or the array.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="631.578" height="211.5" viewBox="37.96 15 631.578 211.5">
+      <rect class="fig-band" x="210" y="50" width="372.578" height="26"/>
+      <rect class="fig-cell" x="210" y="50" width="372.578" height="26"/>
+      <text class="fig-text fig-note" x="198" y="68" text-anchor="end">suffix tree</text>
+      <text class="fig-text fig-tick" x="592.578" y="68" text-anchor="start">101.68 GB</text>
+      <rect class="fig-band" x="210" y="96" width="225.079" height="26"/>
+      <rect class="fig-cell" x="210" y="96" width="225.079" height="26"/>
+      <text class="fig-text fig-note" x="198" y="114" text-anchor="end">suffix array</text>
+      <text class="fig-text fig-tick" x="445.079" y="114" text-anchor="start">12.40 GB</text>
+      <rect class="fig-band" x="210" y="142" width="79.311" height="26"/>
+      <rect class="fig-cell" x="210" y="142" width="79.311" height="26"/>
+      <text class="fig-text fig-note" x="198" y="153.5" text-anchor="end">transform, checkpoints</text>
+      <text class="fig-text fig-note" x="198" y="166.5" text-anchor="end">and partial array</text>
+      <text class="fig-text fig-tick" x="299.311" y="160" text-anchor="start">1.55 GB</text>
+      <rect class="fig-band" x="210" y="188" width="30.7215" height="26"/>
+      <rect class="fig-cell" x="210" y="188" width="30.7215" height="26"/>
+      <text class="fig-text fig-note" x="198" y="199.5" text-anchor="end">the genome, 2 bits</text>
+      <text class="fig-text fig-note" x="198" y="212.5" text-anchor="end">per nucleotide</text>
+      <text class="fig-text fig-tick" x="250.722" y="206" text-anchor="start">775 MB</text>
+      <text class="fig-text fig-note" x="420" y="36" text-anchor="middle">log scale</text>
+      </svg>
+      <figcaption>
+    What each index costs for a genome of $3.1$ billion nucleotides, on a log scale. The suffix tree
+    is 130 times the size of the genome it indexes and does not fit in a machine; the suffix array
+    is 16 times; the transform with its checkpoints and its partial array is twice, and that is what
+    a read mapper loads. The genome itself, two bits per nucleotide, is the bottom bar.</figcaption>
+    </figure>
+
+    <h2>Approximate Matching</h2>
+
+    <p>
+      Every search so far has been exact, and reads do not match exactly. A read carries sequencing
+      errors, and a patient's chromosome genuinely differs from the reference at the positions the
+      experiment is looking for, so a read spanning the mutation cannot match the reference by
+      definition. Of the $30{,}000$ simulated reads used at the end of this chapter, $10{,}882$, or
+      $36.3$ percent, occur in the reference exactly. Exact matching throws away two reads in three.
+    </p>
+
+    <p>
+      <strong>Multiple Approximate Pattern Matching Problem.</strong> Given a string $\textit{Text}$,
+      a collection $\textit{Patterns}$, and an integer $d$, find all starting positions where a
+      string from $\textit{Patterns}$ occurs with at most $d$ mismatches.
+    </p>
+
+    <p>
+      <strong>Theorem.</strong> If a pattern occurs at a position with at most $d$ mismatches, and
+      the pattern is cut into $d + 1$ non-empty pieces, then at least one piece occurs exactly at the
+      matching position, at its own offset within the pattern.
+    </p>
+
+    <p>
+      The proof is the pigeonhole principle. Each of the at most $d$ mismatched positions lies in
+      exactly one of the $d + 1$ pieces, so the mismatches touch at most $d$ pieces and at least one
+      piece is left with none. That piece agrees with the text symbol for symbol, which is an exact
+      occurrence.
+    </p>
+
+    <p>
+      The theorem converts approximate matching into exact matching plus verification, which is the
+      method every read mapper uses. Cut each pattern into $d + 1$ seeds, look each seed up exactly
+      in the transform, and for each place a seed lands, check the whole pattern against the text at
+      the position that seed implies. Seeds long enough to be rare make the check cheap, since a seed
+      of $25$ nucleotides has about $3.1 \times 10^9 / 4^{25}$ chance occurrences in a human genome,
+      which is effectively none.
+    </p>
+
+    <pre><code class="language-python">def seeds(pattern, d):
+    """Cut a pattern into d + 1 pieces, returned with their offsets."""
+    edges = [len(pattern) * i // (d + 1) for i in range(d + 2)]
+    return [(edges[i], pattern[edges[i]:edges[i + 1]]) for i in range(d + 1)]
+
+
+def approximate_matching(text, patterns, d, k=1):
+    ended = text + '$'
+    transform = burrows_wheeler(ended)
+    index, partial = bw_index(transform), partial_suffix_array(ended, k)
+    positions = []
+    for pattern in patterns:
+        found = set()
+        for offset, seed in seeds(pattern, d):
+            for hit in bw_search(seed, transform, index, partial):
+                start = hit - offset
+                if start &lt; 0 or start + len(pattern) &gt; len(text):
+                    continue
+                window = text[start:start + len(pattern)]
+                if sum(a != b for a, b in zip(window, pattern)) &lt;= d:
+                    found.add(start)
+        positions += found
+    return sorted(positions)</code></pre>
+
+    <figure class="figure-block">
+      <svg class="figure" width="519.28" height="149" viewBox="20.72 29 519.28 149">
+      <rect class="fig-cell" x="70" y="60" width="115" height="26"/>
+      <rect class="fig-cell" x="70" y="60" width="115" height="26"/>
+      <text class="fig-text fig-note" x="127.5" y="104" text-anchor="middle">seed 1</text>
+      <text class="fig-text fig-note" x="127.5" y="50" text-anchor="middle">0–24</text>
+      <rect class="fig-band" x="185" y="60" width="115" height="26"/>
+      <rect class="fig-cell" x="185" y="60" width="115" height="26"/>
+      <text class="fig-text fig-note" x="242.5" y="104" text-anchor="middle">seed 2</text>
+      <text class="fig-text fig-note" x="242.5" y="50" text-anchor="middle">25–49</text>
+      <rect class="fig-cell" x="300" y="60" width="115" height="26"/>
+      <rect class="fig-cell" x="300" y="60" width="115" height="26"/>
+      <text class="fig-text fig-note" x="357.5" y="104" text-anchor="middle">seed 3</text>
+      <text class="fig-text fig-note" x="357.5" y="50" text-anchor="middle">50–74</text>
+      <rect class="fig-cell" x="415" y="60" width="115" height="26"/>
+      <rect class="fig-cell" x="415" y="60" width="115" height="26"/>
+      <text class="fig-text fig-note" x="472.5" y="104" text-anchor="middle">seed 4</text>
+      <text class="fig-text fig-note" x="472.5" y="50" text-anchor="middle">75–99</text>
+      <line class="fig-free-solid" x1="106.8" y1="56" x2="106.8" y2="90"/>
+      <line class="fig-free-solid" x1="323" y1="56" x2="323" y2="90"/>
+      <line class="fig-free-solid" x1="474.8" y1="56" x2="474.8" y2="90"/>
+      <text class="fig-text fig-note" x="58" y="78" text-anchor="end">read</text>
+      <line class="fig-free-solid" x1="70" y1="160" x2="94" y2="160"/>
+      <text class="fig-text fig-note" x="102" y="164" text-anchor="start">a position where the read disagrees with the reference</text>
+      </svg>
+      <figcaption>
+    A read cut into four seeds so that three mismatches cannot spoil all of them. Three marks fall
+    in three different seeds and the second seed is left clean, so an exact search for that seed
+    finds the place the read belongs. Any placement of three marks leaves at least one of the four
+    pieces untouched, which is what makes the exact search usable on reads that do not match
+    exactly.</figcaption>
+    </figure>
+
+    <p>
+      Counting mismatches as the verification step assumes the read differs from the reference by
+      substitutions only. A read carrying an insertion or a deletion is shifted from that point on
+      and fails a mismatch count even though it belongs where the seed says. Replacing the count with
+      <code>alignment</code> from <a href="sequence-alignment.html">Chapter 5</a>, run in fitting
+      mode so the read is fitted into a window of the reference, scores the placement while allowing
+      gaps. In the run below that recovers $756$ of the $1{,}148$ reads the mismatch count rejected.
+    </p>
+
+    <p>
+      <strong>BLAST</strong>, the Basic Local Alignment Search Tool, is the same method applied to a
+      different problem. Instead of placing many short reads on one genome it takes one query
+      sequence and searches a database of many sequences, so it indexes the query's short words
+      rather than the database, scans for exact word hits, and extends each hit into a local
+      alignment of the kind Chapter 5 computes. It is not implemented here.
+    </p>
+
+    <h2>Application: Locating the Mutation</h2>
+
+    <p>
+      The reference is the real one: positions $74{,}960{,}001$ to $75{,}060{,}000$ of human
+      chromosome 10 in assembly GRCh38, a window of $100{,}000$ nucleotides spanning KAT6B, fetched
+      from NCBI as record NC_000010.11. The mutation is a real one:
+      ClinVar record VCV002444621, written NM_012330.4(KAT6B):c.2347C&gt;T (p.Arg783Ter), classified
+      Pathogenic by several submitters with no conflicts and associated with the SBBYS form of Ohdo
+      syndrome. It replaces the C at chromosome 10 position $74{,}981{,}902$ with a T, and the
+      reference base at that position in the fetched sequence is indeed C.
+    </p>
+
+    <p>
+      The reads are simulated, and that is the one part of this that is not real. Sequencing data
+      from a patient is not public, so the reads are generated from the reference itself: two copies
+      of the region, one unchanged and one carrying the substitution, sampled at thirty-fold coverage
+      into $30{,}000$ reads of length $100$, from either strand, with each nucleotide misread with
+      probability $0.01$ and two percent of reads carrying a deletion of one to three nucleotides.
+      The result therefore shows that the index and the mapping recover a known heterozygous
+      substitution from data with that error profile. It shows nothing about real error profiles,
+      about mapping into repetitive regions, or about how a variant is judged to be the cause of a
+      disorder.
+    </p>
+
+    <p>
+      The transform of the window is built through the suffix array identity, checked against
+      <code>burrows_wheeler</code> and <code>inverse_burrows_wheeler</code> on a prefix, and the
+      reads are mapped by seeds and verification with $d = 3$, each read tried in both orientations
+      and kept only when exactly one placement survives. Exact matching places $10{,}882$ reads,
+      $36.3$ percent. Seeds and verification place $28{,}852$, $96.2$ percent. The pile-up covers
+      $99{,}996$ of the $100{,}000$ positions at a mean depth of $28.9$ reads.
+    </p>
+
+    <p>
+      A position is called when at least ten reads cover it and a non-reference nucleotide is
+      supported by at least five of them and by at least a quarter of the column. Across the whole
+      window that rule fires exactly once, at chromosome 10 position $74{,}981{,}902$, where $13$ of
+      $28$ reads read T against the reference C. It is the ClinVar variant, at the fraction a
+      mutation on one of two chromosome copies should have, and the code that found it is the code in
+      this chapter.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="637.74" height="217" viewBox="22.72 5 637.74 217">
+      <line class="fig-axis" x1="70" y1="190" x2="630" y2="190"/>
+      <line class="fig-axis" x1="70" y1="40" x2="70" y2="190"/>
+      <text class="fig-text fig-note" x="60" y="194" text-anchor="end">0.00</text>
+      <text class="fig-text fig-note" x="60" y="119" text-anchor="end">0.25</text>
+      <line class="fig-axis" x1="66" y1="115" x2="70" y2="115"/>
+      <text class="fig-text fig-note" x="60" y="44" text-anchor="end">0.50</text>
+      <line class="fig-axis" x1="66" y1="40" x2="70" y2="40"/>
+      <line class="fig-cell" x1="70" y1="190" x2="70" y2="160"/>
+      <line class="fig-cell" x1="72.24" y1="190" x2="72.24" y2="160.96"/>
+      <line class="fig-cell" x1="74.48" y1="190" x2="74.48" y2="169.3"/>
+      <line class="fig-cell" x1="76.72" y1="190" x2="76.72" y2="167.77"/>
+      <line class="fig-cell" x1="78.96" y1="190" x2="78.96" y2="169.99"/>
+      <line class="fig-cell" x1="81.2" y1="190" x2="81.2" y2="169.99"/>
+      <line class="fig-cell" x1="83.44" y1="190" x2="83.44" y2="167.77"/>
+      <line class="fig-cell" x1="85.68" y1="190" x2="85.68" y2="167.77"/>
+      <line class="fig-cell" x1="87.92" y1="190" x2="87.92" y2="166"/>
+      <line class="fig-cell" x1="90.16" y1="190" x2="90.16" y2="167.77"/>
+      <line class="fig-cell" x1="92.4" y1="190" x2="92.4" y2="158.41"/>
+      <line class="fig-cell" x1="94.64" y1="190" x2="94.64" y2="158.41"/>
+      <line class="fig-cell" x1="96.88" y1="190" x2="96.88" y2="171.82"/>
+      <line class="fig-cell" x1="99.12" y1="190" x2="99.12" y2="162.73"/>
+      <line class="fig-cell" x1="101.36" y1="190" x2="101.36" y2="158.41"/>
+      <line class="fig-cell" x1="103.6" y1="190" x2="103.6" y2="160"/>
+      <line class="fig-cell" x1="105.84" y1="190" x2="105.84" y2="163.9"/>
+      <line class="fig-cell" x1="108.08" y1="190" x2="108.08" y2="160"/>
+      <line class="fig-cell" x1="110.32" y1="190" x2="110.32" y2="166"/>
+      <line class="fig-cell" x1="112.56" y1="190" x2="112.56" y2="157.87"/>
+      <line class="fig-cell" x1="114.8" y1="190" x2="114.8" y2="169.99"/>
+      <line class="fig-cell" x1="117.04" y1="190" x2="117.04" y2="168.58"/>
+      <line class="fig-cell" x1="119.28" y1="190" x2="119.28" y2="166"/>
+      <line class="fig-cell" x1="121.52" y1="190" x2="121.52" y2="166"/>
+      <line class="fig-cell" x1="123.76" y1="190" x2="123.76" y2="166"/>
+      <line class="fig-cell" x1="126" y1="190" x2="126" y2="173.32"/>
+      <line class="fig-cell" x1="128.24" y1="190" x2="128.24" y2="143.86"/>
+      <line class="fig-cell" x1="130.48" y1="190" x2="130.48" y2="170.65"/>
+      <line class="fig-cell" x1="132.72" y1="190" x2="132.72" y2="166"/>
+      <line class="fig-cell" x1="134.96" y1="190" x2="134.96" y2="170.65"/>
+      <line class="fig-cell" x1="137.2" y1="190" x2="137.2" y2="165.01"/>
+      <line class="fig-cell" x1="139.44" y1="190" x2="139.44" y2="169.3"/>
+      <line class="fig-cell" x1="141.68" y1="190" x2="141.68" y2="150.88"/>
+      <line class="fig-cell" x1="143.92" y1="190" x2="143.92" y2="161.44"/>
+      <line class="fig-cell" x1="146.16" y1="190" x2="146.16" y2="167.77"/>
+      <line class="fig-cell" x1="148.4" y1="190" x2="148.4" y2="161.44"/>
+      <line class="fig-cell" x1="150.64" y1="190" x2="150.64" y2="161.44"/>
+      <line class="fig-cell" x1="152.88" y1="190" x2="152.88" y2="167.77"/>
+      <line class="fig-cell" x1="155.12" y1="190" x2="155.12" y2="163.9"/>
+      <line class="fig-cell" x1="157.36" y1="190" x2="157.36" y2="166"/>
+      <line class="fig-cell" x1="159.6" y1="190" x2="159.6" y2="162.73"/>
+      <line class="fig-cell" x1="161.84" y1="190" x2="161.84" y2="167.77"/>
+      <line class="fig-cell" x1="164.08" y1="190" x2="164.08" y2="162.73"/>
+      <line class="fig-cell" x1="166.32" y1="190" x2="166.32" y2="163.9"/>
+      <line class="fig-cell" x1="168.56" y1="190" x2="168.56" y2="167.77"/>
+      <line class="fig-cell" x1="170.8" y1="190" x2="170.8" y2="166.93"/>
+      <line class="fig-cell" x1="173.04" y1="190" x2="173.04" y2="169.3"/>
+      <line class="fig-cell" x1="175.28" y1="190" x2="175.28" y2="160"/>
+      <line class="fig-cell" x1="177.52" y1="190" x2="177.52" y2="168.58"/>
+      <line class="fig-cell" x1="179.76" y1="190" x2="179.76" y2="167.77"/>
+      <line class="fig-cell" x1="182" y1="190" x2="182" y2="166.93"/>
+      <line class="fig-cell" x1="184.24" y1="190" x2="184.24" y2="165.01"/>
+      <line class="fig-cell" x1="186.48" y1="190" x2="186.48" y2="163.9"/>
+      <line class="fig-cell" x1="188.72" y1="190" x2="188.72" y2="169.3"/>
+      <line class="fig-free-solid" x1="190.96" y1="190" x2="190.96" y2="50.71"/>
+      <line class="fig-cell" x1="193.2" y1="190" x2="193.2" y2="169.3"/>
+      <line class="fig-cell" x1="195.44" y1="190" x2="195.44" y2="165.01"/>
+      <line class="fig-cell" x1="197.68" y1="190" x2="197.68" y2="162.73"/>
+      <line class="fig-cell" x1="199.92" y1="190" x2="199.92" y2="168.58"/>
+      <line class="fig-cell" x1="202.16" y1="190" x2="202.16" y2="163.9"/>
+      <line class="fig-cell" x1="204.4" y1="190" x2="204.4" y2="161.44"/>
+      <line class="fig-cell" x1="206.64" y1="190" x2="206.64" y2="166"/>
+      <line class="fig-cell" x1="208.88" y1="190" x2="208.88" y2="166"/>
+      <line class="fig-cell" x1="211.12" y1="190" x2="211.12" y2="167.77"/>
+      <line class="fig-cell" x1="213.36" y1="190" x2="213.36" y2="169.3"/>
+      <line class="fig-cell" x1="215.6" y1="190" x2="215.6" y2="170.65"/>
+      <line class="fig-cell" x1="217.84" y1="190" x2="217.84" y2="162.73"/>
+      <line class="fig-cell" x1="220.08" y1="190" x2="220.08" y2="169.3"/>
+      <line class="fig-cell" x1="222.32" y1="190" x2="222.32" y2="170.65"/>
+      <line class="fig-cell" x1="224.56" y1="190" x2="224.56" y2="162.73"/>
+      <line class="fig-cell" x1="226.8" y1="190" x2="226.8" y2="166.93"/>
+      <line class="fig-cell" x1="229.04" y1="190" x2="229.04" y2="167.77"/>
+      <line class="fig-cell" x1="231.28" y1="190" x2="231.28" y2="160"/>
+      <line class="fig-cell" x1="233.52" y1="190" x2="233.52" y2="166.93"/>
+      <line class="fig-cell" x1="235.76" y1="190" x2="235.76" y2="154"/>
+      <line class="fig-cell" x1="238" y1="190" x2="238" y2="166"/>
+      <line class="fig-cell" x1="240.24" y1="190" x2="240.24" y2="161.44"/>
+      <line class="fig-cell" x1="242.48" y1="190" x2="242.48" y2="161.44"/>
+      <line class="fig-cell" x1="244.72" y1="190" x2="244.72" y2="169.3"/>
+      <line class="fig-cell" x1="246.96" y1="190" x2="246.96" y2="166.93"/>
+      <line class="fig-cell" x1="249.2" y1="190" x2="249.2" y2="165.01"/>
+      <line class="fig-cell" x1="251.44" y1="190" x2="251.44" y2="163.9"/>
+      <line class="fig-cell" x1="253.68" y1="190" x2="253.68" y2="157.87"/>
+      <line class="fig-cell" x1="255.92" y1="190" x2="255.92" y2="169.3"/>
+      <line class="fig-cell" x1="258.16" y1="190" x2="258.16" y2="165.67"/>
+      <line class="fig-cell" x1="260.4" y1="190" x2="260.4" y2="163.9"/>
+      <line class="fig-cell" x1="262.64" y1="190" x2="262.64" y2="169.99"/>
+      <line class="fig-cell" x1="264.88" y1="190" x2="264.88" y2="166"/>
+      <line class="fig-cell" x1="267.12" y1="190" x2="267.12" y2="169.99"/>
+      <line class="fig-cell" x1="269.36" y1="190" x2="269.36" y2="162.73"/>
+      <line class="fig-cell" x1="271.6" y1="190" x2="271.6" y2="166.93"/>
+      <line class="fig-cell" x1="273.84" y1="190" x2="273.84" y2="170.65"/>
+      <line class="fig-cell" x1="276.08" y1="190" x2="276.08" y2="166.93"/>
+      <line class="fig-cell" x1="278.32" y1="190" x2="278.32" y2="169.3"/>
+      <line class="fig-cell" x1="280.56" y1="190" x2="280.56" y2="165.01"/>
+      <line class="fig-cell" x1="282.8" y1="190" x2="282.8" y2="157.87"/>
+      <line class="fig-cell" x1="285.04" y1="190" x2="285.04" y2="169.3"/>
+      <line class="fig-cell" x1="287.28" y1="190" x2="287.28" y2="163.9"/>
+      <line class="fig-cell" x1="289.52" y1="190" x2="289.52" y2="160"/>
+      <line class="fig-cell" x1="291.76" y1="190" x2="291.76" y2="167.77"/>
+      <line class="fig-cell" x1="294" y1="190" x2="294" y2="163.9"/>
+      <line class="fig-cell" x1="296.24" y1="190" x2="296.24" y2="167.77"/>
+      <line class="fig-cell" x1="298.48" y1="190" x2="298.48" y2="163.9"/>
+      <line class="fig-cell" x1="300.72" y1="190" x2="300.72" y2="163.9"/>
+      <line class="fig-cell" x1="302.96" y1="190" x2="302.96" y2="166"/>
+      <line class="fig-cell" x1="305.2" y1="190" x2="305.2" y2="154"/>
+      <line class="fig-cell" x1="307.44" y1="190" x2="307.44" y2="166.93"/>
+      <line class="fig-cell" x1="309.68" y1="190" x2="309.68" y2="171.82"/>
+      <line class="fig-cell" x1="311.92" y1="190" x2="311.92" y2="167.77"/>
+      <line class="fig-cell" x1="314.16" y1="190" x2="314.16" y2="169.99"/>
+      <line class="fig-cell" x1="316.4" y1="190" x2="316.4" y2="166.93"/>
+      <line class="fig-cell" x1="318.64" y1="190" x2="318.64" y2="170.65"/>
+      <line class="fig-cell" x1="320.88" y1="190" x2="320.88" y2="163.9"/>
+      <line class="fig-cell" x1="323.12" y1="190" x2="323.12" y2="157.87"/>
+      <line class="fig-cell" x1="325.36" y1="190" x2="325.36" y2="169.3"/>
+      <line class="fig-cell" x1="327.6" y1="190" x2="327.6" y2="156.67"/>
+      <line class="fig-cell" x1="329.84" y1="190" x2="329.84" y2="167.77"/>
+      <line class="fig-cell" x1="332.08" y1="190" x2="332.08" y2="160"/>
+      <line class="fig-cell" x1="334.32" y1="190" x2="334.32" y2="154"/>
+      <line class="fig-cell" x1="336.56" y1="190" x2="336.56" y2="165.01"/>
+      <line class="fig-cell" x1="338.8" y1="190" x2="338.8" y2="165.01"/>
+      <line class="fig-cell" x1="341.04" y1="190" x2="341.04" y2="162.73"/>
+      <line class="fig-cell" x1="343.28" y1="190" x2="343.28" y2="171.25"/>
+      <line class="fig-cell" x1="345.52" y1="190" x2="345.52" y2="169.3"/>
+      <line class="fig-cell" x1="347.76" y1="190" x2="347.76" y2="161.44"/>
+      <line class="fig-cell" x1="350" y1="190" x2="350" y2="167.77"/>
+      <line class="fig-cell" x1="352.24" y1="190" x2="352.24" y2="163.9"/>
+      <line class="fig-cell" x1="354.48" y1="190" x2="354.48" y2="165.01"/>
+      <line class="fig-cell" x1="356.72" y1="190" x2="356.72" y2="168.58"/>
+      <line class="fig-cell" x1="358.96" y1="190" x2="358.96" y2="166.93"/>
+      <line class="fig-cell" x1="361.2" y1="190" x2="361.2" y2="161.44"/>
+      <line class="fig-cell" x1="363.44" y1="190" x2="363.44" y2="165.01"/>
+      <line class="fig-cell" x1="365.68" y1="190" x2="365.68" y2="166"/>
+      <line class="fig-cell" x1="367.92" y1="190" x2="367.92" y2="152.5"/>
+      <line class="fig-cell" x1="370.16" y1="190" x2="370.16" y2="166.93"/>
+      <line class="fig-cell" x1="372.4" y1="190" x2="372.4" y2="169.3"/>
+      <line class="fig-cell" x1="374.64" y1="190" x2="374.64" y2="168.58"/>
+      <line class="fig-cell" x1="376.88" y1="190" x2="376.88" y2="169.3"/>
+      <line class="fig-cell" x1="379.12" y1="190" x2="379.12" y2="158.41"/>
+      <line class="fig-cell" x1="381.36" y1="190" x2="381.36" y2="168.58"/>
+      <line class="fig-cell" x1="383.6" y1="190" x2="383.6" y2="166.93"/>
+      <line class="fig-cell" x1="385.84" y1="190" x2="385.84" y2="158.41"/>
+      <line class="fig-cell" x1="388.08" y1="190" x2="388.08" y2="170.65"/>
+      <line class="fig-cell" x1="390.32" y1="190" x2="390.32" y2="169.3"/>
+      <line class="fig-cell" x1="392.56" y1="190" x2="392.56" y2="163.9"/>
+      <line class="fig-cell" x1="394.8" y1="190" x2="394.8" y2="172.36"/>
+      <line class="fig-cell" x1="397.04" y1="190" x2="397.04" y2="161.44"/>
+      <line class="fig-cell" x1="399.28" y1="190" x2="399.28" y2="166.93"/>
+      <line class="fig-cell" x1="401.52" y1="190" x2="401.52" y2="155.38"/>
+      <line class="fig-cell" x1="403.76" y1="190" x2="403.76" y2="158.41"/>
+      <line class="fig-cell" x1="406" y1="190" x2="406" y2="165.01"/>
+      <line class="fig-cell" x1="408.24" y1="190" x2="408.24" y2="167.77"/>
+      <line class="fig-cell" x1="410.48" y1="190" x2="410.48" y2="160"/>
+      <line class="fig-cell" x1="412.72" y1="190" x2="412.72" y2="163.9"/>
+      <line class="fig-cell" x1="414.96" y1="190" x2="414.96" y2="163.9"/>
+      <line class="fig-cell" x1="417.2" y1="190" x2="417.2" y2="166.93"/>
+      <line class="fig-cell" x1="419.44" y1="190" x2="419.44" y2="165.01"/>
+      <line class="fig-cell" x1="421.68" y1="190" x2="421.68" y2="158.41"/>
+      <line class="fig-cell" x1="423.92" y1="190" x2="423.92" y2="163.9"/>
+      <line class="fig-cell" x1="426.16" y1="190" x2="426.16" y2="170.65"/>
+      <line class="fig-cell" x1="428.4" y1="190" x2="428.4" y2="166"/>
+      <line class="fig-cell" x1="430.64" y1="190" x2="430.64" y2="166"/>
+      <line class="fig-cell" x1="432.88" y1="190" x2="432.88" y2="167.77"/>
+      <line class="fig-cell" x1="435.12" y1="190" x2="435.12" y2="162.73"/>
+      <line class="fig-cell" x1="437.36" y1="190" x2="437.36" y2="171.82"/>
+      <line class="fig-cell" x1="439.6" y1="190" x2="439.6" y2="172.36"/>
+      <line class="fig-cell" x1="441.84" y1="190" x2="441.84" y2="161.44"/>
+      <line class="fig-cell" x1="444.08" y1="190" x2="444.08" y2="163.9"/>
+      <line class="fig-cell" x1="446.32" y1="190" x2="446.32" y2="163.9"/>
+      <line class="fig-cell" x1="448.56" y1="190" x2="448.56" y2="166"/>
+      <line class="fig-cell" x1="450.8" y1="190" x2="450.8" y2="170.65"/>
+      <line class="fig-cell" x1="453.04" y1="190" x2="453.04" y2="171.25"/>
+      <line class="fig-cell" x1="455.28" y1="190" x2="455.28" y2="166"/>
+      <line class="fig-cell" x1="457.52" y1="190" x2="457.52" y2="160"/>
+      <line class="fig-cell" x1="459.76" y1="190" x2="459.76" y2="162.73"/>
+      <line class="fig-cell" x1="462" y1="190" x2="462" y2="170.65"/>
+      <line class="fig-cell" x1="464.24" y1="190" x2="464.24" y2="169.3"/>
+      <line class="fig-cell" x1="466.48" y1="190" x2="466.48" y2="158.41"/>
+      <line class="fig-cell" x1="468.72" y1="190" x2="468.72" y2="167.77"/>
+      <line class="fig-cell" x1="470.96" y1="190" x2="470.96" y2="166.93"/>
+      <line class="fig-cell" x1="473.2" y1="190" x2="473.2" y2="166"/>
+      <line class="fig-cell" x1="475.44" y1="190" x2="475.44" y2="168.58"/>
+      <line class="fig-cell" x1="477.68" y1="190" x2="477.68" y2="171.25"/>
+      <line class="fig-cell" x1="479.92" y1="190" x2="479.92" y2="175"/>
+      <line class="fig-cell" x1="482.16" y1="190" x2="482.16" y2="165.01"/>
+      <line class="fig-cell" x1="484.4" y1="190" x2="484.4" y2="167.77"/>
+      <line class="fig-cell" x1="486.64" y1="190" x2="486.64" y2="168.58"/>
+      <line class="fig-cell" x1="488.88" y1="190" x2="488.88" y2="156.67"/>
+      <line class="fig-cell" x1="491.12" y1="190" x2="491.12" y2="166"/>
+      <line class="fig-cell" x1="493.36" y1="190" x2="493.36" y2="168.58"/>
+      <line class="fig-cell" x1="495.6" y1="190" x2="495.6" y2="168.58"/>
+      <line class="fig-cell" x1="497.84" y1="190" x2="497.84" y2="164.29"/>
+      <line class="fig-cell" x1="500.08" y1="190" x2="500.08" y2="154"/>
+      <line class="fig-cell" x1="502.32" y1="190" x2="502.32" y2="166"/>
+      <line class="fig-cell" x1="504.56" y1="190" x2="504.56" y2="166"/>
+      <line class="fig-cell" x1="506.8" y1="190" x2="506.8" y2="163.9"/>
+      <line class="fig-cell" x1="509.04" y1="190" x2="509.04" y2="168.58"/>
+      <line class="fig-cell" x1="511.28" y1="190" x2="511.28" y2="173.32"/>
+      <line class="fig-cell" x1="513.52" y1="190" x2="513.52" y2="155.38"/>
+      <line class="fig-cell" x1="515.76" y1="190" x2="515.76" y2="167.77"/>
+      <line class="fig-cell" x1="518" y1="190" x2="518" y2="162.73"/>
+      <line class="fig-cell" x1="520.24" y1="190" x2="520.24" y2="166.93"/>
+      <line class="fig-cell" x1="522.48" y1="190" x2="522.48" y2="163.9"/>
+      <line class="fig-cell" x1="524.72" y1="190" x2="524.72" y2="166.93"/>
+      <line class="fig-cell" x1="526.96" y1="190" x2="526.96" y2="163.9"/>
+      <line class="fig-cell" x1="529.2" y1="190" x2="529.2" y2="166.93"/>
+      <line class="fig-cell" x1="531.44" y1="190" x2="531.44" y2="163.9"/>
+      <line class="fig-cell" x1="533.68" y1="190" x2="533.68" y2="163.9"/>
+      <line class="fig-cell" x1="535.92" y1="190" x2="535.92" y2="165.01"/>
+      <line class="fig-cell" x1="538.16" y1="190" x2="538.16" y2="165.01"/>
+      <line class="fig-cell" x1="540.4" y1="190" x2="540.4" y2="172.36"/>
+      <line class="fig-cell" x1="542.64" y1="190" x2="542.64" y2="169.3"/>
+      <line class="fig-cell" x1="544.88" y1="190" x2="544.88" y2="169.99"/>
+      <line class="fig-cell" x1="547.12" y1="190" x2="547.12" y2="168.58"/>
+      <line class="fig-cell" x1="549.36" y1="190" x2="549.36" y2="158.41"/>
+      <line class="fig-cell" x1="551.6" y1="190" x2="551.6" y2="154.72"/>
+      <line class="fig-cell" x1="553.84" y1="190" x2="553.84" y2="169.3"/>
+      <line class="fig-cell" x1="556.08" y1="190" x2="556.08" y2="162.73"/>
+      <line class="fig-cell" x1="558.32" y1="190" x2="558.32" y2="158.98"/>
+      <line class="fig-cell" x1="560.56" y1="190" x2="560.56" y2="166.93"/>
+      <line class="fig-cell" x1="562.8" y1="190" x2="562.8" y2="168.58"/>
+      <line class="fig-cell" x1="565.04" y1="190" x2="565.04" y2="163.9"/>
+      <line class="fig-cell" x1="567.28" y1="190" x2="567.28" y2="156.67"/>
+      <line class="fig-cell" x1="569.52" y1="190" x2="569.52" y2="171.25"/>
+      <line class="fig-cell" x1="571.76" y1="190" x2="571.76" y2="166"/>
+      <line class="fig-cell" x1="574" y1="190" x2="574" y2="166"/>
+      <line class="fig-cell" x1="576.24" y1="190" x2="576.24" y2="163.9"/>
+      <line class="fig-cell" x1="578.48" y1="190" x2="578.48" y2="166"/>
+      <line class="fig-cell" x1="580.72" y1="190" x2="580.72" y2="165.01"/>
+      <line class="fig-cell" x1="582.96" y1="190" x2="582.96" y2="160"/>
+      <line class="fig-cell" x1="585.2" y1="190" x2="585.2" y2="171.25"/>
+      <line class="fig-cell" x1="587.44" y1="190" x2="587.44" y2="163.9"/>
+      <line class="fig-cell" x1="589.68" y1="190" x2="589.68" y2="167.77"/>
+      <line class="fig-cell" x1="591.92" y1="190" x2="591.92" y2="168.58"/>
+      <line class="fig-cell" x1="594.16" y1="190" x2="594.16" y2="160.96"/>
+      <line class="fig-cell" x1="596.4" y1="190" x2="596.4" y2="166"/>
+      <line class="fig-cell" x1="598.64" y1="190" x2="598.64" y2="171.25"/>
+      <line class="fig-cell" x1="600.88" y1="190" x2="600.88" y2="161.44"/>
+      <line class="fig-cell" x1="603.12" y1="190" x2="603.12" y2="171.82"/>
+      <line class="fig-cell" x1="605.36" y1="190" x2="605.36" y2="155.38"/>
+      <line class="fig-cell" x1="607.6" y1="190" x2="607.6" y2="166.93"/>
+      <line class="fig-cell" x1="609.84" y1="190" x2="609.84" y2="166.93"/>
+      <line class="fig-cell" x1="612.08" y1="190" x2="612.08" y2="168.58"/>
+      <line class="fig-cell" x1="614.32" y1="190" x2="614.32" y2="171.82"/>
+      <line class="fig-cell" x1="616.56" y1="190" x2="616.56" y2="168.58"/>
+      <line class="fig-cell" x1="618.8" y1="190" x2="618.8" y2="163.9"/>
+      <line class="fig-cell" x1="621.04" y1="190" x2="621.04" y2="166.93"/>
+      <line class="fig-cell" x1="623.28" y1="190" x2="623.28" y2="167.77"/>
+      <line class="fig-cell" x1="625.52" y1="190" x2="625.52" y2="168.58"/>
+      <line class="fig-cell" x1="627.76" y1="190" x2="627.76" y2="160"/>
+      <text class="fig-text fig-note" x="198.96" y="44.71" text-anchor="start">chr10:74,981,902</text>
+      <text class="fig-text fig-note" x="70" y="26" text-anchor="start">share of reads disagreeing with the reference</text>
+      <line class="fig-axis" x1="70" y1="190" x2="70" y2="194"/>
+      <text class="fig-text fig-note" x="70" y="208" text-anchor="middle">0 kb</text>
+      <line class="fig-axis" x1="210" y1="190" x2="210" y2="194"/>
+      <text class="fig-text fig-note" x="210" y="208" text-anchor="middle">25 kb</text>
+      <line class="fig-axis" x1="350" y1="190" x2="350" y2="194"/>
+      <text class="fig-text fig-note" x="350" y="208" text-anchor="middle">50 kb</text>
+      <line class="fig-axis" x1="490" y1="190" x2="490" y2="194"/>
+      <text class="fig-text fig-note" x="490" y="208" text-anchor="middle">75 kb</text>
+      <line class="fig-axis" x1="630" y1="190" x2="630" y2="194"/>
+      <text class="fig-text fig-note" x="630" y="208" text-anchor="middle">100 kb</text>
+      </svg>
+      <figcaption>
+    The largest share of reads disagreeing with the reference, taken over 400 nucleotide bins across
+    the whole 100 kb window. Sequencing errors are spread out and independent, so they never carry
+    more than a sixth of a column, while the substitution carried by one copy of the chromosome
+    reaches $0.46$. One bin stands three times above everything else, and it is the one holding the
+    ClinVar variant.</figcaption>
+    </figure>
+
+    <p>
+      The nucleotide it changes matters because of what it does to the protein. Codon 783 of KAT6B
+      reads CGA and codes for arginine; changing that C to T makes it TGA, which is a stop codon, so
+      translation ends there and the protein is cut short at position 783 of 2073. The letters
+      p.Arg783Ter in the ClinVar name say exactly that. One nucleotide out of three billion,
+      recovered by an index that fits in a gigabyte and a half.
+    </p>
+  </main>
+</body>
+</html>
