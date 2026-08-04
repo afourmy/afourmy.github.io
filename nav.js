@@ -58,6 +58,7 @@
         { href: "bioinformatics/sequence-alignment.html", en: "Chapter 5: Sequence Alignment" },
         { href: "bioinformatics/genome-rearrangements.html", en: "Chapter 6: Genome Rearrangements" },
         { href: "bioinformatics/evolutionary-trees.html", en: "Chapter 7: Evolutionary Trees" },
+        { href: "bioinformatics/clustering.html", en: "Chapter 8: Gene Clustering" },
       ]
     ]},
     { en: "Thailand", columns: [
