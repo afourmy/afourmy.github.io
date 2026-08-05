@@ -1,0 +1,2804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11: Was T. rex Just a Big Chicken?</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Computational proteomics: spectrum graphs, peptide and spectral vectors, peptide sequencing and identification, spectral dictionaries and E-values, spectral alignment, applied to the collagen peptides recovered from a Tyrannosaurus rex femur.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/bioinformatics/computational-proteomics.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 11: Was T. rex Just a Big Chicken?">
+  <meta property="og:description" content="Computational proteomics: spectrum graphs, peptide and spectral vectors, peptide sequencing and identification, spectral dictionaries and E-values, spectral alignment, applied to the collagen peptides recovered from a Tyrannosaurus rex femur.">
+  <meta property="og:url" content="https://afourmy.github.io/bioinformatics/computational-proteomics.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
+</head>
+<body>
+  <script src="../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 11: Was T. rex Just a Big Chicken?</h1>
+    </header>
+
+    <p>
+      A protein is a chain of amino acids, and for most of them the chain can be read off a gene.
+      There are two situations in which it cannot. The first was
+      <a href="antibiotic-sequencing.html">Chapter 4</a>: a non-ribosomal peptide is assembled by an
+      enzyme, so no gene spells it out, and its sequence has to be recovered from the masses of its
+      fragments. The second is a fossil. DNA breaks down over tens of thousands of years, while
+      collagen, the protein that makes up most of the organic matter in bone, is wound into a triple
+      helix and mineralised, and fragments of it have been reported from bone tens of millions of
+      years old. In 2007 a group extracted a small number of peptides from the femur of a
+      <em>Tyrannosaurus rex</em> and read their sequences on a mass spectrometer. This chapter
+      builds the algorithms that turn a list of masses into a peptide, then into a name, then into a
+      number saying how much the name is worth, and applies them to those peptides.
+    </p>
+
+    <h2>Proteins Without a Gene</h2>
+
+    <p>
+      A <strong>mass spectrometer</strong> takes many copies of a molecule, breaks each copy into
+      fragments, and weighs the fragments. Masses are in <strong>daltons</strong> (Da) and are
+      rounded to whole numbers here, as in Chapter 4, so that a peptide is a list of integers. That
+      chapter's table of amino acid masses carries over unchanged, and so does its central fact:
+      the twenty amino acids have only eighteen distinct integer masses, because leucine and
+      isoleucine both weigh 113 and lysine and glutamine both weigh 128. No measurement of mass ever
+      separates either pair, so every algorithm below works over eighteen masses and prints one
+      letter for each.
+    </p>
+
+    <pre><code class="language-python">MASS = {'G': 57, 'A': 71, 'S': 87, 'P': 97, 'V': 99, 'T': 101, 'C': 103,
+        'I': 113, 'L': 113, 'N': 114, 'D': 115, 'K': 128, 'Q': 128,
+        'E': 129, 'M': 131, 'H': 137, 'F': 147, 'R': 156, 'Y': 163, 'W': 186}
+
+
+def distinct_masses(mass=MASS):
+    seen, distinct = set(), {}
+    for amino, weight in sorted(mass.items()):
+        if weight not in seen:
+            seen.add(weight)
+            distinct[amino] = weight
+    return distinct
+
+
+def prefix_masses(peptide, mass=MASS):
+    prefix = [0]
+    for amino in peptide:
+        prefix.append(prefix[-1] + mass[amino])
+    return prefix</code></pre>
+
+    <p>
+      The amount of protein that survives in a fossil is small, and what is recovered is not a chain
+      but a handful of short pieces of one. The two archived records of the <em>T. rex</em> work,
+      which the last section of this chapter fetches and uses, are 570 and 18 residues long, and in
+      the longer one every position that was not sequenced is written X. Five stretches carry
+      letters, and they total 89 residues. Modern chicken type I collagen is 1453 and 1363 residues
+      in its two chains, so the fossil evidence covers 89 positions out of 2816, or 3.2 per cent of
+      the molecule. Every algorithm in this chapter has to work from that little.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="664" height="221" viewBox="48 21 664 221">
+<text class="fig-text fig-note" x="60" y="44" text-anchor="start">chicken collagen alpha-1, 1453 residues</text>
+<rect class="fig-cell" x="60" y="60" width="640" height="26"/>
+<line class="fig-free" x1="230.02" y1="54" x2="230.02" y2="92"/>
+<rect class="fig-shape" x="230.02" y="60" width="14.54" height="26"/>
+<rect class="fig-shape" x="356.88" y="60" width="5.29" height="26"/>
+<rect class="fig-shape" x="436.16" y="60" width="7.49" height="26"/>
+<rect class="fig-shape" x="477.12" y="60" width="3.96" height="26"/>
+<text class="fig-text fig-note" x="60" y="134" text-anchor="start">chicken collagen alpha-2, 1363 residues</text>
+<rect class="fig-cell" x="60" y="150" width="600.36" height="26"/>
+<line class="fig-free" x1="319.88" y1="144" x2="319.88" y2="182"/>
+<rect class="fig-shape" x="319.88" y="150" width="7.93" height="26"/>
+<rect class="fig-shape" x="60" y="217" width="24" height="12"/>
+<text class="fig-text fig-note" x="92" y="227" text-anchor="start">sequenced from the fossil</text>
+<line class="fig-free" x1="270" y1="216" x2="270" y2="230"/>
+<text class="fig-text fig-note" x="280" y="227" text-anchor="start">start of the triple helix</text>
+</svg>
+<figcaption>The two chains of chicken type I collagen drawn to scale, with the five stretches that the 2007 study reported from the <em>Tyrannosaurus rex</em> femur marked in their aligned positions. Together they cover 89 residues out of 2816, or 3.2 per cent of the molecule, and four of the five lie in the alpha-1 chain. The dashed line is the first residue of the triple-helical region, where the numbering of the fossil record starts; everything to its left is the propeptide, which is cut away when the molecule matures and is absent from the fossil.</figcaption>
+</figure>
+
+    <p>
+      The problem this chapter solves has two halves. Given the masses coming off the instrument,
+      reconstruct the peptide that produced them; and given a peptide so reconstructed, decide
+      whether it means anything. The second half turns out to need as much machinery as the first,
+      because a database of proteins is large enough that some peptide in it fits any spectrum
+      reasonably well by chance.
+    </p>
+
+    <h2>The Ideal Spectrum</h2>
+
+    <p>
+      A peptide of $n$ amino acids has $n - 1$ internal bonds. Breaking it at one of them produces
+      two pieces: a <strong>prefix</strong> carrying the first few amino acids and a
+      <strong>suffix</strong> carrying the rest. A spectrometer works on many copies at once, so
+      every bond is broken in some copy, and the instrument sees the masses of all $n - 1$ prefixes
+      and all $n - 1$ suffixes, plus the mass of the whole peptide. The masses of the prefixes are
+      the running sums of the amino acid masses, which is what <code>prefix_masses</code> computes,
+      and the mass of the suffix cut at the same bond is the total minus the mass of that prefix.
+    </p>
+
+    <p>
+      The <strong>ideal spectrum</strong> of a peptide is the sorted collection of the masses of all
+      its prefixes and all its suffixes. It differs from the cyclospectrum of Chapter 4 in two ways:
+      the peptide is linear rather than a ring, so a fragment is a prefix or a suffix rather than
+      any contiguous stretch; and both ends of the molecule contribute, so each cut is seen twice.
+      This is the spectrum an instrument would return if it detected every fragment and nothing
+      else.
+    </p>
+
+    <pre><code class="language-python">def ideal_spectrum(peptide, mass=MASS):
+    prefix = prefix_masses(peptide, mass)
+    total = prefix[-1]
+    return sorted({p for p in prefix[1:]} | {total - p for p in prefix[:-1]})</code></pre>
+
+    <figure class="figure-block">
+<svg class="figure" width="716.08" height="344" viewBox="-2.92 9 716.08 344">
+<text class="fig-text fig-note" x="270" y="32" text-anchor="start">the peptide</text>
+<rect class="fig-cell" x="270" y="46" width="44" height="26"/>
+<text class="fig-text fig-tick" x="292" y="64" text-anchor="middle">G</text>
+<text class="fig-text fig-note" x="292" y="86" text-anchor="middle">57</text>
+<rect class="fig-cell" x="314" y="46" width="44" height="26"/>
+<text class="fig-text fig-tick" x="336" y="64" text-anchor="middle">P</text>
+<text class="fig-text fig-note" x="336" y="86" text-anchor="middle">97</text>
+<rect class="fig-cell" x="358" y="46" width="44" height="26"/>
+<text class="fig-text fig-tick" x="380" y="64" text-anchor="middle">F</text>
+<text class="fig-text fig-note" x="380" y="86" text-anchor="middle">147</text>
+<rect class="fig-cell" x="402" y="46" width="44" height="26"/>
+<text class="fig-text fig-tick" x="424" y="64" text-anchor="middle">N</text>
+<text class="fig-text fig-note" x="424" y="86" text-anchor="middle">114</text>
+<rect class="fig-cell" x="446" y="46" width="44" height="26"/>
+<text class="fig-text fig-tick" x="468" y="64" text-anchor="middle">A</text>
+<text class="fig-text fig-note" x="468" y="86" text-anchor="middle">71</text>
+<line class="fig-axis" x1="70" y1="250" x2="690" y2="250"/>
+<text class="fig-text fig-note" x="56" y="254" text-anchor="end">0</text>
+<line class="fig-curve" x1="142.72" y1="250" x2="142.72" y2="224"/>
+<text class="fig-text fig-tick" x="142.72" y="218" text-anchor="middle">57</text>
+<line class="fig-curve" x1="266.46" y1="250" x2="266.46" y2="224"/>
+<text class="fig-text fig-tick" x="266.46" y="218" text-anchor="middle">154</text>
+<line class="fig-curve" x1="453.99" y1="250" x2="453.99" y2="224"/>
+<text class="fig-text fig-tick" x="453.99" y="218" text-anchor="middle">301</text>
+<line class="fig-curve" x1="599.42" y1="250" x2="599.42" y2="224"/>
+<text class="fig-text fig-tick" x="599.42" y="218" text-anchor="middle">415</text>
+<line class="fig-curve" x1="690" y1="250" x2="690" y2="224"/>
+<text class="fig-text fig-tick" x="690" y="218" text-anchor="middle">486</text>
+<line class="fig-free-solid" x1="690" y1="250" x2="690" y2="276"/>
+<text class="fig-text fig-tick" x="690" y="294" text-anchor="middle">486</text>
+<line class="fig-free-solid" x1="617.28" y1="250" x2="617.28" y2="276"/>
+<text class="fig-text fig-tick" x="617.28" y="294" text-anchor="middle">429</text>
+<line class="fig-free-solid" x1="493.54" y1="250" x2="493.54" y2="276"/>
+<text class="fig-text fig-tick" x="493.54" y="294" text-anchor="middle">332</text>
+<line class="fig-free-solid" x1="306.01" y1="250" x2="306.01" y2="276"/>
+<text class="fig-text fig-tick" x="306.01" y="294" text-anchor="middle">185</text>
+<line class="fig-free-solid" x1="160.58" y1="250" x2="160.58" y2="276"/>
+<text class="fig-text fig-tick" x="160.58" y="294" text-anchor="middle">71</text>
+<path class="fig-free" d="M 142.72 198 Q 380 102 617.28 198"/>
+<path class="fig-free" d="M 266.46 198 Q 380 146 493.54 198"/>
+<path class="fig-free" d="M 306.01 198 Q 380 168 453.99 198"/>
+<path class="fig-free" d="M 160.58 198 Q 380 124 599.42 198"/>
+<text class="fig-text fig-note" x="50" y="238" text-anchor="end">prefix</text>
+<text class="fig-text fig-note" x="50" y="270" text-anchor="end">suffix</text>
+<line class="fig-curve" x1="70" y1="334" x2="96" y2="334"/>
+<text class="fig-text fig-note" x="104" y="338" text-anchor="start">prefix mass</text>
+<line class="fig-free-solid" x1="220" y1="334" x2="246" y2="334"/>
+<text class="fig-text fig-note" x="254" y="338" text-anchor="start">suffix mass</text>
+<path class="fig-free" d="M 370 334 Q 383 322 396 334"/>
+<text class="fig-text fig-note" x="404" y="338" text-anchor="start">twins, summing to 486</text>
+</svg>
+<figcaption>The ideal spectrum of GPFNA. Each of the four internal bonds contributes a prefix mass, drawn above the axis, and a suffix mass, drawn below it, and the whole molecule at 486 is both. The arcs join the four twin pairs, each summing to 486: a prefix of mass $m$ and a suffix of mass $486 - m$ are the two halves of the same cut and say the same thing about where that cut is. Nine distinct masses appear rather than ten, because the prefix and the suffix of the last cut coincide, so a peptide of $n$ amino acids has an ideal spectrum of $2n - 1$ masses.</figcaption>
+</figure>
+
+    <p>
+      Two masses of an ideal spectrum are <strong>twins</strong> when they sum to the mass of the
+      whole peptide. The prefix of mass $m$ and the suffix of mass $\text{total} - m$ come from the
+      same cut, so they carry exactly the same information about where that cut is, and every mass
+      in the spectrum has a twin. This is why an ideal spectrum of a peptide of $n$ amino acids
+      holds $2n - 1$ masses rather than $2n$: the prefix and the suffix of the last cut are both the
+      whole molecule, and coincide. Twins are used twice below, once to fold a real spectrum onto
+      half its coordinates and once to explain why a peptide and its reversal can never be told
+      apart.
+    </p>
+
+    <h2>The Spectrum Graph</h2>
+
+    <p>
+      Reconstruction starts from the difference between two masses. If the spectrum holds $s_i$ and
+      $s_j$ with $s_j - s_i$ equal to the mass of some amino acid $a$, then a peptide explaining the
+      spectrum may have $a$ sitting between the cut at $s_i$ and the cut at $s_j$. Making a node for
+      every mass, adding a node 0 for the empty prefix, and drawing an edge labelled $a$ from $s_i$
+      to $s_j$ whenever the difference is the mass of $a$ gives the <strong>spectrum graph</strong>.
+      It is a directed acyclic graph, because every edge increases the mass.
+    </p>
+
+    <p>
+      <strong>Construct the Graph of a Spectrum Problem.</strong> Given a spectrum, build its
+      spectrum graph.
+    </p>
+
+    <pre><code class="language-python">def spectrum_graph(spectrum, mass=MASS):
+    alphabet = distinct_masses(mass)
+    nodes = [0] + list(spectrum)
+    graph = {node: [] for node in nodes}
+    for i, source in enumerate(nodes):
+        for target in nodes[i + 1:]:
+            for amino, weight in sorted(alphabet.items()):
+                if target - source == weight:
+                    graph[source].append((target, amino))
+    return graph</code></pre>
+
+    <p>
+      The construction costs $O(m^2)$ for a spectrum of $m$ masses, the inner loop over eighteen
+      masses being a constant. On the spectrum
+      $57, 71, 154, 185, 301, 332, 415, 429, 486$ it produces ten nodes and twelve edges.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="688" height="254" viewBox="31 53 688 254">
+<path class="fig-curve" d="M 77 160 Q 95 64 113 160"/>
+<text class="fig-text fig-tick" x="95" y="101" text-anchor="middle">G</text>
+<path class="fig-free-solid" d="M 77 160 Q 130 304 183 160"/>
+<text class="fig-text fig-tick" x="130" y="251" text-anchor="middle">A</text>
+<path class="fig-curve" d="M 147 160 Q 200 16 253 160"/>
+<text class="fig-text fig-tick" x="200" y="77" text-anchor="middle">P</text>
+<path class="fig-free-solid" d="M 147 160 Q 235 352 323 160"/>
+<text class="fig-text fig-tick" x="235" y="275" text-anchor="middle">K</text>
+<path class="fig-free-solid" d="M 217 160 Q 270 304 323 160"/>
+<text class="fig-text fig-tick" x="270" y="251" text-anchor="middle">N</text>
+<path class="fig-curve" d="M 287 160 Q 340 16 393 160"/>
+<text class="fig-text fig-tick" x="340" y="77" text-anchor="middle">F</text>
+<path class="fig-free-solid" d="M 357 160 Q 410 304 463 160"/>
+<text class="fig-text fig-tick" x="410" y="251" text-anchor="middle">F</text>
+<path class="fig-curve" d="M 427 160 Q 480 16 533 160"/>
+<text class="fig-text fig-tick" x="480" y="77" text-anchor="middle">N</text>
+<path class="fig-free-solid" d="M 427 160 Q 515 352 603 160"/>
+<text class="fig-text fig-tick" x="515" y="275" text-anchor="middle">K</text>
+<path class="fig-free-solid" d="M 497 160 Q 550 304 603 160"/>
+<text class="fig-text fig-tick" x="550" y="251" text-anchor="middle">P</text>
+<path class="fig-curve" d="M 567 160 Q 620 16 673 160"/>
+<text class="fig-text fig-tick" x="620" y="77" text-anchor="middle">A</text>
+<path class="fig-free-solid" d="M 637 160 Q 655 256 673 160"/>
+<text class="fig-text fig-tick" x="655" y="227" text-anchor="middle">G</text>
+<circle class="fig-hole" cx="60" cy="160" r="17"/>
+<text class="fig-text fig-note" x="60" y="164" text-anchor="middle">0</text>
+<circle class="fig-hole" cx="130" cy="160" r="17"/>
+<text class="fig-text fig-note" x="130" y="164" text-anchor="middle">57</text>
+<circle class="fig-hole" cx="200" cy="160" r="17"/>
+<text class="fig-text fig-note" x="200" y="164" text-anchor="middle">71</text>
+<circle class="fig-hole" cx="270" cy="160" r="17"/>
+<text class="fig-text fig-note" x="270" y="164" text-anchor="middle">154</text>
+<circle class="fig-hole" cx="340" cy="160" r="17"/>
+<text class="fig-text fig-note" x="340" y="164" text-anchor="middle">185</text>
+<circle class="fig-hole" cx="410" cy="160" r="17"/>
+<text class="fig-text fig-note" x="410" y="164" text-anchor="middle">301</text>
+<circle class="fig-hole" cx="480" cy="160" r="17"/>
+<text class="fig-text fig-note" x="480" y="164" text-anchor="middle">332</text>
+<circle class="fig-hole" cx="550" cy="160" r="17"/>
+<text class="fig-text fig-note" x="550" y="164" text-anchor="middle">415</text>
+<circle class="fig-hole" cx="620" cy="160" r="17"/>
+<text class="fig-text fig-note" x="620" y="164" text-anchor="middle">429</text>
+<circle class="fig-hole" cx="690" cy="160" r="17"/>
+<text class="fig-text fig-note" x="690" y="164" text-anchor="middle">486</text>
+<line class="fig-curve" x1="60" y1="288" x2="86" y2="288"/>
+<text class="fig-text fig-note" x="94" y="292" text-anchor="start">edges of one explaining path</text>
+<line class="fig-free-solid" x1="310" y1="288" x2="336" y2="288"/>
+<text class="fig-text fig-note" x="344" y="292" text-anchor="start">every other edge</text>
+</svg>
+<figcaption>The spectrum graph of $57, 71, 154, 185, 301, 332, 415, 429, 486$, with the nodes at equal spacing rather than at their masses so that the labels stay apart. There is an edge whenever the difference between two masses is the mass of an amino acid, which happens twelve times here, and the label is the amino acid responsible. The five heavier edges are the path spelling GPFNA, whose ideal spectrum is exactly the input. Every edge increases the mass, so the graph is acyclic and a peptide explaining the spectrum can only be a path from 0 to 486.</figcaption>
+</figure>
+
+    <h2>Decoding an Ideal Spectrum</h2>
+
+    <p>
+      A path from node 0 to the node holding the largest mass spells a peptide: read the edge labels
+      in order. Every peptide that explains the spectrum appears as such a path, since its prefix
+      masses are all in the spectrum and consecutive prefixes differ by one amino acid. The converse
+      fails. A path uses only the masses it happens to step on, and says nothing about the masses it
+      skips, so the peptide it spells may have an ideal spectrum that is missing some of the given
+      masses or contains masses that were not given.
+    </p>
+
+    <p>
+      <strong>Decoding an Ideal Spectrum Problem.</strong> Given a spectrum, find a peptide whose
+      ideal spectrum equals it.
+    </p>
+
+    <p>
+      The fix is to check. Walk the graph from the source, and at the sink compare the ideal
+      spectrum of the peptide just spelled against the input, accepting only on equality. The search
+      is a depth-first walk with backtracking, and each check costs $O(n \log n)$ for a peptide of
+      $n$ amino acids.
+    </p>
+
+    <pre><code class="language-python">def decode_ideal_spectrum(spectrum, mass=MASS):
+    graph = spectrum_graph(spectrum, mass)
+    sink = spectrum[-1]
+
+    def extend(node, peptide):
+        if node == sink:
+            if ideal_spectrum(peptide, mass) == list(spectrum):
+                return peptide
+            return None
+        for target, amino in graph[node]:
+            found = extend(target, peptide + amino)
+            if found is not None:
+                return found
+        return None
+
+    return extend(0, '')</code></pre>
+
+    <p>
+      The sample spectrum has four paths from source to sink, and only two of them survive the
+      check. GPFKG and GKFPG both step from 57 to 185 or from 301 to 429 with a lysine, which skips
+      the masses 71 and 415, and their ideal spectra are missing exactly those two. GPFNA and ANFPG
+      both pass.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="694.2" height="235" viewBox="48 -7 694.2 235">
+<text class="fig-text fig-tick" x="60" y="50" text-anchor="start">GPFNA</text>
+<rect class="fig-cell-alt" x="144" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="169" y="48" text-anchor="middle">57</text>
+<rect class="fig-cell-alt" x="200" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="225" y="48" text-anchor="middle">71</text>
+<rect class="fig-cell-alt" x="256" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="281" y="48" text-anchor="middle">154</text>
+<rect class="fig-cell-alt" x="312" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="337" y="48" text-anchor="middle">185</text>
+<rect class="fig-cell-alt" x="368" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="393" y="48" text-anchor="middle">301</text>
+<rect class="fig-cell-alt" x="424" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="449" y="48" text-anchor="middle">332</text>
+<rect class="fig-cell-alt" x="480" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="505" y="48" text-anchor="middle">415</text>
+<rect class="fig-cell-alt" x="536" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="561" y="48" text-anchor="middle">429</text>
+<rect class="fig-cell-alt" x="592" y="32" width="50" height="22"/>
+<text class="fig-text fig-note" x="617" y="48" text-anchor="middle">486</text>
+<text class="fig-text fig-note" x="662" y="48" text-anchor="start">explains</text>
+<text class="fig-text fig-tick" x="60" y="104" text-anchor="start">ANFPG</text>
+<rect class="fig-cell-alt" x="144" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="169" y="102" text-anchor="middle">57</text>
+<rect class="fig-cell-alt" x="200" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="225" y="102" text-anchor="middle">71</text>
+<rect class="fig-cell-alt" x="256" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="281" y="102" text-anchor="middle">154</text>
+<rect class="fig-cell-alt" x="312" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="337" y="102" text-anchor="middle">185</text>
+<rect class="fig-cell-alt" x="368" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="393" y="102" text-anchor="middle">301</text>
+<rect class="fig-cell-alt" x="424" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="449" y="102" text-anchor="middle">332</text>
+<rect class="fig-cell-alt" x="480" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="505" y="102" text-anchor="middle">415</text>
+<rect class="fig-cell-alt" x="536" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="561" y="102" text-anchor="middle">429</text>
+<rect class="fig-cell-alt" x="592" y="86" width="50" height="22"/>
+<text class="fig-text fig-note" x="617" y="102" text-anchor="middle">486</text>
+<text class="fig-text fig-note" x="662" y="102" text-anchor="start">explains</text>
+<text class="fig-text fig-tick" x="60" y="158" text-anchor="start">GPFKG</text>
+<rect class="fig-cell-alt" x="144" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="169" y="156" text-anchor="middle">57</text>
+<rect class="fig-cell" x="200" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="225" y="156" text-anchor="middle">.</text>
+<rect class="fig-cell-alt" x="256" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="281" y="156" text-anchor="middle">154</text>
+<rect class="fig-cell-alt" x="312" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="337" y="156" text-anchor="middle">185</text>
+<rect class="fig-cell-alt" x="368" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="393" y="156" text-anchor="middle">301</text>
+<rect class="fig-cell-alt" x="424" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="449" y="156" text-anchor="middle">332</text>
+<rect class="fig-cell" x="480" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="505" y="156" text-anchor="middle">.</text>
+<rect class="fig-cell-alt" x="536" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="561" y="156" text-anchor="middle">429</text>
+<rect class="fig-cell-alt" x="592" y="140" width="50" height="22"/>
+<text class="fig-text fig-note" x="617" y="156" text-anchor="middle">486</text>
+<text class="fig-text fig-note" x="662" y="156" text-anchor="start">misses two</text>
+<text class="fig-text fig-tick" x="60" y="212" text-anchor="start">GKFPG</text>
+<rect class="fig-cell-alt" x="144" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="169" y="210" text-anchor="middle">57</text>
+<rect class="fig-cell" x="200" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="225" y="210" text-anchor="middle">.</text>
+<rect class="fig-cell-alt" x="256" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="281" y="210" text-anchor="middle">154</text>
+<rect class="fig-cell-alt" x="312" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="337" y="210" text-anchor="middle">185</text>
+<rect class="fig-cell-alt" x="368" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="393" y="210" text-anchor="middle">301</text>
+<rect class="fig-cell-alt" x="424" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="449" y="210" text-anchor="middle">332</text>
+<rect class="fig-cell" x="480" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="505" y="210" text-anchor="middle">.</text>
+<rect class="fig-cell-alt" x="536" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="561" y="210" text-anchor="middle">429</text>
+<rect class="fig-cell-alt" x="592" y="194" width="50" height="22"/>
+<text class="fig-text fig-note" x="617" y="210" text-anchor="middle">486</text>
+<text class="fig-text fig-note" x="662" y="210" text-anchor="start">misses two</text>
+<text class="fig-text fig-note" x="144" y="16" text-anchor="start">the nine masses of the spectrum</text>
+</svg>
+<figcaption>The four paths from source to sink in that graph, and the masses of the ideal spectrum each of them accounts for. GPFNA and ANFPG account for all nine, so both explain the spectrum; they are reverses of each other, which is why they cannot be told apart. GPFKG and GKFPG each step over two masses in one move, using a lysine of mass 128 where the true peptide has two residues, and their ideal spectra are missing 71 and 415. Reading a path off the graph is therefore not enough on its own, and the ideal spectrum of the peptide it spells has to be recomputed and compared with the input.</figcaption>
+</figure>
+
+    <p>
+      <strong>Theorem.</strong> A peptide and its reversal have the same ideal spectrum, so no
+      spectrum ever determines a peptide uniquely.
+    </p>
+
+    <p>
+      The proof is one line about twins. Reversing a peptide turns each of its prefixes into a
+      suffix of the same mass and each of its suffixes into a prefix of the same mass, so the two
+      sets that make up the ideal spectrum are exchanged and their union is unchanged. GPFNA and
+      ANFPG in the figure are one such pair. Nothing later in the chapter removes this ambiguity,
+      because nothing later measures anything but mass; what removes it in practice is knowing which
+      end of the peptide the instrument charged, and that is a property of the chemistry rather than
+      of the arithmetic.
+    </p>
+
+    <p>
+      Reconstruction from an ideal spectrum is a solved problem, and it is also the wrong problem.
+      Every step above assumed that the input holds all $2n - 1$ masses and nothing else.
+    </p>
+
+    <h2>What a Real Spectrum Looks Like</h2>
+
+    <p>
+      Nothing measures a whole protein this way. A protein of a thousand residues has a mass in the
+      hundred thousands, far above the range in which an instrument can resolve single daltons, and
+      it does not fragment cleanly. The sample is therefore digested first with a
+      <strong>protease</strong>, an enzyme that cuts a protein chain at particular residues.
+      <strong>Trypsin</strong> is the usual one: it cuts after every lysine and every arginine,
+      which over the chicken proteome produces pieces of median length 6 and mean length 8.5, short
+      enough that a spectrometer resolves single daltons across the whole fragment. Each peptide is then broken again, one bond at a time, and the pieces are weighed.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="620" height="314" viewBox="48 -9 620 314">
+<text class="fig-text fig-note" x="60" y="14" text-anchor="start">one protein</text>
+<rect class="fig-cell" x="60" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="69" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="78" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="87" y="56" text-anchor="middle">A</text>
+<rect class="fig-cell" x="96" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="105" y="56" text-anchor="middle">T</text>
+<rect class="fig-cell-alt" x="114" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="123" y="56" text-anchor="middle">R</text>
+<rect class="fig-cell" x="132" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="141" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="150" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="159" y="56" text-anchor="middle">V</text>
+<rect class="fig-cell" x="168" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="177" y="56" text-anchor="middle">Q</text>
+<rect class="fig-cell-alt" x="186" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="195" y="56" text-anchor="middle">K</text>
+<rect class="fig-cell" x="204" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="213" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="222" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="231" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell" x="240" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="249" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell" x="258" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="267" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="276" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="285" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell" x="294" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="303" y="56" text-anchor="middle">Q</text>
+<rect class="fig-cell" x="312" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="321" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="330" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="339" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell-alt" x="348" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="357" y="56" text-anchor="middle">R</text>
+<rect class="fig-cell" x="366" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="375" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="384" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="393" y="56" text-anchor="middle">S</text>
+<rect class="fig-cell" x="402" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="411" y="56" text-anchor="middle">A</text>
+<rect class="fig-cell" x="420" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="429" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell-alt" x="438" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="447" y="56" text-anchor="middle">K</text>
+<rect class="fig-cell" x="456" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="465" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell" x="474" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="483" y="56" text-anchor="middle">P</text>
+<rect class="fig-cell" x="492" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="501" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="510" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="519" y="56" text-anchor="middle">A</text>
+<rect class="fig-cell" x="528" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="537" y="56" text-anchor="middle">T</text>
+<rect class="fig-cell" x="546" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="555" y="56" text-anchor="middle">G</text>
+<rect class="fig-cell" x="564" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="573" y="56" text-anchor="middle">F</text>
+<rect class="fig-cell-alt" x="582" y="40" width="18" height="22"/>
+<text class="fig-text fig-note" x="591" y="56" text-anchor="middle">R</text>
+<line class="fig-free" x1="132" y1="32" x2="132" y2="70"/>
+<line class="fig-free" x1="204" y1="32" x2="204" y2="70"/>
+<line class="fig-free" x1="366" y1="32" x2="366" y2="70"/>
+<line class="fig-free" x1="456" y1="32" x2="456" y2="70"/>
+<line class="fig-free" x1="600" y1="32" x2="600" y2="70"/>
+<path class="fig-curve" d="M 330 80 L 330 106"/>
+<path class="fig-curve" d="M 325 100 L 330 108 L 335 100"/>
+<text class="fig-text fig-note" x="60" y="100" text-anchor="start">peptides after trypsin</text>
+<rect class="fig-cell" x="60" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="69" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="78" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="87" y="142" text-anchor="middle">A</text>
+<rect class="fig-cell" x="96" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="105" y="142" text-anchor="middle">T</text>
+<rect class="fig-cell" x="114" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="123" y="142" text-anchor="middle">R</text>
+<rect class="fig-cell" x="146" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="155" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="164" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="173" y="142" text-anchor="middle">V</text>
+<rect class="fig-cell" x="182" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="191" y="142" text-anchor="middle">Q</text>
+<rect class="fig-cell" x="200" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="209" y="142" text-anchor="middle">K</text>
+<rect class="fig-cell" x="232" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="241" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="250" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="259" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="268" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="277" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="286" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="295" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="304" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="313" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="322" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="331" y="142" text-anchor="middle">Q</text>
+<rect class="fig-cell" x="340" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="349" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="358" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="367" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="376" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="385" y="142" text-anchor="middle">R</text>
+<rect class="fig-cell" x="408" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="417" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="426" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="435" y="142" text-anchor="middle">S</text>
+<rect class="fig-cell" x="444" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="453" y="142" text-anchor="middle">A</text>
+<rect class="fig-cell" x="462" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="471" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="480" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="489" y="142" text-anchor="middle">K</text>
+<rect class="fig-cell" x="512" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="521" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="530" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="539" y="142" text-anchor="middle">P</text>
+<rect class="fig-cell" x="548" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="557" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="566" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="575" y="142" text-anchor="middle">A</text>
+<rect class="fig-cell" x="584" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="593" y="142" text-anchor="middle">T</text>
+<rect class="fig-cell" x="602" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="611" y="142" text-anchor="middle">G</text>
+<rect class="fig-cell" x="620" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="629" y="142" text-anchor="middle">F</text>
+<rect class="fig-cell" x="638" y="126" width="18" height="22"/>
+<text class="fig-text fig-note" x="647" y="142" text-anchor="middle">R</text>
+<path class="fig-curve" d="M 160 158 L 160 188"/>
+<path class="fig-curve" d="M 155 182 L 160 190 L 165 182"/>
+<text class="fig-text fig-note" x="80" y="208" text-anchor="start">one peptide, cut at every bond</text>
+<rect class="fig-cell" x="80" y="222" width="40" height="28"/>
+<text class="fig-text fig-tick" x="100" y="241" text-anchor="middle">G</text>
+<rect class="fig-cell" x="120" y="222" width="40" height="28"/>
+<text class="fig-text fig-tick" x="140" y="241" text-anchor="middle">V</text>
+<rect class="fig-cell" x="160" y="222" width="40" height="28"/>
+<text class="fig-text fig-tick" x="180" y="241" text-anchor="middle">Q</text>
+<rect class="fig-cell" x="200" y="222" width="40" height="28"/>
+<text class="fig-text fig-tick" x="220" y="241" text-anchor="middle">K</text>
+<line class="fig-free-solid" x1="120" y1="214" x2="120" y2="258"/>
+<line class="fig-free-solid" x1="160" y1="214" x2="160" y2="258"/>
+<line class="fig-free-solid" x1="200" y1="214" x2="200" y2="258"/>
+<text class="fig-text fig-note" x="296" y="208" text-anchor="start">the two pieces of each cut</text>
+<text class="fig-text fig-note" x="296" y="227" text-anchor="start">cut 1</text>
+<text class="fig-text fig-tick" x="362" y="227" text-anchor="start">57</text>
+<text class="fig-text fig-note" x="408" y="227" text-anchor="start">and</text>
+<text class="fig-text fig-tick" x="444" y="227" text-anchor="start">355</text>
+<text class="fig-text fig-note" x="296" y="248" text-anchor="start">cut 2</text>
+<text class="fig-text fig-tick" x="362" y="248" text-anchor="start">156</text>
+<text class="fig-text fig-note" x="408" y="248" text-anchor="start">and</text>
+<text class="fig-text fig-tick" x="444" y="248" text-anchor="start">256</text>
+<text class="fig-text fig-note" x="296" y="269" text-anchor="start">cut 3</text>
+<text class="fig-text fig-tick" x="362" y="269" text-anchor="start">284</text>
+<text class="fig-text fig-note" x="408" y="269" text-anchor="start">and</text>
+<text class="fig-text fig-tick" x="444" y="269" text-anchor="start">128</text>
+<text class="fig-text fig-note" x="296" y="290" text-anchor="start">whole</text>
+<text class="fig-text fig-tick" x="362" y="290" text-anchor="start">412</text>
+</svg>
+<figcaption>What the instrument is given and what it returns. Trypsin cuts the protein after every lysine and every arginine, shaded, producing peptides short enough to weigh precisely. One of those peptides is then broken again, and because the sample holds many copies, every bond is broken in some copy. Each break yields two pieces whose masses sum to 412, so the four cuts of GVQK give the eight masses on the right together with the mass of the intact peptide.</figcaption>
+</figure>
+
+    <p>
+      The output is a list of masses with an <strong>intensity</strong> attached to each, the
+      intensity being how many fragments of that mass were counted. It differs from an ideal
+      spectrum in three ways. Some fragments are never detected, so masses are missing. Some peaks
+      come from contaminants, from fragments that broke in more than one place, or from the
+      instrument itself, so masses are present that belong to no prefix and no suffix. And the
+      measured mass is not exactly the fragment mass, though rounding to the nearest dalton hides
+      that here.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="694.8" height="228" viewBox="39.18 7 694.8 228">
+<text class="fig-text fig-note" x="70" y="30" text-anchor="start">what the instrument reports</text>
+<line class="fig-axis" x1="70" y1="160" x2="690" y2="160"/>
+<line class="fig-curve" x1="142.72" y1="160" x2="142.72" y2="115"/>
+<text class="fig-text fig-note" x="142.72" y="106" text-anchor="middle">57</text>
+<line class="fig-curve" x1="160.58" y1="160" x2="160.58" y2="100"/>
+<text class="fig-text fig-note" x="160.58" y="91" text-anchor="middle">71</text>
+<line class="fig-curve" x1="266.46" y1="160" x2="266.46" y2="124"/>
+<text class="fig-text fig-note" x="266.46" y="115" text-anchor="middle">154</text>
+<line class="fig-free-solid" x1="380" y1="160" x2="380" y2="132"/>
+<text class="fig-text fig-note" x="380" y="123" text-anchor="middle">243</text>
+<line class="fig-free-solid" x1="406.79" y1="160" x2="406.79" y2="137"/>
+<text class="fig-text fig-note" x="406.79" y="128" text-anchor="middle">264</text>
+<line class="fig-curve" x1="453.99" y1="160" x2="453.99" y2="101"/>
+<text class="fig-text fig-note" x="453.99" y="92" text-anchor="middle">301</text>
+<line class="fig-curve" x1="493.54" y1="160" x2="493.54" y2="94"/>
+<text class="fig-text fig-note" x="493.54" y="85" text-anchor="middle">332</text>
+<line class="fig-free-solid" x1="554.77" y1="160" x2="554.77" y2="133"/>
+<text class="fig-text fig-note" x="554.77" y="124" text-anchor="middle">380</text>
+<line class="fig-curve" x1="617.28" y1="160" x2="617.28" y2="107"/>
+<text class="fig-text fig-note" x="617.28" y="98" text-anchor="middle">429</text>
+<line class="fig-curve" x1="690" y1="160" x2="690" y2="83"/>
+<text class="fig-text fig-note" x="690" y="74" text-anchor="middle">486</text>
+<line class="fig-guide" x1="142.72" y1="166" x2="142.72" y2="175"/>
+<line class="fig-guide" x1="160.58" y1="166" x2="160.58" y2="175"/>
+<line class="fig-guide" x1="266.46" y1="166" x2="266.46" y2="175"/>
+<circle class="fig-hole-alt" cx="306.01" cy="173" r="6"/>
+<line class="fig-guide" x1="453.99" y1="166" x2="453.99" y2="175"/>
+<line class="fig-guide" x1="493.54" y1="166" x2="493.54" y2="175"/>
+<circle class="fig-hole-alt" cx="599.42" cy="173" r="6"/>
+<line class="fig-guide" x1="617.28" y1="166" x2="617.28" y2="175"/>
+<line class="fig-guide" x1="690" y1="166" x2="690" y2="175"/>
+<text class="fig-text fig-note" x="58" y="164" text-anchor="end">0</text>
+<line class="fig-curve" x1="70" y1="216" x2="96" y2="216"/>
+<text class="fig-text fig-note" x="104" y="220" text-anchor="start">peak of a real fragment</text>
+<line class="fig-free-solid" x1="270" y1="216" x2="296" y2="216"/>
+<text class="fig-text fig-note" x="304" y="220" text-anchor="start">peak of nothing</text>
+<circle class="fig-hole-alt" cx="442" cy="216" r="6"/>
+<text class="fig-text fig-note" x="456" y="220" text-anchor="start">mass of the ideal spectrum with no peak</text>
+</svg>
+<figcaption>The same peptide GPFNA as an instrument would report it. Bar height is intensity, the number of fragments counted at that mass. Two masses of the ideal spectrum produced no peak at all and are marked with a circle on the axis, and three peaks belong to no prefix and no suffix. A single missing mass is enough to break every path through the spectrum graph that needed it, so exact reconstruction returns nothing, and a single spurious peak adds edges spelling peptides that were never in the sample.</figcaption>
+</figure>
+
+    <p>
+      One missing mass breaks every path through the spectrum graph that needed it, and the check in
+      <code>decode_ideal_spectrum</code> then rejects every candidate, so the algorithm returns
+      nothing at all. One extra mass adds edges that spell peptides that were never in the sample.
+      Exact reconstruction is the wrong goal for data of this kind, and the rest of the chapter
+      replaces it with scoring: rank every candidate peptide by how well it agrees with the
+      spectrum, and return the best.
+    </p>
+
+    <p>
+      The simplest score counts agreements. The <strong>shared peak count</strong> of a peptide and
+      a spectrum is the number of masses they have in common, and the <strong>intensity count</strong>
+      adds the intensities of those masses instead of counting them. Both are usable and neither is
+      convenient: they are defined on two sets of integers, which is an awkward object to run a
+      dynamic program over. The next two sections turn both the peptide and the spectrum into
+      vectors of fixed length, after which the score is a dot product and the search for the best
+      peptide is a longest path.
+    </p>
+
+    <h2>Peptide Vectors</h2>
+
+    <p>
+      Fix the total mass $m$. The <strong>peptide vector</strong> of a peptide of mass $m$ is the
+      vector of $m$ coordinates, indexed by the masses $1$ to $m$, holding 1 at each prefix mass and
+      0 everywhere else. A peptide of $n$ amino acids contributes exactly $n$ ones, the last of them
+      at coordinate $m$. Suffix masses are not recorded, which loses nothing: the suffix of mass
+      $m - i$ exists precisely when the prefix of mass $i$ does, so the prefix coordinates already
+      determine the whole ideal spectrum.
+    </p>
+
+    <p>
+      <strong>Converting a Peptide into a Peptide Vector Problem.</strong> Given a peptide, compute
+      its peptide vector.
+    </p>
+
+    <pre><code class="language-python">def peptide_vector(peptide, mass=MASS):
+    prefix = prefix_masses(peptide, mass)
+    vector = [0] * prefix[-1]
+    for p in prefix[1:]:
+        vector[p - 1] = 1
+    return vector</code></pre>
+
+    <figure class="figure-block">
+<svg class="figure" width="615.44" height="170" viewBox="58.56 9 615.44 170">
+<text class="fig-text fig-note" x="90" y="32" text-anchor="start">the peptide, one box per amino acid</text>
+<rect class="fig-cell" x="90" y="46" width="104" height="26"/>
+<text class="fig-text fig-tick" x="142" y="64" text-anchor="middle">X</text>
+<rect class="fig-cell" x="194" y="46" width="130" height="26"/>
+<text class="fig-text fig-tick" x="259" y="64" text-anchor="middle">Z</text>
+<rect class="fig-cell" x="324" y="46" width="130" height="26"/>
+<text class="fig-text fig-tick" x="389" y="64" text-anchor="middle">Z</text>
+<rect class="fig-cell" x="454" y="46" width="104" height="26"/>
+<text class="fig-text fig-tick" x="506" y="64" text-anchor="middle">X</text>
+<rect class="fig-cell" x="558" y="46" width="104" height="26"/>
+<text class="fig-text fig-tick" x="610" y="64" text-anchor="middle">X</text>
+<text class="fig-text fig-note" x="90" y="108" text-anchor="start">the peptide vector, one coordinate per dalton</text>
+<rect class="fig-cell" x="90" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="103" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="116" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="129" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="129" y="164" text-anchor="middle">2</text>
+<rect class="fig-cell" x="142" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="155" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="168" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="181" y="140" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="181" y="164" text-anchor="middle">4</text>
+<rect class="fig-cell" x="194" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="207" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="220" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="233" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="233" y="164" text-anchor="middle">6</text>
+<rect class="fig-cell" x="246" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="259" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="272" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="285" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="285" y="164" text-anchor="middle">8</text>
+<rect class="fig-cell-alt" x="298" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="311" y="140" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="311" y="164" text-anchor="middle">9</text>
+<rect class="fig-cell" x="324" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="337" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="337" y="164" text-anchor="middle">10</text>
+<rect class="fig-cell" x="350" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="363" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="376" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="389" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="389" y="164" text-anchor="middle">12</text>
+<rect class="fig-cell" x="402" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="415" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="428" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="441" y="140" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="441" y="164" text-anchor="middle">14</text>
+<rect class="fig-cell" x="454" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="467" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="480" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="493" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="493" y="164" text-anchor="middle">16</text>
+<rect class="fig-cell" x="506" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="519" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="532" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="545" y="140" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="545" y="164" text-anchor="middle">18</text>
+<rect class="fig-cell" x="558" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="571" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell" x="584" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="597" y="140" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="597" y="164" text-anchor="middle">20</text>
+<rect class="fig-cell" x="610" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="623" y="140" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="636" y="122" width="26" height="26"/>
+<text class="fig-text fig-note" x="649" y="140" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="649" y="164" text-anchor="middle">22</text>
+<line class="fig-guide" x1="181" y1="76" x2="181" y2="118"/>
+<line class="fig-guide" x1="311" y1="76" x2="311" y2="118"/>
+<line class="fig-guide" x1="441" y1="76" x2="441" y2="118"/>
+<line class="fig-guide" x1="545" y1="76" x2="545" y2="118"/>
+<line class="fig-guide" x1="649" y1="76" x2="649" y2="118"/>
+<text class="fig-text fig-tick" x="78" y="140" text-anchor="end">P</text>
+</svg>
+<figcaption>The peptide XZZXX over the toy alphabet in which X weighs 4 and Z weighs 5, and its peptide vector. Each amino acid occupies as many coordinates as it weighs, so the boundaries between them fall at the prefix masses 4, 9, 14, 18 and 22, and the vector holds a 1 at each of those and a 0 elsewhere. The number of ones is the number of amino acids, and the last one is always at the final coordinate, since the last prefix is the whole peptide.</figcaption>
+</figure>
+
+    <p>
+      The map is invertible. Reading the positions of the ones in order gives the prefix masses, and
+      the differences between consecutive prefix masses are the amino acid masses, so the peptide is
+      recovered one letter at a time. A binary vector comes from a peptide exactly when every one of
+      those differences is the mass of some amino acid, and when it is not, no peptide has that
+      vector.
+    </p>
+
+    <p>
+      <strong>Converting a Peptide Vector into a Peptide Problem.</strong> Given a binary vector,
+      find a peptide whose peptide vector it is.
+    </p>
+
+    <pre><code class="language-python">def peptide_from_vector(vector, mass=MASS):
+    inverse = {weight: amino for amino, weight in distinct_masses(mass).items()}
+    prefix = [0] + [i + 1 for i, bit in enumerate(vector) if bit == 1]
+    peptide = ''
+    for previous, current in zip(prefix, prefix[1:]):
+        if current - previous not in inverse:
+            return None
+        peptide += inverse[current - previous]
+    return peptide</code></pre>
+
+    <p>
+      Both directions run in $O(m)$. The examples that follow use two imaginary amino acids, X of
+      mass 4 and Z of mass 5, because a real peptide of five residues has a mass near 600 and a
+      vector of 600 coordinates is not a thing to draw. Over that alphabet XZZXX has prefix masses
+      4, 9, 14, 18 and 22, and its peptide vector is the 22 coordinates with ones in those five
+      places.
+    </p>
+
+    <h2>Spectral Vectors</h2>
+
+    <p>
+      The spectrum is turned into a vector of the same length. The <strong>spectral vector</strong>
+      of a spectrum whose parent peptide has mass $m$ is the vector $s_1, \dots, s_m$ in which
+      $s_i$ is an <strong>amplitude</strong> measuring the evidence that some prefix of the peptide
+      weighs $i$. A coordinate carrying a peak gets a positive amplitude and one carrying no peak
+      gets a negative one; where the two numbers come from is the next section.
+    </p>
+
+    <p>
+      Only prefix coordinates exist in this vector, and the spectrum reports suffix fragments as
+      well. Twins fix that. A peak at mass $j$ is evidence for a prefix of mass $j$ if it is a
+      prefix fragment, and evidence for a prefix of mass $m - j$ if it is a suffix fragment, and
+      nothing in the measurement says which. Coordinate $i$ therefore counts as carrying a peak when
+      the spectrum has a peak at $i$ or at $m - i$, which folds the spectrum onto the prefix
+      coordinates and doubles the evidence available at each one.
+    </p>
+
+    <pre><code class="language-python">def fold_twins(peaks, total):
+    return {i for i in range(1, total + 1) if i in peaks or total - i in peaks}</code></pre>
+
+    <p>
+      With both objects vectors of length $m$, the <strong>score</strong> of a peptide against a
+      spectrum is their dot product. Since the peptide vector is binary, the dot product is the sum
+      of the amplitudes at the peptide's prefix masses, one term per amino acid.
+    </p>
+
+    <pre><code class="language-python">def score_peptide(peptide, spectrum, mass=MASS):
+    prefix = prefix_masses(peptide, mass)
+    if prefix[-1] != len(spectrum):
+        return None
+    return sum(spectrum[p - 1] for p in prefix[1:])</code></pre>
+
+    <figure class="figure-block">
+<svg class="figure" width="615.44" height="172" viewBox="64.56 9 615.44 172">
+<text class="fig-text fig-note" x="96" y="32" text-anchor="start">peptide vector of XZZXX</text>
+<text class="fig-text fig-note" x="96" y="94" text-anchor="start">spectral vector</text>
+<rect class="fig-cell" x="96" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="109" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="96" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="109" y="126" text-anchor="middle">0</text>
+<rect class="fig-cell" x="122" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="135" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="122" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="135" y="126" text-anchor="middle">0</text>
+<rect class="fig-cell" x="148" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="161" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="148" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="161" y="126" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="174" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="187" y="64" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="174" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="187" y="126" text-anchor="middle">4</text>
+<line class="fig-curve" x1="187" y1="76" x2="187" y2="104"/>
+<rect class="fig-cell" x="200" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="213" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="200" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="213" y="126" text-anchor="middle">-2</text>
+<rect class="fig-cell" x="226" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="239" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="226" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="239" y="126" text-anchor="middle">-3</text>
+<rect class="fig-cell" x="252" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="265" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="252" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="265" y="126" text-anchor="middle">-1</text>
+<rect class="fig-cell" x="278" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="291" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="278" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="291" y="126" text-anchor="middle">-7</text>
+<rect class="fig-cell-alt" x="304" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="317" y="64" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="304" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="317" y="126" text-anchor="middle">6</text>
+<line class="fig-curve" x1="317" y1="76" x2="317" y2="104"/>
+<rect class="fig-cell" x="330" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="343" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="330" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="343" y="126" text-anchor="middle">5</text>
+<rect class="fig-cell" x="356" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="369" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="356" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="369" y="126" text-anchor="middle">3</text>
+<rect class="fig-cell" x="382" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="395" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="382" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="395" y="126" text-anchor="middle">2</text>
+<rect class="fig-cell" x="408" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="421" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="408" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="421" y="126" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="434" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="447" y="64" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="434" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="447" y="126" text-anchor="middle">9</text>
+<line class="fig-curve" x1="447" y1="76" x2="447" y2="104"/>
+<rect class="fig-cell" x="460" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="473" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="460" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="473" y="126" text-anchor="middle">3</text>
+<rect class="fig-cell" x="486" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="499" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="486" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="499" y="126" text-anchor="middle">-8</text>
+<rect class="fig-cell" x="512" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="525" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="512" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="525" y="126" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="538" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="551" y="64" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="538" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="551" y="126" text-anchor="middle">3</text>
+<line class="fig-curve" x1="551" y1="76" x2="551" y2="104"/>
+<rect class="fig-cell" x="564" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="577" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="564" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="577" y="126" text-anchor="middle">1</text>
+<rect class="fig-cell" x="590" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="603" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="590" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="603" y="126" text-anchor="middle">2</text>
+<rect class="fig-cell" x="616" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="629" y="64" text-anchor="middle">0</text>
+<rect class="fig-cell" x="616" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="629" y="126" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="642" y="46" width="26" height="26"/>
+<text class="fig-text fig-note" x="655" y="64" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="642" y="108" width="26" height="26"/>
+<text class="fig-text fig-note" x="655" y="126" text-anchor="middle">0</text>
+<line class="fig-curve" x1="655" y1="76" x2="655" y2="104"/>
+<text class="fig-text fig-tick" x="84" y="64" text-anchor="end">P</text>
+<text class="fig-text fig-tick" x="84" y="126" text-anchor="end">S</text>
+<text class="fig-text fig-tick" x="96" y="166" text-anchor="start">score  4 + 6 + 9 + 3 + 0  =  22</text>
+</svg>
+<figcaption>Scoring XZZXX against a spectral vector of the same length. The peptide vector selects five of the 22 coordinates, the rules mark them, and the score is the sum of the amplitudes there and nothing else: the 17 coordinates the peptide does not claim contribute nothing, whatever they hold. Two peptides can be compared this way only when they have the same mass, since otherwise their vectors have different lengths, and the instrument supplies that mass by weighing the intact peptide.</figcaption>
+</figure>
+
+    <p>
+      Two peptides are comparable under this score only if they have the same mass, since otherwise
+      their vectors have different lengths. That is not a restriction in practice: the instrument
+      measures the mass of the undissociated peptide along with the masses of its fragments, so $m$
+      is known before the search starts, and the candidates are exactly the peptides of that mass.
+    </p>
+    <h2>From Peaks to Amplitudes</h2>
+
+    <p>
+      The amplitudes were left undefined above, and choosing them arbitrarily would make the score
+      arbitrary. They follow from a model of what the instrument does. Write $b_i = 1$ if the
+      spectrum has a peak at coordinate $i$ and $b_i = 0$ otherwise, and let $p_i = 1$ if the
+      peptide really does have a prefix of mass $i$. The instrument detects a real fragment with
+      probability $\theta$, and reports a peak where there is no fragment with probability $\rho$,
+      independently at each coordinate. Both numbers are properties of the machine and are measured
+      once from data of known composition.
+    </p>
+
+    <p>
+      <strong>Most Likely Peptide Vector Problem.</strong> Given the observed vector $b$, find the
+      peptide vector $p$ maximising $\Pr(p \mid b)$.
+    </p>
+
+    <p>
+      The proof that this is the dot product of the previous section is three steps of algebra. By
+      Bayes, $\Pr(p \mid b) \propto \Pr(b \mid p)\Pr(p)$, and taking every peptide of mass $m$ to be
+      equally likely a priori makes $\Pr(p)$ a constant that does not affect the maximum. The
+      coordinates are independent given $p$, so
+      $\Pr(b \mid p) = \prod_i \Pr(b_i \mid p_i)$, and taking logarithms turns the product into
+      $\sum_i \log \Pr(b_i \mid p_i)$. Adding and subtracting $\sum_i \log \Pr(b_i \mid p_i = 0)$,
+      which does not depend on $p$ at all, leaves
+      $\sum_{i : p_i = 1} \log \frac{\Pr(b_i \mid p_i = 1)}{\Pr(b_i \mid p_i = 0)}$ plus a constant.
+      That sum is the dot product of $p$ with the vector whose coordinates are those log odds, so
+      maximising the score is maximising the posterior probability.
+    </p>
+
+    <p>
+      The two amplitudes are therefore $\log(\theta/\rho)$ at a coordinate carrying a peak and
+      $\log\frac{1-\theta}{1-\rho}$ at one that does not. The first is positive and the second
+      negative whenever $\theta > \rho$, which is the only case in which the instrument is worth
+      using. A peptide is rewarded for putting a prefix where there is a peak and punished for
+      putting one where there is not, and the ratio of reward to punishment is fixed by the machine
+      rather than chosen.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="496.4" height="272" viewBox="85.6 29 496.4 272">
+<text class="fig-text fig-note" x="410" y="52" text-anchor="middle">coordinate carries a peak</text>
+<text class="fig-text fig-note" x="330" y="78" text-anchor="middle">yes</text>
+<text class="fig-text fig-note" x="490" y="78" text-anchor="middle">no</text>
+<text class="fig-text fig-note" x="234" y="125" text-anchor="end">is a prefix mass</text>
+<rect class="fig-cell" x="250" y="96" width="160" height="46"/>
+<text class="fig-text fig-tick" x="330" y="125" text-anchor="middle">0.70</text>
+<rect class="fig-cell" x="410" y="96" width="160" height="46"/>
+<text class="fig-text fig-tick" x="490" y="125" text-anchor="middle">0.30</text>
+<text class="fig-text fig-note" x="234" y="171" text-anchor="end">is not a prefix mass</text>
+<rect class="fig-cell" x="250" y="142" width="160" height="46"/>
+<text class="fig-text fig-tick" x="330" y="171" text-anchor="middle">0.02</text>
+<rect class="fig-cell" x="410" y="142" width="160" height="46"/>
+<text class="fig-text fig-tick" x="490" y="171" text-anchor="middle">0.98</text>
+<line class="fig-axis" x1="250" y1="208" x2="570" y2="208"/>
+<text class="fig-text fig-note" x="330" y="232" text-anchor="middle">peak</text>
+<text class="fig-text fig-tick" x="330" y="260" text-anchor="middle">+3.555</text>
+<text class="fig-text fig-tick" x="330" y="286" text-anchor="middle">+3</text>
+<text class="fig-text fig-note" x="490" y="232" text-anchor="middle">no peak</text>
+<text class="fig-text fig-tick" x="490" y="260" text-anchor="middle">-1.184</text>
+<text class="fig-text fig-tick" x="490" y="286" text-anchor="middle">-1</text>
+<text class="fig-text fig-note" x="234" y="232" text-anchor="end">amplitude</text>
+<text class="fig-text fig-note" x="234" y="260" text-anchor="end">log odds</text>
+<text class="fig-text fig-note" x="234" y="286" text-anchor="end">divided by 1.184</text>
+</svg>
+<figcaption>Where the amplitudes come from. The instrument detects a real fragment with probability $\theta$ and invents a peak with probability $\rho$, which fixes the four probabilities in the table. The amplitude of a coordinate is the log of the ratio of its two rows, so a peak is worth $\log(\theta/\rho)$ and a blank is worth $\log\frac{1-\theta}{1-\rho}$, and maximising the dot product is then maximising the posterior probability of the peptide. At $\theta = 0.7$ and $\rho = 0.02$ the two values stand in the ratio $3.0034$, so the integers $+3$ and $-1$ are the same score up to a scale factor of a third of a per cent.</figcaption>
+</figure>
+
+    <p>
+      Multiplying every amplitude by the same positive constant changes no comparison between
+      peptides, so the pair can be rescaled to whatever is convenient. At $\theta = 0.7$ and
+      $\rho = 0.02$ the two values are $+3.5553$ and $-1.1838$, whose ratio is $3.0034$, so dividing
+      by $1.1838$ gives $+3$ and $-1$ to within a third of a per cent. Integer amplitudes are used
+      from here on, which matters in the dynamic programs of the sections on dictionaries, where the
+      score has to index an array.
+    </p>
+
+    <h2>Sequencing a Peptide</h2>
+
+    <p>
+      <strong>Peptide Sequencing Problem.</strong> Given a spectral vector, find a peptide of
+      maximum score against it.
+    </p>
+
+    <p>
+      Build a graph on the masses $0, 1, \dots, m$, with an edge from $i$ to $j$ labelled $a$
+      whenever $j - i$ is the mass of the amino acid $a$, and give node $i$ the weight $s_i$, with
+      node 0 weight zero. A path from 0 to $m$ visits exactly the prefix masses of the peptide it
+      spells, so the sum of the weights of the nodes it visits is that peptide's score. Every
+      peptide of mass $m$ is such a path and every such path is a peptide of mass $m$, so the
+      problem is to find a maximum-weight path from source to sink in a node-weighted directed
+      acyclic graph.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="711.92" height="222" viewBox="-18.92 31 711.92 222">
+<path class="fig-curve" d="M 65 150 Q 112 90 159 150"/>
+<path class="fig-free-solid" d="M 65 150 Q 126 26 187 150"/>
+<path class="fig-free-solid" d="M 93 150 Q 140 90 187 150"/>
+<path class="fig-free-solid" d="M 93 150 Q 154 26 215 150"/>
+<path class="fig-free-solid" d="M 121 150 Q 168 90 215 150"/>
+<path class="fig-free-solid" d="M 121 150 Q 182 26 243 150"/>
+<path class="fig-free-solid" d="M 149 150 Q 196 90 243 150"/>
+<path class="fig-free-solid" d="M 149 150 Q 210 26 271 150"/>
+<path class="fig-free-solid" d="M 177 150 Q 224 90 271 150"/>
+<path class="fig-curve" d="M 177 150 Q 238 26 299 150"/>
+<path class="fig-free-solid" d="M 205 150 Q 252 90 299 150"/>
+<path class="fig-free-solid" d="M 205 150 Q 266 26 327 150"/>
+<path class="fig-free-solid" d="M 233 150 Q 280 90 327 150"/>
+<path class="fig-free-solid" d="M 233 150 Q 294 26 355 150"/>
+<path class="fig-free-solid" d="M 261 150 Q 308 90 355 150"/>
+<path class="fig-free-solid" d="M 261 150 Q 322 26 383 150"/>
+<path class="fig-free-solid" d="M 289 150 Q 336 90 383 150"/>
+<path class="fig-free-solid" d="M 289 150 Q 350 26 411 150"/>
+<path class="fig-free-solid" d="M 317 150 Q 364 90 411 150"/>
+<path class="fig-curve" d="M 317 150 Q 378 26 439 150"/>
+<path class="fig-free-solid" d="M 345 150 Q 392 90 439 150"/>
+<path class="fig-free-solid" d="M 345 150 Q 406 26 467 150"/>
+<path class="fig-free-solid" d="M 373 150 Q 420 90 467 150"/>
+<path class="fig-free-solid" d="M 373 150 Q 434 26 495 150"/>
+<path class="fig-free-solid" d="M 401 150 Q 448 90 495 150"/>
+<path class="fig-free-solid" d="M 401 150 Q 462 26 523 150"/>
+<path class="fig-free-solid" d="M 429 150 Q 476 90 523 150"/>
+<path class="fig-free-solid" d="M 429 150 Q 490 26 551 150"/>
+<path class="fig-curve" d="M 457 150 Q 504 90 551 150"/>
+<path class="fig-free-solid" d="M 457 150 Q 518 26 579 150"/>
+<path class="fig-free-solid" d="M 485 150 Q 532 90 579 150"/>
+<path class="fig-free-solid" d="M 485 150 Q 546 26 607 150"/>
+<path class="fig-free-solid" d="M 513 150 Q 560 90 607 150"/>
+<path class="fig-free-solid" d="M 513 150 Q 574 26 635 150"/>
+<path class="fig-free-solid" d="M 541 150 Q 588 90 635 150"/>
+<path class="fig-free-solid" d="M 541 150 Q 602 26 663 150"/>
+<path class="fig-curve" d="M 569 150 Q 616 90 663 150"/>
+<circle class="fig-dot" cx="56" cy="150" r="9"/>
+<text class="fig-text fig-note" x="56" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="56" y="198" text-anchor="middle">0</text>
+<circle class="fig-hole" cx="84" cy="150" r="9"/>
+<text class="fig-text fig-note" x="84" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="84" y="198" text-anchor="middle">1</text>
+<circle class="fig-hole" cx="112" cy="150" r="9"/>
+<text class="fig-text fig-note" x="112" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="112" y="198" text-anchor="middle">2</text>
+<circle class="fig-hole" cx="140" cy="150" r="9"/>
+<text class="fig-text fig-note" x="140" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="140" y="198" text-anchor="middle">3</text>
+<circle class="fig-dot" cx="168" cy="150" r="9"/>
+<text class="fig-text fig-note" x="168" y="176" text-anchor="middle">4</text>
+<text class="fig-text fig-note" x="168" y="198" text-anchor="middle">4</text>
+<circle class="fig-hole" cx="196" cy="150" r="9"/>
+<text class="fig-text fig-note" x="196" y="176" text-anchor="middle">-2</text>
+<text class="fig-text fig-note" x="196" y="198" text-anchor="middle">5</text>
+<circle class="fig-hole" cx="224" cy="150" r="9"/>
+<text class="fig-text fig-note" x="224" y="176" text-anchor="middle">-3</text>
+<text class="fig-text fig-note" x="224" y="198" text-anchor="middle">6</text>
+<circle class="fig-hole" cx="252" cy="150" r="9"/>
+<text class="fig-text fig-note" x="252" y="176" text-anchor="middle">-1</text>
+<text class="fig-text fig-note" x="252" y="198" text-anchor="middle">7</text>
+<circle class="fig-hole" cx="280" cy="150" r="9"/>
+<text class="fig-text fig-note" x="280" y="176" text-anchor="middle">-7</text>
+<text class="fig-text fig-note" x="280" y="198" text-anchor="middle">8</text>
+<circle class="fig-dot" cx="308" cy="150" r="9"/>
+<text class="fig-text fig-note" x="308" y="176" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="308" y="198" text-anchor="middle">9</text>
+<circle class="fig-hole" cx="336" cy="150" r="9"/>
+<text class="fig-text fig-note" x="336" y="176" text-anchor="middle">5</text>
+<text class="fig-text fig-note" x="336" y="198" text-anchor="middle">10</text>
+<circle class="fig-hole" cx="364" cy="150" r="9"/>
+<text class="fig-text fig-note" x="364" y="176" text-anchor="middle">3</text>
+<text class="fig-text fig-note" x="364" y="198" text-anchor="middle">11</text>
+<circle class="fig-hole" cx="392" cy="150" r="9"/>
+<text class="fig-text fig-note" x="392" y="176" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="392" y="198" text-anchor="middle">12</text>
+<circle class="fig-hole" cx="420" cy="150" r="9"/>
+<text class="fig-text fig-note" x="420" y="176" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="420" y="198" text-anchor="middle">13</text>
+<circle class="fig-dot" cx="448" cy="150" r="9"/>
+<text class="fig-text fig-note" x="448" y="176" text-anchor="middle">9</text>
+<text class="fig-text fig-note" x="448" y="198" text-anchor="middle">14</text>
+<circle class="fig-hole" cx="476" cy="150" r="9"/>
+<text class="fig-text fig-note" x="476" y="176" text-anchor="middle">3</text>
+<text class="fig-text fig-note" x="476" y="198" text-anchor="middle">15</text>
+<circle class="fig-hole" cx="504" cy="150" r="9"/>
+<text class="fig-text fig-note" x="504" y="176" text-anchor="middle">-8</text>
+<text class="fig-text fig-note" x="504" y="198" text-anchor="middle">16</text>
+<circle class="fig-hole" cx="532" cy="150" r="9"/>
+<text class="fig-text fig-note" x="532" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="532" y="198" text-anchor="middle">17</text>
+<circle class="fig-dot" cx="560" cy="150" r="9"/>
+<text class="fig-text fig-note" x="560" y="176" text-anchor="middle">3</text>
+<text class="fig-text fig-note" x="560" y="198" text-anchor="middle">18</text>
+<circle class="fig-hole" cx="588" cy="150" r="9"/>
+<text class="fig-text fig-note" x="588" y="176" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="588" y="198" text-anchor="middle">19</text>
+<circle class="fig-hole" cx="616" cy="150" r="9"/>
+<text class="fig-text fig-note" x="616" y="176" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="616" y="198" text-anchor="middle">20</text>
+<circle class="fig-hole" cx="644" cy="150" r="9"/>
+<text class="fig-text fig-note" x="644" y="176" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="644" y="198" text-anchor="middle">21</text>
+<circle class="fig-dot" cx="672" cy="150" r="9"/>
+<text class="fig-text fig-note" x="672" y="176" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="672" y="198" text-anchor="middle">22</text>
+<text class="fig-text fig-note" x="34" y="176" text-anchor="end">weight</text>
+<text class="fig-text fig-note" x="34" y="198" text-anchor="end">mass</text>
+<line class="fig-curve" x1="56" y1="234" x2="82" y2="234"/>
+<text class="fig-text fig-note" x="90" y="238" text-anchor="start">the heaviest path, XZZXX, weight 22</text>
+<line class="fig-free-solid" x1="356" y1="234" x2="382" y2="234"/>
+<text class="fig-text fig-note" x="390" y="238" text-anchor="start">every other edge</text>
+<text class="fig-text fig-note" x="146" y="54" text-anchor="start">short arcs add X (4 daltons), long arcs add Z (5)</text>
+</svg>
+<figcaption>The graph for the sample spectral vector of length 22 over the toy alphabet. There is one node per mass from 0 to 22, node $i$ carries the amplitude $s_i$ as its weight, and an edge runs from $i$ to $i + 4$ for X and from $i$ to $i + 5$ for Z. A path from 0 to 22 visits exactly the prefix masses of the peptide it spells, so its total node weight is that peptide's score, and the heaviest path is XZZXX at $4 + 6 + 9 + 3 + 0 = 22$. The nodes are already in topological order, so one sweep from left to right computes every best value.</figcaption>
+</figure>
+
+    <p>
+      The nodes are already in topological order, since every edge goes from a smaller mass to a
+      larger one, so a single sweep from 0 to $m$ suffices. Let $\textit{best}[i]$ be the largest
+      score of any path from 0 to $i$. Then $\textit{best}[i]$ is $s_i$ plus the largest
+      $\textit{best}[i - |a|]$ over the eighteen masses $|a|$, and a node with no predecessor
+      reachable from 0 is unreachable and stays empty. Recording which predecessor won each maximum
+      allows the peptide to be read back from the sink.
+    </p>
+
+    <pre><code class="language-python">def sequence_peptide(spectrum, mass=MASS):
+    alphabet = distinct_masses(mass)
+    weight = [0] + list(spectrum)
+    m = len(spectrum)
+    best = [None] * (m + 1)
+    back = [None] * (m + 1)
+    best[0] = 0
+    for i in range(1, m + 1):
+        for amino, step in sorted(alphabet.items()):
+            if i - step &gt;= 0 and best[i - step] is not None:
+                score = best[i - step] + weight[i]
+                if best[i] is None or score &gt; best[i]:
+                    best[i] = score
+                    back[i] = (i - step, amino)
+    if best[m] is None:
+        return None, None
+    peptide = ''
+    node = m
+    while node &gt; 0:
+        node, amino = back[node]
+        peptide = amino + peptide
+    return peptide, best[m]</code></pre>
+
+    <p>
+      The graph has $m + 1$ nodes and at most $18(m + 1)$ edges, so the sweep costs $O(m)$ with a
+      constant of eighteen. For a tryptic peptide of mass around 2000 that is some tens of thousands
+      of operations, which is nothing. On the sample spectral vector of length 22 over the toy
+      alphabet the algorithm returns XZZXX with score 22, and exhaustive enumeration of all peptides
+      of mass 22 confirms that no other reaches it.
+    </p>
+
+    <h2>Identifying a Peptide in a Proteome</h2>
+
+    <p>
+      Sequencing returns the best peptide over all peptides of mass $m$, and there are a great many
+      of those: counting them with the same one-line recurrence gives $6.5 \times 10^{30}$ peptides of
+      mass 2760, and almost all of them are strings that no organism makes. When the species is
+      known, the candidates should instead be the substrings of its proteome. This is a smaller and
+      far better set, and searching it is <strong>peptide identification</strong> rather than
+      sequencing.
+    </p>
+
+    <p>
+      <strong>Peptide Identification Problem.</strong> Given a spectral vector and a proteome, find
+      the substring of the proteome with maximum score against the spectrum.
+    </p>
+
+    <p>
+      A substring can be scored at all only if its mass is exactly $m$. Extending each start one
+      residue at a time, accumulating the mass and the score together, and stopping as soon as the
+      mass exceeds $m$ gives the straightforward algorithm. The inner loop runs at most $m/57$ times,
+      that being the longest a peptide of mass $m$ can be, so the cost is $O(nm/57)$ for a proteome
+      of $n$ residues.
+    </p>
+
+    <pre><code class="language-python">def identify_peptide(spectrum, proteome, mass=MASS):
+    m = len(spectrum)
+    best, best_score = None, None
+    for start in range(len(proteome)):
+        total = 0
+        score = 0
+        for end in range(start, len(proteome)):
+            total += mass[proteome[end]]
+            if total &gt; m:
+                break
+            score += spectrum[total - 1]
+            if total == m and (best_score is None or score &gt; best_score):
+                best, best_score = proteome[start:end + 1], score
+    return best, best_score</code></pre>
+
+    <p>
+      A run of the instrument produces thousands of spectra, one per peptide it happened to isolate,
+      and each is searched against the same proteome. A pair of a peptide and a spectrum whose score
+      reaches a threshold is a <strong>peptide-spectrum match</strong>, written PSM, and collecting
+      them is the search that a proteomics experiment actually performs.
+    </p>
+
+    <p>
+      <strong>PSM Search Problem.</strong> Given a set of spectral vectors, a proteome and a
+      threshold, find every peptide-spectrum match scoring at least the threshold.
+    </p>
+
+    <pre><code class="language-python">def psm_search(spectra, proteome, threshold, mass=MASS):
+    matches = set()
+    for spectrum in spectra:
+        peptide, score = identify_peptide(spectrum, proteome, mass)
+        if peptide is not None and score &gt;= threshold:
+            matches.add(peptide)
+    return matches</code></pre>
+
+    <h3>Filtering by Mass</h3>
+
+    <p>
+      The chicken proteome is 27,302,528 residues, and a peptide of mass 2760 can be up to 48
+      residues long, so the loop above performs on the order of a billion additions for a single
+      spectrum. Almost all of that work is spent on substrings whose mass will never equal $m$.
+      Write $\textit{prefix}[i]$ for the mass of the first $i$ residues of the whole proteome. This
+      array is strictly increasing, and the substring from $i$ to $j$ has mass
+      $\textit{prefix}[j] - \textit{prefix}[i]$, so the only $j$ that can end a candidate starting at
+      $i$ is the one with $\textit{prefix}[j] = \textit{prefix}[i] + m$, and binary search finds it
+      or proves it absent in $O(\log n)$.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="671.05" height="216" viewBox="54.59 -47 671.05 216">
+<text class="fig-text fig-note" x="70" y="-24" text-anchor="start">prefix masses of the proteome, one tick per position</text>
+<line class="fig-axis" x1="70" y1="130" x2="700" y2="130"/>
+<line class="fig-axis" x1="70" y1="123" x2="70" y2="137"/>
+<text class="fig-text fig-note" x="70" y="154" text-anchor="middle">0</text>
+<line class="fig-axis" x1="98.25" y1="123" x2="98.25" y2="137"/>
+<text class="fig-text fig-note" x="98.25" y="154" text-anchor="middle">57</text>
+<line class="fig-axis" x1="147.32" y1="123" x2="147.32" y2="137"/>
+<text class="fig-text fig-note" x="147.32" y="154" text-anchor="middle">156</text>
+<line class="fig-axis" x1="210.77" y1="123" x2="210.77" y2="137"/>
+<text class="fig-text fig-note" x="210.77" y="154" text-anchor="middle">284</text>
+<line class="fig-axis" x1="239.02" y1="123" x2="239.02" y2="137"/>
+<text class="fig-text fig-note" x="239.02" y="154" text-anchor="middle">341</text>
+<line class="fig-axis" x1="287.1" y1="123" x2="287.1" y2="137"/>
+<text class="fig-text fig-note" x="287.1" y="154" text-anchor="middle">438</text>
+<line class="fig-axis" x1="335.18" y1="123" x2="335.18" y2="137"/>
+<text class="fig-text fig-note" x="335.18" y="154" text-anchor="middle">535</text>
+<line class="fig-axis" x1="363.44" y1="123" x2="363.44" y2="137"/>
+<text class="fig-text fig-note" x="363.44" y="154" text-anchor="middle">592</text>
+<line class="fig-axis" x1="411.52" y1="123" x2="411.52" y2="137"/>
+<text class="fig-text fig-note" x="411.52" y="154" text-anchor="middle">689</text>
+<line class="fig-axis" x1="474.96" y1="123" x2="474.96" y2="137"/>
+<text class="fig-text fig-note" x="474.96" y="154" text-anchor="middle">817</text>
+<line class="fig-axis" x1="503.22" y1="123" x2="503.22" y2="137"/>
+<text class="fig-text fig-note" x="503.22" y="154" text-anchor="middle">874</text>
+<line class="fig-axis" x1="551.3" y1="123" x2="551.3" y2="137"/>
+<text class="fig-text fig-note" x="551.3" y="154" text-anchor="middle">971</text>
+<line class="fig-axis" x1="628.62" y1="123" x2="628.62" y2="137"/>
+<text class="fig-text fig-note" x="628.62" y="154" text-anchor="middle">1127</text>
+<line class="fig-axis" x1="656.88" y1="123" x2="656.88" y2="137"/>
+<text class="fig-text fig-note" x="656.88" y="154" text-anchor="middle">1184</text>
+<line class="fig-axis" x1="700" y1="123" x2="700" y2="137"/>
+<text class="fig-text fig-note" x="700" y="154" text-anchor="middle">1271</text>
+<path class="fig-curve" d="M 70 96 Q 154.51 44 239.02 96"/>
+<line class="fig-guide" x1="239.02" y1="96" x2="239.02" y2="121"/>
+<text class="fig-text fig-note" x="154.51" y="62" text-anchor="middle">start 0, add 341</text>
+<text class="fig-text fig-note" x="247.02" y="100" text-anchor="start">lands on a tick</text>
+<path class="fig-free-solid" d="M 147.32 22 Q 231.84 -30 316.35 22"/>
+<line class="fig-guide" x1="316.35" y1="22" x2="316.35" y2="121"/>
+<text class="fig-text fig-note" x="231.84" y="-12" text-anchor="middle">start 2, add 341</text>
+<text class="fig-text fig-note" x="324.35" y="26" text-anchor="start">lands between ticks</text>
+</svg>
+<figcaption>The prefix masses of a proteome, one tick per position, with the mass of the sought peptide added to two different starts. Starting at position 0 the sum lands exactly on a tick, so a substring of that mass begins there and is worth scoring. Starting at position 2 it lands between two ticks, so no substring beginning there has the right mass and the start is discarded after one binary search. Roughly one start in a hundred and ten survives, which is the ratio of the average amino acid mass to one dalton.</figcaption>
+</figure>
+
+    <p>
+      The number of starts that survive is the number of times the value $\textit{prefix}[i] + m$
+      happens to be one of the prefix masses, which is about $n$ divided by the average amino acid
+      mass, near 110. Only those starts are ever scored, at $O(m/57)$ each. The array of prefix
+      masses is built once for the whole proteome and reused for every spectrum in the run.
+    </p>
+
+    <pre><code class="language-python">import bisect
+
+
+def identify_peptide_filtered(spectrum, proteome, mass=MASS):
+    m = len(spectrum)
+    prefix = [0]
+    for amino in proteome:
+        prefix.append(prefix[-1] + mass[amino])
+    best, best_score, candidates = None, None, 0
+    for start in range(len(proteome)):
+        target = prefix[start] + m
+        end = bisect.bisect_left(prefix, target, start + 1)
+        if end &gt; len(proteome) or prefix[end] != target:
+            continue
+        candidates += 1
+        score = 0
+        for t in range(start + 1, end + 1):
+            score += spectrum[prefix[t] - prefix[start] - 1]
+        if best_score is None or score &gt; best_score:
+            best, best_score = proteome[start:end], score
+    return best, best_score, candidates</code></pre>
+
+    <p>
+      The two versions return the same score on 60 random proteomes with random spectra, and the
+      count of surviving starts equals the count of substrings of mass exactly $m$ found by brute
+      force on 20 more. On the real chicken proteome the filtered search takes six seconds per
+      spectrum, and about 240,000 substrings out of 27 million starts have the right mass, which is
+      the predicted factor of a hundred or so.
+    </p>
+
+    <h2>The Monkey and the Typewriter</h2>
+
+    <p>
+      A search over 27 million residues returns a best-scoring peptide whether or not the spectrum
+      came from that organism at all, so a score on its own says nothing. What is needed is the
+      score that chance alone would produce. The classical statement of the problem is the infinite
+      monkey theorem: a monkey typing at random will eventually type any given text, and the
+      quantity worth computing is not whether it happens but how often.
+    </p>
+
+    <p>
+      <strong>Monkey and Typewriter Problem.</strong> Given a dictionary of strings and a random text
+      of length $n$ over an alphabet of $k$ letters, find the expected number of occurrences of
+      dictionary words in the text.
+    </p>
+
+    <p>
+      The proof is one application of linearity of expectation. For each of the $n$ positions and
+      each word $w$ of the dictionary, let $X_{i,w}$ be 1 if $w$ starts at position $i$. The letters
+      are independent and uniform, so $\Pr(X_{i,w} = 1) = k^{-|w|}$, and the expected total is
+      $\sum_i \sum_w k^{-|w|} = n \sum_w k^{-|w|}$. The sum $\sum_w k^{-|w|}$ depends on the
+      dictionary alone and is called its probability, so the expected count is the length of the text
+      times the probability of the dictionary, however the words overlap and whatever their lengths.
+    </p>
+
+    <p>
+      A proteome is not random text, so the theorem gives an estimate rather than a fact about it.
+      The empirical version of the same idea is a <strong>decoy</strong>: a second database, the same
+      size as the real one, built so that it contains no true answers. Searching both and comparing
+      the score distributions gives the <strong>false discovery rate</strong>, the proportion of
+      accepted matches that a database with nothing in it would also have produced.
+    </p>
+
+    <p>
+      <strong>Theorem.</strong> A peptide and its reversal have the same score against any spectral
+      vector obtained by folding twins, so reversing the proteins of a proteome does not produce a
+      usable decoy.
+    </p>
+
+    <p>
+      The proof is the twin identity again. Folding sets coordinate $i$ to the positive amplitude
+      exactly when the spectrum has a peak at $i$ or at $m - i$, and that condition is unchanged by
+      swapping $i$ with $m - i$, so $s_i = s_{m-i}$ for every $i$. The prefix masses of the reversal
+      of a peptide are the numbers $m - p$ for $p$ a prefix mass of the peptide, so the reversal's
+      score is $\sum_p s_{m-p} = \sum_p s_p$, which is the peptide's own score. Reversing every
+      protein of the chicken proteome does indeed leave the best score of all five
+      <em>T. rex</em> spectra exactly unchanged. Shuffling the residues of each protein instead
+      destroys the correspondence, and every decoy below is shuffled.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="755.22" height="292" viewBox="16 19 755.22 292">
+<line class="fig-axis" x1="90" y1="250" x2="710" y2="250"/>
+<rect class="fig-shape" x="91" y="219.02" width="10.65" height="30.98"/>
+<rect class="fig-shape" x="103.65" y="193.01" width="10.65" height="56.99"/>
+<rect class="fig-shape" x="116.31" y="145.8" width="10.65" height="104.2"/>
+<rect class="fig-shape" x="128.96" y="103.9" width="10.65" height="146.1"/>
+<rect class="fig-shape" x="141.61" y="71.85" width="10.65" height="178.15"/>
+<rect class="fig-shape" x="154.27" y="60" width="10.65" height="190"/>
+<rect class="fig-shape" x="166.92" y="76.95" width="10.65" height="173.05"/>
+<rect class="fig-shape" x="179.57" y="100.1" width="10.65" height="149.9"/>
+<rect class="fig-shape" x="192.22" y="73.37" width="10.65" height="176.63"/>
+<rect class="fig-shape" x="204.88" y="64.06" width="10.65" height="185.94"/>
+<rect class="fig-shape" x="217.53" y="82.03" width="10.65" height="167.97"/>
+<rect class="fig-shape" x="230.18" y="111.43" width="10.65" height="138.57"/>
+<rect class="fig-shape" x="242.84" y="89.77" width="10.65" height="160.23"/>
+<rect class="fig-shape" x="255.49" y="81.85" width="10.65" height="168.15"/>
+<rect class="fig-shape" x="268.14" y="100" width="10.65" height="150"/>
+<rect class="fig-shape" x="280.8" y="132.53" width="10.65" height="117.47"/>
+<rect class="fig-shape" x="293.45" y="114.16" width="10.65" height="135.84"/>
+<rect class="fig-shape" x="306.1" y="108.45" width="10.65" height="141.55"/>
+<rect class="fig-shape" x="318.76" y="126.7" width="10.65" height="123.3"/>
+<rect class="fig-shape" x="331.41" y="157.46" width="10.65" height="92.54"/>
+<rect class="fig-shape" x="344.06" y="143.28" width="10.65" height="106.72"/>
+<rect class="fig-shape" x="356.71" y="141.96" width="10.65" height="108.04"/>
+<rect class="fig-shape" x="369.37" y="161.82" width="10.65" height="88.18"/>
+<rect class="fig-shape" x="382.02" y="186.21" width="10.65" height="63.79"/>
+<rect class="fig-shape" x="394.67" y="177.04" width="10.65" height="72.96"/>
+<rect class="fig-shape" x="407.33" y="175.12" width="10.65" height="74.88"/>
+<rect class="fig-shape" x="419.98" y="198.2" width="10.65" height="51.8"/>
+<rect class="fig-shape" x="432.63" y="222.17" width="10.65" height="27.83"/>
+<rect class="fig-shape" x="445.29" y="207.03" width="10.65" height="42.97"/>
+<rect class="fig-shape" x="457.94" y="222.17" width="10.65" height="27.83"/>
+<rect class="fig-shape" x="470.59" y="238.01" width="10.65" height="11.99"/>
+<rect class="fig-shape" x="483.24" y="226.03" width="10.65" height="23.97"/>
+<rect class="fig-shape" x="495.9" y="238.01" width="10.65" height="11.99"/>
+<rect class="fig-shape" x="508.55" y="238.01" width="10.65" height="11.99"/>
+<line class="fig-axis" x1="84" y1="238.01" x2="90" y2="238.01"/>
+<text class="fig-text fig-note" x="78" y="242.01" text-anchor="end">1</text>
+<line class="fig-axis" x1="84" y1="208.54" x2="90" y2="208.54"/>
+<text class="fig-text fig-note" x="78" y="212.54" text-anchor="end">10</text>
+<line class="fig-axis" x1="84" y1="170.2" x2="90" y2="170.2"/>
+<text class="fig-text fig-note" x="78" y="174.2" text-anchor="end">100</text>
+<line class="fig-axis" x1="84" y1="130.54" x2="90" y2="130.54"/>
+<text class="fig-text fig-note" x="78" y="134.54" text-anchor="end">1000</text>
+<line class="fig-axis" x1="84" y1="90.74" x2="90" y2="90.74"/>
+<text class="fig-text fig-note" x="78" y="94.74" text-anchor="end">10000</text>
+<text class="fig-text fig-note" x="108.98" y="270" text-anchor="middle">-10</text>
+<text class="fig-text fig-note" x="172.24" y="270" text-anchor="middle">-5</text>
+<text class="fig-text fig-note" x="235.51" y="270" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="298.78" y="270" text-anchor="middle">5</text>
+<text class="fig-text fig-note" x="362.04" y="270" text-anchor="middle">10</text>
+<text class="fig-text fig-note" x="425.31" y="270" text-anchor="middle">15</text>
+<text class="fig-text fig-note" x="488.57" y="270" text-anchor="middle">20</text>
+<text class="fig-text fig-note" x="551.84" y="270" text-anchor="middle">25</text>
+<text class="fig-text fig-note" x="615.1" y="270" text-anchor="middle">30</text>
+<text class="fig-text fig-note" x="678.37" y="270" text-anchor="middle">35</text>
+<line class="fig-free-solid" x1="691.02" y1="50" x2="691.02" y2="250"/>
+<text class="fig-text fig-note" x="691.02" y="42" text-anchor="middle">the real peptide, 36</text>
+<text class="fig-text fig-note" x="400" y="296" text-anchor="middle">score against the spectrum</text>
+<text class="fig-text fig-note" x="28" y="42" text-anchor="start">decoy peptides</text>
+</svg>
+<figcaption>How the peptides of a decoy proteome score against the spectrum of GVQGPPGPQGPR. Every protein of the chicken proteome has had its residues shuffled, and each of the 258,850 substrings of the resulting database whose mass is exactly 1127 is scored; the vertical scale is logarithmic. The best decoy reaches 22 and only one does. The real peptide scores 36, far outside the range chance produces, and the width of that gap is what the E-value of the next section computes without running the decoy at all.</figcaption>
+</figure>
+
+    <h2>Spectral Dictionaries</h2>
+
+    <p>
+      The decoy gives an empirical answer at the cost of a second full search. The monkey theorem
+      gives an analytic one, and to apply it the dictionary has to be named. The
+      <strong>spectral dictionary</strong> of a spectral vector at a threshold is the set of all
+      peptides scoring at least the threshold against it. Its probability, in the sense of the
+      previous section, is $\sum_P 20^{-|P|}$ over the peptides $P$ it contains, and multiplying that
+      by the number of positions in the proteome gives the expected number of matches that good from
+      a database of that size and nothing in it. That expected number is the <strong>E-value</strong>
+      of the match.
+    </p>
+
+    <p>
+      The dictionary is far too large to enumerate, and neither its size nor its probability needs
+      it. Both are sums over peptides of mass $m$ grouped by score, and both satisfy the same
+      recurrence. Let $\textit{Size}(i, t)$ be the number of peptides of mass $i$ scoring exactly $t$
+      against the first $i$ coordinates of the spectrum. Any such peptide ends in some amino acid
+      $a$, whose prefix contributes $s_i$ to the score, so removing $a$ leaves a peptide of mass
+      $i - |a|$ scoring $t - s_i$.
+    </p>
+
+    <p>
+      <strong>Size of a Spectral Dictionary Problem.</strong> Given a spectral vector and a
+      threshold, find the number of peptides in the spectral dictionary.
+    </p>
+
+    <p>
+      Hence $\textit{Size}(i, t) = \sum_a \textit{Size}(i - |a|, t - s_i)$ with
+      $\textit{Size}(0, 0) = 1$ and everything else zero, and the answer is
+      $\sum_{t \geq \textit{threshold}} \textit{Size}(m, t)$. The scores that can occur are bounded:
+      a peptide of mass $m$ has at most $m/57$ amino acids and each contributes one amplitude, so
+      with amplitudes $+3$ and $-1$ the score lies between $-m/57$ and $3m/57$, and the table has
+      $O(m^2/57)$ cells. Since negative scores index an array, the implementation stores the row
+      offset by a fixed amount.
+    </p>
+
+    <pre><code class="language-python">def dictionary_table(spectrum, max_score, mass=MASS):
+    m = len(spectrum)
+    low = min(0, min(spectrum) * m)
+    size = [[0] * (max_score - low + 1) for _ in range(m + 1)]
+    size[0][-low] = 1
+    for i in range(1, m + 1):
+        for t in range(len(size[i])):
+            previous = t - spectrum[i - 1]
+            if 0 &lt;= previous &lt; len(size[i]):
+                for step in mass.values():
+                    if i - step &gt;= 0:
+                        size[i][t] += size[i - step][previous]
+    return size, low
+
+
+def dictionary_size(spectrum, threshold, max_score, mass=MASS):
+    size, low = dictionary_table(spectrum, max_score, mass)
+    return sum(size[len(spectrum)][t - low]
+               for t in range(threshold, max_score + 1))</code></pre>
+
+    <figure class="figure-block">
+<svg class="figure" width="687.74" height="267" viewBox="20.26 7 687.74 267">
+<text class="fig-text fig-note" x="96" y="30" text-anchor="start">mass i</text>
+<text class="fig-text fig-note" x="80" y="52" text-anchor="end">score t</text>
+<text class="fig-text fig-note" x="116" y="52" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="156" y="52" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="196" y="52" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="236" y="52" text-anchor="middle">3</text>
+<text class="fig-text fig-note" x="276" y="52" text-anchor="middle">4</text>
+<text class="fig-text fig-note" x="316" y="52" text-anchor="middle">5</text>
+<text class="fig-text fig-note" x="356" y="52" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="396" y="52" text-anchor="middle">7</text>
+<text class="fig-text fig-note" x="436" y="52" text-anchor="middle">8</text>
+<text class="fig-text fig-note" x="476" y="52" text-anchor="middle">9</text>
+<text class="fig-text fig-note" x="516" y="52" text-anchor="middle">10</text>
+<text class="fig-text fig-note" x="556" y="52" text-anchor="middle">11</text>
+<text class="fig-text fig-note" x="596" y="52" text-anchor="middle">12</text>
+<text class="fig-text fig-note" x="636" y="52" text-anchor="middle">13</text>
+<text class="fig-text fig-note" x="676" y="52" text-anchor="middle">14</text>
+<text class="fig-text fig-note" x="80" y="87" text-anchor="end">-1</text>
+<rect class="fig-cell" x="96" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="70" width="40" height="24"/>
+<rect class="fig-cell" x="656" y="70" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="111" text-anchor="end">0</text>
+<rect class="fig-cell" x="96" y="94" width="40" height="24"/>
+<text class="fig-text fig-note" x="116" y="111" text-anchor="middle">1</text>
+<rect class="fig-cell" x="136" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="94" width="40" height="24"/>
+<text class="fig-text fig-note" x="436" y="111" text-anchor="middle">1</text>
+<rect class="fig-cell" x="456" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="94" width="40" height="24"/>
+<rect class="fig-cell" x="656" y="94" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="135" text-anchor="end">1</text>
+<rect class="fig-cell" x="96" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="118" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="118" width="40" height="24"/>
+<text class="fig-text fig-note" x="636" y="135" text-anchor="middle">1</text>
+<rect class="fig-cell" x="656" y="118" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="159" text-anchor="end">2</text>
+<rect class="fig-cell" x="96" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="142" width="40" height="24"/>
+<text class="fig-text fig-note" x="476" y="159" text-anchor="middle">2</text>
+<rect class="fig-cell" x="496" y="142" width="40" height="24"/>
+<text class="fig-text fig-note" x="516" y="159" text-anchor="middle">1</text>
+<rect class="fig-cell" x="536" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="142" width="40" height="24"/>
+<rect class="fig-cell" x="656" y="142" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="183" text-anchor="end">3</text>
+<rect class="fig-cell" x="96" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="166" width="40" height="24"/>
+<text class="fig-text fig-note" x="276" y="183" text-anchor="middle">1</text>
+<rect class="fig-cell" x="296" y="166" width="40" height="24"/>
+<text class="fig-text fig-note" x="316" y="183" text-anchor="middle">1</text>
+<rect class="fig-cell" x="336" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="166" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="166" width="40" height="24"/>
+<text class="fig-text fig-note" x="636" y="183" text-anchor="middle">2</text>
+<rect class="fig-cell" x="656" y="166" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="207" text-anchor="end">4</text>
+<rect class="fig-cell" x="96" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="190" width="40" height="24"/>
+<text class="fig-text fig-note" x="596" y="207" text-anchor="middle">1</text>
+<rect class="fig-cell" x="616" y="190" width="40" height="24"/>
+<rect class="fig-cell" x="656" y="190" width="40" height="24"/>
+<text class="fig-text fig-note" x="80" y="231" text-anchor="end">5</text>
+<rect class="fig-cell" x="96" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="214" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="214" width="40" height="24"/>
+<rect class="fig-cell-alt" x="656" y="214" width="40" height="24"/>
+<text class="fig-text fig-note" x="676" y="231" text-anchor="middle">3</text>
+<text class="fig-text fig-note" x="80" y="255" text-anchor="end">6</text>
+<rect class="fig-cell" x="96" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="136" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="176" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="216" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="256" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="296" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="336" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="376" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="416" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="456" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="496" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="536" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="576" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="616" y="238" width="40" height="24"/>
+<rect class="fig-cell" x="656" y="238" width="40" height="24"/>
+</svg>
+<figcaption>The table $\textit{Size}(i, t)$ for the sample spectral vector of length 14 over the toy alphabet, counting peptides of mass $i$ scoring exactly $t$. Empty cells are zero. Each entry is the sum of the entries at $(i - 4, t - s_i)$ and $(i - 5, t - s_i)$, so the table is filled by columns from the single 1 at the origin. The shaded cell is the answer: three peptides of mass 14 score 1 or more, and since all three have three amino acids the dictionary's probability is $3 \cdot 2^{-3} = 0.375$.</figcaption>
+</figure>
+
+    <p>
+      <strong>Probability of a Spectral Dictionary Problem.</strong> Given a spectral vector and a
+      threshold, find the probability of the spectral dictionary.
+    </p>
+
+    <p>
+      The probability satisfies the same recurrence with each term weighted by the chance of drawing
+      that amino acid. Writing $\Pr(i, t)$ for $\sum_P 20^{-|P|}$ over peptides $P$ of mass $i$
+      scoring $t$, appending one amino acid multiplies the weight of each peptide by $1/20$, so
+      $\Pr(i, t) = \frac{1}{20}\sum_a \Pr(i - |a|, t - s_i)$ with $\Pr(0, 0) = 1$. The sum runs over
+      all twenty amino acids rather than the eighteen distinct masses, because the model draws
+      letters and not masses.
+    </p>
+
+    <pre><code class="language-python">def dictionary_probability(spectrum, threshold, max_score, mass=MASS):
+    m = len(spectrum)
+    low = min(0, min(spectrum) * m)
+    probability = [[0.0] * (max_score - low + 1) for _ in range(m + 1)]
+    probability[0][-low] = 1.0
+    share = 1 / len(mass)
+    for i in range(1, m + 1):
+        for t in range(len(probability[i])):
+            previous = t - spectrum[i - 1]
+            if 0 &lt;= previous &lt; len(probability[i]):
+                for step in mass.values():
+                    if i - step &gt;= 0:
+                        probability[i][t] += share * probability[i - step][previous]
+    return sum(probability[m][t - low]
+               for t in range(threshold, max_score + 1))</code></pre>
+
+    <p>
+      Both dynamic programs cost $O(m^2)$ with a constant of twenty. On the sample spectral vector of
+      length 14 over the two-letter alphabet, with threshold 1, the dictionary holds three peptides
+      and has probability $0.375$; enumerating every peptide of mass 14 confirms that all three
+      peptides of that mass score at least 1 and that $3 \cdot 2^{-3} = 0.375$.
+    </p>
+
+    <p>
+      The estimate can be checked against the decoy it was meant to replace. Taking the spectrum of
+      the twelve-residue <em>T. rex</em> peptide and counting how many peptides of a shuffled chicken
+      proteome reach each score gives an observed tail, and multiplying the dictionary probability at
+      that threshold by the 27,302,528 positions gives a predicted one. At threshold 8 the counts are
+      1592 observed and 1572 predicted, at 12 they are 225 and 181, at 16 they are 25 and 16, and at
+      20 they are 5 and 1. The analytic E-value tracks the empirical decoy over four orders of
+      magnitude, which is what makes it usable in place of a second search.
+    </p>
+
+    <h2>Modified Peptides</h2>
+
+    <p>
+      A cell alters its proteins after building them. Phosphate groups are attached to serine,
+      threonine and tyrosine, sugars to asparagine, methyl groups to lysine, and in collagen many
+      prolines carry an extra oxygen. Each such <strong>post-translational modification</strong>
+      changes the mass of one residue by a fixed amount $\delta$, positive or negative. Molecules
+      that have sat in the ground for a long time accumulate further changes of the same kind,
+      chemical rather than enzymatic. A search that assumes the standard masses misses every peptide
+      that carries one.
+    </p>
+
+    <p>
+      A modification of mass $\delta$ at position $k$ leaves every prefix mass before $k$ alone and
+      shifts every prefix mass from $k$ onwards by $\delta$. In the peptide vector this moves a whole
+      block of coordinates, inserting $\delta$ zeros if $\delta$ is positive and deleting $-\delta$
+      of them if it is negative. Modified variants of a peptide are therefore exactly the vectors
+      reachable from its own by such block insertions and deletions, which is the operation the next
+      algorithm searches over.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="541.84" height="200" viewBox="40.16 29 541.84 200">
+<text class="fig-text fig-note" x="150" y="52" text-anchor="start">one coordinate per dalton</text>
+<text class="fig-text fig-tick" x="134" y="88" text-anchor="end">XXZ</text>
+<text class="fig-text fig-tick" x="134" y="180" text-anchor="end">XX(-1)Z(+2)</text>
+<rect class="fig-cell" x="150" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="165" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="150" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="165" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="165" y="214" text-anchor="middle">1</text>
+<rect class="fig-cell" x="180" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="195" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="180" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="195" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="195" y="214" text-anchor="middle">2</text>
+<rect class="fig-cell" x="210" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="225" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="210" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="225" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="225" y="214" text-anchor="middle">3</text>
+<rect class="fig-cell-alt" x="240" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="255" y="88" text-anchor="middle">1</text>
+<rect class="fig-cell-alt" x="240" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="255" y="186" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="255" y="214" text-anchor="middle">4</text>
+<rect class="fig-cell" x="270" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="285" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="270" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="285" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="285" y="214" text-anchor="middle">5</text>
+<rect class="fig-cell" x="300" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="315" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="300" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="315" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="315" y="214" text-anchor="middle">6</text>
+<rect class="fig-cell" x="330" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="345" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell-alt" x="330" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="345" y="186" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="345" y="214" text-anchor="middle">7</text>
+<rect class="fig-cell-alt" x="360" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="375" y="88" text-anchor="middle">1</text>
+<rect class="fig-cell" x="360" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="375" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="375" y="214" text-anchor="middle">8</text>
+<rect class="fig-cell" x="390" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="405" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="390" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="405" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="405" y="214" text-anchor="middle">9</text>
+<rect class="fig-cell" x="420" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="435" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="420" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="435" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="435" y="214" text-anchor="middle">10</text>
+<rect class="fig-cell" x="450" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="465" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="450" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="465" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="465" y="214" text-anchor="middle">11</text>
+<rect class="fig-cell" x="480" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="495" y="88" text-anchor="middle">0</text>
+<rect class="fig-cell" x="480" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="495" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="495" y="214" text-anchor="middle">12</text>
+<rect class="fig-cell-alt" x="510" y="70" width="30" height="26"/>
+<text class="fig-text fig-note" x="525" y="88" text-anchor="middle">1</text>
+<rect class="fig-cell" x="510" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="525" y="186" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="525" y="214" text-anchor="middle">13</text>
+<rect class="fig-cell-alt" x="540" y="168" width="30" height="26"/>
+<text class="fig-text fig-note" x="555" y="186" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="555" y="214" text-anchor="middle">14</text>
+<path class="fig-free-solid" d="M 255 100 Q 255 119 255 162"/>
+<path class="fig-free-solid" d="M 375 100 Q 360 119 345 162"/>
+<path class="fig-free-solid" d="M 525 100 Q 540 119 555 162"/>
+</svg>
+<figcaption>A modification and what it does to the peptide vector. XXZ has prefix masses 4, 8 and 13. Lightening the second X by one dalton and making the Z two daltons heavier moves the last two ones to 7 and 14 and leaves the first alone, because a modification at position $k$ shifts every prefix mass from $k$ onwards and none before it. Seen on the vector, the change is the deletion of one zero after coordinate 4 and the insertion of three after coordinate 7, which is why modified variants are reached by inserting and deleting blocks of zeros.</figcaption>
+</figure>
+
+    <p>
+      <strong>Spectral Alignment Problem.</strong> Given a peptide and a spectral vector, find the
+      variant of the peptide with at most $k$ modifications that scores highest against the vector.
+    </p>
+
+    <p>
+      Place the peptide's amino acids on one axis and the masses $0$ to $m$ on the other, and add a
+      third axis counting modifications used. A node $(i, j, t)$ means that the first $i$ amino acids
+      have been placed, they occupy mass $j$, and $t$ modifications have been spent. Leaving amino
+      acid $i$ unmodified moves from $(i-1, j - |a_i|, t)$ to $(i, j, t)$. Modifying it moves from
+      $(i-1, j', t-1)$ for any $j' \lt j$, since a modification may change the mass by any amount. Both
+      moves collect the amplitude $s_j$ of the coordinate they land on, and the answer is the
+      heaviest path from $(0, 0, 0)$ to $(n, m, t)$ over all $t \leq k$.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="552.1" height="642" viewBox="62.72 1 552.1 642">
+<text class="fig-text fig-note" x="120" y="50" text-anchor="start">no modification used</text>
+<circle class="fig-dot" cx="120" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="70" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="104" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="138" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="172" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="172" r="3.5"/>
+<text class="fig-text fig-tick" x="102" y="108" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="142" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="176" text-anchor="end">Z</text>
+<text class="fig-text fig-note" x="120" y="24" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="188" y="24" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="256" y="24" text-anchor="middle">4</text>
+<text class="fig-text fig-note" x="324" y="24" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="392" y="24" text-anchor="middle">8</text>
+<text class="fig-text fig-note" x="460" y="24" text-anchor="middle">10</text>
+<text class="fig-text fig-note" x="528" y="24" text-anchor="middle">12</text>
+<text class="fig-text fig-note" x="596" y="24" text-anchor="middle">14</text>
+<text class="fig-text fig-note" x="102" y="24" text-anchor="end">mass</text>
+<text class="fig-text fig-note" x="120" y="230" text-anchor="start">1 modification used</text>
+<circle class="fig-dot" cx="120" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="250" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="284" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="318" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="352" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="352" r="3.5"/>
+<text class="fig-text fig-tick" x="102" y="288" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="322" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="356" text-anchor="end">Z</text>
+<text class="fig-text fig-note" x="120" y="410" text-anchor="start">2 modifications used</text>
+<circle class="fig-dot" cx="120" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="430" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="464" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="498" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="154" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="188" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="222" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="256" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="290" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="324" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="358" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="392" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="426" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="460" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="494" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="528" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="562" cy="532" r="3.5"/>
+<circle class="fig-dot" cx="596" cy="532" r="3.5"/>
+<text class="fig-text fig-tick" x="102" y="468" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="502" text-anchor="end">X</text>
+<text class="fig-text fig-tick" x="102" y="536" text-anchor="end">Z</text>
+<line class="fig-curve" x1="120" y1="70" x2="256" y2="104"/>
+<path class="fig-free-solid" d="M 256 104 Q 307 179 358 318"/>
+<path class="fig-free-solid" d="M 358 318 Q 477 393 596 532"/>
+<line class="fig-curve" x1="120" y1="600" x2="146" y2="600"/>
+<text class="fig-text fig-note" x="154" y="604" text-anchor="start">the amino acid keeps its own mass, so the layer does not change</text>
+<line class="fig-free-solid" x1="120" y1="624" x2="146" y2="624"/>
+<text class="fig-text fig-note" x="154" y="628" text-anchor="start">a modification: any jump in mass, and one layer down</text>
+</svg>
+<figcaption>The graph of spectral alignment for the peptide XXZ against a spectral vector of length 14, with one layer per number of modifications used. Within a layer an amino acid may only step by its own mass. A modification is a move to the next layer down and may change the mass by any amount, which is what makes it a modification. The path drawn is the one the algorithm returns: X unmodified, then X lightened by one, then Z made heavier by two, ending at mass 14 in the layer for two modifications. Written directly the modification move scans every earlier mass; carrying a running maximum along each row removes that scan and brings the cost to $O(nmk)$.</figcaption>
+</figure>
+
+    <p>
+      Written directly the second move scans every earlier mass, giving $O(n m^2 k)$. It does not
+      need to. The quantity being scanned is the maximum of $\textit{score}(i-1, j', t-1)$ over all
+      $j' \lt j$, and that maximum over a growing prefix is maintained in constant time per cell by
+      carrying it along as $j$ increases. The cost drops to $O(nmk)$, and for the 33-residue peptide
+      and mass 2760 of the last section it is a tenth of a second.
+    </p>
+
+    <pre><code class="language-python">def spectral_alignment(peptide, spectrum, k, mass=MASS):
+    weights = [mass[amino] for amino in peptide]
+    n, m = len(peptide), len(spectrum)
+    NEG = float('-inf')
+    score = [[[NEG] * (k + 1) for _ in range(m + 1)] for _ in range(n + 1)]
+    back = [[[None] * (k + 1) for _ in range(m + 1)] for _ in range(n + 1)]
+    score[0][0][0] = 0
+    reachable = [[[(NEG, None)] * (k + 1) for _ in range(m + 1)] for _ in range(n + 1)]
+
+    def running_max(i):
+        for t in range(k + 1):
+            for j in range(m + 1):
+                best = (score[i][j][t], j)
+                if j and reachable[i][j - 1][t][0] &gt;= best[0]:
+                    best = reachable[i][j - 1][t]
+                reachable[i][j][t] = best
+
+    running_max(0)
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            for t in range(k + 1):
+                previous = j - weights[i - 1]
+                if previous &gt;= 0 and score[i - 1][previous][t] &gt; NEG:
+                    score[i][j][t] = score[i - 1][previous][t] + spectrum[j - 1]
+                    back[i][j][t] = (i - 1, previous, t)
+                if t &gt; 0:
+                    value, source = reachable[i - 1][j - 1][t - 1]
+                    if value &gt; NEG and value + spectrum[j - 1] &gt; score[i][j][t]:
+                        score[i][j][t] = value + spectrum[j - 1]
+                        back[i][j][t] = (i - 1, source, t - 1)
+        running_max(i)
+
+    best_t = max(range(k + 1), key=lambda t: score[n][m][t])
+    if score[n][m][best_t] == NEG:
+        return None, None
+    pieces = []
+    i, j, t = n, m, best_t
+    while i &gt; 0:
+        pi, pj, pt = back[i][j][t]
+        shift = (j - pj) - weights[i - 1]
+        pieces.append(peptide[i - 1] if shift == 0
+                      else '%s(%+d)' % (peptide[i - 1], shift))
+        i, j, t = pi, pj, pt
+    return ''.join(reversed(pieces)), score[n][m][best_t]</code></pre>
+
+    <p>
+      On the sample peptide XXZ, of mass 13, against a spectral vector of length 14 with two
+      modifications allowed, the algorithm returns XX(-1)Z(+2): the second X is lightened by one and
+      the Z is made heavier by two, which brings the total to 14. Against exhaustive enumeration of
+      every placement of every allowed number of modifications, on 200 random peptides and spectra,
+      the score returned is the maximum every time.
+    </p>
+
+    <p>
+      <strong>Modification Search Problem.</strong> Given a spectrum and a proteome, find the
+      modified peptide from the proteome, with at most $k$ modifications, of maximum score.
+    </p>
+
+    <p>
+      Running spectral alignment on every substring of a proteome is not affordable, and it is not
+      necessary either. Modifications change the mass by a bounded amount in practice, so only
+      substrings whose mass lies within that bound of $m$ can be candidates, and the prefix-mass
+      array of the previous section finds them by binary search on each end of the window instead of
+      on a single value. The search that follows is narrower still: the unmodified search has
+      already named the protein, and only that protein is scanned.
+    </p>
+    <h2>Application: Was T. rex Just a Big Chicken?</h2>
+
+    <p>
+      The peptides reported from the <em>Tyrannosaurus rex</em> femur were deposited as two protein
+      records, one for the collagen alpha-1(I) chain and one for alpha-2(I). Swiss-Prot has since
+      deleted both, and the REST interface returns the reason as a field: the entries P0C2W2 and
+      P0C2W4 are marked inactive with deleted reason "Deleted from Swiss-Prot". The archived records
+      are still served by NCBI, and every sequence used below is fetched rather than typed. In the
+      alpha-1 record, 570 positions long, every residue that was not sequenced is written X, and the
+      five stretches that carry letters are the data.
+    </p>
+
+    <pre><code class="language-python">import re
+import urllib.request
+
+def fetch(url):
+    with urllib.request.urlopen(url) as response:
+        text = response.read().decode()
+    return ''.join(line for line in text.splitlines() if not line.startswith('&gt;'))
+
+
+NCBI = ('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi'
+        '?db=protein&amp;id=%s&amp;rettype=fasta&amp;retmode=text')
+UNIPROT = 'https://rest.uniprot.org/uniprotkb/%s.fasta'
+
+trex = {'a1': fetch(NCBI % 'P0C2W2.2'), 'a2': fetch(NCBI % 'P0C2W4.1')}
+peptides = [(chain, match.group())
+            for chain in ('a1', 'a2')
+            for match in re.finditer(r'[^X]+', trex[chain])]</code></pre>
+
+    <p>
+      The five peptides are GATGAPGIAGAPGFPGARGAPGPQGPSGAPGPK at 2760 Da, GVQGPPGPQGPR at 1127,
+      GSAGPPGATGFPGAAGR at 1408, GVVGLPGQR at 863, and GLPGESGAVGPAGPIGSR at 1559. All five begin
+      with glycine and are 21 per cent proline, which is what collagen looks like: its helical region
+      is a repeat of glycine followed by two other residues, and the chicken alpha-1 chain is 26.6
+      per cent glycine and 18.7 per cent proline, against 6.4 per cent and 5.8 per cent averaged over
+      the whole chicken proteome. The raw spectra from 2007 are not public, so the spectra used below are simulated from
+      these sequences with the instrument model of the section on amplitudes, at $\theta = 0.7$ and
+      $\rho = 0.02$. What that tests is the search and the statistics, not the chemistry: the
+      question being asked by computation is whether the published sequence beats every other
+      candidate in a real proteome, not whether the fossil really produced it.
+    </p>
+
+    <h3>Where the Peptides Land</h3>
+
+    <p>
+      The chicken reference proteome from UniProt holds 41,396 sequences, of which three use letters
+      outside the twenty standard amino acids and are dropped, leaving 41,393 proteins and
+      27,302,528 residues. Each simulated spectrum is searched against all of it with
+      <code>identify_peptide_filtered</code>, in six seconds per spectrum, and against a decoy in
+      which every protein has had its residues shuffled.
+    </p>
+
+    <p>
+      Four of the five peptides come back exactly. GVQGPPGPQGPR, GSAGPPGATGFPGAAGR and GVVGLPGQR are
+      each the highest-scoring substring of the entire proteome for their spectrum, and each is found
+      inside chicken collagen alpha-1(I); GLPGESGAVGPAGPIGSR is likewise the best in the proteome and
+      is found in alpha-2(I). Their scores are 36, 39, 27 and 50, and the best score any shuffled
+      decoy reaches for the same spectra is 22, 19, 23 and 24. Between about 208,000 and 255,000
+      substrings of the proteome have exactly the right mass in each case, so the right answer is
+      being picked out of a quarter of a million candidates of the correct mass and 27 million
+      starting positions.
+    </p>
+
+    <p>
+      Searching the peptides as strings, without any spectrum, sharpens the picture. GVVGLPGQR
+      occurs in chicken, ostrich, human and mouse collagen alike, so finding it establishes only that
+      the molecule is collagen. GSAGPPGATGFPGAAGR occurs in chicken, ostrich and human but not
+      mouse. GVQGPPGPQGPR occurs in chicken and ostrich and in neither mammal, and
+      GLPGESGAVGPAGPIGSR occurs exactly in chicken alone among the four. The peptides that carry
+      information about which animal this was are the ones that are not universal.
+    </p>
+
+    <h3>What the Scores Are Worth</h3>
+
+    <p>
+      The E-value of each match is the probability of its spectral dictionary at its own score, times
+      the 27,302,528 positions of the database. For GLPGESGAVGPAGPIGSR at score 50 the dictionary
+      probability is $5.1 \times 10^{-19}$ and the E-value is $1.4 \times 10^{-11}$; for
+      GSAGPPGATGFPGAAGR at 39 it is $1.4 \times 10^{-11}$ as well; for GVQGPPGPQGPR at 36 it is
+      $6.5 \times 10^{-7}$. A database of this size would be expected to throw up a match that good
+      by chance once in $10^{6}$ to $10^{11}$ experiments.
+    </p>
+
+    <p>
+      GVVGLPGQR is the exception. It is nine residues long, its score is 27, and its E-value is
+      $3.6 \times 10^{-2}$: a database of this size produces a match that good by chance about once
+      in thirty. That is not evidence of anything, and the reason is visible in the arithmetic rather
+      than in the biology. A short peptide has few prefix masses, so it collects few amplitudes, so
+      its score has a small range and the dictionary at any achievable threshold is large. The same
+      calculation that certifies the long peptides refuses to certify the short one, and the
+      published re-analyses of this dataset reached the same conclusion about this particular
+      peptide by other means.
+    </p>
+
+    <h3>The Peptide That Needs a Modification</h3>
+
+    <p>
+      The 33-residue peptide is not found at all. No substring of the chicken proteome of mass
+      exactly 2760 scores better than 20 against its spectrum, while the peptide itself scores 83.
+      The corresponding stretch of chicken collagen alpha-1(I) is
+      GATGAPGIAGAPGFPGARGPSGPQGPSGAPGPK, which differs at two positions and weighs 2776 Da, sixteen
+      more, so it cannot be scored against a vector of length 2760 at all. This is the case the
+      section on modifications was built for.
+    </p>
+
+    <p>
+      Running <code>spectral_alignment</code> on the chicken peptide against the <em>T. rex</em>
+      spectrum returns nothing at $k = 0$, as it must. At $k = 1$ it finds a variant scoring 79, and
+      at $k = 2$ one scoring 87, after which more modifications buy nothing. The two-modification
+      answer scores higher than the true peptide's own 83, which is the price of the extra freedom:
+      allowing arbitrary mass shifts lets a peptide chase noise peaks, so scores from a modification
+      search are not comparable with scores from an unmodified one and need a null model of their
+      own.
+    </p>
+
+    <h3>The Tree</h3>
+
+    <p>
+      Placing <em>T. rex</em> among modern animals uses only the 89 residues that were sequenced.
+      For each of the five peptides and each species, the homologous stretch of that species' chain
+      is located by a fitting alignment, which is <a href="sequence-alignment.html">Chapter 5</a>'s
+      <code>alignment</code> with the mode set to <code>'fitting'</code>, so that the whole peptide is
+      aligned into the long chain and the best window wins. Reading one residue of the chain per
+      residue of the peptide and concatenating over the five peptides gives every species a string of
+      89 characters in register with the fossil.
+    </p>
+
+    <pre><code class="language-python">def homologous_window(peptide, chain, score):
+    _, top, bottom = alignment(chain, peptide, score, 1, 'fitting')
+    return ''.join(a for a, b in zip(top, bottom) if b != '-')</code></pre>
+
+    <figure class="figure-block">
+<svg class="figure" width="764.16" height="181" viewBox="36.26 17 764.16 181">
+<text class="fig-text fig-note" x="110" y="40" text-anchor="start">the 89 columns sequenced from the fossil, against T. rex</text>
+<text class="fig-text fig-note" x="96" y="75" text-anchor="end">chicken</text>
+<rect class="fig-cell" x="110" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="116.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="123.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="129.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="136.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="143" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="149.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="156.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="162.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="169.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="176" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="182.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="189.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="195.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="202.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="209" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="215.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="222.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="228.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="235.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="242" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="248.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="255.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="261.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="268.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="275" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="281.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="288.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="294.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="301.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="308" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="314.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="321.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="327.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="334.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="341" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="347.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="354.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="360.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="367.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="374" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="380.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="387.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="393.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="400.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="407" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="413.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="420.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="426.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="433.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="440" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="446.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="453.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="459.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="466.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="473" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="479.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="486.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="492.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="499.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="506" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="512.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="519.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="525.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="532.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="539" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="545.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="552.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="558.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="565.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="572" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="578.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="585.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="591.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="598.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="605" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="611.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="618.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="624.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="631.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="638" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="644.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="651.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="657.8" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="664.4" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="671" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="677.6" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="684.2" y="60" width="6.6" height="20"/>
+<rect class="fig-cell" x="690.8" y="60" width="6.6" height="20"/>
+<text class="fig-text fig-tick" x="713.4" y="75" text-anchor="start">1</text>
+<text class="fig-text fig-note" x="96" y="97" text-anchor="end">ostrich</text>
+<rect class="fig-cell" x="110" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="116.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="123.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="129.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="136.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="143" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="149.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="156.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="162.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="169.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="176" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="182.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="189.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="195.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="202.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="209" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="215.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="222.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="228.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="235.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="242" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="248.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="255.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="261.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="268.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="275" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="281.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="288.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="294.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="301.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="308" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="314.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="321.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="327.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="334.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="341" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="347.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="354.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="360.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="367.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="374" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="380.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="387.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="393.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="400.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="407" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="413.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="420.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="426.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="433.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="440" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="446.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="453.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="459.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="466.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="473" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="479.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="486.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="492.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="499.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="506" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="512.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="519.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="525.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="532.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="539" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="545.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="552.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="558.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="565.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="572" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="578.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="585.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="591.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="598.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="605" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="611.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="618.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="624.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="631.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="638" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="644.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="651.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="657.8" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="664.4" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="671" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="677.6" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="684.2" y="82" width="6.6" height="20"/>
+<rect class="fig-cell" x="690.8" y="82" width="6.6" height="20"/>
+<text class="fig-text fig-tick" x="713.4" y="97" text-anchor="start">2</text>
+<text class="fig-text fig-note" x="96" y="119" text-anchor="end">human</text>
+<rect class="fig-cell" x="110" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="116.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="123.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="129.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="136.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="143" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="149.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="156.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="162.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="169.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="176" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="182.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="189.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="195.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="202.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="209" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="215.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="222.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="228.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="235.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="242" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="248.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="255.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="261.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="268.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="275" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="281.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="288.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="294.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="301.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="308" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="314.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="321.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="327.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="334.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="341" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="347.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="354.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="360.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="367.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="374" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="380.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="387.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="393.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="400.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="407" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="413.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="420.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="426.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="433.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="440" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="446.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="453.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="459.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="466.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="473" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="479.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="486.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="492.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="499.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="506" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="512.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="519.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="525.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="532.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="539" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="545.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="552.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="558.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="565.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="572" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="578.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="585.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="591.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="598.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="605" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="611.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="618.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="624.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="631.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="638" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="644.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="651.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="657.8" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="664.4" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="671" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="677.6" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="684.2" y="104" width="6.6" height="20"/>
+<rect class="fig-cell" x="690.8" y="104" width="6.6" height="20"/>
+<text class="fig-text fig-tick" x="713.4" y="119" text-anchor="start">8</text>
+<text class="fig-text fig-note" x="96" y="141" text-anchor="end">mouse</text>
+<rect class="fig-cell" x="110" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="116.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="123.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="129.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="136.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="143" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="149.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="156.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="162.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="169.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="176" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="182.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="189.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="195.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="202.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="209" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="215.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="222.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="228.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="235.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="242" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="248.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="255.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="261.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="268.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="275" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="281.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="288.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="294.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="301.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="308" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="314.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="321.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="327.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="334.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="341" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="347.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="354.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="360.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="367.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="374" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="380.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="387.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="393.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="400.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="407" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="413.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="420.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="426.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="433.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="440" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="446.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="453.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="459.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="466.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="473" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="479.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="486.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="492.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="499.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="506" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="512.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="519.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="525.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="532.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="539" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="545.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="552.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="558.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="565.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="572" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="578.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="585.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="591.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="598.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="605" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="611.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="618.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="624.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="631.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="638" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="644.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell-alt" x="651.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="657.8" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="664.4" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="671" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="677.6" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="684.2" y="126" width="6.6" height="20"/>
+<rect class="fig-cell" x="690.8" y="126" width="6.6" height="20"/>
+<text class="fig-text fig-tick" x="713.4" y="141" text-anchor="start">8</text>
+<text class="fig-text fig-note" x="713.4" y="40" text-anchor="start">differences</text>
+<line class="fig-free" x1="327.8" y1="52" x2="327.8" y2="146"/>
+<line class="fig-free" x1="407" y1="52" x2="407" y2="146"/>
+<line class="fig-free" x1="519.2" y1="52" x2="519.2" y2="146"/>
+<line class="fig-free" x1="578.6" y1="52" x2="578.6" y2="146"/>
+<rect class="fig-cell-alt" x="110" y="170" width="22" height="14"/>
+<text class="fig-text fig-note" x="140" y="181" text-anchor="start">differs from T. rex</text>
+<line class="fig-free" x1="300" y1="168" x2="300" y2="186"/>
+<text class="fig-text fig-note" x="310" y="181" text-anchor="start">boundary between two of the five peptides</text>
+</svg>
+<figcaption>The 89 sequenced columns, with every column at which a modern species differs from the fossil shaded. The dashed lines separate the five peptides. Chicken differs at one column and ostrich at two, while human and mouse differ at eight each, and the differences from the mammals are spread over four of the five peptides rather than concentrated in one. The homologous window for each species was located by fitting alignment rather than by a fixed offset, because the propeptide that precedes the helix has a different length in each species.</figcaption>
+</figure>
+
+    <p>
+      Counting the columns at which two of the strings differ gives a distance matrix, exactly as in
+      <a href="evolutionary-trees.html">Chapter 7</a>. <em>T. rex</em> differs from chicken at one
+      column out of 89, from ostrich at two, and from human and from mouse at eight each; chicken and
+      ostrich differ from each other at one. Feeding the matrix to that chapter's
+      <code>neighbor_joining</code> and rooting the result at the midpoint of its longest leaf-to-leaf
+      path produces the tree below.
+    </p>
+
+    <figure class="figure-block">
+<svg class="figure" width="540.64" height="259" viewBox="108 1 540.64 259">
+<line class="fig-curve" x1="382.86" y1="186.6" x2="382.86" y2="176.21"/>
+<line class="fig-curve" x1="382.86" y1="176.21" x2="467.35" y2="176.21"/>
+<text class="fig-text fig-note" x="425.1" y="167.21" text-anchor="middle">0.75</text>
+<line class="fig-curve" x1="467.35" y1="176.21" x2="467.35" y2="148"/>
+<line class="fig-curve" x1="467.35" y1="148" x2="580" y2="148"/>
+<text class="fig-text fig-note" x="523.67" y="139" text-anchor="middle">1.00</text>
+<line class="fig-curve" x1="467.35" y1="194" x2="467.35" y2="176.21"/>
+<line class="fig-curve" x1="467.35" y1="176.21" x2="467.35" y2="176.21"/>
+<text class="fig-text fig-note" x="467.35" y="164.21" text-anchor="middle">0.00</text>
+<line class="fig-curve" x1="382.86" y1="186.6" x2="382.86" y2="240"/>
+<line class="fig-curve" x1="382.86" y1="240" x2="411.02" y2="240"/>
+<text class="fig-text fig-note" x="411.02" y="228" text-anchor="middle">0.25</text>
+<line class="fig-curve" x1="120" y1="143.57" x2="120" y2="186.6"/>
+<line class="fig-curve" x1="120" y1="186.6" x2="382.86" y2="186.6"/>
+<text class="fig-text fig-note" x="251.43" y="177.6" text-anchor="middle">2.33</text>
+<line class="fig-curve" x1="335.92" y1="100.53" x2="335.92" y2="56"/>
+<line class="fig-curve" x1="335.92" y1="56" x2="542.45" y2="56"/>
+<text class="fig-text fig-note" x="439.18" y="47" text-anchor="middle">1.83</text>
+<line class="fig-curve" x1="335.92" y1="100.53" x2="335.92" y2="102"/>
+<line class="fig-curve" x1="335.92" y1="102" x2="580" y2="102"/>
+<text class="fig-text fig-note" x="457.96" y="93" text-anchor="middle">2.17</text>
+<line class="fig-curve" x1="120" y1="143.57" x2="120" y2="100.53"/>
+<line class="fig-curve" x1="120" y1="100.53" x2="335.92" y2="100.53"/>
+<text class="fig-text fig-note" x="227.96" y="91.53" text-anchor="middle">1.92</text>
+<circle class="fig-dot" cx="542.45" cy="56" r="4"/>
+<text class="fig-text fig-tick" x="554.45" y="61" text-anchor="start">human</text>
+<circle class="fig-dot" cx="580" cy="102" r="4"/>
+<text class="fig-text fig-tick" x="592" y="107" text-anchor="start">mouse</text>
+<circle class="fig-dot" cx="580" cy="148" r="4"/>
+<text class="fig-text fig-tick" x="592" y="153" text-anchor="start">T. rex</text>
+<circle class="fig-dot" cx="467.35" cy="194" r="4"/>
+<text class="fig-text fig-tick" x="479.35" y="199" text-anchor="start">chicken</text>
+<circle class="fig-dot" cx="411.02" cy="240" r="4"/>
+<text class="fig-text fig-tick" x="423.02" y="245" text-anchor="start">ostrich</text>
+<text class="fig-text fig-note" x="120" y="24" text-anchor="start">edge lengths in differing columns out of 89</text>
+</svg>
+<figcaption>Neighbour-joining on the matrix of differing columns, rooted at the midpoint of the longest path between two leaves. <em>T. rex</em> sits inside the birds beside chicken, with ostrich next and the two mammals on the other side of the root. The chicken limb has length zero, which is what neighbour-joining returns when a leaf lies on the path between its neighbours: at one substitution out of 89, chicken is not distinguishable from the common ancestor of chicken and the fossil. Eighty-nine columns are enough to separate birds from mammals, which differ at eight of them, and not enough to resolve anything finer.</figcaption>
+</figure>
+
+    <p>
+      <em>T. rex</em> falls inside the birds, next to chicken, with ostrich outside the two of them
+      and the mammals on the far side of the root. This is the answer to the chapter's question, and
+      it is computed from fetched sequences by the chapter's own code rather than quoted. The limb
+      leading to chicken has length zero, which is what neighbour-joining does when a leaf sits on
+      the path between its neighbours: on these 89 columns the fossil sequence and the chicken
+      sequence are one substitution apart, and chicken is not distinguishable from the common
+      ancestor of chicken and the fossil.
+    </p>
+
+    <h3>What This Does and Does Not Establish</h3>
+
+    <p>
+      The computation shows that the published sequences are collagen, that four of them are
+      identified unambiguously in a real proteome by their spectra, that three of those four carry
+      E-values small enough to act on and the fourth does not, and that treating the 89 residues as a
+      character matrix places the fossil among birds rather than mammals. Every one of those
+      statements is about the sequences as data.
+    </p>
+
+    <p>
+      None of it establishes that the peptides came from a dinosaur. A tree built from 89 residues
+      can distinguish birds from mammals, which differ at eight of them, but it cannot resolve
+      anything finer, and it cannot tell a 68-million-year-old bird-line collagen from a modern one:
+      the fossil sequence is one substitution from chicken, so any recent bird would sit in the same
+      place. That is the shape of the contamination argument that has been made against this
+      dataset. A later study reported that bone from modern ostrich, handled in a laboratory, yields
+      spectra matching the same peptides, and re-analyses of the original spectra assigned some of
+      them to haemoglobin rather than collagen and argued that the shorter peptides did not clear the
+      threshold. Two of the six sequences originally deposited have since been withdrawn, and
+      Swiss-Prot's deletion of both records is the visible end of that argument.
+    </p>
+
+    <p>
+      The algorithms cannot settle it, and knowing why they cannot is the useful part. A spectral
+      dictionary answers one question exactly: how often a database of this size would produce a
+      score this good from nothing. It does not answer whether the sample was contaminated, because a
+      contaminant is a real peptide and scores like one. The statistics of this chapter separate
+      signal from noise, and contamination is signal from the wrong source.
+    </p>
+
+    <p>
+      That birds descend from theropod dinosaurs is not in doubt on other grounds, and the fossil
+      record for it is far stronger than 89 residues of collagen. What this chapter's machinery
+      contributes is the observation that if ancient protein can be recovered at all, the tools to
+      read it, place it, and put a number on the placement already exist, and they run in seconds on
+      a proteome of 27 million residues.
+    </p>
+
+    <hr>
+
+    <p>
+      Every algorithm on this page was checked against the sample dataset published on the Rosalind
+      problem page it corresponds to, from BA11A through BA11J, and each dynamic program was checked
+      again against exhaustive enumeration on random inputs over the two-letter alphabet: 400 random
+      spectra for peptide sequencing, 300 for identification, 300 for the size and probability of a
+      spectral dictionary, 200 for spectral alignment, and 500 random peptides for the ideal spectrum
+      and peptide vector round trips. The filtered proteome search was checked against the plain one
+      on 60 further random cases.
+    </p>
+  </main>
+</body>
+</html>

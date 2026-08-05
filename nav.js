@@ -61,6 +61,7 @@
         { href: "bioinformatics/clustering.html", en: "Chapter 8: Gene Clustering" },
         { href: "bioinformatics/read-mapping.html", en: "Chapter 9: Read Mapping" },
         { href: "bioinformatics/hidden-markov-models.html", en: "Chapter 10: Hidden Markov Models" },
+        { href: "bioinformatics/computational-proteomics.html", en: "Chapter 11: Computational Proteomics" },
       ]
     ]},
     { en: "Thailand", columns: [

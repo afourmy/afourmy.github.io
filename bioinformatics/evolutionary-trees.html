@@ -229,6 +229,52 @@
     </p>
 
     <p>
+      A tree is held as a dictionary sending each node to the list of pairs
+      <code>(neighbour, weight)</code> on its edges, with leaves numbered $0$ to $n-1$ and internal
+      nodes numbered from $n$ upwards. Four helpers on that representation are used throughout the
+      chapter: adding and removing an edge, listing the nodes on the path between two of them, and
+      listing the edges whose two ends are both internal.
+    </p>
+
+    <pre><code class="language-python">def link(tree, a, b, weight):
+    tree.setdefault(a, []).append((b, weight))
+    tree.setdefault(b, []).append((a, weight))
+
+
+def unlink(tree, a, b):
+    tree[a] = [(node, weight) for node, weight in tree[a] if node != b]
+    tree[b] = [(node, weight) for node, weight in tree[b] if node != a]
+
+
+def path_between(tree, source, target):
+    """The nodes of the unique path from source to target, source first."""
+    came, stack = {source: None}, [source]
+    while stack:
+        node = stack.pop()
+        if node == target:
+            break
+        for other, _ in tree[node]:
+            if other not in came:
+                came[other] = node
+                stack.append(other)
+    path = [target]
+    while path[-1] != source:
+        path.append(came[path[-1]])
+    return path[::-1]
+
+
+def internal_edges(tree, labels):
+    """Every edge with an internal node at both ends, listed once."""
+    seen, edges = set(), []
+    for a in tree:
+        for b, _ in tree[a]:
+            if a in labels or b in labels or (b, a) in seen:
+                continue
+            seen.add((a, b))
+            edges.append((a, b))
+    return edges</code></pre>
+
+    <p>
       <strong>Distances Between Leaves Problem.</strong> Given a weighted tree with $n$ leaves,
       compute the $n \times n$ matrix of distances between leaves.
     </p>
