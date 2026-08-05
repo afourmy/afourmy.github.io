@@ -233,7 +233,9 @@
       <code>(neighbour, weight)</code> on its edges, with leaves numbered $0$ to $n-1$ and internal
       nodes numbered from $n$ upwards. Four helpers on that representation are used throughout the
       chapter: adding and removing an edge, listing the nodes on the path between two of them, and
-      listing the edges whose two ends are both internal.
+      listing the edges whose two ends are both internal. The last of these takes a dictionary
+      <code>labels</code> sending each leaf to its sequence, and treats a node as a leaf exactly when
+      it is a key of that dictionary.
     </p>
 
     <pre><code class="language-python">def link(tree, a, b, weight):

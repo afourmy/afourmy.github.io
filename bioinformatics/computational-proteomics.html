@@ -203,7 +203,7 @@ def prefix_masses(peptide, mass=MASS):
 <path class="fig-free" d="M 370 334 Q 383 322 396 334"/>
 <text class="fig-text fig-note" x="404" y="338" text-anchor="start">twins, summing to 486</text>
 </svg>
-<figcaption>The ideal spectrum of GPFNA. Each of the four internal bonds contributes a prefix mass, drawn above the axis, and a suffix mass, drawn below it, and the whole molecule at 486 is both. The arcs join the four twin pairs, each summing to 486: a prefix of mass $m$ and a suffix of mass $486 - m$ are the two halves of the same cut and say the same thing about where that cut is. Nine distinct masses appear rather than ten, because the prefix and the suffix of the last cut coincide, so a peptide of $n$ amino acids has an ideal spectrum of $2n - 1$ masses.</figcaption>
+<figcaption>The ideal spectrum of GPFNA. Each of the four internal bonds contributes a prefix mass, drawn above the axis, and a suffix mass, drawn below it, and the whole molecule at 486 is both. The arcs join the four twin pairs, each summing to 486: a prefix of mass $m$ and a suffix of mass $486 - m$ are the two halves of the same cut and say the same thing about where that cut is. Nine distinct masses appear rather than ten, because the prefix and the suffix of the last cut coincide, so a peptide of $n$ amino acids has an ideal spectrum of at most $2n - 1$ masses.</figcaption>
 </figure>
 
     <p>
@@ -211,8 +211,11 @@ def prefix_masses(peptide, mass=MASS):
       whole peptide. The prefix of mass $m$ and the suffix of mass $\text{total} - m$ come from the
       same cut, so they carry exactly the same information about where that cut is, and every mass
       in the spectrum has a twin. This is why an ideal spectrum of a peptide of $n$ amino acids
-      holds $2n - 1$ masses rather than $2n$: the prefix and the suffix of the last cut are both the
-      whole molecule, and coincide. Twins are used twice below, once to fold a real spectrum onto
+      holds at most $2n - 1$ masses rather than $2n$: the prefix and the suffix of the last cut are
+      both the whole molecule, and coincide. It holds fewer when two prefix masses sum to the total,
+      since a prefix is then equal to a suffix and the two collide as well, which happens for about
+      one tryptic peptide of the chicken proteome in sixteen. Twins are used twice below, once to
+      fold a real spectrum onto
       half its coordinates and once to explain why a peptide and its reversal can never be told
       apart.
     </p>
@@ -435,7 +438,7 @@ def prefix_masses(peptide, mass=MASS):
 <text class="fig-text fig-note" x="662" y="210" text-anchor="start">misses two</text>
 <text class="fig-text fig-note" x="144" y="16" text-anchor="start">the nine masses of the spectrum</text>
 </svg>
-<figcaption>The four paths from source to sink in that graph, and the masses of the ideal spectrum each of them accounts for. GPFNA and ANFPG account for all nine, so both explain the spectrum; they are reverses of each other, which is why they cannot be told apart. GPFKG and GKFPG each step over two masses in one move, using a lysine of mass 128 where the true peptide has two residues, and their ideal spectra are missing 71 and 415. Reading a path off the graph is therefore not enough on its own, and the ideal spectrum of the peptide it spells has to be recomputed and compared with the input.</figcaption>
+<figcaption>The four paths from source to sink in that graph, and the masses of the ideal spectrum each of them accounts for. GPFNA and ANFPG account for all nine, so both explain the spectrum; they are reverses of each other, which is why they cannot be told apart. GPFKG and GKFPG each use a lysine of mass 128 for an edge that steps over two masses of the spectrum at once, and their ideal spectra are missing 71 and 415. Reading a path off the graph is therefore not enough on its own, and the ideal spectrum of the peptide it spells has to be recomputed and compared with the input.</figcaption>
 </figure>
 
     <p>
@@ -455,7 +458,8 @@ def prefix_masses(peptide, mass=MASS):
 
     <p>
       Reconstruction from an ideal spectrum is a solved problem, and it is also the wrong problem.
-      Every step above assumed that the input holds all $2n - 1$ masses and nothing else.
+      Every step above assumed that the input holds every mass of the ideal spectrum and nothing
+      else.
     </p>
 
     <h2>What a Real Spectrum Looks Like</h2>
@@ -631,7 +635,7 @@ def prefix_masses(peptide, mass=MASS):
 <text class="fig-text fig-note" x="296" y="290" text-anchor="start">whole</text>
 <text class="fig-text fig-tick" x="362" y="290" text-anchor="start">412</text>
 </svg>
-<figcaption>What the instrument is given and what it returns. Trypsin cuts the protein after every lysine and every arginine, shaded, producing peptides short enough to weigh precisely. One of those peptides is then broken again, and because the sample holds many copies, every bond is broken in some copy. Each break yields two pieces whose masses sum to 412, so the four cuts of GVQK give the eight masses on the right together with the mass of the intact peptide.</figcaption>
+<figcaption>What the instrument is given and what it returns. Trypsin cuts the protein after every lysine and every arginine, shaded, producing peptides short enough to weigh precisely. One of those peptides is then broken again, and because the sample holds many copies, every bond is broken in some copy. Each break yields two pieces whose masses sum to 412, so the three internal bonds of GVQK give the six masses on the right together with the mass of the intact peptide.</figcaption>
 </figure>
 
     <p>
@@ -1871,7 +1875,7 @@ def dictionary_size(spectrum, threshold, max_score, mass=MASS):
 <path class="fig-free-solid" d="M 375 100 Q 360 119 345 162"/>
 <path class="fig-free-solid" d="M 525 100 Q 540 119 555 162"/>
 </svg>
-<figcaption>A modification and what it does to the peptide vector. XXZ has prefix masses 4, 8 and 13. Lightening the second X by one dalton and making the Z two daltons heavier moves the last two ones to 7 and 14 and leaves the first alone, because a modification at position $k$ shifts every prefix mass from $k$ onwards and none before it. Seen on the vector, the change is the deletion of one zero after coordinate 4 and the insertion of three after coordinate 7, which is why modified variants are reached by inserting and deleting blocks of zeros.</figcaption>
+<figcaption>A modification and what it does to the peptide vector. XXZ has prefix masses 4, 8 and 13. Lightening the second X by one dalton and making the Z two daltons heavier moves the last two ones to 7 and 14 and leaves the first alone, because a modification at position $k$ shifts every prefix mass from $k$ onwards and none before it. Seen on the vector, the run of zeros after coordinate 4 loses one and the run after the middle one gains two, which is why modified variants are reached by inserting and deleting blocks of zeros.</figcaption>
 </figure>
 
     <p>
@@ -2686,7 +2690,7 @@ peptides = [(chain, match.group())
 <line class="fig-free" x1="300" y1="168" x2="300" y2="186"/>
 <text class="fig-text fig-note" x="310" y="181" text-anchor="start">boundary between two of the five peptides</text>
 </svg>
-<figcaption>The 89 sequenced columns, with every column at which a modern species differs from the fossil shaded. The dashed lines separate the five peptides. Chicken differs at one column and ostrich at two, while human and mouse differ at eight each, and the differences from the mammals are spread over four of the five peptides rather than concentrated in one. The homologous window for each species was located by fitting alignment rather than by a fixed offset, because the propeptide that precedes the helix has a different length in each species.</figcaption>
+<figcaption>The 89 sequenced columns, with every column at which a modern species differs from the fossil shaded. The dashed lines separate the five peptides. Chicken differs at one column and ostrich at two, while human and mouse differ at eight each, and those mammalian differences fall in four of the five peptides rather than in one. The homologous window for each species was located by fitting alignment rather than by a fixed offset, because the propeptide that precedes the helix has a different length in each species.</figcaption>
 </figure>
 
     <p>
@@ -2736,7 +2740,7 @@ peptides = [(chain, match.group())
 <text class="fig-text fig-tick" x="423.02" y="245" text-anchor="start">ostrich</text>
 <text class="fig-text fig-note" x="120" y="24" text-anchor="start">edge lengths in differing columns out of 89</text>
 </svg>
-<figcaption>Neighbour-joining on the matrix of differing columns, rooted at the midpoint of the longest path between two leaves. <em>T. rex</em> sits inside the birds beside chicken, with ostrich next and the two mammals on the other side of the root. The chicken limb has length zero, which is what neighbour-joining returns when a leaf lies on the path between its neighbours: at one substitution out of 89, chicken is not distinguishable from the common ancestor of chicken and the fossil. Eighty-nine columns are enough to separate birds from mammals, which differ at eight of them, and not enough to resolve anything finer.</figcaption>
+<figcaption>Neighbour-joining on the matrix of differing columns, rooted at the midpoint of the longest path between two leaves. <em>T. rex</em> sits inside the birds beside chicken, with ostrich next and the two mammals on the other side of the root. The chicken limb has length zero, which is what neighbour-joining returns when a leaf lies on the path between its neighbours: at one substitution out of 89, chicken is not distinguishable from the common ancestor of chicken and the fossil. Eighty-nine columns are enough to separate birds from mammals, the fossil differing from both mammals at eight of them and from both birds at no more than two, and not enough to resolve anything finer.</figcaption>
 </figure>
 
     <p>
@@ -2761,7 +2765,8 @@ peptides = [(chain, match.group())
 
     <p>
       None of it establishes that the peptides came from a dinosaur. A tree built from 89 residues
-      can distinguish birds from mammals, which differ at eight of them, but it cannot resolve
+      can distinguish birds from mammals, since the fossil differs from both mammals at eight of
+      those columns and from both birds at no more than two, but it cannot resolve
       anything finer, and it cannot tell a 68-million-year-old bird-line collagen from a modern one:
       the fossil sequence is one substitution from chicken, so any recent bird would sit in the same
       place. That is the shape of the contamination argument that has been made against this
