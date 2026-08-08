@@ -23,93 +23,300 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
-    <h3 class="en">Comparison of sequences</h3>
-    <h3 class="fr">Comparaison des suites</h3>
+    <h3 class="en">Comparing by the ratio</h3>
+    <h3 class="fr">Comparer par le quotient</h3>
+
+    <p class="en">Two sequences tending to $+\infty$ can do so at very different speeds. Dividing one by the other and taking the limit of the quotient measures the difference.</p>
+    <p class="fr">Deux suites tendant vers $+\infty$ peuvent le faire à des vitesses très différentes. Diviser l'une par l'autre et prendre la limite du quotient mesure cet écart.</p>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Domination, negligibility, equivalence).</span> Let $(u_n)$ and $(v_n)$ be two sequences with $v_n \neq 0$ from some rank onward. We say that:</p>
+      <p class="en"><span class="thm-label">Definition (Domination, negligibility, equivalence).</span> Let $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ and let $f, g$ be defined on a neighborhood of $a$, with $g$ not vanishing there except possibly at $a$. As $x \to a$:</p>
       <ul class="en">
-        <li>$(u_n)$ is <em>dominated</em> by $(v_n)$, written $u_n = O(v_n)$, if the sequence $\left(\frac{u_n}{v_n}\right)$ is bounded;</li>
-        <li>$(u_n)$ is <em>negligible</em> compared to $(v_n)$, written $u_n = o(v_n)$, if $\frac{u_n}{v_n} \to 0$;</li>
-        <li>$(u_n)$ is <em>equivalent</em> to $(v_n)$, written $u_n \sim v_n$, if $\frac{u_n}{v_n} \to 1$.</li>
+        <li>$f$ is <em>dominated</em> by $g$, written $f = O(g)$, if $\frac{f}{g}$ is bounded near $a$;</li>
+        <li>$f$ is <em>negligible</em> compared to $g$, written $f = o(g)$, if $\frac{f(x)}{g(x)} \to 0$;</li>
+        <li>$f$ is <em>equivalent</em> to $g$, written $f \sim g$, if $\frac{f(x)}{g(x)} \to 1$.</li>
       </ul>
-      <p class="en">$u_n = o(v_n)$ implies $u_n = O(v_n)$ (a convergent sequence is bounded), and $u_n \sim v_n$ implies $u_n = O(v_n)$.</p>
-      <p class="fr"><span class="thm-label">Définition (Domination, négligeabilité, équivalence).</span> Soient $(u_n)$ et $(v_n)$ deux suites avec $v_n \neq 0$ à partir d'un certain rang. On dit que :</p>
+      <p class="en">For sequences, $a = +\infty$ and $x$ runs through the integers: $u_n = O(v_n)$ if $\left(\frac{u_n}{v_n}\right)$ is bounded, $u_n = o(v_n)$ if $\frac{u_n}{v_n} \to 0$, and $u_n \sim v_n$ if $\frac{u_n}{v_n} \to 1$, with $v_n \neq 0$ from some rank onward. A function with a limit is bounded near $a$, so $f = o(g)$ implies $f = O(g)$, and $f \sim g$ implies $f = O(g)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Domination, négligeabilité, équivalence).</span> Soit $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ et soient $f, g$ définies au voisinage de $a$, avec $g$ ne s'annulant pas sur ce voisinage, sauf éventuellement en $a$. Quand $x \to a$ :</p>
       <ul class="fr">
-        <li>$(u_n)$ est <em>dominée</em> par $(v_n)$, noté $u_n = O(v_n)$, si la suite $\left(\frac{u_n}{v_n}\right)$ est bornée ;</li>
-        <li>$(u_n)$ est <em>négligeable</em> devant $(v_n)$, noté $u_n = o(v_n)$, si $\frac{u_n}{v_n} \to 0$ ;</li>
-        <li>$(u_n)$ est <em>équivalente</em> à $(v_n)$, noté $u_n \sim v_n$, si $\frac{u_n}{v_n} \to 1$.</li>
+        <li>$f$ est <em>dominée</em> par $g$, noté $f = O(g)$, si $\frac{f}{g}$ est bornée au voisinage de $a$ ;</li>
+        <li>$f$ est <em>négligeable</em> devant $g$, noté $f = o(g)$, si $\frac{f(x)}{g(x)} \to 0$ ;</li>
+        <li>$f$ est <em>équivalente</em> à $g$, noté $f \sim g$, si $\frac{f(x)}{g(x)} \to 1$.</li>
       </ul>
-      <p class="fr">$u_n = o(v_n)$ implique $u_n = O(v_n)$ (une suite convergente est bornée), et $u_n \sim v_n$ implique $u_n = O(v_n)$.</p>
+      <p class="fr">Pour les suites, $a = +\infty$ et $x$ parcourt les entiers : $u_n = O(v_n)$ si $\left(\frac{u_n}{v_n}\right)$ est bornée, $u_n = o(v_n)$ si $\frac{u_n}{v_n} \to 0$, et $u_n \sim v_n$ si $\frac{u_n}{v_n} \to 1$, avec $v_n \neq 0$ à partir d'un certain rang. Une fonction ayant une limite est bornée au voisinage de $a$, donc $f = o(g)$ implique $f = O(g)$, et $f \sim g$ implique $f = O(g)$.</p>
     </div>
 
+    <figure class="figure-block">
+      <svg class="figure" width="423" height="254" viewBox="36.0 30.0 422.8 253.9">
+        <rect class="fig-band" x="74.0" y="67.8" width="328.0" height="182.2"/>
+        <line class="fig-axis" x1="70.0" y1="250.0" x2="405.0" y2="250.0"/>
+        <line class="fig-axis" x1="70.0" y1="40.0" x2="70.0" y2="262.0"/>
+        <line class="fig-guide" x1="70.0" y1="204.4" x2="402.0" y2="204.4"/>
+        <circle class="fig-dot" cx="80.0" cy="181.7" r="3.0"/>
+        <circle class="fig-dot" cx="103.1" cy="189.3" r="3.0"/>
+        <circle class="fig-dot" cx="126.2" cy="193.1" r="3.0"/>
+        <circle class="fig-dot" cx="149.2" cy="195.3" r="3.0"/>
+        <circle class="fig-dot" cx="172.3" cy="196.9" r="3.0"/>
+        <circle class="fig-dot" cx="195.4" cy="197.9" r="3.0"/>
+        <circle class="fig-dot" cx="218.5" cy="198.8" r="3.0"/>
+        <circle class="fig-dot" cx="241.5" cy="199.4" r="3.0"/>
+        <circle class="fig-dot" cx="264.6" cy="199.9" r="3.0"/>
+        <circle class="fig-dot" cx="287.7" cy="200.3" r="3.0"/>
+        <circle class="fig-dot" cx="310.8" cy="200.6" r="3.0"/>
+        <circle class="fig-dot" cx="333.8" cy="200.9" r="3.0"/>
+        <circle class="fig-dot" cx="356.9" cy="201.2" r="3.0"/>
+        <circle class="fig-dot" cx="380.0" cy="201.4" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="234.2" r="3.0"/>
+        <circle class="fig-dot" cx="103.1" cy="233.3" r="3.0"/>
+        <circle class="fig-dot" cx="126.2" cy="234.2" r="3.0"/>
+        <circle class="fig-dot" cx="149.2" cy="235.3" r="3.0"/>
+        <circle class="fig-dot" cx="172.3" cy="236.4" r="3.0"/>
+        <circle class="fig-dot" cx="195.4" cy="237.3" r="3.0"/>
+        <circle class="fig-dot" cx="218.5" cy="238.2" r="3.0"/>
+        <circle class="fig-dot" cx="241.5" cy="238.9" r="3.0"/>
+        <circle class="fig-dot" cx="264.6" cy="239.5" r="3.0"/>
+        <circle class="fig-dot" cx="287.7" cy="240.1" r="3.0"/>
+        <circle class="fig-dot" cx="310.8" cy="240.6" r="3.0"/>
+        <circle class="fig-dot" cx="333.8" cy="241.0" r="3.0"/>
+        <circle class="fig-dot" cx="356.9" cy="241.4" r="3.0"/>
+        <circle class="fig-dot" cx="380.0" cy="241.8" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="103.1" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="126.2" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="149.2" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="172.3" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="195.4" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="218.5" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="241.5" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="264.6" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="287.7" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="310.8" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="333.8" cy="158.9" r="3.0"/>
+        <circle class="fig-dot" cx="356.9" cy="67.8" r="3.0"/>
+        <circle class="fig-dot" cx="380.0" cy="158.9" r="3.0"/>
+        <text x="392.0" y="205.4">(n+1)/n</text>
+        <text x="392.0" y="246.8">(ln n)/n</text>
+        <text x="392.0" y="72.8">3+(−1)<tspan dy="-5" font-size="11">n</tspan></text>
+        <text x="50.0" y="209.4">1</text>
+        <text x="46.0" y="72.8">M</text>
+        <text x="46.0" y="255.0">0</text>
+        <text x="400.0" y="270.0">n</text>
+      </svg>
+      <figcaption><span class="en">Three sequences of quotients. $(n+1)/n$ tends to $1$, so $n + 1 \sim n$. $(\ln n)/n$ tends to $0$, so $\ln n = o(n)$. $3 + (-1)^n$ has no limit but stays below $M$, so $(3 + (-1)^n)\,n = O(n)$. The first two stay below $M$ as well, which is the two implications.</span><span class="fr">Trois suites de quotients. $(n+1)/n$ tend vers $1$, donc $n + 1 \sim n$. $(\ln n)/n$ tend vers $0$, donc $\ln n = o(n)$. $3 + (-1)^n$ n'a pas de limite mais reste sous $M$, donc $(3 + (-1)^n)\,n = O(n)$. Les deux premières restent aussi sous $M$, ce que disent les deux implications.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Operations on $o$ and $O$).</span> Let $(a_n)$, $(b_n)$, $(w_n)$ be sequences, with $a_n, b_n$ nonzero from some rank onward. The symbols $o$ and $O$ obey the same rules; we state them for $o$, and they hold verbatim for $O$:</p>
+      <p class="en"><span class="thm-label">Proposition (Operations on $o$ and $O$).</span> The two symbols obey the same rules; they are stated for $o$ and hold verbatim for $O$, with <em>tends to $0$</em> replaced by <em>is bounded</em>. Let $f, g, h, k, w$ be defined near $a$, with $h$ and $k$ not vanishing near $a$.</p>
       <ul class="en">
-        <li>if $u_n = o(a_n)$ and $v_n = o(a_n)$, then $u_n + v_n = o(a_n)$, and $\lambda u_n = o(a_n)$ for every $\lambda \in \mathbb{R}$;</li>
-        <li>if $u_n = o(a_n)$, then $u_n w_n = o(a_n w_n)$;</li>
-        <li>(transitivity) if $u_n = o(v_n)$ and $v_n = o(w_n)$, then $u_n = o(w_n)$.</li>
+        <li>if $f = o(h)$ and $g = o(h)$, then $f + g = o(h)$, and $\lambda f = o(h)$ for every $\lambda \in \mathbb{R}$;</li>
+        <li>if $f = o(h)$, then $fw = o(hw)$;</li>
+        <li>if $f = o(g)$ and $g = o(h)$, then $f = o(h)$.</li>
       </ul>
-      <p class="en">Finally, $u_n = o(a_n)$ implies $u_n = O(a_n)$, and if $u_n = o(a_n)$ and $v_n = O(b_n)$ then $u_n v_n = o(a_n b_n)$ (the product of an $o$ by an $O$ is an $o$).</p>
-      <p class="fr"><span class="thm-label">Proposition (Opérations sur les $o$ et les $O$).</span> Soient $(a_n)$, $(b_n)$, $(w_n)$ des suites, avec $a_n, b_n$ non nuls à partir d'un certain rang. Les symboles $o$ et $O$ obéissent aux mêmes règles ; on les énonce pour $o$, elles valent mot pour mot pour $O$ :</p>
+      <p class="en">Moreover, $f = o(h)$ and $g = O(k)$ give $fg = o(hk)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Opérations sur les $o$ et les $O$).</span> Les deux symboles obéissent aux mêmes règles ; on les énonce pour $o$, elles valent mot pour mot pour $O$, en remplaçant « tend vers $0$ » par « est bornée ». Soient $f, g, h, k, w$ définies au voisinage de $a$, avec $h$ et $k$ ne s'annulant pas au voisinage de $a$.</p>
       <ul class="fr">
-        <li>si $u_n = o(a_n)$ et $v_n = o(a_n)$, alors $u_n + v_n = o(a_n)$, et $\lambda u_n = o(a_n)$ pour tout $\lambda \in \mathbb{R}$ ;</li>
-        <li>si $u_n = o(a_n)$, alors $u_n w_n = o(a_n w_n)$ ;</li>
-        <li>(transitivité) si $u_n = o(v_n)$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$.</li>
+        <li>si $f = o(h)$ et $g = o(h)$, alors $f + g = o(h)$, et $\lambda f = o(h)$ pour tout $\lambda \in \mathbb{R}$ ;</li>
+        <li>si $f = o(h)$, alors $fw = o(hw)$ ;</li>
+        <li>si $f = o(g)$ et $g = o(h)$, alors $f = o(h)$.</li>
       </ul>
-      <p class="fr">Enfin, $u_n = o(a_n)$ implique $u_n = O(a_n)$, et si $u_n = o(a_n)$ et $v_n = O(b_n)$ alors $u_n v_n = o(a_n b_n)$ (le produit d'un $o$ par un $O$ est un $o$).</p>
+      <p class="fr">De plus, $f = o(h)$ et $g = O(k)$ donnent $fg = o(hk)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      All from the limit laws, applied to $o$ (the case of $O$ is identical, with "tends to $0$" replaced by "is bounded"). If $\frac{u_n}{a_n} \to 0$ and $\frac{v_n}{a_n} \to 0$, then $\frac{u_n + v_n}{a_n} \to 0$ and $\frac{\lambda u_n}{a_n} \to 0$. Next $\frac{u_n w_n}{a_n w_n} = \frac{u_n}{a_n} \to 0$. Transitivity: $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 0$. Finally a convergent sequence is bounded, so $u_n = o(a_n)$ gives $u_n = O(a_n)$; and $\frac{u_n v_n}{a_n b_n} = \frac{u_n}{a_n}\cdot\frac{v_n}{b_n}$ is a sequence tending to $0$ times a bounded one, hence tends to $0$.
+      Everything comes from the limit laws applied to the quotients. If $\frac{f}{h} \to 0$ and $\frac{g}{h} \to 0$, then $\frac{f+g}{h} \to 0$ and $\frac{\lambda f}{h} \to 0$. Next, $\frac{fw}{hw} = \frac{f}{h} \to 0$. For transitivity, $\frac{f}{h} = \frac{f}{g}\cdot\frac{g}{h} \to 0$. Finally $\frac{fg}{hk} = \frac{f}{h}\cdot\frac{g}{k}$ is a quantity tending to $0$ times a bounded one, hence tends to $0$. The case of $O$ is identical, a bounded quantity replacing one tending to $0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Tout découle des opérations sur les limites, appliquées à $o$ (le cas de $O$ est identique, en remplaçant « tend vers $0$ » par « est bornée »). Si $\frac{u_n}{a_n} \to 0$ et $\frac{v_n}{a_n} \to 0$, alors $\frac{u_n + v_n}{a_n} \to 0$ et $\frac{\lambda u_n}{a_n} \to 0$. Ensuite $\frac{u_n w_n}{a_n w_n} = \frac{u_n}{a_n} \to 0$. Transitivité : $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 0$. Enfin une suite convergente est bornée, donc $u_n = o(a_n)$ donne $u_n = O(a_n)$ ; et $\frac{u_n v_n}{a_n b_n} = \frac{u_n}{a_n}\cdot\frac{v_n}{b_n}$ est une suite tendant vers $0$ multipliée par une suite bornée, donc tend vers $0$.
+      Tout découle des opérations sur les limites appliquées aux quotients. Si $\frac{f}{h} \to 0$ et $\frac{g}{h} \to 0$, alors $\frac{f+g}{h} \to 0$ et $\frac{\lambda f}{h} \to 0$. Ensuite, $\frac{fw}{hw} = \frac{f}{h} \to 0$. Pour la transitivité, $\frac{f}{h} = \frac{f}{g}\cdot\frac{g}{h} \to 0$. Enfin $\frac{fg}{hk} = \frac{f}{h}\cdot\frac{g}{k}$ est une quantité tendant vers $0$ multipliée par une quantité bornée, donc tend vers $0$. Le cas de $O$ est identique, une quantité bornée remplaçant une quantité tendant vers $0$.
+    </details>
+
+    <h3 class="en">Operations on equivalents</h3>
+    <h3 class="fr">Opérations sur les équivalents</h3>
+
+    <p class="en">Written as $f = g + o(g)$, an equivalence splits $f$ into a main term and an error negligible beside it.</p>
+    <p class="fr">Écrite $f = g + o(g)$, une équivalence sépare $f$ en un terme principal et une erreur négligeable devant lui.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Characterization of equivalence).</span> $f \sim g$ if and only if $f - g = o(g)$, that is $f = g + o(g)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Caractérisation de l'équivalence).</span> $f \sim g$ si et seulement si $f - g = o(g)$, c'est-à-dire $f = g + o(g)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\frac{f-g}{g} = \frac{f}{g} - 1$, and this tends to $0$ exactly when $\frac{f}{g} \to 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\frac{f-g}{g} = \frac{f}{g} - 1$, et cette quantité tend vers $0$ exactement quand $\frac{f}{g} \to 1$.
+    </details>
+
+    <p class="en">The error is measured against $g$, so it can tend to $+\infty$ while the quotient tends to $1$.</p>
+    <p class="fr">L'erreur est mesurée par rapport à $g$, elle peut donc tendre vers $+\infty$ pendant que le quotient tend vers $1$.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="506" height="392" viewBox="38.0 -30.0 505.5 392.0">
+        <line class="fig-axis" x1="48.0" y1="340.0" x2="276.6" y2="340.0"/>
+        <line class="fig-axis" x1="60.0" y1="352.0" x2="60.0" y2="-20.0"/>
+        <path class="fig-curve" d="M 60.0 340.0 L 61.0 339.8 L 61.9 339.7 L 62.9 339.5 L 63.8 339.3 L 64.8 339.1 L 65.7 338.8 L 66.7 338.6 L 67.6 338.3 L 68.5 338.0 L 69.5 337.8 L 70.5 337.4 L 71.4 337.1 L 72.3 336.8 L 73.3 336.4 L 74.2 336.1 L 75.2 335.7 L 76.2 335.3 L 77.1 334.9 L 78.0 334.4 L 79.0 334.0 L 80.0 333.5 L 80.9 333.1 L 81.8 332.6 L 82.8 332.1 L 83.8 331.6 L 84.7 331.0 L 85.7 330.5 L 86.6 329.9 L 87.5 329.3 L 88.5 328.8 L 89.5 328.1 L 90.4 327.5 L 91.3 326.9 L 92.3 326.2 L 93.2 325.6 L 94.2 324.9 L 95.2 324.2 L 96.1 323.5 L 97.0 322.7 L 98.0 322.0 L 98.9 321.2 L 99.9 320.5 L 100.8 319.7 L 101.8 318.9 L 102.8 318.1 L 103.7 317.2 L 104.7 316.4 L 105.6 315.5 L 106.6 314.6 L 107.5 313.8 L 108.4 312.8 L 109.4 311.9 L 110.3 311.0 L 111.3 310.0 L 112.2 309.1 L 113.2 308.1 L 114.2 307.1 L 115.1 306.1 L 116.1 305.0 L 117.0 304.0 L 117.9 302.9 L 118.9 301.9 L 119.8 300.8 L 120.8 299.7 L 121.8 298.6 L 122.7 297.4 L 123.7 296.3 L 124.6 295.1 L 125.5 293.9 L 126.5 292.8 L 127.5 291.5 L 128.4 290.3 L 129.3 289.1 L 130.3 287.8 L 131.2 286.6 L 132.2 285.3 L 133.2 284.0 L 134.1 282.7 L 135.1 281.3 L 136.0 280.0 L 136.9 278.6 L 137.9 277.3 L 138.9 275.9 L 139.8 274.5 L 140.8 273.1 L 141.7 271.6 L 142.6 270.2 L 143.6 268.7 L 144.6 267.2 L 145.5 265.8 L 146.4 264.2 L 147.4 262.7 L 148.4 261.2 L 149.3 259.6 L 150.2 258.1 L 151.2 256.5 L 152.1 254.9 L 153.1 253.3 L 154.1 251.6 L 155.0 250.0 L 155.9 248.3 L 156.9 246.7 L 157.9 245.0 L 158.8 243.3 L 159.8 241.6 L 160.7 239.8 L 161.6 238.1 L 162.6 236.3 L 163.6 234.5 L 164.5 232.8 L 165.4 230.9 L 166.4 229.1 L 167.4 227.3 L 168.3 225.4 L 169.2 223.6 L 170.2 221.7 L 171.1 219.8 L 172.1 217.9 L 173.1 215.9 L 174.0 214.0 L 174.9 212.0 L 175.9 210.1 L 176.9 208.1 L 177.8 206.1 L 178.8 204.1 L 179.7 202.0 L 180.6 200.0 L 181.6 197.9 L 182.6 195.8 L 183.5 193.8 L 184.4 191.6 L 185.4 189.5 L 186.4 187.4 L 187.3 185.2 L 188.2 183.1 L 189.2 180.9 L 190.2 178.7 L 191.1 176.5 L 192.1 174.2 L 193.0 172.0 L 193.9 169.7 L 194.9 167.5 L 195.8 165.2 L 196.8 162.9 L 197.8 160.6 L 198.7 158.2 L 199.7 155.9 L 200.6 153.5 L 201.6 151.1 L 202.5 148.8 L 203.4 146.3 L 204.4 143.9 L 205.3 141.5 L 206.3 139.0 L 207.2 136.6 L 208.2 134.1 L 209.2 131.6 L 210.1 129.1 L 211.1 126.5 L 212.0 124.0 L 213.0 121.4 L 213.9 118.9 L 214.8 116.3 L 215.8 113.7 L 216.8 111.1 L 217.7 108.4 L 218.7 105.8 L 219.6 103.1 L 220.5 100.4 L 221.5 97.8 L 222.5 95.0 L 223.4 92.3 L 224.3 89.6 L 225.3 86.8 L 226.2 84.1 L 227.2 81.3 L 228.2 78.5 L 229.1 75.7 L 230.0 72.8 L 231.0 70.0 L 232.0 67.1 L 232.9 64.3 L 233.8 61.4 L 234.8 58.5 L 235.8 55.6 L 236.7 52.6 L 237.7 49.7 L 238.6 46.7 L 239.5 43.7 L 240.5 40.8 L 241.5 37.7 L 242.4 34.7 L 243.3 31.7 L 244.3 28.6 L 245.2 25.6 L 246.2 22.5 L 247.2 19.4 L 248.1 16.3 L 249.0 13.1 L 250.0 10.0"/>
+        <path class="fig-curve" d="M 60.0 340.0 L 61.0 340.0 L 61.9 340.0 L 62.9 339.9 L 63.8 339.9 L 64.8 339.8 L 65.7 339.7 L 66.7 339.6 L 67.6 339.5 L 68.5 339.4 L 69.5 339.2 L 70.5 339.1 L 71.4 338.9 L 72.3 338.7 L 73.3 338.5 L 74.2 338.3 L 75.2 338.1 L 76.2 337.8 L 77.1 337.6 L 78.0 337.3 L 79.0 337.0 L 80.0 336.7 L 80.9 336.4 L 81.8 336.0 L 82.8 335.7 L 83.8 335.3 L 84.7 334.9 L 85.7 334.5 L 86.6 334.1 L 87.5 333.7 L 88.5 333.2 L 89.5 332.8 L 90.4 332.3 L 91.3 331.8 L 92.3 331.3 L 93.2 330.8 L 94.2 330.3 L 95.2 329.7 L 96.1 329.2 L 97.0 328.6 L 98.0 328.0 L 98.9 327.4 L 99.9 326.8 L 100.8 326.1 L 101.8 325.5 L 102.8 324.8 L 103.7 324.1 L 104.7 323.4 L 105.6 322.7 L 106.6 322.0 L 107.5 321.2 L 108.4 320.5 L 109.4 319.7 L 110.3 318.9 L 111.3 318.1 L 112.2 317.3 L 113.2 316.5 L 114.2 315.6 L 115.1 314.8 L 116.1 313.9 L 117.0 313.0 L 117.9 312.1 L 118.9 311.2 L 119.8 310.2 L 120.8 309.3 L 121.8 308.3 L 122.7 307.3 L 123.7 306.3 L 124.6 305.3 L 125.5 304.3 L 126.5 303.2 L 127.5 302.2 L 128.4 301.1 L 129.3 300.0 L 130.3 298.9 L 131.2 297.8 L 132.2 296.7 L 133.2 295.5 L 134.1 294.4 L 135.1 293.2 L 136.0 292.0 L 136.9 290.8 L 137.9 289.6 L 138.9 288.3 L 139.8 287.1 L 140.8 285.8 L 141.7 284.5 L 142.6 283.2 L 143.6 281.9 L 144.6 280.6 L 145.5 279.2 L 146.4 277.9 L 147.4 276.5 L 148.4 275.1 L 149.3 273.7 L 150.2 272.3 L 151.2 270.9 L 152.1 269.4 L 153.1 268.0 L 154.1 266.5 L 155.0 265.0 L 155.9 263.5 L 156.9 262.0 L 157.9 260.4 L 158.8 258.9 L 159.8 257.3 L 160.7 255.7 L 161.6 254.1 L 162.6 252.5 L 163.6 250.9 L 164.5 249.2 L 165.4 247.6 L 166.4 245.9 L 167.4 244.2 L 168.3 242.5 L 169.2 240.8 L 170.2 239.1 L 171.1 237.3 L 172.1 235.6 L 173.1 233.8 L 174.0 232.0 L 174.9 230.2 L 175.9 228.4 L 176.9 226.5 L 177.8 224.7 L 178.8 222.8 L 179.7 220.9 L 180.6 219.0 L 181.6 217.1 L 182.6 215.2 L 183.5 213.2 L 184.4 211.3 L 185.4 209.3 L 186.4 207.3 L 187.3 205.3 L 188.2 203.3 L 189.2 201.3 L 190.2 199.2 L 191.1 197.2 L 192.1 195.1 L 193.0 193.0 L 193.9 190.9 L 194.9 188.8 L 195.8 186.6 L 196.8 184.5 L 197.8 182.3 L 198.7 180.1 L 199.7 177.9 L 200.6 175.7 L 201.6 173.5 L 202.5 171.2 L 203.4 169.0 L 204.4 166.7 L 205.3 164.4 L 206.3 162.1 L 207.2 159.8 L 208.2 157.5 L 209.2 155.1 L 210.1 152.8 L 211.1 150.4 L 212.0 148.0 L 213.0 145.6 L 213.9 143.2 L 214.8 140.7 L 215.8 138.3 L 216.8 135.8 L 217.7 133.3 L 218.7 130.8 L 219.6 128.3 L 220.5 125.8 L 221.5 123.2 L 222.5 120.7 L 223.4 118.1 L 224.3 115.5 L 225.3 112.9 L 226.2 110.3 L 227.2 107.7 L 228.2 105.0 L 229.1 102.4 L 230.0 99.7 L 231.0 97.0 L 232.0 94.3 L 232.9 91.6 L 233.8 88.8 L 234.8 86.1 L 235.8 83.3 L 236.7 80.5 L 237.7 77.7 L 238.6 74.9 L 239.5 72.1 L 240.5 69.2 L 241.5 66.4 L 242.4 63.5 L 243.3 60.6 L 244.3 57.7 L 245.2 54.8 L 246.2 51.9 L 247.2 48.9 L 248.1 46.0 L 249.0 43.0 L 250.0 40.0"/>
+        <line class="fig-interval" x1="155.0" y1="265.0" x2="155.0" y2="250.0"/>
+        <text x="129.0" y="262.5">5</text>
+        <line class="fig-interval" x1="250.0" y1="40.0" x2="250.0" y2="10.0"/>
+        <text x="224.0" y="30.0">10</text>
+        <text x="256.0" y="12.0">n<tspan dy="-5" font-size="11">2</tspan><tspan dy="5">+n</tspan></text>
+        <text x="256.0" y="60.0">n<tspan dy="-5" font-size="11">2</tspan></text>
+        <text x="284.6" y="345.0">n</text>
+        <line class="fig-axis" x1="364.0" y1="340.0" x2="530.5" y2="340.0"/>
+        <line class="fig-axis" x1="376.0" y1="352.0" x2="376.0" y2="93.2"/>
+        <line class="fig-guide" x1="364.0" y1="235.0" x2="530.5" y2="235.0"/>
+        <circle class="fig-dot" cx="380.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="391.5" cy="182.5" r="3.0"/>
+        <circle class="fig-dot" cx="403.0" cy="200.0" r="3.0"/>
+        <circle class="fig-dot" cx="414.5" cy="208.8" r="3.0"/>
+        <circle class="fig-dot" cx="426.0" cy="214.0" r="3.0"/>
+        <circle class="fig-dot" cx="437.5" cy="217.5" r="3.0"/>
+        <circle class="fig-dot" cx="449.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="460.5" cy="221.9" r="3.0"/>
+        <circle class="fig-dot" cx="472.0" cy="223.3" r="3.0"/>
+        <circle class="fig-dot" cx="483.5" cy="224.5" r="3.0"/>
+        <circle class="fig-dot" cx="495.0" cy="225.5" r="3.0"/>
+        <circle class="fig-dot" cx="506.5" cy="226.2" r="3.0"/>
+        <text x="352.0" y="240.0">1</text>
+        <text x="352.0" y="345.0">0</text>
+        <text x="403.0" y="109.0">(n<tspan dy="-5" font-size="11">2</tspan><tspan dy="5">+n)/n</tspan><tspan dy="-5" font-size="11">2</tspan></text>
+        <text x="524.5" y="345.0">n</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> $n^2 + n$ and $n^2$, with the vertical gap between them marked at $n = 5$ and at $n = 10$. The gap is $n$ and it grows.</span><span class="cap-part"><span class="cap-lead">Right:</span> the quotient of the same two sequences, $1 + \frac{1}{n}$, tends to $1$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> $n^2 + n$ et $n^2$, avec l'écart vertical entre les deux marqué en $n = 5$ et en $n = 10$. Cet écart vaut $n$ et il croît.</span><span class="cap-part"><span class="cap-lead">À droite :</span> le quotient des deux mêmes suites, $1 + \frac{1}{n}$, tend vers $1$.</span></span></figcaption>
+    </figure>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Properties of equivalence).</span> The relation $\sim$ is an equivalence relation. If $f \sim g$, then $f$ and $g$ have the same sign near $a$, and if $g$ has limit $\ell$ (finite or infinite) at $a$, then $f$ has limit $\ell$. Conversely, if $f$ has limit $\ell \in \mathbb{R}^*$, then $f \sim \ell$. A function tending to $0$ is not equivalent to $0$: equivalence to a constant requires a nonzero limit.</p>
+      <p class="fr"><span class="thm-label">Proposition (Propriétés de l'équivalence).</span> La relation $\sim$ est une relation d'équivalence. Si $f \sim g$, alors $f$ et $g$ sont de même signe au voisinage de $a$, et si $g$ a pour limite $\ell$ (finie ou infinie) en $a$, alors $f$ a pour limite $\ell$. Réciproquement, si $f$ a pour limite $\ell \in \mathbb{R}^*$, alors $f \sim \ell$. Une fonction tendant vers $0$ n'est pas équivalente à $0$ : l'équivalence à une constante exige une limite non nulle.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Equivalence relation.</em> $\frac{f}{f} \to 1$; if $\frac{f}{g} \to 1$ then $\frac{g}{f} \to 1$, the quotient being nonzero near $a$; transitivity by product of limits. <em>Same sign.</em> $\frac{f}{g} \to 1$, so $\frac{f}{g} &gt; 0$ near $a$. <em>Same limit.</em> $f = \frac{f}{g}\cdot g \to 1 \cdot \ell$, which is valid for $\ell = \pm\infty$ as well. <em>Converse.</em> $\frac{f}{\ell} \to \frac{\ell}{\ell} = 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Relation d'équivalence.</em> $\frac{f}{f} \to 1$ ; si $\frac{f}{g} \to 1$ alors $\frac{g}{f} \to 1$, le quotient étant non nul au voisinage de $a$ ; transitivité par produit de limites. <em>Même signe.</em> $\frac{f}{g} \to 1$, donc $\frac{f}{g} &gt; 0$ au voisinage de $a$. <em>Même limite.</em> $f = \frac{f}{g}\cdot g \to 1 \cdot \ell$, ce qui vaut aussi pour $\ell = \pm\infty$. <em>Réciproque.</em> $\frac{f}{\ell} \to \frac{\ell}{\ell} = 1$.
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Characterization of equivalence).</span> $u_n \sim v_n$ if and only if $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Caractérisation de l'équivalence).</span> $u_n \sim v_n$ si et seulement si $u_n - v_n = o(v_n)$, i.e. $u_n = v_n + o(v_n)$.</p>
+      <p class="en"><span class="thm-label">Proposition (Products, quotients, powers).</span> If $f \sim f_1$ and $g \sim g_1$, then $fg \sim f_1g_1$, $\frac{f}{g} \sim \frac{f_1}{g_1}$, and $|f|^\alpha \sim |f_1|^\alpha$ for every $\alpha \in \mathbb{R}$. If $f \sim g$ and $g = o(h)$, then $f = o(h)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Produits, quotients, puissances).</span> Si $f \sim f_1$ et $g \sim g_1$, alors $fg \sim f_1g_1$, $\frac{f}{g} \sim \frac{f_1}{g_1}$, et $|f|^\alpha \sim |f_1|^\alpha$ pour tout $\alpha \in \mathbb{R}$. Si $f \sim g$ et $g = o(h)$, alors $f = o(h)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\frac{u_n - v_n}{v_n} = \frac{u_n}{v_n} - 1$, and this tends to $0$ if and only if $\frac{u_n}{v_n} \to 1$.
+      $\frac{fg}{f_1g_1} = \frac{f}{f_1}\cdot\frac{g}{g_1} \to 1$, and the same product of quotients gives the case of a quotient. For powers, $\left(\frac{|f|}{|f_1|}\right)^{\!\alpha} = e^{\alpha\ln(|f|/|f_1|)} \to e^0 = 1$ by continuity of $\ln$ and $\exp$. Finally $\frac{f}{h} = \frac{f}{g}\cdot\frac{g}{h} \to 1 \cdot 0 = 0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      $\frac{u_n - v_n}{v_n} = \frac{u_n}{v_n} - 1$, et cette quantité tend vers $0$ si et seulement si $\frac{u_n}{v_n} \to 1$.
+      $\frac{fg}{f_1g_1} = \frac{f}{f_1}\cdot\frac{g}{g_1} \to 1$, et le même produit de quotients donne le cas d'un quotient. Pour les puissances, $\left(\frac{|f|}{|f_1|}\right)^{\!\alpha} = e^{\alpha\ln(|f|/|f_1|)} \to e^0 = 1$ par continuité de $\ln$ et $\exp$. Enfin $\frac{f}{h} = \frac{f}{g}\cdot\frac{g}{h} \to 1 \cdot 0 = 0$.
+    </details>
+
+    <p class="en">The quotient of a product is the product of the quotients, and the same holds for a quotient and for a power, which is why these three operations carry equivalents. A sum has no such rule: $\frac{f+g}{f_1+g_1}$ is not built from $\frac{f}{f_1}$ and $\frac{g}{g_1}$. Two terms of the same sign cannot cancel, and then the sum is controlled.</p>
+    <p class="fr">Le quotient d'un produit est le produit des quotients, et il en va de même pour un quotient et pour une puissance, ce qui explique que ces trois opérations transportent les équivalents. Une somme n'a pas de telle règle : $\frac{f+g}{f_1+g_1}$ ne se construit pas à partir de $\frac{f}{f_1}$ et $\frac{g}{g_1}$. Deux termes de même signe ne peuvent pas se compenser, et la somme est alors contrôlée.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Sums of terms of the same sign).</span> If $f \sim f_1$, $g \sim g_1$, and $f$ and $g$ are both positive near $a$ or both negative near $a$, then $f + g \sim f_1 + g_1$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Sommes de termes de même signe).</span> Si $f \sim f_1$, $g \sim g_1$, et si $f$ et $g$ sont toutes deux positives au voisinage de $a$ ou toutes deux négatives au voisinage de $a$, alors $f + g \sim f_1 + g_1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Write $f = f_1(1 + \varepsilon_1)$ and $g = g_1(1 + \varepsilon_2)$ with $\varepsilon_1, \varepsilon_2 \to 0$. Near $a$, $f_1$ has the sign of $f$ and $g_1$ the sign of $g$, so $f_1$ and $g_1$ have the same sign and $|f_1| + |g_1| = |f_1 + g_1|$. Then $$\frac{f+g}{f_1+g_1} - 1 = \frac{f_1\varepsilon_1 + g_1\varepsilon_2}{f_1+g_1}, \qquad \left|\frac{f_1\varepsilon_1 + g_1\varepsilon_2}{f_1+g_1}\right| \le \frac{|f_1|\,|\varepsilon_1| + |g_1|\,|\varepsilon_2|}{|f_1| + |g_1|} \le \max(|\varepsilon_1|, |\varepsilon_2|),$$ which tends to $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Écrivons $f = f_1(1 + \varepsilon_1)$ et $g = g_1(1 + \varepsilon_2)$ avec $\varepsilon_1, \varepsilon_2 \to 0$. Au voisinage de $a$, $f_1$ a le signe de $f$ et $g_1$ celui de $g$, donc $f_1$ et $g_1$ sont de même signe et $|f_1| + |g_1| = |f_1 + g_1|$. Alors $$\frac{f+g}{f_1+g_1} - 1 = \frac{f_1\varepsilon_1 + g_1\varepsilon_2}{f_1+g_1}, \qquad \left|\frac{f_1\varepsilon_1 + g_1\varepsilon_2}{f_1+g_1}\right| \le \frac{|f_1|\,|\varepsilon_1| + |g_1|\,|\varepsilon_2|}{|f_1| + |g_1|} \le \max(|\varepsilon_1|, |\varepsilon_2|),$$ qui tend vers $0$.
+    </details>
+
+    <p class="en">Composition fails for another reason: $\frac{e^f}{e^g} = e^{f-g}$ depends on the difference $f - g$, which an equivalence does not control. Substituting inside a fixed function is safe, and so is taking a logarithm that tends to infinity, since $\ln$ turns the quotient back into a difference.</p>
+    <p class="fr">La composition échoue pour une autre raison : $\frac{e^f}{e^g} = e^{f-g}$ dépend de la différence $f - g$, que l'équivalence ne contrôle pas. Substituer à l'intérieur d'une fonction fixée est sans danger, de même que prendre un logarithme qui tend vers l'infini, car $\ln$ retransforme le quotient en différence.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Substitution and logarithm).</span> Let $u$ be defined near $a$ with $u(x) \to b$ and $u(x) \neq b$ near $a$. If $f \sim g$ at $b$, then $f \circ u \sim g \circ u$ at $a$. Moreover, if $f \sim g$ near $a$ with $g &gt; 0$ and $|\ln g| \to +\infty$, then $\ln f \sim \ln g$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Substitution et logarithme).</span> Soit $u$ définie au voisinage de $a$ avec $u(x) \to b$ et $u(x) \neq b$ au voisinage de $a$. Si $f \sim g$ en $b$, alors $f \circ u \sim g \circ u$ en $a$. De plus, si $f \sim g$ au voisinage de $a$ avec $g &gt; 0$ et $|\ln g| \to +\infty$, alors $\ln f \sim \ln g$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For the substitution, $\frac{f(u(x))}{g(u(x))} \to 1$ by composition of limits, since $\frac{f}{g} \to 1$ at $b$ and $u(x) \to b$ with $u(x) \neq b$. For the logarithm, $f = g\cdot\frac{f}{g}$ gives $\ln f = \ln g + \ln\frac{f}{g}$, and $\ln\frac{f}{g} \to \ln 1 = 0$, so $\frac{\ln f}{\ln g} = 1 + \frac{\ln(f/g)}{\ln g} \to 1$, the second term being a quantity tending to $0$ divided by one tending to $\pm\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour la substitution, $\frac{f(u(x))}{g(u(x))} \to 1$ par composition des limites, puisque $\frac{f}{g} \to 1$ en $b$ et $u(x) \to b$ avec $u(x) \neq b$. Pour le logarithme, $f = g\cdot\frac{f}{g}$ donne $\ln f = \ln g + \ln\frac{f}{g}$, et $\ln\frac{f}{g} \to \ln 1 = 0$, donc $\frac{\ln f}{\ln g} = 1 + \frac{\ln(f/g)}{\ln g} \to 1$, le second terme étant une quantité tendant vers $0$ divisée par une quantité tendant vers $\pm\infty$.
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Properties of equivalence).</span> The relation $\sim$ is an equivalence relation. If $u_n \sim v_n$, then $u_n$ and $v_n$ have the same sign from some rank onward, and if $v_n \to \ell$ (finite or infinite) then $u_n \to \ell$. Conversely, if $u_n \to \ell \in \mathbb{R}^*$, then $u_n \sim \ell$ (the constant sequence). Beware: a sequence tending to $0$ is not equivalent to $0$; equivalence to a constant only makes sense for a nonzero limit.</p>
-      <p class="fr"><span class="thm-label">Proposition (Propriétés de l'équivalence).</span> La relation $\sim$ est une relation d'équivalence. Si $u_n \sim v_n$, alors $u_n$ et $v_n$ sont de même signe à partir d'un certain rang, et si $v_n \to \ell$ (fini ou infini) alors $u_n \to \ell$. Réciproquement, si $u_n \to \ell \in \mathbb{R}^*$, alors $u_n \sim \ell$ (la suite constante). Attention : une suite tendant vers $0$ n'est pas équivalente à $0$ ; l'équivalence à une constante n'a de sens que pour une limite non nulle.</p>
+      <p class="en"><span class="thm-label">Proposition (Polynomials).</span> A polynomial is equivalent to its term of lowest degree at $0$, and to its term of highest degree at $\pm\infty$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Polynômes).</span> Un polynôme est équivalent à son terme de plus bas degré en $0$, et à son terme de plus haut degré en $\pm\infty$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>Equivalence relation:</em> $\frac{u_n}{u_n} \to 1$ (reflexivity); if $\frac{u_n}{v_n} \to 1$ then $\frac{v_n}{u_n} \to 1$ by the limit laws, since the quotient is eventually nonzero (symmetry); transitivity by product of limits. <em>Same sign:</em> $\frac{u_n}{v_n} \to 1$ so $\frac{u_n}{v_n} &gt; 0$ from some rank onward. <em>Same limit:</em> $u_n = \frac{u_n}{v_n} \cdot v_n \to 1 \cdot \ell$ by the limit laws (also valid for $\ell = \pm\infty$). <em>Converse:</em> $\frac{u_n}{\ell} \to \frac{\ell}{\ell} = 1$.
+      Let $P = a_px^p + \cdots + a_qx^q$ with $a_p, a_q \neq 0$, where $q$ is the lowest degree and $p$ the highest. Then $\frac{P(x)}{a_qx^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ as $x \to 0$, and $\frac{P(x)}{a_px^p} = 1 + \frac{a_{p-1}}{a_p}\cdot\frac{1}{x} + \cdots \to 1$ as $x \to \pm\infty$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <em>Relation d'équivalence :</em> $\frac{u_n}{u_n} \to 1$ (réflexivité) ; si $\frac{u_n}{v_n} \to 1$ alors $\frac{v_n}{u_n} \to 1$ par opérations sur les limites, le quotient étant non nul à partir d'un certain rang (symétrie) ; transitivité par produit de limites. <em>Même signe :</em> $\frac{u_n}{v_n} \to 1$ donc $\frac{u_n}{v_n} &gt; 0$ à partir d'un certain rang. <em>Même limite :</em> $u_n = \frac{u_n}{v_n} \cdot v_n \to 1 \cdot \ell$ par opérations sur les limites (aussi valable pour $\ell = \pm\infty$). <em>Réciproque :</em> $\frac{u_n}{\ell} \to \frac{\ell}{\ell} = 1$.
+      Soit $P = a_px^p + \cdots + a_qx^q$ avec $a_p, a_q \neq 0$, où $q$ est le plus bas degré et $p$ le plus haut. Alors $\frac{P(x)}{a_qx^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ quand $x \to 0$, et $\frac{P(x)}{a_px^p} = 1 + \frac{a_{p-1}}{a_p}\cdot\frac{1}{x} + \cdots \to 1$ quand $x \to \pm\infty$.
     </details>
+
+    <h3 class="en">Standard growth comparisons</h3>
+    <h3 class="fr">Croissances comparées</h3>
+
+    <p class="en">A comparison between two positive quantities becomes a comparison between their logarithms, which are far smaller and far easier to order.</p>
+    <p class="fr">Une comparaison entre deux quantités positives devient une comparaison entre leurs logarithmes, bien plus petits et bien plus faciles à ordonner.</p>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Operations).</span> Suppose $u_n \sim u'_n$ and $v_n \sim v'_n$. Then $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, and $|u_n|^\alpha \sim |u'_n|^\alpha$ for $\alpha \in \mathbb{R}$. Moreover, if $u_n \sim v_n$ and $v_n = o(w_n)$, then $u_n = o(w_n)$. <em>Warning:</em> equivalents can be neither added nor composed: $n^2 + n \sim n^2$ and $-n^2 \sim -n^2 + 1$, but the sums $n$ and $1$ are not equivalent; likewise $n + 1 \sim n$ but $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Opérations).</span> Supposons $u_n \sim u'_n$ et $v_n \sim v'_n$. Alors $u_n v_n \sim u'_n v'_n$, $\frac{u_n}{v_n} \sim \frac{u'_n}{v'_n}$, et $|u_n|^\alpha \sim |u'_n|^\alpha$ pour $\alpha \in \mathbb{R}$. De plus, si $u_n \sim v_n$ et $v_n = o(w_n)$, alors $u_n = o(w_n)$. <em>Attention :</em> les équivalents ne s'additionnent pas et ne se composent pas : $n^2 + n \sim n^2$ et $-n^2 \sim -n^2 + 1$, mais les sommes $n$ et $1$ ne sont pas équivalentes ; de même $n + 1 \sim n$ mais $e^{n+1} = e \cdot e^n \not\sim e^n$.</p>
+      <p class="en"><span class="thm-label">Proposition (Comparison by logarithms).</span> Let $f, g &gt; 0$ near $a$. Then $f = o(g)$ if and only if $\ln f - \ln g \to -\infty$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Comparaison par les logarithmes).</span> Soient $f, g &gt; 0$ au voisinage de $a$. Alors $f = o(g)$ si et seulement si $\ln f - \ln g \to -\infty$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\frac{u_n v_n}{u'_n v'_n} = \frac{u_n}{u'_n}\cdot\frac{v_n}{v'_n} \to 1$, and similarly for quotients. For powers, $\left(\frac{|u_n|}{|u'_n|}\right)^{\!\alpha} = e^{\alpha \ln(|u_n|/|u'_n|)} \to e^0 = 1$ by continuity of $\ln$ and $\exp$. For the mixed rules: $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 1 \cdot 0 = 0$, and $\frac{u_n + v_n}{w_n} = \frac{u_n}{w_n} + \frac{v_n}{w_n} \to 0$.
+      $\ln f - \ln g = \ln\frac{f}{g}$, and for a positive quantity $t$, $t \to 0$ if and only if $\ln t \to -\infty$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      $\frac{u_n v_n}{u'_n v'_n} = \frac{u_n}{u'_n}\cdot\frac{v_n}{v'_n} \to 1$, et de même pour les quotients. Pour les puissances, $\left(\frac{|u_n|}{|u'_n|}\right)^{\!\alpha} = e^{\alpha \ln(|u_n|/|u'_n|)} \to e^0 = 1$ par continuité de $\ln$ et $\exp$. Pour les règles mixtes : $\frac{u_n}{w_n} = \frac{u_n}{v_n}\cdot\frac{v_n}{w_n} \to 1 \cdot 0 = 0$, et $\frac{u_n + v_n}{w_n} = \frac{u_n}{w_n} + \frac{v_n}{w_n} \to 0$.
+      $\ln f - \ln g = \ln\frac{f}{g}$, et pour une quantité positive $t$, $t \to 0$ si et seulement si $\ln t \to -\infty$.
     </details>
+
+    <p class="en">The logarithm stays under its tangent at $1$, and that single inequality gives every comparison of this section.</p>
+    <p class="fr">Le logarithme reste sous sa tangente en $1$, et cette seule inégalité donne toutes les comparaisons de cette section.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Lemma.</span> $\ln t \le t - 1$ for every $t &gt; 0$, with equality only at $t = 1$.</p>
+      <p class="fr"><span class="thm-label">Lemme.</span> $\ln t \le t - 1$ pour tout $t &gt; 0$, avec égalité seulement en $t = 1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The function $t \mapsto t - 1 - \ln t$ has derivative $1 - \frac{1}{t}$, negative on $]0,1]$ and positive on $[1,+\infty[$. Its minimum is therefore at $t = 1$, where it is $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La fonction $t \mapsto t - 1 - \ln t$ a pour dérivée $1 - \frac{1}{t}$, négative sur $]0,1]$ et positive sur $[1,+\infty[$. Son minimum est donc en $t = 1$, où elle vaut $0$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="285" height="293" viewBox="36.0 -0.4 284.6 293.4">
+        <line class="fig-axis" x1="46.0" y1="190.0" x2="294.0" y2="190.0"/>
+        <line class="fig-axis" x1="60.0" y1="19.0" x2="60.0" y2="283.0"/>
+        <line class="fig-accent" x1="76.8" y1="233.2" x2="282.0" y2="28.0"/>
+        <path class="fig-curve" d="M 76.8 266.4 L 77.5 264.0 L 78.2 261.7 L 78.9 259.5 L 79.5 257.3 L 80.2 255.3 L 80.9 253.3 L 81.6 251.3 L 82.3 249.5 L 83.0 247.6 L 83.6 245.9 L 84.3 244.2 L 85.0 242.5 L 85.7 240.9 L 86.4 239.3 L 87.1 237.8 L 87.7 236.3 L 88.4 234.8 L 89.1 233.4 L 89.8 232.0 L 90.5 230.6 L 91.2 229.3 L 91.8 228.0 L 92.5 226.7 L 93.2 225.5 L 93.9 224.3 L 94.6 223.1 L 95.3 221.9 L 96.0 220.7 L 96.6 219.6 L 97.3 218.5 L 98.0 217.4 L 98.7 216.3 L 99.4 215.3 L 100.1 214.2 L 100.7 213.2 L 101.4 212.2 L 102.1 211.2 L 102.8 210.3 L 103.5 209.3 L 104.2 208.4 L 104.8 207.5 L 105.5 206.6 L 106.2 205.7 L 106.9 204.8 L 107.6 203.9 L 108.3 203.1 L 108.9 202.2 L 109.6 201.4 L 110.3 200.6 L 111.0 199.8 L 111.7 199.0 L 112.4 198.2 L 113.1 197.4 L 113.7 196.6 L 114.4 195.9 L 115.1 195.1 L 115.8 194.4 L 116.5 193.6 L 117.2 192.9 L 117.8 192.2 L 118.5 191.5 L 119.2 190.8 L 119.9 190.1 L 120.6 189.4 L 121.3 188.8 L 121.9 188.1 L 122.6 187.4 L 123.3 186.8 L 124.0 186.1 L 124.7 185.5 L 125.4 184.9 L 126.0 184.2 L 126.7 183.6 L 127.4 183.0 L 128.1 182.4 L 128.8 181.8 L 129.5 181.2 L 130.2 180.6 L 130.8 180.0 L 131.5 179.5 L 132.2 178.9 L 132.9 178.3 L 133.6 177.8 L 134.3 177.2 L 134.9 176.7 L 135.6 176.1 L 136.3 175.6 L 137.0 175.0 L 137.7 174.5 L 138.4 174.0 L 139.0 173.5 L 139.7 172.9 L 140.4 172.4 L 141.1 171.9 L 141.8 171.4 L 142.5 170.9 L 143.1 170.4 L 143.8 169.9 L 144.5 169.4 L 145.2 169.0 L 145.9 168.5 L 146.6 168.0 L 147.3 167.5 L 147.9 167.1 L 148.6 166.6 L 149.3 166.1 L 150.0 165.7 L 150.7 165.2 L 151.4 164.8 L 152.0 164.3 L 152.7 163.9 L 153.4 163.4 L 154.1 163.0 L 154.8 162.6 L 155.5 162.1 L 156.1 161.7 L 156.8 161.3 L 157.5 160.9 L 158.2 160.4 L 158.9 160.0 L 159.6 159.6 L 160.2 159.2 L 160.9 158.8 L 161.6 158.4 L 162.3 158.0 L 163.0 157.6 L 163.7 157.2 L 164.4 156.8 L 165.0 156.4 L 165.7 156.0 L 166.4 155.6 L 167.1 155.2 L 167.8 154.9 L 168.5 154.5 L 169.1 154.1 L 169.8 153.7 L 170.5 153.4 L 171.2 153.0 L 171.9 152.6 L 172.6 152.3 L 173.2 151.9 L 173.9 151.5 L 174.6 151.2 L 175.3 150.8 L 176.0 150.5 L 176.7 150.1 L 177.3 149.8 L 178.0 149.4 L 178.7 149.1 L 179.4 148.7 L 180.1 148.4 L 180.8 148.0 L 181.5 147.7 L 182.1 147.4 L 182.8 147.0 L 183.5 146.7 L 184.2 146.4 L 184.9 146.0 L 185.6 145.7 L 186.2 145.4 L 186.9 145.0 L 187.6 144.7 L 188.3 144.4 L 189.0 144.1 L 189.7 143.8 L 190.3 143.5 L 191.0 143.1 L 191.7 142.8 L 192.4 142.5 L 193.1 142.2 L 193.8 141.9 L 194.4 141.6 L 195.1 141.3 L 195.8 141.0 L 196.5 140.7 L 197.2 140.4 L 197.9 140.1 L 198.6 139.8 L 199.2 139.5 L 199.9 139.2 L 200.6 138.9 L 201.3 138.6 L 202.0 138.3 L 202.7 138.0 L 203.3 137.7 L 204.0 137.5 L 204.7 137.2 L 205.4 136.9 L 206.1 136.6 L 206.8 136.3 L 207.4 136.1 L 208.1 135.8 L 208.8 135.5 L 209.5 135.2 L 210.2 135.0 L 210.9 134.7 L 211.5 134.4 L 212.2 134.1 L 212.9 133.9 L 213.6 133.6 L 214.3 133.3 L 215.0 133.1 L 215.7 132.8 L 216.3 132.5 L 217.0 132.3 L 217.7 132.0 L 218.4 131.8 L 219.1 131.5 L 219.8 131.2 L 220.4 131.0 L 221.1 130.7 L 221.8 130.5 L 222.5 130.2 L 223.2 130.0 L 223.9 129.7 L 224.5 129.5 L 225.2 129.2 L 225.9 129.0 L 226.6 128.7 L 227.3 128.5 L 228.0 128.2 L 228.6 128.0 L 229.3 127.7 L 230.0 127.5 L 230.7 127.3 L 231.4 127.0 L 232.1 126.8 L 232.8 126.5 L 233.4 126.3 L 234.1 126.1 L 234.8 125.8 L 235.5 125.6 L 236.2 125.4 L 236.9 125.1 L 237.5 124.9 L 238.2 124.7 L 238.9 124.4 L 239.6 124.2 L 240.3 124.0 L 241.0 123.8 L 241.6 123.5 L 242.3 123.3 L 243.0 123.1 L 243.7 122.9 L 244.4 122.6 L 245.1 122.4 L 245.7 122.2 L 246.4 122.0 L 247.1 121.8 L 247.8 121.5 L 248.5 121.3 L 249.2 121.1 L 249.9 120.9 L 250.5 120.7 L 251.2 120.5 L 251.9 120.2 L 252.6 120.0 L 253.3 119.8 L 254.0 119.6 L 254.6 119.4 L 255.3 119.2 L 256.0 119.0 L 256.7 118.8 L 257.4 118.6 L 258.1 118.3 L 258.7 118.1 L 259.4 117.9 L 260.1 117.7 L 260.8 117.5 L 261.5 117.3 L 262.2 117.1 L 262.8 116.9 L 263.5 116.7 L 264.2 116.5 L 264.9 116.3 L 265.6 116.1 L 266.3 115.9 L 267.0 115.7 L 267.6 115.5 L 268.3 115.3 L 269.0 115.1 L 269.7 114.9 L 270.4 114.7 L 271.1 114.5 L 271.7 114.3 L 272.4 114.1 L 273.1 114.0 L 273.8 113.8 L 274.5 113.6 L 275.2 113.4 L 275.8 113.2 L 276.5 113.0 L 277.2 112.8 L 277.9 112.6 L 278.6 112.4 L 279.3 112.2 L 279.9 112.1 L 280.6 111.9 L 281.3 111.7 L 282.0 111.5"/>
+        <circle class="fig-dot" cx="120.0" cy="190.0" r="4.0"/>
+        <text x="116.0" y="210.0">1</text>
+        <text x="288.0" y="116.5">ln t</text>
+        <text x="278.0" y="20.0">t − 1</text>
+        <text x="300.0" y="195.0">t</text>
+      </svg>
+      <figcaption><span class="en">The curve $\ln t$ and the line $t - 1$, which meet only at $t = 1$.</span><span class="fr">La courbe $\ln t$ et la droite $t - 1$, qui ne se rencontrent qu'en $t = 1$.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Standard comparisons).</span> For $\alpha &gt; 0$ and $q &gt; 1$: $$\ln n = o(n^\alpha), \qquad n^\alpha = o(q^n), \qquad q^n = o(n!), \qquad n! = o(n^n).$$</p>
@@ -118,85 +325,341 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>$\ln n = o(n^\alpha)$:</em> first, $\ln t \le t - 1$ for $t &gt; 0$: the function $t \mapsto t - 1 - \ln t$ has derivative $1 - \frac{1}{t}$, so it is decreasing on $]0,1]$ and increasing on $[1,+\infty[$, with minimum $0$ at $t = 1$. Hence $0 \le \ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}\,n^{\alpha/2}$, so $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}\,n^{-\alpha/2} \to 0$ (squeeze theorem).
+      <em>Idea.</em> The first comparison comes from the lemma. The other three are obtained by taking logarithms, and each becomes a comparison the first one settles.
       <br>
-      <em>$n^\alpha = o(q^n)$:</em> set $u_n = \frac{n^\alpha}{q^n} &gt; 0$; then $\frac{u_{n+1}}{u_n} = \frac{(1+1/n)^\alpha}{q} \to \frac{1}{q} &lt; 1$ (continuity of $t \mapsto t^\alpha$). Choose $k$ with $\frac{1}{q} &lt; k &lt; 1$: from some rank $N$ onward, $u_{n+1} \le k\,u_n$, so $0 \le u_n \le k^{n-N} u_N \to 0$.
+      <em>$\ln n = o(n^\alpha)$.</em> The lemma applied to $t = n^{\alpha/2}$ gives $\ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}n^{\alpha/2}$, so $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}n^{-\alpha/2} \to 0$.
       <br>
-      <em>$q^n = o(n!)$:</em> same argument with $u_n = \frac{q^n}{n!}$: $\frac{u_{n+1}}{u_n} = \frac{q}{n+1} \to 0$.
+      <em>$n^\alpha = o(q^n)$.</em> The logarithms differ by $\alpha\ln n - n\ln q = n\left(\alpha\frac{\ln n}{n} - \ln q\right)$. The bracket tends to $-\ln q &lt; 0$, so the difference tends to $-\infty$.
       <br>
-      <em>$n! = o(n^n)$:</em> $0 \le \frac{n!}{n^n} = \prod_{k=1}^{n} \frac{k}{n} \le \frac{1}{n} \to 0$ (all factors are $\le 1$ and the first is $\frac{1}{n}$).
+      <em>$q^n = o(n!)$.</em> There are at least $\frac{n}{2}$ integers $k$ with $\frac{n}{2} &lt; k \le n$, and each satisfies $\ln k \ge \ln\frac{n}{2}$, so $\ln(n!) = \sum_{k=1}^{n}\ln k \ge \frac{n}{2}\ln\frac{n}{2}$. The logarithms therefore differ by at most $n\ln q - \frac{n}{2}\ln\frac{n}{2} = n\left(\ln q - \frac{1}{2}\ln\frac{n}{2}\right) \to -\infty$.
+      <br>
+      <em>$n! = o(n^n)$.</em> The logarithms differ by $\ln(n!) - n\ln n = \sum_{k=1}^{n}\ln\frac{k}{n} \le \ln\frac{1}{n} = -\ln n \to -\infty$, all the terms of the sum being $\le 0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <em>$\ln n = o(n^\alpha)$ :</em> d'abord, $\ln t \le t - 1$ pour $t &gt; 0$ : la fonction $t \mapsto t - 1 - \ln t$ a pour dérivée $1 - \frac{1}{t}$, donc elle est décroissante sur $]0,1]$ et croissante sur $[1,+\infty[$, de minimum $0$ en $t = 1$. Donc $0 \le \ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}\,n^{\alpha/2}$, donc $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}\,n^{-\alpha/2} \to 0$ (théorème des gendarmes).
+      <em>Idée.</em> La première comparaison vient du lemme. Les trois autres s'obtiennent en passant aux logarithmes, et chacune devient une comparaison que la première règle.
       <br>
-      <em>$n^\alpha = o(q^n)$ :</em> posons $u_n = \frac{n^\alpha}{q^n} &gt; 0$ ; alors $\frac{u_{n+1}}{u_n} = \frac{(1+1/n)^\alpha}{q} \to \frac{1}{q} &lt; 1$ (continuité de $t \mapsto t^\alpha$). Choisissons $k$ avec $\frac{1}{q} &lt; k &lt; 1$ : à partir d'un rang $N$, $u_{n+1} \le k\,u_n$, donc $0 \le u_n \le k^{n-N} u_N \to 0$.
+      <em>$\ln n = o(n^\alpha)$.</em> Le lemme appliqué à $t = n^{\alpha/2}$ donne $\ln n = \frac{2}{\alpha}\ln\!\big(n^{\alpha/2}\big) \le \frac{2}{\alpha}n^{\alpha/2}$, donc $0 \le \frac{\ln n}{n^\alpha} \le \frac{2}{\alpha}n^{-\alpha/2} \to 0$.
       <br>
-      <em>$q^n = o(n!)$ :</em> même argument avec $u_n = \frac{q^n}{n!}$ : $\frac{u_{n+1}}{u_n} = \frac{q}{n+1} \to 0$.
+      <em>$n^\alpha = o(q^n)$.</em> Les logarithmes diffèrent de $\alpha\ln n - n\ln q = n\left(\alpha\frac{\ln n}{n} - \ln q\right)$. Le crochet tend vers $-\ln q &lt; 0$, donc la différence tend vers $-\infty$.
       <br>
-      <em>$n! = o(n^n)$ :</em> $0 \le \frac{n!}{n^n} = \prod_{k=1}^{n} \frac{k}{n} \le \frac{1}{n} \to 0$ (tous les facteurs sont $\le 1$ et le premier vaut $\frac{1}{n}$).
+      <em>$q^n = o(n!)$.</em> Il y a au moins $\frac{n}{2}$ entiers $k$ tels que $\frac{n}{2} &lt; k \le n$, et chacun vérifie $\ln k \ge \ln\frac{n}{2}$, donc $\ln(n!) = \sum_{k=1}^{n}\ln k \ge \frac{n}{2}\ln\frac{n}{2}$. Les logarithmes diffèrent donc d'au plus $n\ln q - \frac{n}{2}\ln\frac{n}{2} = n\left(\ln q - \frac{1}{2}\ln\frac{n}{2}\right) \to -\infty$.
+      <br>
+      <em>$n! = o(n^n)$.</em> Les logarithmes diffèrent de $\ln(n!) - n\ln n = \sum_{k=1}^{n}\ln\frac{k}{n} \le \ln\frac{1}{n} = -\ln n \to -\infty$, tous les termes de la somme étant $\le 0$.
     </details>
 
-    <h3 class="en">Comparison of functions</h3>
-    <h3 class="fr">Comparaison des fonctions</h3>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> Let $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ and $f, g$ be defined on a neighborhood of $a$, with $g$ nonvanishing there (except possibly at $a$ itself). As $x \to a$, we say that $f = O(g)$ if $\frac{f}{g}$ is bounded near $a$; $f = o(g)$ if $\frac{f(x)}{g(x)} \to 0$; and $f \sim g$ if $\frac{f(x)}{g(x)} \to 1$. All the propositions of the previous section (characterization $f = g + o(g)$, equivalence relation, same sign and same limit, operations, and the warning about sums and compositions) carry over verbatim, with the same proofs, replacing limits of sequences by limits of functions at $a$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Soit $a \in \mathbb{R} \cup \{-\infty, +\infty\}$ et $f, g$ définies au voisinage de $a$, avec $g$ ne s'annulant pas sur ce voisinage (sauf éventuellement en $a$). Quand $x \to a$, on dit que $f = O(g)$ si $\frac{f}{g}$ est bornée au voisinage de $a$ ; $f = o(g)$ si $\frac{f(x)}{g(x)} \to 0$ ; et $f \sim g$ si $\frac{f(x)}{g(x)} \to 1$. Toutes les propositions de la section précédente (caractérisation $f = g + o(g)$, relation d'équivalence, même signe et même limite, opérations, et la mise en garde sur les sommes et compositions) se transposent mot pour mot, avec les mêmes preuves, en remplaçant les limites de suites par des limites de fonctions en $a$.</p>
-    </div>
+    <figure class="figure-block">
+      <svg class="figure" width="361" height="274" viewBox="48.0 22.0 361.4 273.9">
+        <line class="fig-axis" x1="58.0" y1="270.0" x2="344.0" y2="270.0"/>
+        <line class="fig-axis" x1="70.0" y1="282.0" x2="70.0" y2="32.0"/>
+        <path class="fig-free-solid" d="M 70.0 266.4 L 71.3 266.3 L 72.6 266.3 L 73.9 266.3 L 75.2 266.2 L 76.5 266.2 L 77.8 266.2 L 79.1 266.1 L 80.4 266.1 L 81.7 266.1 L 83.0 266.0 L 84.3 266.0 L 85.6 266.0 L 86.9 265.9 L 88.2 265.9 L 89.5 265.9 L 90.8 265.9 L 92.1 265.8 L 93.4 265.8 L 94.7 265.8 L 96.0 265.8 L 97.3 265.7 L 98.6 265.7 L 99.9 265.7 L 101.2 265.6 L 102.5 265.6 L 103.8 265.6 L 105.1 265.6 L 106.4 265.5 L 107.7 265.5 L 109.0 265.5 L 110.3 265.5 L 111.6 265.4 L 112.9 265.4 L 114.2 265.4 L 115.5 265.4 L 116.8 265.3 L 118.1 265.3 L 119.4 265.3 L 120.7 265.3 L 122.0 265.3 L 123.3 265.2 L 124.6 265.2 L 125.9 265.2 L 127.2 265.2 L 128.5 265.1 L 129.8 265.1 L 131.1 265.1 L 132.4 265.1 L 133.7 265.1 L 135.0 265.0 L 136.3 265.0 L 137.6 265.0 L 138.9 265.0 L 140.2 265.0 L 141.5 264.9 L 142.8 264.9 L 144.1 264.9 L 145.4 264.9 L 146.7 264.9 L 148.0 264.8 L 149.3 264.8 L 150.6 264.8 L 151.9 264.8 L 153.2 264.8 L 154.5 264.7 L 155.8 264.7 L 157.1 264.7 L 158.4 264.7 L 159.7 264.7 L 161.0 264.7 L 162.3 264.6 L 163.6 264.6 L 164.9 264.6 L 166.2 264.6 L 167.5 264.6 L 168.8 264.5 L 170.1 264.5 L 171.4 264.5 L 172.7 264.5 L 174.0 264.5 L 175.3 264.5 L 176.6 264.4 L 177.9 264.4 L 179.2 264.4 L 180.5 264.4 L 181.8 264.4 L 183.1 264.4 L 184.4 264.4 L 185.7 264.3 L 187.0 264.3 L 188.3 264.3 L 189.6 264.3 L 190.9 264.3 L 192.2 264.3 L 193.5 264.2 L 194.8 264.2 L 196.1 264.2 L 197.4 264.2 L 198.7 264.2 L 200.0 264.2 L 201.3 264.2 L 202.6 264.1 L 203.9 264.1 L 205.2 264.1 L 206.5 264.1 L 207.8 264.1 L 209.1 264.1 L 210.4 264.1 L 211.7 264.0 L 213.0 264.0 L 214.3 264.0 L 215.6 264.0 L 216.9 264.0 L 218.2 264.0 L 219.5 264.0 L 220.8 263.9 L 222.1 263.9 L 223.4 263.9 L 224.7 263.9 L 226.0 263.9 L 227.3 263.9 L 228.6 263.9 L 229.9 263.8 L 231.2 263.8 L 232.5 263.8 L 233.8 263.8 L 235.1 263.8 L 236.4 263.8 L 237.7 263.8 L 239.0 263.8 L 240.3 263.7 L 241.6 263.7 L 242.9 263.7 L 244.2 263.7 L 245.5 263.7 L 246.8 263.7 L 248.1 263.7 L 249.4 263.7 L 250.7 263.7 L 252.0 263.6 L 253.3 263.6 L 254.6 263.6 L 255.9 263.6 L 257.2 263.6 L 258.5 263.6 L 259.8 263.6 L 261.1 263.6 L 262.4 263.5 L 263.7 263.5 L 265.0 263.5 L 266.3 263.5 L 267.6 263.5 L 268.9 263.5 L 270.2 263.5 L 271.5 263.5 L 272.8 263.5 L 274.1 263.4 L 275.4 263.4 L 276.7 263.4 L 278.0 263.4 L 279.3 263.4 L 280.6 263.4 L 281.9 263.4 L 283.2 263.4 L 284.5 263.4 L 285.8 263.4 L 287.1 263.3 L 288.4 263.3 L 289.7 263.3 L 291.0 263.3 L 292.3 263.3 L 293.6 263.3 L 294.9 263.3 L 296.2 263.3 L 297.5 263.3 L 298.8 263.2 L 300.1 263.2 L 301.4 263.2 L 302.7 263.2 L 304.0 263.2 L 305.3 263.2 L 306.6 263.2 L 307.9 263.2 L 309.2 263.2 L 310.5 263.2 L 311.8 263.2 L 313.1 263.1 L 314.4 263.1 L 315.7 263.1 L 317.0 263.1 L 318.3 263.1 L 319.6 263.1 L 320.9 263.1 L 322.2 263.1 L 323.5 263.1 L 324.8 263.1 L 326.1 263.0 L 327.4 263.0 L 328.7 263.0 L 330.0 263.0"/>
+        <path class="fig-free-solid" d="M 70.0 257.7 L 71.3 257.6 L 72.6 257.6 L 73.9 257.5 L 75.2 257.4 L 76.5 257.4 L 77.8 257.3 L 79.1 257.3 L 80.4 257.2 L 81.7 257.2 L 83.0 257.1 L 84.3 257.1 L 85.6 257.0 L 86.9 257.0 L 88.2 256.9 L 89.5 256.9 L 90.8 256.8 L 92.1 256.8 L 93.4 256.8 L 94.7 256.7 L 96.0 256.7 L 97.3 256.6 L 98.6 256.6 L 99.9 256.5 L 101.2 256.5 L 102.5 256.4 L 103.8 256.4 L 105.1 256.3 L 106.4 256.3 L 107.7 256.2 L 109.0 256.2 L 110.3 256.2 L 111.6 256.1 L 112.9 256.1 L 114.2 256.0 L 115.5 256.0 L 116.8 255.9 L 118.1 255.9 L 119.4 255.9 L 120.7 255.8 L 122.0 255.8 L 123.3 255.7 L 124.6 255.7 L 125.9 255.6 L 127.2 255.6 L 128.5 255.6 L 129.8 255.5 L 131.1 255.5 L 132.4 255.4 L 133.7 255.4 L 135.0 255.4 L 136.3 255.3 L 137.6 255.3 L 138.9 255.2 L 140.2 255.2 L 141.5 255.2 L 142.8 255.1 L 144.1 255.1 L 145.4 255.0 L 146.7 255.0 L 148.0 255.0 L 149.3 254.9 L 150.6 254.9 L 151.9 254.9 L 153.2 254.8 L 154.5 254.8 L 155.8 254.7 L 157.1 254.7 L 158.4 254.7 L 159.7 254.6 L 161.0 254.6 L 162.3 254.6 L 163.6 254.5 L 164.9 254.5 L 166.2 254.5 L 167.5 254.4 L 168.8 254.4 L 170.1 254.4 L 171.4 254.3 L 172.7 254.3 L 174.0 254.3 L 175.3 254.2 L 176.6 254.2 L 177.9 254.1 L 179.2 254.1 L 180.5 254.1 L 181.8 254.0 L 183.1 254.0 L 184.4 254.0 L 185.7 253.9 L 187.0 253.9 L 188.3 253.9 L 189.6 253.8 L 190.9 253.8 L 192.2 253.8 L 193.5 253.8 L 194.8 253.7 L 196.1 253.7 L 197.4 253.7 L 198.7 253.6 L 200.0 253.6 L 201.3 253.6 L 202.6 253.5 L 203.9 253.5 L 205.2 253.5 L 206.5 253.4 L 207.8 253.4 L 209.1 253.4 L 210.4 253.3 L 211.7 253.3 L 213.0 253.3 L 214.3 253.3 L 215.6 253.2 L 216.9 253.2 L 218.2 253.2 L 219.5 253.1 L 220.8 253.1 L 222.1 253.1 L 223.4 253.0 L 224.7 253.0 L 226.0 253.0 L 227.3 253.0 L 228.6 252.9 L 229.9 252.9 L 231.2 252.9 L 232.5 252.8 L 233.8 252.8 L 235.1 252.8 L 236.4 252.8 L 237.7 252.7 L 239.0 252.7 L 240.3 252.7 L 241.6 252.6 L 242.9 252.6 L 244.2 252.6 L 245.5 252.6 L 246.8 252.5 L 248.1 252.5 L 249.4 252.5 L 250.7 252.5 L 252.0 252.4 L 253.3 252.4 L 254.6 252.4 L 255.9 252.3 L 257.2 252.3 L 258.5 252.3 L 259.8 252.3 L 261.1 252.2 L 262.4 252.2 L 263.7 252.2 L 265.0 252.2 L 266.3 252.1 L 267.6 252.1 L 268.9 252.1 L 270.2 252.1 L 271.5 252.0 L 272.8 252.0 L 274.1 252.0 L 275.4 252.0 L 276.7 251.9 L 278.0 251.9 L 279.3 251.9 L 280.6 251.8 L 281.9 251.8 L 283.2 251.8 L 284.5 251.8 L 285.8 251.7 L 287.1 251.7 L 288.4 251.7 L 289.7 251.7 L 291.0 251.7 L 292.3 251.6 L 293.6 251.6 L 294.9 251.6 L 296.2 251.6 L 297.5 251.5 L 298.8 251.5 L 300.1 251.5 L 301.4 251.5 L 302.7 251.4 L 304.0 251.4 L 305.3 251.4 L 306.6 251.4 L 307.9 251.3 L 309.2 251.3 L 310.5 251.3 L 311.8 251.3 L 313.1 251.2 L 314.4 251.2 L 315.7 251.2 L 317.0 251.2 L 318.3 251.2 L 319.6 251.1 L 320.9 251.1 L 322.2 251.1 L 323.5 251.1 L 324.8 251.0 L 326.1 251.0 L 327.4 251.0 L 328.7 251.0 L 330.0 250.9"/>
+        <path class="fig-curve" d="M 70.0 243.4 L 71.3 243.2 L 72.6 243.1 L 73.9 242.9 L 75.2 242.7 L 76.5 242.5 L 77.8 242.3 L 79.1 242.1 L 80.4 241.9 L 81.7 241.8 L 83.0 241.6 L 84.3 241.4 L 85.6 241.2 L 86.9 241.0 L 88.2 240.8 L 89.5 240.6 L 90.8 240.5 L 92.1 240.3 L 93.4 240.1 L 94.7 239.9 L 96.0 239.7 L 97.3 239.5 L 98.6 239.3 L 99.9 239.2 L 101.2 239.0 L 102.5 238.8 L 103.8 238.6 L 105.1 238.4 L 106.4 238.2 L 107.7 238.0 L 109.0 237.8 L 110.3 237.7 L 111.6 237.5 L 112.9 237.3 L 114.2 237.1 L 115.5 236.9 L 116.8 236.7 L 118.1 236.5 L 119.4 236.4 L 120.7 236.2 L 122.0 236.0 L 123.3 235.8 L 124.6 235.6 L 125.9 235.4 L 127.2 235.2 L 128.5 235.1 L 129.8 234.9 L 131.1 234.7 L 132.4 234.5 L 133.7 234.3 L 135.0 234.1 L 136.3 233.9 L 137.6 233.8 L 138.9 233.6 L 140.2 233.4 L 141.5 233.2 L 142.8 233.0 L 144.1 232.8 L 145.4 232.6 L 146.7 232.5 L 148.0 232.3 L 149.3 232.1 L 150.6 231.9 L 151.9 231.7 L 153.2 231.5 L 154.5 231.3 L 155.8 231.2 L 157.1 231.0 L 158.4 230.8 L 159.7 230.6 L 161.0 230.4 L 162.3 230.2 L 163.6 230.0 L 164.9 229.9 L 166.2 229.7 L 167.5 229.5 L 168.8 229.3 L 170.1 229.1 L 171.4 228.9 L 172.7 228.7 L 174.0 228.5 L 175.3 228.4 L 176.6 228.2 L 177.9 228.0 L 179.2 227.8 L 180.5 227.6 L 181.8 227.4 L 183.1 227.2 L 184.4 227.1 L 185.7 226.9 L 187.0 226.7 L 188.3 226.5 L 189.6 226.3 L 190.9 226.1 L 192.2 225.9 L 193.5 225.8 L 194.8 225.6 L 196.1 225.4 L 197.4 225.2 L 198.7 225.0 L 200.0 224.8 L 201.3 224.6 L 202.6 224.5 L 203.9 224.3 L 205.2 224.1 L 206.5 223.9 L 207.8 223.7 L 209.1 223.5 L 210.4 223.3 L 211.7 223.2 L 213.0 223.0 L 214.3 222.8 L 215.6 222.6 L 216.9 222.4 L 218.2 222.2 L 219.5 222.0 L 220.8 221.9 L 222.1 221.7 L 223.4 221.5 L 224.7 221.3 L 226.0 221.1 L 227.3 220.9 L 228.6 220.7 L 229.9 220.6 L 231.2 220.4 L 232.5 220.2 L 233.8 220.0 L 235.1 219.8 L 236.4 219.6 L 237.7 219.4 L 239.0 219.3 L 240.3 219.1 L 241.6 218.9 L 242.9 218.7 L 244.2 218.5 L 245.5 218.3 L 246.8 218.1 L 248.1 217.9 L 249.4 217.8 L 250.7 217.6 L 252.0 217.4 L 253.3 217.2 L 254.6 217.0 L 255.9 216.8 L 257.2 216.6 L 258.5 216.5 L 259.8 216.3 L 261.1 216.1 L 262.4 215.9 L 263.7 215.7 L 265.0 215.5 L 266.3 215.3 L 267.6 215.2 L 268.9 215.0 L 270.2 214.8 L 271.5 214.6 L 272.8 214.4 L 274.1 214.2 L 275.4 214.0 L 276.7 213.9 L 278.0 213.7 L 279.3 213.5 L 280.6 213.3 L 281.9 213.1 L 283.2 212.9 L 284.5 212.7 L 285.8 212.6 L 287.1 212.4 L 288.4 212.2 L 289.7 212.0 L 291.0 211.8 L 292.3 211.6 L 293.6 211.4 L 294.9 211.3 L 296.2 211.1 L 297.5 210.9 L 298.8 210.7 L 300.1 210.5 L 301.4 210.3 L 302.7 210.1 L 304.0 210.0 L 305.3 209.8 L 306.6 209.6 L 307.9 209.4 L 309.2 209.2 L 310.5 209.0 L 311.8 208.8 L 313.1 208.6 L 314.4 208.5 L 315.7 208.3 L 317.0 208.1 L 318.3 207.9 L 319.6 207.7 L 320.9 207.5 L 322.2 207.3 L 323.5 207.2 L 324.8 207.0 L 326.1 206.8 L 327.4 206.6 L 328.7 206.4 L 330.0 206.2"/>
+        <path class="fig-curve" d="M 70.0 233.3 L 71.3 232.8 L 72.6 232.4 L 73.9 231.9 L 75.2 231.5 L 76.5 231.0 L 77.8 230.5 L 79.1 230.1 L 80.4 229.6 L 81.7 229.1 L 83.0 228.6 L 84.3 228.2 L 85.6 227.7 L 86.9 227.2 L 88.2 226.7 L 89.5 226.2 L 90.8 225.8 L 92.1 225.3 L 93.4 224.8 L 94.7 224.3 L 96.0 223.8 L 97.3 223.3 L 98.6 222.8 L 99.9 222.3 L 101.2 221.8 L 102.5 221.3 L 103.8 220.8 L 105.1 220.3 L 106.4 219.8 L 107.7 219.3 L 109.0 218.8 L 110.3 218.3 L 111.6 217.8 L 112.9 217.3 L 114.2 216.8 L 115.5 216.3 L 116.8 215.8 L 118.1 215.3 L 119.4 214.8 L 120.7 214.2 L 122.0 213.7 L 123.3 213.2 L 124.6 212.7 L 125.9 212.2 L 127.2 211.6 L 128.5 211.1 L 129.8 210.6 L 131.1 210.1 L 132.4 209.5 L 133.7 209.0 L 135.0 208.5 L 136.3 207.9 L 137.6 207.4 L 138.9 206.9 L 140.2 206.3 L 141.5 205.8 L 142.8 205.3 L 144.1 204.7 L 145.4 204.2 L 146.7 203.6 L 148.0 203.1 L 149.3 202.5 L 150.6 202.0 L 151.9 201.5 L 153.2 200.9 L 154.5 200.4 L 155.8 199.8 L 157.1 199.2 L 158.4 198.7 L 159.7 198.1 L 161.0 197.6 L 162.3 197.0 L 163.6 196.5 L 164.9 195.9 L 166.2 195.3 L 167.5 194.8 L 168.8 194.2 L 170.1 193.7 L 171.4 193.1 L 172.7 192.5 L 174.0 192.0 L 175.3 191.4 L 176.6 190.8 L 177.9 190.3 L 179.2 189.7 L 180.5 189.1 L 181.8 188.5 L 183.1 188.0 L 184.4 187.4 L 185.7 186.8 L 187.0 186.2 L 188.3 185.6 L 189.6 185.1 L 190.9 184.5 L 192.2 183.9 L 193.5 183.3 L 194.8 182.7 L 196.1 182.1 L 197.4 181.6 L 198.7 181.0 L 200.0 180.4 L 201.3 179.8 L 202.6 179.2 L 203.9 178.6 L 205.2 178.0 L 206.5 177.4 L 207.8 176.8 L 209.1 176.2 L 210.4 175.6 L 211.7 175.0 L 213.0 174.4 L 214.3 173.8 L 215.6 173.2 L 216.9 172.6 L 218.2 172.0 L 219.5 171.4 L 220.8 170.8 L 222.1 170.2 L 223.4 169.6 L 224.7 169.0 L 226.0 168.4 L 227.3 167.8 L 228.6 167.2 L 229.9 166.6 L 231.2 165.9 L 232.5 165.3 L 233.8 164.7 L 235.1 164.1 L 236.4 163.5 L 237.7 162.9 L 239.0 162.2 L 240.3 161.6 L 241.6 161.0 L 242.9 160.4 L 244.2 159.8 L 245.5 159.1 L 246.8 158.5 L 248.1 157.9 L 249.4 157.3 L 250.7 156.6 L 252.0 156.0 L 253.3 155.4 L 254.6 154.7 L 255.9 154.1 L 257.2 153.5 L 258.5 152.8 L 259.8 152.2 L 261.1 151.6 L 262.4 150.9 L 263.7 150.3 L 265.0 149.7 L 266.3 149.0 L 267.6 148.4 L 268.9 147.8 L 270.2 147.1 L 271.5 146.5 L 272.8 145.8 L 274.1 145.2 L 275.4 144.5 L 276.7 143.9 L 278.0 143.3 L 279.3 142.6 L 280.6 142.0 L 281.9 141.3 L 283.2 140.7 L 284.5 140.0 L 285.8 139.4 L 287.1 138.7 L 288.4 138.1 L 289.7 137.4 L 291.0 136.8 L 292.3 136.1 L 293.6 135.4 L 294.9 134.8 L 296.2 134.1 L 297.5 133.5 L 298.8 132.8 L 300.1 132.2 L 301.4 131.5 L 302.7 130.8 L 304.0 130.2 L 305.3 129.5 L 306.6 128.8 L 307.9 128.2 L 309.2 127.5 L 310.5 126.8 L 311.8 126.2 L 313.1 125.5 L 314.4 124.8 L 315.7 124.2 L 317.0 123.5 L 318.3 122.8 L 319.6 122.2 L 320.9 121.5 L 322.2 120.8 L 323.5 120.1 L 324.8 119.5 L 326.1 118.8 L 327.4 118.1 L 328.7 117.4 L 330.0 116.8"/>
+        <path class="fig-curve" d="M 70.0 208.3 L 71.3 207.6 L 72.6 206.9 L 73.9 206.2 L 75.2 205.5 L 76.5 204.8 L 77.8 204.1 L 79.1 203.4 L 80.4 202.6 L 81.7 201.9 L 83.0 201.2 L 84.3 200.5 L 85.6 199.8 L 86.9 199.0 L 88.2 198.3 L 89.5 197.6 L 90.8 196.9 L 92.1 196.1 L 93.4 195.4 L 94.7 194.7 L 96.0 193.9 L 97.3 193.2 L 98.6 192.5 L 99.9 191.7 L 101.2 191.0 L 102.5 190.2 L 103.8 189.5 L 105.1 188.8 L 106.4 188.0 L 107.7 187.3 L 109.0 186.5 L 110.3 185.8 L 111.6 185.0 L 112.9 184.2 L 114.2 183.5 L 115.5 182.7 L 116.8 182.0 L 118.1 181.2 L 119.4 180.4 L 120.7 179.7 L 122.0 178.9 L 123.3 178.2 L 124.6 177.4 L 125.9 176.6 L 127.2 175.8 L 128.5 175.1 L 129.8 174.3 L 131.1 173.5 L 132.4 172.7 L 133.7 172.0 L 135.0 171.2 L 136.3 170.4 L 137.6 169.6 L 138.9 168.8 L 140.2 168.0 L 141.5 167.3 L 142.8 166.5 L 144.1 165.7 L 145.4 164.9 L 146.7 164.1 L 148.0 163.3 L 149.3 162.5 L 150.6 161.7 L 151.9 160.9 L 153.2 160.1 L 154.5 159.3 L 155.8 158.5 L 157.1 157.7 L 158.4 156.9 L 159.7 156.1 L 161.0 155.3 L 162.3 154.5 L 163.6 153.7 L 164.9 152.9 L 166.2 152.1 L 167.5 151.2 L 168.8 150.4 L 170.1 149.6 L 171.4 148.8 L 172.7 148.0 L 174.0 147.2 L 175.3 146.3 L 176.6 145.5 L 177.9 144.7 L 179.2 143.9 L 180.5 143.1 L 181.8 142.2 L 183.1 141.4 L 184.4 140.6 L 185.7 139.7 L 187.0 138.9 L 188.3 138.1 L 189.6 137.2 L 190.9 136.4 L 192.2 135.6 L 193.5 134.7 L 194.8 133.9 L 196.1 133.1 L 197.4 132.2 L 198.7 131.4 L 200.0 130.5 L 201.3 129.7 L 202.6 128.9 L 203.9 128.0 L 205.2 127.2 L 206.5 126.3 L 207.8 125.5 L 209.1 124.6 L 210.4 123.8 L 211.7 122.9 L 213.0 122.1 L 214.3 121.2 L 215.6 120.3 L 216.9 119.5 L 218.2 118.6 L 219.5 117.8 L 220.8 116.9 L 222.1 116.1 L 223.4 115.2 L 224.7 114.3 L 226.0 113.5 L 227.3 112.6 L 228.6 111.7 L 229.9 110.9 L 231.2 110.0 L 232.5 109.1 L 233.8 108.3 L 235.1 107.4 L 236.4 106.5 L 237.7 105.7 L 239.0 104.8 L 240.3 103.9 L 241.6 103.0 L 242.9 102.2 L 244.2 101.3 L 245.5 100.4 L 246.8 99.5 L 248.1 98.6 L 249.4 97.8 L 250.7 96.9 L 252.0 96.0 L 253.3 95.1 L 254.6 94.2 L 255.9 93.3 L 257.2 92.5 L 258.5 91.6 L 259.8 90.7 L 261.1 89.8 L 262.4 88.9 L 263.7 88.0 L 265.0 87.1 L 266.3 86.2 L 267.6 85.3 L 268.9 84.4 L 270.2 83.5 L 271.5 82.6 L 272.8 81.7 L 274.1 80.8 L 275.4 79.9 L 276.7 79.0 L 278.0 78.1 L 279.3 77.2 L 280.6 76.3 L 281.9 75.4 L 283.2 74.5 L 284.5 73.6 L 285.8 72.7 L 287.1 71.8 L 288.4 70.9 L 289.7 70.0 L 291.0 69.1 L 292.3 68.2 L 293.6 67.3 L 294.9 66.3 L 296.2 65.4 L 297.5 64.5 L 298.8 63.6 L 300.1 62.7 L 301.4 61.8 L 302.7 60.8 L 304.0 59.9 L 305.3 59.0 L 306.6 58.1 L 307.9 57.2 L 309.2 56.2 L 310.5 55.3 L 311.8 54.4 L 313.1 53.5 L 314.4 52.6 L 315.7 51.6 L 317.0 50.7 L 318.3 49.8 L 319.6 48.8 L 320.9 47.9 L 322.2 47.0 L 323.5 46.1 L 324.8 45.1 L 326.1 44.2 L 327.4 43.3 L 328.7 42.3 L 330.0 41.4"/>
+        <text x="356.0" y="282.0">ln ln n</text>
+        <line class="fig-guide" x1="334.0" y1="263.0" x2="352.0" y2="277.0"/>
+        <text x="356.0" y="241.9">ln n</text>
+        <line class="fig-guide" x1="334.0" y1="250.9" x2="352.0" y2="236.9"/>
+        <text x="356.0" y="211.2">n ln q</text>
+        <text x="356.0" y="121.8">ln n!</text>
+        <text x="356.0" y="46.4">n ln n</text>
+      </svg>
+      <figcaption><span class="en">The logarithms of $\ln n$, $n^\alpha$, $q^n$, $n!$ and $n^n$, against $n$ from $5$ to $12$, for $\alpha = 1$ and $q = 2$. The two lower curves are the logarithms of the quantities that are $o(n)$, the three upper ones those of the quantities that grow at least like $n$. Each gap widens, which is what the four comparisons say.</span><span class="fr">Les logarithmes de $\ln n$, $n^\alpha$, $q^n$, $n!$ et $n^n$, en fonction de $n$ de $5$ à $12$, pour $\alpha = 1$ et $q = 2$. Les deux courbes du bas sont les logarithmes des quantités qui sont des $o(n)$, les trois du haut ceux des quantités qui croissent au moins comme $n$. Chaque écart se creuse, ce que disent les quatre comparaisons.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Usual equivalents at $0$).</span> As $x \to 0$: $$\sin x \sim x, \quad \tan x \sim x, \quad 1 - \cos x \sim \frac{x^2}{2}, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0).$$ Moreover, a polynomial is equivalent to its term of lowest degree at $0$, and to its term of highest degree at $\pm\infty$.</p>
-      <p class="fr"><span class="thm-label">Théorème (Équivalents usuels en $0$).</span> Quand $x \to 0$ : $$\sin x \sim x, \quad \tan x \sim x, \quad 1 - \cos x \sim \frac{x^2}{2}, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0).$$ De plus, un polynôme est équivalent à son terme de plus bas degré en $0$, et à son terme de plus haut degré en $\pm\infty$.</p>
+      <p class="en"><span class="thm-label">Theorem (Standard comparisons for functions).</span> For $\alpha, \beta &gt; 0$: as $x \to +\infty$, $\ln x = o(x^\alpha)$ and $x^\alpha = o(e^{\beta x})$; as $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, that is $x^\alpha\ln x \to 0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Croissances comparées pour les fonctions).</span> Pour $\alpha, \beta &gt; 0$ : quand $x \to +\infty$, $\ln x = o(x^\alpha)$ et $x^\alpha = o(e^{\beta x})$ ; quand $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, c'est-à-dire $x^\alpha\ln x \to 0$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      If $f$ is differentiable at $0$ with $f(0) = 0$ and $f'(0) \neq 0$, then $\frac{f(x)}{x} = \frac{f(x) - f(0)}{x - 0} \to f'(0)$, so $f(x) \sim f'(0)\,x$. This applies to $\sin$ ($\sin'(0) = 1$), $\tan$ ($\tan'(0) = 1$), $x \mapsto \ln(1+x)$ (derivative $1$ at $0$), $x \mapsto e^x - 1$ (derivative $1$), and $x \mapsto (1+x)^\alpha - 1$ (derivative $\alpha$). For the cosine: $1 - \cos x = 2\sin^2\frac{x}{2}$, and $\sin\frac{x}{2} \sim \frac{x}{2}$ (the quotient $\frac{\sin(x/2)}{x/2} \to 1$ by composition of limits), so by product $1 - \cos x \sim 2\left(\frac{x}{2}\right)^2 = \frac{x^2}{2}$. For a polynomial $P = a_p x^p + \cdots + a_q x^q$ with $a_p, a_q \neq 0$ ($q$ lowest degree, $p$ highest): $\frac{P(x)}{a_q x^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ as $x \to 0$, and $\frac{P(x)}{a_p x^p} = 1 + \frac{a_{p-1}}{a_p}\frac{1}{x} + \cdots \to 1$ as $x \to \pm\infty$.
+      <em>$\ln x = o(x^\alpha)$.</em> The lemma applied to $t = x^{\alpha/2}$ gives, for $x \ge 1$, $0 \le \ln x \le \frac{2}{\alpha}x^{\alpha/2}$, so $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}x^{-\alpha/2} \to 0$.
+      <br>
+      <em>$x^\alpha = o(e^{\beta x})$.</em> The logarithms differ by $\alpha\ln x - \beta x = x\left(\alpha\frac{\ln x}{x} - \beta\right) \to -\infty$, since $\frac{\ln x}{x} \to 0$ and $\beta &gt; 0$.
+      <br>
+      <em>$x^\alpha\ln x \to 0$ at $0^+$.</em> Put $y = \frac{1}{x} \to +\infty$. Then $x^\alpha|\ln x| = \frac{\ln y}{y^\alpha} \to 0$ by the first point.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Si $f$ est dérivable en $0$ avec $f(0) = 0$ et $f'(0) \neq 0$, alors $\frac{f(x)}{x} = \frac{f(x) - f(0)}{x - 0} \to f'(0)$, donc $f(x) \sim f'(0)\,x$. Cela s'applique à $\sin$ ($\sin'(0) = 1$), $\tan$ ($\tan'(0) = 1$), $x \mapsto \ln(1+x)$ (dérivée $1$ en $0$), $x \mapsto e^x - 1$ (dérivée $1$), et $x \mapsto (1+x)^\alpha - 1$ (dérivée $\alpha$). Pour le cosinus : $1 - \cos x = 2\sin^2\frac{x}{2}$, et $\sin\frac{x}{2} \sim \frac{x}{2}$ (le quotient $\frac{\sin(x/2)}{x/2} \to 1$ par composition de limites), donc par produit $1 - \cos x \sim 2\left(\frac{x}{2}\right)^2 = \frac{x^2}{2}$. Pour un polynôme $P = a_p x^p + \cdots + a_q x^q$ avec $a_p, a_q \neq 0$ ($q$ plus bas degré, $p$ plus haut) : $\frac{P(x)}{a_q x^q} = 1 + \frac{a_{q+1}}{a_q}x + \cdots \to 1$ quand $x \to 0$, et $\frac{P(x)}{a_p x^p} = 1 + \frac{a_{p-1}}{a_p}\frac{1}{x} + \cdots \to 1$ quand $x \to \pm\infty$.
+      <em>$\ln x = o(x^\alpha)$.</em> Le lemme appliqué à $t = x^{\alpha/2}$ donne, pour $x \ge 1$, $0 \le \ln x \le \frac{2}{\alpha}x^{\alpha/2}$, donc $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}x^{-\alpha/2} \to 0$.
+      <br>
+      <em>$x^\alpha = o(e^{\beta x})$.</em> Les logarithmes diffèrent de $\alpha\ln x - \beta x = x\left(\alpha\frac{\ln x}{x} - \beta\right) \to -\infty$, car $\frac{\ln x}{x} \to 0$ et $\beta &gt; 0$.
+      <br>
+      <em>$x^\alpha\ln x \to 0$ en $0^+$.</em> On pose $y = \frac{1}{x} \to +\infty$. Alors $x^\alpha|\ln x| = \frac{\ln y}{y^\alpha} \to 0$ par le premier point.
     </details>
 
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Standard comparisons for functions).</span> For $\alpha, \beta &gt; 0$: as $x \to +\infty$, $\ln x = o(x^\alpha)$ and $x^\alpha = o(e^{\beta x})$; as $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, i.e. $x^\alpha \ln x \to 0$.</p>
-      <p class="fr"><span class="thm-label">Théorème (Croissances comparées pour les fonctions).</span> Pour $\alpha, \beta &gt; 0$ : quand $x \to +\infty$, $\ln x = o(x^\alpha)$ et $x^\alpha = o(e^{\beta x})$ ; quand $x \to 0^+$, $|\ln x| = o(x^{-\alpha})$, i.e. $x^\alpha \ln x \to 0$.</p>
+    <h3 class="en">The equivalent at $0$ is the tangent</h3>
+    <h3 class="fr">L'équivalent en $0$ est la tangente</h3>
+
+    <p class="en">A function that vanishes at $0$ and has a nonzero derivative there is, near $0$, a multiple of $x$.</p>
+    <p class="fr">Une fonction qui s'annule en $0$ et y a une dérivée non nulle est, au voisinage de $0$, un multiple de $x$.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Equivalent from the derivative).</span> If $f$ is differentiable at $0$ with $f(0) = 0$ and $f'(0) \neq 0$, then $f(x) \sim f'(0)\,x$ as $x \to 0$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Équivalent par la dérivée).</span> Si $f$ est dérivable en $0$ avec $f(0) = 0$ et $f'(0) \neq 0$, alors $f(x) \sim f'(0)\,x$ quand $x \to 0$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>$\ln x = o(x^\alpha)$:</em> as in the sequence case, for $x \ge 1$, $0 \le \ln x = \frac{2}{\alpha}\ln\!\big(x^{\alpha/2}\big) \le \frac{2}{\alpha}\,x^{\alpha/2}$ by the inequality $\ln t \le t - 1$ established above, so $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}\,x^{-\alpha/2} \to 0$.
-      <br>
-      <em>$x^\alpha = o(e^{\beta x})$:</em> let $m$ be an integer with $m &gt; \alpha$. We use $e^t \ge t$ for all $t \in \mathbb{R}$: clear for $t \le 0$, and for $t &gt; 0$ it reads $\ln t \le t$, which follows from $\ln t \le t - 1$ established above. For $x &gt; 0$, $e^{\beta x} = \big(e^{\beta x/m}\big)^m \ge \left(\frac{\beta x}{m}\right)^{\!m}$, so $0 \le \frac{x^\alpha}{e^{\beta x}} \le \left(\frac{m}{\beta}\right)^{\!m} x^{\alpha - m} \to 0$ since $\alpha - m &lt; 0$.
-      <br>
-      <em>$|\ln x| = o(x^{-\alpha})$ at $0^+$:</em> set $y = \frac{1}{x} \to +\infty$: $x^\alpha |\ln x| = \frac{\ln y}{y^\alpha} \to 0$ by the first point (composition of limits).
+      $\frac{f(x)}{f'(0)\,x} = \frac{1}{f'(0)}\cdot\frac{f(x) - f(0)}{x - 0} \to \frac{f'(0)}{f'(0)} = 1$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <em>$\ln x = o(x^\alpha)$ :</em> comme pour les suites, pour $x \ge 1$, $0 \le \ln x = \frac{2}{\alpha}\ln\!\big(x^{\alpha/2}\big) \le \frac{2}{\alpha}\,x^{\alpha/2}$ par l'inégalité $\ln t \le t - 1$ établie plus haut, donc $0 \le \frac{\ln x}{x^\alpha} \le \frac{2}{\alpha}\,x^{-\alpha/2} \to 0$.
-      <br>
-      <em>$x^\alpha = o(e^{\beta x})$ :</em> soit $m$ un entier avec $m &gt; \alpha$. On utilise $e^t \ge t$ pour tout $t \in \mathbb{R}$ : clair pour $t \le 0$, et pour $t &gt; 0$ cela s'écrit $\ln t \le t$, qui découle de $\ln t \le t - 1$ établie plus haut. Pour $x &gt; 0$, $e^{\beta x} = \big(e^{\beta x/m}\big)^m \ge \left(\frac{\beta x}{m}\right)^{\!m}$, donc $0 \le \frac{x^\alpha}{e^{\beta x}} \le \left(\frac{m}{\beta}\right)^{\!m} x^{\alpha - m} \to 0$ car $\alpha - m &lt; 0$.
-      <br>
-      <em>$|\ln x| = o(x^{-\alpha})$ en $0^+$ :</em> on pose $y = \frac{1}{x} \to +\infty$ : $x^\alpha |\ln x| = \frac{\ln y}{y^\alpha} \to 0$ par le premier point (composition de limites).
+      $\frac{f(x)}{f'(0)\,x} = \frac{1}{f'(0)}\cdot\frac{f(x) - f(0)}{x - 0} \to \frac{f'(0)}{f'(0)} = 1$.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Usual equivalents at $0$).</span> As $x \to 0$: $$\sin x \sim x, \quad \tan x \sim x, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0), \quad 1 - \cos x \sim \frac{x^2}{2}.$$</p>
+      <p class="fr"><span class="thm-label">Théorème (Équivalents usuels en $0$).</span> Quand $x \to 0$ : $$\sin x \sim x, \quad \tan x \sim x, \quad \ln(1+x) \sim x, \quad e^x - 1 \sim x, \quad (1+x)^\alpha - 1 \sim \alpha x \ (\alpha \neq 0), \quad 1 - \cos x \sim \frac{x^2}{2}.$$</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The first five functions vanish at $0$ and are differentiable there, with derivatives $\cos 0 = 1$, $1 + \tan^2 0 = 1$, $\frac{1}{1+0} = 1$, $e^0 = 1$ and $\alpha(1+0)^{\alpha-1} = \alpha$, so the proposition applies to each. The sixth function has derivative $\sin 0 = 0$ at $0$, so the proposition does not apply and no multiple of $x$ is equivalent to it. Instead, $1 - \cos x = 2\sin^2\frac{x}{2}$, and $\sin\frac{x}{2} \sim \frac{x}{2}$ by substitution, so by product $1 - \cos x \sim 2\left(\frac{x}{2}\right)^{\!2} = \frac{x^2}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les cinq premières fonctions s'annulent en $0$ et y sont dérivables, de dérivées $\cos 0 = 1$, $1 + \tan^2 0 = 1$, $\frac{1}{1+0} = 1$, $e^0 = 1$ et $\alpha(1+0)^{\alpha-1} = \alpha$, donc la proposition s'applique à chacune. La sixième a pour dérivée $\sin 0 = 0$ en $0$, donc la proposition ne s'applique pas et aucun multiple de $x$ ne lui est équivalent. À la place, $1 - \cos x = 2\sin^2\frac{x}{2}$, et $\sin\frac{x}{2} \sim \frac{x}{2}$ par substitution, donc par produit $1 - \cos x \sim 2\left(\frac{x}{2}\right)^{\!2} = \frac{x^2}{2}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="611" height="329" viewBox="34.0 31.4 610.7 328.7">
+        <line class="fig-axis" x1="44.0" y1="200.0" x2="278.2" y2="200.0"/>
+        <line class="fig-axis" x1="155.0" y1="50.2" x2="155.0" y2="340.2"/>
+        <line class="fig-accent" x1="60.0" y1="295.0" x2="264.2" y2="90.8"/>
+        <path class="fig-curve" d="M 60.0 279.9 L 60.7 279.5 L 61.5 279.1 L 62.2 278.7 L 62.9 278.3 L 63.6 277.9 L 64.4 277.5 L 65.1 277.1 L 65.8 276.6 L 66.6 276.2 L 67.3 275.8 L 68.0 275.3 L 68.8 274.9 L 69.5 274.4 L 70.2 274.0 L 70.9 273.5 L 71.7 273.0 L 72.4 272.6 L 73.1 272.1 L 73.9 271.6 L 74.6 271.1 L 75.3 270.7 L 76.0 270.2 L 76.8 269.7 L 77.5 269.2 L 78.2 268.7 L 79.0 268.2 L 79.7 267.7 L 80.4 267.1 L 81.2 266.6 L 81.9 266.1 L 82.6 265.6 L 83.3 265.1 L 84.1 264.5 L 84.8 264.0 L 85.5 263.4 L 86.3 262.9 L 87.0 262.3 L 87.7 261.8 L 88.4 261.2 L 89.2 260.7 L 89.9 260.1 L 90.6 259.6 L 91.4 259.0 L 92.1 258.4 L 92.8 257.8 L 93.6 257.2 L 94.3 256.7 L 95.0 256.1 L 95.7 255.5 L 96.5 254.9 L 97.2 254.3 L 97.9 253.7 L 98.7 253.1 L 99.4 252.5 L 100.1 251.9 L 100.8 251.3 L 101.6 250.6 L 102.3 250.0 L 103.0 249.4 L 103.8 248.8 L 104.5 248.2 L 105.2 247.5 L 106.0 246.9 L 106.7 246.3 L 107.4 245.6 L 108.1 245.0 L 108.9 244.3 L 109.6 243.7 L 110.3 243.0 L 111.1 242.4 L 111.8 241.7 L 112.5 241.1 L 113.3 240.4 L 114.0 239.8 L 114.7 239.1 L 115.4 238.4 L 116.2 237.8 L 116.9 237.1 L 117.6 236.4 L 118.4 235.7 L 119.1 235.1 L 119.8 234.4 L 120.5 233.7 L 121.3 233.0 L 122.0 232.3 L 122.7 231.6 L 123.5 231.0 L 124.2 230.3 L 124.9 229.6 L 125.7 228.9 L 126.4 228.2 L 127.1 227.5 L 127.8 226.8 L 128.6 226.1 L 129.3 225.4 L 130.0 224.7 L 130.8 224.0 L 131.5 223.3 L 132.2 222.6 L 132.9 221.9 L 133.7 221.1 L 134.4 220.4 L 135.1 219.7 L 135.9 219.0 L 136.6 218.3 L 137.3 217.6 L 138.1 216.9 L 138.8 216.1 L 139.5 215.4 L 140.2 214.7 L 141.0 214.0 L 141.7 213.3 L 142.4 212.5 L 143.2 211.8 L 143.9 211.1 L 144.6 210.4 L 145.3 209.6 L 146.1 208.9 L 146.8 208.2 L 147.5 207.5 L 148.3 206.7 L 149.0 206.0 L 149.7 205.3 L 150.5 204.5 L 151.2 203.8 L 151.9 203.1 L 152.6 202.4 L 153.4 201.6 L 154.1 200.9 L 154.8 200.2 L 155.6 199.4 L 156.3 198.7 L 157.0 198.0 L 157.7 197.3 L 158.5 196.5 L 159.2 195.8 L 159.9 195.1 L 160.7 194.3 L 161.4 193.6 L 162.1 192.9 L 162.9 192.2 L 163.6 191.4 L 164.3 190.7 L 165.0 190.0 L 165.8 189.3 L 166.5 188.5 L 167.2 187.8 L 168.0 187.1 L 168.7 186.4 L 169.4 185.6 L 170.1 184.9 L 170.9 184.2 L 171.6 183.5 L 172.3 182.8 L 173.1 182.0 L 173.8 181.3 L 174.5 180.6 L 175.3 179.9 L 176.0 179.2 L 176.7 178.5 L 177.4 177.8 L 178.2 177.1 L 178.9 176.3 L 179.6 175.6 L 180.4 174.9 L 181.1 174.2 L 181.8 173.5 L 182.6 172.8 L 183.3 172.1 L 184.0 171.4 L 184.7 170.7 L 185.5 170.1 L 186.2 169.4 L 186.9 168.7 L 187.7 168.0 L 188.4 167.3 L 189.1 166.6 L 189.8 165.9 L 190.6 165.3 L 191.3 164.6 L 192.0 163.9 L 192.8 163.2 L 193.5 162.6 L 194.2 161.9 L 195.0 161.2 L 195.7 160.6 L 196.4 159.9 L 197.1 159.2 L 197.9 158.6 L 198.6 157.9 L 199.3 157.3 L 200.1 156.6 L 200.8 156.0 L 201.5 155.3 L 202.2 154.7 L 203.0 154.0 L 203.7 153.4 L 204.4 152.8 L 205.2 152.1 L 205.9 151.5 L 206.6 150.9 L 207.4 150.3 L 208.1 149.6 L 208.8 149.0 L 209.5 148.4 L 210.3 147.8 L 211.0 147.2 L 211.7 146.6 L 212.5 146.0 L 213.2 145.4 L 213.9 144.8 L 214.6 144.2 L 215.4 143.6 L 216.1 143.0 L 216.8 142.4 L 217.6 141.9 L 218.3 141.3 L 219.0 140.7 L 219.8 140.1 L 220.5 139.6 L 221.2 139.0 L 221.9 138.5 L 222.7 137.9 L 223.4 137.4 L 224.1 136.8 L 224.9 136.3 L 225.6 135.7 L 226.3 135.2 L 227.0 134.7 L 227.8 134.1 L 228.5 133.6 L 229.2 133.1 L 230.0 132.6 L 230.7 132.1 L 231.4 131.6 L 232.2 131.1 L 232.9 130.6 L 233.6 130.1 L 234.3 129.6 L 235.1 129.1 L 235.8 128.6 L 236.5 128.1 L 237.3 127.6 L 238.0 127.2 L 238.7 126.7 L 239.4 126.2 L 240.2 125.8 L 240.9 125.3 L 241.6 124.9 L 242.4 124.4 L 243.1 124.0 L 243.8 123.6 L 244.6 123.1 L 245.3 122.7 L 246.0 122.3 L 246.7 121.9 L 247.5 121.5 L 248.2 121.0 L 248.9 120.6 L 249.7 120.2 L 250.4 119.9 L 251.1 119.5 L 251.8 119.1 L 252.6 118.7 L 253.3 118.3 L 254.0 118.0 L 254.8 117.6 L 255.5 117.2 L 256.2 116.9 L 257.0 116.5 L 257.7 116.2 L 258.4 115.8 L 259.1 115.5 L 259.9 115.2 L 260.6 114.8 L 261.3 114.5 L 262.1 114.2 L 262.8 113.9 L 263.5 113.6 L 264.2 113.3"/>
+        <path class="fig-curve" d="M 84.9 327.2 L 85.6 324.4 L 86.4 321.8 L 87.1 319.2 L 87.8 316.7 L 88.5 314.2 L 89.3 311.9 L 90.0 309.5 L 90.7 307.3 L 91.4 305.0 L 92.2 302.9 L 92.9 300.7 L 93.6 298.7 L 94.3 296.6 L 95.1 294.7 L 95.8 292.7 L 96.5 290.8 L 97.3 288.9 L 98.0 287.1 L 98.7 285.3 L 99.4 283.5 L 100.2 281.8 L 100.9 280.1 L 101.6 278.4 L 102.3 276.8 L 103.1 275.2 L 103.8 273.6 L 104.5 272.0 L 105.2 270.5 L 106.0 269.0 L 106.7 267.5 L 107.4 266.0 L 108.1 264.6 L 108.9 263.1 L 109.6 261.7 L 110.3 260.4 L 111.0 259.0 L 111.8 257.7 L 112.5 256.3 L 113.2 255.0 L 114.0 253.7 L 114.7 252.5 L 115.4 251.2 L 116.1 250.0 L 116.9 248.8 L 117.6 247.6 L 118.3 246.4 L 119.0 245.2 L 119.8 244.0 L 120.5 242.9 L 121.2 241.8 L 121.9 240.6 L 122.7 239.5 L 123.4 238.4 L 124.1 237.3 L 124.8 236.3 L 125.6 235.2 L 126.3 234.2 L 127.0 233.1 L 127.7 232.1 L 128.5 231.1 L 129.2 230.1 L 129.9 229.1 L 130.7 228.1 L 131.4 227.2 L 132.1 226.2 L 132.8 225.2 L 133.6 224.3 L 134.3 223.4 L 135.0 222.4 L 135.7 221.5 L 136.5 220.6 L 137.2 219.7 L 137.9 218.8 L 138.6 218.0 L 139.4 217.1 L 140.1 216.2 L 140.8 215.4 L 141.5 214.5 L 142.3 213.7 L 143.0 212.8 L 143.7 212.0 L 144.4 211.2 L 145.2 210.4 L 145.9 209.6 L 146.6 208.8 L 147.4 208.0 L 148.1 207.2 L 148.8 206.4 L 149.5 205.6 L 150.3 204.9 L 151.0 204.1 L 151.7 203.3 L 152.4 202.6 L 153.2 201.9 L 153.9 201.1 L 154.6 200.4 L 155.3 199.7 L 156.1 198.9 L 156.8 198.2 L 157.5 197.5 L 158.2 196.8 L 159.0 196.1 L 159.7 195.4 L 160.4 194.7 L 161.1 194.0 L 161.9 193.4 L 162.6 192.7 L 163.3 192.0 L 164.1 191.4 L 164.8 190.7 L 165.5 190.0 L 166.2 189.4 L 167.0 188.7 L 167.7 188.1 L 168.4 187.5 L 169.1 186.8 L 169.9 186.2 L 170.6 185.6 L 171.3 184.9 L 172.0 184.3 L 172.8 183.7 L 173.5 183.1 L 174.2 182.5 L 174.9 181.9 L 175.7 181.3 L 176.4 180.7 L 177.1 180.1 L 177.8 179.5 L 178.6 178.9 L 179.3 178.4 L 180.0 177.8 L 180.8 177.2 L 181.5 176.6 L 182.2 176.1 L 182.9 175.5 L 183.7 175.0 L 184.4 174.4 L 185.1 173.8 L 185.8 173.3 L 186.6 172.7 L 187.3 172.2 L 188.0 171.7 L 188.7 171.1 L 189.5 170.6 L 190.2 170.1 L 190.9 169.5 L 191.6 169.0 L 192.4 168.5 L 193.1 168.0 L 193.8 167.5 L 194.5 166.9 L 195.3 166.4 L 196.0 165.9 L 196.7 165.4 L 197.5 164.9 L 198.2 164.4 L 198.9 163.9 L 199.6 163.4 L 200.4 162.9 L 201.1 162.4 L 201.8 161.9 L 202.5 161.5 L 203.3 161.0 L 204.0 160.5 L 204.7 160.0 L 205.4 159.5 L 206.2 159.1 L 206.9 158.6 L 207.6 158.1 L 208.3 157.7 L 209.1 157.2 L 209.8 156.7 L 210.5 156.3 L 211.2 155.8 L 212.0 155.4 L 212.7 154.9 L 213.4 154.5 L 214.2 154.0 L 214.9 153.6 L 215.6 153.1 L 216.3 152.7 L 217.1 152.2 L 217.8 151.8 L 218.5 151.4 L 219.2 150.9 L 220.0 150.5 L 220.7 150.1 L 221.4 149.6 L 222.1 149.2 L 222.9 148.8 L 223.6 148.4 L 224.3 147.9 L 225.0 147.5 L 225.8 147.1 L 226.5 146.7 L 227.2 146.3 L 227.9 145.9 L 228.7 145.5 L 229.4 145.1 L 230.1 144.6 L 230.9 144.2 L 231.6 143.8 L 232.3 143.4 L 233.0 143.0 L 233.8 142.6 L 234.5 142.2 L 235.2 141.9 L 235.9 141.5 L 236.7 141.1 L 237.4 140.7 L 238.1 140.3 L 238.8 139.9 L 239.6 139.5 L 240.3 139.1 L 241.0 138.8 L 241.7 138.4 L 242.5 138.0 L 243.2 137.6 L 243.9 137.2 L 244.6 136.9 L 245.4 136.5 L 246.1 136.1 L 246.8 135.8 L 247.6 135.4 L 248.3 135.0 L 249.0 134.7 L 249.7 134.3 L 250.5 133.9 L 251.2 133.6 L 251.9 133.2 L 252.6 132.8 L 253.4 132.5 L 254.1 132.1 L 254.8 131.8 L 255.5 131.4 L 256.3 131.1 L 257.0 130.7 L 257.7 130.4 L 258.4 130.0 L 259.2 129.7 L 259.9 129.3 L 260.6 129.0 L 261.3 128.6 L 262.1 128.3 L 262.8 128.0 L 263.5 127.6 L 264.2 127.3"/>
+        <path class="fig-curve" d="M 60.0 260.1 L 60.7 259.8 L 61.5 259.5 L 62.2 259.2 L 62.9 259.0 L 63.6 258.7 L 64.4 258.4 L 65.1 258.1 L 65.8 257.8 L 66.6 257.6 L 67.3 257.3 L 68.0 257.0 L 68.8 256.7 L 69.5 256.4 L 70.2 256.1 L 70.9 255.8 L 71.7 255.5 L 72.4 255.2 L 73.1 254.9 L 73.9 254.6 L 74.6 254.3 L 75.3 253.9 L 76.0 253.6 L 76.8 253.3 L 77.5 253.0 L 78.2 252.7 L 79.0 252.3 L 79.7 252.0 L 80.4 251.7 L 81.2 251.3 L 81.9 251.0 L 82.6 250.7 L 83.3 250.3 L 84.1 250.0 L 84.8 249.6 L 85.5 249.3 L 86.3 248.9 L 87.0 248.6 L 87.7 248.2 L 88.4 247.8 L 89.2 247.5 L 89.9 247.1 L 90.6 246.8 L 91.4 246.4 L 92.1 246.0 L 92.8 245.6 L 93.6 245.2 L 94.3 244.9 L 95.0 244.5 L 95.7 244.1 L 96.5 243.7 L 97.2 243.3 L 97.9 242.9 L 98.7 242.5 L 99.4 242.1 L 100.1 241.7 L 100.8 241.3 L 101.6 240.9 L 102.3 240.4 L 103.0 240.0 L 103.8 239.6 L 104.5 239.2 L 105.2 238.7 L 106.0 238.3 L 106.7 237.9 L 107.4 237.4 L 108.1 237.0 L 108.9 236.5 L 109.6 236.1 L 110.3 235.6 L 111.1 235.2 L 111.8 234.7 L 112.5 234.3 L 113.3 233.8 L 114.0 233.3 L 114.7 232.8 L 115.4 232.4 L 116.2 231.9 L 116.9 231.4 L 117.6 230.9 L 118.4 230.4 L 119.1 229.9 L 119.8 229.4 L 120.5 228.9 L 121.3 228.4 L 122.0 227.9 L 122.7 227.4 L 123.5 226.8 L 124.2 226.3 L 124.9 225.8 L 125.7 225.2 L 126.4 224.7 L 127.1 224.2 L 127.8 223.6 L 128.6 223.1 L 129.3 222.5 L 130.0 222.0 L 130.8 221.4 L 131.5 220.8 L 132.2 220.3 L 132.9 219.7 L 133.7 219.1 L 134.4 218.5 L 135.1 217.9 L 135.9 217.3 L 136.6 216.7 L 137.3 216.1 L 138.1 215.5 L 138.8 214.9 L 139.5 214.3 L 140.2 213.7 L 141.0 213.0 L 141.7 212.4 L 142.4 211.8 L 143.2 211.1 L 143.9 210.5 L 144.6 209.8 L 145.3 209.2 L 146.1 208.5 L 146.8 207.9 L 147.5 207.2 L 148.3 206.5 L 149.0 205.8 L 149.7 205.1 L 150.5 204.4 L 151.2 203.7 L 151.9 203.0 L 152.6 202.3 L 153.4 201.6 L 154.1 200.9 L 154.8 200.2 L 155.6 199.4 L 156.3 198.7 L 157.0 198.0 L 157.7 197.2 L 158.5 196.5 L 159.2 195.7 L 159.9 194.9 L 160.7 194.2 L 161.4 193.4 L 162.1 192.6 L 162.9 191.8 L 163.6 191.0 L 164.3 190.2 L 165.0 189.4 L 165.8 188.6 L 166.5 187.8 L 167.2 186.9 L 168.0 186.1 L 168.7 185.3 L 169.4 184.4 L 170.1 183.6 L 170.9 182.7 L 171.6 181.9 L 172.3 181.0 L 173.1 180.1 L 173.8 179.2 L 174.5 178.3 L 175.3 177.4 L 176.0 176.5 L 176.7 175.6 L 177.4 174.7 L 178.2 173.8 L 178.9 172.8 L 179.6 171.9 L 180.4 170.9 L 181.1 170.0 L 181.8 169.0 L 182.6 168.0 L 183.3 167.1 L 184.0 166.1 L 184.7 165.1 L 185.5 164.1 L 186.2 163.1 L 186.9 162.1 L 187.7 161.0 L 188.4 160.0 L 189.1 159.0 L 189.8 157.9 L 190.6 156.8 L 191.3 155.8 L 192.0 154.7 L 192.8 153.6 L 193.5 152.5 L 194.2 151.4 L 195.0 150.3 L 195.7 149.2 L 196.4 148.1 L 197.1 147.0 L 197.9 145.8 L 198.6 144.7 L 199.3 143.5 L 200.1 142.3 L 200.8 141.2 L 201.5 140.0 L 202.2 138.8 L 203.0 137.6 L 203.7 136.4 L 204.4 135.2 L 205.2 133.9 L 205.9 132.7 L 206.6 131.4 L 207.4 130.2 L 208.1 128.9 L 208.8 127.6 L 209.5 126.3 L 210.3 125.0 L 211.0 123.7 L 211.7 122.4 L 212.5 121.1 L 213.2 119.7 L 213.9 118.4 L 214.6 117.0 L 215.4 115.6 L 216.1 114.3 L 216.8 112.9 L 217.6 111.5 L 218.3 110.0 L 219.0 108.6 L 219.8 107.2 L 220.5 105.7 L 221.2 104.3 L 221.9 102.8 L 222.7 101.3 L 223.4 99.8 L 224.1 98.3 L 224.9 96.8 L 225.6 95.3 L 226.3 93.7 L 227.0 92.2 L 227.8 90.6 L 228.5 89.1 L 229.2 87.5 L 230.0 85.9 L 230.7 84.3 L 231.4 82.6 L 232.2 81.0 L 232.9 79.3 L 233.6 77.7 L 234.3 76.0 L 235.1 74.3 L 235.8 72.6 L 236.5 70.9 L 237.3 69.2 L 238.0 67.4 L 238.7 65.7 L 239.4 63.9"/>
+        <text x="194.1" y="54.2">e<tspan dy="-5" font-size="11">x</tspan><tspan dy="5">−1</tspan></text>
+        <text x="270.2" y="118.3">sin x</text>
+        <text x="62.6" y="346.2">ln(1+x)</text>
+        <text x="270.2" y="95.8">y = x</text>
+        <line class="fig-axis" x1="346.0" y1="200.0" x2="594.0" y2="200.0"/>
+        <line class="fig-axis" x1="470.0" y1="58.2" x2="470.0" y2="218.0"/>
+        <path class="fig-curve" d="M 362.0 121.8 L 362.9 122.4 L 363.8 123.1 L 364.7 123.7 L 365.6 124.4 L 366.5 125.0 L 367.4 125.7 L 368.3 126.4 L 369.2 127.1 L 370.1 127.8 L 371.0 128.5 L 371.9 129.3 L 372.8 130.0 L 373.7 130.7 L 374.6 131.5 L 375.5 132.3 L 376.4 133.1 L 377.3 133.9 L 378.2 134.7 L 379.1 135.5 L 380.0 136.3 L 380.9 137.1 L 381.8 137.9 L 382.7 138.8 L 383.6 139.6 L 384.5 140.5 L 385.4 141.3 L 386.3 142.2 L 387.2 143.0 L 388.1 143.9 L 389.0 144.8 L 389.9 145.7 L 390.8 146.5 L 391.7 147.4 L 392.6 148.3 L 393.5 149.2 L 394.4 150.1 L 395.3 151.0 L 396.2 151.9 L 397.1 152.8 L 398.0 153.7 L 398.9 154.6 L 399.8 155.5 L 400.7 156.4 L 401.6 157.3 L 402.5 158.2 L 403.4 159.1 L 404.3 160.0 L 405.2 160.9 L 406.1 161.8 L 407.0 162.6 L 407.9 163.5 L 408.8 164.4 L 409.7 165.3 L 410.6 166.2 L 411.5 167.0 L 412.4 167.9 L 413.3 168.8 L 414.2 169.6 L 415.1 170.5 L 416.0 171.3 L 416.9 172.1 L 417.8 173.0 L 418.7 173.8 L 419.6 174.6 L 420.5 175.4 L 421.4 176.2 L 422.3 177.0 L 423.2 177.8 L 424.1 178.6 L 425.0 179.3 L 425.9 180.1 L 426.8 180.8 L 427.7 181.5 L 428.6 182.3 L 429.5 183.0 L 430.4 183.7 L 431.3 184.4 L 432.2 185.0 L 433.1 185.7 L 434.0 186.4 L 434.9 187.0 L 435.8 187.6 L 436.7 188.2 L 437.6 188.8 L 438.5 189.4 L 439.4 190.0 L 440.3 190.5 L 441.2 191.1 L 442.1 191.6 L 443.0 192.1 L 443.9 192.6 L 444.8 193.1 L 445.7 193.6 L 446.6 194.1 L 447.5 194.5 L 448.4 194.9 L 449.3 195.3 L 450.2 195.7 L 451.1 196.1 L 452.0 196.4 L 452.9 196.8 L 453.8 197.1 L 454.7 197.4 L 455.6 197.7 L 456.5 198.0 L 457.4 198.2 L 458.3 198.5 L 459.2 198.7 L 460.1 198.9 L 461.0 199.1 L 461.9 199.3 L 462.8 199.4 L 463.7 199.6 L 464.6 199.7 L 465.5 199.8 L 466.4 199.9 L 467.3 199.9 L 468.2 200.0 L 469.1 200.0 L 470.0 200.0 L 470.9 200.0 L 471.8 200.0 L 472.7 199.9 L 473.6 199.9 L 474.5 199.8 L 475.4 199.7 L 476.3 199.6 L 477.2 199.4 L 478.1 199.3 L 479.0 199.1 L 479.9 198.9 L 480.8 198.7 L 481.7 198.5 L 482.6 198.2 L 483.5 198.0 L 484.4 197.7 L 485.3 197.4 L 486.2 197.1 L 487.1 196.8 L 488.0 196.4 L 488.9 196.1 L 489.8 195.7 L 490.7 195.3 L 491.6 194.9 L 492.5 194.5 L 493.4 194.1 L 494.3 193.6 L 495.2 193.1 L 496.1 192.6 L 497.0 192.1 L 497.9 191.6 L 498.8 191.1 L 499.7 190.5 L 500.6 190.0 L 501.5 189.4 L 502.4 188.8 L 503.3 188.2 L 504.2 187.6 L 505.1 187.0 L 506.0 186.4 L 506.9 185.7 L 507.8 185.0 L 508.7 184.4 L 509.6 183.7 L 510.5 183.0 L 511.4 182.3 L 512.3 181.5 L 513.2 180.8 L 514.1 180.1 L 515.0 179.3 L 515.9 178.6 L 516.8 177.8 L 517.7 177.0 L 518.6 176.2 L 519.5 175.4 L 520.4 174.6 L 521.3 173.8 L 522.2 173.0 L 523.1 172.1 L 524.0 171.3 L 524.9 170.5 L 525.8 169.6 L 526.7 168.8 L 527.6 167.9 L 528.5 167.0 L 529.4 166.2 L 530.3 165.3 L 531.2 164.4 L 532.1 163.5 L 533.0 162.6 L 533.9 161.8 L 534.8 160.9 L 535.7 160.0 L 536.6 159.1 L 537.5 158.2 L 538.4 157.3 L 539.3 156.4 L 540.2 155.5 L 541.1 154.6 L 542.0 153.7 L 542.9 152.8 L 543.8 151.9 L 544.7 151.0 L 545.6 150.1 L 546.5 149.2 L 547.4 148.3 L 548.3 147.4 L 549.2 146.5 L 550.1 145.7 L 551.0 144.8 L 551.9 143.9 L 552.8 143.0 L 553.7 142.2 L 554.6 141.3 L 555.5 140.5 L 556.4 139.6 L 557.3 138.8 L 558.2 137.9 L 559.1 137.1 L 560.0 136.3 L 560.9 135.5 L 561.8 134.7 L 562.7 133.9 L 563.6 133.1 L 564.5 132.3 L 565.4 131.5 L 566.3 130.7 L 567.2 130.0 L 568.1 129.3 L 569.0 128.5 L 569.9 127.8 L 570.8 127.1 L 571.7 126.4 L 572.6 125.7 L 573.5 125.0 L 574.4 124.4 L 575.3 123.7 L 576.2 123.1 L 577.1 122.4 L 578.0 121.8"/>
+        <path class="fig-curve" d="M 362.0 70.4 L 362.9 72.6 L 363.8 74.7 L 364.7 76.8 L 365.6 78.9 L 366.5 81.0 L 367.4 83.0 L 368.3 85.1 L 369.2 87.1 L 370.1 89.1 L 371.0 91.1 L 371.9 93.1 L 372.8 95.0 L 373.7 97.0 L 374.6 98.9 L 375.5 100.8 L 376.4 102.7 L 377.3 104.5 L 378.2 106.4 L 379.1 108.2 L 380.0 110.0 L 380.9 111.8 L 381.8 113.6 L 382.7 115.3 L 383.6 117.1 L 384.5 118.8 L 385.4 120.5 L 386.3 122.2 L 387.2 123.8 L 388.1 125.5 L 389.0 127.1 L 389.9 128.7 L 390.8 130.3 L 391.7 131.9 L 392.6 133.4 L 393.5 135.0 L 394.4 136.5 L 395.3 138.0 L 396.2 139.5 L 397.1 141.0 L 398.0 142.4 L 398.9 143.8 L 399.8 145.2 L 400.7 146.6 L 401.6 148.0 L 402.5 149.4 L 403.4 150.7 L 404.3 152.0 L 405.2 153.3 L 406.1 154.6 L 407.0 155.9 L 407.9 157.2 L 408.8 158.4 L 409.7 159.6 L 410.6 160.8 L 411.5 162.0 L 412.4 163.1 L 413.3 164.3 L 414.2 165.4 L 415.1 166.5 L 416.0 167.6 L 416.9 168.7 L 417.8 169.7 L 418.7 170.8 L 419.6 171.8 L 420.5 172.8 L 421.4 173.8 L 422.3 174.7 L 423.2 175.7 L 424.1 176.6 L 425.0 177.5 L 425.9 178.4 L 426.8 179.3 L 427.7 180.1 L 428.6 181.0 L 429.5 181.8 L 430.4 182.6 L 431.3 183.4 L 432.2 184.1 L 433.1 184.9 L 434.0 185.6 L 434.9 186.3 L 435.8 187.0 L 436.7 187.7 L 437.6 188.3 L 438.5 189.0 L 439.4 189.6 L 440.3 190.2 L 441.2 190.8 L 442.1 191.4 L 443.0 191.9 L 443.9 192.4 L 444.8 192.9 L 445.7 193.4 L 446.6 193.9 L 447.5 194.4 L 448.4 194.8 L 449.3 195.2 L 450.2 195.6 L 451.1 196.0 L 452.0 196.4 L 452.9 196.8 L 453.8 197.1 L 454.7 197.4 L 455.6 197.7 L 456.5 198.0 L 457.4 198.2 L 458.3 198.5 L 459.2 198.7 L 460.1 198.9 L 461.0 199.1 L 461.9 199.3 L 462.8 199.4 L 463.7 199.6 L 464.6 199.7 L 465.5 199.8 L 466.4 199.9 L 467.3 199.9 L 468.2 200.0 L 469.1 200.0 L 470.0 200.0 L 470.9 200.0 L 471.8 200.0 L 472.7 199.9 L 473.6 199.9 L 474.5 199.8 L 475.4 199.7 L 476.3 199.6 L 477.2 199.4 L 478.1 199.3 L 479.0 199.1 L 479.9 198.9 L 480.8 198.7 L 481.7 198.5 L 482.6 198.2 L 483.5 198.0 L 484.4 197.7 L 485.3 197.4 L 486.2 197.1 L 487.1 196.8 L 488.0 196.4 L 488.9 196.0 L 489.8 195.6 L 490.7 195.2 L 491.6 194.8 L 492.5 194.4 L 493.4 193.9 L 494.3 193.4 L 495.2 192.9 L 496.1 192.4 L 497.0 191.9 L 497.9 191.4 L 498.8 190.8 L 499.7 190.2 L 500.6 189.6 L 501.5 189.0 L 502.4 188.3 L 503.3 187.7 L 504.2 187.0 L 505.1 186.3 L 506.0 185.6 L 506.9 184.9 L 507.8 184.1 L 508.7 183.4 L 509.6 182.6 L 510.5 181.8 L 511.4 181.0 L 512.3 180.1 L 513.2 179.3 L 514.1 178.4 L 515.0 177.5 L 515.9 176.6 L 516.8 175.7 L 517.7 174.7 L 518.6 173.8 L 519.5 172.8 L 520.4 171.8 L 521.3 170.8 L 522.2 169.7 L 523.1 168.7 L 524.0 167.6 L 524.9 166.5 L 525.8 165.4 L 526.7 164.3 L 527.6 163.1 L 528.5 162.0 L 529.4 160.8 L 530.3 159.6 L 531.2 158.4 L 532.1 157.2 L 533.0 155.9 L 533.9 154.6 L 534.8 153.3 L 535.7 152.0 L 536.6 150.7 L 537.5 149.4 L 538.4 148.0 L 539.3 146.6 L 540.2 145.2 L 541.1 143.8 L 542.0 142.4 L 542.9 141.0 L 543.8 139.5 L 544.7 138.0 L 545.6 136.5 L 546.5 135.0 L 547.4 133.4 L 548.3 131.9 L 549.2 130.3 L 550.1 128.7 L 551.0 127.1 L 551.9 125.5 L 552.8 123.8 L 553.7 122.2 L 554.6 120.5 L 555.5 118.8 L 556.4 117.1 L 557.3 115.3 L 558.2 113.6 L 559.1 111.8 L 560.0 110.0 L 560.9 108.2 L 561.8 106.4 L 562.7 104.5 L 563.6 102.7 L 564.5 100.8 L 565.4 98.9 L 566.3 97.0 L 567.2 95.0 L 568.1 93.1 L 569.0 91.1 L 569.9 89.1 L 570.8 87.1 L 571.7 85.1 L 572.6 83.0 L 573.5 81.0 L 574.4 78.9 L 575.3 76.8 L 576.2 74.7 L 577.1 72.6 L 578.0 70.4"/>
+        <text x="584.0" y="75.4">x<tspan dy="-5" font-size="11">2</tspan><tspan dy="5">/2</tspan></text>
+        <text x="584.0" y="126.8">1−cos x</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> $\sin x$, $\ln(1+x)$ and $e^x - 1$ all leave the origin along the line $y = x$, and each is equivalent to $x$.</span><span class="cap-part"><span class="cap-lead">Right:</span> $1 - \cos x$ leaves the origin along the horizontal axis, so its equivalent is not a multiple of $x$ but the parabola $\frac{x^2}{2}$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> $\sin x$, $\ln(1+x)$ et $e^x - 1$ quittent toutes l'origine le long de la droite $y = x$, et chacune est équivalente à $x$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $1 - \cos x$ quitte l'origine le long de l'axe horizontal, donc son équivalent n'est pas un multiple de $x$ mais la parabole $\frac{x^2}{2}$.</span></span></figcaption>
+    </figure>
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To find an equivalent, factor out the dominant term of each sum and check that what is left tends to $1$.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour trouver un équivalent, mettre en facteur le terme dominant de chaque somme et vérifier que ce qui reste tend vers $1$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Find an equivalent of $u_n = \frac{n^3 + n}{2n^2 + 1}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Trouver un équivalent de $u_n = \frac{n^3 + n}{2n^2 + 1}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $n^3 + n = n^3\left(1 + \frac{1}{n^2}\right) \sim n^3$ and $2n^2 + 1 = 2n^2\left(1 + \frac{1}{2n^2}\right) \sim 2n^2$. By quotient, $u_n \sim \frac{n^3}{2n^2} = \frac{n}{2}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $n^3 + n = n^3\left(1 + \frac{1}{n^2}\right) \sim n^3$ et $2n^2 + 1 = 2n^2\left(1 + \frac{1}{2n^2}\right) \sim 2n^2$. Par quotient, $u_n \sim \frac{n^3}{2n^2} = \frac{n}{2}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> If $u$ tends to $0$, an equivalent valid at $0$ may be read at $u$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Si $u$ tend vers $0$, un équivalent valable en $0$ peut être lu en $u$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0}\frac{\ln(1 + \sin x)}{\tan x}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0}\frac{\ln(1 + \sin x)}{\tan x}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $\sin x \to 0$ as $x \to 0$, so substituting $u = \sin x$ in $\ln(1+u) \sim u$ gives $\ln(1 + \sin x) \sim \sin x \sim x$. Moreover $\tan x \sim x$, so by quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$ and the limit is $1$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $\sin x \to 0$ quand $x \to 0$, donc en substituant $u = \sin x$ dans $\ln(1+u) \sim u$ on obtient $\ln(1 + \sin x) \sim \sin x \sim x$. De plus $\tan x \sim x$, donc par quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$ et la limite vaut $1$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> Equivalents are never added. Write each term as its equivalent plus an $o$, and add those.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Les équivalents ne s'additionnent jamais. Écrire chaque terme comme son équivalent plus un $o$, et additionner ceux-là.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0}\frac{e^x - \cos x}{x}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0}\frac{e^x - \cos x}{x}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $e^x - 1 \sim x$ means $e^x - 1 = x + o(x)$, and $1 - \cos x \sim \frac{x^2}{2}$ gives $1 - \cos x = o(x)$. Hence $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ and the limit is $1$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $e^x - 1 \sim x$ signifie $e^x - 1 = x + o(x)$, et $1 - \cos x \sim \frac{x^2}{2}$ donne $1 - \cos x = o(x)$. Donc $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ et la limite vaut $1$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> When the main terms of a difference cancel, turn the difference into a product.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Quand les termes principaux d'une différence se compensent, transformer la différence en produit.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Find an equivalent of $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Trouver un équivalent de $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Both terms are equivalent to $\sqrt{n}$, so the difference cannot be read off them. Multiplying by the conjugate quantity, $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$, a quotient. Now $\sqrt{n+1} + \sqrt{n} = \sqrt{n}\left(\sqrt{1 + \frac{1}{n}} + 1\right) \sim 2\sqrt{n}$, so $u_n \sim \frac{1}{2\sqrt{n}}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Les deux termes sont équivalents à $\sqrt{n}$, la différence ne se lit donc pas sur eux. En multipliant par la quantité conjuguée, $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$, un quotient. Or $\sqrt{n+1} + \sqrt{n} = \sqrt{n}\left(\sqrt{1 + \frac{1}{n}} + 1\right) \sim 2\sqrt{n}$, donc $u_n \sim \frac{1}{2\sqrt{n}}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> For a power $u^v$, write $u^v = e^{v\ln u}$ and study the exponent.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour une puissance $u^v$, écrire $u^v = e^{v\ln u}$ et étudier l'exposant.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0}(\cos x)^{1/x^2}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0}(\cos x)^{1/x^2}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $(\cos x)^{1/x^2} = e^{\frac{\ln\cos x}{x^2}}$. Since $\cos x - 1 \to 0$, substituting $u = \cos x - 1$ in $\ln(1+u) \sim u$ gives $\ln\cos x \sim \cos x - 1 \sim -\frac{x^2}{2}$. Hence $\frac{\ln\cos x}{x^2} \to -\frac{1}{2}$, and by continuity of $\exp$ the limit is $e^{-1/2}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $(\cos x)^{1/x^2} = e^{\frac{\ln\cos x}{x^2}}$. Comme $\cos x - 1 \to 0$, substituer $u = \cos x - 1$ dans $\ln(1+u) \sim u$ donne $\ln\cos x \sim \cos x - 1 \sim -\frac{x^2}{2}$. Donc $\frac{\ln\cos x}{x^2} \to -\frac{1}{2}$, et par continuité de $\exp$ la limite vaut $e^{-1/2}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To compare two growths, compare their logarithms.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour comparer deux croissances, comparer leurs logarithmes.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compare $n^{\ln n}$ and $(\ln n)^n$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Comparer $n^{\ln n}$ et $(\ln n)^n$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $\ln\!\left(n^{\ln n}\right) = (\ln n)^2$ and $\ln\!\left((\ln n)^n\right) = n\ln\ln n$. Their difference is $(\ln n)^2 - n\ln\ln n = n\left(\frac{(\ln n)^2}{n} - \ln\ln n\right)$. Now $\ln n = o\!\left(n^{1/2}\right)$ gives $(\ln n)^2 = o(n)$, so the bracket tends to $-\infty$, and so does the difference. Hence $n^{\ln n} = o\!\left((\ln n)^n\right)$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $\ln\!\left(n^{\ln n}\right) = (\ln n)^2$ et $\ln\!\left((\ln n)^n\right) = n\ln\ln n$. Leur différence vaut $(\ln n)^2 - n\ln\ln n = n\left(\frac{(\ln n)^2}{n} - \ln\ln n\right)$. Or $\ln n = o\!\left(n^{1/2}\right)$ donne $(\ln n)^2 = o(n)$, donc le crochet tend vers $-\infty$, et la différence aussi. Ainsi $n^{\ln n} = o\!\left((\ln n)^n\right)$.
+      </details>
+    </div>
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Find an equivalent of $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Trouver un équivalent de $u_n = \sqrt{n+1} - \sqrt{n}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Equivalents may be added when the two terms have the same sign. Find a counterexample when the terms are allowed opposite signs.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Les équivalents s'additionnent quand les deux termes sont de même signe. Trouver un contre-exemple quand les termes peuvent être de signes opposés.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Multiplying by the conjugate: $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$. Now $\frac{\sqrt{n+1} + \sqrt{n}}{2\sqrt{n}} = \frac{\sqrt{1 + 1/n} + 1}{2} \to 1$, so $\sqrt{n+1} + \sqrt{n} \sim 2\sqrt{n}$ and, by quotient, $u_n \sim \frac{1}{2\sqrt{n}}$.
+      Take $u_n = n + \sqrt{n}$ and $v_n = n$, so $\frac{u_n}{v_n} = 1 + \frac{1}{\sqrt{n}} \to 1$; and $u'_n = -n$ and $v'_n = -n + 1$, so $\frac{u'_n}{v'_n} = \frac{n}{n-1} \to 1$. Then $u_n + u'_n = \sqrt{n}$ and $v_n + v'_n = 1$, and $\frac{\sqrt{n}}{1} \to +\infty$: the two sums are not equivalent. The terms have opposite signs and the leading $n$ cancels, leaving exactly what each equivalence discarded.
+      <figure class="figure-block">
+        <svg class="figure" width="354" height="207" viewBox="76.0 49.3 354.0 207.4">
+          <line class="fig-guide" x1="90.0" y1="62.0" x2="90.0" y2="226.0"/>
+        <line class="fig-curve" x1="90.0" y1="80.0" x2="411.0" y2="80.0"/>
+        <polygon class="fig-dot" points="420.0,80.0 411.0,83.2 411.0,76.8"/>
+        <line class="fig-guide" x1="420.0" y1="80.0" x2="420.0" y2="100.0"/>
+        <line class="fig-curve" x1="420.0" y1="100.0" x2="129.0" y2="100.0"/>
+        <polygon class="fig-dot" points="120.0,100.0 129.0,96.8 129.0,103.2"/>
+        <circle class="fig-dot" cx="120.0" cy="100.0" r="4.0"/>
+        <line class="fig-interval" x1="90.0" y1="122.0" x2="120.0" y2="122.0"/>
+        <text x="130.0" y="127.0">√n</text>
+        <text x="247.0" y="70.0">u<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="260.0" y="118.0">u′<tspan dy="4" font-size="11">n</tspan></text>
+        <line class="fig-curve" x1="90.0" y1="170.0" x2="381.0" y2="170.0"/>
+        <polygon class="fig-dot" points="390.0,170.0 381.0,173.2 381.0,166.8"/>
+        <line class="fig-guide" x1="390.0" y1="170.0" x2="390.0" y2="190.0"/>
+        <line class="fig-curve" x1="390.0" y1="190.0" x2="102.0" y2="190.0"/>
+        <polygon class="fig-dot" points="93.0,190.0 102.0,186.8 102.0,193.2"/>
+        <circle class="fig-dot" cx="93.0" cy="190.0" r="4.0"/>
+        <line class="fig-interval" x1="90.0" y1="212.0" x2="93.0" y2="212.0"/>
+        <text x="103.0" y="217.0">1</text>
+        <text x="232.0" y="160.0">v<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="231.5" y="208.0">v′<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="86.0" y="244.0">0</text>
+        </svg>
+        <figcaption>At $n = 100$: the outward arrow of each pair differs from the other by $10$ out of $100$, and the return arrows by $1$ out of $100$, but the two paths arrive at $\sqrt{n} = 10$ and at $1$.</figcaption>
+      </figure>
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      En multipliant par la quantité conjuguée : $u_n = \frac{(n+1) - n}{\sqrt{n+1} + \sqrt{n}} = \frac{1}{\sqrt{n+1} + \sqrt{n}}$. Or $\frac{\sqrt{n+1} + \sqrt{n}}{2\sqrt{n}} = \frac{\sqrt{1 + 1/n} + 1}{2} \to 1$, donc $\sqrt{n+1} + \sqrt{n} \sim 2\sqrt{n}$ et, par quotient, $u_n \sim \frac{1}{2\sqrt{n}}$.
+      Prenons $u_n = n + \sqrt{n}$ et $v_n = n$, de sorte que $\frac{u_n}{v_n} = 1 + \frac{1}{\sqrt{n}} \to 1$ ; puis $u'_n = -n$ et $v'_n = -n + 1$, de sorte que $\frac{u'_n}{v'_n} = \frac{n}{n-1} \to 1$. Alors $u_n + u'_n = \sqrt{n}$ et $v_n + v'_n = 1$, et $\frac{\sqrt{n}}{1} \to +\infty$ : les deux sommes ne sont pas équivalentes. Les termes sont de signes opposés et le $n$ dominant se compense, ne laissant que ce que chaque équivalence avait écarté.
+      <figure class="figure-block">
+        <svg class="figure" width="354" height="207" viewBox="76.0 49.3 354.0 207.4">
+          <line class="fig-guide" x1="90.0" y1="62.0" x2="90.0" y2="226.0"/>
+        <line class="fig-curve" x1="90.0" y1="80.0" x2="411.0" y2="80.0"/>
+        <polygon class="fig-dot" points="420.0,80.0 411.0,83.2 411.0,76.8"/>
+        <line class="fig-guide" x1="420.0" y1="80.0" x2="420.0" y2="100.0"/>
+        <line class="fig-curve" x1="420.0" y1="100.0" x2="129.0" y2="100.0"/>
+        <polygon class="fig-dot" points="120.0,100.0 129.0,96.8 129.0,103.2"/>
+        <circle class="fig-dot" cx="120.0" cy="100.0" r="4.0"/>
+        <line class="fig-interval" x1="90.0" y1="122.0" x2="120.0" y2="122.0"/>
+        <text x="130.0" y="127.0">√n</text>
+        <text x="247.0" y="70.0">u<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="260.0" y="118.0">u′<tspan dy="4" font-size="11">n</tspan></text>
+        <line class="fig-curve" x1="90.0" y1="170.0" x2="381.0" y2="170.0"/>
+        <polygon class="fig-dot" points="390.0,170.0 381.0,173.2 381.0,166.8"/>
+        <line class="fig-guide" x1="390.0" y1="170.0" x2="390.0" y2="190.0"/>
+        <line class="fig-curve" x1="390.0" y1="190.0" x2="102.0" y2="190.0"/>
+        <polygon class="fig-dot" points="93.0,190.0 102.0,186.8 102.0,193.2"/>
+        <circle class="fig-dot" cx="93.0" cy="190.0" r="4.0"/>
+        <line class="fig-interval" x1="90.0" y1="212.0" x2="93.0" y2="212.0"/>
+        <text x="103.0" y="217.0">1</text>
+        <text x="232.0" y="160.0">v<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="231.5" y="208.0">v′<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="86.0" y="244.0">0</text>
+        </svg>
+        <figcaption>En $n = 100$ : la flèche aller de chaque paire diffère de l'autre de $10$ sur $100$, et les flèches retour de $1$ sur $100$, mais les deux chemins arrivent en $\sqrt{n} = 10$ et en $1$.</figcaption>
+      </figure>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Products, quotients and powers turn equivalents into equivalents. Find a counterexample for composition, by applying $t \mapsto e^t$ to two equivalent sequences.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Les produits, quotients et puissances transforment des équivalents en équivalents. Trouver un contre-exemple pour la composition, en appliquant $t \mapsto e^t$ à deux suites équivalentes.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $u_n = n + 1$ and $v_n = n$, which are equivalent. Then $\frac{e^{u_n}}{e^{v_n}} = e^{u_n - v_n} = e \neq 1$, so $e^{n+1}$ and $e^n$ are not equivalent. What the exponential needs is $u_n - v_n \to 0$, and an equivalence controls the quotient, not the difference.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prenons $u_n = n + 1$ et $v_n = n$, qui sont équivalentes. Alors $\frac{e^{u_n}}{e^{v_n}} = e^{u_n - v_n} = e \neq 1$, donc $e^{n+1}$ et $e^n$ ne sont pas équivalentes. Ce dont l'exponentielle a besoin, c'est $u_n - v_n \to 0$, et une équivalence contrôle le quotient, pas la différence.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> If $u_n \sim v_n$ with $v_n &gt; 0$ and $|\ln v_n| \to +\infty$, then $\ln u_n \sim \ln v_n$. Find a counterexample when the hypothesis $|\ln v_n| \to +\infty$ is dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Si $u_n \sim v_n$ avec $v_n &gt; 0$ et $|\ln v_n| \to +\infty$, alors $\ln u_n \sim \ln v_n$. Trouver un contre-exemple quand l'hypothèse $|\ln v_n| \to +\infty$ est retirée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $u_n = e^{2/n}$ and $v_n = e^{1/n}$. Both tend to $1$, so $u_n \sim v_n$, and both logarithms are nonzero. But $\frac{\ln u_n}{\ln v_n} = \frac{2/n}{1/n} = 2$ for every $n$, so $\ln u_n$ and $\ln v_n$ are not equivalent. Here $\ln v_n \to 0$: the logarithm destroys the main term instead of keeping it.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prenons $u_n = e^{2/n}$ et $v_n = e^{1/n}$. Toutes deux tendent vers $1$, donc $u_n \sim v_n$, et les deux logarithmes sont non nuls. Mais $\frac{\ln u_n}{\ln v_n} = \frac{2/n}{1/n} = 2$ pour tout $n$, donc $\ln u_n$ et $\ln v_n$ ne sont pas équivalentes. Ici $\ln v_n \to 0$ : le logarithme détruit le terme principal au lieu de le conserver.
     </details>
 
     <div class="thm-block exercise">
@@ -206,11 +669,11 @@
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $u_n = \ln\!\left(1 + \frac{1}{n}\right)$, and since $\frac{1}{n} \to 0$, the usual equivalent $\ln(1+x) \sim x$ at $0$ gives (by composition of limits, substituting $x = \frac{1}{n}$): $u_n \sim \frac{1}{n}$.
+      The two terms are equivalent, so the difference has to be rewritten: $u_n = \ln\!\left(\frac{n+1}{n}\right) = \ln\!\left(1 + \frac{1}{n}\right)$. Since $\frac{1}{n} \to 0$, substituting in $\ln(1+x) \sim x$ gives $u_n \sim \frac{1}{n}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $u_n = \ln\!\left(1 + \frac{1}{n}\right)$, et comme $\frac{1}{n} \to 0$, l'équivalent usuel $\ln(1+x) \sim x$ en $0$ donne (par composition de limites, en substituant $x = \frac{1}{n}$) : $u_n \sim \frac{1}{n}$.
+      Les deux termes sont équivalents, la différence doit donc être réécrite : $u_n = \ln\!\left(\frac{n+1}{n}\right) = \ln\!\left(1 + \frac{1}{n}\right)$. Comme $\frac{1}{n} \to 0$, la substitution dans $\ln(1+x) \sim x$ donne $u_n \sim \frac{1}{n}$.
     </details>
 
     <div class="thm-block exercise">
@@ -220,65 +683,93 @@
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n \ln(1 + 1/n)}$. By the previous exercise, $\ln\!\left(1+\frac{1}{n}\right) \sim \frac{1}{n}$, so $n\ln\!\left(1+\frac{1}{n}\right) \to 1$ (a sequence equivalent to the constant $1$ tends to $1$). By continuity of $\exp$: $\left(1 + \frac{1}{n}\right)^{\!n} \to e^1 = e$.
+      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n\ln(1 + 1/n)}$. Substituting $x = \frac{1}{n}$ in $\ln(1+x) \sim x$ gives $\ln\!\left(1 + \frac{1}{n}\right) \sim \frac{1}{n}$, so $n\ln\!\left(1 + \frac{1}{n}\right) \sim 1$ and this quantity tends to $1$. By continuity of $\exp$, the limit is $e$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n \ln(1 + 1/n)}$. Par l'exercice précédent, $\ln\!\left(1+\frac{1}{n}\right) \sim \frac{1}{n}$, donc $n\ln\!\left(1+\frac{1}{n}\right) \to 1$ (une suite équivalente à la constante $1$ tend vers $1$). Par continuité de $\exp$ : $\left(1 + \frac{1}{n}\right)^{\!n} \to e^1 = e$.
+      $\left(1 + \frac{1}{n}\right)^{\!n} = e^{n\ln(1 + 1/n)}$. Substituer $x = \frac{1}{n}$ dans $\ln(1+x) \sim x$ donne $\ln\!\left(1 + \frac{1}{n}\right) \sim \frac{1}{n}$, donc $n\ln\!\left(1 + \frac{1}{n}\right) \sim 1$ et cette quantité tend vers $1$. Par continuité de $\exp$, la limite vaut $e$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0} \frac{e^x - \cos x}{x}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0} \frac{e^x - \cos x}{x}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0^+} x^x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0^+} x^x$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Equivalents cannot be added, so we work with $o$'s: $e^x - 1 \sim x$ means $e^x - 1 = x + o(x)$, and $1 - \cos x \sim \frac{x^2}{2}$ implies $1 - \cos x = o(x)$. Hence $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ and the limit is $1$.
+      $x^x = e^{x\ln x}$, and $x\ln x \to 0$ by the standard comparison at $0^+$ with $\alpha = 1$. By continuity of $\exp$, the limit is $e^0 = 1$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Les équivalents ne s'additionnent pas, on passe donc par les $o$ : $e^x - 1 \sim x$ signifie $e^x - 1 = x + o(x)$, et $1 - \cos x \sim \frac{x^2}{2}$ implique $1 - \cos x = o(x)$. Donc $$e^x - \cos x = (e^x - 1) + (1 - \cos x) = x + o(x) + o(x) = x + o(x) \sim x,$$ et la limite vaut $1$.
+      $x^x = e^{x\ln x}$, et $x\ln x \to 0$ par la croissance comparée en $0^+$ avec $\alpha = 1$. Par continuité de $\exp$, la limite vaut $e^0 = 1$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x)}{\tan x}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x)}{\tan x}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $a &gt; 0$. Compute $\displaystyle\lim_{n \to +\infty} n\left(\sqrt[n]{a} - 1\right)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $a &gt; 0$. Calculer $\displaystyle\lim_{n \to +\infty} n\left(\sqrt[n]{a} - 1\right)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Since $\sin x \to 0$ as $x \to 0$, the equivalent $\ln(1+u) \sim u$ at $0$ gives, by composition of limits ($u = \sin x$): $\ln(1 + \sin x) \sim \sin x \sim x$. Moreover $\tan x \sim x$, so by quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$: the limit is $1$.
+      $\sqrt[n]{a} - 1 = e^{(\ln a)/n} - 1$. For $a \neq 1$, $\frac{\ln a}{n} \to 0$ and $\frac{\ln a}{n} \neq 0$, so substituting in $e^x - 1 \sim x$ gives $\sqrt[n]{a} - 1 \sim \frac{\ln a}{n}$, hence $n\left(\sqrt[n]{a} - 1\right) \to \ln a$. For $a = 1$ the sequence is constant equal to $0 = \ln 1$, so the limit is $\ln a$ in every case.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Comme $\sin x \to 0$ quand $x \to 0$, l'équivalent $\ln(1+u) \sim u$ en $0$ donne, par composition de limites ($u = \sin x$) : $\ln(1 + \sin x) \sim \sin x \sim x$. De plus $\tan x \sim x$, donc par quotient $\frac{\ln(1+\sin x)}{\tan x} \sim \frac{x}{x} = 1$ : la limite vaut $1$.
+      $\sqrt[n]{a} - 1 = e^{(\ln a)/n} - 1$. Pour $a \neq 1$, $\frac{\ln a}{n} \to 0$ et $\frac{\ln a}{n} \neq 0$, donc la substitution dans $e^x - 1 \sim x$ donne $\sqrt[n]{a} - 1 \sim \frac{\ln a}{n}$, d'où $n\left(\sqrt[n]{a} - 1\right) \to \ln a$. Pour $a = 1$ la suite est constante égale à $0 = \ln 1$, donc la limite vaut $\ln a$ dans tous les cas.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Euler's constant).</span> Let $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Show that $u_n = H_n - \ln n$ converges (its limit $\gamma$ is <em>Euler's constant</em>), and deduce that $H_n \sim \ln n$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Constante d'Euler).</span> Soit $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Montrer que $u_n = H_n - \ln n$ converge (sa limite $\gamma$ est la <em>constante d'Euler</em>), et en déduire que $H_n \sim \ln n$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\lim_{x \to 0}\frac{\tan x - \sin x}{x^3}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\lim_{x \to 0}\frac{\tan x - \sin x}{x^3}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      From $\ln t \le t - 1$ (established in the standard comparisons) we get, for $x &gt; -1$, both $\ln(1+x) \le x$ (take $t = 1+x$) and $\ln(1+x) \ge \frac{x}{1+x}$ (take $t = \frac{1}{1+x}$, giving $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Set $v_n = H_n - \ln(n+1)$. Then:
-      <br>
-      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, since $\ln\!\left(1+\frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$: $(u_n)$ is decreasing.
-      <br>
-      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, since $\ln\!\left(1+\frac{1}{n+1}\right) \le \frac{1}{n+1}$: $(v_n)$ is increasing.
-      <br>
-      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. Hence $(u_n)$ and $(v_n)$ are adjacent, so they converge to a common limit $\gamma$. Finally, since $u_n \to \gamma$ and $\ln n \to +\infty$, $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.
+      Both terms are equivalent to $x$, so replacing them in the difference would give $0$, which proves nothing. Factoring, $$\tan x - \sin x = \sin x\left(\frac{1}{\cos x} - 1\right) = \frac{\sin x\,(1 - \cos x)}{\cos x}.$$ Now $\sin x \sim x$, $1 - \cos x \sim \frac{x^2}{2}$ and $\cos x \to 1$, so by product and quotient $\tan x - \sin x \sim \frac{x^3}{2}$, and the limit is $\frac{1}{2}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      De $\ln t \le t - 1$ (établie dans les croissances comparées) on tire, pour $x &gt; -1$, à la fois $\ln(1+x) \le x$ (prendre $t = 1+x$) et $\ln(1+x) \ge \frac{x}{1+x}$ (prendre $t = \frac{1}{1+x}$, ce qui donne $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Posons $v_n = H_n - \ln(n+1)$. Alors :
+      Les deux termes sont équivalents à $x$, donc les remplacer dans la différence donnerait $0$, ce qui ne prouve rien. En factorisant, $$\tan x - \sin x = \sin x\left(\frac{1}{\cos x} - 1\right) = \frac{\sin x\,(1 - \cos x)}{\cos x}.$$ Or $\sin x \sim x$, $1 - \cos x \sim \frac{x^2}{2}$ et $\cos x \to 1$, donc par produit et quotient $\tan x - \sin x \sim \frac{x^3}{2}$, et la limite vaut $\frac{1}{2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\ln(n!) \sim n\ln n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\ln(n!) \sim n\ln n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Since $n! \le n^n$, $\ln(n!) \le n\ln n$. For the other direction, fix $\theta \in\,]0,1[$. The integers $k$ with $\theta n &lt; k \le n$ number at least $(1-\theta)n - 1$, and each satisfies $\ln k \ge \ln(\theta n)$, so for $n$ large enough that $\theta n \ge 1$, $$\ln(n!) = \sum_{k=1}^{n}\ln k \ge \big((1-\theta)n - 1\big)\ln(\theta n).$$ Dividing by $n\ln n$, the right-hand side equals $\frac{(1-\theta)n - 1}{n}\cdot\frac{\ln\theta + \ln n}{\ln n} \to 1 - \theta$. Hence $\liminf\frac{\ln(n!)}{n\ln n} \ge 1 - \theta$ for every $\theta \in\,]0,1[$, so this lower limit is $\ge 1$. With the upper bound, $\frac{\ln(n!)}{n\ln n} \to 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Comme $n! \le n^n$, on a $\ln(n!) \le n\ln n$. Pour l'autre sens, fixons $\theta \in\,]0,1[$. Les entiers $k$ tels que $\theta n &lt; k \le n$ sont au moins $(1-\theta)n - 1$, et chacun vérifie $\ln k \ge \ln(\theta n)$, donc pour $n$ assez grand pour que $\theta n \ge 1$, $$\ln(n!) = \sum_{k=1}^{n}\ln k \ge \big((1-\theta)n - 1\big)\ln(\theta n).$$ En divisant par $n\ln n$, le membre de droite vaut $\frac{(1-\theta)n - 1}{n}\cdot\frac{\ln\theta + \ln n}{\ln n} \to 1 - \theta$. Donc $\liminf\frac{\ln(n!)}{n\ln n} \ge 1 - \theta$ pour tout $\theta \in\,]0,1[$, et cette limite inférieure vaut au moins $1$. Avec la majoration, $\frac{\ln(n!)}{n\ln n} \to 1$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Euler's constant).</span> Let $H_n = \sum_{k=1}^{n}\frac{1}{k}$. Show that $u_n = H_n - \ln n$ converges (its limit $\gamma$ is <em>Euler's constant</em>), and deduce that $H_n \sim \ln n$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Constante d'Euler).</span> Soit $H_n = \sum_{k=1}^{n}\frac{1}{k}$. Montrer que $u_n = H_n - \ln n$ converge (sa limite $\gamma$ est la <em>constante d'Euler</em>), et en déduire que $H_n \sim \ln n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The inequality $\ln t \le t - 1$ gives, for $x &gt; -1$, both $\ln(1+x) \le x$ (take $t = 1+x$) and $\ln(1+x) \ge \frac{x}{1+x}$ (take $t = \frac{1}{1+x}$, which gives $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Set $v_n = H_n - \ln(n+1)$. Then:
       <br>
-      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, car $\ln\!\left(1+\frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$ : $(u_n)$ est décroissante.
+      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, since $\ln\!\left(1 + \frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$: the sequence $(u_n)$ is decreasing.
       <br>
-      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, car $\ln\!\left(1+\frac{1}{n+1}\right) \le \frac{1}{n+1}$ : $(v_n)$ est croissante.
+      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, since $\ln\!\left(1 + \frac{1}{n+1}\right) \le \frac{1}{n+1}$: the sequence $(v_n)$ is increasing.
       <br>
-      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. Donc $(u_n)$ et $(v_n)$ sont adjacentes, elles convergent vers une limite commune $\gamma$. Enfin, comme $u_n \to \gamma$ et $\ln n \to +\infty$, $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.
+      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. The two sequences are adjacent, so they converge to a common limit $\gamma$. Finally $u_n \to \gamma$ and $\ln n \to +\infty$, so $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, that is $H_n \sim \ln n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      L'inégalité $\ln t \le t - 1$ donne, pour $x &gt; -1$, à la fois $\ln(1+x) \le x$ (prendre $t = 1+x$) et $\ln(1+x) \ge \frac{x}{1+x}$ (prendre $t = \frac{1}{1+x}$, ce qui donne $-\ln(1+x) \le \frac{1}{1+x} - 1 = -\frac{x}{1+x}$). Posons $v_n = H_n - \ln(n+1)$. Alors :
+      <br>
+      $u_{n+1} - u_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n}\right) \le 0$, car $\ln\!\left(1 + \frac{1}{n}\right) \ge \frac{1/n}{1 + 1/n} = \frac{1}{n+1}$ : la suite $(u_n)$ est décroissante.
+      <br>
+      $v_{n+1} - v_n = \frac{1}{n+1} - \ln\!\left(1 + \frac{1}{n+1}\right) \ge 0$, car $\ln\!\left(1 + \frac{1}{n+1}\right) \le \frac{1}{n+1}$ : la suite $(v_n)$ est croissante.
+      <br>
+      $u_n - v_n = \ln(n+1) - \ln n = \ln\!\left(1 + \frac{1}{n}\right) \to 0$. Les deux suites sont adjacentes, elles convergent donc vers une limite commune $\gamma$. Enfin $u_n \to \gamma$ et $\ln n \to +\infty$, donc $\frac{H_n}{\ln n} = 1 + \frac{u_n}{\ln n} \to 1$, c'est-à-dire $H_n \sim \ln n$.
     </details>
 
   </main>
