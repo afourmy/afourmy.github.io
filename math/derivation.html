@@ -9,6 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -20,13 +21,90 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Differentiation</h2>
-    <h2 class="fr">Dérivation</h2>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">The tangent</h3>
+    <h3 class="fr">La tangente</h3>
+
+    <p class="en">A straight line has a single slope. Through a fixed point of a curve, every other point of the curve gives a chord with a different slope.</p>
+    <p class="fr">Une droite a une seule pente. Par un point fixé d'une courbe, chaque autre point de la courbe donne une corde de pente différente.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $I$ be an interval of $\mathbb{R}$, $f : I \to \mathbb{R}$ and $a \in I$. We say $f$ is <em>differentiable at $a$</em> if the limit $\lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ exists and is finite. This limit is called the <em>derivative</em> of $f$ at $a$, denoted $f'(a)$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> Soit $I$ un intervalle de $\mathbb{R}$, $f : I \to \mathbb{R}$ et $a \in I$. On dit que $f$ est <em>dérivable en $a$</em> si la limite $\lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ existe et est finie. Cette limite est appelée le <em>nombre dérivé</em> de $f$ en $a$, noté $f'(a)$.</p>
     </div>
+
+    <p class="en">When the chord slopes converge, the chords converge to the line through $(a, f(a))$ of slope $f'(a)$.</p>
+    <p class="fr">Quand les pentes des cordes convergent, les cordes convergent vers la droite passant par $(a, f(a))$ et de pente $f'(a)$.</p>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Tangent line).</span> If $f$ is differentiable at $a$, the line with equation $y = f(a) + f'(a)(x-a)$ is the <em>tangent</em> to the graph of $f$ at $(a, f(a))$.</p>
+      <p class="fr"><span class="thm-label">Définition (Tangente).</span> Si $f$ est dérivable en $a$, la droite d'équation $y = f(a) + f'(a)(x-a)$ est la <em>tangente</em> au graphe de $f$ en $(a, f(a))$.</p>
+    </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="302" height="257" viewBox="36.0 48.0 302.1 256.9">
+        <line class="fig-axis" x1="46.0" y1="270.0" x2="328.1" y2="270.0"/>
+        <line class="fig-axis" x1="60.0" y1="282.0" x2="60.0" y2="58.0"/>
+        <path class="fig-curve" d="M 60.0 246.0 L 61.0 246.0 L 62.0 246.0 L 63.0 246.0 L 64.0 246.0 L 65.0 245.9 L 66.0 245.9 L 67.0 245.9 L 68.0 245.8 L 69.0 245.8 L 70.0 245.7 L 71.0 245.6 L 72.0 245.6 L 73.0 245.5 L 74.0 245.4 L 75.0 245.3 L 76.0 245.2 L 77.0 245.1 L 78.1 245.0 L 79.1 244.9 L 80.1 244.8 L 81.1 244.7 L 82.1 244.6 L 83.1 244.4 L 84.1 244.3 L 85.1 244.1 L 86.1 244.0 L 87.1 243.8 L 88.1 243.7 L 89.1 243.5 L 90.1 243.3 L 91.1 243.1 L 92.1 242.9 L 93.1 242.7 L 94.1 242.5 L 95.1 242.3 L 96.1 242.1 L 97.1 241.9 L 98.1 241.7 L 99.1 241.5 L 100.1 241.2 L 101.1 241.0 L 102.1 240.7 L 103.1 240.5 L 104.1 240.2 L 105.1 239.9 L 106.1 239.7 L 107.1 239.4 L 108.1 239.1 L 109.1 238.8 L 110.1 238.5 L 111.1 238.2 L 112.2 237.9 L 113.2 237.6 L 114.2 237.3 L 115.2 237.0 L 116.2 236.6 L 117.2 236.3 L 118.2 235.9 L 119.2 235.6 L 120.2 235.2 L 121.2 234.9 L 122.2 234.5 L 123.2 234.1 L 124.2 233.8 L 125.2 233.4 L 126.2 233.0 L 127.2 232.6 L 128.2 232.2 L 129.2 231.8 L 130.2 231.3 L 131.2 230.9 L 132.2 230.5 L 133.2 230.1 L 134.2 229.6 L 135.2 229.2 L 136.2 228.7 L 137.2 228.3 L 138.2 227.8 L 139.2 227.3 L 140.2 226.9 L 141.2 226.4 L 142.2 225.9 L 143.2 225.4 L 144.2 224.9 L 145.2 224.4 L 146.3 223.9 L 147.3 223.4 L 148.3 222.8 L 149.3 222.3 L 150.3 221.8 L 151.3 221.2 L 152.3 220.7 L 153.3 220.1 L 154.3 219.6 L 155.3 219.0 L 156.3 218.4 L 157.3 217.9 L 158.3 217.3 L 159.3 216.7 L 160.3 216.1 L 161.3 215.5 L 162.3 214.9 L 163.3 214.3 L 164.3 213.7 L 165.3 213.0 L 166.3 212.4 L 167.3 211.8 L 168.3 211.1 L 169.3 210.5 L 170.3 209.8 L 171.3 209.2 L 172.3 208.5 L 173.3 207.8 L 174.3 207.1 L 175.3 206.5 L 176.3 205.8 L 177.3 205.1 L 178.3 204.4 L 179.3 203.7 L 180.4 202.9 L 181.4 202.2 L 182.4 201.5 L 183.4 200.8 L 184.4 200.0 L 185.4 199.3 L 186.4 198.5 L 187.4 197.8 L 188.4 197.0 L 189.4 196.2 L 190.4 195.5 L 191.4 194.7 L 192.4 193.9 L 193.4 193.1 L 194.4 192.3 L 195.4 191.5 L 196.4 190.7 L 197.4 189.9 L 198.4 189.1 L 199.4 188.2 L 200.4 187.4 L 201.4 186.6 L 202.4 185.7 L 203.4 184.9 L 204.4 184.0 L 205.4 183.1 L 206.4 182.3 L 207.4 181.4 L 208.4 180.5 L 209.4 179.6 L 210.4 178.7 L 211.4 177.8 L 212.4 176.9 L 213.4 176.0 L 214.4 175.1 L 215.5 174.2 L 216.5 173.2 L 217.5 172.3 L 218.5 171.4 L 219.5 170.4 L 220.5 169.5 L 221.5 168.5 L 222.5 167.5 L 223.5 166.6 L 224.5 165.6 L 225.5 164.6 L 226.5 163.6 L 227.5 162.6 L 228.5 161.6 L 229.5 160.6 L 230.5 159.6 L 231.5 158.6 L 232.5 157.5 L 233.5 156.5 L 234.5 155.5 L 235.5 154.4 L 236.5 153.4 L 237.5 152.3 L 238.5 151.3 L 239.5 150.2 L 240.5 149.1 L 241.5 148.0 L 242.5 147.0 L 243.5 145.9 L 244.5 144.8 L 245.5 143.7 L 246.5 142.6 L 247.5 141.4 L 248.5 140.3 L 249.6 139.2 L 250.6 138.1 L 251.6 136.9 L 252.6 135.8 L 253.6 134.6 L 254.6 133.5 L 255.6 132.3 L 256.6 131.1 L 257.6 130.0 L 258.6 128.8 L 259.6 127.6 L 260.6 126.4 L 261.6 125.2 L 262.6 124.0 L 263.6 122.8 L 264.6 121.6 L 265.6 120.3 L 266.6 119.1 L 267.6 117.9 L 268.6 116.6 L 269.6 115.4 L 270.6 114.1 L 271.6 112.9 L 272.6 111.6 L 273.6 110.3 L 274.6 109.1 L 275.6 107.8 L 276.6 106.5 L 277.6 105.2 L 278.6 103.9 L 279.6 102.6 L 280.6 101.3 L 281.6 100.0 L 282.6 98.6 L 283.7 97.3 L 284.7 96.0 L 285.7 94.6 L 286.7 93.3 L 287.7 91.9 L 288.7 90.6 L 289.7 89.2 L 290.7 87.8 L 291.7 86.4 L 292.7 85.1 L 293.7 83.7 L 294.7 82.3 L 295.7 80.9 L 296.7 79.5 L 297.7 78.1 L 298.7 76.6 L 299.7 75.2 L 300.7 73.8"/>
+        <line class="fig-guide" x1="129.6" y1="231.6" x2="268.8" y2="116.4"/>
+        <circle class="fig-dot" cx="268.8" cy="116.4" r="3.0"/>
+        <line class="fig-guide" x1="129.6" y1="231.6" x2="222.4" y2="167.6"/>
+        <circle class="fig-dot" cx="222.4" cy="167.6" r="3.0"/>
+        <line class="fig-guide" x1="129.6" y1="231.6" x2="181.8" y2="201.9"/>
+        <circle class="fig-dot" cx="181.8" cy="201.9" r="3.0"/>
+        <line class="fig-accent" x1="65.8" y1="258.0" x2="303.6" y2="159.6"/>
+        <line class="fig-guide" x1="129.6" y1="231.6" x2="181.8" y2="231.6"/>
+        <line class="fig-guide" x1="181.8" y1="231.6" x2="181.8" y2="201.9"/>
+        <circle class="fig-dot" cx="129.6" cy="231.6" r="4.0"/>
+        <text x="129.6" y="290.0" text-anchor="middle">a</text>
+        <text x="181.8" y="290.0" text-anchor="middle">a+h</text>
+        <line class="fig-guide" x1="129.6" y1="270.0" x2="129.6" y2="231.6"/>
+        <line class="fig-guide" x1="181.8" y1="270.0" x2="181.8" y2="201.9"/>
+        <text x="155.7" y="249.6" text-anchor="middle">h</text>
+        <text x="189.8" y="220.8">f(a+h) − f(a)</text>
+        <text x="299.6" y="149.6" text-anchor="middle">T</text>
+      </svg>
+      <figcaption><span class="en">The chords from $(a,f(a))$ to $(a+h, f(a+h))$ for three decreasing values of $h$, and the tangent $T$ they approach. The two marked intervals are $h$ and $f(a+h)-f(a)$, and the slope of a chord is their ratio.</span><span class="fr">Les cordes de $(a,f(a))$ à $(a+h, f(a+h))$ pour trois valeurs décroissantes de $h$, et la tangente $T$ dont elles s'approchent. Les deux intervalles marqués sont $h$ et $f(a+h)-f(a)$, et la pente d'une corde est leur rapport.</span></figcaption>
+    </figure>
+
+    <p class="en">Multiplying the difference quotient by $h$ turns the limit into an identity with a remainder.</p>
+    <p class="fr">Multiplier le taux d'accroissement par $h$ transforme la limite en une identité avec un reste.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (First-order expansion).</span> $f$ is differentiable at $a$ with derivative $f'(a)$ if and only if there is a function $\varepsilon$ with $\varepsilon(h) \to 0$ as $h \to 0$ such that
+      \[f(a+h) = f(a) + f'(a)\,h + h\,\varepsilon(h).\]
+      </p>
+      <p class="fr"><span class="thm-label">Proposition (Développement à l'ordre $1$).</span> $f$ est dérivable en $a$ de nombre dérivé $f'(a)$ si et seulement s'il existe une fonction $\varepsilon$ vérifiant $\varepsilon(h) \to 0$ quand $h \to 0$ telle que
+      \[f(a+h) = f(a) + f'(a)\,h + h\,\varepsilon(h).\]
+      </p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">For $h \neq 0$, set $\varepsilon(h) = \frac{f(a+h)-f(a)}{h} - f'(a)$, and $\varepsilon(0)=0$. Multiplying by $h$ gives the identity, for every $h$. The condition $\varepsilon(h) \to 0$ says exactly that the difference quotient tends to $f'(a)$. Conversely, if such an $\varepsilon$ exists, dividing the identity by $h \neq 0$ gives $\frac{f(a+h)-f(a)}{h} = f'(a) + \varepsilon(h) \to f'(a)$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">Pour $h \neq 0$, on pose $\varepsilon(h) = \frac{f(a+h)-f(a)}{h} - f'(a)$, et $\varepsilon(0)=0$. En multipliant par $h$ on obtient l'identité, pour tout $h$. La condition $\varepsilon(h) \to 0$ dit exactement que le taux d'accroissement tend vers $f'(a)$. Réciproquement, si un tel $\varepsilon$ existe, en divisant l'identité par $h \neq 0$ on obtient $\frac{f(a+h)-f(a)}{h} = f'(a) + \varepsilon(h) \to f'(a)$.</p>
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $f$ is differentiable at $a$, then $f$ is continuous at $a$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $f$ est dérivable en $a$, alors $f$ est continue en $a$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">We write $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ as $h \to 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">On écrit $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ quand $h \to 0$.</p>
+    </details>
+
+    <p class="en">At a point where two branches of a graph meet at an angle, the chords coming from the left and the chords coming from the right settle on two different numbers.</p>
+    <p class="fr">En un point où deux branches d'un graphe se rejoignent en formant un angle, les cordes venant de la gauche et celles venant de la droite se stabilisent sur deux nombres différents.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Left and right derivatives).</span> If the limit $\lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h}$ exists and is finite, it is called the <em>right derivative</em> of $f$ at $a$, denoted $f'_r(a)$. The <em>left derivative</em> $f'_l(a)$ is defined similarly.</p>
@@ -46,23 +124,26 @@
       <p class="fr">On pose $g(h) = \frac{f(a+h)-f(a)}{h}$. $(\Rightarrow)$ Si $\lim_{h\to 0} g(h) = \ell$, alors en particulier $\lim_{h\to 0^+} g(h) = \lim_{h\to 0^-} g(h) = \ell$. $(\Leftarrow)$ Si ces deux limites valent $\ell$, soit $\varepsilon &gt; 0$ : il existe $\delta_1, \delta_2 &gt; 0$ tels que $|g(h)-\ell| &lt; \varepsilon$ pour $h \in ]0,\delta_1[$ et pour $h \in ]-\delta_2,0[$. En posant $\delta = \min(\delta_1,\delta_2)$, on a $|g(h)-\ell| &lt; \varepsilon$ pour tout $h \in ]-\delta,\delta[ \setminus \{0\}$.</p>
     </details>
 
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> If $f$ is differentiable at $a$, then $f$ is continuous at $a$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $f$ est dérivable en $a$, alors $f$ est continue en $a$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">We write $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ as $h \to 0$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On écrit $f(a+h)-f(a) = \frac{f(a+h)-f(a)}{h} \cdot h \to f'(a) \cdot 0 = 0$ quand $h \to 0$.</p>
-    </details>
+    <figure class="figure-block">
+      <svg class="figure" width="215" height="311" viewBox="53.6 13.6 215.2 311.3">
+        <line class="fig-axis" x1="63.6" y1="290.0" x2="258.8" y2="290.0"/>
+        <line class="fig-axis" x1="67.2" y1="302.0" x2="67.2" y2="23.6"/>
+        <line class="fig-guide" x1="81.6" y1="243.2" x2="225.6" y2="192.8"/>
+        <line class="fig-guide" x1="128.4" y1="273.4" x2="207.6" y2="99.2"/>
+        <path class="fig-curve" d="M 78.0 236.5 L 78.3 236.5 L 78.6 236.4 L 78.9 236.4 L 79.3 236.3 L 79.6 236.3 L 79.9 236.3 L 80.2 236.2 L 80.5 236.2 L 80.8 236.1 L 81.2 236.1 L 81.5 236.0 L 81.8 236.0 L 82.1 235.9 L 82.4 235.9 L 82.7 235.8 L 83.0 235.8 L 83.4 235.7 L 83.7 235.7 L 84.0 235.6 L 84.3 235.6 L 84.6 235.5 L 84.9 235.5 L 85.2 235.4 L 85.6 235.4 L 85.9 235.3 L 86.2 235.3 L 86.5 235.2 L 86.8 235.2 L 87.1 235.1 L 87.5 235.1 L 87.8 235.0 L 88.1 235.0 L 88.4 234.9 L 88.7 234.9 L 89.0 234.8 L 89.3 234.8 L 89.7 234.7 L 90.0 234.6 L 90.3 234.6 L 90.6 234.5 L 90.9 234.5 L 91.2 234.4 L 91.5 234.4 L 91.9 234.3 L 92.2 234.3 L 92.5 234.2 L 92.8 234.1 L 93.1 234.1 L 93.4 234.0 L 93.8 234.0 L 94.1 233.9 L 94.4 233.9 L 94.7 233.8 L 95.0 233.7 L 95.3 233.7 L 95.6 233.6 L 96.0 233.6 L 96.3 233.5 L 96.6 233.4 L 96.9 233.4 L 97.2 233.3 L 97.5 233.3 L 97.8 233.2 L 98.2 233.1 L 98.5 233.1 L 98.8 233.0 L 99.1 232.9 L 99.4 232.9 L 99.7 232.8 L 100.1 232.8 L 100.4 232.7 L 100.7 232.6 L 101.0 232.6 L 101.3 232.5 L 101.6 232.4 L 101.9 232.4 L 102.3 232.3 L 102.6 232.2 L 102.9 232.2 L 103.2 232.1 L 103.5 232.0 L 103.8 232.0 L 104.1 231.9 L 104.5 231.8 L 104.8 231.8 L 105.1 231.7 L 105.4 231.6 L 105.7 231.6 L 106.0 231.5 L 106.3 231.4 L 106.7 231.4 L 107.0 231.3 L 107.3 231.2 L 107.6 231.2 L 107.9 231.1 L 108.2 231.0 L 108.6 230.9 L 108.9 230.9 L 109.2 230.8 L 109.5 230.7 L 109.8 230.7 L 110.1 230.6 L 110.4 230.5 L 110.8 230.4 L 111.1 230.4 L 111.4 230.3 L 111.7 230.2 L 112.0 230.2 L 112.3 230.1 L 112.7 230.0 L 113.0 229.9 L 113.3 229.9 L 113.6 229.8 L 113.9 229.7 L 114.2 229.6 L 114.5 229.6 L 114.9 229.5 L 115.2 229.4 L 115.5 229.3 L 115.8 229.2 L 116.1 229.2 L 116.4 229.1 L 116.7 229.0 L 117.1 228.9 L 117.4 228.9 L 117.7 228.8 L 118.0 228.7 L 118.3 228.6 L 118.6 228.5 L 118.9 228.5 L 119.3 228.4 L 119.6 228.3 L 119.9 228.2 L 120.2 228.1 L 120.5 228.1 L 120.8 228.0 L 121.2 227.9 L 121.5 227.8 L 121.8 227.7 L 122.1 227.6 L 122.4 227.6 L 122.7 227.5 L 123.0 227.4 L 123.4 227.3 L 123.7 227.2 L 124.0 227.1 L 124.3 227.1 L 124.6 227.0 L 124.9 226.9 L 125.2 226.8 L 125.6 226.7 L 125.9 226.6 L 126.2 226.5 L 126.5 226.5 L 126.8 226.4 L 127.1 226.3 L 127.5 226.2 L 127.8 226.1 L 128.1 226.0 L 128.4 225.9 L 128.7 225.8 L 129.0 225.8 L 129.3 225.7 L 129.7 225.6 L 130.0 225.5 L 130.3 225.4 L 130.6 225.3 L 130.9 225.2 L 131.2 225.1 L 131.6 225.0 L 131.9 225.0 L 132.2 224.9 L 132.5 224.8 L 132.8 224.7 L 133.1 224.6 L 133.4 224.5 L 133.8 224.4 L 134.1 224.3 L 134.4 224.2 L 134.7 224.1 L 135.0 224.0 L 135.3 223.9 L 135.6 223.8 L 136.0 223.7 L 136.3 223.6 L 136.6 223.6 L 136.9 223.5 L 137.2 223.4 L 137.5 223.3 L 137.9 223.2 L 138.2 223.1 L 138.5 223.0 L 138.8 222.9 L 139.1 222.8 L 139.4 222.7 L 139.7 222.6 L 140.1 222.5 L 140.4 222.4 L 140.7 222.3 L 141.0 222.2 L 141.3 222.1 L 141.6 222.0 L 141.9 221.9 L 142.3 221.8 L 142.6 221.7 L 142.9 221.6 L 143.2 221.5 L 143.5 221.4 L 143.8 221.3 L 144.1 221.2 L 144.5 221.1 L 144.8 221.0 L 145.1 220.9 L 145.4 220.8 L 145.7 220.7 L 146.0 220.6 L 146.4 220.5 L 146.7 220.4 L 147.0 220.3 L 147.3 220.1 L 147.6 220.0 L 147.9 219.9 L 148.2 219.8 L 148.6 219.7 L 148.9 219.6 L 149.2 219.5 L 149.5 219.4 L 149.8 219.3 L 150.1 219.2 L 150.4 219.1 L 150.8 219.0 L 151.1 218.9 L 151.4 218.8 L 151.7 218.7 L 152.0 218.5 L 152.3 218.4 L 152.7 218.3 L 153.0 218.2 L 153.3 218.1 L 153.6 218.0"/>
+        <path class="fig-curve" d="M 153.6 218.0 L 153.9 217.2 L 154.3 216.5 L 154.6 215.7 L 155.0 215.0 L 155.3 214.2 L 155.7 213.5 L 156.0 212.7 L 156.4 211.9 L 156.7 211.2 L 157.1 210.4 L 157.4 209.7 L 157.7 208.9 L 158.1 208.2 L 158.4 207.4 L 158.8 206.7 L 159.1 205.9 L 159.5 205.2 L 159.8 204.4 L 160.2 203.7 L 160.5 202.9 L 160.8 202.1 L 161.2 201.4 L 161.5 200.6 L 161.9 199.9 L 162.2 199.1 L 162.6 198.4 L 162.9 197.7 L 163.3 196.9 L 163.6 196.2 L 163.9 195.4 L 164.3 194.7 L 164.6 193.9 L 165.0 193.2 L 165.3 192.4 L 165.7 191.7 L 166.0 190.9 L 166.4 190.2 L 166.7 189.4 L 167.1 188.7 L 167.4 188.0 L 167.7 187.2 L 168.1 186.5 L 168.4 185.7 L 168.8 185.0 L 169.1 184.2 L 169.5 183.5 L 169.8 182.8 L 170.2 182.0 L 170.5 181.3 L 170.8 180.5 L 171.2 179.8 L 171.5 179.1 L 171.9 178.3 L 172.2 177.6 L 172.6 176.9 L 172.9 176.1 L 173.3 175.4 L 173.6 174.6 L 174.0 173.9 L 174.3 173.2 L 174.6 172.4 L 175.0 171.7 L 175.3 171.0 L 175.7 170.2 L 176.0 169.5 L 176.4 168.8 L 176.7 168.0 L 177.1 167.3 L 177.4 166.6 L 177.8 165.8 L 178.1 165.1 L 178.4 164.4 L 178.8 163.7 L 179.1 162.9 L 179.5 162.2 L 179.8 161.5 L 180.2 160.7 L 180.5 160.0 L 180.9 159.3 L 181.2 158.5 L 181.5 157.8 L 181.9 157.1 L 182.2 156.4 L 182.6 155.6 L 182.9 154.9 L 183.3 154.2 L 183.6 153.5 L 184.0 152.7 L 184.3 152.0 L 184.7 151.3 L 185.0 150.6 L 185.3 149.9 L 185.7 149.1 L 186.0 148.4 L 186.4 147.7 L 186.7 147.0 L 187.1 146.2 L 187.4 145.5 L 187.8 144.8 L 188.1 144.1 L 188.4 143.4 L 188.8 142.6 L 189.1 141.9 L 189.5 141.2 L 189.8 140.5 L 190.2 139.8 L 190.5 139.1 L 190.9 138.3 L 191.2 137.6 L 191.6 136.9 L 191.9 136.2 L 192.2 135.5 L 192.6 134.8 L 192.9 134.1 L 193.3 133.3 L 193.6 132.6 L 194.0 131.9 L 194.3 131.2 L 194.7 130.5 L 195.0 129.8 L 195.3 129.1 L 195.7 128.4 L 196.0 127.6 L 196.4 126.9 L 196.7 126.2 L 197.1 125.5 L 197.4 124.8 L 197.8 124.1 L 198.1 123.4 L 198.5 122.7 L 198.8 122.0 L 199.1 121.3 L 199.5 120.6 L 199.8 119.9 L 200.2 119.2 L 200.5 118.4 L 200.9 117.7 L 201.2 117.0 L 201.6 116.3 L 201.9 115.6 L 202.2 114.9 L 202.6 114.2 L 202.9 113.5 L 203.3 112.8 L 203.6 112.1 L 204.0 111.4 L 204.3 110.7 L 204.7 110.0 L 205.0 109.3 L 205.4 108.6 L 205.7 107.9 L 206.0 107.2 L 206.4 106.5 L 206.7 105.8 L 207.1 105.1 L 207.4 104.4 L 207.8 103.7 L 208.1 103.0 L 208.5 102.3 L 208.8 101.6 L 209.1 100.9 L 209.5 100.2 L 209.8 99.6 L 210.2 98.9 L 210.5 98.2 L 210.9 97.5 L 211.2 96.8 L 211.6 96.1 L 211.9 95.4 L 212.2 94.7 L 212.6 94.0 L 212.9 93.3 L 213.3 92.6 L 213.6 91.9 L 214.0 91.3 L 214.3 90.6 L 214.7 89.9 L 215.0 89.2 L 215.4 88.5 L 215.7 87.8 L 216.0 87.1 L 216.4 86.4 L 216.7 85.7 L 217.1 85.1 L 217.4 84.4 L 217.8 83.7 L 218.1 83.0 L 218.5 82.3 L 218.8 81.6 L 219.2 81.0 L 219.5 80.3 L 219.8 79.6 L 220.2 78.9 L 220.5 78.2 L 220.9 77.5 L 221.2 76.9 L 221.6 76.2 L 221.9 75.5 L 222.3 74.8 L 222.6 74.1 L 222.9 73.5 L 223.3 72.8 L 223.6 72.1 L 224.0 71.4 L 224.3 70.7 L 224.7 70.1 L 225.0 69.4 L 225.4 68.7 L 225.7 68.0 L 226.1 67.4 L 226.4 66.7 L 226.7 66.0 L 227.1 65.3 L 227.4 64.7 L 227.8 64.0 L 228.1 63.3 L 228.5 62.6 L 228.8 62.0 L 229.2 61.3 L 229.5 60.6 L 229.8 59.9 L 230.2 59.3 L 230.5 58.6 L 230.9 57.9 L 231.2 57.3 L 231.6 56.6 L 231.9 55.9 L 232.3 55.3 L 232.6 54.6 L 233.0 53.9 L 233.3 53.3 L 233.6 52.6 L 234.0 51.9 L 234.3 51.3 L 234.7 50.6 L 235.0 49.9 L 235.4 49.3 L 235.7 48.6 L 236.1 47.9 L 236.4 47.3"/>
+        <circle class="fig-dot" cx="153.6" cy="218.0" r="4.5"/>
+        <line class="fig-guide" x1="153.6" y1="290.0" x2="153.6" y2="218.0"/>
+        <text x="153.6" y="310.0" text-anchor="middle">a</text>
+      </svg>
+      <figcaption><span class="en">Two branches meeting at $a$. The dashed lines are the tangent to the left branch and the tangent to the right branch, of slopes $f'_l(a)$ and $f'_r(a)$. Each hugs its own branch and leaves the other, and since the two slopes differ, $f$ is not differentiable at $a$.</span><span class="fr">Deux branches se rejoignant en $a$. Les droites en pointillés sont la tangente à la branche de gauche et la tangente à la branche de droite, de pentes $f'_g(a)$ et $f'_d(a)$. Chacune épouse sa propre branche et quitte l'autre, et comme les deux pentes diffèrent, $f$ n'est pas dérivable en $a$.</span></figcaption>
+    </figure>
 
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Tangent line).</span> If $f$ is differentiable at $a$, the line with equation $y = f(a) + f'(a)(x-a)$ is the <em>tangent</em> to the graph of $f$ at $(a, f(a))$.</p>
-      <p class="fr"><span class="thm-label">Définition (Tangente).</span> Si $f$ est dérivable en $a$, la droite d'équation $y = f(a) + f'(a)(x-a)$ est la <em>tangente</em> au graphe de $f$ en $(a, f(a))$.</p>
-    </div>
+    <h3 class="en">Computing derivatives</h3>
+    <h3 class="fr">Calcul des dérivées</h3>
+
+    <p class="en">Replace each factor of $f(a+h)g(a+h)$ by its first-order expansion. The product of the two increments carries a factor $h^2$, so it disappears after division by $h$.</p>
+    <p class="fr">Remplaçons chaque facteur de $f(a+h)g(a+h)$ par son développement à l'ordre $1$. Le produit des deux accroissements porte un facteur $h^2$, donc il disparaît après division par $h$.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Differentiation rules).</span> Let $f,g : I \to \mathbb{R}$ be differentiable at $a$ and $\lambda \in \mathbb{R}$. Then:</p>
@@ -89,6 +170,31 @@
       <p class="fr">(3) Il suffit de montrer que $(1/g)'(a) = -g'(a)/g(a)^2$. On a $\frac{1/g(a+h)-1/g(a)}{h} = \frac{g(a)-g(a+h)}{h \cdot g(a+h)g(a)} = -\frac{1}{g(a+h)g(a)} \cdot \frac{g(a+h)-g(a)}{h} \to \frac{-g'(a)}{g(a)^2}$.</p>
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="314" height="203" viewBox="21.2 91.8 313.8 203.1">
+        <rect class="fig-band" x="70.0" y="149.6" width="148.8" height="110.4"/>
+        <rect class="fig-shape-img" x="70.0" y="119.8" width="148.8" height="29.8"/>
+        <rect class="fig-shape-img" x="218.8" y="149.6" width="40.8" height="110.4"/>
+        <rect class="fig-shape" x="218.8" y="119.8" width="40.8" height="29.8"/>
+        <line class="fig-axis" x1="56.0" y1="260.0" x2="277.6" y2="260.0"/>
+        <line class="fig-axis" x1="70.0" y1="274.0" x2="70.0" y2="101.8"/>
+        <text x="144.4" y="209.8" text-anchor="middle">f(a) g(a)</text>
+        <text x="144.4" y="139.7" text-anchor="middle">f(a) Δg</text>
+        <text x="273.6" y="209.8">g(a) Δf</text>
+        <text x="273.6" y="139.7">Δf Δg</text>
+        <text x="144.4" y="280.0" text-anchor="middle">f(a)</text>
+        <text x="239.2" y="280.0" text-anchor="middle">Δf</text>
+        <text x="58.0" y="209.8" text-anchor="end">g(a)</text>
+        <text x="58.0" y="139.7" text-anchor="end">Δg</text>
+        <line class="fig-guide" x1="218.8" y1="260.0" x2="218.8" y2="119.8"/>
+        <line class="fig-guide" x1="70.0" y1="149.6" x2="259.6" y2="149.6"/>
+      </svg>
+      <figcaption><span class="en">A rectangle of sides $f(a)$ and $g(a)$, grown by $\Delta f$ and $\Delta g$. The added area is the two strips $f(a)\Delta g$ and $g(a)\Delta f$, plus the corner $\Delta f\,\Delta g$. Each increment is of order $h$, so the corner is of order $h^2$ and vanishes after division by $h$.</span><span class="fr">Un rectangle de côtés $f(a)$ et $g(a)$, augmenté de $\Delta f$ et $\Delta g$. L'aire ajoutée est celle des deux bandes $f(a)\Delta g$ et $g(a)\Delta f$, plus le coin $\Delta f\,\Delta g$. Chaque accroissement est d'ordre $h$, donc le coin est d'ordre $h^2$ et disparaît après division par $h$.</span></figcaption>
+    </figure>
+
+    <p class="en">A change $h$ at $a$ produces a change of about $g'(a)h$ at $g(a)$, and that change produces one of about $f'(g(a))\,g'(a)h$. The two rates multiply.</p>
+    <p class="fr">Une variation $h$ en $a$ produit une variation d'environ $g'(a)h$ en $g(a)$, et cette variation en produit une d'environ $f'(g(a))\,g'(a)h$. Les deux taux se multiplient.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Chain rule).</span> If $g$ is differentiable at $a$ and $f$ is differentiable at $g(a)$, then $f \circ g$ is differentiable at $a$ and $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
       <p class="fr"><span class="thm-label">Théorème (Dérivée d'une composée).</span> Si $g$ est dérivable en $a$ et $f$ est dérivable en $g(a)$, alors $f \circ g$ est dérivable en $a$ et $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
@@ -102,6 +208,42 @@
       <p class="fr">On pose $\varphi(h) = \frac{f(g(a)+h)-f(g(a))}{h}$ si $h \neq 0$ et $\varphi(0) = f'(g(a))$. La dérivabilité de $f$ en $g(a)$ assure que $\varphi$ est continue en $0$. On peut écrire $f(g(a)+h) - f(g(a)) = h\,\varphi(h)$ pour tout $h$. En posant $k = g(a+h)-g(a)$, on obtient $\frac{f(g(a+h))-f(g(a))}{h} = \frac{k}{h}\,\varphi(k)$. Quand $h \to 0$, $k \to 0$ (par continuité de $g$), donc $\varphi(k) \to f'(g(a))$ et $k/h \to g'(a)$, d'où $(f \circ g)'(a) = f'(g(a)) \cdot g'(a)$.</p>
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="380" height="315" viewBox="60.0 11.4 380.0 315.4">
+        <line class="fig-axis" x1="70.0" y1="60.0" x2="430.0" y2="60.0"/>
+        <circle class="fig-dot" cx="250.0" cy="60.0" r="4.0"/>
+        <line class="fig-accent" x1="250.0" y1="44.0" x2="276.0" y2="44.0"/>
+        <line class="fig-accent" x1="250.0" y1="39.0" x2="250.0" y2="49.0"/>
+        <line class="fig-accent" x1="276.0" y1="39.0" x2="276.0" y2="49.0"/>
+        <text x="263.0" y="36.0" text-anchor="middle">h</text>
+        <text x="250.0" y="82.0" text-anchor="middle">a</text>
+        <line class="fig-axis" x1="70.0" y1="175.0" x2="430.0" y2="175.0"/>
+        <circle class="fig-dot" cx="250.0" cy="175.0" r="4.0"/>
+        <line class="fig-accent" x1="250.0" y1="159.0" x2="302.0" y2="159.0"/>
+        <line class="fig-accent" x1="250.0" y1="154.0" x2="250.0" y2="164.0"/>
+        <line class="fig-accent" x1="302.0" y1="154.0" x2="302.0" y2="164.0"/>
+        <text x="276.0" y="151.0" text-anchor="middle">g′(a) h</text>
+        <text x="250.0" y="197.0" text-anchor="middle">g(a)</text>
+        <line class="fig-axis" x1="70.0" y1="290.0" x2="430.0" y2="290.0"/>
+        <circle class="fig-dot" cx="250.0" cy="290.0" r="4.0"/>
+        <line class="fig-accent" x1="250.0" y1="274.0" x2="328.0" y2="274.0"/>
+        <line class="fig-accent" x1="250.0" y1="269.0" x2="250.0" y2="279.0"/>
+        <line class="fig-accent" x1="328.0" y1="269.0" x2="328.0" y2="279.0"/>
+        <text x="289.0" y="266.0" text-anchor="middle">f′(g(a)) g′(a) h</text>
+        <text x="250.0" y="312.0" text-anchor="middle">f(g(a))</text>
+        <line class="fig-accent" x1="150.0" y1="68.0" x2="150.0" y2="161.0"/>
+        <polygon class="fig-dot" points="150.0,167.0 147.1,160.6 152.9,160.6"/>
+        <text x="138.0" y="122.5" text-anchor="end">g</text>
+        <line class="fig-accent" x1="150.0" y1="183.0" x2="150.0" y2="276.0"/>
+        <polygon class="fig-dot" points="150.0,282.0 147.1,275.6 152.9,275.6"/>
+        <text x="138.0" y="237.5" text-anchor="end">f</text>
+      </svg>
+      <figcaption><span class="en">An interval of length $h$ at $a$ is carried by $g$ to an interval of length about $g'(a)h$ at $g(a)$, then by $f$ to one of length about $f'(g(a))\,g'(a)h$. Each map stretches by its own derivative, and the two stretches compose into their product.</span><span class="fr">Un intervalle de longueur $h$ en $a$ est envoyé par $g$ sur un intervalle de longueur environ $g'(a)h$ en $g(a)$, puis par $f$ sur un intervalle de longueur environ $f'(g(a))\,g'(a)h$. Chaque application dilate d'un facteur égal à sa dérivée, et les deux dilatations se composent en leur produit.</span></figcaption>
+    </figure>
+
+    <p class="en">The graph of $f^{-1}$ is the graph of $f$ reflected in the line $y=x$. Reflection exchanges the two coordinates, so it turns a line of slope $m$ into a line of slope $1/m$, and a horizontal tangent into a vertical one.</p>
+    <p class="fr">Le graphe de $f^{-1}$ est celui de $f$ réfléchi par rapport à la droite $y=x$. La réflexion échange les deux coordonnées, donc elle transforme une droite de pente $m$ en une droite de pente $1/m$, et une tangente horizontale en une tangente verticale.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Derivative of the inverse function).</span> Let $f$ be continuous and strictly monotone on an interval $I$, and let $J = f(I)$. If $f$ is differentiable at $a \in I$ and $f'(a) \neq 0$, then $f^{-1}$ is differentiable at $b = f(a)$ and $(f^{-1})'(b) = \frac{1}{f'(f^{-1}(b))} = \frac{1}{f'(a)}$.</p>
       <p class="fr"><span class="thm-label">Théorème (Dérivée de la bijection réciproque).</span> Soit $f$ continue et strictement monotone sur un intervalle $I$, et soit $J = f(I)$. Si $f$ est dérivable en $a \in I$ et $f'(a) \neq 0$, alors $f^{-1}$ est dérivable en $b = f(a)$ et $(f^{-1})'(b) = \frac{1}{f'(f^{-1}(b))} = \frac{1}{f'(a)}$.</p>
@@ -114,6 +256,31 @@
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr">On pose $b = f(a)$ et on écrit pour $k \neq 0$, $k \in J-b$ : $\frac{f^{-1}(b+k)-f^{-1}(b)}{k} = \frac{f^{-1}(b+k)-a}{f(f^{-1}(b+k))-f(a)}$. Posons $h = f^{-1}(b+k)-a$ ; comme $f^{-1}$ est continue, $h \to 0$ quand $k \to 0$, et $h \neq 0$ car $f$ est injective. On obtient $\frac{h}{f(a+h)-f(a)} = \frac{1}{\frac{f(a+h)-f(a)}{h}} \to \frac{1}{f'(a)}$.</p>
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="357" height="352" viewBox="-26.8 48.2 356.6 351.7">
+        <line class="fig-axis" x1="-16.8" y1="300.0" x2="319.8" y2="300.0"/>
+        <line class="fig-axis" x1="70.0" y1="389.9" x2="70.0" y2="58.2"/>
+        <line class="fig-guide" x1="-13.7" y1="383.7" x2="302.5" y2="67.5"/>
+        <path class="fig-curve" d="M -7.5 282.2 L -6.8 282.0 L -6.2 281.9 L -5.5 281.7 L -4.9 281.5 L -4.2 281.3 L -3.5 281.1 L -2.9 280.9 L -2.2 280.7 L -1.6 280.5 L -0.9 280.2 L -0.3 280.0 L 0.4 279.8 L 1.1 279.6 L 1.7 279.4 L 2.4 279.2 L 3.0 278.9 L 3.7 278.7 L 4.4 278.5 L 5.0 278.3 L 5.7 278.0 L 6.3 277.8 L 7.0 277.6 L 7.7 277.3 L 8.3 277.1 L 9.0 276.8 L 9.6 276.6 L 10.3 276.3 L 10.9 276.1 L 11.6 275.8 L 12.3 275.6 L 12.9 275.3 L 13.6 275.0 L 14.2 274.8 L 14.9 274.5 L 15.6 274.2 L 16.2 274.0 L 16.9 273.7 L 17.5 273.4 L 18.2 273.1 L 18.9 272.8 L 19.5 272.5 L 20.2 272.2 L 20.8 271.9 L 21.5 271.6 L 22.1 271.3 L 22.8 271.0 L 23.5 270.7 L 24.1 270.4 L 24.8 270.1 L 25.4 269.8 L 26.1 269.5 L 26.8 269.1 L 27.4 268.8 L 28.1 268.5 L 28.7 268.1 L 29.4 267.8 L 30.0 267.5 L 30.7 267.1 L 31.4 266.8 L 32.0 266.4 L 32.7 266.0 L 33.3 265.7 L 34.0 265.3 L 34.7 264.9 L 35.3 264.6 L 36.0 264.2 L 36.6 263.8 L 37.3 263.4 L 38.0 263.0 L 38.6 262.6 L 39.3 262.2 L 39.9 261.8 L 40.6 261.4 L 41.2 261.0 L 41.9 260.6 L 42.6 260.2 L 43.2 259.7 L 43.9 259.3 L 44.5 258.9 L 45.2 258.4 L 45.9 258.0 L 46.5 257.5 L 47.2 257.1 L 47.8 256.6 L 48.5 256.2 L 49.2 255.7 L 49.8 255.2 L 50.5 254.8 L 51.1 254.3 L 51.8 253.8 L 52.4 253.3 L 53.1 252.8 L 53.8 252.3 L 54.4 251.8 L 55.1 251.3 L 55.7 250.7 L 56.4 250.2 L 57.1 249.7 L 57.7 249.1 L 58.4 248.6 L 59.0 248.1 L 59.7 247.5 L 60.4 246.9 L 61.0 246.4 L 61.7 245.8 L 62.3 245.2 L 63.0 244.6 L 63.6 244.0 L 64.3 243.4 L 65.0 242.8 L 65.6 242.2 L 66.3 241.6 L 66.9 241.0 L 67.6 240.4 L 68.3 239.7 L 68.9 239.1 L 69.6 238.4 L 70.2 237.8 L 70.9 237.1 L 71.5 236.4 L 72.2 235.8 L 72.9 235.1 L 73.5 234.4 L 74.2 233.7 L 74.8 233.0 L 75.5 232.2 L 76.2 231.5 L 76.8 230.8 L 77.5 230.1 L 78.1 229.3 L 78.8 228.5 L 79.5 227.8 L 80.1 227.0 L 80.8 226.2 L 81.4 225.4 L 82.1 224.7 L 82.7 223.8 L 83.4 223.0 L 84.1 222.2 L 84.7 221.4 L 85.4 220.5 L 86.0 219.7 L 86.7 218.8 L 87.4 218.0 L 88.0 217.1 L 88.7 216.2 L 89.3 215.3 L 90.0 214.4 L 90.7 213.5 L 91.3 212.6 L 92.0 211.6 L 92.6 210.7 L 93.3 209.7 L 93.9 208.8 L 94.6 207.8 L 95.3 206.8 L 95.9 205.8 L 96.6 204.8 L 97.2 203.8 L 97.9 202.8 L 98.6 201.7 L 99.2 200.7 L 99.9 199.6 L 100.5 198.5 L 101.2 197.5 L 101.9 196.4 L 102.5 195.3 L 103.2 194.1 L 103.8 193.0 L 104.5 191.9 L 105.1 190.7 L 105.8 189.5 L 106.5 188.4 L 107.1 187.2 L 107.8 186.0 L 108.4 184.7 L 109.1 183.5 L 109.8 182.3 L 110.4 181.0 L 111.1 179.7 L 111.7 178.5 L 112.4 177.2 L 113.1 175.8 L 113.7 174.5 L 114.4 173.2 L 115.0 171.8 L 115.7 170.5 L 116.3 169.1 L 117.0 167.7 L 117.7 166.3 L 118.3 164.8 L 119.0 163.4 L 119.6 161.9 L 120.3 160.5 L 121.0 159.0 L 121.6 157.5 L 122.3 155.9 L 122.9 154.4 L 123.6 152.8 L 124.2 151.3 L 124.9 149.7 L 125.6 148.1 L 126.2 146.5 L 126.9 144.8 L 127.5 143.2 L 128.2 141.5 L 128.9 139.8 L 129.5 138.1 L 130.2 136.3 L 130.8 134.6 L 131.5 132.8 L 132.2 131.0 L 132.8 129.2 L 133.5 127.4 L 134.1 125.6 L 134.8 123.7 L 135.4 121.8 L 136.1 119.9 L 136.8 118.0 L 137.4 116.1 L 138.1 114.1 L 138.7 112.1 L 139.4 110.1 L 140.1 108.1 L 140.7 106.0 L 141.4 103.9 L 142.0 101.9 L 142.7 99.7 L 143.4 97.6 L 144.0 95.4 L 144.7 93.3 L 145.3 91.0 L 146.0 88.8 L 146.6 86.6 L 147.3 84.3 L 148.0 82.0 L 148.6 79.6 L 149.3 77.3 L 149.9 74.9 L 150.6 72.5"/>
+        <path class="fig-curve" d="M 87.8 377.5 L 88.0 376.8 L 88.1 376.2 L 88.3 375.5 L 88.5 374.9 L 88.7 374.2 L 88.9 373.5 L 89.1 372.9 L 89.3 372.2 L 89.5 371.6 L 89.8 370.9 L 90.0 370.3 L 90.2 369.6 L 90.4 368.9 L 90.6 368.3 L 90.8 367.6 L 91.1 367.0 L 91.3 366.3 L 91.5 365.6 L 91.7 365.0 L 92.0 364.3 L 92.2 363.7 L 92.4 363.0 L 92.7 362.3 L 92.9 361.7 L 93.2 361.0 L 93.4 360.4 L 93.7 359.7 L 93.9 359.1 L 94.2 358.4 L 94.4 357.7 L 94.7 357.1 L 95.0 356.4 L 95.2 355.8 L 95.5 355.1 L 95.8 354.4 L 96.0 353.8 L 96.3 353.1 L 96.6 352.5 L 96.9 351.8 L 97.2 351.1 L 97.5 350.5 L 97.8 349.8 L 98.1 349.2 L 98.4 348.5 L 98.7 347.9 L 99.0 347.2 L 99.3 346.5 L 99.6 345.9 L 99.9 345.2 L 100.2 344.6 L 100.5 343.9 L 100.9 343.2 L 101.2 342.6 L 101.5 341.9 L 101.9 341.3 L 102.2 340.6 L 102.5 340.0 L 102.9 339.3 L 103.2 338.6 L 103.6 338.0 L 104.0 337.3 L 104.3 336.7 L 104.7 336.0 L 105.1 335.3 L 105.4 334.7 L 105.8 334.0 L 106.2 333.4 L 106.6 332.7 L 107.0 332.0 L 107.4 331.4 L 107.8 330.7 L 108.2 330.1 L 108.6 329.4 L 109.0 328.8 L 109.4 328.1 L 109.8 327.4 L 110.3 326.8 L 110.7 326.1 L 111.1 325.5 L 111.6 324.8 L 112.0 324.1 L 112.5 323.5 L 112.9 322.8 L 113.4 322.2 L 113.8 321.5 L 114.3 320.8 L 114.8 320.2 L 115.2 319.5 L 115.7 318.9 L 116.2 318.2 L 116.7 317.6 L 117.2 316.9 L 117.7 316.2 L 118.2 315.6 L 118.7 314.9 L 119.3 314.3 L 119.8 313.6 L 120.3 312.9 L 120.9 312.3 L 121.4 311.6 L 121.9 311.0 L 122.5 310.3 L 123.1 309.6 L 123.6 309.0 L 124.2 308.3 L 124.8 307.7 L 125.4 307.0 L 126.0 306.4 L 126.6 305.7 L 127.2 305.0 L 127.8 304.4 L 128.4 303.7 L 129.0 303.1 L 129.6 302.4 L 130.3 301.7 L 130.9 301.1 L 131.6 300.4 L 132.2 299.8 L 132.9 299.1 L 133.6 298.4 L 134.2 297.8 L 134.9 297.1 L 135.6 296.5 L 136.3 295.8 L 137.0 295.2 L 137.8 294.5 L 138.5 293.8 L 139.2 293.2 L 139.9 292.5 L 140.7 291.9 L 141.5 291.2 L 142.2 290.5 L 143.0 289.9 L 143.8 289.2 L 144.6 288.6 L 145.3 287.9 L 146.2 287.3 L 147.0 286.6 L 147.8 285.9 L 148.6 285.3 L 149.5 284.6 L 150.3 284.0 L 151.2 283.3 L 152.0 282.6 L 152.9 282.0 L 153.8 281.3 L 154.7 280.7 L 155.6 280.0 L 156.5 279.3 L 157.4 278.7 L 158.4 278.0 L 159.3 277.4 L 160.3 276.7 L 161.2 276.1 L 162.2 275.4 L 163.2 274.7 L 164.2 274.1 L 165.2 273.4 L 166.2 272.8 L 167.2 272.1 L 168.3 271.4 L 169.3 270.8 L 170.4 270.1 L 171.5 269.5 L 172.5 268.8 L 173.6 268.1 L 174.7 267.5 L 175.9 266.8 L 177.0 266.2 L 178.1 265.5 L 179.3 264.9 L 180.5 264.2 L 181.6 263.5 L 182.8 262.9 L 184.0 262.2 L 185.3 261.6 L 186.5 260.9 L 187.7 260.2 L 189.0 259.6 L 190.3 258.9 L 191.5 258.3 L 192.8 257.6 L 194.2 256.9 L 195.5 256.3 L 196.8 255.6 L 198.2 255.0 L 199.5 254.3 L 200.9 253.7 L 202.3 253.0 L 203.7 252.3 L 205.2 251.7 L 206.6 251.0 L 208.1 250.4 L 209.5 249.7 L 211.0 249.0 L 212.5 248.4 L 214.1 247.7 L 215.6 247.1 L 217.2 246.4 L 218.7 245.8 L 220.3 245.1 L 221.9 244.4 L 223.5 243.8 L 225.2 243.1 L 226.8 242.5 L 228.5 241.8 L 230.2 241.1 L 231.9 240.5 L 233.7 239.8 L 235.4 239.2 L 237.2 238.5 L 239.0 237.8 L 240.8 237.2 L 242.6 236.5 L 244.4 235.9 L 246.3 235.2 L 248.2 234.6 L 250.1 233.9 L 252.0 233.2 L 253.9 232.6 L 255.9 231.9 L 257.9 231.3 L 259.9 230.6 L 261.9 229.9 L 264.0 229.3 L 266.1 228.6 L 268.1 228.0 L 270.3 227.3 L 272.4 226.6 L 274.6 226.0 L 276.7 225.3 L 279.0 224.7 L 281.2 224.0 L 283.4 223.4 L 285.7 222.7 L 288.0 222.0 L 290.4 221.4 L 292.7 220.7 L 295.1 220.1 L 297.5 219.4"/>
+        <line class="fig-accent" x1="48.3" y1="284.7" x2="153.7" y2="110.9"/>
+        <line class="fig-accent" x1="79.2" y1="325.4" x2="265.2" y2="212.6"/>
+        <circle class="fig-dot" cx="101.0" cy="197.8" r="4.0"/>
+        <circle class="fig-dot" cx="172.2" cy="269.0" r="4.0"/>
+        <line class="fig-guide" x1="101.0" y1="300.0" x2="101.0" y2="197.8"/>
+        <line class="fig-guide" x1="70.0" y1="197.8" x2="101.0" y2="197.8"/>
+        <line class="fig-guide" x1="172.2" y1="300.0" x2="172.2" y2="269.0"/>
+        <line class="fig-guide" x1="70.0" y1="269.0" x2="172.2" y2="269.0"/>
+        <text x="101.0" y="320.0" text-anchor="middle">a</text>
+        <text x="172.2" y="320.0" text-anchor="middle">b</text>
+        <text x="58.0" y="202.8" text-anchor="end">b</text>
+        <text x="58.0" y="274.0" text-anchor="end">a</text>
+        <text x="157.4" y="90.0">f</text>
+        <text x="287.0" y="244.3" text-anchor="middle">f<tspan dy="-6" font-size="11">−1</tspan></text>
+      </svg>
+      <figcaption><span class="en">The graph of $f = \exp$ and the graph of $f^{-1}$, each obtained from the other by exchanging the coordinates. The tangent at $(a,b)$ has slope $f'(a)$, and its reflection is the tangent at $(b,a)$, of slope $1/f'(a)$.</span><span class="fr">Le graphe de $f = \exp$ et celui de $f^{-1}$, chacun obtenu de l'autre en échangeant les coordonnées. La tangente en $(a,b)$ a pour pente $f'(a)$, et sa réflexion est la tangente en $(b,a)$, de pente $1/f'(a)$.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> We say $f$ is of <em>class $\mathcal{C}^n$</em> on $I$ if $f$ is $n$ times differentiable on $I$ and $f^{(n)}$ is continuous on $I$. We say $f$ is of <em>class $\mathcal{C}^\infty$</em> if it is of class $\mathcal{C}^n$ for every $n$.</p>
@@ -139,6 +306,9 @@
       <p class="fr">Pour les réciproques, on applique le théorème de dérivation de la bijection réciproque : $\sin'(\arcsin x) = \cos(\arcsin x) = \sqrt{1-x^2} \neq 0$, donc $\arcsin'x = \frac{1}{\sqrt{1-x^2}}$. De même $\cos'(\arccos x) = -\sqrt{1-x^2}$, donc $\arccos'x = \frac{-1}{\sqrt{1-x^2}}$. Enfin $\tan'(\arctan x) = 1+x^2$, donc $\arctan'x = \frac{1}{1+x^2}$.</p>
     </details>
 
+    <p class="en">Differentiating a product $n$ times gives a sum of terms $f^{(k)}g^{(n-k)}$, one for each way of assigning each of the $n$ differentiations to $f$ or to $g$. The number of assignments giving $k$ of them to $f$ is $\binom{n}{k}$.</p>
+    <p class="fr">Dériver $n$ fois un produit donne une somme de termes $f^{(k)}g^{(n-k)}$, un pour chaque façon d'attribuer chacune des $n$ dérivations à $f$ ou à $g$. Le nombre d'attributions qui en donnent $k$ à $f$ vaut $\binom{n}{k}$.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Leibniz rule).</span> Let $f,g$ be of class $\mathcal{C}^n$ on $I$. Then $fg$ is of class $\mathcal{C}^n$ and $(fg)^{(n)} = \sum_{k=0}^{n} \binom{n}{k} f^{(k)} g^{(n-k)}$.</p>
       <p class="fr"><span class="thm-label">Théorème (Formule de Leibniz).</span> Soient $f,g$ de classe $\mathcal{C}^n$ sur $I$. Alors $fg$ est de classe $\mathcal{C}^n$ et $(fg)^{(n)} = \sum_{k=0}^{n} \binom{n}{k} f^{(k)} g^{(n-k)}$.</p>
@@ -151,6 +321,12 @@
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr">Par récurrence sur $n$. Pour $n=0$, c'est trivial. Si la formule est vraie au rang $n$, alors $(fg)^{(n+1)} = \sum_{k=0}^{n}\binom{n}{k}\left(f^{(k+1)}g^{(n-k)}+f^{(k)}g^{(n+1-k)}\right)$. En réindexant la première somme ($j=k+1$) : $\sum_{j=1}^{n+1}\binom{n}{j-1}f^{(j)}g^{(n+1-j)} + \sum_{k=0}^{n}\binom{n}{k}f^{(k)}g^{(n+1-k)}$. Le terme $k=0$ de la seconde somme donne $f\,g^{(n+1)}$ et le terme $j=n+1$ de la première donne $f^{(n+1)}g$. Pour $1 \le k \le n$, les coefficients de $f^{(k)}g^{(n+1-k)}$ s'additionnent en $\binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}$, ce qui conclut.</p>
     </details>
+
+    <h3 class="en">Rolle's theorem</h3>
+    <h3 class="fr">Le théorème de Rolle</h3>
+
+    <p class="en">At an interior maximum, the chords coming from the left have slope $\ge 0$ and those going to the right have slope $\le 0$. If $f$ is differentiable there, both one-sided limits equal $f'(a)$, which is then caught between $0$ and $0$.</p>
+    <p class="fr">En un maximum intérieur, les cordes venant de la gauche ont une pente $\ge 0$ et celles allant vers la droite une pente $\le 0$. Si $f$ y est dérivable, les deux limites unilatérales valent $f'(a)$, qui est alors coincé entre $0$ et $0$.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Local extremum and derivative).</span> Let $f : I \to \mathbb{R}$ be differentiable at $a \in \mathring{I}$ (the interior of $I$). If $f$ has a local extremum at $a$, then $f'(a)=0$.</p>
@@ -165,6 +341,28 @@
       <p class="fr">Supposons que $f$ admet un maximum local en $a$. Il existe $\delta &gt; 0$ tel que pour tout $x \in\, ]a-\delta, a+\delta[\, \cap\, I$, $f(x) \le f(a)$. Pour $h &gt; 0$ assez petit, $\frac{f(a+h)-f(a)}{h} \le 0$, donc $f'_d(a) \le 0$. Pour $h &lt; 0$, $\frac{f(a+h)-f(a)}{h} \ge 0$, donc $f'_g(a) \ge 0$. Comme $f$ est dérivable en $a$, $f'_g(a)=f'_d(a)=f'(a)$, d'où $0 \le f'(a) \le 0$, soit $f'(a)=0$.</p>
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="298" height="215" viewBox="36.0 89.5 298.2 215.4">
+        <line class="fig-axis" x1="46.0" y1="270.0" x2="324.2" y2="270.0"/>
+        <line class="fig-axis" x1="60.0" y1="282.0" x2="60.0" y2="99.5"/>
+        <path class="fig-curve" d="M 69.3 262.7 L 70.3 260.8 L 71.2 258.8 L 72.2 256.9 L 73.1 255.1 L 74.1 253.2 L 75.0 251.3 L 76.0 249.5 L 76.9 247.7 L 77.9 245.9 L 78.9 244.1 L 79.8 242.3 L 80.8 240.5 L 81.7 238.8 L 82.7 237.1 L 83.6 235.4 L 84.6 233.7 L 85.5 232.0 L 86.5 230.3 L 87.5 228.7 L 88.4 227.0 L 89.4 225.4 L 90.3 223.8 L 91.3 222.3 L 92.2 220.7 L 93.2 219.1 L 94.2 217.6 L 95.1 216.1 L 96.1 214.6 L 97.0 213.1 L 98.0 211.6 L 98.9 210.2 L 99.9 208.8 L 100.8 207.3 L 101.8 205.9 L 102.8 204.6 L 103.7 203.2 L 104.7 201.8 L 105.6 200.5 L 106.6 199.2 L 107.5 197.9 L 108.5 196.6 L 109.4 195.3 L 110.4 194.1 L 111.4 192.8 L 112.3 191.6 L 113.3 190.4 L 114.2 189.2 L 115.2 188.0 L 116.1 186.9 L 117.1 185.7 L 118.0 184.6 L 119.0 183.5 L 120.0 182.4 L 120.9 181.3 L 121.9 180.2 L 122.8 179.2 L 123.8 178.2 L 124.7 177.2 L 125.7 176.2 L 126.6 175.2 L 127.6 174.2 L 128.6 173.3 L 129.5 172.3 L 130.5 171.4 L 131.4 170.5 L 132.4 169.6 L 133.3 168.8 L 134.3 167.9 L 135.3 167.1 L 136.2 166.3 L 137.2 165.5 L 138.1 164.7 L 139.1 163.9 L 140.0 163.1 L 141.0 162.4 L 141.9 161.7 L 142.9 161.0 L 143.9 160.3 L 144.8 159.6 L 145.8 159.0 L 146.7 158.3 L 147.7 157.7 L 148.6 157.1 L 149.6 156.5 L 150.5 155.9 L 151.5 155.4 L 152.5 154.8 L 153.4 154.3 L 154.4 153.8 L 155.3 153.3 L 156.3 152.8 L 157.2 152.4 L 158.2 151.9 L 159.1 151.5 L 160.1 151.1 L 161.1 150.7 L 162.0 150.3 L 163.0 149.9 L 163.9 149.6 L 164.9 149.2 L 165.8 148.9 L 166.8 148.6 L 167.8 148.3 L 168.7 148.1 L 169.7 147.8 L 170.6 147.6 L 171.6 147.4 L 172.5 147.2 L 173.5 147.0 L 174.4 146.8 L 175.4 146.7 L 176.4 146.5 L 177.3 146.4 L 178.3 146.3 L 179.2 146.2 L 180.2 146.1 L 181.1 146.1 L 182.1 146.0 L 183.0 146.0 L 184.0 146.0 L 185.0 146.0 L 185.9 146.0 L 186.9 146.1 L 187.8 146.1 L 188.8 146.2 L 189.7 146.3 L 190.7 146.4 L 191.6 146.5 L 192.6 146.7 L 193.6 146.8 L 194.5 147.0 L 195.5 147.2 L 196.4 147.4 L 197.4 147.6 L 198.3 147.8 L 199.3 148.1 L 200.2 148.3 L 201.2 148.6 L 202.2 148.9 L 203.1 149.2 L 204.1 149.6 L 205.0 149.9 L 206.0 150.3 L 206.9 150.7 L 207.9 151.1 L 208.9 151.5 L 209.8 151.9 L 210.8 152.4 L 211.7 152.8 L 212.7 153.3 L 213.6 153.8 L 214.6 154.3 L 215.5 154.8 L 216.5 155.4 L 217.5 155.9 L 218.4 156.5 L 219.4 157.1 L 220.3 157.7 L 221.3 158.3 L 222.2 159.0 L 223.2 159.6 L 224.1 160.3 L 225.1 161.0 L 226.1 161.7 L 227.0 162.4 L 228.0 163.1 L 228.9 163.9 L 229.9 164.7 L 230.8 165.5 L 231.8 166.3 L 232.7 167.1 L 233.7 167.9 L 234.7 168.8 L 235.6 169.6 L 236.6 170.5 L 237.5 171.4 L 238.5 172.3 L 239.4 173.3 L 240.4 174.2 L 241.3 175.2 L 242.3 176.2 L 243.3 177.2 L 244.2 178.2 L 245.2 179.2 L 246.1 180.2 L 247.1 181.3 L 248.0 182.4 L 249.0 183.5 L 250.0 184.6 L 250.9 185.7 L 251.9 186.9 L 252.8 188.0 L 253.8 189.2 L 254.7 190.4 L 255.7 191.6 L 256.6 192.8 L 257.6 194.1 L 258.6 195.3 L 259.5 196.6 L 260.5 197.9 L 261.4 199.2 L 262.4 200.5 L 263.3 201.8 L 264.3 203.2 L 265.2 204.6 L 266.2 205.9 L 267.2 207.3 L 268.1 208.8 L 269.1 210.2 L 270.0 211.6 L 271.0 213.1 L 271.9 214.6 L 272.9 216.1 L 273.8 217.6 L 274.8 219.1 L 275.8 220.7 L 276.7 222.3 L 277.7 223.8 L 278.6 225.4 L 279.6 227.0 L 280.5 228.7 L 281.5 230.3 L 282.5 232.0 L 283.4 233.7 L 284.4 235.4 L 285.3 237.1 L 286.3 238.8 L 287.2 240.5 L 288.2 242.3 L 289.1 244.1 L 290.1 245.9 L 291.1 247.7 L 292.0 249.5 L 293.0 251.3 L 293.9 253.2 L 294.9 255.1 L 295.8 256.9 L 296.8 258.8 L 297.7 260.8 L 298.7 262.7"/>
+        <line class="fig-accent" x1="91.0" y1="146.0" x2="277.0" y2="146.0"/>
+        <line class="fig-guide" x1="106.5" y1="199.3" x2="184.0" y2="146.0"/>
+        <line class="fig-guide" x1="184.0" y1="146.0" x2="261.5" y2="199.3"/>
+        <circle class="fig-dot" cx="106.5" cy="199.3" r="3.5"/>
+        <circle class="fig-dot" cx="261.5" cy="199.3" r="3.5"/>
+        <circle class="fig-dot" cx="184.0" cy="146.0" r="4.0"/>
+        <line class="fig-guide" x1="184.0" y1="270.0" x2="184.0" y2="146.0"/>
+        <text x="184.0" y="290.0" text-anchor="middle">a</text>
+        <text x="106.5" y="290.0" text-anchor="middle">a−h</text>
+        <text x="261.5" y="290.0" text-anchor="middle">a+h</text>
+      </svg>
+      <figcaption><span class="en">A maximum at an interior point $a$. The chord from $a-h$ rises and the chord to $a+h$ falls, so the quotients are $\ge 0$ on one side and $\le 0$ on the other, and the tangent that both approach is horizontal.</span><span class="fr">Un maximum en un point intérieur $a$. La corde venant de $a-h$ monte et la corde allant vers $a+h$ descend, donc les taux sont $\ge 0$ d'un côté et $\le 0$ de l'autre, et la tangente dont ils s'approchent tous deux est horizontale.</span></figcaption>
+    </figure>
+
+    <p class="en">A continuous function on a segment attains its maximum and its minimum. When the two endpoint values are equal, at least one of the two is attained at an interior point.</p>
+    <p class="fr">Une fonction continue sur un segment atteint son maximum et son minimum. Quand les deux valeurs aux extrémités sont égales, au moins l'un des deux est atteint en un point intérieur.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Rolle's theorem).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$, differentiable on $]a,b[$, and such that $f(a)=f(b)$. Then there exists $c \in\, ]a,b[$ such that $f'(c)=0$.</p>
       <p class="fr"><span class="thm-label">Théorème (Théorème de Rolle).</span> Soit $f : [a,b] \to \mathbb{R}$ continue sur $[a,b]$, dérivable sur $]a,b[$, et telle que $f(a)=f(b)$. Alors il existe $c \in\, ]a,b[$ tel que $f'(c)=0$.</p>
@@ -177,6 +375,37 @@
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr">Par le théorème des bornes atteintes, $f$ atteint son maximum $M$ et son minimum $m$ sur $[a,b]$. Si $m=M$, alors $f$ est constante et $f'(c)=0$ pour tout $c \in\, ]a,b[$. Sinon, comme $f(a)=f(b)$, au moins l'un des deux extrema est atteint en un point $c \in\, ]a,b[$ (les deux ne peuvent être atteints uniquement aux bords puisque $f(a)=f(b)$ forcerait $m=M$). Par le théorème de l'extremum local, $f'(c)=0$.</p>
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="337" height="226" viewBox="-22.0 98.2 337.2 225.7">
+        <line class="fig-axis" x1="46.0" y1="285.0" x2="305.2" y2="285.0"/>
+        <line class="fig-axis" x1="60.0" y1="297.0" x2="60.0" y2="108.2"/>
+        <path class="fig-curve" d="M 70.2 197.1 L 71.1 195.6 L 72.0 194.1 L 72.8 192.7 L 73.7 191.3 L 74.6 190.0 L 75.5 188.6 L 76.4 187.4 L 77.2 186.1 L 78.1 184.9 L 79.0 183.7 L 79.9 182.5 L 80.8 181.4 L 81.7 180.3 L 82.5 179.3 L 83.4 178.2 L 84.3 177.2 L 85.2 176.2 L 86.1 175.3 L 86.9 174.4 L 87.8 173.5 L 88.7 172.7 L 89.6 171.8 L 90.5 171.0 L 91.3 170.3 L 92.2 169.5 L 93.1 168.8 L 94.0 168.1 L 94.9 167.5 L 95.7 166.8 L 96.6 166.2 L 97.5 165.7 L 98.4 165.1 L 99.3 164.6 L 100.2 164.1 L 101.0 163.6 L 101.9 163.1 L 102.8 162.7 L 103.7 162.3 L 104.6 161.9 L 105.4 161.5 L 106.3 161.2 L 107.2 160.9 L 108.1 160.6 L 109.0 160.3 L 109.8 160.1 L 110.7 159.9 L 111.6 159.6 L 112.5 159.5 L 113.4 159.3 L 114.3 159.1 L 115.1 159.0 L 116.0 158.9 L 116.9 158.8 L 117.8 158.7 L 118.7 158.7 L 119.5 158.7 L 120.4 158.6 L 121.3 158.6 L 122.2 158.7 L 123.1 158.7 L 123.9 158.8 L 124.8 158.8 L 125.7 158.9 L 126.6 159.0 L 127.5 159.1 L 128.3 159.3 L 129.2 159.4 L 130.1 159.6 L 131.0 159.7 L 131.9 159.9 L 132.8 160.1 L 133.6 160.3 L 134.5 160.6 L 135.4 160.8 L 136.3 161.1 L 137.2 161.3 L 138.0 161.6 L 138.9 161.9 L 139.8 162.2 L 140.7 162.5 L 141.6 162.8 L 142.4 163.1 L 143.3 163.5 L 144.2 163.8 L 145.1 164.2 L 146.0 164.5 L 146.8 164.9 L 147.7 165.3 L 148.6 165.7 L 149.5 166.1 L 150.4 166.5 L 151.3 166.9 L 152.1 167.3 L 153.0 167.7 L 153.9 168.2 L 154.8 168.6 L 155.7 169.1 L 156.5 169.5 L 157.4 170.0 L 158.3 170.4 L 159.2 170.9 L 160.1 171.3 L 160.9 171.8 L 161.8 172.3 L 162.7 172.8 L 163.6 173.2 L 164.5 173.7 L 165.4 174.2 L 166.2 174.7 L 167.1 175.2 L 168.0 175.6 L 168.9 176.1 L 169.8 176.6 L 170.6 177.1 L 171.5 177.6 L 172.4 178.1 L 173.3 178.6 L 174.2 179.0 L 175.0 179.5 L 175.9 180.0 L 176.8 180.5 L 177.7 181.0 L 178.6 181.4 L 179.4 181.9 L 180.3 182.4 L 181.2 182.8 L 182.1 183.3 L 183.0 183.8 L 183.9 184.2 L 184.7 184.7 L 185.6 185.1 L 186.5 185.5 L 187.4 186.0 L 188.3 186.4 L 189.1 186.8 L 190.0 187.2 L 190.9 187.6 L 191.8 188.0 L 192.7 188.4 L 193.5 188.8 L 194.4 189.2 L 195.3 189.5 L 196.2 189.9 L 197.1 190.2 L 197.9 190.6 L 198.8 190.9 L 199.7 191.2 L 200.6 191.5 L 201.5 191.8 L 202.4 192.1 L 203.2 192.4 L 204.1 192.6 L 205.0 192.9 L 205.9 193.1 L 206.8 193.3 L 207.6 193.5 L 208.5 193.7 L 209.4 193.9 L 210.3 194.1 L 211.2 194.2 L 212.0 194.4 L 212.9 194.5 L 213.8 194.6 L 214.7 194.7 L 215.6 194.8 L 216.5 194.9 L 217.3 194.9 L 218.2 195.0 L 219.1 195.0 L 220.0 195.0 L 220.9 194.9 L 221.7 194.9 L 222.6 194.9 L 223.5 194.8 L 224.4 194.7 L 225.3 194.6 L 226.1 194.4 L 227.0 194.3 L 227.9 194.1 L 228.8 193.9 L 229.7 193.7 L 230.5 193.5 L 231.4 193.2 L 232.3 192.9 L 233.2 192.6 L 234.1 192.3 L 235.0 192.0 L 235.8 191.6 L 236.7 191.2 L 237.6 190.8 L 238.5 190.4 L 239.4 189.9 L 240.2 189.4 L 241.1 188.9 L 242.0 188.4 L 242.9 187.8 L 243.8 187.2 L 244.6 186.6 L 245.5 186.0 L 246.4 185.3 L 247.3 184.6 L 248.2 183.9 L 249.0 183.2 L 249.9 182.4 L 250.8 181.6 L 251.7 180.8 L 252.6 179.9 L 253.5 179.0 L 254.3 178.1 L 255.2 177.1 L 256.1 176.2 L 257.0 175.2 L 257.9 174.1 L 258.7 173.0 L 259.6 171.9 L 260.5 170.8 L 261.4 169.7 L 262.3 168.5 L 263.1 167.2 L 264.0 166.0 L 264.9 164.7 L 265.8 163.3 L 266.7 162.0 L 267.6 160.6 L 268.4 159.1 L 269.3 157.7 L 270.2 156.2 L 271.1 154.6 L 272.0 153.1 L 272.8 151.5 L 273.7 149.8 L 274.6 148.1 L 275.5 146.4 L 276.4 144.7 L 277.2 142.9 L 278.1 141.1 L 279.0 139.2 L 279.9 137.3 L 280.8 135.3 L 281.6 133.4"/>
+        <line class="fig-guide" x1="73.2" y1="174.1" x2="271.8" y2="174.1"/>
+        <line class="fig-accent" x1="83.4" y1="158.6" x2="158.2" y2="158.6"/>
+        <circle class="fig-dot" cx="120.8" cy="158.6" r="4.0"/>
+        <line class="fig-guide" x1="120.8" y1="285.0" x2="120.8" y2="158.6"/>
+        <line class="fig-accent" x1="182.0" y1="195.0" x2="256.8" y2="195.0"/>
+        <circle class="fig-dot" cx="219.4" cy="195.0" r="4.0"/>
+        <line class="fig-guide" x1="219.4" y1="285.0" x2="219.4" y2="195.0"/>
+        <circle class="fig-dot" cx="87.2" cy="174.1" r="4.0"/>
+        <circle class="fig-dot" cx="257.8" cy="174.1" r="4.0"/>
+        <line class="fig-guide" x1="87.2" y1="285.0" x2="87.2" y2="174.1"/>
+        <line class="fig-guide" x1="257.8" y1="285.0" x2="257.8" y2="174.1"/>
+        <text x="87.2" y="305.0" text-anchor="middle">a</text>
+        <text x="257.8" y="305.0" text-anchor="middle">b</text>
+        <text x="120.8" y="305.0" text-anchor="middle">c<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="219.4" y="305.0" text-anchor="middle">c<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="48.0" y="179.1" text-anchor="end">f(a)=f(b)</text>
+      </svg>
+      <figcaption><span class="en">The dashed horizontal line carries both endpoint values, which are equal. The maximum and the minimum of $f$ on $[a,b]$ are attained at the interior points $c_1$ and $c_2$, and the tangent is horizontal at each of them.</span><span class="fr">La droite horizontale en pointillés porte les deux valeurs aux extrémités, qui sont égales. Le maximum et le minimum de $f$ sur $[a,b]$ sont atteints aux points intérieurs $c_1$ et $c_2$, et la tangente y est horizontale.</span></figcaption>
+    </figure>
+
+    <h3 class="en">The mean value theorem</h3>
+    <h3 class="fr">L'égalité des accroissements finis</h3>
+
+    <p class="en">Subtracting the chord from $f$ gives a function with equal values at $a$ and $b$, so Rolle applies to it. Its derivative vanishes exactly where the tangent to $f$ is parallel to the chord.</p>
+    <p class="fr">Retrancher la corde à $f$ donne une fonction qui prend la même valeur en $a$ et en $b$, donc Rolle s'y applique. Sa dérivée s'annule exactement là où la tangente à $f$ est parallèle à la corde.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Mean value theorem).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $]a,b[$. Then there exists $c \in\, ]a,b[$ such that $f(b)-f(a) = f'(c)(b-a)$.</p>
@@ -191,10 +420,78 @@
       <p class="fr">On applique le théorème de Rolle à la fonction $g(x) = f(x) - \frac{f(b)-f(a)}{b-a}(x-a)$. On vérifie que $g$ est continue sur $[a,b]$, dérivable sur $]a,b[$, et $g(a) = f(a) = g(b)$. Donc il existe $c \in\, ]a,b[$ tel que $g'(c)=0$, soit $f'(c) = \frac{f(b)-f(a)}{b-a}$.</p>
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="636" height="276" viewBox="36.0 78.6 636.0 276.3">
+        <line class="fig-axis" x1="46.0" y1="320.0" x2="302.0" y2="320.0"/>
+        <line class="fig-axis" x1="60.0" y1="332.0" x2="60.0" y2="88.6"/>
+        <path class="fig-curve" d="M 70.4 207.6 L 71.3 206.7 L 72.1 205.9 L 73.0 205.1 L 73.8 204.3 L 74.7 203.6 L 75.5 202.9 L 76.4 202.2 L 77.2 201.6 L 78.1 201.0 L 79.0 200.5 L 79.8 200.0 L 80.7 199.5 L 81.5 199.0 L 82.4 198.6 L 83.2 198.2 L 84.1 197.8 L 84.9 197.5 L 85.8 197.2 L 86.7 196.9 L 87.5 196.7 L 88.4 196.5 L 89.2 196.3 L 90.1 196.2 L 90.9 196.0 L 91.8 195.9 L 92.7 195.8 L 93.5 195.8 L 94.4 195.8 L 95.2 195.8 L 96.1 195.8 L 96.9 195.9 L 97.8 195.9 L 98.6 196.0 L 99.5 196.2 L 100.4 196.3 L 101.2 196.5 L 102.1 196.7 L 102.9 196.9 L 103.8 197.1 L 104.6 197.4 L 105.5 197.7 L 106.3 198.0 L 107.2 198.3 L 108.1 198.6 L 108.9 199.0 L 109.8 199.3 L 110.6 199.7 L 111.5 200.1 L 112.3 200.6 L 113.2 201.0 L 114.0 201.5 L 114.9 201.9 L 115.8 202.4 L 116.6 202.9 L 117.5 203.5 L 118.3 204.0 L 119.2 204.5 L 120.0 205.1 L 120.9 205.7 L 121.8 206.3 L 122.6 206.9 L 123.5 207.5 L 124.3 208.1 L 125.2 208.7 L 126.0 209.4 L 126.9 210.0 L 127.7 210.7 L 128.6 211.4 L 129.5 212.1 L 130.3 212.7 L 131.2 213.4 L 132.0 214.1 L 132.9 214.9 L 133.7 215.6 L 134.6 216.3 L 135.4 217.0 L 136.3 217.8 L 137.2 218.5 L 138.0 219.3 L 138.9 220.0 L 139.7 220.8 L 140.6 221.5 L 141.4 222.3 L 142.3 223.0 L 143.1 223.8 L 144.0 224.6 L 144.9 225.4 L 145.7 226.1 L 146.6 226.9 L 147.4 227.7 L 148.3 228.4 L 149.1 229.2 L 150.0 230.0 L 150.8 230.7 L 151.7 231.5 L 152.6 232.3 L 153.4 233.0 L 154.3 233.8 L 155.1 234.5 L 156.0 235.3 L 156.8 236.0 L 157.7 236.8 L 158.6 237.5 L 159.4 238.2 L 160.3 238.9 L 161.1 239.6 L 162.0 240.4 L 162.8 241.1 L 163.7 241.7 L 164.5 242.4 L 165.4 243.1 L 166.3 243.8 L 167.1 244.4 L 168.0 245.1 L 168.8 245.7 L 169.7 246.3 L 170.5 246.9 L 171.4 247.6 L 172.2 248.1 L 173.1 248.7 L 174.0 249.3 L 174.8 249.8 L 175.7 250.4 L 176.5 250.9 L 177.4 251.4 L 178.2 251.9 L 179.1 252.4 L 179.9 252.8 L 180.8 253.3 L 181.7 253.7 L 182.5 254.1 L 183.4 254.5 L 184.2 254.9 L 185.1 255.3 L 185.9 255.6 L 186.8 255.9 L 187.6 256.2 L 188.5 256.5 L 189.4 256.8 L 190.2 257.0 L 191.1 257.2 L 191.9 257.4 L 192.8 257.6 L 193.6 257.8 L 194.5 257.9 L 195.4 258.0 L 196.2 258.1 L 197.1 258.1 L 197.9 258.2 L 198.8 258.2 L 199.6 258.2 L 200.5 258.1 L 201.3 258.1 L 202.2 258.0 L 203.1 257.8 L 203.9 257.7 L 204.8 257.5 L 205.6 257.3 L 206.5 257.1 L 207.3 256.8 L 208.2 256.5 L 209.0 256.2 L 209.9 255.8 L 210.8 255.5 L 211.6 255.0 L 212.5 254.6 L 213.3 254.1 L 214.2 253.6 L 215.0 253.1 L 215.9 252.5 L 216.7 251.9 L 217.6 251.2 L 218.5 250.5 L 219.3 249.8 L 220.2 249.1 L 221.0 248.3 L 221.9 247.5 L 222.7 246.6 L 223.6 245.7 L 224.5 244.8 L 225.3 243.8 L 226.2 242.8 L 227.0 241.7 L 227.9 240.6 L 228.7 239.5 L 229.6 238.4 L 230.4 237.1 L 231.3 235.9 L 232.2 234.6 L 233.0 233.3 L 233.9 231.9 L 234.7 230.5 L 235.6 229.0 L 236.4 227.5 L 237.3 226.0 L 238.1 224.4 L 239.0 222.7 L 239.9 221.1 L 240.7 219.3 L 241.6 217.6 L 242.4 215.7 L 243.3 213.9 L 244.1 212.0 L 245.0 210.0 L 245.8 208.0 L 246.7 205.9 L 247.6 203.8 L 248.4 201.7 L 249.3 199.5 L 250.1 197.2 L 251.0 194.9 L 251.8 192.6 L 252.7 190.2 L 253.5 187.7 L 254.4 185.2 L 255.3 182.6 L 256.1 180.0 L 257.0 177.4 L 257.8 174.6 L 258.7 171.9 L 259.5 169.0 L 260.4 166.1 L 261.3 163.2 L 262.1 160.2 L 263.0 157.1 L 263.8 154.0 L 264.7 150.9 L 265.5 147.6 L 266.4 144.4 L 267.2 141.0 L 268.1 137.6 L 269.0 134.1 L 269.8 130.6 L 270.7 127.1 L 271.5 123.4 L 272.4 119.7 L 273.2 115.9 L 274.1 112.1 L 274.9 108.2 L 275.8 104.3"/>
+        <line class="fig-guide" x1="70.8" y1="199.4" x2="278.0" y2="138.0"/>
+        <line class="fig-accent" x1="171.0" y1="268.7" x2="243.8" y2="244.8"/>
+        <circle class="fig-dot" cx="80.8" cy="199.4" r="4.0"/>
+        <line class="fig-guide" x1="80.8" y1="320.0" x2="80.8" y2="199.4"/>
+        <circle class="fig-dot" cx="268.0" cy="138.0" r="4.0"/>
+        <line class="fig-guide" x1="268.0" y1="320.0" x2="268.0" y2="138.0"/>
+        <circle class="fig-dot" cx="207.4" cy="256.8" r="4.0"/>
+        <line class="fig-guide" x1="207.4" y1="320.0" x2="207.4" y2="256.8"/>
+        <text x="80.8" y="340.0" text-anchor="middle">a</text>
+        <text x="268.0" y="340.0" text-anchor="middle">b</text>
+        <text x="207.4" y="340.0" text-anchor="middle">c</text>
+        <line class="fig-axis" x1="406.0" y1="320.0" x2="662.0" y2="320.0"/>
+        <line class="fig-axis" x1="420.0" y1="332.0" x2="420.0" y2="88.6"/>
+        <path class="fig-curve" d="M 430.4 215.5 L 431.3 215.0 L 432.1 214.4 L 433.0 213.9 L 433.8 213.4 L 434.7 213.0 L 435.5 212.6 L 436.4 212.2 L 437.2 211.8 L 438.1 211.5 L 439.0 211.3 L 439.8 211.0 L 440.7 210.8 L 441.5 210.7 L 442.4 210.5 L 443.2 210.4 L 444.1 210.3 L 444.9 210.3 L 445.8 210.3 L 446.7 210.3 L 447.5 210.3 L 448.4 210.4 L 449.2 210.5 L 450.1 210.6 L 450.9 210.7 L 451.8 210.9 L 452.7 211.1 L 453.5 211.4 L 454.4 211.6 L 455.2 211.9 L 456.1 212.2 L 456.9 212.6 L 457.8 212.9 L 458.6 213.3 L 459.5 213.7 L 460.4 214.1 L 461.2 214.6 L 462.1 215.1 L 462.9 215.5 L 463.8 216.1 L 464.6 216.6 L 465.5 217.2 L 466.3 217.7 L 467.2 218.3 L 468.1 219.0 L 468.9 219.6 L 469.8 220.2 L 470.6 220.9 L 471.5 221.6 L 472.3 222.3 L 473.2 223.0 L 474.0 223.8 L 474.9 224.5 L 475.8 225.3 L 476.6 226.1 L 477.5 226.9 L 478.3 227.7 L 479.2 228.5 L 480.0 229.4 L 480.9 230.2 L 481.8 231.1 L 482.6 232.0 L 483.5 232.9 L 484.3 233.8 L 485.2 234.7 L 486.0 235.6 L 486.9 236.5 L 487.7 237.5 L 488.6 238.4 L 489.5 239.4 L 490.3 240.4 L 491.2 241.4 L 492.0 242.3 L 492.9 243.3 L 493.7 244.3 L 494.6 245.3 L 495.4 246.4 L 496.3 247.4 L 497.2 248.4 L 498.0 249.4 L 498.9 250.5 L 499.7 251.5 L 500.6 252.5 L 501.4 253.6 L 502.3 254.6 L 503.1 255.7 L 504.0 256.7 L 504.9 257.8 L 505.7 258.8 L 506.6 259.9 L 507.4 260.9 L 508.3 262.0 L 509.1 263.0 L 510.0 264.1 L 510.8 265.1 L 511.7 266.2 L 512.6 267.2 L 513.4 268.2 L 514.3 269.3 L 515.1 270.3 L 516.0 271.3 L 516.8 272.4 L 517.7 273.4 L 518.6 274.4 L 519.4 275.4 L 520.3 276.4 L 521.1 277.4 L 522.0 278.4 L 522.8 279.4 L 523.7 280.3 L 524.5 281.3 L 525.4 282.3 L 526.3 283.2 L 527.1 284.1 L 528.0 285.1 L 528.8 286.0 L 529.7 286.9 L 530.5 287.8 L 531.4 288.7 L 532.2 289.5 L 533.1 290.4 L 534.0 291.2 L 534.8 292.1 L 535.7 292.9 L 536.5 293.7 L 537.4 294.5 L 538.2 295.3 L 539.1 296.0 L 539.9 296.8 L 540.8 297.5 L 541.7 298.2 L 542.5 298.9 L 543.4 299.6 L 544.2 300.2 L 545.1 300.9 L 545.9 301.5 L 546.8 302.1 L 547.6 302.7 L 548.5 303.2 L 549.4 303.8 L 550.2 304.3 L 551.1 304.8 L 551.9 305.3 L 552.8 305.7 L 553.6 306.2 L 554.5 306.6 L 555.4 307.0 L 556.2 307.3 L 557.1 307.7 L 557.9 308.0 L 558.8 308.3 L 559.6 308.5 L 560.5 308.8 L 561.3 309.0 L 562.2 309.2 L 563.1 309.3 L 563.9 309.5 L 564.8 309.6 L 565.6 309.6 L 566.5 309.7 L 567.3 309.7 L 568.2 309.7 L 569.0 309.7 L 569.9 309.6 L 570.8 309.5 L 571.6 309.3 L 572.5 309.2 L 573.3 309.0 L 574.2 308.7 L 575.0 308.5 L 575.9 308.2 L 576.7 307.9 L 577.6 307.5 L 578.5 307.1 L 579.3 306.7 L 580.2 306.2 L 581.0 305.7 L 581.9 305.1 L 582.7 304.6 L 583.6 303.9 L 584.5 303.3 L 585.3 302.6 L 586.2 301.9 L 587.0 301.1 L 587.9 300.3 L 588.7 299.4 L 589.6 298.6 L 590.4 297.6 L 591.3 296.7 L 592.2 295.6 L 593.0 294.6 L 593.9 293.5 L 594.7 292.4 L 595.6 291.2 L 596.4 290.0 L 597.3 288.7 L 598.1 287.4 L 599.0 286.0 L 599.9 284.6 L 600.7 283.2 L 601.6 281.7 L 602.4 280.2 L 603.3 278.6 L 604.1 276.9 L 605.0 275.3 L 605.8 273.5 L 606.7 271.8 L 607.6 269.9 L 608.4 268.1 L 609.3 266.1 L 610.1 264.2 L 611.0 262.1 L 611.8 260.1 L 612.7 257.9 L 613.5 255.8 L 614.4 253.5 L 615.3 251.3 L 616.1 248.9 L 617.0 246.5 L 617.8 244.1 L 618.7 241.6 L 619.5 239.0 L 620.4 236.4 L 621.3 233.8 L 622.1 231.1 L 623.0 228.3 L 623.8 225.5 L 624.7 222.6 L 625.5 219.6 L 626.4 216.6 L 627.2 213.6 L 628.1 210.4 L 629.0 207.3 L 629.8 204.0 L 630.7 200.7 L 631.5 197.4 L 632.4 193.9 L 633.2 190.5 L 634.1 186.9 L 634.9 183.3 L 635.8 179.6"/>
+        <line class="fig-guide" x1="430.8" y1="210.8" x2="638.0" y2="210.8"/>
+        <line class="fig-accent" x1="531.0" y1="309.7" x2="603.8" y2="309.7"/>
+        <circle class="fig-dot" cx="440.8" cy="210.8" r="4.0"/>
+        <line class="fig-guide" x1="440.8" y1="320.0" x2="440.8" y2="210.8"/>
+        <circle class="fig-dot" cx="628.0" cy="210.8" r="4.0"/>
+        <line class="fig-guide" x1="628.0" y1="320.0" x2="628.0" y2="210.8"/>
+        <circle class="fig-dot" cx="567.4" cy="309.7" r="4.0"/>
+        <line class="fig-guide" x1="567.4" y1="320.0" x2="567.4" y2="309.7"/>
+        <text x="440.8" y="340.0" text-anchor="middle">a</text>
+        <text x="628.0" y="340.0" text-anchor="middle">b</text>
+        <text x="567.4" y="340.0" text-anchor="middle">c</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the chord from $(a,f(a))$ to $(b,f(b))$, and the tangent at $c$, which is parallel to it.</span><span class="cap-part"><span class="cap-lead">Right:</span> the same picture after subtracting the chord. The two endpoint values are now equal, the tangent at the same $c$ is horizontal, and this is Rolle's theorem.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> la corde de $(a,f(a))$ à $(b,f(b))$, et la tangente en $c$, qui lui est parallèle.</span><span class="cap-part"><span class="cap-lead">À droite :</span> la même figure après avoir retranché la corde. Les deux valeurs aux extrémités sont maintenant égales, la tangente au même $c$ est horizontale, et c'est le théorème de Rolle.</span></span></figcaption>
+    </figure>
+
+    <p class="en">The mean value theorem produces a point $c$ that is not known. Bounding $f'$ on the whole interval makes that ignorance harmless.</p>
+    <p class="fr">L'égalité des accroissements finis produit un point $c$ que l'on ne connaît pas. Encadrer $f'$ sur tout l'intervalle rend cette ignorance sans conséquence.</p>
+
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary (Mean value inequality).</span> Let $f : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$, differentiable on $]a,b[$, and such that $m \le f' \le M$ on $]a,b[$. Then $m(b-a) \le f(b)-f(a) \le M(b-a)$. In particular, if $|f'| \le M$ on $]a,b[$, then $|f(b)-f(a)| \le M(b-a)$ and $f$ is $M$-Lipschitz on $[a,b]$.</p>
       <p class="fr"><span class="thm-label">Corollaire (Inégalité des accroissements finis).</span> Soit $f : [a,b] \to \mathbb{R}$ continue sur $[a,b]$, dérivable sur $]a,b[$, et telle que $m \le f' \le M$ sur $]a,b[$. Alors $m(b-a) \le f(b)-f(a) \le M(b-a)$. En particulier, si $|f'| \le M$ sur $]a,b[$, alors $|f(b)-f(a)| \le M(b-a)$ et $f$ est $M$-lipschitzienne sur $[a,b]$.</p>
     </div>
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <p class="en">The mean value theorem gives $c \in\, ]a,b[$ with $f(b)-f(a) = f'(c)(b-a)$. Since $b-a &gt; 0$ and $m \le f'(c) \le M$, multiplying by $b-a$ gives $m(b-a) \le f(b)-f(a) \le M(b-a)$. If $|f'| \le M$, apply this with $-M$ and $M$ to get $|f(b)-f(a)| \le M(b-a)$; since the hypotheses hold on every $[x,y] \subset [a,b]$, the same bound holds for every such pair, which is the $M$-Lipschitz property.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <p class="fr">L'égalité des accroissements finis donne $c \in\, ]a,b[$ tel que $f(b)-f(a) = f'(c)(b-a)$. Comme $b-a &gt; 0$ et $m \le f'(c) \le M$, en multipliant par $b-a$ on obtient $m(b-a) \le f(b)-f(a) \le M(b-a)$. Si $|f'| \le M$, on applique ceci avec $-M$ et $M$ pour obtenir $|f(b)-f(a)| \le M(b-a)$ ; les hypothèses valant sur tout $[x,y] \subset [a,b]$, la même majoration vaut pour un tel couple quelconque, ce qui est le caractère $M$-lipschitzien.</p>
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="358" height="266" viewBox="46.0 89.2 358.4 265.7">
+        <line class="fig-axis" x1="56.0" y1="320.0" x2="394.4" y2="320.0"/>
+        <line class="fig-axis" x1="70.0" y1="332.0" x2="70.0" y2="99.2"/>
+        <line class="fig-accent" x1="84.4" y1="311.2" x2="372.4" y2="124.0"/>
+        <line class="fig-accent" x1="84.4" y1="311.2" x2="372.4" y2="296.8"/>
+        <path class="fig-curve" d="M 84.4 311.2 L 85.5 310.6 L 86.7 310.0 L 87.8 309.5 L 89.0 308.9 L 90.1 308.4 L 91.2 307.9 L 92.4 307.4 L 93.5 307.0 L 94.7 306.6 L 95.8 306.2 L 96.9 305.8 L 98.1 305.5 L 99.2 305.1 L 100.4 304.8 L 101.5 304.6 L 102.6 304.3 L 103.8 304.1 L 104.9 303.8 L 106.1 303.7 L 107.2 303.5 L 108.3 303.3 L 109.5 303.2 L 110.6 303.1 L 111.8 303.0 L 112.9 302.9 L 114.0 302.8 L 115.2 302.7 L 116.3 302.6 L 117.5 302.6 L 118.6 302.5 L 119.7 302.4 L 120.9 302.4 L 122.0 302.3 L 123.2 302.3 L 124.3 302.2 L 125.4 302.1 L 126.6 302.0 L 127.7 302.0 L 128.9 301.9 L 130.0 301.7 L 131.1 301.6 L 132.3 301.5 L 133.4 301.3 L 134.6 301.1 L 135.7 300.9 L 136.8 300.7 L 138.0 300.5 L 139.1 300.2 L 140.3 300.0 L 141.4 299.7 L 142.5 299.3 L 143.7 299.0 L 144.8 298.6 L 146.0 298.2 L 147.1 297.8 L 148.2 297.3 L 149.4 296.9 L 150.5 296.4 L 151.7 295.9 L 152.8 295.3 L 153.9 294.8 L 155.1 294.2 L 156.2 293.6 L 157.4 292.9 L 158.5 292.3 L 159.6 291.6 L 160.8 291.0 L 161.9 290.3 L 163.1 289.6 L 164.2 288.9 L 165.3 288.2 L 166.5 287.4 L 167.6 286.7 L 168.8 286.0 L 169.9 285.2 L 171.0 284.5 L 172.2 283.7 L 173.3 283.0 L 174.5 282.3 L 175.6 281.5 L 176.7 280.8 L 177.9 280.1 L 179.0 279.4 L 180.2 278.7 L 181.3 278.1 L 182.4 277.4 L 183.6 276.8 L 184.7 276.1 L 185.9 275.5 L 187.0 274.9 L 188.1 274.4 L 189.3 273.8 L 190.4 273.3 L 191.6 272.8 L 192.7 272.3 L 193.8 271.9 L 195.0 271.5 L 196.1 271.1 L 197.3 270.7 L 198.4 270.3 L 199.5 270.0 L 200.7 269.7 L 201.8 269.4 L 203.0 269.2 L 204.1 268.9 L 205.2 268.7 L 206.4 268.5 L 207.5 268.3 L 208.7 268.2 L 209.8 268.0 L 210.9 267.9 L 212.1 267.8 L 213.2 267.7 L 214.4 267.6 L 215.5 267.5 L 216.6 267.4 L 217.8 267.4 L 218.9 267.3 L 220.1 267.3 L 221.2 267.2 L 222.3 267.1 L 223.5 267.1 L 224.6 267.0 L 225.8 266.9 L 226.9 266.9 L 228.0 266.8 L 229.2 266.7 L 230.3 266.6 L 231.5 266.5 L 232.6 266.3 L 233.7 266.2 L 234.9 266.0 L 236.0 265.8 L 237.2 265.6 L 238.3 265.4 L 239.4 265.1 L 240.6 264.8 L 241.7 264.5 L 242.9 264.2 L 244.0 263.9 L 245.1 263.5 L 246.3 263.1 L 247.4 262.7 L 248.6 262.2 L 249.7 261.8 L 250.8 261.3 L 252.0 260.8 L 253.1 260.2 L 254.3 259.7 L 255.4 259.1 L 256.5 258.5 L 257.7 257.9 L 258.8 257.2 L 260.0 256.6 L 261.1 255.9 L 262.2 255.2 L 263.4 254.5 L 264.5 253.8 L 265.7 253.1 L 266.8 252.4 L 267.9 251.7 L 269.1 250.9 L 270.2 250.2 L 271.4 249.4 L 272.5 248.7 L 273.6 248.0 L 274.8 247.2 L 275.9 246.5 L 277.1 245.8 L 278.2 245.1 L 279.3 244.4 L 280.5 243.7 L 281.6 243.0 L 282.8 242.3 L 283.9 241.7 L 285.0 241.1 L 286.2 240.4 L 287.3 239.9 L 288.5 239.3 L 289.6 238.7 L 290.7 238.2 L 291.9 237.7 L 293.0 237.2 L 294.2 236.8 L 295.3 236.4 L 296.4 235.9 L 297.6 235.6 L 298.7 235.2 L 299.9 234.9 L 301.0 234.6 L 302.1 234.3 L 303.3 234.0 L 304.4 233.8 L 305.6 233.6 L 306.7 233.4 L 307.8 233.2 L 309.0 233.0 L 310.1 232.9 L 311.3 232.7 L 312.4 232.6 L 313.5 232.5 L 314.7 232.4 L 315.8 232.3 L 317.0 232.3 L 318.1 232.2 L 319.2 232.1 L 320.4 232.1 L 321.5 232.0 L 322.7 232.0 L 323.8 231.9 L 324.9 231.8 L 326.1 231.8 L 327.2 231.7 L 328.4 231.6 L 329.5 231.5 L 330.6 231.4 L 331.8 231.3 L 332.9 231.2 L 334.1 231.0 L 335.2 230.8 L 336.3 230.7 L 337.5 230.4 L 338.6 230.2 L 339.8 230.0 L 340.9 229.7 L 342.0 229.4 L 343.2 229.1 L 344.3 228.7 L 345.5 228.4 L 346.6 228.0 L 347.7 227.6 L 348.9 227.1 L 350.0 226.7 L 351.2 226.2 L 352.3 225.7 L 353.4 225.1 L 354.6 224.6 L 355.7 224.0 L 356.9 223.4 L 358.0 222.8"/>
+        <circle class="fig-dot" cx="84.4" cy="311.2" r="4.0"/>
+        <circle class="fig-dot" cx="358.0" cy="222.8" r="4.0"/>
+        <line class="fig-guide" x1="358.0" y1="297.5" x2="358.0" y2="133.4"/>
+        <line class="fig-accent" x1="378.0" y1="297.5" x2="378.0" y2="133.4"/>
+        <line class="fig-accent" x1="373.0" y1="297.5" x2="383.0" y2="297.5"/>
+        <line class="fig-accent" x1="373.0" y1="133.4" x2="383.0" y2="133.4"/>
+        <line class="fig-guide" x1="84.4" y1="320.0" x2="84.4" y2="311.2"/>
+        <line class="fig-guide" x1="358.0" y1="320.0" x2="358.0" y2="222.8"/>
+        <text x="84.4" y="340.0" text-anchor="middle">a</text>
+        <text x="358.0" y="340.0" text-anchor="middle">b</text>
+        <text x="377.8" y="128.0">M</text>
+        <text x="377.8" y="300.8">m</text>
+      </svg>
+      <figcaption><span class="en">From $(a,f(a))$, the two lines of slope $m$ and $M$. The graph stays between them on $[a,b]$, so $f(b)$ lies in the marked interval, of length $(M-m)(b-a)$.</span><span class="fr">Depuis $(a,f(a))$, les deux droites de pentes $m$ et $M$. Le graphe reste entre elles sur $[a,b]$, donc $f(b)$ est dans l'intervalle marqué, de longueur $(M-m)(b-a)$.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary (Characterization of constant functions).</span> Let $f$ be differentiable on an interval $I$. Then $f$ is constant if and only if $f'=0$ on $I$.</p>
@@ -208,6 +505,9 @@
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr">$(\Rightarrow)$ Évident. $(\Leftarrow)$ Pour tous $x,y \in I$, l'inégalité des accroissements finis donne $|f(x)-f(y)| \le 0 \cdot |x-y| = 0$.</p>
     </details>
+
+    <p class="en">The mean value theorem turns a sign of $f'$ on the whole interval into monotonicity of $f$.</p>
+    <p class="fr">L'égalité des accroissements finis transforme un signe de $f'$ sur tout l'intervalle en une monotonie de $f$.</p>
 
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary (Monotonicity and sign of the derivative).</span> Let $f$ be differentiable on an interval $I$.</p>
@@ -234,6 +534,9 @@
       <p class="fr">Pour la stricte croissance : $f$ étant croissante, $f$ strictement croissante $\iff$ $f$ non constante sur tout sous-intervalle non trivial $\iff$ $f'$ ne s'annule sur aucun intervalle non trivial.</p>
     </details>
 
+    <p class="en">On $[a, a+h]$ the mean value theorem gives a point $c_h$ where $f'$ equals the slope of the chord. As $h$ shrinks, $c_h$ is squeezed onto $a$.</p>
+    <p class="fr">Sur $[a, a+h]$, l'égalité des accroissements finis donne un point $c_h$ où $f'$ vaut la pente de la corde. Quand $h$ diminue, $c_h$ est resserré sur $a$.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Limit of the derivative).</span> Let $f$ be continuous on $[a,b]$ and differentiable on $]a,b[$. If $f'(x) \to \ell$ as $x \to a^+$ (with $\ell \in \mathbb{R}$), then $f$ is right-differentiable at $a$ and $f'_r(a) = \lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h} = \ell$.</p>
       <p class="fr"><span class="thm-label">Théorème (Théorème de la limite de la dérivée).</span> Soit $f$ continue sur $[a,b]$ et dérivable sur $]a,b[$. Si $f'(x) \to \ell$ quand $x \to a^+$ (avec $\ell \in \mathbb{R}$), alors $f$ est dérivable à droite en $a$ et $f'_d(a) = \lim_{h \to 0^+} \frac{f(a+h)-f(a)}{h} = \ell$.</p>
@@ -246,6 +549,9 @@
       <summary class="proof-label">Démonstration.</summary>
       <p class="fr">Pour $h &gt; 0$ assez petit, $f$ est continue sur $[a,a+h]$ et dérivable sur $]a,a+h[$. Par l'égalité des accroissements finis, il existe $c_h \in\, ]a,a+h[$ tel que $\frac{f(a+h)-f(a)}{h} = f'(c_h)$. Quand $h \to 0^+$, $c_h \to a^+$, donc $f'(c_h) \to \ell$.</p>
     </details>
+
+    <p class="en">If $|f'| \le k$ on $I$, applying the mean value inequality to $u_n$ and $\ell$ multiplies the distance to $\ell$ by at most $k$ at each step.</p>
+    <p class="fr">Si $|f'| \le k$ sur $I$, appliquer l'inégalité des accroissements finis à $u_n$ et $\ell$ multiplie la distance à $\ell$ par au plus $k$ à chaque étape.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Recurrence and exponential convergence).</span> Let $I$ be an interval stable under $f$, with $f$ differentiable on $I$ and $|f'| \le k$ on $I$ for some $k \in [0,1[$. If $\ell \in I$ is a fixed point of $f$ and $(u_n)$ is defined by $u_0 \in I$ and $u_{n+1}=f(u_n)$, then $|u_n - \ell| \le k^n |u_0 - \ell|$ and $(u_n)$ converges to $\ell$.</p>
@@ -260,165 +566,241 @@
       <p class="fr">Par l'inégalité des accroissements finis, $|u_{n+1}-\ell| = |f(u_n)-f(\ell)| \le k\,|u_n-\ell|$. Par récurrence, $|u_n - \ell| \le k^n |u_0-\ell|$. Comme $0 \le k &lt; 1$, $k^n \to 0$, donc $u_n \to \ell$.</p>
     </details>
 
+    <!-- ============ TECHNIQUES ============ -->
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To differentiate a composite, apply the chain rule from the outside in. A power $x^\alpha$ is $e^{\alpha\ln x}$, so it falls under the same rule.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour dériver une composée, appliquer la règle de dérivation en chaîne de l'extérieur vers l'intérieur. Une puissance $x^\alpha$ vaut $e^{\alpha\ln x}$, donc relève de la même règle.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute the derivative of $f(x) = \ln(x + \sqrt{x^2+1})$ on $\mathbb{R}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée de $f(x) = \ln(x + \sqrt{x^2+1})$ sur $\mathbb{R}$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To decide whether $f$ is differentiable at $a$, compute the two one-sided limits of the difference quotient separately. Both must exist and be equal.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour décider si $f$ est dérivable en $a$, calculer séparément les deux limites unilatérales du taux d'accroissement. Elles doivent toutes deux exister et être égales.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the absolute value function $x \mapsto |x|$ is not differentiable at $0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la fonction valeur absolue $x \mapsto |x|$ n'est pas dérivable en $0$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Compute the left and right derivatives. For $h &gt; 0$: $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, so $f'_r(0) = 1$. For $h &lt; 0$: $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, so $f'_l(0) = -1$. Since $f'_r(0) \neq f'_l(0)$, $f$ is not differentiable at $0$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On calcule les dérivées à gauche et à droite. Pour $h &gt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, donc $f'_d(0) = 1$. Pour $h &lt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, donc $f'_g(0) = -1$. Comme $f'_d(0) \neq f'_g(0)$, $f$ n'est pas dérivable en $0$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> To differentiate a product $n$ times, use the Leibniz rule. When one factor is a polynomial, all its derivatives past its degree vanish and the sum has only a few terms.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour dériver $n$ fois un produit, utiliser la formule de Leibniz. Quand l'un des facteurs est un polynôme, toutes ses dérivées au-delà de son degré sont nulles et la somme n'a que quelques termes.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute the $n$-th derivative of $f(x) = x^2 e^x$ using the Leibniz rule.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée $n$-ième de $f(x) = x^2 e^x$ à l'aide de la formule de Leibniz.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Write $f = g \cdot h$ with $g(x)=x^2$ and $h(x)=e^x$. We have $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ for $k \ge 3$, and $h^{(k)}(x)=e^x$. The Leibniz rule gives: $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On a $f = g \cdot h$ avec $g(x)=x^2$ et $h(x)=e^x$. On a $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ pour $k \ge 3$, et $h^{(k)}(x)=e^x$. La formule de Leibniz donne : $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To prove an identity between two functions on an interval, differentiate their difference and check one value. A zero derivative on an interval forces the difference to be constant.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour démontrer une identité entre deux fonctions sur un intervalle, dériver leur différence et vérifier une valeur. Une dérivée nulle sur un intervalle force la différence à être constante.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Set $f(x) = \arcsin x + \arccos x$ on $[-1,1]$. On $]-1,1[$, $f$ is differentiable and $f'(x) = \frac{1}{\sqrt{1-x^2}} - \frac{1}{\sqrt{1-x^2}} = 0$. So $f$ is constant on $]-1,1[$, and by continuity on $[-1,1]$. Since $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$, we conclude $\arcsin x + \arccos x = \frac{\pi}{2}$ for all $x \in [-1,1]$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On pose $f(x) = \arcsin x + \arccos x$ sur $[-1,1]$. Sur $]-1,1[$, $f$ est dérivable et $f'(x) = \frac{1}{\sqrt{1-x^2}} + \frac{-1}{\sqrt{1-x^2}} = 0$. Donc $f$ est constante sur $]-1,1[$, et par continuité sur $[-1,1]$. Or $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$. Ainsi $\arcsin x + \arccos x = \frac{\pi}{2}$ pour tout $x \in [-1,1]$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To bound $|f(x)-f(y)|$, bound $|f'|$ on the interval between them and apply the mean value inequality.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour majorer $|f(x)-f(y)|$, majorer $|f'|$ sur l'intervalle qui les sépare et appliquer l'inégalité des accroissements finis.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">The function $\sin$ is continuous and differentiable on $\mathbb{R}$, with $|\sin'(t)| = |\cos t| \le 1$. By the mean value inequality applied to $\sin$ on $[0,x]$ (or $[x,0]$), we get $|\sin x - \sin 0| \le 1 \cdot |x-0|$, i.e. $|\sin x| \le |x|$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">La fonction $\sin$ est continue sur $\mathbb{R}$ et dérivable sur $\mathbb{R}$, avec $|\sin'(t)| = |\cos t| \le 1$. Par l'inégalité des accroissements finis appliquée à $\sin$ sur $[0,x]$ (ou $[x,0]$), on obtient $|\sin x - \sin 0| \le 1 \cdot |x-0|$, soit $|\sin x| \le |x|$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To prove an inequality between two functions, study the sign of the derivative of their difference and evaluate the difference at one endpoint.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour démontrer une inégalité entre deux fonctions, étudier le signe de la dérivée de leur différence et évaluer cette différence en une extrémité.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Set $f(x) = \ln(1+x)-x$ and $g(x)=\ln(1+x)-\frac{x}{1+x}$. We have $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ for $x &gt; 0$, so $f$ is strictly decreasing on $\mathbb{R}_+^*$, giving $f(x) &lt; f(0) = 0$, i.e. $\ln(1+x) &lt; x$. Similarly, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ for $x &gt; 0$, so $g(x) &gt; 0$, i.e. $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On pose $f(x) = \ln(1+x)-x$ et $g(x)=\ln(1+x)-\frac{x}{1+x}$. On a $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ pour $x &gt; 0$, donc $f$ est strictement décroissante sur $\mathbb{R}_+^*$, d'où $f(x) &lt; f(0) = 0$, soit $\ln(1+x) &lt; x$. De même, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ pour $x &gt; 0$, donc $g(x) &gt; 0$, soit $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To use a hypothesis of the form $f' = af$ or $f' \le af$, multiply $f$ by $e^{-ax}$. The product has derivative $e^{-ax}(f'-af)$, whose sign is known.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour exploiter une hypothèse de la forme $f' = af$ ou $f' \le af$, multiplier $f$ par $e^{-ax}$. Le produit a pour dérivée $e^{-ax}(f'-af)$, dont le signe est connu.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be differentiable such that $f'(x) = f(x)$ for all $x$ and $f(0)=1$. Show that $f(x)=e^x$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ dérivable telle que $f'(x) = f(x)$ pour tout $x$ et $f(0)=1$. Montrer que $f(x)=e^x$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Set $g(x) = f(x)e^{-x}$. Then $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, so $g$ is constant. Since $g(0) = f(0)\cdot 1 = 1$, we have $g(x)=1$ for all $x$, giving $f(x)=e^x$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On pose $g(x) = f(x)e^{-x}$. Alors $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, donc $g$ est constante. Comme $g(0) = f(0)\cdot 1 = 1$, on a $g(x)=1$ pour tout $x$, d'où $f(x)=e^x$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 8.</span> To produce a point where a derivative takes a prescribed value, build an auxiliary function taking the same value at the two endpoints and apply Rolle's theorem to it.</p>
+      <p class="fr"><span class="technique-label">Technique 8.</span> Pour produire un point où une dérivée prend une valeur prescrite, construire une fonction auxiliaire prenant la même valeur aux deux extrémités et lui appliquer le théorème de Rolle.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise (Generalized mean value theorem, Cauchy).</span> Let $f,g : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $]a,b[$. Show that there exists $c \in\, ]a,b[$ such that $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
+        <p class="fr"><span class="thm-label">Exercice (Généralisation des accroissements finis, Cauchy).</span> Soient $f,g : [a,b] \to \mathbb{R}$ continues sur $[a,b]$ et dérivables sur $]a,b[$. Montrer qu'il existe $c \in\, ]a,b[$ tel que $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Apply Rolle's theorem to $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. We have $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, so there exists $c \in\, ]a,b[$ with $h'(c) = 0$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On applique le théorème de Rolle à $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. On a $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, donc il existe $c \in\, ]a,b[$ tel que $h'(c) = 0$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 9.</span> To compare a sum with a logarithm, apply the mean value theorem on each interval $[k,k+1]$ and add the resulting inequalities. The middle terms telescope.</p>
+      <p class="fr"><span class="technique-label">Technique 9.</span> Pour comparer une somme à un logarithme, appliquer l'égalité des accroissements finis sur chaque intervalle $[k,k+1]$ et sommer les inégalités obtenues. Les termes du milieu se télescopent.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Show that $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> On note $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Montrer que $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Apply the mean value theorem to $\ln$ on $[k,k+1]$: there exists $c \in\, ]k,k+1[$ such that $\ln(k+1)-\ln k = \frac{1}{c}$. Since $k &lt; c &lt; k+1$, we get $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. Summing from $k=1$ to $n-1$: $\sum_{k=1}^{n-1} \frac{1}{k+1} \le \ln n \le \sum_{k=1}^{n-1} \frac{1}{k}$ (the middle sum telescopes to $\ln n$). So $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$, giving $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, and dividing by $\ln n$: $\frac{H_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.</p>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">On applique le théorème des accroissements finis à $\ln$ sur $[k,k+1]$ : il existe $c \in\, ]k,k+1[$ tel que $\ln(k+1)-\ln k = \frac{1}{c}$. Comme $k &lt; c &lt; k+1$, on obtient $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. En sommant pour $k$ allant de $1$ à $n-1$ : la somme centrale est télescopique et vaut $\ln n$. On obtient donc $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$. Ainsi $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, et en divisant par $\ln n$ : $\frac{H_n}{\ln n} \to 1$, soit $H_n \sim \ln n$.</p>
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 10.</span> To exploit a functional equation, iterate it to produce a sequence converging to a fixed point, then pass to the limit along that sequence using the continuity of $f'$.</p>
+      <p class="fr"><span class="technique-label">Technique 10.</span> Pour exploiter une équation fonctionnelle, l'itérer pour produire une suite convergeant vers un point fixe, puis passer à la limite le long de cette suite en utilisant la continuité de $f'$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be of class $\mathcal{C}^1$ such that $f(f(x)) = \frac{x}{2} + 3$ for all $x \in \mathbb{R}$. Determine all functions satisfying this property.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ de classe $\mathcal{C}^1$ telle que $f(f(x)) = \frac{x}{2} + 3$ pour tout $x \in \mathbb{R}$. Déterminer toutes les fonctions vérifiant cette propriété.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <p class="en">Applying $f$ to both sides of $f(f(x)) = x/2+3$ gives $f(f(f(x))) = f(x/2+3)$. But applying the relation to $f(x)$: $f(f(f(x))) = f(x)/2+3$. So $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ for all $x$. Differentiating: $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. The sequence $x_n = T^n(x)$ satisfies $x_{n+1} = x_n/2 + 3$, with fixed point $6$: $x_n - 6 = (x-6)/2^n \to 0$. By continuity of $f'$: $f'(x) = f'(T^n(x)) \to f'(6)$. So $f'$ is constant and $f(x) = ax+b$. Then $f(f(x)) = a^2x+b(a+1) = x/2+3$ gives $a^2 = 1/2$ and $b(a+1)=3$, so:</p>
+        <ul class="en">
+          <li>$a = \frac{1}{\sqrt{2}}$: $b = 6-3\sqrt{2}$, giving $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
+          <li>$a = -\frac{1}{\sqrt{2}}$: $b = 6+3\sqrt{2}$, giving $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
+        </ul>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <p class="fr">En appliquant $f$ aux deux membres de $f(f(x)) = x/2+3$, on obtient $f(f(f(x))) = f(x/2+3)$. Mais en appliquant la relation à $f(x)$ : $f(f(f(x))) = f(x)/2+3$. Donc $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ pour tout $x$. En dérivant : $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. La suite $x_n = T^n(x)$ converge vers $6$. Par continuité de $f'$ : $f'$ est constante et $f(x) = ax+b$. Enfin, $f(f(x)) = a^2x+b(a+1) = x/2+3$ donne $a^2 = 1/2$ et $b(a+1)=3$, d'où :</p>
+        <ul class="fr">
+          <li>$a = \frac{1}{\sqrt{2}}$ : $b = 6-3\sqrt{2}$, soit $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
+          <li>$a = -\frac{1}{\sqrt{2}}$ : $b = 6+3\sqrt{2}$, soit $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
+        </ul>
+      </details>
+    </div>
+
+    <!-- ============ EXERCISES ============ -->
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Generalized mean value theorem, Cauchy).</span> Let $f,g : [a,b] \to \mathbb{R}$ be continuous on $[a,b]$ and differentiable on $]a,b[$. Show that there exists $c \in\, ]a,b[$ such that $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Généralisation des accroissements finis, Cauchy).</span> Soient $f,g : [a,b] \to \mathbb{R}$ continues sur $[a,b]$ et dérivables sur $]a,b[$. Montrer qu'il existe $c \in\, ]a,b[$ tel que $(f(b)-f(a))\,g'(c) = (g(b)-g(a))\,f'(c)$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> A function differentiable on an <em>interval</em> with zero derivative is constant. Find a counterexample when the domain is allowed to be any open set instead of an interval.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Une fonction dérivable sur un <em>intervalle</em> et de dérivée nulle est constante. Trouver un contre-exemple lorsque le domaine peut être un ouvert quelconque au lieu d'un intervalle.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Apply Rolle's theorem to $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. We have $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, so there exists $c \in\, ]a,b[$ with $h'(c) = 0$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Take $D = \,]0,1[\, \cup\, ]2,3[$ and $f = 0$ on $]0,1[$, $f = 1$ on $]2,3[$. Every point of $D$ has a neighbourhood on which $f$ is constant, so $f$ is differentiable with $f' = 0$ on $D$, and yet $f$ is not constant. The proof of the corollary compares $f(x)$ and $f(y)$ through the mean value inequality on $[x,y]$, which requires $[x,y]$ to lie in the domain.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On applique le théorème de Rolle à $h(x) = (f(b)-f(a))\,g(x) - (g(b)-g(a))\,f(x)$. On a $h(a) = f(b)g(a)-g(b)f(a) = h(b)$, donc il existe $c \in\, ]a,b[$ tel que $h'(c) = 0$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">Prendre $D = \,]0,1[\, \cup\, ]2,3[$ et $f = 0$ sur $]0,1[$, $f = 1$ sur $]2,3[$. Tout point de $D$ a un voisinage sur lequel $f$ est constante, donc $f$ est dérivable de dérivée nulle sur $D$, et pourtant $f$ n'est pas constante. La démonstration du corollaire compare $f(x)$ et $f(y)$ via l'inégalité des accroissements finis sur $[x,y]$, ce qui exige que $[x,y]$ soit dans le domaine.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (L'Hôpital's rule).</span> Let $f,g$ be differentiable on an interval $I$ minus a point $a$, with $g' \neq 0$ near $a$. If $f(x) \to 0$ and $g(x) \to 0$ as $x \to a$, and if $\frac{f'(x)}{g'(x)} \to \ell$ (finite), show that $\frac{f(x)}{g(x)} \to \ell$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Règle de L'Hôpital).</span> Soient $f,g$ dérivables sur un intervalle $I$ privé d'un point $a$, avec $g' \neq 0$ au voisinage de $a$. Si $f(x) \to 0$ et $g(x) \to 0$ quand $x \to a$, et si $\frac{f'(x)}{g'(x)} \to \ell$ (finie), montrer que $\frac{f(x)}{g(x)} \to \ell$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Rolle's theorem assumes $f$ continuous on $[a,b]$ and differentiable on $]a,b[$. Find a counterexample when the continuity at the endpoints is dropped, the other hypotheses being kept.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Le théorème de Rolle suppose $f$ continue sur $[a,b]$ et dérivable sur $]a,b[$. Trouver un contre-exemple lorsque la continuité aux extrémités est retirée, les autres hypothèses étant conservées.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Extend $f$ and $g$ by continuity setting $f(a)=g(a)=0$. For $x \neq a$ near $a$, Cauchy's theorem applied between $a$ and $x$ gives $c$ between $a$ and $x$ such that $f(x)\,g'(c) = g(x)\,f'(c)$. Since $g'(c) \neq 0$, we have $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. As $x \to a$, $c \to a$, so $\frac{f'(c)}{g'(c)} \to \ell$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">On $[0,1]$, set $f(x) = x$ for $x \in [0,1[$ and $f(1) = 0$. Then $f(0) = f(1) = 0$, and $f$ is differentiable on $]0,1[$ with $f'(x) = 1$, which never vanishes. Differentiability on the open interval gives continuity only on the open interval, so it says nothing at the endpoints, and it is exactly there that this $f$ fails.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On prolonge $f$ et $g$ par continuité en posant $f(a)=g(a)=0$. Pour $x \neq a$ au voisinage de $a$, le théorème de Cauchy appliqué entre $a$ et $x$ donne $c$ entre $a$ et $x$ tel que $f(x)\,g'(c) = g(x)\,f'(c)$. Comme $g'(c) \neq 0$, on a $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. Quand $x \to a$, $c \to a$, donc $\frac{f'(c)}{g'(c)} \to \ell$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">Sur $[0,1]$, posons $f(x) = x$ pour $x \in [0,1[$ et $f(1) = 0$. Alors $f(0) = f(1) = 0$, et $f$ est dérivable sur $]0,1[$ avec $f'(x) = 1$, qui ne s'annule jamais. La dérivabilité sur l'intervalle ouvert ne donne la continuité que sur l'intervalle ouvert, donc elle ne dit rien aux extrémités, et c'est exactement là que ce $f$ échoue.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute the $n$-th derivative of $f(x) = x^2 e^x$ using the Leibniz rule.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée $n$-ième de $f(x) = x^2 e^x$ à l'aide de la formule de Leibniz.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The inverse function theorem assumes $f'(a) \neq 0$. Find a counterexample when that hypothesis is dropped, $f$ remaining continuous, strictly monotone and differentiable at $a$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Le théorème de dérivation de la bijection réciproque suppose $f'(a) \neq 0$. Trouver un contre-exemple lorsque cette hypothèse est retirée, $f$ restant continue, strictement monotone et dérivable en $a$.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Write $f = g \cdot h$ with $g(x)=x^2$ and $h(x)=e^x$. We have $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ for $k \ge 3$, and $h^{(k)}(x)=e^x$. The Leibniz rule gives: $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Take $f(x) = x^3$ on $\mathbb{R}$ and $a = 0$, so $b = 0$ and $f'(0) = 0$. The map $f$ is continuous, strictly increasing and differentiable, with inverse $f^{-1}(y) = y^{1/3}$. Then $\frac{f^{-1}(k)-f^{-1}(0)}{k} = \frac{k^{1/3}}{k} = \frac{1}{k^{2/3}} \to +\infty$ as $k \to 0$, so $f^{-1}$ is not differentiable at $0$. The tangent to $f$ at $0$ is horizontal, and its reflection in $y=x$ is vertical, which is not the graph of a slope.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On a $f = g \cdot h$ avec $g(x)=x^2$ et $h(x)=e^x$. On a $g'(x)=2x$, $g''(x)=2$, $g^{(k)}=0$ pour $k \ge 3$, et $h^{(k)}(x)=e^x$. La formule de Leibniz donne : $f^{(n)}(x) = \binom{n}{0}x^2 e^x + \binom{n}{1}2x\,e^x + \binom{n}{2}2\,e^x = (x^2+2nx+n(n-1))\,e^x$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be differentiable such that $f'(x) = f(x)$ for all $x$ and $f(0)=1$. Show that $f(x)=e^x$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ dérivable telle que $f'(x) = f(x)$ pour tout $x$ et $f(0)=1$. Montrer que $f(x)=e^x$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $g(x) = f(x)e^{-x}$. Then $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, so $g$ is constant. Since $g(0) = f(0)\cdot 1 = 1$, we have $g(x)=1$ for all $x$, giving $f(x)=e^x$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On pose $g(x) = f(x)e^{-x}$. Alors $g'(x) = f'(x)e^{-x}-f(x)e^{-x} = (f'(x)-f(x))e^{-x} = 0$, donc $g$ est constante. Comme $g(0) = f(0)\cdot 1 = 1$, on a $g(x)=1$ pour tout $x$, d'où $f(x)=e^x$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x &gt; 0$, $\frac{x}{1+x} \le \ln(1+x) \le x$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $f(x) = \ln(1+x)-x$ and $g(x)=\ln(1+x)-\frac{x}{1+x}$. We have $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ for $x &gt; 0$, so $f$ is strictly decreasing on $\mathbb{R}_+^*$, giving $f(x) &lt; f(0) = 0$, i.e. $\ln(1+x) &lt; x$. Similarly, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ for $x &gt; 0$, so $g(x) &gt; 0$, i.e. $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On pose $f(x) = \ln(1+x)-x$ et $g(x)=\ln(1+x)-\frac{x}{1+x}$. On a $f(0)=0$, $f'(x) = \frac{1}{1+x}-1 = \frac{-x}{1+x} &lt; 0$ pour $x &gt; 0$, donc $f$ est strictement décroissante sur $\mathbb{R}_+^*$, d'où $f(x) &lt; f(0) = 0$, soit $\ln(1+x) &lt; x$. De même, $g(0)=0$, $g'(x)=\frac{1}{1+x}-\frac{1}{(1+x)^2}=\frac{x}{(1+x)^2}&gt;0$ pour $x &gt; 0$, donc $g(x) &gt; 0$, soit $\ln(1+x) &gt; \frac{x}{1+x}$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the absolute value function $x \mapsto |x|$ is not differentiable at $0$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la fonction valeur absolue $x \mapsto |x|$ n'est pas dérivable en $0$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Compute the left and right derivatives. For $h &gt; 0$: $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, so $f'_r(0) = 1$. For $h &lt; 0$: $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, so $f'_l(0) = -1$. Since $f'_r(0) \neq f'_l(0)$, $f$ is not differentiable at $0$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On calcule les dérivées à gauche et à droite. Pour $h &gt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{h}{h} = 1$, donc $f'_d(0) = 1$. Pour $h &lt; 0$ : $\frac{|0+h|-|0|}{h} = \frac{-h}{h} = -1$, donc $f'_g(0) = -1$. Comme $f'_d(0) \neq f'_g(0)$, $f$ n'est pas dérivable en $0$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function continuous at a point $a$ but admitting neither a left nor a right derivative at $a$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction continue en un point $a$ mais qui n'admet ni dérivée à gauche, ni dérivée à droite en $a$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Consider $f : \mathbb{R} \to \mathbb{R}$ defined by $f(x) = \sqrt{|x|}$ and $a = 0$. The function $f$ is continuous at $0$ since $0 \le f(x) = \sqrt{|x|} \to 0$ as $x \to 0$. For $h &gt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ as $h \to 0^+$, so $f$ is not right-differentiable at $0$. For $h &lt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ as $h \to 0^-$, so $f$ is not left-differentiable at $0$.</p>
-      <p class="en">Another example: $f(x) = x\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f$ is continuous at $0$ since $|f(x)| \le |x| \to 0$. The difference quotient at $0$ equals $\sin(1/h)$, which has no limit as $h \to 0^+$ or $h \to 0^-$ (taking $h_n = \frac{1}{n\pi}$ gives $0$ and $h_n = \frac{1}{\pi/2 + 2n\pi}$ gives $1$).</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On considère $f : \mathbb{R} \to \mathbb{R}$ définie par $f(x) = \sqrt{|x|}$ et $a = 0$. La fonction $f$ est continue en $0$ car $0 \le f(x) = \sqrt{|x|} \to 0$ quand $x \to 0$. Pour $h &gt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ quand $h \to 0^+$, donc $f$ n'est pas dérivable à droite en $0$. Pour $h &lt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ quand $h \to 0^-$, donc $f$ n'est pas dérivable à gauche en $0$.</p>
-      <p class="fr">Autre exemple : on considère $f(x) = x\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. La fonction $f$ est continue en $0$ car $|f(x)| \le |x| \to 0$. Le taux d'accroissement en $0$ vaut $\sin(1/h)$, qui n'admet pas de limite quand $h \to 0^+$ ni quand $h \to 0^-$ (les suites $h_n = \frac{1}{n\pi}$ et $h_n = \frac{1}{\pi/2 + 2n\pi}$ donnent respectivement $0$ et $1$).</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in \mathbb{R}$, $|\sin x| \le |x|$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">The function $\sin$ is continuous and differentiable on $\mathbb{R}$, with $|\sin'(t)| = |\cos t| \le 1$. By the mean value inequality applied to $\sin$ on $[0,x]$ (or $[x,0]$), we get $|\sin x - \sin 0| \le 1 \cdot |x-0|$, i.e. $|\sin x| \le |x|$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">La fonction $\sin$ est continue sur $\mathbb{R}$ et dérivable sur $\mathbb{R}$, avec $|\sin'(t)| = |\cos t| \le 1$. Par l'inégalité des accroissements finis appliquée à $\sin$ sur $[0,x]$ (ou $[x,0]$), on obtient $|\sin x - \sin 0| \le 1 \cdot |x-0|$, soit $|\sin x| \le |x|$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Show that $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> On note $H_n = \sum_{k=1}^{n} \frac{1}{k}$. Montrer que $H_n \underset{n \to +\infty}{\sim} \ln n$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Apply the mean value theorem to $\ln$ on $[k,k+1]$: there exists $c \in\, ]k,k+1[$ such that $\ln(k+1)-\ln k = \frac{1}{c}$. Since $k &lt; c &lt; k+1$, we get $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. Summing from $k=1$ to $n-1$: $\sum_{k=1}^{n-1} \frac{1}{k+1} \le \ln n \le \sum_{k=1}^{n-1} \frac{1}{k}$ (the middle sum telescopes to $\ln n$). So $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$, giving $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, and dividing by $\ln n$: $\frac{H_n}{\ln n} \to 1$, i.e. $H_n \sim \ln n$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On applique le théorème des accroissements finis à $\ln$ sur $[k,k+1]$ : il existe $c \in\, ]k,k+1[$ tel que $\ln(k+1)-\ln k = \frac{1}{c}$. Comme $k &lt; c &lt; k+1$, on obtient $\frac{1}{k+1} \le \ln(k+1)-\ln k \le \frac{1}{k}$. En sommant pour $k$ allant de $1$ à $n-1$ : la somme centrale est télescopique et vaut $\ln n$. On obtient donc $H_n - 1 \le \ln n \le H_n - \frac{1}{n}$. Ainsi $\ln n + \frac{1}{n} \le H_n \le \ln n + 1$, et en divisant par $\ln n$ : $\frac{H_n}{\ln n} \to 1$, soit $H_n \sim \ln n$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function $f$ differentiable at a point $a$ with $f'(a) &gt; 0$, but not increasing on any neighbourhood of $a$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction $f$ dérivable en un point $a$ avec $f'(a) &gt; 0$, mais qui n'est pas croissante sur aucun voisinage de $a$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $f(x) = x + 2x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. For $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. Setting $x_n = \frac{1}{2n\pi}$, we get $f'(x_n) = 1 - 2 = -1 &lt; 0$. So $f'$ takes negative values arbitrarily close to $0$, meaning $f$ is not increasing on any neighbourhood of $0$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On pose $f(x) = x + 2x^2\sin(1/x)$ pour $x \neq 0$ et $f(0)=0$. On a $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. Pour $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. En posant $x_n = \frac{1}{2n\pi}$, on obtient $f'(x_n) = 1 - 2 = -1 &lt; 0$. Ainsi $f'$ prend des valeurs négatives arbitrairement près de $0$, donc $f$ n'est croissante sur aucun voisinage de $0$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $x \in [-1,1]$, $\arcsin x + \arccos x = \frac{\pi}{2}$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $f(x) = \arcsin x + \arccos x$ on $[-1,1]$. On $]-1,1[$, $f$ is differentiable and $f'(x) = \frac{1}{\sqrt{1-x^2}} - \frac{1}{\sqrt{1-x^2}} = 0$. So $f$ is constant on $]-1,1[$, and by continuity on $[-1,1]$. Since $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$, we conclude $\arcsin x + \arccos x = \frac{\pi}{2}$ for all $x \in [-1,1]$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On pose $f(x) = \arcsin x + \arccos x$ sur $[-1,1]$. Sur $]-1,1[$, $f$ est dérivable et $f'(x) = \frac{1}{\sqrt{1-x^2}} + \frac{-1}{\sqrt{1-x^2}} = 0$. Donc $f$ est constante sur $]-1,1[$, et par continuité sur $[-1,1]$. Or $f(0) = 0 + \frac{\pi}{2} = \frac{\pi}{2}$. Ainsi $\arcsin x + \arccos x = \frac{\pi}{2}$ pour tout $x \in [-1,1]$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (False converse of the limit of the derivative theorem).</span> Give an example of a function $f$ differentiable at a point $a$, but such that $f'(x)$ has no limit as $x \to a$.</p>
-      <p class="fr"><span class="thm-label">Exercice (Réciproque fausse du théorème de la limite de la dérivée).</span> Donner un exemple de fonction $f$ dérivable en un point $a$, mais telle que $f'(x)$ n'admet pas de limite quand $x \to a$.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $f(x) = x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ by the squeeze theorem. For $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. The term $2x\sin(1/x) \to 0$, but $\cos(1/x)$ has no limit: taking $x_n = \frac{1}{2n\pi}$ gives $\cos(1/x_n) = 1$ and $y_n = \frac{1}{(2n+1)\pi/2}$ gives $\cos(1/y_n) = 0$. So $f'(x)$ has no limit at $0$, even though $f'(0)$ exists.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On pose $f(x) = x^2\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. On calcule $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ par encadrement. Pour $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. Le terme $2x\sin(1/x) \to 0$, mais $\cos(1/x)$ n'admet pas de limite (en posant $x_n = \frac{1}{2n\pi}$, $\cos(1/x_n) = 1$ et $y_n = \frac{1}{(2n+1)\pi/2}$, $\cos(1/y_n) = 0$). Donc $f'(x)$ n'a pas de limite en $0$, bien que $f'(0)$ existe.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">Prendre $f(x) = x^3$ sur $\mathbb{R}$ et $a = 0$, donc $b = 0$ et $f'(0) = 0$. L'application $f$ est continue, strictement croissante et dérivable, de réciproque $f^{-1}(y) = y^{1/3}$. Alors $\frac{f^{-1}(k)-f^{-1}(0)}{k} = \frac{k^{1/3}}{k} = \frac{1}{k^{2/3}} \to +\infty$ quand $k \to 0$, donc $f^{-1}$ n'est pas dérivable en $0$. La tangente à $f$ en $0$ est horizontale, et sa réflexion par rapport à $y=x$ est verticale, ce qui n'est pas le graphe d'une pente.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -426,27 +808,12 @@
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $\alpha \in \mathbb{R}$. Montrer que $f : x \mapsto x^\alpha$ est de classe $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$ et déterminer $f^{(k)}$ pour tout $k \in \mathbb{N}$.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en">We have $f(x) = e^{\alpha \ln x}$, a composition of $\mathcal{C}^\infty$ functions on $\mathbb{R}_+^*$, so $f \in \mathcal{C}^\infty(\mathbb{R}_+^*)$. By induction on $k$: $f^{(k)}(x) = \alpha(\alpha-1)\cdots(\alpha-k+1)\,x^{\alpha-k}$. For $k=0$, this is $f(x) = x^\alpha$. If the formula holds at rank $k$, then $f^{(k+1)}(x) = \alpha(\alpha-1)\cdots(\alpha-k)\,x^{\alpha-(k+1)}$.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr">On a $f(x) = e^{\alpha \ln x}$, qui est composée de fonctions $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$, donc $f$ est $\mathcal{C}^\infty$ sur $\mathbb{R}_+^*$. On montre par récurrence sur $k$ que $f^{(k)}(x) = \alpha(\alpha-1)\cdots(\alpha-k+1)\,x^{\alpha-k}$. Pour $k=0$, c'est $f(x) = x^\alpha$. Si la formule est vraie au rang $k$, alors $f^{(k+1)}(x) = \alpha(\alpha-1)\cdots(\alpha-k)\,x^{\alpha-(k+1)}$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be of class $\mathcal{C}^k$ on an interval $I$ vanishing at (at least) $k+1$ points of $I$. Show that $f^{(k)}$ vanishes at least once.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ de classe $\mathcal{C}^k$ sur un intervalle $I$ qui s'annule en (au moins) $k+1$ points de $I$. Montrer que $f^{(k)}$ s'annule en au moins un point.</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">By induction on $k$. For $k=0$: $f$ vanishes at least once, so $f^{(0)}=f$ vanishes; immediate.</p>
-      <p class="en">Assume the result at rank $k-1$ and let $f \in \mathcal{C}^k$ vanish at $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. By Rolle's theorem on each $[a_i, a_{i+1}]$ (for $i=1,\ldots,k$), there exists $c_i \in\, ]a_i, a_{i+1}[$ with $f'(c_i) = 0$. So $f' \in \mathcal{C}^{k-1}$ vanishes at $k$ points, i.e. $(k-1)+1$ points. By the induction hypothesis, $(f')^{(k-1)} = f^{(k)}$ vanishes at least once.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">On raisonne par récurrence sur $k$. Pour $k=0$ : $f$ s'annule en au moins un point, donc $f^{(0)}=f$ s'annule, c'est immédiat.</p>
-      <p class="fr">Supposons le résultat vrai au rang $k-1$ et soit $f$ de classe $\mathcal{C}^k$ s'annulant en $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. Par le théorème de Rolle sur chaque intervalle $[a_i, a_{i+1}]$, il existe $c_i \in\, ]a_i, a_{i+1}[$ tel que $f'(c_i) = 0$. Ainsi $f'$ est de classe $\mathcal{C}^{k-1}$ et s'annule en $k$ points. Par l'hypothèse de récurrence, $f^{(k)}$ s'annule en au moins un point.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -454,27 +821,29 @@
       <p class="fr"><span class="thm-label">Exercice.</span> On dit que $f$ possède une <em>dérivée symétrique</em> en $0$ si $\lim_{h\to 0}\frac{f(h)-f(-h)}{2h}$ existe dans $\mathbb{R}$. Montrer que si $f$ est dérivable en $0$, alors $f$ possède une dérivée symétrique en $0$ égale à $f'(0)$. La réciproque est-elle vraie ?</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en"><em>Direct.</em> Write $\frac{f(h)-f(-h)}{2h} = \frac{1}{2}\cdot\frac{f(h)-f(0)}{h} + \frac{1}{2}\cdot\frac{f(-h)-f(0)}{-h}$. As $h\to 0$, both quotients tend to $f'(0)$, so $\frac{f(h)-f(-h)}{2h}\to f'(0)$.</p>
       <p class="en"><em>Converse is false.</em> The function $f(x)=|x|$ has symmetric derivative $0$ at $0$: $\frac{|h|-|-h|}{2h}=0\to 0$. Yet $f$ is not differentiable at $0$ since $\frac{|h|}{h}$ has no limit.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr"><em>Sens direct.</em> On écrit $\frac{f(h)-f(-h)}{2h} = \frac{1}{2}\cdot\frac{f(h)-f(0)}{h} + \frac{1}{2}\cdot\frac{f(-h)-f(0)}{-h}$. Quand $h\to 0$, les deux quotients tendent vers $f'(0)$, donc $\frac{f(h)-f(-h)}{2h}\to f'(0)$.</p>
       <p class="fr"><em>Réciproque fausse.</em> La fonction $f(x)=|x|$ possède une dérivée symétrique en $0$ : $\frac{|h|-|-h|}{2h}=0\to 0$. Pourtant $f$ n'est pas dérivable en $0$ car $\frac{|h|}{h}$ n'a pas de limite.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,+\infty[ \to \mathbb{R}$ be differentiable with $f(0)=0$, $f \ge 0$, and $\forall x \ge 0,\ f'(x) \le a\,f(x)$ for some $a &gt; 0$. Show that $f$ is identically zero.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,+\infty[ \to \mathbb{R}$ dérivable telle que $f(0)=0$, $f \ge 0$, et $\forall x \ge 0,\ f'(x) \le a\,f(x)$ avec $a &gt; 0$. Montrer que $f$ est nulle.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function continuous at a point $a$ but admitting neither a left nor a right derivative at $a$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction continue en un point $a$ mais qui n'admet ni dérivée à gauche, ni dérivée à droite en $a$.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Set $g(x) = f(x)e^{-ax}$. Then $g(0) = 0$ and $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, so $g$ is decreasing. Thus $g(x) \le g(0) = 0$ for all $x \ge 0$. Since $f \ge 0$, we have $g \ge 0$. Therefore $g = 0$ on $[0,+\infty[$, so $f = 0$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Consider $f : \mathbb{R} \to \mathbb{R}$ defined by $f(x) = \sqrt{|x|}$ and $a = 0$. The function $f$ is continuous at $0$ since $0 \le f(x) = \sqrt{|x|} \to 0$ as $x \to 0$. For $h &gt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ as $h \to 0^+$, so $f$ is not right-differentiable at $0$. For $h &lt; 0$: $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ as $h \to 0^-$, so $f$ is not left-differentiable at $0$.</p>
+      <p class="en">Another example: $f(x) = x\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f$ is continuous at $0$ since $|f(x)| \le |x| \to 0$. The difference quotient at $0$ equals $\sin(1/h)$, which has no limit as $h \to 0^+$ or $h \to 0^-$ (taking $h_n = \frac{1}{n\pi}$ gives $0$ and $h_n = \frac{1}{\pi/2 + 2n\pi}$ gives $1$).</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Posons $g(x) = f(x)e^{-ax}$. Alors $g(0) = 0$ et $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, donc $g$ est décroissante. Ainsi $g(x) \le g(0) = 0$ pour tout $x \ge 0$. Or $f \ge 0$ implique $g \ge 0$. Donc $g = 0$ sur $[0,+\infty[$, soit $f = 0$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">On considère $f : \mathbb{R} \to \mathbb{R}$ définie par $f(x) = \sqrt{|x|}$ et $a = 0$. La fonction $f$ est continue en $0$ car $0 \le f(x) = \sqrt{|x|} \to 0$ quand $x \to 0$. Pour $h &gt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{h}}{h} = \frac{1}{\sqrt{h}} \to +\infty$ quand $h \to 0^+$, donc $f$ n'est pas dérivable à droite en $0$. Pour $h &lt; 0$ : $\frac{f(h)-f(0)}{h} = \frac{\sqrt{-h}}{h} = \frac{-1}{\sqrt{-h}} \to -\infty$ quand $h \to 0^-$, donc $f$ n'est pas dérivable à gauche en $0$.</p>
+      <p class="fr">Autre exemple : on considère $f(x) = x\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. La fonction $f$ est continue en $0$ car $|f(x)| \le |x| \to 0$. Le taux d'accroissement en $0$ vaut $\sin(1/h)$, qui n'admet pas de limite quand $h \to 0^+$ ni quand $h \to 0^-$ (les suites $h_n = \frac{1}{n\pi}$ et $h_n = \frac{1}{\pi/2 + 2n\pi}$ donnent respectivement $0$ et $1$).</p>
     </details>
 
     <div class="thm-block exercise">
@@ -482,27 +851,14 @@
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f'(x) \to +\infty$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ? La réciproque est-elle vraie ?</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en"><em>Direct.</em> Since $f'(x)\to+\infty$, there exists $A$ with $f'(x)\ge 1$ for all $x\ge A$. For $x\ge A$, the mean value theorem on $[A,x]$ gives $c\in\,]A,x[$ with $f(x)-f(A)=f'(c)(x-A)\ge x-A\to+\infty$. So $f(x)\to+\infty$.</p>
       <p class="en"><em>Converse is false.</em> $f(x)=x+\sin(x)$ satisfies $f(x)\to+\infty$ but $f'(x)=1+\cos(x)$ has no limit. Also $f(x)=\ln(x)\to+\infty$ but $f'(x)=1/x\to 0$.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr"><em>Sens direct.</em> Puisque $f'(x)\to+\infty$, il existe $A$ tel que $f'(x)\ge 1$ pour tout $x\ge A$. Pour $x\ge A$, le théorème des accroissements finis sur $[A,x]$ donne $c\in\,]A,x[$ tel que $f(x)-f(A)=f'(c)(x-A)\ge x-A\to+\infty$. Donc $f(x)\to+\infty$.</p>
       <p class="fr"><em>Réciproque fausse.</em> $f(x)=x+\sin(x)$ vérifie $f(x)\to+\infty$ mais $f'(x)=1+\cos(x)$ n'a pas de limite. De même, $f(x)=\ln(x)\to+\infty$ mais $f'(x)=1/x\to 0$.</p>
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $xf'(x) \to 1$ as $x \to +\infty$. What can be said about the limit of $f$ at $+\infty$?</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $xf'(x) \to 1$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ?</p>
-    </div>
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Since $xf'(x) \to 1 &gt; 0$, there exists $A &gt; 0$ with $f'(x) &gt; \frac{1}{2x}$ for all $x &gt; A$. Set $g(x) = f(x) - \frac{1}{2}\ln x$. Then $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ for $x &gt; A$, so $g$ is increasing on $[A,+\infty[$, giving $g(x) \ge g(A)$. Thus $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Puisque $xf'(x) \to 1 &gt; 0$, il existe $A &gt; 0$ tel que pour tout $x &gt; A$, $f'(x) &gt; \frac{1}{2x}$. Posons $g(x) = f(x) - \frac{1}{2}\ln x$. Alors $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ pour $x &gt; A$, donc $g$ est croissante sur $[A,+\infty[$, d'où $g(x) \ge g(A)$. Ainsi $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -510,11 +866,11 @@
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f'(x) \to 0$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ?</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en">Nothing can be concluded: $f$ may have a finite limit, an infinite limit, or no limit at all. Counterexamples: $f(x) = 1/x \to 0$ with $f'(x) = -1/x^2 \to 0$; $f(x) = \ln x \to +\infty$ with $f'(x) = 1/x \to 0$; $f(x) = \sin(\sqrt{x})$ has no limit with $f'(x) = \frac{\cos(\sqrt{x})}{2\sqrt{x}} \to 0$.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr">On ne peut rien conclure : $f$ peut avoir une limite finie, infinie, ou pas de limite du tout. Contre-exemples : $f(x) = 1/x \to 0$ avec $f'(x) = -1/x^2 \to 0$ ; $f(x) = \ln x \to +\infty$ avec $f'(x) = 1/x \to 0$ ; $f(x) = \sin(\sqrt{x})$ n'a pas de limite avec $f'(x) = \frac{\cos(\sqrt{x})}{2\sqrt{x}} \to 0$.</p>
     </details>
 
@@ -523,46 +879,92 @@
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $f(x) \to 0$ quand $x \to +\infty$. Que peut-on dire de la limite de $f'$ en $+\infty$ ?</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en">Nothing can be concluded. Counterexamples: $f(x) = 1/x \to 0$ with $f'(x) = -1/x^2 \to 0$; $f(x) = \frac{\sin(x^2)}{x} \to 0$ but $f'(x) = 2\cos(x^2) - \frac{\sin(x^2)}{x^2}$ has no limit: taking $x_n = \sqrt{2n\pi}$ gives $f'(x_n) \to 2$, and $y_n = \sqrt{(2n+1)\pi}$ gives $f'(y_n) \to -2$.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr">On ne peut rien conclure. Contre-exemples : $f(x) = 1/x \to 0$ avec $f'(x) = -1/x^2 \to 0$ ; $f(x) = \frac{\sin(x^2)}{x} \to 0$ mais $f'(x) = 2\cos(x^2) - \frac{\sin(x^2)}{x^2}$ n'a pas de limite : en posant $x_n = \sqrt{2n\pi}$, $f'(x_n) \to 2$ ; en posant $y_n = \sqrt{(2n+1)\pi}$, $f'(y_n) \to -2$.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \mathbb{R} \to \mathbb{R}$ be of class $\mathcal{C}^1$ such that $f(f(x)) = \frac{x}{2} + 3$ for all $x \in \mathbb{R}$. Determine all functions satisfying this property.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \mathbb{R} \to \mathbb{R}$ de classe $\mathcal{C}^1$ telle que $f(f(x)) = \frac{x}{2} + 3$ pour tout $x \in \mathbb{R}$. Déterminer toutes les fonctions vérifiant cette propriété.</p>
+      <p class="en"><span class="thm-label">Exercise (False converse of the limit of the derivative theorem).</span> Give an example of a function $f$ differentiable at a point $a$, but such that $f'(x)$ has no limit as $x \to a$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Réciproque fausse du théorème de la limite de la dérivée).</span> Donner un exemple de fonction $f$ dérivable en un point $a$, mais telle que $f'(x)$ n'admet pas de limite quand $x \to a$.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Applying $f$ to both sides of $f(f(x)) = x/2+3$ gives $f(f(f(x))) = f(x/2+3)$. But applying the relation to $f(x)$: $f(f(f(x))) = f(x)/2+3$. So $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ for all $x$. Differentiating: $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. The sequence $x_n = T^n(x)$ satisfies $x_{n+1} = x_n/2 + 3$, with fixed point $6$: $x_n - 6 = (x-6)/2^n \to 0$. By continuity of $f'$: $f'(x) = f'(T^n(x)) \to f'(6)$. So $f'$ is constant and $f(x) = ax+b$. Then $f(f(x)) = a^2x+b(a+1) = x/2+3$ gives $a^2 = 1/2$ and $b(a+1)=3$, so:</p>
-      <ul class="en">
-        <li>$a = \frac{1}{\sqrt{2}}$: $b = 6-3\sqrt{2}$, giving $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
-        <li>$a = -\frac{1}{\sqrt{2}}$: $b = 6+3\sqrt{2}$, giving $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
-      </ul>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Set $f(x) = x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ by the squeeze theorem. For $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. The term $2x\sin(1/x) \to 0$, but $\cos(1/x)$ has no limit: taking $x_n = \frac{1}{2n\pi}$ gives $\cos(1/x_n) = 1$ and $y_n = \frac{1}{(2n+1)\pi/2}$ gives $\cos(1/y_n) = 0$. So $f'(x)$ has no limit at $0$, even though $f'(0)$ exists.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">En appliquant $f$ aux deux membres de $f(f(x)) = x/2+3$, on obtient $f(f(f(x))) = f(x/2+3)$. Mais en appliquant la relation à $f(x)$ : $f(f(f(x))) = f(x)/2+3$. Donc $f\!\left(\frac{x}{2}+3\right) = \frac{f(x)}{2}+3$ pour tout $x$. En dérivant : $f'\!\left(\frac{x}{2}+3\right) = f'(x)$. La suite $x_n = T^n(x)$ converge vers $6$. Par continuité de $f'$ : $f'$ est constante et $f(x) = ax+b$. Enfin, $f(f(x)) = a^2x+b(a+1) = x/2+3$ donne $a^2 = 1/2$ et $b(a+1)=3$, d'où :</p>
-      <ul class="fr">
-        <li>$a = \frac{1}{\sqrt{2}}$ : $b = 6-3\sqrt{2}$, soit $f(x) = \frac{x}{\sqrt{2}} + 6 - 3\sqrt{2}$.</li>
-        <li>$a = -\frac{1}{\sqrt{2}}$ : $b = 6+3\sqrt{2}$, soit $f(x) = -\frac{x}{\sqrt{2}} + 6 + 3\sqrt{2}$.</li>
-      </ul>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">On pose $f(x) = x^2\sin(1/x)$ si $x \neq 0$ et $f(0)=0$. On calcule $f'(0) = \lim_{h \to 0} h\sin(1/h) = 0$ par encadrement. Pour $x \neq 0$, $f'(x) = 2x\sin(1/x) - \cos(1/x)$. Le terme $2x\sin(1/x) \to 0$, mais $\cos(1/x)$ n'admet pas de limite (en posant $x_n = \frac{1}{2n\pi}$, $\cos(1/x_n) = 1$ et $y_n = \frac{1}{(2n+1)\pi/2}$, $\cos(1/y_n) = 0$). Donc $f'(x)$ n'a pas de limite en $0$, bien que $f'(0)$ existe.</p>
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute the derivative of $f(x) = \ln(x + \sqrt{x^2+1})$ on $\mathbb{R}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer la dérivée de $f(x) = \ln(x + \sqrt{x^2+1})$ sur $\mathbb{R}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Give an example of a function $f$ differentiable at a point $a$ with $f'(a) &gt; 0$, but not increasing on any neighbourhood of $a$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Donner un exemple de fonction $f$ dérivable en un point $a$ avec $f'(a) &gt; 0$, mais qui n'est croissante sur aucun voisinage de $a$.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Set $f(x) = x + 2x^2\sin(1/x)$ for $x \neq 0$ and $f(0)=0$. Then $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. For $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. Setting $x_n = \frac{1}{2n\pi}$, we get $f'(x_n) = 1 - 2 = -1 &lt; 0$. So $f'$ takes negative values arbitrarily close to $0$, meaning $f$ is not increasing on any neighbourhood of $0$. The sign of the derivative at a single point controls nothing on an interval; only a sign on the whole interval does, through the mean value theorem.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$f'(x) = \dfrac{1 + \dfrac{x}{\sqrt{x^2+1}}}{x + \sqrt{x^2+1}} = \dfrac{\dfrac{\sqrt{x^2+1}+x}{\sqrt{x^2+1}}}{x+\sqrt{x^2+1}} = \dfrac{1}{\sqrt{x^2+1}}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">On pose $f(x) = x + 2x^2\sin(1/x)$ pour $x \neq 0$ et $f(0)=0$. On a $f'(0) = \lim_{h \to 0} (1+2h\sin(1/h)) = 1 &gt; 0$. Pour $x \neq 0$, $f'(x) = 1+4x\sin(1/x)-2\cos(1/x)$. En posant $x_n = \frac{1}{2n\pi}$, on obtient $f'(x_n) = 1 - 2 = -1 &lt; 0$. Ainsi $f'$ prend des valeurs négatives arbitrairement près de $0$, donc $f$ n'est croissante sur aucun voisinage de $0$. Le signe de la dérivée en un seul point ne contrôle rien sur un intervalle ; seul un signe sur l'intervalle entier le fait, via l'égalité des accroissements finis.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : [0,+\infty[ \to \mathbb{R}$ be differentiable with $f(0)=0$, $f \ge 0$, and $\forall x \ge 0,\ f'(x) \le a\,f(x)$ for some $a &gt; 0$. Show that $f$ is identically zero.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : [0,+\infty[ \to \mathbb{R}$ dérivable telle que $f(0)=0$, $f \ge 0$, et $\forall x \ge 0,\ f'(x) \le a\,f(x)$ avec $a &gt; 0$. Montrer que $f$ est nulle.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Set $g(x) = f(x)e^{-ax}$. Then $g(0) = 0$ and $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, so $g$ is decreasing. Thus $g(x) \le g(0) = 0$ for all $x \ge 0$. Since $f \ge 0$, we have $g \ge 0$. Therefore $g = 0$ on $[0,+\infty[$, so $f = 0$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">Posons $g(x) = f(x)e^{-ax}$. Alors $g(0) = 0$ et $g'(x) = e^{-ax}(f'(x) - af(x)) \le 0$, donc $g$ est décroissante. Ainsi $g(x) \le g(0) = 0$ pour tout $x \ge 0$. Or $f \ge 0$ implique $g \ge 0$. Donc $g = 0$ sur $[0,+\infty[$, soit $f = 0$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f : \,]0,+\infty[\, \to \mathbb{R}$ be differentiable with $xf'(x) \to 1$ as $x \to +\infty$. What can be said about the limit of $f$ at $+\infty$?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f : \,]0,+\infty[\, \to \mathbb{R}$ dérivable telle que $xf'(x) \to 1$ quand $x \to +\infty$. Que peut-on dire de la limite de $f$ en $+\infty$ ?</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Since $xf'(x) \to 1 &gt; 0$, there exists $A &gt; 0$ with $f'(x) &gt; \frac{1}{2x}$ for all $x &gt; A$. Set $g(x) = f(x) - \frac{1}{2}\ln x$. Then $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ for $x &gt; A$, so $g$ is increasing on $[A,+\infty[$, giving $g(x) \ge g(A)$. Thus $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">Puisque $xf'(x) \to 1 &gt; 0$, il existe $A &gt; 0$ tel que pour tout $x &gt; A$, $f'(x) &gt; \frac{1}{2x}$. Posons $g(x) = f(x) - \frac{1}{2}\ln x$. Alors $g'(x) = f'(x) - \frac{1}{2x} &gt; 0$ pour $x &gt; A$, donc $g$ est croissante sur $[A,+\infty[$, d'où $g(x) \ge g(A)$. Ainsi $f(x) = g(x) + \frac{1}{2}\ln x \ge g(A) + \frac{1}{2}\ln x \to +\infty$.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $f$ be of class $\mathcal{C}^k$ on an interval $I$ vanishing at (at least) $k+1$ points of $I$. Show that $f^{(k)}$ vanishes at least once.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f$ de classe $\mathcal{C}^k$ sur un intervalle $I$ qui s'annule en (au moins) $k+1$ points de $I$. Montrer que $f^{(k)}$ s'annule en au moins un point.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">By induction on $k$. For $k=0$: $f$ vanishes at least once, so $f^{(0)}=f$ vanishes; immediate.</p>
+      <p class="en">Assume the result at rank $k-1$ and let $f \in \mathcal{C}^k$ vanish at $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. By Rolle's theorem on each $[a_i, a_{i+1}]$ (for $i=1,\ldots,k$), there exists $c_i \in\, ]a_i, a_{i+1}[$ with $f'(c_i) = 0$. So $f' \in \mathcal{C}^{k-1}$ vanishes at $k$ points, i.e. $(k-1)+1$ points. By the induction hypothesis, $(f')^{(k-1)} = f^{(k)}$ vanishes at least once.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">On raisonne par récurrence sur $k$. Pour $k=0$ : $f$ s'annule en au moins un point, donc $f^{(0)}=f$ s'annule, c'est immédiat.</p>
+      <p class="fr">Supposons le résultat vrai au rang $k-1$ et soit $f$ de classe $\mathcal{C}^k$ s'annulant en $k+1$ points $a_1 &lt; \cdots &lt; a_{k+1}$. Par le théorème de Rolle sur chaque intervalle $[a_i, a_{i+1}]$, il existe $c_i \in\, ]a_i, a_{i+1}[$ tel que $f'(c_i) = 0$. Ainsi $f'$ est de classe $\mathcal{C}^{k-1}$ et s'annule en $k$ points. Par l'hypothèse de récurrence, $f^{(k)}$ s'annule en au moins un point.</p>
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (L'Hôpital's rule).</span> Let $f,g$ be differentiable on an interval $I$ minus a point $a$, with $g' \neq 0$ near $a$. If $f(x) \to 0$ and $g(x) \to 0$ as $x \to a$, and if $\frac{f'(x)}{g'(x)} \to \ell$ (finite), show that $\frac{f(x)}{g(x)} \to \ell$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Règle de L'Hôpital).</span> Soient $f,g$ dérivables sur un intervalle $I$ privé d'un point $a$, avec $g' \neq 0$ au voisinage de $a$. Si $f(x) \to 0$ et $g(x) \to 0$ quand $x \to a$, et si $\frac{f'(x)}{g'(x)} \to \ell$ (finie), montrer que $\frac{f(x)}{g(x)} \to \ell$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <p class="en">Extend $f$ and $g$ by continuity setting $f(a)=g(a)=0$. For $x \neq a$ near $a$, Cauchy's theorem applied between $a$ and $x$ gives $c$ between $a$ and $x$ such that $f(x)\,g'(c) = g(x)\,f'(c)$. Since $g'(c) \neq 0$, we have $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. As $x \to a$, $c \to a$, so $\frac{f'(c)}{g'(c)} \to \ell$.</p>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <p class="fr">On prolonge $f$ et $g$ par continuité en posant $f(a)=g(a)=0$. Pour $x \neq a$ au voisinage de $a$, le théorème de Cauchy appliqué entre $a$ et $x$ donne $c$ entre $a$ et $x$ tel que $f(x)\,g'(c) = g(x)\,f'(c)$. Comme $g'(c) \neq 0$, on a $\frac{f(x)}{g(x)} = \frac{f'(c)}{g'(c)}$. Quand $x \to a$, $c \to a$, donc $\frac{f'(c)}{g'(c)} \to \ell$.</p>
     </details>
 
     <div class="thm-block exercise">
@@ -570,14 +972,14 @@
       <p class="fr"><span class="thm-label">Exercice (Théorème de Darboux).</span> Soit $f : [a,b] \to \mathbb{R}$ dérivable sur $[a,b]$. Montrer que $f'$ vérifie la propriété des valeurs intermédiaires : pour tout $\lambda$ compris strictement entre $f'(a)$ et $f'(b)$, il existe $c \in\, ]a,b[$ tel que $f'(c) = \lambda$. En particulier, si $f'(a) \neq f'(b)$, alors $f'([a,b])$ est un intervalle.</p>
     </div>
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="en">Assume $f'(a) &lt; \lambda &lt; f'(b)$ (the case $f'(a) &gt; \lambda &gt; f'(b)$ follows by replacing $f$ by $-f$). Set $g(x) = f(x) - \lambda x$, so $g'(x) = f'(x) - \lambda$.</p>
       <p class="en">Since $g'(a) = f'(a) - \lambda &lt; 0$, for small $h &gt; 0$ we have $g(a+h) &lt; g(a)$, so $g(a)$ is not the minimum of $g$ on $[a,b]$.</p>
       <p class="en">Since $g'(b) = f'(b) - \lambda &gt; 0$, for small $h &lt; 0$ we have $g(b+h) &lt; g(b)$, so $g(b)$ is not the minimum either.</p>
       <p class="en">Since $g$ is continuous on the compact $[a,b]$, it attains its minimum at some $c \in [a,b]$. Since $c \notin \{a,b\}$, we have $c \in\, ]a,b[$, and since this is an interior minimum, $g'(c) = 0$, i.e. $f'(c) = \lambda$.</p>
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
+      <summary class="proof-label">Solution.</summary>
       <p class="fr">Supposons $f'(a) &lt; \lambda &lt; f'(b)$ (le cas $f'(a) &gt; \lambda &gt; f'(b)$ s'en déduit en remplaçant $f$ par $-f$). On pose $g(x) = f(x) - \lambda x$. Alors $g$ est dérivable sur $[a,b]$ et $g'(x) = f'(x) - \lambda$.</p>
       <p class="fr">On a $g'(a) = f'(a) - \lambda &lt; 0$, donc pour $h &gt; 0$ assez petit, $g(a+h) &lt; g(a)$. En particulier, $g(a)$ n'est pas le minimum de $g$ sur $[a,b]$.</p>
       <p class="fr">De même, $g'(b) = f'(b) - \lambda &gt; 0$, donc pour $h &lt; 0$ assez petit, $g(b+h) &lt; g(b)$. En particulier, $g(b)$ n'est pas le minimum de $g$ sur $[a,b]$.</p>

@@ -9,6 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -23,17 +24,44 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <h3 class="en">Construction of number sets</h3>
-    <h3 class="fr">Construction des ensembles de nombres</h3>
+    <h3 class="en">The natural numbers</h3>
+    <h3 class="fr">Les entiers naturels</h3>
 
-    <h4 class="en">The natural numbers $\mathbb{N}$</h4>
-    <h4 class="fr">Les entiers naturels $\mathbb{N}$</h4>
+    <p class="en">The empty set exists, and from any set one can form a new one by adjoining a further element.</p>
+    <p class="fr">L'ensemble vide existe, et à partir de tout ensemble on peut en former un nouveau en lui adjoignant un élément supplémentaire.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Inductive set, $\mathbb{N}$).</span> A set $E$ is <em>inductive</em> if it contains $\varnothing$ and if for every $x\in E$, $S(x)=x\cup\{x\}\in E$. The element $S(x)$ is called the <em>successor</em> of $x$. The <em>axiom of infinity</em> (ZF) asserts the existence of an inductive set. We define $\mathbb{N}$ as the intersection of all inductive sets: it is the smallest inductive set. We write $0=\varnothing$ and the subsequent elements are the finite von Neumann ordinals: $0=\varnothing$, $1=\{\varnothing\}$, $2=\{\varnothing,\{\varnothing\}\}$, $3=\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\}$, $\ldots$ Note that each $n=\{0,1,\ldots,n-1\}$.</p>
       <p class="fr"><span class="thm-label">Définition (Ensemble inductif, $\mathbb{N}$).</span> Un ensemble $E$ est <em>inductif</em> s'il contient $\varnothing$ et si pour tout $x\in E$, $S(x)=x\cup\{x\}\in E$. L'élément $S(x)$ est appelé <em>successeur</em> de $x$. L'<em>axiome de l'infini</em> (ZF) postule l'existence d'un ensemble inductif. On définit $\mathbb{N}$ comme l'intersection de tous les ensembles inductifs : c'est le plus petit ensemble inductif. On note $0=\varnothing$ et les éléments suivants sont les ordinaux finis de von Neumann : $0=\varnothing$, $1=\{\varnothing\}$, $2=\{\varnothing,\{\varnothing\}\}$, $3=\{\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\}\}$, $\ldots$ On observe que chaque $n=\{0,1,\ldots,n-1\}$.</p>
     </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="424" height="113" viewBox="50.0 126.0 424.0 112.9">
+        <rect class="fig-shape" x="60.0" y="178.0" width="22.0" height="22.0" rx="4.0"/>
+        <text x="71.0" y="224.0" text-anchor="middle">0</text>
+        <rect class="fig-shape" x="116.0" y="164.0" width="36.0" height="36.0" rx="4.0"/>
+        <rect class="fig-shape" x="123.0" y="171.0" width="22.0" height="22.0" rx="4.0"/>
+        <text x="134.0" y="224.0" text-anchor="middle">1</text>
+        <rect class="fig-shape" x="186.0" y="150.0" width="79.0" height="50.0" rx="4.0"/>
+        <rect class="fig-shape" x="193.0" y="171.0" width="22.0" height="22.0" rx="4.0"/>
+        <rect class="fig-shape" x="222.0" y="157.0" width="36.0" height="36.0" rx="4.0"/>
+        <rect class="fig-shape" x="229.0" y="164.0" width="22.0" height="22.0" rx="4.0"/>
+        <text x="225.5" y="224.0" text-anchor="middle">2</text>
+        <rect class="fig-shape" x="299.0" y="136.0" width="165.0" height="64.0" rx="4.0"/>
+        <rect class="fig-shape" x="306.0" y="171.0" width="22.0" height="22.0" rx="4.0"/>
+        <rect class="fig-shape" x="335.0" y="157.0" width="36.0" height="36.0" rx="4.0"/>
+        <rect class="fig-shape" x="342.0" y="164.0" width="22.0" height="22.0" rx="4.0"/>
+        <rect class="fig-shape" x="378.0" y="143.0" width="79.0" height="50.0" rx="4.0"/>
+        <rect class="fig-shape" x="385.0" y="164.0" width="22.0" height="22.0" rx="4.0"/>
+        <rect class="fig-shape" x="414.0" y="150.0" width="36.0" height="36.0" rx="4.0"/>
+        <rect class="fig-shape" x="421.0" y="157.0" width="22.0" height="22.0" rx="4.0"/>
+        <text x="381.5" y="224.0" text-anchor="middle">3</text>
+      </svg>
+      <figcaption><span class="en">The first four naturals drawn as boxes. Passing from $n$ to $S(n)=n\cup\{n\}$ wraps a new box around a copy of everything already there, so each $n$ ends up holding exactly the boxes $0,\ldots,n-1$, and the number of boxes it holds is $n$.</span><span class="fr">Les quatre premiers entiers dessinés comme des boîtes. Passer de $n$ à $S(n)=n\cup\{n\}$ enferme dans une nouvelle boîte une copie de tout ce qui précède, donc chaque $n$ contient exactement les boîtes $0,\ldots,n-1$, et le nombre de boîtes qu'il contient vaut $n$.</span></figcaption>
+    </figure>
+
+    <p class="en">A subset of $\mathbb{N}$ containing $0$ and closed under the successor is itself an inductive set, and $\mathbb{N}$ is contained in every inductive set.</p>
+    <p class="fr">Une partie de $\mathbb{N}$ contenant $0$ et stable par successeur est elle-même un ensemble inductif, et $\mathbb{N}$ est contenu dans tout ensemble inductif.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Induction principle).</span> If $A\subset\mathbb{N}$ satisfies $0\in A$ and $\forall n\in A,\;S(n)\in A$, then $A=\mathbb{N}$. In particular, to show that a property $P(n)$ holds for all $n\in\mathbb{N}$, it suffices to show $P(0)$ and $\forall n,\;P(n)\Rightarrow P(S(n))$: apply the theorem to $A=\{n\in\mathbb{N}:P(n)\}$.</p>
@@ -81,6 +109,9 @@
       Récurrence sur $n$ : pour $n=0$, $0+m=m=m+0$. Si $n+m=m+n$, alors $S(n)+m=S(n+m)=S(m+n)=m+S(n)$.
     </details>
 
+    <p class="en">If a nonempty part of $\mathbb{N}$ had no minimum, its complement would contain $0$ and be closed under the successor.</p>
+    <p class="fr">Si une partie non vide de $\mathbb{N}$ n'avait pas de minimum, son complémentaire contiendrait $0$ et serait stable par successeur.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Well-ordering of $\mathbb{N}$).</span> The relation $n\le m\Leftrightarrow\exists k\in\mathbb{N},\;n+k=m$ is a well-ordering: every nonempty subset of $\mathbb{N}$ has a minimum.</p>
       <p class="fr"><span class="thm-label">Proposition (Bon ordre sur $\mathbb{N}$).</span> La relation $n\le m\Leftrightarrow\exists k\in\mathbb{N},\;n+k=m$ est un bon ordre : toute partie non vide de $\mathbb{N}$ admet un minimum.</p>
@@ -95,10 +126,89 @@
       C'est un ordre : réflexivité ($n+0=n$), antisymétrie (si $n+k=m$ et $m+l=n$ alors $n+k+l=n$ donc $k=l=0$), transitivité (si $n+k=m$ et $m+l=p$ alors $n+(k+l)=p$). Toute partie non vide $A\subset\mathbb{N}$ admet un minimum : sinon, $\mathbb{N}\setminus A$ serait inductif (car $0\notin A$, et si $n\notin A$ alors $S(n)\notin A$ car sinon $S(n)$ serait minimal dans $A$), donc $\mathbb{N}\setminus A=\mathbb{N}$, contradiction. L'ordre est total : si $n$ et $m$ ne sont pas comparables, $\{n,m\}$ est une partie non vide sans minimum, ce qui contredit le bon ordre.
     </details>
 
+    <h3 class="en">The integers</h3>
+    <h3 class="fr">Les entiers relatifs</h3>
+
+    <p class="en">In $\mathbb{N}$ the difference $a-b$ exists only when $b\le a$. Writing the pair $(a,b)$ instead of the difference costs nothing and is always available, but many pairs then stand for the same difference.</p>
+    <p class="fr">Dans $\mathbb{N}$, la différence $a-b$ n'existe que si $b\le a$. Écrire le couple $(a,b)$ au lieu de la différence ne coûte rien et est toujours possible, mais plusieurs couples désignent alors la même différence.</p>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Define on $\mathbb{N}\times\mathbb{N}$ the relation $(a,b)\sim(c,d)\Leftrightarrow a+d=b+c$. Set $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$. The class of $(a,b)$ represents the integer $a-b$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathbb{N}\times\mathbb{N}$ la relation $(a,b)\sim(c,d)\Leftrightarrow a+d=b+c$. On pose $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$. La classe de $(a,b)$ représente l'entier $a-b$.</p>
     </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="242" height="255" viewBox="50.5 29.4 241.8 255.4">
+        <line class="fig-axis" x1="66.0" y1="250.0" x2="282.0" y2="250.0"/>
+        <line class="fig-axis" x1="80.0" y1="264.0" x2="80.0" y2="48.0"/>
+        <line class="fig-guide" x1="80.0" y1="130.0" x2="140.0" y2="70.0"/>
+        <line class="fig-guide" x1="80.0" y1="160.0" x2="170.0" y2="70.0"/>
+        <line class="fig-guide" x1="80.0" y1="190.0" x2="200.0" y2="70.0"/>
+        <line class="fig-guide" x1="80.0" y1="220.0" x2="230.0" y2="70.0"/>
+        <line class="fig-guide" x1="80.0" y1="250.0" x2="260.0" y2="70.0"/>
+        <line class="fig-guide" x1="110.0" y1="250.0" x2="260.0" y2="100.0"/>
+        <line class="fig-guide" x1="140.0" y1="250.0" x2="260.0" y2="130.0"/>
+        <line class="fig-guide" x1="170.0" y1="250.0" x2="260.0" y2="160.0"/>
+        <line class="fig-guide" x1="200.0" y1="250.0" x2="260.0" y2="190.0"/>
+        <circle class="fig-dot" cx="80.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="110.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="230.0" cy="70.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="190.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="160.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="130.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="70.0" r="3.0"/>
+        <text x="274.0" y="64.0" text-anchor="start">0</text>
+        <text x="274.0" y="94.0" text-anchor="start">1</text>
+        <text x="274.0" y="124.0" text-anchor="start">2</text>
+        <text x="226.0" y="56.0" text-anchor="middle">−1</text>
+        <text x="196.0" y="56.0" text-anchor="middle">−2</text>
+        <text x="276.0" y="270.0" text-anchor="middle">a</text>
+        <text x="64.0" y="54.0" text-anchor="middle">b</text>
+      </svg>
+      <figcaption><span class="en">The lattice $\mathbb{N}\times\mathbb{N}$. The condition $a+d=b+c$ says that $(a,b)$ and $(c,d)$ lie on the same diagonal, so each diagonal is one class and becomes one integer. The diagonal through the origin becomes $0$, the ones below it the positive integers, the ones above it the negative ones.</span><span class="fr">Le réseau $\mathbb{N}\times\mathbb{N}$. La condition $a+d=b+c$ dit que $(a,b)$ et $(c,d)$ sont sur la même diagonale, donc chaque diagonale est une classe et devient un entier. La diagonale passant par l'origine devient $0$, celles en dessous les entiers positifs, celles au-dessus les négatifs.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation.</p>
@@ -113,6 +223,9 @@
       <summary class="proof-label">Démonstration.</summary>
       Réflexivité : $a+b=b+a$. Symétrie : si $a+d=b+c$, alors $c+b=d+a$. Transitivité : si $a+d=b+c$ et $c+f=d+e$, alors en sommant $a+d+c+f=b+c+d+e$, d'où $a+f=b+e$ par simplification.
     </details>
+
+    <p class="en">An operation on pairs descends to the classes as soon as replacing a pair by an equivalent one leaves the class of the result unchanged.</p>
+    <p class="fr">Une opération sur les couples passe aux classes dès que remplacer un couple par un couple équivalent ne change pas la classe du résultat.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Operations on $\mathbb{Z}$).</span> Define on $\mathbb{Z}$:</p>
@@ -148,17 +261,82 @@
       <em>Intégrité :</em> si $[(a,b)]\cdot[(c,d)]=[(0,0)]$ avec $[(a,b)]\neq[(0,0)]$ et $[(c,d)]\neq[(0,0)]$, alors $a\neq b$, $c\neq d$, et $ac+bd=ad+bc$. Cela donne $(a-b)(c-d)=0$ (en se ramenant au cas où les soustractions sont définies dans $\mathbb{N}$), d'où $a=b$ ou $c=d$, contradiction.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <h4 class="en">The rationals $\mathbb{Q}$</h4>
-    <h4 class="fr">Les rationnels $\mathbb{Q}$</h4>
+    <h3 class="en">The rationals</h3>
+    <h3 class="fr">Les rationnels</h3>
+
+    <p class="en">The same construction again, with division in place of subtraction: in $\mathbb{Z}$ the quotient of $a$ by $b$ exists only when $b$ divides $a$, whereas the pair $(a,b)$ always exists.</p>
+    <p class="fr">La même construction, avec la division à la place de la soustraction : dans $\mathbb{Z}$, le quotient de $a$ par $b$ n'existe que si $b$ divise $a$, tandis que le couple $(a,b)$ existe toujours.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Define on $\mathbb{Z}\times\mathbb{Z}^*$ the relation $(a,b)\sim(c,d)\Leftrightarrow ad=bc$. Set $\mathbb{Q}=(\mathbb{Z}\times\mathbb{Z}^*)/{\sim}$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathbb{Z}\times\mathbb{Z}^*$ la relation $(a,b)\sim(c,d)\Leftrightarrow ad=bc$. On pose $\mathbb{Q}=(\mathbb{Z}\times\mathbb{Z}^*)/{\sim}$.</p>
     </div>
 
-    <p class="en">Intuitively, the class of $(a,b)$ represents the fraction $a/b$.</p>
-    <p class="fr">Intuitivement, la classe de $(a,b)$ représente la fraction $a/b$.</p>
+    <p class="en">The class of $(a,b)$ represents the fraction $a/b$.</p>
+    <p class="fr">La classe de $(a,b)$ représente la fraction $a/b$.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="410" height="241" viewBox="40.2 53.4 410.0 241.4">
+        <line class="fig-axis" x1="74.0" y1="260.0" x2="434.0" y2="260.0"/>
+        <line class="fig-axis" x1="250.0" y1="276.0" x2="250.0" y2="76.0"/>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="250.0" y2="86.0"/>
+        <text x="250.0" y="78.0" text-anchor="middle">0</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="422.0" y2="88.0"/>
+        <text x="432.0" y="80.0" text-anchor="start">1</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="422.0" y2="174.0"/>
+        <text x="432.0" y="166.0" text-anchor="start">2</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="337.0" y2="86.0"/>
+        <text x="347.0" y="78.0" text-anchor="start">1/2</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="308.0" y2="86.0"/>
+        <text x="318.0" y="78.0" text-anchor="start">1/3</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="78.0" y2="88.0"/>
+        <text x="68.0" y="80.0" text-anchor="end">−1</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="163.0" y2="86.0"/>
+        <text x="153.0" y="78.0" text-anchor="end">−1/2</text>
+        <line class="fig-guide" x1="250.0" y1="260.0" x2="78.0" y2="174.0"/>
+        <text x="68.0" y="166.0" text-anchor="end">−2</text>
+        <circle class="fig-dot" cx="90.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="90.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="90.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="90.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="130.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="130.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="130.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="130.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="170.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="210.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="210.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="210.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="210.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="250.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="250.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="250.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="250.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="290.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="290.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="290.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="290.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="330.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="330.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="330.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="330.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="370.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="370.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="370.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="370.0" cy="100.0" r="3.0"/>
+        <circle class="fig-dot" cx="410.0" cy="220.0" r="3.0"/>
+        <circle class="fig-dot" cx="410.0" cy="180.0" r="3.0"/>
+        <circle class="fig-dot" cx="410.0" cy="140.0" r="3.0"/>
+        <circle class="fig-dot" cx="410.0" cy="100.0" r="3.0"/>
+        <circle class="fig-hole" cx="250.0" cy="260.0" r="4.0"/>
+        <text x="430.0" y="280.0" text-anchor="middle">a</text>
+        <text x="236.0" y="80.0" text-anchor="end">b</text>
+      </svg>
+      <figcaption><span class="en">The lattice $\mathbb{Z}\times\mathbb{Z}^*$, drawn for $b&gt;0$. The condition $ad=bc$ says that $(a,b)$ and $(c,d)$ lie on the same line through the origin, so each such line is one class and becomes one rational. The origin itself is excluded, since $b=0$ is not allowed.</span><span class="fr">Le réseau $\mathbb{Z}\times\mathbb{Z}^*$, dessiné pour $b&gt;0$. La condition $ad=bc$ dit que $(a,b)$ et $(c,d)$ sont sur la même droite passant par l'origine, donc chacune de ces droites est une classe et devient un rationnel. L'origine elle-même est exclue, car $b=0$ est interdit.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation.</p>
@@ -208,6 +386,9 @@
       <em>Inverse :</em> pour $[(a,b)]$ avec $a\neq 0$, l'inverse est $[(b,a)]$, car $[(a,b)]\cdot[(b,a)]=[(ab,ba)]=[(1,1)]$.
     </details>
 
+    <p class="en">A sequence of rationals can close in on a place where no rational sits.</p>
+    <p class="fr">Une suite de rationnels peut se resserrer sur un endroit où ne se trouve aucun rationnel.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{Q}$ is not complete: there exist Cauchy sequences of rationals that do not converge in $\mathbb{Q}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{Q}$ n'est pas complet : il existe des suites de Cauchy de rationnels qui ne convergent pas dans $\mathbb{Q}$.</p>
@@ -222,9 +403,11 @@
       La suite $(u_n)$ définie par $u_0=1$ et $u_{n+1}=f(u_n)$ avec $f(x)=\frac{x}{2}+\frac{1}{x}$ est de Cauchy dans $\mathbb{Q}$. En effet, par l'inégalité arithmético-géométrique, $f(x)\ge\sqrt{2}$ pour $x&gt;0$, donc $u_n\ge\sqrt{2}$ pour $n\ge 1$. Comme $f'(x)=\frac{1}{2}-\frac{1}{x^2}\in[0,\frac{1}{2}]$ pour $x\ge\sqrt{2}$, le théorème des accroissements finis donne $|u_{n+2}-u_{n+1}|\le\frac{1}{2}|u_{n+1}-u_n|$ pour $n\ge 1$. Comme $|u_1-u_0|=\frac{1}{2}$ et $|u_2-u_1|=\frac{1}{12}\le\frac{1}{4}$, on obtient par récurrence $|u_{n+1}-u_n|\le\frac{1}{2^n}$. Sa limite $\ell$ vérifie $\ell=\frac{\ell}{2}+\frac{1}{\ell}$, d'où $\ell^2=2$, mais $\sqrt{2}\notin\mathbb{Q}$.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <h4 class="en">The reals $\mathbb{R}$</h4>
-    <h4 class="fr">Les réels $\mathbb{R}$</h4>
+    <h3 class="en">The reals</h3>
+    <h3 class="fr">Les réels</h3>
+
+    <p class="en">The same construction a third time, with sequences of rationals in place of pairs.</p>
+    <p class="fr">La même construction une troisième fois, avec des suites de rationnels à la place des couples.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Cauchy sequence).</span> A sequence $(a_n)$ of elements of $\mathbb{Q}$ is a <em>Cauchy sequence</em> if for every $\varepsilon\in\mathbb{Q}_{&gt;0}$, there exists $N\in\mathbb{N}$ such that for all $m,n\ge N$, $|a_m-a_n|&lt;\varepsilon$.</p>
@@ -260,6 +443,56 @@
       <p class="en"><span class="thm-label">Definition.</span> Define on $\mathcal{C}$ the relation $(a_n)\sim(b_n)\Leftrightarrow\lim_{n\to\infty}(a_n-b_n)=0$, i.e. $\forall\varepsilon\in\mathbb{Q}_{&gt;0},\;\exists N,\;\forall n\ge N,\;|a_n-b_n|&lt;\varepsilon$. Set $\mathbb{R}=\mathcal{C}/{\sim}$.</p>
       <p class="fr"><span class="thm-label">Définition.</span> On définit sur $\mathcal{C}$ la relation $(a_n)\sim(b_n)\Leftrightarrow\lim_{n\to\infty}(a_n-b_n)=0$, i.e. $\forall\varepsilon\in\mathbb{Q}_{&gt;0},\;\exists N,\;\forall n\ge N,\;|a_n-b_n|&lt;\varepsilon$. On pose $\mathbb{R}=\mathcal{C}/{\sim}$.</p>
     </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="455" height="234" viewBox="39.4 52.5 454.6 234.5">
+        <line class="fig-axis" x1="66.0" y1="265.0" x2="484.0" y2="265.0"/>
+        <line class="fig-axis" x1="80.0" y1="277.0" x2="80.0" y2="62.5"/>
+        <line class="fig-curve" x1="66.0" y1="148.9" x2="480.0" y2="148.9"/>
+        <line class="fig-guide" x1="80.0" y1="127.5" x2="80.0" y2="252.5"/>
+        <line class="fig-guide" x1="114.0" y1="85.8" x2="114.0" y2="169.2"/>
+        <line class="fig-guide" x1="148.0" y1="127.5" x2="148.0" y2="190.0"/>
+        <line class="fig-guide" x1="182.0" y1="102.5" x2="182.0" y2="152.5"/>
+        <line class="fig-guide" x1="216.0" y1="127.5" x2="216.0" y2="169.2"/>
+        <line class="fig-guide" x1="250.0" y1="145.4" x2="250.0" y2="181.1"/>
+        <line class="fig-guide" x1="284.0" y1="127.5" x2="284.0" y2="158.8"/>
+        <line class="fig-guide" x1="318.0" y1="141.4" x2="318.0" y2="169.2"/>
+        <line class="fig-guide" x1="352.0" y1="127.5" x2="352.0" y2="152.5"/>
+        <line class="fig-guide" x1="386.0" y1="138.9" x2="386.0" y2="161.6"/>
+        <line class="fig-guide" x1="420.0" y1="148.3" x2="420.0" y2="169.2"/>
+        <line class="fig-guide" x1="454.0" y1="137.1" x2="454.0" y2="156.3"/>
+        <polyline class="fig-accent" points="80.0,127.5 114.0,85.8 148.0,127.5 182.0,102.5 216.0,127.5 250.0,145.4 284.0,127.5 318.0,141.4 352.0,127.5 386.0,138.9 420.0,148.3 454.0,137.1" fill="none"/>
+        <polyline class="fig-accent" points="80.0,252.5 114.0,169.2 148.0,190.0 182.0,152.5 216.0,169.2 250.0,181.1 284.0,158.8 318.0,169.2 352.0,152.5 386.0,161.6 420.0,169.2 454.0,156.3" fill="none"/>
+        <circle class="fig-dot" cx="80.0" cy="127.5" r="3.5"/>
+        <circle class="fig-hole" cx="80.0" cy="252.5" r="3.5"/>
+        <circle class="fig-dot" cx="114.0" cy="85.8" r="3.5"/>
+        <circle class="fig-hole" cx="114.0" cy="169.2" r="3.5"/>
+        <circle class="fig-dot" cx="148.0" cy="127.5" r="3.5"/>
+        <circle class="fig-hole" cx="148.0" cy="190.0" r="3.5"/>
+        <circle class="fig-dot" cx="182.0" cy="102.5" r="3.5"/>
+        <circle class="fig-hole" cx="182.0" cy="152.5" r="3.5"/>
+        <circle class="fig-dot" cx="216.0" cy="127.5" r="3.5"/>
+        <circle class="fig-hole" cx="216.0" cy="169.2" r="3.5"/>
+        <circle class="fig-dot" cx="250.0" cy="145.4" r="3.5"/>
+        <circle class="fig-hole" cx="250.0" cy="181.1" r="3.5"/>
+        <circle class="fig-dot" cx="284.0" cy="127.5" r="3.5"/>
+        <circle class="fig-hole" cx="284.0" cy="158.8" r="3.5"/>
+        <circle class="fig-dot" cx="318.0" cy="141.4" r="3.5"/>
+        <circle class="fig-hole" cx="318.0" cy="169.2" r="3.5"/>
+        <circle class="fig-dot" cx="352.0" cy="127.5" r="3.5"/>
+        <circle class="fig-hole" cx="352.0" cy="152.5" r="3.5"/>
+        <circle class="fig-dot" cx="386.0" cy="138.9" r="3.5"/>
+        <circle class="fig-hole" cx="386.0" cy="161.6" r="3.5"/>
+        <circle class="fig-dot" cx="420.0" cy="148.3" r="3.5"/>
+        <circle class="fig-hole" cx="420.0" cy="169.2" r="3.5"/>
+        <circle class="fig-dot" cx="454.0" cy="137.1" r="3.5"/>
+        <circle class="fig-hole" cx="454.0" cy="156.3" r="3.5"/>
+        <text x="64.0" y="153.9" text-anchor="end">√2</text>
+        <text x="464.0" y="129.1">a<tspan dy="4" font-size="11">n</tspan><tspan dy="-4"></tspan></text>
+        <text x="464.0" y="172.3">b<tspan dy="4" font-size="11">n</tspan><tspan dy="-4"></tspan></text>
+      </svg>
+      <figcaption><span class="en">Two Cauchy sequences of rationals, $(a_n)$ from above and $(b_n)$ from below. Neither converges in $\mathbb{Q}$, since the level they close in on carries no rational. They differ at every rank, but their difference tends to $0$, so they are two representatives of one and the same real number.</span><span class="fr">Deux suites de Cauchy de rationnels, $(a_n)$ par au-dessus et $(b_n)$ par en dessous. Aucune ne converge dans $\mathbb{Q}$, car le niveau sur lequel elles se resserrent ne porte aucun rationnel. Elles diffèrent à chaque rang, mais leur différence tend vers $0$, donc ce sont deux représentants d'un seul et même réel.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The relation $\sim$ is an equivalence relation compatible with addition and multiplication.</p>
@@ -307,7 +540,7 @@
       Let $(x_n)$ be a Cauchy sequence in $\mathbb{R}$. Each $x_n$ is a class $[(a_{n,k})_k]$ for some Cauchy sequence $(a_{n,k})_k$ of rationals. For each $n$, choose a rational $r_n=a_{n,k_n}$ with $k_n$ large enough so that $|a_{n,k}-r_n|&lt;\frac{1}{n+1}$ for all $k\ge k_n$, so that $|x_n-[(r_n,r_n,\ldots)]|&lt;\frac{1}{n+1}$ in $\mathbb{R}$.
       <br>
       We show $(r_n)$ is Cauchy in $\mathbb{Q}$. Let $\varepsilon&gt;0$. Since $(x_n)$ is Cauchy in $\mathbb{R}$, there exists $N_1$ such that $|x_m-x_n|&lt;\varepsilon/3$ for $m,n\ge N_1$. Choose $N\ge N_1$ with $\frac{1}{N+1}&lt;\varepsilon/3$. For $m,n\ge N$:
-      $$|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.$$
+      \[|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.\]
       Set $x=[(r_n)]\in\mathbb{R}$. Then $|x_n-x|\le|x_n-[(r_n,r_n,\ldots)]|+|[(r_n,r_n,\ldots)]-x|&lt;\frac{1}{n+1}+|[(r_n,r_n,\ldots)]-[(r_k)_k]|$. The second term tends to $0$ since $r_n$ is a term of the Cauchy sequence $(r_k)$. Hence $x_n\to x$.
     </details>
     <details class="proof fr">
@@ -315,13 +548,15 @@
       Soit $(x_n)$ une suite de Cauchy dans $\mathbb{R}$. Chaque $x_n$ est une classe $[(a_{n,k})_k]$ pour une suite de Cauchy $(a_{n,k})_k$ de rationnels. Pour chaque $n$, on choisit un rationnel $r_n=a_{n,k_n}$ avec $k_n$ assez grand pour que $|a_{n,k}-r_n|&lt;\frac{1}{n+1}$ pour tout $k\ge k_n$, de sorte que $|x_n-[(r_n,r_n,\ldots)]|&lt;\frac{1}{n+1}$ dans $\mathbb{R}$.
       <br>
       Montrons que $(r_n)$ est de Cauchy dans $\mathbb{Q}$. Soit $\varepsilon&gt;0$. Comme $(x_n)$ est de Cauchy dans $\mathbb{R}$, il existe $N_1$ tel que $|x_m-x_n|&lt;\varepsilon/3$ pour $m,n\ge N_1$. On choisit $N\ge N_1$ tel que $\frac{1}{N+1}&lt;\varepsilon/3$. Pour $m,n\ge N$ :
-      $$|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.$$
+      \[|r_m-r_n|\le|r_m-x_m|+|x_m-x_n|+|x_n-r_n|&lt;\frac{1}{m+1}+\frac{\varepsilon}{3}+\frac{1}{n+1}&lt;\varepsilon.\]
       Posons $x=[(r_n)]\in\mathbb{R}$. Alors $|x_n-x|\le|x_n-[(r_n,r_n,\ldots)]|+|[(r_n,r_n,\ldots)]-x|&lt;\frac{1}{n+1}+|[(r_n,r_n,\ldots)]-[(r_k)_k]|$. Le second terme tend vers $0$ car $r_n$ est un terme de la suite de Cauchy $(r_k)$. Donc $x_n\to x$.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <h3 class="en">Sets and cardinality</h3>
-    <h3 class="fr">Ensembles et cardinalité</h3>
+    <h3 class="en">Counting by bijection</h3>
+    <h3 class="fr">Compter par bijection</h3>
+
+    <p class="en">Two finite sets have the same number of elements exactly when their elements can be paired off one for one. That test never mentions counting, so it can be applied to infinite sets as well.</p>
+    <p class="fr">Deux ensembles finis ont le même nombre d'éléments exactement quand leurs éléments peuvent être appariés un à un. Ce test ne mentionne jamais le comptage, donc il s'applique aussi aux ensembles infinis.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Equipotence, countability).</span> Two sets $A$ and $B$ are <em>equipotent</em>, written $A\sim B$, if there exists a bijection from $A$ onto $B$. A set $E$ is <em>countable</em> if it is equipotent to $\mathbb{N}$, and <em>at most countable</em> if it is finite or countable.</p>
@@ -342,6 +577,9 @@
       (i) $\mathrm{id}_A$ est une bijection de $A$ sur $A$. (ii) Si $f:A\to B$ est une bijection, $f^{-1}:B\to A$ aussi. (iii) Si $f:A\to B$ et $g:B\to C$ sont des bijections, $g\circ f:A\to C$ aussi.
     </details>
 
+    <p class="en">Listing $\mathbb{N}^2$ means walking through it so that every pair is reached after finitely many steps. Walking along the rows never leaves the first row; walking along the diagonals reaches every pair.</p>
+    <p class="fr">Énumérer $\mathbb{N}^2$, c'est le parcourir de façon que chaque couple soit atteint après un nombre fini d'étapes. Un parcours par lignes ne quitte jamais la première ligne ; un parcours par diagonales atteint tous les couples.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{N}^2$ is countable.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{N}^2$ est dénombrable.</p>
@@ -355,6 +593,54 @@
       <summary class="proof-label">Démonstration.</summary>
       On parcourt $\mathbb{N}^2$ par diagonales successives $\{(p,q):p+q=n\}$. Les diagonales $0,1,\ldots,n-1$ contiennent $1+2+\cdots+n=\frac{n(n+1)}{2}$ couples au total, donc le premier couple de la diagonale $n$ reçoit le numéro $\frac{n(n+1)}{2}$, et le couple $(p,q)$ avec $p+q=n$ reçoit $\varphi(p,q)=\frac{n(n+1)}{2}+p=\frac{(p+q)(p+q+1)}{2}+p$. Cette application est une bijection de $\mathbb{N}^2$ sur $\mathbb{N}$ par construction.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="245" height="259" viewBox="50.5 25.4 245.5 259.4">
+        <line class="fig-axis" x1="66.0" y1="250.0" x2="286.0" y2="250.0"/>
+        <line class="fig-axis" x1="80.0" y1="264.0" x2="80.0" y2="48.0"/>
+        <line class="fig-accent" x1="86.4" y1="212.4" x2="113.4" y2="239.4"/>
+        <polygon class="fig-dot" points="117.6,243.6 111.6,241.3 115.3,237.6"/>
+        <line class="fig-accent" x1="86.4" y1="168.4" x2="157.4" y2="239.4"/>
+        <polygon class="fig-dot" points="161.6,243.6 155.6,241.3 159.3,237.6"/>
+        <line class="fig-accent" x1="86.4" y1="124.4" x2="201.4" y2="239.4"/>
+        <polygon class="fig-dot" points="205.6,243.6 199.6,241.3 203.3,237.6"/>
+        <line class="fig-accent" x1="86.4" y1="80.4" x2="245.4" y2="239.4"/>
+        <polygon class="fig-dot" points="249.6,243.6 243.6,241.3 247.3,237.6"/>
+        <circle class="fig-dot" cx="80.0" cy="250.0" r="3.5"/>
+        <text x="91.0" y="240.0" text-anchor="middle">0</text>
+        <circle class="fig-dot" cx="80.0" cy="206.0" r="3.5"/>
+        <text x="91.0" y="196.0" text-anchor="middle">1</text>
+        <circle class="fig-dot" cx="124.0" cy="250.0" r="3.5"/>
+        <text x="135.0" y="240.0" text-anchor="middle">2</text>
+        <circle class="fig-dot" cx="80.0" cy="162.0" r="3.5"/>
+        <text x="91.0" y="152.0" text-anchor="middle">3</text>
+        <circle class="fig-dot" cx="124.0" cy="206.0" r="3.5"/>
+        <text x="135.0" y="196.0" text-anchor="middle">4</text>
+        <circle class="fig-dot" cx="168.0" cy="250.0" r="3.5"/>
+        <text x="179.0" y="240.0" text-anchor="middle">5</text>
+        <circle class="fig-dot" cx="80.0" cy="118.0" r="3.5"/>
+        <text x="91.0" y="108.0" text-anchor="middle">6</text>
+        <circle class="fig-dot" cx="124.0" cy="162.0" r="3.5"/>
+        <text x="135.0" y="152.0" text-anchor="middle">7</text>
+        <circle class="fig-dot" cx="168.0" cy="206.0" r="3.5"/>
+        <text x="179.0" y="196.0" text-anchor="middle">8</text>
+        <circle class="fig-dot" cx="212.0" cy="250.0" r="3.5"/>
+        <text x="223.0" y="240.0" text-anchor="middle">9</text>
+        <circle class="fig-dot" cx="80.0" cy="74.0" r="3.5"/>
+        <text x="91.0" y="64.0" text-anchor="middle">10</text>
+        <circle class="fig-dot" cx="124.0" cy="118.0" r="3.5"/>
+        <text x="135.0" y="108.0" text-anchor="middle">11</text>
+        <circle class="fig-dot" cx="168.0" cy="162.0" r="3.5"/>
+        <text x="179.0" y="152.0" text-anchor="middle">12</text>
+        <circle class="fig-dot" cx="212.0" cy="206.0" r="3.5"/>
+        <text x="223.0" y="196.0" text-anchor="middle">13</text>
+        <circle class="fig-dot" cx="256.0" cy="250.0" r="3.5"/>
+        <text x="267.0" y="240.0" text-anchor="middle">14</text>
+        <text x="280.0" y="270.0" text-anchor="middle">p</text>
+        <text x="64.0" y="50.0" text-anchor="middle">q</text>
+      </svg>
+      <figcaption><span class="en">The path visits the diagonal $p+q=n$ completely before starting the next one. Each diagonal is finite, so every pair carries a finite number, and every number is used exactly once.</span><span class="fr">Le chemin parcourt entièrement la diagonale $p+q=n$ avant d'entamer la suivante. Chaque diagonale est finie, donc chaque couple porte un numéro fini, et chaque numéro sert exactement une fois.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{Z}$ is countable.</p>
@@ -426,6 +712,23 @@
       Par récurrence : le cas $n=2$ découle de $\mathbb{N}^2\sim\mathbb{N}$, car si $f:A\to\mathbb{N}$ et $g:B\to\mathbb{N}$ sont des bijections, alors $(a,b)\mapsto(f(a),g(b))$ est une bijection de $A\times B$ sur $\mathbb{N}^2\sim\mathbb{N}$. Si $A_1\times\cdots\times A_n\sim\mathbb{N}$, alors $A_1\times\cdots\times A_{n+1}\sim\mathbb{N}\times A_{n+1}\sim\mathbb{N}^2\sim\mathbb{N}$.
     </details>
 
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The set of finite subsets of $\mathbb{N}$ is countable.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> L'ensemble des parties finies de $\mathbb{N}$ est dénombrable.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For each $n\in\mathbb{N}$, the set $\mathcal{P}_n(\mathbb{N})$ of subsets of size $n$ injects into $\mathbb{N}^n$ (by ordering the elements), which is countable. The set of all finite subsets is $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, a countable union of countable sets, hence countable.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour chaque $n\in\mathbb{N}$, l'ensemble $\mathcal{P}_n(\mathbb{N})$ des parties à $n$ éléments s'injecte dans $\mathbb{N}^n$ (en ordonnant les éléments), qui est dénombrable. L'ensemble des parties finies est $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, union dénombrable d'ensembles dénombrables, donc dénombrable.
+    </details>
+
+    <p class="en">Two injections give every element one successor and at most one predecessor, so the elements of $A$ and $B$ fall into chains, and each chain can be handled on its own.</p>
+    <p class="fr">Deux injections donnent à chaque élément un successeur et au plus un prédécesseur, donc les éléments de $A$ et $B$ se répartissent en chaînes, et chaque chaîne se traite séparément.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Cantor-Bernstein).</span> If there exists an injection from $A$ into $B$ and an injection from $B$ into $A$, then $A\sim B$.</p>
       <p class="fr"><span class="thm-label">Théorème (Cantor-Bernstein).</span> S'il existe une injection de $A$ dans $B$ et une injection de $B$ dans $A$, alors $A\sim B$.</p>
@@ -452,6 +755,69 @@
       On définit $h:A\to B$ par $h(a)=f(a)$ si $a$ est dans une chaîne de type (A) ou ($\infty$), et $h(a)=g^{-1}(a)$ si $a$ est dans une chaîne de type (B) (dans ce cas $a\in g(B)$ car la chaîne commence dans $B$, donc $g^{-1}(a)$ est bien défini). Dans chaque chaîne, $h$ réalise une bijection entre les éléments de $A$ et ceux de $B$ de cette chaîne (par $f$ ou par $g^{-1}$ selon le type), donc $h$ est une bijection de $A$ sur $B$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="341" height="524" viewBox="18.8 35.4 341.2 524.4">
+        <text x="40.0" y="95.0" text-anchor="end">A</text>
+        <text x="40.0" y="195.0" text-anchor="end">B</text>
+        <text x="205.0" y="60.0" text-anchor="middle">(A)</text>
+        <line class="fig-accent" x1="93.3" y1="97.3" x2="130.6" y2="178.2"/>
+        <polygon class="fig-dot" points="132.7,182.7 127.8,178.4 132.6,176.2"/>
+        <line class="fig-guide" x1="139.3" y1="182.7" x2="176.6" y2="101.8"/>
+        <line class="fig-accent" x1="185.3" y1="97.3" x2="222.6" y2="178.2"/>
+        <polygon class="fig-dot" points="224.7,182.7 219.8,178.4 224.6,176.2"/>
+        <line class="fig-guide" x1="231.3" y1="182.7" x2="268.6" y2="101.8"/>
+        <line class="fig-accent" x1="277.3" y1="97.3" x2="314.6" y2="178.2"/>
+        <polygon class="fig-dot" points="316.7,182.7 311.8,178.4 316.6,176.2"/>
+        <line class="fig-guide" x1="328.0" y1="190.0" x2="350.0" y2="176.0"/>
+        <circle class="fig-dot" cx="90.0" cy="90.0" r="4.5"/>
+        <circle class="fig-dot" cx="136.0" cy="190.0" r="4.5"/>
+        <circle class="fig-dot" cx="182.0" cy="90.0" r="4.5"/>
+        <circle class="fig-dot" cx="228.0" cy="190.0" r="4.5"/>
+        <circle class="fig-dot" cx="274.0" cy="90.0" r="4.5"/>
+        <circle class="fig-dot" cx="320.0" cy="190.0" r="4.5"/>
+        <text x="113.0" y="78.0" text-anchor="middle">f</text>
+        <text x="159.0" y="78.0" text-anchor="middle">g</text>
+        <text x="40.0" y="270.0" text-anchor="end">A</text>
+        <text x="40.0" y="370.0" text-anchor="end">B</text>
+        <text x="205.0" y="235.0" text-anchor="middle">(B)</text>
+        <line class="fig-accent" x1="93.3" y1="357.7" x2="130.6" y2="276.8"/>
+        <polygon class="fig-dot" points="132.7,272.3 132.6,278.8 127.8,276.6"/>
+        <line class="fig-guide" x1="139.3" y1="272.3" x2="176.6" y2="353.2"/>
+        <line class="fig-accent" x1="185.3" y1="357.7" x2="222.6" y2="276.8"/>
+        <polygon class="fig-dot" points="224.7,272.3 224.6,278.8 219.8,276.6"/>
+        <line class="fig-guide" x1="231.3" y1="272.3" x2="268.6" y2="353.2"/>
+        <line class="fig-accent" x1="277.3" y1="357.7" x2="314.6" y2="276.8"/>
+        <polygon class="fig-dot" points="316.7,272.3 316.6,278.8 311.8,276.6"/>
+        <line class="fig-guide" x1="328.0" y1="265.0" x2="350.0" y2="279.0"/>
+        <circle class="fig-dot" cx="90.0" cy="365.0" r="4.5"/>
+        <circle class="fig-dot" cx="136.0" cy="265.0" r="4.5"/>
+        <circle class="fig-dot" cx="182.0" cy="365.0" r="4.5"/>
+        <circle class="fig-dot" cx="228.0" cy="265.0" r="4.5"/>
+        <circle class="fig-dot" cx="274.0" cy="365.0" r="4.5"/>
+        <circle class="fig-dot" cx="320.0" cy="265.0" r="4.5"/>
+        <text x="40.0" y="445.0" text-anchor="end">A</text>
+        <text x="40.0" y="545.0" text-anchor="end">B</text>
+        <text x="205.0" y="410.0" text-anchor="middle">(∞)</text>
+        <line class="fig-guide" x1="60.0" y1="495.0" x2="84.0" y2="440.0"/>
+        <line class="fig-accent" x1="93.3" y1="447.3" x2="130.6" y2="528.2"/>
+        <polygon class="fig-dot" points="132.7,532.7 127.8,528.4 132.6,526.2"/>
+        <line class="fig-guide" x1="139.3" y1="532.7" x2="176.6" y2="451.8"/>
+        <line class="fig-accent" x1="185.3" y1="447.3" x2="222.6" y2="528.2"/>
+        <polygon class="fig-dot" points="224.7,532.7 219.8,528.4 224.6,526.2"/>
+        <line class="fig-guide" x1="231.3" y1="532.7" x2="268.6" y2="451.8"/>
+        <line class="fig-accent" x1="277.3" y1="447.3" x2="314.6" y2="528.2"/>
+        <polygon class="fig-dot" points="316.7,532.7 311.8,528.4 316.6,526.2"/>
+        <line class="fig-guide" x1="328.0" y1="540.0" x2="350.0" y2="526.0"/>
+        <circle class="fig-dot" cx="90.0" cy="440.0" r="4.5"/>
+        <circle class="fig-dot" cx="136.0" cy="540.0" r="4.5"/>
+        <circle class="fig-dot" cx="182.0" cy="440.0" r="4.5"/>
+        <circle class="fig-dot" cx="228.0" cy="540.0" r="4.5"/>
+        <circle class="fig-dot" cx="274.0" cy="440.0" r="4.5"/>
+        <circle class="fig-dot" cx="320.0" cy="540.0" r="4.5"/>
+      </svg>
+      <figcaption><span class="en">The three kinds of chain. The solid arrows are the ones $h$ uses: $f$ in the chains (A) and ($\infty$), and $g$ read backwards in the chains (B). In each chain the chosen arrows match the elements of $A$ with those of $B$ one for one, so the chains can be treated independently and the pieces assembled into a bijection.</span><span class="fr">Les trois sortes de chaînes. Les flèches pleines sont celles qu'utilise $h$ : $f$ dans les chaînes (A) et ($\infty$), et $g$ lue à l'envers dans les chaînes (B). Dans chaque chaîne, les flèches retenues apparient un à un les éléments de $A$ et ceux de $B$, donc les chaînes se traitent séparément et les morceaux se recollent en une bijection.</span></figcaption>
+    </figure>
+
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary.</span> $\mathbb{Q}$ is countable.</p>
       <p class="fr"><span class="thm-label">Corollaire.</span> $\mathbb{Q}$ est dénombrable.</p>
@@ -465,6 +831,12 @@
       <summary class="proof-label">Démonstration.</summary>
       L'application $\frac{p}{q}\mapsto(p,q)$ (avec $q&gt;0$ et $\gcd(|p|,q)=1$) est une injection de $\mathbb{Q}$ dans $\mathbb{Z}\times\mathbb{N}^*\subset\mathbb{Z}^2$. Or $\mathbb{Z}^2\sim\mathbb{N}^2\sim\mathbb{N}$, donc $\mathbb{Q}$ s'injecte dans $\mathbb{N}$. Comme $\mathbb{N}$ s'injecte dans $\mathbb{Q}$ par $n\mapsto n$, on conclut par Cantor-Bernstein que $\mathbb{Q}\sim\mathbb{N}$.
     </details>
+
+    <h3 class="en">Uncountable sets</h3>
+    <h3 class="fr">Ensembles indénombrables</h3>
+
+    <p class="en">Any list of reals can be dodged: build a number whose $n$-th digit differs from the $n$-th digit of the $n$-th number on the list.</p>
+    <p class="fr">Toute liste de réels peut être esquivée : on construit un nombre dont la $n$-ième décimale diffère de la $n$-ième décimale du $n$-ième nombre de la liste.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Cantor, diagonal argument).</span> $\mathbb{R}$ is not countable.</p>
@@ -480,6 +852,68 @@
       Il suffit de montrer que $[0,1]$ n'est pas dénombrable. Supposons par l'absurde que $[0,1]=\{x_0,x_1,x_2,\ldots\}$ et écrivons $x_n=0{,}a_{n,0}a_{n,1}a_{n,2}\cdots$ en développement décimal (en évitant les développements terminant par $999\ldots$). On construit $y=0{,}b_0b_1b_2\cdots$ avec $b_n=\begin{cases}1&\text{si }a_{n,n}\neq 1\\2&\text{si }a_{n,n}=1\end{cases}$. Alors $y\in[0,1]$ et $y\neq x_n$ pour tout $n$ (car $b_n\neq a_{n,n}$), ce qui contredit $[0,1]=\{x_0,x_1,\ldots\}$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="253" height="225" viewBox="77.0 55.0 252.9 225.0">
+        <text x="134.0" y="80.0" text-anchor="end">x<tspan dy="4" font-size="11">0</tspan><tspan dy="-4"></tspan> = 0,</text>
+        <rect class="fig-band" x="139.0" y="65.0" width="24.0" height="21.0"/>
+        <text x="150.0" y="80.0" text-anchor="middle">1</text>
+        <text x="180.0" y="80.0" text-anchor="middle">3</text>
+        <text x="210.0" y="80.0" text-anchor="middle">5</text>
+        <text x="240.0" y="80.0" text-anchor="middle">7</text>
+        <text x="270.0" y="80.0" text-anchor="middle">9</text>
+        <text x="134.0" y="114.0" text-anchor="end">x<tspan dy="4" font-size="11">1</tspan><tspan dy="-4"></tspan> = 0,</text>
+        <text x="150.0" y="114.0" text-anchor="middle">2</text>
+        <rect class="fig-band" x="169.0" y="99.0" width="24.0" height="21.0"/>
+        <text x="180.0" y="114.0" text-anchor="middle">4</text>
+        <text x="210.0" y="114.0" text-anchor="middle">6</text>
+        <text x="240.0" y="114.0" text-anchor="middle">8</text>
+        <text x="270.0" y="114.0" text-anchor="middle">1</text>
+        <text x="134.0" y="148.0" text-anchor="end">x<tspan dy="4" font-size="11">2</tspan><tspan dy="-4"></tspan> = 0,</text>
+        <text x="150.0" y="148.0" text-anchor="middle">3</text>
+        <text x="180.0" y="148.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="199.0" y="133.0" width="24.0" height="21.0"/>
+        <text x="210.0" y="148.0" text-anchor="middle">4</text>
+        <text x="240.0" y="148.0" text-anchor="middle">1</text>
+        <text x="270.0" y="148.0" text-anchor="middle">5</text>
+        <text x="134.0" y="182.0" text-anchor="end">x<tspan dy="4" font-size="11">3</tspan><tspan dy="-4"></tspan> = 0,</text>
+        <text x="150.0" y="182.0" text-anchor="middle">7</text>
+        <text x="180.0" y="182.0" text-anchor="middle">1</text>
+        <text x="210.0" y="182.0" text-anchor="middle">8</text>
+        <rect class="fig-band" x="229.0" y="167.0" width="24.0" height="21.0"/>
+        <text x="240.0" y="182.0" text-anchor="middle">2</text>
+        <text x="270.0" y="182.0" text-anchor="middle">8</text>
+        <text x="134.0" y="216.0" text-anchor="end">x<tspan dy="4" font-size="11">4</tspan><tspan dy="-4"></tspan> = 0,</text>
+        <text x="150.0" y="216.0" text-anchor="middle">5</text>
+        <text x="180.0" y="216.0" text-anchor="middle">0</text>
+        <text x="210.0" y="216.0" text-anchor="middle">0</text>
+        <text x="240.0" y="216.0" text-anchor="middle">0</text>
+        <rect class="fig-band" x="259.0" y="201.0" width="24.0" height="21.0"/>
+        <text x="270.0" y="216.0" text-anchor="middle">0</text>
+        <text x="306.0" y="80.0" text-anchor="start">…</text>
+        <text x="306.0" y="114.0" text-anchor="start">…</text>
+        <text x="306.0" y="148.0" text-anchor="start">…</text>
+        <text x="306.0" y="182.0" text-anchor="start">…</text>
+        <text x="306.0" y="216.0" text-anchor="start">…</text>
+        <line class="fig-guide" x1="126.0" y1="238.0" x2="294.0" y2="238.0"/>
+        <text x="134.0" y="264.0" text-anchor="end">y = 0,</text>
+        <rect class="fig-band" x="139.0" y="249.0" width="24.0" height="21.0"/>
+        <text x="150.0" y="264.0" text-anchor="middle">2</text>
+        <rect class="fig-band" x="169.0" y="249.0" width="24.0" height="21.0"/>
+        <text x="180.0" y="264.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="199.0" y="249.0" width="24.0" height="21.0"/>
+        <text x="210.0" y="264.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="229.0" y="249.0" width="24.0" height="21.0"/>
+        <text x="240.0" y="264.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="259.0" y="249.0" width="24.0" height="21.0"/>
+        <text x="270.0" y="264.0" text-anchor="middle">1</text>
+        <text x="306.0" y="264.0" text-anchor="start">…</text>
+      </svg>
+      <figcaption><span class="en">A list of numbers of $[0,1]$, with the shaded diagonal digits. The number $y$ built underneath differs from $x_n$ at the $n$-th place for every $n$, so it is on no line of the list. Its digits are taken in $\{1,2\}$, which leaves $y$ with a single decimal expansion.</span><span class="fr">Une liste de nombres de $[0,1]$, avec les décimales diagonales grisées. Le nombre $y$ construit en dessous diffère de $x_n$ à la $n$-ième place pour tout $n$, donc il n'est sur aucune ligne de la liste. Ses décimales sont prises dans $\{1,2\}$, ce qui laisse à $y$ un seul développement décimal.</span></figcaption>
+    </figure>
+
+    <p class="en">The same move without digits: given $f:E\to\mathcal{P}(E)$, the set of those $x$ that do not belong to $f(x)$ differs from every $f(x)$ at the element $x$ itself.</p>
+    <p class="fr">Le même mouvement sans décimales : étant donné $f:E\to\mathcal{P}(E)$, l'ensemble des $x$ qui n'appartiennent pas à $f(x)$ diffère de chaque $f(x)$ en l'élément $x$ lui-même.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Cantor).</span> For any set $E$, there is no surjection from $E$ onto $\mathcal{P}(E)$. In particular, $E$ and $\mathcal{P}(E)$ are not equipotent, and $\mathcal{P}(\mathbb{N})$ is not countable.</p>
       <p class="fr"><span class="thm-label">Théorème (Cantor).</span> Pour tout ensemble $E$, il n'existe pas de surjection de $E$ sur $\mathcal{P}(E)$. En particulier, $E$ et $\mathcal{P}(E)$ ne sont pas équipotents, et $\mathcal{P}(\mathbb{N})$ n'est pas dénombrable.</p>
@@ -494,6 +928,9 @@
       Soit $f:E\to\mathcal{P}(E)$ une application quelconque. On pose $D=\{x\in E:x\notin f(x)\}$. Supposons $D=f(a)$ pour un $a\in E$. Si $a\in D$, alors $a\notin f(a)=D$, contradiction. Si $a\notin D$, alors $a\in f(a)=D$, contradiction. Donc $D\notin\mathrm{Im}(f)$ et $f$ n'est pas surjective.
     </details>
 
+    <p class="en">Taking $f$ to be the identity turns that set into $\{x:x\notin x\}$.</p>
+    <p class="fr">En prenant pour $f$ l'identité, cet ensemble devient $\{x:x\notin x\}$.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Russell's paradox).</span> There is no set of all sets.</p>
       <p class="fr"><span class="thm-label">Proposition (Paradoxe de Russell).</span> Il n'existe pas d'ensemble de tous les ensembles.</p>
@@ -507,6 +944,9 @@
       <summary class="proof-label">Démonstration.</summary>
       Supposons qu'il existe un ensemble $\mathcal{U}$ contenant tous les ensembles. On pose $R=\{x\in\mathcal{U}:x\notin x\}$. Comme $R$ est un ensemble, $R\in\mathcal{U}$. Si $R\in R$, alors par définition de $R$, $R\notin R$, contradiction. Si $R\notin R$, alors $R$ vérifie la condition $R\notin R$, donc $R\in R$, contradiction.
     </details>
+
+    <p class="en">A subset of $\mathbb{N}$ is described completely by saying, for each $n$, whether $n$ belongs to it.</p>
+    <p class="fr">Une partie de $\mathbb{N}$ est entièrement décrite en disant, pour chaque $n$, si $n$ lui appartient.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathcal{P}(\mathbb{N})\sim\{0,1\}^{\mathbb{N}}$.</p>
@@ -536,6 +976,20 @@
       L'inclusion $[0,1]\hookrightarrow\mathbb{R}$ est une injection. L'application $x\mapsto\frac{1}{1+e^{-x}}$ est une bijection de $\mathbb{R}$ sur $]0,1[\subset[0,1]$, donc une injection de $\mathbb{R}$ dans $[0,1]$. On conclut par Cantor-Bernstein. (On ne peut pas conclure directement car $x\mapsto\frac{1}{1+e^{-x}}$ n'atteint pas les bornes 0 et 1, qui sont les limites en $-\infty$ et $+\infty$.)
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="413" height="236" viewBox="37.6 37.5 412.8 236.5">
+        <line class="fig-axis" x1="47.6" y1="250.0" x2="440.4" y2="250.0"/>
+        <line class="fig-axis" x1="240.0" y1="264.0" x2="240.0" y2="47.5"/>
+        <line class="fig-guide" x1="50.2" y1="100.0" x2="429.8" y2="100.0"/>
+        <path class="fig-curve" d="M 52.8 249.9 L 54.4 249.9 L 55.9 249.9 L 57.5 249.9 L 59.0 249.9 L 60.6 249.8 L 62.2 249.8 L 63.7 249.8 L 65.3 249.8 L 66.8 249.8 L 68.4 249.8 L 70.0 249.8 L 71.5 249.8 L 73.1 249.8 L 74.6 249.7 L 76.2 249.7 L 77.8 249.7 L 79.3 249.7 L 80.9 249.7 L 82.4 249.7 L 84.0 249.6 L 85.6 249.6 L 87.1 249.6 L 88.7 249.6 L 90.2 249.5 L 91.8 249.5 L 93.4 249.5 L 94.9 249.4 L 96.5 249.4 L 98.0 249.4 L 99.6 249.3 L 101.2 249.3 L 102.7 249.2 L 104.3 249.2 L 105.8 249.1 L 107.4 249.1 L 109.0 249.0 L 110.5 249.0 L 112.1 248.9 L 113.6 248.8 L 115.2 248.8 L 116.8 248.7 L 118.3 248.6 L 119.9 248.5 L 121.4 248.4 L 123.0 248.4 L 124.6 248.3 L 126.1 248.1 L 127.7 248.0 L 129.2 247.9 L 130.8 247.8 L 132.4 247.6 L 133.9 247.5 L 135.5 247.4 L 137.0 247.2 L 138.6 247.0 L 140.2 246.8 L 141.7 246.7 L 143.3 246.5 L 144.8 246.2 L 146.4 246.0 L 148.0 245.8 L 149.5 245.5 L 151.1 245.2 L 152.6 245.0 L 154.2 244.7 L 155.8 244.3 L 157.3 244.0 L 158.9 243.7 L 160.4 243.3 L 162.0 242.9 L 163.6 242.5 L 165.1 242.0 L 166.7 241.6 L 168.2 241.1 L 169.8 240.6 L 171.4 240.0 L 172.9 239.4 L 174.5 238.8 L 176.0 238.2 L 177.6 237.5 L 179.2 236.8 L 180.7 236.1 L 182.3 235.3 L 183.8 234.5 L 185.4 233.6 L 187.0 232.7 L 188.5 231.8 L 190.1 230.8 L 191.6 229.8 L 193.2 228.7 L 194.8 227.6 L 196.3 226.4 L 197.9 225.2 L 199.4 224.0 L 201.0 222.6 L 202.6 221.3 L 204.1 219.8 L 205.7 218.4 L 207.2 216.9 L 208.8 215.3 L 210.4 213.7 L 211.9 212.0 L 213.5 210.2 L 215.0 208.5 L 216.6 206.6 L 218.2 204.8 L 219.7 202.9 L 221.3 200.9 L 222.8 198.9 L 224.4 196.8 L 226.0 194.8 L 227.5 192.7 L 229.1 190.5 L 230.6 188.4 L 232.2 186.2 L 233.8 184.0 L 235.3 181.7 L 236.9 179.5 L 238.4 177.2 L 240.0 175.0 L 241.6 172.8 L 243.1 170.5 L 244.7 168.3 L 246.2 166.0 L 247.8 163.8 L 249.4 161.6 L 250.9 159.5 L 252.5 157.3 L 254.0 155.2 L 255.6 153.2 L 257.2 151.1 L 258.7 149.1 L 260.3 147.1 L 261.8 145.2 L 263.4 143.4 L 265.0 141.5 L 266.5 139.8 L 268.1 138.0 L 269.6 136.3 L 271.2 134.7 L 272.8 133.1 L 274.3 131.6 L 275.9 130.2 L 277.4 128.7 L 279.0 127.4 L 280.6 126.0 L 282.1 124.8 L 283.7 123.6 L 285.2 122.4 L 286.8 121.3 L 288.4 120.2 L 289.9 119.2 L 291.5 118.2 L 293.0 117.3 L 294.6 116.4 L 296.2 115.5 L 297.7 114.7 L 299.3 113.9 L 300.8 113.2 L 302.4 112.5 L 304.0 111.8 L 305.5 111.2 L 307.1 110.6 L 308.6 110.0 L 310.2 109.4 L 311.8 108.9 L 313.3 108.4 L 314.9 108.0 L 316.4 107.5 L 318.0 107.1 L 319.6 106.7 L 321.1 106.3 L 322.7 106.0 L 324.2 105.7 L 325.8 105.3 L 327.4 105.0 L 328.9 104.8 L 330.5 104.5 L 332.0 104.2 L 333.6 104.0 L 335.2 103.8 L 336.7 103.5 L 338.3 103.3 L 339.8 103.2 L 341.4 103.0 L 343.0 102.8 L 344.5 102.6 L 346.1 102.5 L 347.6 102.4 L 349.2 102.2 L 350.8 102.1 L 352.3 102.0 L 353.9 101.9 L 355.4 101.7 L 357.0 101.6 L 358.6 101.6 L 360.1 101.5 L 361.7 101.4 L 363.2 101.3 L 364.8 101.2 L 366.4 101.2 L 367.9 101.1 L 369.5 101.0 L 371.0 101.0 L 372.6 100.9 L 374.2 100.9 L 375.7 100.8 L 377.3 100.8 L 378.8 100.7 L 380.4 100.7 L 382.0 100.6 L 383.5 100.6 L 385.1 100.6 L 386.6 100.5 L 388.2 100.5 L 389.8 100.5 L 391.3 100.4 L 392.9 100.4 L 394.4 100.4 L 396.0 100.4 L 397.6 100.3 L 399.1 100.3 L 400.7 100.3 L 402.2 100.3 L 403.8 100.3 L 405.4 100.3 L 406.9 100.2 L 408.5 100.2 L 410.0 100.2 L 411.6 100.2 L 413.2 100.2 L 414.7 100.2 L 416.3 100.2 L 417.8 100.2 L 419.4 100.2 L 421.0 100.1 L 422.5 100.1 L 424.1 100.1 L 425.6 100.1 L 427.2 100.1"/>
+        <circle class="fig-hole" cx="240.0" cy="100.0" r="4.5"/>
+        <circle class="fig-hole" cx="240.0" cy="250.0" r="4.5"/>
+        <text x="228.0" y="105.0" text-anchor="end">1</text>
+        <text x="228.0" y="255.0" text-anchor="end">0</text>
+      </svg>
+      <figcaption><span class="en">The whole line squashed into the open interval by $x\mapsto\frac{1}{1+e^{-x}}$. The two ends of the interval, drawn hollow, are limits and are never reached, so this map is a bijection onto $]0,1[$ and not onto $[0,1]$. Cantor-Bernstein closes that gap without exhibiting a bijection.</span><span class="fr">La droite entière écrasée dans l'intervalle ouvert par $x\mapsto\frac{1}{1+e^{-x}}$. Les deux extrémités de l'intervalle, tracées évidées, sont des limites et ne sont jamais atteintes, donc cette application est une bijection sur $]0,1[$ et non sur $[0,1]$. Cantor-Bernstein comble cet écart sans exhiber de bijection.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.</p>
@@ -562,6 +1016,9 @@
       On conclut par Cantor-Bernstein.
     </details>
 
+    <p class="en">Two decimal expansions can be woven into one, and unwoven again.</p>
+    <p class="fr">Deux développements décimaux peuvent être entrelacés en un seul, puis démêlés à nouveau.</p>
+
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary.</span> $\mathbb{R}\sim\mathbb{R}^2$.</p>
       <p class="fr"><span class="thm-label">Corollaire.</span> $\mathbb{R}\sim\mathbb{R}^2$.</p>
@@ -576,23 +1033,47 @@
       L'injection $x\mapsto(x,0)$ donne $\mathbb{R}\hookrightarrow\mathbb{R}^2$. Pour l'injection $\mathbb{R}^2\hookrightarrow\mathbb{R}$ : comme $[0,1]\sim\mathbb{R}$, il suffit de montrer $[0,1]^2\hookrightarrow[0,1]$. À $(x,y)\in[0,1]^2$ avec $x=0{,}x_1x_2x_3\cdots$ et $y=0{,}y_1y_2y_3\cdots$ (développements décimaux sans $999\ldots$), on associe $0{,}x_1y_1x_2y_2x_3y_3\cdots$ (entrelacement des chiffres). Cette application est injective. On conclut par Cantor-Bernstein.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
-    <h4 class="en">Additional results</h4>
-    <h4 class="fr">Résultats complémentaires</h4>
-
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> The set of finite subsets of $\mathbb{N}$ is countable.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> L'ensemble des parties finies de $\mathbb{N}$ est dénombrable.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      For each $n\in\mathbb{N}$, the set $\mathcal{P}_n(\mathbb{N})$ of subsets of size $n$ injects into $\mathbb{N}^n$ (by ordering the elements), which is countable. The set of all finite subsets is $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, a countable union of countable sets, hence countable.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Pour chaque $n\in\mathbb{N}$, l'ensemble $\mathcal{P}_n(\mathbb{N})$ des parties à $n$ éléments s'injecte dans $\mathbb{N}^n$ (en ordonnant les éléments), qui est dénombrable. L'ensemble des parties finies est $\bigcup_{n\ge 0}\mathcal{P}_n(\mathbb{N})$, union dénombrable d'ensembles dénombrables, donc dénombrable.
-    </details>
+    <figure class="figure-block">
+      <svg class="figure" width="348" height="147" viewBox="67.8 45.0 348.1 147.0">
+        <text x="155.0" y="70.0" text-anchor="end">x = 0,</text>
+        <rect class="fig-band" x="163.0" y="55.0" width="25.0" height="21.0"/>
+        <text x="175.0" y="70.0" text-anchor="middle">3</text>
+        <rect class="fig-band" x="193.0" y="55.0" width="25.0" height="21.0"/>
+        <text x="205.0" y="70.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="223.0" y="55.0" width="25.0" height="21.0"/>
+        <text x="235.0" y="70.0" text-anchor="middle">4</text>
+        <rect class="fig-band" x="253.0" y="55.0" width="25.0" height="21.0"/>
+        <text x="265.0" y="70.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="283.0" y="55.0" width="25.0" height="21.0"/>
+        <text x="295.0" y="70.0" text-anchor="middle">5</text>
+        <text x="327.0" y="70.0" text-anchor="start">…</text>
+        <text x="155.0" y="114.0" text-anchor="end">y = 0,</text>
+        <text x="175.0" y="114.0" text-anchor="middle">2</text>
+        <text x="205.0" y="114.0" text-anchor="middle">7</text>
+        <text x="235.0" y="114.0" text-anchor="middle">1</text>
+        <text x="265.0" y="114.0" text-anchor="middle">8</text>
+        <text x="295.0" y="114.0" text-anchor="middle">2</text>
+        <text x="327.0" y="114.0" text-anchor="start">…</text>
+        <text x="90.0" y="176.0" text-anchor="end">0,</text>
+        <rect class="fig-band" x="99.0" y="161.0" width="23.0" height="21.0"/>
+        <text x="110.0" y="176.0" text-anchor="middle">3</text>
+        <text x="138.0" y="176.0" text-anchor="middle">2</text>
+        <rect class="fig-band" x="155.0" y="161.0" width="23.0" height="21.0"/>
+        <text x="166.0" y="176.0" text-anchor="middle">1</text>
+        <text x="194.0" y="176.0" text-anchor="middle">7</text>
+        <rect class="fig-band" x="211.0" y="161.0" width="23.0" height="21.0"/>
+        <text x="222.0" y="176.0" text-anchor="middle">4</text>
+        <text x="250.0" y="176.0" text-anchor="middle">1</text>
+        <rect class="fig-band" x="267.0" y="161.0" width="23.0" height="21.0"/>
+        <text x="278.0" y="176.0" text-anchor="middle">1</text>
+        <text x="306.0" y="176.0" text-anchor="middle">8</text>
+        <rect class="fig-band" x="323.0" y="161.0" width="23.0" height="21.0"/>
+        <text x="334.0" y="176.0" text-anchor="middle">5</text>
+        <text x="362.0" y="176.0" text-anchor="middle">2</text>
+        <text x="392.0" y="176.0" text-anchor="start">…</text>
+      </svg>
+      <figcaption><span class="en">The digits of $x$ are shaded. They take the odd places of the result and the digits of $y$ the even ones, so reading the result at every other place returns $x$ and $y$. The map is therefore injective: the plane holds no more points than the line.</span><span class="fr">Les décimales de $x$ sont grisées. Elles occupent les places impaires du résultat et celles de $y$ les places paires, donc relire le résultat une place sur deux redonne $x$ et $y$. L'application est donc injective : le plan ne contient pas plus de points que la droite.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{N}^{\mathbb{N}}$ (the set of sequences of integers) satisfies $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.</p>
@@ -616,126 +1097,338 @@
       Par Cantor-Bernstein : $\{0,1\}^{\mathbb{N}}\sim\mathbb{N}^{\mathbb{N}}$, et comme $\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$, on obtient $\mathbb{N}^{\mathbb{N}}\sim\mathbb{R}$.
     </details>
 
-    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- ============ TECHNIQUES ============ -->
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To prove a property of every natural number, or to define an object for every natural number, use the induction principle.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour démontrer une propriété de tout entier naturel, ou pour définir un objet pour tout entier naturel, utiliser le principe de récurrence.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> With $\mathbb{N}$ defined by the successor $S(x)=x\cup\{x\}$, show that $n=\{0,1,\ldots,n-1\}$ for every $n\in\mathbb{N}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Avec $\mathbb{N}$ défini par le successeur $S(x)=x\cup\{x\}$, montrer que $n=\{0,1,\ldots,n-1\}$ pour tout $n\in\mathbb{N}$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        First, $n+1=n+S(0)=S(n+0)=S(n)$, so the successor is the addition of $1$. Now induct. For $n=0$: $0=\varnothing$, the set with no element, which is the empty list $\{0,\ldots,-1\}$. If $n=\{0,\ldots,n-1\}$, then $S(n)=n\cup\{n\}=\{0,\ldots,n-1\}\cup\{n\}=\{0,\ldots,n\}$, which is the statement at rank $n+1$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        D'abord, $n+1=n+S(0)=S(n+0)=S(n)$, donc le successeur est l'addition de $1$. Puis on raisonne par récurrence. Pour $n=0$ : $0=\varnothing$, l'ensemble sans élément, qui est la liste vide $\{0,\ldots,-1\}$. Si $n=\{0,\ldots,n-1\}$, alors $S(n)=n\cup\{n\}=\{0,\ldots,n-1\}\cup\{n\}=\{0,\ldots,n\}$, ce qui est l'énoncé au rang $n+1$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To define a map or an operation on a quotient, define it on representatives, then check that replacing a representative by an equivalent one leaves the class of the result unchanged.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour définir une application ou une opération sur un quotient, la définir sur les représentants, puis vérifier que remplacer un représentant par un représentant équivalent ne change pas la classe du résultat.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> On $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$, show that $[(a,b)]\mapsto[(b,a)]$ is well defined, and that it is $x\mapsto -x$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Sur $\mathbb{Z}=(\mathbb{N}\times\mathbb{N})/{\sim}$, montrer que $[(a,b)]\mapsto[(b,a)]$ est bien définie, et que c'est $x\mapsto -x$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <em>Well defined:</em> if $(a,b)\sim(a',b')$, i.e. $a+b'=b+a'$, then $b+a'=a+b'$, which is exactly $(b,a)\sim(b',a')$. So the class of the image does not depend on the representative.
+        <br>
+        <em>It is the opposite:</em> $[(a,b)]+[(b,a)]=[(a+b,b+a)]$, and $(a+b)+0=(b+a)+0$, so $[(a+b,b+a)]=[(0,0)]$, the zero of $\mathbb{Z}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <em>Bonne définition :</em> si $(a,b)\sim(a',b')$, i.e. $a+b'=b+a'$, alors $b+a'=a+b'$, ce qui est exactement $(b,a)\sim(b',a')$. La classe de l'image ne dépend donc pas du représentant.
+        <br>
+        <em>C'est l'opposé :</em> $[(a,b)]+[(b,a)]=[(a+b,b+a)]$, et $(a+b)+0=(b+a)+0$, donc $[(a+b,b+a)]=[(0,0)]$, le zéro de $\mathbb{Z}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> To prove two sets are equipotent, exhibit an injection each way and apply Cantor-Bernstein. The bijection itself never has to be written down.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour montrer que deux ensembles sont équipotents, exhiber une injection dans chaque sens et appliquer Cantor-Bernstein. La bijection elle-même n'a jamais à être écrite.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $[0,1]\sim[0,1[$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $[0,1]\sim[0,1[$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The inclusion $[0,1[\,\hookrightarrow[0,1]$ is an injection. In the other direction, $x\mapsto x/2$ sends $[0,1]$ injectively into $[0,\tfrac12]\subset[0,1[$. Cantor-Bernstein gives $[0,1]\sim[0,1[$. Removing one point from an infinite set changes nothing.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        L'inclusion $[0,1[\,\hookrightarrow[0,1]$ est une injection. Dans l'autre sens, $x\mapsto x/2$ envoie $[0,1]$ injectivement dans $[0,\tfrac12]\subset[0,1[$. Cantor-Bernstein donne $[0,1]\sim[0,1[$. Retirer un point à un ensemble infini n'y change rien.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To prove a set is countable, inject it into a set already known to be countable, and check that it is infinite.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour montrer qu'un ensemble est dénombrable, l'injecter dans un ensemble déjà connu comme dénombrable, et vérifier qu'il est infini.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the set of intervals $]p,q[$ with $p,q\in\mathbb{Q}$ and $p&lt;q$ is countable.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des intervalles $]p,q[$ avec $p,q\in\mathbb{Q}$ et $p&lt;q$ est dénombrable.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The map $]p,q[\,\mapsto(p,q)$ is injective, since $p$ and $q$ are the infimum and the supremum of the interval. It sends the set into $\mathbb{Q}^2$, which is countable as a finite product of countable sets. The set is infinite, since the intervals $]0,q[$ for $q\in\mathbb{Q}_{&gt;0}$ are pairwise distinct. An infinite subset of a countable set is countable.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        L'application $]p,q[\,\mapsto(p,q)$ est injective, car $p$ et $q$ sont la borne inférieure et la borne supérieure de l'intervalle. Elle envoie l'ensemble dans $\mathbb{Q}^2$, dénombrable comme produit fini d'ensembles dénombrables. L'ensemble est infini, car les intervalles $]0,q[$ pour $q\in\mathbb{Q}_{&gt;0}$ sont deux à deux distincts. Une partie infinie d'un ensemble dénombrable est dénombrable.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To prove that no list exhausts a set of sequences, build a sequence differing from the $n$-th listed one in position $n$.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour montrer qu'aucune liste n'épuise un ensemble de suites, construire une suite qui diffère de la $n$-ième suite listée en position $n$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that there is no surjection from $\mathbb{N}$ onto $\{0,1\}^{\mathbb{N}}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de surjection de $\mathbb{N}$ sur $\{0,1\}^{\mathbb{N}}$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Suppose there exists a surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, and write $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. Define $b=(b_k)$ by $b_k=1-a_{k,k}$. Then $b\in\{0,1\}^{\mathbb{N}}$ and for all $n$, $b\neq\varphi(n)$ since $b_n=1-a_{n,n}\neq a_{n,n}$. So $b\notin\mathrm{Im}(\varphi)$, contradiction.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Supposons qu'il existe une surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, et notons $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. On définit $b=(b_k)$ par $b_k=1-a_{k,k}$. Alors $b\in\{0,1\}^{\mathbb{N}}$ et pour tout $n$, $b\neq\varphi(n)$ car $b_n=1-a_{n,n}\neq a_{n,n}$. Donc $b\notin\mathrm{Im}(\varphi)$, contradiction.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To prove a set is uncountable, suppose it at most countable and write a set known to be uncountable as its union with an at most countable rest.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour montrer qu'un ensemble est indénombrable, le supposer au plus dénombrable et écrire un ensemble connu comme indénombrable comme sa réunion avec un reste au plus dénombrable.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{R}\setminus\mathbb{Q}$ is uncountable.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{R}\setminus\mathbb{Q}$ est indénombrable.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        If $\mathbb{R}\setminus\mathbb{Q}$ were at most countable, then $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ would be at most countable (union of two at most countable sets), contradicting Cantor's theorem.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Si $\mathbb{R}\setminus\mathbb{Q}$ était au plus dénombrable, alors $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ serait au plus dénombrable (réunion de deux ensembles au plus dénombrables), ce qui contredit le théorème de Cantor.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To make room for new elements in a set already in bijection with $\mathbb{N}$, re-index by an explicit injection of $\mathbb{N}$ into itself whose image misses the places needed.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour faire de la place à de nouveaux éléments dans un ensemble déjà en bijection avec $\mathbb{N}$, ré-indexer par une injection explicite de $\mathbb{N}$ dans lui-même dont l'image laisse libres les places voulues.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise (Hilbert's hotel).</span> A hotel has a countably infinite number of rooms, all occupied. (a) A new guest arrives. Show that they can be accommodated. (b) A coach of $n$ guests arrives. Show that all can be accommodated. (c) A coach with a countably infinite number of guests arrives. Show that all can be accommodated. (d) A countably infinite number of coaches, each containing a countably infinite number of guests, arrive. Show that all can be accommodated.</p>
+        <p class="fr"><span class="thm-label">Exercice (Hôtel de Hilbert).</span> Un hôtel a une infinité dénombrable de chambres, toutes occupées. (a) Un nouveau client arrive. Montrer qu'on peut le loger. (b) Un autocar de $n$ clients arrive. Montrer qu'on peut tous les loger. (c) Un autocar contenant une infinité dénombrable de clients arrive. Montrer qu'on peut tous les loger. (d) Une infinité dénombrable d'autocars, chacun contenant une infinité dénombrable de clients, arrivent. Montrer qu'on peut tous les loger.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        (a) Move the guest in room $k$ to room $k+1$ for every $k\in\mathbb{N}$, freeing room $0$. Formally, $\sigma:k\mapsto k+1$ is an injection from $\mathbb{N}$ into $\mathbb{N}$ whose image is $\mathbb{N}^*$, freeing $0$.
+        <br>
+        (b) Send the guest in room $k$ to room $k+n$. Rooms $0,\ldots,n-1$ are free for the $n$ new guests. This is the injection $k\mapsto k+n$.
+        <br>
+        (c) Send the guest in room $k$ to room $2k$, freeing all odd rooms. Assign new guest $j$ to room $2j+1$. Formally, use $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, and place new guest $j$ in room $2j+1$.
+        <br>
+        (d) Use $\mathbb{N}^2\sim\mathbb{N}$. Label guests by $(i,j)$ (guest $j$ of bus $i$), and assign them room $\varphi(i,j)$ where $\varphi:\mathbb{N}^2\to\mathbb{N}$ is Cantor's bijection.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        (a) On déplace le client de la chambre $k$ vers la chambre $k+1$ pour tout $k\in\mathbb{N}$, ce qui libère la chambre $0$. Formellement, $\sigma:k\mapsto k+1$ est une injection de $\mathbb{N}$ dans $\mathbb{N}$ dont l'image est $\mathbb{N}^*$, libérant $0$.
+        <br>
+        (b) On envoie le client de la chambre $k$ en chambre $k+n$. Les chambres $0,\ldots,n-1$ sont libres pour les $n$ nouveaux clients. C'est l'injection $k\mapsto k+n$.
+        <br>
+        (c) On envoie le client de la chambre $k$ en chambre $2k$, libérant toutes les chambres impaires. On attribue la chambre $2j+1$ au nouveau client $j$. Formellement, on utilise $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, et on place le nouveau client $j$ en chambre $2j+1$.
+        <br>
+        (d) On utilise $\mathbb{N}^2\sim\mathbb{N}$. On étiquette les clients par $(i,j)$ (client $j$ du bus $i$), et on leur attribue la chambre $\varphi(i,j)$ où $\varphi:\mathbb{N}^2\to\mathbb{N}$ est la bijection de Cantor.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 8.</span> To count a set that comes in layers indexed by $\mathbb{N}$, write it as a countable union of at most countable pieces.</p>
+      <p class="fr"><span class="technique-label">Technique 8.</span> Pour dénombrer un ensemble qui se présente en couches indexées par $\mathbb{N}$, l'écrire comme une réunion dénombrable de morceaux au plus dénombrables.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the set of algebraic numbers is countable.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des nombres algébriques est dénombrable.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        An algebraic number is a root of some polynomial $P\in\mathbb{Z}[X]\setminus\{0\}$. The set of degree-$n$ polynomials with integer coefficients identifies with $\mathbb{Z}^{n+1}\setminus\{0\}$, which is countable. Each degree-$n$ polynomial has at most $n$ roots. So the set of roots of degree-$n$ polynomials is a countable union of finite sets, hence at most countable. The set of all algebraic numbers is $\bigcup_{n\ge 1}(\text{roots of degree-}n\text{ polynomials})$, a countable union of countable sets, hence countable (and infinite since it contains $\mathbb{Q}$).
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Un nombre algébrique est racine d'un polynôme $P\in\mathbb{Z}[X]\setminus\{0\}$. L'ensemble des polynômes de degré $n$ à coefficients entiers s'identifie à $\mathbb{Z}^{n+1}\setminus\{0\}$, qui est dénombrable. Chaque polynôme de degré $n$ a au plus $n$ racines. Donc l'ensemble des racines des polynômes de degré $n$ est une union dénombrable d'ensembles finis, donc au plus dénombrable. L'ensemble de tous les nombres algébriques est $\bigcup_{n\ge 1}(\text{racines des polynômes de degré }n)$, union dénombrable d'ensembles dénombrables, donc dénombrable (et il est infini car il contient $\mathbb{Q}$).
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 9.</span> To prove a set has the cardinality of the continuum, inject $\mathbb{R}$ into it and inject it into $\mathcal{P}(\mathbb{N})$, using a countable set of parameters to describe each of its elements.</p>
+      <p class="fr"><span class="technique-label">Technique 9.</span> Pour montrer qu'un ensemble a le cardinal du continu, y injecter $\mathbb{R}$ et l'injecter dans $\mathcal{P}(\mathbb{N})$, en décrivant chacun de ses éléments par une famille dénombrable de paramètres.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the set of open subsets of $\mathbb{R}$ has the cardinality of the continuum.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des ouverts de $\mathbb{R}$ a le cardinal du continu.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <em>Injection from $\mathbb{R}$ into open sets:</em> $x\mapsto{]{-\infty},x[}$ is injective.
+        <br>
+        <em>Injection from open sets into $\mathcal{P}(\mathbb{Q}^2)$:</em> by density of $\mathbb{Q}$, every open set $U\subset\mathbb{R}$ is the union of its rational-endpoint open sub-intervals, $U=\bigcup\{(p,q):p,q\in\mathbb{Q},\,p&lt;q,\,(p,q)\subset U\}$ (for any $x\in U$, pick $\varepsilon&gt;0$ with $(x-\varepsilon,x+\varepsilon)\subset U$ and rationals $p,q$ with $x-\varepsilon&lt;p&lt;x&lt;q&lt;x+\varepsilon$). So the map $U\mapsto\{(p,q)\in\mathbb{Q}^2:p&lt;q,\,(p,q)\subset U\}$ is injective. Since $\mathcal{P}(\mathbb{Q}^2)\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, we conclude by Cantor-Bernstein.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <em>Injection de $\mathbb{R}$ dans les ouverts :</em> $x\mapsto{]{-\infty},x[}$ est injective.
+        <br>
+        <em>Injection des ouverts dans $\mathcal{P}(\mathbb{Q}^2)$ :</em> par densité de $\mathbb{Q}$, tout ouvert $U\subset\mathbb{R}$ est la réunion de ses sous-intervalles ouverts à extrémités rationnelles, $U=\bigcup\{(p,q):p,q\in\mathbb{Q},\,p&lt;q,\,(p,q)\subset U\}$ (pour tout $x\in U$, on prend $\varepsilon&gt;0$ tel que $(x-\varepsilon,x+\varepsilon)\subset U$, puis des rationnels $p,q$ avec $x-\varepsilon&lt;p&lt;x&lt;q&lt;x+\varepsilon$). L'application $U\mapsto\{(p,q)\in\mathbb{Q}^2:p&lt;q,\,(p,q)\subset U\}$ est donc injective. Comme $\mathcal{P}(\mathbb{Q}^2)\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, on conclut par Cantor-Bernstein.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 10.</span> To find the cardinality of a set of functions, reduce the source to $\mathbb{N}$ and the target to $\{0,1\}$, using $\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}$ to collapse a double family into a single one.</p>
+      <p class="fr"><span class="technique-label">Technique 10.</span> Pour trouver le cardinal d'un ensemble de fonctions, ramener la source à $\mathbb{N}$ et le but à $\{0,1\}$, en utilisant $\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}$ pour réduire une famille double à une famille simple.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the set $\mathcal{C}(\mathbb{R},\mathbb{R})$ of continuous functions from $\mathbb{R}$ to $\mathbb{R}$ has the cardinality of the continuum.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble $\mathcal{C}(\mathbb{R},\mathbb{R})$ des fonctions continues de $\mathbb{R}$ dans $\mathbb{R}$ a le cardinal du continu.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <em>Injection from $\mathbb{R}$ into $\mathcal{C}(\mathbb{R},\mathbb{R})$:</em> $a\mapsto(x\mapsto a)$ (constant functions) is injective.
+        <br>
+        <em>Injection from $\mathcal{C}(\mathbb{R},\mathbb{R})$ into $\mathbb{R}^{\mathbb{Q}}$:</em> a continuous function is determined by its values on $\mathbb{Q}$ (by density of $\mathbb{Q}$ and continuity). So $f\mapsto f|_{\mathbb{Q}}$ is injective. Now $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (since $\mathbb{Q}\sim\mathbb{N}$), and $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. We conclude by Cantor-Bernstein.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <em>Injection de $\mathbb{R}$ dans $\mathcal{C}(\mathbb{R},\mathbb{R})$ :</em> $a\mapsto(x\mapsto a)$ (fonctions constantes) est injective.
+        <br>
+        <em>Injection de $\mathcal{C}(\mathbb{R},\mathbb{R})$ dans $\mathbb{R}^{\mathbb{Q}}$ :</em> une fonction continue est déterminée par ses valeurs sur $\mathbb{Q}$ (par densité de $\mathbb{Q}$ et continuité). Donc $f\mapsto f|_{\mathbb{Q}}$ est injective. Or $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (car $\mathbb{Q}\sim\mathbb{N}$), et $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. On conclut par Cantor-Bernstein.
+      </details>
+    </div>
+
+    <!-- ============ EXERCISES ============ -->
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the set of algebraic numbers is countable.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des nombres algébriques est dénombrable.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The order on $\mathbb{Q}$ is defined by $[(a,b)]\le[(c,d)]\Leftrightarrow ad\le bc$ when $b,d&gt;0$. Find a counterexample when that condition on the signs is dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> L'ordre sur $\mathbb{Q}$ est défini par $[(a,b)]\le[(c,d)]\Leftrightarrow ad\le bc$ lorsque $b,d&gt;0$. Trouver un contre-exemple lorsque cette condition sur les signes est retirée.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      An algebraic number is a root of some polynomial $P\in\mathbb{Z}[X]\setminus\{0\}$. The set of degree-$n$ polynomials with integer coefficients identifies with $\mathbb{Z}^{n+1}\setminus\{0\}$, which is countable. Each degree-$n$ polynomial has at most $n$ roots. So the set of roots of degree-$n$ polynomials is a countable union of finite sets, hence at most countable. The set of all algebraic numbers is $\bigcup_{n\ge 1}(\text{roots of degree-}n\text{ polynomials})$, a countable union of countable sets, hence countable (and infinite since it contains $\mathbb{Q}$).
+      <summary class="proof-label">Solution.</summary>
+      Take $[(1,1)]=1$ and $[(1,-1)]=-1$. Here $ad=1\cdot(-1)=-1$ and $bc=1\cdot 1=1$, so $ad\le bc$, and the rule declares $1\le -1$.
+      <br>
+      Worse, the verdict depends on the representative chosen: $-1$ is also $[(-1,1)]$, and then $ad=1\cdot 1=1$ and $bc=1\cdot(-1)=-1$, so $ad\le bc$ fails. Without the condition the relation is not even well defined on the classes. The reason is that passing from $\frac{a}{b}\le\frac{c}{d}$ to $ad\le bc$ multiplies the inequality by $bd$, which reverses it when $bd&lt;0$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Un nombre algébrique est racine d'un polynôme $P\in\mathbb{Z}[X]\setminus\{0\}$. L'ensemble des polynômes de degré $n$ à coefficients entiers s'identifie à $\mathbb{Z}^{n+1}\setminus\{0\}$, qui est dénombrable. Chaque polynôme de degré $n$ a au plus $n$ racines. Donc l'ensemble des racines des polynômes de degré $n$ est une union dénombrable d'ensembles finis, donc au plus dénombrable. L'ensemble de tous les nombres algébriques est $\bigcup_{n\ge 1}(\text{racines des polynômes de degré }n)$, union dénombrable d'ensembles dénombrables, donc dénombrable (et il est infini car il contient $\mathbb{Q}$).
+      <summary class="proof-label">Solution.</summary>
+      Prendre $[(1,1)]=1$ et $[(1,-1)]=-1$. Ici $ad=1\cdot(-1)=-1$ et $bc=1\cdot 1=1$, donc $ad\le bc$, et la règle déclare $1\le -1$.
+      <br>
+      Pire, le verdict dépend du représentant choisi : $-1$ vaut aussi $[(-1,1)]$, et alors $ad=1\cdot 1=1$ et $bc=1\cdot(-1)=-1$, donc $ad\le bc$ est faux. Sans la condition, la relation n'est même pas bien définie sur les classes. La raison est que passer de $\frac{a}{b}\le\frac{c}{d}$ à $ad\le bc$ multiplie l'inégalité par $bd$, ce qui la renverse quand $bd&lt;0$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Deduce that the set of transcendental numbers is uncountable.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> En déduire que l'ensemble des nombres transcendants est indénombrable.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> A <em>finite</em> product of countable sets is countable. Find a counterexample when the number of factors is allowed to be countably infinite, the factors being kept at most countable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Un produit <em>fini</em> d'ensembles dénombrables est dénombrable. Trouver un contre-exemple lorsque le nombre de facteurs peut être dénombrable, les facteurs restant au plus dénombrables.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      The set of transcendental numbers is $\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}}$. If this set were at most countable, then $\mathbb{R}=\overline{\mathbb{Q}}_{\text{alg}}\cup(\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}})$ would be a union of two at most countable sets, hence at most countable, contradicting Cantor's theorem.
+      <summary class="proof-label">Solution.</summary>
+      Take $A_n=\{0,1\}$ for every $n\in\mathbb{N}$: each factor has two elements, and the product $\prod_{n\in\mathbb{N}}A_n$ is $\{0,1\}^{\mathbb{N}}$, which is equipotent to $\mathbb{R}$ and therefore uncountable.
+      <br>
+      The induction proving the finite case reaches every finite number of factors and no more: at each step it uses $\mathbb{N}^2\sim\mathbb{N}$ once, and passing to infinitely many factors would require infinitely many such steps.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      L'ensemble des transcendants est $\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}}$. Si cet ensemble était au plus dénombrable, alors $\mathbb{R}=\overline{\mathbb{Q}}_{\text{alg}}\cup(\mathbb{R}\setminus\overline{\mathbb{Q}}_{\text{alg}})$ serait une union de deux ensembles au plus dénombrables, donc au plus dénombrable, ce qui contredit le théorème de Cantor.
+      <summary class="proof-label">Solution.</summary>
+      Prendre $A_n=\{0,1\}$ pour tout $n\in\mathbb{N}$ : chaque facteur a deux éléments, et le produit $\prod_{n\in\mathbb{N}}A_n$ est $\{0,1\}^{\mathbb{N}}$, équipotent à $\mathbb{R}$ et donc indénombrable.
+      <br>
+      La récurrence qui traite le cas fini atteint tout nombre fini de facteurs et rien de plus : à chaque étape elle utilise une fois $\mathbb{N}^2\sim\mathbb{N}$, et passer à une infinité de facteurs demanderait une infinité de telles étapes.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{R}\setminus\mathbb{Q}$ is uncountable.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{R}\setminus\mathbb{Q}$ est indénombrable.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> In the diagonal argument the digits of $y$ are taken in $\{1,2\}$. Find a counterexample to the argument when the digits are taken by the rule $b_n=9$ if $a_{n,n}\neq 9$ and $b_n=0$ otherwise, every digit of $y$ still differing from the corresponding diagonal digit.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Dans l'argument diagonal, les décimales de $y$ sont prises dans $\{1,2\}$. Trouver un contre-exemple à l'argument lorsque les décimales sont prises par la règle $b_n=9$ si $a_{n,n}\neq 9$ et $b_n=0$ sinon, chaque décimale de $y$ différant encore de la décimale diagonale correspondante.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Same argument: if $\mathbb{R}\setminus\mathbb{Q}$ were at most countable, then $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ would be at most countable (union of two countable sets), contradiction.
+      <summary class="proof-label">Solution.</summary>
+      Start the list with $x_0=0{,}5000\ldots$ and $x_1=0{,}8999\ldots$, and choose the remaining $x_n$ so that $a_{n,n}=9$ for every $n\ge 2$. The diagonal digits are $a_{0,0}=5$, then $a_{n,n}=9$ for $n\ge 1$, so the rule gives $b_0=9$ and $b_n=0$ for $n\ge 1$, that is $y=0{,}9000\ldots$
+      <br>
+      Every digit of $y$ differs from the corresponding diagonal digit, yet $y=0{,}9=0{,}8999\ldots=x_1$: the number $y$ is on the list. The digit string of a real is not the real, and a number ending in $000\ldots$ or $999\ldots$ has two strings. Choosing the digits in $\{1,2\}$ makes both endings impossible, so there $y$ has one expansion and $y\neq x_n$ as numbers.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Même argument : si $\mathbb{R}\setminus\mathbb{Q}$ était au plus dénombrable, alors $\mathbb{R}=\mathbb{Q}\cup(\mathbb{R}\setminus\mathbb{Q})$ serait au plus dénombrable (union de deux dénombrables), contradiction.
+      <summary class="proof-label">Solution.</summary>
+      Commençons la liste par $x_0=0{,}5000\ldots$ et $x_1=0{,}8999\ldots$, et choisissons les $x_n$ suivants de sorte que $a_{n,n}=9$ pour tout $n\ge 2$. Les décimales diagonales sont $a_{0,0}=5$, puis $a_{n,n}=9$ pour $n\ge 1$, donc la règle donne $b_0=9$ et $b_n=0$ pour $n\ge 1$, c'est-à-dire $y=0{,}9000\ldots$
+      <br>
+      Chaque décimale de $y$ diffère de la décimale diagonale correspondante, et pourtant $y=0{,}9=0{,}8999\ldots=x_1$ : le nombre $y$ est dans la liste. La suite des décimales d'un réel n'est pas le réel, et un nombre terminant par $000\ldots$ ou $999\ldots$ en possède deux. Prendre les décimales dans $\{1,2\}$ rend ces deux terminaisons impossibles, donc $y$ y a un seul développement et $y\neq x_n$ en tant que nombres.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that there is no surjection from $\mathbb{N}$ onto $\{0,1\}^{\mathbb{N}}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de surjection de $\mathbb{N}$ sur $\{0,1\}^{\mathbb{N}}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The set of algebraic numbers is countable. Deduce that the set of transcendental numbers is uncountable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> L'ensemble des nombres algébriques est dénombrable. En déduire que l'ensemble des nombres transcendants est indénombrable.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Suppose there exists a surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, and write $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. Define $b=(b_k)$ by $b_k=1-a_{k,k}$. Then $b\in\{0,1\}^{\mathbb{N}}$ and for all $n$, $b\neq\varphi(n)$ since $b_n=1-a_{n,n}\neq a_{n,n}$. So $b\notin\mathrm{Im}(\varphi)$, contradiction.
+      <summary class="proof-label">Solution.</summary>
+      The set of transcendental numbers is the complement of the algebraic ones in $\mathbb{R}$. If it were at most countable, then $\mathbb{R}$ would be the union of two at most countable sets, hence at most countable, contradicting Cantor's theorem. Transcendental numbers are therefore not only present but overwhelming, although the argument names none of them.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Supposons qu'il existe une surjection $\varphi:\mathbb{N}\to\{0,1\}^{\mathbb{N}}$, et notons $\varphi(n)=(a_{n,k})_{k\in\mathbb{N}}$. On définit $b=(b_k)$ par $b_k=1-a_{k,k}$. Alors $b\in\{0,1\}^{\mathbb{N}}$ et pour tout $n$, $b\neq\varphi(n)$ car $b_n=1-a_{n,n}\neq a_{n,n}$. Donc $b\notin\mathrm{Im}(\varphi)$, contradiction.
+      <summary class="proof-label">Solution.</summary>
+      L'ensemble des transcendants est le complémentaire des algébriques dans $\mathbb{R}$. S'il était au plus dénombrable, alors $\mathbb{R}$ serait réunion de deux ensembles au plus dénombrables, donc au plus dénombrable, ce qui contredit le théorème de Cantor. Les nombres transcendants sont donc non seulement présents mais majoritaires, bien que l'argument n'en nomme aucun.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the set of open subsets of $\mathbb{R}$ has the cardinality of the continuum.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des ouverts de $\mathbb{R}$ a le cardinal du continu.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{R}\sim\mathbb{R}^n$ for every $n\ge 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{R}\sim\mathbb{R}^n$ pour tout $n\ge 1$.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <em>Injection from $\mathbb{R}$ into open sets:</em> $x\mapsto{]{-\infty},x[}$ is injective.
-      <br>
-      <em>Injection from open sets into $\mathcal{P}(\mathbb{Q}^2)$:</em> by density of $\mathbb{Q}$, every open set $U\subset\mathbb{R}$ is the union of its rational-endpoint open sub-intervals, $U=\bigcup\{(p,q):p,q\in\mathbb{Q},\,p&lt;q,\,(p,q)\subset U\}$ (for any $x\in U$, pick $\varepsilon&gt;0$ with $(x-\varepsilon,x+\varepsilon)\subset U$ and rationals $p,q$ with $x-\varepsilon&lt;p&lt;x&lt;q&lt;x+\varepsilon$). So the map $U\mapsto\{(p,q)\in\mathbb{Q}^2:p&lt;q,\,(p,q)\subset U\}$ is injective. Since $\mathcal{P}(\mathbb{Q}^2)\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, we conclude by Cantor-Bernstein.
+      <summary class="proof-label">Solution.</summary>
+      By induction on $n$. The case $n=1$ is the identity. If $\mathbb{R}\sim\mathbb{R}^n$, then $\mathbb{R}^{n+1}=\mathbb{R}^n\times\mathbb{R}\sim\mathbb{R}\times\mathbb{R}=\mathbb{R}^2\sim\mathbb{R}$, using the bijection $\mathbb{R}^n\to\mathbb{R}$ on the first factor and then $\mathbb{R}^2\sim\mathbb{R}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <em>Injection de $\mathbb{R}$ dans les ouverts :</em> $x\mapsto{]{-\infty},x[}$ est injective.
-      <br>
-      <em>Injection des ouverts dans $\mathcal{P}(\mathbb{Q}^2)$ :</em> par densité de $\mathbb{Q}$, tout ouvert $U\subset\mathbb{R}$ est la réunion de ses sous-intervalles ouverts à extrémités rationnelles, $U=\bigcup\{(p,q):p,q\in\mathbb{Q},\,p&lt;q,\,(p,q)\subset U\}$ (pour tout $x\in U$, on prend $\varepsilon&gt;0$ tel que $(x-\varepsilon,x+\varepsilon)\subset U$, puis des rationnels $p,q$ avec $x-\varepsilon&lt;p&lt;x&lt;q&lt;x+\varepsilon$). L'application $U\mapsto\{(p,q)\in\mathbb{Q}^2:p&lt;q,\,(p,q)\subset U\}$ est donc injective. Comme $\mathcal{P}(\mathbb{Q}^2)\sim\mathcal{P}(\mathbb{N})\sim\mathbb{R}$, on conclut par Cantor-Bernstein.
+      <summary class="proof-label">Solution.</summary>
+      Par récurrence sur $n$. Le cas $n=1$ est l'identité. Si $\mathbb{R}\sim\mathbb{R}^n$, alors $\mathbb{R}^{n+1}=\mathbb{R}^n\times\mathbb{R}\sim\mathbb{R}\times\mathbb{R}=\mathbb{R}^2\sim\mathbb{R}$, en utilisant la bijection $\mathbb{R}^n\to\mathbb{R}$ sur le premier facteur puis $\mathbb{R}^2\sim\mathbb{R}$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the set $\mathcal{C}(\mathbb{R},\mathbb{R})$ of continuous functions from $\mathbb{R}$ to $\mathbb{R}$ has the cardinality of the continuum.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble $\mathcal{C}(\mathbb{R},\mathbb{R})$ des fonctions continues de $\mathbb{R}$ dans $\mathbb{R}$ a le cardinal du continu.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a countable set. Show that the set of finite sequences of elements of $A$ is countable.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un ensemble dénombrable. Montrer que l'ensemble des suites finies d'éléments de $A$ est dénombrable.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <em>Injection from $\mathbb{R}$ into $\mathcal{C}(\mathbb{R},\mathbb{R})$:</em> $a\mapsto(x\mapsto a)$ (constant functions) is injective.
-      <br>
-      <em>Injection from $\mathcal{C}(\mathbb{R},\mathbb{R})$ into $\mathbb{R}^{\mathbb{Q}}$:</em> a continuous function is determined by its values on $\mathbb{Q}$ (by density of $\mathbb{Q}$ and continuity). So $f\mapsto f|_{\mathbb{Q}}$ is injective. Now $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (since $\mathbb{Q}\sim\mathbb{N}$), and $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. We conclude by Cantor-Bernstein.
+      <summary class="proof-label">Solution.</summary>
+      The sequences of length $n$ form $A^n$, countable as a finite product of countable sets. The set of all finite sequences is $\bigcup_{n\ge 0}A^n$, a countable union of at most countable sets, hence at most countable. It is infinite, since it contains the sequences of length $1$, so it is countable.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <em>Injection de $\mathbb{R}$ dans $\mathcal{C}(\mathbb{R},\mathbb{R})$ :</em> $a\mapsto(x\mapsto a)$ (fonctions constantes) est injective.
-      <br>
-      <em>Injection de $\mathcal{C}(\mathbb{R},\mathbb{R})$ dans $\mathbb{R}^{\mathbb{Q}}$ :</em> une fonction continue est déterminée par ses valeurs sur $\mathbb{Q}$ (par densité de $\mathbb{Q}$ et continuité). Donc $f\mapsto f|_{\mathbb{Q}}$ est injective. Or $\mathbb{R}^{\mathbb{Q}}\sim\mathbb{R}^{\mathbb{N}}$ (car $\mathbb{Q}\sim\mathbb{N}$), et $\mathbb{R}^{\mathbb{N}}\sim(\{0,1\}^{\mathbb{N}})^{\mathbb{N}}\sim\{0,1\}^{\mathbb{N}\times\mathbb{N}}\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$. On conclut par Cantor-Bernstein.
+      <summary class="proof-label">Solution.</summary>
+      Les suites de longueur $n$ forment $A^n$, dénombrable comme produit fini d'ensembles dénombrables. L'ensemble de toutes les suites finies est $\bigcup_{n\ge 0}A^n$, réunion dénombrable d'ensembles au plus dénombrables, donc au plus dénombrable. Il est infini, car il contient les suites de longueur $1$, donc il est dénombrable.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise (Hilbert's hotel).</span> A hotel has a countably infinite number of rooms, all occupied. (a) A new guest arrives. Show that they can be accommodated. (b) A coach of $n$ guests arrives. Show that all can be accommodated. (c) A coach with a countably infinite number of guests arrives. Show that all can be accommodated. (d) A countably infinite number of coaches, each containing a countably infinite number of guests, arrive. Show that all can be accommodated.</p>
-      <p class="fr"><span class="thm-label">Exercice (Hôtel de Hilbert).</span> Un hôtel a une infinité dénombrable de chambres, toutes occupées. (a) Un nouveau client arrive. Montrer qu'on peut le loger. (b) Un autocar de $n$ clients arrive. Montrer qu'on peut tous les loger. (c) Un autocar contenant une infinité dénombrable de clients arrive. Montrer qu'on peut tous les loger. (d) Une infinité dénombrable d'autocars, chacun contenant une infinité dénombrable de clients, arrivent. Montrer qu'on peut tous les loger.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the set of infinite subsets of $\mathbb{N}$ is equipotent to $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que l'ensemble des parties infinies de $\mathbb{N}$ est équipotent à $\mathbb{R}$.</p>
     </div>
-
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      (a) Move the guest in room $k$ to room $k+1$ for every $k\in\mathbb{N}$, freeing room $0$. Formally, $\sigma:k\mapsto k+1$ is an injection from $\mathbb{N}$ into $\mathbb{N}$ whose image is $\mathbb{N}^*$, freeing $0$.
+      <summary class="proof-label">Solution.</summary>
+      Write $\mathcal{I}$ for the set of infinite subsets. It is a subset of $\mathcal{P}(\mathbb{N})$, which gives one injection. In the other direction, send $A\subset\mathbb{N}$ to $\{2n:n\in A\}\cup\{2n+1:n\in\mathbb{N}\}$: this set contains every odd number, so it is infinite, and $A$ is recovered from its even part, so the map is an injection from $\mathcal{P}(\mathbb{N})$ into $\mathcal{I}$. Cantor-Bernstein gives $\mathcal{I}\sim\mathcal{P}(\mathbb{N})\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.
       <br>
-      (b) Send the guest in room $k$ to room $k+n$. Rooms $0,\ldots,n-1$ are free for the $n$ new guests. This is the injection $k\mapsto k+n$.
-      <br>
-      (c) Send the guest in room $k$ to room $2k$, freeing all odd rooms. Assign new guest $j$ to room $2j+1$. Formally, use $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, and place new guest $j$ in room $2j+1$.
-      <br>
-      (d) Use $\mathbb{N}^2\sim\mathbb{N}$. Label guests by $(i,j)$ (guest $j$ of bus $i$), and assign them room $\varphi(i,j)$ where $\varphi:\mathbb{N}^2\to\mathbb{N}$ is Cantor's bijection.
+      In particular $\mathcal{P}(\mathbb{N})$ splits into the finite subsets, which are countable, and the infinite ones, which carry the whole of its cardinality.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      (a) On déplace le client de la chambre $k$ vers la chambre $k+1$ pour tout $k\in\mathbb{N}$, ce qui libère la chambre $0$. Formellement, $\sigma:k\mapsto k+1$ est une injection de $\mathbb{N}$ dans $\mathbb{N}$ dont l'image est $\mathbb{N}^*$, libérant $0$.
+      <summary class="proof-label">Solution.</summary>
+      Notons $\mathcal{I}$ l'ensemble des parties infinies. C'est une partie de $\mathcal{P}(\mathbb{N})$, ce qui donne une injection. Dans l'autre sens, on envoie $A\subset\mathbb{N}$ sur $\{2n:n\in A\}\cup\{2n+1:n\in\mathbb{N}\}$ : cet ensemble contient tous les impairs, donc il est infini, et $A$ se retrouve à partir de sa partie paire, donc l'application est une injection de $\mathcal{P}(\mathbb{N})$ dans $\mathcal{I}$. Cantor-Bernstein donne $\mathcal{I}\sim\mathcal{P}(\mathbb{N})\sim\{0,1\}^{\mathbb{N}}\sim\mathbb{R}$.
       <br>
-      (b) On envoie le client de la chambre $k$ en chambre $k+n$. Les chambres $0,\ldots,n-1$ sont libres pour les $n$ nouveaux clients. C'est l'injection $k\mapsto k+n$.
-      <br>
-      (c) On envoie le client de la chambre $k$ en chambre $2k$, libérant toutes les chambres impaires. On attribue la chambre $2j+1$ au nouveau client $j$. Formellement, on utilise $\mathbb{N}\sim 2\mathbb{N}$ via $k\mapsto 2k$, et on place le nouveau client $j$ en chambre $2j+1$.
-      <br>
-      (d) On utilise $\mathbb{N}^2\sim\mathbb{N}$. On étiquette les clients par $(i,j)$ (client $j$ du bus $i$), et on leur attribue la chambre $\varphi(i,j)$ où $\varphi:\mathbb{N}^2\to\mathbb{N}$ est la bijection de Cantor.
+      En particulier $\mathcal{P}(\mathbb{N})$ se partage entre les parties finies, dénombrables, et les parties infinies, qui portent tout son cardinal.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Although $[0,1]\sim\mathbb{R}$, show that there is no continuous bijection from $[0,1]$ onto $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Bien que $[0,1]\sim\mathbb{R}$, montrer qu'il n'existe pas de bijection continue de $[0,1]$ sur $\mathbb{R}$.</p>
+    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      A continuous function on the segment $[0,1]$ is bounded and attains its bounds, so its image is contained in a segment and cannot be $\mathbb{R}$. Hence no continuous map from $[0,1]$ onto $\mathbb{R}$ is surjective, and in particular none is bijective. Equipotence compares sets and nothing else: the bijection given by Cantor-Bernstein cannot respect the topology.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Une fonction continue sur le segment $[0,1]$ est bornée et atteint ses bornes, donc son image est contenue dans un segment et ne peut pas être $\mathbb{R}$. Aucune application continue de $[0,1]$ vers $\mathbb{R}$ n'est donc surjective, et en particulier aucune n'est bijective. L'équipotence compare des ensembles et rien d'autre : la bijection donnée par Cantor-Bernstein ne peut pas respecter la topologie.
     </details>
 
   </main>

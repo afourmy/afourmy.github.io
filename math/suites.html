@@ -21,8 +21,14 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Supremum, completeness of $\mathbb{R}$</h2>
-    <h2 class="fr">Borne supérieure, complétude de $\mathbb{R}$</h2>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">The supremum</h3>
+    <h3 class="fr">La borne supérieure</h3>
+
+    <p class="en">The set $]0,1[$ has no largest element. Its upper bounds are the reals $x \ge 1$, and among those there is a smallest one, namely $1$.</p>
+    <p class="fr">L'ensemble $]0,1[$ n'a pas de plus grand élément. Ses majorants sont les réels $x \ge 1$, et parmi eux il y en a un plus petit que tous les autres, à savoir $1$.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above (resp. below). The <em>supremum</em> (resp. <em>infimum</em>) of $A$, denoted $\sup A$ (resp. $\inf A$), is the smallest upper bound (resp. the largest lower bound) of $A$.</p>
@@ -33,6 +39,9 @@
       <p class="en"><span class="thm-label">Proposition (Supremum property).</span> Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum in $\mathbb{R}$ (resp. every nonempty subset bounded below has an infimum). We say $\mathbb{R}$ is <em>complete</em>.</p>
       <p class="fr"><span class="thm-label">Proposition (Propriété de la borne supérieure).</span> Toute partie non vide et majorée de $\mathbb{R}$ admet une borne supérieure dans $\mathbb{R}$ (resp. toute partie non vide et minorée admet une borne inférieure). On dit que $\mathbb{R}$ est <em>complet</em>.</p>
     </div>
+
+    <p class="en">The definition speaks about every upper bound of $A$. The next statement replaces that by a condition on the elements of $A$ alone: $M$ is above all of them, and nothing below $M$ is.</p>
+    <p class="fr">La définition parle de tous les majorants de $A$. L'énoncé suivant remplace cela par une condition portant sur les seuls éléments de $A$ : $M$ est au-dessus de tous, et rien en dessous de $M$ ne l'est.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Characterization of the supremum).</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above. $M=\sup A$ if and only if:
@@ -56,6 +65,30 @@
       $(\Leftarrow)$ La condition (i) dit que $M$ est un majorant de $A$. Soit $M'$ un autre majorant de $A$. Par (ii), pour tout $\varepsilon&gt;0$, il existe $x\in A$ tel que $M-\varepsilon&lt;x\le M'$, donc $M-\varepsilon&lt;M'$. Ceci étant vrai pour tout $\varepsilon&gt;0$, on obtient $M\le M'$. Ainsi $M$ est le plus petit des majorants, i.e. $M=\sup A$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="415" height="108" viewBox="40.0 78.4 415.0 108.4">
+        <rect class="fig-band" x="340.0" y="140.0" width="105.0" height="20.0"/>
+        <line class="fig-axis" x1="50.0" y1="150.0" x2="445.0" y2="150.0"/>
+        <line class="fig-interval" x1="100.0" y1="150.0" x2="340.0" y2="150.0"/>
+        <line class="fig-guide" x1="280.0" y1="150.0" x2="280.0" y2="112.0"/>
+        <line class="fig-guide" x1="340.0" y1="150.0" x2="340.0" y2="112.0"/>
+        <line class="fig-accent" x1="280.0" y1="112.0" x2="340.0" y2="112.0"/>
+        <line class="fig-accent" x1="280.0" y1="107.0" x2="280.0" y2="117.0"/>
+        <line class="fig-accent" x1="340.0" y1="107.0" x2="340.0" y2="117.0"/>
+        <text x="310.0" y="103.0" text-anchor="middle">ε</text>
+        <circle class="fig-dot" cx="316.0" cy="150.0" r="4.0"/>
+        <circle class="fig-hole" cx="340.0" cy="150.0" r="4.0"/>
+        <text x="316.0" y="141.0" text-anchor="middle">x</text>
+        <text x="200.0" y="172.0" text-anchor="middle">A</text>
+        <text x="280.0" y="172.0" text-anchor="middle">M − ε</text>
+        <text x="340.0" y="172.0" text-anchor="middle">M</text>
+      </svg>
+      <figcaption><span class="en">The shaded band on the right is the set of upper bounds of $A$, and $M$ is its left end. Condition (ii) says that the interval $]M-\varepsilon, M]$ always contains a point $x$ of $A$, so no number below $M$ is an upper bound.</span><span class="fr">La bande grisée à droite est l'ensemble des majorants de $A$, et $M$ en est l'extrémité gauche. La condition (ii) dit que l'intervalle $]M-\varepsilon, M]$ contient toujours un point $x$ de $A$, donc aucun nombre inférieur à $M$ n'est un majorant.</span></figcaption>
+    </figure>
+
+    <p class="en">The supremum property already forces $\mathbb{N}$ to be unbounded.</p>
+    <p class="fr">La propriété de la borne supérieure force déjà $\mathbb{N}$ à ne pas être majoré.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Archimedean property).</span> $\mathbb{N}$ is not bounded above in $\mathbb{R}$: $\forall y\ge 0,\ \exists n\in\mathbb{N},\ n&gt;y$. Equivalently: for all $x&gt;0$ and $y\ge 0$, there exists $n\in\mathbb{N}$ such that $nx&gt;y$.</p>
       <p class="fr"><span class="thm-label">Proposition (Propriété d'Archimède).</span> $\mathbb{N}$ n'est pas majoré dans $\mathbb{R}$ : $\forall y\ge 0,\ \exists n\in\mathbb{N},\ n&gt;y$. De manière équivalente : pour tous réels $x&gt;0$ et $y\ge 0$, il existe $n\in\mathbb{N}$ tel que $nx&gt;y$.</p>
@@ -69,6 +102,12 @@
       <summary class="proof-label">Démonstration.</summary>
       Par l'absurde, si $\mathbb{N}$ est majoré, il admet $M=\sup\mathbb{N}$ ; alors $M-1$ n'est pas majorant, donc il existe $n\in\mathbb{N}$ tel que $n&gt;M-1$, d'où $n+1&gt;M$ avec $n+1\in\mathbb{N}$, contradiction. La seconde formulation s'obtient en appliquant la première à $y/x$.
     </details>
+
+    <h3 class="en">Convergence</h3>
+    <h3 class="fr">Convergence</h3>
+
+    <p class="en">Past rank $10$, all the terms of $(1/n)$ are within $0.1$ of $0$; past rank $100$, within $0.01$. Every tolerance is met from some rank onward.</p>
+    <p class="fr">À partir du rang $10$, tous les termes de $(1/n)$ sont à moins de $0{,}1$ de $0$ ; à partir du rang $100$, à moins de $0{,}01$. Toute tolérance est atteinte à partir d'un certain rang.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Convergence).</span> The sequence $(u_n)$ <em>converges to</em> $\ell \in \mathbb{R}$ if
@@ -88,6 +127,62 @@
       </p>
     </div>
 
+    <figure class="figure-block">
+      <svg class="figure" width="742" height="238" viewBox="8.2 46.8 741.8 238.1">
+        <rect class="fig-band" x="48.0" y="170.6" width="300.0" height="34.7"/>
+        <line class="fig-axis" x1="48.0" y1="250.0" x2="360.0" y2="250.0"/>
+        <line class="fig-axis" x1="48.0" y1="262.0" x2="48.0" y2="113.6"/>
+        <line class="fig-guide" x1="48.0" y1="188.0" x2="358.0" y2="188.0"/>
+        <line class="fig-guide" x1="160.0" y1="250.0" x2="160.0" y2="164.6"/>
+        <circle class="fig-dot" cx="60.0" cy="188.0" r="3.0"/>
+        <circle class="fig-dot" cx="80.0" cy="152.8" r="3.0"/>
+        <circle class="fig-dot" cx="100.0" cy="209.3" r="3.0"/>
+        <circle class="fig-dot" cx="120.0" cy="194.2" r="3.0"/>
+        <circle class="fig-dot" cx="140.0" cy="170.0" r="3.0"/>
+        <circle class="fig-dot" cx="160.0" cy="196.4" r="3.0"/>
+        <circle class="fig-dot" cx="180.0" cy="195.2" r="3.0"/>
+        <circle class="fig-dot" cx="200.0" cy="176.2" r="3.0"/>
+        <circle class="fig-dot" cx="220.0" cy="191.1" r="3.0"/>
+        <circle class="fig-dot" cx="240.0" cy="195.3" r="3.0"/>
+        <circle class="fig-dot" cx="260.0" cy="179.9" r="3.0"/>
+        <circle class="fig-dot" cx="280.0" cy="188.1" r="3.0"/>
+        <circle class="fig-dot" cx="300.0" cy="194.8" r="3.0"/>
+        <circle class="fig-dot" cx="320.0" cy="182.6" r="3.0"/>
+        <circle class="fig-dot" cx="340.0" cy="186.2" r="3.0"/>
+        <line class="fig-accent" x1="34.0" y1="188.0" x2="34.0" y2="170.6"/>
+        <line class="fig-accent" x1="29.0" y1="188.0" x2="39.0" y2="188.0"/>
+        <line class="fig-accent" x1="29.0" y1="170.6" x2="39.0" y2="170.6"/>
+        <text x="24.0" y="184.3" text-anchor="end">ε</text>
+        <text x="38.0" y="208.0" text-anchor="end">ℓ</text>
+        <text x="160.0" y="270.0" text-anchor="middle">N</text>
+        <line class="fig-axis" x1="428.0" y1="250.0" x2="740.0" y2="250.0"/>
+        <line class="fig-axis" x1="428.0" y1="262.0" x2="428.0" y2="56.8"/>
+        <line class="fig-guide" x1="428.0" y1="193.3" x2="738.0" y2="193.3"/>
+        <line class="fig-guide" x1="560.0" y1="250.0" x2="560.0" y2="187.3"/>
+        <circle class="fig-dot" cx="440.0" cy="250.0" r="3.0"/>
+        <circle class="fig-dot" cx="460.0" cy="216.4" r="3.0"/>
+        <circle class="fig-dot" cx="480.0" cy="242.3" r="3.0"/>
+        <circle class="fig-dot" cx="500.0" cy="218.7" r="3.0"/>
+        <circle class="fig-dot" cx="520.0" cy="176.7" r="3.0"/>
+        <circle class="fig-dot" cx="540.0" cy="199.6" r="3.0"/>
+        <circle class="fig-dot" cx="560.0" cy="186.8" r="3.0"/>
+        <circle class="fig-dot" cx="580.0" cy="138.9" r="3.0"/>
+        <circle class="fig-dot" cx="600.0" cy="155.9" r="3.0"/>
+        <circle class="fig-dot" cx="620.0" cy="153.9" r="3.0"/>
+        <circle class="fig-dot" cx="640.0" cy="102.9" r="3.0"/>
+        <circle class="fig-dot" cx="660.0" cy="111.6" r="3.0"/>
+        <circle class="fig-dot" cx="680.0" cy="119.7" r="3.0"/>
+        <circle class="fig-dot" cx="700.0" cy="68.6" r="3.0"/>
+        <circle class="fig-dot" cx="720.0" cy="67.3" r="3.0"/>
+        <text x="418.0" y="198.3" text-anchor="end">A</text>
+        <text x="560.0" y="270.0" text-anchor="middle">N</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the band has height $2\varepsilon$ around $\ell$, and every term of rank at least $N$ is inside it. A smaller $\varepsilon$ gives a thinner band and a larger $N$.</span><span class="cap-part"><span class="cap-lead">Right:</span> for an infinite limit the band is replaced by the half-plane above the level $A$, and every term of rank at least $N$ lies in it.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> la bande a pour hauteur $2\varepsilon$ autour de $\ell$, et tout terme de rang au moins $N$ s'y trouve. Un $\varepsilon$ plus petit donne une bande plus fine et un $N$ plus grand.</span><span class="cap-part"><span class="cap-lead">À droite :</span> pour une limite infinie, la bande est remplacée par le demi-plan au-dessus du niveau $A$, et tout terme de rang au moins $N$ s'y trouve.</span></span></figcaption>
+    </figure>
+
+    <p class="en">If a sequence had two limits $\ell$ and $\ell'$, its terms would eventually be within $\varepsilon$ of each. Taking $\varepsilon$ equal to half the distance $|\ell-\ell'|$ puts the same term in two disjoint bands.</p>
+    <p class="fr">Si une suite avait deux limites $\ell$ et $\ell'$, ses termes seraient à terme à moins de $\varepsilon$ de chacune. Prendre $\varepsilon$ égal à la moitié de la distance $|\ell-\ell'|$ place un même terme dans deux bandes disjointes.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Uniqueness of the limit).</span> A real sequence has at most one limit.</p>
       <p class="fr"><span class="thm-label">Théorème (Unicité de la limite).</span> Une suite réelle admet au plus une limite.</p>
@@ -102,6 +197,43 @@
       Supposons $u_n\to\ell$ et $u_n\to\ell'$ ; pour $\varepsilon&gt;0$, il existe $n_1,n_2\in\mathbb{N}$ tels que $n\ge n_1\Rightarrow |u_n-\ell|&lt;\varepsilon/2$ et $n\ge n_2\Rightarrow |u_n-\ell'|&lt;\varepsilon/2$, donc pour tout $n\ge\max(n_1,n_2)$ on a $|\ell-\ell'|\le |u_n-\ell|+|u_n-\ell'|&lt;\varepsilon$, d'où $\ell=\ell'$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="427" height="204" viewBox="19.8 58.4 426.8 203.6">
+        <rect class="fig-band" x="58.0" y="165.5" width="344.0" height="45.1"/>
+        <rect class="fig-band" x="58.0" y="97.9" width="344.0" height="45.1"/>
+        <line class="fig-axis" x1="58.0" y1="240.0" x2="406.0" y2="240.0"/>
+        <line class="fig-axis" x1="58.0" y1="252.0" x2="58.0" y2="68.4"/>
+        <line class="fig-guide" x1="58.0" y1="188.0" x2="402.0" y2="188.0"/>
+        <line class="fig-guide" x1="58.0" y1="120.4" x2="402.0" y2="120.4"/>
+        <circle class="fig-dot" cx="70.0" cy="117.8" r="3.0"/>
+        <circle class="fig-dot" cx="92.0" cy="232.8" r="3.0"/>
+        <circle class="fig-dot" cx="114.0" cy="155.9" r="3.0"/>
+        <circle class="fig-dot" cx="136.0" cy="212.1" r="3.0"/>
+        <circle class="fig-dot" cx="158.0" cy="169.5" r="3.0"/>
+        <circle class="fig-dot" cx="180.0" cy="202.2" r="3.0"/>
+        <circle class="fig-dot" cx="202.0" cy="177.2" r="3.0"/>
+        <circle class="fig-dot" cx="224.0" cy="195.9" r="3.0"/>
+        <circle class="fig-dot" cx="246.0" cy="182.5" r="3.0"/>
+        <circle class="fig-dot" cx="268.0" cy="191.4" r="3.0"/>
+        <circle class="fig-dot" cx="290.0" cy="186.3" r="3.0"/>
+        <circle class="fig-dot" cx="312.0" cy="188.1" r="3.0"/>
+        <circle class="fig-dot" cx="334.0" cy="189.2" r="3.0"/>
+        <circle class="fig-dot" cx="356.0" cy="185.7" r="3.0"/>
+        <circle class="fig-dot" cx="378.0" cy="191.2" r="3.0"/>
+        <text x="48.0" y="193.0" text-anchor="end">ℓ</text>
+        <text x="48.0" y="125.4" text-anchor="end">ℓ′</text>
+        <line class="fig-accent" x1="420.0" y1="188.0" x2="420.0" y2="165.5"/>
+        <line class="fig-accent" x1="415.0" y1="188.0" x2="425.0" y2="188.0"/>
+        <line class="fig-accent" x1="415.0" y1="165.5" x2="425.0" y2="165.5"/>
+        <text x="430.0" y="181.7">ε</text>
+        <line class="fig-accent" x1="420.0" y1="120.4" x2="420.0" y2="142.9"/>
+        <line class="fig-accent" x1="415.0" y1="120.4" x2="425.0" y2="120.4"/>
+        <line class="fig-accent" x1="415.0" y1="142.9" x2="425.0" y2="142.9"/>
+        <text x="430.0" y="136.7">ε</text>
+      </svg>
+      <figcaption><span class="en">The bands have half-height $\varepsilon$, taken smaller than half the distance $|\ell-\ell'|$, so they are disjoint. A term of large rank lies in the lower one, hence outside the upper one.</span><span class="fr">Les bandes ont pour demi-hauteur $\varepsilon$, prise plus petite que la moitié de la distance $|\ell-\ell'|$, donc elles sont disjointes. Un terme de rang grand est dans celle du bas, donc hors de celle du haut.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> Every convergent sequence is bounded.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Toute suite convergente est bornée.</p>
@@ -115,6 +247,23 @@
       <summary class="proof-label">Démonstration.</summary>
       Si $u_n\to\ell$, pour $\varepsilon=1$ il existe $N$ tel que $n\ge N\Rightarrow |u_n-\ell|&lt;1$. Par l'inégalité triangulaire, $|u_n|=|(u_n-\ell)+\ell|\le |u_n-\ell|+|\ell|&lt;1+|\ell|$. Donc pour tout $n$, $|u_n|\le\max(|u_0|,\ldots,|u_{N-1}|,|\ell|+1)$.
     </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Limits and order).</span> Let $(u_n)$ and $(v_n)$ converge to $\ell$ and $m$. If $u_n \le v_n$ from some rank onward, then $\ell \le m$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Limites et ordre).</span> Soient $(u_n)$ et $(v_n)$ convergeant vers $\ell$ et $m$. Si $u_n \le v_n$ à partir d'un certain rang, alors $\ell \le m$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $w_n = v_n - u_n$, so that $w_n \ge 0$ from some rank and $w_n \to m - \ell$. If $m-\ell&lt;0$, apply the definition of the limit with $\varepsilon = (\ell-m)/2 > 0$: from some rank, $w_n &lt; (m-\ell) + \varepsilon = (m-\ell)/2 &lt; 0$, contradicting $w_n \ge 0$. Hence $m-\ell\ge 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $w_n = v_n - u_n$, de sorte que $w_n \ge 0$ à partir d'un certain rang et $w_n \to m - \ell$. Si $m-\ell&lt;0$, appliquons la définition de la limite avec $\varepsilon = (\ell-m)/2 &gt; 0$ : à partir d'un certain rang, $w_n &lt; (m-\ell) + \varepsilon = (m-\ell)/2 &lt; 0$, ce qui contredit $w_n \ge 0$. Donc $m-\ell\ge 0$.
+    </details>
+
+    <p class="en">The terms of $(v_n)$ lie in the interval $[u_n, w_n]$, whose two ends converge to $\ell$. Its length tends to $0$, so every point of it tends to $\ell$.</p>
+    <p class="fr">Les termes de $(v_n)$ sont dans l'intervalle $[u_n, w_n]$, dont les deux extrémités convergent vers $\ell$. Sa longueur tend vers $0$, donc tout point de cet intervalle tend vers $\ell$.</p>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Squeeze theorem).</span> Let $(u_n)$, $(v_n)$ and $(w_n)$ be three sequences such that, from some rank onward,
@@ -137,6 +286,116 @@
       <br><br>
       <em>Preuve alternative.</em> On écrit $v_n = u_n + (v_n - u_n)$ avec $0 \le v_n - u_n \le w_n - u_n \to 0$, donc $v_n - u_n \to 0$ et $v_n \to \ell$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="419" height="245" viewBox="13.0 9.8 419.4 245.2">
+        <line class="fig-axis" x1="48.0" y1="235.0" x2="402.0" y2="235.0"/>
+        <line class="fig-axis" x1="48.0" y1="245.0" x2="48.0" y2="19.8"/>
+        <line class="fig-guide" x1="48.0" y1="130.0" x2="398.0" y2="130.0"/>
+        <polyline class="fig-accent" points="60.0,221.3 84.0,193.6 108.0,178.8 132.0,169.6 156.0,163.3 180.0,158.8 204.0,155.3 228.0,152.6 252.0,150.4 276.0,148.6 300.0,147.1 324.0,145.8 348.0,144.7 372.0,143.7" fill="none"/>
+        <polyline class="fig-accent" points="60.0,30.0 84.0,58.6 108.0,74.4 132.0,84.5 156.0,91.5 180.0,96.7 204.0,100.6 228.0,103.7 252.0,106.2 276.0,108.3 300.0,110.0 324.0,111.5 348.0,112.8 372.0,113.9" fill="none"/>
+        <circle class="fig-hole" cx="60.0" cy="221.3" r="3.0"/>
+        <circle class="fig-hole" cx="60.0" cy="30.0" r="3.0"/>
+        <circle class="fig-hole" cx="84.0" cy="193.6" r="3.0"/>
+        <circle class="fig-hole" cx="84.0" cy="58.6" r="3.0"/>
+        <circle class="fig-hole" cx="108.0" cy="178.8" r="3.0"/>
+        <circle class="fig-hole" cx="108.0" cy="74.4" r="3.0"/>
+        <circle class="fig-hole" cx="132.0" cy="169.6" r="3.0"/>
+        <circle class="fig-hole" cx="132.0" cy="84.5" r="3.0"/>
+        <circle class="fig-hole" cx="156.0" cy="163.3" r="3.0"/>
+        <circle class="fig-hole" cx="156.0" cy="91.5" r="3.0"/>
+        <circle class="fig-hole" cx="180.0" cy="158.8" r="3.0"/>
+        <circle class="fig-hole" cx="180.0" cy="96.7" r="3.0"/>
+        <circle class="fig-hole" cx="204.0" cy="155.3" r="3.0"/>
+        <circle class="fig-hole" cx="204.0" cy="100.6" r="3.0"/>
+        <circle class="fig-hole" cx="228.0" cy="152.6" r="3.0"/>
+        <circle class="fig-hole" cx="228.0" cy="103.7" r="3.0"/>
+        <circle class="fig-hole" cx="252.0" cy="150.4" r="3.0"/>
+        <circle class="fig-hole" cx="252.0" cy="106.2" r="3.0"/>
+        <circle class="fig-hole" cx="276.0" cy="148.6" r="3.0"/>
+        <circle class="fig-hole" cx="276.0" cy="108.3" r="3.0"/>
+        <circle class="fig-hole" cx="300.0" cy="147.1" r="3.0"/>
+        <circle class="fig-hole" cx="300.0" cy="110.0" r="3.0"/>
+        <circle class="fig-hole" cx="324.0" cy="145.8" r="3.0"/>
+        <circle class="fig-hole" cx="324.0" cy="111.5" r="3.0"/>
+        <circle class="fig-hole" cx="348.0" cy="144.7" r="3.0"/>
+        <circle class="fig-hole" cx="348.0" cy="112.8" r="3.0"/>
+        <circle class="fig-hole" cx="372.0" cy="143.7" r="3.0"/>
+        <circle class="fig-hole" cx="372.0" cy="113.9" r="3.0"/>
+        <circle class="fig-dot" cx="60.0" cy="125.7" r="3.5"/>
+        <circle class="fig-dot" cx="84.0" cy="80.5" r="3.5"/>
+        <circle class="fig-dot" cx="108.0" cy="178.6" r="3.5"/>
+        <circle class="fig-dot" cx="132.0" cy="93.3" r="3.5"/>
+        <circle class="fig-dot" cx="156.0" cy="133.7" r="3.5"/>
+        <circle class="fig-dot" cx="180.0" cy="144.4" r="3.5"/>
+        <circle class="fig-dot" cx="204.0" cy="101.5" r="3.5"/>
+        <circle class="fig-dot" cx="228.0" cy="149.8" r="3.5"/>
+        <circle class="fig-dot" cx="252.0" cy="120.7" r="3.5"/>
+        <circle class="fig-dot" cx="276.0" cy="120.7" r="3.5"/>
+        <circle class="fig-dot" cx="300.0" cy="145.3" r="3.5"/>
+        <circle class="fig-dot" cx="324.0" cy="112.3" r="3.5"/>
+        <circle class="fig-dot" cx="348.0" cy="136.7" r="3.5"/>
+        <circle class="fig-dot" cx="372.0" cy="132.0" r="3.5"/>
+        <text x="406.0" y="99.9">w<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="406.0" y="163.7">u<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="406.0" y="134.0">v<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="38.0" y="135.0" text-anchor="end">ℓ</text>
+      </svg>
+      <figcaption><span class="en">The two hollow sequences $u_n$ and $w_n$ both converge to $\ell$, and $v_n$ is confined between them at every rank.</span><span class="fr">Les deux suites évidées $u_n$ et $w_n$ convergent toutes deux vers $\ell$, et $v_n$ est enfermée entre elles à chaque rang.</span></figcaption>
+    </figure>
+
+    <p class="en">Each factor $1+h$ adds at least $h$ to the product, so after $n$ factors the product exceeds $1$ by at least $nh$.</p>
+    <p class="fr">Chaque facteur $1+h$ ajoute au moins $h$ au produit, donc après $n$ facteurs le produit dépasse $1$ d'au moins $nh$.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Bernoulli's inequality).</span> For every $h\ge -1$ and every $n\in\mathbb{N}$, $(1+h)^n \ge 1+nh$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Inégalité de Bernoulli).</span> Pour tout $h\ge -1$ et tout $n\in\mathbb{N}$, $(1+h)^n \ge 1+nh$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By induction. The case $n=0$ reads $1\ge 1$. If $(1+h)^n\ge 1+nh$, multiplying by $1+h\ge 0$ gives $(1+h)^{n+1}\ge (1+nh)(1+h)=1+(n+1)h+nh^2\ge 1+(n+1)h$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence. Le cas $n=0$ s'écrit $1\ge 1$. Si $(1+h)^n\ge 1+nh$, en multipliant par $1+h\ge 0$ on obtient $(1+h)^{n+1}\ge (1+nh)(1+h)=1+(n+1)h+nh^2\ge 1+(n+1)h$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="411" height="274" viewBox="32.3 6.2 411.2 273.8">
+        <line class="fig-axis" x1="56.0" y1="260.0" x2="404.0" y2="260.0"/>
+        <line class="fig-axis" x1="56.0" y1="270.0" x2="56.0" y2="16.2"/>
+        <line class="fig-curve" x1="70.0" y1="247.5" x2="378.0" y2="203.8"/>
+        <circle class="fig-dot" cx="70.0" cy="247.5" r="4.0"/>
+        <circle class="fig-dot" cx="70.0" cy="247.5" r="2.5"/>
+        <line class="fig-guide" x1="70.0" y1="247.5" x2="70.0" y2="247.5"/>
+        <circle class="fig-dot" cx="114.0" cy="241.2" r="4.0"/>
+        <circle class="fig-dot" cx="114.0" cy="241.2" r="2.5"/>
+        <line class="fig-guide" x1="114.0" y1="241.2" x2="114.0" y2="241.2"/>
+        <circle class="fig-dot" cx="158.0" cy="231.9" r="4.0"/>
+        <circle class="fig-dot" cx="158.0" cy="235.0" r="2.5"/>
+        <line class="fig-guide" x1="158.0" y1="235.0" x2="158.0" y2="231.9"/>
+        <circle class="fig-dot" cx="202.0" cy="217.8" r="4.0"/>
+        <circle class="fig-dot" cx="202.0" cy="228.8" r="2.5"/>
+        <line class="fig-guide" x1="202.0" y1="228.8" x2="202.0" y2="217.8"/>
+        <circle class="fig-dot" cx="246.0" cy="196.7" r="4.0"/>
+        <circle class="fig-dot" cx="246.0" cy="222.5" r="2.5"/>
+        <line class="fig-guide" x1="246.0" y1="222.5" x2="246.0" y2="196.7"/>
+        <circle class="fig-dot" cx="290.0" cy="165.1" r="4.0"/>
+        <circle class="fig-dot" cx="290.0" cy="216.2" r="2.5"/>
+        <line class="fig-guide" x1="290.0" y1="216.2" x2="290.0" y2="165.1"/>
+        <circle class="fig-dot" cx="334.0" cy="117.6" r="4.0"/>
+        <circle class="fig-dot" cx="334.0" cy="210.0" r="2.5"/>
+        <line class="fig-guide" x1="334.0" y1="210.0" x2="334.0" y2="117.6"/>
+        <circle class="fig-dot" cx="378.0" cy="46.4" r="4.0"/>
+        <circle class="fig-dot" cx="378.0" cy="203.8" r="2.5"/>
+        <line class="fig-guide" x1="378.0" y1="203.8" x2="378.0" y2="46.4"/>
+        <text x="388.0" y="50.4">(1+h)<tspan dy="-5" font-size="11">n</tspan></text>
+        <text x="388.0" y="207.8">1+nh</text>
+        <text x="50.0" y="252.5" text-anchor="end">1</text>
+      </svg>
+      <figcaption><span class="en">The powers $(1+h)^n$ for $h=\tfrac12$, against the line $1+nh$. The vertical segments are the gap, and it widens at every step.</span><span class="fr">Les puissances $(1+h)^n$ pour $h=\tfrac12$, face à la droite $1+nh$. Les segments verticaux sont l'écart, qui s'élargit à chaque étape.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Standard limits).</span> We have:
@@ -184,78 +443,8 @@
       Quotient : il suffit de montrer $1/v_n\to 1/m$ ; comme $v_n\to m\neq 0$, on a $|v_n|\ge |m|/2$ à partir d'un certain rang, d'où $|1/v_n-1/m|=|v_n-m|/(|v_n||m|)\le 2|v_n-m|/m^2\to 0$.
     </details>
 
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Monotone convergence).</span> Every monotone bounded sequence is convergent.</p>
-      <p class="fr"><span class="thm-label">Théorème (Convergence monotone).</span> Toute suite monotone et bornée est convergente.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Suppose $(u_n)$ is increasing and bounded above; the set $\{u_n \mid n\in\mathbb{N}\}$ is nonempty and bounded above, so it has a supremum $\ell$, and for every $\varepsilon>0$ there exists $N$ with $u_N>\ell-\varepsilon$, so by monotonicity $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, giving $|u_n-\ell|&lt;\varepsilon$; the decreasing case is analogous.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Supposons $(u_n)$ croissante et majorée ; l'ensemble $\{u_n \mid n\in\mathbb{N}\}$ est non vide (il contient $u_0$) et majoré par hypothèse, donc il admet une borne supérieure $\ell$, et pour tout $\varepsilon&gt;0$, il existe $N$ tel que $u_N&gt;\ell-\varepsilon$, donc par croissance $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, d'où $|u_n-\ell|&lt;\varepsilon$ ; le cas décroissant est analogue.
-    </details>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Adjacent sequences).</span> Let $(u_n)$ be increasing and $(v_n)$ decreasing such that:
-      \[u_n \le v_n \quad \text{and} \quad v_n-u_n \to 0.\]
-      Then $(u_n)$ and $(v_n)$ converge to the same limit.</p>
-      <p class="fr"><span class="thm-label">Théorème (Suites adjacentes).</span> Soient $(u_n)$ croissante et $(v_n)$ décroissante telles que :
-      \[u_n \le v_n \quad \text{et} \quad v_n-u_n \to 0.\]
-      Alors $(u_n)$ et $(v_n)$ convergent vers la même limite.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $(u_n)$ is increasing and bounded above by $v_0$ (since $u_n\le v_n\le v_0$), so it converges to $\ell$; similarly $(v_n)$ is decreasing and bounded below by $u_0$, so it converges to $m$. Passing to the limit in $v_n-u_n\to 0$ gives $m-\ell=0$, so $\ell=m$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      $(u_n)$ est croissante et majorée par $v_0$ (car $u_n\le v_n\le v_0$), donc convergente vers $\ell$ ; de même $(v_n)$ est décroissante et minorée par $u_0$, donc convergente vers $m$. Par passage à la limite dans $v_n-u_n\to 0$, on obtient $m-\ell=0$, d'où $\ell=m$.
-    </details>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Subsequence).</span> Let $(u_n)$ be a sequence. A <em>subsequence</em> of $(u_n)$ is any sequence of the form $(u_{\varphi(n)})$ where $\varphi\colon\mathbb{N}\to\mathbb{N}$ is strictly increasing.</p>
-      <p class="fr"><span class="thm-label">Définition (Suite extraite).</span> Soit $(u_n)$ une suite. On appelle <em>suite extraite</em> (ou sous-suite) de $(u_n)$ toute suite de la forme $(u_{\varphi(n)})$ où $\varphi\colon\mathbb{N}\to\mathbb{N}$ est strictement croissante.</p>
-    </div>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Monotone subsequence lemma).</span> Every real sequence has a monotone subsequence.</p>
-      <p class="fr"><span class="thm-label">Théorème (Lemme d'extraction monotone).</span> Toute suite réelle admet une sous-suite monotone.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Call $n$ a <em>peak</em> of $(u_n)$ if $u_n\ge u_m$ for all $m\ge n$.
-      <br><br>
-      If the peaks form an infinite sequence $\varphi(0)&lt;\varphi(1)&lt;\cdots$, then for each $k$, $\varphi(k)$ is a peak and $\varphi(k+1)\ge\varphi(k)$, so $u_{\varphi(k)}\ge u_{\varphi(k+1)}$: the subsequence is decreasing.
-      <br><br>
-      Otherwise, there exists $N$ such that no $n\ge N$ is a peak; we then build an increasing subsequence by induction: $\varphi(0)=N$, and for each $k$, since $\varphi(k)$ is not a peak, there exists $\varphi(k+1)&gt;\varphi(k)$ with $u_{\varphi(k+1)}&gt;u_{\varphi(k)}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      On dit que $n$ est un <em>pic</em> de $(u_n)$ si $u_n\ge u_m$ pour tout $m\ge n$.
-      <br><br>
-      Si les pics forment une suite infinie $\varphi(0)&lt;\varphi(1)&lt;\cdots$, alors pour tout $k$, $\varphi(k)$ est un pic et $\varphi(k+1)\ge\varphi(k)$, donc $u_{\varphi(k)}\ge u_{\varphi(k+1)}$ : la sous-suite est décroissante.
-      <br><br>
-      Sinon, il existe $N$ tel qu'aucun $n\ge N$ n'est un pic ; on construit alors par récurrence une sous-suite croissante : $\varphi(0)=N$, et pour tout $k$, comme $\varphi(k)$ n'est pas un pic, il existe $\varphi(k+1)&gt;\varphi(k)$ tel que $u_{\varphi(k+1)}&gt;u_{\varphi(k)}$.
-    </details>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Bolzano-Weierstrass).</span> Every bounded real sequence has a convergent subsequence.</p>
-      <p class="fr"><span class="thm-label">Théorème (Bolzano-Weierstrass).</span> Toute suite réelle bornée admet une sous-suite convergente.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      By the monotone subsequence lemma, the sequence has a monotone subsequence; this subsequence is bounded (as a subsequence of a bounded sequence), hence convergent by the monotone convergence theorem.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Par le lemme d'extraction monotone, la suite admet une sous-suite monotone ; celle-ci est bornée (comme sous-suite d'une suite bornée), donc convergente par le théorème de convergence monotone.
-    </details>
+    <p class="en">Condition (ii) of the characterization holds for every $\varepsilon>0$. Applying it at $\varepsilon=1/n$ turns the supremum into the limit of a sequence of elements of $A$.</p>
+    <p class="fr">La condition (ii) de la caractérisation vaut pour tout $\varepsilon&gt;0$. L'appliquer à $\varepsilon=1/n$ transforme la borne supérieure en limite d'une suite d'éléments de $A$.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Sequential characterization of the supremum).</span> Let $A\subset\mathbb{R}$ be nonempty and bounded above, and $s\in\mathbb{R}$. Then $s=\sup A$ if and only if $s$ is an upper bound of $A$ and there exists a sequence $(a_n)\in A^{\mathbb{N}}$ such that $a_n\to s$.</p>
@@ -275,6 +464,298 @@
       $(\Leftarrow)$ Soit $\varepsilon&gt;0$ ; comme $a_n\to s$, il existe $n$ tel que $a_n&gt;s-\varepsilon$, avec $a_n\in A$. Donc $s=\sup A$.
     </details>
 
+    <h3 class="en">Monotone bounded sequences converge</h3>
+    <h3 class="fr">Les suites monotones bornées convergent</h3>
+
+    <p class="en">Let $(u_n)$ be increasing and bounded above, and let $\ell$ be the supremum of the set of its terms. No term exceeds $\ell$, and some term $u_N$ exceeds $\ell-\varepsilon$; from rank $N$ on, the sequence increases and stays below $\ell$, so it stays in $]\ell-\varepsilon, \ell]$.</p>
+    <p class="fr">Soit $(u_n)$ croissante et majorée, et soit $\ell$ la borne supérieure de l'ensemble de ses termes. Aucun terme ne dépasse $\ell$, et un terme $u_N$ dépasse $\ell-\varepsilon$ ; à partir du rang $N$, la suite croît et reste sous $\ell$, donc elle reste dans $]\ell-\varepsilon, \ell]$.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Monotone convergence).</span> Every monotone bounded sequence is convergent.</p>
+      <p class="fr"><span class="thm-label">Théorème (Convergence monotone).</span> Toute suite monotone et bornée est convergente.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $(u_n)$ is increasing and bounded above; the set $\{u_n \mid n\in\mathbb{N}\}$ is nonempty and bounded above, so it has a supremum $\ell$, and for every $\varepsilon>0$ there exists $N$ with $u_N>\ell-\varepsilon$, so by monotonicity $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, giving $|u_n-\ell|&lt;\varepsilon$; the decreasing case is analogous.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons $(u_n)$ croissante et majorée ; l'ensemble $\{u_n \mid n\in\mathbb{N}\}$ est non vide (il contient $u_0$) et majoré par hypothèse, donc il admet une borne supérieure $\ell$, et pour tout $\varepsilon&gt;0$, il existe $N$ tel que $u_N&gt;\ell-\varepsilon$, donc par croissance $n\ge N\Rightarrow \ell-\varepsilon&lt;u_N\le u_n\le\ell$, d'où $|u_n-\ell|&lt;\varepsilon$ ; le cas décroissant est analogue.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="450" height="260" viewBox="-3.7 24.4 449.7 260.5">
+        <rect class="fig-band" x="58.0" y="74.0" width="374.0" height="29.9"/>
+        <line class="fig-axis" x1="58.0" y1="250.0" x2="436.0" y2="250.0"/>
+        <line class="fig-axis" x1="58.0" y1="260.0" x2="58.0" y2="34.4"/>
+        <line class="fig-curve" x1="58.0" y1="74.0" x2="432.0" y2="74.0"/>
+        <line class="fig-guide" x1="58.0" y1="103.9" x2="432.0" y2="103.9"/>
+        <line class="fig-guide" x1="200.0" y1="250.0" x2="200.0" y2="109.9"/>
+        <circle class="fig-dot" cx="70.0" cy="210.4" r="3.5"/>
+        <circle class="fig-dot" cx="96.0" cy="172.2" r="3.5"/>
+        <circle class="fig-dot" cx="122.0" cy="144.7" r="3.5"/>
+        <circle class="fig-dot" cx="148.0" cy="124.9" r="3.5"/>
+        <circle class="fig-dot" cx="174.0" cy="110.7" r="3.5"/>
+        <circle class="fig-dot" cx="200.0" cy="100.4" r="3.5"/>
+        <circle class="fig-dot" cx="226.0" cy="93.0" r="3.5"/>
+        <circle class="fig-dot" cx="252.0" cy="87.7" r="3.5"/>
+        <circle class="fig-dot" cx="278.0" cy="83.9" r="3.5"/>
+        <circle class="fig-dot" cx="304.0" cy="81.1" r="3.5"/>
+        <circle class="fig-dot" cx="330.0" cy="79.1" r="3.5"/>
+        <circle class="fig-dot" cx="356.0" cy="77.7" r="3.5"/>
+        <circle class="fig-dot" cx="382.0" cy="76.6" r="3.5"/>
+        <circle class="fig-dot" cx="408.0" cy="75.9" r="3.5"/>
+        <text x="48.0" y="79.0" text-anchor="end">ℓ</text>
+        <text x="48.0" y="108.9" text-anchor="end">ℓ − ε</text>
+        <text x="200.0" y="270.0" text-anchor="middle">N</text>
+      </svg>
+      <figcaption><span class="en">The horizontal line is $\ell=\sup\{u_n\}$: no term crosses it, and the band $]\ell-\varepsilon,\ell]$ must contain a term $u_N$, since otherwise $\ell-\varepsilon$ would be an upper bound smaller than $\ell$. From that rank on the terms cannot leave the band.</span><span class="fr">La droite horizontale est $\ell=\sup\{u_n\}$ : aucun terme ne la franchit, et la bande $]\ell-\varepsilon,\ell]$ contient nécessairement un terme $u_N$, sans quoi $\ell-\varepsilon$ serait un majorant plus petit que $\ell$. À partir de ce rang, les termes ne peuvent plus quitter la bande.</span></figcaption>
+    </figure>
+
+    <p class="en">If $(u_n)$ increases, $(v_n)$ decreases and $u_n \le v_n$, then each one is bounded by the other, so both converge. The difference of the limits is the limit of the difference.</p>
+    <p class="fr">Si $(u_n)$ croît, $(v_n)$ décroît et $u_n \le v_n$, alors chacune est bornée par l'autre, donc les deux convergent. La différence des limites est la limite de la différence.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Adjacent sequences).</span> Let $(u_n)$ be increasing and $(v_n)$ decreasing such that:
+      \[u_n \le v_n \quad \text{and} \quad v_n-u_n \to 0.\]
+      Then $(u_n)$ and $(v_n)$ converge to the same limit.</p>
+      <p class="fr"><span class="thm-label">Théorème (Suites adjacentes).</span> Soient $(u_n)$ croissante et $(v_n)$ décroissante telles que :
+      \[u_n \le v_n \quad \text{et} \quad v_n-u_n \to 0.\]
+      Alors $(u_n)$ et $(v_n)$ convergent vers la même limite.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(u_n)$ is increasing and bounded above by $v_0$ (since $u_n\le v_n\le v_0$), so it converges to $\ell$; similarly $(v_n)$ is decreasing and bounded below by $u_0$, so it converges to $m$. Passing to the limit in $v_n-u_n\to 0$ gives $m-\ell=0$, so $\ell=m$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(u_n)$ est croissante et majorée par $v_0$ (car $u_n\le v_n\le v_0$), donc convergente vers $\ell$ ; de même $(v_n)$ est décroissante et minorée par $u_0$, donc convergente vers $m$. Par passage à la limite dans $v_n-u_n\to 0$, on obtient $m-\ell=0$, d'où $\ell=m$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="445" height="264" viewBox="23.0 -4.0 445.5 264.0">
+        <line class="fig-axis" x1="58.0" y1="240.0" x2="440.0" y2="240.0"/>
+        <line class="fig-axis" x1="58.0" y1="250.0" x2="58.0" y2="6.0"/>
+        <line class="fig-guide" x1="58.0" y1="130.8" x2="436.0" y2="130.8"/>
+        <line class="fig-accent" x1="97.0" y1="195.4" x2="97.0" y2="61.3"/>
+        <line class="fig-accent" x1="92.0" y1="195.4" x2="102.0" y2="195.4"/>
+        <line class="fig-accent" x1="92.0" y1="61.3" x2="102.0" y2="61.3"/>
+        <text x="97.0" y="47.3" text-anchor="middle">v<tspan dy="4" font-size="11">n</tspan><tspan dy="-4"> − u</tspan><tspan dy="4" font-size="11">n</tspan></text>
+        <circle class="fig-dot" cx="70.0" cy="220.5" r="3.5"/>
+        <circle class="fig-hole" cx="70.0" cy="25.5" r="3.5"/>
+        <circle class="fig-dot" cx="97.0" cy="195.4" r="3.5"/>
+        <circle class="fig-hole" cx="97.0" cy="61.3" r="3.5"/>
+        <circle class="fig-dot" cx="124.0" cy="177.3" r="3.5"/>
+        <circle class="fig-hole" cx="124.0" cy="84.9" r="3.5"/>
+        <circle class="fig-dot" cx="151.0" cy="164.3" r="3.5"/>
+        <circle class="fig-hole" cx="151.0" cy="100.5" r="3.5"/>
+        <circle class="fig-dot" cx="178.0" cy="154.9" r="3.5"/>
+        <circle class="fig-hole" cx="178.0" cy="110.8" r="3.5"/>
+        <circle class="fig-dot" cx="205.0" cy="148.2" r="3.5"/>
+        <circle class="fig-hole" cx="205.0" cy="117.6" r="3.5"/>
+        <circle class="fig-dot" cx="232.0" cy="143.3" r="3.5"/>
+        <circle class="fig-hole" cx="232.0" cy="122.1" r="3.5"/>
+        <circle class="fig-dot" cx="259.0" cy="139.8" r="3.5"/>
+        <circle class="fig-hole" cx="259.0" cy="125.1" r="3.5"/>
+        <circle class="fig-dot" cx="286.0" cy="137.3" r="3.5"/>
+        <circle class="fig-hole" cx="286.0" cy="127.0" r="3.5"/>
+        <circle class="fig-dot" cx="313.0" cy="135.5" r="3.5"/>
+        <circle class="fig-hole" cx="313.0" cy="128.3" r="3.5"/>
+        <circle class="fig-dot" cx="340.0" cy="134.2" r="3.5"/>
+        <circle class="fig-hole" cx="340.0" cy="129.1" r="3.5"/>
+        <circle class="fig-dot" cx="367.0" cy="133.2" r="3.5"/>
+        <circle class="fig-hole" cx="367.0" cy="129.7" r="3.5"/>
+        <circle class="fig-dot" cx="394.0" cy="132.5" r="3.5"/>
+        <circle class="fig-hole" cx="394.0" cy="130.1" r="3.5"/>
+        <text x="444.0" y="124.1">v<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="444.0" y="148.5">u<tspan dy="4" font-size="11">n</tspan></text>
+        <text x="48.0" y="135.8" text-anchor="end">ℓ</text>
+      </svg>
+      <figcaption><span class="en">The solid sequence increases, the hollow one decreases, and the marked gap $v_n-u_n$ tends to $0$. Each sequence is bounded by the other, so both converge, and to the same number.</span><span class="fr">La suite pleine croît, la suite évidée décroît, et l'écart marqué $v_n-u_n$ tend vers $0$. Chaque suite est bornée par l'autre, donc les deux convergent, et vers le même nombre.</span></figcaption>
+    </figure>
+
+    <h3 class="en">Subsequences</h3>
+    <h3 class="fr">Suites extraites</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Subsequence).</span> Let $(u_n)$ be a sequence. A <em>subsequence</em> of $(u_n)$ is any sequence of the form $(u_{\varphi(n)})$ where $\varphi\colon\mathbb{N}\to\mathbb{N}$ is strictly increasing.</p>
+      <p class="fr"><span class="thm-label">Définition (Suite extraite).</span> Soit $(u_n)$ une suite. On appelle <em>suite extraite</em> (ou sous-suite) de $(u_n)$ toute suite de la forme $(u_{\varphi(n)})$ où $\varphi\colon\mathbb{N}\to\mathbb{N}$ est strictement croissante.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Peak).</span> An index $n$ is a <em>peak</em> of $(u_n)$ if $u_n\ge u_m$ for every $m\ge n$.</p>
+      <p class="fr"><span class="thm-label">Définition (Pic).</span> Un indice $n$ est un <em>pic</em> de $(u_n)$ si $u_n\ge u_m$ pour tout $m\ge n$.</p>
+    </div>
+
+    <p class="en">A sequence either has infinitely many peaks or it has a last one. Peaks give a decreasing subsequence, because a peak dominates every later term; and after the last peak, every term is beaten by a later term, which gives an increasing one.</p>
+    <p class="fr">Une suite a soit une infinité de pics, soit un dernier pic. Les pics donnent une sous-suite décroissante, car un pic domine tous les termes suivants ; et après le dernier pic, tout terme est dépassé par un terme ultérieur, ce qui en donne une croissante.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Monotone subsequence lemma).</span> Every real sequence has a monotone subsequence.</p>
+      <p class="fr"><span class="thm-label">Théorème (Lemme d'extraction monotone).</span> Toute suite réelle admet une sous-suite monotone.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If the peaks form an infinite sequence $\varphi(0)&lt;\varphi(1)&lt;\cdots$, then for each $k$, $\varphi(k)$ is a peak and $\varphi(k+1)\ge\varphi(k)$, so $u_{\varphi(k)}\ge u_{\varphi(k+1)}$: the subsequence is decreasing.
+      <br><br>
+      Otherwise, there exists $N$ such that no $n\ge N$ is a peak; we then build an increasing subsequence by induction: $\varphi(0)=N$, and for each $k$, since $\varphi(k)$ is not a peak, there exists $\varphi(k+1)&gt;\varphi(k)$ with $u_{\varphi(k+1)}&gt;u_{\varphi(k)}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si les pics forment une suite infinie $\varphi(0)&lt;\varphi(1)&lt;\cdots$, alors pour tout $k$, $\varphi(k)$ est un pic et $\varphi(k+1)\ge\varphi(k)$, donc $u_{\varphi(k)}\ge u_{\varphi(k+1)}$ : la sous-suite est décroissante.
+      <br><br>
+      Sinon, il existe $N$ tel qu'aucun $n\ge N$ n'est un pic ; on construit alors par récurrence une sous-suite croissante : $\varphi(0)=N$, et pour tout $k$, comme $\varphi(k)$ n'est pas un pic, il existe $\varphi(k+1)&gt;\varphi(k)$ tel que $u_{\varphi(k+1)}&gt;u_{\varphi(k)}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="553" height="247" viewBox="36.0 23.0 553.0 247.0">
+        <line class="fig-guide" x1="60.0" y1="64.0" x2="303.0" y2="64.0"/>
+        <line class="fig-guide" x1="102.0" y1="88.8" x2="303.0" y2="88.8"/>
+        <line class="fig-guide" x1="144.0" y1="113.6" x2="303.0" y2="113.6"/>
+        <line class="fig-guide" x1="186.0" y1="138.4" x2="303.0" y2="138.4"/>
+        <line class="fig-guide" x1="228.0" y1="157.0" x2="303.0" y2="157.0"/>
+        <line class="fig-guide" x1="270.0" y1="172.5" x2="303.0" y2="172.5"/>
+        <line class="fig-guide" x1="291.0" y1="219.0" x2="303.0" y2="219.0"/>
+        <line class="fig-axis" x1="46.0" y1="250.0" x2="309.0" y2="250.0"/>
+        <line class="fig-axis" x1="46.0" y1="260.0" x2="46.0" y2="33.0"/>
+        <polyline class="fig-accent" points="60.0,64.0 102.0,88.8 144.0,113.6 186.0,138.4 228.0,157.0 270.0,172.5 291.0,219.0" fill="none"/>
+        <circle class="fig-dot" cx="60.0" cy="64.0" r="3.0"/>
+        <circle class="fig-dot" cx="81.0" cy="175.6" r="3.0"/>
+        <circle class="fig-dot" cx="102.0" cy="88.8" r="3.0"/>
+        <circle class="fig-dot" cx="123.0" cy="194.2" r="3.0"/>
+        <circle class="fig-dot" cx="144.0" cy="113.6" r="3.0"/>
+        <circle class="fig-dot" cx="165.0" cy="188.0" r="3.0"/>
+        <circle class="fig-dot" cx="186.0" cy="138.4" r="3.0"/>
+        <circle class="fig-dot" cx="207.0" cy="206.6" r="3.0"/>
+        <circle class="fig-dot" cx="228.0" cy="157.0" r="3.0"/>
+        <circle class="fig-dot" cx="249.0" cy="212.8" r="3.0"/>
+        <circle class="fig-dot" cx="270.0" cy="172.5" r="3.0"/>
+        <circle class="fig-dot" cx="291.0" cy="219.0" r="3.0"/>
+        <circle class="fig-hole" cx="60.0" cy="64.0" r="5.5"/>
+        <circle class="fig-dot" cx="60.0" cy="64.0" r="3.0"/>
+        <circle class="fig-hole" cx="102.0" cy="88.8" r="5.5"/>
+        <circle class="fig-dot" cx="102.0" cy="88.8" r="3.0"/>
+        <circle class="fig-hole" cx="144.0" cy="113.6" r="5.5"/>
+        <circle class="fig-dot" cx="144.0" cy="113.6" r="3.0"/>
+        <circle class="fig-hole" cx="186.0" cy="138.4" r="5.5"/>
+        <circle class="fig-dot" cx="186.0" cy="138.4" r="3.0"/>
+        <circle class="fig-hole" cx="228.0" cy="157.0" r="5.5"/>
+        <circle class="fig-dot" cx="228.0" cy="157.0" r="3.0"/>
+        <circle class="fig-hole" cx="270.0" cy="172.5" r="5.5"/>
+        <circle class="fig-dot" cx="270.0" cy="172.5" r="3.0"/>
+        <circle class="fig-hole" cx="291.0" cy="219.0" r="5.5"/>
+        <circle class="fig-dot" cx="291.0" cy="219.0" r="3.0"/>
+        <line class="fig-axis" x1="316.0" y1="250.0" x2="579.0" y2="250.0"/>
+        <line class="fig-axis" x1="316.0" y1="260.0" x2="316.0" y2="33.0"/>
+        <line class="fig-accent" x1="336.0" y1="125.7" x2="447.0" y2="120.2"/>
+        <polygon class="fig-dot" points="450.0,120.1 443.8,123.3 443.5,117.6"/>
+        <line class="fig-accent" x1="461.5" y1="117.4" x2="489.8" y2="104.8"/>
+        <polygon class="fig-dot" points="492.5,103.6 487.8,108.8 485.5,103.6"/>
+        <line class="fig-accent" x1="503.5" y1="98.8" x2="531.8" y2="86.2"/>
+        <polygon class="fig-dot" points="534.5,85.0 529.8,90.2 527.5,85.0"/>
+        <circle class="fig-dot" cx="330.0" cy="126.0" r="3.0"/>
+        <circle class="fig-dot" cx="351.0" cy="200.4" r="3.0"/>
+        <circle class="fig-dot" cx="372.0" cy="163.2" r="3.0"/>
+        <circle class="fig-dot" cx="393.0" cy="212.8" r="3.0"/>
+        <circle class="fig-dot" cx="414.0" cy="144.6" r="3.0"/>
+        <circle class="fig-dot" cx="435.0" cy="181.8" r="3.0"/>
+        <circle class="fig-dot" cx="456.0" cy="119.8" r="3.0"/>
+        <circle class="fig-dot" cx="477.0" cy="169.4" r="3.0"/>
+        <circle class="fig-dot" cx="498.0" cy="101.2" r="3.0"/>
+        <circle class="fig-dot" cx="519.0" cy="150.8" r="3.0"/>
+        <circle class="fig-dot" cx="540.0" cy="82.6" r="3.0"/>
+        <circle class="fig-dot" cx="561.0" cy="132.2" r="3.0"/>
+        <circle class="fig-hole" cx="330.0" cy="126.0" r="5.5"/>
+        <circle class="fig-dot" cx="330.0" cy="126.0" r="3.0"/>
+        <circle class="fig-hole" cx="456.0" cy="119.8" r="5.5"/>
+        <circle class="fig-dot" cx="456.0" cy="119.8" r="3.0"/>
+        <circle class="fig-hole" cx="498.0" cy="101.2" r="5.5"/>
+        <circle class="fig-dot" cx="498.0" cy="101.2" r="3.0"/>
+        <circle class="fig-hole" cx="540.0" cy="82.6" r="5.5"/>
+        <circle class="fig-dot" cx="540.0" cy="82.6" r="3.0"/>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> from each circled peak, the dashed ray to the right passes above every later term. The peaks are infinite in number here, and they descend.</span><span class="cap-part"><span class="cap-lead">Right:</span> no index is a peak, so each term is exceeded by a later one; following the arrows from any starting index gives an increasing subsequence.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> depuis chaque pic entouré, la demi-droite pointillée passe au-dessus de tous les termes suivants. Les pics sont ici en nombre infini, et ils décroissent.</span><span class="cap-part"><span class="cap-lead">À droite :</span> aucun indice n'est un pic, donc chaque terme est dépassé par un terme ultérieur ; suivre les flèches depuis n'importe quel indice donne une sous-suite croissante.</span></span></figcaption>
+    </figure>
+
+    <p class="en">A bounded sequence has a monotone subsequence, and that subsequence is monotone and bounded.</p>
+    <p class="fr">Une suite bornée admet une sous-suite monotone, et cette sous-suite est monotone et bornée.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bolzano-Weierstrass).</span> Every bounded real sequence has a convergent subsequence.</p>
+      <p class="fr"><span class="thm-label">Théorème (Bolzano-Weierstrass).</span> Toute suite réelle bornée admet une sous-suite convergente.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By the monotone subsequence lemma, the sequence has a monotone subsequence; this subsequence is bounded (as a subsequence of a bounded sequence), hence convergent by the monotone convergence theorem.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par le lemme d'extraction monotone, la suite admet une sous-suite monotone ; celle-ci est bornée (comme sous-suite d'une suite bornée), donc convergente par le théorème de convergence monotone.
+    </details>
+
+    <h3 class="en">Recurrent sequences</h3>
+    <h3 class="fr">Suites récurrentes</h3>
+
+    <p class="en">A recurrence $u_{n+1}=f(u_n)$ is a walk between two curves. From $u_n$ on the horizontal axis, go vertically to the graph of $f$, which is at height $u_{n+1}$; then go horizontally to the line $y=x$, which brings $u_{n+1}$ back onto the horizontal axis. Repeating draws the whole sequence.</p>
+    <p class="fr">Une récurrence $u_{n+1}=f(u_n)$ est une marche entre deux courbes. Depuis $u_n$ sur l'axe horizontal, on monte verticalement jusqu'au graphe de $f$, qui est à la hauteur $u_{n+1}$ ; puis on va horizontalement jusqu'à la droite $y=x$, ce qui ramène $u_{n+1}$ sur l'axe horizontal. En répétant, on dessine toute la suite.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="575" height="281" viewBox="40.0 39.8 575.1 281.0">
+        <line class="fig-axis" x1="50.0" y1="250.0" x2="265.1" y2="250.0"/>
+        <line class="fig-axis" x1="60.0" y1="260.0" x2="60.0" y2="64.9"/>
+        <line class="fig-guide" x1="60.0" y1="250.0" x2="251.1" y2="58.9"/>
+        <path class="fig-curve" d="M 60.0 248.9 L 61.0 237.7 L 61.9 232.7 L 62.9 228.8 L 63.8 225.6 L 64.8 222.7 L 65.7 220.1 L 66.7 217.7 L 67.7 215.5 L 68.6 213.4 L 69.6 211.4 L 70.5 209.5 L 71.5 207.7 L 72.4 206.0 L 73.4 204.3 L 74.3 202.7 L 75.3 201.2 L 76.3 199.7 L 77.2 198.2 L 78.2 196.8 L 79.1 195.4 L 80.1 194.0 L 81.0 192.7 L 82.0 191.4 L 82.9 190.2 L 83.9 188.9 L 84.8 187.7 L 85.8 186.6 L 86.8 185.4 L 87.7 184.2 L 88.7 183.1 L 89.6 182.0 L 90.6 180.9 L 91.5 179.9 L 92.5 178.8 L 93.4 177.8 L 94.4 176.7 L 95.4 175.7 L 96.3 174.7 L 97.3 173.7 L 98.2 172.8 L 99.2 171.8 L 100.1 170.9 L 101.1 169.9 L 102.0 169.0 L 103.0 168.1 L 104.0 167.2 L 104.9 166.3 L 105.9 165.4 L 106.8 164.5 L 107.8 163.7 L 108.7 162.8 L 109.7 162.0 L 110.6 161.1 L 111.6 160.3 L 112.6 159.5 L 113.5 158.6 L 114.5 157.8 L 115.4 157.0 L 116.4 156.2 L 117.3 155.4 L 118.3 154.6 L 119.2 153.9 L 120.2 153.1 L 121.2 152.3 L 122.1 151.6 L 123.1 150.8 L 124.0 150.1 L 125.0 149.3 L 125.9 148.6 L 126.9 147.8 L 127.8 147.1 L 128.8 146.4 L 129.8 145.7 L 130.7 145.0 L 131.7 144.3 L 132.6 143.6 L 133.6 142.9 L 134.5 142.2 L 135.5 141.5 L 136.4 140.8 L 137.4 140.1 L 138.4 139.4 L 139.3 138.8 L 140.3 138.1 L 141.2 137.4 L 142.2 136.8 L 143.1 136.1 L 144.1 135.5 L 145.0 134.8 L 146.0 134.2 L 147.0 133.5 L 147.9 132.9 L 148.9 132.3 L 149.8 131.6 L 150.8 131.0 L 151.7 130.4 L 152.7 129.8 L 153.6 129.1 L 154.6 128.5 L 155.6 127.9 L 156.5 127.3 L 157.5 126.7 L 158.4 126.1 L 159.4 125.5 L 160.3 124.9 L 161.3 124.3 L 162.2 123.7 L 163.2 123.1 L 164.2 122.5 L 165.1 121.9 L 166.1 121.4 L 167.0 120.8 L 168.0 120.2 L 168.9 119.6 L 169.9 119.1 L 170.8 118.5 L 171.8 117.9 L 172.8 117.4 L 173.7 116.8 L 174.7 116.3 L 175.6 115.7 L 176.6 115.1 L 177.5 114.6 L 178.5 114.0 L 179.4 113.5 L 180.4 113.0 L 181.4 112.4 L 182.3 111.9 L 183.3 111.3 L 184.2 110.8 L 185.2 110.3 L 186.1 109.7 L 187.1 109.2 L 188.0 108.7 L 189.0 108.1 L 190.0 107.6 L 190.9 107.1 L 191.9 106.6 L 192.8 106.1 L 193.8 105.5 L 194.7 105.0 L 195.7 104.5 L 196.6 104.0 L 197.6 103.5 L 198.5 103.0 L 199.5 102.5 L 200.5 102.0 L 201.4 101.5 L 202.4 101.0 L 203.3 100.5 L 204.3 100.0 L 205.2 99.5 L 206.2 99.0 L 207.1 98.5 L 208.1 98.0 L 209.1 97.5 L 210.0 97.0 L 211.0 96.5 L 211.9 96.1 L 212.9 95.6 L 213.8 95.1 L 214.8 94.6 L 215.7 94.1 L 216.7 93.6 L 217.7 93.2 L 218.6 92.7 L 219.6 92.2 L 220.5 91.8 L 221.5 91.3 L 222.4 90.8 L 223.4 90.3 L 224.3 89.9 L 225.3 89.4 L 226.3 89.0 L 227.2 88.5 L 228.2 88.0 L 229.1 87.6 L 230.1 87.1 L 231.0 86.7 L 232.0 86.2 L 232.9 85.7 L 233.9 85.3 L 234.9 84.8 L 235.8 84.4 L 236.8 83.9 L 237.7 83.5 L 238.7 83.0 L 239.6 82.6 L 240.6 82.2 L 241.5 81.7 L 242.5 81.3 L 243.5 80.8 L 244.4 80.4 L 245.4 79.9 L 246.3 79.5 L 247.3 79.1 L 248.2 78.6 L 249.2 78.2 L 250.1 77.8 L 251.1 77.3"/>
+        <rect class="fig-guide" x="60.0" y="94.0" width="156.0" height="156.0"/>
+        <line class="fig-accent" x1="83.4" y1="250.0" x2="83.4" y2="189.6"/>
+        <line class="fig-accent" x1="83.4" y1="189.6" x2="120.4" y2="189.6"/>
+        <line class="fig-accent" x1="120.4" y1="189.6" x2="120.4" y2="152.9"/>
+        <line class="fig-accent" x1="120.4" y1="152.9" x2="157.1" y2="152.9"/>
+        <line class="fig-accent" x1="157.1" y1="152.9" x2="157.1" y2="126.9"/>
+        <line class="fig-accent" x1="157.1" y1="126.9" x2="183.1" y2="126.9"/>
+        <line class="fig-accent" x1="183.1" y1="126.9" x2="183.1" y2="111.4"/>
+        <line class="fig-accent" x1="183.1" y1="111.4" x2="198.6" y2="111.4"/>
+        <line class="fig-accent" x1="198.6" y1="111.4" x2="198.6" y2="103.0"/>
+        <line class="fig-accent" x1="198.6" y1="103.0" x2="207.0" y2="103.0"/>
+        <circle class="fig-dot" cx="216.0" cy="94.0" r="4.0"/>
+        <text x="83.4" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="120.4" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="157.1" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="216.0" y="268.0" text-anchor="middle">ℓ</text>
+        <text x="254.8" y="83.4">f</text>
+        <text x="231.6" y="64.4" text-anchor="end">y = x</text>
+        <line class="fig-interval" x1="60.0" y1="288.0" x2="216.0" y2="288.0"/>
+        <text x="138.0" y="306.0" text-anchor="middle">J</text>
+        <line class="fig-axis" x1="390.0" y1="250.0" x2="605.1" y2="250.0"/>
+        <line class="fig-axis" x1="400.0" y1="260.0" x2="400.0" y2="64.9"/>
+        <line class="fig-guide" x1="400.0" y1="250.0" x2="591.1" y2="58.9"/>
+        <path class="fig-curve" d="M 400.0 94.0 L 401.0 95.9 L 401.9 97.7 L 402.9 99.5 L 403.8 101.3 L 404.8 103.0 L 405.7 104.7 L 406.7 106.3 L 407.7 107.9 L 408.6 109.5 L 409.6 111.0 L 410.5 112.5 L 411.5 114.0 L 412.4 115.4 L 413.4 116.8 L 414.3 118.2 L 415.3 119.6 L 416.3 120.9 L 417.2 122.2 L 418.2 123.5 L 419.1 124.7 L 420.1 125.9 L 421.0 127.1 L 422.0 128.3 L 422.9 129.5 L 423.9 130.6 L 424.8 131.7 L 425.8 132.8 L 426.8 133.8 L 427.7 134.9 L 428.7 135.9 L 429.6 136.9 L 430.6 137.9 L 431.5 138.9 L 432.5 139.9 L 433.4 140.8 L 434.4 141.7 L 435.4 142.7 L 436.3 143.6 L 437.3 144.4 L 438.2 145.3 L 439.2 146.2 L 440.1 147.0 L 441.1 147.8 L 442.0 148.6 L 443.0 149.4 L 444.0 150.2 L 444.9 151.0 L 445.9 151.8 L 446.8 152.5 L 447.8 153.3 L 448.7 154.0 L 449.7 154.7 L 450.6 155.4 L 451.6 156.1 L 452.6 156.8 L 453.5 157.5 L 454.5 158.1 L 455.4 158.8 L 456.4 159.5 L 457.3 160.1 L 458.3 160.7 L 459.2 161.3 L 460.2 162.0 L 461.2 162.6 L 462.1 163.2 L 463.1 163.7 L 464.0 164.3 L 465.0 164.9 L 465.9 165.5 L 466.9 166.0 L 467.8 166.6 L 468.8 167.1 L 469.8 167.6 L 470.7 168.2 L 471.7 168.7 L 472.6 169.2 L 473.6 169.7 L 474.5 170.2 L 475.5 170.7 L 476.4 171.2 L 477.4 171.7 L 478.4 172.2 L 479.3 172.7 L 480.3 173.1 L 481.2 173.6 L 482.2 174.0 L 483.1 174.5 L 484.1 174.9 L 485.0 175.4 L 486.0 175.8 L 487.0 176.2 L 487.9 176.7 L 488.9 177.1 L 489.8 177.5 L 490.8 177.9 L 491.7 178.3 L 492.7 178.7 L 493.6 179.1 L 494.6 179.5 L 495.6 179.9 L 496.5 180.3 L 497.5 180.7 L 498.4 181.0 L 499.4 181.4 L 500.3 181.8 L 501.3 182.1 L 502.2 182.5 L 503.2 182.8 L 504.2 183.2 L 505.1 183.5 L 506.1 183.9 L 507.0 184.2 L 508.0 184.6 L 508.9 184.9 L 509.9 185.2 L 510.8 185.6 L 511.8 185.9 L 512.8 186.2 L 513.7 186.5 L 514.7 186.8 L 515.6 187.2 L 516.6 187.5 L 517.5 187.8 L 518.5 188.1 L 519.4 188.4 L 520.4 188.7 L 521.4 189.0 L 522.3 189.3 L 523.3 189.5 L 524.2 189.8 L 525.2 190.1 L 526.1 190.4 L 527.1 190.7 L 528.0 190.9 L 529.0 191.2 L 530.0 191.5 L 530.9 191.8 L 531.9 192.0 L 532.8 192.3 L 533.8 192.5 L 534.7 192.8 L 535.7 193.1 L 536.6 193.3 L 537.6 193.6 L 538.5 193.8 L 539.5 194.1 L 540.5 194.3 L 541.4 194.5 L 542.4 194.8 L 543.3 195.0 L 544.3 195.3 L 545.2 195.5 L 546.2 195.7 L 547.1 196.0 L 548.1 196.2 L 549.1 196.4 L 550.0 196.6 L 551.0 196.9 L 551.9 197.1 L 552.9 197.3 L 553.8 197.5 L 554.8 197.7 L 555.7 197.9 L 556.7 198.2 L 557.7 198.4 L 558.6 198.6 L 559.6 198.8 L 560.5 199.0 L 561.5 199.2 L 562.4 199.4 L 563.4 199.6 L 564.3 199.8 L 565.3 200.0 L 566.3 200.2 L 567.2 200.4 L 568.2 200.6 L 569.1 200.8 L 570.1 201.0 L 571.0 201.1 L 572.0 201.3 L 572.9 201.5 L 573.9 201.7 L 574.9 201.9 L 575.8 202.1 L 576.8 202.2 L 577.7 202.4 L 578.7 202.6 L 579.6 202.8 L 580.6 202.9 L 581.5 203.1 L 582.5 203.3 L 583.5 203.5 L 584.4 203.6 L 585.4 203.8 L 586.3 204.0 L 587.3 204.1 L 588.2 204.3 L 589.2 204.5 L 590.1 204.6 L 591.1 204.8"/>
+        <line class="fig-accent" x1="415.6" y1="250.0" x2="415.6" y2="120.0"/>
+        <line class="fig-accent" x1="415.6" y1="120.0" x2="530.0" y2="120.0"/>
+        <line class="fig-accent" x1="530.0" y1="120.0" x2="530.0" y2="191.5"/>
+        <line class="fig-accent" x1="530.0" y1="191.5" x2="458.5" y2="191.5"/>
+        <line class="fig-accent" x1="458.5" y1="191.5" x2="458.5" y2="160.9"/>
+        <line class="fig-accent" x1="458.5" y1="160.9" x2="489.1" y2="160.9"/>
+        <line class="fig-accent" x1="489.1" y1="160.9" x2="489.1" y2="177.2"/>
+        <line class="fig-accent" x1="489.1" y1="177.2" x2="472.8" y2="177.2"/>
+        <line class="fig-accent" x1="472.8" y1="177.2" x2="472.8" y2="169.3"/>
+        <line class="fig-accent" x1="472.8" y1="169.3" x2="480.7" y2="169.3"/>
+        <line class="fig-accent" x1="480.7" y1="169.3" x2="480.7" y2="173.3"/>
+        <line class="fig-accent" x1="480.7" y1="173.3" x2="476.7" y2="173.3"/>
+        <circle class="fig-dot" cx="478.0" cy="172.0" r="4.0"/>
+        <text x="415.6" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">0</tspan></text>
+        <text x="534.0" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="454.5" y="268.0" text-anchor="middle">u<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="478.0" y="268.0" text-anchor="middle">ℓ</text>
+        <text x="594.8" y="209.4">f</text>
+        <text x="571.6" y="64.4" text-anchor="end">y = x</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> $f(x)=\sqrt{2x}$ on $J=[0,2]$. The graph stays inside the square $J\times J$, so the walk never leaves $J$. Above the diagonal the graph gives $f(x)&gt;x$, so each step moves right, and the walk climbs to the point where the two curves meet.</span><span class="cap-part"><span class="cap-lead">Right:</span> $f(x)=2/(1+x)$, decreasing. The walk spirals instead of climbing, the terms alternate around the meeting point, and they still converge to it.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> $f(x)=\sqrt{2x}$ sur $J=[0,2]$. Le graphe reste dans le carré $J\times J$, donc la marche ne quitte jamais $J$. Au-dessus de la diagonale, le graphe donne $f(x)&gt;x$, donc chaque pas va vers la droite, et la marche monte jusqu'au point de rencontre des deux courbes.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $f(x)=2/(1+x)$, décroissante. La marche s'enroule au lieu de monter, les termes alternent autour du point de rencontre, et ils convergent quand même vers lui.</span></span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Well-definedness of a recurrent sequence).</span> Let $f\colon I\to\mathbb{R}$ and $u_0\in I$. If there exists an interval $J\subset I$ such that $u_0\in J$ and $f(J)\subset J$, then the sequence defined by $u_{n+1}=f(u_n)$ satisfies $u_n\in J$ for all $n$.</p>
       <p class="fr"><span class="thm-label">Proposition (Bonne définition d'une suite récurrente).</span> Soit $f\colon I\to\mathbb{R}$ et $u_0\in I$. S'il existe un intervalle $J\subset I$ tel que $u_0\in J$ et $f(J)\subset J$, alors la suite définie par $u_{n+1}=f(u_n)$ vérifie $u_n\in J$ pour tout $n$.</p>
@@ -288,6 +769,9 @@
       <summary class="proof-label">Démonstration.</summary>
       Par récurrence. On a $u_0\in J$ par hypothèse. Si $u_n\in J$, alors $u_{n+1}=f(u_n)\in f(J)\subset J$.
     </details>
+
+    <p class="en">The point where the graph of $f$ meets the line $y=x$ is the only place the walk can stop.</p>
+    <p class="fr">Le point où le graphe de $f$ rencontre la droite $y=x$ est le seul endroit où la marche peut s'arrêter.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Limit and fixed point).</span> If $(u_n)$ converges to $\ell$ and $f$ is continuous at $\ell$, then $\ell = f(\ell)$.</p>
@@ -303,22 +787,8 @@
       On a $u_{n+1}=f(u_n)$. En passant à la limite et par continuité de $f$, $\ell = f(\ell)$.
     </details>
 
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Method for studying a recurrent sequence.</span> Let $f\colon I\to\mathbb{R}$, $u_0\in I$ and $u_{n+1}=f(u_n)$.</p>
-      <ol class="en">
-        <li><em>Well-definedness.</em> Find $J\subset I$ with $u_0\in J$ and $f(J)\subset J$, which guarantees $u_n\in J$ for all $n$ (by induction).</li>
-        <li><em>Monotonicity.</em> Study the sign of $f(x)-x$ on $J$. If $f(x)\ge x$ on $J$, the sequence is increasing; if $f(x)\le x$, it is decreasing. One can also compare $u_1$ and $u_0$ then use the monotonicity of $f$: if $f$ is increasing and $u_1\ge u_0$, then by induction $u_{n+1}\ge u_n$.</li>
-        <li><em>Convergence.</em> Conclude by the monotone convergence theorem (the sequence is monotone and bounded in $J$).</li>
-        <li><em>Limit.</em> Solve $f(\ell)=\ell$ and select the solution compatible with $J$ and the monotonicity of $(u_n)$.</li>
-      </ol>
-      <p class="fr"><span class="thm-label">Méthode d'étude d'une suite récurrente.</span> Soit $f\colon I\to\mathbb{R}$, $u_0\in I$ et $u_{n+1}=f(u_n)$.</p>
-      <ol class="fr">
-        <li><em>Bonne définition.</em> Trouver $J\subset I$ tel que $u_0\in J$ et $f(J)\subset J$, ce qui garantit $u_n\in J$ pour tout $n$ (par récurrence).</li>
-        <li><em>Monotonie.</em> Étudier le signe de $f(x)-x$ sur $J$. Si $f(x)\ge x$ sur $J$, la suite est croissante ; si $f(x)\le x$, elle est décroissante. On peut aussi comparer $u_1$ et $u_0$ puis utiliser la monotonie de $f$ : si $f$ est croissante et $u_1\ge u_0$, alors par récurrence $u_{n+1}\ge u_n$.</li>
-        <li><em>Convergence.</em> Conclure par le théorème de convergence monotone (suite monotone et bornée dans $J$).</li>
-        <li><em>Limite.</em> Résoudre $f(\ell)=\ell$ et sélectionner la solution compatible avec $J$ et la monotonie de $(u_n)$.</li>
-      </ol>
-    </div>
+    <p class="en">When $f(x)=ax+b$, subtracting the fixed point moves the origin to it, and the recurrence becomes a multiplication by $a$.</p>
+    <p class="fr">Quand $f(x)=ax+b$, retrancher le point fixe y place l'origine, et la récurrence devient une multiplication par $a$.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Arithmetic-geometric sequence).</span> Let $(u_n)$ be defined by $u_{n+1}=au_n+b$ with $a\neq 1$. Let $\ell=\frac{b}{1-a}$ be the fixed point of $x\mapsto ax+b$. Then $u_n=a^n(u_0-\ell)+\ell$ for all $n\in\mathbb{N}$.</p>
@@ -334,26 +804,289 @@
       On pose $v_n=u_n-\ell$. Alors $v_{n+1}=u_{n+1}-\ell=au_n+b-\ell=a(u_n-\ell)=av_n$ car $b-\ell=b-\frac{b}{1-a}=\frac{-ab}{1-a}=-a\ell$. Donc $(v_n)$ est géométrique de raison $a$ : $v_n=a^nv_0=a^n(u_0-\ell)$, d'où $u_n=a^n(u_0-\ell)+\ell$.
     </details>
 
+    <!-- ============ TECHNIQUES ============ -->
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To prove $u_n\to\ell$ from the definition, bound $|u_n-\ell|$ by a simpler sequence tending to $0$, then read $N$ off that bound.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour montrer $u_n\to\ell$ par la définition, majorer $|u_n-\ell|$ par une suite plus simple tendant vers $0$, puis lire $N$ sur cette majoration.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Let $\varepsilon>0$. For all $n\ge 1$, we have $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Set $N=\lfloor 1/\varepsilon\rfloor+1$, so that $N>1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Then for all $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Soit $\varepsilon&gt;0$. Pour tout $n\ge 1$, on a $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Posons $N=\lfloor 1/\varepsilon\rfloor+1$, de sorte que $N&gt;1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Alors pour tout $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> When the terms are a product or a sum of many factors, bound them above and below instead of computing them, and conclude by the squeeze theorem.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Quand les termes sont un produit ou une somme de nombreux facteurs, les encadrer au lieu de les calculer, et conclure par le théorème des gendarmes.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\frac{n!}{n^n}\to 0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\frac{n!}{n^n}\to 0$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        For all $n\ge 1$, we have $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, since each factor $k/n\le 1$. By the squeeze theorem, $n!/n^n\to 0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Pour tout $n\ge 1$, on a $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, car chaque facteur $k/n\le 1$. Par le théorème d'encadrement, $n!/n^n\to 0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> To prove a sequence diverges, exhibit two subsequences with different limits. The limit is unique, so the sequence can have none.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour montrer qu'une suite diverge, exhiber deux sous-suites de limites différentes. La limite étant unique, la suite n'en a aucune.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that the sequence $\bigl(\sin\frac{n\pi}{3}\bigr)$ diverges.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la suite $\bigl(\sin\frac{n\pi}{3}\bigr)$ diverge.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The sequence is $6$-periodic since $\sin\frac{(n+6)\pi}{3}=\sin\left(\frac{n\pi}{3}+2\pi\right)=\sin\frac{n\pi}{3}$. The subsequence of indices $n=6k$ is constant equal to $\sin 0=0$, and the subsequence of indices $n=6k+1$ is constant equal to $\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$. Two subsequences with different limits, so the sequence diverges.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        La suite est $6$-périodique car $\sin\frac{(n+6)\pi}{3}=\sin\left(\frac{n\pi}{3}+2\pi\right)=\sin\frac{n\pi}{3}$. La sous-suite d'indices $n=6k$ est constante égale à $\sin 0=0$, et la sous-suite d'indices $n=6k+1$ est constante égale à $\sin\frac{\pi}{3}=\frac{\sqrt{3}}{2}$. Deux sous-suites de limites différentes, donc la suite diverge.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> For $u_{n+1}=au_n+b$, set $v_n=u_n-\ell$ where $\ell$ is the fixed point. The recurrence becomes $v_{n+1}=av_n$, which is solved.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour $u_{n+1}=au_n+b$, poser $v_n=u_n-\ell$ où $\ell$ est le point fixe. La récurrence devient $v_{n+1}=av_n$, qui est résolue.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Study the convergence of the sequence defined by $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Étudier la convergence de la suite définie par $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The fixed point of $x\mapsto\frac{1}{2}(x+1)$ is $\ell=1$. Set $v_n = u_n - 1$. Then $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, so $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Thus $u_n = 1 + v_n \to 1$, whatever $u_0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Le point fixe de $x\mapsto\frac{1}{2}(x+1)$ est $\ell=1$. On pose $v_n = u_n - 1$. Alors $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, donc $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Ainsi $u_n = 1 + v_n \to 1$, quel que soit $u_0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To prove a limit exists without producing it, prove the sequence is monotone and bounded.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour montrer qu'une limite existe sans la produire, montrer que la suite est monotone et bornée.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Study the convergence of $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Étudier la convergence de $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <em>Monotonicity.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, so $(S_n)$ is increasing. <em>Bound.</em> Each term satisfies $\frac{1}{n+k}\le\frac{1}{n+1}$, so $S_n\le\frac{n}{n+1}&lt;1$. Being increasing and bounded above, $(S_n)$ converges. (Its limit is $\ln 2$, obtained as a Riemann sum of $t\mapsto\frac{1}{1+t}$ on $[0,1]$.)
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <em>Monotonie.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, donc $(S_n)$ est croissante. <em>Majoration.</em> Chaque terme vérifie $\frac{1}{n+k}\le\frac{1}{n+1}$, donc $S_n\le\frac{n}{n+1}&lt;1$. Croissante et majorée, $(S_n)$ converge. (Sa limite est $\ln 2$, obtenue comme somme de Riemann de $t\mapsto\frac{1}{1+t}$ sur $[0,1]$.)
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> For $u_{n+1}=f(u_n)$, work in two steps: find a stable interval and a monotonicity to get convergence, then solve $f(\ell)=\ell$ to get the limit. The sign of $f(x)-x$ gives the monotonicity.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour $u_{n+1}=f(u_n)$, procéder en deux temps : trouver un intervalle stable et une monotonie pour obtenir la convergence, puis résoudre $f(\ell)=\ell$ pour obtenir la limite. Le signe de $f(x)-x$ donne la monotonie.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ be defined by $u_0=0$ and $u_{n+1}=\sqrt{u_n+2}$. Study its convergence.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $(u_n)$ définie par $u_0=0$ et $u_{n+1}=\sqrt{u_n+2}$. Étudier sa convergence.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        <em>Stable interval.</em> We show by induction that $0\le u_n\le 2$. This holds for $n=0$. If $0\le u_n\le 2$, then $2\le u_n+2\le 4$, so $\sqrt{2}\le u_{n+1}\le 2$.
+        <br><br>
+        <em>Monotonicity.</em> We have $u_{n+1}-u_n=\sqrt{u_n+2}-u_n$. Set $f(x)=\sqrt{x+2}-x$; then $f'(x)=\frac{1}{2\sqrt{x+2}}-1&lt;0$ on $[0,2]$ and $f(2)=0$, so $f(x)\ge 0$ on $[0,2]$, giving $u_{n+1}\ge u_n$.
+        <br><br>
+        <em>Convergence.</em> $(u_n)$ is increasing and bounded above by $2$, so it converges to a limit $\ell$.
+        <br><br>
+        <em>Fixed point.</em> Since $0\le u_n\le 2$, we have $\ell\ge 0$. Passing to the limit in $u_{n+1}=\sqrt{u_n+2}$ gives $\ell=\sqrt{\ell+2}$, so $\ell^2=\ell+2$, i.e. $(\ell-2)(\ell+1)=0$; since $\ell\ge 0$, we have $\ell=2$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        <em>Intervalle stable.</em> Montrons par récurrence que $0\le u_n\le 2$. C'est vrai pour $n=0$. Si $0\le u_n\le 2$, alors $2\le u_n+2\le 4$, donc $\sqrt{2}\le u_{n+1}\le 2$.
+        <br><br>
+        <em>Croissance.</em> On a $u_{n+1}-u_n=\sqrt{u_n+2}-u_n$. Posons $f(x)=\sqrt{x+2}-x$ ; on a $f'(x)=\frac{1}{2\sqrt{x+2}}-1&lt;0$ sur $[0,2]$ et $f(2)=0$, donc $f(x)\ge 0$ sur $[0,2]$, d'où $u_{n+1}\ge u_n$.
+        <br><br>
+        <em>Convergence.</em> $(u_n)$ est croissante et majorée par $2$, donc convergente vers une limite $\ell$.
+        <br><br>
+        <em>Point fixe.</em> Comme $0\le u_n\le 2$, on a $\ell\ge 0$. Par passage à la limite dans $u_{n+1}=\sqrt{u_n+2}$, on obtient $\ell=\sqrt{\ell+2}$, d'où $\ell^2=\ell+2$, soit $(\ell-2)(\ell+1)=0$ ; comme $\ell\ge 0$, on a $\ell=2$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To bound $(1+h)^n$ from below, keep a single well-chosen term of its binomial expansion. Keeping the term of index $k$ gives a polynomial of degree $k$ in $n$.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour minorer $(1+h)^n$, ne garder qu'un seul terme bien choisi de son développement du binôme. Garder le terme d'indice $k$ donne un polynôme de degré $k$ en $n$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that for all $|q|&lt;1$ and all $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tout $|q|&lt;1$ et tout $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Set $|q|=1/(1+h)$ with $h>0$. For $n\ge k+1$, the binomial formula gives $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, a polynomial of degree $k+1$ in $n$. So $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        On pose $|q|=1/(1+h)$ avec $h&gt;0$. Pour $n\ge k+1$, la formule du binôme donne $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, polynôme de degré $k+1$ en $n$. Donc $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 8.</span> Compare consecutive terms. If $|u_{n+1}|\le k|u_n|$ from some rank with $k&lt;1$, then $|u_n|$ is bounded by a geometric sequence and $u_n\to 0$.</p>
+      <p class="fr"><span class="technique-label">Technique 8.</span> Comparer les termes consécutifs. Si $|u_{n+1}|\le k|u_n|$ à partir d'un certain rang avec $k&lt;1$, alors $|u_n|$ est majorée par une suite géométrique et $u_n\to 0$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $a\in\mathbb{R}$. Show that $\displaystyle\frac{a^n}{n!}\to 0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $a\in\mathbb{R}$. Montrer que $\displaystyle\frac{a^n}{n!}\to 0$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Let $N=\lfloor|a|\rfloor+1$, so that $|a|/N&lt;1$. For $n\ge N$, we have $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Since $|a|/N&lt;1$, the term $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. By the squeeze theorem, $a^n/n!\to 0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Soit $N=\lfloor|a|\rfloor+1$, de sorte que $|a|/N&lt;1$. Pour $n\ge N$, on a $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Comme $|a|/N&lt;1$, le terme $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. Par le théorème d'encadrement, $a^n/n!\to 0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 9.</span> To prove that an increasing sequence converges and to bracket its limit, build a decreasing sequence above it whose gap tends to $0$.</p>
+      <p class="fr"><span class="technique-label">Technique 9.</span> Pour montrer qu'une suite croissante converge et encadrer sa limite, construire au-dessus d'elle une suite décroissante dont l'écart tend vers $0$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Set $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ and $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Show that $(u_n)$ and $(v_n)$ are adjacent, and deduce that $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> On pose $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ et $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes, et en déduire que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $(u_n)$ is increasing since $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. For $(v_n)$: $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, so $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent, in particular $(u_n)$ converges, meaning $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $(u_n)$ est croissante car $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. Pour $(v_n)$ : $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, donc $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes, en particulier $(u_n)$ converge, ce qui signifie que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 10.</span> A hypothesis valid for every $\varepsilon&gt;0$ can be applied at $\varepsilon=1/n$. This turns a statement about arbitrarily small quantities into a sequence.</p>
+      <p class="fr"><span class="technique-label">Technique 10.</span> Une hypothèse valable pour tout $\varepsilon&gt;0$ peut être appliquée à $\varepsilon=1/n$. Cela transforme un énoncé sur des quantités arbitrairement petites en une suite.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $x\in\mathbb{R}$. Define the decimal approximation of order $n$ of $x$ by $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ and set $v_n=u_n+\frac{1}{10^n}$. Show that $(u_n)$ and $(v_n)$ are adjacent and converge to $x$. Deduce that $\mathbb{Q}$ is dense in $\mathbb{R}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $x\in\mathbb{R}$. On définit l'approximation décimale d'ordre $n$ de $x$ par $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ et on pose $v_n=u_n+\frac{1}{10^n}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes et convergent vers $x$. En déduire que $\mathbb{Q}$ est dense dans $\mathbb{R}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        By definition of the floor function, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, so $u_n\le x&lt;v_n$. We show $u_n\le u_{n+1}$: since $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, we have $u_n\le u_{n+1}$, so $(u_n)$ is increasing. Similarly, $10^{n+1}v_n\ge\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, so $v_n\ge v_{n+1}$, and $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{10^n}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent and converge to the same limit $\ell$. Since $u_n\le x&lt;v_n$ for all $n$, we have $\ell=x$. In particular, for every $\varepsilon>0$, there exists $n$ with $|u_n-x|&lt;\varepsilon$ and $u_n\in\mathbb{Q}$, so $\mathbb{Q}$ is dense in $\mathbb{R}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Par définition de la partie entière, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, donc $u_n\le x&lt;v_n$. On montre que $u_n\le u_{n+1}$ : comme $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, on a $u_n\leq u_{n+1}$, et $(u_n)$ est croissante. De même, $10^{n+1}v_n\geq\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, soit $v_n\geq v_{n+1}$, et $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{10^n}\to0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes et convergent vers une même limite $\ell$. Comme $u_n\le x&lt;v_n$ pour tout $n$, on a $\ell=x$. En particulier, pour tout $\varepsilon&gt;0$, il existe $n$ tel que $|u_n-x|&lt;\varepsilon$ avec $u_n\in\mathbb{Q}$, donc $\mathbb{Q}$ est dense dans $\mathbb{R}$.
+      </details>
+    </div>
+
+    <!-- ============ EXERCISES ============ -->
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 1.</span> Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
-      <p class="fr"><span class="thm-label">Exercice 1.</span> Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty}\frac{n}{n^2+2}=0$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> If $u_n \le v_n$ from some rank onward and both sequences converge, then $\lim u_n \le \lim v_n$. Find a counterexample when both inequalities are made strict.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Si $u_n \le v_n$ à partir d'un certain rang et que les deux suites convergent, alors $\lim u_n \le \lim v_n$. Trouver un contre-exemple lorsque les deux inégalités sont rendues strictes.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Let $\varepsilon>0$. For all $n\ge 1$, we have $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Set $N=\lfloor 1/\varepsilon\rfloor+1$, so that $N>1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Then for all $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
+      Take $u_n=0$ and $v_n=\frac{1}{n}$ for $n\ge 1$. Then $u_n&lt;v_n$ for every $n$, while both limits equal $0$. A strict inequality between the terms becomes an equality in the limit.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Soit $\varepsilon&gt;0$. Pour tout $n\ge 1$, on a $\frac{n}{n^2+2}\le\frac{n}{n^2}=\frac{1}{n}$. Posons $N=\lfloor 1/\varepsilon\rfloor+1$, de sorte que $N&gt;1/\varepsilon$, i.e. $1/N&lt;\varepsilon$. Alors pour tout $n\ge N$, $\left|\frac{n}{n^2+2}-0\right|=\frac{n}{n^2+2}\le\frac{1}{n}\le\frac{1}{N}&lt;\varepsilon$.
+      Prendre $u_n=0$ et $v_n=\frac{1}{n}$ pour $n\ge 1$. Alors $u_n&lt;v_n$ pour tout $n$, tandis que les deux limites valent $0$. Une inégalité stricte entre les termes devient une égalité à la limite.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 2.</span> Show, using the definition, that $n^2+(-1)^n n\to+\infty$.</p>
-      <p class="fr"><span class="thm-label">Exercice 2.</span> Montrer, en utilisant la définition, que $n^2+(-1)^n n\to+\infty$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> If $u_{n+1}=f(u_n)$ converges to $\ell$ and $f$ is continuous at $\ell$, then $f(\ell)=\ell$. Find a counterexample when the continuity of $f$ at $\ell$ is dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Si $u_{n+1}=f(u_n)$ converge vers $\ell$ et que $f$ est continue en $\ell$, alors $f(\ell)=\ell$. Trouver un contre-exemple lorsque la continuité de $f$ en $\ell$ est retirée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $f(x)=\frac{x}{2}$ for $x\neq 0$ and $f(0)=1$, with $u_0=1$. Then $u_n=\frac{1}{2^n}$, which is never $0$, so the recurrence only ever uses the first branch of $f$, and $u_n\to 0$. But $f(0)=1\neq 0$. The limit is a fixed point only because continuity lets the value $f(\ell)$ be reached by the values $f(u_n)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $f(x)=\frac{x}{2}$ pour $x\neq 0$ et $f(0)=1$, avec $u_0=1$. Alors $u_n=\frac{1}{2^n}$, qui n'est jamais nul, donc la récurrence n'utilise que la première branche de $f$, et $u_n\to 0$. Mais $f(0)=1\neq 0$. La limite est un point fixe seulement parce que la continuité permet aux valeurs $f(u_n)$ d'atteindre $f(\ell)$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Every nonempty subset of $\mathbb{R}$ that is bounded above has a supremum. Find a counterexample when $\mathbb{R}$ is replaced by $\mathbb{Q}$, that is, a nonempty $A\subset\mathbb{Q}$ bounded above by a rational and having no smallest rational upper bound.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Toute partie non vide et majorée de $\mathbb{R}$ admet une borne supérieure. Trouver un contre-exemple lorsque $\mathbb{R}$ est remplacé par $\mathbb{Q}$, c'est-à-dire une partie non vide $A\subset\mathbb{Q}$ majorée par un rationnel et n'ayant pas de plus petit majorant rationnel.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $A=\{x\in\mathbb{Q}: x&gt;0 \text{ and } x^2&lt;2\}$, which contains $1$ and is bounded above by $2$. Let $r\in\mathbb{Q}$ be a positive upper bound of $A$; then $r^2\neq 2$, since $\sqrt{2}$ is irrational.
+      <br><br>
+      If $r^2&lt;2$, set $r'=r+\frac{2-r^2}{2r+2}$, a rational with $0&lt;r'$ and $r'&gt;r$. Writing $h=\frac{2-r^2}{2r+2}&lt;1$, we get $r'^2=r^2+2rh+h^2&lt;r^2+(2r+2)h=2$, so $r'\in A$ and $r$ was not an upper bound.
+      <br><br>
+      If $r^2&gt;2$, set $r''=r-\frac{r^2-2}{2r}=\frac{r}{2}+\frac{1}{r}$, a positive rational with $r''&lt;r$ and $r''^2=2+\left(\frac{r^2-2}{2r}\right)^2&gt;2$, so $r''$ is again an upper bound of $A$, smaller than $r$.
+      <br><br>
+      So no rational upper bound is the smallest one: in $\mathbb{Q}$ the set $A$ has no supremum. In $\mathbb{R}$ it has one, namely $\sqrt{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prenons $A=\{x\in\mathbb{Q}: x&gt;0 \text{ et } x^2&lt;2\}$, qui contient $1$ et est majorée par $2$. Soit $r\in\mathbb{Q}$ un majorant positif de $A$ ; alors $r^2\neq 2$, car $\sqrt{2}$ est irrationnel.
+      <br><br>
+      Si $r^2&lt;2$, posons $r'=r+\frac{2-r^2}{2r+2}$, rationnel avec $0&lt;r'$ et $r'&gt;r$. En écrivant $h=\frac{2-r^2}{2r+2}&lt;1$, on obtient $r'^2=r^2+2rh+h^2&lt;r^2+(2r+2)h=2$, donc $r'\in A$ et $r$ n'était pas un majorant.
+      <br><br>
+      Si $r^2&gt;2$, posons $r''=r-\frac{r^2-2}{2r}=\frac{r}{2}+\frac{1}{r}$, rationnel positif avec $r''&lt;r$ et $r''^2=2+\left(\frac{r^2-2}{2r}\right)^2&gt;2$, donc $r''$ est encore un majorant de $A$, plus petit que $r$.
+      <br><br>
+      Ainsi aucun majorant rationnel n'est le plus petit : dans $\mathbb{Q}$, l'ensemble $A$ n'a pas de borne supérieure. Dans $\mathbb{R}$, il en a une, à savoir $\sqrt{2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $n!\to+\infty$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $n!\to+\infty$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For all $n\ge 1$, we have $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (since each factor $k\ge 2$ for $k\ge 2$). Since $2^{n-1}\to+\infty$, we get $n!\to+\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Pour tout $n\ge 1$, on a $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (car chaque facteur $k\ge 2$ pour $k\ge 2$). Comme $2^{n-1}\to+\infty$, $n!\to+\infty$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show, using the definition, that $n^2+(-1)^n n\to+\infty$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer, en utilisant la définition, que $n^2+(-1)^n n\to+\infty$.</p>
     </div>
 
     <details class="proof en">
@@ -366,8 +1099,22 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 3.</span> Let $(a_n)$ be a sequence converging to $\ell\in\mathbb{R}$. Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
-      <p class="fr"><span class="thm-label">Exercice 3.</span> Soit $(a_n)$ une suite convergeant vers $\ell\in\mathbb{R}$. Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ and $(v_n)$ converge to $\ell$ and $\ell'$ with $\ell&lt;\ell'$. Show that $u_n&lt;v_n$ for $n$ large enough.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $(u_n)$ et $(v_n)$ convergeant vers $\ell$ et $\ell'$ avec $\ell&lt;\ell'$. Montrer que $u_n&lt;v_n$ à partir d'un certain rang.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ and $m=\frac{\ell+\ell'}{2}$. There is $N_1$ with $u_n&lt;\ell+\varepsilon=m$ for $n\ge N_1$, and $N_2$ with $v_n&gt;\ell'-\varepsilon=m$ for $n\ge N_2$. For $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ et $m=\frac{\ell+\ell'}{2}$. Il existe $N_1$ tel que $u_n&lt;\ell+\varepsilon=m$ pour $n\ge N_1$, et $N_2$ tel que $v_n&gt;\ell'-\varepsilon=m$ pour $n\ge N_2$. Pour $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $(a_n)$ be a sequence converging to $\ell\in\mathbb{R}$. Show, using the definition of the limit, that $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $(a_n)$ une suite convergeant vers $\ell\in\mathbb{R}$. Montrer, en utilisant la définition de la limite, que $\displaystyle\lim_{n\to\infty} a_n^2 = \ell^2$.</p>
     </div>
 
     <details class="proof en">
@@ -380,62 +1127,178 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 4.</span> Study the convergence of the sequence defined by $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
-      <p class="fr"><span class="thm-label">Exercice 4.</span> Étudier la convergence de la suite définie par $u_{n+1}=\frac{1}{2}(u_n+1)$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Study the sequence defined by $u_0=1$ and $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Étude de la suite définie par $u_0=1$ et $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Set $v_n = u_n - 1$. Then $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, so $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Thus $u_n = 1 + v_n \to 1$.
+      Since $1+u_n^2&gt;1$, we have $0&lt;u_{n+1}&lt;u_n$ (by immediate induction for $u_n&gt;0$). So $(u_n)$ is decreasing and bounded below by $0$, hence converges to $\ell\ge 0$ satisfying $\ell=\frac{\ell}{1+\ell^2}$, giving $\ell^3=0$, so $\ell=0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      On pose $v_n = u_n - 1$. Alors $v_{n+1} = u_{n+1}-1 = \frac{1}{2}(u_n+1)-1 = \frac{1}{2}(u_n-1)=\frac{1}{2}v_n$, donc $v_n = v_0/2^n = (u_0-1)/2^n \to 0$. Ainsi $u_n = 1 + v_n \to 1$.
+      Comme $1+u_n^2&gt;1$, on a $0&lt;u_{n+1}&lt;u_n$ (récurrence immédiate pour $u_n&gt;0$). Donc $(u_n)$ est décroissante et minorée par $0$, donc convergente vers $\ell\geq 0$ vérifiant $\ell=\frac{\ell}{1+\ell^2}$, d'où $\ell^3=0$, soit $\ell=0$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 5.</span> Show that the sequence $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverges to $+\infty$.</p>
-      <p class="fr"><span class="thm-label">Exercice 5.</span> Montrer que la suite $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverge vers $+\infty$.</p>
-    </div>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 6.</span> Let $(u_n)$ be defined by $u_0=0$ and $u_{n+1}=\sqrt{u_n+2}$. Study its convergence.</p>
-      <p class="fr"><span class="thm-label">Exercice 6.</span> Soit $(u_n)$ définie par $u_0=0$ et $u_{n+1}=\sqrt{u_n+2}$. Étudier sa convergence.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ be a sequence of integers ($u_n\in\mathbb{Z}$ for all $n$) that converges. Show that $(u_n)$ is eventually constant.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $(u_n)$ une suite d'entiers ($u_n\in\mathbb{Z}$ pour tout $n$) qui converge. Montrer que $(u_n)$ est constante à partir d'un certain rang.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      <em>Bound.</em> We show by induction that $0\le u_n\le 2$. This holds for $n=0$. If $0\le u_n\le 2$, then $2\le u_n+2\le 4$, so $\sqrt{2}\le u_{n+1}\le 2$.
-      <br><br>
-      <em>Monotonicity.</em> We have $u_{n+1}-u_n=\sqrt{u_n+2}-u_n$. Set $f(x)=\sqrt{x+2}-x$; then $f'(x)=\frac{1}{2\sqrt{x+2}}-1&lt;0$ on $[0,2]$ and $f(2)=0$, so $f(x)\ge 0$ on $[0,2]$, giving $u_{n+1}\ge u_n$.
-      <br><br>
-      <em>Convergence.</em> $(u_n)$ is increasing and bounded above by $2$, so it converges to a limit $\ell$.
-      <br><br>
-      <em>Fixed point.</em> Since $0\le u_n\le 2$, we have $\ell\ge 0$. Passing to the limit in $u_{n+1}=\sqrt{u_n+2}$ gives $\ell=\sqrt{\ell+2}$, so $\ell^2=\ell+2$, i.e. $(\ell-2)(\ell+1)=0$; since $\ell\ge 0$, we have $\ell=2$.
+      Let $\ell=\lim u_n$. Applying the definition with $\varepsilon=\frac{1}{2}$: there is $N$ such that $|u_n-\ell|&lt;\frac{1}{2}$ for all $n\ge N$. Then for $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Since $u_n,u_m\in\mathbb{Z}$ and $|u_n-u_m|&lt;1$, we get $u_n=u_m$. Thus $u_n=u_N$ for all $n\ge N$: the sequence is constant from rank $N$ on (and $\ell=u_N\in\mathbb{Z}$).
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      <em>Borne.</em> Montrons par récurrence que $0\le u_n\le 2$. C'est vrai pour $n=0$. Si $0\le u_n\le 2$, alors $2\le u_n+2\le 4$, donc $\sqrt{2}\le u_{n+1}\le 2$.
-      <br><br>
-      <em>Croissance.</em> On a $u_{n+1}-u_n=\sqrt{u_n+2}-u_n$. Posons $f(x)=\sqrt{x+2}-x$ ; on a $f'(x)=\frac{1}{2\sqrt{x+2}}-1&lt;0$ sur $[0,2]$ et $f(2)=0$, donc $f(x)\ge 0$ sur $[0,2]$, d'où $u_{n+1}\ge u_n$.
-      <br><br>
-      <em>Convergence.</em> $(u_n)$ est croissante et majorée par $2$, donc convergente vers une limite $\ell$.
-      <br><br>
-      <em>Point fixe.</em> Comme $0\le u_n\le 2$, on a $\ell\ge 0$. Par passage à la limite dans $u_{n+1}=\sqrt{u_n+2}$, on obtient $\ell=\sqrt{\ell+2}$, d'où $\ell^2=\ell+2$, soit $(\ell-2)(\ell+1)=0$ ; comme $\ell\ge 0$, on a $\ell=2$.
+      Soit $\ell=\lim u_n$. En appliquant la définition avec $\varepsilon=\frac{1}{2}$ : il existe $N$ tel que $|u_n-\ell|&lt;\frac{1}{2}$ pour tout $n\ge N$. Alors pour $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Comme $u_n,u_m\in\mathbb{Z}$ et $|u_n-u_m|&lt;1$, on a $u_n=u_m$. Ainsi $u_n=u_N$ pour tout $n\ge N$ : la suite est constante à partir du rang $N$ (et $\ell=u_N\in\mathbb{Z}$).
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 7.</span> Show that the sequence $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ is increasing and bounded above, hence convergent.</p>
-      <p class="fr"><span class="thm-label">Exercice 7.</span> Montrer que la suite $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ est croissante et majorée, donc convergente.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the sequence $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverges to $+\infty$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la suite $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverge vers $+\infty$.</p>
     </div>
 
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Group the terms of index $n+1$ to $2n$: each of these $n$ terms is at least $\frac{1}{2n}$, so
+      \[H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac{1}{k}\ge n\cdot\frac{1}{2n}=\frac{1}{2}.\]
+      Applying this to $n=1,2,4,\ldots,2^{m-1}$ gives $H_{2^m}\ge H_1+\frac{m}{2}=1+\frac{m}{2}$. So $(H_n)$ is unbounded, and being increasing it tends to $+\infty$: for $A\in\mathbb{R}$, choose $m$ with $1+\frac{m}{2}&gt;A$, then $H_n\ge H_{2^m}&gt;A$ for all $n\ge 2^m$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Regroupons les termes d'indices $n+1$ à $2n$ : chacun de ces $n$ termes vaut au moins $\frac{1}{2n}$, donc
+      \[H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac{1}{k}\ge n\cdot\frac{1}{2n}=\frac{1}{2}.\]
+      En appliquant cela à $n=1,2,4,\ldots,2^{m-1}$, on obtient $H_{2^m}\ge H_1+\frac{m}{2}=1+\frac{m}{2}$. Donc $(H_n)$ n'est pas majorée, et étant croissante elle tend vers $+\infty$ : pour $A\in\mathbb{R}$, choisir $m$ tel que $1+\frac{m}{2}&gt;A$, alors $H_n\ge H_{2^m}&gt;A$ pour tout $n\ge 2^m$.
+    </details>
+
     <div class="thm-block exercise">
-      <div class="en"><p><span class="thm-label">Exercise 8 (Cesàro).</span> Let $(u_n)$ be a sequence and $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ its Cesàro means.</p>
+      <p class="en"><span class="thm-label">Exercise (Heron's method).</span> Let $u_0&gt;0$ and $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Show that $(u_n)$ converges to $\sqrt{2}$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Méthode de Héron).</span> Soit $u_0&gt;0$ et $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Montrer que $(u_n)$ converge vers $\sqrt{2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By the AM-GM inequality ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ for all $n\ge 0$, so $u_n\ge\sqrt{2}$ for $n\ge 1$. Then $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, so $(u_n)_{n\ge 1}$ is decreasing and bounded below by $\sqrt{2}$, hence convergent to $\ell\ge\sqrt{2}$. Passing to the limit: $\ell=\frac{1}{2}(\ell+2/\ell)$, so $\ell^2=2$, giving $\ell=\sqrt{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par l'inégalité arithmético-géométrique ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ pour tout $n\ge 0$, donc $u_n\ge\sqrt{2}$ pour $n\ge 1$. Alors $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, donc $(u_n)_{n\ge 1}$ est décroissante et minorée par $\sqrt{2}$, donc convergente vers $\ell\ge\sqrt{2}$. Par passage à la limite, $\ell=\frac{1}{2}(\ell+2/\ell)$, d'où $\ell^2=2$, soit $\ell=\sqrt{2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Nested intervals theorem).</span> Let $(I_n)$ be a sequence of nested closed intervals, i.e. $I_n=[a_n,b_n]$ with $I_{n+1}\subset I_n$ for all $n$. Assume $b_n-a_n\to 0$. Show that $\displaystyle\bigcap_{n\ge 0}I_n$ contains exactly one point.</p>
+      <p class="fr"><span class="thm-label">Exercice (Théorème des segments emboîtés).</span> Soit $(I_n)$ une suite de segments emboîtés, i.e. $I_n=[a_n,b_n]$ avec $I_{n+1}\subset I_n$ pour tout $n$. On suppose que $b_n-a_n\to 0$. Montrer que $\displaystyle\bigcap_{n\geq 0}I_n$ contient exactement un point.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $I_{n+1}\subset I_n$ gives $a_n\le a_{n+1}\le b_{n+1}\le b_n$, so $(a_n)$ is increasing and $(b_n)$ is decreasing. Moreover $b_n-a_n\to 0$, so $(a_n)$ and $(b_n)$ are adjacent and converge to the same limit $\ell$. Since $a_n\le\ell\le b_n$ for all $n$, we have $\ell\in I_n$ for all $n$, so $\ell\in\bigcap_{n\ge 0}I_n$. Conversely, if $x\in\bigcap_{n\ge 0}I_n$, then $a_n\le x\le b_n$ for all $n$, and passing to the limit gives $\ell\le x\le\ell$, i.e. $x=\ell$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $I_{n+1}\subset I_n$ donne $a_n\leq a_{n+1}\leq b_{n+1}\leq b_n$, donc $(a_n)$ est croissante et $(b_n)$ est décroissante. De plus $b_n-a_n\to 0$, donc $(a_n)$ et $(b_n)$ sont adjacentes et convergent vers une même limite $\ell$. Comme $a_n\leq\ell\leq b_n$ pour tout $n$, on a $\ell\in I_n$ pour tout $n$, donc $\ell\in\bigcap_{n\geq 0}I_n$. Réciproquement, si $x\in\bigcap_{n\geq 0}I_n$, alors $a_n\leq x\leq b_n$ pour tout $n$, d'où en passant à la limite $\ell\leq x\leq\ell$, soit $x=\ell$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ be increasing, $(v_n)$ decreasing, and $v_n-u_n\to 0$. Show that $u_n\le v_n$ for every $n$, so that this hypothesis of the adjacent sequences theorem follows from the other two.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $(u_n)$ croissante, $(v_n)$ décroissante, et $v_n-u_n\to 0$. Montrer que $u_n\le v_n$ pour tout $n$, de sorte que cette hypothèse du théorème des suites adjacentes découle des deux autres.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $w_n=v_n-u_n$. Then $w_{n+1}-w_n=(v_{n+1}-v_n)-(u_{n+1}-u_n)\le 0$, so $(w_n)$ is decreasing, with limit $0$. If some $w_N$ were negative, then $w_n\le w_N&lt;0$ for all $n\ge N$, and passing to the limit would give $0\le w_N&lt;0$. So $w_n\ge 0$ for every $n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $w_n=v_n-u_n$. Alors $w_{n+1}-w_n=(v_{n+1}-v_n)-(u_{n+1}-u_n)\le 0$, donc $(w_n)$ est décroissante, de limite $0$. Si un $w_N$ était négatif, alors $w_n\le w_N&lt;0$ pour tout $n\ge N$, et le passage à la limite donnerait $0\le w_N&lt;0$. Donc $w_n\ge 0$ pour tout $n$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that the sequence $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ is increasing and bounded above, hence convergent.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la suite $\displaystyle u_n=\Bigl(1+\frac{1}{n}\Bigr)^{\!n}$ est croissante et majorée, donc convergente.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>Increasing.</em> Apply the AM-GM inequality to the $n+1$ numbers consisting of $n$ copies of $1+\frac{1}{n}$ and one copy of $1$:
+      \[\left(\Bigl(1+\tfrac{1}{n}\Bigr)^{\!n}\cdot 1\right)^{\frac{1}{n+1}}\le\frac{n\bigl(1+\frac{1}{n}\bigr)+1}{n+1}=\frac{n+2}{n+1}=1+\frac{1}{n+1}.\]
+      Raising to the power $n+1$ gives $u_n\le u_{n+1}$.
+      <br><br>
+      <em>Bounded.</em> By the binomial theorem, $u_n=\sum_{k=0}^{n}\binom{n}{k}\frac{1}{n^k}$, and $\binom{n}{k}\frac{1}{n^k}=\frac{n(n-1)\cdots(n-k+1)}{k!\,n^k}\le\frac{1}{k!}$. Since $k!\ge 2^{k-1}$ for $k\ge 1$, we get $u_n\le 1+\sum_{k=1}^{n}\frac{1}{2^{k-1}}&lt;1+2=3$. Increasing and bounded above, $(u_n)$ converges (its limit is $\mathrm{e}$).
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>Croissance.</em> Appliquons l'inégalité arithmético-géométrique aux $n+1$ nombres formés de $n$ copies de $1+\frac{1}{n}$ et d'une copie de $1$ :
+      \[\left(\Bigl(1+\tfrac{1}{n}\Bigr)^{\!n}\cdot 1\right)^{\frac{1}{n+1}}\le\frac{n\bigl(1+\frac{1}{n}\bigr)+1}{n+1}=\frac{n+2}{n+1}=1+\frac{1}{n+1}.\]
+      En élevant à la puissance $n+1$, on obtient $u_n\le u_{n+1}$.
+      <br><br>
+      <em>Majoration.</em> Par le binôme, $u_n=\sum_{k=0}^{n}\binom{n}{k}\frac{1}{n^k}$, et $\binom{n}{k}\frac{1}{n^k}=\frac{n(n-1)\cdots(n-k+1)}{k!\,n^k}\le\frac{1}{k!}$. Comme $k!\ge 2^{k-1}$ pour $k\ge 1$, on obtient $u_n\le 1+\sum_{k=1}^{n}\frac{1}{2^{k-1}}&lt;1+2=3$. Croissante et majorée, $(u_n)$ converge (sa limite est $\mathrm{e}$).
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{u_n+1}$. Study the sequence.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{u_n+1}$. Étudier la suite.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $f(x)=\sqrt{x+1}$ is increasing on $[0,+\infty[$, which is stable ($f\ge 1&gt;0$), so $(u_n)$ is well defined and monotone. The equation $\ell=\sqrt{\ell+1}$ with $\ell\ge 0$ has the unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (root of $x^2=x+1$); and $g(x)=\sqrt{x+1}-x$ is decreasing with $g(\varphi)=0$, so $g&gt;0$ on $[0,\varphi[$ and $g&lt;0$ on $]\varphi,+\infty[$. If $u_0&lt;\varphi$: by induction $u_n&lt;\varphi$ (as $f$ is increasing and $f(\varphi)=\varphi$), and $u_{n+1}-u_n=g(u_n)&gt;0$, so $(u_n)$ increases and is bounded above by $\varphi$. If $u_0&gt;\varphi$: symmetrically $(u_n)$ decreases and is bounded below by $\varphi$. In both cases it converges to the fixed point $\varphi$ (and if $u_0=\varphi$ it is constant). Hence $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $f(x)=\sqrt{x+1}$ est croissante sur $[0,+\infty[$, qui est stable ($f\ge 1&gt;0$), donc $(u_n)$ est bien définie et monotone. L'équation $\ell=\sqrt{\ell+1}$ avec $\ell\ge 0$ a pour unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (racine de $x^2=x+1$) ; et $g(x)=\sqrt{x+1}-x$ est décroissante avec $g(\varphi)=0$, donc $g&gt;0$ sur $[0,\varphi[$ et $g&lt;0$ sur $]\varphi,+\infty[$. Si $u_0&lt;\varphi$ : par récurrence $u_n&lt;\varphi$ ($f$ croissante et $f(\varphi)=\varphi$), et $u_{n+1}-u_n=g(u_n)&gt;0$, donc $(u_n)$ croît et est majorée par $\varphi$. Si $u_0&gt;\varphi$ : symétriquement $(u_n)$ décroît et est minorée par $\varphi$. Dans les deux cas elle converge vers le point fixe $\varphi$ (et si $u_0=\varphi$ elle est constante). Ainsi $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $0&lt;a_0\le b_0$, and define $a_{n+1}=\sqrt{a_n b_n}$ and $b_{n+1}=\frac{a_n+b_n}{2}$. Show that $a_n\le b_n$ for all $n$, that $(a_n)$ is increasing and $(b_n)$ decreasing, and that both converge to the same limit.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $0&lt;a_0\le b_0$, et $a_{n+1}=\sqrt{a_n b_n}$, $b_{n+1}=\frac{a_n+b_n}{2}$. Montrer que $a_n\le b_n$ pour tout $n$, que $(a_n)$ est croissante et $(b_n)$ décroissante, et qu'elles convergent vers la même limite.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <em>$a_n\le b_n$.</em> True for $n=0$; and the AM-GM inequality $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ gives $a_{n+1}\le b_{n+1}$. <em>Monotonicity.</em> Since $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$; and $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> From $a_0\le a_n\le b_n\le b_0$, the increasing bounded sequence $(a_n)$ and the decreasing bounded sequence $(b_n)$ converge, to $\ell_a$ and $\ell_b$. Passing to the limit in $b_{n+1}=\frac{a_n+b_n}{2}$ gives $\ell_b=\frac{\ell_a+\ell_b}{2}$, so $\ell_a=\ell_b$. (This common value is the arithmetic-geometric mean of $a_0$ and $b_0$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <em>$a_n\le b_n$.</em> Vrai pour $n=0$ ; et l'inégalité arithmético-géométrique $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ donne $a_{n+1}\le b_{n+1}$. <em>Monotonie.</em> Comme $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$ ; et $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> De $a_0\le a_n\le b_n\le b_0$, la suite croissante majorée $(a_n)$ et la suite décroissante minorée $(b_n)$ convergent, vers $\ell_a$ et $\ell_b$. Par passage à la limite dans $b_{n+1}=\frac{a_n+b_n}{2}$, $\ell_b=\frac{\ell_a+\ell_b}{2}$, d'où $\ell_a=\ell_b$. (Cette valeur commune est la moyenne arithmético-géométrique de $a_0$ et $b_0$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Find a recurrence relating $u_{n+1}$ and $u_n$, show that $(u_n)$ is increasing, and that it diverges to $+\infty$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Trouver une relation de récurrence entre $u_{n+1}$ et $u_n$, montrer que $(u_n)$ est croissante, puis qu'elle diverge vers $+\infty$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $S_n=\sum_{k=0}^{n}u_k$, so $u_{n+1}^2=S_n$. For $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, hence $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ All terms are positive ($u_1=\sqrt{u_0}&gt;0$, then $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Increasing.</em> For $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, so $u_{n+1}&gt;u_n$. <em>Divergence.</em> Being increasing, $(u_n)$ converges or tends to $+\infty$. If it converged to $\ell$, the limit of $u_{n+1}^2=u_n^2+u_n$ would give $\ell^2=\ell^2+\ell$, i.e. $\ell=0$, contradicting $u_n\ge u_1&gt;0$. Hence $u_n\to+\infty$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $S_n=\sum_{k=0}^{n}u_k$, de sorte que $u_{n+1}^2=S_n$. Pour $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, d'où $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ Tous les termes sont positifs ($u_1=\sqrt{u_0}&gt;0$, puis $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Croissance.</em> Pour $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, donc $u_{n+1}&gt;u_n$. <em>Divergence.</em> Étant croissante, $(u_n)$ converge ou tend vers $+\infty$. Si elle convergeait vers $\ell$, la limite de $u_{n+1}^2=u_n^2+u_n$ donnerait $\ell^2=\ell^2+\ell$, soit $\ell=0$, ce qui contredit $u_n\ge u_1&gt;0$. Donc $u_n\to+\infty$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Study the sequence $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Étudier la suite $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      We show the even and odd partial sums are adjacent. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, so $(u_{2n})$ is decreasing. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, so $(u_{2n+1})$ is increasing. Finally $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. So $(u_{2n})$ and $(u_{2n+1})$ are adjacent and converge to a common limit $\ell$; since both the even and odd subsequences tend to $\ell$, $(u_n)$ converges to $\ell$. (This limit is $\mathrm{e}^{-1}$, the alternating series of $\exp(-1)$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Montrons que les sommes partielles paires et impaires sont adjacentes. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, donc $(u_{2n})$ est décroissante. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, donc $(u_{2n+1})$ est croissante. Enfin $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. Ainsi $(u_{2n})$ et $(u_{2n+1})$ sont adjacentes et convergent vers une limite commune $\ell$ ; les sous-suites paire et impaire tendant toutes deux vers $\ell$, $(u_n)$ converge vers $\ell$. (Cette limite est $\mathrm{e}^{-1}$, la série alternée de $\exp(-1)$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <div class="en"><p><span class="thm-label">Exercise (Cesàro).</span> Let $(u_n)$ be a sequence and $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ its Cesàro means.</p>
       <ol>
         <li>Show that if $u_n\to\ell$, then $C_n\to\ell$.</li>
         <li>Show that the converse fails: find a divergent sequence $(u_n)$ whose means $(C_n)$ converge.</li>
       </ol></div>
-      <div class="fr"><p><span class="thm-label">Exercice 8 (Cesàro).</span> Soit $(u_n)$ une suite et $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ ses moyennes de Cesàro.</p>
+      <div class="fr"><p><span class="thm-label">Exercice (Cesàro).</span> Soit $(u_n)$ une suite et $\displaystyle C_n=\frac{1}{n}\sum_{k=0}^{n-1} u_k$ ses moyennes de Cesàro.</p>
       <ol>
         <li>Montrer que si $u_n\to\ell$, alors $C_n\to\ell$.</li>
         <li>Montrer que la réciproque est fausse : trouver une suite $(u_n)$ divergente dont les moyennes $(C_n)$ convergent.</li>
@@ -456,55 +1319,8 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 9.</span> Study the convergence of the sequence $(\cos n)$.</p>
-      <p class="fr"><span class="thm-label">Exercice 9.</span> Étudier la convergence de la suite $(\cos n)$.</p>
-    </div>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 10 (Heron's method).</span> Let $u_0&gt;0$ and $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Show that $(u_n)$ converges to $\sqrt{2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice 10 (Méthode de Héron).</span> Soit $u_0&gt;0$ et $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Montrer que $(u_n)$ converge vers $\sqrt{2}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      By the AM-GM inequality ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ for all $n\ge 0$, so $u_n\ge\sqrt{2}$ for $n\ge 1$. Then $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, so $(u_n)_{n\ge 1}$ is decreasing and bounded below by $\sqrt{2}$, hence convergent to $\ell\ge\sqrt{2}$. Passing to the limit: $\ell=\frac{1}{2}(\ell+2/\ell)$, so $\ell^2=2$, giving $\ell=\sqrt{2}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Par l'inégalité arithmético-géométrique ($(a+b)/2\ge\sqrt{ab}$), $u_{n+1}=\frac{1}{2}(u_n+2/u_n)\ge\sqrt{u_n\cdot 2/u_n}=\sqrt{2}$ pour tout $n\ge 0$, donc $u_n\ge\sqrt{2}$ pour $n\ge 1$. Alors $u_{n+1}-u_n=\frac{1}{2}(2/u_n-u_n)=(2-u_n^2)/(2u_n)\le 0$, donc $(u_n)_{n\ge 1}$ est décroissante et minorée par $\sqrt{2}$, donc convergente vers $\ell\ge\sqrt{2}$. Par passage à la limite, $\ell=\frac{1}{2}(\ell+2/\ell)$, d'où $\ell^2=2$, soit $\ell=\sqrt{2}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 11 (Comparison of growth rates).</span> Show that for all $|q|&lt;1$ and all $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
-      <p class="fr"><span class="thm-label">Exercice 11 (Croissances comparées).</span> Montrer que pour tout $|q|&lt;1$ et tout $k\in\mathbb{N}$, $n^k q^n \to 0$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Set $|q|=1/(1+h)$ with $h>0$. For $n\ge k+1$, the binomial formula gives $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, a polynomial of degree $k+1$ in $n$. So $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On pose $|q|=1/(1+h)$ avec $h&gt;0$. Pour $n\ge k+1$, la formule du binôme donne $(1+h)^n\ge\binom{n}{k+1}h^{k+1}=\frac{n(n-1)\cdots(n-k)}{(k+1)!}h^{k+1}$, polynôme de degré $k+1$ en $n$. Donc $n^k|q|^n\le n^k\cdot\frac{(k+1)!}{n(n-1)\cdots(n-k)\,h^{k+1}}\to 0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 12 (Adjacent sequences).</span> Set $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ and $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Show that $(u_n)$ and $(v_n)$ are adjacent, and deduce that $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.</p>
-      <p class="fr"><span class="thm-label">Exercice 12 (Suites adjacentes).</span> On pose $\displaystyle u_n=\sum_{k=0}^{n}\frac{1}{k!}$ et $\displaystyle v_n=u_n+\frac{1}{n\cdot n!}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes, et en déduire que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $(u_n)$ is increasing since $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. For $(v_n)$: $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, so $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent, in particular $(u_n)$ converges, meaning $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converges.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $(u_n)$ est croissante car $u_{n+1}-u_n=\frac{1}{(n+1)!}&gt;0$. Pour $(v_n)$ : $v_{n+1}-v_n=\frac{1}{(n+1)!}+\frac{1}{(n+1)(n+1)!}-\frac{1}{n\cdot n!}=\frac{1}{n!}\left(\frac{n+2}{(n+1)^2}-\frac{1}{n}\right)=\frac{-1}{n\cdot n!\cdot(n+1)^2}&lt;0$, donc $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{n\cdot n!}\to 0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes, en particulier $(u_n)$ converge, ce qui signifie que $\displaystyle\sum_{k=0}^{+\infty}\frac{1}{k!}$ converge.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 13.</span> Let $x\in\mathbb{R}$. Show that $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
-      <p class="fr"><span class="thm-label">Exercice 13.</span> Soit $x\in\mathbb{R}$. Montrer que $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $x\in\mathbb{R}$. Show that $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $x\in\mathbb{R}$. Montrer que $\displaystyle\lim_{n\to\infty}\Bigl(1+\frac{x}{n}\Bigr)^{\!n}=\mathrm{e}^x$.</p>
     </div>
 
     <details class="proof en">
@@ -517,185 +1333,21 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 14.</span> Show that $n!\to+\infty$.</p>
-      <p class="fr"><span class="thm-label">Exercice 14.</span> Montrer que $n!\to+\infty$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Study the convergence of the sequence $(\cos n)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Étudier la convergence de la suite $(\cos n)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      For all $n\ge 1$, we have $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (since each factor $k\ge 2$ for $k\ge 2$). Since $2^{n-1}\to+\infty$, we get $n!\to+\infty$.
+      Suppose $\cos n\to\ell$. The addition formulas give $\cos(n+1)+\cos(n-1)=2\cos n\cos 1$. Both sides converge, so $2\ell=2\ell\cos 1$, i.e. $\ell(1-\cos 1)=0$, and since $\cos 1\neq 1$ we get $\ell=0$.
+      <br><br>
+      Next, $\cos(n+1)=\cos n\cos 1-\sin n\sin 1$ gives $\sin n\sin 1=\cos n\cos 1-\cos(n+1)\to 0$, and $\sin 1\neq 0$, so $\sin n\to 0$. Then $\cos^2 n+\sin^2 n\to 0$, contradicting $\cos^2 n+\sin^2 n=1$. Hence $(\cos n)$ diverges.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Pour tout $n\ge 1$, on a $n!=1\cdot 2\cdot 3\cdots n\ge 2^{n-1}$ (car chaque facteur $k\ge 2$ pour $k\ge 2$). Comme $2^{n-1}\to+\infty$, $n!\to+\infty$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 15.</span> Show that $\displaystyle\frac{n!}{n^n}\to 0$.</p>
-      <p class="fr"><span class="thm-label">Exercice 15.</span> Montrer que $\displaystyle\frac{n!}{n^n}\to 0$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      For all $n\ge 1$, we have $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, since each factor $k/n\le 1$. By the squeeze theorem, $n!/n^n\to 0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Pour tout $n\ge 1$, on a $0\le\frac{n!}{n^n}=\frac{1}{n}\cdot\frac{2}{n}\cdots\frac{n}{n}\le\frac{1}{n}$, car chaque facteur $k/n\le 1$. Par le théorème d'encadrement, $n!/n^n\to 0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 16.</span> Let $a\in\mathbb{R}$. Show that $\displaystyle\frac{a^n}{n!}\to 0$.</p>
-      <p class="fr"><span class="thm-label">Exercice 16.</span> Soit $a\in\mathbb{R}$. Montrer que $\displaystyle\frac{a^n}{n!}\to 0$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Let $N=\lfloor|a|\rfloor+1$, so that $|a|/N&lt;1$. For $n\ge N$, we have $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Since $|a|/N&lt;1$, the term $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. By the squeeze theorem, $a^n/n!\to 0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Soit $N=\lfloor|a|\rfloor+1$, de sorte que $|a|/N&lt;1$. Pour $n\ge N$, on a $\frac{|a|^n}{n!}=\frac{|a|^N}{N!}\cdot\frac{|a|}{N+1}\cdots\frac{|a|}{n}\le\frac{|a|^N}{N!}\cdot\left(\frac{|a|}{N}\right)^{n-N}$. Comme $|a|/N&lt;1$, le terme $\left(\frac{|a|}{N}\right)^{n-N}\to 0$. Par le théorème d'encadrement, $a^n/n!\to 0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 17.</span> Study the sequence defined by $u_0=1$ and $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
-      <p class="fr"><span class="thm-label">Exercice 17.</span> Étude de la suite définie par $u_0=1$ et $u_{n+1}=\dfrac{u_n}{1+u_n^2}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Since $1+u_n^2&gt;1$, we have $0&lt;u_{n+1}&lt;u_n$ (by immediate induction for $u_n&gt;0$). So $(u_n)$ is decreasing and bounded below by $0$, hence converges to $\ell\ge 0$ satisfying $\ell=\frac{\ell}{1+\ell^2}$, giving $\ell^3=0$, so $\ell=0$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Comme $1+u_n^2&gt;1$, on a $0&lt;u_{n+1}&lt;u_n$ (récurrence immédiate pour $u_n&gt;0$). Donc $(u_n)$ est décroissante et minorée par $0$, donc convergente vers $\ell\geq 0$ vérifiant $\ell=\frac{\ell}{1+\ell^2}$, d'où $\ell^3=0$, soit $\ell=0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 18.</span> Let $x\in\mathbb{R}$. Define the decimal approximation of order $n$ of $x$ by $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ and set $v_n=u_n+\frac{1}{10^n}$. Show that $(u_n)$ and $(v_n)$ are adjacent and converge to $x$. Deduce that $\mathbb{Q}$ is dense in $\mathbb{R}$.</p>
-      <p class="fr"><span class="thm-label">Exercice 18.</span> Soit $x\in\mathbb{R}$. On définit l'approximation décimale d'ordre $n$ de $x$ par $u_n=\frac{\lfloor 10^n x\rfloor}{10^n}$ et on pose $v_n=u_n+\frac{1}{10^n}$. Montrer que $(u_n)$ et $(v_n)$ sont adjacentes et convergent vers $x$. En déduire que $\mathbb{Q}$ est dense dans $\mathbb{R}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      By definition of the floor function, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, so $u_n\le x&lt;v_n$. We show $u_n\le u_{n+1}$: since $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, we have $u_n\le u_{n+1}$, so $(u_n)$ is increasing. Similarly, $10^{n+1}v_n\ge\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, so $v_n\ge v_{n+1}$, and $(v_n)$ is decreasing. Finally $v_n-u_n=\frac{1}{10^n}\to 0$. So $(u_n)$ and $(v_n)$ are adjacent and converge to the same limit $\ell$. Since $u_n\le x&lt;v_n$ for all $n$, we have $\ell=x$. In particular, for every $\varepsilon>0$, there exists $n$ with $|u_n-x|&lt;\varepsilon$ and $u_n\in\mathbb{Q}$, so $\mathbb{Q}$ is dense in $\mathbb{R}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Par définition de la partie entière, $\lfloor 10^n x\rfloor\le 10^n x&lt;\lfloor 10^n x\rfloor+1$, donc $u_n\le x&lt;v_n$. On montre que $u_n\le u_{n+1}$ : comme $10\lfloor 10^n x\rfloor\le\lfloor 10^{n+1}x\rfloor$, on a $u_n\leq u_{n+1}$, et $(u_n)$ est croissante. De même, $10^{n+1}v_n\geq\lfloor 10^{n+1}x\rfloor+1=10^{n+1}v_{n+1}$, soit $v_n\geq v_{n+1}$, et $(v_n)$ est décroissante. Enfin $v_n-u_n=\frac{1}{10^n}\to0$. Les suites $(u_n)$ et $(v_n)$ sont donc adjacentes et convergent vers une même limite $\ell$. Comme $u_n\le x&lt;v_n$ pour tout $n$, on a $\ell=x$. En particulier, pour tout $\varepsilon&gt;0$, il existe $n$ tel que $|u_n-x|&lt;\varepsilon$ avec $u_n\in\mathbb{Q}$, donc $\mathbb{Q}$ est dense dans $\mathbb{R}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 19 (Nested intervals theorem).</span> Let $(I_n)$ be a sequence of nested closed intervals, i.e. $I_n=[a_n,b_n]$ with $I_{n+1}\subset I_n$ for all $n$. Assume $b_n-a_n\to 0$. Show that $\displaystyle\bigcap_{n\ge 0}I_n$ contains exactly one point.</p>
-      <p class="fr"><span class="thm-label">Exercice 19 (Théorème des segments emboîtés).</span> Soit $(I_n)$ une suite de segments emboîtés, i.e. $I_n=[a_n,b_n]$ avec $I_{n+1}\subset I_n$ pour tout $n$. On suppose que $b_n-a_n\to 0$. Montrer que $\displaystyle\bigcap_{n\geq 0}I_n$ contient exactement un point.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $I_{n+1}\subset I_n$ gives $a_n\le a_{n+1}\le b_{n+1}\le b_n$, so $(a_n)$ is increasing and $(b_n)$ is decreasing. Moreover $b_n-a_n\to 0$, so $(a_n)$ and $(b_n)$ are adjacent and converge to the same limit $\ell$. Since $a_n\le\ell\le b_n$ for all $n$, we have $\ell\in I_n$ for all $n$, so $\ell\in\bigcap_{n\ge 0}I_n$. Conversely, if $x\in\bigcap_{n\ge 0}I_n$, then $a_n\le x\le b_n$ for all $n$, and passing to the limit gives $\ell\le x\le\ell$, i.e. $x=\ell$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $I_{n+1}\subset I_n$ donne $a_n\leq a_{n+1}\leq b_{n+1}\leq b_n$, donc $(a_n)$ est croissante et $(b_n)$ est décroissante. De plus $b_n-a_n\to 0$, donc $(a_n)$ et $(b_n)$ sont adjacentes et convergent vers une même limite $\ell$. Comme $a_n\leq\ell\leq b_n$ pour tout $n$, on a $\ell\in I_n$ pour tout $n$, donc $\ell\in\bigcap_{n\geq 0}I_n$. Réciproquement, si $x\in\bigcap_{n\geq 0}I_n$, alors $a_n\leq x\leq b_n$ pour tout $n$, d'où en passant à la limite $\ell\leq x\leq\ell$, soit $x=\ell$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 20.</span> Let $(u_n)$ be a sequence of integers ($u_n\in\mathbb{Z}$ for all $n$) that converges. Show that $(u_n)$ is eventually constant.</p>
-      <p class="fr"><span class="thm-label">Exercice 20.</span> Soit $(u_n)$ une suite d'entiers ($u_n\in\mathbb{Z}$ pour tout $n$) qui converge. Montrer que $(u_n)$ est constante à partir d'un certain rang.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Let $\ell=\lim u_n$. Applying the definition with $\varepsilon=\frac{1}{2}$: there is $N$ such that $|u_n-\ell|&lt;\frac{1}{2}$ for all $n\ge N$. Then for $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Since $u_n,u_m\in\mathbb{Z}$ and $|u_n-u_m|&lt;1$, we get $u_n=u_m$. Thus $u_n=u_N$ for all $n\ge N$: the sequence is constant from rank $N$ on (and $\ell=u_N\in\mathbb{Z}$).
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Soit $\ell=\lim u_n$. En appliquant la définition avec $\varepsilon=\frac{1}{2}$ : il existe $N$ tel que $|u_n-\ell|&lt;\frac{1}{2}$ pour tout $n\ge N$. Alors pour $n,m\ge N$, $|u_n-u_m|\le|u_n-\ell|+|\ell-u_m|&lt;1$. Comme $u_n,u_m\in\mathbb{Z}$ et $|u_n-u_m|&lt;1$, on a $u_n=u_m$. Ainsi $u_n=u_N$ pour tout $n\ge N$ : la suite est constante à partir du rang $N$ (et $\ell=u_N\in\mathbb{Z}$).
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 21.</span> Study the convergence of $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
-      <p class="fr"><span class="thm-label">Exercice 21.</span> Étudier la convergence de $\displaystyle S_n=\sum_{k=1}^{n}\frac{1}{n+k}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>Monotonicity.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, so $(S_n)$ is increasing. <em>Bound.</em> Each term satisfies $\frac{1}{n+k}\le\frac{1}{n+1}$, so $S_n\le\frac{n}{n+1}&lt;1$. Being increasing and bounded above, $(S_n)$ converges. (Its limit is $\ln 2$, obtained as a Riemann sum of $t\mapsto\frac{1}{1+t}$ on $[0,1]$.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>Monotonie.</em> $S_{n+1}-S_n=\frac{1}{2n+1}+\frac{1}{2n+2}-\frac{1}{n+1}=\frac{1}{2n+1}-\frac{1}{2n+2}=\frac{1}{(2n+1)(2n+2)}&gt;0$, donc $(S_n)$ est croissante. <em>Majoration.</em> Chaque terme vérifie $\frac{1}{n+k}\le\frac{1}{n+1}$, donc $S_n\le\frac{n}{n+1}&lt;1$. Croissante et majorée, $(S_n)$ converge. (Sa limite est $\ln 2$, obtenue comme somme de Riemann de $t\mapsto\frac{1}{1+t}$ sur $[0,1]$.)
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 22.</span> Study the sequence $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
-      <p class="fr"><span class="thm-label">Exercice 22.</span> Étudier la suite $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      We show the even and odd partial sums are adjacent. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, so $(u_{2n})$ is decreasing. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, so $(u_{2n+1})$ is increasing. Finally $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. So $(u_{2n})$ and $(u_{2n+1})$ are adjacent and converge to a common limit $\ell$; since both the even and odd subsequences tend to $\ell$, $(u_n)$ converges to $\ell$. (This limit is $\mathrm{e}^{-1}$, the alternating series of $\exp(-1)$.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Montrons que les sommes partielles paires et impaires sont adjacentes. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, donc $(u_{2n})$ est décroissante. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, donc $(u_{2n+1})$ est croissante. Enfin $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. Ainsi $(u_{2n})$ et $(u_{2n+1})$ sont adjacentes et convergent vers une limite commune $\ell$ ; les sous-suites paire et impaire tendant toutes deux vers $\ell$, $(u_n)$ converge vers $\ell$. (Cette limite est $\mathrm{e}^{-1}$, la série alternée de $\exp(-1)$.)
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 23.</span> Let $0&lt;a_0\le b_0$, and define $a_{n+1}=\sqrt{a_n b_n}$ and $b_{n+1}=\frac{a_n+b_n}{2}$. Show that $a_n\le b_n$ for all $n$, that $(a_n)$ is increasing and $(b_n)$ decreasing, and that both converge to the same limit.</p>
-      <p class="fr"><span class="thm-label">Exercice 23.</span> Soient $0&lt;a_0\le b_0$, et $a_{n+1}=\sqrt{a_n b_n}$, $b_{n+1}=\frac{a_n+b_n}{2}$. Montrer que $a_n\le b_n$ pour tout $n$, que $(a_n)$ est croissante et $(b_n)$ décroissante, et qu'elles convergent vers la même limite.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <em>$a_n\le b_n$.</em> True for $n=0$; and the AM-GM inequality $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ gives $a_{n+1}\le b_{n+1}$. <em>Monotonicity.</em> Since $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$; and $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> From $a_0\le a_n\le b_n\le b_0$, the increasing bounded sequence $(a_n)$ and the decreasing bounded sequence $(b_n)$ converge, to $\ell_a$ and $\ell_b$. Passing to the limit in $b_{n+1}=\frac{a_n+b_n}{2}$ gives $\ell_b=\frac{\ell_a+\ell_b}{2}$, so $\ell_a=\ell_b$. (This common value is the arithmetic-geometric mean of $a_0$ and $b_0$.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <em>$a_n\le b_n$.</em> Vrai pour $n=0$ ; et l'inégalité arithmético-géométrique $\sqrt{a_n b_n}\le\frac{a_n+b_n}{2}$ donne $a_{n+1}\le b_{n+1}$. <em>Monotonie.</em> Comme $b_n\ge a_n$, $a_{n+1}=\sqrt{a_n b_n}\ge\sqrt{a_n^2}=a_n$ ; et $b_{n+1}=\frac{a_n+b_n}{2}\le\frac{b_n+b_n}{2}=b_n$. <em>Convergence.</em> De $a_0\le a_n\le b_n\le b_0$, la suite croissante majorée $(a_n)$ et la suite décroissante minorée $(b_n)$ convergent, vers $\ell_a$ et $\ell_b$. Par passage à la limite dans $b_{n+1}=\frac{a_n+b_n}{2}$, $\ell_b=\frac{\ell_a+\ell_b}{2}$, d'où $\ell_a=\ell_b$. (Cette valeur commune est la moyenne arithmético-géométrique de $a_0$ et $b_0$.)
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 24.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Find a recurrence relating $u_{n+1}$ and $u_n$, show that $(u_n)$ is increasing, and that it diverges to $+\infty$.</p>
-      <p class="fr"><span class="thm-label">Exercice 24.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{\sum_{k=0}^{n}u_k}$. Trouver une relation de récurrence entre $u_{n+1}$ et $u_n$, montrer que $(u_n)$ est croissante, puis qu'elle diverge vers $+\infty$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Let $S_n=\sum_{k=0}^{n}u_k$, so $u_{n+1}^2=S_n$. For $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, hence $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ All terms are positive ($u_1=\sqrt{u_0}&gt;0$, then $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Increasing.</em> For $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, so $u_{n+1}&gt;u_n$. <em>Divergence.</em> Being increasing, $(u_n)$ converges or tends to $+\infty$. If it converged to $\ell$, the limit of $u_{n+1}^2=u_n^2+u_n$ would give $\ell^2=\ell^2+\ell$, i.e. $\ell=0$, contradicting $u_n\ge u_1&gt;0$. Hence $u_n\to+\infty$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Posons $S_n=\sum_{k=0}^{n}u_k$, de sorte que $u_{n+1}^2=S_n$. Pour $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, d'où $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ Tous les termes sont positifs ($u_1=\sqrt{u_0}&gt;0$, puis $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Croissance.</em> Pour $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, donc $u_{n+1}&gt;u_n$. <em>Divergence.</em> Étant croissante, $(u_n)$ converge ou tend vers $+\infty$. Si elle convergeait vers $\ell$, la limite de $u_{n+1}^2=u_n^2+u_n$ donnerait $\ell^2=\ell^2+\ell$, soit $\ell=0$, ce qui contredit $u_n\ge u_1&gt;0$. Donc $u_n\to+\infty$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 25.</span> Let $u_0&gt;0$ and $u_{n+1}=\sqrt{u_n+1}$. Study the sequence.</p>
-      <p class="fr"><span class="thm-label">Exercice 25.</span> Soit $u_0&gt;0$ et $u_{n+1}=\sqrt{u_n+1}$. Étudier la suite.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $f(x)=\sqrt{x+1}$ is increasing on $[0,+\infty[$, which is stable ($f\ge 1&gt;0$), so $(u_n)$ is well defined and monotone. The equation $\ell=\sqrt{\ell+1}$ with $\ell\ge 0$ has the unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (root of $x^2=x+1$); and $g(x)=\sqrt{x+1}-x$ is decreasing with $g(\varphi)=0$, so $g&gt;0$ on $[0,\varphi[$ and $g&lt;0$ on $]\varphi,+\infty[$. If $u_0&lt;\varphi$: by induction $u_n&lt;\varphi$ (as $f$ is increasing and $f(\varphi)=\varphi$), and $u_{n+1}-u_n=g(u_n)&gt;0$, so $(u_n)$ increases and is bounded above by $\varphi$. If $u_0&gt;\varphi$: symmetrically $(u_n)$ decreases and is bounded below by $\varphi$. In both cases it converges to the fixed point $\varphi$ (and if $u_0=\varphi$ it is constant). Hence $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $f(x)=\sqrt{x+1}$ est croissante sur $[0,+\infty[$, qui est stable ($f\ge 1&gt;0$), donc $(u_n)$ est bien définie et monotone. L'équation $\ell=\sqrt{\ell+1}$ avec $\ell\ge 0$ a pour unique solution $\varphi=\frac{1+\sqrt{5}}{2}$ (racine de $x^2=x+1$) ; et $g(x)=\sqrt{x+1}-x$ est décroissante avec $g(\varphi)=0$, donc $g&gt;0$ sur $[0,\varphi[$ et $g&lt;0$ sur $]\varphi,+\infty[$. Si $u_0&lt;\varphi$ : par récurrence $u_n&lt;\varphi$ ($f$ croissante et $f(\varphi)=\varphi$), et $u_{n+1}-u_n=g(u_n)&gt;0$, donc $(u_n)$ croît et est majorée par $\varphi$. Si $u_0&gt;\varphi$ : symétriquement $(u_n)$ décroît et est minorée par $\varphi$. Dans les deux cas elle converge vers le point fixe $\varphi$ (et si $u_0=\varphi$ elle est constante). Ainsi $u_n\to\varphi=\frac{1+\sqrt{5}}{2}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise 26.</span> Let $(u_n)$ and $(v_n)$ converge to $\ell$ and $\ell'$ with $\ell&lt;\ell'$. Show that $u_n&lt;v_n$ for $n$ large enough.</p>
-      <p class="fr"><span class="thm-label">Exercice 26.</span> Soient $(u_n)$ et $(v_n)$ convergeant vers $\ell$ et $\ell'$ avec $\ell&lt;\ell'$. Montrer que $u_n&lt;v_n$ à partir d'un certain rang.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Let $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ and $m=\frac{\ell+\ell'}{2}$. There is $N_1$ with $u_n&lt;\ell+\varepsilon=m$ for $n\ge N_1$, and $N_2$ with $v_n&gt;\ell'-\varepsilon=m$ for $n\ge N_2$. For $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Soit $\varepsilon=\frac{\ell'-\ell}{2}&gt;0$ et $m=\frac{\ell+\ell'}{2}$. Il existe $N_1$ tel que $u_n&lt;\ell+\varepsilon=m$ pour $n\ge N_1$, et $N_2$ tel que $v_n&gt;\ell'-\varepsilon=m$ pour $n\ge N_2$. Pour $n\ge\max(N_1,N_2)$, $u_n&lt;m&lt;v_n$.
+      Supposons $\cos n\to\ell$. Les formules d'addition donnent $\cos(n+1)+\cos(n-1)=2\cos n\cos 1$. Les deux membres convergent, donc $2\ell=2\ell\cos 1$, soit $\ell(1-\cos 1)=0$, et comme $\cos 1\neq 1$ on obtient $\ell=0$.
+      <br><br>
+      Ensuite, $\cos(n+1)=\cos n\cos 1-\sin n\sin 1$ donne $\sin n\sin 1=\cos n\cos 1-\cos(n+1)\to 0$, et $\sin 1\neq 0$, donc $\sin n\to 0$. Alors $\cos^2 n+\sin^2 n\to 0$, ce qui contredit $\cos^2 n+\sin^2 n=1$. Donc $(\cos n)$ diverge.
     </details>
 
   </main>
