@@ -23,32 +23,45 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
-    <!-- ====== PROBABILITY SPACE ====== -->
+    <h3 class="en">Probability space</h3>
+    <h3 class="fr">Espace probabilisé</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> A <em>discrete probability space</em> is a pair $(\Omega, \mathbb{P})$ where $\Omega$ is a finite or countable nonempty set and $\mathbb{P} : \mathcal{P}(\Omega) \to [0,1]$ satisfies: (i) $\mathbb{P}(\Omega) = 1$; (ii) ($\sigma$-additivity) for every family $(A_n)_{n \ge 1}$ of pairwise disjoint events, $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right) = \sum_{n=1}^{+\infty} \mathbb{P}(A_n)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Un <em>espace probabilis&eacute; discret</em> est un couple $(\Omega,\mathbb{P})$ o&ugrave; $\Omega$ est un ensemble fini ou d&eacute;nombrable non vide et $\mathbb{P}:\mathcal{P}(\Omega)\to[0,1]$ v&eacute;rifie : (i) $\mathbb{P}(\Omega)=1$ ; (ii) ($\sigma$-additivit&eacute;) pour toute famille $(A_n)_{n\ge 1}$ d'&eacute;v&eacute;nements deux &agrave; deux disjoints, $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right)=\sum_{n=1}^{+\infty}\mathbb{P}(A_n)$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Un <em>espace probabilisé discret</em> est un couple $(\Omega,\mathbb{P})$ où $\Omega$ est un ensemble fini ou dénombrable non vide et $\mathbb{P}:\mathcal{P}(\Omega)\to[0,1]$ vérifie : (i) $\mathbb{P}(\Omega)=1$ ; (ii) ($\sigma$-additivité) pour toute famille $(A_n)_{n\ge 1}$ d'événements deux à deux disjoints, $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right)=\sum_{n=1}^{+\infty}\mathbb{P}(A_n)$.</p>
     </div>
 
-    <!-- Basic properties -->
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For all events $A, B \subset \Omega$: $$\mathbb{P}(\varnothing) = 0,\quad \mathbb{P}(A^c) = 1 - \mathbb{P}(A),\quad A \subset B \Rightarrow \mathbb{P}(A) \le \mathbb{P}(B),$$ and $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Pour tous &eacute;v&eacute;nements $A,B\subset\Omega$ : $$\mathbb{P}(\varnothing)=0,\quad \mathbb{P}(A^c)=1-\mathbb{P}(A),\quad A\subset B \Rightarrow \mathbb{P}(A)\le\mathbb{P}(B),$$ et $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour tous événements $A,B\subset\Omega$ : $$\mathbb{P}(\varnothing)=0,\quad \mathbb{P}(A^c)=1-\mathbb{P}(A),\quad A\subset B \Rightarrow \mathbb{P}(A)\le\mathbb{P}(B),$$ et $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      We have $\Omega = A \sqcup A^c$, so $1 = \mathbb{P}(A) + \mathbb{P}(A^c)$, whence $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ and $\mathbb{P}(\varnothing) = 0$. If $A \subset B$, then $B = A \sqcup (B \setminus A)$, so $\mathbb{P}(B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A) \ge \mathbb{P}(A)$. Finally, $A \cup B = A \sqcup (B \setminus A)$ so $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A)$ and since $B = (A \cap B) \sqcup (B \setminus A)$ we get $\mathbb{P}(B \setminus A) = \mathbb{P}(B) - \mathbb{P}(A \cap B)$, whence $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
+      We have $\Omega = A \sqcup A^c$, so $1 = \mathbb{P}(A) + \mathbb{P}(A^c)$, whence $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$ and $\mathbb{P}(\varnothing) = 0$. If $A \subset B$, then $B = A \sqcup (B \setminus A)$, so $\mathbb{P}(B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A) \ge \mathbb{P}(A)$. Finally, $A \cup B = A \sqcup (B \setminus A)$ so $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B \setminus A)$, and since $B = (A \cap B) \sqcup (B \setminus A)$ we get $\mathbb{P}(B \setminus A) = \mathbb{P}(B) - \mathbb{P}(A \cap B)$, whence $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On a $\Omega=A\sqcup A^c$, donc $1=\mathbb{P}(A)+\mathbb{P}(A^c)$, d'o&ugrave; $\mathbb{P}(A^c)=1-\mathbb{P}(A)$ et $\mathbb{P}(\varnothing)=0$. Si $A\subset B$, alors $B=A\sqcup(B\setminus A)$, donc $\mathbb{P}(B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)\ge\mathbb{P}(A)$. Enfin, $A\cup B=A\sqcup(B\setminus A)$ donc $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)$ et comme $B=(A\cap B)\sqcup(B\setminus A)$ on a $\mathbb{P}(B\setminus A)=\mathbb{P}(B)-\mathbb{P}(A\cap B)$, d'o&ugrave; $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.
+      <summary class="proof-label">Démonstration.</summary>
+      On a $\Omega=A\sqcup A^c$, donc $1=\mathbb{P}(A)+\mathbb{P}(A^c)$, d'où $\mathbb{P}(A^c)=1-\mathbb{P}(A)$ et $\mathbb{P}(\varnothing)=0$. Si $A\subset B$, alors $B=A\sqcup(B\setminus A)$, donc $\mathbb{P}(B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)\ge\mathbb{P}(A)$. Enfin, $A\cup B=A\sqcup(B\setminus A)$ donc $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B\setminus A)$, et comme $B=(A\cap B)\sqcup(B\setminus A)$ on a $\mathbb{P}(B\setminus A)=\mathbb{P}(B)-\mathbb{P}(A\cap B)$, d'où $\mathbb{P}(A\cup B)=\mathbb{P}(A)+\mathbb{P}(B)-\mathbb{P}(A\cap B)$.
     </details>
 
-    <!-- Weights -->
+    <figure class="figure-block">
+      <svg class="figure" width="320" height="200" viewBox="30.0 20.0 320.0 200.0">
+        <rect class="fig-cell" x="40.0" y="30.0" width="300.0" height="180.0"/>
+        <circle class="fig-shape" cx="158.0" cy="120.0" r="68.0"/>
+        <circle class="fig-shape" cx="222.0" cy="120.0" r="68.0"/>
+        <path class="fig-band" d="M 190.0 180.0 A 68.0 68.0 0 0 1 190.0 60.0 A 68.0 68.0 0 0 1 190.0 180.0 Z"/>
+        <text x="112.0" y="125.0" text-anchor="middle">A</text>
+        <text x="268.0" y="125.0" text-anchor="middle">B</text>
+        <text x="190.0" y="125.0" text-anchor="middle">A ∩ B</text>
+        <text x="52.0" y="52.0">Ω</text>
+      </svg>
+      <figcaption><span class="en">Two events inside $\Omega$. Adding $\mathbb{P}(A)$ and $\mathbb{P}(B)$ counts the shaded part $A \cap B$ twice, so $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$, and in particular $\mathbb{P}(A \cup B) \le \mathbb{P}(A) + \mathbb{P}(B)$.</span><span class="fr">Deux événements dans $\Omega$. Additionner $\mathbb{P}(A)$ et $\mathbb{P}(B)$ compte deux fois la partie grisée $A \cap B$, donc $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$, et en particulier $\mathbb{P}(A \cup B) \le \mathbb{P}(A) + \mathbb{P}(B)$.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> $\mathbb{P}$ is entirely determined by the weights $p_\omega = \mathbb{P}(\{\omega\})$ for $\omega \in \Omega$. We have $p_\omega \ge 0$, $\sum_{\omega \in \Omega} p_\omega = 1$ and $\mathbb{P}(A) = \sum_{\omega \in A} p_\omega$ for all $A \subset \Omega$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{P}$ est enti&egrave;rement d&eacute;termin&eacute;e par les poids $p_\omega=\mathbb{P}(\{\omega\})$ pour $\omega\in\Omega$. On a $p_\omega\ge 0$, $\sum_{\omega\in\Omega}p_\omega=1$ et $\mathbb{P}(A)=\sum_{\omega\in A}p_\omega$ pour tout $A\subset\Omega$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathbb{P}$ est entièrement déterminée par les poids $p_\omega=\mathbb{P}(\{\omega\})$ pour $\omega\in\Omega$. On a $p_\omega\ge 0$, $\sum_{\omega\in\Omega}p_\omega=1$ et $\mathbb{P}(A)=\sum_{\omega\in A}p_\omega$ pour tout $A\subset\Omega$.</p>
     </div>
 
     <details class="proof en">
@@ -56,14 +69,16 @@
       By $\sigma$-additivity, $\mathbb{P}(A) = \mathbb{P}\!\bigl(\bigsqcup_{\omega \in A}\{\omega\}\bigr) = \sum_{\omega \in A}\mathbb{P}(\{\omega\})$, and $\sum_{\omega \in \Omega} p_\omega = \mathbb{P}(\Omega) = 1$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par $\sigma$-additivit&eacute;, $\mathbb{P}(A)=\mathbb{P}\!\bigl(\bigsqcup_{\omega\in A}\{\omega\}\bigr)=\sum_{\omega\in A}\mathbb{P}(\{\omega\})$, et $\sum_{\omega\in\Omega}p_\omega=\mathbb{P}(\Omega)=1$.
+      <summary class="proof-label">Démonstration.</summary>
+      Par $\sigma$-additivité, $\mathbb{P}(A)=\mathbb{P}\!\bigl(\bigsqcup_{\omega\in A}\{\omega\}\bigr)=\sum_{\omega\in A}\mathbb{P}(\{\omega\})$, et $\sum_{\omega\in\Omega}p_\omega=\mathbb{P}(\Omega)=1$.
     </details>
 
-    <!-- Monotone continuity -->
+    <p class="en">So a probability is a total weight $1$ shared out among the outcomes, and $\mathbb{P}(A)$ is the weight carried by $A$. Every computation below is a statement about that weight.</p>
+    <p class="fr">Une probabilité est donc un poids total $1$ réparti entre les issues, et $\mathbb{P}(A)$ est le poids porté par $A$. Tous les calculs qui suivent sont des énoncés sur ce poids.</p>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Monotone continuity).</span> Let $(A_n)_{n \ge 1}$ be an increasing sequence of events (i.e. $A_n \subset A_{n+1}$). Then $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty} A_n\right) = \lim_{n \to +\infty} \mathbb{P}(A_n)$. Similarly, if $(B_n)_{n \ge 1}$ is decreasing, $\mathbb{P}\!\bigl(\bigcap_{n=1}^{+\infty} B_n\bigr) = \lim_{n \to +\infty} \mathbb{P}(B_n)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Continuit&eacute; monotone).</span> Soit $(A_n)_{n\ge 1}$ une suite croissante d'&eacute;v&eacute;nements (i.e. $A_n\subset A_{n+1}$). Alors $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty}A_n\right)=\lim_{n\to+\infty}\mathbb{P}(A_n)$. De m&ecirc;me, si $(B_n)_{n\ge 1}$ est d&eacute;croissante, $\mathbb{P}\!\bigl(\bigcap_{n=1}^{+\infty}B_n\bigr)=\lim_{n\to+\infty}\mathbb{P}(B_n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Continuité monotone).</span> Soit $(A_n)_{n\ge 1}$ une suite croissante d'événements (i.e. $A_n\subset A_{n+1}$). Alors $\mathbb{P}\!\left(\bigcup_{n=1}^{+\infty}A_n\right)=\lim_{n\to+\infty}\mathbb{P}(A_n)$. De même, si $(B_n)_{n\ge 1}$ est décroissante, $\mathbb{P}\!\bigl(\bigcap_{n=1}^{+\infty}B_n\bigr)=\lim_{n\to+\infty}\mathbb{P}(B_n)$.</p>
     </div>
 
     <details class="proof en">
@@ -71,100 +86,289 @@
       Set $C_1 = A_1$ and $C_n = A_n \setminus A_{n-1}$ for $n \ge 2$. The $C_n$ are disjoint and $\bigcup_n A_n = \bigsqcup_n C_n$, so $\mathbb{P}(\bigcup_n A_n) = \sum_{n=1}^{+\infty}\mathbb{P}(C_n) = \lim_{N \to +\infty}\sum_{n=1}^N\mathbb{P}(C_n) = \lim_{N \to +\infty}\mathbb{P}(A_N)$. The decreasing case follows by taking complements.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Posons $C_1=A_1$ et $C_n=A_n\setminus A_{n-1}$ pour $n\ge 2$. Les $C_n$ sont disjoints et $\bigcup_n A_n=\bigsqcup_n C_n$, donc $\mathbb{P}(\bigcup_n A_n)=\sum_{n=1}^{+\infty}\mathbb{P}(C_n)=\lim_{N\to+\infty}\sum_{n=1}^N\mathbb{P}(C_n)=\lim_{N\to+\infty}\mathbb{P}(A_N)$. Le cas d&eacute;croissant s'obtient en passant au compl&eacute;mentaire.
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $C_1=A_1$ et $C_n=A_n\setminus A_{n-1}$ pour $n\ge 2$. Les $C_n$ sont disjoints et $\bigcup_n A_n=\bigsqcup_n C_n$, donc $\mathbb{P}(\bigcup_n A_n)=\sum_{n=1}^{+\infty}\mathbb{P}(C_n)=\lim_{N\to+\infty}\sum_{n=1}^N\mathbb{P}(C_n)=\lim_{N\to+\infty}\mathbb{P}(A_N)$. Le cas décroissant s'obtient en passant au complémentaire.
     </details>
 
-    <!-- ====== CONDITIONAL PROBABILITY ====== -->
+    <h3 class="en">Conditioning</h3>
+    <h3 class="fr">Conditionnement</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $A, B$ be two events with $\mathbb{P}(B) > 0$. The <em>conditional probability</em> of $A$ given $B$ is $\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soient $A,B$ deux &eacute;v&eacute;nements avec $\mathbb{P}(B)>0$. La <em>probabilit&eacute; conditionnelle</em> de $A$ sachant $B$ est $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soient $A,B$ deux événements avec $\mathbb{P}(B)>0$. La <em>probabilité conditionnelle</em> de $A$ sachant $B$ est $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A\cap B)}{\mathbb{P}(B)}$.</p>
     </div>
+
+    <p class="en">The weight outside $B$ is discarded and the weight inside $B$ is multiplied by $1/\mathbb{P}(B)$, so that $B$ itself carries weight $1$. The map $A \mapsto \mathbb{P}(A \mid B)$ is again a probability on $\Omega$.</p>
+    <p class="fr">Le poids extérieur à $B$ est écarté et le poids intérieur à $B$ est multiplié par $1/\mathbb{P}(B)$, de sorte que $B$ porte le poids $1$. L'application $A \mapsto \mathbb{P}(A\mid B)$ est encore une probabilité sur $\Omega$.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="540" height="220" viewBox="20.0 4.9 540.2 220.2">
+        <rect class="fig-cell" x="30.0" y="40.0" width="210.0" height="150.0"/>
+        <circle class="fig-shape" cx="105.3" cy="115.0" r="54.8"/>
+        <circle class="fig-shape" cx="160.2" cy="115.0" r="50.1"/>
+        <path class="fig-band" d="M 137.3 159.5 A 54.8 54.8 0 0 1 137.3 70.5 A 50.1 50.1 0 0 1 137.3 159.5 Z"/>
+        <text x="66.4" y="120.0">A</text>
+        <text x="186.3" y="120.0">B</text>
+        <text x="36.0" y="60.0">Ω</text>
+        <circle class="fig-shape" cx="450.1" cy="115.0" r="100.1"/>
+        <path class="fig-band" d="M 404.3 204.0 A 109.7 109.7 0 0 1 404.3 26.0 A 100.1 100.1 0 0 1 404.3 204.0 Z"/>
+        <text x="524.3" y="120.0">B</text>
+        <text x="395.1" y="120.0" text-anchor="middle">A ∩ B</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> areas are probabilities: $\Omega$ has area $1$, and here $\mathbb{P}(A) = \frac{3}{10}$, $\mathbb{P}(B) = \frac{1}{4}$, $\mathbb{P}(A \cap B) = \frac{1}{10}$.</span><span class="cap-part"><span class="cap-lead">Right:</span> the same drawing magnified until $B$ has area $1$, which multiplies every area by $1/\mathbb{P}(B) = 4$. The shaded part now covers $\frac{2}{5}$ of $B$, and $\mathbb{P}(A \mid B) = \frac{2}{5}$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> les aires sont les probabilités : $\Omega$ a pour aire $1$, et ici $\mathbb{P}(A) = \frac{3}{10}$, $\mathbb{P}(B) = \frac{1}{4}$, $\mathbb{P}(A \cap B) = \frac{1}{10}$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> le même dessin agrandi jusqu'à ce que $B$ ait pour aire $1$, ce qui multiplie toutes les aires par $1/\mathbb{P}(B) = 4$. La partie grisée couvre maintenant $\frac{2}{5}$ de $B$, et $\mathbb{P}(A \mid B) = \frac{2}{5}$.</span></span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Compound probability formula).</span> For all events $A, B$ with $\mathbb{P}(B) > 0$: $\mathbb{P}(A \cap B) = \mathbb{P}(B)\,\mathbb{P}(A \mid B)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Formule des probabilit&eacute;s compos&eacute;es).</span> Pour tous &eacute;v&eacute;nements $A,B$ avec $\mathbb{P}(B)>0$ : $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Formule des probabilités composées).</span> Pour tous événements $A,B$ avec $\mathbb{P}(B)>0$ : $\mathbb{P}(A\cap B)=\mathbb{P}(B)\,\mathbb{P}(A\mid B)$.</p>
     </div>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Total probability formula).</span> Let $(A_1, \dots, A_n)$ be a partition of $\Omega$ with $\mathbb{P}(A_i) > 0$ for all $i$. Then, for every event $B$: $\mathbb{P}(B) = \sum_{i=1}^n \mathbb{P}(A_i)\,\mathbb{P}(B \mid A_i)$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule des probabilit&eacute;s totales).</span> Soit $(A_1,\dots,A_n)$ une partition de $\Omega$ telle que $\mathbb{P}(A_i)>0$ pour tout $i$. Alors, pour tout &eacute;v&eacute;nement $B$ : $\mathbb{P}(B)=\sum_{i=1}^n \mathbb{P}(A_i)\,\mathbb{P}(B\mid A_i)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Formule des probabilités totales).</span> Soit $(A_1,\dots,A_n)$ une partition de $\Omega$ telle que $\mathbb{P}(A_i)>0$ pour tout $i$. Alors, pour tout événement $B$ : $\mathbb{P}(B)=\sum_{i=1}^n \mathbb{P}(A_i)\,\mathbb{P}(B\mid A_i)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      We have $B = \bigsqcup_{i=1}^n (B \cap A_i)$.
+      We have $B = \bigsqcup_{i=1}^n (B \cap A_i)$, and each $\mathbb{P}(B \cap A_i) = \mathbb{P}(A_i)\,\mathbb{P}(B \mid A_i)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      On a $B=\bigsqcup_{i=1}^n (B\cap A_i)$.
+      <summary class="proof-label">Démonstration.</summary>
+      On a $B=\bigsqcup_{i=1}^n (B\cap A_i)$, et chaque $\mathbb{P}(B\cap A_i)=\mathbb{P}(A_i)\,\mathbb{P}(B\mid A_i)$.
     </details>
 
+    <p class="en">The two conditional probabilities $\mathbb{P}(A \mid B)$ and $\mathbb{P}(B \mid A)$ are different numbers, both equal to $\mathbb{P}(A \cap B)$ divided by something. Eliminating $\mathbb{P}(A \cap B)$ between them turns one into the other.</p>
+    <p class="fr">Les deux probabilités conditionnelles $\mathbb{P}(A\mid B)$ et $\mathbb{P}(B\mid A)$ sont des nombres différents, tous deux égaux à $\mathbb{P}(A\cap B)$ divisé par quelque chose. Éliminer $\mathbb{P}(A\cap B)$ entre les deux transforme l'une en l'autre.</p>
+
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Bayes' formula).</span> Let $A$ and $B$ be two events with $\mathbb{P}(B) > 0$. Then $\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A)\,\mathbb{P}(B \mid A)}{\mathbb{P}(B)}$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Formule de Bayes).</span> Soient $A$ et $B$ deux &eacute;v&eacute;nements tels que $\mathbb{P}(B)>0$. Alors $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A)\,\mathbb{P}(B\mid A)}{\mathbb{P}(B)}$.</p>
+      <p class="en"><span class="thm-label">Theorem (Bayes' formula).</span> Let $A$ and $B$ be two events with $\mathbb{P}(A) > 0$ and $\mathbb{P}(B) > 0$. Then $\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A)\,\mathbb{P}(B \mid A)}{\mathbb{P}(B)}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Formule de Bayes).</span> Soient $A$ et $B$ deux événements tels que $\mathbb{P}(A)>0$ et $\mathbb{P}(B)>0$. Alors $\mathbb{P}(A\mid B)=\frac{\mathbb{P}(A)\,\mathbb{P}(B\mid A)}{\mathbb{P}(B)}$.</p>
     </div>
 
-    <!-- ====== INDEPENDENCE ====== -->
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Both $\mathbb{P}(A \mid B)\,\mathbb{P}(B)$ and $\mathbb{P}(B \mid A)\,\mathbb{P}(A)$ are equal to $\mathbb{P}(A \cap B)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les deux produits $\mathbb{P}(A\mid B)\,\mathbb{P}(B)$ et $\mathbb{P}(B\mid A)\,\mathbb{P}(A)$ valent $\mathbb{P}(A\cap B)$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="362" height="263" viewBox="25.5 15.5 361.7 263.0">
+        <circle class="fig-cell" cx="40.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="30.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="56.0" r="4.5"/>
+        <circle class="fig-dot-alt" cx="222.0" cy="56.0" r="6.0"/>
+        <circle class="fig-cell" cx="248.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="56.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="82.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="82.0" r="4.5"/>
+        <circle class="fig-dot-alt" cx="274.0" cy="82.0" r="6.0"/>
+        <circle class="fig-cell" cx="40.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="108.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="134.0" r="4.5"/>
+        <circle class="fig-dot" cx="144.0" cy="134.0" r="6.0"/>
+        <circle class="fig-cell" cx="170.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="134.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="160.0" r="4.5"/>
+        <circle class="fig-dot-alt" cx="92.0" cy="160.0" r="6.0"/>
+        <circle class="fig-cell" cx="118.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="160.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="186.0" r="4.5"/>
+        <circle class="fig-dot-alt" cx="248.0" cy="186.0" r="6.0"/>
+        <circle class="fig-cell" cx="274.0" cy="186.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="212.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="238.0" r="4.5"/>
+        <circle class="fig-dot-alt" cx="66.0" cy="238.0" r="6.0"/>
+        <circle class="fig-cell" cx="92.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="238.0" r="4.5"/>
+        <circle class="fig-cell" cx="40.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="66.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="92.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="118.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="144.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="170.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="196.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="222.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="248.0" cy="264.0" r="4.5"/>
+        <circle class="fig-cell" cx="274.0" cy="264.0" r="4.5"/>
+        <circle class="fig-dot" cx="320.0" cy="82.0" r="6.0"/>
+        <text x="334.0" y="87.0">D ∩ T</text>
+        <circle class="fig-dot-alt" cx="320.0" cy="112.0" r="6.0"/>
+        <text x="334.0" y="117.0">D<tspan dy='-5' font-size='11'>c</tspan><tspan dy='5'> ∩ T</tspan></text>
+        <circle class="fig-cell" cx="320.0" cy="142.0" r="4.5"/>
+        <text x="334.0" y="147.0">T<tspan dy='-5' font-size='11'>c</tspan></text>
+      </svg>
+      <figcaption><span class="en">One hundred people, one of them ill. Write $D$ for being ill and $T$ for testing positive. The test never misses an ill person, so $\mathbb{P}(T \mid D) = 1$, and calls positive five healthy people out of ninety-nine. Six people test positive and one of them is ill, so $\mathbb{P}(D \mid T) = \frac{1}{6}$.</span><span class="fr">Cent personnes, dont une malade. Notons $D$ le fait d'être malade et $T$ celui d'avoir un test positif. Le test ne manque jamais une personne malade, donc $\mathbb{P}(T \mid D) = 1$, et déclare positives cinq personnes saines sur quatre-vingt-dix-neuf. Six personnes ont un test positif et une seule est malade, donc $\mathbb{P}(D \mid T) = \frac{1}{6}$.</span></figcaption>
+    </figure>
+
+    <h3 class="en">Independence</h3>
+    <h3 class="fr">Indépendance</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Two events $A$ and $B$ are <em>independent</em> if $\mathbb{P}(A \cap B) = \mathbb{P}(A)\,\mathbb{P}(B)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Deux &eacute;v&eacute;nements $A$ et $B$ sont <em>ind&eacute;pendants</em> si $\mathbb{P}(A\cap B)=\mathbb{P}(A)\,\mathbb{P}(B)$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Deux événements $A$ et $B$ sont <em>indépendants</em> si $\mathbb{P}(A\cap B)=\mathbb{P}(A)\,\mathbb{P}(B)$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> If $\mathbb{P}(B) > 0$, then $A$ and $B$ are independent $\iff$ $\mathbb{P}(A \mid B) = \mathbb{P}(A)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $\mathbb{P}(B)>0$, alors $A$ et $B$ ind&eacute;pendants $\iff$ $\mathbb{P}(A\mid B)=\mathbb{P}(A)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $\mathbb{P}(B)>0$, alors $A$ et $B$ indépendants $\iff$ $\mathbb{P}(A\mid B)=\mathbb{P}(A)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Divide $\mathbb{P}(A \cap B) = \mathbb{P}(A)\,\mathbb{P}(B)$ by $\mathbb{P}(B)$, and multiply back.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      On divise $\mathbb{P}(A\cap B)=\mathbb{P}(A)\,\mathbb{P}(B)$ par $\mathbb{P}(B)$, et réciproquement on multiplie.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Mutual independence).</span> A finite family of events $(A_1, \dots, A_n)$ is <em>mutually independent</em> if, for every subset $I \subset \{1, \dots, n\}$, $\mathbb{P}\!\bigl(\bigcap_{i \in I} A_i\bigr) = \prod_{i \in I}\mathbb{P}(A_i)$. Taking $I$ of size $2$ shows that a mutually independent family is pairwise independent.</p>
+      <p class="fr"><span class="thm-label">Définition (Indépendance mutuelle).</span> Une famille finie d'événements $(A_1,\dots,A_n)$ est <em>mutuellement indépendante</em> si, pour toute partie $I\subset\{1,\dots,n\}$, $\mathbb{P}\!\bigl(\bigcap_{i\in I}A_i\bigr)=\prod_{i\in I}\mathbb{P}(A_i)$. En prenant $I$ de cardinal $2$, une famille mutuellement indépendante est indépendante deux à deux.</p>
+    </div>
+
+    <h3 class="en">Random variables</h3>
+    <h3 class="fr">Variables aléatoires</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> Let $(\Omega, \mathbb{P})$ be a discrete probability space and $E$ a finite or countable set. A <em>random variable</em> with values in $E$ is a map $X : \Omega \to E$. Its <em>law</em> is defined by $\mathbb{P}(X = x) = \mathbb{P}(X^{-1}(\{x\}))$ for $x \in E$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $(\Omega,\mathbb{P})$ un espace probabilisé discret et $E$ un ensemble fini ou dénombrable. Une <em>variable aléatoire</em> à valeurs dans $E$ est une application $X:\Omega\to E$. Sa <em>loi</em> est définie par $\mathbb{P}(X=x)=\mathbb{P}(X^{-1}(\{x\}))$ pour $x\in E$.</p>
     </div>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Mutual independence).</span> A finite family of events $(A_1, \dots, A_n)$ is <em>mutually independent</em> if, for every subset $I \subset \{1, \dots, n\}$, $\mathbb{P}\!\bigl(\bigcap_{i \in I} A_i\bigr) = \prod_{i \in I}\mathbb{P}(A_i)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Ind&eacute;pendance mutuelle).</span> Une famille finie d'&eacute;v&eacute;nements $(A_1,\dots,A_n)$ est <em>mutuellement ind&eacute;pendante</em> si, pour toute partie $I\subset\{1,\dots,n\}$, $\mathbb{P}\!\bigl(\bigcap_{i\in I}A_i\bigr)=\prod_{i\in I}\mathbb{P}(A_i)$.</p>
-    </div>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Remark.</span> Mutual independence implies pairwise independence, but the converse is false. For example, roll two fair dice and let $A = \{\text{first die even}\}$, $B = \{\text{second die even}\}$, $C = \{\text{sum even}\}$. Then $\mathbb{P}(A) = \mathbb{P}(B) = \mathbb{P}(C) = \frac{1}{2}$ and the three pairs are independent ($\mathbb{P}(A \cap B) = \mathbb{P}(A \cap C) = \mathbb{P}(B \cap C) = \frac{1}{4}$), yet $\mathbb{P}(A \cap B \cap C) = \frac{1}{4} \neq \frac{1}{8}$.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> L'ind&eacute;pendance mutuelle implique l'ind&eacute;pendance deux &agrave; deux, mais la r&eacute;ciproque est fausse. Par exemple, on lance deux d&eacute;s &eacute;quilibr&eacute;s et on pose $A=\{\text{premier d&eacute; pair}\}$, $B=\{\text{second d&eacute; pair}\}$, $C=\{\text{somme paire}\}$. On a $\mathbb{P}(A)=\mathbb{P}(B)=\mathbb{P}(C)=\frac{1}{2}$ et les trois paires sont ind&eacute;pendantes ($\mathbb{P}(A\cap B)=\mathbb{P}(A\cap C)=\mathbb{P}(B\cap C)=\frac{1}{4}$), pourtant $\mathbb{P}(A\cap B\cap C)=\frac{1}{4}\neq\frac{1}{8}$.</p>
-    </div>
-
-    <!-- ====== RANDOM VARIABLES ====== -->
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> Let $(\Omega, \mathbb{P})$ be a discrete probability space and $E$ a finite or countable set. A <em>random variable</em> with values in $E$ is a map $X : \Omega \to E$. Its <em>law</em> (or distribution) is defined by $\mathbb{P}(X = x) = \mathbb{P}(X^{-1}(\{x\}))$ for $x \in E$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $(\Omega,\mathbb{P})$ un espace probabilis&eacute; discret et $E$ un ensemble fini ou d&eacute;nombrable. Une <em>variable al&eacute;atoire</em> &agrave; valeurs dans $E$ est une application $X:\Omega\to E$. Sa <em>loi</em> est d&eacute;finie par $\mathbb{P}(X=x)=\mathbb{P}(X^{-1}(\{x\}))$ pour $x\in E$.</p>
+      <p class="en"><span class="thm-label">Definition (Indicator).</span> The <em>indicator</em> of an event $A$ is the random variable $\mathbf{1}_A : \Omega \to \{0,1\}$ equal to $1$ on $A$ and to $0$ elsewhere. Its law is $\mathbb{P}(\mathbf{1}_A = 1) = \mathbb{P}(A)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Indicatrice).</span> L'<em>indicatrice</em> d'un événement $A$ est la variable aléatoire $\mathbf{1}_A : \Omega \to \{0,1\}$ valant $1$ sur $A$ et $0$ ailleurs. Sa loi est $\mathbb{P}(\mathbf{1}_A = 1) = \mathbb{P}(A)$.</p>
     </div>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Joint law).</span> Let $X$ and $Y$ be two discrete random variables with values in finite sets $E$ and $F$. The <em>joint law</em> of $(X, Y)$ is the map $E \times F \to [0,1]$, $(x, y) \longmapsto \mathbb{P}(X = x,\ Y = y)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi conjointe).</span> Soient $X$ et $Y$ deux variables al&eacute;atoires discr&egrave;tes &agrave; valeurs dans des ensembles finis $E$ et $F$. La <em>loi conjointe</em> de $(X,Y)$ est l'application $E\times F \to [0,1]$, $(x,y)\longmapsto \mathbb{P}(X=x,\ Y=y)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi conjointe).</span> Soient $X$ et $Y$ deux variables aléatoires discrètes à valeurs dans des ensembles finis $E$ et $F$. La <em>loi conjointe</em> de $(X,Y)$ est l'application $E\times F \to [0,1]$, $(x,y)\longmapsto \mathbb{P}(X=x,\ Y=y)$.</p>
     </div>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Marginal laws).</span> The <em>marginal laws</em> of $X$ and $Y$ are defined by $\mathbb{P}(X = x) = \sum_{y \in F}\mathbb{P}(X = x,\ Y = y)$ and $\mathbb{P}(Y = y) = \sum_{x \in E}\mathbb{P}(X = x,\ Y = y)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Lois marginales).</span> Les <em>lois marginales</em> de $X$ et $Y$ sont d&eacute;finies par $\mathbb{P}(X=x)=\sum_{y\in F}\mathbb{P}(X=x,\ Y=y)$ et $\mathbb{P}(Y=y)=\sum_{x\in E}\mathbb{P}(X=x,\ Y=y)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Lois marginales).</span> Les <em>lois marginales</em> de $X$ et $Y$ sont définies par $\mathbb{P}(X=x)=\sum_{y\in F}\mathbb{P}(X=x,\ Y=y)$ et $\mathbb{P}(Y=y)=\sum_{x\in E}\mathbb{P}(X=x,\ Y=y)$.</p>
     </div>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Mutual independence of random variables).</span> A finite family of random variables $(X_1, \dots, X_n)$ is <em>mutually independent</em> if, for all $(x_1, \dots, x_n)$, $\mathbb{P}(X_1 = x_1, \dots, X_n = x_n) = \prod_{i=1}^n \mathbb{P}(X_i = x_i)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Ind&eacute;pendance mutuelle de variables al&eacute;atoires).</span> Une famille finie de variables al&eacute;atoires $(X_1,\dots,X_n)$ est <em>mutuellement ind&eacute;pendante</em> si, pour tous $(x_1,\dots,x_n)$, $\mathbb{P}(X_1=x_1,\dots,X_n=x_n)=\prod_{i=1}^n\mathbb{P}(X_i=x_i)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Indépendance mutuelle de variables aléatoires).</span> Une famille finie de variables aléatoires $(X_1,\dots,X_n)$ est <em>mutuellement indépendante</em> si, pour tous $(x_1,\dots,x_n)$, $\mathbb{P}(X_1=x_1,\dots,X_n=x_n)=\prod_{i=1}^n\mathbb{P}(X_i=x_i)$.</p>
     </div>
 
-    <!-- ====== EXPECTATION ====== -->
+    <h3 class="en">Expectation</h3>
+    <h3 class="fr">Espérance</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Expectation).</span> Let $X$ be a discrete real random variable. If $\sum_{x \in X(\Omega)} |x|\,\mathbb{P}(X = x) &lt; +\infty$ (absolute convergence), $X$ <em>has an expectation</em> $\mathbb{E}(X) = \sum_{x \in X(\Omega)} x\,\mathbb{P}(X = x)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Esp&eacute;rance).</span> Soit $X$ une variable al&eacute;atoire r&eacute;elle discr&egrave;te. Si $\sum_{x\in X(\Omega)}|x|\,\mathbb{P}(X=x)&lt;+\infty$ (convergence absolue), $X$ <em>admet une esp&eacute;rance</em> $\mathbb{E}(X)=\sum_{x\in X(\Omega)}x\,\mathbb{P}(X=x)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Espérance).</span> Soit $X$ une variable aléatoire réelle discrète. Si $\sum_{x\in X(\Omega)}|x|\,\mathbb{P}(X=x)&lt;+\infty$ (convergence absolue), $X$ <em>admet une espérance</em> $\mathbb{E}(X)=\sum_{x\in X(\Omega)}x\,\mathbb{P}(X=x)$.</p>
     </div>
+
+    <p class="en">Each value $x$ carries the weight $\mathbb{P}(X = x)$, and $\mathbb{E}(X)$ is the point where those weights balance.</p>
+    <p class="fr">Chaque valeur $x$ porte le poids $\mathbb{P}(X=x)$, et $\mathbb{E}(X)$ est le point où ces poids s'équilibrent.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="334" height="222" viewBox="40.0 12.0 333.8 221.7">
+        <line class="fig-axis" x1="50.0" y1="180.0" x2="350.0" y2="180.0"/>
+        <line class="fig-axis" x1="60.0" y1="22.0" x2="60.0" y2="188.0"/>
+        <text x="356.0" y="185.0">k</text>
+        <rect class="fig-shape" x="73.1" y="45.2" width="28.0" height="134.8"/>
+        <text x="87.1" y="198.0" text-anchor="middle">1</text>
+        <text class="fig-note" x="87.1" y="38.2" text-anchor="middle">11/36</text>
+        <rect class="fig-shape" x="118.3" y="69.7" width="28.0" height="110.3"/>
+        <text x="132.3" y="198.0" text-anchor="middle">2</text>
+        <text class="fig-note" x="132.3" y="62.7" text-anchor="middle">9/36</text>
+        <rect class="fig-shape" x="163.4" y="94.2" width="28.0" height="85.8"/>
+        <text x="177.4" y="198.0" text-anchor="middle">3</text>
+        <text class="fig-note" x="177.4" y="87.2" text-anchor="middle">7/36</text>
+        <rect class="fig-shape" x="208.6" y="118.7" width="28.0" height="61.3"/>
+        <text x="222.6" y="198.0" text-anchor="middle">4</text>
+        <text class="fig-note" x="222.6" y="111.7" text-anchor="middle">5/36</text>
+        <rect class="fig-shape" x="253.7" y="143.2" width="28.0" height="36.8"/>
+        <text x="267.7" y="198.0" text-anchor="middle">5</text>
+        <text class="fig-note" x="267.7" y="136.2" text-anchor="middle">3/36</text>
+        <rect class="fig-shape" x="298.9" y="167.7" width="28.0" height="12.3"/>
+        <text x="312.9" y="198.0" text-anchor="middle">6</text>
+        <text class="fig-note" x="312.9" y="160.7" text-anchor="middle">1/36</text>
+        <polygon class="fig-dot" points="156.1,180.0 148.1,196.0 164.1,196.0"/>
+        <text x="156.1" y="220.0" text-anchor="middle">E(X) = 91/36</text>
+      </svg>
+      <figcaption><span class="en">The law of the smaller of two fair dice: the weight $\mathbb{P}(X = k)$ is placed at $k$. The triangle stands at $\mathbb{E}(X) = \frac{91}{36}$, the point where those weights balance.</span><span class="fr">La loi du plus petit de deux dés équilibrés : le poids $\mathbb{P}(X = k)$ est placé en $k$. Le triangle est en $\mathbb{E}(X) = \frac{91}{36}$, le point où ces poids s'équilibrent.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Remark.</span> Absolute convergence is essential. By Riemann's rearrangement theorem, a conditionally convergent series can be rearranged to converge to any value. Absolute convergence guarantees that the sum is independent of the order of summation.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> La convergence absolue est indispensable. Par le th&eacute;or&egrave;me de r&eacute;arrangement de Riemann, une s&eacute;rie semi-convergente peut &ecirc;tre r&eacute;ordonn&eacute;e pour converger vers n'importe quelle valeur. La convergence absolue garantit que la somme est ind&eacute;pendante de l'ordre de sommation.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> La convergence absolue est indispensable. Par le théorème de réarrangement de Riemann, une série semi-convergente peut être réordonnée pour converger vers n'importe quelle valeur. La convergence absolue garantit que la somme est indépendante de l'ordre de sommation.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Transfer theorem).</span> Let $X$ be a random variable with values in $E$ and $f : E \to \mathbb{R}$. If $\sum_{x \in E} |f(x)|\,\mathbb{P}(X = x) &lt; +\infty$, then $\mathbb{E}(f(X)) = \sum_{x \in E} f(x)\,\mathbb{P}(X = x)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Th&eacute;or&egrave;me de transfert).</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $E$ et $f:E\to\mathbb{R}$. Si $\sum_{x\in E}|f(x)|\,\mathbb{P}(X=x)&lt;+\infty$, alors $\mathbb{E}(f(X))=\sum_{x\in E}f(x)\,\mathbb{P}(X=x)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Théorème de transfert).</span> Soit $X$ une variable aléatoire à valeurs dans $E$ et $f:E\to\mathbb{R}$. Si $\sum_{x\in E}|f(x)|\,\mathbb{P}(X=x)&lt;+\infty$, alors $\mathbb{E}(f(X))=\sum_{x\in E}f(x)\,\mathbb{P}(X=x)$.</p>
     </div>
 
     <details class="proof en">
@@ -172,53 +376,71 @@
       $\mathbb{E}(f(X)) = \sum_{y} y\,\mathbb{P}(f(X)=y) = \sum_{y} y \sum_{f(x)=y}\mathbb{P}(X=x) = \sum_{x} f(x)\,\mathbb{P}(X=x)$, the rearrangement being justified by absolute convergence.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\mathbb{E}(f(X))=\sum_{y}y\,\mathbb{P}(f(X)=y)=\sum_{y}y\sum_{f(x)=y}\mathbb{P}(X=x)=\sum_{x}f(x)\,\mathbb{P}(X=x)$, le regroupement &eacute;tant justifi&eacute; par la convergence absolue.
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathbb{E}(f(X))=\sum_{y}y\,\mathbb{P}(f(X)=y)=\sum_{y}y\sum_{f(x)=y}\mathbb{P}(X=x)=\sum_{x}f(x)\,\mathbb{P}(X=x)$, le regroupement étant justifié par la convergence absolue.
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Linearity and monotonicity).</span> If $X$ and $Y$ have expectations and $a \in \mathbb{R}$, then $X + Y$ and $aX$ have expectations, $\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)$ and $\mathbb{E}(aX) = a\,\mathbb{E}(X)$. If moreover $X \le Y$, then $\mathbb{E}(X) \le \mathbb{E}(Y)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Lin&eacute;arit&eacute; et croissance).</span> Si $X$ et $Y$ admettent une esp&eacute;rance et $a\in\mathbb{R}$, alors $X+Y$ et $aX$ admettent une esp&eacute;rance, $\mathbb{E}(X+Y)=\mathbb{E}(X)+\mathbb{E}(Y)$ et $\mathbb{E}(aX)=a\,\mathbb{E}(X)$. Si de plus $X\le Y$, alors $\mathbb{E}(X)\le\mathbb{E}(Y)$.</p>
+      <p class="en"><span class="thm-label">Proposition (Linearity and monotonicity).</span> If $X$ and $Y$ have expectations and $a \in \mathbb{R}$, then $X + Y$ and $aX$ have expectations, $\mathbb{E}(X + Y) = \mathbb{E}(X) + \mathbb{E}(Y)$ and $\mathbb{E}(aX) = a\,\mathbb{E}(X)$. If moreover $X \le Y$, then $\mathbb{E}(X) \le \mathbb{E}(Y)$. Nothing is assumed about the dependence between $X$ and $Y$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Linéarité et croissance).</span> Si $X$ et $Y$ admettent une espérance et $a\in\mathbb{R}$, alors $X+Y$ et $aX$ admettent une espérance, $\mathbb{E}(X+Y)=\mathbb{E}(X)+\mathbb{E}(Y)$ et $\mathbb{E}(aX)=a\,\mathbb{E}(X)$. Si de plus $X\le Y$, alors $\mathbb{E}(X)\le\mathbb{E}(Y)$. Aucune hypothèse n'est faite sur la dépendance entre $X$ et $Y$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By the transfer theorem applied to the variable $(X,Y)$ and the function $(x,y) \mapsto x+y$, $\mathbb{E}(X+Y) = \sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y) = \sum_x x\sum_y\mathbb{P}(X=x,Y=y) + \sum_y y\sum_x\mathbb{P}(X=x,Y=y) = \mathbb{E}(X) + \mathbb{E}(Y)$. For monotonicity, $Y - X \ge 0$ so $\mathbb{E}(Y - X) = \sum_\omega(Y(\omega) - X(\omega))\,\mathbb{P}(\{\omega\}) \ge 0$.
+      By the transfer theorem applied to the variable $(X,Y)$ and the function $(x,y) \mapsto x+y$, $\mathbb{E}(X+Y) = \sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y) = \sum_x x\sum_y\mathbb{P}(X=x,Y=y) + \sum_y y\sum_x\mathbb{P}(X=x,Y=y) = \mathbb{E}(X) + \mathbb{E}(Y)$, the inner sums being the marginal laws. For monotonicity, $Y - X \ge 0$ so $\mathbb{E}(Y - X) = \sum_\omega(Y(\omega) - X(\omega))\,\mathbb{P}(\{\omega\}) \ge 0$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par le th&eacute;or&egrave;me de transfert appliqu&eacute; &agrave; la variable $(X,Y)$ et &agrave; la fonction $(x,y)\mapsto x+y$, $\mathbb{E}(X+Y)=\sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y)=\sum_x x\sum_y\mathbb{P}(X=x,Y=y)+\sum_y y\sum_x\mathbb{P}(X=x,Y=y)=\mathbb{E}(X)+\mathbb{E}(Y)$. Pour la croissance, $Y-X\ge 0$ donc $\mathbb{E}(Y-X)=\sum_\omega(Y(\omega)-X(\omega))\,\mathbb{P}(\{\omega\})\ge 0$.
+      <summary class="proof-label">Démonstration.</summary>
+      Par le théorème de transfert appliqué à la variable $(X,Y)$ et à la fonction $(x,y)\mapsto x+y$, $\mathbb{E}(X+Y)=\sum_{x,y}(x+y)\,\mathbb{P}(X=x,Y=y)=\sum_x x\sum_y\mathbb{P}(X=x,Y=y)+\sum_y y\sum_x\mathbb{P}(X=x,Y=y)=\mathbb{E}(X)+\mathbb{E}(Y)$, les sommes intérieures étant les lois marginales. Pour la croissance, $Y-X\ge 0$ donc $\mathbb{E}(Y-X)=\sum_\omega(Y(\omega)-X(\omega))\,\mathbb{P}(\{\omega\})\ge 0$.
+    </details>
+
+    <p class="en">Linearity holds whatever the dependence, and a count is a sum of indicators. So the mean of a count is a sum of probabilities, computed one term at a time.</p>
+    <p class="fr">La linéarité vaut quelle que soit la dépendance, et un décompte est une somme d'indicatrices. La moyenne d'un décompte est donc une somme de probabilités, calculées une par une.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Expectation of an indicator).</span> For every event $A$, $\mathbb{E}(\mathbf{1}_A) = \mathbb{P}(A)$. Consequently, if $X = \mathbf{1}_{A_1} + \cdots + \mathbf{1}_{A_n}$ counts how many of the events $A_1, \dots, A_n$ occur, then $\mathbb{E}(X) = \mathbb{P}(A_1) + \cdots + \mathbb{P}(A_n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Espérance d'une indicatrice).</span> Pour tout événement $A$, $\mathbb{E}(\mathbf{1}_A)=\mathbb{P}(A)$. Par conséquent, si $X=\mathbf{1}_{A_1}+\cdots+\mathbf{1}_{A_n}$ compte combien d'événements parmi $A_1,\dots,A_n$ sont réalisés, alors $\mathbb{E}(X)=\mathbb{P}(A_1)+\cdots+\mathbb{P}(A_n)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathbb{E}(\mathbf{1}_A) = 0\cdot\mathbb{P}(A^c) + 1\cdot\mathbb{P}(A) = \mathbb{P}(A)$, and the second statement is linearity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathbb{E}(\mathbf{1}_A)=0\cdot\mathbb{P}(A^c)+1\cdot\mathbb{P}(A)=\mathbb{P}(A)$, et le second énoncé est la linéarité.
     </details>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> If $X_1, \dots, X_n$ are mutually independent and each has an expectation, then $\prod_{i=1}^n X_i$ has an expectation and $\mathbb{E}\!\bigl(\prod_{i=1}^n X_i\bigr) = \prod_{i=1}^n \mathbb{E}(X_i)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $X_1,\dots,X_n$ sont mutuellement ind&eacute;pendantes et admettent chacune une esp&eacute;rance, alors $\prod_{i=1}^n X_i$ admet une esp&eacute;rance et $\mathbb{E}\!\bigl(\prod_{i=1}^n X_i\bigr)=\prod_{i=1}^n\mathbb{E}(X_i)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X_1,\dots,X_n$ sont mutuellement indépendantes et admettent chacune une espérance, alors $\prod_{i=1}^n X_i$ admet une espérance et $\mathbb{E}\!\bigl(\prod_{i=1}^n X_i\bigr)=\prod_{i=1}^n\mathbb{E}(X_i)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By induction on $n$. For $n=2$, $\mathbb{E}(X_1 X_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2) = \mathbb{E}(X_1)\,\mathbb{E}(X_2)$. If the result holds for $n-1$ variables, write $\prod_{i=1}^n X_i = \bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ and apply the $n=2$ case, since $\prod_{i=1}^{n-1}X_i$, being a function of $X_1,\dots,X_{n-1}$, is independent of $X_n$.
+      By induction on $n$. For $n=2$, $\mathbb{E}(X_1 X_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2) = \sum_{x_1,x_2} x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2) = \mathbb{E}(X_1)\,\mathbb{E}(X_2)$. If the result holds for $n-1$ variables, write $\prod_{i=1}^n X_i = \bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ and apply the case $n=2$, since $\prod_{i=1}^{n-1}X_i$, being a function of $X_1,\dots,X_{n-1}$, is independent of $X_n$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par r&eacute;currence sur $n$. Pour $n=2$, $\mathbb{E}(X_1 X_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2)=\mathbb{E}(X_1)\,\mathbb{E}(X_2)$. Si le r&eacute;sultat vaut pour $n-1$ variables, on &eacute;crit $\prod_{i=1}^n X_i=\bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ et on applique le cas $n=2$ car $\prod_{i=1}^{n-1}X_i$, fonction de $X_1,\dots,X_{n-1}$, est ind&eacute;pendante de $X_n$.
+      <summary class="proof-label">Démonstration.</summary>
+      Par récurrence sur $n$. Pour $n=2$, $\mathbb{E}(X_1 X_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1,X_2=x_2)=\sum_{x_1,x_2}x_1 x_2\,\mathbb{P}(X_1=x_1)\,\mathbb{P}(X_2=x_2)=\mathbb{E}(X_1)\,\mathbb{E}(X_2)$. Si le résultat vaut pour $n-1$ variables, on écrit $\prod_{i=1}^n X_i=\bigl(\prod_{i=1}^{n-1}X_i\bigr)\cdot X_n$ et on applique le cas $n=2$ car $\prod_{i=1}^{n-1}X_i$, fonction de $X_1,\dots,X_{n-1}$, est indépendante de $X_n$.
     </details>
 
-    <!-- ====== VARIANCE, COVARIANCE ====== -->
+    <h3 class="en">Variance and covariance</h3>
+    <h3 class="fr">Variance et covariance</h3>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Variance).</span> Let $X$ be a random variable with expectation. If $\sum_{x \in X(\Omega)} x^2\,\mathbb{P}(X = x) &lt; +\infty$, we say $X$ <em>has a variance</em>, defined by $\mathrm{Var}(X) = \mathbb{E}\big((X - \mathbb{E}(X))^2\big) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Variance).</span> Soit $X$ une variable al&eacute;atoire admettant une esp&eacute;rance. Si $\sum_{x\in X(\Omega)}x^2\,\mathbb{P}(X=x)&lt;+\infty$, on dit que $X$ admet une <em>variance</em>, d&eacute;finie par $\mathrm{Var}(X)=\mathbb{E}\big((X-\mathbb{E}(X))^2\big)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2$.</p>
+      <p class="en"><span class="thm-label">Definition (Variance).</span> Let $X$ be a random variable with expectation. If $\sum_{x \in X(\Omega)} x^2\,\mathbb{P}(X = x) &lt; +\infty$, we say $X$ <em>has a variance</em>, defined by $\mathrm{Var}(X) = \mathbb{E}\big((X - \mathbb{E}(X))^2\big) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2$. Its <em>standard deviation</em> is $\sigma(X) = \sqrt{\mathrm{Var}(X)}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Variance).</span> Soit $X$ une variable aléatoire admettant une espérance. Si $\sum_{x\in X(\Omega)}x^2\,\mathbb{P}(X=x)&lt;+\infty$, on dit que $X$ admet une <em>variance</em>, définie par $\mathrm{Var}(X)=\mathbb{E}\big((X-\mathbb{E}(X))^2\big)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2$. Son <em>écart type</em> est $\sigma(X)=\sqrt{\mathrm{Var}(X)}$.</p>
     </div>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Remark.</span> The condition $\mathbb{E}(X^2) &lt; +\infty$ implies $\mathbb{E}(|X|) &lt; +\infty$: by the Cauchy-Schwarz inequality, $\mathbb{E}(|X|) \le \sqrt{\mathbb{E}(X^2)}$. Thus every random variable with a variance also has an expectation.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> La condition $\mathbb{E}(X^2)&lt;+\infty$ implique $\mathbb{E}(|X|)&lt;+\infty$ : par l'in&eacute;galit&eacute; de Cauchy-Schwarz, $\mathbb{E}(|X|)\le\sqrt{\mathbb{E}(X^2)}$. Ainsi, toute variable al&eacute;atoire admettant une variance admet aussi une esp&eacute;rance.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> La condition $\mathbb{E}(X^2)&lt;+\infty$ implique $\mathbb{E}(|X|)&lt;+\infty$ : par l'inégalité de Cauchy-Schwarz, $\mathbb{E}(|X|)\le\sqrt{\mathbb{E}(X^2)}$. Ainsi, toute variable aléatoire admettant une variance admet aussi une espérance.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For any random variable $X$ and reals $a, b$: $\mathrm{Var}(aX + b) = a^2\,\mathrm{Var}(X)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Pour toute variable al&eacute;atoire $X$ et tous r&eacute;els $a,b$ : $\mathrm{Var}(aX+b)=a^2\,\mathrm{Var}(X)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour toute variable aléatoire $X$ et tous réels $a,b$ : $\mathrm{Var}(aX+b)=a^2\,\mathrm{Var}(X)$.</p>
     </div>
 
     <details class="proof en">
@@ -226,23 +448,18 @@
       $\mathrm{Var}(aX+b) = \mathbb{E}((aX+b - a\mathbb{E}(X) - b)^2) = \mathbb{E}(a^2(X - \mathbb{E}(X))^2) = a^2\,\mathrm{Var}(X)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
+      <summary class="proof-label">Démonstration.</summary>
       $\mathrm{Var}(aX+b)=\mathbb{E}((aX+b-a\mathbb{E}(X)-b)^2)=\mathbb{E}(a^2(X-\mathbb{E}(X))^2)=a^2\,\mathrm{Var}(X)$.
     </details>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Standard deviation).</span> The <em>standard deviation</em> of a random variable $X$ is $\sigma(X) = \sqrt{\mathrm{Var}(X)}$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (&Eacute;cart type).</span> L'<em>&eacute;cart type</em> d'une variable al&eacute;atoire $X$ est $\sigma(X)=\sqrt{\mathrm{Var}(X)}$.</p>
-    </div>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Covariance).</span> The <em>covariance</em> of two random variables $X$ and $Y$ is $\mathrm{Cov}(X,Y) = \mathbb{E}\big((X - \mathbb{E}(X))(Y - \mathbb{E}(Y))\big) = \mathbb{E}(XY) - \mathbb{E}(X)\,\mathbb{E}(Y)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Covariance).</span> La <em>covariance</em> de deux variables al&eacute;atoires $X$ et $Y$ est $\mathrm{Cov}(X,Y)=\mathbb{E}\big((X-\mathbb{E}(X))(Y-\mathbb{E}(Y))\big)=\mathbb{E}(XY)-\mathbb{E}(X)\,\mathbb{E}(Y)$.</p>
+      <p class="en"><span class="thm-label">Definition (Covariance).</span> The <em>covariance</em> of two random variables $X$ and $Y$ is $\mathrm{Cov}(X,Y) = \mathbb{E}\big((X - \mathbb{E}(X))(Y - \mathbb{E}(Y))\big) = \mathbb{E}(XY) - \mathbb{E}(X)\,\mathbb{E}(Y)$. In particular $\mathrm{Cov}(X,X) = \mathrm{Var}(X)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Covariance).</span> La <em>covariance</em> de deux variables aléatoires $X$ et $Y$ est $\mathrm{Cov}(X,Y)=\mathbb{E}\big((X-\mathbb{E}(X))(Y-\mathbb{E}(Y))\big)=\mathbb{E}(XY)-\mathbb{E}(X)\,\mathbb{E}(Y)$. En particulier $\mathrm{Cov}(X,X)=\mathrm{Var}(X)$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> For all random variables $X$ and $Y$: $\mathrm{Var}(X + Y) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\,\mathrm{Cov}(X,Y)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Pour toutes variables al&eacute;atoires $X$ et $Y$ : $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\,\mathrm{Cov}(X,Y)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Pour toutes variables aléatoires $X$ et $Y$ : $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\,\mathrm{Cov}(X,Y)$.</p>
     </div>
 
     <details class="proof en">
@@ -250,43 +467,72 @@
       $\mathrm{Var}(X+Y) = \mathbb{E}\big(((X-\mathbb{E}(X))+(Y-\mathbb{E}(Y)))^2\big) = \mathrm{Var}(X) + \mathrm{Var}(Y) + 2\,\mathrm{Cov}(X,Y)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
+      <summary class="proof-label">Démonstration.</summary>
       $\mathrm{Var}(X+Y)=\mathbb{E}\big(((X-\mathbb{E}(X))+(Y-\mathbb{E}(Y)))^2\big)=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\,\mathrm{Cov}(X,Y)$.
     </details>
 
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Remark.</span> If $X$ and $Y$ are independent, then $\mathrm{Cov}(X,Y) = 0$, so $\mathrm{Var}(X+Y) = \mathrm{Var}(X) + \mathrm{Var}(Y)$.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Si $X$ et $Y$ sont ind&eacute;pendantes, alors $\mathrm{Cov}(X,Y)=0$, donc $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$.</p>
-    </div>
-
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> If $X_1, \dots, X_n$ are mutually independent and each has a variance, then $\mathrm{Var}(X_1 + \cdots + X_n) = \sum_{i=1}^n \mathrm{Var}(X_i)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $X_1,\dots,X_n$ sont mutuellement ind&eacute;pendantes et admettent chacune une variance, alors $\mathrm{Var}(X_1+\cdots+X_n)=\sum_{i=1}^n\mathrm{Var}(X_i)$.</p>
+      <p class="en"><span class="thm-label">Proposition (Cauchy-Schwarz).</span> If $X$ and $Y$ have variances, then $|\mathrm{Cov}(X,Y)| \le \sigma(X)\,\sigma(Y)$. If $\sigma(X)$ and $\sigma(Y)$ are nonzero, the <em>correlation coefficient</em> $\rho(X,Y) = \frac{\mathrm{Cov}(X,Y)}{\sigma(X)\,\sigma(Y)}$ therefore lies in $[-1,1]$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Cauchy-Schwarz).</span> Si $X$ et $Y$ admettent une variance, alors $|\mathrm{Cov}(X,Y)|\le\sigma(X)\,\sigma(Y)$. Si $\sigma(X)$ et $\sigma(Y)$ sont non nuls, le <em>coefficient de corrélation</em> $\rho(X,Y)=\frac{\mathrm{Cov}(X,Y)}{\sigma(X)\,\sigma(Y)}$ appartient donc à $[-1,1]$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By induction on $n$. For $n = 2$, independence gives $\mathrm{Cov}(X_1, X_2) = 0$, so $\mathrm{Var}(X_1 + X_2) = \mathrm{Var}(X_1) + \mathrm{Var}(X_2)$. If the result holds for $n-1$ variables, then $\mathrm{Var}(X_1 + \cdots + X_n) = \mathrm{Var}(X_1 + \cdots + X_{n-1}) + \mathrm{Var}(X_n)$ since $X_1 + \cdots + X_{n-1}$, being a function of $X_1, \dots, X_{n-1}$, is independent of $X_n$.
+      For $t \in \mathbb{R}$, $\mathrm{Var}(X + tY) = \mathrm{Var}(X) + 2t\,\mathrm{Cov}(X,Y) + t^2\,\mathrm{Var}(Y) \ge 0$. A quadratic in $t$ that is never negative has discriminant at most $0$: $4\,\mathrm{Cov}(X,Y)^2 - 4\,\mathrm{Var}(X)\,\mathrm{Var}(Y) \le 0$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par r&eacute;currence sur $n$. Pour $n=2$, l'ind&eacute;pendance donne $\mathrm{Cov}(X_1,X_2)=0$, donc $\mathrm{Var}(X_1+X_2)=\mathrm{Var}(X_1)+\mathrm{Var}(X_2)$. Si le r&eacute;sultat vaut pour $n-1$ variables, $\mathrm{Var}(X_1+\cdots+X_n)=\mathrm{Var}(X_1+\cdots+X_{n-1})+\mathrm{Var}(X_n)$ car $X_1+\cdots+X_{n-1}$, fonction de $X_1,\dots,X_{n-1}$, est ind&eacute;pendante de $X_n$.
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $t\in\mathbb{R}$, $\mathrm{Var}(X+tY)=\mathrm{Var}(X)+2t\,\mathrm{Cov}(X,Y)+t^2\,\mathrm{Var}(Y)\ge 0$. Un trinôme en $t$ qui n'est jamais négatif a un discriminant au plus nul : $4\,\mathrm{Cov}(X,Y)^2-4\,\mathrm{Var}(X)\,\mathrm{Var}(Y)\le 0$.
     </details>
 
-    <!-- ====== CLASSICAL DISTRIBUTIONS ====== -->
+    <p class="en">Writing $\mathrm{Cov}(X,Y) = \sigma(X)\,\sigma(Y)\,\rho$ turns the formula for $\mathrm{Var}(X+Y)$ into $$\sigma(X+Y)^2 = \sigma(X)^2 + \sigma(Y)^2 + 2\,\sigma(X)\,\sigma(Y)\,\rho,$$ which is the law of cosines for two sides of lengths $\sigma(X)$ and $\sigma(Y)$ making an angle $\theta$ with $\cos\theta = \rho$. Standard deviations add like lengths, and $\rho = 0$ is the right angle.</p>
+    <p class="fr">En écrivant $\mathrm{Cov}(X,Y)=\sigma(X)\,\sigma(Y)\,\rho$, la formule de $\mathrm{Var}(X+Y)$ devient $$\sigma(X+Y)^2=\sigma(X)^2+\sigma(Y)^2+2\,\sigma(X)\,\sigma(Y)\,\rho,$$ qui est la loi des cosinus pour deux côtés de longueurs $\sigma(X)$ et $\sigma(Y)$ faisant un angle $\theta$ avec $\cos\theta=\rho$. Les écarts types s'ajoutent comme des longueurs, et $\rho=0$ est l'angle droit.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="509" height="167" viewBox="16.0 64.8 508.9 167.0">
+        <line class="fig-guide" x1="152.0" y1="200.0" x2="152.0" y2="92.0"/>
+        <line class="fig-guide" x1="60.0" y1="92.0" x2="152.0" y2="92.0"/>
+        <line class="fig-curve" x1="60.0" y1="200.0" x2="152.0" y2="200.0"/>
+        <line class="fig-curve" x1="60.0" y1="200.0" x2="60.0" y2="92.0"/>
+        <line class="fig-free-solid" x1="60.0" y1="200.0" x2="152.0" y2="92.0"/>
+        <path class="fig-arc" d="M 74 200.0 L 74 186.0 L 60 186.0"/>
+        <text x="106.0" y="218.0" text-anchor="middle">σ(X)</text>
+        <text x="26.0" y="150.0">σ(Y)</text>
+        <text x="160.0" y="86.0">σ(X + Y)</text>
+        <line class="fig-guide" x1="392.0" y1="200.0" x2="446.0" y2="106.5"/>
+        <line class="fig-guide" x1="354.0" y1="106.5" x2="446.0" y2="106.5"/>
+        <line class="fig-curve" x1="300.0" y1="200.0" x2="392.0" y2="200.0"/>
+        <line class="fig-curve" x1="300.0" y1="200.0" x2="354.0" y2="106.5"/>
+        <line class="fig-free-solid" x1="300.0" y1="200.0" x2="446.0" y2="106.5"/>
+        <path class="fig-arc" d="M 330 200.0 A 30 30 0 0 0 315.0 174.0"/>
+        <text x="338.0" y="186.0">θ</text>
+        <text x="346.0" y="218.0" text-anchor="middle">σ(X)</text>
+        <text x="293.0" y="157.2">σ(Y)</text>
+        <text x="454.0" y="100.5">σ(X + Y)</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part">$\sigma(X)$ and $\sigma(Y)$ drawn as two sides from the same corner, and $\sigma(X+Y)$ as the diagonal of the parallelogram they span.</span><span class="cap-part"><span class="cap-lead">Left:</span> $\rho = 0$, the right angle, where $\sigma(X+Y)^2 = \sigma(X)^2 + \sigma(Y)^2$.</span><span class="cap-part"><span class="cap-lead">Right:</span> $\theta = 60°$, so $\rho = \frac{1}{2}$ and the diagonal is longer.</span></span><span class="fr"><span class="cap-part">$\sigma(X)$ et $\sigma(Y)$ tracés comme deux côtés issus du même sommet, et $\sigma(X+Y)$ comme la diagonale du parallélogramme qu'ils engendrent.</span><span class="cap-part"><span class="cap-lead">À gauche :</span> $\rho = 0$, l'angle droit, où $\sigma(X+Y)^2 = \sigma(X)^2 + \sigma(Y)^2$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $\theta = 60°$, donc $\rho = \frac{1}{2}$ et la diagonale est plus longue.</span></span></figcaption>
+    </figure>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> If $X$ and $Y$ are independent, then $\mathrm{Cov}(X,Y) = 0$. More generally, if $X_1, \dots, X_n$ are mutually independent and each has a variance, then $\mathrm{Var}(X_1 + \cdots + X_n) = \sum_{i=1}^n \mathrm{Var}(X_i)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X$ et $Y$ sont indépendantes, alors $\mathrm{Cov}(X,Y)=0$. Plus généralement, si $X_1,\dots,X_n$ sont mutuellement indépendantes et admettent chacune une variance, alors $\mathrm{Var}(X_1+\cdots+X_n)=\sum_{i=1}^n\mathrm{Var}(X_i)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Independence gives $\mathbb{E}(XY) = \mathbb{E}(X)\,\mathbb{E}(Y)$, so $\mathrm{Cov}(X,Y) = 0$. The sum then follows by induction on $n$: for $n = 2$ the covariance term vanishes, and for the step, $X_1 + \cdots + X_{n-1}$ is a function of $X_1, \dots, X_{n-1}$, hence independent of $X_n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      L'indépendance donne $\mathbb{E}(XY)=\mathbb{E}(X)\,\mathbb{E}(Y)$, donc $\mathrm{Cov}(X,Y)=0$. La somme s'en déduit par récurrence sur $n$ : pour $n=2$ le terme de covariance disparaît, et pour l'hérédité, $X_1+\cdots+X_{n-1}$ est une fonction de $X_1,\dots,X_{n-1}$, donc indépendante de $X_n$.
+    </details>
 
     <h3 class="en">Classical distributions</h3>
     <h3 class="fr">Lois classiques</h3>
 
-    <!-- Uniform -->
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Uniform distribution).</span> A random variable $X$ follows a <em>uniform distribution</em> on a finite set $E$ of cardinality $n$ if $\forall k \in E,\ \mathbb{P}(X = k) = \frac{1}{n}$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi uniforme).</span> Une variable al&eacute;atoire $X$ suit une <em>loi uniforme</em> sur un ensemble fini $E$ de cardinal $n$ si $\forall k\in E,\ \mathbb{P}(X=k)=\frac{1}{n}$.</p>
-    </div>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Remark.</span> This distribution models an experiment where all outcomes are equally likely, for example the result of rolling a fair die.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Cette loi mod&eacute;lise une exp&eacute;rience o&ugrave; toutes les issues sont &eacute;quiprobables, par exemple le r&eacute;sultat d'un lancer de d&eacute; &eacute;quilibr&eacute;.</p>
+      <p class="en"><span class="thm-label">Definition (Uniform distribution).</span> A random variable $X$ follows a <em>uniform distribution</em> on a finite set $E$ of cardinality $n$ if $\forall k \in E,\ \mathbb{P}(X = k) = \frac{1}{n}$. It models an experiment where all outcomes are equally likely, for example the result of rolling a fair die.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi uniforme).</span> Une variable aléatoire $X$ suit une <em>loi uniforme</em> sur un ensemble fini $E$ de cardinal $n$ si $\forall k\in E,\ \mathbb{P}(X=k)=\frac{1}{n}$. Elle modélise une expérience où toutes les issues sont équiprobables, par exemple le résultat d'un lancer de dé équilibré.</p>
     </div>
 
     <div class="thm-block proposition">
@@ -296,22 +542,16 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\mathbb{E}(X) = \frac{1}{n}\sum_{k=a}^b k = \frac{a+b}{2}$. By translation invariance of variance, $\mathrm{Var}(X) = \mathrm{Var}(X-a)$ where $X-a$ is uniform on $\{0,\dots,n-1\}$, so $\mathrm{Var}(X) = \frac{1}{n}\sum_{k=0}^{n-1}k^2 - \left(\frac{n-1}{2}\right)^2 = \frac{n^2-1}{12}$.
+      $\mathbb{E}(X) = \frac{1}{n}\sum_{k=a}^b k = \frac{a+b}{2}$. By translation invariance of the variance, $\mathrm{Var}(X) = \mathrm{Var}(X-a)$ where $X-a$ is uniform on $\{0,\dots,n-1\}$, so $\mathrm{Var}(X) = \frac{1}{n}\sum_{k=0}^{n-1}k^2 - \left(\frac{n-1}{2}\right)^2 = \frac{n^2-1}{12}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\mathbb{E}(X)=\frac{1}{n}\sum_{k=a}^b k=\frac{a+b}{2}$. Par invariance de la variance par translation, $\mathrm{Var}(X)=\mathrm{Var}(X-a)$ o&ugrave; $X-a$ suit la loi uniforme sur $\{0,\dots,n-1\}$, d'o&ugrave; $\mathrm{Var}(X)=\frac{1}{n}\sum_{k=0}^{n-1}k^2-\left(\frac{n-1}{2}\right)^2=\frac{n^2-1}{12}$.
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathbb{E}(X)=\frac{1}{n}\sum_{k=a}^b k=\frac{a+b}{2}$. Par invariance de la variance par translation, $\mathrm{Var}(X)=\mathrm{Var}(X-a)$ où $X-a$ suit la loi uniforme sur $\{0,\dots,n-1\}$, d'où $\mathrm{Var}(X)=\frac{1}{n}\sum_{k=0}^{n-1}k^2-\left(\frac{n-1}{2}\right)^2=\frac{n^2-1}{12}$.
     </details>
 
-    <!-- Bernoulli -->
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Bernoulli distribution).</span> A random variable $X$ follows a Bernoulli distribution with parameter $p \in [0,1]$ if $\mathbb{P}(X=1) = p$ and $\mathbb{P}(X=0) = 1-p$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi de Bernoulli).</span> Une variable al&eacute;atoire $X$ suit une loi de Bernoulli de param&egrave;tre $p\in[0,1]$ si $\mathbb{P}(X=1)=p$ et $\mathbb{P}(X=0)=1-p$.</p>
-    </div>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Remark.</span> This distribution models an experiment with two outcomes (success/failure), for example a biased coin toss where the probability of success is $p$.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Cette loi mod&eacute;lise une exp&eacute;rience &agrave; deux issues (succ&egrave;s/&eacute;chec), par exemple un lancer de pi&egrave;ce biais&eacute;e o&ugrave; la probabilit&eacute; de succ&egrave;s vaut $p$.</p>
+      <p class="en"><span class="thm-label">Definition (Bernoulli distribution).</span> A random variable $X$ follows a Bernoulli distribution with parameter $p \in [0,1]$, written $X \sim \mathcal{B}(p)$, if $\mathbb{P}(X=1) = p$ and $\mathbb{P}(X=0) = 1-p$. It models an experiment with two outcomes, success and failure, for example a biased coin toss where the probability of success is $p$. A Bernoulli variable is exactly an indicator: $X = \mathbf{1}_A$ with $\mathbb{P}(A) = p$.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi de Bernoulli).</span> Une variable aléatoire $X$ suit une loi de Bernoulli de paramètre $p\in[0,1]$, notée $X\sim\mathcal{B}(p)$, si $\mathbb{P}(X=1)=p$ et $\mathbb{P}(X=0)=1-p$. Elle modélise une expérience à deux issues, succès et échec, par exemple un lancer de pièce biaisée où la probabilité de succès vaut $p$. Une variable de Bernoulli est exactement une indicatrice : $X=\mathbf{1}_A$ avec $\mathbb{P}(A)=p$.</p>
     </div>
 
     <div class="thm-block proposition">
@@ -321,17 +561,16 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\mathbb{E}(X) = 0\cdot(1-p) + 1\cdot p = p$ and $\mathrm{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2 = p - p^2 = p(1-p)$.
+      $\mathbb{E}(X) = 0\cdot(1-p) + 1\cdot p = p$. Since $X^2 = X$, $\mathrm{Var}(X) = \mathbb{E}(X^2) - (\mathbb{E}(X))^2 = p - p^2 = p(1-p)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\mathbb{E}(X)=0\cdot(1-p)+1\cdot p=p$ et $\mathrm{Var}(X)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2=p-p^2=p(1-p)$.
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathbb{E}(X)=0\cdot(1-p)+1\cdot p=p$. Comme $X^2=X$, $\mathrm{Var}(X)=\mathbb{E}(X^2)-(\mathbb{E}(X))^2=p-p^2=p(1-p)$.
     </details>
 
-    <!-- Binomial -->
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Binomial distribution).</span> A random variable $X$ follows a binomial distribution $\mathcal{B}(n,p)$ if $\mathbb{P}(X = k) = \binom{n}{k}p^k(1-p)^{n-k}$. This models the number of successes in $n$ independent Bernoulli trials with parameter $p$: if $X_1, \dots, X_n$ are independent $\mathcal{B}(p)$, then $X = X_1 + \cdots + X_n \sim \mathcal{B}(n,p)$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi binomiale).</span> Une variable al&eacute;atoire $X$ suit une loi binomiale $\mathcal{B}(n,p)$ si $\mathbb{P}(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$. Cette loi mod&eacute;lise le nombre de succ&egrave;s obtenus lors de $n$ r&eacute;p&eacute;titions ind&eacute;pendantes d'une exp&eacute;rience de Bernoulli de param&egrave;tre $p$ : si $X_1,\dots,X_n$ sont ind&eacute;pendantes $\mathcal{B}(p)$, alors $X=X_1+\cdots+X_n\sim\mathcal{B}(n,p)$.</p>
+      <p class="en"><span class="thm-label">Definition (Binomial distribution).</span> A random variable $X$ follows a binomial distribution $\mathcal{B}(n,p)$ if $\mathbb{P}(X = k) = \binom{n}{k}p^k(1-p)^{n-k}$ for $0 \le k \le n$. This models the number of successes in $n$ independent Bernoulli trials with parameter $p$: if $X_1, \dots, X_n$ are independent $\mathcal{B}(p)$, then $X = X_1 + \cdots + X_n \sim \mathcal{B}(n,p)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi binomiale).</span> Une variable aléatoire $X$ suit une loi binomiale $\mathcal{B}(n,p)$ si $\mathbb{P}(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$ pour $0\le k\le n$. Cette loi modélise le nombre de succès obtenus lors de $n$ répétitions indépendantes d'une expérience de Bernoulli de paramètre $p$ : si $X_1,\dots,X_n$ sont indépendantes $\mathcal{B}(p)$, alors $X=X_1+\cdots+X_n\sim\mathcal{B}(n,p)$.</p>
     </div>
 
     <div class="thm-block proposition">
@@ -341,35 +580,30 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <em>Method 1 (direct):</em> $\mathbb{E}(X) = \sum_{k=0}^n k\binom{n}{k}p^k(1-p)^{n-k} = np\sum_{k=1}^n \binom{n-1}{k-1}p^{k-1}(1-p)^{n-k} = np$ (using $k\binom{n}{k} = n\binom{n-1}{k-1}$), and $\mathbb{E}(X^2) = n(n-1)p^2 + np$ (writing $k^2 = k(k-1) + k$), whence $\mathrm{Var}(X) = np(1-p)$.
-      <br>
-      <em>Method 2 (via Bernoulli):</em> If $X = X_1 + \cdots + X_n$ with $X_i$ independent $\mathcal{B}(p)$, then by linearity $\mathbb{E}(X) = np$ and by independence $\mathrm{Var}(X) = np(1-p)$.
+      Write $X = X_1 + \cdots + X_n$ with the $X_i$ independent $\mathcal{B}(p)$. Linearity gives $\mathbb{E}(X) = np$, and independence gives $\mathrm{Var}(X) = \sum_i \mathrm{Var}(X_i) = np(1-p)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      <em>M&eacute;thode 1 (directe) :</em> $\mathbb{E}(X)=\sum_{k=0}^n k\binom{n}{k}p^k(1-p)^{n-k}=np\sum_{k=1}^n \binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}=np$ (en utilisant $k\binom{n}{k}=n\binom{n-1}{k-1}$), et $\mathbb{E}(X^2)=n(n-1)p^2+np$ (en &eacute;crivant $k^2=k(k-1)+k$), d'o&ugrave; $\mathrm{Var}(X)=np(1-p)$.
-      <br>
-      <em>M&eacute;thode 2 (via Bernoulli) :</em> si $X=X_1+\cdots+X_n$ avec $X_i$ ind&eacute;pendantes $\mathcal{B}(p)$, alors par lin&eacute;arit&eacute; $\mathbb{E}(X)=np$ et, par ind&eacute;pendance, $\mathrm{Var}(X)=np(1-p)$.
+      <summary class="proof-label">Démonstration.</summary>
+      On écrit $X=X_1+\cdots+X_n$ avec les $X_i$ indépendantes $\mathcal{B}(p)$. La linéarité donne $\mathbb{E}(X)=np$, et l'indépendance donne $\mathrm{Var}(X)=\sum_i\mathrm{Var}(X_i)=np(1-p)$.
     </details>
 
-    <!-- Geometric -->
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Geometric distribution).</span> A random variable $X$ follows a <em>geometric distribution</em> with parameter $p \in\, ]0,1]$, written $X \sim \mathcal{G}(p)$, if $\forall k \ge 1,\ \mathbb{P}(X = k) = (1-p)^{k-1}p$. It models the rank of the first success in a sequence of independent Bernoulli trials with parameter $p$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi g&eacute;om&eacute;trique).</span> Une variable al&eacute;atoire $X$ suit une <em>loi g&eacute;om&eacute;trique</em> de param&egrave;tre $p\in\,]0,1]$, not&eacute;e $X\sim\mathcal{G}(p)$, si $\forall k\ge 1,\ \mathbb{P}(X=k)=(1-p)^{k-1}p$. Elle mod&eacute;lise le rang du premier succ&egrave;s dans une suite d'&eacute;preuves de Bernoulli ind&eacute;pendantes de param&egrave;tre $p$.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi géométrique).</span> Une variable aléatoire $X$ suit une <em>loi géométrique</em> de paramètre $p\in\,]0,1]$, notée $X\sim\mathcal{G}(p)$, si $\forall k\ge 1,\ \mathbb{P}(X=k)=(1-p)^{k-1}p$. Elle modélise le rang du premier succès dans une suite d'épreuves de Bernoulli indépendantes de paramètre $p$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Memorylessness).</span> If $X \sim \mathcal{G}(p)$, then for all integers $m, n \ge 1$: $\mathbb{P}(X > m+n \mid X > m) = \mathbb{P}(X > n)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Absence de m&eacute;moire).</span> Si $X\sim\mathcal{G}(p)$, alors pour tous entiers $m,n\ge 1$ : $\mathbb{P}(X>m+n\mid X>m)=\mathbb{P}(X>n)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Absence de mémoire).</span> Si $X\sim\mathcal{G}(p)$, alors pour tous entiers $m,n\ge 1$ : $\mathbb{P}(X>m+n\mid X>m)=\mathbb{P}(X>n)$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $\mathbb{P}(X > k) = \sum_{j=k+1}^{+\infty}(1-p)^{j-1}p = (1-p)^k$, so $\mathbb{P}(X > m+n \mid X > m) = \frac{(1-p)^{m+n}}{(1-p)^m} = (1-p)^n = \mathbb{P}(X > n)$.
+      $\mathbb{P}(X > k) = \sum_{j=k+1}^{+\infty}(1-p)^{j-1}p = (1-p)^k$, the probability that the first $k$ trials all fail. So $\mathbb{P}(X > m+n \mid X > m) = \frac{(1-p)^{m+n}}{(1-p)^m} = (1-p)^n = \mathbb{P}(X > n)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $\mathbb{P}(X>k)=\sum_{j=k+1}^{+\infty}(1-p)^{j-1}p=(1-p)^k$, donc $\mathbb{P}(X>m+n\mid X>m)=\frac{(1-p)^{m+n}}{(1-p)^m}=(1-p)^n=\mathbb{P}(X>n)$.
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathbb{P}(X>k)=\sum_{j=k+1}^{+\infty}(1-p)^{j-1}p=(1-p)^k$, la probabilité que les $k$ premières épreuves échouent toutes. Donc $\mathbb{P}(X>m+n\mid X>m)=\frac{(1-p)^{m+n}}{(1-p)^m}=(1-p)^n=\mathbb{P}(X>n)$.
     </details>
 
     <div class="thm-block proposition">
@@ -383,15 +617,14 @@
       For the variance, a second differentiation gives $\sum_{k=2}^{+\infty}k(k-1)x^{k-2} = \frac{2}{(1-x)^3}$. Setting $x = 1-p$: $\mathbb{E}(X(X-1)) = \frac{2(1-p)}{p^2}$. Then $\mathbb{E}(X^2) = \frac{2-p}{p^2}$ and $\mathrm{Var}(X) = \frac{2-p}{p^2} - \frac{1}{p^2} = \frac{1-p}{p^2}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      La d&eacute;rivation de la s&eacute;rie g&eacute;om&eacute;trique $\sum_{k=0}^{+\infty}x^k=\frac{1}{1-x}$ donne $\sum_{k=1}^{+\infty}kx^{k-1}=\frac{1}{(1-x)^2}$ pour $|x|&lt;1$. En posant $x=1-p$ : $\mathbb{E}(X)=p\sum_{k=1}^{+\infty}k(1-p)^{k-1}=p\cdot\frac{1}{p^2}=\frac{1}{p}$.
-      Pour la variance, on d&eacute;rive une seconde fois : $\sum_{k=2}^{+\infty}k(k-1)x^{k-2}=\frac{2}{(1-x)^3}$. En posant $x=1-p$ : $\mathbb{E}(X(X-1))=\frac{2(1-p)}{p^2}$. Donc $\mathbb{E}(X^2)=\frac{2-p}{p^2}$ et $\mathrm{Var}(X)=\frac{2-p}{p^2}-\frac{1}{p^2}=\frac{1-p}{p^2}$.
+      <summary class="proof-label">Démonstration.</summary>
+      La dérivation de la série géométrique $\sum_{k=0}^{+\infty}x^k=\frac{1}{1-x}$ donne $\sum_{k=1}^{+\infty}kx^{k-1}=\frac{1}{(1-x)^2}$ pour $|x|&lt;1$. En posant $x=1-p$ : $\mathbb{E}(X)=p\sum_{k=1}^{+\infty}k(1-p)^{k-1}=p\cdot\frac{1}{p^2}=\frac{1}{p}$.
+      Pour la variance, on dérive une seconde fois : $\sum_{k=2}^{+\infty}k(k-1)x^{k-2}=\frac{2}{(1-x)^3}$. En posant $x=1-p$ : $\mathbb{E}(X(X-1))=\frac{2(1-p)}{p^2}$. Donc $\mathbb{E}(X^2)=\frac{2-p}{p^2}$ et $\mathrm{Var}(X)=\frac{2-p}{p^2}-\frac{1}{p^2}=\frac{1-p}{p^2}$.
     </details>
 
-    <!-- Poisson -->
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Poisson distribution).</span> A random variable $X$ follows a <em>Poisson distribution</em> with parameter $\lambda > 0$, written $X \sim \mathcal{P}(\lambda)$, if $\forall k \in \mathbb{N},\ \mathbb{P}(X = k) = e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition (Loi de Poisson).</span> Une variable al&eacute;atoire $X$ suit une <em>loi de Poisson</em> de param&egrave;tre $\lambda>0$, not&eacute;e $X\sim\mathcal{P}(\lambda)$, si $\forall k\in\mathbb{N},\ \mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Loi de Poisson).</span> Une variable aléatoire $X$ suit une <em>loi de Poisson</em> de paramètre $\lambda>0$, notée $X\sim\mathcal{P}(\lambda)$, si $\forall k\in\mathbb{N},\ \mathbb{P}(X=k)=e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
     </div>
 
     <div class="thm-block proposition">
@@ -404,13 +637,13 @@
       $\mathbb{E}(X) = \sum_{k=0}^{+\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!} = \lambda e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!} = \lambda e^{-\lambda}\cdot e^{\lambda} = \lambda$. Then $\mathbb{E}(X(X-1)) = \lambda^2 e^{-\lambda}\sum_{k=2}^{+\infty}\frac{\lambda^{k-2}}{(k-2)!} = \lambda^2$, so $\mathbb{E}(X^2) = \lambda^2 + \lambda$ and $\mathrm{Var}(X) = \lambda$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
+      <summary class="proof-label">Démonstration.</summary>
       $\mathbb{E}(X)=\sum_{k=0}^{+\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!}=\lambda e^{-\lambda}\sum_{k=1}^{+\infty}\frac{\lambda^{k-1}}{(k-1)!}=\lambda e^{-\lambda}\cdot e^{\lambda}=\lambda$. Puis $\mathbb{E}(X(X-1))=\lambda^2 e^{-\lambda}\sum_{k=2}^{+\infty}\frac{\lambda^{k-2}}{(k-2)!}=\lambda^2$, donc $\mathbb{E}(X^2)=\lambda^2+\lambda$ et $\mathrm{Var}(X)=\lambda$.
     </details>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> If $X \sim \mathcal{P}(\lambda)$ and $Y \sim \mathcal{P}(\mu)$ are independent, then $X + Y \sim \mathcal{P}(\lambda + \mu)$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{P}(\lambda)$ et $Y\sim\mathcal{P}(\mu)$ sont ind&eacute;pendantes, alors $X+Y\sim\mathcal{P}(\lambda+\mu)$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $X\sim\mathcal{P}(\lambda)$ et $Y\sim\mathcal{P}(\mu)$ sont indépendantes, alors $X+Y\sim\mathcal{P}(\lambda+\mu)$.</p>
     </div>
 
     <details class="proof en">
@@ -418,13 +651,16 @@
       For $n \in \mathbb{N}$, $\mathbb{P}(X+Y=n) = \sum_{k=0}^n \mathbb{P}(X=k)\,\mathbb{P}(Y=n-k) = \sum_{k=0}^n e^{-\lambda}\frac{\lambda^k}{k!}\cdot e^{-\mu}\frac{\mu^{n-k}}{(n-k)!} = e^{-(\lambda+\mu)}\frac{1}{n!}\sum_{k=0}^n\binom{n}{k}\lambda^k\mu^{n-k} = e^{-(\lambda+\mu)}\frac{(\lambda+\mu)^n}{n!}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
+      <summary class="proof-label">Démonstration.</summary>
       Pour $n\in\mathbb{N}$, $\mathbb{P}(X+Y=n)=\sum_{k=0}^n\mathbb{P}(X=k)\,\mathbb{P}(Y=n-k)=\sum_{k=0}^n e^{-\lambda}\frac{\lambda^k}{k!}\cdot e^{-\mu}\frac{\mu^{n-k}}{(n-k)!}=e^{-(\lambda+\mu)}\frac{1}{n!}\sum_{k=0}^n\binom{n}{k}\lambda^k\mu^{n-k}=e^{-(\lambda+\mu)}\frac{(\lambda+\mu)^n}{n!}$.
     </details>
 
+    <p class="en">The Poisson law is what a binomial law becomes when the number of trials grows while the mean number of successes stays fixed, so that each single trial becomes very unlikely.</p>
+    <p class="fr">La loi de Poisson est ce que devient une loi binomiale quand le nombre d'épreuves croît alors que le nombre moyen de succès reste fixe, chaque épreuve devenant ainsi très improbable.</p>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Poisson approximation).</span> Let $(p_n)$ be a sequence in $]0,1[$ such that $np_n \to \lambda > 0$. If $X_n \sim \mathcal{B}(n, p_n)$, then for all $k \in \mathbb{N}$: $\mathbb{P}(X_n = k) \xrightarrow[n \to +\infty]{} e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Approximation de Poisson).</span> Soit $(p_n)$ une suite de $]0,1[$ telle que $np_n\to\lambda>0$. Si $X_n\sim\mathcal{B}(n,p_n)$, alors pour tout $k\in\mathbb{N}$ : $\mathbb{P}(X_n=k)\xrightarrow[n\to+\infty]{}e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Approximation de Poisson).</span> Soit $(p_n)$ une suite de $]0,1[$ telle que $np_n\to\lambda>0$. Si $X_n\sim\mathcal{B}(n,p_n)$, alors pour tout $k\in\mathbb{N}$ : $\mathbb{P}(X_n=k)\xrightarrow[n\to+\infty]{}e^{-\lambda}\frac{\lambda^k}{k!}$.</p>
     </div>
 
     <details class="proof en">
@@ -432,61 +668,87 @@
       Set $\lambda_n = np_n$, so $p_n = \lambda_n/n$. Then $\mathbb{P}(X_n = k) = \binom{n}{k}\left(\frac{\lambda_n}{n}\right)^k\left(1 - \frac{\lambda_n}{n}\right)^{n-k}$. We have $\binom{n}{k}\cdot\frac{1}{n^k} = \frac{n(n-1)\cdots(n-k+1)}{n^k \cdot k!} \to \frac{1}{k!}$, $\lambda_n^k \to \lambda^k$, and $\left(1 - \frac{\lambda_n}{n}\right)^{n-k} \to e^{-\lambda}$, whence the result.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Posons $\lambda_n=np_n$, de sorte que $p_n=\lambda_n/n$. Alors $\mathbb{P}(X_n=k)=\binom{n}{k}\left(\frac{\lambda_n}{n}\right)^k\left(1-\frac{\lambda_n}{n}\right)^{n-k}$. On a $\binom{n}{k}\cdot\frac{1}{n^k}=\frac{n(n-1)\cdots(n-k+1)}{n^k\cdot k!}\to\frac{1}{k!}$, $\lambda_n^k\to\lambda^k$, et $\left(1-\frac{\lambda_n}{n}\right)^{n-k}\to e^{-\lambda}$, d'o&ugrave; le r&eacute;sultat.
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $\lambda_n=np_n$, de sorte que $p_n=\lambda_n/n$. Alors $\mathbb{P}(X_n=k)=\binom{n}{k}\left(\frac{\lambda_n}{n}\right)^k\left(1-\frac{\lambda_n}{n}\right)^{n-k}$. On a $\binom{n}{k}\cdot\frac{1}{n^k}=\frac{n(n-1)\cdots(n-k+1)}{n^k\cdot k!}\to\frac{1}{k!}$, $\lambda_n^k\to\lambda^k$, et $\left(1-\frac{\lambda_n}{n}\right)^{n-k}\to e^{-\lambda}$, d'où le résultat.
     </details>
 
-    <!-- ====== INEQUALITIES ====== -->
-
-    <h3 class="en">Concentration inequalities</h3>
-    <h3 class="fr">In&eacute;galit&eacute;s de concentration</h3>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Markov's inequality).</span> Let $X$ be a nonnegative random variable and $a > 0$. Then $\mathbb{P}(X \ge a) \le \frac{\mathbb{E}(X)}{a}$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (In&eacute;galit&eacute; de Markov).</span> Soit $X$ une variable al&eacute;atoire positive et $a>0$. Alors $\mathbb{P}(X\ge a)\le\frac{\mathbb{E}(X)}{a}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Since $X \ge 0$, we have $X(\omega) \ge a\,\mathbf{1}_{X \ge a}(\omega)$ for all $\omega$. By monotonicity of expectation, $\mathbb{E}(X) \ge a\,\mathbb{E}(\mathbf{1}_{X \ge a}) = a\,\mathbb{P}(X \ge a)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Comme $X\ge 0$, on a $X(\omega)\ge a\,\mathbf{1}_{X\ge a}(\omega)$ pour tout $\omega$. Par croissance de l'esp&eacute;rance, $\mathbb{E}(X)\ge a\,\mathbb{E}(\mathbf{1}_{X\ge a})=a\,\mathbb{P}(X\ge a)$.
-    </details>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Bienaym&eacute;-Chebyshev inequality).</span> Let $X$ be a random variable and $\varepsilon > 0$. Then $\mathbb{P}(|X - \mathbb{E}(X)| \ge \varepsilon) \le \frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (In&eacute;galit&eacute; de Bienaym&eacute;-Tchebychev).</span> Soit $X$ une variable al&eacute;atoire et $\varepsilon>0$. Alors $\mathbb{P}(|X-\mathbb{E}(X)|\ge\varepsilon)\le\frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      The random variable $(X - \mathbb{E}(X))^2$ is nonnegative, so by Markov's inequality with threshold $\varepsilon^2 > 0$: $\mathbb{P}((X - \mathbb{E}(X))^2 \ge \varepsilon^2) \le \frac{\mathbb{E}((X - \mathbb{E}(X))^2)}{\varepsilon^2} = \frac{\mathrm{Var}(X)}{\varepsilon^2}$. Since $(X - \mathbb{E}(X))^2 \ge \varepsilon^2$ iff $|X - \mathbb{E}(X)| \ge \varepsilon$, the result follows.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      La variable al&eacute;atoire $(X-\mathbb{E}(X))^2$ est positive, donc par l'in&eacute;galit&eacute; de Markov avec le seuil $\varepsilon^2>0$ : $\mathbb{P}((X-\mathbb{E}(X))^2\ge\varepsilon^2)\le\frac{\mathbb{E}((X-\mathbb{E}(X))^2)}{\varepsilon^2}=\frac{\mathrm{Var}(X)}{\varepsilon^2}$. Or $(X-\mathbb{E}(X))^2\ge\varepsilon^2$ ssi $|X-\mathbb{E}(X)|\ge\varepsilon$, d'o&ugrave; le r&eacute;sultat.
-    </details>
-
-    <!-- ====== GENERATING FUNCTIONS ====== -->
+    <figure class="figure-block">
+      <svg class="figure" width="506" height="199" viewBox="44.0 12.0 505.8 198.6">
+        <line class="fig-axis" x1="54.0" y1="180.0" x2="266.0" y2="180.0"/>
+        <line class="fig-axis" x1="60.0" y1="22.0" x2="60.0" y2="188.0"/>
+        <text x="272.0" y="185.0">k</text>
+        <rect class="fig-shape" x="67.1" y="175.8" width="12.7" height="4.2"/>
+        <text x="73.5" y="197.0" text-anchor="middle">0</text>
+        <rect class="fig-shape" x="86.3" y="148.9" width="12.7" height="31.1"/>
+        <rect class="fig-shape" x="105.6" y="86.6" width="12.7" height="93.4"/>
+        <rect class="fig-shape" x="124.8" y="39.9" width="12.7" height="140.1"/>
+        <text x="131.2" y="197.0" text-anchor="middle">3</text>
+        <rect class="fig-shape" x="144.0" y="74.9" width="12.7" height="105.1"/>
+        <rect class="fig-shape" x="163.3" y="148.5" width="12.7" height="31.5"/>
+        <text x="188.8" y="197.0" text-anchor="middle">6</text>
+        <text x="246.5" y="197.0" text-anchor="middle">9</text>
+        <path class="fig-free-solid" d="M 73.5 159.8 L 92.7 119.4 L 111.9 89.2 L 131.2 89.2 L 150.4 111.9 L 169.6 139.1 L 188.8 159.6 L 208.1 171.2 L 227.3 176.7 L 246.5 178.9"/>
+        <circle class="fig-dot-alt" cx="73.5" cy="159.8" r="3.0"/>
+        <circle class="fig-dot-alt" cx="92.7" cy="119.4" r="3.0"/>
+        <circle class="fig-dot-alt" cx="111.9" cy="89.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="131.2" cy="89.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="150.4" cy="111.9" r="3.0"/>
+        <circle class="fig-dot-alt" cx="169.6" cy="139.1" r="3.0"/>
+        <circle class="fig-dot-alt" cx="188.8" cy="159.6" r="3.0"/>
+        <circle class="fig-dot-alt" cx="208.1" cy="171.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="227.3" cy="176.7" r="3.0"/>
+        <circle class="fig-dot-alt" cx="246.5" cy="178.9" r="3.0"/>
+        <line class="fig-axis" x1="314.0" y1="180.0" x2="526.0" y2="180.0"/>
+        <line class="fig-axis" x1="320.0" y1="22.0" x2="320.0" y2="188.0"/>
+        <text x="532.0" y="185.0">k</text>
+        <rect class="fig-shape" x="327.1" y="164.3" width="12.7" height="15.7"/>
+        <text x="333.5" y="197.0" text-anchor="middle">0</text>
+        <rect class="fig-shape" x="346.3" y="124.5" width="12.7" height="55.5"/>
+        <rect class="fig-shape" x="365.6" y="87.0" width="12.7" height="93.0"/>
+        <rect class="fig-shape" x="384.8" y="81.6" width="12.7" height="98.4"/>
+        <text x="391.2" y="197.0" text-anchor="middle">3</text>
+        <rect class="fig-shape" x="404.0" y="106.2" width="12.7" height="73.8"/>
+        <rect class="fig-shape" x="423.3" y="138.3" width="12.7" height="41.7"/>
+        <rect class="fig-shape" x="442.5" y="161.6" width="12.7" height="18.4"/>
+        <text x="448.8" y="197.0" text-anchor="middle">6</text>
+        <rect class="fig-shape" x="461.7" y="173.5" width="12.7" height="6.5"/>
+        <rect class="fig-shape" x="481.0" y="178.1" width="12.7" height="1.9"/>
+        <rect class="fig-shape" x="500.2" y="179.6" width="12.7" height="0.4"/>
+        <text x="506.5" y="197.0" text-anchor="middle">9</text>
+        <path class="fig-free-solid" d="M 333.5 159.8 L 352.7 119.4 L 371.9 89.2 L 391.2 89.2 L 410.4 111.9 L 429.6 139.1 L 448.8 159.6 L 468.1 171.2 L 487.3 176.7 L 506.5 178.9"/>
+        <circle class="fig-dot-alt" cx="333.5" cy="159.8" r="3.0"/>
+        <circle class="fig-dot-alt" cx="352.7" cy="119.4" r="3.0"/>
+        <circle class="fig-dot-alt" cx="371.9" cy="89.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="391.2" cy="89.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="410.4" cy="111.9" r="3.0"/>
+        <circle class="fig-dot-alt" cx="429.6" cy="139.1" r="3.0"/>
+        <circle class="fig-dot-alt" cx="448.8" cy="159.6" r="3.0"/>
+        <circle class="fig-dot-alt" cx="468.1" cy="171.2" r="3.0"/>
+        <circle class="fig-dot-alt" cx="487.3" cy="176.7" r="3.0"/>
+        <circle class="fig-dot-alt" cx="506.5" cy="178.9" r="3.0"/>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part">Bars: the binomial law $\mathcal{B}(n, 3/n)$, whose mean is $3$ for every $n$. Dots: the Poisson law $\mathcal{P}(3)$. Both panels have the same scales.</span><span class="cap-part"><span class="cap-lead">Left:</span> $n = 5$, where a single trial succeeds with probability $0{.}6$.</span><span class="cap-part"><span class="cap-lead">Right:</span> $n = 20$, where the bars already reach the dots.</span></span><span class="fr"><span class="cap-part">Barres : la loi binomiale $\mathcal{B}(n, 3/n)$, de moyenne $3$ pour tout $n$. Points : la loi de Poisson $\mathcal{P}(3)$. Les deux panneaux ont les mêmes échelles.</span><span class="cap-part"><span class="cap-lead">À gauche :</span> $n = 5$, où une épreuve réussit avec probabilité $0{,}6$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $n = 20$, où les barres atteignent déjà les points.</span></span></figcaption>
+    </figure>
 
     <h3 class="en">Generating functions</h3>
-    <h3 class="fr">Fonctions g&eacute;n&eacute;ratrices</h3>
+    <h3 class="fr">Fonctions génératrices</h3>
+
+    <p class="en">The law of an $\mathbb{N}$-valued variable is a sequence of numbers $\mathbb{P}(X = k)$. Making it the coefficient sequence of a power series turns that list into a single function, and the operations on laws become operations on functions.</p>
+    <p class="fr">La loi d'une variable à valeurs dans $\mathbb{N}$ est une suite de nombres $\mathbb{P}(X=k)$. En faire la suite des coefficients d'une série entière transforme cette liste en une seule fonction, et les opérations sur les lois deviennent des opérations sur les fonctions.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition.</span> Let $X$ be a random variable with values in $\mathbb{N}$. The <em>probability generating function</em> of $X$ is $G_X : [-1,1] \to \mathbb{R}$, $G_X(t) = \mathbb{E}(t^X) = \sum_{k=0}^{+\infty}\mathbb{P}(X = k)\,t^k$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $\mathbb{N}$. La <em>fonction g&eacute;n&eacute;ratrice</em> de $X$ est $G_X:[-1,1]\to\mathbb{R}$, $G_X(t)=\mathbb{E}(t^X)=\sum_{k=0}^{+\infty}\mathbb{P}(X=k)\,t^k$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Soit $X$ une variable aléatoire à valeurs dans $\mathbb{N}$. La <em>fonction génératrice</em> de $X$ est $G_X:[-1,1]\to\mathbb{R}$, $G_X(t)=\mathbb{E}(t^X)=\sum_{k=0}^{+\infty}\mathbb{P}(X=k)\,t^k$.</p>
     </div>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Remark.</span> The radius of convergence of this power series is at least $1$, since $|\mathbb{P}(X = k)\,t^k| \le \mathbb{P}(X = k)$ for $|t| \le 1$, and $\sum \mathbb{P}(X = k) = 1$.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Le rayon de convergence de cette s&eacute;rie enti&egrave;re est au moins $1$ car $|\mathbb{P}(X=k)\,t^k|\le\mathbb{P}(X=k)$ pour $|t|\le 1$, et $\sum\mathbb{P}(X=k)=1$.</p>
+      <p class="en"><span class="thm-label">Remark.</span> The radius of convergence of this power series is at least $1$, since $|\mathbb{P}(X = k)\,t^k| \le \mathbb{P}(X = k)$ for $|t| \le 1$, and $\sum_k \mathbb{P}(X = k) = 1$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Le rayon de convergence de cette série entière est au moins $1$ car $|\mathbb{P}(X=k)\,t^k|\le\mathbb{P}(X=k)$ pour $|t|\le 1$, et $\sum_k\mathbb{P}(X=k)=1$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The generating function characterizes the law: if $G_X = G_Y$ on $[-1,1]$, then $X$ and $Y$ have the same law.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> La fonction g&eacute;n&eacute;ratrice caract&eacute;rise la loi : si $G_X=G_Y$ sur $[-1,1]$, alors $X$ et $Y$ ont m&ecirc;me loi.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La fonction génératrice caractérise la loi : si $G_X=G_Y$ sur $[-1,1]$, alors $X$ et $Y$ ont même loi.</p>
     </div>
 
     <details class="proof en">
@@ -494,13 +756,13 @@
       By uniqueness of the coefficients of a power series, $\mathbb{P}(X = k) = \mathbb{P}(Y = k)$ for all $k$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par unicit&eacute; des coefficients d'une s&eacute;rie enti&egrave;re, $\mathbb{P}(X=k)=\mathbb{P}(Y=k)$ pour tout $k$.
+      <summary class="proof-label">Démonstration.</summary>
+      Par unicité des coefficients d'une série entière, $\mathbb{P}(X=k)=\mathbb{P}(Y=k)$ pour tout $k$.
     </details>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> We have $G_X(0) = \mathbb{P}(X = 0)$ and $G_X(1) = 1$. If $X$ has an expectation, $G_X'(1^-) = \mathbb{E}(X)$. If $X$ has a variance, $\mathrm{Var}(X) = G_X''(1^-) + G_X'(1^-) - (G_X'(1^-))^2$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> On a $G_X(0)=\mathbb{P}(X=0)$ et $G_X(1)=1$. Si $X$ admet une esp&eacute;rance, $G_X'(1^-)=\mathbb{E}(X)$. Si $X$ admet une variance, $\mathrm{Var}(X)=G_X''(1^-)+G_X'(1^-)-(G_X'(1^-))^2$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> On a $G_X(0)=\mathbb{P}(X=0)$ et $G_X(1)=1$. Si $X$ admet une espérance, $G_X'(1^-)=\mathbb{E}(X)$. Si $X$ admet une variance, $\mathrm{Var}(X)=G_X''(1^-)+G_X'(1^-)-(G_X'(1^-))^2$.</p>
     </div>
 
     <details class="proof en">
@@ -508,22 +770,22 @@
       $G_X'(t) = \sum_{k=1}^{+\infty}k\,\mathbb{P}(X = k)\,t^{k-1}$, and at $t = 1^-$ we get $\sum_{k=1}^{+\infty}k\,\mathbb{P}(X = k) = \mathbb{E}(X)$ by Abel's radial theorem. Similarly, $G_X''(t) = \sum_{k=2}^{+\infty}k(k-1)\mathbb{P}(X = k)\,t^{k-2}$ and $G_X''(1^-) = \mathbb{E}(X(X-1)) = \mathbb{E}(X^2) - \mathbb{E}(X)$, whence the formula.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $G_X'(t)=\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)\,t^{k-1}$, et en $t=1^-$ on obtient $\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)=\mathbb{E}(X)$ par le th&eacute;or&egrave;me d'Abel radial. De m&ecirc;me, $G_X''(t)=\sum_{k=2}^{+\infty}k(k-1)\mathbb{P}(X=k)\,t^{k-2}$ et $G_X''(1^-)=\mathbb{E}(X(X-1))=\mathbb{E}(X^2)-\mathbb{E}(X)$, d'o&ugrave; la formule.
+      <summary class="proof-label">Démonstration.</summary>
+      $G_X'(t)=\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)\,t^{k-1}$, et en $t=1^-$ on obtient $\sum_{k=1}^{+\infty}k\,\mathbb{P}(X=k)=\mathbb{E}(X)$ par le théorème d'Abel radial. De même, $G_X''(t)=\sum_{k=2}^{+\infty}k(k-1)\mathbb{P}(X=k)\,t^{k-2}$ et $G_X''(1^-)=\mathbb{E}(X(X-1))=\mathbb{E}(X^2)-\mathbb{E}(X)$, d'où la formule.
     </details>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem.</span> If $X$ and $Y$ are independent and $\mathbb{N}$-valued, then $G_{X+Y} = G_X \cdot G_Y$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me.</span> Si $X$ et $Y$ sont ind&eacute;pendantes et &agrave; valeurs dans $\mathbb{N}$, alors $G_{X+Y}=G_X\cdot G_Y$.</p>
+      <p class="fr"><span class="thm-label">Théorème.</span> Si $X$ et $Y$ sont indépendantes et à valeurs dans $\mathbb{N}$, alors $G_{X+Y}=G_X\cdot G_Y$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      $G_{X+Y}(t) = \mathbb{E}(t^{X+Y}) = \mathbb{E}(t^X \cdot t^Y) = \mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ by independence.
+      $G_{X+Y}(t) = \mathbb{E}(t^{X+Y}) = \mathbb{E}(t^X \cdot t^Y) = \mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ by independence, $t^X$ and $t^Y$ being functions of $X$ and of $Y$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      $G_{X+Y}(t)=\mathbb{E}(t^{X+Y})=\mathbb{E}(t^X\cdot t^Y)=\mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ par ind&eacute;pendance.
+      <summary class="proof-label">Démonstration.</summary>
+      $G_{X+Y}(t)=\mathbb{E}(t^{X+Y})=\mathbb{E}(t^X\cdot t^Y)=\mathbb{E}(t^X)\cdot\mathbb{E}(t^Y)$ par indépendance, $t^X$ et $t^Y$ étant des fonctions de $X$ et de $Y$.
     </details>
 
     <div class="thm-block definition">
@@ -531,105 +793,353 @@
       <ul class="en">
         <li>$X \sim \mathcal{B}(p)$: $G_X(t) = 1 - p + pt$.</li>
         <li>$X \sim \mathcal{B}(n,p)$: $G_X(t) = (1-p+pt)^n$.</li>
-        <li>$X \sim \mathcal{G}(p)$: $G_X(t) = \frac{pt}{1-(1-p)t}$.</li>
         <li>$X \sim \mathcal{P}(\lambda)$: $G_X(t) = e^{\lambda(t-1)}$.</li>
       </ul>
-      <p class="fr"><span class="thm-label">Fonctions g&eacute;n&eacute;ratrices des lois classiques.</span></p>
+      <p class="fr"><span class="thm-label">Fonctions génératrices des lois classiques.</span></p>
       <ul class="fr">
         <li>$X \sim \mathcal{B}(p)$ : $G_X(t) = 1 - p + pt$.</li>
         <li>$X \sim \mathcal{B}(n,p)$ : $G_X(t) = (1-p+pt)^n$.</li>
-        <li>$X \sim \mathcal{G}(p)$ : $G_X(t) = \frac{pt}{1-(1-p)t}$.</li>
         <li>$X \sim \mathcal{P}(\lambda)$ : $G_X(t) = e^{\lambda(t-1)}$.</li>
       </ul>
     </div>
 
-    <!-- ====== CONVERGENCE AND LLN ====== -->
-
-    <h3 class="en">Convergence in probability and law of large numbers</h3>
-    <h3 class="fr">Convergence en probabilit&eacute; et loi des grands nombres</h3>
-
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> A sequence $(X_n)$ of random variables <em>converges in probability</em> to a random variable $X$ if, for all $\varepsilon > 0$, $\mathbb{P}(|X_n - X| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
-      <p class="fr"><span class="thm-label">D&eacute;finition.</span> Une suite $(X_n)$ de variables al&eacute;atoires <em>converge en probabilit&eacute;</em> vers une variable al&eacute;atoire $X$ si, pour tout $\varepsilon>0$, $\mathbb{P}(|X_n-X|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+      <p class="en"><span class="thm-label">Remark.</span> In this encoding the sum of two independent Poisson variables is one line: $e^{\lambda(t-1)}\,e^{\mu(t-1)} = e^{(\lambda+\mu)(t-1)}$, which is the generating function of $\mathcal{P}(\lambda+\mu)$. The convolution computed above has become a product of exponentials.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Dans ce codage, la somme de deux variables de Poisson indépendantes tient en une ligne : $e^{\lambda(t-1)}\,e^{\mu(t-1)}=e^{(\lambda+\mu)(t-1)}$, qui est la fonction génératrice de $\mathcal{P}(\lambda+\mu)$. Le produit de convolution calculé plus haut est devenu un produit d'exponentielles.</p>
     </div>
 
+    <h3 class="en">Concentration and the law of large numbers</h3>
+    <h3 class="fr">Concentration et loi des grands nombres</h3>
+
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Weak law of large numbers).</span> Let $(X_n)_{n \ge 1}$ be a sequence of mutually independent random variables with the same law, having expectation $\mu$ and variance $\sigma^2$. Set $\bar{X}_n = \frac{X_1 + \cdots + X_n}{n}$. Then $\bar{X}_n$ converges in probability to $\mu$: for all $\varepsilon > 0$, $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
-      <p class="fr"><span class="thm-label">Th&eacute;or&egrave;me (Loi faible des grands nombres).</span> Soit $(X_n)_{n\ge 1}$ une suite de variables al&eacute;atoires mutuellement ind&eacute;pendantes, de m&ecirc;me loi, admettant une esp&eacute;rance $\mu$ et une variance $\sigma^2$. On pose $\bar{X}_n=\frac{X_1+\cdots+X_n}{n}$. Alors $\bar{X}_n$ converge en probabilit&eacute; vers $\mu$ : pour tout $\varepsilon>0$, $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+      <p class="en"><span class="thm-label">Theorem (Markov's inequality).</span> Let $X$ be a nonnegative random variable and $a > 0$. Then $\mathbb{P}(X \ge a) \le \frac{\mathbb{E}(X)}{a}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Inégalité de Markov).</span> Soit $X$ une variable aléatoire positive et $a>0$. Alors $\mathbb{P}(X\ge a)\le\frac{\mathbb{E}(X)}{a}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By linearity, $\mathbb{E}(\bar{X}_n) = \mu$. By mutual independence, $\mathrm{Var}(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i) = \frac{\sigma^2}{n}$. The Bienaym&eacute;-Chebyshev inequality then gives $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \le \frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \xrightarrow[n \to +\infty]{} 0$.
+      Since $X \ge 0$, we have $X(\omega) \ge a\,\mathbf{1}_{X \ge a}(\omega)$ for all $\omega$: on $\{X \ge a\}$ the right side is $a \le X(\omega)$, and elsewhere it is $0$. By monotonicity of expectation, $\mathbb{E}(X) \ge a\,\mathbb{E}(\mathbf{1}_{X \ge a}) = a\,\mathbb{P}(X \ge a)$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">D&eacute;monstration.</summary>
-      Par lin&eacute;arit&eacute; de l'esp&eacute;rance, $\mathbb{E}(\bar{X}_n)=\mu$. Par ind&eacute;pendance mutuelle, $\mathrm{Var}(\bar{X}_n)=\frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i)=\frac{\sigma^2}{n}$. L'in&eacute;galit&eacute; de Bienaym&eacute;-Tchebychev donne alors $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\le\frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2}=\frac{\sigma^2}{n\varepsilon^2}\xrightarrow[n\to+\infty]{}0$.
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $X\ge 0$, on a $X(\omega)\ge a\,\mathbf{1}_{X\ge a}(\omega)$ pour tout $\omega$ : sur $\{X\ge a\}$ le membre de droite vaut $a\le X(\omega)$, et ailleurs il est nul. Par croissance de l'espérance, $\mathbb{E}(X)\ge a\,\mathbb{E}(\mathbf{1}_{X\ge a})=a\,\mathbb{P}(X\ge a)$.
     </details>
 
-    <!-- ============ EXERCISES ============ -->
+    <figure class="figure-block">
+      <svg class="figure" width="324" height="220" viewBox="34.1 12.0 323.9 219.6">
+        <line class="fig-axis" x1="52.0" y1="200.0" x2="348.0" y2="200.0"/>
+        <line class="fig-axis" x1="60.0" y1="22.0" x2="60.0" y2="208.0"/>
+        <rect class="fig-band" x="256.0" y="139.3" width="84.0" height="60.7"/>
+        <path class="fig-curve" d="M 60.0 200.0 L 172.0 200.0 L 172.0 169.6 L 256.0 169.6 L 256.0 139.3 L 312.0 139.3 L 312.0 48.2 L 340.0 48.2"/>
+        <line class="fig-guide" x1="60.0" y1="139.3" x2="256.0" y2="139.3"/>
+        <text x="52.0" y="144.3" text-anchor="end">a</text>
+        <line class="fig-guide" x1="256.0" y1="200.0" x2="256.0" y2="139.3"/>
+        <text x="298.0" y="169.6" text-anchor="middle">P(X ≥ a)</text>
+        <text x="96.4" y="175.7">X</text>
+        <text x="52.0" y="205.0" text-anchor="end">0</text>
+        <text x="340.0" y="218.0" text-anchor="middle">1</text>
+      </svg>
+      <figcaption><span class="en">The values of $X$ sorted in increasing order, each given a width equal to its probability, so that the area under the graph is $\mathbb{E}(X)$. The shaded rectangle has height $a$ and width $\mathbb{P}(X \ge a)$, and it fits under the graph: that is Markov's inequality. Here $X$ takes the values $0, 1, 2, 5$ with probabilities $0.4, 0.3, 0.2, 0.1$, so $\mathbb{E}(X) = 1.2$ while $a\,\mathbb{P}(X \ge a) = 0.6$ at $a = 2$.</span><span class="fr">Les valeurs de $X$ rangées dans l'ordre croissant, chacune ayant pour largeur sa probabilité, de sorte que l'aire sous le graphe vaut $\mathbb{E}(X)$. Le rectangle grisé a pour hauteur $a$ et pour largeur $\mathbb{P}(X \ge a)$, et il tient sous le graphe : c'est l'inégalité de Markov. Ici $X$ prend les valeurs $0, 1, 2, 5$ avec les probabilités $0{,}4, 0{,}3, 0{,}2, 0{,}1$, donc $\mathbb{E}(X) = 1{,}2$ alors que $a\,\mathbb{P}(X \ge a) = 0{,}6$ pour $a = 2$.</span></figcaption>
+    </figure>
 
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Bienaymé-Chebyshev inequality).</span> Let $X$ be a random variable with a variance and $\varepsilon > 0$. Then $\mathbb{P}(|X - \mathbb{E}(X)| \ge \varepsilon) \le \frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Inégalité de Bienaymé-Tchebychev).</span> Soit $X$ une variable aléatoire admettant une variance et $\varepsilon>0$. Alors $\mathbb{P}(|X-\mathbb{E}(X)|\ge\varepsilon)\le\frac{\mathrm{Var}(X)}{\varepsilon^2}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The random variable $(X - \mathbb{E}(X))^2$ is nonnegative, so by Markov's inequality with threshold $\varepsilon^2 > 0$: $\mathbb{P}((X - \mathbb{E}(X))^2 \ge \varepsilon^2) \le \frac{\mathbb{E}((X - \mathbb{E}(X))^2)}{\varepsilon^2} = \frac{\mathrm{Var}(X)}{\varepsilon^2}$. Since $(X - \mathbb{E}(X))^2 \ge \varepsilon^2$ if and only if $|X - \mathbb{E}(X)| \ge \varepsilon$, the result follows.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La variable aléatoire $(X-\mathbb{E}(X))^2$ est positive, donc par l'inégalité de Markov avec le seuil $\varepsilon^2>0$ : $\mathbb{P}((X-\mathbb{E}(X))^2\ge\varepsilon^2)\le\frac{\mathbb{E}((X-\mathbb{E}(X))^2)}{\varepsilon^2}=\frac{\mathrm{Var}(X)}{\varepsilon^2}$. Or $(X-\mathbb{E}(X))^2\ge\varepsilon^2$ si et seulement si $|X-\mathbb{E}(X)|\ge\varepsilon$, d'où le résultat.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition.</span> A sequence $(X_n)$ of random variables <em>converges in probability</em> to a random variable $X$ if, for all $\varepsilon > 0$, $\mathbb{P}(|X_n - X| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
+      <p class="fr"><span class="thm-label">Définition.</span> Une suite $(X_n)$ de variables aléatoires <em>converge en probabilité</em> vers une variable aléatoire $X$ si, pour tout $\varepsilon>0$, $\mathbb{P}(|X_n-X|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+    </div>
+
+    <p class="en">Averaging $n$ independent variables leaves the mean unchanged and divides the variance by $n$. Chebyshev then converts that shrinking variance into a shrinking probability of being far from the mean.</p>
+    <p class="fr">Moyenner $n$ variables indépendantes ne change pas l'espérance et divise la variance par $n$. Bienaymé-Tchebychev convertit alors cette variance qui décroît en une probabilité qui décroît d'être loin de la moyenne.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Weak law of large numbers).</span> Let $(X_n)_{n \ge 1}$ be a sequence of mutually independent random variables with the same law, having expectation $\mu$ and variance $\sigma^2$. Set $\bar{X}_n = \frac{X_1 + \cdots + X_n}{n}$. Then $\bar{X}_n$ converges in probability to $\mu$: for all $\varepsilon > 0$, $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \xrightarrow[n \to +\infty]{} 0$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Loi faible des grands nombres).</span> Soit $(X_n)_{n\ge 1}$ une suite de variables aléatoires mutuellement indépendantes, de même loi, admettant une espérance $\mu$ et une variance $\sigma^2$. On pose $\bar{X}_n=\frac{X_1+\cdots+X_n}{n}$. Alors $\bar{X}_n$ converge en probabilité vers $\mu$ : pour tout $\varepsilon>0$, $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\xrightarrow[n\to+\infty]{}0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      By linearity, $\mathbb{E}(\bar{X}_n) = \mu$. By mutual independence, $\mathrm{Var}(\bar{X}_n) = \frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i) = \frac{\sigma^2}{n}$. The Bienaymé-Chebyshev inequality then gives $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) \le \frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2} = \frac{\sigma^2}{n\varepsilon^2} \xrightarrow[n \to +\infty]{} 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Par linéarité, $\mathbb{E}(\bar{X}_n)=\mu$. Par indépendance mutuelle, $\mathrm{Var}(\bar{X}_n)=\frac{1}{n^2}\sum_{i=1}^n\mathrm{Var}(X_i)=\frac{\sigma^2}{n}$. L'inégalité de Bienaymé-Tchebychev donne alors $\mathbb{P}(|\bar{X}_n-\mu|\ge\varepsilon)\le\frac{\mathrm{Var}(\bar{X}_n)}{\varepsilon^2}=\frac{\sigma^2}{n\varepsilon^2}\xrightarrow[n\to+\infty]{}0$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="485" height="200" viewBox="31.5 12.0 485.5 199.6">
+        <rect class="fig-band" x="89.5" y="30.0" width="60.9" height="150.0"/>
+        <line class="fig-axis" x1="49.0" y1="180.0" x2="191.0" y2="180.0"/>
+        <line class="fig-axis" x1="55.0" y1="22.0" x2="55.0" y2="188.0"/>
+        <path class="fig-curve" d="M 55.0 178.4 L 59.1 178.4 L 59.1 171.8 L 59.1 171.8 L 79.4 171.8 L 79.4 154.2 L 79.4 154.2 L 99.7 154.2 L 99.7 123.5 L 99.7 123.5 L 120.0 123.5 L 120.0 86.5 L 120.0 86.5 L 140.3 86.5 L 140.3 55.8 L 140.3 55.8 L 160.6 55.8 L 160.6 38.2 L 160.6 38.2 L 180.9 38.2 L 180.9 31.6 L 185.0 31.6"/>
+        <text x="49.0" y="35.0" text-anchor="end">1</text>
+        <text x="49.0" y="185.0" text-anchor="end">0</text>
+        <text x="89.5" y="198.0" text-anchor="middle">μ − ε</text>
+        <text x="150.5" y="198.0" text-anchor="middle">μ + ε</text>
+        <rect class="fig-band" x="247.5" y="30.0" width="60.9" height="150.0"/>
+        <line class="fig-axis" x1="207.0" y1="180.0" x2="349.0" y2="180.0"/>
+        <line class="fig-axis" x1="213.0" y1="22.0" x2="213.0" y2="188.0"/>
+        <path class="fig-curve" d="M 213.0 180.0 L 213.0 180.0 L 213.0 180.0 L 213.0 180.0 L 217.1 180.0 L 217.1 180.0 L 217.1 180.0 L 221.1 180.0 L 221.1 180.0 L 221.1 180.0 L 225.2 180.0 L 225.2 180.0 L 225.2 180.0 L 229.2 180.0 L 229.2 179.9 L 229.2 179.9 L 233.3 179.9 L 233.3 179.8 L 233.3 179.8 L 237.4 179.8 L 237.4 179.5 L 237.4 179.5 L 241.4 179.5 L 241.4 178.8 L 241.4 178.8 L 245.5 178.8 L 245.5 177.5 L 245.5 177.5 L 249.6 177.5 L 249.6 175.1 L 249.6 175.1 L 253.6 175.1 L 253.6 171.1 L 253.6 171.1 L 257.7 171.1 L 257.7 164.8 L 257.7 164.8 L 261.8 164.8 L 261.8 155.8 L 261.8 155.8 L 265.8 155.8 L 265.8 144.0 L 265.8 144.0 L 269.9 144.0 L 269.9 129.6 L 269.9 129.6 L 273.9 129.6 L 273.9 113.4 L 273.9 113.4 L 278.0 113.4 L 278.0 96.6 L 278.0 96.6 L 282.1 96.6 L 282.1 80.4 L 282.1 80.4 L 286.1 80.4 L 286.1 66.0 L 286.1 66.0 L 290.2 66.0 L 290.2 54.2 L 290.2 54.2 L 294.2 54.2 L 294.2 45.2 L 294.2 45.2 L 298.3 45.2 L 298.3 38.9 L 298.3 38.9 L 302.4 38.9 L 302.4 34.9 L 302.4 34.9 L 306.4 34.9 L 306.4 32.5 L 306.4 32.5 L 310.5 32.5 L 310.5 31.2 L 310.5 31.2 L 314.6 31.2 L 314.6 30.5 L 314.6 30.5 L 318.6 30.5 L 318.6 30.2 L 318.6 30.2 L 322.7 30.2 L 322.7 30.1 L 322.7 30.1 L 326.8 30.1 L 326.8 30.0 L 326.8 30.0 L 330.8 30.0 L 330.8 30.0 L 330.8 30.0 L 334.9 30.0 L 334.9 30.0 L 334.9 30.0 L 338.9 30.0 L 338.9 30.0 L 338.9 30.0 L 343.0 30.0 L 343.0 30.0 L 343.0 30.0"/>
+        <text x="207.0" y="35.0" text-anchor="end">1</text>
+        <text x="207.0" y="185.0" text-anchor="end">0</text>
+        <text x="247.5" y="198.0" text-anchor="middle">μ − ε</text>
+        <text x="308.5" y="198.0" text-anchor="middle">μ + ε</text>
+        <rect class="fig-band" x="405.5" y="30.0" width="60.9" height="150.0"/>
+        <line class="fig-axis" x1="365.0" y1="180.0" x2="507.0" y2="180.0"/>
+        <line class="fig-axis" x1="371.0" y1="22.0" x2="371.0" y2="188.0"/>
+        <path class="fig-curve" d="M 371.0 180.0 L 371.0 180.0 L 371.0 180.0 L 371.0 180.0 L 371.5 180.0 L 371.5 180.0 L 371.5 180.0 L 372.0 180.0 L 372.0 180.0 L 372.0 180.0 L 372.5 180.0 L 372.5 180.0 L 372.5 180.0 L 373.0 180.0 L 373.0 180.0 L 373.0 180.0 L 373.5 180.0 L 373.5 180.0 L 373.5 180.0 L 374.0 180.0 L 374.0 180.0 L 374.0 180.0 L 374.6 180.0 L 374.6 180.0 L 374.6 180.0 L 375.1 180.0 L 375.1 180.0 L 375.1 180.0 L 375.6 180.0 L 375.6 180.0 L 375.6 180.0 L 376.1 180.0 L 376.1 180.0 L 376.1 180.0 L 376.6 180.0 L 376.6 180.0 L 376.6 180.0 L 377.1 180.0 L 377.1 180.0 L 377.1 180.0 L 377.6 180.0 L 377.6 180.0 L 377.6 180.0 L 378.1 180.0 L 378.1 180.0 L 378.1 180.0 L 378.6 180.0 L 378.6 180.0 L 378.6 180.0 L 379.1 180.0 L 379.1 180.0 L 379.1 180.0 L 379.6 180.0 L 379.6 180.0 L 379.6 180.0 L 380.1 180.0 L 380.1 180.0 L 380.1 180.0 L 380.6 180.0 L 380.6 180.0 L 380.6 180.0 L 381.2 180.0 L 381.2 180.0 L 381.2 180.0 L 381.7 180.0 L 381.7 180.0 L 381.7 180.0 L 382.2 180.0 L 382.2 180.0 L 382.2 180.0 L 382.7 180.0 L 382.7 180.0 L 382.7 180.0 L 383.2 180.0 L 383.2 180.0 L 383.2 180.0 L 383.7 180.0 L 383.7 180.0 L 383.7 180.0 L 384.2 180.0 L 384.2 180.0 L 384.2 180.0 L 384.7 180.0 L 384.7 180.0 L 384.7 180.0 L 385.2 180.0 L 385.2 180.0 L 385.2 180.0 L 385.7 180.0 L 385.7 180.0 L 385.7 180.0 L 386.2 180.0 L 386.2 180.0 L 386.2 180.0 L 386.7 180.0 L 386.7 180.0 L 386.7 180.0 L 387.2 180.0 L 387.2 180.0 L 387.2 180.0 L 387.8 180.0 L 387.8 180.0 L 387.8 180.0 L 388.3 180.0 L 388.3 180.0 L 388.3 180.0 L 388.8 180.0 L 388.8 180.0 L 388.8 180.0 L 389.3 180.0 L 389.3 180.0 L 389.3 180.0 L 389.8 180.0 L 389.8 180.0 L 389.8 180.0 L 390.3 180.0 L 390.3 180.0 L 390.3 180.0 L 390.8 180.0 L 390.8 180.0 L 390.8 180.0 L 391.3 180.0 L 391.3 180.0 L 391.3 180.0 L 391.8 180.0 L 391.8 180.0 L 391.8 180.0 L 392.3 180.0 L 392.3 180.0 L 392.3 180.0 L 392.8 180.0 L 392.8 180.0 L 392.8 180.0 L 393.3 180.0 L 393.3 180.0 L 393.3 180.0 L 393.9 180.0 L 393.9 180.0 L 393.9 180.0 L 394.4 180.0 L 394.4 180.0 L 394.4 180.0 L 394.9 180.0 L 394.9 180.0 L 394.9 180.0 L 395.4 180.0 L 395.4 180.0 L 395.4 180.0 L 395.9 180.0 L 395.9 180.0 L 395.9 180.0 L 396.4 180.0 L 396.4 180.0 L 396.4 180.0 L 396.9 180.0 L 396.9 180.0 L 396.9 180.0 L 397.4 180.0 L 397.4 180.0 L 397.4 180.0 L 397.9 180.0 L 397.9 180.0 L 397.9 180.0 L 398.4 180.0 L 398.4 180.0 L 398.4 180.0 L 398.9 180.0 L 398.9 180.0 L 398.9 180.0 L 399.4 180.0 L 399.4 180.0 L 399.4 180.0 L 399.9 180.0 L 399.9 180.0 L 399.9 180.0 L 400.5 180.0 L 400.5 180.0 L 400.5 180.0 L 401.0 180.0 L 401.0 180.0 L 401.0 180.0 L 401.5 180.0 L 401.5 180.0 L 401.5 180.0 L 402.0 180.0 L 402.0 180.0 L 402.0 180.0 L 402.5 180.0 L 402.5 180.0 L 402.5 180.0 L 403.0 180.0 L 403.0 180.0 L 403.0 180.0 L 403.5 180.0 L 403.5 180.0 L 403.5 180.0 L 404.0 180.0 L 404.0 180.0 L 404.0 180.0 L 404.5 180.0 L 404.5 180.0 L 404.5 180.0 L 405.0 180.0 L 405.0 180.0 L 405.0 180.0 L 405.5 180.0 L 405.5 180.0 L 405.5 180.0 L 406.0 180.0 L 406.0 180.0 L 406.0 180.0 L 406.5 180.0 L 406.5 180.0 L 406.5 180.0 L 407.1 180.0 L 407.1 180.0 L 407.1 180.0 L 407.6 180.0 L 407.6 180.0 L 407.6 180.0 L 408.1 180.0 L 408.1 180.0 L 408.1 180.0 L 408.6 180.0 L 408.6 180.0 L 408.6 180.0 L 409.1 180.0 L 409.1 180.0 L 409.1 180.0 L 409.6 180.0 L 409.6 180.0 L 409.6 180.0 L 410.1 180.0 L 410.1 180.0 L 410.1 180.0 L 410.6 180.0 L 410.6 180.0 L 410.6 180.0 L 411.1 180.0 L 411.1 180.0 L 411.1 180.0 L 411.6 180.0 L 411.6 180.0 L 411.6 180.0 L 412.1 180.0 L 412.1 180.0 L 412.1 180.0 L 412.6 180.0 L 412.6 180.0 L 412.6 180.0 L 413.1 180.0 L 413.1 180.0 L 413.1 180.0 L 413.7 180.0 L 413.7 180.0 L 413.7 180.0 L 414.2 180.0 L 414.2 180.0 L 414.2 180.0 L 414.7 180.0 L 414.7 180.0 L 414.7 180.0 L 415.2 180.0 L 415.2 180.0 L 415.2 180.0 L 415.7 180.0 L 415.7 180.0 L 415.7 180.0 L 416.2 180.0 L 416.2 180.0 L 416.2 180.0 L 416.7 180.0 L 416.7 180.0 L 416.7 180.0 L 417.2 180.0 L 417.2 180.0 L 417.2 180.0 L 417.7 180.0 L 417.7 180.0 L 417.7 180.0 L 418.2 180.0 L 418.2 180.0 L 418.2 180.0 L 418.7 180.0 L 418.7 179.9 L 418.7 179.9 L 419.2 179.9 L 419.2 179.9 L 419.2 179.9 L 419.8 179.9 L 419.8 179.9 L 419.8 179.9 L 420.3 179.9 L 420.3 179.8 L 420.3 179.8 L 420.8 179.8 L 420.8 179.8 L 420.8 179.8 L 421.3 179.8 L 421.3 179.7 L 421.3 179.7 L 421.8 179.7 L 421.8 179.6 L 421.8 179.6 L 422.3 179.6 L 422.3 179.4 L 422.3 179.4 L 422.8 179.4 L 422.8 179.2 L 422.8 179.2 L 423.3 179.2 L 423.3 178.9 L 423.3 178.9 L 423.8 178.9 L 423.8 178.6 L 423.8 178.6 L 424.3 178.6 L 424.3 178.2 L 424.3 178.2 L 424.8 178.2 L 424.8 177.6 L 424.8 177.6 L 425.3 177.6 L 425.3 177.0 L 425.3 177.0 L 425.8 177.0 L 425.8 176.2 L 425.8 176.2 L 426.4 176.2 L 426.4 175.2 L 426.4 175.2 L 426.9 175.2 L 426.9 174.0 L 426.9 174.0 L 427.4 174.0 L 427.4 172.6 L 427.4 172.6 L 427.9 172.6 L 427.9 170.9 L 427.9 170.9 L 428.4 170.9 L 428.4 169.0 L 428.4 169.0 L 428.9 169.0 L 428.9 166.7 L 428.9 166.7 L 429.4 166.7 L 429.4 164.2 L 429.4 164.2 L 429.9 164.2 L 429.9 161.2 L 429.9 161.2 L 430.4 161.2 L 430.4 158.0 L 430.4 158.0 L 430.9 158.0 L 430.9 154.3 L 430.9 154.3 L 431.4 154.3 L 431.4 150.3 L 431.4 150.3 L 431.9 150.3 L 431.9 146.0 L 431.9 146.0 L 432.4 146.0 L 432.4 141.3 L 432.4 141.3 L 433.0 141.3 L 433.0 136.3 L 433.0 136.3 L 433.5 136.3 L 433.5 131.0 L 433.5 131.0 L 434.0 131.0 L 434.0 125.5 L 434.0 125.5 L 434.5 125.5 L 434.5 119.8 L 434.5 119.8 L 435.0 119.8 L 435.0 113.9 L 435.0 113.9 L 435.5 113.9 L 435.5 108.0 L 435.5 108.0 L 436.0 108.0 L 436.0 102.0 L 436.0 102.0 L 436.5 102.0 L 436.5 96.1 L 436.5 96.1 L 437.0 96.1 L 437.0 90.2 L 437.0 90.2 L 437.5 90.2 L 437.5 84.5 L 437.5 84.5 L 438.0 84.5 L 438.0 79.0 L 438.0 79.0 L 438.5 79.0 L 438.5 73.7 L 438.5 73.7 L 439.0 73.7 L 439.0 68.7 L 439.0 68.7 L 439.6 68.7 L 439.6 64.0 L 439.6 64.0 L 440.1 64.0 L 440.1 59.7 L 440.1 59.7 L 440.6 59.7 L 440.6 55.7 L 440.6 55.7 L 441.1 55.7 L 441.1 52.0 L 441.1 52.0 L 441.6 52.0 L 441.6 48.8 L 441.6 48.8 L 442.1 48.8 L 442.1 45.8 L 442.1 45.8 L 442.6 45.8 L 442.6 43.3 L 442.6 43.3 L 443.1 43.3 L 443.1 41.0 L 443.1 41.0 L 443.6 41.0 L 443.6 39.1 L 443.6 39.1 L 444.1 39.1 L 444.1 37.4 L 444.1 37.4 L 444.6 37.4 L 444.6 36.0 L 444.6 36.0 L 445.1 36.0 L 445.1 34.8 L 445.1 34.8 L 445.6 34.8 L 445.6 33.8 L 445.6 33.8 L 446.2 33.8 L 446.2 33.0 L 446.2 33.0 L 446.7 33.0 L 446.7 32.4 L 446.7 32.4 L 447.2 32.4 L 447.2 31.8 L 447.2 31.8 L 447.7 31.8 L 447.7 31.4 L 447.7 31.4 L 448.2 31.4 L 448.2 31.1 L 448.2 31.1 L 448.7 31.1 L 448.7 30.8 L 448.7 30.8 L 449.2 30.8 L 449.2 30.6 L 449.2 30.6 L 449.7 30.6 L 449.7 30.4 L 449.7 30.4 L 450.2 30.4 L 450.2 30.3 L 450.2 30.3 L 450.7 30.3 L 450.7 30.2 L 450.7 30.2 L 451.2 30.2 L 451.2 30.2 L 451.2 30.2 L 451.7 30.2 L 451.7 30.1 L 451.7 30.1 L 452.2 30.1 L 452.2 30.1 L 452.2 30.1 L 452.8 30.1 L 452.8 30.1 L 452.8 30.1 L 453.3 30.1 L 453.3 30.0 L 453.3 30.0 L 453.8 30.0 L 453.8 30.0 L 453.8 30.0 L 454.3 30.0 L 454.3 30.0 L 454.3 30.0 L 454.8 30.0 L 454.8 30.0 L 454.8 30.0 L 455.3 30.0 L 455.3 30.0 L 455.3 30.0 L 455.8 30.0 L 455.8 30.0 L 455.8 30.0 L 456.3 30.0 L 456.3 30.0 L 456.3 30.0 L 456.8 30.0 L 456.8 30.0 L 456.8 30.0 L 457.3 30.0 L 457.3 30.0 L 457.3 30.0 L 457.8 30.0 L 457.8 30.0 L 457.8 30.0 L 458.3 30.0 L 458.3 30.0 L 458.3 30.0 L 458.9 30.0 L 458.9 30.0 L 458.9 30.0 L 459.4 30.0 L 459.4 30.0 L 459.4 30.0 L 459.9 30.0 L 459.9 30.0 L 459.9 30.0 L 460.4 30.0 L 460.4 30.0 L 460.4 30.0 L 460.9 30.0 L 460.9 30.0 L 460.9 30.0 L 461.4 30.0 L 461.4 30.0 L 461.4 30.0 L 461.9 30.0 L 461.9 30.0 L 461.9 30.0 L 462.4 30.0 L 462.4 30.0 L 462.4 30.0 L 462.9 30.0 L 462.9 30.0 L 462.9 30.0 L 463.4 30.0 L 463.4 30.0 L 463.4 30.0 L 463.9 30.0 L 463.9 30.0 L 463.9 30.0 L 464.4 30.0 L 464.4 30.0 L 464.4 30.0 L 464.9 30.0 L 464.9 30.0 L 464.9 30.0 L 465.5 30.0 L 465.5 30.0 L 465.5 30.0 L 466.0 30.0 L 466.0 30.0 L 466.0 30.0 L 466.5 30.0 L 466.5 30.0 L 466.5 30.0 L 467.0 30.0 L 467.0 30.0 L 467.0 30.0 L 467.5 30.0 L 467.5 30.0 L 467.5 30.0 L 468.0 30.0 L 468.0 30.0 L 468.0 30.0 L 468.5 30.0 L 468.5 30.0 L 468.5 30.0 L 469.0 30.0 L 469.0 30.0 L 469.0 30.0 L 469.5 30.0 L 469.5 30.0 L 469.5 30.0 L 470.0 30.0 L 470.0 30.0 L 470.0 30.0 L 470.5 30.0 L 470.5 30.0 L 470.5 30.0 L 471.0 30.0 L 471.0 30.0 L 471.0 30.0 L 471.5 30.0 L 471.5 30.0 L 471.5 30.0 L 472.1 30.0 L 472.1 30.0 L 472.1 30.0 L 472.6 30.0 L 472.6 30.0 L 472.6 30.0 L 473.1 30.0 L 473.1 30.0 L 473.1 30.0 L 473.6 30.0 L 473.6 30.0 L 473.6 30.0 L 474.1 30.0 L 474.1 30.0 L 474.1 30.0 L 474.6 30.0 L 474.6 30.0 L 474.6 30.0 L 475.1 30.0 L 475.1 30.0 L 475.1 30.0 L 475.6 30.0 L 475.6 30.0 L 475.6 30.0 L 476.1 30.0 L 476.1 30.0 L 476.1 30.0 L 476.6 30.0 L 476.6 30.0 L 476.6 30.0 L 477.1 30.0 L 477.1 30.0 L 477.1 30.0 L 477.6 30.0 L 477.6 30.0 L 477.6 30.0 L 478.1 30.0 L 478.1 30.0 L 478.1 30.0 L 478.7 30.0 L 478.7 30.0 L 478.7 30.0 L 479.2 30.0 L 479.2 30.0 L 479.2 30.0 L 479.7 30.0 L 479.7 30.0 L 479.7 30.0 L 480.2 30.0 L 480.2 30.0 L 480.2 30.0 L 480.7 30.0 L 480.7 30.0 L 480.7 30.0 L 481.2 30.0 L 481.2 30.0 L 481.2 30.0 L 481.7 30.0 L 481.7 30.0 L 481.7 30.0 L 482.2 30.0 L 482.2 30.0 L 482.2 30.0 L 482.7 30.0 L 482.7 30.0 L 482.7 30.0 L 483.2 30.0 L 483.2 30.0 L 483.2 30.0 L 483.7 30.0 L 483.7 30.0 L 483.7 30.0 L 484.2 30.0 L 484.2 30.0 L 484.2 30.0 L 484.8 30.0 L 484.8 30.0 L 484.8 30.0 L 485.3 30.0 L 485.3 30.0 L 485.3 30.0 L 485.8 30.0 L 485.8 30.0 L 485.8 30.0 L 486.3 30.0 L 486.3 30.0 L 486.3 30.0 L 486.8 30.0 L 486.8 30.0 L 486.8 30.0 L 487.3 30.0 L 487.3 30.0 L 487.3 30.0 L 487.8 30.0 L 487.8 30.0 L 487.8 30.0 L 488.3 30.0 L 488.3 30.0 L 488.3 30.0 L 488.8 30.0 L 488.8 30.0 L 488.8 30.0 L 489.3 30.0 L 489.3 30.0 L 489.3 30.0 L 489.8 30.0 L 489.8 30.0 L 489.8 30.0 L 490.3 30.0 L 490.3 30.0 L 490.3 30.0 L 490.8 30.0 L 490.8 30.0 L 490.8 30.0 L 491.4 30.0 L 491.4 30.0 L 491.4 30.0 L 491.9 30.0 L 491.9 30.0 L 491.9 30.0 L 492.4 30.0 L 492.4 30.0 L 492.4 30.0 L 492.9 30.0 L 492.9 30.0 L 492.9 30.0 L 493.4 30.0 L 493.4 30.0 L 493.4 30.0 L 493.9 30.0 L 493.9 30.0 L 493.9 30.0 L 494.4 30.0 L 494.4 30.0 L 494.4 30.0 L 494.9 30.0 L 494.9 30.0 L 494.9 30.0 L 495.4 30.0 L 495.4 30.0 L 495.4 30.0 L 495.9 30.0 L 495.9 30.0 L 495.9 30.0 L 496.4 30.0 L 496.4 30.0 L 496.4 30.0 L 496.9 30.0 L 496.9 30.0 L 496.9 30.0 L 497.4 30.0 L 497.4 30.0 L 497.4 30.0 L 498.0 30.0 L 498.0 30.0 L 498.0 30.0 L 498.5 30.0 L 498.5 30.0 L 498.5 30.0 L 499.0 30.0 L 499.0 30.0 L 499.0 30.0 L 499.5 30.0 L 499.5 30.0 L 499.5 30.0 L 500.0 30.0 L 500.0 30.0 L 500.0 30.0 L 500.5 30.0 L 500.5 30.0 L 500.5 30.0 L 501.0 30.0 L 501.0 30.0 L 501.0 30.0"/>
+        <text x="365.0" y="35.0" text-anchor="end">1</text>
+        <text x="365.0" y="185.0" text-anchor="end">0</text>
+        <text x="405.5" y="198.0" text-anchor="middle">μ − ε</text>
+        <text x="466.5" y="198.0" text-anchor="middle">μ + ε</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part">The distribution function of $\bar{X}_n$ for a fair coin, so $\mu = \frac{1}{2}$, with the band $|x - \mu| &lt; \varepsilon$ shaded for $\varepsilon = 0{.}15$. The three panels have the same scales.</span><span class="cap-part"><span class="cap-lead">Left:</span> $n = 10$, and $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) = 0{.}344$.</span><span class="cap-part"><span class="cap-lead">Middle:</span> $n = 50$, and the probability has dropped to $0{.}033$.</span><span class="cap-part"><span class="cap-lead">Right:</span> $n = 400$, about $10^{-9}$. The curve becomes a vertical jump at $\mu$.</span></span><span class="fr"><span class="cap-part">La fonction de répartition de $\bar{X}_n$ pour une pièce équilibrée, donc $\mu = \frac{1}{2}$, avec la bande $|x - \mu| &lt; \varepsilon$ grisée pour $\varepsilon = 0{,}15$. Les trois panneaux ont les mêmes échelles.</span><span class="cap-part"><span class="cap-lead">À gauche :</span> $n = 10$, et $\mathbb{P}(|\bar{X}_n - \mu| \ge \varepsilon) = 0{,}344$.</span><span class="cap-part"><span class="cap-lead">Au milieu :</span> $n = 50$, et la probabilité est tombée à $0{,}033$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $n = 400$, environ $10^{-9}$. La courbe devient un saut vertical en $\mu$.</span></span></figcaption>
+    </figure>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To compute the mean of a count, write the count as a sum of indicators and add the probabilities. The terms need not be independent.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour calculer la moyenne d'un décompte, écrire le décompte comme une somme d'indicatrices et additionner les probabilités. Les termes n'ont pas besoin d'être indépendants.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Five cards are drawn from a deck of $52$. What is the expected number of aces drawn?</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> On tire cinq cartes d'un jeu de $52$. Quel est le nombre moyen d'as tirés ?</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Let $A_i$ be the event that the $i$-th card drawn is an ace, and $X = \mathbf{1}_{A_1} + \cdots + \mathbf{1}_{A_5}$ the number of aces. Each card drawn is equally likely to be any of the $52$, so $\mathbb{P}(A_i) = \frac{4}{52} = \frac{1}{13}$. Hence $\mathbb{E}(X) = 5 \cdot \frac{1}{13} = \frac{5}{13}$. The events $A_i$ are not independent, which does not matter.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Soit $A_i$ l'événement « la $i$-ième carte tirée est un as » et $X=\mathbf{1}_{A_1}+\cdots+\mathbf{1}_{A_5}$ le nombre d'as. Chaque carte tirée a la même chance d'être l'une quelconque des $52$, donc $\mathbb{P}(A_i)=\frac{4}{52}=\frac{1}{13}$. Donc $\mathbb{E}(X)=5\cdot\frac{1}{13}=\frac{5}{13}$. Les événements $A_i$ ne sont pas indépendants, ce qui est sans importance.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> When an experiment starts with a random choice, condition on that choice: split $\Omega$ into the possible first outcomes and add the products $\mathbb{P}(A_i)\,\mathbb{P}(B \mid A_i)$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Quand une expérience commence par un choix au hasard, conditionner par ce choix : découper $\Omega$ selon les premières issues possibles et additionner les produits $\mathbb{P}(A_i)\,\mathbb{P}(B\mid A_i)$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> A box contains two coins: a fair one, and one with heads on both faces. A coin is picked at random and tossed. What is the probability of getting heads?</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Une boîte contient deux pièces : une équilibrée, et une avec pile sur les deux faces. On choisit une pièce au hasard et on la lance. Quelle est la probabilité d'obtenir pile ?</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Let $F$ be the event that the fair coin is picked and $H$ that heads comes up. The pair $(F, F^c)$ is a partition with $\mathbb{P}(F) = \mathbb{P}(F^c) = \frac{1}{2}$, and $\mathbb{P}(H \mid F) = \frac{1}{2}$, $\mathbb{P}(H \mid F^c) = 1$. So $\mathbb{P}(H) = \frac{1}{2}\cdot\frac{1}{2} + \frac{1}{2}\cdot 1 = \frac{3}{4}$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Soit $F$ l'événement « la pièce équilibrée est choisie » et $H$ « on obtient pile ». Le couple $(F,F^c)$ est une partition avec $\mathbb{P}(F)=\mathbb{P}(F^c)=\frac{1}{2}$, et $\mathbb{P}(H\mid F)=\frac{1}{2}$, $\mathbb{P}(H\mid F^c)=1$. Donc $\mathbb{P}(H)=\frac{1}{2}\cdot\frac{1}{2}+\frac{1}{2}\cdot 1=\frac{3}{4}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> Recognize the classical law from the experiment: equally likely outcomes give a uniform law, one trial with two outcomes a Bernoulli law, the number of successes in $n$ independent trials a binomial law, and the rank of the first success a geometric law. Then read the mean and the variance off the corresponding proposition.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Reconnaître la loi classique à partir de l'expérience : des issues équiprobables donnent une loi uniforme, une épreuve à deux issues une loi de Bernoulli, le nombre de succès en $n$ épreuves indépendantes une loi binomiale, et le rang du premier succès une loi géométrique. On lit ensuite l'espérance et la variance sur la proposition correspondante.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> A coin with success probability $p = \frac{1}{3}$ is tossed until the first success. Let $X$ be the number of tosses. (1) What is the law of $X$? Compute $\mathbb{E}(X)$ and $\mathrm{Var}(X)$. (2) Compute $\mathbb{P}(X > 5)$. (3) Compute $\mathbb{P}(X > 8 \mid X > 3)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> On lance une pièce de probabilité de succès $p=\frac{1}{3}$ jusqu'à obtenir le premier succès. Soit $X$ le nombre de lancers effectués. (1) Quelle est la loi de $X$ ? Calculer $\mathbb{E}(X)$ et $\mathrm{Var}(X)$. (2) Calculer $\mathbb{P}(X>5)$. (3) Calculer $\mathbb{P}(X>8\mid X>3)$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $X$ is the rank of the first success, so $X \sim \mathcal{G}(1/3)$, and $\mathbb{E}(X) = 3$, $\mathrm{Var}(X) = \frac{2/3}{1/9} = 6$. Next, $\mathbb{P}(X > 5) = (2/3)^5 = \frac{32}{243}$. Finally $\mathbb{P}(X > 8 \mid X > 3) = (2/3)^5 = \mathbb{P}(X > 5)$ by memorylessness: after three failures the count starts again.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $X$ est le rang du premier succès, donc $X\sim\mathcal{G}(1/3)$, et $\mathbb{E}(X)=3$, $\mathrm{Var}(X)=\frac{2/3}{1/9}=6$. Ensuite, $\mathbb{P}(X>5)=(2/3)^5=\frac{32}{243}$. Enfin $\mathbb{P}(X>8\mid X>3)=(2/3)^5=\mathbb{P}(X>5)$ par absence de mémoire : après trois échecs, le compte repart de zéro.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> When all outcomes are equally likely, $\mathbb{P}(A) = \frac{|A|}{|\Omega|}$, so computing a probability is counting two sets.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Quand toutes les issues sont équiprobables, $\mathbb{P}(A)=\frac{|A|}{|\Omega|}$ : calculer une probabilité, c'est dénombrer deux ensembles.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> An urn contains $n$ white balls and $p$ black balls. We draw $k$ balls without replacement. What is the probability of getting exactly $j$ white balls?</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Une urne contient $n$ boules blanches et $p$ boules noires. On tire $k$ boules sans remise. Quelle est la probabilité d'obtenir exactement $j$ boules blanches ?</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Take $\Omega$ to be the set of $k$-element subsets of the $n+p$ balls, all equally likely: $|\Omega| = \binom{n+p}{k}$. A draw with $j$ white and $k-j$ black balls is a choice of $j$ white balls among $n$ and $k-j$ black among $p$, so the event has $\binom{n}{j}\binom{p}{k-j}$ elements. Hence $\mathbb{P} = \frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$, the hypergeometric law.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        On prend pour $\Omega$ l'ensemble des parties à $k$ éléments des $n+p$ boules, toutes équiprobables : $|\Omega|=\binom{n+p}{k}$. Un tirage à $j$ blanches et $k-j$ noires est un choix de $j$ blanches parmi $n$ et de $k-j$ noires parmi $p$, donc l'événement a $\binom{n}{j}\binom{p}{k-j}$ éléments. Donc $\mathbb{P}=\frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$, la loi hypergéométrique.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To find the law of a sum of independent variables, multiply their generating functions and recognize the result; to find its moments, differentiate at $1$.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour trouver la loi d'une somme de variables indépendantes, multiplier leurs fonctions génératrices et reconnaître le résultat ; pour ses moments, dériver en $1$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $X \sim \mathcal{B}(n,p)$ and $Y \sim \mathcal{B}(m,p)$ be independent. Find the law of $X + Y$, then its expectation.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soient $X\sim\mathcal{B}(n,p)$ et $Y\sim\mathcal{B}(m,p)$ indépendantes. Déterminer la loi de $X+Y$, puis son espérance.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $G_{X+Y}(t) = (1-p+pt)^n(1-p+pt)^m = (1-p+pt)^{n+m}$, which is the generating function of $\mathcal{B}(n+m,p)$. Since the generating function determines the law, $X + Y \sim \mathcal{B}(n+m,p)$. Differentiating, $G_{X+Y}'(t) = (n+m)p(1-p+pt)^{n+m-1}$, so $\mathbb{E}(X+Y) = G_{X+Y}'(1) = (n+m)p$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $G_{X+Y}(t)=(1-p+pt)^n(1-p+pt)^m=(1-p+pt)^{n+m}$, qui est la fonction génératrice de $\mathcal{B}(n+m,p)$. Comme la fonction génératrice détermine la loi, $X+Y\sim\mathcal{B}(n+m,p)$. En dérivant, $G_{X+Y}'(t)=(n+m)p(1-p+pt)^{n+m-1}$, donc $\mathbb{E}(X+Y)=G_{X+Y}'(1)=(n+m)p$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> In a double sum of nonnegative terms the order of summation can be exchanged. Summing along the other direction often replaces one sum by a simpler one.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Dans une somme double à termes positifs, on peut échanger l'ordre de sommation. Sommer dans l'autre sens remplace souvent une somme par une plus simple.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $X$ be a random variable with values in $\mathbb{N}$. Show that $\mathbb{E}(X) = \sum_{k=0}^{+\infty}\mathbb{P}(X > k)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $X$ une variable aléatoire à valeurs dans $\mathbb{N}$. Montrer que $\mathbb{E}(X)=\sum_{k=0}^{+\infty}\mathbb{P}(X>k)$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $\sum_{k=0}^{+\infty}\mathbb{P}(X > k) = \sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X = j)$. The pairs $(k,j)$ summed over are those with $0 \le k &lt; j$, so summing over $j$ first, $\sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X = j) = \sum_{j=1}^{+\infty}j\,\mathbb{P}(X = j) = \mathbb{E}(X)$, the exchange being justified by the positivity of the terms.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $\sum_{k=0}^{+\infty}\mathbb{P}(X>k)=\sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X=j)$. Les couples $(k,j)$ sommés sont ceux vérifiant $0\le k&lt;j$, donc en sommant d'abord en $j$ : $\sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X=j)=\sum_{j=1}^{+\infty}j\,\mathbb{P}(X=j)=\mathbb{E}(X)$, l'échange étant justifié par la positivité des termes.
+      </details>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
-    <!-- Exercise: Hypergeometric -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> An urn contains $n$ white balls and $p$ black balls. We draw $k$ balls without replacement. What is the probability of getting exactly $j$ white balls?</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Une urne contient $n$ boules blanches et $p$ boules noires. On tire $k$ boules sans remise. Quelle est la probabilit&eacute; d'obtenir exactement $j$ boules blanches ?</p>
+      <p class="en"><span class="thm-label">Exercise.</span> A mutually independent family of events is pairwise independent. Find a counterexample to the converse: three events that are pairwise independent but not mutually independent.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Une famille d'événements mutuellement indépendants est indépendante deux à deux. Trouver un contre-exemple à la réciproque : trois événements indépendants deux à deux mais non mutuellement indépendants.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      There are $\binom{n+p}{k}$ possible draws. The number of draws with $j$ white and $k-j$ black balls is $\binom{n}{j}\binom{p}{k-j}$. So $\mathbb{P} = \frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$ (hypergeometric distribution).
+      Roll two fair dice and let $A = \{\text{first die even}\}$, $B = \{\text{second die even}\}$, $C = \{\text{sum even}\}$. Then $\mathbb{P}(A) = \mathbb{P}(B) = \mathbb{P}(C) = \frac{1}{2}$ and $\mathbb{P}(A \cap B) = \mathbb{P}(A \cap C) = \mathbb{P}(B \cap C) = \frac{1}{4}$, so the three pairs are independent. But $A \cap B \subset C$, so $\mathbb{P}(A \cap B \cap C) = \frac{1}{4} \neq \frac{1}{8}$: any two of the three events determine the third.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Il y a $\binom{n+p}{k}$ tirages possibles. Le nombre de tirages avec $j$ blanches et $k-j$ noires est $\binom{n}{j}\binom{p}{k-j}$. Donc $\mathbb{P}=\frac{\binom{n}{j}\binom{p}{k-j}}{\binom{n+p}{k}}$ (loi hyperg&eacute;om&eacute;trique).
+      On lance deux dés équilibrés et on pose $A=\{\text{premier dé pair}\}$, $B=\{\text{second dé pair}\}$, $C=\{\text{somme paire}\}$. Alors $\mathbb{P}(A)=\mathbb{P}(B)=\mathbb{P}(C)=\frac{1}{2}$ et $\mathbb{P}(A\cap B)=\mathbb{P}(A\cap C)=\mathbb{P}(B\cap C)=\frac{1}{4}$, donc les trois paires sont indépendantes. Mais $A\cap B\subset C$, donc $\mathbb{P}(A\cap B\cap C)=\frac{1}{4}\neq\frac{1}{8}$ : deux quelconques des trois événements déterminent le troisième.
     </details>
 
-    <!-- Exercise: Geometric distribution -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> A coin with success probability $p = \frac{1}{3}$ is tossed until the first success. Let $X$ be the number of tosses. (1) What is the law of $X$? Compute $\mathbb{E}(X)$ and $\mathrm{Var}(X)$. (2) Compute $\mathbb{P}(X > 5)$. (3) Compute $\mathbb{P}(X > 8 \mid X > 3)$. Comment.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> On lance une pi&egrave;ce de probabilit&eacute; de succ&egrave;s $p=\frac{1}{3}$ jusqu'&agrave; obtenir le premier succ&egrave;s. Soit $X$ le nombre de lancers effectu&eacute;s. (1) Quelle est la loi de $X$ ? Calculer $\mathbb{E}(X)$ et $\mathrm{Var}(X)$. (2) Calculer $\mathbb{P}(X>5)$. (3) Calculer $\mathbb{P}(X>8\mid X>3)$. Commenter.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Independent random variables have zero covariance. Find a counterexample to the converse: two variables with zero covariance that are not independent.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Des variables aléatoires indépendantes ont une covariance nulle. Trouver un contre-exemple à la réciproque : deux variables de covariance nulle qui ne sont pas indépendantes.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $X \sim \mathcal{G}(1/3)$, so $\mathbb{E}(X) = 3$ and $\mathrm{Var}(X) = \frac{2/3}{1/9} = 6$. $\mathbb{P}(X > 5) = (2/3)^5 = 32/243$. $\mathbb{P}(X > 8 \mid X > 3) = (2/3)^5 = \mathbb{P}(X > 5)$ by the memorylessness property: given that there was no success in 3 tosses, everything restarts from scratch.
+      Let $X$ be uniform on $\{-1, 0, 1\}$ and $Y = X^2$. Then $\mathbb{E}(X) = 0$ and $\mathbb{E}(XY) = \mathbb{E}(X^3) = \mathbb{E}(X) = 0$, so $\mathrm{Cov}(X,Y) = 0$. Yet $Y$ is a function of $X$: $\mathbb{P}(X = 0,\ Y = 1) = 0$ while $\mathbb{P}(X = 0)\,\mathbb{P}(Y = 1) = \frac{1}{3}\cdot\frac{2}{3} \neq 0$. The covariance only sees the linear part of the dependence.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $X\sim\mathcal{G}(1/3)$, donc $\mathbb{E}(X)=3$ et $\mathrm{Var}(X)=\frac{2/3}{1/9}=6$. $\mathbb{P}(X>5)=(2/3)^5=32/243$. $\mathbb{P}(X>8\mid X>3)=(2/3)^5=\mathbb{P}(X>5)$ par absence de m&eacute;moire : sachant qu'on n'a pas eu de succ&egrave;s en 3 lancers, tout se passe comme si on recommen&ccedil;ait &agrave; z&eacute;ro.
+      Soit $X$ uniforme sur $\{-1,0,1\}$ et $Y=X^2$. Alors $\mathbb{E}(X)=0$ et $\mathbb{E}(XY)=\mathbb{E}(X^3)=\mathbb{E}(X)=0$, donc $\mathrm{Cov}(X,Y)=0$. Pourtant $Y$ est une fonction de $X$ : $\mathbb{P}(X=0,\ Y=1)=0$ alors que $\mathbb{P}(X=0)\,\mathbb{P}(Y=1)=\frac{1}{3}\cdot\frac{2}{3}\neq 0$. La covariance ne voit que la part linéaire de la dépendance.
     </details>
 
-    <!-- Exercise: E(X) = sum P(X>k) -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $X$ be a random variable with values in $\mathbb{N}$. Show that $\mathbb{E}(X) = \sum_{k=0}^{+\infty}\mathbb{P}(X > k)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $X$ une variable al&eacute;atoire &agrave; valeurs dans $\mathbb{N}$. Montrer que $\mathbb{E}(X)=\sum_{k=0}^{+\infty}\mathbb{P}(X>k)$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The definition of $\mathbb{E}(X)$ requires the series to converge absolutely. Find a random variable $X$ with values in $\mathbb{Z}$ for which $\sum_{k} k\,\mathbb{P}(X = k)$ converges when the terms are taken in the order $k = 1, -1, 2, -2, \dots$, although $X$ has no expectation.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La définition de $\mathbb{E}(X)$ exige la convergence absolue de la série. Trouver une variable aléatoire $X$ à valeurs dans $\mathbb{Z}$ pour laquelle $\sum_{k}k\,\mathbb{P}(X=k)$ converge quand les termes sont pris dans l'ordre $k=1,-1,2,-2,\dots$, bien que $X$ n'admette pas d'espérance.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $\sum_{k=0}^{+\infty}\mathbb{P}(X > k) = \sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X = j) = \sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X = j) = \sum_{j=1}^{+\infty}j\,\mathbb{P}(X = j) = \mathbb{E}(X)$, the interchange being justified by the positivity of the terms (Fubini-Tonelli for series).
+      Let $c = \frac{3}{\pi^2}$ and set $\mathbb{P}(X = k) = \frac{c}{k^2}$ for every $k \in \mathbb{Z}^*$. This is a law, since $\sum_{k \in \mathbb{Z}^*}\frac{c}{k^2} = 2c\cdot\frac{\pi^2}{6} = 1$. Taken in the order above, the terms $k\,\mathbb{P}(X=k) = \frac{c}{k}$ cancel in pairs and the sum is $0$. But $\sum_{k}|k|\,\mathbb{P}(X = k) = 2c\sum_{k \ge 1}\frac{1}{k} = +\infty$, so $X$ has no expectation. Another order of summation would give another value, which is why the definition requires absolute convergence.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $\sum_{k=0}^{+\infty}\mathbb{P}(X>k)=\sum_{k=0}^{+\infty}\sum_{j=k+1}^{+\infty}\mathbb{P}(X=j)=\sum_{j=1}^{+\infty}\sum_{k=0}^{j-1}\mathbb{P}(X=j)=\sum_{j=1}^{+\infty}j\,\mathbb{P}(X=j)=\mathbb{E}(X)$, l'interversion &eacute;tant justifi&eacute;e par la positivit&eacute; des termes (th&eacute;or&egrave;me de Fubini-Tonelli pour les s&eacute;ries).
+      Posons $c=\frac{3}{\pi^2}$ et $\mathbb{P}(X=k)=\frac{c}{k^2}$ pour tout $k\in\mathbb{Z}^*$. C'est bien une loi, car $\sum_{k\in\mathbb{Z}^*}\frac{c}{k^2}=2c\cdot\frac{\pi^2}{6}=1$. Pris dans l'ordre ci-dessus, les termes $k\,\mathbb{P}(X=k)=\frac{c}{k}$ s'annulent deux à deux et la somme vaut $0$. Mais $\sum_{k}|k|\,\mathbb{P}(X=k)=2c\sum_{k\ge 1}\frac{1}{k}=+\infty$, donc $X$ n'admet pas d'espérance. Un autre ordre de sommation donnerait une autre valeur, et c'est pourquoi la définition exige la convergence absolue.
     </details>
 
-    <!-- Exercise: Generating function of geometric -->
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $X \sim \mathcal{G}(p)$. Compute the generating function of $X$. Deduce $\mathbb{E}(X)$ and $\mathrm{Var}(X)$ by differentiation.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $X\sim\mathcal{G}(p)$. Calculer la fonction g&eacute;n&eacute;ratrice de $X$. En d&eacute;duire $\mathbb{E}(X)$ et $\mathrm{Var}(X)$ par d&eacute;rivation.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> In a group of $n$ people, what is the probability that at least two share a birthday? Birthdays are taken uniform and independent over $365$ days. Compute the value for $n = 23$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Dans un groupe de $n$ personnes, quelle est la probabilité qu'au moins deux aient le même anniversaire ? Les anniversaires sont supposés uniformes et indépendants sur $365$ jours. Calculer la valeur pour $n=23$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      $G_X(t) = \frac{pt}{1-(1-p)t}$. $G_X'(t) = \frac{p}{(1-(1-p)t)^2}$, so $G_X'(1^-) = \frac{p}{p^2} = \frac{1}{p} = \mathbb{E}(X)$. $G_X''(t) = \frac{2p(1-p)}{(1-(1-p)t)^3}$, so $G_X''(1^-) = \frac{2(1-p)}{p^2}$. $\mathrm{Var}(X) = G_X''(1^-) + G_X'(1^-) - (G_X'(1^-))^2 = \frac{2(1-p)}{p^2} + \frac{1}{p} - \frac{1}{p^2} = \frac{1-p}{p^2}$.
+      Work with the complement. The $365^n$ lists of birthdays are equally likely, and those with $n$ distinct birthdays number $365 \times 364 \times \cdots \times (365-n+1)$. So $$\mathbb{P}(\text{at least two equal}) = 1 - \prod_{i=0}^{n-1}\frac{365-i}{365}.$$ For $n = 23$ this is $1 - 0.4927 = 0.5073$, already more than one half.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      $G_X(t)=\frac{pt}{1-(1-p)t}$. $G_X'(t)=\frac{p}{(1-(1-p)t)^2}$, donc $G_X'(1^-)=\frac{p}{p^2}=\frac{1}{p}=\mathbb{E}(X)$. $G_X''(t)=\frac{2p(1-p)}{(1-(1-p)t)^3}$, donc $G_X''(1^-)=\frac{2(1-p)}{p^2}$. $\mathrm{Var}(X)=G_X''(1^-)+G_X'(1^-)-(G_X'(1^-))^2=\frac{2(1-p)}{p^2}+\frac{1}{p}-\frac{1}{p^2}=\frac{1-p}{p^2}$.
+      On passe au complémentaire. Les $365^n$ listes d'anniversaires sont équiprobables, et celles à $n$ anniversaires distincts sont au nombre de $365\times 364\times\cdots\times(365-n+1)$. Donc $$\mathbb{P}(\text{au moins deux égaux})=1-\prod_{i=0}^{n-1}\frac{365-i}{365}.$$ Pour $n=23$, cela vaut $1-0{,}4927=0{,}5073$, déjà plus d'une chance sur deux.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Three cards: one red on both faces, one white on both faces, one red on one face and white on the other. A card is drawn at random and laid on the table; the visible face is red. What is the probability that the hidden face is red too?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Trois cartes : une rouge des deux côtés, une blanche des deux côtés, une rouge d'un côté et blanche de l'autre. On tire une carte au hasard et on la pose sur la table ; la face visible est rouge. Quelle est la probabilité que la face cachée soit rouge aussi ?</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $RR$, $WW$, $RW$ name the three cards and $V$ the event that the visible face is red. By the total probability formula, $\mathbb{P}(V) = \frac{1}{3}\cdot 1 + \frac{1}{3}\cdot 0 + \frac{1}{3}\cdot\frac{1}{2} = \frac{1}{2}$. By Bayes' formula, $$\mathbb{P}(RR \mid V) = \frac{\mathbb{P}(RR)\,\mathbb{P}(V \mid RR)}{\mathbb{P}(V)} = \frac{\frac{1}{3}\cdot 1}{\frac{1}{2}} = \frac{2}{3}.$$ The hidden face is red with probability $\frac{2}{3}$, not $\frac{1}{2}$: the card $RR$ has two ways of showing a red face, the card $RW$ only one.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Notons $RR$, $BB$, $RB$ les trois cartes et $V$ l'événement « la face visible est rouge ». Par la formule des probabilités totales, $\mathbb{P}(V)=\frac{1}{3}\cdot 1+\frac{1}{3}\cdot 0+\frac{1}{3}\cdot\frac{1}{2}=\frac{1}{2}$. Par la formule de Bayes, $$\mathbb{P}(RR\mid V)=\frac{\mathbb{P}(RR)\,\mathbb{P}(V\mid RR)}{\mathbb{P}(V)}=\frac{\frac{1}{3}\cdot 1}{\frac{1}{2}}=\frac{2}{3}.$$ La face cachée est rouge avec probabilité $\frac{2}{3}$, et non $\frac{1}{2}$ : la carte $RR$ a deux façons de montrer une face rouge, la carte $RB$ une seule.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> A permutation $\sigma$ of $\{1, \dots, n\}$ is drawn uniformly at random. What is the expected number of $i$ such that $\sigma(i) = i$?</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> On tire uniformément au hasard une permutation $\sigma$ de $\{1,\dots,n\}$. Quel est le nombre moyen de $i$ tels que $\sigma(i)=i$ ?</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $A_i = \{\sigma(i) = i\}$ and $X = \sum_{i=1}^n \mathbf{1}_{A_i}$. The permutations with $\sigma(i) = i$ number $(n-1)!$, so $\mathbb{P}(A_i) = \frac{(n-1)!}{n!} = \frac{1}{n}$. Hence $\mathbb{E}(X) = n \cdot \frac{1}{n} = 1$, whatever $n$. Counting the permutations with exactly $k$ fixed points is much harder, and is not needed here.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $A_i=\{\sigma(i)=i\}$ et $X=\sum_{i=1}^n\mathbf{1}_{A_i}$. Les permutations vérifiant $\sigma(i)=i$ sont au nombre de $(n-1)!$, donc $\mathbb{P}(A_i)=\frac{(n-1)!}{n!}=\frac{1}{n}$. Donc $\mathbb{E}(X)=n\cdot\frac{1}{n}=1$, quel que soit $n$. Compter les permutations ayant exactement $k$ points fixes est bien plus difficile, et inutile ici.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $X \sim \mathcal{G}(p)$. Compute $G_X$, and check that differentiating it at $1$ gives back $\mathbb{E}(X)$ and $\mathrm{Var}(X)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $X\sim\mathcal{G}(p)$. Calculer $G_X$, et vérifier qu'en la dérivant en $1$ on retrouve $\mathbb{E}(X)$ et $\mathrm{Var}(X)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $G_X(t) = \sum_{k=1}^{+\infty}(1-p)^{k-1}p\,t^k = pt\sum_{j=0}^{+\infty}((1-p)t)^j = \frac{pt}{1-(1-p)t}$ for $|t| &lt; \frac{1}{1-p}$. Then $G_X'(t) = \frac{p}{(1-(1-p)t)^2}$, so $G_X'(1^-) = \frac{p}{p^2} = \frac{1}{p} = \mathbb{E}(X)$. And $G_X''(t) = \frac{2p(1-p)}{(1-(1-p)t)^3}$, so $G_X''(1^-) = \frac{2(1-p)}{p^2}$ and $$\mathrm{Var}(X) = \frac{2(1-p)}{p^2} + \frac{1}{p} - \frac{1}{p^2} = \frac{1-p}{p^2}.$$
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $G_X(t)=\sum_{k=1}^{+\infty}(1-p)^{k-1}p\,t^k=pt\sum_{j=0}^{+\infty}((1-p)t)^j=\frac{pt}{1-(1-p)t}$ pour $|t|&lt;\frac{1}{1-p}$. Ensuite $G_X'(t)=\frac{p}{(1-(1-p)t)^2}$, donc $G_X'(1^-)=\frac{p}{p^2}=\frac{1}{p}=\mathbb{E}(X)$. Et $G_X''(t)=\frac{2p(1-p)}{(1-(1-p)t)^3}$, donc $G_X''(1^-)=\frac{2(1-p)}{p^2}$ et $$\mathrm{Var}(X)=\frac{2(1-p)}{p^2}+\frac{1}{p}-\frac{1}{p^2}=\frac{1-p}{p^2}.$$
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Coupon collector).</span> Each box contains one coupon, drawn uniformly among $n$ kinds, independently of the others. Let $T$ be the number of boxes needed to collect all $n$ kinds. Compute $\mathbb{E}(T)$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Collectionneur de vignettes).</span> Chaque boîte contient une vignette, tirée uniformément parmi $n$ sortes, indépendamment des autres. Soit $T$ le nombre de boîtes nécessaires pour réunir les $n$ sortes. Calculer $\mathbb{E}(T)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Cut the wait into stages: let $T_i$ be the number of boxes bought while exactly $i$ kinds are already held, for $0 \le i \le n-1$, so that $T = T_0 + T_1 + \cdots + T_{n-1}$. While $i$ kinds are held, each new box is a new kind with probability $\frac{n-i}{n}$, independently of the past, so $T_i \sim \mathcal{G}\!\left(\frac{n-i}{n}\right)$ and $\mathbb{E}(T_i) = \frac{n}{n-i}$. By linearity, $$\mathbb{E}(T) = \sum_{i=0}^{n-1}\frac{n}{n-i} = n\sum_{j=1}^{n}\frac{1}{j} = n\,H_n.$$ For $n = 50$ this is about $225$ boxes.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      On découpe l'attente en étapes : soit $T_i$ le nombre de boîtes achetées alors qu'on possède exactement $i$ sortes, pour $0\le i\le n-1$, de sorte que $T=T_0+T_1+\cdots+T_{n-1}$. Tant qu'on possède $i$ sortes, chaque nouvelle boîte apporte une sorte nouvelle avec probabilité $\frac{n-i}{n}$, indépendamment du passé, donc $T_i\sim\mathcal{G}\!\left(\frac{n-i}{n}\right)$ et $\mathbb{E}(T_i)=\frac{n}{n-i}$. Par linéarité, $$\mathbb{E}(T)=\sum_{i=0}^{n-1}\frac{n}{n-i}=n\sum_{j=1}^{n}\frac{1}{j}=n\,H_n.$$ Pour $n=50$, cela fait environ $225$ boîtes.
     </details>
 
   </main>
