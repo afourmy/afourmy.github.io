@@ -24,6 +24,12 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
+    <h3 class="en">A matrix is a linear map in coordinates</h3>
+    <h3 class="fr">Une matrice est une application linéaire en coordonnées</h3>
+
+    <p class="en">A linear map between finite dimensional spaces is determined by the images of a basis, and each image is a list of coordinates in the basis of the target space.</p>
+    <p class="fr">Une application linéaire entre espaces de dimension finie est déterminée par les images d'une base, et chaque image est une liste de coordonnées dans la base de l'espace d'arrivée.</p>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Matrix).</span> Let $n,p\in\mathbb{N}^*$. A <em>matrix</em> with $n$ rows and $p$ columns with entries in $\mathbb{K}$ is an array $A=(a_{ij})_{\substack{1\le i\le n\\1\le j\le p}}$ of elements of $\mathbb{K}$. We denote by $\mathcal{M}_{n,p}(\mathbb{K})$ the set of these matrices, and $\mathcal{M}_n(\mathbb{K})=\mathcal{M}_{n,n}(\mathbb{K})$.</p>
       <p class="fr"><span class="thm-label">Définition (Matrice).</span> Soient $n,p\in\mathbb{N}^*$. Une <em>matrice</em> à $n$ lignes et $p$ colonnes à coefficients dans $\mathbb{K}$ est un tableau $A=(a_{ij})_{\substack{1\le i\le n\\1\le j\le p}}$ d'éléments de $\mathbb{K}$. On note $\mathcal{M}_{n,p}(\mathbb{K})$ l'ensemble de ces matrices, et $\mathcal{M}_n(\mathbb{K})=\mathcal{M}_{n,n}(\mathbb{K})$.</p>
@@ -44,9 +50,221 @@
     </details>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Matrix product).</span> Let $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B=(b_{jk})\in\mathcal{M}_{p,q}(\mathbb{K})$. The <em>product</em> $AB$ is the matrix $C=(c_{ik})\in\mathcal{M}_{n,q}(\mathbb{K})$ defined by $c_{ik}=\sum_{j=1}^p a_{ij}b_{jk}$.</p>
-      <p class="fr"><span class="thm-label">Définition (Produit matriciel).</span> Soient $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B=(b_{jk})\in\mathcal{M}_{p,q}(\mathbb{K})$. Le <em>produit</em> $AB$ est la matrice $C=(c_{ik})\in\mathcal{M}_{n,q}(\mathbb{K})$ définie par $c_{ik}=\sum_{j=1}^p a_{ij}b_{jk}$.</p>
+      <p class="en"><span class="thm-label">Definition (Matrix of a linear map).</span> Let $E$ and $F$ be $\mathbb{K}$-vector spaces of dimensions $p$ and $n$, equipped with bases $\mathcal{B}=(e_1,\ldots,e_p)$ and $\mathcal{C}=(f_1,\ldots,f_n)$. The <em>matrix</em> of $u\in\mathcal{L}(E,F)$ in the bases $\mathcal{B}$ and $\mathcal{C}$ is the matrix $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathcal{M}_{n,p}(\mathbb{K})$ whose $j$-th column contains the coordinates of $u(e_j)$ in $\mathcal{C}$: $u(e_j)=\sum_{i=1}^n a_{ij}f_i$. For an endomorphism, we write $\mathrm{Mat}_\mathcal{B}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}}(u)$.</p>
+      <p class="fr"><span class="thm-label">Définition (Matrice d'une application linéaire).</span> Soient $E$ et $F$ des $\mathbb{K}$-ev de dimensions $p$ et $n$, munis de bases $\mathcal{B}=(e_1,\ldots,e_p)$ et $\mathcal{C}=(f_1,\ldots,f_n)$. La <em>matrice</em> de $u\in\mathcal{L}(E,F)$ dans les bases $\mathcal{B}$ et $\mathcal{C}$ est la matrice $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathcal{M}_{n,p}(\mathbb{K})$ dont la $j$-ème colonne contient les coordonnées de $u(e_j)$ dans $\mathcal{C}$ : $u(e_j)=\sum_{i=1}^n a_{ij}f_i$. Pour un endomorphisme, on note $\mathrm{Mat}_\mathcal{B}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}}(u)$.</p>
     </div>
+
+    <p class="en">A matrix is therefore the list of the images of the basis vectors, one per column.</p>
+    <p class="fr">Une matrice est donc la liste des images des vecteurs de base, une par colonne.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="535.2" height="179.0" viewBox="27.8 57.0 535.2 179.0">
+        <line class="fig-cell" x1="60.0" y1="200.0" x2="60.0" y2="86.0"/>
+        <line class="fig-cell" x1="98.0" y1="200.0" x2="98.0" y2="86.0"/>
+        <line class="fig-cell" x1="136.0" y1="200.0" x2="136.0" y2="86.0"/>
+        <line class="fig-cell" x1="174.0" y1="200.0" x2="174.0" y2="86.0"/>
+        <line class="fig-cell" x1="60.0" y1="200.0" x2="174.0" y2="200.0"/>
+        <line class="fig-cell" x1="60.0" y1="162.0" x2="174.0" y2="162.0"/>
+        <line class="fig-cell" x1="60.0" y1="124.0" x2="174.0" y2="124.0"/>
+        <line class="fig-cell" x1="60.0" y1="86.0" x2="174.0" y2="86.0"/>
+        <line class="fig-axis" x1="46.0" y1="200.0" x2="188.0" y2="200.0"/>
+        <line class="fig-axis" x1="60.0" y1="214.0" x2="60.0" y2="72.0"/>
+        <line class="fig-curve" x1="60.0" y1="200.0" x2="90.0" y2="200.0"/><polygon class="fig-dot" points="98.0,200.0 90.0,203.0 90.0,197.0"/>
+        <line class="fig-curve" x1="60.0" y1="200.0" x2="60.0" y2="170.0"/><polygon class="fig-dot" points="60.0,162.0 63.0,170.0 57.0,170.0"/>
+        <circle class="fig-dot" cx="60.0" cy="200.0" r="3.0"/>
+        <text x="98.0" y="220.0" text-anchor="middle">e<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="44.0" y="167.0" text-anchor="middle">e<tspan dy="4" font-size="11">2</tspan></text>
+        <line class="fig-cell" x1="300.0" y1="200.0" x2="300.0" y2="86.0"/>
+        <line class="fig-cell" x1="338.0" y1="200.0" x2="338.0" y2="86.0"/>
+        <line class="fig-cell" x1="376.0" y1="200.0" x2="376.0" y2="86.0"/>
+        <line class="fig-cell" x1="414.0" y1="200.0" x2="414.0" y2="86.0"/>
+        <line class="fig-cell" x1="300.0" y1="200.0" x2="414.0" y2="200.0"/>
+        <line class="fig-cell" x1="300.0" y1="162.0" x2="414.0" y2="162.0"/>
+        <line class="fig-cell" x1="300.0" y1="124.0" x2="414.0" y2="124.0"/>
+        <line class="fig-cell" x1="300.0" y1="86.0" x2="414.0" y2="86.0"/>
+        <line class="fig-axis" x1="286.0" y1="200.0" x2="428.0" y2="200.0"/>
+        <line class="fig-axis" x1="300.0" y1="214.0" x2="300.0" y2="72.0"/>
+        <line class="fig-curve" x1="300.0" y1="200.0" x2="368.8" y2="165.6"/><polygon class="fig-dot" points="376.0,162.0 370.2,168.3 367.5,162.9"/>
+        <line class="fig-curve" x1="300.0" y1="200.0" x2="335.5" y2="93.6"/><polygon class="fig-dot" points="338.0,86.0 338.3,94.5 332.6,92.6"/>
+        <circle class="fig-dot" cx="300.0" cy="200.0" r="3.0"/>
+        <text x="382.0" y="184.0" text-anchor="middle">Ae<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="324.0" y="78.0" text-anchor="middle">Ae<tspan dy="4" font-size="11">2</tspan></text>
+        <text class="fig-text" x="501.0" y="146.0" text-anchor="middle">2</text>
+        <text class="fig-text" x="529.0" y="146.0" text-anchor="middle">1</text>
+        <text class="fig-text" x="501.0" y="178.0" text-anchor="middle">1</text>
+        <text class="fig-text" x="529.0" y="178.0" text-anchor="middle">3</text>
+        <path class="fig-bracket" d="M 484 120 L 477 120 L 477 196 L 484 196"/>
+        <path class="fig-bracket" d="M 546 120 L 553 120 L 553 196 L 546 196"/>
+        <rect class="fig-accent" x="488.0" y="126.0" width="26.0" height="64.0"/>
+        <rect class="fig-accent" x="516.0" y="126.0" width="26.0" height="64.0"/>
+        <line class="fig-guide" x1="488.0" y1="158.0" x2="386.0" y2="162.0"/>
+        <line class="fig-guide" x1="518.0" y1="126.0" x2="348.0" y2="80.0"/>
+        <text x="515.0" y="216.0" text-anchor="middle">A</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the basis $e_1$, $e_2$ of $\mathbb{K}^2$.</span><span class="cap-part"><span class="cap-lead">Right:</span> their images under the map with matrix $A=\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}$. The coordinates of $Ae_1$ are the first column of $A$, those of $Ae_2$ the second.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> la base $e_1$, $e_2$ de $\mathbb{K}^2$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> leurs images par l'application de matrice $A=\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}$. Les coordonnées de $Ae_1$ forment la première colonne de $A$, celles de $Ae_2$ la seconde.</span></span></figcaption>
+    </figure>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Maps and matrices are the same thing).</span> The map $u\mapsto\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ is an isomorphism from $\mathcal{L}(E,F)$ onto $\mathcal{M}_{n,p}(\mathbb{K})$. In particular $\dim\mathcal{L}(E,F)=np$, and every matrix is the matrix of exactly one linear map.</p>
+      <p class="fr"><span class="thm-label">Proposition (Applications et matrices sont la même chose).</span> L'application $u\mapsto\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ est un isomorphisme de $\mathcal{L}(E,F)$ sur $\mathcal{M}_{n,p}(\mathbb{K})$. En particulier $\dim\mathcal{L}(E,F)=np$, et toute matrice est la matrice d'une unique application linéaire.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Linearity is read off the columns: the $j$-th column of $\mathrm{Mat}(u+\lambda v)$ holds the coordinates of $u(e_j)+\lambda v(e_j)$. A linear map is determined by the images of a basis, so the map is injective; and given $A$, the map sending $e_j$ to the vector with coordinates $(a_{1j},\ldots,a_{nj})$ in $\mathcal{C}$ has matrix $A$, so it is surjective.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      La linéarité se lit sur les colonnes : la $j$-ème colonne de $\mathrm{Mat}(u+\lambda v)$ contient les coordonnées de $u(e_j)+\lambda v(e_j)$. Une application linéaire est déterminée par les images d'une base, donc l'application est injective ; et étant donné $A$, l'application envoyant $e_j$ sur le vecteur de coordonnées $(a_{1j},\ldots,a_{nj})$ dans $\mathcal{C}$ a pour matrice $A$, donc elle est surjective.
+    </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Action on a column).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$ with columns $C_1,\ldots,C_p$ and let $X=\begin{pmatrix}x_1\\\vdots\\x_p\end{pmatrix}\in\mathcal{M}_{p,1}(\mathbb{K})$. We set $AX=x_1C_1+\cdots+x_pC_p\in\mathcal{M}_{n,1}(\mathbb{K})$, that is $(AX)_i=\sum_{j=1}^p a_{ij}x_j$.</p>
+      <p class="fr"><span class="thm-label">Définition (Action sur une colonne).</span> Soient $A\in\mathcal{M}_{n,p}(\mathbb{K})$ de colonnes $C_1,\ldots,C_p$ et $X=\begin{pmatrix}x_1\\\vdots\\x_p\end{pmatrix}\in\mathcal{M}_{p,1}(\mathbb{K})$. On pose $AX=x_1C_1+\cdots+x_pC_p\in\mathcal{M}_{n,1}(\mathbb{K})$, c'est-à-dire $(AX)_i=\sum_{j=1}^p a_{ij}x_j$.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Let $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ and let $X$ hold the coordinates of $x\in E$ in $\mathcal{B}$. Then $AX$ holds the coordinates of $u(x)$ in $\mathcal{C}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Soient $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ et $X$ la colonne des coordonnées de $x\in E$ dans $\mathcal{B}$. Alors $AX$ est la colonne des coordonnées de $u(x)$ dans $\mathcal{C}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $u(x)=u\!\left(\sum_j x_je_j\right)=\sum_j x_ju(e_j)$, and the coordinates of $u(e_j)$ are the column $C_j$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $u(x)=u\!\left(\sum_j x_je_j\right)=\sum_j x_ju(e_j)$, et les coordonnées de $u(e_j)$ forment la colonne $C_j$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="218.0" height="229.0" viewBox="46.0 5.0 218.0 229.0">
+        <line class="fig-cell" x1="70.0" y1="210.0" x2="70.0" y2="40.0"/>
+        <line class="fig-cell" x1="104.0" y1="210.0" x2="104.0" y2="40.0"/>
+        <line class="fig-cell" x1="138.0" y1="210.0" x2="138.0" y2="40.0"/>
+        <line class="fig-cell" x1="172.0" y1="210.0" x2="172.0" y2="40.0"/>
+        <line class="fig-cell" x1="206.0" y1="210.0" x2="206.0" y2="40.0"/>
+        <line class="fig-cell" x1="240.0" y1="210.0" x2="240.0" y2="40.0"/>
+        <line class="fig-cell" x1="70.0" y1="210.0" x2="240.0" y2="210.0"/>
+        <line class="fig-cell" x1="70.0" y1="176.0" x2="240.0" y2="176.0"/>
+        <line class="fig-cell" x1="70.0" y1="142.0" x2="240.0" y2="142.0"/>
+        <line class="fig-cell" x1="70.0" y1="108.0" x2="240.0" y2="108.0"/>
+        <line class="fig-cell" x1="70.0" y1="74.0" x2="240.0" y2="74.0"/>
+        <line class="fig-cell" x1="70.0" y1="40.0" x2="240.0" y2="40.0"/>
+        <line class="fig-axis" x1="56.0" y1="210.0" x2="254.0" y2="210.0"/>
+        <line class="fig-axis" x1="70.0" y1="224.0" x2="70.0" y2="26.0"/>
+        <line class="fig-curve" x1="70.0" y1="210.0" x2="198.8" y2="145.6"/><polygon class="fig-dot" points="206.0,142.0 200.2,148.3 197.5,142.9"/>
+        <line class="fig-curve" x1="206.0" y1="142.0" x2="237.5" y2="47.6"/><polygon class="fig-dot" points="240.0,40.0 240.3,48.5 234.6,46.6"/>
+        <line class="fig-free-solid" x1="70.0" y1="210.0" x2="130.8" y2="179.6"/><polygon class="fig-dot-alt" points="138.0,176.0 132.2,182.3 129.5,176.9"/>
+        <line class="fig-free-solid" x1="70.0" y1="210.0" x2="101.5" y2="115.6"/><polygon class="fig-dot-alt" points="104.0,108.0 104.3,116.5 98.6,114.6"/>
+        <text x="140.0" y="198.0" text-anchor="middle">c<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="90.0" y="102.0" text-anchor="middle">c<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="218.0" y="162.0" text-anchor="start">2c<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="228.0" y="95.0" text-anchor="start">c<tspan dy="4" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="240.0" cy="40.0" r="4.0"/>
+        <text x="240.0" y="26.0" text-anchor="middle">AX</text>
+        <circle class="fig-dot" cx="70.0" cy="210.0" r="3.0"/>
+      </svg>
+      <figcaption><span class="en">$AX$ for $A=\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}$ and $X=\begin{pmatrix}2\\1\end{pmatrix}$. The columns $c_1$ and $c_2$, in grey, are taken twice and once and laid end to end.</span><span class="fr">$AX$ pour $A=\begin{pmatrix}2&amp;1\\1&amp;3\end{pmatrix}$ et $X=\begin{pmatrix}2\\1\end{pmatrix}$. Les colonnes $c_1$ et $c_2$, en gris, sont prises deux fois et une fois, puis mises bout à bout.</span></figcaption>
+    </figure>
+
+    <h3 class="en">The product is composition</h3>
+    <h3 class="fr">Le produit est la composition</h3>
+
+    <p class="en">Composing two linear maps gives a linear map, which has a matrix. Its $k$-th column holds the image of $e_k$, obtained by applying the second map to the $k$-th column of the first matrix.</p>
+    <p class="fr">La composée de deux applications linéaires est une application linéaire, qui a donc une matrice. Sa $k$-ème colonne contient l'image de $e_k$, obtenue en appliquant la seconde application à la $k$-ème colonne de la première matrice.</p>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Matrix product).</span> Let $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B=(b_{jk})\in\mathcal{M}_{p,q}(\mathbb{K})$ with columns $B_1,\ldots,B_q$. The <em>product</em> $AB$ is the matrix of $\mathcal{M}_{n,q}(\mathbb{K})$ whose $k$-th column is $AB_k$, that is $C=(c_{ik})$ with $c_{ik}=\sum_{j=1}^p a_{ij}b_{jk}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Produit matriciel).</span> Soient $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B=(b_{jk})\in\mathcal{M}_{p,q}(\mathbb{K})$ de colonnes $B_1,\ldots,B_q$. Le <em>produit</em> $AB$ est la matrice de $\mathcal{M}_{n,q}(\mathbb{K})$ dont la $k$-ème colonne est $AB_k$, c'est-à-dire $C=(c_{ik})$ avec $c_{ik}=\sum_{j=1}^p a_{ij}b_{jk}$.</p>
+    </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="290.8" height="306.0" viewBox="120.8 -3.0 290.8 306.0">
+        <rect class="fig-band" x="148.0" y="200.0" width="112.0" height="28.0"/>
+        <rect class="fig-band" x="300.0" y="30.0" width="28.0" height="112.0"/>
+        <rect class="fig-cell" x="300.0" y="30.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="30.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="58.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="58.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="86.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="86.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="114.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="114.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="148.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="176.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="204.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="232.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="148.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="176.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="204.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="232.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="148.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="176.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="204.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="232.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="172.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="200.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="300.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-cell" x="328.0" y="228.0" width="28.0" height="28.0"/>
+        <rect class="fig-shape-img" x="300.0" y="200.0" width="28.0" height="28.0"/>
+        <line class="fig-guide" x1="260.0" y1="214.0" x2="300.0" y2="214.0"/>
+        <line class="fig-guide" x1="314.0" y1="142.0" x2="314.0" y2="172.0"/>
+        <text x="204.0" y="160.0" text-anchor="middle">A</text>
+        <text x="384.0" y="91.0" text-anchor="start">B</text>
+        <text x="328.0" y="290.0" text-anchor="middle">AB</text>
+        <text x="136.0" y="219.0" text-anchor="end">i</text>
+        <text x="314.0" y="18.0" text-anchor="middle">k</text>
+        <text x="368.0" y="219.0" text-anchor="start">(i, k)</text>
+        <line class="fig-bar" x1="148.0" y1="270.0" x2="260.0" y2="270.0"/>
+        <line class="fig-bar" x1="148.0" y1="266.0" x2="148.0" y2="274.0"/>
+        <line class="fig-bar" x1="260.0" y1="266.0" x2="260.0" y2="274.0"/>
+        <text x="204.0" y="290.0" text-anchor="middle">p</text>
+        <line class="fig-bar" x1="286.0" y1="30.0" x2="286.0" y2="142.0"/>
+        <line class="fig-bar" x1="282.0" y1="30.0" x2="290.0" y2="30.0"/>
+        <line class="fig-bar" x1="282.0" y1="142.0" x2="290.0" y2="142.0"/>
+        <text x="276.0" y="91.0" text-anchor="end">p</text>
+      </svg>
+      <figcaption><span class="en">The entry $(i,k)$ of $AB$ is built from row $i$ of $A$ and column $k$ of $B$. Both hold $p$ entries, which is why the number of columns of $A$ has to be the number of rows of $B$.</span><span class="fr">Le coefficient $(i,k)$ de $AB$ se construit à partir de la ligne $i$ de $A$ et de la colonne $k$ de $B$. Toutes deux ont $p$ coefficients, ce qui impose que le nombre de colonnes de $A$ soit le nombre de lignes de $B$.</span></figcaption>
+    </figure>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (The product computes the composite).</span> Let $u\in\mathcal{L}(E,F)$ and $v\in\mathcal{L}(F,G)$ with $\mathcal{B},\mathcal{C},\mathcal{D}$ bases of $E,F,G$. Then $\mathrm{Mat}_{\mathcal{B},\mathcal{D}}(v\circ u)=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)\cdot\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Le produit calcule la composée).</span> Soient $u\in\mathcal{L}(E,F)$ et $v\in\mathcal{L}(F,G)$ avec $\mathcal{B},\mathcal{C},\mathcal{D}$ des bases de $E,F,G$. Alors $\mathrm{Mat}_{\mathcal{B},\mathcal{D}}(v\circ u)=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)\cdot\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Set $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)=(a_{kj})$ and $B=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)=(b_{ik})$. Then $(v\circ u)(e_j)=v\!\left(\sum_k a_{kj}f_k\right)=\sum_i\!\left(\sum_k b_{ik}a_{kj}\right)g_i$, and $\sum_k b_{ik}a_{kj}=(BA)_{ij}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)=(a_{kj})$ et $B=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)=(b_{ik})$. Alors $(v\circ u)(e_j)=v\!\left(\sum_k a_{kj}f_k\right)=\sum_i\!\left(\sum_k b_{ik}a_{kj}\right)g_i$, et $\sum_k b_{ik}a_{kj}=(BA)_{ij}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="427.6" height="168.0" viewBox="36.1 35.0 427.6 168.0">
+        <text x="80.0" y="88.0" text-anchor="middle">E</text>
+        <text x="80.0" y="112.0" text-anchor="middle">(e<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">, …, e<tspan dy="4" font-size="11">p</tspan></tspan>)</text>
+        <text x="250.0" y="88.0" text-anchor="middle">F</text>
+        <text x="250.0" y="112.0" text-anchor="middle">(f<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">, …, f<tspan dy="4" font-size="11">n</tspan></tspan>)</text>
+        <text x="420.0" y="88.0" text-anchor="middle">G</text>
+        <text x="420.0" y="112.0" text-anchor="middle">(g<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">, …, g<tspan dy="4" font-size="11">q</tspan></tspan>)</text>
+        <line class="fig-curve" x1="102.0" y1="83.0" x2="220.0" y2="83.0"/><polygon class="fig-dot" points="228.0,83.0 220.0,86.0 220.0,80.0"/>
+        <line class="fig-curve" x1="272.0" y1="83.0" x2="390.0" y2="83.0"/><polygon class="fig-dot" points="398.0,83.0 390.0,86.0 390.0,80.0"/>
+        <text x="165.0" y="56.0" text-anchor="middle">u</text>
+        <text x="335.0" y="56.0" text-anchor="middle">v</text>
+        <text x="165.0" y="74.0" text-anchor="middle">A</text>
+        <text x="335.0" y="74.0" text-anchor="middle">B</text>
+        <path class="fig-accent" d="M 92.0 124.0 Q 250.0 196.0 408.0 124.0"/>
+        <polygon class="fig-dot" points="408.0,124.0 401.1,130.6 398.5,124.8"/>
+        <text x="250.0" y="170.0" text-anchor="middle">v ∘ u</text>
+        <text x="250.0" y="190.0" text-anchor="middle">BA</text>
+      </svg>
+      <figcaption><span class="en">The composite arrow from $E$ to $G$ carries the product of the two matrices it is made of, in the reverse order.</span><span class="fr">La flèche composée de $E$ à $G$ porte le produit des deux matrices dont elle est faite, dans l'ordre inverse.</span></figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Properties of the product).</span> Let $A,A'\in\mathcal{M}_{n,p}(\mathbb{K})$, $B,B'\in\mathcal{M}_{p,q}(\mathbb{K})$, $C\in\mathcal{M}_{q,r}(\mathbb{K})$ and $\lambda\in\mathbb{K}$. The product is <em>associative</em>, $(AB)C=A(BC)$; <em>bilinear</em>, $(A+A')B=AB+A'B$, $A(B+B')=AB+AB'$ and $\lambda(AB)=(\lambda A)B=A(\lambda B)$; and admits $I_n=(\delta_{ij})$ as the <em>identity element</em>, $I_nA=A$ and $AI_p=A$.</p>
@@ -55,12 +273,12 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      Associativity: the $(i,l)$ entry of $(AB)C$ is $\sum_k\left(\sum_j a_{ij}b_{jk}\right)c_{kl}=\sum_{j,k}a_{ij}b_{jk}c_{kl}=\sum_j a_{ij}\left(\sum_k b_{jk}c_{kl}\right)$, which is the $(i,l)$ entry of $A(BC)$.
+      Associativity: every matrix is the matrix of a linear map, so write $A=\mathrm{Mat}(w)$, $B=\mathrm{Mat}(v)$, $C=\mathrm{Mat}(u)$ in fixed bases. Then $(AB)C$ and $A(BC)$ are the matrices of $(w\circ v)\circ u$ and $w\circ(v\circ u)$, which are the same map.
       Bilinearity and identity element: direct computation.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Associativité : le coefficient $(i,l)$ de $(AB)C$ est $\sum_k\left(\sum_j a_{ij}b_{jk}\right)c_{kl}=\sum_{j,k}a_{ij}b_{jk}c_{kl}=\sum_j a_{ij}\left(\sum_k b_{jk}c_{kl}\right)$, qui est le coefficient $(i,l)$ de $A(BC)$.
+      Associativité : toute matrice est la matrice d'une application linéaire, donc écrivons $A=\mathrm{Mat}(w)$, $B=\mathrm{Mat}(v)$, $C=\mathrm{Mat}(u)$ dans des bases fixées. Alors $(AB)C$ et $A(BC)$ sont les matrices de $(w\circ v)\circ u$ et $w\circ(v\circ u)$, qui sont la même application.
       Bilinéarité et élément neutre : calculs directs.
     </details>
 
@@ -78,10 +296,81 @@
       Le coefficient $(s,t)$ du produit $E_{ij}E_{kl}$ est $\sum_{m=1}^p (E_{ij})_{sm}(E_{kl})_{mt}=\sum_m \delta_{si}\delta_{mj}\,\delta_{mk}\delta_{lt}=\delta_{si}\,\delta_{jk}\,\delta_{lt}$, qui est bien le coefficient $(s,t)$ de $\delta_{jk}\,E_{il}$.
     </details>
 
+    <p class="en">Composing a quarter turn with a reflection does not give the same map in both orders, so the product of the two matrices depends on the order.</p>
+    <p class="fr">Composer un quart de tour et une symétrie ne donne pas la même application dans les deux ordres, donc le produit des deux matrices dépend de l'ordre.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem.</span> $(\mathcal{M}_n(\mathbb{K}),+,\times)$ is a unital ring, non-commutative and not an integral domain (there exist zero divisors) for $n\ge 2$.</p>
+      <p class="fr"><span class="thm-label">Théorème.</span> $(\mathcal{M}_n(\mathbb{K}),+,\times)$ est un anneau unitaire, non commutatif et non intègre (il existe des diviseurs de zéro) pour $n\ge 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $(\mathcal{M}_n(\mathbb{K}),+)$ is an abelian group. The product is associative, distributive with respect to addition, and $I_n$ is the identity element.
+
+      Non-commutative: let $R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ and $S=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$. Then $SR=\begin{pmatrix}0&-1\\-1&0\end{pmatrix}$ and $RS=\begin{pmatrix}0&1\\1&0\end{pmatrix}$.
+
+      Not an integral domain: $E_{11}E_{22}=0$, that is $\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $(\mathcal{M}_n(\mathbb{K}),+)$ est un groupe abélien. Le produit est associatif, distributif par rapport à l'addition, et $I_n$ est l'élément neutre.
+
+      Non commutatif : soient $R=\begin{pmatrix}0&-1\\1&0\end{pmatrix}$ et $S=\begin{pmatrix}1&0\\0&-1\end{pmatrix}$. Alors $SR=\begin{pmatrix}0&-1\\-1&0\end{pmatrix}$ et $RS=\begin{pmatrix}0&1\\1&0\end{pmatrix}$.
+
+      Non intègre : $E_{11}E_{22}=0$, c'est-à-dire $\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="601.6" height="181.6" viewBox="39.2 79.2 601.6 181.6">
+        <line class="fig-axis" x1="49.2" y1="170.0" x2="210.8" y2="170.0"/>
+        <line class="fig-axis" x1="130.0" y1="250.8" x2="130.0" y2="89.2"/>
+        <polygon class="fig-shape" points="130.0,170.0 174.0,170.0 174.0,148.0 152.0,148.0 152.0,104.0 130.0,104.0"/>
+        <line class="fig-axis" x1="259.2" y1="170.0" x2="420.8" y2="170.0"/>
+        <line class="fig-axis" x1="340.0" y1="250.8" x2="340.0" y2="89.2"/>
+        <polygon class="fig-free" points="340.0,170.0 340.0,126.0 318.0,126.0 318.0,148.0 274.0,148.0 274.0,170.0"/>
+        <polygon class="fig-shape-img" points="340.0,170.0 340.0,214.0 318.0,214.0 318.0,192.0 274.0,192.0 274.0,170.0"/>
+        <text x="296.0" y="139.2" text-anchor="middle">R</text>
+        <text x="296.0" y="205.2" text-anchor="middle">SR</text>
+        <line class="fig-axis" x1="469.2" y1="170.0" x2="630.8" y2="170.0"/>
+        <line class="fig-axis" x1="550.0" y1="250.8" x2="550.0" y2="89.2"/>
+        <polygon class="fig-free" points="550.0,170.0 594.0,170.0 594.0,192.0 572.0,192.0 572.0,236.0 550.0,236.0"/>
+        <polygon class="fig-shape-img" points="550.0,170.0 550.0,126.0 572.0,126.0 572.0,148.0 616.0,148.0 616.0,170.0"/>
+        <text x="584.1" y="214.0" text-anchor="middle">S</text>
+        <text x="594.0" y="139.2" text-anchor="middle">RS</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the shaded L.</span><span class="cap-part"><span class="cap-lead">Middle:</span> its image under the quarter turn $R$, dashed, then under $S$; the result is the image under $SR$.</span><span class="cap-part"><span class="cap-lead">Right:</span> the same two maps in the other order. The two results lie in different quadrants.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> le L grisé.</span><span class="cap-part"><span class="cap-lead">Au milieu :</span> son image par le quart de tour $R$, en pointillés, puis par $S$ ; le résultat est l'image par $SR$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> les deux mêmes applications dans l'autre ordre. Les deux résultats sont dans des quadrants différents.</span></span></figcaption>
+    </figure>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Triangular matrices).</span> A matrix $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ is <em>upper triangular</em> if $a_{ij}=0$ for all $i&gt;j$, and <em>lower triangular</em> if $a_{ij}=0$ for all $i&lt;j$. We denote these sets $\mathcal{T}_n^+(\mathbb{K})$ and $\mathcal{T}_n^-(\mathbb{K})$. A matrix that is both upper and lower triangular is <em>diagonal</em>.</p>
+      <p class="fr"><span class="thm-label">Définition (Matrices triangulaires).</span> Une matrice $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ est <em>triangulaire supérieure</em> si $a_{ij}=0$ pour tout $i&gt;j$, et <em>triangulaire inférieure</em> si $a_{ij}=0$ pour tout $i&lt;j$. On note $\mathcal{T}_n^+(\mathbb{K})$ et $\mathcal{T}_n^-(\mathbb{K})$ ces ensembles. Une matrice à la fois triangulaire supérieure et inférieure est <em>diagonale</em>.</p>
+    </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $\mathcal{T}_n^+(\mathbb{K})$ is a subalgebra of $\mathcal{M}_n(\mathbb{K})$: it is a vector subspace, and the product of two upper triangular matrices is upper triangular. Moreover, if $A,B\in\mathcal{T}_n^+(\mathbb{K})$, then $(AB)_{ii}=a_{ii}b_{ii}$ for all $i$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $\mathcal{T}_n^+(\mathbb{K})$ est une sous-algèbre de $\mathcal{M}_n(\mathbb{K})$ : c'est un sous-espace vectoriel, et le produit de deux matrices triangulaires supérieures est triangulaire supérieure. De plus, si $A,B\in\mathcal{T}_n^+(\mathbb{K})$, alors $(AB)_{ii}=a_{ii}b_{ii}$ pour tout $i$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Stability under linear combinations: immediate. For the product: $(AB)_{ij}=\sum_k a_{ik}b_{kj}$. For $i&gt;j$, each term is zero since either $k&lt;i$ (so $a_{ik}=0$) or $k\ge i&gt;j$ (so $b_{kj}=0$); these two cases cover all $k$. For $i=j$, nonzero terms satisfy $k\ge i$ (otherwise $a_{ik}=0$) and $k\le i$ (otherwise $b_{ki}=0$), so $k=i$, giving $(AB)_{ii}=a_{ii}b_{ii}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Stabilité par combinaison linéaire : immédiate. Pour le produit : $(AB)_{ij}=\sum_k a_{ik}b_{kj}$. Pour $i&gt;j$, chaque terme est nul car soit $k&lt;i$ (donc $a_{ik}=0$), soit $k\ge i&gt;j$ (donc $b_{kj}=0$) ; ces deux cas couvrent tous les $k$. Pour $i=j$, les termes non nuls vérifient $k\ge i$ (sinon $a_{ik}=0$) et $k\le i$ (sinon $b_{ki}=0$), soit $k=i$, d'où $(AB)_{ii}=a_{ii}b_{ii}$.
+    </details>
+
+    <h3 class="en">Transpose</h3>
+    <h3 class="fr">Transposée</h3>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Transpose).</span> The <em>transpose</em> of $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ is $A^\top=(a_{ji})\in\mathcal{M}_{p,n}(\mathbb{K})$.</p>
       <p class="fr"><span class="thm-label">Définition (Transposée).</span> La <em>transposée</em> de $A=(a_{ij})\in\mathcal{M}_{n,p}(\mathbb{K})$ est $A^\top=(a_{ji})\in\mathcal{M}_{p,n}(\mathbb{K})$.</p>
     </div>
+
+    <p class="en">Transposing exchanges rows and columns, so it exchanges the two factors of a product.</p>
+    <p class="fr">Transposer échange les lignes et les colonnes, donc échange les deux facteurs d'un produit.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Properties of the transpose).</span> Let $A,B\in\mathcal{M}_{n,p}(\mathbb{K})$, $\lambda\in\mathbb{K}$ and $C\in\mathcal{M}_{p,q}(\mathbb{K})$. We have $(A+B)^\top=A^\top+B^\top$, $(\lambda A)^\top=\lambda A^\top$, $(AC)^\top=C^\top A^\top$ and $(A^\top)^\top=A$.</p>
@@ -97,10 +386,16 @@
       Pour la transposée du produit : le coefficient $(i,j)$ de $(AC)^\top$ est le coefficient $(j,i)$ de $AC$, soit $\sum_k a_{jk}c_{ki}$. Or le coefficient $(i,j)$ de $C^\top A^\top$ est $\sum_k (C^\top)_{ik}(A^\top)_{kj}=\sum_k c_{ki}a_{jk}$, ce qui est égal.
     </details>
 
+    <h3 class="en">Trace</h3>
+    <h3 class="fr">Trace</h3>
+
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Trace).</span> The <em>trace</em> of $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ is $\mathrm{tr}(A)=\sum_{i=1}^n a_{ii}$.</p>
       <p class="fr"><span class="thm-label">Définition (Trace).</span> La <em>trace</em> de $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ est $\mathrm{tr}(A)=\sum_{i=1}^n a_{ii}$.</p>
     </div>
+
+    <p class="en">The matrices $AB$ and $BA$ have different diagonal entries, but the same diagonal sum.</p>
+    <p class="fr">Les matrices $AB$ et $BA$ n'ont pas les mêmes coefficients diagonaux, mais la même somme diagonale.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Properties of the trace).</span> The trace is linear. Moreover, for $A\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B\in\mathcal{M}_{p,n}(\mathbb{K})$, we have $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, as well as $\mathrm{tr}(A^\top)=\mathrm{tr}(A)$ and $\mathrm{tr}(I_n)=n$.</p>
@@ -130,46 +425,8 @@
       Soit $\varphi$ une telle forme linéaire. On a $E_{ij}=E_{i1}E_{1j}$ pour tout $i,j$, et $E_{1j}E_{i1}=\delta_{ij}E_{11}$. Donc $\varphi(E_{ij})=\varphi(E_{i1}E_{1j})=\varphi(E_{1j}E_{i1})=\delta_{ij}\varphi(E_{11})$. Ainsi $\varphi(E_{ij})=\delta_{ij}\varphi(E_{11})=\varphi(E_{11})\cdot\mathrm{tr}(E_{ij})$ (car $\mathrm{tr}(E_{ij})=\delta_{ij}$), d'où $\varphi=\varphi(E_{11})\cdot\mathrm{tr}$.
     </details>
 
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem.</span> $(\mathcal{M}_n(\mathbb{K}),+,\times)$ is a unital ring, non-commutative and not an integral domain (there exist zero divisors) for $n\ge 2$.</p>
-      <p class="fr"><span class="thm-label">Théorème.</span> $(\mathcal{M}_n(\mathbb{K}),+,\times)$ est un anneau unitaire, non commutatif et non intègre (il existe des diviseurs de zéro) pour $n\ge 2$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $(\mathcal{M}_n(\mathbb{K}),+)$ is an abelian group. The product is associative, distributive with respect to addition, and $I_n$ is the identity element.
-
-      Non-commutative: $\begin{pmatrix}1&1\\0&0\end{pmatrix}\begin{pmatrix}0&0\\1&0\end{pmatrix}=\begin{pmatrix}1&0\\0&0\end{pmatrix}\neq\begin{pmatrix}0&0\\1&1\end{pmatrix}=\begin{pmatrix}0&0\\1&0\end{pmatrix}\begin{pmatrix}1&1\\0&0\end{pmatrix}$.
-
-      Not an integral domain: $\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      $(\mathcal{M}_n(\mathbb{K}),+)$ est un groupe abélien. Le produit est associatif, distributif par rapport à l'addition, et $I_n$ est l'élément neutre.
-
-      Non commutatif : $\begin{pmatrix}1&1\\0&0\end{pmatrix}\begin{pmatrix}0&0\\1&0\end{pmatrix}=\begin{pmatrix}1&0\\0&0\end{pmatrix}\neq\begin{pmatrix}0&0\\1&1\end{pmatrix}=\begin{pmatrix}0&0\\1&0\end{pmatrix}\begin{pmatrix}1&1\\0&0\end{pmatrix}$.
-
-      Non intègre : $\begin{pmatrix}1&0\\0&0\end{pmatrix}\begin{pmatrix}0&0\\0&1\end{pmatrix}=\begin{pmatrix}0&0\\0&0\end{pmatrix}$.
-    </details>
-
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Rank of a matrix).</span> The <em>rank</em> of a matrix $A\in\mathcal{M}_{n,p}(\mathbb{K})$, denoted $\mathrm{rg}(A)$, is the rank of the family of its column vectors, i.e. the dimension of the subspace spanned by the columns of $A$.</p>
-      <p class="fr"><span class="thm-label">Définition (Rang d'une matrice).</span> Le <em>rang</em> d'une matrice $A\in\mathcal{M}_{n,p}(\mathbb{K})$, noté $\mathrm{rg}(A)$, est le rang de la famille de ses vecteurs colonnes, i.e. la dimension du sous-espace engendré par les colonnes de $A$.</p>
-    </div>
-
-    <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Rank-nullity theorem, matrix version).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Then $\dim(\ker A)+\mathrm{rg}(A)=p$, where $\ker A=\{X\in\mathbb{K}^p : AX=0\}$.</p>
-      <p class="fr"><span class="thm-label">Théorème (Théorème du rang, version matricielle).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $\dim(\ker A)+\mathrm{rg}(A)=p$, où $\ker A=\{X\in\mathbb{K}^p : AX=0\}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      This is the rank-nullity theorem applied to the linear map $\varphi_A:\mathbb{K}^p\to\mathbb{K}^n$, $X\mapsto AX$, whose image is the space spanned by the columns of $A$, of dimension $\mathrm{rg}(A)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      C'est le théorème du rang appliqué à l'application linéaire $\varphi_A:\mathbb{K}^p\to\mathbb{K}^n$, $X\mapsto AX$, dont l'image est l'espace engendré par les colonnes de $A$, de dimension $\mathrm{rg}(A)$.
-    </details>
+    <h3 class="en">Invertible matrices</h3>
+    <h3 class="fr">Matrices inversibles</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Invertible matrix).</span> $A\in\mathcal{M}_n(\mathbb{K})$ is <em>invertible</em> if there exists $B\in\mathcal{M}_n(\mathbb{K})$ such that $AB=BA=I_n$. The matrix $B$, which is unique, is denoted $A^{-1}$.</p>
@@ -183,6 +440,34 @@
     <details class="proof fr">
       <summary class="proof-label">Démonstration (unicité).</summary>
       Si $AB=BA=I_n$ et $AC=CA=I_n$, alors $B=BI_n=B(AC)=(BA)C=I_nC=C$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Isomorphism and invertible matrix).</span> Let $E,F$ have the same dimension $n$, $\mathcal{B}$ a basis of $E$, $\mathcal{C}$ a basis of $F$, and $u\in\mathcal{L}(E,F)$. Then $u$ is an isomorphism if and only if $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ is invertible. In this case, $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Isomorphisme et matrice inversible).</span> Soient $E,F$ de même dimension $n$, $\mathcal{B}$ base de $E$, $\mathcal{C}$ base de $F$, et $u\in\mathcal{L}(E,F)$. Alors $u$ est un isomorphisme si et seulement si $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ est inversible. Dans ce cas, $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathrm{Mat}(u^{-1}\circ u)=\mathrm{Mat}(u^{-1})\cdot\mathrm{Mat}(u)$. Since $u^{-1}\circ u=\mathrm{id}_E$ has matrix $I_n$, we get $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$. Conversely, if $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ is invertible, $A^{-1}$ defines $v\in\mathcal{L}(F,E)$ with $v\circ u=\mathrm{id}_E$ and $u\circ v=\mathrm{id}_F$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathrm{Mat}(u^{-1}\circ u)=\mathrm{Mat}(u^{-1})\cdot\mathrm{Mat}(u)$. Or $u^{-1}\circ u=\mathrm{id}_E$ a pour matrice $I_n$, donc $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$. Réciproquement, si $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ est inversible, $A^{-1}$ définit $v\in\mathcal{L}(F,E)$ avec $v\circ u=\mathrm{id}_E$ et $u\circ v=\mathrm{id}_F$.
+    </details>
+
+    <div class="thm-block corollary">
+      <p class="en"><span class="thm-label">Corollary.</span> Let $E$ be a $\mathbb{K}$-vector space of dimension $n$, $\mathcal{B}=(e_1,\ldots,e_n)$ a basis of $E$, and $\mathcal{C}=(c_1,\ldots,c_n)$ a family of $n$ vectors of $E$. Then $\mathcal{C}$ is a basis of $E$ if and only if the matrix whose $j$-th column contains the coordinates of $c_j$ in $\mathcal{B}$ is invertible.</p>
+      <p class="fr"><span class="thm-label">Corollaire.</span> Soient $E$ un $\mathbb{K}$-ev de dimension $n$, $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$, et $\mathcal{C}=(c_1,\ldots,c_n)$ une famille de $n$ vecteurs de $E$. Alors $\mathcal{C}$ est une base de $E$ si et seulement si la matrice dont la $j$-ème colonne contient les coordonnées de $c_j$ dans $\mathcal{B}$ est inversible.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $\mathcal{C}$ is a basis iff the map $u:E\to E$ defined by $u(e_j)=c_j$ is an isomorphism, iff $\mathrm{Mat}_\mathcal{B}(u)$ is invertible.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $\mathcal{C}$ est une base ssi l'application $u:E\to E$ définie par $u(e_j)=c_j$ est un isomorphisme, ssi $\mathrm{Mat}_\mathcal{B}(u)$ est inversible.
     </details>
 
     <div class="thm-block proposition">
@@ -231,24 +516,8 @@
       $AB=I_n$ donne $\mathrm{Im}(AB)\subset\mathrm{Im}(A)=\mathbb{K}^n$, donc $A$ est surjective, donc bijective en dimension finie, donc inversible. En multipliant $AB=I_n$ à gauche par $A^{-1}$ : $B=A^{-1}$, d'où $BA=I_n$.
     </details>
 
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Triangular matrices).</span> A matrix $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ is <em>upper triangular</em> if $a_{ij}=0$ for all $i&gt;j$, and <em>lower triangular</em> if $a_{ij}=0$ for all $i&lt;j$. We denote these sets $\mathcal{T}_n^+(\mathbb{K})$ and $\mathcal{T}_n^-(\mathbb{K})$. A matrix that is both upper and lower triangular is <em>diagonal</em>.</p>
-      <p class="fr"><span class="thm-label">Définition (Matrices triangulaires).</span> Une matrice $A=(a_{ij})\in\mathcal{M}_n(\mathbb{K})$ est <em>triangulaire supérieure</em> si $a_{ij}=0$ pour tout $i&gt;j$, et <em>triangulaire inférieure</em> si $a_{ij}=0$ pour tout $i&lt;j$. On note $\mathcal{T}_n^+(\mathbb{K})$ et $\mathcal{T}_n^-(\mathbb{K})$ ces ensembles. Une matrice à la fois triangulaire supérieure et inférieure est <em>diagonale</em>.</p>
-    </div>
-
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> $\mathcal{T}_n^+(\mathbb{K})$ is a subalgebra of $\mathcal{M}_n(\mathbb{K})$: it is a vector subspace, and the product of two upper triangular matrices is upper triangular. Moreover, if $A,B\in\mathcal{T}_n^+(\mathbb{K})$, then $(AB)_{ii}=a_{ii}b_{ii}$ for all $i$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> $\mathcal{T}_n^+(\mathbb{K})$ est une sous-algèbre de $\mathcal{M}_n(\mathbb{K})$ : c'est un sous-espace vectoriel, et le produit de deux matrices triangulaires supérieures est triangulaire supérieure. De plus, si $A,B\in\mathcal{T}_n^+(\mathbb{K})$, alors $(AB)_{ii}=a_{ii}b_{ii}$ pour tout $i$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Stability under linear combinations: immediate. For the product: $(AB)_{ij}=\sum_k a_{ik}b_{kj}$. For $i&gt;j$, each term is zero since either $k&lt;i$ (so $a_{ik}=0$) or $k\ge i&gt;j$ (so $b_{kj}=0$); these two cases cover all $k$. For $i=j$, nonzero terms satisfy $k\ge i$ (otherwise $a_{ik}=0$) and $k\le i$ (otherwise $b_{ki}=0$), so $k=i$, giving $(AB)_{ii}=a_{ii}b_{ii}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Stabilité par combinaison linéaire : immédiate. Pour le produit : $(AB)_{ij}=\sum_k a_{ik}b_{kj}$. Pour $i&gt;j$, chaque terme est nul car soit $k&lt;i$ (donc $a_{ik}=0$), soit $k\ge i&gt;j$ (donc $b_{kj}=0$) ; ces deux cas couvrent tous les $k$. Pour $i=j$, les termes non nuls vérifient $k\ge i$ (sinon $a_{ik}=0$) et $k\le i$ (sinon $b_{ki}=0$), soit $k=i$, d'où $(AB)_{ii}=a_{ii}b_{ii}$.
-    </details>
+    <p class="en">In an upper triangular matrix the last row of $AX=0$ involves only $x_n$, the row above it only $x_{n-1}$ and $x_n$, and so on, so the system can be solved from the bottom up.</p>
+    <p class="fr">Dans une matrice triangulaire supérieure, la dernière ligne de $AX=0$ ne fait intervenir que $x_n$, la précédente seulement $x_{n-1}$ et $x_n$, et ainsi de suite : le système se résout en remontant.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Invertibility of triangular matrices).</span> Let $A\in\mathcal{T}_n^+(\mathbb{K})$. Then $A$ is invertible if and only if all its diagonal entries are nonzero.</p>
@@ -257,20 +526,83 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By induction on $n$. The case $n=1$ is immediate. For $n\ge 2$, write $A=\begin{pmatrix}a_{11}&L\\0&A'\end{pmatrix}$ with $L\in\mathcal{M}_{1,n-1}(\mathbb{K})$ and $A'\in\mathcal{T}_{n-1}^+(\mathbb{K})$.
+      $(\Leftarrow)$ Suppose every $a_{ii}$ is nonzero and $AX=0$. The last row reads $a_{nn}x_n=0$, so $x_n=0$. Row $i$ reads $a_{ii}x_i+\sum_{j&gt;i}a_{ij}x_j=0$, so if $x_{i+1}=\cdots=x_n=0$ it reduces to $a_{ii}x_i=0$ and $x_i=0$. Going up the rows gives $X=0$, so the columns of $A$ are linearly independent, hence a basis of $\mathbb{K}^n$, and $A$ is invertible.
 
-      $(\Leftarrow)$ If all $a_{ii}$ are nonzero, $A'$ is invertible by the induction hypothesis. The matrix $B=\begin{pmatrix}a_{11}^{-1}&-a_{11}^{-1}L(A')^{-1}\\0&(A')^{-1}\end{pmatrix}$ satisfies $AB=BA=I_n$ by block computation.
-
-      $(\Rightarrow)$ If $A$ is invertible: if $a_{11}=0$, the first column is zero, so $Ae_1=0$, contradiction. So $a_{11}\neq 0$. For $A'$: if $A'X'=0$, set $Y=\begin{pmatrix}-a_{11}^{-1}LX'\\X'\end{pmatrix}$ and verify $AY=0$. So $Y=0$, then $X'=0$: $A'$ is injective, hence invertible.
+      $(\Rightarrow)$ Suppose $a_{ii}=0$ for some $i$, and take $i$ minimal. For $j\le i$, column $C_j$ has zeros in rows $j+1,\ldots,n$, and $C_i$ has a zero in row $i$ as well, so $C_1,\ldots,C_i$ all lie in the span of $e_1,\ldots,e_{i-1}$. These $i$ vectors in a space of dimension $i-1$ are linearly dependent, so $AX=0$ for some $X\neq 0$. If $A$ were invertible, $X=A^{-1}0=0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Par récurrence sur $n$. Le cas $n=1$ est immédiat. Pour $n\ge 2$, on écrit $A=\begin{pmatrix}a_{11}&L\\0&A'\end{pmatrix}$ avec $L\in\mathcal{M}_{1,n-1}(\mathbb{K})$ et $A'\in\mathcal{T}_{n-1}^+(\mathbb{K})$.
+      $(\Leftarrow)$ Supposons tous les $a_{ii}$ non nuls et $AX=0$. La dernière ligne s'écrit $a_{nn}x_n=0$, donc $x_n=0$. La ligne $i$ s'écrit $a_{ii}x_i+\sum_{j&gt;i}a_{ij}x_j=0$, donc si $x_{i+1}=\cdots=x_n=0$ elle se réduit à $a_{ii}x_i=0$ et $x_i=0$. En remontant les lignes, $X=0$ : les colonnes de $A$ sont libres, donc forment une base de $\mathbb{K}^n$, et $A$ est inversible.
 
-      $(\Leftarrow)$ Si tous les $a_{ii}$ sont non nuls, $A'$ est inversible par hypothèse de récurrence. La matrice $B=\begin{pmatrix}a_{11}^{-1}&-a_{11}^{-1}L(A')^{-1}\\0&(A')^{-1}\end{pmatrix}$ vérifie $AB=BA=I_n$ par calcul par blocs.
-
-      $(\Rightarrow)$ Si $A$ est inversible : si $a_{11}=0$, la première colonne est nulle, donc $Ae_1=0$, contradiction. Donc $a_{11}\neq 0$. Pour $A'$ : si $A'X'=0$, on pose $Y=\begin{pmatrix}-a_{11}^{-1}LX'\\X'\end{pmatrix}$ et on vérifie $AY=0$. Donc $Y=0$, puis $X'=0$ : $A'$ est injective, donc inversible.
+      $(\Rightarrow)$ Supposons $a_{ii}=0$ pour un certain $i$, pris minimal. Pour $j\le i$, la colonne $C_j$ est nulle sur les lignes $j+1,\ldots,n$, et $C_i$ est de plus nulle sur la ligne $i$ : ainsi $C_1,\ldots,C_i$ sont toutes dans l'espace engendré par $e_1,\ldots,e_{i-1}$. Ces $i$ vecteurs dans un espace de dimension $i-1$ sont liés, donc $AX=0$ pour un $X\neq 0$. Si $A$ était inversible, on aurait $X=A^{-1}0=0$.
     </details>
+
+    <h3 class="en">Rank</h3>
+    <h3 class="fr">Rang</h3>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Rank of a matrix).</span> The <em>rank</em> of a matrix $A\in\mathcal{M}_{n,p}(\mathbb{K})$, denoted $\mathrm{rg}(A)$, is the rank of the family of its column vectors, i.e. the dimension of the subspace spanned by the columns of $A$.</p>
+      <p class="fr"><span class="thm-label">Définition (Rang d'une matrice).</span> Le <em>rang</em> d'une matrice $A\in\mathcal{M}_{n,p}(\mathbb{K})$, noté $\mathrm{rg}(A)$, est le rang de la famille de ses vecteurs colonnes, i.e. la dimension du sous-espace engendré par les colonnes de $A$.</p>
+    </div>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Rank-nullity theorem, matrix version).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Then $\dim(\ker A)+\mathrm{rg}(A)=p$, where $\ker A=\{X\in\mathbb{K}^p : AX=0\}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème du rang, version matricielle).</span> Soit $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Alors $\dim(\ker A)+\mathrm{rg}(A)=p$, où $\ker A=\{X\in\mathbb{K}^p : AX=0\}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      This is the rank-nullity theorem applied to the linear map $\varphi_A:\mathbb{K}^p\to\mathbb{K}^n$, $X\mapsto AX$, whose image is the space spanned by the columns of $A$, of dimension $\mathrm{rg}(A)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      C'est le théorème du rang appliqué à l'application linéaire $\varphi_A:\mathbb{K}^p\to\mathbb{K}^n$, $X\mapsto AX$, dont l'image est l'espace engendré par les colonnes de $A$, de dimension $\mathrm{rg}(A)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $A\in\mathcal{M}_n(\mathbb{K})$ is invertible if and only if $\mathrm{rg}(A)=n$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $A\in\mathcal{M}_n(\mathbb{K})$ est inversible si et seulement si $\mathrm{rg}(A)=n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $A$ is invertible iff the columns of $A$ form a basis of $\mathbb{K}^n$, iff $\mathrm{rg}(A)=n$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $A$ est inversible ssi la famille des colonnes de $A$ est une base de $\mathbb{K}^n$, ssi $\mathrm{rg}(A)=n$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Rank inequality for products).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B\in\mathcal{M}_{p,q}(\mathbb{K})$. Then $\mathrm{rg}(AB)\le\min(\mathrm{rg}(A),\mathrm{rg}(B))$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Inégalité du rang du produit).</span> Soient $A\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B\in\mathcal{M}_{p,q}(\mathbb{K})$. Alors $\mathrm{rg}(AB)\le\min(\mathrm{rg}(A),\mathrm{rg}(B))$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Each column of $AB$ is a linear combination of the columns of $A$, so $\mathrm{Im}(AB)\subset\mathrm{Im}(A)$, giving $\mathrm{rg}(AB)\le\mathrm{rg}(A)$. Moreover $\ker B\subset\ker(AB)$, so by the rank-nullity theorem $\mathrm{rg}(AB)=q-\dim(\ker(AB))\le q-\dim(\ker B)=\mathrm{rg}(B)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Chaque colonne de $AB$ est une CL des colonnes de $A$, donc $\mathrm{Im}(AB)\subset\mathrm{Im}(A)$, d'où $\mathrm{rg}(AB)\le\mathrm{rg}(A)$. De plus $\ker B\subset\ker(AB)$, donc par le théorème du rang $\mathrm{rg}(AB)=q-\dim(\ker(AB))\le q-\dim(\ker B)=\mathrm{rg}(B)$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Rank invariance under invertible multiplication).</span> If $P\in\mathrm{GL}_n(\mathbb{K})$ and $Q\in\mathrm{GL}_p(\mathbb{K})$, then $\mathrm{rg}(PAQ)=\mathrm{rg}(A)$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Invariance du rang par multiplication inversible).</span> Si $P\in\mathrm{GL}_n(\mathbb{K})$ et $Q\in\mathrm{GL}_p(\mathbb{K})$, alors $\mathrm{rg}(PAQ)=\mathrm{rg}(A)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $X\mapsto PX$ is an isomorphism of $\mathbb{K}^n$, so it takes the span of the columns of $A$ to the span of the columns of $PA$ and preserves its dimension: $\mathrm{rg}(PA)=\mathrm{rg}(A)$. The columns of $AQ$ are linear combinations of the columns of $A$, and those of $A=(AQ)Q^{-1}$ are linear combinations of the columns of $AQ$, so the two families span the same subspace and $\mathrm{rg}(AQ)=\mathrm{rg}(A)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $X\mapsto PX$ est un isomorphisme de $\mathbb{K}^n$, donc envoie l'espace engendré par les colonnes de $A$ sur celui engendré par les colonnes de $PA$ en préservant sa dimension : $\mathrm{rg}(PA)=\mathrm{rg}(A)$. Les colonnes de $AQ$ sont des CL des colonnes de $A$, et celles de $A=(AQ)Q^{-1}$ sont des CL des colonnes de $AQ$, donc les deux familles engendrent le même sous-espace et $\mathrm{rg}(AQ)=\mathrm{rg}(A)$.
+    </details>
+
+    <h3 class="en">Elimination</h3>
+    <h3 class="fr">Pivot de Gauss</h3>
 
     <div class="thm-block definition">
       <div class="en"><p><span class="thm-label">Definition (Elementary row operations).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$, and denote by $L_i$ the $i$-th row of $A$. The elementary row operations are:</p>
@@ -330,6 +662,27 @@
       Pour la transvection : le coefficient $(k,l)$ de $T_{ij}(\lambda)A=(I_n+\lambda E_{ij})A$ est $a_{kl}+\lambda(E_{ij}A)_{kl}$. Or $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$, donc la ligne $k$ est $L_k$ si $k\neq i$, et $L_i+\lambda L_j$ si $k=i$. Les deux autres cas sont analogues.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="508.8" height="140.8" viewBox="54.0 99.2 508.8 140.8">
+        <line class="fig-axis" x1="64.0" y1="190.0" x2="172.8" y2="190.0"/>
+        <line class="fig-axis" x1="70.0" y1="196.0" x2="70.0" y2="109.2"/>
+        <polygon class="fig-shape" points="70.0,190.0 114.0,190.0 114.0,168.0 92.0,168.0 92.0,124.0 70.0,124.0"/>
+        <polygon class="fig-free-solid" points="70.0,190.0 114.0,190.0 136.0,168.0 114.0,168.0 158.0,124.0 136.0,124.0"/>
+        <text x="118.4" y="224.0" text-anchor="middle">T<tspan dy="4" font-size="11">12</tspan><tspan dy="-4">(1)</tspan></text>
+        <line class="fig-axis" x1="254.0" y1="190.0" x2="362.8" y2="190.0"/>
+        <line class="fig-axis" x1="260.0" y1="196.0" x2="260.0" y2="109.2"/>
+        <polygon class="fig-shape" points="260.0,190.0 304.0,190.0 304.0,168.0 282.0,168.0 282.0,124.0 260.0,124.0"/>
+        <polygon class="fig-free-solid" points="260.0,190.0 348.0,190.0 348.0,168.0 304.0,168.0 304.0,124.0 260.0,124.0"/>
+        <text x="308.4" y="224.0" text-anchor="middle">D<tspan dy="4" font-size="11">1</tspan><tspan dy="-4">(2)</tspan></text>
+        <line class="fig-axis" x1="444.0" y1="190.0" x2="552.8" y2="190.0"/>
+        <line class="fig-axis" x1="450.0" y1="196.0" x2="450.0" y2="109.2"/>
+        <polygon class="fig-shape" points="450.0,190.0 494.0,190.0 494.0,168.0 472.0,168.0 472.0,124.0 450.0,124.0"/>
+        <polygon class="fig-free-solid" points="450.0,190.0 450.0,146.0 472.0,146.0 472.0,168.0 516.0,168.0 516.0,190.0"/>
+        <text x="498.4" y="224.0" text-anchor="middle">P<tspan dy="4" font-size="11">12</tspan></text>
+      </svg>
+      <figcaption><span class="en">The three elementary matrices of $\mathcal{M}_2(\mathbb{R})$ seen as maps of the plane: the shaded L and its image, outlined. $T_{12}(1)$ slides each point sideways by its height, $D_1(2)$ doubles the first coordinate, $P_{12}$ exchanges the two coordinates.</span><span class="fr">Les trois matrices élémentaires de $\mathcal{M}_2(\mathbb{R})$ vues comme applications du plan : le L grisé et son image, en trait fin. $T_{12}(1)$ décale chaque point horizontalement de sa hauteur, $D_1(2)$ double la première coordonnée, $P_{12}$ échange les deux coordonnées.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Invertibility of elementary matrices).</span> Elementary matrices are invertible: $T_{ij}(\lambda)^{-1}=T_{ij}(-\lambda)$, $D_i(\lambda)^{-1}=D_i(\lambda^{-1})$, $P_{ij}^{-1}=P_{ij}$ (involution).</p>
       <p class="fr"><span class="thm-label">Proposition (Inversibilité des matrices élémentaires).</span> Les matrices élémentaires sont inversibles : $T_{ij}(\lambda)^{-1}=T_{ij}(-\lambda)$, $D_i(\lambda)^{-1}=D_i(\lambda^{-1})$, $P_{ij}^{-1}=P_{ij}$ (involution).</p>
@@ -376,10 +729,85 @@
       Soit $E$ une matrice élémentaire. Le système $EAX=EB$ a les mêmes solutions que $AX=B$ car $E$ est inversible : $AX=B\Leftrightarrow E(AX)=E(B)\Leftrightarrow (EA)X=EB$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="592.0" height="154.0" viewBox="44.0 60.0 592.0 154.0">
+        <line class="fig-axis" x1="57.0" y1="180.0" x2="206.0" y2="180.0"/>
+        <line class="fig-axis" x1="70.0" y1="193.0" x2="70.0" y2="74.0"/>
+        <line class="fig-axis" x1="100.0" y1="180.0" x2="100.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="100.0" y="200.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="130.0" y1="180.0" x2="130.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="130.0" y="200.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="160.0" y1="180.0" x2="160.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="160.0" y="200.0" text-anchor="middle">3</text>
+        <line class="fig-axis" x1="70.0" y1="150.0" x2="66.0" y2="150.0"/>
+        <text class="fig-text fig-tick" x="57.0" y="145.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="70.0" y1="120.0" x2="66.0" y2="120.0"/>
+        <text class="fig-text fig-tick" x="57.0" y="115.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="70.0" y1="90.0" x2="66.0" y2="90.0"/>
+        <text class="fig-text fig-tick" x="57.0" y="85.0" text-anchor="middle">3</text>
+        <line class="fig-curve" x1="70.0" y1="120.0" x2="190.0" y2="180.0"/>
+        <text x="176.5" y="163.5" text-anchor="middle">L<tspan dy="4" font-size="11">1</tspan></text>
+        <line class="fig-curve" x1="145.0" y1="180.0" x2="94.0" y2="78.0"/>
+        <text x="83.5" y="81.0" text-anchor="middle">L<tspan dy="4" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="130.0" cy="150.0" r="4.0"/>
+        <line class="fig-axis" x1="267.0" y1="180.0" x2="416.0" y2="180.0"/>
+        <line class="fig-axis" x1="280.0" y1="193.0" x2="280.0" y2="74.0"/>
+        <line class="fig-axis" x1="310.0" y1="180.0" x2="310.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="310.0" y="200.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="340.0" y1="180.0" x2="340.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="340.0" y="200.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="370.0" y1="180.0" x2="370.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="370.0" y="200.0" text-anchor="middle">3</text>
+        <line class="fig-axis" x1="280.0" y1="150.0" x2="276.0" y2="150.0"/>
+        <text class="fig-text fig-tick" x="267.0" y="145.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="280.0" y1="120.0" x2="276.0" y2="120.0"/>
+        <text class="fig-text fig-tick" x="267.0" y="115.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="280.0" y1="90.0" x2="276.0" y2="90.0"/>
+        <text class="fig-text fig-tick" x="267.0" y="85.0" text-anchor="middle">3</text>
+        <line class="fig-guide" x1="355.0" y1="180.0" x2="304.0" y2="78.0"/>
+        <line class="fig-curve" x1="280.0" y1="120.0" x2="400.0" y2="180.0"/>
+        <text x="386.5" y="163.5" text-anchor="middle">L<tspan dy="4" font-size="11">1</tspan></text>
+        <line class="fig-curve" x1="280.0" y1="150.0" x2="412.0" y2="150.0"/>
+        <text x="388.0" y="140.4" text-anchor="middle">L<tspan dy="4" font-size="11">2</tspan></text>
+        <circle class="fig-dot" cx="340.0" cy="150.0" r="4.0"/>
+        <line class="fig-axis" x1="477.0" y1="180.0" x2="626.0" y2="180.0"/>
+        <line class="fig-axis" x1="490.0" y1="193.0" x2="490.0" y2="74.0"/>
+        <line class="fig-axis" x1="520.0" y1="180.0" x2="520.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="520.0" y="200.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="550.0" y1="180.0" x2="550.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="550.0" y="200.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="580.0" y1="180.0" x2="580.0" y2="184.0"/>
+        <text class="fig-text fig-tick" x="580.0" y="200.0" text-anchor="middle">3</text>
+        <line class="fig-axis" x1="490.0" y1="150.0" x2="486.0" y2="150.0"/>
+        <text class="fig-text fig-tick" x="477.0" y="145.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="490.0" y1="120.0" x2="486.0" y2="120.0"/>
+        <text class="fig-text fig-tick" x="477.0" y="115.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="490.0" y1="90.0" x2="486.0" y2="90.0"/>
+        <text class="fig-text fig-tick" x="477.0" y="85.0" text-anchor="middle">3</text>
+        <line class="fig-guide" x1="490.0" y1="120.0" x2="610.0" y2="180.0"/>
+        <line class="fig-curve" x1="490.0" y1="150.0" x2="622.0" y2="150.0"/>
+        <text x="598.0" y="140.4" text-anchor="middle">L<tspan dy="4" font-size="11">2</tspan></text>
+        <line class="fig-curve" x1="550.0" y1="180.0" x2="550.0" y2="78.0"/>
+        <text x="566.5" y="81.0" text-anchor="middle">L<tspan dy="4" font-size="11">1</tspan></text>
+        <circle class="fig-dot" cx="550.0" cy="150.0" r="4.0"/>
+        <text x="562.0" y="166.5" text-anchor="start">(2, 1)</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the two equations of $x+2y=4$, $2x+y=5$, drawn as lines meeting at $(2,1)$.</span><span class="cap-part"><span class="cap-lead">Middle:</span> $L_2\leftarrow L_2-2L_1$ replaces $L_2$ by $y=1$.</span><span class="cap-part"><span class="cap-lead">Right:</span> $L_1\leftarrow L_1-2L_2$ replaces $L_1$ by $x=2$. Every line produced still passes through $(2,1)$, and the last two give its coordinates.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> les deux équations de $x+2y=4$, $2x+y=5$, tracées comme des droites qui se coupent en $(2,1)$.</span><span class="cap-part"><span class="cap-lead">Au milieu :</span> $L_2\leftarrow L_2-2L_1$ remplace $L_2$ par $y=1$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> $L_1\leftarrow L_1-2L_2$ remplace $L_1$ par $x=2$. Toute droite produite passe encore par $(2,1)$, et les deux dernières en donnent les coordonnées.</span></span></figcaption>
+    </figure>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Gaussian elimination).</span> Any matrix $A\in\mathcal{M}_{n,p}(\mathbb{K})$ can be reduced by elementary row operations. We proceed column by column: choose a nonzero entry (<strong>pivot</strong>), move it to position by a row swap, normalize it to $1$ by scaling, then eliminate the other entries in its column by row additions. We obtain $r$ pivots, where $r=\mathrm{rg}(A)$.</p>
       <p class="fr"><span class="thm-label">Théorème (Algorithme du pivot de Gauss).</span> Toute matrice $A\in\mathcal{M}_{n,p}(\mathbb{K})$ peut être réduite par opérations élémentaires sur les lignes. On procède colonne par colonne : on choisit un coefficient non nul (<strong>pivot</strong>), on le place par permutation, on le normalise à $1$ par dilatation, puis on élimine les autres coefficients de sa colonne par transvections. On obtient $r$ pivots, où $r=\mathrm{rg}(A)$.</p>
     </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof (the pivots count the rank).</summary>
+      The operations are left multiplications by invertible matrices, so they do not change the rank. In the reduced matrix, the $r$ columns carrying a pivot are distinct vectors of the canonical basis, hence independent, and every other column is a combination of them since it has zeros outside the pivot rows. So the reduced matrix has rank $r$, and so does $A$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration (les pivots comptent le rang).</summary>
+      Les opérations sont des multiplications à gauche par des matrices inversibles, donc elles ne changent pas le rang. Dans la matrice réduite, les $r$ colonnes portant un pivot sont des vecteurs distincts de la base canonique, donc libres, et toute autre colonne en est une combinaison puisqu'elle est nulle hors des lignes de pivot. La matrice réduite est donc de rang $r$, et $A$ aussi.
+    </details>
 
     <div class="thm-block theorem">
       <div class="en"><p><span class="thm-label">Theorem (Solutions of a linear system).</span> Let $AX=B$ be a system of $n$ equations in $p$ unknowns, and $r=\mathrm{rg}(A)$.</p>
@@ -487,19 +915,11 @@
       Par le pivot de Gauss, il existe $E_1,\ldots,E_k$ telles que $E_k\cdots E_1 A=I_n$. Donc $A=E_1^{-1}\cdots E_k^{-1}$, et chaque $E_i^{-1}$ est une matrice élémentaire.
     </details>
 
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> $A\in\mathcal{M}_n(\mathbb{K})$ is invertible if and only if $\mathrm{rg}(A)=n$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> $A\in\mathcal{M}_n(\mathbb{K})$ est inversible si et seulement si $\mathrm{rg}(A)=n$.</p>
-    </div>
+    <h3 class="en">Classification</h3>
+    <h3 class="fr">Classification</h3>
 
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $A$ is invertible iff the columns of $A$ form a basis of $\mathbb{K}^n$, iff $\mathrm{rg}(A)=n$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      $A$ est inversible ssi la famille des colonnes de $A$ est une base de $\mathbb{K}^n$, ssi $\mathrm{rg}(A)=n$.
-    </details>
+    <p class="en">Elimination stops on a matrix whose pivots occupy $r$ rows and $r$ columns, so it counts the independent columns and the independent rows at the same time.</p>
+    <p class="fr">L'élimination s'arrête sur une matrice dont les pivots occupent $r$ lignes et $r$ colonnes, donc elle compte en même temps les colonnes libres et les lignes libres.</p>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Then $\mathrm{rg}(A)=\mathrm{rg}(A^\top)$.</p>
@@ -513,34 +933,6 @@
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
       Le rang de $A$ est le nombre de pivots de Gauss, qui coïncide avec la dimension de l'espace engendré par les lignes (les opérations élémentaires préservent cet espace). Donc le rang des colonnes égale le rang des lignes, qui est $\mathrm{rg}(A^\top)$.
-    </details>
-
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Rank invariance under invertible multiplication).</span> If $P\in\mathrm{GL}_n(\mathbb{K})$ and $Q\in\mathrm{GL}_p(\mathbb{K})$, then $\mathrm{rg}(PAQ)=\mathrm{rg}(A)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Invariance du rang par multiplication inversible).</span> Si $P\in\mathrm{GL}_n(\mathbb{K})$ et $Q\in\mathrm{GL}_p(\mathbb{K})$, alors $\mathrm{rg}(PAQ)=\mathrm{rg}(A)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Left multiplication by $P$ performs elementary row operations, and right multiplication by $Q$ performs elementary column operations. These operations do not change the rank.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      La multiplication par $P$ à gauche effectue des opérations élémentaires sur les lignes, et par $Q$ à droite sur les colonnes. Ces opérations ne changent pas le rang.
-    </details>
-
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Rank inequality for products).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B\in\mathcal{M}_{p,q}(\mathbb{K})$. Then $\mathrm{rg}(AB)\le\min(\mathrm{rg}(A),\mathrm{rg}(B))$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Inégalité du rang du produit).</span> Soient $A\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B\in\mathcal{M}_{p,q}(\mathbb{K})$. Alors $\mathrm{rg}(AB)\le\min(\mathrm{rg}(A),\mathrm{rg}(B))$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Each column of $AB$ is a linear combination of the columns of $A$, so $\mathrm{Im}(AB)\subset\mathrm{Im}(A)$, giving $\mathrm{rg}(AB)\le\mathrm{rg}(A)$. Moreover $\ker B\subset\ker(AB)$, so by the rank-nullity theorem $\mathrm{rg}(AB)=q-\dim(\ker(AB))\le q-\dim(\ker B)=\mathrm{rg}(B)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Chaque colonne de $AB$ est une CL des colonnes de $A$, donc $\mathrm{Im}(AB)\subset\mathrm{Im}(A)$, d'où $\mathrm{rg}(AB)\le\mathrm{rg}(A)$. De plus $\ker B\subset\ker(AB)$, donc par le théorème du rang $\mathrm{rg}(AB)=q-\dim(\ker(AB))\le q-\dim(\ker B)=\mathrm{rg}(B)$.
     </details>
 
     <div class="thm-block definition">
@@ -574,16 +966,115 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      By Gaussian elimination, reduce $A$ by elementary row and column operations. After row reduction, obtain $r$ pivots in columns $j_1&lt;\cdots&lt;j_r$. Column permutations bring the pivots to positions $1,\ldots,r$, then row additions give $J_r$.
+      By Gaussian elimination, reduce $A$ by elementary row and column operations. After row reduction, obtain $r$ pivots in columns $j_1&lt;\cdots&lt;j_r$. Column permutations bring the pivots to positions $1,\ldots,r$, then column additions clear the rest and give $J_r$.
 
       Conversely, if $A$ and $B$ are equivalent, $\mathrm{rg}(B)=\mathrm{rg}(A)$ by rank invariance. And if $\mathrm{rg}(A)=\mathrm{rg}(B)=r$, then $A\sim J_r\sim B$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Par le pivot de Gauss, on réduit $A$ par opérations élémentaires sur les lignes et les colonnes. Après Gauss sur les lignes, on obtient $r$ pivots en colonnes $j_1&lt;\cdots&lt;j_r$. Des permutations de colonnes ramènent les pivots en positions $1,\ldots,r$, puis des transvections donnent $J_r$.
+      Par le pivot de Gauss, on réduit $A$ par opérations élémentaires sur les lignes et les colonnes. Après Gauss sur les lignes, on obtient $r$ pivots en colonnes $j_1&lt;\cdots&lt;j_r$. Des permutations de colonnes ramènent les pivots en positions $1,\ldots,r$, puis des transvections sur les colonnes annulent le reste et donnent $J_r$.
 
       Réciproquement, si $A$ et $B$ sont équivalentes, $\mathrm{rg}(B)=\mathrm{rg}(A)$ par invariance du rang. Et si $\mathrm{rg}(A)=\mathrm{rg}(B)=r$, alors $A\sim J_r\sim B$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="414.0" height="174.4" viewBox="78.0 50.0 414.0 174.4">
+        <rect class="fig-shape-img" x="100.0" y="60.0" width="30.0" height="30.0"/>
+        <rect class="fig-shape-img" x="130.0" y="90.0" width="30.0" height="30.0"/>
+        <rect class="fig-shape-img" x="190.0" y="120.0" width="30.0" height="30.0"/>
+        <rect class="fig-cell" x="100.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="115.0" y="80.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="130.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="145.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="160.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="175.0" y="80.0" text-anchor="middle">3</text>
+        <rect class="fig-cell" x="190.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="205.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="220.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="235.0" y="80.0" text-anchor="middle">2</text>
+        <rect class="fig-cell" x="100.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="115.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="130.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="145.0" y="110.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="160.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="175.0" y="110.0" text-anchor="middle">−1</text>
+        <rect class="fig-cell" x="190.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="205.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="220.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="235.0" y="110.0" text-anchor="middle">4</text>
+        <rect class="fig-cell" x="100.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="115.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="130.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="145.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="160.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="175.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="190.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="205.0" y="140.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="220.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="235.0" y="140.0" text-anchor="middle">5</text>
+        <rect class="fig-cell" x="100.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="115.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="130.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="145.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="160.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="175.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="190.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="205.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="220.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="235.0" y="170.0" text-anchor="middle">0</text>
+        <path class="fig-bracket" d="M 94.0 60.0 L 88.0 60.0 L 88.0 180.0 L 94.0 180.0"/>
+        <path class="fig-bracket" d="M 256.0 60.0 L 262.0 60.0 L 262.0 180.0 L 256.0 180.0"/>
+        <path class="fig-curve" d="M 100.0 60.0 L 100.0 60.0 L 100.0 90.0 L 130.0 90.0 L 130.0 120.0 L 190.0 120.0 L 190.0 150.0 L 250.0 150.0"/>
+        <line class="fig-accent" x1="274.0" y1="120.0" x2="300.0" y2="120.0"/><polygon class="fig-dot" points="308.0,120.0 300.0,123.0 300.0,117.0"/>
+        <rect class="fig-shape-img" x="320.0" y="60.0" width="30.0" height="30.0"/>
+        <rect class="fig-shape-img" x="350.0" y="90.0" width="30.0" height="30.0"/>
+        <rect class="fig-shape-img" x="380.0" y="120.0" width="30.0" height="30.0"/>
+        <rect class="fig-cell" x="320.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="335.0" y="80.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="350.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="365.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="380.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="395.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="410.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="425.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="440.0" y="60.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="455.0" y="80.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="320.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="335.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="350.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="365.0" y="110.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="380.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="395.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="410.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="425.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="440.0" y="90.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="455.0" y="110.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="320.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="335.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="350.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="365.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="380.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="395.0" y="140.0" text-anchor="middle">1</text>
+        <rect class="fig-cell" x="410.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="425.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="440.0" y="120.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="455.0" y="140.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="320.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="335.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="350.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="365.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="380.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="395.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="410.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="425.0" y="170.0" text-anchor="middle">0</text>
+        <rect class="fig-cell" x="440.0" y="150.0" width="30.0" height="30.0"/>
+        <text class="fig-text fig-tick" x="455.0" y="170.0" text-anchor="middle">0</text>
+        <path class="fig-bracket" d="M 314.0 60.0 L 308.0 60.0 L 308.0 180.0 L 314.0 180.0"/>
+        <path class="fig-bracket" d="M 476.0 60.0 L 482.0 60.0 L 482.0 180.0 L 476.0 180.0"/>
+        <text x="395.0" y="208.0" text-anchor="middle">J<tspan dy="4" font-size="11">3</tspan></text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> a matrix reduced by row operations. The staircase drops one row and moves right at every pivot, so the three pivots occupy three rows and three columns.</span><span class="cap-part"><span class="cap-lead">Right:</span> column operations clear what is left and give $J_3$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> une matrice réduite par opérations sur les lignes. L'escalier descend d'une ligne et se décale à droite à chaque pivot, donc les trois pivots occupent trois lignes et trois colonnes.</span><span class="cap-part"><span class="cap-lead">À droite :</span> les opérations sur les colonnes annulent ce qui reste et donnent $J_3$.</span></span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Rank and invertible submatrices).</span> Let $A\in\mathcal{M}_{n,p}(\mathbb{K})$. Then $\mathrm{rg}(A)$ is the maximum size of an invertible square submatrix that can be extracted from $A$.</p>
@@ -607,52 +1098,11 @@
       $(\ge)$ On peut extraire $r$ colonnes libres de $A$. Parmi leurs $n$ lignes, on peut en trouver $r$ formant une matrice $r\times r$ de rang $r$, donc inversible.
     </details>
 
-    <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Matrix of a linear map).</span> Let $E$ and $F$ be $\mathbb{K}$-vector spaces of dimensions $p$ and $n$, equipped with bases $\mathcal{B}=(e_1,\ldots,e_p)$ and $\mathcal{C}=(f_1,\ldots,f_n)$. The <em>matrix</em> of $u\in\mathcal{L}(E,F)$ in the bases $\mathcal{B}$ and $\mathcal{C}$ is the matrix $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathcal{M}_{n,p}(\mathbb{K})$ whose $j$-th column contains the coordinates of $u(e_j)$ in $\mathcal{C}$: $u(e_j)=\sum_{i=1}^n a_{ij}f_i$. For an endomorphism, we write $\mathrm{Mat}_\mathcal{B}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}}(u)$.</p>
-      <p class="fr"><span class="thm-label">Définition (Matrice d'une application linéaire).</span> Soient $E$ et $F$ des $\mathbb{K}$-ev de dimensions $p$ et $n$, munis de bases $\mathcal{B}=(e_1,\ldots,e_p)$ et $\mathcal{C}=(f_1,\ldots,f_n)$. La <em>matrice</em> de $u\in\mathcal{L}(E,F)$ dans les bases $\mathcal{B}$ et $\mathcal{C}$ est la matrice $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathcal{M}_{n,p}(\mathbb{K})$ dont la $j$-ème colonne contient les coordonnées de $u(e_j)$ dans $\mathcal{C}$ : $u(e_j)=\sum_{i=1}^n a_{ij}f_i$. Pour un endomorphisme, on note $\mathrm{Mat}_\mathcal{B}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}}(u)$.</p>
-    </div>
+    <h3 class="en">Change of basis</h3>
+    <h3 class="fr">Changement de base</h3>
 
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Composition and matrix product).</span> Let $u\in\mathcal{L}(E,F)$ and $v\in\mathcal{L}(F,G)$ with $\mathcal{B},\mathcal{C},\mathcal{D}$ bases of $E,F,G$. Then $\mathrm{Mat}_{\mathcal{B},\mathcal{D}}(v\circ u)=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)\cdot\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Composition et produit matriciel).</span> Soient $u\in\mathcal{L}(E,F)$ et $v\in\mathcal{L}(F,G)$ avec $\mathcal{B},\mathcal{C},\mathcal{D}$ des bases de $E,F,G$. Alors $\mathrm{Mat}_{\mathcal{B},\mathcal{D}}(v\circ u)=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)\cdot\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      Set $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)=(a_{kj})$ and $B=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)=(b_{ik})$. Then $(v\circ u)(e_j)=v\!\left(\sum_k a_{kj}f_k\right)=\sum_i\!\left(\sum_k b_{ik}a_{kj}\right)g_i$, and $\sum_k b_{ik}a_{kj}=(BA)_{ij}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      Posons $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)=(a_{kj})$ et $B=\mathrm{Mat}_{\mathcal{C},\mathcal{D}}(v)=(b_{ik})$. Alors $(v\circ u)(e_j)=v\!\left(\sum_k a_{kj}f_k\right)=\sum_i\!\left(\sum_k b_{ik}a_{kj}\right)g_i$, et $\sum_k b_{ik}a_{kj}=(BA)_{ij}$.
-    </details>
-
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Isomorphism and invertible matrix).</span> Let $E,F$ have the same dimension $n$, $\mathcal{B}$ a basis of $E$, $\mathcal{C}$ a basis of $F$, and $u\in\mathcal{L}(E,F)$. Then $u$ is an isomorphism if and only if $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathrm{GL}_n(\mathbb{K})$. In this case, $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Isomorphisme et matrice inversible).</span> Soient $E,F$ de même dimension $n$, $\mathcal{B}$ base de $E$, $\mathcal{C}$ base de $F$, et $u\in\mathcal{L}(E,F)$. Alors $u$ est un isomorphisme si et seulement si $\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)\in\mathrm{GL}_n(\mathbb{K})$. Dans ce cas, $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\mathrm{Mat}(u^{-1}\circ u)=\mathrm{Mat}(u^{-1})\cdot\mathrm{Mat}(u)$. Since $u^{-1}\circ u=\mathrm{id}_E$ has matrix $I_n$, we get $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$. Conversely, if $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ is invertible, $A^{-1}$ defines $v\in\mathcal{L}(F,E)$ with $v\circ u=\mathrm{id}_E$ and $u\circ v=\mathrm{id}_F$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      $\mathrm{Mat}(u^{-1}\circ u)=\mathrm{Mat}(u^{-1})\cdot\mathrm{Mat}(u)$. Or $u^{-1}\circ u=\mathrm{id}_E$ a pour matrice $I_n$, donc $\mathrm{Mat}_{\mathcal{C},\mathcal{B}}(u^{-1})=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)^{-1}$. Réciproquement, si $A=\mathrm{Mat}_{\mathcal{B},\mathcal{C}}(u)$ est inversible, $A^{-1}$ définit $v\in\mathcal{L}(F,E)$ avec $v\circ u=\mathrm{id}_E$ et $u\circ v=\mathrm{id}_F$.
-    </details>
-
-    <div class="thm-block corollary">
-      <p class="en"><span class="thm-label">Corollary.</span> Let $E$ be a $\mathbb{K}$-vector space of dimension $n$, $\mathcal{B}=(e_1,\ldots,e_n)$ a basis of $E$, and $\mathcal{C}=(c_1,\ldots,c_n)$ a family of $n$ vectors of $E$. Then $\mathcal{C}$ is a basis of $E$ if and only if the matrix whose $j$-th column contains the coordinates of $c_j$ in $\mathcal{B}$ is invertible.</p>
-      <p class="fr"><span class="thm-label">Corollaire.</span> Soient $E$ un $\mathbb{K}$-ev de dimension $n$, $\mathcal{B}=(e_1,\ldots,e_n)$ une base de $E$, et $\mathcal{C}=(c_1,\ldots,c_n)$ une famille de $n$ vecteurs de $E$. Alors $\mathcal{C}$ est une base de $E$ si et seulement si la matrice dont la $j$-ème colonne contient les coordonnées de $c_j$ dans $\mathcal{B}$ est inversible.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      $\mathcal{C}$ is a basis iff the map $u:E\to E$ defined by $u(e_j)=c_j$ is an isomorphism, iff $\mathrm{Mat}_\mathcal{B}(u)\in\mathrm{GL}_n(\mathbb{K})$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      $\mathcal{C}$ est une base ssi l'application $u:E\to E$ définie par $u(e_j)=c_j$ est un isomorphisme, ssi $\mathrm{Mat}_\mathcal{B}(u)\in\mathrm{GL}_n(\mathbb{K})$.
-    </details>
+    <p class="en">One endomorphism has one matrix per basis. Passing from one to another is done by the matrix of the identity, read between the two bases.</p>
+    <p class="fr">Un endomorphisme a une matrice par base. Passer de l'une à l'autre se fait par la matrice de l'identité, lue entre les deux bases.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Change-of-basis matrix).</span> Let $\mathcal{B}=(e_1,\ldots,e_n)$ and $\mathcal{B}'=(e_1',\ldots,e_n')$ be two bases of $E$. The <em>change-of-basis matrix</em> from $\mathcal{B}$ to $\mathcal{B}'$ is $P_{\mathcal{B}\to\mathcal{B}'}=\mathrm{Mat}_{\mathcal{B}',\mathcal{B}}(\mathrm{id}_E)\in\mathrm{GL}_n(\mathbb{K})$, whose $j$-th column contains the coordinates of $e_j'$ in $\mathcal{B}$.</p>
@@ -672,6 +1122,28 @@
       <summary class="proof-label">Démonstration.</summary>
       On écrit $u=\mathrm{id}\circ\, u\circ\mathrm{id}$ et on applique deux fois la proposition précédente : $\mathrm{Mat}_{\mathcal{B}'}(u)=\mathrm{Mat}_{\mathcal{B},\mathcal{B}'}(\mathrm{id})\cdot\mathrm{Mat}_\mathcal{B}(u)\cdot\mathrm{Mat}_{\mathcal{B}',\mathcal{B}}(\mathrm{id})=P^{-1}\cdot\mathrm{Mat}_\mathcal{B}(u)\cdot P$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="320.2" height="211.5" viewBox="96.4 46.8 320.2 211.5">
+        <text x="130.0" y="90.0" text-anchor="middle">E</text>
+        <text x="130.0" y="68.0" text-anchor="middle">(e<tspan dy="4" font-size="11">j</tspan><tspan dy="-4">′)</tspan></text>
+        <text x="130.0" y="220.0" text-anchor="middle">E</text>
+        <text x="130.0" y="242.0" text-anchor="middle">(e<tspan dy="4" font-size="11">j</tspan><tspan dy="-4">)</tspan></text>
+        <text x="370.0" y="90.0" text-anchor="middle">E</text>
+        <text x="370.0" y="68.0" text-anchor="middle">(e<tspan dy="4" font-size="11">j</tspan><tspan dy="-4">′)</tspan></text>
+        <text x="370.0" y="220.0" text-anchor="middle">E</text>
+        <text x="370.0" y="242.0" text-anchor="middle">(e<tspan dy="4" font-size="11">j</tspan><tspan dy="-4">)</tspan></text>
+        <line class="fig-curve" x1="150.0" y1="85.0" x2="342.0" y2="85.0"/><polygon class="fig-dot" points="350.0,85.0 342.0,88.0 342.0,82.0"/>
+        <line class="fig-curve" x1="150.0" y1="215.0" x2="342.0" y2="215.0"/><polygon class="fig-dot" points="350.0,215.0 342.0,218.0 342.0,212.0"/>
+        <text x="250.0" y="72.0" text-anchor="middle">P<tspan dy="-5" font-size="11">−1</tspan><tspan dy="5">AP</tspan></text>
+        <text x="250.0" y="242.0" text-anchor="middle">A</text>
+        <line class="fig-accent" x1="130.0" y1="104.0" x2="130.0" y2="180.0"/><polygon class="fig-dot" points="130.0,188.0 127.0,180.0 133.0,180.0"/>
+        <line class="fig-accent" x1="370.0" y1="188.0" x2="370.0" y2="112.0"/><polygon class="fig-dot" points="370.0,104.0 373.0,112.0 367.0,112.0"/>
+        <text x="116.0" y="155.0" text-anchor="end">P</text>
+        <text x="384.0" y="155.0" text-anchor="start">P<tspan dy="-5" font-size="11">−1</tspan></text>
+      </svg>
+      <figcaption><span class="en">$A$ is the matrix of $u$ in the basis $(e_j)$. Going down, across and up reads the same $u$ in the basis $(e_j')$, which is why $P$ appears once on each side.</span><span class="fr">$A$ est la matrice de $u$ dans la base $(e_j)$. Descendre, traverser puis remonter lit le même $u$ dans la base $(e_j')$, ce qui explique la présence de $P$ de chaque côté.</span></figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Similar matrices).</span> Two matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ are <em>similar</em> if there exists $P\in\mathrm{GL}_n(\mathbb{K})$ such that $B=P^{-1}AP$. Similarity is an equivalence relation.</p>
@@ -718,8 +1190,198 @@
       (3) Si $B=P^{-1}AP$ et $A$ inversible, alors $B^{-1}=P^{-1}A^{-1}P$.
     </details>
 
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> Column $j$ of a matrix holds the image of $e_j$. Read a matrix column by column, and build one the same way.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> La colonne $j$ d'une matrice contient l'image de $e_j$. Lire une matrice colonne par colonne, et en construire une de la même façon.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $u:\mathbb{R}^3\to\mathbb{R}^2$ be defined by $u(x,y,z)=(x+z,\ 2y-z)$. Write the matrix of $u$ in the canonical bases, then use it to compute $u(1,1,1)$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soit $u:\mathbb{R}^3\to\mathbb{R}^2$ définie par $u(x,y,z)=(x+z,\ 2y-z)$. Écrire la matrice de $u$ dans les bases canoniques, puis l'utiliser pour calculer $u(1,1,1)$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          $u(e_1)=(1,0)$, $u(e_2)=(0,2)$, $u(e_3)=(1,-1)$, so $A=\begin{pmatrix}1&0&1\\0&2&-1\end{pmatrix}$. Then $A\begin{pmatrix}1\\1\\1\end{pmatrix}$ is the sum of the three columns, namely $\begin{pmatrix}2\\1\end{pmatrix}$, so $u(1,1,1)=(2,1)$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          $u(e_1)=(1,0)$, $u(e_2)=(0,2)$, $u(e_3)=(1,-1)$, donc $A=\begin{pmatrix}1&0&1\\0&2&-1\end{pmatrix}$. Alors $A\begin{pmatrix}1\\1\\1\end{pmatrix}$ est la somme des trois colonnes, soit $\begin{pmatrix}2\\1\end{pmatrix}$, donc $u(1,1,1)=(2,1)$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To invert a matrix, run Gaussian elimination on $\left(\begin{array}{c|c} A & I_n \end{array}\right)$; to solve a system, run it on $\left(\begin{array}{c|c} A & B \end{array}\right)$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour inverser une matrice, appliquer le pivot de Gauss à $\left(\begin{array}{c|c} A & I_n \end{array}\right)$ ; pour résoudre un système, l'appliquer à $\left(\begin{array}{c|c} A & B \end{array}\right)$.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Compute the inverse of $A=\begin{pmatrix}1&2\\3&7\end{pmatrix}$ by Gaussian elimination.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Calculer l'inverse de $A=\begin{pmatrix}1&2\\3&7\end{pmatrix}$ par le pivot de Gauss.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          \[
+          \left(\begin{array}{cc|cc}1&2&1&0\\3&7&0&1\end{array}\right)
+          \xrightarrow{L_2\leftarrow L_2-3L_1}
+          \left(\begin{array}{cc|cc}1&2&1&0\\0&1&-3&1\end{array}\right)
+          \xrightarrow{L_1\leftarrow L_1-2L_2}
+          \left(\begin{array}{cc|cc}1&0&7&-2\\0&1&-3&1\end{array}\right)
+          \]
+          So $A^{-1}=\begin{pmatrix}7&-2\\-3&1\end{pmatrix}$, which is checked by $AA^{-1}=I_2$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          \[
+          \left(\begin{array}{cc|cc}1&2&1&0\\3&7&0&1\end{array}\right)
+          \xrightarrow{L_2\leftarrow L_2-3L_1}
+          \left(\begin{array}{cc|cc}1&2&1&0\\0&1&-3&1\end{array}\right)
+          \xrightarrow{L_1\leftarrow L_1-2L_2}
+          \left(\begin{array}{cc|cc}1&0&7&-2\\0&1&-3&1\end{array}\right)
+          \]
+          Donc $A^{-1}=\begin{pmatrix}7&-2\\-3&1\end{pmatrix}$, ce que confirme $AA^{-1}=I_2$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> To pin down a matrix subject to a condition holding for every $B$, test the condition on the $E_{ij}$ and use $E_{ij}E_{kl}=\delta_{jk}E_{il}$.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour déterminer une matrice soumise à une condition valable pour toute $B$, tester la condition sur les $E_{ij}$ et utiliser $E_{ij}E_{kl}=\delta_{jk}E_{il}$.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{R})$ commute with every diagonal matrix. Show that $A$ is diagonal.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{R})$ commutant avec toute matrice diagonale. Montrer que $A$ est diagonale.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          Take the diagonal matrix $E_{kk}$. Then $AE_{kk}=\sum_{i,j}a_{ij}E_{ij}E_{kk}=\sum_i a_{ik}E_{ik}$, which is the $k$-th column of $A$ placed in column $k$, and $E_{kk}A=\sum_j a_{kj}E_{kj}$, which is the $k$-th row of $A$ placed in row $k$. Equality forces $a_{ik}=0$ for $i\neq k$ and $a_{kj}=0$ for $j\neq k$. As $k$ runs over $1,\ldots,n$, every off-diagonal entry vanishes.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          Prenons la matrice diagonale $E_{kk}$. Alors $AE_{kk}=\sum_{i,j}a_{ij}E_{ij}E_{kk}=\sum_i a_{ik}E_{ik}$, qui est la $k$-ème colonne de $A$ placée en colonne $k$, et $E_{kk}A=\sum_j a_{kj}E_{kj}$, qui est la $k$-ème ligne de $A$ placée en ligne $k$. L'égalité impose $a_{ik}=0$ pour $i\neq k$ et $a_{kj}=0$ pour $j\neq k$. En faisant varier $k$ de $1$ à $n$, tous les coefficients hors de la diagonale sont nuls.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> When a polynomial in $A$ vanishes, rearrange it into a product of two matrices equal to $I_n$: each factor is then the inverse of the other.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Quand un polynôme en $A$ s'annule, le réarranger en un produit de deux matrices égal à $I_n$ : chaque facteur est alors l'inverse de l'autre.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{K})$ be nilpotent, i.e. there exists $p\in\mathbb{N}^*$ such that $A^p=0$. Show that $I_n-A$ is invertible and express $(I_n-A)^{-1}$.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ nilpotente, i.e. il existe $p\in\mathbb{N}^*$ tel que $A^p=0$. Montrer que $I_n-A$ est inversible et exprimer $(I_n-A)^{-1}$.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          $(I_n-A)(I_n+A+\cdots+A^{p-1})=I_n-A^p=I_n$, and the two factors commute since both are polynomials in $A$. So $I_n-A$ is invertible and $(I_n-A)^{-1}=I_n+A+\cdots+A^{p-1}$.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          $(I_n-A)(I_n+A+\cdots+A^{p-1})=I_n-A^p=I_n$, et les deux facteurs commutent car ce sont des polynômes en $A$. Donc $I_n-A$ est inversible et $(I_n-A)^{-1}=I_n+A+\cdots+A^{p-1}$.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To prove that a square matrix is invertible, show that $AX=0$ forces $X=0$.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour montrer qu'une matrice carrée est inversible, montrer que $AX=0$ entraîne $X=0$.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{R})$ be such that $|a_{ii}|&gt;\sum_{j\neq i}|a_{ij}|$ for every $i$. Show that $A$ is invertible.</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{R})$ telle que $|a_{ii}|&gt;\sum_{j\neq i}|a_{ij}|$ pour tout $i$. Montrer que $A$ est inversible.</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          Let $AX=0$ and let $i$ be an index where $|x_i|$ is largest. Row $i$ gives $a_{ii}x_i=-\sum_{j\neq i}a_{ij}x_j$, so $|a_{ii}||x_i|\le\sum_{j\neq i}|a_{ij}||x_j|\le|x_i|\sum_{j\neq i}|a_{ij}|$. If $x_i\neq 0$, dividing by $|x_i|$ gives $|a_{ii}|\le\sum_{j\neq i}|a_{ij}|$, against the hypothesis. So $x_i=0$, hence $X=0$, and $A$ is invertible.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          Soit $AX=0$ et soit $i$ un indice où $|x_i|$ est maximal. La ligne $i$ donne $a_{ii}x_i=-\sum_{j\neq i}a_{ij}x_j$, donc $|a_{ii}||x_i|\le\sum_{j\neq i}|a_{ij}||x_j|\le|x_i|\sum_{j\neq i}|a_{ij}|$. Si $x_i\neq 0$, en divisant par $|x_i|$ on obtient $|a_{ii}|\le\sum_{j\neq i}|a_{ij}|$, contraire à l'hypothèse. Donc $x_i=0$, d'où $X=0$, et $A$ est inversible.
+        </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To show that two matrices are similar, find one endomorphism having them as its matrices in two bases, instead of looking for $P$.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour montrer que deux matrices sont semblables, trouver un endomorphisme dont elles sont les matrices dans deux bases, plutôt que de chercher $P$.</p>
+
+        <div class="thm-block exercise">
+          <p class="en"><span class="thm-label">Exercise.</span> Let $f:\mathbb{K}_n[X]\to\mathbb{K}_n[X]$ be the endomorphism defined by $f(P)=P+P'$. Using $f$, show that the following matrices $A,B\in\mathcal{M}_{n+1}(\mathbb{K})$ are similar:
+          \[
+          A=\begin{pmatrix}1&1&0&\cdots&0\\0&1&2&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&n\\0&\cdots&&0&1\end{pmatrix},\qquad
+          B=\begin{pmatrix}1&1&0&\cdots&0\\0&1&1&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&1\\0&\cdots&&0&1\end{pmatrix}.
+          \]</p>
+          <p class="fr"><span class="thm-label">Exercice.</span> Soit $f:\mathbb{K}_n[X]\to\mathbb{K}_n[X]$ l'endomorphisme défini par $f(P)=P+P'$. En utilisant $f$, montrer que les matrices $A,B\in\mathcal{M}_{n+1}(\mathbb{K})$ suivantes sont semblables :
+          \[
+          A=\begin{pmatrix}1&1&0&\cdots&0\\0&1&2&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&n\\0&\cdots&&0&1\end{pmatrix},\qquad
+          B=\begin{pmatrix}1&1&0&\cdots&0\\0&1&1&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&1\\0&\cdots&&0&1\end{pmatrix}.
+          \]</p>
+        </div>
+
+        <details class="proof en">
+          <summary class="proof-label">Solution.</summary>
+          <strong>Matrix of $f$ in $\mathcal{B}=(1,X,\ldots,X^n)$.</strong> For $0\le k\le n$, $f(X^k)=X^k+kX^{k-1}$, so the matrix of $f$ in $\mathcal{B}$ is $A$.
+
+          <strong>Matrix of $f$ in $\mathcal{B}'=\left(1,X,\frac{X^2}{2!},\ldots,\frac{X^n}{n!}\right)$.</strong> For $k\ge 1$, $f\!\left(\frac{X^k}{k!}\right)=\frac{X^k}{k!}+\frac{X^{k-1}}{(k-1)!}$, so the matrix of $f$ in $\mathcal{B}'$ is $B$.
+
+          <strong>Conclusion.</strong> $A$ and $B$ represent the same endomorphism in two different bases, so they are similar.
+        </details>
+        <details class="proof fr">
+          <summary class="proof-label">Solution.</summary>
+          <strong>Matrice de $f$ dans $\mathcal{B}=(1,X,\ldots,X^n)$.</strong> Pour $0\le k\le n$, $f(X^k)=X^k+kX^{k-1}$, donc la matrice de $f$ dans $\mathcal{B}$ est $A$.
+
+          <strong>Matrice de $f$ dans $\mathcal{B}'=\left(1,X,\frac{X^2}{2!},\ldots,\frac{X^n}{n!}\right)$.</strong> Pour $k\ge 1$, $f\!\left(\frac{X^k}{k!}\right)=\frac{X^k}{k!}+\frac{X^{k-1}}{(k-1)!}$, donc la matrice de $f$ dans $\mathcal{B}'$ est $B$.
+
+          <strong>Conclusion.</strong> $A$ et $B$ représentent le même endomorphisme dans deux bases différentes, donc elles sont semblables.
+        </details>
+    </div>
+
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> For $A,B\in\mathcal{M}_n(\mathbb{K})$, $AB=I_n$ forces $BA=I_n$. Find a counterexample when the matrices are no longer required to be square, that is for $A\in\mathcal{M}_{n,p}(\mathbb{K})$ and $B\in\mathcal{M}_{p,n}(\mathbb{K})$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Pour $A,B\in\mathcal{M}_n(\mathbb{K})$, $AB=I_n$ entraîne $BA=I_n$. Trouver un contre-exemple lorsque les matrices ne sont plus supposées carrées, c'est-à-dire pour $A\in\mathcal{M}_{n,p}(\mathbb{K})$ et $B\in\mathcal{M}_{p,n}(\mathbb{K})$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $A=\begin{pmatrix}1&0\end{pmatrix}\in\mathcal{M}_{1,2}(\mathbb{K})$ and $B=\begin{pmatrix}1\\0\end{pmatrix}\in\mathcal{M}_{2,1}(\mathbb{K})$. Then $AB=(1)=I_1$, while $BA=\begin{pmatrix}1&0\\0&0\end{pmatrix}\neq I_2$. Here $A$ is surjective and $B$ injective, and neither is bijective, which is possible only because the two spaces have different dimensions.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $A=\begin{pmatrix}1&0\end{pmatrix}\in\mathcal{M}_{1,2}(\mathbb{K})$ et $B=\begin{pmatrix}1\\0\end{pmatrix}\in\mathcal{M}_{2,1}(\mathbb{K})$. Alors $AB=(1)=I_1$, tandis que $BA=\begin{pmatrix}1&0\\0&0\end{pmatrix}\neq I_2$. Ici $A$ est surjective et $B$ injective, sans qu'aucune soit bijective, ce qui n'est possible que parce que les deux espaces n'ont pas la même dimension.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The trace satisfies $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, so it does not see the order of two factors. Find $A,B,C\in\mathcal{M}_2(\mathbb{K})$ with $\mathrm{tr}(ABC)\neq\mathrm{tr}(ACB)$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La trace vérifie $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, donc elle ne voit pas l'ordre de deux facteurs. Trouver $A,B,C\in\mathcal{M}_2(\mathbb{K})$ telles que $\mathrm{tr}(ABC)\neq\mathrm{tr}(ACB)$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $A=E_{11}$, $B=E_{12}$, $C=E_{21}$. Then $ABC=E_{11}E_{12}E_{21}=E_{12}E_{21}=E_{11}$, of trace $1$, while $ACB=E_{11}E_{21}E_{12}=0$ since $E_{11}E_{21}=\delta_{12}E_{11}=0$, of trace $0$. What $\mathrm{tr}(AB)=\mathrm{tr}(BA)$ allows is moving the last factor to the front, and repeating that on $ABC$ produces $BCA$ and $CAB$, never $ACB$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $A=E_{11}$, $B=E_{12}$, $C=E_{21}$. Alors $ABC=E_{11}E_{12}E_{21}=E_{12}E_{21}=E_{11}$, de trace $1$, tandis que $ACB=E_{11}E_{21}E_{12}=0$ car $E_{11}E_{21}=\delta_{12}E_{11}=0$, de trace $0$. Ce qu'autorise $\mathrm{tr}(AB)=\mathrm{tr}(BA)$, c'est de ramener le dernier facteur devant, et en le répétant sur $ABC$ on obtient $BCA$ et $CAB$, jamais $ACB$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Similar matrices have the same trace and the same rank. Find two matrices of $\mathcal{M}_2(\mathbb{K})$ that have the same trace and the same rank without being similar.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Deux matrices semblables ont même trace et même rang. Trouver deux matrices de $\mathcal{M}_2(\mathbb{K})$ ayant même trace et même rang sans être semblables.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $I_2$ and $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$: both have trace $2$ and rank $2$. But $P^{-1}I_2P=I_2$ for every $P\in\mathrm{GL}_2(\mathbb{K})$, so the only matrix similar to $I_2$ is $I_2$ itself, and $A\neq I_2$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prendre $I_2$ et $A=\begin{pmatrix}1&1\\0&1\end{pmatrix}$ : toutes deux ont trace $2$ et rang $2$. Mais $P^{-1}I_2P=I_2$ pour tout $P\in\mathrm{GL}_2(\mathbb{K})$, donc la seule matrice semblable à $I_2$ est $I_2$ elle-même, et $A\neq I_2$.
+    </details>
+
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Solve the system:
@@ -804,94 +1466,6 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute the inverse of $A=\begin{pmatrix}1&2\\3&7\end{pmatrix}$ by Gaussian elimination.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer l'inverse de $A=\begin{pmatrix}1&2\\3&7\end{pmatrix}$ par pivot de Gauss.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      \[
-      \left(\begin{array}{cc|cc}
-      1&2&1&0\\
-      3&7&0&1
-      \end{array}\right)
-      \xrightarrow{L_2\leftarrow L_2-3L_1}
-      \left(\begin{array}{cc|cc}
-      1&2&1&0\\
-      0&1&-3&1
-      \end{array}\right)
-      \xrightarrow{L_1\leftarrow L_1-2L_2}
-      \left(\begin{array}{cc|cc}
-      1&0&7&-2\\
-      0&1&-3&1
-      \end{array}\right)
-      \]
-      Thus $A^{-1}=\begin{pmatrix}7&-2\\-3&1\end{pmatrix}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      \[
-      \left(\begin{array}{cc|cc}
-      1&2&1&0\\
-      3&7&0&1
-      \end{array}\right)
-      \xrightarrow{L_2\leftarrow L_2-3L_1}
-      \left(\begin{array}{cc|cc}
-      1&2&1&0\\
-      0&1&-3&1
-      \end{array}\right)
-      \xrightarrow{L_1\leftarrow L_1-2L_2}
-      \left(\begin{array}{cc|cc}
-      1&0&7&-2\\
-      0&1&-3&1
-      \end{array}\right)
-      \]
-      Donc $A^{-1}=\begin{pmatrix}7&-2\\-3&1\end{pmatrix}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that there do not exist matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ such that $AB-BA=I_n$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ telles que $AB-BA=I_n$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      If $AB-BA=I_n$, then $\mathrm{tr}(AB-BA)=\mathrm{tr}(AB)-\mathrm{tr}(BA)=0$, but $\mathrm{tr}(I_n)=n\neq 0$, contradiction.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Si $AB-BA=I_n$, alors $\mathrm{tr}(AB-BA)=\mathrm{tr}(AB)-\mathrm{tr}(BA)=0$, mais $\mathrm{tr}(I_n)=n\neq 0$, contradiction.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{K})$ be such that for every matrix $B\in\mathcal{M}_n(\mathbb{K})$, $AB=BA$. Show that $A=\lambda I_n$ for some $\lambda\in\mathbb{K}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ telle que pour toute matrice $B\in\mathcal{M}_n(\mathbb{K})$, $AB=BA$. Montrer que $A=\lambda I_n$ pour un certain $\lambda\in\mathbb{K}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Let $A=(a_{ij})$. For $i\neq j$, take $B=E_{ij}$. Then $(AE_{ij})_{kl}=a_{ki}\delta_{jl}$ and $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$. The equality $AE_{ij}=E_{ij}A$ at position $(i,j)$ gives $a_{ii}=a_{jj}$, and at position $(k,j)$ for $k\neq i$ gives $a_{ki}=0$. Thus $A=a_{11}I_n$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Posons $A=(a_{ij})$. Pour $i\neq j$, prenons $B=E_{ij}$. Alors $(AE_{ij})_{kl}=a_{ki}\delta_{jl}$ et $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$. L'égalité $AE_{ij}=E_{ij}A$ en position $(i,j)$ donne $a_{ii}=a_{jj}$, et en position $(k,j)$ pour $k\neq i$ donne $a_{ki}=0$. Donc $A=a_{11}I_n$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{K})$ be nilpotent, i.e. there exists $p\in\mathbb{N}^*$ such that $A^p=0$. Show that $I_n-A$ is invertible and express $(I_n-A)^{-1}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ nilpotente, i.e. il existe $p\in\mathbb{N}^*$ tel que $A^p=0$. Montrer que $I_n-A$ est inversible et exprimer $(I_n-A)^{-1}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      We have $(I_n-A)(I_n+A+A^2+\cdots+A^{p-1})=I_n-A^p=I_n$. Therefore $(I_n-A)^{-1}=\sum_{k=0}^{p-1}A^k$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On a $(I_n-A)(I_n+A+A^2+\cdots+A^{p-1})=I_n-A^p=I_n$. Donc $(I_n-A)^{-1}=\sum_{k=0}^{p-1}A^k$.
-    </details>
-
-    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise.</span> Let $n\ge 1$. Define $J\in\mathcal{M}_n(\mathbb{K})$ to be the matrix all of whose entries equal $1$, and $K\in\mathcal{M}_n(\mathbb{K})$ the matrix whose diagonal entries equal $1$ and off-diagonal entries equal $-1$. Compute $J^p$ and $K^p$ for every integer $p\ge 1$.</p>
       <p class="fr"><span class="thm-label">Exercice.</span> Soit $n\ge 1$. On définit $J\in\mathcal{M}_n(\mathbb{K})$ la matrice dont tous les coefficients valent $1$, et $K\in\mathcal{M}_n(\mathbb{K})$ la matrice dont les coefficients diagonaux valent $1$ et les coefficients hors diagonale valent $-1$. Calculer $J^p$ et $K^p$ pour tout entier $p\ge 1$.</p>
     </div>
@@ -938,17 +1512,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{R})$ commute with every diagonal matrix. Show that $A$ is diagonal.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{R})$ qui commute avec toute matrice diagonale. Montrer que $A$ est diagonale.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{M}_n(\mathbb{K})$ be such that for every matrix $B\in\mathcal{M}_n(\mathbb{K})$, $AB=BA$. Show that $A=\lambda I_n$ for some $\lambda\in\mathbb{K}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{M}_n(\mathbb{K})$ telle que pour toute matrice $B\in\mathcal{M}_n(\mathbb{K})$, $AB=BA$. Montrer que $A=\lambda I_n$ pour un certain $\lambda\in\mathbb{K}$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      For every $k$, $AE_{kk}=E_{kk}A$. Compute $(AE_{kk})_{ij}=a_{ik}\delta_{jk}$ and $(E_{kk}A)_{ij}=\delta_{ik}a_{kj}$. For $j=k,\ i\neq k$: $a_{ik}=0$; for $i=k,\ j\neq k$: $a_{kj}=0$. So all off-diagonal entries are zero.
+      Let $A=(a_{ij})$. For $i\neq j$, take $B=E_{ij}$. Then $(AE_{ij})_{kl}=a_{ki}\delta_{jl}$ and $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$. The equality $AE_{ij}=E_{ij}A$ at position $(i,j)$ gives $a_{ii}=a_{jj}$, and at position $(k,j)$ for $k\neq i$ gives $a_{ki}=0$. Thus $A=a_{11}I_n$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Pour tout $k$, $AE_{kk}=E_{kk}A$. On calcule $(AE_{kk})_{ij}=a_{ik}\delta_{jk}$ et $(E_{kk}A)_{ij}=\delta_{ik}a_{kj}$. Pour $j=k,\ i\neq k$ : $a_{ik}=0$ ; pour $i=k,\ j\neq k$ : $a_{kj}=0$. Donc tous les coefficients extra-diagonaux sont nuls.
+      Posons $A=(a_{ij})$. Pour $i\neq j$, prenons $B=E_{ij}$. Alors $(AE_{ij})_{kl}=a_{ki}\delta_{jl}$ et $(E_{ij}A)_{kl}=\delta_{ki}a_{jl}$. L'égalité $AE_{ij}=E_{ij}A$ en position $(i,j)$ donne $a_{ii}=a_{jj}$, et en position $(k,j)$ pour $k\neq i$ donne $a_{ki}=0$. Donc $A=a_{11}I_n$.
     </details>
 
     <div class="thm-block exercise">
@@ -988,17 +1562,17 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A\in\mathcal{T}_n^+(\mathbb{K})$ be upper triangular with all diagonal entries nonzero. Show that $A$ is invertible without using the determinant, by showing that $AX=0$ implies $X=0$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A\in\mathcal{T}_n^+(\mathbb{K})$ triangulaire supérieure dont tous les coefficients diagonaux sont non nuls. Montrer que $A$ est inversible sans utiliser le déterminant, en montrant que $AX=0$ implique $X=0$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that there do not exist matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ such that $AB-BA=I_n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer qu'il n'existe pas de matrices $A,B\in\mathcal{M}_n(\mathbb{K})$ telles que $AB-BA=I_n$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Let $X=(x_1,\ldots,x_n)^\top$ such that $AX=0$. The $i$-th equation reads $a_{ii}x_i+\sum_{j=i+1}^n a_{ij}x_j=0$. By downward induction from $i=n$ to $i=1$: at each step $a_{ii}x_i=0$, so $x_i=0$ since $a_{ii}\neq 0$. Thus $X=0$, and $A$ is injective, hence invertible in finite dimension.
+      If $AB-BA=I_n$, then $\mathrm{tr}(AB-BA)=\mathrm{tr}(AB)-\mathrm{tr}(BA)=0$, but $\mathrm{tr}(I_n)=n\neq 0$, contradiction.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Soit $X=(x_1,\ldots,x_n)^\top$ tel que $AX=0$. La $i$-ème équation s'écrit $a_{ii}x_i+\sum_{j=i+1}^n a_{ij}x_j=0$. Par récurrence descendante de $i=n$ à $i=1$ : à chaque étape $a_{ii}x_i=0$, donc $x_i=0$ car $a_{ii}\neq 0$. Ainsi $X=0$, et $A$ est injective, donc inversible en dimension finie.
+      Si $AB-BA=I_n$, alors $\mathrm{tr}(AB-BA)=\mathrm{tr}(AB)-\mathrm{tr}(BA)=0$, mais $\mathrm{tr}(I_n)=n\neq 0$, contradiction.
     </details>
 
     <div class="thm-block exercise">
@@ -1025,36 +1599,6 @@
       <strong>Cas 2 :</strong> si $\mathrm{tr}(A)=-1$ et $\mathrm{tr}(B)\neq 0$, pas de solution.
 
       <strong>Cas 3 :</strong> si $\mathrm{tr}(A)=-1$ et $\mathrm{tr}(B)=0$, les solutions sont $X=B-tA$ pour tout $t\in\mathbb{R}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $f:\mathbb{K}_n[X]\to\mathbb{K}_n[X]$ be the endomorphism defined by $f(P)=P+P'$. Using $f$, show that the following matrices $A,B\in\mathcal{M}_{n+1}(\mathbb{K})$ are similar:
-      \[
-      A=\begin{pmatrix}1&1&0&\cdots&0\\0&1&2&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&n\\0&\cdots&&0&1\end{pmatrix},\qquad
-      B=\begin{pmatrix}1&1&0&\cdots&0\\0&1&1&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&1\\0&\cdots&&0&1\end{pmatrix}.
-      \]</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $f:\mathbb{K}_n[X]\to\mathbb{K}_n[X]$ l'endomorphisme défini par $f(P)=P+P'$. En utilisant $f$, montrer que les matrices $A,B\in\mathcal{M}_{n+1}(\mathbb{K})$ suivantes sont semblables :
-      \[
-      A=\begin{pmatrix}1&1&0&\cdots&0\\0&1&2&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&n\\0&\cdots&&0&1\end{pmatrix},\qquad
-      B=\begin{pmatrix}1&1&0&\cdots&0\\0&1&1&\ddots&\vdots\\\vdots&\ddots&\ddots&\ddots&0\\&&\ddots&1&1\\0&\cdots&&0&1\end{pmatrix}.
-      \]</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      <strong>Matrix of $f$ in $\mathcal{B}=(1,X,\ldots,X^n)$.</strong> For $0\le k\le n$, $f(X^k)=X^k+kX^{k-1}$, so the matrix of $f$ in $\mathcal{B}$ is $A$.
-
-      <strong>Matrix of $f$ in $\mathcal{B}'=\left(1,X,\frac{X^2}{2!},\ldots,\frac{X^n}{n!}\right)$.</strong> For $k\ge 1$, $f\!\left(\frac{X^k}{k!}\right)=\frac{X^k}{k!}+\frac{X^{k-1}}{(k-1)!}$, so the matrix of $f$ in $\mathcal{B}'$ is $B$.
-
-      <strong>Conclusion.</strong> $A$ and $B$ represent the same endomorphism in two different bases, so they are similar.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      <strong>Matrice de $f$ dans $\mathcal{B}=(1,X,\ldots,X^n)$.</strong> Pour $0\le k\le n$, $f(X^k)=X^k+kX^{k-1}$, donc la matrice de $f$ dans $\mathcal{B}$ est $A$.
-
-      <strong>Matrice de $f$ dans $\mathcal{B}'=\left(1,X,\frac{X^2}{2!},\ldots,\frac{X^n}{n!}\right)$.</strong> Pour $k\ge 1$, $f\!\left(\frac{X^k}{k!}\right)=\frac{X^k}{k!}+\frac{X^{k-1}}{(k-1)!}$, donc la matrice de $f$ dans $\mathcal{B}'$ est $B$.
-
-      <strong>Conclusion.</strong> $A$ et $B$ représentent le même endomorphisme dans deux bases différentes, donc elles sont semblables.
     </details>
 
     <div class="thm-block exercise">
@@ -1204,24 +1748,6 @@
 
       Soit $D=\mathrm{diag}(1,2,\ldots,n)$, dont les coefficients diagonaux $d_1,\ldots,d_n$ sont deux à deux distincts. Pour toute $Y=(y_{ij})$, le coefficient $(DY-YD)_{ij}=d_iy_{ij}-y_{ij}d_j=(d_i-d_j)y_{ij}$. On définit $Y$ par $y_{ij}=\dfrac{m_{ij}}{d_i-d_j}$ pour $i\neq j$ (bien défini car $d_i\neq d_j$) et $y_{ii}=0$. Alors $(DY-YD)_{ij}=m_{ij}$ pour $i\neq j$, et $(DY-YD)_{ii}=0=m_{ii}$. Ainsi $M'=DY-YD$, et en revenant par la similitude, $M=XY-YX$.
     </details>
-
   </main>
-
-  <script>
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-en][data-fr]').forEach(function(el) {
-        el.innerHTML = el.getAttribute('data-' + lang);
-      });
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
-      document.documentElement.lang = lang;
-    }
-
-    (function() {
-      var lang = localStorage.getItem('lang') || 'en';
-      if (lang === 'fr') setLang('fr');
-    })();
-  </script>
 </body>
 </html>

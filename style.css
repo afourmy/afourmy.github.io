@@ -492,6 +492,8 @@ details.tsp-code > p {
 .fig-interval { stroke: var(--accent); stroke-width: 4; }
 .fig-arc { fill: none; stroke: var(--accent); stroke-width: 1.6; }
 .fig-bar { stroke: var(--text); stroke-width: 1.2; }
+/* the square brackets of a matrix drawn as a figure */
+.fig-bracket { fill: none; stroke: var(--text); stroke-width: 1.2; }
 .fig-shape { fill: var(--accent); fill-opacity: 0.10; stroke: var(--accent-strong); stroke-width: 1.8; }
 .fig-shape-img { fill: var(--accent); fill-opacity: 0.24; stroke: var(--accent); stroke-width: 1.8; }
 
@@ -507,7 +509,8 @@ details.tsp-code > p {
 
 /* labels that are letters or numbers rather than mathematical variables, so
    they are set upright; each rule must out-specify the italic .figure text */
-.figure text.fig-text { font-style: normal; font-family: 'Computer Modern Serif', serif; }
+.figure text.fig-text,
+.figure tspan.fig-text { font-style: normal; font-family: 'Computer Modern Serif', serif; }
 .figure text.fig-base1 { font-size: 19px; }
 .figure text.fig-base2 { font-size: 13px; }
 .figure text.fig-base3 { font-size: 10px; }
