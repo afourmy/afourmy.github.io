@@ -1646,25 +1646,47 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that every group of order $p^2$ (with $p$ prime) is isomorphic to $\mathbb{Z}/p^2\mathbb{Z}$ or to $(\mathbb{Z}/p\mathbb{Z})^2$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout groupe d'ordre $p^2$ (avec $p$ premier) est isomorphe à $\mathbb{Z}/p^2\mathbb{Z}$ ou à $(\mathbb{Z}/p\mathbb{Z})^2$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Classify, up to isomorphism, the groups of order $4$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Classer, à isomorphisme près, les groupes d'ordre $4$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Such a $G$ is abelian, and the order of each of its elements divides $p^2$, so it is $1$, $p$ or $p^2$.
+      Let $|G|=4$. The order of an element divides $4$, so it is $1$, $2$ or $4$.
+      If some $a$ has order $4$, then $\langle a\rangle=G$ and $G\simeq\mathbb{Z}/4\mathbb{Z}$.
+      Otherwise $x^2=e$ for every $x$, so $G$ is abelian. Take $a\neq e$ and $b\notin\{e,a\}$. Then $ab\notin\{e,a,b\}$: $ab=e$ would give $b=a^{-1}=a$, $ab=a$ would give $b=e$, and $ab=b$ would give $a=e$. So $G=\{e,a,b,ab\}$, and $(\overline{i},\overline{j})\mapsto a^ib^j$ is a bijection from $(\mathbb{Z}/2\mathbb{Z})^2$ to $G$, and a homomorphism since $G$ is abelian and $a^2=b^2=e$. Hence $G\simeq(\mathbb{Z}/2\mathbb{Z})^2$.
+      The two groups are not isomorphic, since one has an element of order $4$ and the other does not.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $|G|=4$. L'ordre d'un élément divise $4$, donc vaut $1$, $2$ ou $4$.
+      Si un élément $a$ est d'ordre $4$, alors $\langle a\rangle=G$ et $G\simeq\mathbb{Z}/4\mathbb{Z}$.
+      Sinon $x^2=e$ pour tout $x$, donc $G$ est abélien. Prenons $a\neq e$ et $b\notin\{e,a\}$. Alors $ab\notin\{e,a,b\}$ : $ab=e$ donnerait $b=a^{-1}=a$, $ab=a$ donnerait $b=e$, et $ab=b$ donnerait $a=e$. Donc $G=\{e,a,b,ab\}$, et $(\overline{i},\overline{j})\mapsto a^ib^j$ est une bijection de $(\mathbb{Z}/2\mathbb{Z})^2$ sur $G$, et un morphisme car $G$ est abélien et $a^2=b^2=e$. Ainsi $G\simeq(\mathbb{Z}/2\mathbb{Z})^2$.
+      Les deux groupes ne sont pas isomorphes, puisque l'un possède un élément d'ordre $4$ et l'autre non.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Classify, up to isomorphism, the groups of order $p^2$, with $p$ prime.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Classer, à isomorphisme près, les groupes d'ordre $p^2$, avec $p$ premier.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      A group $G$ of order $p^2$ is abelian, and the order of each of its elements divides $p^2$, so it is $1$, $p$ or $p^2$.
       If some $a$ has order $p^2$, then $\langle a\rangle=G$ is cyclic of order $p^2$, hence isomorphic to $\mathbb{Z}/p^2\mathbb{Z}$.
       Otherwise every $a\neq e$ has order $p$. Choose such an $a$ and then $b\notin\langle a\rangle$. The subgroup $\langle a\rangle\cap\langle b\rangle$ is a subgroup of $\langle a\rangle$, so its order is $1$ or $p$. If it were $p$, then $\langle a\rangle=\langle a\rangle\cap\langle b\rangle\subset\langle b\rangle$, and these two subgroups of order $p$ would be equal, giving $b\in\langle a\rangle$. So $\langle a\rangle\cap\langle b\rangle=\{e\}$. Consider
       \[\varphi : \mathbb{Z}/p\mathbb{Z}\times\mathbb{Z}/p\mathbb{Z}\to G,\qquad \varphi(\overline{i},\overline{j})=a^ib^j.\]
       It is well defined since $a^p=b^p=e$, and it is a homomorphism because $G$ is abelian. If $a^ib^j=e$, then $a^i=b^{-j}\in\langle a\rangle\cap\langle b\rangle=\{e\}$, so $\overline{i}=\overline{j}=\overline{0}$ and $\varphi$ is injective. Both sides have $p^2$ elements, so $\varphi$ is an isomorphism and $G\simeq(\mathbb{Z}/p\mathbb{Z})^2$.
+      The two groups are not isomorphic, since one has an element of order $p^2$ and the other does not.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Un tel $G$ est abélien, et l'ordre de chacun de ses éléments divise $p^2$, donc vaut $1$, $p$ ou $p^2$.
+      Un groupe $G$ d'ordre $p^2$ est abélien, et l'ordre de chacun de ses éléments divise $p^2$, donc vaut $1$, $p$ ou $p^2$.
       Si un élément $a$ est d'ordre $p^2$, alors $\langle a\rangle=G$ est cyclique d'ordre $p^2$, donc isomorphe à $\mathbb{Z}/p^2\mathbb{Z}$.
       Sinon tout $a\neq e$ est d'ordre $p$. Choisissons un tel $a$, puis $b\notin\langle a\rangle$. Le sous-groupe $\langle a\rangle\cap\langle b\rangle$ est un sous-groupe de $\langle a\rangle$, donc son ordre vaut $1$ ou $p$. S'il valait $p$, on aurait $\langle a\rangle=\langle a\rangle\cap\langle b\rangle\subset\langle b\rangle$, et ces deux sous-groupes d'ordre $p$ seraient égaux, d'où $b\in\langle a\rangle$. Donc $\langle a\rangle\cap\langle b\rangle=\{e\}$. Considérons
       \[\varphi : \mathbb{Z}/p\mathbb{Z}\times\mathbb{Z}/p\mathbb{Z}\to G,\qquad \varphi(\overline{i},\overline{j})=a^ib^j.\]
       Elle est bien définie car $a^p=b^p=e$, et c'est un morphisme car $G$ est abélien. Si $a^ib^j=e$, alors $a^i=b^{-j}\in\langle a\rangle\cap\langle b\rangle=\{e\}$, donc $\overline{i}=\overline{j}=\overline{0}$ et $\varphi$ est injective. Les deux ensembles ont $p^2$ éléments, donc $\varphi$ est un isomorphisme et $G\simeq(\mathbb{Z}/p\mathbb{Z})^2$.
+      Les deux groupes ne sont pas isomorphes, puisque l'un possède un élément d'ordre $p^2$ et l'autre non.
     </details>
 
     <div class="thm-block exercise">

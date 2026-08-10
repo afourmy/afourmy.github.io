@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rings and Fields</title>
+  <title>Rings and fields</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -20,410 +21,1159 @@
   <script src="../../nav.js"></script>
 
   <main>
-    <h2 class="en">Rings and Fields</h2>
-    <h2 class="fr">Anneaux et corps</h2>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Rings</h3>
+    <h3 class="fr">Anneaux</h3>
+
+    <p class="en">Addition, subtraction and multiplication obey the same rules in $\mathbb{Z}$, in $\mathbb{K}[X]$ and in the square matrices, apart from the commutativity of the product.</p>
+    <p class="fr">L'addition, la soustraction et la multiplication obéissent aux mêmes règles dans $\mathbb{Z}$, dans $\mathbb{K}[X]$ et dans les matrices carrées, à la commutativité du produit près.</p>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> A <em>ring</em> is a set $A$ equipped with two internal operations $+$ and $\times$ such that $(A,+)$ is an abelian group (with neutral element denoted $0_A$), $\times$ is associative with neutral element $1_A$, and $\times$ distributes over $+$: $\forall a,b,c \in A,\ a(b+c)=ab+ac$ and $(a+b)c=ac+bc$. The ring is <em>commutative</em> if $\times$ is commutative.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un <em>anneau</em> est un ensemble $A$ muni de deux lois internes $+$ et $\times$ tels que $(A,+)$ est un groupe abélien (d'élément neutre noté $0_A$), $\times$ est associative et possède un élément neutre $1_A$, et $\times$ est distributive par rapport à $+$ : $\forall a,b,c \in A,\ a(b+c)=ab+ac$ et $(a+b)c=ac+bc$. L'anneau est <em>commutatif</em> si $\times$ est commutative.</p>
+      <p class="en"><span class="thm-label">Definition (Ring).</span> A <em>ring</em> is a set $A$ equipped with two internal operations $+$ and $\times$ such that $(A,+)$ is an abelian group (with neutral element denoted $0_A$), $\times$ is associative with neutral element $1_A$, and $\times$ distributes over $+$: $\forall a,b,c \in A,\ a(b+c)=ab+ac$ and $(a+b)c=ac+bc$. The ring is <em>commutative</em> if $\times$ is commutative.</p>
+      <p class="fr"><span class="thm-label">Définition (Anneau).</span> Un <em>anneau</em> est un ensemble $A$ muni de deux lois internes $+$ et $\times$ tels que $(A,+)$ est un groupe abélien (d'élément neutre noté $0_A$), $\times$ est associative et possède un élément neutre $1_A$, et $\times$ est distributive par rapport à $+$ : $\forall a,b,c \in A,\ a(b+c)=ab+ac$ et $(a+b)c=ac+bc$. L'anneau est <em>commutatif</em> si $\times$ est commutative.</p>
+    </div>
+
+    <div class="thm-block example">
+      <div class="en"><p><span class="thm-label">Example.</span></p>
+      <ol>
+        <li>$\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$ and $\mathbb{C}$ with the usual operations, and $\mathbb{Z}/n\mathbb{Z}$ with addition and multiplication of congruence classes.</li>
+        <li>The polynomials $\mathbb{K}[X]$ with coefficients in a field $\mathbb{K}$.</li>
+        <li>The functions $\mathbb{R}\to\mathbb{R}$, with $(f+g)(x)=f(x)+g(x)$ and $(fg)(x)=f(x)g(x)$.</li>
+        <li>The square matrices $\mathcal{M}_n(\mathbb{K})$, which are not commutative for $n\ge 2$.</li>
+      </ol>
+      <p>All of these are commutative except the last.</p></div>
+      <div class="fr"><p><span class="thm-label">Exemple.</span></p>
+      <ol>
+        <li>$\mathbb{Z}$, $\mathbb{Q}$, $\mathbb{R}$ et $\mathbb{C}$ munis des opérations usuelles, et $\mathbb{Z}/n\mathbb{Z}$ muni de l'addition et de la multiplication des classes de congruence.</li>
+        <li>Les polynômes $\mathbb{K}[X]$ à coefficients dans un corps $\mathbb{K}$.</li>
+        <li>Les fonctions $\mathbb{R}\to\mathbb{R}$, avec $(f+g)(x)=f(x)+g(x)$ et $(fg)(x)=f(x)g(x)$.</li>
+        <li>Les matrices carrées $\mathcal{M}_n(\mathbb{K})$, qui ne sont pas commutatives pour $n\ge 2$.</li>
+      </ol>
+      <p>Tous sont commutatifs sauf le dernier.</p></div>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Calculation rules).</span> Let $A$ be a ring. For all $a,b \in A$: $0_A \cdot a = a \cdot 0_A = 0_A$, $(-a) \cdot b = a \cdot (-b) = -(a \cdot b)$, and $(-a)(-b) = ab$.</p>
       <p class="fr"><span class="thm-label">Proposition (Règles de calcul).</span> Soit $A$ un anneau. Pour tous $a,b \in A$ : $0_A \cdot a = a \cdot 0_A = 0_A$, $(-a) \cdot b = a \cdot (-b) = -(a \cdot b)$, et $(-a)(-b) = ab$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$0_A \cdot a = (0_A+0_A) \cdot a = 0_A \cdot a + 0_A \cdot a$, so $0_A \cdot a = 0_A$ by cancellation. Then $(-a)b + ab = (-a+a)b = 0_A$, so $(-a)b = -(ab)$. Finally $(-a)(-b) + (-a)b = (-a) \cdot 0 = 0$, so $(-a)(-b) = ab$.</p>
+      $0_A \cdot a = (0_A+0_A) \cdot a = 0_A \cdot a + 0_A \cdot a$, so $0_A \cdot a = 0_A$ by cancellation in the group $(A,+)$. Then $(-a)b + ab = (-a+a)b = 0_A$, so $(-a)b = -(ab)$. Finally $(-a)(-b) + (-a)b = (-a) \cdot 0 = 0$, so $(-a)(-b) = ab$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$0_A \cdot a = (0_A+0_A) \cdot a = 0_A \cdot a + 0_A \cdot a$, d'où $0_A \cdot a = 0_A$ par simplification. Ensuite $(-a)b + ab = (-a+a)b = 0_A$, donc $(-a)b = -(ab)$. Enfin $(-a)(-b) + (-a)b = (-a) \cdot 0 = 0$, donc $(-a)(-b) = ab$.</p>
+      $0_A \cdot a = (0_A+0_A) \cdot a = 0_A \cdot a + 0_A \cdot a$, d'où $0_A \cdot a = 0_A$ par simplification dans le groupe $(A,+)$. Ensuite $(-a)b + ab = (-a+a)b = 0_A$, donc $(-a)b = -(ab)$. Enfin $(-a)(-b) + (-a)b = (-a) \cdot 0 = 0$, donc $(-a)(-b) = ab$.
     </details>
 
     <div class="thm-block remark">
-      <p class="en"><span class="thm-label">Remark.</span> If $1_A = 0_A$, then $A = \{0_A\}$ (for all $a \in A$, $a = a \cdot 1_A = a \cdot 0_A = 0_A$).</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Si $1_A = 0_A$, alors $A = \{0_A\}$ (pour tout $a \in A$, $a = a \cdot 1_A = a \cdot 0_A = 0_A$).</p>
+      <p class="en"><span class="thm-label">Remark.</span> If $1_A = 0_A$, then $A = \{0_A\}$: for all $a \in A$, $a = a \cdot 1_A = a \cdot 0_A = 0_A$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Si $1_A = 0_A$, alors $A = \{0_A\}$ : pour tout $a \in A$, $a = a \cdot 1_A = a \cdot 0_A = 0_A$.</p>
     </div>
 
+    <h3 class="en">Units</h3>
+    <h3 class="fr">Inversibles</h3>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> An element $a$ of a ring $A$ is <em>invertible</em> if there exists $b \in A$ such that $ab = ba = 1_A$. The set of invertible elements of $A$, denoted $A^\times$, forms a group under multiplication, called the <em>group of units</em> of $A$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un élément $a$ d'un anneau $A$ est <em>inversible</em> s'il existe $b \in A$ tel que $ab = ba = 1_A$. L'ensemble des éléments inversibles de $A$, noté $A^\times$, forme un groupe pour la multiplication, appelé <em>groupe des inversibles</em> de $A$.</p>
+      <p class="en"><span class="thm-label">Definition (Unit).</span> An element $a$ of a ring $A$ is <em>invertible</em>, or a <em>unit</em>, if there exists $b \in A$ such that $ab = ba = 1_A$. The set of units of $A$ is denoted $A^\times$.</p>
+      <p class="fr"><span class="thm-label">Définition (Inversible).</span> Un élément $a$ d'un anneau $A$ est <em>inversible</em> s'il existe $b \in A$ tel que $ab = ba = 1_A$. L'ensemble des inversibles de $A$ est noté $A^\times$.</p>
     </div>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> $A^\times$ is a group under multiplication, called the <em>group of units</em> of $A$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> $A^\times$ est un groupe pour la multiplication, appelé <em>groupe des inversibles</em> de $A$.</p>
+    </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">If $a$ and $b$ are invertible, then $(ab)(b^{-1}a^{-1}) = a(bb^{-1})a^{-1} = 1$ and $(b^{-1}a^{-1})(ab) = b^{-1}(a^{-1}a)b = 1$, so $ab$ is invertible with inverse $b^{-1}a^{-1}$. The element $1_A$ is invertible (its own inverse). If $a$ is invertible, so is $a^{-1}$ (with inverse $a$). Associativity is inherited from $A$.</p>
+      If $a$ and $b$ are invertible, then $(ab)(b^{-1}a^{-1}) = a(bb^{-1})a^{-1} = 1$ and $(b^{-1}a^{-1})(ab) = b^{-1}(a^{-1}a)b = 1$, so $ab$ is invertible with inverse $b^{-1}a^{-1}$. The element $1_A$ is invertible (its own inverse). If $a$ is invertible, so is $a^{-1}$ (with inverse $a$). Associativity is inherited from $A$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Si $a$ et $b$ sont inversibles, alors $(ab)(b^{-1}a^{-1}) = a(bb^{-1})a^{-1} = 1$ et $(b^{-1}a^{-1})(ab) = b^{-1}(a^{-1}a)b = 1$, donc $ab$ est inversible d'inverse $b^{-1}a^{-1}$. L'élément $1_A$ est inversible (d'inverse lui-même). Si $a$ est inversible, $a^{-1}$ l'est aussi (d'inverse $a$). L'associativité est héritée de $A$.</p>
+      Si $a$ et $b$ sont inversibles, alors $(ab)(b^{-1}a^{-1}) = a(bb^{-1})a^{-1} = 1$ et $(b^{-1}a^{-1})(ab) = b^{-1}(a^{-1}a)b = 1$, donc $ab$ est inversible d'inverse $b^{-1}a^{-1}$. L'élément $1_A$ est inversible (d'inverse lui-même). Si $a$ est inversible, $a^{-1}$ l'est aussi (d'inverse $a$). L'associativité est héritée de $A$.
     </details>
 
+    <h3 class="en">Integral domains</h3>
+    <h3 class="fr">Anneaux intègres</h3>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> An element $a \neq 0_A$ is a <em>zero divisor</em> if there exists $b \neq 0_A$ such that $ab = 0_A$ or $ba = 0_A$. A commutative ring is an <em>integral domain</em> if it has no zero divisors, i.e.: $\forall a,b \in A,\ ab = 0_A \implies a = 0_A \text{ or } b = 0_A$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un élément $a \neq 0_A$ est un <em>diviseur de zéro</em> s'il existe $b \neq 0_A$ tel que $ab = 0_A$ ou $ba = 0_A$. Un anneau commutatif est <em>intègre</em> s'il n'a pas de diviseur de zéro, c'est-à-dire : $\forall a,b \in A,\ ab = 0_A \implies a = 0_A \text{ ou } b = 0_A$.</p>
+      <p class="en"><span class="thm-label">Definition (Zero divisor, integral domain).</span> An element $a \neq 0_A$ is a <em>zero divisor</em> if there exists $b \neq 0_A$ such that $ab = 0_A$ or $ba = 0_A$. A commutative ring is an <em>integral domain</em> if it has no zero divisors, that is: $\forall a,b \in A,\ ab = 0_A \implies a = 0_A \text{ or } b = 0_A$.</p>
+      <p class="fr"><span class="thm-label">Définition (Diviseur de zéro, anneau intègre).</span> Un élément $a \neq 0_A$ est un <em>diviseur de zéro</em> s'il existe $b \neq 0_A$ tel que $ab = 0_A$ ou $ba = 0_A$. Un anneau commutatif est <em>intègre</em> s'il n'a pas de diviseur de zéro, c'est-à-dire : $\forall a,b \in A,\ ab = 0_A \implies a = 0_A \text{ ou } b = 0_A$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> In an integral domain, cancellation holds: if $a \neq 0$ and $ab = ac$, then $b = c$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Dans un anneau intègre, on peut simplifier : si $a \neq 0$ et $ab = ac$, alors $b = c$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$ab = ac \implies a(b-c) = 0$. Since $a \neq 0$ and the ring is an integral domain, $b - c = 0$, so $b = c$.</p>
+      $ab = ac$ gives $a(b-c) = 0$. Since $a \neq 0$ and the ring is an integral domain, $b - c = 0$, so $b = c$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$ab = ac \implies a(b-c) = 0$. Comme $a \neq 0$ et l'anneau est intègre, $b - c = 0$, donc $b = c$.</p>
+      $ab = ac$ donne $a(b-c) = 0$. Comme $a \neq 0$ et que l'anneau est intègre, $b - c = 0$, donc $b = c$.
     </details>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> An invertible element is not a zero divisor.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Un élément inversible n'est pas diviseur de zéro.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">Let $a$ be invertible and $ab = 0$. Multiplying by $a^{-1}$, we get $b = 0$.</p>
+      Let $a$ be invertible and $ab = 0$. Multiplying by $a^{-1}$, we get $b = 0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Soit $a$ inversible et $ab = 0$. En multipliant par $a^{-1}$, $b = 0$.</p>
+      Soit $a$ inversible et $ab = 0$. En multipliant par $a^{-1}$, on obtient $b = 0$.
     </details>
 
+    <h3 class="en">Fields</h3>
+    <h3 class="fr">Corps</h3>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> A <em>field</em> is a commutative ring in which every nonzero element is invertible, i.e. $K^\times = K \setminus \{0_K\}$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un <em>corps</em> est un anneau commutatif dont tout élément non nul est inversible, c'est-à-dire $K^\times = K \setminus \{0_K\}$.</p>
+      <p class="en"><span class="thm-label">Definition (Field).</span> A <em>field</em> is a commutative ring in which every nonzero element is invertible, that is $K^\times = K \setminus \{0_K\}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Corps).</span> Un <em>corps</em> est un anneau commutatif dont tout élément non nul est inversible, c'est-à-dire $K^\times = K \setminus \{0_K\}$.</p>
     </div>
 
     <div class="thm-block remark">
-      <p class="en"><span class="thm-label">Remark.</span> Every field is an integral domain (every nonzero element of a field is invertible, hence not a zero divisor).</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Tout corps est intègre (tout élément non nul d'un corps est inversible, donc n'est pas diviseur de zéro).</p>
+      <p class="en"><span class="thm-label">Remark.</span> Every field is an integral domain: a nonzero element of a field is invertible, hence not a zero divisor.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Tout corps est intègre : un élément non nul d'un corps est inversible, donc n'est pas diviseur de zéro.</p>
     </div>
 
+    <figure class="figure-block">
+      <svg class="figure" width="490" height="320" viewBox="-10 -10 490 320">
+      <rect class="fig-shape" x="0" y="0" width="470" height="300" rx="14"/>
+      <rect class="fig-shape" x="40" y="40" width="390" height="220" rx="14"/>
+      <rect class="fig-shape" x="80" y="80" width="310" height="140" rx="14"/>
+      <rect class="fig-shape" x="120" y="120" width="230" height="60" rx="14"/>
+      <text x="235" y="25" text-anchor="middle">M<tspan class="fig-sup" dy="4">2</tspan><tspan dy="-4">(ℝ)</tspan></text>
+      <text x="235" y="65" text-anchor="middle">ℤ/6ℤ</text>
+      <text x="181" y="105" text-anchor="middle">ℤ</text>
+      <text x="289" y="105" text-anchor="middle">𝕂[X]</text>
+      <text x="189" y="155" text-anchor="middle">ℚ</text>
+      <text x="281" y="155" text-anchor="middle">ℤ/5ℤ</text>
+    </svg>
+      <figcaption><span class="en">Four nested classes of rings, each band holding one that lives there and not one step further in. From the outside in: rings, commutative rings, integral domains, fields. $\mathcal{M}_2(\mathbb{R})$ is not commutative, $\mathbb{Z}/6\mathbb{Z}$ has the zero divisors $\bar2$ and $\bar3$, and $\mathbb{Z}$ and $\mathbb{K}[X]$ have no inverse for $2$ and for $X$.</span><span class="fr">Quatre classes emboîtées d'anneaux, chaque bande contenant un anneau qui y vit sans aller plus loin vers l'intérieur. De l'extérieur vers l'intérieur : anneaux, anneaux commutatifs, anneaux intègres, corps. $\mathcal{M}_2(\mathbb{R})$ n'est pas commutatif, $\mathbb{Z}/6\mathbb{Z}$ a les diviseurs de zéro $\bar2$ et $\bar3$, et $\mathbb{Z}$ et $\mathbb{K}[X]$ n'ont pas d'inverse pour $2$ ni pour $X$.</span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> Every finite commutative integral domain is a field.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Tout anneau commutatif fini intègre est un corps.</p>
+      <p class="en"><span class="thm-label">Proposition.</span> Every finite integral domain is a field.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout anneau intègre fini est un corps.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">Let $a \neq 0$ in a finite integral domain $A$. The map $\varphi : A \to A$ defined by $\varphi(x) = ax$ is injective: if $ax = ay$ then $a(x-y) = 0$, so $x = y$ by the integral domain property. Since $A$ is finite, $\varphi$ is also surjective. So there exists $b \in A$ with $ab = 1$, showing $a$ is invertible.</p>
+      Let $a \neq 0$ in a finite integral domain $A$. The map $\varphi : A \to A$ defined by $\varphi(x) = ax$ is injective: if $ax = ay$ then $a(x-y) = 0$, so $x = y$. Since $A$ is finite, $\varphi$ is also surjective. So there exists $b \in A$ with $ab = 1$, and $a$ is invertible.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Soit $a \neq 0$ dans $A$ fini et intègre. L'application $\varphi : A \to A$ définie par $\varphi(x) = ax$ est injective : si $ax = ay$, alors $a(x-y) = 0$, d'où $x = y$ par intégrité. Comme $A$ est fini, $\varphi$ est aussi surjective. Il existe donc $b \in A$ tel que $ab = 1$, ce qui montre que $a$ est inversible.</p>
+      Soit $a \neq 0$ dans un anneau intègre fini $A$. L'application $\varphi : A \to A$ définie par $\varphi(x) = ax$ est injective : si $ax = ay$, alors $a(x-y) = 0$, d'où $x = y$. Comme $A$ est fini, $\varphi$ est aussi surjective. Il existe donc $b \in A$ tel que $ab = 1$, et $a$ est inversible.
     </details>
+
+    <h3 class="en">Subrings</h3>
+    <h3 class="fr">Sous-anneaux</h3>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> A subset $B$ of a ring $A$ is a <em>subring</em> of $A$ if $B$ is closed under $+$, $\times$, and negation, and if $1_A \in B$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un sous-ensemble $B$ d'un anneau $A$ est un <em>sous-anneau</em> de $A$ si $B$ est stable par $+$, $\times$ et opposé, et si $1_A \in B$.</p>
+      <p class="en"><span class="thm-label">Definition (Subring).</span> A subset $B$ of a ring $A$ is a <em>subring</em> of $A$ if $B$ is closed under $+$, $\times$ and negation, and if $1_A \in B$.</p>
+      <p class="fr"><span class="thm-label">Définition (Sous-anneau).</span> Un sous-ensemble $B$ d'un anneau $A$ est un <em>sous-anneau</em> de $A$ si $B$ est stable par $+$, $\times$ et opposé, et si $1_A \in B$.</p>
     </div>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Subring criterion).</span> $B \subset A$ is a subring if and only if $1_A \in B$, $\forall a,b \in B,\ a - b \in B$, and $\forall a,b \in B,\ ab \in B$.</p>
-      <p class="fr"><span class="thm-label">Proposition (Critère de sous-anneau).</span> $B \subset A$ est un sous-anneau si et seulement si $1_A \in B$, $\forall a,b \in B,\ a - b \in B$, et $\forall a,b \in B,\ ab \in B$.</p>
+      <p class="en"><span class="thm-label">Proposition (Subring criterion).</span> $B \subset A$ is a subring if and only if (1) $1_A \in B$, (2) $\forall a,b \in B,\ a - b \in B$, and (3) $\forall a,b \in B,\ ab \in B$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Critère de sous-anneau).</span> $B \subset A$ est un sous-anneau si et seulement si (1) $1_A \in B$, (2) $\forall a,b \in B,\ a - b \in B$, et (3) $\forall a,b \in B,\ ab \in B$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">The condition is necessary. Conversely, (1) ensures $B \neq \varnothing$. By (2), $B$ is a subgroup of $(A,+)$ (subgroup criterion). By (3), $B$ is closed under multiplication. Associativity and distributivity are inherited from $A$, and (1) provides the neutral element.</p>
+      The conditions are necessary. Conversely, (1) ensures $B \neq \varnothing$. By (2) and the subgroup criterion, $B$ is a subgroup of $(A,+)$. By (3), $B$ is closed under multiplication. Associativity and distributivity are inherited from $A$, and (1) provides the neutral element.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">La condition est nécessaire. Réciproquement, (1) assure $B \neq \varnothing$. Par (2), $B$ est un sous-groupe de $(A,+)$ (critère de sous-groupe). Par (3), $B$ est stable par multiplication. L'associativité et la distributivité sont héritées de $A$, et (1) fournit l'élément neutre.</p>
+      Les conditions sont nécessaires. Réciproquement, (1) assure $B \neq \varnothing$. Par (2) et le critère de sous-groupe, $B$ est un sous-groupe de $(A,+)$. Par (3), $B$ est stable par multiplication. L'associativité et la distributivité sont héritées de $A$, et (1) fournit l'élément neutre.
     </details>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The intersection of subrings is a subring.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> L'intersection de sous-anneaux est un sous-anneau.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">The element $1_A$ belongs to all subrings. Closure under difference and product is preserved by intersection.</p>
+      The element $1_A$ belongs to every subring. Closure under difference and product is preserved by intersection.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">L'élément $1_A$ appartient à tous les sous-anneaux. La stabilité par différence et par produit est conservée par intersection.</p>
+      L'élément $1_A$ appartient à tous les sous-anneaux. La stabilité par différence et par produit est conservée par intersection.
     </details>
+
+    <h3 class="en">Homomorphisms</h3>
+    <h3 class="fr">Morphismes</h3>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> Let $\varphi : A \to B$ be a map between two rings. We say $\varphi$ is a <em>ring homomorphism</em> if $\varphi(a + b) = \varphi(a) + \varphi(b)$, $\varphi(ab) = \varphi(a)\varphi(b)$ for all $a,b \in A$, and $\varphi(1_A) = 1_B$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Soit $\varphi : A \to B$ une application entre deux anneaux. On dit que $\varphi$ est un <em>morphisme d'anneaux</em> si $\varphi(a + b) = \varphi(a) + \varphi(b)$, $\varphi(ab) = \varphi(a)\varphi(b)$ pour tous $a,b \in A$, et $\varphi(1_A) = 1_B$.</p>
+      <p class="en"><span class="thm-label">Definition (Ring homomorphism).</span> A map $\varphi : A \to B$ between two rings is a <em>ring homomorphism</em> if $\varphi(a + b) = \varphi(a) + \varphi(b)$ and $\varphi(ab) = \varphi(a)\varphi(b)$ for all $a,b \in A$, and $\varphi(1_A) = 1_B$. A bijective homomorphism is an <em>isomorphism</em>, and $A \simeq B$ means that an isomorphism from $A$ to $B$ exists.</p>
+      <p class="fr"><span class="thm-label">Définition (Morphisme d'anneaux).</span> Une application $\varphi : A \to B$ entre deux anneaux est un <em>morphisme d'anneaux</em> si $\varphi(a + b) = \varphi(a) + \varphi(b)$ et $\varphi(ab) = \varphi(a)\varphi(b)$ pour tous $a,b \in A$, et $\varphi(1_A) = 1_B$. Un morphisme bijectif est un <em>isomorphisme</em>, et $A \simeq B$ signifie qu'il existe un isomorphisme de $A$ sur $B$.</p>
     </div>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> If $\varphi : A \to B$ is a ring homomorphism, then $\varphi(0_A) = 0_B$, $\varphi(-a) = -\varphi(a)$, and $\varphi$ is injective if and only if $\ker\varphi = \{0\}$ (since $\varphi$ is in particular a homomorphism of additive groups).</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Si $\varphi : A \to B$ est un morphisme d'anneaux, alors $\varphi(0_A) = 0_B$, $\varphi(-a) = -\varphi(a)$, et $\varphi$ est injectif si et seulement si $\ker\varphi = \{0\}$ (car $\varphi$ est en particulier un morphisme de groupes additifs).</p>
+      <p class="en"><span class="thm-label">Proposition.</span> If $\varphi : A \to B$ is a ring homomorphism, then $\varphi(0_A) = 0_B$, $\varphi(-a) = -\varphi(a)$, and $\varphi$ is injective if and only if $\ker\varphi = \{0\}$, where $\ker\varphi = \{a \in A \mid \varphi(a) = 0_B\}$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Si $\varphi : A \to B$ est un morphisme d'anneaux, alors $\varphi(0_A) = 0_B$, $\varphi(-a) = -\varphi(a)$, et $\varphi$ est injectif si et seulement si $\ker\varphi = \{0\}$, où $\ker\varphi = \{a \in A \mid \varphi(a) = 0_B\}$.</p>
     </div>
 
-    <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> The image of a ring homomorphism is a subring. The kernel $\ker\varphi = \{a \in A \mid \varphi(a) = 0_B\}$ is a subgroup of $(A,+)$ closed under multiplication by any element of $A$.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> L'image d'un morphisme d'anneaux est un sous-anneau. Le noyau $\ker\varphi = \{a \in A \mid \varphi(a) = 0_B\}$ est un sous-groupe de $(A,+)$ stable par multiplication par tout élément de $A$.</p>
-    </div>
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$\mathrm{Im}\,\varphi$ contains $1_B = \varphi(1_A)$, is closed under difference and product. For the kernel: if $x \in \ker\varphi$ and $a \in A$, then $\varphi(ax) = \varphi(a)\varphi(x) = \varphi(a) \cdot 0 = 0$, so $ax \in \ker\varphi$.</p>
+      A ring homomorphism is in particular a homomorphism of the additive groups $(A,+)$ and $(B,+)$, and these three statements hold for group homomorphisms.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$\mathrm{Im}\,\varphi$ contient $1_B = \varphi(1_A)$, est stable par différence et par produit. Pour le noyau : si $x \in \ker\varphi$ et $a \in A$, alors $\varphi(ax) = \varphi(a)\varphi(x) = \varphi(a) \cdot 0 = 0$, donc $ax \in \ker\varphi$.</p>
+      Un morphisme d'anneaux est en particulier un morphisme des groupes additifs $(A,+)$ et $(B,+)$, et ces trois énoncés valent pour les morphismes de groupes.
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> Every field homomorphism (ring homomorphism between two fields) is injective.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> Tout morphisme de corps (morphisme d'anneaux entre deux corps) est injectif.</p>
+      <p class="en"><span class="thm-label">Proposition.</span> The image of a ring homomorphism is a subring of $B$. The kernel is a subgroup of $(A,+)$ closed under multiplication by any element of $A$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> L'image d'un morphisme d'anneaux est un sous-anneau de $B$. Le noyau est un sous-groupe de $(A,+)$ stable par multiplication par tout élément de $A$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">Let $\varphi : K \to L$ be a field homomorphism and $x \in \ker\varphi$. If $x \neq 0$, then $x$ is invertible in $K$, so $1_L = \varphi(1_K) = \varphi(x)\varphi(x^{-1}) = 0 \cdot \varphi(x^{-1}) = 0_L$. But $1_L = 0_L$ would imply $L = \{0_L\}$, contradicting the fact that $L$ is a field (since $L^\times = L \setminus \{0_L\}$ must be a group, hence nonempty). So $x = 0$ and $\ker\varphi = \{0\}$.</p>
+      $\mathrm{Im}\,\varphi$ contains $1_B = \varphi(1_A)$ and is closed under difference and product, since $\varphi(a)-\varphi(b)=\varphi(a-b)$ and $\varphi(a)\varphi(b)=\varphi(ab)$. For the kernel: if $x \in \ker\varphi$ and $a \in A$, then $\varphi(ax) = \varphi(a)\varphi(x) = \varphi(a) \cdot 0 = 0$, so $ax \in \ker\varphi$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Soit $\varphi : K \to L$ un morphisme de corps et $x \in \ker\varphi$. Si $x \neq 0$, alors $x$ est inversible dans $K$, donc $1_L = \varphi(1_K) = \varphi(x)\varphi(x^{-1}) = 0 \cdot \varphi(x^{-1}) = 0_L$. Or $1_L = 0_L$ impliquerait $L = \{0_L\}$, ce qui contredit le fait que $L$ est un corps (car $L^\times = L \setminus \{0_L\}$ doit être un groupe, donc non vide). Donc $x = 0$ et $\ker\varphi = \{0\}$.</p>
+      $\mathrm{Im}\,\varphi$ contient $1_B = \varphi(1_A)$ et est stable par différence et par produit, car $\varphi(a)-\varphi(b)=\varphi(a-b)$ et $\varphi(a)\varphi(b)=\varphi(ab)$. Pour le noyau : si $x \in \ker\varphi$ et $a \in A$, alors $\varphi(ax) = \varphi(a)\varphi(x) = \varphi(a) \cdot 0 = 0$, donc $ax \in \ker\varphi$.
     </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Every ring homomorphism between two fields is injective.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Tout morphisme d'anneaux entre deux corps est injectif.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $\varphi : K \to L$ and $x \in \ker\varphi$ with $x \neq 0$. Then $x$ is invertible in $K$, so $1_L = \varphi(1_K) = \varphi(x)\varphi(x^{-1}) = 0 \cdot \varphi(x^{-1}) = 0_L$, which forces $L = \{0_L\}$. This contradicts $L^\times = L \setminus \{0_L\}$ being a group, hence nonempty. So $\ker\varphi = \{0\}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $\varphi : K \to L$ et $x \in \ker\varphi$ avec $x \neq 0$. Alors $x$ est inversible dans $K$, donc $1_L = \varphi(1_K) = \varphi(x)\varphi(x^{-1}) = 0 \cdot \varphi(x^{-1}) = 0_L$, ce qui force $L = \{0_L\}$. Cela contredit le fait que $L^\times = L \setminus \{0_L\}$ est un groupe, donc non vide. Ainsi $\ker\varphi = \{0\}$.
+    </details>
+
+    <h3 class="en">Ideals</h3>
+    <h3 class="fr">Idéaux</h3>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> An <em>ideal</em> of a commutative ring $A$ is a subgroup $(I,+)$ of $(A,+)$ such that $\forall a \in A,\ \forall x \in I,\ ax \in I$. For $a \in A$, the <em>principal ideal</em> generated by $a$ is $(a) = aA = \{ax \mid x \in A\}$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> Un <em>idéal</em> d'un anneau commutatif $A$ est un sous-groupe $(I,+)$ de $(A,+)$ tel que $\forall a \in A,\ \forall x \in I,\ ax \in I$. Pour $a \in A$, l'<em>idéal principal</em> engendré par $a$ est $(a) = aA = \{ax \mid x \in A\}$.</p>
+      <p class="en"><span class="thm-label">Definition (Ideal).</span> An <em>ideal</em> of a commutative ring $A$ is a subgroup $I$ of $(A,+)$ such that $\forall a \in A,\ \forall x \in I,\ ax \in I$. For $a \in A$, the <em>principal ideal</em> generated by $a$ is $(a) = aA = \{ax \mid x \in A\}$.</p>
+      <p class="fr"><span class="thm-label">Définition (Idéal).</span> Un <em>idéal</em> d'un anneau commutatif $A$ est un sous-groupe $I$ de $(A,+)$ tel que $\forall a \in A,\ \forall x \in I,\ ax \in I$. Pour $a \in A$, l'<em>idéal principal</em> engendré par $a$ est $(a) = aA = \{ax \mid x \in A\}$.</p>
     </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition.</span> The ideals of $\mathbb{Z}$ are exactly the sets $n\mathbb{Z}$ for $n \in \mathbb{N}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Les idéaux de $\mathbb{Z}$ sont exactement les $n\mathbb{Z}$ pour $n \in \mathbb{N}$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$n\mathbb{Z}$ is indeed an ideal of $\mathbb{Z}$. Conversely, let $I$ be an ideal of $\mathbb{Z}$. If $I = \{0\}$, it is $0\mathbb{Z}$. Otherwise, $I$ contains a nonzero integer, and since $I$ is closed under negation, it contains a strictly positive integer. Let $n$ be the smallest strictly positive element of $I$.</p>
-      <p class="en">For any $a \in I$, Euclidean division gives $a = nq + r$ with $0 \le r &lt; n$. We have $r = a - nq \in I$ (since $I$ is an ideal). By minimality of $n$, $r = 0$, so $a \in n\mathbb{Z}$. Thus $I \subset n\mathbb{Z}$, and the reverse inclusion is immediate, giving $I = n\mathbb{Z}$.</p>
+      Each $n\mathbb{Z}$ is an ideal of $\mathbb{Z}$. Conversely, let $I$ be an ideal of $\mathbb{Z}$. If $I = \{0\}$, it is $0\mathbb{Z}$. Otherwise $I$ contains a nonzero integer, and since $I$ is closed under negation, it contains a positive one. Let $n$ be the smallest positive element of $I$.
+      For $a \in I$, Euclidean division gives $a = nq + r$ with $0 \le r &lt; n$. Then $r = a - nq \in I$, and minimality of $n$ forces $r = 0$, so $a \in n\mathbb{Z}$. Thus $I \subset n\mathbb{Z}$, and the reverse inclusion is immediate, giving $I = n\mathbb{Z}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$n\mathbb{Z}$ est bien un idéal de $\mathbb{Z}$. Réciproquement, soit $I$ un idéal de $\mathbb{Z}$. Si $I = \{0\}$, c'est $0\mathbb{Z}$. Sinon, $I$ contient un entier non nul, et comme $I$ est stable par opposé, $I$ contient un entier strictement positif. Soit $n$ le plus petit élément strictement positif de $I$.</p>
-      <p class="fr">Pour tout $a \in I$, la division euclidienne donne $a = nq + r$ avec $0 \le r &lt; n$. On a $r = a - nq \in I$ (car $I$ est un idéal). Par minimalité de $n$, $r = 0$, donc $a \in n\mathbb{Z}$. Ainsi $I \subset n\mathbb{Z}$, et l'inclusion réciproque est immédiate, d'où $I = n\mathbb{Z}$.</p>
+      Chaque $n\mathbb{Z}$ est un idéal de $\mathbb{Z}$. Réciproquement, soit $I$ un idéal de $\mathbb{Z}$. Si $I = \{0\}$, c'est $0\mathbb{Z}$. Sinon, $I$ contient un entier non nul, et comme $I$ est stable par opposé, il contient un entier strictement positif. Soit $n$ le plus petit élément strictement positif de $I$.
+      Pour $a \in I$, la division euclidienne donne $a = nq + r$ avec $0 \le r &lt; n$. Alors $r = a - nq \in I$, et la minimalité de $n$ impose $r = 0$, donc $a \in n\mathbb{Z}$. Ainsi $I \subset n\mathbb{Z}$, et l'inclusion réciproque est immédiate, d'où $I = n\mathbb{Z}$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="239.7" height="251" viewBox="0.1 2.8 239.7 251">
+      <line class="fig-axis" x1="131.9" y1="42.6" x2="98.1" y2="77.4"/>
+      <line class="fig-axis" x1="168.1" y1="42.6" x2="201.9" y2="77.4"/>
+      <line class="fig-axis" x1="63.4" y1="116" x2="36.6" y2="148"/>
+      <line class="fig-axis" x1="98.1" y1="114.6" x2="131.9" y2="149.4"/>
+      <line class="fig-axis" x1="201.9" y1="114.6" x2="168.1" y2="149.4"/>
+      <line class="fig-axis" x1="36.6" y1="188" x2="63.4" y2="220"/>
+      <line class="fig-axis" x1="131.9" y1="186.6" x2="98.1" y2="221.4"/>
+      <text x="150" y="24" text-anchor="middle">(1)</text>
+      <text x="80" y="96" text-anchor="middle">(2)</text>
+      <text x="220" y="96" text-anchor="middle">(3)</text>
+      <text x="20" y="168" text-anchor="middle">(4)</text>
+      <text x="150" y="168" text-anchor="middle">(6)</text>
+      <text x="80" y="240" text-anchor="middle">(12)</text>
+    </svg>
+      <figcaption><span class="en">The ideals of $\mathbb{Z}$ that contain $(12)$, an edge upward meaning inclusion. Going up divides: $(12)\subset(6)\subset(3)\subset(1)$ reads $1 \mid 3 \mid 6 \mid 12$. The larger the generator, the smaller the ideal, and $(1)=\mathbb{Z}$ sits at the top.</span><span class="fr">Les idéaux de $\mathbb{Z}$ contenant $(12)$, une arête vers le haut signifiant l'inclusion. Monter, c'est diviser : $(12)\subset(6)\subset(3)\subset(1)$ se lit $1 \mid 3 \mid 6 \mid 12$. Plus le générateur est grand, plus l'idéal est petit, et $(1)=\mathbb{Z}$ est au sommet.</span></figcaption>
+    </figure>
+
+    <p class="en">An ideal absorbs multiplication by the whole ring, which is what makes the product of two classes independent of the representatives chosen.</p>
+    <p class="fr">Un idéal absorbe la multiplication par tout l'anneau, ce qui rend le produit de deux classes indépendant des représentants choisis.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Quotient ring).</span> Let $I$ be an ideal of a commutative ring $A$. The classes $a + I$ form a commutative ring $A/I$ under
+      \[(a+I)+(b+I) = (a+b)+I, \qquad (a+I)(b+I) = ab+I,\]
+      and $\pi : A \to A/I,\ a \mapsto a+I$ is a surjective ring homomorphism with kernel $I$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Anneau quotient).</span> Soit $I$ un idéal d'un anneau commutatif $A$. Les classes $a + I$ forment un anneau commutatif $A/I$ pour
+      \[(a+I)+(b+I) = (a+b)+I, \qquad (a+I)(b+I) = ab+I,\]
+      et $\pi : A \to A/I,\ a \mapsto a+I$ est un morphisme d'anneaux surjectif de noyau $I$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Since $(A,+)$ is abelian, $I$ is a normal subgroup and $A/I$ is already an abelian group under the first law.
+      <em>The product is well defined.</em> Let $a' = a+x$ and $b' = b+y$ with $x,y \in I$. Then $a'b' = ab + (ay + xb + xy)$, and $ay$, $xb$, $xy$ all lie in $I$, so $a'b' + I = ab + I$.
+      <em>Axioms.</em> Associativity, commutativity and distributivity are inherited from $A$ by passing to classes, and $1_A + I$ is the neutral element of the product.
+      Finally $\pi(a+b) = \pi(a)+\pi(b)$ and $\pi(ab) = \pi(a)\pi(b)$ by definition of the two laws, $\pi(1_A) = 1_A + I$, and $\pi(a) = 0 + I$ exactly when $a \in I$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Comme $(A,+)$ est abélien, $I$ est un sous-groupe distingué et $A/I$ est déjà un groupe abélien pour la première loi.
+      <em>Le produit est bien défini.</em> Soient $a' = a+x$ et $b' = b+y$ avec $x,y \in I$. Alors $a'b' = ab + (ay + xb + xy)$, et $ay$, $xb$, $xy$ sont tous dans $I$, donc $a'b' + I = ab + I$.
+      <em>Axiomes.</em> L'associativité, la commutativité et la distributivité sont héritées de $A$ en passant aux classes, et $1_A + I$ est l'élément neutre du produit.
+      Enfin $\pi(a+b) = \pi(a)+\pi(b)$ et $\pi(ab) = \pi(a)\pi(b)$ par définition des deux lois, $\pi(1_A) = 1_A + I$, et $\pi(a) = 0 + I$ exactement quand $a \in I$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> The ideals of a commutative ring $A$ are exactly the kernels of the ring homomorphisms defined on $A$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Les idéaux d'un anneau commutatif $A$ sont exactement les noyaux des morphismes d'anneaux définis sur $A$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      A kernel is a subgroup of $(A,+)$ closed under multiplication by any element of $A$, hence an ideal. Conversely, an ideal $I$ is the kernel of $\pi : A \to A/I$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Un noyau est un sous-groupe de $(A,+)$ stable par multiplication par tout élément de $A$, donc un idéal. Réciproquement, un idéal $I$ est le noyau de $\pi : A \to A/I$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (First isomorphism theorem).</span> For any homomorphism $\varphi : A \to B$ of commutative rings, $A/\ker\varphi \simeq \mathrm{Im}\,\varphi$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Théorème fondamental des morphismes).</span> Pour tout morphisme $\varphi : A \to B$ d'anneaux commutatifs, $A/\ker\varphi \simeq \mathrm{Im}\,\varphi$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Write $I = \ker\varphi$ and define $\psi : A/I \to \mathrm{Im}\,\varphi$ by $\psi(a+I) = \varphi(a)$. If $a+I = a'+I$, then $a-a' \in I$ and $\varphi(a) = \varphi(a')$: $\psi$ is well defined. It is a homomorphism, since $\psi((a+I)(b+I)) = \varphi(ab) = \varphi(a)\varphi(b)$ and likewise for sums, and $\psi(1_A+I) = 1_B$. It is surjective by definition of the image, and if $\psi(a+I) = 0$ then $a \in I$, so $a + I$ is the zero class: $\psi$ is injective.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Posons $I = \ker\varphi$ et définissons $\psi : A/I \to \mathrm{Im}\,\varphi$ par $\psi(a+I) = \varphi(a)$. Si $a+I = a'+I$, alors $a-a' \in I$ et $\varphi(a) = \varphi(a')$ : $\psi$ est bien définie. C'est un morphisme, car $\psi((a+I)(b+I)) = \varphi(ab) = \varphi(a)\varphi(b)$ et de même pour les sommes, et $\psi(1_A+I) = 1_B$. Elle est surjective par définition de l'image, et si $\psi(a+I) = 0$ alors $a \in I$, donc $a + I$ est la classe nulle : $\psi$ est injective.
+    </details>
+
+    <h3 class="en">$\mathbb{Z}/n\mathbb{Z}$</h3>
+    <h3 class="fr">$\mathbb{Z}/n\mathbb{Z}$</h3>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> The quotient ring $\mathbb{Z}/n\mathbb{Z}$ is the set of equivalence classes $\bar{a} = a + n\mathbb{Z}$ equipped with operations $\bar{a} + \bar{b} = \overline{a+b}$ and $\bar{a} \cdot \bar{b} = \overline{ab}$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> L'anneau quotient $\mathbb{Z}/n\mathbb{Z}$ est l'ensemble des classes $\bar{a} = a + n\mathbb{Z}$ muni des opérations $\bar{a} + \bar{b} = \overline{a+b}$ et $\bar{a} \cdot \bar{b} = \overline{ab}$.</p>
+      <p class="en"><span class="thm-label">Definition ($\mathbb{Z}/n\mathbb{Z}$).</span> For $n \ge 1$, the quotient of $\mathbb{Z}$ by the ideal $n\mathbb{Z}$ is the ring $\mathbb{Z}/n\mathbb{Z}$ of classes $\bar{a} = a + n\mathbb{Z}$, with $\bar{a} + \bar{b} = \overline{a+b}$ and $\bar{a} \cdot \bar{b} = \overline{ab}$. It has $n$ elements $\bar{0}, \ldots, \overline{n-1}$.</p>
+      <p class="fr"><span class="thm-label">Définition ($\mathbb{Z}/n\mathbb{Z}$).</span> Pour $n \ge 1$, le quotient de $\mathbb{Z}$ par l'idéal $n\mathbb{Z}$ est l'anneau $\mathbb{Z}/n\mathbb{Z}$ des classes $\bar{a} = a + n\mathbb{Z}$, avec $\bar{a} + \bar{b} = \overline{a+b}$ et $\bar{a} \cdot \bar{b} = \overline{ab}$. Il possède $n$ éléments $\bar{0}, \ldots, \overline{n-1}$.</p>
     </div>
 
     <div class="thm-block remark">
-      <p class="en"><span class="thm-label">Remark.</span> The operations on $\mathbb{Z}/n\mathbb{Z}$ are well-defined: if $\bar{a} = \bar{a'}$ and $\bar{b} = \bar{b'}$, i.e. $n \mid (a'-a)$ and $n \mid (b'-b)$, then $n \mid (a'+b')-(a+b)$, so $\overline{a'+b'} = \overline{a+b}$. Moreover, $a'b' - ab = a'(b'-b) + (a'-a)b$, and $n$ divides both terms, so $\overline{a'b'} = \overline{ab}$.</p>
-      <p class="fr"><span class="thm-label">Remarque.</span> Les opérations sur $\mathbb{Z}/n\mathbb{Z}$ sont bien définies : si $\bar{a} = \bar{a'}$ et $\bar{b} = \bar{b'}$, i.e. $n \mid (a'-a)$ et $n \mid (b'-b)$, alors $n \mid (a'+b')-(a+b)$, donc $\overline{a'+b'} = \overline{a+b}$. De plus, $a'b' - ab = a'(b'-b) + (a'-a)b$, et $n$ divise les deux termes, donc $\overline{a'b'} = \overline{ab}$.</p>
+      <p class="en"><span class="thm-label">Remark.</span> Here $\bar{a} = \bar{a'}$ means $n \mid a'-a$, and the two operations are well defined because $n \mid (a'+b')-(a+b)$ and $n \mid a'b'-ab$, the latter from $a'b' - ab = a'(b'-b) + (a'-a)b$.</p>
+      <p class="fr"><span class="thm-label">Remarque.</span> Ici $\bar{a} = \bar{a'}$ signifie $n \mid a'-a$, et les deux opérations sont bien définies car $n \mid (a'+b')-(a+b)$ et $n \mid a'b'-ab$, cette dernière divisibilité venant de $a'b' - ab = a'(b'-b) + (a'-a)b$.</p>
     </div>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem.</span> $\mathbb{Z}/n\mathbb{Z}$ is a field if and only if $n$ is prime.</p>
       <p class="fr"><span class="thm-label">Théorème.</span> $\mathbb{Z}/n\mathbb{Z}$ est un corps si et seulement si $n$ est premier.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$(\Rightarrow)$ If $n$ is not prime and $n \ge 2$, write $n = ab$ with $1 &lt; a,b &lt; n$. Then $\bar{a} \neq \bar{0}$, $\bar{b} \neq \bar{0}$, but $\bar{a}\bar{b} = \bar{n} = \bar{0}$: there are zero divisors, so $\mathbb{Z}/n\mathbb{Z}$ is not a field.</p>
-      <p class="en">$(\Leftarrow)$ Let $p$ be prime and $\bar{a} \neq \bar{0}$, i.e. $p \nmid a$. Then $\gcd(a,p)=1$, and by Bézout there exist $u,v \in \mathbb{Z}$ with $au+pv=1$. Reducing mod $p$: $\bar{a}\bar{u} = \bar{1}$, so $\bar{a}$ is invertible.</p>
+      $(\Rightarrow)$ If $n \ge 2$ is not prime, write $n = ab$ with $1 &lt; a,b &lt; n$. Then $\bar{a} \neq \bar{0}$ and $\bar{b} \neq \bar{0}$, but $\bar{a}\bar{b} = \bar{n} = \bar{0}$: there are zero divisors, so $\mathbb{Z}/n\mathbb{Z}$ is not a field.
+      $(\Leftarrow)$ Let $p$ be prime and $\bar{a} \neq \bar{0}$, that is $p \nmid a$. Then $\gcd(a,p)=1$, and by Bézout there are $u,v \in \mathbb{Z}$ with $au+pv=1$. Reducing modulo $p$ gives $\bar{a}\bar{u} = \bar{1}$, so $\bar{a}$ is invertible.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$(\Rightarrow)$ Si $n$ n'est pas premier et $n \ge 2$, on écrit $n = ab$ avec $1 &lt; a,b &lt; n$. Alors $\bar{a} \neq \bar{0}$, $\bar{b} \neq \bar{0}$, mais $\bar{a}\bar{b} = \bar{n} = \bar{0}$ : il y a des diviseurs de zéro, donc $\mathbb{Z}/n\mathbb{Z}$ n'est pas un corps.</p>
-      <p class="fr">$(\Leftarrow)$ Soit $p$ premier et $\bar{a} \neq \bar{0}$, i.e. $p \nmid a$. Alors $\gcd(a,p)=1$, et par Bézout il existe $u,v \in \mathbb{Z}$ tels que $au+pv=1$. En passant modulo $p$ : $\bar{a}\bar{u} = \bar{1}$, donc $\bar{a}$ est inversible.</p>
+      $(\Rightarrow)$ Si $n \ge 2$ n'est pas premier, on écrit $n = ab$ avec $1 &lt; a,b &lt; n$. Alors $\bar{a} \neq \bar{0}$ et $\bar{b} \neq \bar{0}$, mais $\bar{a}\bar{b} = \bar{n} = \bar{0}$ : il y a des diviseurs de zéro, donc $\mathbb{Z}/n\mathbb{Z}$ n'est pas un corps.
+      $(\Leftarrow)$ Soit $p$ premier et $\bar{a} \neq \bar{0}$, c'est-à-dire $p \nmid a$. Alors $\gcd(a,p)=1$, et par Bézout il existe $u,v \in \mathbb{Z}$ tels que $au+pv=1$. En réduisant modulo $p$, $\bar{a}\bar{u} = \bar{1}$, donc $\bar{a}$ est inversible.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="456" height="202" viewBox="-10 -10 456 202">
+      <rect class="fig-cell" x="0" y="0" width="30" height="26"/>
+      <text x="15" y="18" text-anchor="middle" class="fig-text">×</text>
+      <rect class="fig-cell-alt" x="30" y="0" width="30" height="26"/>
+      <text x="45" y="18" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell-alt" x="60" y="0" width="30" height="26"/>
+      <text x="75" y="18" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell-alt" x="90" y="0" width="30" height="26"/>
+      <text x="105" y="18" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell-alt" x="120" y="0" width="30" height="26"/>
+      <text x="135" y="18" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell-alt" x="150" y="0" width="30" height="26"/>
+      <text x="165" y="18" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell-alt" x="0" y="26" width="30" height="26"/>
+      <text x="15" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="30" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="30" y="26" width="30" height="26"/>
+      <text x="45" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="60" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="60" y="26" width="30" height="26"/>
+      <text x="75" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="90" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="90" y="26" width="30" height="26"/>
+      <text x="105" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="120" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="120" y="26" width="30" height="26"/>
+      <text x="135" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="150" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="150" y="26" width="30" height="26"/>
+      <text x="165" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell-alt" x="0" y="52" width="30" height="26"/>
+      <text x="15" y="70" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-band" x="30" y="52" width="30" height="26"/>
+      <rect class="fig-cell" x="30" y="52" width="30" height="26"/>
+      <text x="45" y="70" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="60" y="52" width="30" height="26"/>
+      <text x="75" y="70" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="90" y="52" width="30" height="26"/>
+      <text x="105" y="70" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="120" y="52" width="30" height="26"/>
+      <text x="135" y="70" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell" x="150" y="52" width="30" height="26"/>
+      <text x="165" y="70" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell-alt" x="0" y="78" width="30" height="26"/>
+      <text x="15" y="96" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-band" x="30" y="78" width="30" height="26"/>
+      <rect class="fig-cell" x="30" y="78" width="30" height="26"/>
+      <text x="45" y="96" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="60" y="78" width="30" height="26"/>
+      <text x="75" y="96" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="90" y="78" width="30" height="26"/>
+      <text x="105" y="96" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="120" y="78" width="30" height="26"/>
+      <text x="135" y="96" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="150" y="78" width="30" height="26"/>
+      <text x="165" y="96" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell-alt" x="0" y="104" width="30" height="26"/>
+      <text x="15" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-band" x="30" y="104" width="30" height="26"/>
+      <rect class="fig-cell" x="30" y="104" width="30" height="26"/>
+      <text x="45" y="122" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="60" y="104" width="30" height="26"/>
+      <text x="75" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell" x="90" y="104" width="30" height="26"/>
+      <text x="105" y="122" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="120" y="104" width="30" height="26"/>
+      <text x="135" y="122" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="150" y="104" width="30" height="26"/>
+      <text x="165" y="122" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell-alt" x="0" y="130" width="30" height="26"/>
+      <text x="15" y="148" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-band" x="30" y="130" width="30" height="26"/>
+      <rect class="fig-cell" x="30" y="130" width="30" height="26"/>
+      <text x="45" y="148" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="60" y="130" width="30" height="26"/>
+      <text x="75" y="148" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="90" y="130" width="30" height="26"/>
+      <text x="105" y="148" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell" x="120" y="130" width="30" height="26"/>
+      <text x="135" y="148" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="150" y="130" width="30" height="26"/>
+      <text x="165" y="148" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="226" y="0" width="30" height="26"/>
+      <text x="241" y="18" text-anchor="middle" class="fig-text">×</text>
+      <rect class="fig-cell-alt" x="256" y="0" width="30" height="26"/>
+      <text x="271" y="18" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell-alt" x="286" y="0" width="30" height="26"/>
+      <text x="301" y="18" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell-alt" x="316" y="0" width="30" height="26"/>
+      <text x="331" y="18" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell-alt" x="346" y="0" width="30" height="26"/>
+      <text x="361" y="18" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell-alt" x="376" y="0" width="30" height="26"/>
+      <text x="391" y="18" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell-alt" x="406" y="0" width="30" height="26"/>
+      <text x="421" y="18" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell-alt" x="226" y="26" width="30" height="26"/>
+      <text x="241" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="256" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="26" width="30" height="26"/>
+      <text x="271" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="286" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="286" y="26" width="30" height="26"/>
+      <text x="301" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="316" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="316" y="26" width="30" height="26"/>
+      <text x="331" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="346" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="346" y="26" width="30" height="26"/>
+      <text x="361" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="376" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="376" y="26" width="30" height="26"/>
+      <text x="391" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-band" x="406" y="26" width="30" height="26"/>
+      <rect class="fig-cell" x="406" y="26" width="30" height="26"/>
+      <text x="421" y="44" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell-alt" x="226" y="52" width="30" height="26"/>
+      <text x="241" y="70" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-band" x="256" y="52" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="52" width="30" height="26"/>
+      <text x="271" y="70" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="286" y="52" width="30" height="26"/>
+      <text x="301" y="70" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="316" y="52" width="30" height="26"/>
+      <text x="331" y="70" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="346" y="52" width="30" height="26"/>
+      <text x="361" y="70" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell" x="376" y="52" width="30" height="26"/>
+      <text x="391" y="70" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="406" y="52" width="30" height="26"/>
+      <text x="421" y="70" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell-alt" x="226" y="78" width="30" height="26"/>
+      <text x="241" y="96" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-band" x="256" y="78" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="78" width="30" height="26"/>
+      <text x="271" y="96" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="286" y="78" width="30" height="26"/>
+      <text x="301" y="96" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="316" y="78" width="30" height="26"/>
+      <text x="331" y="96" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-band" x="346" y="78" width="30" height="26"/>
+      <rect class="fig-cell" x="346" y="78" width="30" height="26"/>
+      <text x="361" y="96" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-free-solid" x="347.5" y="79.5" width="27" height="23"/>
+      <rect class="fig-cell" x="376" y="78" width="30" height="26"/>
+      <text x="391" y="96" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="406" y="78" width="30" height="26"/>
+      <text x="421" y="96" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell-alt" x="226" y="104" width="30" height="26"/>
+      <text x="241" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-band" x="256" y="104" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="104" width="30" height="26"/>
+      <text x="271" y="122" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="286" y="104" width="30" height="26"/>
+      <text x="301" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-band" x="316" y="104" width="30" height="26"/>
+      <rect class="fig-cell" x="316" y="104" width="30" height="26"/>
+      <text x="331" y="122" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-free-solid" x="317.5" y="105.5" width="27" height="23"/>
+      <rect class="fig-cell" x="346" y="104" width="30" height="26"/>
+      <text x="361" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-band" x="376" y="104" width="30" height="26"/>
+      <rect class="fig-cell" x="376" y="104" width="30" height="26"/>
+      <text x="391" y="122" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-free-solid" x="377.5" y="105.5" width="27" height="23"/>
+      <rect class="fig-cell" x="406" y="104" width="30" height="26"/>
+      <text x="421" y="122" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell-alt" x="226" y="130" width="30" height="26"/>
+      <text x="241" y="148" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-band" x="256" y="130" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="130" width="30" height="26"/>
+      <text x="271" y="148" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="286" y="130" width="30" height="26"/>
+      <text x="301" y="148" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="316" y="130" width="30" height="26"/>
+      <text x="331" y="148" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-band" x="346" y="130" width="30" height="26"/>
+      <rect class="fig-cell" x="346" y="130" width="30" height="26"/>
+      <text x="361" y="148" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-free-solid" x="347.5" y="131.5" width="27" height="23"/>
+      <rect class="fig-cell" x="376" y="130" width="30" height="26"/>
+      <text x="391" y="148" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="406" y="130" width="30" height="26"/>
+      <text x="421" y="148" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell-alt" x="226" y="156" width="30" height="26"/>
+      <text x="241" y="174" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-band" x="256" y="156" width="30" height="26"/>
+      <rect class="fig-cell" x="256" y="156" width="30" height="26"/>
+      <text x="271" y="174" text-anchor="middle" class="fig-text">0</text>
+      <rect class="fig-cell" x="286" y="156" width="30" height="26"/>
+      <text x="301" y="174" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell" x="316" y="156" width="30" height="26"/>
+      <text x="331" y="174" text-anchor="middle" class="fig-text">4</text>
+      <rect class="fig-cell" x="346" y="156" width="30" height="26"/>
+      <text x="361" y="174" text-anchor="middle" class="fig-text">3</text>
+      <rect class="fig-cell" x="376" y="156" width="30" height="26"/>
+      <text x="391" y="174" text-anchor="middle" class="fig-text">2</text>
+      <rect class="fig-cell" x="406" y="156" width="30" height="26"/>
+      <text x="421" y="174" text-anchor="middle" class="fig-text">1</text>
+    </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the multiplication table of $\mathbb{Z}/5\mathbb{Z}$. The shaded cells, the ones equal to $\bar0$, fill the row and the column of $\bar0$ and nothing else, and every other row lists every class once, so every nonzero class is invertible.</span><span class="cap-part"><span class="cap-lead">Right:</span> in $\mathbb{Z}/6\mathbb{Z}$ four more cells are $\bar0$, outlined here: $\bar2\cdot\bar3$, $\bar3\cdot\bar2$, $\bar3\cdot\bar4$ and $\bar4\cdot\bar3$. Their rows repeat values and miss $\bar1$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> la table de multiplication de $\mathbb{Z}/5\mathbb{Z}$. Les cases grisées, celles qui valent $\bar0$, remplissent la ligne et la colonne de $\bar0$ et rien d'autre, et chaque autre ligne énumère chaque classe une fois, donc toute classe non nulle est inversible.</span><span class="cap-part"><span class="cap-lead">À droite :</span> dans $\mathbb{Z}/6\mathbb{Z}$, quatre cases de plus valent $\bar0$, encadrées ici : $\bar2\cdot\bar3$, $\bar3\cdot\bar2$, $\bar3\cdot\bar4$ et $\bar4\cdot\bar3$. Leurs lignes répètent des valeurs et manquent $\bar1$.</span></span></figcaption>
+    </figure>
+
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> The invertible elements of $\mathbb{Z}/n\mathbb{Z}$ are the classes $\bar{a}$ with $\gcd(a,n) = 1$: $(\mathbb{Z}/n\mathbb{Z})^\times = \{\bar{a} \mid \gcd(a,n) = 1\}$.</p>
+      <p class="en"><span class="thm-label">Proposition.</span> The units of $\mathbb{Z}/n\mathbb{Z}$ are the classes $\bar{a}$ with $\gcd(a,n) = 1$: $(\mathbb{Z}/n\mathbb{Z})^\times = \{\bar{a} \mid \gcd(a,n) = 1\}$.</p>
       <p class="fr"><span class="thm-label">Proposition.</span> Les inversibles de $\mathbb{Z}/n\mathbb{Z}$ sont les classes $\bar{a}$ avec $\gcd(a,n) = 1$ : $(\mathbb{Z}/n\mathbb{Z})^\times = \{\bar{a} \mid \gcd(a,n) = 1\}$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$(\Rightarrow)$ If $\bar{a}$ is invertible, there exists $\bar{u}$ with $\bar{a}\bar{u} = \bar{1}$, i.e. $au \equiv 1 \pmod{n}$. So there exists $v$ with $au + nv = 1$, which forces $\gcd(a,n) = 1$.</p>
-      <p class="en">$(\Leftarrow)$ If $\gcd(a,n) = 1$, by Bézout there exist $u,v$ with $au + nv = 1$, giving $\bar{a}\bar{u} = \bar{1}$.</p>
+      $(\Rightarrow)$ If $\bar{a}\bar{u} = \bar{1}$, then $au \equiv 1 \pmod{n}$, so there is $v$ with $au + nv = 1$, which forces $\gcd(a,n) = 1$.
+      $(\Leftarrow)$ If $\gcd(a,n) = 1$, Bézout gives $u,v$ with $au + nv = 1$, hence $\bar{a}\bar{u} = \bar{1}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$(\Rightarrow)$ Si $\bar{a}$ est inversible, il existe $\bar{u}$ tel que $\bar{a}\bar{u} = \bar{1}$, i.e. $au \equiv 1 \pmod{n}$. Donc il existe $v$ tel que $au + nv = 1$, ce qui impose $\gcd(a,n) = 1$.</p>
-      <p class="fr">$(\Leftarrow)$ Si $\gcd(a,n) = 1$, par Bézout il existe $u,v$ tels que $au + nv = 1$, d'où $\bar{a}\bar{u} = \bar{1}$.</p>
+      $(\Rightarrow)$ Si $\bar{a}\bar{u} = \bar{1}$, alors $au \equiv 1 \pmod{n}$, donc il existe $v$ tel que $au + nv = 1$, ce qui impose $\gcd(a,n) = 1$.
+      $(\Leftarrow)$ Si $\gcd(a,n) = 1$, Bézout fournit $u,v$ tels que $au + nv = 1$, d'où $\bar{a}\bar{u} = \bar{1}$.
     </details>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> Euler's totient function $\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|$ is the number of integers in $\{1,\dots,n\}$ coprime to $n$.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> L'indicatrice d'Euler $\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|$ est le nombre d'entiers de $\{1,\dots,n\}$ premiers à $n$.</p>
+      <p class="en"><span class="thm-label">Definition (Euler's totient).</span> $\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|$ is the number of integers in $\{1,\dots,n\}$ coprime to $n$.</p>
+      <p class="fr"><span class="thm-label">Définition (Indicatrice d'Euler).</span> $\varphi(n) = |(\mathbb{Z}/n\mathbb{Z})^\times|$ est le nombre d'entiers de $\{1,\dots,n\}$ premiers avec $n$.</p>
     </div>
+
+    <figure class="figure-block">
+      <svg class="figure" width="419.8" height="212" viewBox="-7.8 -5 419.8 212">
+      <circle class="fig-hole" cx="92" cy="32" r="5"/>
+      <text x="92" y="19" text-anchor="middle" class="fig-text">0</text>
+      <circle class="fig-dot" cx="126" cy="41.1" r="5"/>
+      <text x="135" y="30.5" text-anchor="middle" class="fig-text">1</text>
+      <circle class="fig-hole" cx="150.9" cy="66" r="5"/>
+      <text x="166.5" y="62" text-anchor="middle" class="fig-text">2</text>
+      <circle class="fig-hole" cx="160" cy="100" r="5"/>
+      <text x="178" y="105" text-anchor="middle" class="fig-text">3</text>
+      <circle class="fig-hole" cx="150.9" cy="134" r="5"/>
+      <text x="166.5" y="148" text-anchor="middle" class="fig-text">4</text>
+      <circle class="fig-dot" cx="126" cy="158.9" r="5"/>
+      <text x="135" y="179.5" text-anchor="middle" class="fig-text">5</text>
+      <circle class="fig-hole" cx="92" cy="168" r="5"/>
+      <text x="92" y="191" text-anchor="middle" class="fig-text">6</text>
+      <circle class="fig-dot" cx="58" cy="158.9" r="5"/>
+      <text x="49" y="179.5" text-anchor="middle" class="fig-text">7</text>
+      <circle class="fig-hole" cx="33.1" cy="134" r="5"/>
+      <text x="17.5" y="148" text-anchor="middle" class="fig-text">8</text>
+      <circle class="fig-hole" cx="24" cy="100" r="5"/>
+      <text x="6" y="105" text-anchor="middle" class="fig-text">9</text>
+      <circle class="fig-hole" cx="33.1" cy="66" r="5"/>
+      <text x="17.5" y="62" text-anchor="middle" class="fig-text">10</text>
+      <circle class="fig-dot" cx="58" cy="41.1" r="5"/>
+      <text x="49" y="30.5" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell" x="232" y="34" width="34" height="26"/>
+      <text x="249" y="52" text-anchor="middle" class="fig-text">×</text>
+      <rect class="fig-cell-alt" x="266" y="34" width="34" height="26"/>
+      <text x="283" y="52" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell-alt" x="300" y="34" width="34" height="26"/>
+      <text x="317" y="52" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell-alt" x="334" y="34" width="34" height="26"/>
+      <text x="351" y="52" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell-alt" x="368" y="34" width="34" height="26"/>
+      <text x="385" y="52" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell-alt" x="232" y="60" width="34" height="26"/>
+      <text x="249" y="78" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-band" x="266" y="60" width="34" height="26"/>
+      <rect class="fig-cell" x="266" y="60" width="34" height="26"/>
+      <text x="283" y="78" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="300" y="60" width="34" height="26"/>
+      <text x="317" y="78" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell" x="334" y="60" width="34" height="26"/>
+      <text x="351" y="78" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell" x="368" y="60" width="34" height="26"/>
+      <text x="385" y="78" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell-alt" x="232" y="86" width="34" height="26"/>
+      <text x="249" y="104" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell" x="266" y="86" width="34" height="26"/>
+      <text x="283" y="104" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-band" x="300" y="86" width="34" height="26"/>
+      <rect class="fig-cell" x="300" y="86" width="34" height="26"/>
+      <text x="317" y="104" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="334" y="86" width="34" height="26"/>
+      <text x="351" y="104" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell" x="368" y="86" width="34" height="26"/>
+      <text x="385" y="104" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell-alt" x="232" y="112" width="34" height="26"/>
+      <text x="249" y="130" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell" x="266" y="112" width="34" height="26"/>
+      <text x="283" y="130" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell" x="300" y="112" width="34" height="26"/>
+      <text x="317" y="130" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-band" x="334" y="112" width="34" height="26"/>
+      <rect class="fig-cell" x="334" y="112" width="34" height="26"/>
+      <text x="351" y="130" text-anchor="middle" class="fig-text">1</text>
+      <rect class="fig-cell" x="368" y="112" width="34" height="26"/>
+      <text x="385" y="130" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-cell-alt" x="232" y="138" width="34" height="26"/>
+      <text x="249" y="156" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell" x="266" y="138" width="34" height="26"/>
+      <text x="283" y="156" text-anchor="middle" class="fig-text">11</text>
+      <rect class="fig-cell" x="300" y="138" width="34" height="26"/>
+      <text x="317" y="156" text-anchor="middle" class="fig-text">7</text>
+      <rect class="fig-cell" x="334" y="138" width="34" height="26"/>
+      <text x="351" y="156" text-anchor="middle" class="fig-text">5</text>
+      <rect class="fig-band" x="368" y="138" width="34" height="26"/>
+      <rect class="fig-cell" x="368" y="138" width="34" height="26"/>
+      <text x="385" y="156" text-anchor="middle" class="fig-text">1</text>
+    </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the twelve classes of $\mathbb{Z}/12\mathbb{Z}$, the four units $\bar1,\bar5,\bar7,\bar{11}$ filled and the eight others hollow, so $\varphi(12)=4$.</span><span class="cap-part"><span class="cap-lead">Right:</span> their multiplication table, which stays inside those four classes. The shaded diagonal is all $\bar1$: each unit is its own inverse here, and $a^4=\bar1$ for each of them.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> les douze classes de $\mathbb{Z}/12\mathbb{Z}$, les quatre inversibles $\bar1,\bar5,\bar7,\bar{11}$ pleins et les huit autres évidés, donc $\varphi(12)=4$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> leur table de multiplication, qui reste dans ces quatre classes. La diagonale grisée ne contient que $\bar1$ : chaque inversible est ici son propre inverse, et $a^4=\bar1$ pour chacun.</span></span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Euler).</span> If $\gcd(a,n) = 1$, then $a^{\varphi(n)} \equiv 1 \pmod{n}$.</p>
       <p class="fr"><span class="thm-label">Théorème (Euler).</span> Si $\gcd(a,n) = 1$, alors $a^{\varphi(n)} \equiv 1 \pmod{n}$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$\bar{a} \in (\mathbb{Z}/n\mathbb{Z})^\times$, which is a group of order $\varphi(n)$. By Lagrange's theorem, the order of $\bar{a}$ divides $\varphi(n)$, so $\bar{a}^{\varphi(n)} = \bar{1}$.</p>
+      $\bar{a} \in (\mathbb{Z}/n\mathbb{Z})^\times$, a group of order $\varphi(n)$. By Lagrange's theorem the order of $\bar{a}$ divides $\varphi(n)$, so $\bar{a}^{\varphi(n)} = \bar{1}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$\bar{a} \in (\mathbb{Z}/n\mathbb{Z})^\times$, qui est un groupe d'ordre $\varphi(n)$. Par le théorème de Lagrange, l'ordre de $\bar{a}$ divise $\varphi(n)$, donc $\bar{a}^{\varphi(n)} = \bar{1}$.</p>
+      $\bar{a} \in (\mathbb{Z}/n\mathbb{Z})^\times$, groupe d'ordre $\varphi(n)$. Par le théorème de Lagrange, l'ordre de $\bar{a}$ divise $\varphi(n)$, donc $\bar{a}^{\varphi(n)} = \bar{1}$.
     </details>
 
     <div class="thm-block corollary">
-      <p class="en"><span class="thm-label">Corollary (Fermat's little theorem).</span> If $p$ is prime and $p \nmid a$, then $a^{p-1} \equiv 1 \pmod{p}$ (since $\varphi(p) = p-1$).</p>
-      <p class="fr"><span class="thm-label">Corollaire (Petit théorème de Fermat).</span> Si $p$ est premier et $p \nmid a$, alors $a^{p-1} \equiv 1 \pmod{p}$ (car $\varphi(p) = p-1$).</p>
+      <p class="en"><span class="thm-label">Corollary (Fermat's little theorem).</span> If $p$ is prime and $p \nmid a$, then $a^{p-1} \equiv 1 \pmod{p}$, since $\varphi(p) = p-1$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Petit théorème de Fermat).</span> Si $p$ est premier et $p \nmid a$, alors $a^{p-1} \equiv 1 \pmod{p}$, car $\varphi(p) = p-1$.</p>
     </div>
 
+    <h3 class="en">Characteristic</h3>
+    <h3 class="fr">Caractéristique</h3>
+
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition.</span> The <em>characteristic</em> of a ring $A$, denoted $\mathrm{char}(A)$, is the smallest integer $n \ge 1$ such that $n \cdot 1_A = 0_A$, or $0$ if no such integer exists.</p>
-      <p class="fr"><span class="thm-label">Définition.</span> La <em>caractéristique</em> d'un anneau $A$, notée $\mathrm{car}(A)$, est le plus petit entier $n \ge 1$ tel que $n \cdot 1_A = 0_A$, ou $0$ si un tel entier n'existe pas.</p>
+      <p class="en"><span class="thm-label">Definition (Characteristic).</span> The <em>characteristic</em> of a ring $A$, denoted $\mathrm{char}(A)$, is the smallest integer $n \ge 1$ such that $n \cdot 1_A = 0_A$, and $0$ if no such integer exists.</p>
+      <p class="fr"><span class="thm-label">Définition (Caractéristique).</span> La <em>caractéristique</em> d'un anneau $A$, notée $\mathrm{car}(A)$, est le plus petit entier $n \ge 1$ tel que $n \cdot 1_A = 0_A$, et $0$ si un tel entier n'existe pas.</p>
     </div>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition.</span> The characteristic of an integral domain (in particular of a field) is $0$ or a prime number.</p>
-      <p class="fr"><span class="thm-label">Proposition.</span> La caractéristique d'un anneau intègre (donc en particulier d'un corps) est $0$ ou un nombre premier.</p>
+      <p class="en"><span class="thm-label">Proposition.</span> The characteristic of an integral domain, in particular of a field, is $0$ or a prime number.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> La caractéristique d'un anneau intègre, en particulier d'un corps, est $0$ ou un nombre premier.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">Suppose $\mathrm{char}(A) = n \ge 2$ and $n = ab$ with $1 \le a, b &lt; n$. Then $0 = n \cdot 1_A = (a \cdot 1_A)(b \cdot 1_A)$. By the integral domain property, $a \cdot 1_A = 0$ or $b \cdot 1_A = 0$, contradicting the minimality of $n$. So $n$ is prime.</p>
+      Suppose $\mathrm{char}(A) = n \ge 2$ and $n = ab$ with $1 \le a,b &lt; n$. Then $0 = n \cdot 1_A = (a \cdot 1_A)(b \cdot 1_A)$, so $a \cdot 1_A = 0$ or $b \cdot 1_A = 0$, contradicting the minimality of $n$. So $n$ is prime.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Supposons $\mathrm{car}(A) = n \ge 2$ et $n = ab$ avec $1 \le a, b &lt; n$. On a $0 = n \cdot 1_A = (a \cdot 1_A)(b \cdot 1_A)$. Par intégrité, $a \cdot 1_A = 0$ ou $b \cdot 1_A = 0$, ce qui contredit la minimalité de $n$. Donc $n$ est premier.</p>
+      Supposons $\mathrm{car}(A) = n \ge 2$ et $n = ab$ avec $1 \le a,b &lt; n$. Alors $0 = n \cdot 1_A = (a \cdot 1_A)(b \cdot 1_A)$, donc $a \cdot 1_A = 0$ ou $b \cdot 1_A = 0$, ce qui contredit la minimalité de $n$. Donc $n$ est premier.
     </details>
 
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Binomial formula in characteristic $p$).</span> Let $A$ be a commutative ring of characteristic $p$ (prime). For all $a,b \in A$: $(a+b)^p = a^p + b^p$. More generally, $(a+b)^{p^n} = a^{p^n} + b^{p^n}$ for all $n \ge 1$.</p>
-      <p class="fr"><span class="thm-label">Théorème (Formule du binôme en caractéristique $p$).</span> Soit $A$ un anneau commutatif de caractéristique $p$ (premier). Pour tous $a,b \in A$ : $(a+b)^p = a^p + b^p$. Plus généralement, $(a+b)^{p^n} = a^{p^n} + b^{p^n}$ pour tout $n \ge 1$.</p>
+      <p class="en"><span class="thm-label">Theorem (Binomial formula in characteristic $p$).</span> Let $A$ be a commutative ring of characteristic $p$, with $p$ prime. For all $a,b \in A$, $(a+b)^p = a^p + b^p$, and more generally $(a+b)^{p^n} = a^{p^n} + b^{p^n}$ for all $n \ge 1$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Formule du binôme en caractéristique $p$).</span> Soit $A$ un anneau commutatif de caractéristique $p$, avec $p$ premier. Pour tous $a,b \in A$, $(a+b)^p = a^p + b^p$, et plus généralement $(a+b)^{p^n} = a^{p^n} + b^{p^n}$ pour tout $n \ge 1$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">By the binomial theorem, $(a+b)^p = \sum_{k=0}^{p} \binom{p}{k} a^k b^{p-k}$. For $1 \le k \le p-1$, $p \mid \binom{p}{k}$ since $p \mid p!$ and $p \nmid k!$, $p \nmid (p-k)!$, so $(a+b)^p = a^p + b^p$. By induction: $(a+b)^{p^n} = ((a+b)^{p^{n-1}})^p = (a^{p^{n-1}} + b^{p^{n-1}})^p = a^{p^n} + b^{p^n}$.</p>
+      By the binomial theorem, $(a+b)^p = \sum_{k=0}^{p} \binom{p}{k} a^k b^{p-k}$. For $1 \le k \le p-1$, the integer $\binom{p}{k} = \frac{p!}{k!(p-k)!}$ is divisible by $p$, since $p$ divides $p!$ and divides neither $k!$ nor $(p-k)!$. Those terms therefore vanish in characteristic $p$, leaving $(a+b)^p = a^p + b^p$. By induction, $(a+b)^{p^n} = ((a+b)^{p^{n-1}})^p = (a^{p^{n-1}} + b^{p^{n-1}})^p = a^{p^n} + b^{p^n}$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Par la formule du binôme de Newton, $(a+b)^p = \sum_{k=0}^{p} \binom{p}{k} a^k b^{p-k}$. Pour $1 \le k \le p-1$, $p \mid \binom{p}{k}$ car $p \mid p!$ et $p \nmid k!$, $p \nmid (p-k)!$, donc $(a+b)^p = a^p + b^p$. Par récurrence : $(a+b)^{p^n} = ((a+b)^{p^{n-1}})^p = (a^{p^{n-1}} + b^{p^{n-1}})^p = a^{p^n} + b^{p^n}$.</p>
+      Par la formule du binôme, $(a+b)^p = \sum_{k=0}^{p} \binom{p}{k} a^k b^{p-k}$. Pour $1 \le k \le p-1$, l'entier $\binom{p}{k} = \frac{p!}{k!(p-k)!}$ est divisible par $p$, car $p$ divise $p!$ et ne divise ni $k!$ ni $(p-k)!$. Ces termes sont donc nuls en caractéristique $p$, et il reste $(a+b)^p = a^p + b^p$. Par récurrence, $(a+b)^{p^n} = ((a+b)^{p^{n-1}})^p = (a^{p^{n-1}} + b^{p^{n-1}})^p = a^{p^n} + b^{p^n}$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="302" height="277" viewBox="-1 5 302 277">
+      <rect class="fig-shape" x="93" y="88" width="114" height="28" rx="8"/>
+      <rect class="fig-shape" x="9" y="244" width="282" height="28" rx="8"/>
+      <text x="150" y="29" text-anchor="middle" class="fig-text">1</text>
+      <text x="136" y="55" text-anchor="middle" class="fig-text">1</text>
+      <text x="164" y="55" text-anchor="middle" class="fig-text">1</text>
+      <text x="122" y="81" text-anchor="middle" class="fig-text">1</text>
+      <text x="150" y="81" text-anchor="middle" class="fig-text">2</text>
+      <text x="178" y="81" text-anchor="middle" class="fig-text">1</text>
+      <text x="108" y="107" text-anchor="middle" class="fig-text">1</text>
+      <text x="136" y="107" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="164" y="107" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="192" y="107" text-anchor="middle" class="fig-text">1</text>
+      <text x="94" y="133" text-anchor="middle" class="fig-text">1</text>
+      <text x="122" y="133" text-anchor="middle" class="fig-text">1</text>
+      <text x="150" y="133" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="178" y="133" text-anchor="middle" class="fig-text">1</text>
+      <text x="206" y="133" text-anchor="middle" class="fig-text">1</text>
+      <text x="80" y="159" text-anchor="middle" class="fig-text">1</text>
+      <text x="108" y="159" text-anchor="middle" class="fig-text">2</text>
+      <text x="136" y="159" text-anchor="middle" class="fig-text">1</text>
+      <text x="164" y="159" text-anchor="middle" class="fig-text">1</text>
+      <text x="192" y="159" text-anchor="middle" class="fig-text">2</text>
+      <text x="220" y="159" text-anchor="middle" class="fig-text">1</text>
+      <text x="66" y="185" text-anchor="middle" class="fig-text">1</text>
+      <text x="94" y="185" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="122" y="185" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="150" y="185" text-anchor="middle" class="fig-text">2</text>
+      <text x="178" y="185" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="206" y="185" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="234" y="185" text-anchor="middle" class="fig-text">1</text>
+      <text x="52" y="211" text-anchor="middle" class="fig-text">1</text>
+      <text x="80" y="211" text-anchor="middle" class="fig-text">1</text>
+      <text x="108" y="211" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="136" y="211" text-anchor="middle" class="fig-text">2</text>
+      <text x="164" y="211" text-anchor="middle" class="fig-text">2</text>
+      <text x="192" y="211" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="220" y="211" text-anchor="middle" class="fig-text">1</text>
+      <text x="248" y="211" text-anchor="middle" class="fig-text">1</text>
+      <text x="38" y="237" text-anchor="middle" class="fig-text">1</text>
+      <text x="66" y="237" text-anchor="middle" class="fig-text">2</text>
+      <text x="94" y="237" text-anchor="middle" class="fig-text">1</text>
+      <text x="122" y="237" text-anchor="middle" class="fig-text">2</text>
+      <text x="150" y="237" text-anchor="middle" class="fig-text">1</text>
+      <text x="178" y="237" text-anchor="middle" class="fig-text">2</text>
+      <text x="206" y="237" text-anchor="middle" class="fig-text">1</text>
+      <text x="234" y="237" text-anchor="middle" class="fig-text">2</text>
+      <text x="262" y="237" text-anchor="middle" class="fig-text">1</text>
+      <text x="24" y="263" text-anchor="middle" class="fig-text">1</text>
+      <text x="52" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="80" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="108" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="136" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="164" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="192" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="220" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="248" y="263" text-anchor="middle" class="fig-text fig-note">0</text>
+      <text x="276" y="263" text-anchor="middle" class="fig-text">1</text>
+    </svg>
+      <figcaption><span class="en">Rows $0$ to $9$ of Pascal's triangle read modulo $3$, the zeros in grey. The two shaded rows are $n=3$ and $n=9$, where every coefficient except the two $1$s is divisible by $3$: this is $(a+b)^3=a^3+b^3$ and $(a+b)^9=a^9+b^9$ in characteristic $3$. Row $6$ shows that a power of $p$ is needed and not just a multiple: its middle coefficient is $\binom{6}{3}=20\equiv 2$.</span><span class="fr">Les lignes $0$ à $9$ du triangle de Pascal lues modulo $3$, les zéros en gris. Les deux lignes grisées sont $n=3$ et $n=9$, où tout coefficient autre que les deux $1$ est divisible par $3$ : c'est $(a+b)^3=a^3+b^3$ et $(a+b)^9=a^9+b^9$ en caractéristique $3$. La ligne $6$ montre qu'il faut une puissance de $p$ et non un simple multiple : son coefficient central est $\binom{6}{3}=20\equiv 2$.</span></figcaption>
+    </figure>
+
     <div class="thm-block corollary">
-      <p class="en"><span class="thm-label">Corollary.</span> The map $F : a \mapsto a^p$ is a ring homomorphism from $A$ to $A$ (called the <em>Frobenius endomorphism</em>).</p>
-      <p class="fr"><span class="thm-label">Corollaire.</span> L'application $F : a \mapsto a^p$ est un morphisme d'anneaux de $A$ dans $A$ (appelé <em>morphisme de Frobenius</em>).</p>
+      <p class="en"><span class="thm-label">Corollary (Frobenius).</span> In a commutative ring of characteristic $p$, the map $F : a \mapsto a^p$ is a ring homomorphism from $A$ to $A$.</p>
+      <p class="fr"><span class="thm-label">Corollaire (Frobenius).</span> Dans un anneau commutatif de caractéristique $p$, l'application $F : a \mapsto a^p$ est un morphisme d'anneaux de $A$ dans $A$.</p>
     </div>
+
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      <p class="en">$F(ab) = (ab)^p = a^p b^p = F(a)F(b)$ by commutativity, $F(a+b) = a^p + b^p = F(a) + F(b)$, and $F(1) = 1$.</p>
+      $F(a+b) = a^p + b^p = F(a) + F(b)$ by the previous theorem, $F(ab) = (ab)^p = a^p b^p = F(a)F(b)$ by commutativity, and $F(1) = 1$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$F(ab) = (ab)^p = a^p b^p = F(a)F(b)$ par commutativité, $F(a+b) = a^p + b^p = F(a) + F(b)$, et $F(1) = 1$.</p>
+      $F(a+b) = a^p + b^p = F(a) + F(b)$ par le théorème précédent, $F(ab) = (ab)^p = a^p b^p = F(a)F(b)$ par commutativité, et $F(1) = 1$.
     </details>
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To prove that a subset is a subring, check that it contains $1$ and is closed under difference and product.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour montrer qu'une partie est un sous-anneau, vérifier qu'elle contient $1$ et qu'elle est stable par différence et par produit.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{Z}[\sqrt{2}] = \{a+b\sqrt{2} \mid a,b \in \mathbb{Z}\}$ is a subring of $\mathbb{R}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{Z}[\sqrt{2}] = \{a+b\sqrt{2} \mid a,b \in \mathbb{Z}\}$ est un sous-anneau de $\mathbb{R}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $1 = 1 + 0\sqrt{2}$ belongs to it. For the difference, $(a+b\sqrt{2})-(a'+b'\sqrt{2}) = (a-a') + (b-b')\sqrt{2}$. For the product, $(a+b\sqrt{2})(a'+b'\sqrt{2}) = (aa'+2bb') + (ab'+a'b)\sqrt{2}$. Both have integer coefficients.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $1 = 1 + 0\sqrt{2}$ y appartient. Pour la différence, $(a+b\sqrt{2})-(a'+b'\sqrt{2}) = (a-a') + (b-b')\sqrt{2}$. Pour le produit, $(a+b\sqrt{2})(a'+b'\sqrt{2}) = (aa'+2bb') + (ab'+a'b)\sqrt{2}$. Les deux ont des coefficients entiers.
+    </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> A class $\bar{a}$ is invertible in $\mathbb{Z}/n\mathbb{Z}$ exactly when $\gcd(a,n)=1$, and the Euclidean algorithm run backwards produces the inverse.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Une classe $\bar{a}$ est inversible dans $\mathbb{Z}/n\mathbb{Z}$ exactement quand $\gcd(a,n)=1$, et l'algorithme d'Euclide remonté fournit l'inverse.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute the inverse of $\bar{7}$ in $\mathbb{Z}/26\mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer l'inverse de $\bar{7}$ dans $\mathbb{Z}/26\mathbb{Z}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Euclid: $26 = 3\cdot 7 + 5$, $7 = 1\cdot 5 + 2$, $5 = 2\cdot 2 + 1$. So $\gcd(7,26)=1$ and, going back up,
+      \[1 = 5 - 2\cdot 2 = 5 - 2(7-5) = 3\cdot 5 - 2\cdot 7 = 3(26 - 3\cdot 7) - 2\cdot 7 = 3\cdot 26 - 11\cdot 7.\]
+      Hence $-11 \cdot 7 \equiv 1 \pmod{26}$ and $\bar{7}^{\,-1} = \overline{-11} = \overline{15}$, which checks: $7\cdot 15 = 105 = 4\cdot 26 + 1$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Euclide : $26 = 3\cdot 7 + 5$, $7 = 1\cdot 5 + 2$, $5 = 2\cdot 2 + 1$. Donc $\gcd(7,26)=1$ et, en remontant,
+      \[1 = 5 - 2\cdot 2 = 5 - 2(7-5) = 3\cdot 5 - 2\cdot 7 = 3(26 - 3\cdot 7) - 2\cdot 7 = 3\cdot 26 - 11\cdot 7.\]
+      Ainsi $-11 \cdot 7 \equiv 1 \pmod{26}$ et $\bar{7}^{\,-1} = \overline{-11} = \overline{15}$, ce qui se vérifie : $7\cdot 15 = 105 = 4\cdot 26 + 1$.
+    </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> In characteristic $p$, raising to the power $p$ is additive: $(a+b)^{p^n} = a^{p^n} + b^{p^n}$.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> En caractéristique $p$, l'élévation à la puissance $p$ est additive : $(a+b)^{p^n} = a^{p^n} + b^{p^n}$.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Expand $(X+1)^9$ in $(\mathbb{Z}/3\mathbb{Z})[X]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Développer $(X+1)^9$ dans $(\mathbb{Z}/3\mathbb{Z})[X]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The ring $(\mathbb{Z}/3\mathbb{Z})[X]$ is commutative of characteristic $3$, and $9 = 3^2$, so $(X+1)^9 = X^9 + 1^9 = X^9 + \bar{1}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      L'anneau $(\mathbb{Z}/3\mathbb{Z})[X]$ est commutatif de caractéristique $3$, et $9 = 3^2$, donc $(X+1)^9 = X^9 + 1^9 = X^9 + \bar{1}$.
+    </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To prove that an element is invertible, exhibit its inverse, reading it off an identity the element satisfies.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour montrer qu'un élément est inversible, exhiber son inverse, en le lisant sur une identité que l'élément vérifie.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $x$ be an element of a ring with $x^n = 0$. Show that $1-x$ is invertible.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $x$ un élément d'un anneau tel que $x^n = 0$. Montrer que $1-x$ est inversible.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The powers of $x$ commute with $x$, so
+      \[(1-x)(1+x+\cdots+x^{n-1}) = (1+x+\cdots+x^{n-1})(1-x) = 1 - x^n = 1,\]
+      the middle terms cancelling in pairs. So $1-x$ is invertible, with inverse $1+x+\cdots+x^{n-1}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Les puissances de $x$ commutent avec $x$, donc
+      \[(1-x)(1+x+\cdots+x^{n-1}) = (1+x+\cdots+x^{n-1})(1-x) = 1 - x^n = 1,\]
+      les termes intermédiaires se simplifiant deux à deux. Ainsi $1-x$ est inversible, d'inverse $1+x+\cdots+x^{n-1}$.
+    </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To compute a large power modulo $n$, reduce the exponent modulo $\varphi(n)$.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour calculer une grande puissance modulo $n$, réduire l'exposant modulo $\varphi(n)$.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Compute $7^{1000} \bmod 13$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $7^{1000} \bmod 13$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $13$ is prime and $13 \nmid 7$, so $\varphi(13) = 12$ and $7^{12} \equiv 1$. Since $1000 = 12 \cdot 83 + 4$, $7^{1000} \equiv 7^4 = 2401 = 13 \cdot 184 + 9 \equiv 9 \pmod{13}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $13$ est premier et $13 \nmid 7$, donc $\varphi(13) = 12$ et $7^{12} \equiv 1$. Comme $1000 = 12 \cdot 83 + 4$, $7^{1000} \equiv 7^4 = 2401 = 13 \cdot 184 + 9 \equiv 9 \pmod{13}$.
+    </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> In a finite ring, the map $x \mapsto ax$ is injective if and only if it is surjective, which turns a cancellation property into the existence of an inverse.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Dans un anneau fini, l'application $x \mapsto ax$ est injective si et seulement si elle est surjective, ce qui transforme une propriété de simplification en existence d'un inverse.</p>
+      <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a finite ring. Show that every element of $A$ is either invertible or a zero divisor.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau fini. Montrer que tout élément de $A$ est soit inversible, soit diviseur de zéro.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $a \in A$ and $\varphi : A \to A$ defined by $\varphi(x) = ax$. If $\varphi$ is injective, then it is surjective since $A$ is finite, so there is $b \in A$ with $ab = 1$, and $a$ is invertible. Otherwise there are $x \neq y$ with $ax = ay$, hence $a(x-y) = 0$ with $x-y \neq 0$, and $a$ is a zero divisor.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $a \in A$ et $\varphi : A \to A$ définie par $\varphi(x) = ax$. Si $\varphi$ est injective, elle est surjective car $A$ est fini, donc il existe $b \in A$ tel que $ab = 1$, et $a$ est inversible. Sinon, il existe $x \neq y$ tels que $ax = ay$, d'où $a(x-y) = 0$ avec $x-y \neq 0$, et $a$ est diviseur de zéro.
+    </details>
+    </div>
 
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a finite ring. Show that every element of $A$ is either invertible or a zero divisor.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau fini. Montrer que tout élément de $A$ est soit inversible, soit diviseur de zéro.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> A subring contains $1$, and is closed under difference and product. Find a subset of $\mathbb{Z}$ closed under difference and product that is not a subring, so that the condition $1 \in B$ cannot be dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Un sous-anneau contient $1$ et est stable par différence et par produit. Trouver une partie de $\mathbb{Z}$ stable par différence et par produit qui n'est pas un sous-anneau, montrant que la condition $1 \in B$ ne peut pas être retirée.</p>
     </div>
+
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Let $a \in A$ and $\varphi : A \to A$ defined by $\varphi(x) = ax$. If $\varphi$ is injective, since $A$ is finite, $\varphi$ is surjective: there exists $b \in A$ with $ab = 1$, so $a$ is invertible. Otherwise, there exist $x \neq y$ with $ax = ay$, giving $a(x-y) = 0$ with $x - y \neq 0$: $a$ is a zero divisor.</p>
+      <summary class="proof-label">Solution.</summary>
+      Take $B = 2\mathbb{Z}$. It is closed under difference, since $2a - 2b = 2(a-b)$, and under product, since $(2a)(2b) = 2(2ab)$. But $1 \notin 2\mathbb{Z}$, so $B$ has no multiplicative neutral element and is not a subring.
+      Here $2\mathbb{Z}$ is an ideal of $\mathbb{Z}$, and the only ideal that is also a subring is $\mathbb{Z}$ itself: an ideal containing $1$ contains every $a = a \cdot 1$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Soit $a \in A$ et $\varphi : A \to A$ définie par $\varphi(x) = ax$. Si $\varphi$ est injective, comme $A$ est fini, $\varphi$ est surjective : il existe $b \in A$ tel que $ab = 1$, donc $a$ est inversible. Sinon, il existe $x \neq y$ tels que $ax = ay$, d'où $a(x-y) = 0$ avec $x - y \neq 0$ : $a$ est diviseur de zéro.</p>
+      <summary class="proof-label">Solution.</summary>
+      Prenons $B = 2\mathbb{Z}$. Il est stable par différence, car $2a - 2b = 2(a-b)$, et par produit, car $(2a)(2b) = 2(2ab)$. Mais $1 \notin 2\mathbb{Z}$, donc $B$ n'a pas d'élément neutre multiplicatif et n'est pas un sous-anneau.
+      Ici $2\mathbb{Z}$ est un idéal de $\mathbb{Z}$, et le seul idéal qui soit aussi un sous-anneau est $\mathbb{Z}$ lui-même : un idéal contenant $1$ contient tout $a = a \cdot 1$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{Z}[i] = \{a+ib \mid a,b \in \mathbb{Z}\}$ is a subring of $\mathbb{C}$, and determine its invertible elements.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{Z}[i] = \{a+ib \mid a,b \in \mathbb{Z}\}$ est un sous-anneau de $\mathbb{C}$, et déterminer ses inversibles.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The characteristic of an integral domain is $0$ or prime. Find a commutative ring whose characteristic is neither, so that integrality cannot be dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La caractéristique d'un anneau intègre est $0$ ou un nombre premier. Trouver un anneau commutatif dont la caractéristique n'est ni l'un ni l'autre, montrant que l'intégrité ne peut pas être retirée.</p>
     </div>
+
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">$1 = 1 + 0i \in \mathbb{Z}[i]$. If $z = a+ib$ and $z' = a'+ib'$ are in $\mathbb{Z}[i]$, then $z - z' = (a-a') + i(b-b') \in \mathbb{Z}[i]$ and $zz' = (aa'-bb') + i(ab'+a'b) \in \mathbb{Z}[i]$. By the subring criterion, $\mathbb{Z}[i]$ is a subring of $\mathbb{C}$.</p>
-      <p class="en">Let $z = a+ib \in \mathbb{Z}[i]$ be invertible in $\mathbb{Z}[i]$. Then there exists $z' \in \mathbb{Z}[i]$ with $zz' = 1$, so $|z|^2 |z'|^2 = 1$. Since $|z|^2 = a^2 + b^2 \in \mathbb{N}$ and $|z'|^2 \in \mathbb{N}$, we have $a^2 + b^2 = 1$, so $(a,b) \in \{(\pm 1, 0), (0, \pm 1)\}$. Thus $\mathbb{Z}[i]^\times = \{1, -1, i, -i\}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      Take $\mathbb{Z}/6\mathbb{Z}$. Its characteristic is $6$, which is neither $0$ nor prime.
+      The proof for an integral domain factors $6 = 2 \cdot 3$ and reads $\bar{0} = \bar{6} = \bar{2}\cdot\bar{3}$, which here does not force $\bar{2} = \bar{0}$ or $\bar{3} = \bar{0}$: those two classes are precisely zero divisors.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$1 = 1 + 0i \in \mathbb{Z}[i]$. Si $z = a+ib$ et $z' = a'+ib'$ sont dans $\mathbb{Z}[i]$, alors $z - z' = (a-a') + i(b-b') \in \mathbb{Z}[i]$ et $zz' = (aa'-bb') + i(ab'+a'b) \in \mathbb{Z}[i]$. Par le critère de sous-anneau, $\mathbb{Z}[i]$ est un sous-anneau de $\mathbb{C}$.</p>
-      <p class="fr">Soit $z = a+ib \in \mathbb{Z}[i]$ inversible dans $\mathbb{Z}[i]$. Alors il existe $z' \in \mathbb{Z}[i]$ tel que $zz' = 1$, d'où $|z|^2 |z'|^2 = 1$. Comme $|z|^2 = a^2 + b^2 \in \mathbb{N}$ et $|z'|^2 \in \mathbb{N}$, on a $a^2 + b^2 = 1$, donc $(a,b) \in \{(\pm 1, 0), (0, \pm 1)\}$. Ainsi $\mathbb{Z}[i]^\times = \{1, -1, i, -i\}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      Prenons $\mathbb{Z}/6\mathbb{Z}$. Sa caractéristique est $6$, qui n'est ni $0$ ni premier.
+      La démonstration pour un anneau intègre factorise $6 = 2 \cdot 3$ et écrit $\bar{0} = \bar{6} = \bar{2}\cdot\bar{3}$, ce qui ici n'impose pas $\bar{2} = \bar{0}$ ou $\bar{3} = \bar{0}$ : ces deux classes sont justement des diviseurs de zéro.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> In a commutative ring of characteristic $p$ with $p$ prime, $(a+b)^p = a^p + b^p$. Show that this fails in a commutative ring of characteristic $4$, so that the primality of $p$ cannot be dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Dans un anneau commutatif de caractéristique $p$ avec $p$ premier, $(a+b)^p = a^p + b^p$. Montrer que c'est faux dans un anneau commutatif de caractéristique $4$, montrant que la primalité de $p$ ne peut pas être retirée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      In $\mathbb{Z}/4\mathbb{Z}$, which has characteristic $4$, take $a = b = \bar{1}$. Then $(a+b)^4 = \bar{2}^{\,4} = \overline{16} = \bar{0}$, while $a^4 + b^4 = \bar{1} + \bar{1} = \bar{2} \neq \bar{0}$.
+      The proof breaks at the middle coefficient: $\binom{4}{2} = 6 \equiv \bar{2}$, which is not $\bar{0}$ in $\mathbb{Z}/4\mathbb{Z}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Dans $\mathbb{Z}/4\mathbb{Z}$, qui est de caractéristique $4$, prenons $a = b = \bar{1}$. Alors $(a+b)^4 = \bar{2}^{\,4} = \overline{16} = \bar{0}$, tandis que $a^4 + b^4 = \bar{1} + \bar{1} = \bar{2} \neq \bar{0}$.
+      La démonstration achoppe sur le coefficient central : $\binom{4}{2} = 6 \equiv \bar{2}$, qui n'est pas $\bar{0}$ dans $\mathbb{Z}/4\mathbb{Z}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The same formula also assumes the ring commutative. Find $A,B \in \mathcal{M}_2(\mathbb{Z}/2\mathbb{Z})$, a ring of characteristic $2$, with $(A+B)^2 \neq A^2 + B^2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La même formule suppose aussi l'anneau commutatif. Trouver $A,B \in \mathcal{M}_2(\mathbb{Z}/2\mathbb{Z})$, anneau de caractéristique $2$, tels que $(A+B)^2 \neq A^2 + B^2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $A = \begin{pmatrix}0&1\\0&0\end{pmatrix}$ and $B = \begin{pmatrix}0&0\\1&0\end{pmatrix}$. Then $A^2 = B^2 = 0$, while
+      \[(A+B)^2 = \begin{pmatrix}0&1\\1&0\end{pmatrix}^2 = \begin{pmatrix}1&0\\0&1\end{pmatrix} \neq 0.\]
+      Expanding, $(A+B)^2 = A^2 + AB + BA + B^2$, and the two middle terms cancel only when $AB = -BA$; here $AB = \begin{pmatrix}1&0\\0&0\end{pmatrix}$ and $BA = \begin{pmatrix}0&0\\0&1\end{pmatrix}$, whose sum is the identity.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prenons $A = \begin{pmatrix}0&1\\0&0\end{pmatrix}$ et $B = \begin{pmatrix}0&0\\1&0\end{pmatrix}$. Alors $A^2 = B^2 = 0$, tandis que
+      \[(A+B)^2 = \begin{pmatrix}0&1\\1&0\end{pmatrix}^2 = \begin{pmatrix}1&0\\0&1\end{pmatrix} \neq 0.\]
+      En développant, $(A+B)^2 = A^2 + AB + BA + B^2$, et les deux termes centraux ne se simplifient que si $AB = -BA$ ; ici $AB = \begin{pmatrix}1&0\\0&0\end{pmatrix}$ et $BA = \begin{pmatrix}0&0\\0&1\end{pmatrix}$, dont la somme est l'identité.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Prove that if $p$ is prime, then $a^p \equiv a \pmod{p}$ for all $a \in \mathbb{Z}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que si $p$ est premier, alors $a^p \equiv a \pmod{p}$ pour tout $a \in \mathbb{Z}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      If $p \mid a$, both sides are $\equiv 0$. Otherwise $p \nmid a$, so $a^{p-1} \equiv 1 \pmod{p}$, and multiplying by $a$ gives $a^p \equiv a$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Si $p \mid a$, les deux membres sont $\equiv 0$. Sinon $p \nmid a$, donc $a^{p-1} \equiv 1 \pmod{p}$, et en multipliant par $a$ on obtient $a^p \equiv a$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a ring such that $a^2 = a$ for all $a \in A$ (a Boolean ring). Show that $A$ is commutative and that $\mathrm{char}(A) = 2$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau tel que $a^2 = a$ pour tout $a \in A$ (anneau booléen). Montrer que $A$ est commutatif et que $\mathrm{car}(A) = 2$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Applying the hypothesis to $a+a$ gives $a+a = (a+a)^2 = a^2+a^2+a^2+a^2 = 4a$, so $2a = 0$ for every $a$. In particular $2 \cdot 1_A = 0$, and $\mathrm{char}(A) = 2$ as soon as $1_A \neq 0_A$. It also gives $-a = a$.
+      Applying the hypothesis to $a+b$ gives $a+b = (a+b)^2 = a^2 + ab + ba + b^2 = a + ab + ba + b$, so $ab + ba = 0$, that is $ab = -ba = ba$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      En appliquant l'hypothèse à $a+a$, on obtient $a+a = (a+a)^2 = a^2+a^2+a^2+a^2 = 4a$, donc $2a = 0$ pour tout $a$. En particulier $2 \cdot 1_A = 0$, et $\mathrm{car}(A) = 2$ dès que $1_A \neq 0_A$. Cela donne aussi $-a = a$.
+      En appliquant l'hypothèse à $a+b$, on obtient $a+b = (a+b)^2 = a^2 + ab + ba + b^2 = a + ab + ba + b$, donc $ab + ba = 0$, c'est-à-dire $ab = -ba = ba$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be an integral domain and $a \in A$ with $a^n = 1$ and $a^m = 1$. Show that $a^{\gcd(n,m)} = 1$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau intègre et $a \in A$ tel que $a^n = 1$ et $a^m = 1$. Montrer que $a^{\gcd(n,m)} = 1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      From $a^n = 1$, the element $a$ is invertible, with inverse $a^{n-1}$, so $a^k$ is defined for every $k \in \mathbb{Z}$. By Bézout there are $u,v \in \mathbb{Z}$ with $un + vm = \gcd(n,m)$, and then
+      \[a^{\gcd(n,m)} = a^{un+vm} = (a^n)^u (a^m)^v = 1.\]
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      De $a^n = 1$, l'élément $a$ est inversible, d'inverse $a^{n-1}$, donc $a^k$ a un sens pour tout $k \in \mathbb{Z}$. Par Bézout, il existe $u,v \in \mathbb{Z}$ tels que $un + vm = \gcd(n,m)$, et alors
+      \[a^{\gcd(n,m)} = a^{un+vm} = (a^n)^u (a^m)^v = 1.\]
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\mathbb{Z}[i] = \{a+ib \mid a,b \in \mathbb{Z}\}$ is a subring of $\mathbb{C}$, and determine its units.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\mathbb{Z}[i] = \{a+ib \mid a,b \in \mathbb{Z}\}$ est un sous-anneau de $\mathbb{C}$, et déterminer ses inversibles.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $1 = 1 + 0i \in \mathbb{Z}[i]$. If $z = a+ib$ and $z' = a'+ib'$ are in $\mathbb{Z}[i]$, then $z - z' = (a-a') + i(b-b') \in \mathbb{Z}[i]$ and $zz' = (aa'-bb') + i(ab'+a'b) \in \mathbb{Z}[i]$, so $\mathbb{Z}[i]$ is a subring of $\mathbb{C}$.
+      Let $z = a+ib$ be invertible in $\mathbb{Z}[i]$, say $zz' = 1$ with $z' \in \mathbb{Z}[i]$. Taking moduli, $|z|^2|z'|^2 = 1$ with $|z|^2 = a^2+b^2$ and $|z'|^2$ both nonnegative integers, so $a^2+b^2 = 1$ and $(a,b) \in \{(\pm 1,0),(0,\pm 1)\}$. Each of these four elements is indeed invertible, so $\mathbb{Z}[i]^\times = \{1,-1,i,-i\}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $1 = 1 + 0i \in \mathbb{Z}[i]$. Si $z = a+ib$ et $z' = a'+ib'$ sont dans $\mathbb{Z}[i]$, alors $z - z' = (a-a') + i(b-b') \in \mathbb{Z}[i]$ et $zz' = (aa'-bb') + i(ab'+a'b) \in \mathbb{Z}[i]$, donc $\mathbb{Z}[i]$ est un sous-anneau de $\mathbb{C}$.
+      Soit $z = a+ib$ inversible dans $\mathbb{Z}[i]$, disons $zz' = 1$ avec $z' \in \mathbb{Z}[i]$. En prenant les modules, $|z|^2|z'|^2 = 1$ avec $|z|^2 = a^2+b^2$ et $|z'|^2$ entiers positifs, donc $a^2+b^2 = 1$ et $(a,b) \in \{(\pm 1,0),(0,\pm 1)\}$. Chacun de ces quatre éléments est bien inversible, donc $\mathbb{Z}[i]^\times = \{1,-1,i,-i\}$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that every ideal of $\mathbb{K}[X]$ is principal.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout idéal de $\mathbb{K}[X]$ est principal.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $I$ be an ideal of $\mathbb{K}[X]$. If $I = \{0\}$, then $I = (0)$. Otherwise choose $P \in I$ nonzero of smallest degree. Then $(P) \subset I$.
+      Conversely, let $Q \in I$. Euclidean division gives $Q = PS + R$ with $R = 0$ or $\deg R &lt; \deg P$. Since $R = Q - PS \in I$, the minimality of $\deg P$ forces $R = 0$, so $Q \in (P)$. Hence $I = (P)$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $I$ un idéal de $\mathbb{K}[X]$. Si $I = \{0\}$, alors $I = (0)$. Sinon, choisissons $P \in I$ non nul de degré minimal. Alors $(P) \subset I$.
+      Réciproquement, soit $Q \in I$. La division euclidienne donne $Q = PS + R$ avec $R = 0$ ou $\deg R &lt; \deg P$. Comme $R = Q - PS \in I$, la minimalité de $\deg P$ impose $R = 0$, donc $Q \in (P)$. Ainsi $I = (P)$.
     </details>
 
     <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise (Nilradical).</span> Let $A$ be a commutative ring. Show that the set of nilpotent elements $\mathcal{N} = \{a \in A \mid \exists n \ge 1,\ a^n = 0\}$ is an ideal of $A$.</p>
       <p class="fr"><span class="thm-label">Exercice (Nilradical).</span> Soit $A$ un anneau commutatif. Montrer que l'ensemble des nilpotents $\mathcal{N} = \{a \in A \mid \exists n \ge 1,\ a^n = 0\}$ est un idéal de $A$.</p>
     </div>
+
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">$0 \in \mathcal{N}$. If $a^p = 0$ and $b^q = 0$, set $n = p+q-1$. In the binomial expansion $(a-b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k (-b)^{n-k}$, each term vanishes: if $k \ge p$ then $a^k = 0$, otherwise $n-k \ge q$ so $b^{n-k} = 0$. Thus $a - b \in \mathcal{N}$. Finally, if $a^n = 0$ and $r \in A$, then $(ra)^n = r^n a^n = 0$, so $ra \in \mathcal{N}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      $0 \in \mathcal{N}$. Let $a^p = 0$ and $b^q = 0$, and set $n = p+q-1$. In $(a-b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k (-b)^{n-k}$, every term vanishes: if $k \ge p$ then $a^k = 0$, and otherwise $n-k \ge q$, so $b^{n-k} = 0$. Hence $a-b \in \mathcal{N}$. Finally, if $a^n = 0$ and $r \in A$, then $(ra)^n = r^n a^n = 0$, so $ra \in \mathcal{N}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">$0 \in \mathcal{N}$. Si $a^p = 0$ et $b^q = 0$, posons $n = p+q-1$. Dans le binôme $(a-b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k (-b)^{n-k}$, chaque terme est nul : si $k \ge p$ alors $a^k = 0$, sinon $n-k \ge q$ donc $b^{n-k} = 0$. Ainsi $a - b \in \mathcal{N}$. Enfin, si $a^n = 0$ et $r \in A$, alors $(ra)^n = r^n a^n = 0$, donc $ra \in \mathcal{N}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      $0 \in \mathcal{N}$. Soient $a^p = 0$ et $b^q = 0$, et posons $n = p+q-1$. Dans $(a-b)^n = \sum_{k=0}^{n} \binom{n}{k} a^k (-b)^{n-k}$, chaque terme est nul : si $k \ge p$ alors $a^k = 0$, et sinon $n-k \ge q$, donc $b^{n-k} = 0$. Ainsi $a-b \in \mathcal{N}$. Enfin, si $a^n = 0$ et $r \in A$, alors $(ra)^n = r^n a^n = 0$, donc $ra \in \mathcal{N}$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that in $\mathbb{Z}/n\mathbb{Z}$, an element is nilpotent if and only if every prime factor of $n$ divides that element.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que dans $\mathbb{Z}/n\mathbb{Z}$, un élément est nilpotent si et seulement si tous les facteurs premiers de $n$ divisent cet élément.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a finite integral domain with $|A| = n &gt; 1$. Show that $\mathrm{char}(A)$ is a prime $p$ and that $n$ is a power of $p$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau intègre fini avec $|A| = n &gt; 1$. Montrer que $\mathrm{car}(A)$ est un nombre premier $p$ et que $n$ est une puissance de $p$.</p>
     </div>
+
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">Let $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r}$. $(\Rightarrow)$ If $\bar{a}^k = \bar{0}$, then $n \mid a^k$, so $p_i \mid a^k$ for all $i$, and since $p_i$ is prime, $p_i \mid a$. $(\Leftarrow)$ If all $p_i$ divide $a$, write $a = p_1 \cdots p_r \cdot q$. Set $M = \max(\alpha_i)$. Then $a^M = p_1^M \cdots p_r^M \cdot q^M$, and since $M \ge \alpha_i$, we have $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r} \mid p_1^M \cdots p_r^M \mid a^M$, so $\bar{a}^M = \bar{0}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      The elements $k \cdot 1_A$ for $k \ge 1$ cannot all be distinct, since $A$ is finite, so $k \cdot 1_A = \ell \cdot 1_A$ for some $k &lt; \ell$ and $(\ell-k) \cdot 1_A = 0$: the characteristic is not $0$. Being the characteristic of an integral domain, it is a prime $p$.
+      Then $p \cdot a = (p \cdot 1_A)a = 0$ for every $a$, so in the group $(A,+)$ every element other than $0$ has order $p$, since its order divides the prime $p$ and is not $1$. If a prime $q \neq p$ divided $n = |A|$, Cauchy's theorem applied to $(A,+)$ would give an element of order $q$. So $p$ is the only prime dividing $n$, and $n$ is a power of $p$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Soit $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r}$. $(\Rightarrow)$ Si $\bar{a}^k = \bar{0}$, alors $n \mid a^k$, donc $p_i \mid a^k$ pour tout $i$, et comme $p_i$ est premier, $p_i \mid a$. $(\Leftarrow)$ Si tous les $p_i$ divisent $a$, on écrit $a = p_1 \cdots p_r \cdot q$. Posons $M = \max(\alpha_i)$. Alors $a^M = p_1^M \cdots p_r^M \cdot q^M$, et comme $M \ge \alpha_i$, on a $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r} \mid p_1^M \cdots p_r^M \mid a^M$, donc $\bar{a}^M = \bar{0}$.</p>
+      <summary class="proof-label">Solution.</summary>
+      Les éléments $k \cdot 1_A$ pour $k \ge 1$ ne peuvent pas être tous distincts, car $A$ est fini, donc $k \cdot 1_A = \ell \cdot 1_A$ pour certains $k &lt; \ell$ et $(\ell-k) \cdot 1_A = 0$ : la caractéristique n'est pas nulle. Étant la caractéristique d'un anneau intègre, c'est un nombre premier $p$.
+      Alors $p \cdot a = (p \cdot 1_A)a = 0$ pour tout $a$, donc dans le groupe $(A,+)$ tout élément autre que $0$ est d'ordre $p$, puisque son ordre divise le nombre premier $p$ et n'est pas $1$. Si un premier $q \neq p$ divisait $n = |A|$, le théorème de Cauchy appliqué à $(A,+)$ fournirait un élément d'ordre $q$. Donc $p$ est le seul premier divisant $n$, et $n$ est une puissance de $p$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Prove Fermat's little theorem: if $p$ is prime, then for all $a \in \mathbb{Z}$, $a^p \equiv a \pmod{p}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer le petit théorème de Fermat : si $p$ est premier, alors pour tout $a \in \mathbb{Z}$, $a^p \equiv a \pmod{p}$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Show that in $\mathbb{Z}/n\mathbb{Z}$, a class is nilpotent if and only if every prime factor of $n$ divides it.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que dans $\mathbb{Z}/n\mathbb{Z}$, une classe est nilpotente si et seulement si tous les facteurs premiers de $n$ la divisent.</p>
     </div>
+
     <details class="proof en">
-      <summary class="proof-label">Proof.</summary>
-      <p class="en">If $p \mid a$, both sides are $\equiv 0$. Otherwise, $\bar{a} \in (\mathbb{Z}/p\mathbb{Z})^\times$ which has order $p-1$, so $a^{p-1} \equiv 1 \pmod{p}$ by Lagrange, giving $a^p \equiv a$.</p>
+      <summary class="proof-label">Solution.</summary>
+      Write $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r}$.
+      $(\Rightarrow)$ If $\bar{a}^k = \bar{0}$, then $n \mid a^k$, so $p_i \mid a^k$ for each $i$, and since $p_i$ is prime, $p_i \mid a$.
+      $(\Leftarrow)$ If every $p_i$ divides $a$, then $p_1 \cdots p_r$ divides $a$. Set $M = \max_i \alpha_i$: the integer $a^M$ is divisible by $p_1^M \cdots p_r^M$, which is a multiple of $n$ since $M \ge \alpha_i$ for each $i$. Hence $n \mid a^M$ and $\bar{a}^M = \bar{0}$.
     </details>
     <details class="proof fr">
-      <summary class="proof-label">Démonstration.</summary>
-      <p class="fr">Si $p \mid a$, les deux membres sont $\equiv 0$. Sinon, $\bar{a} \in (\mathbb{Z}/p\mathbb{Z})^\times$ qui est d'ordre $p-1$, donc $a^{p-1} \equiv 1 \pmod{p}$ par Lagrange, d'où $a^p \equiv a$.</p>
+      <summary class="proof-label">Solution.</summary>
+      Écrivons $n = p_1^{\alpha_1} \cdots p_r^{\alpha_r}$.
+      $(\Rightarrow)$ Si $\bar{a}^k = \bar{0}$, alors $n \mid a^k$, donc $p_i \mid a^k$ pour chaque $i$, et comme $p_i$ est premier, $p_i \mid a$.
+      $(\Leftarrow)$ Si tous les $p_i$ divisent $a$, posons $M = \max_i \alpha_i$. Alors $a^M$ est divisible par $p_1^M \cdots p_r^M$, qui est un multiple de $n$ puisque $M \ge \alpha_i$ pour chaque $i$. Donc $n \mid a^M$ et $\bar{a}^M = \bar{0}$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be an odd prime. Prove Euler's criterion: $a$ is a square modulo $p$ if and only if $a^{(p-1)/2} \equiv 1 \pmod{p}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un premier impair. Montrer le critère d'Euler : $a$ est un carré modulo $p$ si et seulement si $a^{(p-1)/2} \equiv 1 \pmod{p}$.</p>
+      <p class="en"><span class="thm-label">Exercise (Euler's criterion).</span> Let $p$ be an odd prime and $p \nmid a$. Show that $a$ is a square modulo $p$ if and only if $a^{(p-1)/2} \equiv 1 \pmod{p}$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Critère d'Euler).</span> Soit $p$ un premier impair et $p \nmid a$. Montrer que $a$ est un carré modulo $p$ si et seulement si $a^{(p-1)/2} \equiv 1 \pmod{p}$.</p>
     </div>
 
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $-1$ is a square modulo $p$ (odd prime) if and only if $p \equiv 1 \pmod{4}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $-1$ est un carré modulo $p$ (premier impair) si et seulement si $p \equiv 1 \pmod{4}$.</p>
-    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Work in the field $\mathbb{Z}/p\mathbb{Z}$ and write $m = (p-1)/2$.
+      If $\bar{a} = \bar{b}^2$ with $\bar{b} \neq \bar{0}$, then $\bar{a}^m = \bar{b}^{p-1} = \bar{1}$ by Fermat.
+      Conversely, count the squares: the map $\bar{b} \mapsto \bar{b}^2$ on $(\mathbb{Z}/p\mathbb{Z})^\times$ has kernel $\{\bar{1},\overline{-1}\}$, which has two elements since $p$ is odd, so its image has $\frac{p-1}{2} = m$ elements. Every square is a root of $X^m - \bar{1}$, and over a field a nonzero polynomial of degree $m$ has at most $m$ roots. The $m$ squares therefore exhaust the roots, so a class satisfying $\bar{a}^m = \bar{1}$ is a square.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Travaillons dans le corps $\mathbb{Z}/p\mathbb{Z}$ et posons $m = (p-1)/2$.
+      Si $\bar{a} = \bar{b}^2$ avec $\bar{b} \neq \bar{0}$, alors $\bar{a}^m = \bar{b}^{p-1} = \bar{1}$ par Fermat.
+      Réciproquement, comptons les carrés : l'application $\bar{b} \mapsto \bar{b}^2$ sur $(\mathbb{Z}/p\mathbb{Z})^\times$ a pour noyau $\{\bar{1},\overline{-1}\}$, qui a deux éléments puisque $p$ est impair, donc son image a $\frac{p-1}{2} = m$ éléments. Tout carré est racine de $X^m - \bar{1}$, et sur un corps un polynôme non nul de degré $m$ a au plus $m$ racines. Les $m$ carrés épuisent donc les racines, et une classe vérifiant $\bar{a}^m = \bar{1}$ est un carré.
+    </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a finite commutative integral domain of cardinality $n &gt; 1$. Show that $A$ is a field, and that its characteristic is a prime $p$ dividing $n$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau commutatif intègre fini de cardinal $n &gt; 1$. Montrer que $A$ est un corps, et que sa caractéristique est un nombre premier $p$ tel que $p \mid n$.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> Let $p$ be an odd prime. Show that $-1$ is a square modulo $p$ if and only if $p \equiv 1 \pmod{4}$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $p$ un premier impair. Montrer que $-1$ est un carré modulo $p$ si et seulement si $p \equiv 1 \pmod{4}$.</p>
     </div>
 
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be a ring such that $a^2 = a$ for all $a \in A$ (Boolean ring). Show that $A$ is commutative and $\mathrm{char}(A) = 2$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau tel que $a^2 = a$ pour tout $a \in A$ (anneau booléen). Montrer que $A$ est commutatif et que $\mathrm{car}(A) = 2$.</p>
-    </div>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that every ideal of $\mathbb{Z}$ is principal.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que tout idéal de $\mathbb{Z}$ est principal.</p>
-    </div>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $A$ be an integral domain. Show that if $a^n = 1$ and $a^m = 1$, then $a^{\gcd(n,m)} = 1$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $A$ un anneau intègre. Montrer que si $a^n = 1$ et $a^m = 1$, alors $a^{\gcd(n,m)} = 1$.</p>
-    </div>
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      By Euler's criterion, $-1$ is a square modulo $p$ if and only if $(-1)^{(p-1)/2} \equiv 1 \pmod p$, that is if and only if $(p-1)/2$ is even, since $\overline{-1} \neq \bar{1}$ for $p$ odd. Writing $p = 2m+1$, the integer $m = (p-1)/2$ is even exactly when $p = 2m+1 \equiv 1 \pmod 4$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Par le critère d'Euler, $-1$ est un carré modulo $p$ si et seulement si $(-1)^{(p-1)/2} \equiv 1 \pmod p$, c'est-à-dire si et seulement si $(p-1)/2$ est pair, puisque $\overline{-1} \neq \bar{1}$ pour $p$ impair. En écrivant $p = 2m+1$, l'entier $m = (p-1)/2$ est pair exactement quand $p = 2m+1 \equiv 1 \pmod 4$.
+    </details>
 
   </main>
-
-  <script>
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-en]').forEach(function(el) {
-        el.textContent = el.getAttribute('data-' + lang);
-      });
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
-      document.documentElement.lang = lang;
-    }
-
-    (function() {
-      var lang = localStorage.getItem('lang') || 'en';
-      if (lang === 'fr') setLang('fr');
-    })();
-  </script>
 </body>
 </html>
