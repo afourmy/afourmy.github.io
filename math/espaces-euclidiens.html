@@ -9,6 +9,7 @@
   <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
     onload="renderMathInElement(document.body, {
       delimiters: [
+        {left: '\\[', right: '\\]', display: true},
         {left: '$$', right: '$$', display: false},
         {left: '$', right: '$', display: false}
       ]
@@ -23,8 +24,11 @@
     <h2 class="en">Course</h2>
     <h2 class="fr">Cours</h2>
 
-    <h3 class="en">Inner product and norm</h3>
-    <h3 class="fr">Produit scalaire et norme</h3>
+    <h3 class="en">Inner product</h3>
+    <h3 class="fr">Produit scalaire</h3>
+
+    <p class="en">Length and angle are not part of the structure of a vector space. Both come from one extra piece of data.</p>
+    <p class="fr">La longueur et l'angle ne font pas partie de la structure d'espace vectoriel. Les deux proviennent d'une seule donnée supplémentaire.</p>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Inner product).</span> Let $E$ be a real vector space. An <em>inner product</em> on $E$ is a map $\langle\cdot,\cdot\rangle : E \times E \to \mathbb{R}$ that is <em>bilinear</em> (linear in each variable), <em>symmetric</em> ($\langle x,y\rangle = \langle y,x\rangle$) and <em>positive definite</em> ($\langle x,x\rangle \ge 0$, with $\langle x,x\rangle = 0 \iff x = 0$). A <em>Euclidean space</em> is a finite-dimensional real vector space equipped with an inner product. Standard examples: $\langle x,y\rangle = \sum_{i=1}^n x_i y_i$ on $\mathbb{R}^n$ (canonical inner product), $\langle f,g\rangle = \int_a^b f(t)g(t)\,dt$ on $\mathcal{C}([a,b],\mathbb{R})$.</p>
@@ -36,6 +40,36 @@
       <p class="fr"><span class="thm-label">Définition (Norme euclidienne).</span> La <em>norme</em> associée au produit scalaire est $\|x\| = \sqrt{\langle x,x\rangle}$. Un vecteur $x$ est <em>unitaire</em> si $\|x\| = 1$. Tout vecteur non nul $x$ peut être normalisé : $x/\|x\|$ est unitaire.</p>
     </div>
 
+    <p class="en">For $y \neq 0$, every $x$ splits as $x = \lambda y + r$ with $\lambda = \langle x,y\rangle/\|y\|^2$ and $\langle r, y\rangle = 0$. The piece $\lambda y$ is not longer than $x$.</p>
+    <p class="fr">Pour $y \neq 0$, tout $x$ se décompose en $x = \lambda y + r$ avec $\lambda = \langle x,y\rangle/\|y\|^2$ et $\langle r, y\rangle = 0$. Le morceau $\lambda y$ n'est pas plus long que $x$.</p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="384.6" height="255.9" viewBox="-4.6 39.0 384.6 255.9">
+        <line class="fig-axis" x1="5.4" y1="273.6" x2="370.0" y2="182.5"/>
+        <line class="fig-accent" x1="60.0" y1="260.0" x2="308.0" y2="198.0"/>
+        <line class="fig-curve" x1="60.0" y1="260.0" x2="159.2" y2="74.0"/>
+        <line class="fig-free-solid" x1="197.1" y1="225.7" x2="159.2" y2="74.0"/>
+        <path class="fig-bar" d="M 207.8 223.0 L 205.1 212.4 L 194.5 215.0"/>
+        <circle class="fig-dot" cx="159.2" cy="74.0" r="4.0"/>
+        <circle class="fig-dot-alt" cx="308.0" cy="198.0" r="3.5"/>
+        <circle class="fig-dot-alt" cx="197.1" cy="225.7" r="3.5"/>
+        <circle class="fig-dot" cx="60.0" cy="260.0" r="2.5"/>
+        <text x="155.2" y="63.0" text-anchor="middle">x</text>
+        <text x="314.0" y="188.0" text-anchor="middle">y</text>
+        <text x="185.1" y="217.7" text-anchor="end">p</text>
+        <text x="47.0" y="266.0" text-anchor="middle">O</text>
+        <line class="fig-interval" x1="64.9" y1="279.4" x2="202.0" y2="245.1"/>
+        <line class="fig-bar" x1="64.2" y1="277.0" x2="65.5" y2="281.8"/>
+        <line class="fig-bar" x1="201.4" y1="242.7" x2="202.6" y2="247.5"/>
+        <text x="136.6" y="278.9" text-anchor="middle">&#10216;x,y&#10217; / &#8214;y&#8214;</text>
+        <line class="fig-interval" x1="47.6" y1="253.4" x2="146.8" y2="67.4"/>
+        <line class="fig-bar" x1="49.9" y1="254.6" x2="45.4" y2="252.2"/>
+        <line class="fig-bar" x1="149.1" y1="68.6" x2="144.6" y2="66.2"/>
+        <text x="85.8" y="158.3" text-anchor="middle">&#8214;x&#8214;</text>
+      </svg>
+      <figcaption><span class="en">The point $p = \frac{\langle x,y\rangle}{\|y\|^2}\,y$ is the foot of the perpendicular from $x$ to the line $\mathbb{R}y$: it is the multiple of $y$ for which $x - p$ has inner product zero with $y$. The right angle at $p$ gives $\|x\|^2 = \|p\|^2 + \|x-p\|^2$, so $|\langle x,y\rangle|/\|y\| = \|p\| \le \|x\|$.</span><span class="fr">Le point $p = \frac{\langle x,y\rangle}{\|y\|^2}\,y$ est le pied de la perpendiculaire abaissée de $x$ sur la droite $\mathbb{R}y$ : c'est le multiple de $y$ pour lequel $x - p$ est de produit scalaire nul avec $y$. L'angle droit en $p$ donne $\|x\|^2 = \|p\|^2 + \|x-p\|^2$, donc $|\langle x,y\rangle|/\|y\| = \|p\| \le \|x\|$.</span></figcaption>
+    </figure>
+
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Cauchy-Schwarz inequality).</span> For all $x, y \in E$, $|\langle x,y\rangle| \le \|x\|\,\|y\|$, with equality if and only if $x$ and $y$ are collinear.</p>
       <p class="fr"><span class="thm-label">Théorème (Inégalité de Cauchy-Schwarz).</span> Pour tous $x, y \in E$, $|\langle x,y\rangle| \le \|x\|\,\|y\|$, avec égalité si et seulement si $x$ et $y$ sont colinéaires.</p>
@@ -43,12 +77,21 @@
 
     <details class="proof en">
       <summary class="proof-label">Proof.</summary>
-      If $y = 0$, both sides are zero and $x, y$ are collinear. Assume $y \neq 0$. For all $t \in \mathbb{R}$, bilinearity and symmetry give $0 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x,y\rangle + t^2\|y\|^2$. This quadratic polynomial in $t$ is nonnegative on $\mathbb{R}$, so its discriminant is nonpositive: $4\langle x,y\rangle^2 - 4\|x\|^2\|y\|^2 \le 0$, which is the inequality. Equality holds iff the discriminant is zero, iff the polynomial has a real root $t_0$, iff $\|x + t_0 y\| = 0$, iff $x = -t_0 y$ (positive definiteness), i.e. $x$ and $y$ are collinear.
+      If $y = 0$, both sides are zero and $x, y$ are collinear. Assume $y \neq 0$ and set $\lambda = \dfrac{\langle x,y\rangle}{\|y\|^2}$ and $r = x - \lambda y$. Then $\langle r, y\rangle = \langle x,y\rangle - \lambda\|y\|^2 = 0$, so expanding $\|x\|^2 = \|\lambda y + r\|^2$ by bilinearity kills the cross term:
+      \[\|x\|^2 = \lambda^2\|y\|^2 + \|r\|^2 = \frac{\langle x,y\rangle^2}{\|y\|^2} + \|r\|^2 \ \ge\ \frac{\langle x,y\rangle^2}{\|y\|^2}.\]
+      Multiplying by $\|y\|^2$ and taking square roots gives $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Equality holds if and only if $\|r\| = 0$, that is $x = \lambda y$; conversely $x = \lambda y$ gives $|\langle x,y\rangle| = |\lambda|\,\|y\|^2 = \|x\|\,\|y\|$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Démonstration.</summary>
-      Si $y = 0$, les deux membres sont nuls et $x, y$ sont colinéaires. Supposons $y \neq 0$. Pour tout $t \in \mathbb{R}$, la bilinéarité et la symétrie donnent $0 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x,y\rangle + t^2\|y\|^2$. Ce trinôme en $t$ est positif sur $\mathbb{R}$, donc son discriminant est négatif : $4\langle x,y\rangle^2 - 4\|x\|^2\|y\|^2 \le 0$, ce qui est l'inégalité voulue. Il y a égalité ssi le discriminant est nul, ssi le trinôme admet une racine réelle $t_0$, ssi $\|x + t_0 y\| = 0$, ssi $x = -t_0 y$ (caractère défini positif), i.e. $x$ et $y$ colinéaires.
+      Si $y = 0$, les deux membres sont nuls et $x, y$ sont colinéaires. Supposons $y \neq 0$ et posons $\lambda = \dfrac{\langle x,y\rangle}{\|y\|^2}$ et $r = x - \lambda y$. Alors $\langle r, y\rangle = \langle x,y\rangle - \lambda\|y\|^2 = 0$, donc le développement de $\|x\|^2 = \|\lambda y + r\|^2$ par bilinéarité annule le terme croisé :
+      \[\|x\|^2 = \lambda^2\|y\|^2 + \|r\|^2 = \frac{\langle x,y\rangle^2}{\|y\|^2} + \|r\|^2 \ \ge\ \frac{\langle x,y\rangle^2}{\|y\|^2}.\]
+      En multipliant par $\|y\|^2$ et en prenant les racines carrées, $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Il y a égalité si et seulement si $\|r\| = 0$, c'est-à-dire $x = \lambda y$ ; réciproquement $x = \lambda y$ donne $|\langle x,y\rangle| = |\lambda|\,\|y\|^2 = \|x\|\,\|y\|$.
     </details>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Angle).</span> Let $x, y$ be nonzero. Cauchy-Schwarz gives $\dfrac{\langle x,y\rangle}{\|x\|\,\|y\|} \in [-1,1]$, so there is a unique $\theta \in [0,\pi]$ with $\cos\theta = \dfrac{\langle x,y\rangle}{\|x\|\,\|y\|}$. This $\theta$ is the <em>angle</em> between $x$ and $y$, and $\langle x,y\rangle = \|x\|\,\|y\|\cos\theta$.</p>
+      <p class="fr"><span class="thm-label">Définition (Angle).</span> Soient $x, y$ non nuls. Cauchy-Schwarz donne $\dfrac{\langle x,y\rangle}{\|x\|\,\|y\|} \in [-1,1]$, donc il existe un unique $\theta \in [0,\pi]$ tel que $\cos\theta = \dfrac{\langle x,y\rangle}{\|x\|\,\|y\|}$. Ce $\theta$ est l'<em>angle</em> entre $x$ et $y$, et $\langle x,y\rangle = \|x\|\,\|y\|\cos\theta$.</p>
+    </div>
 
     <div class="thm-block proposition">
       <p class="en"><span class="thm-label">Proposition (Properties of the norm).</span> For all $x, y \in E$ and $\lambda \in \mathbb{R}$: $\|x\| \ge 0$ with $\|x\| = 0 \iff x = 0$; $\|\lambda x\| = |\lambda|\,\|x\|$; and the <em>triangle inequality</em> $\|x + y\| \le \|x\| + \|y\|$, with equality if and only if $x$ and $y$ are positively collinear ($y = \lambda x$ with $\lambda \ge 0$, or $x = 0$).</p>
@@ -65,8 +108,12 @@
     </details>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Polarization identities, parallelogram law).</span> For all $x, y \in E$: $$\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),$$ and the parallelogram law $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. In particular, the inner product is entirely determined by its norm.</p>
-      <p class="fr"><span class="thm-label">Proposition (Identités de polarisation, identité du parallélogramme).</span> Pour tous $x, y \in E$ : $$\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),$$ et l'identité du parallélogramme $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. En particulier, le produit scalaire est entièrement déterminé par sa norme.</p>
+      <p class="en"><span class="thm-label">Proposition (Polarization identities, parallelogram law).</span> For all $x, y \in E$:
+      \[\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),\]
+      and the parallelogram law $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. In particular, the inner product is entirely determined by its norm.</p>
+      <p class="fr"><span class="thm-label">Proposition (Identités de polarisation, identité du parallélogramme).</span> Pour tous $x, y \in E$ :
+      \[\langle x,y\rangle = \tfrac{1}{2}\big(\|x+y\|^2 - \|x\|^2 - \|y\|^2\big) = \tfrac{1}{4}\big(\|x+y\|^2 - \|x-y\|^2\big),\]
+      et l'identité du parallélogramme $\|x+y\|^2 + \|x-y\|^2 = 2\|x\|^2 + 2\|y\|^2$. En particulier, le produit scalaire est entièrement déterminé par sa norme.</p>
     </div>
 
     <details class="proof en">
@@ -77,6 +124,27 @@
       <summary class="proof-label">Démonstration.</summary>
       On développe par bilinéarité : $\|x+y\|^2 = \|x\|^2 + 2\langle x,y\rangle + \|y\|^2$ et $\|x-y\|^2 = \|x\|^2 - 2\langle x,y\rangle + \|y\|^2$. La première identité est le premier développement réarrangé ; en soustrayant les deux développements on obtient la seconde ; en les additionnant on obtient l'identité du parallélogramme.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="382.6" height="272.3" viewBox="31.3 -0.3 382.6 272.3">
+        <line class="fig-accent" x1="60.0" y1="250.0" x2="311.6" y2="205.6"/>
+        <line class="fig-accent" x1="60.0" y1="250.0" x2="148.8" y2="57.6"/>
+        <line class="fig-accent" x1="311.6" y1="205.6" x2="400.4" y2="13.2"/>
+        <line class="fig-accent" x1="148.8" y1="57.6" x2="400.4" y2="13.2"/>
+        <line class="fig-curve" x1="60.0" y1="250.0" x2="400.4" y2="13.2"/>
+        <line class="fig-free-solid" x1="148.8" y1="57.6" x2="311.6" y2="205.6"/>
+        <circle class="fig-dot" cx="311.6" cy="205.6" r="3.5"/>
+        <circle class="fig-dot" cx="148.8" cy="57.6" r="3.5"/>
+        <circle class="fig-dot" cx="400.4" cy="13.2" r="3.5"/>
+        <circle class="fig-dot" cx="60.0" cy="250.0" r="2.5"/>
+        <text x="47.0" y="256.0" text-anchor="middle">O</text>
+        <text x="185.8" y="247.8" text-anchor="middle">&#8214;x&#8214;</text>
+        <text x="84.4" y="157.8" text-anchor="end">&#8214;y&#8214;</text>
+        <text x="259.4" y="98.7" text-anchor="start">&#8214;x + y&#8214;</text>
+        <text x="263.3" y="187.1" text-anchor="end">&#8214;x − y&#8214;</text>
+      </svg>
+      <figcaption><span class="en">The two diagonals of the parallelogram built on $x$ and $y$ are $x+y$ and $x-y$. The sum of their squared lengths is $2\|x\|^2 + 2\|y\|^2$, whatever the shape of the parallelogram.</span><span class="fr">Les deux diagonales du parallélogramme construit sur $x$ et $y$ sont $x+y$ et $x-y$. La somme des carrés de leurs longueurs vaut $2\|x\|^2 + 2\|y\|^2$, quelle que soit la forme du parallélogramme.</span></figcaption>
+    </figure>
 
     <h3 class="en">Orthogonality</h3>
     <h3 class="fr">Orthogonalité</h3>
@@ -125,8 +193,10 @@
     </div>
 
     <div class="thm-block proposition">
-      <p class="en"><span class="thm-label">Proposition (Coordinates in an orthonormal basis).</span> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$. Then for all $x, y \in E$: $$x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.$$</p>
-      <p class="fr"><span class="thm-label">Proposition (Coordonnées en base orthonormée).</span> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$. Alors pour tous $x, y \in E$ : $$x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.$$</p>
+      <p class="en"><span class="thm-label">Proposition (Coordinates in an orthonormal basis).</span> Let $(e_1, \ldots, e_n)$ be an orthonormal basis of $E$. Then for all $x, y \in E$:
+      \[x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.\]</p>
+      <p class="fr"><span class="thm-label">Proposition (Coordonnées en base orthonormée).</span> Soit $(e_1, \ldots, e_n)$ une base orthonormée de $E$. Alors pour tous $x, y \in E$ :
+      \[x = \sum_{i=1}^n \langle x, e_i\rangle\, e_i, \qquad \langle x,y\rangle = \sum_{i=1}^n \langle x,e_i\rangle \langle y,e_i\rangle, \qquad \|x\|^2 = \sum_{i=1}^n \langle x,e_i\rangle^2.\]</p>
     </div>
 
     <details class="proof en">
@@ -139,8 +209,10 @@
     </details>
 
     <div class="thm-block theorem">
-      <p class="en"><span class="thm-label">Theorem (Gram-Schmidt orthonormalization).</span> Let $(x_1, \ldots, x_p)$ be a linearly independent family of $E$. There exists an orthonormal family $(e_1, \ldots, e_p)$ such that $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ for all $k \in \{1, \ldots, p\}$. It is built by induction: $$v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.$$</p>
-      <p class="fr"><span class="thm-label">Théorème (Orthonormalisation de Gram-Schmidt).</span> Soit $(x_1, \ldots, x_p)$ une famille libre de $E$. Il existe une famille orthonormée $(e_1, \ldots, e_p)$ telle que $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ pour tout $k \in \{1, \ldots, p\}$. Elle se construit par récurrence : $$v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.$$</p>
+      <p class="en"><span class="thm-label">Theorem (Gram-Schmidt orthonormalization).</span> Let $(x_1, \ldots, x_p)$ be a linearly independent family of $E$. There exists an orthonormal family $(e_1, \ldots, e_p)$ such that $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ for all $k \in \{1, \ldots, p\}$. It is built by induction:
+      \[v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.\]</p>
+      <p class="fr"><span class="thm-label">Théorème (Orthonormalisation de Gram-Schmidt).</span> Soit $(x_1, \ldots, x_p)$ une famille libre de $E$. Il existe une famille orthonormée $(e_1, \ldots, e_p)$ telle que $\operatorname{Vect}(e_1, \ldots, e_k) = \operatorname{Vect}(x_1, \ldots, x_k)$ pour tout $k \in \{1, \ldots, p\}$. Elle se construit par récurrence :
+      \[v_k = x_k - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle\, e_i, \qquad e_k = \frac{v_k}{\|v_k\|}.\]</p>
     </div>
 
     <details class="proof en">
@@ -151,6 +223,34 @@
       <summary class="proof-label">Démonstration.</summary>
       Par récurrence sur $k$. Pour $k = 1$ : $x_1 \neq 0$ (famille libre), donc $e_1 = x_1/\|x_1\|$ est unitaire et engendre $\operatorname{Vect}(x_1)$. Supposons $(e_1, \ldots, e_{k-1})$ orthonormée avec $\operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$. D'abord, $v_k \neq 0$ : sinon $x_k \in \operatorname{Vect}(e_1, \ldots, e_{k-1}) = \operatorname{Vect}(x_1, \ldots, x_{k-1})$, ce qui contredit la liberté. Ensuite, pour $j &lt; k$ : $\langle v_k, e_j\rangle = \langle x_k, e_j\rangle - \sum_{i=1}^{k-1} \langle x_k, e_i\rangle \langle e_i, e_j\rangle = \langle x_k, e_j\rangle - \langle x_k, e_j\rangle = 0$, donc $(e_1, \ldots, e_k)$ est orthonormée après normalisation. Enfin, $e_k$ est combinaison de $x_k$ et de $e_1, \ldots, e_{k-1}$, et réciproquement $x_k$ est combinaison de $e_1, \ldots, e_k$, donc les sous-espaces engendrés coïncident.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="356.5" height="303.4" viewBox="28.5 22.0 356.5 303.4">
+        <line class="fig-axis" x1="55.8" y1="296.4" x2="375.0" y2="190.0"/>
+        <line class="fig-accent" x1="90.0" y1="285.0" x2="318.0" y2="209.0"/>
+        <line class="fig-curve" x1="90.0" y1="285.0" x2="166.0" y2="57.0"/>
+        <line class="fig-free-solid" x1="226.8" y1="239.4" x2="166.0" y2="57.0"/>
+        <line class="fig-free-solid" x1="90.0" y1="285.0" x2="66.0" y2="212.9"/>
+        <path class="fig-bar" d="M 237.2 235.9 L 233.8 225.5 L 223.3 229.0"/>
+        <circle class="fig-dot" cx="166.0" cy="57.0" r="4.0"/>
+        <circle class="fig-dot-alt" cx="318.0" cy="209.0" r="3.5"/>
+        <circle class="fig-dot-alt" cx="226.8" cy="239.4" r="3.5"/>
+        <circle class="fig-dot-alt" cx="162.1" cy="261.0" r="3.0"/>
+        <circle class="fig-dot-alt" cx="66.0" cy="212.9" r="3.0"/>
+        <circle class="fig-dot" cx="90.0" cy="285.0" r="2.5"/>
+        <text x="331.0" y="213.0" text-anchor="middle">x<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="164.0" y="46.0" text-anchor="middle">x<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="155.1" y="250.0" text-anchor="middle">e<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="51.0" y="214.9" text-anchor="end">e<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="207.4" y="152.2" text-anchor="start">v<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="77.0" y="291.0" text-anchor="middle">O</text>
+        <line class="fig-interval" x1="96.3" y1="304.0" x2="233.1" y2="258.4"/>
+        <line class="fig-bar" x1="95.5" y1="301.6" x2="97.1" y2="306.3"/>
+        <line class="fig-bar" x1="232.3" y1="256.0" x2="233.9" y2="260.7"/>
+        <text x="169.5" y="299.4" text-anchor="middle">&#10216;x<tspan dy="4" font-size="11">2</tspan>,e<tspan dy="4" font-size="11">1</tspan>&#10217; e<tspan dy="4" font-size="11">1</tspan></text>
+      </svg>
+      <figcaption><span class="en">One step of the construction, on $x_1 = (3,1)$ and $x_2 = (1,3)$ in $\mathbb{R}^2$. The component of $x_2$ along $e_1 = x_1/\|x_1\|$ is $\langle x_2, e_1\rangle e_1 = (1.8,\, 0.6)$; removing it leaves $v_2 = (-0.8,\, 2.4)$, which meets the line at a right angle, and $e_2 = v_2/\|v_2\|$.</span><span class="fr">Une étape de la construction, sur $x_1 = (3,1)$ et $x_2 = (1,3)$ dans $\mathbb{R}^2$. La composante de $x_2$ selon $e_1 = x_1/\|x_1\|$ est $\langle x_2, e_1\rangle e_1 = (1{,}8\ ;\ 0{,}6)$ ; en la retirant il reste $v_2 = (-0{,}8\ ;\ 2{,}4)$, qui rencontre la droite à angle droit, et $e_2 = v_2/\|v_2\|$.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p class="en"><span class="thm-label">Corollary.</span> Every Euclidean space $E \neq \{0\}$ has an orthonormal basis, and every orthonormal family of $E$ can be extended to an orthonormal basis.</p>
@@ -184,8 +284,35 @@
       <em>Unicité.</em> Si $\langle a, x\rangle = \langle a', x\rangle$ pour tout $x$, alors $\langle a - a', x\rangle = 0$ pour tout $x$ ; en prenant $x = a - a'$, on obtient $\|a - a'\|^2 = 0$, donc $a = a'$.
     </details>
 
-    <h3 class="en">Orthogonal complement and orthogonal projection</h3>
-    <h3 class="fr">Supplémentaire orthogonal et projection orthogonale</h3>
+    <figure class="figure-block">
+      <svg class="figure" width="360.6" height="343.4" viewBox="-69.4 43.4 360.6 343.4">
+        <line class="fig-axis" x1="127.6" y1="376.8" x2="-13.5" y2="188.6"/>
+        <text class="fig-text" x="-21.5" y="182.6" text-anchor="end">&#966; = 0</text>
+        <line class="fig-axis" x1="204.4" y1="319.2" x2="63.3" y2="131.0"/>
+        <text class="fig-text" x="55.3" y="125.0" text-anchor="end">&#966; = 1</text>
+        <line class="fig-axis" x1="281.2" y1="261.6" x2="140.1" y2="73.4"/>
+        <text class="fig-text" x="132.1" y="67.4" text-anchor="end">&#966; = 2</text>
+        <line class="fig-accent" x1="70.0" y1="300.0" x2="235.1" y2="176.2"/>
+        <line class="fig-curve" x1="70.0" y1="300.0" x2="214.0" y2="252.0"/>
+        <line class="fig-free-solid" x1="214.0" y1="252.0" x2="185.2" y2="213.6"/>
+        <path class="fig-bar" d="M 176.4 220.2 L 183.0 229.0 L 191.8 222.4"/>
+        <circle class="fig-dot" cx="214.0" cy="252.0" r="4.0"/>
+        <circle class="fig-dot-alt" cx="146.8" cy="242.4" r="3.5"/>
+        <circle class="fig-dot-alt" cx="185.2" cy="213.6" r="3.5"/>
+        <circle class="fig-dot" cx="70.0" cy="300.0" r="2.5"/>
+        <text x="226.0" y="254.0" text-anchor="middle">x</text>
+        <text x="160.8" y="246.4" text-anchor="middle">a</text>
+        <text x="57.0" y="306.0" text-anchor="middle">O</text>
+        <line class="fig-interval" x1="58.0" y1="284.0" x2="173.2" y2="197.6"/>
+        <line class="fig-bar" x1="59.5" y1="286.0" x2="56.5" y2="282.0"/>
+        <line class="fig-bar" x1="174.7" y1="199.6" x2="171.7" y2="195.6"/>
+        <text x="106.6" y="232.8" text-anchor="middle">&#10216;a,x&#10217;</text>
+      </svg>
+      <figcaption><span class="en">A linear form $\varphi$ on the plane and the vector $a$ representing it. The level lines $\varphi = 0, 1, 2$ are parallel and orthogonal to $a$, one unit of $a$ apart. Here $\|a\| = 1$, so $\varphi(x) = \langle a, x\rangle$ is the length read along $\mathbb{R}a$.</span><span class="fr">Une forme linéaire $\varphi$ sur le plan et le vecteur $a$ qui la représente. Les lignes de niveau $\varphi = 0, 1, 2$ sont parallèles et orthogonales à $a$, espacées d'une unité de $a$. Ici $\|a\| = 1$, donc $\varphi(x) = \langle a, x\rangle$ est la longueur lue le long de $\mathbb{R}a$.</span></figcaption>
+    </figure>
+
+    <h3 class="en">Orthogonal projection</h3>
+    <h3 class="fr">Projection orthogonale</h3>
 
     <div class="thm-block definition">
       <p class="en"><span class="thm-label">Definition (Orthogonal of a subset).</span> For $A \subset E$, the <em>orthogonal</em> of $A$ is $A^\perp = \{x \in E : \forall y \in A,\ \langle x,y\rangle = 0\}$. It is a vector subspace of $E$ (by bilinearity), and $A \subset B \Rightarrow B^\perp \subset A^\perp$. Moreover, if $F$ is a subspace, $F \cap F^\perp = \{0\}$: indeed $x \in F \cap F^\perp$ gives $\langle x,x\rangle = 0$, so $x = 0$.</p>
@@ -207,8 +334,10 @@
     </details>
 
     <div class="thm-block definition">
-      <p class="en"><span class="thm-label">Definition (Orthogonal projection).</span> The <em>orthogonal projection</em> onto $F$ is the projection $p_F$ onto $F$ parallel to $F^\perp$. For $x \in E$, $p_F(x)$ is the unique vector of $F$ such that $x - p_F(x) \in F^\perp$, and for any orthonormal basis $(e_1, \ldots, e_p)$ of $F$: $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
-      <p class="fr"><span class="thm-label">Définition (Projection orthogonale).</span> La <em>projection orthogonale</em> sur $F$ est la projection $p_F$ sur $F$ parallèlement à $F^\perp$. Pour $x \in E$, $p_F(x)$ est l'unique vecteur de $F$ tel que $x - p_F(x) \in F^\perp$, et pour toute base orthonormée $(e_1, \ldots, e_p)$ de $F$ : $$p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.$$</p>
+      <p class="en"><span class="thm-label">Definition (Orthogonal projection).</span> The <em>orthogonal projection</em> onto $F$ is the projection $p_F$ onto $F$ parallel to $F^\perp$. For $x \in E$, $p_F(x)$ is the unique vector of $F$ such that $x - p_F(x) \in F^\perp$, and for any orthonormal basis $(e_1, \ldots, e_p)$ of $F$:
+      \[p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.\]</p>
+      <p class="fr"><span class="thm-label">Définition (Projection orthogonale).</span> La <em>projection orthogonale</em> sur $F$ est la projection $p_F$ sur $F$ parallèlement à $F^\perp$. Pour $x \in E$, $p_F(x)$ est l'unique vecteur de $F$ tel que $x - p_F(x) \in F^\perp$, et pour toute base orthonormée $(e_1, \ldots, e_p)$ de $F$ :
+      \[p_F(x) = \sum_{i=1}^p \langle x, e_i\rangle\, e_i.\]</p>
     </div>
 
     <div class="thm-block definition">
@@ -229,6 +358,50 @@
       <summary class="proof-label">Démonstration.</summary>
       $s_F^2 = (2p_F - \operatorname{Id})^2 = 4p_F^2 - 4p_F + \operatorname{Id} = \operatorname{Id}$, car $p_F^2 = p_F$. Pour l'isométrie, écrivons $x = a + b$ avec $a = p_F(x) \in F$ et $b = x - p_F(x) \in F^\perp$, donc $a \perp b$ ; alors $s_F(x) = a - b$, et Pythagore donne $\|s_F(x)\|^2 = \|a\|^2 + \|b\|^2 = \|x\|^2$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="454.7" height="280.6" viewBox="48.1 73.9 454.7 280.6">
+        <polygon class="fig-plane" points="161.6,255.5 492.8,255.5 389.3,193.4 58.1,193.4"/>
+        <line class="fig-free-solid" x1="334.1" y1="106.9" x2="334.1" y2="318.5"/>
+        <line class="fig-accent" x1="191.5" y1="237.6" x2="334.1" y2="212.7"/>
+        <line class="fig-curve" x1="191.5" y1="237.6" x2="334.1" y2="106.9"/>
+        <line class="fig-curve" x1="191.5" y1="237.6" x2="334.1" y2="318.5"/>
+        <path class="fig-bar" d="M 323.3 214.6 L 323.3 203.6 L 334.1 201.7"/>
+        <line class="fig-bar" x1="329.1" y1="156.8" x2="339.1" y2="162.8"/>
+        <line class="fig-bar" x1="329.1" y1="262.6" x2="339.1" y2="268.6"/>
+        <circle class="fig-dot" cx="334.1" cy="106.9" r="4.0"/>
+        <circle class="fig-dot" cx="334.1" cy="318.5" r="4.0"/>
+        <circle class="fig-dot-alt" cx="334.1" cy="212.7" r="3.5"/>
+        <circle class="fig-dot" cx="191.5" cy="237.6" r="2.5"/>
+        <text x="340.1" y="97.9" text-anchor="start">x</text>
+        <text x="342.1" y="334.5" text-anchor="start">s<tspan dy="4" font-size="11">F</tspan>(x)</text>
+        <text x="348.1" y="227.7" text-anchor="start">p<tspan dy="4" font-size="11">F</tspan>(x)</text>
+        <text x="178.5" y="243.6" text-anchor="middle">O</text>
+        <text x="96.3" y="200.9" text-anchor="middle">F</text>
+      </svg>
+      <figcaption><span class="en">$s_F$ keeps the part of $x$ inside $F$ and reverses the part orthogonal to it, so $p_F(x)$ is the midpoint of $x$ and $s_F(x)$. The two reversed halves have the same length, which is why $s_F$ preserves norms.</span><span class="fr">$s_F$ garde la partie de $x$ dans $F$ et renverse la partie orthogonale, donc $p_F(x)$ est le milieu de $x$ et $s_F(x)$. Les deux moitiés renversées ont la même longueur, ce qui explique que $s_F$ conserve les normes.</span></figcaption>
+    </figure>
+
+    <figure class="figure-block">
+      <svg class="figure" width="507.6" height="206.1" viewBox="48.9 110.8 507.6 206.1">
+        <polygon class="fig-plane" points="169.3,306.9 546.5,306.9 436.1,240.7 58.9,240.7"/>
+        <line class="fig-accent" x1="275.1" y1="271.0" x2="445.3" y2="290.3"/>
+        <line class="fig-free-solid" x1="275.1" y1="271.0" x2="275.1" y2="146.8"/>
+        <line class="fig-curve" x1="275.1" y1="146.8" x2="445.3" y2="290.3"/>
+        <path class="fig-bar" d="M 286.0 272.3 L 286.0 261.3 L 275.1 260.0"/>
+        <circle class="fig-dot" cx="275.1" cy="146.8" r="4.0"/>
+        <circle class="fig-dot-alt" cx="275.1" cy="271.0" r="3.5"/>
+        <circle class="fig-dot" cx="445.3" cy="290.3" r="3.5"/>
+        <text x="275.1" y="134.8" text-anchor="middle">x</text>
+        <text x="257.1" y="292.0" text-anchor="middle">p<tspan dy="4" font-size="11">F</tspan>(x)</text>
+        <text x="457.3" y="296.3" text-anchor="start">y</text>
+        <text x="98.0" y="247.6" text-anchor="middle">F</text>
+        <text x="263.1" y="212.9" text-anchor="end">d(x, F)</text>
+        <text x="372.2" y="212.6" text-anchor="start">&#8214;x − y&#8214;</text>
+        <text x="368.2" y="267.7" text-anchor="middle">&#8214;p<tspan dy="4" font-size="11">F</tspan>(x) − y&#8214;</text>
+      </svg>
+      <figcaption><span class="en">For any $y \in F$, the triangle with vertices $x$, $p_F(x)$, $y$ has a right angle at $p_F(x)$, since $x - p_F(x) \in F^\perp$ and $p_F(x) - y \in F$. Its hypotenuse $\|x-y\|$ is therefore at least $\|x - p_F(x)\|$, and equals it only for $y = p_F(x)$.</span><span class="fr">Pour tout $y \in F$, le triangle de sommets $x$, $p_F(x)$, $y$ a un angle droit en $p_F(x)$, car $x - p_F(x) \in F^\perp$ et $p_F(x) - y \in F$. Son hypoténuse $\|x-y\|$ vaut donc au moins $\|x - p_F(x)\|$, avec égalité seulement pour $y = p_F(x)$.</span></figcaption>
+    </figure>
 
     <div class="thm-block theorem">
       <p class="en"><span class="thm-label">Theorem (Distance to a subspace).</span> Let $F$ be a subspace of $E$ and $x \in E$. For all $y \in F$, $\|x - y\| \ge \|x - p_F(x)\|$, with equality if and only if $y = p_F(x)$. Hence the <em>distance</em> from $x$ to $F$, $d(x, F) = \inf_{y \in F} \|x - y\|$, is attained at the unique point $p_F(x)$, and $d(x,F)^2 = \|x\|^2 - \|p_F(x)\|^2$.</p>
@@ -258,36 +431,329 @@
       Soit $F = \operatorname{Vect}(e_1, \ldots, e_p)$, dont $(e_1, \ldots, e_p)$ est une base orthonormée. Par la formule des coordonnées dans $F$, $\|p_F(x)\|^2 = \sum_i \langle p_F(x), e_i\rangle^2 = \sum_i \langle x, e_i\rangle^2$ (car $x - p_F(x) \perp e_i$). Le théorème de la distance donne $\|p_F(x)\|^2 = \|x\|^2 - d(x,F)^2 \le \|x\|^2$, avec égalité ssi $d(x,F) = 0$, i.e. $x \in F$.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="461.8" height="226.7" viewBox="33.7 90.4 461.8 226.7">
+        <polygon class="fig-plane" points="161.2,290.6 485.5,290.6 368.0,220.1 43.7,220.1"/>
+        <line class="fig-axis" x1="168.2" y1="275.1" x2="436.1" y2="275.1"/>
+        <line class="fig-axis" x1="201.1" y1="280.8" x2="100.1" y2="220.1"/>
+        <line class="fig-guide" x1="379.8" y1="275.1" x2="311.6" y2="234.2"/>
+        <line class="fig-guide" x1="123.6" y1="234.2" x2="311.6" y2="234.2"/>
+        <line class="fig-interval" x1="191.8" y1="275.1" x2="379.8" y2="275.1"/>
+        <line class="fig-interval" x1="191.8" y1="275.1" x2="123.6" y2="234.2"/>
+        <line class="fig-accent" x1="191.8" y1="275.1" x2="311.6" y2="234.2"/>
+        <line class="fig-free-solid" x1="311.6" y1="234.2" x2="311.6" y2="121.4"/>
+        <line class="fig-curve" x1="191.8" y1="275.1" x2="311.6" y2="121.4"/>
+        <path class="fig-bar" d="M 301.2 237.8 L 301.2 226.8 L 311.6 223.2"/>
+        <circle class="fig-dot" cx="311.6" cy="121.4" r="4.0"/>
+        <circle class="fig-dot-alt" cx="311.6" cy="234.2" r="3.5"/>
+        <circle class="fig-dot" cx="191.8" cy="275.1" r="2.5"/>
+        <circle class="fig-dot-alt" cx="285.8" cy="275.1" r="3.0"/>
+        <circle class="fig-dot-alt" cx="144.8" cy="246.9" r="3.0"/>
+        <circle class="fig-dot-alt" cx="379.8" cy="275.1" r="3.0"/>
+        <circle class="fig-dot-alt" cx="123.6" cy="234.2" r="3.0"/>
+        <text x="318.6" y="114.4" text-anchor="start">x</text>
+        <text x="327.6" y="230.2" text-anchor="start">p<tspan dy="4" font-size="11">F</tspan>(x)</text>
+        <text x="177.8" y="281.1" text-anchor="middle">O</text>
+        <text x="281.8" y="263.1" text-anchor="middle">e<tspan dy="4" font-size="11">1</tspan></text>
+        <text x="157.8" y="252.9" text-anchor="start">e<tspan dy="4" font-size="11">2</tspan></text>
+        <text x="285.8" y="297.1" text-anchor="middle">&#10216;x,e<tspan dy="4" font-size="11">1</tspan>&#10217;</text>
+        <text x="141.7" y="280.7" text-anchor="end">&#10216;x,e<tspan dy="4" font-size="11">2</tspan>&#10217;</text>
+        <text x="458.2" y="285.6" text-anchor="middle">F</text>
+      </svg>
+      <figcaption><span class="en">The two coordinates $\langle x, e_1\rangle$ and $\langle x, e_2\rangle$ are the sides of the rectangle whose far corner is $p_F(x)$, so their squares add up to $\|p_F(x)\|^2$. The right angle at $p_F(x)$ then gives $\|p_F(x)\|^2 = \|x\|^2 - d(x,F)^2 \le \|x\|^2$.</span><span class="fr">Les deux coordonnées $\langle x, e_1\rangle$ et $\langle x, e_2\rangle$ sont les côtés du rectangle dont le coin opposé est $p_F(x)$, donc leurs carrés s'ajoutent en $\|p_F(x)\|^2$. L'angle droit en $p_F(x)$ donne ensuite $\|p_F(x)\|^2 = \|x\|^2 - d(x,F)^2 \le \|x\|^2$.</span></figcaption>
+    </figure>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> To find the coordinates of a vector in an orthonormal basis, take the inner product with each basis vector: $x = \sum_i \langle x, e_i\rangle e_i$. There is no linear system to solve.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Pour trouver les coordonnées d'un vecteur dans une base orthonormée, prendre le produit scalaire avec chaque vecteur de la base : $x = \sum_i \langle x, e_i\rangle e_i$. Il n'y a aucun système linéaire à résoudre.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, write $x = (1,2,3)$ in the orthonormal basis $e_1 = \tfrac13(1,2,2)$, $e_2 = \tfrac13(2,1,-2)$, $e_3 = \tfrac13(2,-2,1)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, écrire $x = (1,2,3)$ dans la base orthonormée $e_1 = \tfrac13(1,2,2)$, $e_2 = \tfrac13(2,1,-2)$, $e_3 = \tfrac13(2,-2,1)$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $\langle x,e_1\rangle = \frac{1 + 4 + 6}{3} = \frac{11}{3}$, $\langle x,e_2\rangle = \frac{2 + 2 - 6}{3} = -\frac{2}{3}$, $\langle x,e_3\rangle = \frac{2 - 4 + 3}{3} = \frac{1}{3}$, so $x = \frac{11}{3}e_1 - \frac{2}{3}e_2 + \frac{1}{3}e_3$. Expanding back: $\frac{11}{9}(1,2,2) - \frac{2}{9}(2,1,-2) + \frac{1}{9}(2,-2,1) = \frac{1}{9}(9,18,27) = (1,2,3)$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $\langle x,e_1\rangle = \frac{1 + 4 + 6}{3} = \frac{11}{3}$, $\langle x,e_2\rangle = \frac{2 + 2 - 6}{3} = -\frac{2}{3}$, $\langle x,e_3\rangle = \frac{2 - 4 + 3}{3} = \frac{1}{3}$, donc $x = \frac{11}{3}e_1 - \frac{2}{3}e_2 + \frac{1}{3}e_3$. En redéveloppant : $\frac{11}{9}(1,2,2) - \frac{2}{9}(2,1,-2) + \frac{1}{9}(2,-2,1) = \frac{1}{9}(9,18,27) = (1,2,3)$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To project onto a hyperplane $H$ given by a normal vector $n$, that is $H = (\mathbb{R}n)^\perp$, project onto the line $\mathbb{R}n$ and subtract: $p_H(x) = x - \frac{\langle x,n\rangle}{\|n\|^2}\,n$, and $d(x,H) = \frac{|\langle x,n\rangle|}{\|n\|}$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour projeter sur un hyperplan $H$ donné par un vecteur normal $n$, c'est-à-dire $H = (\mathbb{R}n)^\perp$, projeter sur la droite $\mathbb{R}n$ et soustraire : $p_H(x) = x - \frac{\langle x,n\rangle}{\|n\|^2}\,n$, et $d(x,H) = \frac{|\langle x,n\rangle|}{\|n\|}$.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, let $H$ be the plane of equation $x_1 + x_2 + x_3 = 0$. Compute $p_H(4,1,1)$ and $d\big((4,1,1), H\big)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, soit $H$ le plan d'équation $x_1 + x_2 + x_3 = 0$. Calculer $p_H(4,1,1)$ et $d\big((4,1,1), H\big)$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The equation reads $\langle x, n\rangle = 0$ with $n = (1,1,1)$, so $H = (\mathbb{R}n)^\perp$. Here $\langle (4,1,1), n\rangle = 6$ and $\|n\|^2 = 3$, so
+        \[p_H(4,1,1) = (4,1,1) - 2\,(1,1,1) = (2,-1,-1), \qquad d = \frac{6}{\sqrt{3}} = 2\sqrt{3}.\]
+        The answer checks out: $2 - 1 - 1 = 0$, so $(2,-1,-1)$ lies in $H$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        L'équation s'écrit $\langle x, n\rangle = 0$ avec $n = (1,1,1)$, donc $H = (\mathbb{R}n)^\perp$. Ici $\langle (4,1,1), n\rangle = 6$ et $\|n\|^2 = 3$, donc
+        \[p_H(4,1,1) = (4,1,1) - 2\,(1,1,1) = (2,-1,-1), \qquad d = \frac{6}{\sqrt{3}} = 2\sqrt{3}.\]
+        On vérifie : $2 - 1 - 1 = 0$, donc $(2,-1,-1)$ appartient bien à $H$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> To check that a formula is an inner product, bilinearity and symmetry are read off the formula. The step that needs an argument is definiteness: $\langle x,x\rangle = 0$ has to force $x = 0$.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour vérifier qu'une formule est un produit scalaire, la bilinéarité et la symétrie se lisent sur la formule. L'étape qui demande un argument est le caractère défini : $\langle x,x\rangle = 0$ doit entraîner $x = 0$.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ defines an inner product on $\mathcal{C}([0,1], \mathbb{R})$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ définit un produit scalaire sur $\mathcal{C}([0,1], \mathbb{R})$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Bilinearity comes from the linearity of the integral in each factor, and symmetry from $f(t)g(t) = g(t)f(t)$. Positivity: $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ since $f^2 \ge 0$. Definiteness: if $\int_0^1 f^2 = 0$, then $f^2 = 0$ by the strict positivity theorem ($f^2$ is continuous and nonnegative), hence $f = 0$. (This space is not Euclidean, being infinite-dimensional, but it is a well-defined inner product structure.)
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        La bilinéarité provient de la linéarité de l'intégrale en chaque facteur, et la symétrie de $f(t)g(t) = g(t)f(t)$. Positivité : $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ car $f^2 \ge 0$. Caractère défini : si $\int_0^1 f^2 = 0$, alors $f^2 = 0$ par le théorème de positivité stricte ($f^2$ est continue et positive), donc $f = 0$. (Cet espace n'est pas euclidien, étant de dimension infinie, mais la structure de produit scalaire est bien définie.)
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To prove an inequality between sums, read it as Cauchy-Schwarz in $\mathbb{R}^n$ by choosing the two vectors; one of them is often $(1, \ldots, 1)$.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour démontrer une inégalité entre sommes, la lire comme Cauchy-Schwarz dans $\mathbb{R}^n$ en choisissant les deux vecteurs ; l'un des deux est souvent $(1, \ldots, 1)$.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that for all real numbers $a_1, \ldots, a_n$: $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, with equality if and only if all the $a_i$ are equal.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tous réels $a_1, \ldots, a_n$ : $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, avec égalité si et seulement si tous les $a_i$ sont égaux.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Apply Cauchy-Schwarz in $\mathbb{R}^n$ with the canonical inner product to $x = (a_1, \ldots, a_n)$ and $y = (1, \ldots, 1)$: $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, and square. Equality holds iff $x$ and $y$ are collinear, i.e. $x = \lambda(1, \ldots, 1)$, i.e. all the $a_i$ are equal.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        On applique Cauchy-Schwarz dans $\mathbb{R}^n$ muni du produit scalaire canonique à $x = (a_1, \ldots, a_n)$ et $y = (1, \ldots, 1)$ : $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, puis on élève au carré. Il y a égalité ssi $x$ et $y$ sont colinéaires, i.e. $x = \lambda(1, \ldots, 1)$, i.e. tous les $a_i$ égaux.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> To turn an inequality between norms into an orthogonality relation, expand $\|x + ty\|^2$ and use that a quadratic in $t$ which is never negative has nonpositive discriminant.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Pour transformer une inégalité entre normes en une relation d'orthogonalité, développer $\|x + ty\|^2$ et utiliser qu'un trinôme en $t$ jamais négatif a un discriminant négatif.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $x, y \in E$ with $\|x + ty\| \ge \|x\|$ for all $t \in \mathbb{R}$. Show that $\langle x, y\rangle = 0$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soient $x, y \in E$ tels que $\|x + ty\| \ge \|x\|$ pour tout $t \in \mathbb{R}$. Montrer que $\langle x, y\rangle = 0$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Expanding, $\|x + ty\|^2 - \|x\|^2 = \|y\|^2 t^2 + 2\langle x,y\rangle\,t$, so the hypothesis says that this quadratic in $t$ is nonnegative on $\mathbb{R}$. If $y = 0$ then $\langle x,y\rangle = 0$. Otherwise its leading coefficient $\|y\|^2$ is positive, so its discriminant $4\langle x,y\rangle^2$ is nonpositive, which forces $\langle x,y\rangle = 0$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        En développant, $\|x + ty\|^2 - \|x\|^2 = \|y\|^2 t^2 + 2\langle x,y\rangle\,t$, donc l'hypothèse dit que ce trinôme en $t$ est positif sur $\mathbb{R}$. Si $y = 0$ alors $\langle x,y\rangle = 0$. Sinon son coefficient dominant $\|y\|^2$ est strictement positif, donc son discriminant $4\langle x,y\rangle^2$ est négatif, ce qui impose $\langle x,y\rangle = 0$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> To orthonormalize a family, take its vectors in turn: subtract from each one its components along the vectors already produced, then divide by the norm.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> Pour orthonormaliser une famille, traiter ses vecteurs l'un après l'autre : retirer de chacun ses composantes selon les vecteurs déjà produits, puis diviser par la norme.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, apply Gram-Schmidt to $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, appliquer Gram-Schmidt à $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Then $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, with $\|v_2\| = \sqrt{\frac{3}{2}}$, so $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Finally $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ and $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, so $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, with $\|v_3\| = \frac{2}{\sqrt{3}}$, so $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Puis $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, avec $\|v_2\| = \sqrt{\frac{3}{2}}$, donc $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Enfin $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ et $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, donc $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, avec $\|v_3\| = \frac{2}{\sqrt{3}}$, donc $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To minimize $\int (f - g)^2$ over all $g$ in a subspace $F$ of functions, read the integral as $\|f - g\|^2$ for $\langle f,g\rangle = \int fg$: the minimum is $d(f,F)^2$, attained at $g = p_F(f)$.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour minimiser $\int (f - g)^2$ sur tous les $g$ d'un sous-espace $F$ de fonctions, lire l'intégrale comme $\|f - g\|^2$ pour $\langle f,g\rangle = \int fg$ : le minimum est $d(f,F)^2$, atteint en $g = p_F(f)$.</p>
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
+      </div>
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Work in $E = \mathcal{C}([0,1],\mathbb{R})$ with $\langle f,g\rangle = \int_0^1 fg$. The quantity to minimize is $\|f - g\|^2$ where $f(t) = t^2$ and $g$ ranges over $F = \operatorname{Vect}(1, t)$: the minimum is $d(f, F)^2 = \|f - p_F(f)\|^2$. Orthonormalize $(1, t)$ by Gram-Schmidt: $e_1 = 1$ (as $\|1\|^2 = 1$), then $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, with $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, so $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Then $\langle f, e_1\rangle = \frac{1}{3}$ and $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, so $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Therefore the minimum is $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, attained at $a = 1$, $b = -\frac{1}{6}$.
+        <figure class="figure-block">
+          <svg class="figure" width="411.7" height="286.0" viewBox="50.0 27.2 411.7 286.0">
+        <polygon class="fig-band" points="90.0,250.0 91.5,250.0 93.0,250.0 94.5,250.0 96.0,249.9 97.5,249.9 99.0,249.8 100.5,249.8 102.0,249.7 103.5,249.6 105.0,249.5 106.5,249.4 108.0,249.3 109.5,249.2 111.0,249.1 112.5,248.9 114.0,248.8 115.5,248.6 117.0,248.5 118.5,248.3 120.0,248.1 121.5,247.9 123.0,247.7 124.5,247.5 126.0,247.3 127.5,247.0 129.0,246.8 130.5,246.5 132.0,246.3 133.5,246.0 135.0,245.7 136.5,245.4 138.0,245.1 139.5,244.8 141.0,244.5 142.5,244.2 144.0,243.8 145.5,243.5 147.0,243.1 148.5,242.8 150.0,242.4 151.5,242.0 153.0,241.6 154.5,241.2 156.0,240.8 157.5,240.4 159.0,239.9 160.5,239.5 162.0,239.1 163.5,238.6 165.0,238.1 166.5,237.6 168.0,237.2 169.5,236.7 171.0,236.1 172.5,235.6 174.0,235.1 175.5,234.6 177.0,234.0 178.5,233.5 180.0,232.9 181.5,232.3 183.0,231.7 184.5,231.1 186.0,230.5 187.5,229.9 189.0,229.3 190.5,228.7 192.0,228.0 193.5,227.4 195.0,226.7 196.5,226.1 198.0,225.4 199.5,224.7 201.0,224.0 202.5,223.3 204.0,222.6 205.5,221.8 207.0,221.1 208.5,220.4 210.0,219.6 211.5,218.8 213.0,218.1 214.5,217.3 216.0,216.5 217.5,215.7 219.0,214.9 220.5,214.0 222.0,213.2 223.5,212.4 225.0,211.5 226.5,210.7 228.0,209.8 229.5,208.9 231.0,208.0 232.5,207.1 234.0,206.2 235.5,205.3 237.0,204.4 238.5,203.4 240.0,202.5 241.5,201.5 243.0,200.6 244.5,199.6 246.0,198.6 247.5,197.6 249.0,196.6 250.5,195.6 252.0,194.6 253.5,193.6 255.0,192.5 256.5,191.5 258.0,190.4 259.5,189.3 261.0,188.3 262.5,187.2 264.0,186.1 265.5,185.0 267.0,183.9 268.5,182.7 270.0,181.6 271.5,180.5 273.0,179.3 274.5,178.1 276.0,177.0 277.5,175.8 279.0,174.6 280.5,173.4 282.0,172.2 283.5,171.0 285.0,169.7 286.5,168.5 288.0,167.2 289.5,166.0 291.0,164.7 292.5,163.4 294.0,162.1 295.5,160.8 297.0,159.5 298.5,158.2 300.0,156.9 301.5,155.6 303.0,154.2 304.5,152.9 306.0,151.5 307.5,150.1 309.0,148.7 310.5,147.4 312.0,146.0 313.5,144.5 315.0,143.1 316.5,141.7 318.0,140.3 319.5,138.8 321.0,137.3 322.5,135.9 324.0,134.4 325.5,132.9 327.0,131.4 328.5,129.9 330.0,128.4 331.5,126.9 333.0,125.3 334.5,123.8 336.0,122.2 337.5,120.7 339.0,119.1 340.5,117.5 342.0,115.9 343.5,114.3 345.0,112.7 346.5,111.1 348.0,109.5 349.5,107.8 351.0,106.2 352.5,104.5 354.0,102.9 355.5,101.2 357.0,99.5 358.5,97.8 360.0,96.1 361.5,94.4 363.0,92.7 364.5,90.9 366.0,89.2 367.5,87.4 369.0,85.7 370.5,83.9 372.0,82.1 373.5,80.3 375.0,78.5 376.5,76.7 378.0,74.9 379.5,73.1 381.0,71.2 382.5,69.4 384.0,67.5 385.5,65.7 387.0,63.8 388.5,61.9 390.0,60.0 390.0,91.7 388.5,92.6 387.0,93.6 385.5,94.5 384.0,95.5 382.5,96.4 381.0,97.4 379.5,98.3 378.0,99.3 376.5,100.2 375.0,101.2 373.5,102.1 372.0,103.1 370.5,104.0 369.0,105.0 367.5,105.9 366.0,106.9 364.5,107.8 363.0,108.8 361.5,109.7 360.0,110.7 358.5,111.6 357.0,112.6 355.5,113.5 354.0,114.5 352.5,115.4 351.0,116.4 349.5,117.3 348.0,118.3 346.5,119.2 345.0,120.2 343.5,121.1 342.0,122.1 340.5,123.0 339.0,124.0 337.5,124.9 336.0,125.9 334.5,126.8 333.0,127.8 331.5,128.7 330.0,129.7 328.5,130.6 327.0,131.6 325.5,132.5 324.0,133.5 322.5,134.4 321.0,135.4 319.5,136.3 318.0,137.3 316.5,138.2 315.0,139.2 313.5,140.1 312.0,141.1 310.5,142.0 309.0,143.0 307.5,143.9 306.0,144.9 304.5,145.8 303.0,146.8 301.5,147.7 300.0,148.7 298.5,149.6 297.0,150.6 295.5,151.5 294.0,152.5 292.5,153.4 291.0,154.4 289.5,155.3 288.0,156.3 286.5,157.2 285.0,158.2 283.5,159.1 282.0,160.1 280.5,161.0 279.0,162.0 277.5,162.9 276.0,163.9 274.5,164.8 273.0,165.8 271.5,166.7 270.0,167.7 268.5,168.6 267.0,169.6 265.5,170.5 264.0,171.5 262.5,172.4 261.0,173.4 259.5,174.3 258.0,175.3 256.5,176.2 255.0,177.2 253.5,178.1 252.0,179.1 250.5,180.0 249.0,181.0 247.5,181.9 246.0,182.9 244.5,183.8 243.0,184.8 241.5,185.7 240.0,186.7 238.5,187.6 237.0,188.6 235.5,189.5 234.0,190.5 232.5,191.4 231.0,192.4 229.5,193.3 228.0,194.3 226.5,195.2 225.0,196.2 223.5,197.1 222.0,198.1 220.5,199.0 219.0,200.0 217.5,200.9 216.0,201.9 214.5,202.8 213.0,203.8 211.5,204.7 210.0,205.7 208.5,206.6 207.0,207.6 205.5,208.5 204.0,209.5 202.5,210.4 201.0,211.4 199.5,212.3 198.0,213.3 196.5,214.2 195.0,215.2 193.5,216.1 192.0,217.1 190.5,218.0 189.0,219.0 187.5,219.9 186.0,220.9 184.5,221.8 183.0,222.8 181.5,223.7 180.0,224.7 178.5,225.6 177.0,226.6 175.5,227.5 174.0,228.5 172.5,229.4 171.0,230.4 169.5,231.3 168.0,232.3 166.5,233.2 165.0,234.2 163.5,235.1 162.0,236.1 160.5,237.0 159.0,238.0 157.5,238.9 156.0,239.9 154.5,240.8 153.0,241.8 151.5,242.7 150.0,243.7 148.5,244.6 147.0,245.6 145.5,246.5 144.0,247.5 142.5,248.4 141.0,249.4 139.5,250.3 138.0,251.3 136.5,252.2 135.0,253.2 133.5,254.1 132.0,255.1 130.5,256.0 129.0,257.0 127.5,257.9 126.0,258.9 124.5,259.8 123.0,260.8 121.5,261.7 120.0,262.7 118.5,263.6 117.0,264.6 115.5,265.5 114.0,266.5 112.5,267.4 111.0,268.4 109.5,269.3 108.0,270.3 106.5,271.2 105.0,272.2 103.5,273.1 102.0,274.1 100.5,275.0 99.0,276.0 97.5,276.9 96.0,277.9 94.5,278.8 93.0,279.8 91.5,280.7 90.0,281.7"/>
+        <line class="fig-axis" x1="60.0" y1="250.0" x2="430.0" y2="250.0"/>
+        <line class="fig-axis" x1="90.0" y1="37.2" x2="90.0" y2="303.2"/>
+        <path class="fig-curve" d="M 90.0 250.0 L 91.5 250.0 L 93.0 250.0 L 94.5 250.0 L 96.0 249.9 L 97.5 249.9 L 99.0 249.8 L 100.5 249.8 L 102.0 249.7 L 103.5 249.6 L 105.0 249.5 L 106.5 249.4 L 108.0 249.3 L 109.5 249.2 L 111.0 249.1 L 112.5 248.9 L 114.0 248.8 L 115.5 248.6 L 117.0 248.5 L 118.5 248.3 L 120.0 248.1 L 121.5 247.9 L 123.0 247.7 L 124.5 247.5 L 126.0 247.3 L 127.5 247.0 L 129.0 246.8 L 130.5 246.5 L 132.0 246.3 L 133.5 246.0 L 135.0 245.7 L 136.5 245.4 L 138.0 245.1 L 139.5 244.8 L 141.0 244.5 L 142.5 244.2 L 144.0 243.8 L 145.5 243.5 L 147.0 243.1 L 148.5 242.8 L 150.0 242.4 L 151.5 242.0 L 153.0 241.6 L 154.5 241.2 L 156.0 240.8 L 157.5 240.4 L 159.0 239.9 L 160.5 239.5 L 162.0 239.1 L 163.5 238.6 L 165.0 238.1 L 166.5 237.6 L 168.0 237.2 L 169.5 236.7 L 171.0 236.1 L 172.5 235.6 L 174.0 235.1 L 175.5 234.6 L 177.0 234.0 L 178.5 233.5 L 180.0 232.9 L 181.5 232.3 L 183.0 231.7 L 184.5 231.1 L 186.0 230.5 L 187.5 229.9 L 189.0 229.3 L 190.5 228.7 L 192.0 228.0 L 193.5 227.4 L 195.0 226.7 L 196.5 226.1 L 198.0 225.4 L 199.5 224.7 L 201.0 224.0 L 202.5 223.3 L 204.0 222.6 L 205.5 221.8 L 207.0 221.1 L 208.5 220.4 L 210.0 219.6 L 211.5 218.8 L 213.0 218.1 L 214.5 217.3 L 216.0 216.5 L 217.5 215.7 L 219.0 214.9 L 220.5 214.0 L 222.0 213.2 L 223.5 212.4 L 225.0 211.5 L 226.5 210.7 L 228.0 209.8 L 229.5 208.9 L 231.0 208.0 L 232.5 207.1 L 234.0 206.2 L 235.5 205.3 L 237.0 204.4 L 238.5 203.4 L 240.0 202.5 L 241.5 201.5 L 243.0 200.6 L 244.5 199.6 L 246.0 198.6 L 247.5 197.6 L 249.0 196.6 L 250.5 195.6 L 252.0 194.6 L 253.5 193.6 L 255.0 192.5 L 256.5 191.5 L 258.0 190.4 L 259.5 189.3 L 261.0 188.3 L 262.5 187.2 L 264.0 186.1 L 265.5 185.0 L 267.0 183.9 L 268.5 182.7 L 270.0 181.6 L 271.5 180.5 L 273.0 179.3 L 274.5 178.1 L 276.0 177.0 L 277.5 175.8 L 279.0 174.6 L 280.5 173.4 L 282.0 172.2 L 283.5 171.0 L 285.0 169.7 L 286.5 168.5 L 288.0 167.2 L 289.5 166.0 L 291.0 164.7 L 292.5 163.4 L 294.0 162.1 L 295.5 160.8 L 297.0 159.5 L 298.5 158.2 L 300.0 156.9 L 301.5 155.6 L 303.0 154.2 L 304.5 152.9 L 306.0 151.5 L 307.5 150.1 L 309.0 148.7 L 310.5 147.4 L 312.0 146.0 L 313.5 144.5 L 315.0 143.1 L 316.5 141.7 L 318.0 140.3 L 319.5 138.8 L 321.0 137.3 L 322.5 135.9 L 324.0 134.4 L 325.5 132.9 L 327.0 131.4 L 328.5 129.9 L 330.0 128.4 L 331.5 126.9 L 333.0 125.3 L 334.5 123.8 L 336.0 122.2 L 337.5 120.7 L 339.0 119.1 L 340.5 117.5 L 342.0 115.9 L 343.5 114.3 L 345.0 112.7 L 346.5 111.1 L 348.0 109.5 L 349.5 107.8 L 351.0 106.2 L 352.5 104.5 L 354.0 102.9 L 355.5 101.2 L 357.0 99.5 L 358.5 97.8 L 360.0 96.1 L 361.5 94.4 L 363.0 92.7 L 364.5 90.9 L 366.0 89.2 L 367.5 87.4 L 369.0 85.7 L 370.5 83.9 L 372.0 82.1 L 373.5 80.3 L 375.0 78.5 L 376.5 76.7 L 378.0 74.9 L 379.5 73.1 L 381.0 71.2 L 382.5 69.4 L 384.0 67.5 L 385.5 65.7 L 387.0 63.8 L 388.5 61.9 L 390.0 60.0"/>
+        <path class="fig-free-solid" d="M 90.0 281.7 L 91.5 280.7 L 93.0 279.8 L 94.5 278.8 L 96.0 277.9 L 97.5 276.9 L 99.0 276.0 L 100.5 275.0 L 102.0 274.1 L 103.5 273.1 L 105.0 272.2 L 106.5 271.2 L 108.0 270.3 L 109.5 269.3 L 111.0 268.4 L 112.5 267.4 L 114.0 266.5 L 115.5 265.5 L 117.0 264.6 L 118.5 263.6 L 120.0 262.7 L 121.5 261.7 L 123.0 260.8 L 124.5 259.8 L 126.0 258.9 L 127.5 257.9 L 129.0 257.0 L 130.5 256.0 L 132.0 255.1 L 133.5 254.1 L 135.0 253.2 L 136.5 252.2 L 138.0 251.3 L 139.5 250.3 L 141.0 249.4 L 142.5 248.4 L 144.0 247.5 L 145.5 246.5 L 147.0 245.6 L 148.5 244.6 L 150.0 243.7 L 151.5 242.7 L 153.0 241.8 L 154.5 240.8 L 156.0 239.9 L 157.5 238.9 L 159.0 238.0 L 160.5 237.0 L 162.0 236.1 L 163.5 235.1 L 165.0 234.2 L 166.5 233.2 L 168.0 232.3 L 169.5 231.3 L 171.0 230.4 L 172.5 229.4 L 174.0 228.5 L 175.5 227.5 L 177.0 226.6 L 178.5 225.6 L 180.0 224.7 L 181.5 223.7 L 183.0 222.8 L 184.5 221.8 L 186.0 220.9 L 187.5 219.9 L 189.0 219.0 L 190.5 218.0 L 192.0 217.1 L 193.5 216.1 L 195.0 215.2 L 196.5 214.2 L 198.0 213.3 L 199.5 212.3 L 201.0 211.4 L 202.5 210.4 L 204.0 209.5 L 205.5 208.5 L 207.0 207.6 L 208.5 206.6 L 210.0 205.7 L 211.5 204.7 L 213.0 203.8 L 214.5 202.8 L 216.0 201.9 L 217.5 200.9 L 219.0 200.0 L 220.5 199.0 L 222.0 198.1 L 223.5 197.1 L 225.0 196.2 L 226.5 195.2 L 228.0 194.3 L 229.5 193.3 L 231.0 192.4 L 232.5 191.4 L 234.0 190.5 L 235.5 189.5 L 237.0 188.6 L 238.5 187.6 L 240.0 186.7 L 241.5 185.7 L 243.0 184.8 L 244.5 183.8 L 246.0 182.9 L 247.5 181.9 L 249.0 181.0 L 250.5 180.0 L 252.0 179.1 L 253.5 178.1 L 255.0 177.2 L 256.5 176.2 L 258.0 175.3 L 259.5 174.3 L 261.0 173.4 L 262.5 172.4 L 264.0 171.5 L 265.5 170.5 L 267.0 169.6 L 268.5 168.6 L 270.0 167.7 L 271.5 166.7 L 273.0 165.8 L 274.5 164.8 L 276.0 163.9 L 277.5 162.9 L 279.0 162.0 L 280.5 161.0 L 282.0 160.1 L 283.5 159.1 L 285.0 158.2 L 286.5 157.2 L 288.0 156.3 L 289.5 155.3 L 291.0 154.4 L 292.5 153.4 L 294.0 152.5 L 295.5 151.5 L 297.0 150.6 L 298.5 149.6 L 300.0 148.7 L 301.5 147.7 L 303.0 146.8 L 304.5 145.8 L 306.0 144.9 L 307.5 143.9 L 309.0 143.0 L 310.5 142.0 L 312.0 141.1 L 313.5 140.1 L 315.0 139.2 L 316.5 138.2 L 318.0 137.3 L 319.5 136.3 L 321.0 135.4 L 322.5 134.4 L 324.0 133.5 L 325.5 132.5 L 327.0 131.6 L 328.5 130.6 L 330.0 129.7 L 331.5 128.7 L 333.0 127.8 L 334.5 126.8 L 336.0 125.9 L 337.5 124.9 L 339.0 124.0 L 340.5 123.0 L 342.0 122.1 L 343.5 121.1 L 345.0 120.2 L 346.5 119.2 L 348.0 118.3 L 349.5 117.3 L 351.0 116.4 L 352.5 115.4 L 354.0 114.5 L 355.5 113.5 L 357.0 112.6 L 358.5 111.6 L 360.0 110.7 L 361.5 109.7 L 363.0 108.8 L 364.5 107.8 L 366.0 106.9 L 367.5 105.9 L 369.0 105.0 L 370.5 104.0 L 372.0 103.1 L 373.5 102.1 L 375.0 101.2 L 376.5 100.2 L 378.0 99.3 L 379.5 98.3 L 381.0 97.4 L 382.5 96.4 L 384.0 95.5 L 385.5 94.5 L 387.0 93.6 L 388.5 92.6 L 390.0 91.7"/>
+        <line class="fig-bar" x1="90.0" y1="250.0" x2="90.0" y2="255.0"/>
+        <line class="fig-bar" x1="390.0" y1="250.0" x2="390.0" y2="255.0"/>
+        <text class="fig-tick fig-text" x="79.0" y="269.0" text-anchor="middle">0</text>
+        <text class="fig-tick fig-text" x="390.0" y="269.0" text-anchor="middle">1</text>
+        <text x="402.0" y="64.0" text-anchor="start">t<tspan dy="-6" font-size="11">2</tspan></text>
+        <text x="402.0" y="97.7" text-anchor="start">t − 1/6</text>
+        <circle class="fig-dot" cx="390.0" cy="60.0" r="3.5"/>
+        <circle class="fig-dot-alt" cx="390.0" cy="91.7" r="3.5"/>
+      </svg>
+          <figcaption>Among all the lines $at + b$, the one closest to $t^2$ on $[0,1]$ in the integral norm is $t - \frac{1}{6}$. The shaded region is the error $t^2 - t + \frac{1}{6}$, whose squared integral is $\frac{1}{180}$.</figcaption>
+        </figure>
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        On se place dans $E = \mathcal{C}([0,1],\mathbb{R})$ muni de $\langle f,g\rangle = \int_0^1 fg$. La quantité à minimiser est $\|f - g\|^2$ où $f(t) = t^2$ et $g$ parcourt $F = \operatorname{Vect}(1, t)$ : le minimum est $d(f, F)^2 = \|f - p_F(f)\|^2$. On orthonormalise $(1, t)$ par Gram-Schmidt : $e_1 = 1$ (car $\|1\|^2 = 1$), puis $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, avec $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, donc $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Alors $\langle f, e_1\rangle = \frac{1}{3}$ et $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, donc $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Le minimum vaut donc $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, atteint en $a = 1$, $b = -\frac{1}{6}$.
+        <figure class="figure-block">
+          <svg class="figure" width="411.7" height="286.0" viewBox="50.0 27.2 411.7 286.0">
+        <polygon class="fig-band" points="90.0,250.0 91.5,250.0 93.0,250.0 94.5,250.0 96.0,249.9 97.5,249.9 99.0,249.8 100.5,249.8 102.0,249.7 103.5,249.6 105.0,249.5 106.5,249.4 108.0,249.3 109.5,249.2 111.0,249.1 112.5,248.9 114.0,248.8 115.5,248.6 117.0,248.5 118.5,248.3 120.0,248.1 121.5,247.9 123.0,247.7 124.5,247.5 126.0,247.3 127.5,247.0 129.0,246.8 130.5,246.5 132.0,246.3 133.5,246.0 135.0,245.7 136.5,245.4 138.0,245.1 139.5,244.8 141.0,244.5 142.5,244.2 144.0,243.8 145.5,243.5 147.0,243.1 148.5,242.8 150.0,242.4 151.5,242.0 153.0,241.6 154.5,241.2 156.0,240.8 157.5,240.4 159.0,239.9 160.5,239.5 162.0,239.1 163.5,238.6 165.0,238.1 166.5,237.6 168.0,237.2 169.5,236.7 171.0,236.1 172.5,235.6 174.0,235.1 175.5,234.6 177.0,234.0 178.5,233.5 180.0,232.9 181.5,232.3 183.0,231.7 184.5,231.1 186.0,230.5 187.5,229.9 189.0,229.3 190.5,228.7 192.0,228.0 193.5,227.4 195.0,226.7 196.5,226.1 198.0,225.4 199.5,224.7 201.0,224.0 202.5,223.3 204.0,222.6 205.5,221.8 207.0,221.1 208.5,220.4 210.0,219.6 211.5,218.8 213.0,218.1 214.5,217.3 216.0,216.5 217.5,215.7 219.0,214.9 220.5,214.0 222.0,213.2 223.5,212.4 225.0,211.5 226.5,210.7 228.0,209.8 229.5,208.9 231.0,208.0 232.5,207.1 234.0,206.2 235.5,205.3 237.0,204.4 238.5,203.4 240.0,202.5 241.5,201.5 243.0,200.6 244.5,199.6 246.0,198.6 247.5,197.6 249.0,196.6 250.5,195.6 252.0,194.6 253.5,193.6 255.0,192.5 256.5,191.5 258.0,190.4 259.5,189.3 261.0,188.3 262.5,187.2 264.0,186.1 265.5,185.0 267.0,183.9 268.5,182.7 270.0,181.6 271.5,180.5 273.0,179.3 274.5,178.1 276.0,177.0 277.5,175.8 279.0,174.6 280.5,173.4 282.0,172.2 283.5,171.0 285.0,169.7 286.5,168.5 288.0,167.2 289.5,166.0 291.0,164.7 292.5,163.4 294.0,162.1 295.5,160.8 297.0,159.5 298.5,158.2 300.0,156.9 301.5,155.6 303.0,154.2 304.5,152.9 306.0,151.5 307.5,150.1 309.0,148.7 310.5,147.4 312.0,146.0 313.5,144.5 315.0,143.1 316.5,141.7 318.0,140.3 319.5,138.8 321.0,137.3 322.5,135.9 324.0,134.4 325.5,132.9 327.0,131.4 328.5,129.9 330.0,128.4 331.5,126.9 333.0,125.3 334.5,123.8 336.0,122.2 337.5,120.7 339.0,119.1 340.5,117.5 342.0,115.9 343.5,114.3 345.0,112.7 346.5,111.1 348.0,109.5 349.5,107.8 351.0,106.2 352.5,104.5 354.0,102.9 355.5,101.2 357.0,99.5 358.5,97.8 360.0,96.1 361.5,94.4 363.0,92.7 364.5,90.9 366.0,89.2 367.5,87.4 369.0,85.7 370.5,83.9 372.0,82.1 373.5,80.3 375.0,78.5 376.5,76.7 378.0,74.9 379.5,73.1 381.0,71.2 382.5,69.4 384.0,67.5 385.5,65.7 387.0,63.8 388.5,61.9 390.0,60.0 390.0,91.7 388.5,92.6 387.0,93.6 385.5,94.5 384.0,95.5 382.5,96.4 381.0,97.4 379.5,98.3 378.0,99.3 376.5,100.2 375.0,101.2 373.5,102.1 372.0,103.1 370.5,104.0 369.0,105.0 367.5,105.9 366.0,106.9 364.5,107.8 363.0,108.8 361.5,109.7 360.0,110.7 358.5,111.6 357.0,112.6 355.5,113.5 354.0,114.5 352.5,115.4 351.0,116.4 349.5,117.3 348.0,118.3 346.5,119.2 345.0,120.2 343.5,121.1 342.0,122.1 340.5,123.0 339.0,124.0 337.5,124.9 336.0,125.9 334.5,126.8 333.0,127.8 331.5,128.7 330.0,129.7 328.5,130.6 327.0,131.6 325.5,132.5 324.0,133.5 322.5,134.4 321.0,135.4 319.5,136.3 318.0,137.3 316.5,138.2 315.0,139.2 313.5,140.1 312.0,141.1 310.5,142.0 309.0,143.0 307.5,143.9 306.0,144.9 304.5,145.8 303.0,146.8 301.5,147.7 300.0,148.7 298.5,149.6 297.0,150.6 295.5,151.5 294.0,152.5 292.5,153.4 291.0,154.4 289.5,155.3 288.0,156.3 286.5,157.2 285.0,158.2 283.5,159.1 282.0,160.1 280.5,161.0 279.0,162.0 277.5,162.9 276.0,163.9 274.5,164.8 273.0,165.8 271.5,166.7 270.0,167.7 268.5,168.6 267.0,169.6 265.5,170.5 264.0,171.5 262.5,172.4 261.0,173.4 259.5,174.3 258.0,175.3 256.5,176.2 255.0,177.2 253.5,178.1 252.0,179.1 250.5,180.0 249.0,181.0 247.5,181.9 246.0,182.9 244.5,183.8 243.0,184.8 241.5,185.7 240.0,186.7 238.5,187.6 237.0,188.6 235.5,189.5 234.0,190.5 232.5,191.4 231.0,192.4 229.5,193.3 228.0,194.3 226.5,195.2 225.0,196.2 223.5,197.1 222.0,198.1 220.5,199.0 219.0,200.0 217.5,200.9 216.0,201.9 214.5,202.8 213.0,203.8 211.5,204.7 210.0,205.7 208.5,206.6 207.0,207.6 205.5,208.5 204.0,209.5 202.5,210.4 201.0,211.4 199.5,212.3 198.0,213.3 196.5,214.2 195.0,215.2 193.5,216.1 192.0,217.1 190.5,218.0 189.0,219.0 187.5,219.9 186.0,220.9 184.5,221.8 183.0,222.8 181.5,223.7 180.0,224.7 178.5,225.6 177.0,226.6 175.5,227.5 174.0,228.5 172.5,229.4 171.0,230.4 169.5,231.3 168.0,232.3 166.5,233.2 165.0,234.2 163.5,235.1 162.0,236.1 160.5,237.0 159.0,238.0 157.5,238.9 156.0,239.9 154.5,240.8 153.0,241.8 151.5,242.7 150.0,243.7 148.5,244.6 147.0,245.6 145.5,246.5 144.0,247.5 142.5,248.4 141.0,249.4 139.5,250.3 138.0,251.3 136.5,252.2 135.0,253.2 133.5,254.1 132.0,255.1 130.5,256.0 129.0,257.0 127.5,257.9 126.0,258.9 124.5,259.8 123.0,260.8 121.5,261.7 120.0,262.7 118.5,263.6 117.0,264.6 115.5,265.5 114.0,266.5 112.5,267.4 111.0,268.4 109.5,269.3 108.0,270.3 106.5,271.2 105.0,272.2 103.5,273.1 102.0,274.1 100.5,275.0 99.0,276.0 97.5,276.9 96.0,277.9 94.5,278.8 93.0,279.8 91.5,280.7 90.0,281.7"/>
+        <line class="fig-axis" x1="60.0" y1="250.0" x2="430.0" y2="250.0"/>
+        <line class="fig-axis" x1="90.0" y1="37.2" x2="90.0" y2="303.2"/>
+        <path class="fig-curve" d="M 90.0 250.0 L 91.5 250.0 L 93.0 250.0 L 94.5 250.0 L 96.0 249.9 L 97.5 249.9 L 99.0 249.8 L 100.5 249.8 L 102.0 249.7 L 103.5 249.6 L 105.0 249.5 L 106.5 249.4 L 108.0 249.3 L 109.5 249.2 L 111.0 249.1 L 112.5 248.9 L 114.0 248.8 L 115.5 248.6 L 117.0 248.5 L 118.5 248.3 L 120.0 248.1 L 121.5 247.9 L 123.0 247.7 L 124.5 247.5 L 126.0 247.3 L 127.5 247.0 L 129.0 246.8 L 130.5 246.5 L 132.0 246.3 L 133.5 246.0 L 135.0 245.7 L 136.5 245.4 L 138.0 245.1 L 139.5 244.8 L 141.0 244.5 L 142.5 244.2 L 144.0 243.8 L 145.5 243.5 L 147.0 243.1 L 148.5 242.8 L 150.0 242.4 L 151.5 242.0 L 153.0 241.6 L 154.5 241.2 L 156.0 240.8 L 157.5 240.4 L 159.0 239.9 L 160.5 239.5 L 162.0 239.1 L 163.5 238.6 L 165.0 238.1 L 166.5 237.6 L 168.0 237.2 L 169.5 236.7 L 171.0 236.1 L 172.5 235.6 L 174.0 235.1 L 175.5 234.6 L 177.0 234.0 L 178.5 233.5 L 180.0 232.9 L 181.5 232.3 L 183.0 231.7 L 184.5 231.1 L 186.0 230.5 L 187.5 229.9 L 189.0 229.3 L 190.5 228.7 L 192.0 228.0 L 193.5 227.4 L 195.0 226.7 L 196.5 226.1 L 198.0 225.4 L 199.5 224.7 L 201.0 224.0 L 202.5 223.3 L 204.0 222.6 L 205.5 221.8 L 207.0 221.1 L 208.5 220.4 L 210.0 219.6 L 211.5 218.8 L 213.0 218.1 L 214.5 217.3 L 216.0 216.5 L 217.5 215.7 L 219.0 214.9 L 220.5 214.0 L 222.0 213.2 L 223.5 212.4 L 225.0 211.5 L 226.5 210.7 L 228.0 209.8 L 229.5 208.9 L 231.0 208.0 L 232.5 207.1 L 234.0 206.2 L 235.5 205.3 L 237.0 204.4 L 238.5 203.4 L 240.0 202.5 L 241.5 201.5 L 243.0 200.6 L 244.5 199.6 L 246.0 198.6 L 247.5 197.6 L 249.0 196.6 L 250.5 195.6 L 252.0 194.6 L 253.5 193.6 L 255.0 192.5 L 256.5 191.5 L 258.0 190.4 L 259.5 189.3 L 261.0 188.3 L 262.5 187.2 L 264.0 186.1 L 265.5 185.0 L 267.0 183.9 L 268.5 182.7 L 270.0 181.6 L 271.5 180.5 L 273.0 179.3 L 274.5 178.1 L 276.0 177.0 L 277.5 175.8 L 279.0 174.6 L 280.5 173.4 L 282.0 172.2 L 283.5 171.0 L 285.0 169.7 L 286.5 168.5 L 288.0 167.2 L 289.5 166.0 L 291.0 164.7 L 292.5 163.4 L 294.0 162.1 L 295.5 160.8 L 297.0 159.5 L 298.5 158.2 L 300.0 156.9 L 301.5 155.6 L 303.0 154.2 L 304.5 152.9 L 306.0 151.5 L 307.5 150.1 L 309.0 148.7 L 310.5 147.4 L 312.0 146.0 L 313.5 144.5 L 315.0 143.1 L 316.5 141.7 L 318.0 140.3 L 319.5 138.8 L 321.0 137.3 L 322.5 135.9 L 324.0 134.4 L 325.5 132.9 L 327.0 131.4 L 328.5 129.9 L 330.0 128.4 L 331.5 126.9 L 333.0 125.3 L 334.5 123.8 L 336.0 122.2 L 337.5 120.7 L 339.0 119.1 L 340.5 117.5 L 342.0 115.9 L 343.5 114.3 L 345.0 112.7 L 346.5 111.1 L 348.0 109.5 L 349.5 107.8 L 351.0 106.2 L 352.5 104.5 L 354.0 102.9 L 355.5 101.2 L 357.0 99.5 L 358.5 97.8 L 360.0 96.1 L 361.5 94.4 L 363.0 92.7 L 364.5 90.9 L 366.0 89.2 L 367.5 87.4 L 369.0 85.7 L 370.5 83.9 L 372.0 82.1 L 373.5 80.3 L 375.0 78.5 L 376.5 76.7 L 378.0 74.9 L 379.5 73.1 L 381.0 71.2 L 382.5 69.4 L 384.0 67.5 L 385.5 65.7 L 387.0 63.8 L 388.5 61.9 L 390.0 60.0"/>
+        <path class="fig-free-solid" d="M 90.0 281.7 L 91.5 280.7 L 93.0 279.8 L 94.5 278.8 L 96.0 277.9 L 97.5 276.9 L 99.0 276.0 L 100.5 275.0 L 102.0 274.1 L 103.5 273.1 L 105.0 272.2 L 106.5 271.2 L 108.0 270.3 L 109.5 269.3 L 111.0 268.4 L 112.5 267.4 L 114.0 266.5 L 115.5 265.5 L 117.0 264.6 L 118.5 263.6 L 120.0 262.7 L 121.5 261.7 L 123.0 260.8 L 124.5 259.8 L 126.0 258.9 L 127.5 257.9 L 129.0 257.0 L 130.5 256.0 L 132.0 255.1 L 133.5 254.1 L 135.0 253.2 L 136.5 252.2 L 138.0 251.3 L 139.5 250.3 L 141.0 249.4 L 142.5 248.4 L 144.0 247.5 L 145.5 246.5 L 147.0 245.6 L 148.5 244.6 L 150.0 243.7 L 151.5 242.7 L 153.0 241.8 L 154.5 240.8 L 156.0 239.9 L 157.5 238.9 L 159.0 238.0 L 160.5 237.0 L 162.0 236.1 L 163.5 235.1 L 165.0 234.2 L 166.5 233.2 L 168.0 232.3 L 169.5 231.3 L 171.0 230.4 L 172.5 229.4 L 174.0 228.5 L 175.5 227.5 L 177.0 226.6 L 178.5 225.6 L 180.0 224.7 L 181.5 223.7 L 183.0 222.8 L 184.5 221.8 L 186.0 220.9 L 187.5 219.9 L 189.0 219.0 L 190.5 218.0 L 192.0 217.1 L 193.5 216.1 L 195.0 215.2 L 196.5 214.2 L 198.0 213.3 L 199.5 212.3 L 201.0 211.4 L 202.5 210.4 L 204.0 209.5 L 205.5 208.5 L 207.0 207.6 L 208.5 206.6 L 210.0 205.7 L 211.5 204.7 L 213.0 203.8 L 214.5 202.8 L 216.0 201.9 L 217.5 200.9 L 219.0 200.0 L 220.5 199.0 L 222.0 198.1 L 223.5 197.1 L 225.0 196.2 L 226.5 195.2 L 228.0 194.3 L 229.5 193.3 L 231.0 192.4 L 232.5 191.4 L 234.0 190.5 L 235.5 189.5 L 237.0 188.6 L 238.5 187.6 L 240.0 186.7 L 241.5 185.7 L 243.0 184.8 L 244.5 183.8 L 246.0 182.9 L 247.5 181.9 L 249.0 181.0 L 250.5 180.0 L 252.0 179.1 L 253.5 178.1 L 255.0 177.2 L 256.5 176.2 L 258.0 175.3 L 259.5 174.3 L 261.0 173.4 L 262.5 172.4 L 264.0 171.5 L 265.5 170.5 L 267.0 169.6 L 268.5 168.6 L 270.0 167.7 L 271.5 166.7 L 273.0 165.8 L 274.5 164.8 L 276.0 163.9 L 277.5 162.9 L 279.0 162.0 L 280.5 161.0 L 282.0 160.1 L 283.5 159.1 L 285.0 158.2 L 286.5 157.2 L 288.0 156.3 L 289.5 155.3 L 291.0 154.4 L 292.5 153.4 L 294.0 152.5 L 295.5 151.5 L 297.0 150.6 L 298.5 149.6 L 300.0 148.7 L 301.5 147.7 L 303.0 146.8 L 304.5 145.8 L 306.0 144.9 L 307.5 143.9 L 309.0 143.0 L 310.5 142.0 L 312.0 141.1 L 313.5 140.1 L 315.0 139.2 L 316.5 138.2 L 318.0 137.3 L 319.5 136.3 L 321.0 135.4 L 322.5 134.4 L 324.0 133.5 L 325.5 132.5 L 327.0 131.6 L 328.5 130.6 L 330.0 129.7 L 331.5 128.7 L 333.0 127.8 L 334.5 126.8 L 336.0 125.9 L 337.5 124.9 L 339.0 124.0 L 340.5 123.0 L 342.0 122.1 L 343.5 121.1 L 345.0 120.2 L 346.5 119.2 L 348.0 118.3 L 349.5 117.3 L 351.0 116.4 L 352.5 115.4 L 354.0 114.5 L 355.5 113.5 L 357.0 112.6 L 358.5 111.6 L 360.0 110.7 L 361.5 109.7 L 363.0 108.8 L 364.5 107.8 L 366.0 106.9 L 367.5 105.9 L 369.0 105.0 L 370.5 104.0 L 372.0 103.1 L 373.5 102.1 L 375.0 101.2 L 376.5 100.2 L 378.0 99.3 L 379.5 98.3 L 381.0 97.4 L 382.5 96.4 L 384.0 95.5 L 385.5 94.5 L 387.0 93.6 L 388.5 92.6 L 390.0 91.7"/>
+        <line class="fig-bar" x1="90.0" y1="250.0" x2="90.0" y2="255.0"/>
+        <line class="fig-bar" x1="390.0" y1="250.0" x2="390.0" y2="255.0"/>
+        <text class="fig-tick fig-text" x="79.0" y="269.0" text-anchor="middle">0</text>
+        <text class="fig-tick fig-text" x="390.0" y="269.0" text-anchor="middle">1</text>
+        <text x="402.0" y="64.0" text-anchor="start">t<tspan dy="-6" font-size="11">2</tspan></text>
+        <text x="402.0" y="97.7" text-anchor="start">t − 1/6</text>
+        <circle class="fig-dot" cx="390.0" cy="60.0" r="3.5"/>
+        <circle class="fig-dot-alt" cx="390.0" cy="91.7" r="3.5"/>
+      </svg>
+          <figcaption>Parmi toutes les droites $at + b$, la plus proche de $t^2$ sur $[0,1]$ pour la norme intégrale est $t - \frac{1}{6}$. La région colorée est l'erreur $t^2 - t + \frac{1}{6}$, dont l'intégrale du carré vaut $\frac{1}{180}$.</figcaption>
+        </figure>
+      </details>
+    </div>
+
     <!-- ══════════════════════════════════════════════════════════ -->
     <h2 class="en">Exercises</h2>
     <h2 class="fr">Exercices</h2>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> By expanding $\big\|\,\|y\|^2 x - \langle x,y\rangle\,y\,\big\|^2$, prove the Cauchy-Schwarz inequality and its equality case.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> En développant $\big\|\,\|y\|^2 x - \langle x,y\rangle\,y\,\big\|^2$, démontrer l'inégalité de Cauchy-Schwarz et son cas d'égalité.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> For two vectors, Pythagoras is an equivalence: $x \perp y$ if and only if $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. Find three vectors of $\mathbb{R}^2$ satisfying $\|x_1+x_2+x_3\|^2 = \|x_1\|^2 + \|x_2\|^2 + \|x_3\|^2$ that are not pairwise orthogonal.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Pour deux vecteurs, Pythagore est une équivalence : $x \perp y$ si et seulement si $\|x+y\|^2 = \|x\|^2 + \|y\|^2$. Trouver trois vecteurs de $\mathbb{R}^2$ vérifiant $\|x_1+x_2+x_3\|^2 = \|x_1\|^2 + \|x_2\|^2 + \|x_3\|^2$ qui ne sont pas deux à deux orthogonaux.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Set $v = \|y\|^2 x - \langle x,y\rangle\,y$. Expanding by bilinearity and symmetry, $$\|v\|^2 = \|y\|^4\|x\|^2 - 2\|y\|^2\langle x,y\rangle^2 + \langle x,y\rangle^2\|y\|^2 = \|y\|^2\big(\|x\|^2\|y\|^2 - \langle x,y\rangle^2\big).$$ If $y = 0$, Cauchy-Schwarz is trivial. If $y \neq 0$, then $\|y\|^2 &gt; 0$ and $\|v\|^2 \ge 0$ force $\|x\|^2\|y\|^2 - \langle x,y\rangle^2 \ge 0$, i.e. $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Equality holds iff $\|v\|^2 = 0$, iff $v = 0$, iff $\|y\|^2 x = \langle x,y\rangle\,y$, i.e. $x$ is collinear to $y$ (and collinear vectors conversely give equality).
+      Take $x_1 = (1,0)$, $x_2 = (0,1)$, $x_3 = (1,-1)$. Then $x_1 + x_2 + x_3 = (2,0)$ has squared norm $4$, and $\|x_1\|^2 + \|x_2\|^2 + \|x_3\|^2 = 1 + 1 + 2 = 4$, yet $\langle x_1, x_3\rangle = 1 \neq 0$. Expanding gives
+      \[\Big\|\sum_i x_i\Big\|^2 - \sum_i \|x_i\|^2 = 2\sum_{i&lt;j} \langle x_i, x_j\rangle,\]
+      and from three vectors on, this sum can vanish without each of its terms vanishing: here $\langle x_1,x_2\rangle = 0$, $\langle x_1,x_3\rangle = 1$ and $\langle x_2,x_3\rangle = -1$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      Posons $v = \|y\|^2 x - \langle x,y\rangle\,y$. En développant par bilinéarité et symétrie, $$\|v\|^2 = \|y\|^4\|x\|^2 - 2\|y\|^2\langle x,y\rangle^2 + \langle x,y\rangle^2\|y\|^2 = \|y\|^2\big(\|x\|^2\|y\|^2 - \langle x,y\rangle^2\big).$$ Si $y = 0$, Cauchy-Schwarz est trivial. Si $y \neq 0$, alors $\|y\|^2 &gt; 0$ et $\|v\|^2 \ge 0$ imposent $\|x\|^2\|y\|^2 - \langle x,y\rangle^2 \ge 0$, i.e. $|\langle x,y\rangle| \le \|x\|\,\|y\|$. Il y a égalité ssi $\|v\|^2 = 0$, ssi $v = 0$, ssi $\|y\|^2 x = \langle x,y\rangle\,y$, i.e. $x$ colinéaire à $y$ (et réciproquement, des vecteurs colinéaires donnent l'égalité).
+      Prendre $x_1 = (1,0)$, $x_2 = (0,1)$, $x_3 = (1,-1)$. Alors $x_1 + x_2 + x_3 = (2,0)$ a pour carré de la norme $4$, et $\|x_1\|^2 + \|x_2\|^2 + \|x_3\|^2 = 1 + 1 + 2 = 4$, pourtant $\langle x_1, x_3\rangle = 1 \neq 0$. Le développement donne
+      \[\Big\|\sum_i x_i\Big\|^2 - \sum_i \|x_i\|^2 = 2\sum_{i&lt;j} \langle x_i, x_j\rangle,\]
+      et à partir de trois vecteurs, cette somme peut s'annuler sans que chacun de ses termes s'annule : ici $\langle x_1,x_2\rangle = 0$, $\langle x_1,x_3\rangle = 1$ et $\langle x_2,x_3\rangle = -1$.
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that for all real numbers $a_1, \ldots, a_n$: $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, with equality if and only if all the $a_i$ are equal.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que pour tous réels $a_1, \ldots, a_n$ : $\left(\sum_{i=1}^n a_i\right)^{\!2} \le n \sum_{i=1}^n a_i^2$, avec égalité si et seulement si tous les $a_i$ sont égaux.</p>
+      <p class="en"><span class="thm-label">Exercise.</span> The Riesz theorem assumes that $E$ is finite-dimensional. Find a real vector space $E$ with an inner product and a linear form on $E$ that is not $x \mapsto \langle a, x\rangle$ for any $a \in E$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Le théorème de Riesz suppose $E$ de dimension finie. Trouver un espace vectoriel réel $E$ muni d'un produit scalaire et une forme linéaire sur $E$ qui ne soit $x \mapsto \langle a, x\rangle$ pour aucun $a \in E$.</p>
     </div>
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      Apply Cauchy-Schwarz in $\mathbb{R}^n$ with the canonical inner product to $x = (a_1, \ldots, a_n)$ and $y = (1, \ldots, 1)$: $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, and square. Equality holds iff $x$ and $y$ are collinear, i.e. $x = \lambda(1, \ldots, 1)$, i.e. all the $a_i$ are equal.
+      Take $E = \mathbb{R}[X]$ with $\big\langle \sum_i a_iX^i, \sum_i b_iX^i\big\rangle = \sum_i a_ib_i$: the sum is finite, and the three axioms hold as in $\mathbb{R}^n$. Let $\varphi(P) = P(1) = \sum_i a_i$, a linear form on $E$. Suppose $\varphi(P) = \langle A, P\rangle$ for all $P$, with $A = \sum_i \alpha_i X^i$. Testing on $P = X^i$ gives $\alpha_i = \varphi(X^i) = 1$ for every $i$, so $A$ would have infinitely many nonzero coefficients. No polynomial does, so no such $A$ exists.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      On applique Cauchy-Schwarz dans $\mathbb{R}^n$ muni du produit scalaire canonique à $x = (a_1, \ldots, a_n)$ et $y = (1, \ldots, 1)$ : $\left|\sum_i a_i\right| = |\langle x,y\rangle| \le \|x\|\,\|y\| = \sqrt{\sum_i a_i^2}\,\sqrt{n}$, puis on élève au carré. Il y a égalité ssi $x$ et $y$ sont colinéaires, i.e. $x = \lambda(1, \ldots, 1)$, i.e. tous les $a_i$ égaux.
+      Prendre $E = \mathbb{R}[X]$ muni de $\big\langle \sum_i a_iX^i, \sum_i b_iX^i\big\rangle = \sum_i a_ib_i$ : la somme est finie, et les trois axiomes se vérifient comme dans $\mathbb{R}^n$. Soit $\varphi(P) = P(1) = \sum_i a_i$, forme linéaire sur $E$. Supposons $\varphi(P) = \langle A, P\rangle$ pour tout $P$, avec $A = \sum_i \alpha_i X^i$. En testant sur $P = X^i$, on obtient $\alpha_i = \varphi(X^i) = 1$ pour tout $i$, donc $A$ aurait une infinité de coefficients non nuls. Aucun polynôme n'est dans ce cas, donc un tel $A$ n'existe pas.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The theorem $E = F \oplus F^\perp$ assumes that $E$ is finite-dimensional. Find a real vector space $E$ with an inner product and a subspace $F$ such that $F \oplus F^\perp \neq E$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Le théorème $E = F \oplus F^\perp$ suppose $E$ de dimension finie. Trouver un espace vectoriel réel $E$ muni d'un produit scalaire et un sous-espace $F$ tels que $F \oplus F^\perp \neq E$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      In the space $E = \mathbb{R}[X]$ of the previous exercise, let $F = \{P : P(1) = 0\}$. Let $Q = \sum_i \beta_i X^i \in F^\perp$. For every $i$ the polynomial $X^i - X^{i+1}$ belongs to $F$, and $\langle Q, X^i - X^{i+1}\rangle = \beta_i - \beta_{i+1} = 0$, so all the coefficients of $Q$ are equal; being those of a polynomial, they are all zero. Hence $F^\perp = \{0\}$ and $F \oplus F^\perp = F$, which is not $E$ since the constant $1$ is not in $F$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Dans l'espace $E = \mathbb{R}[X]$ de l'exercice précédent, soit $F = \{P : P(1) = 0\}$. Soit $Q = \sum_i \beta_i X^i \in F^\perp$. Pour tout $i$, le polynôme $X^i - X^{i+1}$ appartient à $F$, et $\langle Q, X^i - X^{i+1}\rangle = \beta_i - \beta_{i+1} = 0$, donc tous les coefficients de $Q$ sont égaux ; étant ceux d'un polynôme, ils sont tous nuls. Ainsi $F^\perp = \{0\}$ et $F \oplus F^\perp = F$, qui n'est pas $E$ puisque la constante $1$ n'est pas dans $F$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $F, G$ be subspaces of a Euclidean space $E$. Show that $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $F, G$ des sous-espaces d'un espace euclidien $E$. Montrer que $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $x \in (F \cup G)^\perp$ means $\langle x, y\rangle = 0$ for all $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ for all $y \in F$ <em>and</em> for all $y \in G$, i.e. $x \in F^\perp$ and $x \in G^\perp$. Hence $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Since $\operatorname{Vect}(F \cup G) = F + G$, this also reads $(F + G)^\perp = F^\perp \cap G^\perp$.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $x \in (F \cup G)^\perp$ signifie $\langle x, y\rangle = 0$ pour tout $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ pour tout $y \in F$ <em>et</em> pour tout $y \in G$, i.e. $x \in F^\perp$ et $x \in G^\perp$. Donc $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Comme $\operatorname{Vect}(F \cup G) = F + G$, cela s'écrit aussi $(F + G)^\perp = F^\perp \cap G^\perp$.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ defines an inner product on $\mathbb{R}_n[X]$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ définit un produit scalaire sur $\mathbb{R}_n[X]$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Bilinearity and symmetry are clear ($P(k)Q(k) = Q(k)P(k)$, and each side is linear in $P$ and in $Q$). Positivity: $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Definiteness: if $\langle P, P\rangle = 0$, then $P(k) = 0$ for every $k \in \{0, 1, \ldots, n\}$, so $P$ has $n+1$ distinct roots; being of degree $\le n$, it is the zero polynomial. (This is why the sum must run over $n+1$ points: fewer points would not give a definite form.)
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La bilinéarité et la symétrie sont claires ($P(k)Q(k) = Q(k)P(k)$, et chaque membre est linéaire en $P$ et en $Q$). Positivité : $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Caractère défini : si $\langle P, P\rangle = 0$, alors $P(k) = 0$ pour tout $k \in \{0, 1, \ldots, n\}$, donc $P$ a $n+1$ racines distinctes ; étant de degré $\le n$, c'est le polynôme nul. (C'est pourquoi la somme doit porter sur $n+1$ points : avec moins de points, la forme ne serait pas définie.)
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $F = \operatorname{Vect}(\sin, \cos)$, a subspace of $\mathcal{C}([-\pi,\pi], \mathbb{R})$ with the inner product $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Compute the orthogonal projection onto $F$ of the identity function $f : t \mapsto t$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $F = \operatorname{Vect}(\sin, \cos)$, sous-espace de $\mathcal{C}([-\pi,\pi], \mathbb{R})$ muni du produit scalaire $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Calculer le projeté orthogonal sur $F$ de la fonction identité $f : t \mapsto t$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The family $(\sin, \cos)$ is orthogonal: $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (odd integrand). Moreover $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ and $\|\cos\|^2 = \pi$, so $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ is an orthonormal basis of $F$. Now $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (even integrand, then integration by parts), while $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (odd integrand). Therefore
+      \[p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,\]
+      i.e. $p_F(f) : t \mapsto 2\sin t$.
+      <figure class="figure-block">
+        <svg class="figure" width="355.8" height="351.2" viewBox="52.1 14.4 355.8 351.2">
+        <line class="fig-axis" x1="62.1" y1="190.0" x2="397.9" y2="190.0"/>
+        <line class="fig-axis" x1="230.0" y1="24.4" x2="230.0" y2="355.6"/>
+        <path class="fig-curve" d="M 85.5 334.5 L 86.5 333.5 L 87.4 332.6 L 88.4 331.6 L 89.3 330.7 L 90.3 329.7 L 91.3 328.7 L 92.2 327.8 L 93.2 326.8 L 94.2 325.8 L 95.1 324.9 L 96.1 323.9 L 97.0 323.0 L 98.0 322.0 L 99.0 321.0 L 99.9 320.1 L 100.9 319.1 L 101.9 318.1 L 102.8 317.2 L 103.8 316.2 L 104.8 315.2 L 105.7 314.3 L 106.7 313.3 L 107.6 312.4 L 108.6 311.4 L 109.6 310.4 L 110.5 309.5 L 111.5 308.5 L 112.5 307.5 L 113.4 306.6 L 114.4 305.6 L 115.4 304.6 L 116.3 303.7 L 117.3 302.7 L 118.2 301.8 L 119.2 300.8 L 120.2 299.8 L 121.1 298.9 L 122.1 297.9 L 123.1 296.9 L 124.0 296.0 L 125.0 295.0 L 126.0 294.0 L 126.9 293.1 L 127.9 292.1 L 128.8 291.2 L 129.8 290.2 L 130.8 289.2 L 131.7 288.3 L 132.7 287.3 L 133.7 286.3 L 134.6 285.4 L 135.6 284.4 L 136.5 283.5 L 137.5 282.5 L 138.5 281.5 L 139.4 280.6 L 140.4 279.6 L 141.4 278.6 L 142.3 277.7 L 143.3 276.7 L 144.3 275.7 L 145.2 274.8 L 146.2 273.8 L 147.1 272.9 L 148.1 271.9 L 149.1 270.9 L 150.0 270.0 L 151.0 269.0 L 152.0 268.0 L 152.9 267.1 L 153.9 266.1 L 154.9 265.1 L 155.8 264.2 L 156.8 263.2 L 157.7 262.3 L 158.7 261.3 L 159.7 260.3 L 160.6 259.4 L 161.6 258.4 L 162.6 257.4 L 163.5 256.5 L 164.5 255.5 L 165.5 254.5 L 166.4 253.6 L 167.4 252.6 L 168.3 251.7 L 169.3 250.7 L 170.3 249.7 L 171.2 248.8 L 172.2 247.8 L 173.2 246.8 L 174.1 245.9 L 175.1 244.9 L 176.0 244.0 L 177.0 243.0 L 178.0 242.0 L 178.9 241.1 L 179.9 240.1 L 180.9 239.1 L 181.8 238.2 L 182.8 237.2 L 183.8 236.2 L 184.7 235.3 L 185.7 234.3 L 186.6 233.4 L 187.6 232.4 L 188.6 231.4 L 189.5 230.5 L 190.5 229.5 L 191.5 228.5 L 192.4 227.6 L 193.4 226.6 L 194.4 225.6 L 195.3 224.7 L 196.3 223.7 L 197.2 222.8 L 198.2 221.8 L 199.2 220.8 L 200.1 219.9 L 201.1 218.9 L 202.1 217.9 L 203.0 217.0 L 204.0 216.0 L 205.0 215.0 L 205.9 214.1 L 206.9 213.1 L 207.8 212.2 L 208.8 211.2 L 209.8 210.2 L 210.7 209.3 L 211.7 208.3 L 212.7 207.3 L 213.6 206.4 L 214.6 205.4 L 215.5 204.5 L 216.5 203.5 L 217.5 202.5 L 218.4 201.6 L 219.4 200.6 L 220.4 199.6 L 221.3 198.7 L 222.3 197.7 L 223.3 196.7 L 224.2 195.8 L 225.2 194.8 L 226.1 193.9 L 227.1 192.9 L 228.1 191.9 L 229.0 191.0 L 230.0 190.0 L 231.0 189.0 L 231.9 188.1 L 232.9 187.1 L 233.9 186.1 L 234.8 185.2 L 235.8 184.2 L 236.7 183.3 L 237.7 182.3 L 238.7 181.3 L 239.6 180.4 L 240.6 179.4 L 241.6 178.4 L 242.5 177.5 L 243.5 176.5 L 244.5 175.5 L 245.4 174.6 L 246.4 173.6 L 247.3 172.7 L 248.3 171.7 L 249.3 170.7 L 250.2 169.8 L 251.2 168.8 L 252.2 167.8 L 253.1 166.9 L 254.1 165.9 L 255.0 165.0 L 256.0 164.0 L 257.0 163.0 L 257.9 162.1 L 258.9 161.1 L 259.9 160.1 L 260.8 159.2 L 261.8 158.2 L 262.8 157.2 L 263.7 156.3 L 264.7 155.3 L 265.6 154.4 L 266.6 153.4 L 267.6 152.4 L 268.5 151.5 L 269.5 150.5 L 270.5 149.5 L 271.4 148.6 L 272.4 147.6 L 273.4 146.6 L 274.3 145.7 L 275.3 144.7 L 276.2 143.8 L 277.2 142.8 L 278.2 141.8 L 279.1 140.9 L 280.1 139.9 L 281.1 138.9 L 282.0 138.0 L 283.0 137.0 L 284.0 136.0 L 284.9 135.1 L 285.9 134.1 L 286.8 133.2 L 287.8 132.2 L 288.8 131.2 L 289.7 130.3 L 290.7 129.3 L 291.7 128.3 L 292.6 127.4 L 293.6 126.4 L 294.5 125.5 L 295.5 124.5 L 296.5 123.5 L 297.4 122.6 L 298.4 121.6 L 299.4 120.6 L 300.3 119.7 L 301.3 118.7 L 302.3 117.7 L 303.2 116.8 L 304.2 115.8 L 305.1 114.9 L 306.1 113.9 L 307.1 112.9 L 308.0 112.0 L 309.0 111.0 L 310.0 110.0 L 310.9 109.1 L 311.9 108.1 L 312.9 107.1 L 313.8 106.2 L 314.8 105.2 L 315.7 104.3 L 316.7 103.3 L 317.7 102.3 L 318.6 101.4 L 319.6 100.4 L 320.6 99.4 L 321.5 98.5 L 322.5 97.5 L 323.5 96.5 L 324.4 95.6 L 325.4 94.6 L 326.3 93.7 L 327.3 92.7 L 328.3 91.7 L 329.2 90.8 L 330.2 89.8 L 331.2 88.8 L 332.1 87.9 L 333.1 86.9 L 334.0 86.0 L 335.0 85.0 L 336.0 84.0 L 336.9 83.1 L 337.9 82.1 L 338.9 81.1 L 339.8 80.2 L 340.8 79.2 L 341.8 78.2 L 342.7 77.3 L 343.7 76.3 L 344.6 75.4 L 345.6 74.4 L 346.6 73.4 L 347.5 72.5 L 348.5 71.5 L 349.5 70.5 L 350.4 69.6 L 351.4 68.6 L 352.4 67.6 L 353.3 66.7 L 354.3 65.7 L 355.2 64.8 L 356.2 63.8 L 357.2 62.8 L 358.1 61.9 L 359.1 60.9 L 360.1 59.9 L 361.0 59.0 L 362.0 58.0 L 363.0 57.0 L 363.9 56.1 L 364.9 55.1 L 365.8 54.2 L 366.8 53.2 L 367.8 52.2 L 368.7 51.3 L 369.7 50.3 L 370.7 49.3 L 371.6 48.4 L 372.6 47.4 L 373.5 46.5 L 374.5 45.5"/>
+        <path class="fig-free-solid" d="M 85.5 190.0 L 86.5 191.9 L 87.4 193.9 L 88.4 195.8 L 89.3 197.7 L 90.3 199.6 L 91.3 201.5 L 92.2 203.4 L 93.2 205.3 L 94.2 207.2 L 95.1 209.1 L 96.1 211.0 L 97.0 212.9 L 98.0 214.7 L 99.0 216.6 L 99.9 218.4 L 100.9 220.3 L 101.9 222.1 L 102.8 223.9 L 103.8 225.7 L 104.8 227.4 L 105.7 229.2 L 106.7 230.9 L 107.6 232.6 L 108.6 234.3 L 109.6 236.0 L 110.5 237.7 L 111.5 239.3 L 112.5 240.9 L 113.4 242.5 L 114.4 244.1 L 115.4 245.6 L 116.3 247.1 L 117.3 248.6 L 118.2 250.1 L 119.2 251.6 L 120.2 253.0 L 121.1 254.4 L 122.1 255.7 L 123.1 257.1 L 124.0 258.4 L 125.0 259.6 L 126.0 260.9 L 126.9 262.1 L 127.9 263.3 L 128.8 264.4 L 129.8 265.5 L 130.8 266.6 L 131.7 267.7 L 132.7 268.7 L 133.7 269.7 L 134.6 270.6 L 135.6 271.5 L 136.5 272.4 L 137.5 273.2 L 138.5 274.0 L 139.4 274.8 L 140.4 275.5 L 141.4 276.2 L 142.3 276.9 L 143.3 277.5 L 144.3 278.1 L 145.2 278.6 L 146.2 279.1 L 147.1 279.6 L 148.1 280.0 L 149.1 280.4 L 150.0 280.7 L 151.0 281.0 L 152.0 281.3 L 152.9 281.5 L 153.9 281.7 L 154.9 281.8 L 155.8 281.9 L 156.8 282.0 L 157.7 282.0 L 158.7 282.0 L 159.7 281.9 L 160.6 281.8 L 161.6 281.7 L 162.6 281.5 L 163.5 281.3 L 164.5 281.0 L 165.5 280.7 L 166.4 280.4 L 167.4 280.0 L 168.3 279.6 L 169.3 279.1 L 170.3 278.6 L 171.2 278.1 L 172.2 277.5 L 173.2 276.9 L 174.1 276.2 L 175.1 275.5 L 176.0 274.8 L 177.0 274.0 L 178.0 273.2 L 178.9 272.4 L 179.9 271.5 L 180.9 270.6 L 181.8 269.7 L 182.8 268.7 L 183.8 267.7 L 184.7 266.6 L 185.7 265.5 L 186.6 264.4 L 187.6 263.3 L 188.6 262.1 L 189.5 260.9 L 190.5 259.6 L 191.5 258.4 L 192.4 257.1 L 193.4 255.7 L 194.4 254.4 L 195.3 253.0 L 196.3 251.6 L 197.2 250.1 L 198.2 248.6 L 199.2 247.1 L 200.1 245.6 L 201.1 244.1 L 202.1 242.5 L 203.0 240.9 L 204.0 239.3 L 205.0 237.7 L 205.9 236.0 L 206.9 234.3 L 207.8 232.6 L 208.8 230.9 L 209.8 229.2 L 210.7 227.4 L 211.7 225.7 L 212.7 223.9 L 213.6 222.1 L 214.6 220.3 L 215.5 218.4 L 216.5 216.6 L 217.5 214.7 L 218.4 212.9 L 219.4 211.0 L 220.4 209.1 L 221.3 207.2 L 222.3 205.3 L 223.3 203.4 L 224.2 201.5 L 225.2 199.6 L 226.1 197.7 L 227.1 195.8 L 228.1 193.9 L 229.0 191.9 L 230.0 190.0 L 231.0 188.1 L 231.9 186.1 L 232.9 184.2 L 233.9 182.3 L 234.8 180.4 L 235.8 178.5 L 236.7 176.6 L 237.7 174.7 L 238.7 172.8 L 239.6 170.9 L 240.6 169.0 L 241.6 167.1 L 242.5 165.3 L 243.5 163.4 L 244.5 161.6 L 245.4 159.7 L 246.4 157.9 L 247.3 156.1 L 248.3 154.3 L 249.3 152.6 L 250.2 150.8 L 251.2 149.1 L 252.2 147.4 L 253.1 145.7 L 254.1 144.0 L 255.0 142.3 L 256.0 140.7 L 257.0 139.1 L 257.9 137.5 L 258.9 135.9 L 259.9 134.4 L 260.8 132.9 L 261.8 131.4 L 262.8 129.9 L 263.7 128.4 L 264.7 127.0 L 265.6 125.6 L 266.6 124.3 L 267.6 122.9 L 268.5 121.6 L 269.5 120.4 L 270.5 119.1 L 271.4 117.9 L 272.4 116.7 L 273.4 115.6 L 274.3 114.5 L 275.3 113.4 L 276.2 112.3 L 277.2 111.3 L 278.2 110.3 L 279.1 109.4 L 280.1 108.5 L 281.1 107.6 L 282.0 106.8 L 283.0 106.0 L 284.0 105.2 L 284.9 104.5 L 285.9 103.8 L 286.8 103.1 L 287.8 102.5 L 288.8 101.9 L 289.7 101.4 L 290.7 100.9 L 291.7 100.4 L 292.6 100.0 L 293.6 99.6 L 294.5 99.3 L 295.5 99.0 L 296.5 98.7 L 297.4 98.5 L 298.4 98.3 L 299.4 98.2 L 300.3 98.1 L 301.3 98.0 L 302.3 98.0 L 303.2 98.0 L 304.2 98.1 L 305.1 98.2 L 306.1 98.3 L 307.1 98.5 L 308.0 98.7 L 309.0 99.0 L 310.0 99.3 L 310.9 99.6 L 311.9 100.0 L 312.9 100.4 L 313.8 100.9 L 314.8 101.4 L 315.7 101.9 L 316.7 102.5 L 317.7 103.1 L 318.6 103.8 L 319.6 104.5 L 320.6 105.2 L 321.5 106.0 L 322.5 106.8 L 323.5 107.6 L 324.4 108.5 L 325.4 109.4 L 326.3 110.3 L 327.3 111.3 L 328.3 112.3 L 329.2 113.4 L 330.2 114.5 L 331.2 115.6 L 332.1 116.7 L 333.1 117.9 L 334.0 119.1 L 335.0 120.4 L 336.0 121.6 L 336.9 122.9 L 337.9 124.3 L 338.9 125.6 L 339.8 127.0 L 340.8 128.4 L 341.8 129.9 L 342.7 131.4 L 343.7 132.9 L 344.6 134.4 L 345.6 135.9 L 346.6 137.5 L 347.5 139.1 L 348.5 140.7 L 349.5 142.3 L 350.4 144.0 L 351.4 145.7 L 352.4 147.4 L 353.3 149.1 L 354.3 150.8 L 355.2 152.6 L 356.2 154.3 L 357.2 156.1 L 358.1 157.9 L 359.1 159.7 L 360.1 161.6 L 361.0 163.4 L 362.0 165.3 L 363.0 167.1 L 363.9 169.0 L 364.9 170.9 L 365.8 172.8 L 366.8 174.7 L 367.8 176.6 L 368.7 178.5 L 369.7 180.4 L 370.7 182.3 L 371.6 184.2 L 372.6 186.1 L 373.5 188.1 L 374.5 190.0"/>
+        <line class="fig-bar" x1="85.5" y1="190.0" x2="85.5" y2="195.0"/>
+        <text class="fig-tick" x="85.5" y="210.0" text-anchor="middle">&#8722;&#960;</text>
+        <line class="fig-bar" x1="374.5" y1="190.0" x2="374.5" y2="195.0"/>
+        <text class="fig-tick" x="374.5" y="210.0" text-anchor="middle">&#960;</text>
+        <circle class="fig-dot" cx="374.5" cy="45.5" r="3.5"/>
+        <text x="384.5" y="49.5" text-anchor="start">t</text>
+        <circle class="fig-dot-alt" cx="302.3" cy="98.0" r="3.5"/>
+        <text x="302.3" y="82.0" text-anchor="middle">2 sin t</text>
+      </svg>
+        <figcaption>Of all the functions $a\sin + b\cos$, the closest to $t \mapsto t$ on $[-\pi,\pi]$ in the integral norm is $2\sin$.</figcaption>
+      </figure>
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      La famille $(\sin, \cos)$ est orthogonale : $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (intégrande impaire). De plus $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ et $\|\cos\|^2 = \pi$, donc $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ est une base orthonormée de $F$. Or $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (intégrande paire, puis intégration par parties), tandis que $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (intégrande impaire). Donc
+      \[p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,\]
+      i.e. $p_F(f) : t \mapsto 2\sin t$.
+      <figure class="figure-block">
+        <svg class="figure" width="355.8" height="351.2" viewBox="52.1 14.4 355.8 351.2">
+        <line class="fig-axis" x1="62.1" y1="190.0" x2="397.9" y2="190.0"/>
+        <line class="fig-axis" x1="230.0" y1="24.4" x2="230.0" y2="355.6"/>
+        <path class="fig-curve" d="M 85.5 334.5 L 86.5 333.5 L 87.4 332.6 L 88.4 331.6 L 89.3 330.7 L 90.3 329.7 L 91.3 328.7 L 92.2 327.8 L 93.2 326.8 L 94.2 325.8 L 95.1 324.9 L 96.1 323.9 L 97.0 323.0 L 98.0 322.0 L 99.0 321.0 L 99.9 320.1 L 100.9 319.1 L 101.9 318.1 L 102.8 317.2 L 103.8 316.2 L 104.8 315.2 L 105.7 314.3 L 106.7 313.3 L 107.6 312.4 L 108.6 311.4 L 109.6 310.4 L 110.5 309.5 L 111.5 308.5 L 112.5 307.5 L 113.4 306.6 L 114.4 305.6 L 115.4 304.6 L 116.3 303.7 L 117.3 302.7 L 118.2 301.8 L 119.2 300.8 L 120.2 299.8 L 121.1 298.9 L 122.1 297.9 L 123.1 296.9 L 124.0 296.0 L 125.0 295.0 L 126.0 294.0 L 126.9 293.1 L 127.9 292.1 L 128.8 291.2 L 129.8 290.2 L 130.8 289.2 L 131.7 288.3 L 132.7 287.3 L 133.7 286.3 L 134.6 285.4 L 135.6 284.4 L 136.5 283.5 L 137.5 282.5 L 138.5 281.5 L 139.4 280.6 L 140.4 279.6 L 141.4 278.6 L 142.3 277.7 L 143.3 276.7 L 144.3 275.7 L 145.2 274.8 L 146.2 273.8 L 147.1 272.9 L 148.1 271.9 L 149.1 270.9 L 150.0 270.0 L 151.0 269.0 L 152.0 268.0 L 152.9 267.1 L 153.9 266.1 L 154.9 265.1 L 155.8 264.2 L 156.8 263.2 L 157.7 262.3 L 158.7 261.3 L 159.7 260.3 L 160.6 259.4 L 161.6 258.4 L 162.6 257.4 L 163.5 256.5 L 164.5 255.5 L 165.5 254.5 L 166.4 253.6 L 167.4 252.6 L 168.3 251.7 L 169.3 250.7 L 170.3 249.7 L 171.2 248.8 L 172.2 247.8 L 173.2 246.8 L 174.1 245.9 L 175.1 244.9 L 176.0 244.0 L 177.0 243.0 L 178.0 242.0 L 178.9 241.1 L 179.9 240.1 L 180.9 239.1 L 181.8 238.2 L 182.8 237.2 L 183.8 236.2 L 184.7 235.3 L 185.7 234.3 L 186.6 233.4 L 187.6 232.4 L 188.6 231.4 L 189.5 230.5 L 190.5 229.5 L 191.5 228.5 L 192.4 227.6 L 193.4 226.6 L 194.4 225.6 L 195.3 224.7 L 196.3 223.7 L 197.2 222.8 L 198.2 221.8 L 199.2 220.8 L 200.1 219.9 L 201.1 218.9 L 202.1 217.9 L 203.0 217.0 L 204.0 216.0 L 205.0 215.0 L 205.9 214.1 L 206.9 213.1 L 207.8 212.2 L 208.8 211.2 L 209.8 210.2 L 210.7 209.3 L 211.7 208.3 L 212.7 207.3 L 213.6 206.4 L 214.6 205.4 L 215.5 204.5 L 216.5 203.5 L 217.5 202.5 L 218.4 201.6 L 219.4 200.6 L 220.4 199.6 L 221.3 198.7 L 222.3 197.7 L 223.3 196.7 L 224.2 195.8 L 225.2 194.8 L 226.1 193.9 L 227.1 192.9 L 228.1 191.9 L 229.0 191.0 L 230.0 190.0 L 231.0 189.0 L 231.9 188.1 L 232.9 187.1 L 233.9 186.1 L 234.8 185.2 L 235.8 184.2 L 236.7 183.3 L 237.7 182.3 L 238.7 181.3 L 239.6 180.4 L 240.6 179.4 L 241.6 178.4 L 242.5 177.5 L 243.5 176.5 L 244.5 175.5 L 245.4 174.6 L 246.4 173.6 L 247.3 172.7 L 248.3 171.7 L 249.3 170.7 L 250.2 169.8 L 251.2 168.8 L 252.2 167.8 L 253.1 166.9 L 254.1 165.9 L 255.0 165.0 L 256.0 164.0 L 257.0 163.0 L 257.9 162.1 L 258.9 161.1 L 259.9 160.1 L 260.8 159.2 L 261.8 158.2 L 262.8 157.2 L 263.7 156.3 L 264.7 155.3 L 265.6 154.4 L 266.6 153.4 L 267.6 152.4 L 268.5 151.5 L 269.5 150.5 L 270.5 149.5 L 271.4 148.6 L 272.4 147.6 L 273.4 146.6 L 274.3 145.7 L 275.3 144.7 L 276.2 143.8 L 277.2 142.8 L 278.2 141.8 L 279.1 140.9 L 280.1 139.9 L 281.1 138.9 L 282.0 138.0 L 283.0 137.0 L 284.0 136.0 L 284.9 135.1 L 285.9 134.1 L 286.8 133.2 L 287.8 132.2 L 288.8 131.2 L 289.7 130.3 L 290.7 129.3 L 291.7 128.3 L 292.6 127.4 L 293.6 126.4 L 294.5 125.5 L 295.5 124.5 L 296.5 123.5 L 297.4 122.6 L 298.4 121.6 L 299.4 120.6 L 300.3 119.7 L 301.3 118.7 L 302.3 117.7 L 303.2 116.8 L 304.2 115.8 L 305.1 114.9 L 306.1 113.9 L 307.1 112.9 L 308.0 112.0 L 309.0 111.0 L 310.0 110.0 L 310.9 109.1 L 311.9 108.1 L 312.9 107.1 L 313.8 106.2 L 314.8 105.2 L 315.7 104.3 L 316.7 103.3 L 317.7 102.3 L 318.6 101.4 L 319.6 100.4 L 320.6 99.4 L 321.5 98.5 L 322.5 97.5 L 323.5 96.5 L 324.4 95.6 L 325.4 94.6 L 326.3 93.7 L 327.3 92.7 L 328.3 91.7 L 329.2 90.8 L 330.2 89.8 L 331.2 88.8 L 332.1 87.9 L 333.1 86.9 L 334.0 86.0 L 335.0 85.0 L 336.0 84.0 L 336.9 83.1 L 337.9 82.1 L 338.9 81.1 L 339.8 80.2 L 340.8 79.2 L 341.8 78.2 L 342.7 77.3 L 343.7 76.3 L 344.6 75.4 L 345.6 74.4 L 346.6 73.4 L 347.5 72.5 L 348.5 71.5 L 349.5 70.5 L 350.4 69.6 L 351.4 68.6 L 352.4 67.6 L 353.3 66.7 L 354.3 65.7 L 355.2 64.8 L 356.2 63.8 L 357.2 62.8 L 358.1 61.9 L 359.1 60.9 L 360.1 59.9 L 361.0 59.0 L 362.0 58.0 L 363.0 57.0 L 363.9 56.1 L 364.9 55.1 L 365.8 54.2 L 366.8 53.2 L 367.8 52.2 L 368.7 51.3 L 369.7 50.3 L 370.7 49.3 L 371.6 48.4 L 372.6 47.4 L 373.5 46.5 L 374.5 45.5"/>
+        <path class="fig-free-solid" d="M 85.5 190.0 L 86.5 191.9 L 87.4 193.9 L 88.4 195.8 L 89.3 197.7 L 90.3 199.6 L 91.3 201.5 L 92.2 203.4 L 93.2 205.3 L 94.2 207.2 L 95.1 209.1 L 96.1 211.0 L 97.0 212.9 L 98.0 214.7 L 99.0 216.6 L 99.9 218.4 L 100.9 220.3 L 101.9 222.1 L 102.8 223.9 L 103.8 225.7 L 104.8 227.4 L 105.7 229.2 L 106.7 230.9 L 107.6 232.6 L 108.6 234.3 L 109.6 236.0 L 110.5 237.7 L 111.5 239.3 L 112.5 240.9 L 113.4 242.5 L 114.4 244.1 L 115.4 245.6 L 116.3 247.1 L 117.3 248.6 L 118.2 250.1 L 119.2 251.6 L 120.2 253.0 L 121.1 254.4 L 122.1 255.7 L 123.1 257.1 L 124.0 258.4 L 125.0 259.6 L 126.0 260.9 L 126.9 262.1 L 127.9 263.3 L 128.8 264.4 L 129.8 265.5 L 130.8 266.6 L 131.7 267.7 L 132.7 268.7 L 133.7 269.7 L 134.6 270.6 L 135.6 271.5 L 136.5 272.4 L 137.5 273.2 L 138.5 274.0 L 139.4 274.8 L 140.4 275.5 L 141.4 276.2 L 142.3 276.9 L 143.3 277.5 L 144.3 278.1 L 145.2 278.6 L 146.2 279.1 L 147.1 279.6 L 148.1 280.0 L 149.1 280.4 L 150.0 280.7 L 151.0 281.0 L 152.0 281.3 L 152.9 281.5 L 153.9 281.7 L 154.9 281.8 L 155.8 281.9 L 156.8 282.0 L 157.7 282.0 L 158.7 282.0 L 159.7 281.9 L 160.6 281.8 L 161.6 281.7 L 162.6 281.5 L 163.5 281.3 L 164.5 281.0 L 165.5 280.7 L 166.4 280.4 L 167.4 280.0 L 168.3 279.6 L 169.3 279.1 L 170.3 278.6 L 171.2 278.1 L 172.2 277.5 L 173.2 276.9 L 174.1 276.2 L 175.1 275.5 L 176.0 274.8 L 177.0 274.0 L 178.0 273.2 L 178.9 272.4 L 179.9 271.5 L 180.9 270.6 L 181.8 269.7 L 182.8 268.7 L 183.8 267.7 L 184.7 266.6 L 185.7 265.5 L 186.6 264.4 L 187.6 263.3 L 188.6 262.1 L 189.5 260.9 L 190.5 259.6 L 191.5 258.4 L 192.4 257.1 L 193.4 255.7 L 194.4 254.4 L 195.3 253.0 L 196.3 251.6 L 197.2 250.1 L 198.2 248.6 L 199.2 247.1 L 200.1 245.6 L 201.1 244.1 L 202.1 242.5 L 203.0 240.9 L 204.0 239.3 L 205.0 237.7 L 205.9 236.0 L 206.9 234.3 L 207.8 232.6 L 208.8 230.9 L 209.8 229.2 L 210.7 227.4 L 211.7 225.7 L 212.7 223.9 L 213.6 222.1 L 214.6 220.3 L 215.5 218.4 L 216.5 216.6 L 217.5 214.7 L 218.4 212.9 L 219.4 211.0 L 220.4 209.1 L 221.3 207.2 L 222.3 205.3 L 223.3 203.4 L 224.2 201.5 L 225.2 199.6 L 226.1 197.7 L 227.1 195.8 L 228.1 193.9 L 229.0 191.9 L 230.0 190.0 L 231.0 188.1 L 231.9 186.1 L 232.9 184.2 L 233.9 182.3 L 234.8 180.4 L 235.8 178.5 L 236.7 176.6 L 237.7 174.7 L 238.7 172.8 L 239.6 170.9 L 240.6 169.0 L 241.6 167.1 L 242.5 165.3 L 243.5 163.4 L 244.5 161.6 L 245.4 159.7 L 246.4 157.9 L 247.3 156.1 L 248.3 154.3 L 249.3 152.6 L 250.2 150.8 L 251.2 149.1 L 252.2 147.4 L 253.1 145.7 L 254.1 144.0 L 255.0 142.3 L 256.0 140.7 L 257.0 139.1 L 257.9 137.5 L 258.9 135.9 L 259.9 134.4 L 260.8 132.9 L 261.8 131.4 L 262.8 129.9 L 263.7 128.4 L 264.7 127.0 L 265.6 125.6 L 266.6 124.3 L 267.6 122.9 L 268.5 121.6 L 269.5 120.4 L 270.5 119.1 L 271.4 117.9 L 272.4 116.7 L 273.4 115.6 L 274.3 114.5 L 275.3 113.4 L 276.2 112.3 L 277.2 111.3 L 278.2 110.3 L 279.1 109.4 L 280.1 108.5 L 281.1 107.6 L 282.0 106.8 L 283.0 106.0 L 284.0 105.2 L 284.9 104.5 L 285.9 103.8 L 286.8 103.1 L 287.8 102.5 L 288.8 101.9 L 289.7 101.4 L 290.7 100.9 L 291.7 100.4 L 292.6 100.0 L 293.6 99.6 L 294.5 99.3 L 295.5 99.0 L 296.5 98.7 L 297.4 98.5 L 298.4 98.3 L 299.4 98.2 L 300.3 98.1 L 301.3 98.0 L 302.3 98.0 L 303.2 98.0 L 304.2 98.1 L 305.1 98.2 L 306.1 98.3 L 307.1 98.5 L 308.0 98.7 L 309.0 99.0 L 310.0 99.3 L 310.9 99.6 L 311.9 100.0 L 312.9 100.4 L 313.8 100.9 L 314.8 101.4 L 315.7 101.9 L 316.7 102.5 L 317.7 103.1 L 318.6 103.8 L 319.6 104.5 L 320.6 105.2 L 321.5 106.0 L 322.5 106.8 L 323.5 107.6 L 324.4 108.5 L 325.4 109.4 L 326.3 110.3 L 327.3 111.3 L 328.3 112.3 L 329.2 113.4 L 330.2 114.5 L 331.2 115.6 L 332.1 116.7 L 333.1 117.9 L 334.0 119.1 L 335.0 120.4 L 336.0 121.6 L 336.9 122.9 L 337.9 124.3 L 338.9 125.6 L 339.8 127.0 L 340.8 128.4 L 341.8 129.9 L 342.7 131.4 L 343.7 132.9 L 344.6 134.4 L 345.6 135.9 L 346.6 137.5 L 347.5 139.1 L 348.5 140.7 L 349.5 142.3 L 350.4 144.0 L 351.4 145.7 L 352.4 147.4 L 353.3 149.1 L 354.3 150.8 L 355.2 152.6 L 356.2 154.3 L 357.2 156.1 L 358.1 157.9 L 359.1 159.7 L 360.1 161.6 L 361.0 163.4 L 362.0 165.3 L 363.0 167.1 L 363.9 169.0 L 364.9 170.9 L 365.8 172.8 L 366.8 174.7 L 367.8 176.6 L 368.7 178.5 L 369.7 180.4 L 370.7 182.3 L 371.6 184.2 L 372.6 186.1 L 373.5 188.1 L 374.5 190.0"/>
+        <line class="fig-bar" x1="85.5" y1="190.0" x2="85.5" y2="195.0"/>
+        <text class="fig-tick" x="85.5" y="210.0" text-anchor="middle">&#8722;&#960;</text>
+        <line class="fig-bar" x1="374.5" y1="190.0" x2="374.5" y2="195.0"/>
+        <text class="fig-tick" x="374.5" y="210.0" text-anchor="middle">&#960;</text>
+        <circle class="fig-dot" cx="374.5" cy="45.5" r="3.5"/>
+        <text x="384.5" y="49.5" text-anchor="start">t</text>
+        <circle class="fig-dot-alt" cx="302.3" cy="98.0" r="3.5"/>
+        <text x="302.3" y="82.0" text-anchor="middle">2 sin t</text>
+      </svg>
+        <figcaption>Parmi toutes les fonctions $a\sin + b\cos$, la plus proche de $t \mapsto t$ sur $[-\pi,\pi]$ pour la norme intégrale est $2\sin$.</figcaption>
+      </figure>
     </details>
 
     <div class="thm-block exercise">
@@ -311,7 +777,8 @@
       <br>
       <strong>2.</strong> Let $S \in \mathcal{S}_n$ and $K \in \mathcal{A}_n$. Then $\langle S, K\rangle = \operatorname{tr}(S^\top K) = \operatorname{tr}(SK)$, while by symmetry $\langle S, K\rangle = \langle K, S\rangle = \operatorname{tr}(K^\top S) = \operatorname{tr}(-KS) = -\operatorname{tr}(SK)$. Hence $\langle S, K\rangle = -\langle S, K\rangle = 0$: $\mathcal{S}_n \perp \mathcal{A}_n$.
       <br>
-      <strong>3.</strong> Every matrix splits as $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ with $\frac{A+A^\top}{2} \in \mathcal{S}_n$ and $\frac{A - A^\top}{2} \in \mathcal{A}_n$, so $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$; by part 2 the sum is orthogonal, hence $\mathcal{A}_n^\perp = \mathcal{S}_n$. Since $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, the orthogonal projection of $A$ onto $\mathcal{A}_n$ is its antisymmetric part $$p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.$$
+      <strong>3.</strong> Every matrix splits as $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ with $\frac{A+A^\top}{2} \in \mathcal{S}_n$ and $\frac{A - A^\top}{2} \in \mathcal{A}_n$, so $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$; by part 2 the sum is orthogonal, hence $\mathcal{A}_n^\perp = \mathcal{S}_n$. Since $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, the orthogonal projection of $A$ onto $\mathcal{A}_n$ is its antisymmetric part
+      \[p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.\]
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
@@ -319,77 +786,8 @@
       <br>
       <strong>2.</strong> Soient $S \in \mathcal{S}_n$ et $K \in \mathcal{A}_n$. Alors $\langle S, K\rangle = \operatorname{tr}(S^\top K) = \operatorname{tr}(SK)$, tandis que par symétrie $\langle S, K\rangle = \langle K, S\rangle = \operatorname{tr}(K^\top S) = \operatorname{tr}(-KS) = -\operatorname{tr}(SK)$. Donc $\langle S, K\rangle = -\langle S, K\rangle = 0$ : $\mathcal{S}_n \perp \mathcal{A}_n$.
       <br>
-      <strong>3.</strong> Toute matrice se décompose en $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ avec $\frac{A+A^\top}{2} \in \mathcal{S}_n$ et $\frac{A - A^\top}{2} \in \mathcal{A}_n$, donc $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$ ; par la question 2 la somme est orthogonale, d'où $\mathcal{A}_n^\perp = \mathcal{S}_n$. Comme $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, la projection orthogonale de $A$ sur $\mathcal{A}_n$ est sa partie antisymétrique $$p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.$$
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ defines an inner product on $\mathbb{R}_n[X]$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle P, Q\rangle = \sum_{k=0}^{n} P(k)Q(k)$ définit un produit scalaire sur $\mathbb{R}_n[X]$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Bilinearity and symmetry are clear ($P(k)Q(k) = Q(k)P(k)$, and each side is linear in $P$ and in $Q$). Positivity: $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Definiteness: if $\langle P, P\rangle = 0$, then $P(k) = 0$ for every $k \in \{0, 1, \ldots, n\}$, so $P$ has $n+1$ distinct roots; being of degree $\le n$, it is the zero polynomial. (This is why the sum must run over $n+1$ points: fewer points would not give a definite form.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      La bilinéarité et la symétrie sont claires ($P(k)Q(k) = Q(k)P(k)$, et chaque membre est linéaire en $P$ et en $Q$). Positivité : $\langle P, P\rangle = \sum_{k=0}^{n} P(k)^2 \ge 0$. Caractère défini : si $\langle P, P\rangle = 0$, alors $P(k) = 0$ pour tout $k \in \{0, 1, \ldots, n\}$, donc $P$ a $n+1$ racines distinctes ; étant de degré $\le n$, c'est le polynôme nul. (C'est pourquoi la somme doit porter sur $n+1$ points : avec moins de points, la forme ne serait pas définie.)
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ defines an inner product on $\mathcal{C}([0,1], \mathbb{R})$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\langle f, g\rangle = \int_0^1 f(t)g(t)\,dt$ définit un produit scalaire sur $\mathcal{C}([0,1], \mathbb{R})$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Bilinearity comes from the linearity of the integral in each factor, and symmetry from $f(t)g(t) = g(t)f(t)$. Positivity: $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ since $f^2 \ge 0$. Definiteness: if $\int_0^1 f^2 = 0$, then $f^2 = 0$ by the strict positivity theorem ($f^2$ is continuous and nonnegative), hence $f = 0$. (This space is not Euclidean, being infinite-dimensional, but it is a well-defined inner product structure.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      La bilinéarité provient de la linéarité de l'intégrale en chaque facteur, et la symétrie de $f(t)g(t) = g(t)f(t)$. Positivité : $\langle f, f\rangle = \int_0^1 f(t)^2\,dt \ge 0$ car $f^2 \ge 0$. Caractère défini : si $\int_0^1 f^2 = 0$, alors $f^2 = 0$ par le théorème de positivité stricte ($f^2$ est continue et positive), donc $f = 0$. (Cet espace n'est pas euclidien, étant de dimension infinie, mais la structure de produit scalaire est bien définie.)
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> In $\mathbb{R}^3$ with the canonical inner product, apply Gram-Schmidt to $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Dans $\mathbb{R}^3$ muni du produit scalaire canonique, appliquer Gram-Schmidt à $x_1 = (1,1,0)$, $x_2 = (1,0,1)$, $x_3 = (0,1,1)$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Then $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, with $\|v_2\| = \sqrt{\frac{3}{2}}$, so $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Finally $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ and $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, so $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, with $\|v_3\| = \frac{2}{\sqrt{3}}$, so $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $e_1 = x_1/\|x_1\| = \frac{1}{\sqrt{2}}(1,1,0)$. Puis $v_2 = x_2 - \langle x_2, e_1\rangle e_1 = (1,0,1) - \frac{1}{\sqrt{2}}\cdot\frac{1}{\sqrt{2}}(1,1,0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right)$, avec $\|v_2\| = \sqrt{\frac{3}{2}}$, donc $e_2 = \frac{1}{\sqrt{6}}(1,-1,2)$. Enfin $\langle x_3, e_1\rangle = \frac{1}{\sqrt{2}}$ et $\langle x_3, e_2\rangle = \frac{1}{\sqrt{6}}$, donc $v_3 = (0,1,1) - \frac{1}{2}(1,1,0) - \frac{1}{6}(1,-1,2) = \left(-\frac{2}{3}, \frac{2}{3}, \frac{2}{3}\right)$, avec $\|v_3\| = \frac{2}{\sqrt{3}}$, donc $e_3 = \frac{1}{\sqrt{3}}(-1,1,1)$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\min_{(a,b)\in\mathbb{R}^2} \int_0^1 (t^2 - at - b)^2\,dt$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Work in $E = \mathcal{C}([0,1],\mathbb{R})$ with $\langle f,g\rangle = \int_0^1 fg$. The quantity to minimize is $\|f - g\|^2$ where $f(t) = t^2$ and $g$ ranges over $F = \operatorname{Vect}(1, t)$: the minimum is $d(f, F)^2 = \|f - p_F(f)\|^2$. Orthonormalize $(1, t)$ by Gram-Schmidt: $e_1 = 1$ (as $\|1\|^2 = 1$), then $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, with $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, so $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Then $\langle f, e_1\rangle = \frac{1}{3}$ and $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, so $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Therefore the minimum is $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, attained at $a = 1$, $b = -\frac{1}{6}$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      On se place dans $E = \mathcal{C}([0,1],\mathbb{R})$ muni de $\langle f,g\rangle = \int_0^1 fg$. La quantité à minimiser est $\|f - g\|^2$ où $f(t) = t^2$ et $g$ parcourt $F = \operatorname{Vect}(1, t)$ : le minimum est $d(f, F)^2 = \|f - p_F(f)\|^2$. On orthonormalise $(1, t)$ par Gram-Schmidt : $e_1 = 1$ (car $\|1\|^2 = 1$), puis $v_2 = t - \langle t, 1\rangle\,1 = t - \frac{1}{2}$, avec $\|v_2\|^2 = \int_0^1\left(t - \frac{1}{2}\right)^2 dt = \frac{1}{12}$, donc $e_2 = \sqrt{12}\left(t - \frac{1}{2}\right)$. Alors $\langle f, e_1\rangle = \frac{1}{3}$ et $\langle f, e_2\rangle = \sqrt{12}\left(\frac{1}{4} - \frac{1}{6}\right) = \frac{1}{\sqrt{12}}$, donc $p_F(f) = \frac{1}{3} + \left(t - \frac{1}{2}\right) = t - \frac{1}{6}$. Le minimum vaut donc $\int_0^1\left(t^2 - t + \frac{1}{6}\right)^2 dt = \frac{1}{5} - \frac{1}{2} + \frac{4}{9} - \frac{1}{6} + \frac{1}{36} = \frac{1}{180}$, atteint en $a = 1$, $b = -\frac{1}{6}$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $F = \operatorname{Vect}(\sin, \cos)$, a subspace of $\mathcal{C}([-\pi,\pi], \mathbb{R})$ with the inner product $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Compute the orthogonal projection onto $F$ of the identity function $f : t \mapsto t$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soit $F = \operatorname{Vect}(\sin, \cos)$, sous-espace de $\mathcal{C}([-\pi,\pi], \mathbb{R})$ muni du produit scalaire $\langle f, g\rangle = \int_{-\pi}^{\pi} f(t)g(t)\,dt$. Calculer le projeté orthogonal sur $F$ de la fonction identité $f : t \mapsto t$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      The family $(\sin, \cos)$ is orthogonal: $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (odd integrand). Moreover $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ and $\|\cos\|^2 = \pi$, so $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ is an orthonormal basis of $F$. Now $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (even integrand, then integration by parts), while $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (odd integrand). Therefore $$p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,$$ i.e. $p_F(f) : t \mapsto 2\sin t$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      La famille $(\sin, \cos)$ est orthogonale : $\langle \sin, \cos\rangle = \int_{-\pi}^{\pi} \sin t\cos t\,dt = 0$ (intégrande impaire). De plus $\|\sin\|^2 = \int_{-\pi}^{\pi}\sin^2 t\,dt = \pi$ et $\|\cos\|^2 = \pi$, donc $\left(\frac{\sin}{\sqrt{\pi}}, \frac{\cos}{\sqrt{\pi}}\right)$ est une base orthonormée de $F$. Or $\langle f, \sin\rangle = \int_{-\pi}^{\pi} t\sin t\,dt = 2\int_0^{\pi} t\sin t\,dt = 2\big[-t\cos t + \sin t\big]_0^{\pi} = 2\pi$ (intégrande paire, puis intégration par parties), tandis que $\langle f, \cos\rangle = \int_{-\pi}^{\pi} t\cos t\,dt = 0$ (intégrande impaire). Donc $$p_F(f) = \frac{\langle f, \sin\rangle}{\pi}\sin + \frac{\langle f, \cos\rangle}{\pi}\cos = 2\sin,$$ i.e. $p_F(f) : t \mapsto 2\sin t$.
+      <strong>3.</strong> Toute matrice se décompose en $A = \frac{A + A^\top}{2} + \frac{A - A^\top}{2}$ avec $\frac{A+A^\top}{2} \in \mathcal{S}_n$ et $\frac{A - A^\top}{2} \in \mathcal{A}_n$, donc $\mathcal{M}_n(\mathbb{R}) = \mathcal{S}_n \oplus \mathcal{A}_n$ ; par la question 2 la somme est orthogonale, d'où $\mathcal{A}_n^\perp = \mathcal{S}_n$. Comme $A - \frac{A - A^\top}{2} = \frac{A + A^\top}{2} \in \mathcal{S}_n = \mathcal{A}_n^\perp$, la projection orthogonale de $A$ sur $\mathcal{A}_n$ est sa partie antisymétrique
+      \[p_{\mathcal{A}_n}(A) = \frac{A - A^\top}{2}.\]
     </details>
 
     <div class="thm-block exercise">
@@ -399,19 +797,25 @@
 
     <details class="proof en">
       <summary class="proof-label">Solution.</summary>
-      <em>Inner product.</em> Bilinearity and symmetry are clear. Positivity: $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (the integrand is continuous and $\ge 0$ on $[0,1]$). Definiteness: if $\langle P,P\rangle = 0$, strict positivity gives $t\,P(t)^2 = 0$ on $[0,1]$, so $P(t) = 0$ for all $t \in\,]0,1]$; having infinitely many roots, $P = 0$.
+      <em>Inner product.</em> Bilinearity and symmetry are clear. Positivity: $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (the integrand is continuous and $\ge 0$ on $[0,1]$). Definiteness: if $\langle P,P\rangle = 0$, strict positivity gives $t\,P(t)^2 = 0$ on $[0,1]$, so $P(t) = 0$ for all $t \in\,]0,1]$; having infinitely many roots, $P = 0$. The weight vanishes at $t = 0$, which changes nothing: a polynomial that is zero on $]0,1]$ is zero at $0$ as well, by continuity.
       <br>
-      <em>Orthogonal basis.</em> Here $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Gram-Schmidt applied to $(1, X, X^2)$ (without normalizing) gives $$P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},$$ with $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
+      <em>Orthogonal basis.</em> Here $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Gram-Schmidt applied to $(1, X, X^2)$ (without normalizing) gives
+      \[P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},\]
+      with $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
       <br>
-      <em>Projection.</em> For an orthogonal basis, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Here $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, giving coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Hence $$p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.$$
+      <em>Projection.</em> For an orthogonal basis, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Here $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, giving coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Hence
+      \[p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.\]
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
-      <em>Produit scalaire.</em> Bilinéarité et symétrie claires. Positivité : $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (l'intégrande est continue et $\ge 0$ sur $[0,1]$). Caractère défini : si $\langle P,P\rangle = 0$, la positivité stricte donne $t\,P(t)^2 = 0$ sur $[0,1]$, donc $P(t) = 0$ pour tout $t \in\,]0,1]$ ; ayant une infinité de racines, $P = 0$.
+      <em>Produit scalaire.</em> Bilinéarité et symétrie claires. Positivité : $\langle P, P\rangle = \int_0^1 t\,P(t)^2\,dt \ge 0$ (l'intégrande est continue et $\ge 0$ sur $[0,1]$). Caractère défini : si $\langle P,P\rangle = 0$, la positivité stricte donne $t\,P(t)^2 = 0$ sur $[0,1]$, donc $P(t) = 0$ pour tout $t \in\,]0,1]$ ; ayant une infinité de racines, $P = 0$. Le poids s'annule en $t = 0$, ce qui ne change rien : un polynôme nul sur $]0,1]$ est aussi nul en $0$, par continuité.
       <br>
-      <em>Base orthogonale.</em> On a $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Le procédé de Gram-Schmidt appliqué à $(1, X, X^2)$ (sans normaliser) donne $$P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},$$ avec $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
+      <em>Base orthogonale.</em> On a $\langle X^i, X^j\rangle = \int_0^1 t^{i+j+1}\,dt = \frac{1}{i+j+2}$. Le procédé de Gram-Schmidt appliqué à $(1, X, X^2)$ (sans normaliser) donne
+      \[P_0 = 1, \quad P_1 = X - \tfrac{2}{3}, \quad P_2 = X^2 - \tfrac{6}{5}X + \tfrac{3}{10},\]
+      avec $\langle P_0,P_0\rangle = \tfrac{1}{2}$, $\langle P_1,P_1\rangle = \tfrac{1}{36}$, $\langle P_2,P_2\rangle = \tfrac{1}{600}$.
       <br>
-      <em>Projection.</em> Pour une base orthogonale, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Ici $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, d'où les coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Donc $$p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.$$
+      <em>Projection.</em> Pour une base orthogonale, $p_F(X^3) = \sum_{k=0}^{2} \frac{\langle X^3, P_k\rangle}{\langle P_k, P_k\rangle}\,P_k$. Ici $\langle X^3, P_0\rangle = \tfrac{1}{5}$, $\langle X^3, P_1\rangle = \tfrac{1}{30}$, $\langle X^3, P_2\rangle = \tfrac{1}{350}$, d'où les coefficients $\tfrac{2}{5}, \tfrac{6}{5}, \tfrac{12}{7}$. Donc
+      \[p_F(X^3) = \tfrac{2}{5} + \tfrac{6}{5}\Big(X - \tfrac{2}{3}\Big) + \tfrac{12}{7}\Big(X^2 - \tfrac{6}{5}X + \tfrac{3}{10}\Big) = \tfrac{12}{7}X^2 - \tfrac{6}{7}X + \tfrac{4}{35}.\]
     </details>
 
     <div class="thm-block exercise">
@@ -423,46 +827,15 @@
       <summary class="proof-label">Solution.</summary>
       $(\Rightarrow)$ If $p$ is the orthogonal projection onto $F = \operatorname{Im} p$, then for all $x \in E$, $p(x) \in F$ and $x - p(x) \in F^\perp$, so Pythagoras gives $\|x\|^2 = \|p(x)\|^2 + \|x - p(x)\|^2 \ge \|p(x)\|^2$.
       <br>
-      $(\Leftarrow)$ Suppose $\|p(x)\| \le \|x\|$ for all $x$. Since $p$ is a projector, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ and $p$ is the projection onto $\operatorname{Im} p$ parallel to $\operatorname{Ker} p$. It suffices to show $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$: both have dimension $\dim E - \dim \operatorname{Im} p$, so they are then equal, and $p$ is the projection onto $\operatorname{Im} p$ parallel to $(\operatorname{Im} p)^\perp$, i.e. the orthogonal projection. Let $x \in \operatorname{Im} p$ and $y \in \operatorname{Ker} p$. For all $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (as $x \in \operatorname{Im} p$ gives $p(x) = x$), so the hypothesis yields $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ for all $t$. Dividing by $t &gt; 0$ and letting $t \to 0^+$ gives $\langle x,y\rangle \ge 0$; dividing by $t &lt; 0$ and letting $t \to 0^-$ gives $\langle x,y\rangle \le 0$. Hence $\langle x, y\rangle = 0$.
+      $(\Leftarrow)$ Suppose $\|p(x)\| \le \|x\|$ for all $x$. Since $p$ is a projector, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ and $p$ is the projection onto $\operatorname{Im} p$ parallel to $\operatorname{Ker} p$. It suffices to show $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$: both have dimension $\dim E - \dim \operatorname{Im} p$, so they are then equal, and $p$ is the projection onto $\operatorname{Im} p$ parallel to $(\operatorname{Im} p)^\perp$, i.e. the orthogonal projection. Let $x \in \operatorname{Im} p$ and $y \in \operatorname{Ker} p$. For all $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (as $x \in \operatorname{Im} p$ gives $p(x) = x$), so the hypothesis applied to $x + ty$ reads $\|x\| \le \|x + ty\|$ for all $t$, and Technique 5 gives $\langle x, y\rangle = 0$.
     </details>
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       $(\Rightarrow)$ Si $p$ est la projection orthogonale sur $F = \operatorname{Im} p$, alors pour tout $x \in E$, $p(x) \in F$ et $x - p(x) \in F^\perp$, donc Pythagore donne $\|x\|^2 = \|p(x)\|^2 + \|x - p(x)\|^2 \ge \|p(x)\|^2$.
       <br>
-      $(\Leftarrow)$ Supposons $\|p(x)\| \le \|x\|$ pour tout $x$. Comme $p$ est un projecteur, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $\operatorname{Ker} p$. Il suffit de montrer $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$ : les deux ont pour dimension $\dim E - \dim \operatorname{Im} p$, donc ils sont alors égaux, et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $(\operatorname{Im} p)^\perp$, i.e. la projection orthogonale. Soient $x \in \operatorname{Im} p$ et $y \in \operatorname{Ker} p$. Pour tout $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (car $x \in \operatorname{Im} p$ donne $p(x) = x$), donc l'hypothèse fournit $\|x\|^2 \le \|x + ty\|^2 = \|x\|^2 + 2t\langle x, y\rangle + t^2\|y\|^2$, i.e. $2t\langle x, y\rangle + t^2\|y\|^2 \ge 0$ pour tout $t$. En divisant par $t &gt; 0$ et en faisant $t \to 0^+$, on obtient $\langle x,y\rangle \ge 0$ ; en divisant par $t &lt; 0$ et en faisant $t \to 0^-$, on obtient $\langle x,y\rangle \le 0$. Donc $\langle x, y\rangle = 0$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Let $F, G$ be subspaces of a Euclidean space $E$. Show that $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Soient $F, G$ des sous-espaces d'un espace euclidien $E$. Montrer que $(F \cup G)^\perp = F^\perp \cap G^\perp$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      $x \in (F \cup G)^\perp$ means $\langle x, y\rangle = 0$ for all $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ for all $y \in F$ <em>and</em> for all $y \in G$, i.e. $x \in F^\perp$ and $x \in G^\perp$. Hence $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Since $\operatorname{Vect}(F \cup G) = F + G$, this also reads $(F + G)^\perp = F^\perp \cap G^\perp$.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      $x \in (F \cup G)^\perp$ signifie $\langle x, y\rangle = 0$ pour tout $y \in F \cup G$, i.e. $\langle x, y\rangle = 0$ pour tout $y \in F$ <em>et</em> pour tout $y \in G$, i.e. $x \in F^\perp$ et $x \in G^\perp$. Donc $(F \cup G)^\perp = F^\perp \cap G^\perp$. (Comme $\operatorname{Vect}(F \cup G) = F + G$, cela s'écrit aussi $(F + G)^\perp = F^\perp \cap G^\perp$.)
+      $(\Leftarrow)$ Supposons $\|p(x)\| \le \|x\|$ pour tout $x$. Comme $p$ est un projecteur, $E = \operatorname{Im} p \oplus \operatorname{Ker} p$ et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $\operatorname{Ker} p$. Il suffit de montrer $\operatorname{Ker} p \subset (\operatorname{Im} p)^\perp$ : les deux ont pour dimension $\dim E - \dim \operatorname{Im} p$, donc ils sont alors égaux, et $p$ est la projection sur $\operatorname{Im} p$ parallèlement à $(\operatorname{Im} p)^\perp$, i.e. la projection orthogonale. Soient $x \in \operatorname{Im} p$ et $y \in \operatorname{Ker} p$. Pour tout $t \in \mathbb{R}$, $p(x + ty) = p(x) = x$ (car $x \in \operatorname{Im} p$ donne $p(x) = x$), donc l'hypothèse appliquée à $x + ty$ s'écrit $\|x\| \le \|x + ty\|$ pour tout $t$, et la technique 5 donne $\langle x, y\rangle = 0$.
     </details>
 
   </main>
-
-  <script>
-    function setLang(lang) {
-      localStorage.setItem('lang', lang);
-      document.querySelectorAll('[data-en]').forEach(function(el) {
-        el.textContent = el.getAttribute('data-' + lang);
-      });
-      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
-      document.documentElement.lang = lang;
-    }
-
-    (function() {
-      var lang = localStorage.getItem('lang') || 'en';
-      if (lang === 'fr') setLang('fr');
-    })();
-  </script>
 </body>
 </html>
