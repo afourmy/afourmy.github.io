@@ -77,6 +77,8 @@
       <p><span class="thm-label">Definition (Degree).</span> The <em>degree</em> of a vertex $v$ is $\deg(v) = |N(v)|$, the number of edges incident to $v$. The <em>minimum degree</em> and <em>maximum degree</em> of $G$ are $\delta(G) = \min_{v \in V} \deg(v)$ and $\Delta(G) = \max_{v \in V} \deg(v)$. A graph is <em>$k$-regular</em> if every vertex has degree $k$.</p>
     </div>
 
+    <p>An edge has two endpoints, so it adds $1$ to exactly two degrees. Counting those contributions by edges and by vertices gives the same number two ways.</p>
+
     <div class="thm-block proposition">
       <p><span class="thm-label">Proposition (Handshaking lemma).</span> For any graph $G = (V, E)$, $\displaystyle\sum_{v \in V} \deg(v) = 2|E|$.</p>
     </div>
@@ -85,6 +87,40 @@
       <summary class="proof-label">Proof.</summary>
       Count the pairs $(v, e)$ with $v \in e$. Each edge $e = \{u,v\}$ contributes exactly 2 such pairs (one for $u$, one for $v$), giving $2|E|$ total. Each vertex $v$ contributes $\deg(v)$ such pairs. Thus $\sum_{v \in V} \deg(v) = 2|E|$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="291.4" height="230.8" viewBox="37.2 25.4 291.4 230.8">
+<path class="fig-accent" d="M 86 69.3 Q 145 62.5 204 55.7"/>
+<path class="fig-accent" d="M 214.1 59.4 Q 255 102.5 295.9 145.6"/>
+<path class="fig-accent" d="M 295.1 153.5 Q 247.5 187.5 199.9 221.5"/>
+<path class="fig-accent" d="M 189.3 223.2 Q 130 205 70.7 186.8"/>
+<path class="fig-accent" d="M 65.8 179.1 Q 72.5 127.5 79.2 75.9"/>
+<path class="fig-accent" d="M 209.5 61 Q 202.5 140 195.5 219"/>
+<circle class="fig-dot-alt" cx="96.9" cy="68.1" r="3.2"/>
+<circle class="fig-dot-alt" cx="193.1" cy="56.9" r="3.2"/>
+<circle class="fig-dot-alt" cx="221.7" cy="67.3" r="3.2"/>
+<circle class="fig-dot-alt" cx="288.3" cy="137.7" r="3.2"/>
+<circle class="fig-dot-alt" cx="286.2" cy="159.9" r="3.2"/>
+<circle class="fig-dot-alt" cx="208.8" cy="215.1" r="3.2"/>
+<circle class="fig-dot-alt" cx="178.8" cy="220" r="3.2"/>
+<circle class="fig-dot-alt" cx="81.2" cy="190" r="3.2"/>
+<circle class="fig-dot-alt" cx="67.2" cy="168.1" r="3.2"/>
+<circle class="fig-dot-alt" cx="77.8" cy="86.9" r="3.2"/>
+<circle class="fig-dot-alt" cx="208.5" cy="71.9" r="3.2"/>
+<circle class="fig-dot-alt" cx="196.5" cy="208.1" r="3.2"/>
+<circle class="fig-dot" cx="80" cy="70" r="6"/>
+<circle class="fig-dot" cx="210" cy="55" r="6"/>
+<circle class="fig-dot" cx="300" cy="150" r="6"/>
+<circle class="fig-dot" cx="195" cy="225" r="6"/>
+<circle class="fig-dot" cx="65" cy="185" r="6"/>
+<text class="fig-tick" x="65" y="68.5" text-anchor="middle">a</text>
+<text class="fig-tick" x="218" y="45.1" text-anchor="middle">b</text>
+<text class="fig-tick" x="316" y="154" text-anchor="middle">c</text>
+<text class="fig-tick" x="203" y="242.9" text-anchor="middle">d</text>
+<text class="fig-tick" x="50" y="194.5" text-anchor="middle">e</text>
+      </svg>
+      <figcaption>A graph with $6$ edges, with one mark drawn on each edge next to each of its two endpoints. Counted by edges the marks number $2 \times 6 = 12$; counted by vertices they number $\deg(a) + \deg(b) + \deg(c) + \deg(d) + \deg(e) = 2 + 3 + 2 + 3 + 2$. The two sums count the same marks.</figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p><span class="thm-label">Corollary.</span> In any graph, the number of vertices of odd degree is even.</p>
@@ -117,11 +153,55 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Sort the vertices by their distance to a fixed vertex and take the two parts to be the even and the odd distances. An edge inside one part joins two vertices whose paths back to the root have the same parity, and those two paths plus the edge close a cycle of odd length.
       $(\Rightarrow)$ Let $G$ be bipartite with parts $A$ and $B$. Any cycle $v_0, v_1, \ldots, v_k = v_0$ must alternate between parts. Vertices at even indices belong to one part, odd indices to the other. Since $v_0$ and $v_k$ are the same vertex, $k$ must be even.
       $(\Leftarrow)$ Assume $G$ has no odd cycle; it suffices to treat each connected component separately. Fix a component with root $r$. For each vertex $v$, let $d(v)$ denote the length of a shortest path from $r$ to $v$. Set $A = \{v : d(v) \text{ even}\}$ and $B = \{v : d(v) \text{ odd}\}$.
       <em>Claim</em>: every edge $\{u,v\}$ has one endpoint in $A$ and one in $B$. Suppose for contradiction that $u, v \in A$ (both have even distance from $r$). Then there exist paths of even length from $r$ to $u$ and from $r$ to $v$. Adding the edge $\{u,v\}$ creates a cycle of odd length (even $+$ 1 $+$ even $=$ odd), contradicting our assumption. The case $u, v \in B$ is identical.
       Thus $(A, B)$ is a bipartition and $G$ is bipartite.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="566.7" height="254.2" viewBox="29.3 44.0 566.7 254.2">
+<path class="fig-accent" d="M 65.2 137.1 Q 105 115 144.8 92.9"/>
+<path class="fig-accent" d="M 65.2 142.9 Q 105 165 144.8 187.1"/>
+<path class="fig-accent" d="M 155.7 88.1 Q 195 75 234.3 61.9"/>
+<path class="fig-accent" d="M 155.2 92.9 Q 195 115 234.8 137.1"/>
+<path class="fig-accent" d="M 155.2 187.1 Q 195 165 234.8 142.9"/>
+<path class="fig-accent" d="M 155.7 191.9 Q 195 205 234.3 218.1"/>
+<path class="fig-accent" d="M 405.2 137.1 Q 445 115 484.8 92.9"/>
+<path class="fig-accent" d="M 405.2 142.9 Q 445 165 484.8 187.1"/>
+<path class="fig-accent" d="M 495.7 88.1 Q 535 75 574.3 61.9"/>
+<path class="fig-accent" d="M 495.2 92.9 Q 535 115 574.8 137.1"/>
+<path class="fig-accent" d="M 495.2 187.1 Q 535 165 574.8 142.9"/>
+<path class="fig-accent" d="M 495.7 191.9 Q 535 205 574.3 218.1"/>
+<path class="fig-free-solid" d="M 490 96 Q 490 140 490 184"/>
+<path class="fig-free-solid" d="M 405.2 137.1 Q 445 115 484.8 92.9"/>
+<path class="fig-free-solid" d="M 405.2 142.9 Q 445 165 484.8 187.1"/>
+<circle class="fig-dot" cx="60" cy="140" r="6"/>
+<circle class="fig-hole" cx="150" cy="90" r="6"/>
+<circle class="fig-hole" cx="150" cy="190" r="6"/>
+<circle class="fig-dot" cx="240" cy="60" r="6"/>
+<circle class="fig-dot" cx="240" cy="140" r="6"/>
+<circle class="fig-dot" cx="240" cy="220" r="6"/>
+<circle class="fig-dot" cx="400" cy="140" r="6"/>
+<circle class="fig-hole" cx="490" cy="90" r="6"/>
+<circle class="fig-hole" cx="490" cy="190" r="6"/>
+<circle class="fig-dot" cx="580" cy="60" r="6"/>
+<circle class="fig-dot" cx="580" cy="140" r="6"/>
+<circle class="fig-dot" cx="580" cy="220" r="6"/>
+<text class="fig-tick" x="42" y="144" text-anchor="middle">r</text>
+<text class="fig-text fig-note" x="60" y="262" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="150" y="262" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="240" y="262" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="150" y="285" text-anchor="middle">distance from <tspan class="fig-tick">r</tspan></text>
+<text class="fig-tick" x="382" y="144" text-anchor="middle">r</text>
+<text class="fig-text fig-note" x="400" y="262" text-anchor="middle">0</text>
+<text class="fig-text fig-note" x="490" y="262" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="580" y="262" text-anchor="middle">2</text>
+<text class="fig-text fig-note" x="490" y="285" text-anchor="middle">distance from <tspan class="fig-tick">r</tspan></text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left:</span> the vertices of a connected graph placed in columns by their distance to $r$, filled at even distance and open at odd distance. Every edge joins two consecutive columns, so the two kinds of vertex form a bipartition.</span><span class="cap-part"><span class="cap-lead">Right:</span> one extra edge inside the column at distance $1$. Together with the two edges from $r$ it closes a cycle of length $3$. An edge inside a column always closes a cycle of odd length, since the two paths back to $r$ have the same parity.</span></figcaption>
+    </figure>
 
     <h3>Trees</h3>
 
@@ -137,6 +217,33 @@
       <summary class="proof-label">Proof.</summary>
       Let $T$ be a tree with at least $2$ vertices, and let $v_0, v_1, \ldots, v_k$ be a longest path in $T$. Since $|V| \geq 2$, this path has length $k \geq 1$. We claim $v_k$ is a leaf. The vertex $v_k$ has at least one neighbor, namely $v_{k-1}$. Suppose $v_k$ has another neighbor $u \neq v_{k-1}$. Since $T$ is acyclic, $u$ is not any of $v_0, \ldots, v_{k-1}$ (otherwise $v_0, \ldots, v_i, v_k$ would be a shorter walk forming a cycle). But then $v_0, v_1, \ldots, v_k, u$ is a path of length $k+1$, contradicting maximality. So $\deg(v_k) = 1$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="392.0" height="174.0" viewBox="44.0 74.0 392.0 174.0">
+<path class="fig-free-solid" d="M 66 160 Q 96 160 126 160"/>
+<path class="fig-free-solid" d="M 138 160 Q 168 160 198 160"/>
+<path class="fig-free-solid" d="M 210 160 Q 240 160 270 160"/>
+<path class="fig-free-solid" d="M 282 160 Q 312 160 342 160"/>
+<path class="fig-accent" d="M 132 154 Q 132 125 132 96"/>
+<path class="fig-accent" d="M 204 166 Q 204 196 204 226"/>
+<path class="fig-guide" d="M 354 160 Q 384 160 414 160"/>
+<path class="fig-guide" d="M 343.7 155.8 Q 276 90 208.3 155.8"/>
+<circle class="fig-dot" cx="60" cy="160" r="6"/>
+<circle class="fig-dot" cx="132" cy="160" r="6"/>
+<circle class="fig-dot" cx="204" cy="160" r="6"/>
+<circle class="fig-dot" cx="276" cy="160" r="6"/>
+<circle class="fig-dot" cx="348" cy="160" r="6"/>
+<circle class="fig-dot" cx="132" cy="90" r="6"/>
+<circle class="fig-dot" cx="204" cy="232" r="6"/>
+<circle class="fig-dot" cx="420" cy="160" r="6"/>
+<text class="fig-tick" x="60" y="180" text-anchor="middle">v<tspan class="fig-sup" dy="3">0</tspan></text>
+<text class="fig-tick" x="132" y="180" text-anchor="middle">v<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="276" y="182" text-anchor="middle">v<tspan class="fig-sup" dy="3">k-1</tspan></text>
+<text class="fig-tick" x="348" y="182" text-anchor="middle">v<tspan class="fig-sup" dy="3">k</tspan></text>
+<text class="fig-tick" x="420" y="148" text-anchor="middle">u</text>
+      </svg>
+      <figcaption>A longest path $v_0, \ldots, v_k$ in a tree, drawn in the second colour. A neighbour of $v_k$ other than $v_{k-1}$ would be either a vertex $u$ outside the path, which would make the path longer, or a vertex of the path, which would close a cycle. Both are impossible, so $v_k$ has degree $1$. Both dashed edges are the possibilities being excluded, not edges of the tree.</figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p><span class="thm-label">Proposition (Edge count in forests).</span> A forest with $n$ vertices and $c$ connected components has exactly $n - c$ edges.</p>
@@ -170,6 +277,7 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Trees are hard to count and sequences are easy, so match the two up. Deleting the smallest leaf and recording its neighbour turns a tree into a shorter sequence, and the deleted leaf can be read back off the sequence, which is what makes the map reversible.
       We construct a bijection between the trees on a set of $n$ labels and the sequences of length $n-2$ with entries in that set. As there are $n^{n-2}$ such sequences, this gives the count. We work with an arbitrary finite set of integers rather than $\{1, \ldots, n\}$, since the induction below deletes labels.
       <br><br>
       <em>Encoding.</em> Let $T$ be a tree on a set $L$ of $n \geq 2$ labels. Put $T_1 = T$, and for $i = 1, \ldots, n-2$ let $v_i$ be the leaf of $T_i$ carrying the smallest label, let $a_i$ be its unique neighbor, and put $T_{i+1} = T_i - v_i$. Each $T_i$ is a tree on $n - i + 1 \geq 2$ vertices, so the leaf lemma guarantees $v_i$ exists, and $T_{n-1}$ is a tree on two vertices. The <em>Prüfer sequence</em> of $T$ is $P(T) = (a_1, \ldots, a_{n-2})$, a sequence of elements of $L$.
@@ -178,6 +286,67 @@
       <br><br>
       <em>Bijectivity.</em> By induction on $n$. For $n = 2$ the sequence is empty and there is exactly one tree on two labels. Let $n \geq 3$ and fix a sequence $a = (a_1, \ldots, a_{n-2})$ of elements of $L$. If $P(T) = a$, then $v_1$ is a leaf of $T$, so by the degree count $v_1$ is absent from $a$; being the smallest-labelled leaf, it is the smallest label of $L$ absent from $a$. So $v_1$ is determined by $a$ alone, and the edge $\{v_1, a_1\}$ belongs to $T$. Deleting $v_1$ leaves a tree on $L \setminus \{v_1\}$ whose encoding is the remainder of the encoding of $T$, that is, $(a_2, \ldots, a_{n-2})$. By induction exactly one tree on $L \setminus \{v_1\}$ has that Prüfer sequence, and adding the edge $\{v_1, a_1\}$ to it gives a tree on $L$ with Prüfer sequence $a$. Hence exactly one $T$ satisfies $P(T) = a$, and $P$ is a bijection.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="506.0" height="342.0" viewBox="24.0 9.3 506.0 342.0">
+<path class="fig-free-solid" d="M 45.4 42.7 Q 71 55.5 96.6 68.3"/>
+<path class="fig-accent" d="M 45.4 99.3 Q 71 86.5 96.6 73.7"/>
+<path class="fig-accent" d="M 108 71 Q 137 71 166 71"/>
+<path class="fig-accent" d="M 177.4 68.3 Q 203 55.5 228.6 42.7"/>
+<path class="fig-accent" d="M 177.4 73.7 Q 203 86.5 228.6 99.3"/>
+<path class="fig-free-solid" d="M 325.4 99.3 Q 351 86.5 376.6 73.7"/>
+<path class="fig-accent" d="M 388 71 Q 417 71 446 71"/>
+<path class="fig-accent" d="M 457.4 68.3 Q 483 55.5 508.6 42.7"/>
+<path class="fig-accent" d="M 457.4 73.7 Q 483 86.5 508.6 99.3"/>
+<path class="fig-free-solid" d="M 108 236 Q 137 236 166 236"/>
+<path class="fig-accent" d="M 177.4 233.3 Q 203 220.5 228.6 207.7"/>
+<path class="fig-accent" d="M 177.4 238.7 Q 203 251.5 228.6 264.3"/>
+<path class="fig-free-solid" d="M 457.4 233.3 Q 483 220.5 508.6 207.7"/>
+<path class="fig-accent" d="M 457.4 238.7 Q 483 251.5 508.6 264.3"/>
+<circle class="fig-dot-alt" cx="40" cy="40" r="6"/>
+<circle class="fig-dot" cx="40" cy="102" r="6"/>
+<circle class="fig-dot" cx="102" cy="71" r="6"/>
+<circle class="fig-dot" cx="172" cy="71" r="6"/>
+<circle class="fig-dot" cx="234" cy="40" r="6"/>
+<circle class="fig-dot" cx="234" cy="102" r="6"/>
+<circle class="fig-dot-alt" cx="320" cy="102" r="6"/>
+<circle class="fig-dot" cx="382" cy="71" r="6"/>
+<circle class="fig-dot" cx="452" cy="71" r="6"/>
+<circle class="fig-dot" cx="514" cy="40" r="6"/>
+<circle class="fig-dot" cx="514" cy="102" r="6"/>
+<circle class="fig-dot-alt" cx="102" cy="236" r="6"/>
+<circle class="fig-dot" cx="172" cy="236" r="6"/>
+<circle class="fig-dot" cx="234" cy="205" r="6"/>
+<circle class="fig-dot" cx="234" cy="267" r="6"/>
+<circle class="fig-dot" cx="452" cy="236" r="6"/>
+<circle class="fig-dot-alt" cx="514" cy="205" r="6"/>
+<circle class="fig-dot" cx="514" cy="267" r="6"/>
+<text class="fig-text fig-tick" x="40" y="29" text-anchor="middle">1</text>
+<text class="fig-text fig-tick" x="40" y="121" text-anchor="middle">2</text>
+<text class="fig-text fig-tick" x="102" y="60" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="172" y="60" text-anchor="middle">4</text>
+<text class="fig-text fig-tick" x="234" y="29" text-anchor="middle">5</text>
+<text class="fig-text fig-tick" x="234" y="121" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="117" y="128" text-anchor="middle">remove 1, record 3</text>
+<text class="fig-text fig-tick" x="320" y="121" text-anchor="middle">2</text>
+<text class="fig-text fig-tick" x="382" y="60" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="452" y="60" text-anchor="middle">4</text>
+<text class="fig-text fig-tick" x="514" y="29" text-anchor="middle">5</text>
+<text class="fig-text fig-tick" x="514" y="121" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="397" y="128" text-anchor="middle">remove 2, record 3</text>
+<text class="fig-text fig-tick" x="102" y="225" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="172" y="225" text-anchor="middle">4</text>
+<text class="fig-text fig-tick" x="234" y="194" text-anchor="middle">5</text>
+<text class="fig-text fig-tick" x="234" y="286" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="117" y="293" text-anchor="middle">remove 3, record 4</text>
+<text class="fig-text fig-tick" x="452" y="225" text-anchor="middle">4</text>
+<text class="fig-text fig-tick" x="514" y="194" text-anchor="middle">5</text>
+<text class="fig-text fig-tick" x="514" y="286" text-anchor="middle">6</text>
+<text class="fig-text fig-note" x="397" y="293" text-anchor="middle">remove 5, record 4</text>
+<text class="fig-text fig-tick" x="257" y="338" text-anchor="middle">(3, 3, 4, 4)</text>
+      </svg>
+      <figcaption>The encoding of the tree with edges $\{1,3\}, \{2,3\}, \{3,4\}, \{4,5\}, \{4,6\}$. At each step the leaf with the smallest label and its edge are in the second colour: it is deleted and its neighbour is recorded. Two vertices are left after four steps, and the four recorded labels are the sequence $(3,3,4,4)$. The label $3$ appears twice and the label $4$ twice, one less than each of their degrees, and the leaves $1, 2, 5, 6$ never appear.</figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Spanning tree).</span> A <em>spanning tree</em> of a graph $G = (V, E)$ is a spanning subgraph of $G$ that is a tree, i.e., a subgraph $(V, T)$ with $T \subseteq E$ that is connected and acyclic.</p>
@@ -197,6 +366,8 @@
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Eulerian circuit and path).</span> An <em>Eulerian circuit</em> in a graph $G$ is a closed trail that uses every edge of $G$ exactly once. An <em>Eulerian path</em> is a trail (not necessarily closed) that uses every edge of $G$ exactly once. A graph admitting an Eulerian circuit is called <em>Eulerian</em>.</p>
     </div>
+
+    <p>A circuit arrives at a vertex and leaves it again, using two edges each time it passes, so in a graph with an Eulerian circuit every degree is even. On a connected graph that condition turns out to be enough.</p>
 
     <div class="thm-block theorem">
       <p><span class="thm-label">Theorem (Euler, 1736).</span> A connected graph $G$ has an Eulerian circuit if and only if every vertex has even degree.</p>
@@ -235,11 +406,62 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Add edges until the graph is as full as it can be while staying non-Hamiltonian. It then has a Hamiltonian path from $u$ to $v$, and the degree condition forces a neighbour of $u$ and a neighbour of $v$ to sit at consecutive positions along that path. Those two edges reroute the path into a cycle.
       Suppose, for contradiction, that some graph satisfies the hypothesis but is not Hamiltonian. Adding an edge only increases degrees, so the hypothesis is preserved under adding edges. Starting from $G$ and adding missing edges one at a time as long as the graph stays non-Hamiltonian, we reach a graph $H$ on the same $n$ vertices that is non-Hamiltonian, satisfies Ore's condition, and is maximal with this property: adding any missing edge creates a Hamiltonian cycle.
       $H$ is not the complete graph $K_n$, since $K_n$ is Hamiltonian for $n \geq 3$. So $H$ has two non-adjacent vertices $u$ and $v$. By maximality, $H + \{u,v\}$ has a Hamiltonian cycle, and that cycle must use the new edge $\{u,v\}$. Removing $\{u,v\}$ leaves a Hamiltonian path from $u$ to $v$ in $H$, which we write $x_1, x_2, \ldots, x_n$ with $x_1 = u$ and $x_n = v$, covering all vertices.
       Consider the two index sets $S = \{ i : 1 \leq i \leq n-1 \text{ and } \{u, x_{i+1}\} \in E(H) \}$ and $T = \{ i : 1 \leq i \leq n-1 \text{ and } \{v, x_i\} \in E(H) \}$. Each neighbor of $u = x_1$ is some $x_{i+1}$ with $i \in S$, so $|S| = \deg(u)$. Each neighbor of $v = x_n$ is some $x_i$ with $i \in T$, so $|T| = \deg(v)$. Both $S$ and $T$ are subsets of $\{1, \ldots, n-1\}$, a set of size $n-1$. Since $\deg(u) + \deg(v) \geq n$, we have $|S| + |T| \geq n > n-1$, so $S$ and $T$ cannot be disjoint: there is an index $i$ with $\{u, x_{i+1}\} \in E$ and $\{v, x_i\} \in E$. (Note $n-1 \notin S$, since $\{u, x_n\} = \{u,v\}$ is not an edge; so $i \leq n-2$ and the construction below is well defined.)
       Now form a cycle through all $n$ vertices: $x_1, x_2, \ldots, x_i, x_n, x_{n-1}, \ldots, x_{i+1}, x_1$. It follows the path from $x_1$ to $x_i$, takes the edge $\{x_i, x_n\} = \{x_i, v\}$, runs back down the path from $x_n$ to $x_{i+1}$, then takes the edge $\{x_{i+1}, x_1\} = \{x_{i+1}, u\}$ to close up. Every vertex appears exactly once, so this is a Hamiltonian cycle in $H$, contradicting that $H$ is non-Hamiltonian. Hence no such graph exists, and every graph satisfying Ore's condition is Hamiltonian.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="424.9" height="234.9" viewBox="43.3 52.5 424.9 234.9">
+<path class="fig-accent" d="M 76 90 Q 101 90 126 90"/>
+<path class="fig-accent" d="M 138 90 Q 163 90 188 90"/>
+<path class="fig-accent" d="M 200 90 Q 225 90 250 90"/>
+<path class="fig-accent" d="M 262 90 Q 287 90 312 90"/>
+<path class="fig-accent" d="M 324 90 Q 349 90 374 90"/>
+<path class="fig-accent" d="M 386 90 Q 411 90 436 90"/>
+<path class="fig-free-solid" d="M 75.5 87.7 Q 194 38 312.5 87.7"/>
+<path class="fig-free-solid" d="M 436.8 87.1 Q 349 38 261.2 87.1"/>
+<path class="fig-free-solid" d="M 76 250 Q 101 250 126 250"/>
+<path class="fig-free-solid" d="M 138 250 Q 163 250 188 250"/>
+<path class="fig-free-solid" d="M 200 250 Q 225 250 250 250"/>
+<path class="fig-free-solid" d="M 324 250 Q 349 250 374 250"/>
+<path class="fig-free-solid" d="M 386 250 Q 411 250 436 250"/>
+<path class="fig-free-solid" d="M 261.2 252.9 Q 349 302 436.8 252.9"/>
+<path class="fig-free-solid" d="M 312.5 252.3 Q 194 302 75.5 252.3"/>
+<path class="fig-guide" d="M 262 250 Q 287 250 312 250"/>
+<circle class="fig-dot" cx="70" cy="90" r="6"/>
+<circle class="fig-dot" cx="132" cy="90" r="6"/>
+<circle class="fig-dot" cx="194" cy="90" r="6"/>
+<circle class="fig-dot" cx="256" cy="90" r="6"/>
+<circle class="fig-dot" cx="318" cy="90" r="6"/>
+<circle class="fig-dot" cx="380" cy="90" r="6"/>
+<circle class="fig-dot" cx="442" cy="90" r="6"/>
+<circle class="fig-dot" cx="70" cy="250" r="6"/>
+<circle class="fig-dot" cx="132" cy="250" r="6"/>
+<circle class="fig-dot" cx="194" cy="250" r="6"/>
+<circle class="fig-dot" cx="256" cy="250" r="6"/>
+<circle class="fig-dot" cx="318" cy="250" r="6"/>
+<circle class="fig-dot" cx="380" cy="250" r="6"/>
+<circle class="fig-dot" cx="442" cy="250" r="6"/>
+<text class="fig-tick" x="70" y="114" text-anchor="middle">u = x<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="132" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="194" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="256" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-tick" x="318" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">5</tspan></text>
+<text class="fig-tick" x="380" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">6</tspan></text>
+<text class="fig-tick" x="442" y="114" text-anchor="middle">x<tspan class="fig-sup" dy="3">7</tspan> = v</text>
+<text class="fig-tick" x="70" y="234" text-anchor="middle">u = x<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="132" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="194" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="256" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-tick" x="318" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">5</tspan></text>
+<text class="fig-tick" x="380" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">6</tspan></text>
+<text class="fig-tick" x="442" y="234" text-anchor="middle">x<tspan class="fig-sup" dy="3">7</tspan> = v</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Top:</span> the Hamiltonian path $x_1, \ldots, x_n$ from $u$ to $v$, with $n = 7$ and $i = 4$. The two edges in the second colour are the ones the degree count provides: $u$ is adjacent to $x_{i+1}$ and $v$ is adjacent to $x_i$.</span><span class="cap-part"><span class="cap-lead">Bottom:</span> the same vertices joined into the cycle $x_1, \ldots, x_i, x_n, x_{n-1}, \ldots, x_{i+1}, x_1$. It uses the two extra edges and drops the path edge $\{x_i, x_{i+1}\}$, drawn dashed. Every vertex is still visited exactly once.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p><span class="thm-label">Corollary (Dirac, 1952).</span> Let $G$ be a simple graph with $n \geq 3$ vertices. If every vertex has degree at least $n/2$, then $G$ is Hamiltonian.</p>
@@ -262,10 +484,57 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> An edge lying on a cycle is also the wall between two faces, so deleting it costs one edge and one face and leaves $V - E + F$ where it was. Deleting such edges brings any connected plane graph down to a tree, which has one face and $V - 1$ edges.
       By induction on $E$. Let $T$ be a spanning tree of $G$ (which exists since $G$ is connected). We build $G$ by starting from $T$ and adding edges one by one.
       <em>Base case</em>: $G = T$ is a tree with $V$ vertices and $V - 1$ edges. A tree drawn in the plane has only one face (the outer face): since the tree is acyclic, no edge encloses a region. So $V - (V-1) + 1 = 2$. ✓
       <em>Inductive step</em>: Suppose $G$ has $E \geq V$ edges (so $G$ is not a tree and has cycles). Remove any edge $e$ that lies on a cycle. The graph $G - e$ is still connected (the cycle provides an alternate path) and has $V$ vertices, $E - 1$ edges, and $F - 1$ faces: the edge $e$ was shared between two distinct faces (since $e$ is on a cycle, both sides of $e$ are in the interior of a region bounded by a closed walk), and removing $e$ merges them into one face. By induction, $V - (E-1) + (F-1) = 2$, so $V - E + F = 2$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="627.7" height="207.0" viewBox="68.4 27.3 627.7 207.0">
+<path class="fig-accent" d="M 106 60 Q 160 60 214 60"/>
+<path class="fig-accent" d="M 220 66 Q 220 117.5 220 169"/>
+<path class="fig-accent" d="M 214 175 Q 160 175 106 175"/>
+<path class="fig-accent" d="M 100 169 Q 100 117.5 100 66"/>
+<path class="fig-accent" d="M 225 63.4 Q 262.5 89 300 114.6"/>
+<path class="fig-accent" d="M 225 171.7 Q 262.5 146.5 300 121.3"/>
+<path class="fig-free-solid" d="M 104.3 64.2 Q 160 117.5 215.7 170.8"/>
+<path class="fig-accent" d="M 466 60 Q 520 60 574 60"/>
+<path class="fig-accent" d="M 580 66 Q 580 117.5 580 169"/>
+<path class="fig-accent" d="M 574 175 Q 520 175 466 175"/>
+<path class="fig-accent" d="M 460 169 Q 460 117.5 460 66"/>
+<path class="fig-accent" d="M 585 63.4 Q 622.5 89 660 114.6"/>
+<path class="fig-accent" d="M 585 171.7 Q 622.5 146.5 660 121.3"/>
+<circle class="fig-dot" cx="100" cy="60" r="6"/>
+<circle class="fig-dot" cx="220" cy="60" r="6"/>
+<circle class="fig-dot" cx="220" cy="175" r="6"/>
+<circle class="fig-dot" cx="100" cy="175" r="6"/>
+<circle class="fig-dot" cx="305" cy="118" r="6"/>
+<circle class="fig-dot" cx="460" cy="60" r="6"/>
+<circle class="fig-dot" cx="580" cy="60" r="6"/>
+<circle class="fig-dot" cx="580" cy="175" r="6"/>
+<circle class="fig-dot" cx="460" cy="175" r="6"/>
+<circle class="fig-dot" cx="665" cy="118" r="6"/>
+<text class="fig-text fig-tick" x="83" y="64" text-anchor="middle">A</text>
+<text class="fig-text fig-tick" x="220" y="47" text-anchor="middle">B</text>
+<text class="fig-text fig-tick" x="220" y="196" text-anchor="middle">C</text>
+<text class="fig-text fig-tick" x="83" y="179" text-anchor="middle">D</text>
+<text class="fig-text fig-tick" x="322" y="122" text-anchor="middle">E</text>
+<text class="fig-tick" x="190" y="105" text-anchor="middle">f<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="132" y="145" text-anchor="middle">f<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="250" y="122" text-anchor="middle">f<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="102" y="218" text-anchor="middle">f<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-text fig-tick" x="443" y="64" text-anchor="middle">A</text>
+<text class="fig-text fig-tick" x="580" y="47" text-anchor="middle">B</text>
+<text class="fig-text fig-tick" x="580" y="196" text-anchor="middle">C</text>
+<text class="fig-text fig-tick" x="443" y="179" text-anchor="middle">D</text>
+<text class="fig-text fig-tick" x="682" y="122" text-anchor="middle">E</text>
+<text class="fig-tick" x="520" y="125" text-anchor="middle">f<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="610" y="122" text-anchor="middle">f<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="462" y="218" text-anchor="middle">f<tspan class="fig-sup" dy="3">4</tspan></text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left:</span> a plane graph with $V = 5$, $E = 7$ and the four faces $f_1, f_2, f_3$ and the outer face $f_4$, so $V - E + F = 5 - 7 + 4 = 2$.</span><span class="cap-part"><span class="cap-lead">Right:</span> the same drawing with the diagonal $AC$ removed. It lay on a cycle, so it was the wall between $f_1$ and $f_2$, which have become a single face. Now $V = 5$, $E = 6$, $F = 3$, and the alternating sum is unchanged.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p><span class="thm-label">Corollary.</span> Every simple connected planar graph with $V \geq 3$ vertices satisfies $E \leq 3V - 6$.</p>
@@ -303,6 +572,44 @@
       $K_{3,3}$ is bipartite with $V = 6$ and $E = 9$. If it were planar, the previous corollary would give $9 \leq 2(6) - 4 = 8$, a contradiction.
     </details>
 
+    <figure class="figure-block">
+      <svg class="figure" width="450.5" height="209.2" viewBox="45.5 52.0 450.5 209.2">
+<path class="fig-accent" d="M 134.9 71.5 Q 164.2 92.9 193.6 114.2"/>
+<path class="fig-accent" d="M 131.9 73.7 Q 151.2 133.1 170.5 192.5"/>
+<path class="fig-accent" d="M 128.1 73.7 Q 108.8 133.1 89.5 192.5"/>
+<path class="fig-accent" d="M 125.1 71.5 Q 95.8 92.9 66.4 114.2"/>
+<path class="fig-accent" d="M 196.6 123.5 Q 185.4 158 174.2 192.5"/>
+<path class="fig-accent" d="M 193.6 121.3 Q 143.1 158 92.5 194.7"/>
+<path class="fig-accent" d="M 192.5 117.8 Q 130 117.8 67.5 117.8"/>
+<path class="fig-accent" d="M 166.3 198.2 Q 130 198.2 93.7 198.2"/>
+<path class="fig-accent" d="M 167.5 194.7 Q 116.9 158 66.4 121.3"/>
+<path class="fig-accent" d="M 85.8 192.5 Q 74.6 158 63.4 123.5"/>
+<path class="fig-accent" d="M 340 84 Q 340 140 340 196"/>
+<path class="fig-accent" d="M 342.9 83.2 Q 375 140 407.1 196.8"/>
+<path class="fig-accent" d="M 344.5 82 Q 410 140 475.5 198"/>
+<path class="fig-accent" d="M 407.1 83.2 Q 375 140 342.9 196.8"/>
+<path class="fig-accent" d="M 410 84 Q 410 140 410 196"/>
+<path class="fig-accent" d="M 412.9 83.2 Q 445 140 477.1 196.8"/>
+<path class="fig-accent" d="M 475.5 82 Q 410 140 344.5 198"/>
+<path class="fig-accent" d="M 477.1 83.2 Q 445 140 412.9 196.8"/>
+<path class="fig-accent" d="M 480 84 Q 480 140 480 196"/>
+<circle class="fig-dot" cx="130" cy="68" r="6"/>
+<circle class="fig-dot" cx="198.5" cy="117.8" r="6"/>
+<circle class="fig-dot" cx="172.3" cy="198.2" r="6"/>
+<circle class="fig-dot" cx="87.7" cy="198.2" r="6"/>
+<circle class="fig-dot" cx="61.5" cy="117.8" r="6"/>
+<circle class="fig-dot" cx="340" cy="78" r="6"/>
+<circle class="fig-dot" cx="410" cy="78" r="6"/>
+<circle class="fig-dot" cx="480" cy="78" r="6"/>
+<circle class="fig-dot" cx="340" cy="202" r="6"/>
+<circle class="fig-dot" cx="410" cy="202" r="6"/>
+<circle class="fig-dot" cx="480" cy="202" r="6"/>
+<text class="fig-text fig-tick" x="130" y="245" text-anchor="middle">K<tspan class="fig-sup" dy="3">5</tspan></text>
+<text class="fig-text fig-tick" x="410" y="245" text-anchor="middle">K<tspan class="fig-sup" dy="3">3,3</tspan></text>
+      </svg>
+      <figcaption>The two graphs ruled out by the counting bounds. $K_5$ has $V = 5$ and $E = 10 > 9 = 3V - 6$; $K_{3,3}$ is bipartite with $V = 6$ and $E = 9 > 8 = 2V - 4$. By Kuratowski's theorem they are the only obstructions: a graph is planar exactly when it contains no subdivision of either.</figcaption>
+    </figure>
+
     <h3>Graph coloring</h3>
 
     <div class="thm-block definition">
@@ -338,14 +645,48 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Delete a vertex of degree at most $5$, colour the rest, and put it back. The only case that resists is a vertex whose five neighbours already use all five colours. Swapping two colours on one connected two-coloured piece is always allowed, and a planar drawing makes it impossible for two such swaps to be blocked at once.
       By induction on $|V|$. The base case $|V| \leq 5$ is immediate (assign a distinct color to each vertex).
-      <em>Existence of a low-degree vertex.</em> Since $G$ is planar with $V \geq 6$, we have $E \leq 3V - 6$, so the average degree $2E/V \leq (6V-12)/V < 6$. Hence $G$ has a vertex $v$ with $\deg(v) \leq 5$.
+      <em>Existence of a low-degree vertex.</em> Since $G$ is planar with $V \geq 6$, we have $E \leq 3V - 6$, so the average degree $2E/V \leq (6V-12)/V &lt; 6$. Hence $G$ has a vertex $v$ with $\deg(v) \leq 5$.
       <em>Inductive step.</em> By induction, $G - v$ has a proper $5$-coloring $c$. If $\deg(v) \leq 4$, the neighbors of $v$ use at most $4$ colors, so a fifth color is available for $v$.
       Suppose $\deg(v) = 5$. Let $v_1, v_2, v_3, v_4, v_5$ be the neighbors of $v$ in cyclic order around $v$ in the planar embedding, with colors $c(v_i) = i$ (if the five neighbors do not use all five colors, we again have a free color for $v$, so assume they do).
       For $i \neq j$, let $H_{ij}$ denote the subgraph of $G - v$ induced by vertices colored $i$ or $j$. Consider $H_{13}$. If $v_1$ and $v_3$ are in different connected components of $H_{13}$, swap colors $1$ and $3$ in the component of $v_1$: now $v_1$ has color $3$ and all five neighbors of $v$ use only colors in $\{2,3,4,5\}$, so color $1$ is free for $v$.
       If $v_1$ and $v_3$ are in the same component of $H_{13}$, there is a path $P$ from $v_1$ to $v_3$ in $H_{13}$. In the plane, this path $P$ together with the two edges $\{v, v_1\}$ and $\{v, v_3\}$ forms a closed curve that separates $v_2$ (inside) from $v_4$ and $v_5$ (outside), or vice versa. In either case, $v_2$ and $v_4$ are separated: any path from $v_2$ to $v_4$ in $G - v$ must cross $P$, hence pass through a vertex of $H_{13}$, which uses neither color $2$ nor color $4$. Thus $v_2$ and $v_4$ lie in different connected components of $H_{24}$. Swap colors $2$ and $4$ in the component of $v_2$: now $v_2$ has color $4$, and the five neighbors of $v$ use colors in $\{1, 3, 4, 5\}$, so color $2$ is free for $v$.
       In all cases, $v$ can be assigned a color, completing the induction.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="290.4" height="232.9" viewBox="106.6 48.4 290.4 232.9">
+<polygon class="fig-band" points="210,165 210,87 335,78 368,175 255.8,228.1"/>
+<path class="fig-accent" d="M 210 159 Q 210 126 210 93"/>
+<path class="fig-accent" d="M 215.7 163.1 Q 247.1 152.9 278.5 142.8"/>
+<path class="fig-accent" d="M 213.5 169.9 Q 232.9 196.6 252.3 223.2"/>
+<path class="fig-accent" d="M 206.5 169.9 Q 187.1 196.6 167.7 223.2"/>
+<path class="fig-accent" d="M 204.3 163.1 Q 172.9 152.9 141.5 142.8"/>
+<path class="fig-free-solid" d="M 216 86.6 Q 272.5 82.5 329 78.4"/>
+<path class="fig-free-solid" d="M 336.9 83.7 Q 351.5 126.5 366.1 169.3"/>
+<path class="fig-free-solid" d="M 362.6 177.6 Q 311.9 201.6 261.3 225.5"/>
+<circle class="fig-dot" cx="210" cy="165" r="6"/>
+<circle class="fig-dot-alt" cx="210" cy="87" r="6"/>
+<circle class="fig-dot" cx="284.2" cy="140.9" r="6"/>
+<circle class="fig-dot-alt" cx="255.8" cy="228.1" r="6"/>
+<circle class="fig-dot" cx="164.2" cy="228.1" r="6"/>
+<circle class="fig-dot" cx="135.8" cy="140.9" r="6"/>
+<circle class="fig-dot-alt" cx="335" cy="78" r="6"/>
+<circle class="fig-dot-alt" cx="368" cy="175" r="6"/>
+<text class="fig-tick" x="192" y="169" text-anchor="middle">v</text>
+<text class="fig-text fig-tick" x="210" y="74" text-anchor="middle">1</text>
+<text class="fig-text fig-tick" x="300.4" y="139.6" text-anchor="middle">2</text>
+<text class="fig-text fig-tick" x="265.8" y="245.9" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="154.2" y="245.9" text-anchor="middle">4</text>
+<text class="fig-text fig-tick" x="119.6" y="139.6" text-anchor="middle">5</text>
+<text class="fig-text fig-tick" x="343" y="68.1" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="384" y="179" text-anchor="middle">1</text>
+<text class="fig-text fig-note" x="258" y="124" text-anchor="middle">inside</text>
+<text class="fig-text fig-note" x="150" y="268" text-anchor="middle">outside</text>
+      </svg>
+      <figcaption>The five neighbours of $v$ in cyclic order, each labelled with its colour, in the case where $v_1$ and $v_3$ lie in the same component of the subgraph coloured $1$ and $3$. That path, drawn in the second colour, together with the edges $\{v,v_1\}$ and $\{v,v_3\}$, closes a curve with $v_2$ inside and $v_4$ outside. A path from $v_2$ to $v_4$ would have to cross it at a vertex coloured $1$ or $3$, so no such path exists in the subgraph coloured $2$ and $4$. Swapping $2$ and $4$ on the side of $v_2$ then frees colour $2$ for $v$.</figcaption>
+    </figure>
 
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Interval graph).</span> Let $I_1, \ldots, I_n$ be intervals on the real line. Their <em>interval graph</em> has vertex set $\{1, \ldots, n\}$, with an edge $\{i, j\}$ whenever $I_i \cap I_j \neq \emptyset$. A graph is an <em>interval graph</em> if it arises in this way from some family of intervals.</p>
@@ -361,11 +702,73 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Colour the intervals from left to right. When an interval is reached, every earlier interval meeting it contains its left endpoint, so the intervals that forbid a colour all share a point and form a clique.
       The inequality $\chi(G) \geq \omega(G)$ holds for every graph. We show $\chi(G) \leq \omega(G)$ for an interval graph by coloring its intervals greedily.
       Order the intervals by left endpoint, breaking ties arbitrarily: $I_1, I_2, \ldots, I_n$ with left endpoints $\ell_1 \leq \ell_2 \leq \cdots \leq \ell_n$. Color them in this order, giving each interval the smallest color not yet used by an earlier interval that overlaps it.
-      Consider the step at which $I_j$ is colored. Its already-colored neighbors are the intervals $I_i$ with $i < j$ (so $\ell_i \leq \ell_j$) that meet $I_j$. Such an $I_i$ shares a point with $I_j$; since $I_i$ starts no later than $\ell_j$, that shared point is at least $\ell_j$, so $I_i$ contains the point $\ell_j$. Hence every already-colored neighbor of $I_j$ contains $\ell_j$, and so does $I_j$ itself.
+      Consider the step at which $I_j$ is colored. Its already-colored neighbors are the intervals $I_i$ with $i &lt; j$ (so $\ell_i \leq \ell_j$) that meet $I_j$. Such an $I_i$ shares a point with $I_j$; since $I_i$ starts no later than $\ell_j$, that shared point is at least $\ell_j$, so $I_i$ contains the point $\ell_j$. Hence every already-colored neighbor of $I_j$ contains $\ell_j$, and so does $I_j$ itself.
       These intervals pairwise overlap, since they all contain $\ell_j$, so they form a clique. Its size is at most $\omega(G)$, so $I_j$ has at most $\omega(G) - 1$ already-colored neighbors, and the smallest available color is at most $\omega(G)$. The greedy coloring therefore uses at most $\omega(G)$ colors, giving $\chi(G) \leq \omega(G)$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="415.9" height="303.0" viewBox="63.0 10.3 415.9 303.0">
+<line class="fig-guide" x1="162" y1="40" x2="162" y2="199"/>
+<path class="fig-accent" d="M 96 275 Q 121 275 146 275"/>
+<path class="fig-accent" d="M 95.7 273 Q 152 253 208.3 273"/>
+<path class="fig-accent" d="M 158 275 Q 183 275 208 275"/>
+<path class="fig-accent" d="M 282 275 Q 307 275 332 275"/>
+<path class="fig-accent" d="M 344 275 Q 369 275 394 275"/>
+<line class="fig-interval" x1="90" y1="55" x2="180" y2="55"/>
+<line class="fig-interval" x1="120" y1="81" x2="240" y2="81"/>
+<line class="fig-interval" x1="150" y1="107" x2="210" y2="107"/>
+<line class="fig-interval" x1="270" y1="133" x2="360" y2="133"/>
+<line class="fig-interval" x1="300" y1="159" x2="420" y2="159"/>
+<line class="fig-interval" x1="390" y1="185" x2="450" y2="185"/>
+<circle class="fig-dot" cx="90" cy="55" r="3.5"/>
+<circle class="fig-dot" cx="180" cy="55" r="3.5"/>
+<circle class="fig-dot" cx="120" cy="81" r="3.5"/>
+<circle class="fig-dot" cx="240" cy="81" r="3.5"/>
+<circle class="fig-dot" cx="150" cy="107" r="3.5"/>
+<circle class="fig-dot" cx="210" cy="107" r="3.5"/>
+<circle class="fig-dot" cx="270" cy="133" r="3.5"/>
+<circle class="fig-dot" cx="360" cy="133" r="3.5"/>
+<circle class="fig-dot" cx="300" cy="159" r="3.5"/>
+<circle class="fig-dot" cx="420" cy="159" r="3.5"/>
+<circle class="fig-dot" cx="390" cy="185" r="3.5"/>
+<circle class="fig-dot" cx="450" cy="185" r="3.5"/>
+<circle class="fig-dot" cx="90" cy="275" r="6"/>
+<circle class="fig-dot" cx="152" cy="275" r="6"/>
+<circle class="fig-dot" cx="214" cy="275" r="6"/>
+<circle class="fig-dot" cx="276" cy="275" r="6"/>
+<circle class="fig-dot" cx="338" cy="275" r="6"/>
+<circle class="fig-dot" cx="400" cy="275" r="6"/>
+<text class="fig-text fig-tick" x="76" y="59" text-anchor="middle">1</text>
+<text class="fig-tick" x="194" y="59" text-anchor="middle">I<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-text fig-tick" x="106" y="85" text-anchor="middle">2</text>
+<text class="fig-tick" x="254" y="85" text-anchor="middle">I<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-text fig-tick" x="136" y="111" text-anchor="middle">3</text>
+<text class="fig-tick" x="224" y="111" text-anchor="middle">I<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-text fig-tick" x="256" y="137" text-anchor="middle">1</text>
+<text class="fig-tick" x="374" y="137" text-anchor="middle">I<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-text fig-tick" x="286" y="163" text-anchor="middle">2</text>
+<text class="fig-tick" x="434" y="163" text-anchor="middle">I<tspan class="fig-sup" dy="3">5</tspan></text>
+<text class="fig-text fig-tick" x="376" y="189" text-anchor="middle">1</text>
+<text class="fig-tick" x="464" y="189" text-anchor="middle">I<tspan class="fig-sup" dy="3">6</tspan></text>
+<text class="fig-text fig-note" x="162" y="30" text-anchor="middle">3 intervals meet here</text>
+<text class="fig-text fig-tick" x="90" y="263" text-anchor="middle">1</text>
+<text class="fig-text fig-tick" x="152" y="263" text-anchor="middle">2</text>
+<text class="fig-text fig-tick" x="214" y="263" text-anchor="middle">3</text>
+<text class="fig-text fig-tick" x="276" y="263" text-anchor="middle">1</text>
+<text class="fig-text fig-tick" x="338" y="263" text-anchor="middle">2</text>
+<text class="fig-text fig-tick" x="400" y="263" text-anchor="middle">1</text>
+<text class="fig-tick" x="90" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="152" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="214" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="276" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-tick" x="338" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">5</tspan></text>
+<text class="fig-tick" x="400" y="297" text-anchor="middle">I<tspan class="fig-sup" dy="3">6</tspan></text>
+      </svg>
+      <figcaption>Six intervals and the graph they define, with the colour greedy gives each interval written to its left and repeated on the corresponding vertex. Three intervals meet at the dashed line, so $\omega(G) = 3$ and no coloring uses fewer than three colours. Taken from left to right, greedy uses exactly three: at every step the intervals already coloured that meet the current one all contain its left endpoint.</figcaption>
+    </figure>
 
     <h3>Matchings</h3>
 
@@ -373,12 +776,45 @@
       <p><span class="thm-label">Definition (Matching).</span> A <em>matching</em> in a graph $G = (V, E)$ is a set $M \subseteq E$ of pairwise non-adjacent edges (no two edges of $M$ share a vertex). A vertex $v$ is <em>saturated</em> (or <em>matched</em>) by $M$ if some edge of $M$ is incident to $v$. A matching is <em>perfect</em> if it saturates every vertex. In a bipartite graph $G = (A \cup B, E)$, a matching <em>saturates $A$</em> if every vertex of $A$ is matched.</p>
     </div>
 
+    <figure class="figure-block">
+      <svg class="figure" width="351.1" height="204.2" viewBox="34.3 42.0 351.1 204.2">
+<path class="fig-free-solid" d="M 116 70 Q 205 70 294 70"/>
+<path class="fig-free-solid" d="M 115.8 71.6 Q 205 96 294.2 120.4"/>
+<path class="fig-free-solid" d="M 115.8 120.4 Q 205 96 294.2 71.6"/>
+<path class="fig-free-solid" d="M 115.8 172.4 Q 205 148 294.2 123.6"/>
+<path class="fig-accent" d="M 115.8 224.4 Q 205 200 294.2 175.6"/>
+<path class="fig-accent" d="M 116 226 Q 205 226 294 226"/>
+<path class="fig-bracket" d="M 84 52 L 76 52 L 76 178 L 84 178"/>
+<path class="fig-bracket" d="M 326 52 L 334 52 L 334 126 L 326 126"/>
+<circle class="fig-dot-alt" cx="110" cy="70" r="6"/>
+<circle class="fig-dot-alt" cx="110" cy="122" r="6"/>
+<circle class="fig-dot-alt" cx="110" cy="174" r="6"/>
+<circle class="fig-dot" cx="110" cy="226" r="6"/>
+<circle class="fig-dot-alt" cx="300" cy="70" r="6"/>
+<circle class="fig-dot-alt" cx="300" cy="122" r="6"/>
+<circle class="fig-dot" cx="300" cy="174" r="6"/>
+<circle class="fig-dot" cx="300" cy="226" r="6"/>
+<text class="fig-tick" x="90" y="74" text-anchor="middle">a<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="90" y="126" text-anchor="middle">a<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="90" y="178" text-anchor="middle">a<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="90" y="230" text-anchor="middle">a<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-tick" x="320" y="74" text-anchor="middle">b<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="320" y="126" text-anchor="middle">b<tspan class="fig-sup" dy="3">2</tspan></text>
+<text class="fig-tick" x="320" y="178" text-anchor="middle">b<tspan class="fig-sup" dy="3">3</tspan></text>
+<text class="fig-tick" x="320" y="230" text-anchor="middle">b<tspan class="fig-sup" dy="3">4</tspan></text>
+<text class="fig-tick" x="48" y="118" text-anchor="middle">S</text>
+<text class="fig-tick" x="362" y="96" text-anchor="middle">N(S)</text>
+      </svg>
+      <figcaption>A bipartite graph in which the three vertices $a_1, a_2, a_3$ have only two neighbours between them. No matching saturates them, since three vertices would need three distinct partners. Hall's theorem says that a set of this kind is the only thing that can go wrong.</figcaption>
+    </figure>
+
     <div class="thm-block theorem">
       <p><span class="thm-label">Theorem (Hall's marriage theorem).</span> Let $G = (A \cup B, E)$ be a bipartite graph. There exists a matching saturating $A$ if and only if for every $S \subseteq A$, $|N(S)| \geq |S|$ (Hall's condition).</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Induct on $|A|$. If every proper subset of $A$ has strictly more neighbours than members, any edge at all can be matched and the slack absorbs its removal. Otherwise some set has exactly as many neighbours as members, and it splits the graph into two smaller problems that do not interfere.
       $(\Rightarrow)$ If $M$ saturates $A$, then for any $S \subseteq A$, the matching $M$ provides $|S|$ distinct vertices in $N(S)$ (one for each vertex of $S$), so $|N(S)| \geq |S|$.
       $(\Leftarrow)$ By induction on $|A|$. If $|A| = 0$: done. If $|A| = 1$: Hall's condition gives $|N(\{a\})| \geq 1$, so $a$ has a neighbor; take that edge.
       Assume $|A| \geq 2$. We consider two cases.
@@ -396,15 +832,129 @@
       Let $G = (A \cup B, E)$ be $k$-regular. First, $|A| = |B|$: counting edges from each side, $k|A| = |E| = k|B|$. We verify Hall's condition. For any $S \subseteq A$, count edges between $S$ and $N(S)$: there are $k|S|$ edges incident to $S$, all going to $N(S)$. Each vertex in $N(S)$ has degree $k$, so $k|N(S)| \geq k|S|$, giving $|N(S)| \geq |S|$. By Hall's theorem, there is a matching saturating $A$. Since $|A| = |B|$, this matching is perfect.
     </details>
 
+    <h2>Techniques</h2>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 1.</span> Count one set in two ways and equate the results. The set to count is usually a set of pairs: counting the pairs $(v, e)$ with $v \in e$ by edges gives $2|E|$, and by vertices gives the sum of the degrees.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that a $3$-regular graph has an even number of vertices.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Every vertex has degree $3$, so the degree sum is $3n$. By the handshaking lemma it equals $2|E|$, which is even. So $3n$ is even, and since $3$ is odd, $n$ is even.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 2.</span> When a quantity attached to $n$ objects takes fewer than $n$ values, two objects share a value. On a graph the quantity is usually the degree, and the work is in showing that its range is smaller than it looks.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that in any simple graph $G$ with at least $2$ vertices, there exist two vertices with the same degree.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Let $n = |V| \geq 2$. The degree of any vertex lies in $\{0, 1, \ldots, n-1\}$. However, the values $0$ and $n-1$ cannot both occur simultaneously: degree $n-1$ means a vertex is adjacent to all others, which forces all degrees to be $\geq 1$, contradicting degree $0$. So the $n$ degrees take values in a set of size at most $n-1$. By the pigeonhole principle, two vertices share the same degree.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 3.</span> To produce a vertex or an edge with a given property, take an object that is extremal for some measure: a longest path, a connected spanning subgraph with the fewest edges. What such an object cannot be extended or reduced by is exactly the property wanted.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that a graph in which every vertex has degree at least $2$ contains a cycle.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Let $v_0, v_1, \ldots, v_k$ be a longest path. Every neighbor of $v_k$ lies on the path: a neighbor outside it would extend the path to length $k+1$. Now $v_k$ has degree at least $2$, so besides $v_{k-1}$ it has a neighbor $v_i$ with $i \leq k-2$. Then $v_i, v_{i+1}, \ldots, v_k, v_i$ is a cycle, of length at least $3$ since $k - i \geq 2$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 4.</span> To prove a graph non-planar, count its faces. In a plane graph with a cycle, each face is bounded by at least $g$ edges, where $g$ is the length of the shortest cycle, and each edge borders at most $2$ faces, so $gF \leq 2E$. With Euler's formula this becomes $E \leq \frac{g}{g-2}(V-2)$, and a graph breaking that bound cannot be drawn in the plane.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        The Petersen graph is not bipartite (it has $5$-cycles), so neither $E \leq 3V - 6$ nor $E \leq 2V - 4$ settles it: both give $15 \leq 24$ and $15 \leq 16$, which hold. We use instead a refinement that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and at least one cycle, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g$, giving $E \leq \frac{g}{g-2}(V - 2)$.
+        The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$, a contradiction. So the Petersen graph is not planar.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 5.</span> Delete one vertex or one edge, chosen so that what remains still satisfies the hypothesis, apply the induction, and put back what was deleted. Choosing what to delete is the whole argument: a vertex of degree at most $5$, an edge lying on a cycle, a leaf.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that a graph in which every vertex has even degree is a union of edge-disjoint cycles.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        By induction on the number of edges. If there are none, the empty union works. Otherwise, discard the isolated vertices; every remaining vertex has even degree and at least one edge, hence degree at least $2$, so the graph contains a cycle $C$. Removing the edges of $C$ lowers the degree of each vertex by $0$ or $2$, so all degrees stay even, and fewer edges are left. By induction those edges are a union of edge-disjoint cycles, and adding $C$ gives the decomposition.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 6.</span> Colour greedily, and choose the order. In any order greedy uses at most $\Delta(G)+1$ colours; the right order does better, since what matters at each step is only the number of neighbours already coloured.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Suppose every subgraph of $G$ has a vertex of degree at most $k$. Show that $\chi(G) \leq k+1$.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Build the order backwards. Let $v_n$ be a vertex of degree at most $k$ in $G$, then $v_{n-1}$ one of degree at most $k$ in $G - v_n$, and so on, each time in the subgraph induced by the vertices not yet chosen. Now colour $v_1, v_2, \ldots, v_n$ greedily in that order. When $v_i$ is coloured, its already-coloured neighbours are its neighbours among $v_1, \ldots, v_{i-1}$, which are exactly its neighbours in the subgraph induced by $\{v_1, \ldots, v_i\}$, where it was chosen to have degree at most $k$. So at most $k$ colours are forbidden and one of $k+1$ colours is free.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 7.</span> A matching saturating $A$ exists unless some set of vertices of $A$ has fewer neighbours than members. To build a matching, check Hall's condition on every subset; to prove that none exists, produce a single set breaking it.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> A deck of $52$ cards is dealt into $13$ piles of $4$. Show that one card can be picked from each pile so that the $13$ cards picked are one of each rank.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Build a bipartite graph with the $13$ piles on one side, the $13$ ranks on the other, and an edge between a pile and a rank when that pile contains a card of that rank. A set $S$ of piles holds $4|S|$ cards, and each rank accounts for at most $4$ of them since there are $4$ cards of each rank in the deck. So the ranks appearing in $S$ number at least $4|S|/4 = |S|$, which is Hall's condition. There is therefore a matching saturating the piles, and since both sides have $13$ vertices it is perfect: it picks one card from each pile, and the ranks picked are all $13$ ranks.
+      </details>
+    </div>
+
     <h2>Exercises</h2>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that in any simple graph $G$ with at least $2$ vertices, there exist two vertices with the same degree.</p>
+      <p><span class="thm-label">Exercise.</span> Euler's theorem assumes that $G$ is connected. Show that this hypothesis cannot simply be dropped, and give the weaker hypothesis that replaces it.</p>
     </div>
 
     <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Let $n = |V| \geq 2$. The degree of any vertex lies in $\{0, 1, \ldots, n-1\}$. However, the values $0$ and $n-1$ cannot both occur simultaneously: degree $n-1$ means a vertex is adjacent to all others, which forces all degrees to be $\geq 1$, contradicting degree $0$. So the $n$ degrees take values in a set of size at most $n-1$. By the pigeonhole principle, two vertices share the same degree.
+      <summary class="proof-label">Solution.</summary>
+      Two disjoint triangles have all degrees even and no Eulerian circuit, since a trail cannot pass from one triangle to the other. Connectivity is more than is needed, though: a vertex of degree $0$ carries no edge, and a circuit that misses it still uses every edge. The right statement is that a graph has an Eulerian circuit if and only if every degree is even and all the edges lie in one connected component.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Greedy colouring uses at most $\Delta(G)+1$ colours in any order, and on an interval graph taken from left to right it uses $\omega(G)$. Show that for every $k$ there is a graph with $\chi(G) = 2$ on which some order makes greedy use $k$ colours.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Take $A = \{a_1, \ldots, a_k\}$ and $B = \{b_1, \ldots, b_k\}$, with $a_i$ adjacent to $b_j$ exactly when $i \neq j$. The graph is bipartite and has an edge, so $\chi(G) = 2$. Colour in the order $a_1, b_1, a_2, b_2, \ldots, a_k, b_k$.
+      The vertices $a_1$ and $b_1$ are not adjacent, so both receive colour $1$. Suppose $a_j$ and $b_j$ have received colour $j$ for every $j &lt; i$. The vertex $a_i$ is adjacent to $b_1, \ldots, b_{i-1}$, which carry the colours $1, \ldots, i-1$, so $a_i$ receives colour $i$; the vertex $b_i$ is adjacent to $a_1, \ldots, a_{i-1}$ and receives colour $i$ as well. The last pair receives colour $k$, so greedy uses $k$ colours on a graph that needs $2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Hall's condition is one inequality per subset of $A$. Show that checking it on the subsets of size at most $k$ is not enough, whatever the fixed $k$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Take $|A| = k+1$, $|B| = k$, and every edge between $A$ and $B$. Any nonempty $S \subseteq A$ has $N(S) = B$, so $|N(S)| = k \geq |S|$ for every $S$ with $|S| \leq k$, and the empty set is fine as well: the condition holds on all subsets of size at most $k$. But $|N(A)| = k &lt; k+1 = |A|$, and indeed no matching saturates $A$, since $k$ vertices cannot be the partners of $k+1$ vertices.
+      The condition is global: no bounded amount of local checking replaces it.
     </details>
 
     <div class="thm-block exercise">
@@ -414,27 +964,6 @@
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
       A tree is acyclic, so in particular it contains no cycle at all, and a fortiori no odd cycle. By the bipartite characterization, the tree is bipartite.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that a graph $G$ is a tree if and only if there is exactly one path between every pair of vertices.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      $(\Rightarrow)$ Let $G$ be a tree. It is connected, so between any two vertices $u, v$ there is at least one path. Suppose two distinct paths $P$ and $Q$ join $u$ to $v$. Since they differ, there is a first vertex $x$ (going from $u$) after which they diverge; and since both end at $v$, they meet again, so let $y$ be the first vertex on $P$ after $x$ that also lies on $Q$. The portion of $P$ from $x$ to $y$ and the portion of $Q$ from $x$ to $y$ meet only at $x$ and $y$, so together they form a cycle, contradicting that a tree is acyclic. Hence the path is unique.
-      $(\Leftarrow)$ Suppose there is exactly one path between every pair of vertices. In particular at least one path exists between any two vertices, so $G$ is connected. If $G$ contained a cycle, two vertices on that cycle would be joined by two distinct paths (the two arcs of the cycle), contradicting uniqueness. So $G$ is acyclic. Connected and acyclic, $G$ is a tree.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      By the handshaking corollary, $k$ is even, so $k/2$ is an integer.
-      <em>Lower bound.</em> Each trail contributes to exactly $2$ vertices (its endpoints) an odd degree increase of $1$ each (from the trail itself), or $0$ if it is closed. More precisely: in any trail, its two endpoints have odd degree within the trail (contributing $1$ each), and all internal vertices have even degree. A closed trail contributes $0$ odd-degree vertices. So $t$ trails collectively produce at most $2t$ odd-degree vertices in $G$. Since $G$ has $k$ odd-degree vertices, we need $2t \geq k$, i.e., $t \geq k/2$. Also $t \geq 1$ if $m \geq 1$.
-      <em>Upper bound.</em> Add $k/2$ new edges pairing up the odd-degree vertices to obtain $G'$ where all degrees are even. By Euler's theorem, $G'$ has an Eulerian circuit. Removing the $k/2$ added edges splits the circuit into at most $k/2$ trails (each added edge removal can split a circuit into at most one more trail). If $k = 0$, one trail (the Eulerian circuit) suffices.
     </details>
 
     <div class="thm-block exercise">
@@ -456,13 +985,34 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that the Petersen graph (10 vertices, 15 edges, girth 5) is not planar.</p>
+      <p><span class="thm-label">Exercise.</span> Determine $\chi(K_n)$, $\chi(C_n)$, and $\chi(K_{p,q})$.</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
-      The Petersen graph is not bipartite (it has $5$-cycles), so neither $E \leq 3V - 6$ nor $E \leq 2V - 4$ settles it: both give $15 \leq 24$ and $15 \leq 16$, which hold. We use instead a refinement that accounts for the <em>girth</em> $g$ (length of the shortest cycle). In any plane graph with $V \geq 3$ and at least one cycle, each face is bounded by at least $g$ edges, and each edge borders at most $2$ faces. Thus $gF \leq 2E$, i.e., $F \leq 2E/g$. Substituting into Euler's formula: $2 = V - E + F \leq V - E + 2E/g$, giving $E \leq \frac{g}{g-2}(V - 2)$.
-      The Petersen graph has $V = 10$, $E = 15$, and $g = 5$. If it were planar: $15 \leq \frac{5}{3}(10 - 2) = \frac{40}{3} \approx 13.3$, a contradiction. So the Petersen graph is not planar.
+      <em>$\chi(K_n) = n$.</em> Every pair of vertices is adjacent, so all $n$ vertices must receive distinct colors. Thus $\chi(K_n) \geq n$. The assignment $c(v_i) = i$ achieves $n$ colors.
+      <em>$\chi(C_n)$.</em> If $n$ is even: $C_n$ is bipartite (it has no odd cycle), so $\chi(C_n) \leq 2$. Since $C_n$ contains edges, $\chi(C_n) \geq 2$. Thus $\chi(C_n) = 2$.
+      If $n$ is odd: $C_n$ itself is an odd cycle, so it is not bipartite, giving $\chi(C_n) \geq 3$. Color the vertices $v_1, \ldots, v_n$ cyclically: $c(v_i) = 1$ if $i$ is odd and $i &lt; n$, $c(v_i) = 2$ if $i$ is even, and $c(v_n) = 3$. This is a valid $3$-coloring, so $\chi(C_n) = 3$.
+      <em>$\chi(K_{p,q}) = 2$ for $p, q \geq 1$.</em> $K_{p,q}$ is bipartite with parts $A$ and $B$: color $A$ with color $1$ and $B$ with color $2$. Since $p, q \geq 1$ there is an edge, so $\chi(K_{p,q}) \geq 2$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that a graph $G$ is a tree if and only if there is exactly one path between every pair of vertices.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      $(\Rightarrow)$ Let $G$ be a tree. It is connected, so between any two vertices $u, v$ there is at least one path. Suppose two distinct paths $P$ and $Q$ join $u$ to $v$. Since they differ, there is a first vertex $x$ (going from $u$) after which they diverge; and since both end at $v$, they meet again, so let $y$ be the first vertex on $P$ after $x$ that also lies on $Q$. The portion of $P$ from $x$ to $y$ and the portion of $Q$ from $x$ to $y$ meet only at $x$ and $y$, so together they form a cycle, contradicting that a tree is acyclic. Hence the path is unique.
+      $(\Leftarrow)$ Suppose there is exactly one path between every pair of vertices. In particular at least one path exists between any two vertices, so $G$ is connected. If $G$ contained a cycle, two vertices on that cycle would be joined by two distinct paths (the two arcs of the cycle), contradicting uniqueness. So $G$ is acyclic. Connected and acyclic, $G$ is a tree.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that for every $n$ there is a triangle-free graph on $n$ vertices with $\lfloor n^2/4 \rfloor$ edges.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Take the complete bipartite graph $K_{p,q}$ with $p = \lfloor n/2 \rfloor$ and $q = \lceil n/2 \rceil$, so $p + q = n$. It is triangle-free: any three vertices include two in the same part, and those two are not adjacent, so the three cannot be pairwise adjacent. Its number of edges is $pq = \lfloor n/2 \rfloor \lceil n/2 \rceil = \lfloor n^2/4 \rfloor$, since the product is $n^2/4$ when $n$ is even and $(n-1)(n+1)/4 = (n^2-1)/4$ when $n$ is odd.
     </details>
 
     <div class="thm-block exercise">
@@ -472,18 +1022,6 @@
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
       Apply Euler's formula to each connected component $G_1, \ldots, G_k$ drawn in the plane. Each component $G_i$ satisfies $V_i - E_i + F_i = 2$ by Euler's formula, where $F_i$ is the number of faces of $G_i$. However, the outer face of each component is shared with the others; summing naively over components over-counts the outer (unbounded) face: each component contributes $1$ outer face, but they all share the same outer face of the whole drawing. Thus $V - E + F = \sum_i (V_i - E_i + F_i) - (k-1) = 2k - (k-1) = k + 1$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Determine $\chi(K_n)$, $\chi(C_n)$, and $\chi(K_{p,q})$.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      <em>$\chi(K_n) = n$.</em> Every pair of vertices is adjacent, so all $n$ vertices must receive distinct colors. Thus $\chi(K_n) \geq n$. The assignment $c(v_i) = i$ achieves $n$ colors.
-      <em>$\chi(C_n)$.</em> If $n$ is even: $C_n$ is bipartite (it has no odd cycle), so $\chi(C_n) \leq 2$. Since $C_n$ contains edges, $\chi(C_n) \geq 2$. Thus $\chi(C_n) = 2$.
-      If $n$ is odd: $C_n$ itself is an odd cycle, so it is not bipartite, giving $\chi(C_n) \geq 3$. Color the vertices $v_1, \ldots, v_n$ cyclically: $c(v_i) = 1$ if $i$ is odd and $i < n$, $c(v_i) = 2$ if $i$ is even, and $c(v_n) = 3$. This is a valid $3$-coloring, so $\chi(C_n) = 3$.
-      <em>$\chi(K_{p,q}) = 2$ for $p, q \geq 1$.</em> $K_{p,q}$ is bipartite with parts $A$ and $B$: color $A$ with color $1$ and $B$ with color $2$. Since $p, q \geq 1$ there is an edge, so $\chi(K_{p,q}) \geq 2$.
     </details>
 
     <div class="thm-block exercise">
@@ -516,6 +1054,17 @@
       <summary class="proof-label">Proof.</summary>
       <em>$K_6$ always contains a monochromatic triangle.</em> Color each edge red or blue. Pick any vertex $v$. It has $5$ neighbors, so by the pigeonhole principle, at least $\lceil 5/2 \rceil = 3$ edges from $v$ have the same color, say red, going to vertices $a, b, c$. If any edge among $\{a,b\}$, $\{b,c\}$, $\{a,c\}$ is red, it forms a red triangle with $v$. If all three are blue, then $a, b, c$ form a blue triangle.
       <em>$K_5$ admits a 2-coloring with no monochromatic triangle.</em> Label the vertices $0, 1, 2, 3, 4$ arranged in a regular pentagon. Color the edges of the pentagon (i.e., $\{i, i+1 \pmod 5\}$) red, and the diagonals (i.e., $\{i, i+2 \pmod 5\}$) blue. Any three vertices include at most two consecutive vertices on the pentagon and at most two on the same diagonal, so no three vertices form a monochromatic triangle: every potential triangle uses at least one red edge (a pentagon edge) and one blue edge (a diagonal).
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Let $G$ be a connected graph with $n$ vertices, $m$ edges, and $k$ vertices of odd degree. Show that the minimum number of trails needed to decompose the edges of $G$ is $\max(1, k/2)$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      By the handshaking corollary, $k$ is even, so $k/2$ is an integer.
+      <em>Lower bound.</em> Each trail contributes to exactly $2$ vertices (its endpoints) an odd degree increase of $1$ each (from the trail itself), or $0$ if it is closed. More precisely: in any trail, its two endpoints have odd degree within the trail (contributing $1$ each), and all internal vertices have even degree. A closed trail contributes $0$ odd-degree vertices. So $t$ trails collectively produce at most $2t$ odd-degree vertices in $G$. Since $G$ has $k$ odd-degree vertices, we need $2t \geq k$, i.e., $t \geq k/2$. Also $t \geq 1$ if $m \geq 1$.
+      <em>Upper bound.</em> Add $k/2$ new edges pairing up the odd-degree vertices to obtain $G'$ where all degrees are even. By Euler's theorem, $G'$ has an Eulerian circuit. Removing the $k/2$ added edges splits the circuit into at most $k/2$ trails (each added edge removal can split a circuit into at most one more trail). If $k = 0$, one trail (the Eulerian circuit) suffices.
     </details>
 
   </main>

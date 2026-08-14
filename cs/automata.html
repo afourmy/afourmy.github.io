@@ -78,6 +78,8 @@
 
     <h3>Deterministic finite automata</h3>
 
+    <p>A finite automaton reads a word once, from left to right, and keeps nothing from one letter to the next except its current state. Everything it will still use about the prefix already read is therefore compressed into one of finitely many states.</p>
+
     <div class="thm-block definition">
       <p><span class="thm-label">Definition (Deterministic finite automaton).</span> A <em>deterministic finite automaton</em> (DFA) is a quintuple $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ where: $Q$ is a finite set of <em>states</em>, $\Sigma$ is an alphabet, $\delta : Q \times \Sigma \to Q$ is the <em>transition function</em>, $q_0 \in Q$ is the <em>initial state</em>, $F \subseteq Q$ is the set of <em>accepting states</em>.</p>
     </div>
@@ -94,6 +96,31 @@
       <p><span class="thm-label">Example.</span> Over $\Sigma = \{0,1\}$, the language of words containing an even number of $1$'s is recognized by the DFA with two states $Q = \{q_0, q_1\}$, $F = \{q_0\}$, $\delta(q_0, 0) = q_0$, $\delta(q_0, 1) = q_1$, $\delta(q_1, 0) = q_1$, $\delta(q_1, 1) = q_0$. The current state stores the parity of the number of $1$'s read so far.</p>
     </div>
 
+    <figure class="figure-block">
+      <svg class="figure" width="326.0" height="100.5" viewBox="67.0 98.7 326.0 100.5">
+<line class="fig-accent" x1="125" y1="108.7" x2="132.8" y2="130.3"/>
+<polygon class="fig-dot" points="133.8,133.1 127.4,125.9 134.1,123.4"/>
+<path class="fig-accent" d="M 157 144 Q 230 118 303 144"/>
+<polygon class="fig-dot" points="303,144 293.4,144.3 295.8,137.6"/>
+<path class="fig-accent" d="M 303 156 Q 230 182 157 156"/>
+<polygon class="fig-dot" points="157,156 166.6,155.7 164.2,162.4"/>
+<path class="fig-accent" d="M 123.8 157.9 C 84.1 196.9 84.1 103.1 123.8 142.1"/>
+<polygon class="fig-dot" points="123.8,142.1 114.9,138.4 119.9,133.2"/>
+<path class="fig-accent" d="M 336.2 142.1 C 375.9 103.1 375.9 196.9 336.2 157.9"/>
+<polygon class="fig-dot" points="336.2,157.9 345.1,161.6 340.1,166.8"/>
+<circle class="fig-hole" cx="140" cy="150" r="18"/>
+<circle class="fig-curve" cx="140" cy="150" r="13.5"/>
+<circle class="fig-hole" cx="320" cy="150" r="18"/>
+<text class="fig-tick" x="140" y="154" text-anchor="middle">q<tspan class="fig-sup" dy="3">0</tspan></text>
+<text class="fig-tick" x="320" y="154" text-anchor="middle">q<tspan class="fig-sup" dy="3">1</tspan></text>
+<text class="fig-tick" x="230" y="122" text-anchor="middle">1</text>
+<text class="fig-tick" x="230" y="186" text-anchor="middle">1</text>
+<text class="fig-tick" x="80" y="154" text-anchor="middle">0</text>
+<text class="fig-tick" x="380" y="154" text-anchor="middle">0</text>
+      </svg>
+      <figcaption>The automaton of the example, drawn with the conventions used throughout: a circle is a state, a double circle an accepting state, the incoming stub marks the initial state, and an arrow labelled $a$ is a transition on $a$. Reading a $0$ keeps the state and reading a $1$ crosses, so the state reached by a word is the parity of its number of $1$'s.</figcaption>
+    </figure>
+
     <h3>Nondeterministic finite automata</h3>
 
     <div class="thm-block definition">
@@ -108,6 +135,8 @@
       <p><span class="thm-label">Definition (NFA with $\varepsilon$-transitions).</span> An <em>$\varepsilon$-NFA</em> is an NFA where the transition relation is $\Delta \subseteq Q \times (\Sigma \cup \{\varepsilon\}) \times Q$. For $S \subseteq Q$, the <em>$\varepsilon$-closure</em> $\mathrm{Cl}_\varepsilon(S)$ is the smallest set containing $S$ and closed under $\varepsilon$-transitions. Acceptance is defined by taking the $\varepsilon$-closure at each step.</p>
     </div>
 
+    <p>A nondeterministic automaton is not in one state after reading a prefix, but in a set of states. That set is determined by the prefix, and a finite automaton has finitely many sets of states, so the set itself can be used as the state of a deterministic automaton.</p>
+
     <div class="thm-block theorem">
       <p><span class="thm-label">Theorem (DFA-NFA equivalence).</span> For every NFA $\mathcal{N}$, there exists a DFA $\mathcal{D}$ such that $L(\mathcal{D}) = L(\mathcal{N})$. More precisely, if $\mathcal{N}$ has $n$ states, $\mathcal{D}$ has at most $2^n$ states.</p>
     </div>
@@ -120,6 +149,44 @@
       <em>Inductive step.</em> Let $w = ua$ with $a \in \Sigma$. Setting $S = \hat{\delta}'(I, u) = \hat{\delta}(I, u)$ (induction hypothesis), we get $\hat{\delta}'(I, ua) = \delta'(S, a) = \bigcup_{q \in S} \delta(q, a) = \hat{\delta}(S, a) = \hat{\delta}(I, ua)$.
       <em>Conclusion.</em> $w \in L(\mathcal{D})$ iff $\hat{\delta}'(I, w) \in F'$ iff $\hat{\delta}(I, w) \cap F \neq \varnothing$ iff $w \in L(\mathcal{N})$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="751.9" height="109.5" viewBox="50.9 92.1 751.9 109.5">
+<line class="fig-accent" x1="115" y1="108.7" x2="122.8" y2="130.3"/>
+<polygon class="fig-dot" points="123.8,133.1 117.4,125.9 124.1,123.4"/>
+<path class="fig-accent" d="M 148 150 Q 215 150 282 150"/>
+<polygon class="fig-dot" points="282,150 273,153.6 273,146.4"/>
+<path class="fig-accent" d="M 113.8 157.9 C 74.1 196.9 74.1 103.1 113.8 142.1"/>
+<polygon class="fig-dot" points="113.8,142.1 104.9,138.4 109.9,133.2"/>
+<line class="fig-accent" x1="502.6" y1="102.1" x2="510.4" y2="123.7"/>
+<polygon class="fig-dot" points="511.4,126.5 505,119.3 511.8,116.8"/>
+<path class="fig-accent" d="M 543.7 142 Q 620 116 691.6 140.3"/>
+<polygon class="fig-dot" points="691.6,140.3 681.9,140.9 684.2,134"/>
+<path class="fig-accent" d="M 691.6 159.7 Q 620 184 543.7 158"/>
+<polygon class="fig-dot" points="543.7,158 553.3,157.5 551,164.4"/>
+<path class="fig-accent" d="M 497.5 161 C 458.7 201.4 458.7 98.6 497.5 139"/>
+<polygon class="fig-dot" points="497.5,139 488.7,135 493.9,130.1"/>
+<path class="fig-accent" d="M 747 136.8 C 785.1 95.4 785.1 204.6 747 163.2"/>
+<polygon class="fig-dot" points="747,163.2 755.7,167.3 750.4,172.2"/>
+<circle class="fig-hole" cx="130" cy="150" r="18"/>
+<circle class="fig-hole" cx="300" cy="150" r="18"/>
+<circle class="fig-curve" cx="300" cy="150" r="13.5"/>
+<circle class="fig-hole" cx="520" cy="150" r="25"/>
+<circle class="fig-hole" cx="720" cy="150" r="30"/>
+<circle class="fig-curve" cx="720" cy="150" r="25.5"/>
+<text class="fig-tick" x="130" y="154" text-anchor="middle">1</text>
+<text class="fig-tick" x="300" y="154" text-anchor="middle">2</text>
+<text class="fig-tick" x="215" y="167" text-anchor="middle">a</text>
+<text class="fig-tick" x="70" y="154" text-anchor="middle">a, b</text>
+<text class="fig-tick" x="520" y="154" text-anchor="middle">{1}</text>
+<text class="fig-tick" x="720" y="154" text-anchor="middle">{1, 2}</text>
+<text class="fig-tick" x="618.8" y="119.6" text-anchor="middle">a</text>
+<text class="fig-tick" x="618.8" y="188.4" text-anchor="middle">b</text>
+<text class="fig-tick" x="454.4" y="154" text-anchor="middle">b</text>
+<text class="fig-tick" x="789.6" y="154" text-anchor="middle">a</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left:</span> an NFA for the words over $\{a,b\}$ ending in $a$. On an $a$ from state $1$ the automaton may stay in $1$ or move to $2$.</span><span class="cap-part"><span class="cap-lead">Right:</span> the DFA produced by the subset construction. Its states are the sets of NFA states reachable by the prefix read, and only two of the four subsets are reachable, so the $2^n$ bound is an upper bound and not a count.</span></figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p><span class="thm-label">Corollary.</span> $\varepsilon$-NFAs recognize exactly the regular languages.</p>
@@ -136,6 +203,8 @@
       <p><span class="thm-label">Definition (Regular expression).</span> <em>Regular expressions</em> over $\Sigma$ are defined inductively: (i) $\varnothing$ is a regular expression (denotes $\varnothing$), (ii) $\varepsilon$ is a regular expression (denotes $\{\varepsilon\}$), (iii) for every $a \in \Sigma$, $a$ is a regular expression (denotes $\{a\}$), (iv) if $r$ and $s$ are regular expressions, then $(r + s)$, $(r \cdot s)$ and $(r^*)$ are also regular expressions, denoting $L(r) \cup L(s)$, $L(r) \cdot L(s)$ and $L(r)^*$ respectively.</p>
     </div>
 
+    <p>An expression is built from smaller expressions and an automaton is built from fewer states, so each direction of the next theorem follows one of these two structures: three gadgets glue automata together for $r+s$, $r \cdot s$ and $r^*$, and states are deleted one at a time to produce an expression.</p>
+
     <div class="thm-block theorem">
       <p><span class="thm-label">Theorem (Kleene).</span> A language is regular if and only if it is denoted by a regular expression.</p>
     </div>
@@ -150,6 +219,90 @@
       In each case, the resulting $\varepsilon$-NFA recognizes the desired language, so it is regular.
       $(\Rightarrow)$ We use the <em>state elimination method</em>. Let $\mathcal{A}$ be a DFA with $n$ states. We generalize transition labels to carry regular expressions (a <em>generalized automaton</em>). We eliminate states one by one: when removing a state $q_k$, for every pair $(q_i, q_j)$ of remaining states, we replace the label from $q_i$ to $q_j$ by $r_{ij} + r_{ik} \cdot r_{kk}^* \cdot r_{kj}$, where $r_{ij}$, $r_{ik}$, $r_{kj}$, $r_{kk}$ are the current labels. When only the initial state $q_0$ and an accepting state $q_f$ remain, the resulting regular expression denotes the recognized language. If $F$ contains multiple states, we take the union.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="802.0" height="176.8" viewBox="-5.0 36.0 802.0 176.8">
+<line class="fig-accent" x1="5" y1="118" x2="24" y2="118"/>
+<polygon class="fig-dot" points="27,118 18,121.6 18,114.4"/>
+<path class="fig-accent" d="M 49.2 108.8 Q 71.4 86.4 103.8 71.7"/>
+<polygon class="fig-dot" points="103.8,71.7 97.1,78.7 94.1,72.2"/>
+<path class="fig-accent" d="M 49.2 127.2 Q 71.4 149.6 103.8 164.3"/>
+<polygon class="fig-dot" points="103.8,164.3 94.1,163.8 97.1,157.3"/>
+<line class="fig-accent" x1="257" y1="118" x2="276" y2="118"/>
+<polygon class="fig-dot" points="279,118 270,121.6 270,114.4"/>
+<path class="fig-accent" d="M 379 118 Q 411 118 443 118"/>
+<polygon class="fig-dot" points="443,118 434,121.6 434,114.4"/>
+<line class="fig-accent" x1="585" y1="118" x2="604" y2="118"/>
+<polygon class="fig-dot" points="607,118 598,121.6 598,114.4"/>
+<path class="fig-accent" d="M 631.1 111.3 Q 660 94 692.3 113.4"/>
+<polygon class="fig-dot" points="692.3,113.4 682.7,111.8 686.4,105.7"/>
+<path class="fig-accent" d="M 773.1 125.5 Q 699 238 627.1 128.9"/>
+<polygon class="fig-dot" points="627.1,128.9 635.1,134.4 629.1,138.4"/>
+<circle class="fig-hole" cx="40" cy="118" r="13"/>
+<rect class="fig-shape" x="112" y="46" width="78" height="44" rx="7"/>
+<rect class="fig-shape" x="112" y="146" width="78" height="44" rx="7"/>
+<rect class="fig-shape" x="292" y="96" width="78" height="44" rx="7"/>
+<rect class="fig-shape" x="452" y="96" width="78" height="44" rx="7"/>
+<circle class="fig-hole" cx="620" cy="118" r="13"/>
+<circle class="fig-curve" cx="620" cy="118" r="8.5"/>
+<rect class="fig-shape" x="700" y="96" width="78" height="44" rx="7"/>
+<circle class="fig-hole" cx="112" cy="68" r="9"/>
+<circle class="fig-hole" cx="112" cy="168" r="9"/>
+<circle class="fig-hole" cx="190" cy="68" r="9"/>
+<circle class="fig-curve" cx="190" cy="68" r="5.8"/>
+<circle class="fig-hole" cx="190" cy="168" r="9"/>
+<circle class="fig-curve" cx="190" cy="168" r="5.8"/>
+<circle class="fig-hole" cx="292" cy="118" r="9"/>
+<circle class="fig-hole" cx="370" cy="118" r="9"/>
+<circle class="fig-hole" cx="452" cy="118" r="9"/>
+<circle class="fig-hole" cx="530" cy="118" r="9"/>
+<circle class="fig-curve" cx="530" cy="118" r="5.8"/>
+<circle class="fig-hole" cx="700" cy="118" r="9"/>
+<circle class="fig-hole" cx="778" cy="118" r="9"/>
+<text class="fig-tick" x="151" y="73" text-anchor="middle">A<tspan class="fig-sup" dy="3">r</tspan></text>
+<text class="fig-tick" x="151" y="173" text-anchor="middle">A<tspan class="fig-sup" dy="3">s</tspan></text>
+<text class="fig-tick" x="66.5" y="81.7" text-anchor="middle">ε</text>
+<text class="fig-tick" x="66.5" y="162.3" text-anchor="middle">ε</text>
+<text class="fig-tick" x="331" y="123" text-anchor="middle">A<tspan class="fig-sup" dy="3">r</tspan></text>
+<text class="fig-tick" x="491" y="123" text-anchor="middle">A<tspan class="fig-sup" dy="3">s</tspan></text>
+<text class="fig-tick" x="411" y="135" text-anchor="middle">ε</text>
+<text class="fig-tick" x="739" y="123" text-anchor="middle">A<tspan class="fig-sup" dy="3">r</tspan></text>
+<text class="fig-tick" x="660.9" y="94.2" text-anchor="middle">ε</text>
+<text class="fig-tick" x="699.5" y="199.6" text-anchor="middle">ε</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left:</span> union. A new initial state with an $\varepsilon$-transition into each of $\mathcal{A}_r$ and $\mathcal{A}_s$, whose accepting states stay accepting.</span><span class="cap-part"><span class="cap-lead">Middle:</span> concatenation. An $\varepsilon$-transition from the accepting state of $\mathcal{A}_r$ to the initial state of $\mathcal{A}_s$. The accepting state of $\mathcal{A}_r$ stops accepting, so the word has to be finished inside $\mathcal{A}_s$.</span><span class="cap-part"><span class="cap-lead">Right:</span> star. A new state, initial and accepting, with an $\varepsilon$-transition into $\mathcal{A}_r$ and one back from it, so $\mathcal{A}_r$ runs any number of times, zero included.</span></figcaption>
+    </figure>
+
+    <figure class="figure-block">
+      <svg class="figure" width="736.0" height="148.9" viewBox="52.0 54.3 736.0 148.9">
+<path class="fig-accent" d="M 98 130 Q 155 130 212 130"/>
+<polygon class="fig-dot" points="212,130 203,133.6 203,126.4"/>
+<path class="fig-accent" d="M 248 130 Q 305 130 362 130"/>
+<polygon class="fig-dot" points="362,130 353,133.6 353,126.4"/>
+<path class="fig-accent" d="M 222.1 113.8 C 183.1 74.1 276.9 74.1 237.9 113.8"/>
+<polygon class="fig-dot" points="237.9,113.8 241.6,104.9 246.8,109.9"/>
+<path class="fig-accent" d="M 96.2 137.8 Q 230 202 363.8 137.8"/>
+<polygon class="fig-dot" points="363.8,137.8 357.2,144.9 354.1,138.4"/>
+<path class="fig-accent" d="M 577.2 124.8 Q 660 100 742.8 124.8"/>
+<polygon class="fig-dot" points="742.8,124.8 733.1,125.7 735.2,118.8"/>
+<circle class="fig-hole" cx="80" cy="130" r="18"/>
+<circle class="fig-hole" cx="230" cy="130" r="18"/>
+<circle class="fig-hole" cx="380" cy="130" r="18"/>
+<circle class="fig-hole" cx="560" cy="130" r="18"/>
+<circle class="fig-hole" cx="760" cy="130" r="18"/>
+<text class="fig-tick" x="80" y="134" text-anchor="middle">q<tspan class="fig-sup" dy="3">i</tspan></text>
+<text class="fig-tick" x="230" y="134" text-anchor="middle">q<tspan class="fig-sup" dy="3">k</tspan></text>
+<text class="fig-tick" x="380" y="134" text-anchor="middle">q<tspan class="fig-sup" dy="3">j</tspan></text>
+<text class="fig-tick" x="155" y="120" text-anchor="middle">r<tspan class="fig-sup" dy="3">ik</tspan></text>
+<text class="fig-tick" x="305" y="120" text-anchor="middle">r<tspan class="fig-sup" dy="3">kj</tspan></text>
+<text class="fig-tick" x="230" y="74" text-anchor="middle">r<tspan class="fig-sup" dy="3">kk</tspan></text>
+<text class="fig-tick" x="230" y="186.9" text-anchor="middle">r<tspan class="fig-sup" dy="3">ij</tspan></text>
+<text class="fig-tick" x="560" y="134" text-anchor="middle">q<tspan class="fig-sup" dy="3">i</tspan></text>
+<text class="fig-tick" x="760" y="134" text-anchor="middle">q<tspan class="fig-sup" dy="3">j</tspan></text>
+<text class="fig-tick" x="660" y="100.4" text-anchor="middle">r<tspan class="fig-sup" dy="3">ij</tspan><tspan dy="-3"> + r</tspan><tspan class="fig-sup" dy="3">ik</tspan><tspan dy="-3"> r</tspan><tspan class="fig-sup" dy="3">kk</tspan><tspan class="fig-sup" dy="-8">*</tspan><tspan dy="5"> r</tspan><tspan class="fig-sup" dy="3">kj</tspan></text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left:</span> the paths from $q_i$ to $q_j$ before $q_k$ is removed. Such a path either avoids $q_k$, reading a word of $r_{ij}$, or enters $q_k$, goes around its loop any number of times, and leaves, reading a word of $r_{ik} r_{kk}^* r_{kj}$.</span><span class="cap-part"><span class="cap-lead">Right:</span> after removal. The single label is the sum of the two cases, so no path is lost and none is created.</span></figcaption>
+    </figure>
 
     <h3>Closure properties</h3>
 
@@ -177,8 +330,54 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Run the two automata on the same word at the same time. A state of the product is a pair, one component per automaton, and each component moves as it would on its own.
       By De Morgan: $L_1 \cap L_2 = \overline{\bar{L_1} \cup \bar{L_2}}$, and we use closure under complement and union. One can also directly construct the <em>product automaton</em>: if $\mathcal{A}_i = (Q_i, \Sigma, \delta_i, q_{0,i}, F_i)$ for $i = 1,2$, set $\mathcal{A} = (Q_1 \times Q_2, \Sigma, \delta, (q_{0,1}, q_{0,2}), F_1 \times F_2)$ with $\delta((q_1, q_2), a) = (\delta_1(q_1, a), \delta_2(q_2, a))$. Then $\hat{\delta}((q_{0,1}, q_{0,2}), w) = (\hat{\delta}_1(q_{0,1}, w), \hat{\delta}_2(q_{0,2}, w))$ (by immediate induction), so $w \in L(\mathcal{A})$ iff $w \in L_1 \cap L_2$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="391.2" height="284.2" viewBox="9.1 42.3 391.2 284.2">
+<line class="fig-accent" x1="112.5" y1="92.5" x2="128.8" y2="108.8"/>
+<polygon class="fig-dot" points="130.9,110.9 122,107.1 127.1,102"/>
+<path class="fig-accent" d="M 176.2 123.5 Q 255 104 333.8 123.5"/>
+<polygon class="fig-dot" points="333.8,123.5 324.2,124.8 325.9,117.9"/>
+<path class="fig-accent" d="M 333.8 136.5 Q 255 156 176.2 136.5"/>
+<polygon class="fig-dot" points="176.2,136.5 185.8,135.2 184.1,142.1"/>
+<path class="fig-accent" d="M 176.2 273.5 Q 255 254 333.8 273.5"/>
+<polygon class="fig-dot" points="333.8,273.5 324.2,274.8 325.9,267.9"/>
+<path class="fig-accent" d="M 333.8 286.5 Q 255 306 176.2 286.5"/>
+<polygon class="fig-dot" points="176.2,286.5 185.8,285.2 184.1,292.1"/>
+<path class="fig-accent" d="M 157.6 155.9 Q 172 205 157.6 254.1"/>
+<polygon class="fig-dot" points="157.6,254.1 156.7,244.4 163.6,246.5"/>
+<path class="fig-accent" d="M 142.4 254.1 Q 128 205 142.4 155.9"/>
+<polygon class="fig-dot" points="142.4,155.9 143.3,165.6 136.4,163.5"/>
+<path class="fig-accent" d="M 367.6 155.9 Q 382 205 367.6 254.1"/>
+<polygon class="fig-dot" points="367.6,254.1 366.7,244.4 373.6,246.5"/>
+<path class="fig-accent" d="M 352.4 254.1 Q 338 205 352.4 155.9"/>
+<polygon class="fig-dot" points="352.4,155.9 353.3,165.6 346.4,163.5"/>
+<circle class="fig-hole" cx="150" cy="130" r="27"/>
+<circle class="fig-curve" cx="150" cy="130" r="22.5"/>
+<circle class="fig-hole" cx="360" cy="130" r="27"/>
+<circle class="fig-hole" cx="150" cy="280" r="27"/>
+<circle class="fig-hole" cx="360" cy="280" r="27"/>
+<text class="fig-tick" x="150" y="134" text-anchor="middle">(0, 0)</text>
+<text class="fig-tick" x="360" y="134" text-anchor="middle">(1, 0)</text>
+<text class="fig-tick" x="150" y="284" text-anchor="middle">(0, 1)</text>
+<text class="fig-tick" x="360" y="284" text-anchor="middle">(1, 1)</text>
+<text class="fig-tick" x="255" y="104.8" text-anchor="middle">a</text>
+<text class="fig-tick" x="255" y="163.2" text-anchor="middle">a</text>
+<text class="fig-tick" x="255" y="254.8" text-anchor="middle">a</text>
+<text class="fig-tick" x="255" y="313.2" text-anchor="middle">a</text>
+<text class="fig-tick" x="177.8" y="209" text-anchor="middle">b</text>
+<text class="fig-tick" x="122.2" y="209" text-anchor="middle">b</text>
+<text class="fig-tick" x="387.8" y="209" text-anchor="middle">b</text>
+<text class="fig-tick" x="332.2" y="209" text-anchor="middle">b</text>
+<text class="fig-note" x="150" y="62" text-anchor="middle"><tspan class="fig-text">|</tspan>w<tspan class="fig-text">|</tspan><tspan class="fig-sup" dy="3">a</tspan><tspan dy="-3"> even</tspan></text>
+<text class="fig-note" x="360" y="62" text-anchor="middle"><tspan class="fig-text">|</tspan>w<tspan class="fig-text">|</tspan><tspan class="fig-sup" dy="3">a</tspan><tspan dy="-3"> odd</tspan></text>
+<text class="fig-note" x="62" y="134" text-anchor="end"><tspan class="fig-text">|</tspan>w<tspan class="fig-text">|</tspan><tspan class="fig-sup" dy="3">b</tspan><tspan dy="-3"> even</tspan></text>
+<text class="fig-note" x="62" y="284" text-anchor="end"><tspan class="fig-text">|</tspan>w<tspan class="fig-text">|</tspan><tspan class="fig-sup" dy="3">b</tspan><tspan dy="-3"> odd</tspan></text>
+      </svg>
+      <figcaption>The product of the automaton counting $a$'s modulo $2$ with the automaton counting $b$'s modulo $2$, over $\Sigma = \{a,b\}$. The first component of a state is the state of the first automaton and the second component that of the second, so reading an $a$ moves horizontally and reading a $b$ moves vertically. Accepting the pair $(0,0)$ recognizes the intersection; accepting the two states of the top row would recognize the first language alone.</figcaption>
+    </figure>
 
     <div class="thm-block proposition">
       <p><span class="thm-label">Proposition (Closure under morphism image and preimage).</span> Let $\varphi : \Sigma^* \to \Gamma^*$ be a monoid morphism. If $L$ is a regular language over $\Gamma$, then $\varphi^{-1}(L)$ is regular over $\Sigma$. If $L$ is a regular language over $\Sigma$, then $\varphi(L)$ is regular over $\Gamma$.</p>
@@ -192,6 +391,8 @@
 
     <h3>Pumping lemma</h3>
 
+    <p>A DFA has finitely many states, so a run on a word longer than the number of states visits some state twice. The piece of the word read between the two visits leads from that state back to itself, so it can be read again, or skipped, and the run still ends where it did.</p>
+
     <div class="thm-block theorem">
       <p><span class="thm-label">Theorem (Pumping Lemma).</span> Let $L$ be a regular language. There exists an integer $p \geq 1$ (the <em>pumping length</em>) such that every word $w \in L$ with $|w| \geq p$ can be decomposed as $w = xyz$ with: (i) $|y| \geq 1$, (ii) $|xy| \leq p$, (iii) $\forall k \geq 0,\; xy^k z \in L$.</p>
     </div>
@@ -201,6 +402,53 @@
       Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$, and $p = |Q|$. Let $w = a_1 \cdots a_n \in L$ with $n \geq p$. Reading $w$ visits states $r_0 = q_0, r_1, \ldots, r_n$ with $r_i = \hat{\delta}(q_0, a_1 \cdots a_i)$. Among the first $p+1$ states $r_0, r_1, \ldots, r_p$, there are $|Q| = p$ possible states, so by the pigeonhole principle, there exist $0 \leq i &lt; j \leq p$ such that $r_i = r_j$. Set $x = a_1 \cdots a_i$, $y = a_{i+1} \cdots a_j$, $z = a_{j+1} \cdots a_n$.
       Then $|y| = j - i \geq 1$, $|xy| = j \leq p$, and for all $k \geq 0$: reading $xy^k z$ starts from $q_0$, reaches $r_i$ after $x$, loops $k$ times on the cycle $r_i \to \cdots \to r_j = r_i$ by reading $y^k$, then reaches $r_n$ after $z$. Since $r_n \in F$, we have $xy^k z \in L$.
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="440.0" height="241.0" viewBox="25.0 88.3 440.0 241.0">
+<line class="fig-accent" x1="35" y1="240" x2="54" y2="240"/>
+<polygon class="fig-dot" points="57,240 48,243.6 48,236.4"/>
+<path class="fig-accent" d="M 83 240 Q 100 240 122 240"/>
+<polygon class="fig-dot" points="122,240 113,243.6 113,236.4"/>
+<path class="fig-accent" d="M 138 240 Q 160 240 182 240"/>
+<polygon class="fig-dot" points="182,240 173,243.6 173,236.4"/>
+<path class="fig-accent" d="M 198 240 Q 220 240 237 240"/>
+<polygon class="fig-dot" points="237,240 228,243.6 228,236.4"/>
+<path class="fig-accent" d="M 262 235 Q 288.8 223.8 301.9 192.4"/>
+<polygon class="fig-dot" points="301.9,192.4 301.8,202.1 295.1,199.3"/>
+<path class="fig-accent" d="M 301.9 177.6 Q 288.8 146.2 257.4 133.1"/>
+<polygon class="fig-dot" points="257.4,133.1 267.1,133.2 264.3,139.9"/>
+<path class="fig-accent" d="M 242.6 133.1 Q 211.2 146.2 198.1 177.6"/>
+<polygon class="fig-dot" points="198.1,177.6 198.2,167.9 204.9,170.7"/>
+<path class="fig-accent" d="M 198.1 192.4 Q 211.2 223.8 238 235"/>
+<polygon class="fig-dot" points="238,235 228.3,234.9 231.1,228.2"/>
+<path class="fig-accent" d="M 263 240 Q 285 240 312 240"/>
+<polygon class="fig-dot" points="312,240 303,243.6 303,236.4"/>
+<path class="fig-accent" d="M 328 240 Q 350 240 372 240"/>
+<polygon class="fig-dot" points="372,240 363,243.6 363,236.4"/>
+<path class="fig-accent" d="M 388 240 Q 410 240 427 240"/>
+<polygon class="fig-dot" points="427,240 418,243.6 418,236.4"/>
+<path class="fig-bracket" d="M 55 286 L 55 296 L 245 296 L 245 286"/>
+<path class="fig-bracket" d="M 255 286 L 255 296 L 455 296 L 455 286"/>
+<circle class="fig-hole" cx="70" cy="240" r="13"/>
+<circle class="fig-hole" cx="130" cy="240" r="8"/>
+<circle class="fig-hole" cx="190" cy="240" r="8"/>
+<circle class="fig-hole" cx="250" cy="240" r="13"/>
+<circle class="fig-hole" cx="305" cy="185" r="8"/>
+<circle class="fig-hole" cx="250" cy="130" r="8"/>
+<circle class="fig-hole" cx="195" cy="185" r="8"/>
+<circle class="fig-hole" cx="320" cy="240" r="8"/>
+<circle class="fig-hole" cx="380" cy="240" r="8"/>
+<circle class="fig-hole" cx="440" cy="240" r="13"/>
+<circle class="fig-curve" cx="440" cy="240" r="8.5"/>
+<text class="fig-tick" x="250" y="108" text-anchor="middle">y</text>
+<text class="fig-tick" x="70" y="216" text-anchor="middle">r<tspan class="fig-sup" dy="3">0</tspan></text>
+<text class="fig-tick" x="250" y="270" text-anchor="middle">r<tspan class="fig-sup" dy="3">i</tspan> = r<tspan class="fig-sup" dy="3">j</tspan></text>
+<text class="fig-tick" x="440" y="216" text-anchor="middle">r<tspan class="fig-sup" dy="3">n</tspan></text>
+<text class="fig-tick" x="150" y="316" text-anchor="middle">x</text>
+<text class="fig-tick" x="355" y="316" text-anchor="middle">z</text>
+      </svg>
+      <figcaption>The run of a word $w \in L$ with $|w| \geq p$ in a DFA with $p$ states. Its first $p+1$ states cannot all be distinct, so the run comes back to a state it has already visited, within the first $p$ letters. The letters read around that loop form $y$, and going around it $k$ times reads $xy^kz$ and ends in $r_n$, which is accepting. The two conditions of the lemma are read off the picture: $y$ is nonempty because a loop has at least one edge, and $|xy| \leq p$ because the repetition occurs among the first $p+1$ states.</figcaption>
+    </figure>
 
     <h3>Myhill-Nerode theorem and minimal automaton</h3>
 
@@ -223,11 +471,48 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Take the words themselves as states. An automaton for $L$ may send $u$ and $v$ to the same state only if no suffix distinguishes them, so the classes of $\sim_L$ are the states of every automaton for $L$, merged as much as they can be.
       $(1 \Rightarrow 2)$. Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. Define $\equiv_\mathcal{A}$ by $u \equiv_\mathcal{A} v$ iff $\hat{\delta}(q_0, u) = \hat{\delta}(q_0, v)$. If $u \equiv_\mathcal{A} v$, then for all $w$, $\hat{\delta}(q_0, uw) = \hat{\delta}(\hat{\delta}(q_0, u), w) = \hat{\delta}(\hat{\delta}(q_0, v), w) = \hat{\delta}(q_0, vw)$, so $uw \in L \iff vw \in L$, giving $u \sim_L v$. Thus $\equiv_\mathcal{A}$ refines $\sim_L$, and $\sim_L$ has at most $|Q|$ classes.
       $(2 \Rightarrow 1)$. Suppose $\sim_L$ has finitely many $n$ classes. We build the DFA $\mathcal{A}_L = (Q_L, \Sigma, \delta_L, [\varepsilon], F_L)$ with $Q_L = \Sigma^* / {\sim_L}$ (the set of classes), $\delta_L([u], a) = [ua]$ (well-defined by right compatibility), $[\varepsilon]$ as initial state, and $F_L = \{[u] : u \in L\}$ (well-defined since $u \sim_L v$ and $u \in L$ implies $v \in L$ by taking $w = \varepsilon$). We verify $\hat{\delta}_L([\varepsilon], w) = [w]$ by induction on $|w|$ (base: $\hat{\delta}_L([\varepsilon], \varepsilon) = [\varepsilon]$; step: $\hat{\delta}_L([\varepsilon], wa) = \delta_L([w], a) = [wa]$). So $w \in L(\mathcal{A}_L)$ iff $[w] \in F_L$ iff $w \in L$.
       <em>Minimality.</em> We saw that for any DFA $\mathcal{A}$ recognizing $L$, $\equiv_\mathcal{A}$ refines $\sim_L$, so $|Q| \geq n$. Since $\mathcal{A}_L$ has exactly $n$ states, $\mathcal{A}_L$ is a DFA of minimal size.
       <em>Uniqueness.</em> If $\mathcal{A}$ is a DFA recognizing $L$ with $n$ states, then $\equiv_\mathcal{A}$ has exactly $n$ classes and refines $\sim_L$ which also has $n$, so $\equiv_\mathcal{A}$ and $\sim_L$ coincide. The map $\hat{\delta}(q_0, u) \mapsto [u]$ is an isomorphism between $\mathcal{A}$ and $\mathcal{A}_L$ (if all states of $\mathcal{A}$ are reachable).
     </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="672.0" height="151.2" viewBox="8.0 100.0 672.0 151.2">
+<line class="fig-accent" x1="210" y1="148" x2="281" y2="148"/>
+<polygon class="fig-dot" points="290,148 281,151.6 281,144.4"/>
+<line class="fig-accent" x1="440" y1="148" x2="511" y2="148"/>
+<polygon class="fig-dot" points="520,148 511,151.6 511,144.4"/>
+<line class="fig-accent" x1="18" y1="148" x2="57" y2="148"/>
+<polygon class="fig-dot" points="60,148 51,151.6 51,144.4"/>
+<path class="fig-accent" d="M 113 186 C 105 232 165 232 157 189"/>
+<polygon class="fig-dot" points="157,186 158.3,195.6 151.3,193.9"/>
+<path class="fig-accent" d="M 343 186 C 335 232 395 232 387 189"/>
+<polygon class="fig-dot" points="387,186 388.3,195.6 381.3,193.9"/>
+<path class="fig-accent" d="M 573 186 C 565 232 625 232 617 189"/>
+<polygon class="fig-dot" points="617,186 618.3,195.6 611.3,193.9"/>
+<rect class="fig-shape" x="60" y="110" width="150" height="76" rx="7"/>
+<rect class="fig-shape" x="290" y="110" width="150" height="76" rx="7"/>
+<rect class="fig-shape" x="520" y="110" width="150" height="76" rx="7"/>
+<rect class="fig-accent" x="525" y="115" width="140" height="66" rx="4"/>
+<text class="fig-tick" x="135" y="136" text-anchor="middle"><tspan class="fig-text">[</tspan>ε<tspan class="fig-text">]</tspan></text>
+<text class="fig-note" x="135" y="156" text-anchor="middle">ε, b, bb</text>
+<text class="fig-note" x="135" y="173" text-anchor="middle">bbb, bbbb</text>
+<text class="fig-tick" x="365" y="136" text-anchor="middle"><tspan class="fig-text">[</tspan>a<tspan class="fig-text">]</tspan></text>
+<text class="fig-note" x="365" y="156" text-anchor="middle">a, ab, ba</text>
+<text class="fig-note" x="365" y="173" text-anchor="middle">bab, bbab</text>
+<text class="fig-tick" x="595" y="136" text-anchor="middle"><tspan class="fig-text">[</tspan>aa<tspan class="fig-text">]</tspan></text>
+<text class="fig-note" x="595" y="156" text-anchor="middle">aa, aba, aab</text>
+<text class="fig-note" x="595" y="173" text-anchor="middle">baaba, abab</text>
+<text class="fig-tick" x="250" y="138" text-anchor="middle">a</text>
+<text class="fig-tick" x="480" y="138" text-anchor="middle">a</text>
+<text class="fig-tick" x="135" y="238" text-anchor="middle">b</text>
+<text class="fig-tick" x="365" y="238" text-anchor="middle">b</text>
+<text class="fig-tick" x="595" y="238" text-anchor="middle">a, b</text>
+      </svg>
+      <figcaption>The classes of $\sim_L$ for $L$ the words over $\{a,b\}$ containing at least two $a$'s, with a few members of each written out. Two words in the same box are sent into $L$ by exactly the same suffixes, appending a letter sends a whole box into a single box, and $[aa]$ is the box contained in $L$. The three boxes with these arrows are therefore a DFA for $L$, and no DFA can have fewer states, since two words in different boxes must reach different states.</figcaption>
+    </figure>
 
     <div class="thm-block corollary">
       <p><span class="thm-label">Corollary.</span> Every regular language has, up to isomorphism, a unique minimal DFA (among DFAs whose states are all reachable). It is the Nerode automaton $\mathcal{A}_L$.</p>
@@ -239,27 +524,143 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> The relation $\sim$ is defined by all the words $w$ at once, which cannot be tested directly. Testing the words of length at most $k$ gives a partition computable from the partition for $k-1$, and the sequence of partitions stops growing after at most $|Q|$ steps.
       Define $\sim_k$ by: $q \sim_0 q'$ iff $(q \in F \iff q' \in F)$, and $q \sim_{k+1} q'$ iff $q \sim_k q'$ and $\forall a \in \Sigma,\;\delta(q, a) \sim_k \delta(q', a)$. Clearly ${\sim_{k+1}} \subseteq {\sim_k}$. Since $Q$ is finite, there exists $k_0$ such that ${\sim_{k_0}} = {\sim_{k_0+1}}$. We show that ${\sim_{k_0}} = {\sim}$. The inclusion ${\sim} \subseteq {\sim_k}$ for all $k$ is immediate by induction. For the other direction, if $q \sim_{k_0} q'$, then for all $a$, $\delta(q, a) \sim_{k_0} \delta(q', a)$, so by induction on $|w|$, $\hat{\delta}(q, w) \sim_{k_0} \hat{\delta}(q', w)$ for all $w$, which implies $\hat{\delta}(q, w) \in F \iff \hat{\delta}(q', w) \in F$, so $q \sim q'$. The quotient $Q / {\sim}$ gives the minimal automaton.
     </details>
+
+    <h2>Techniques</h2>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 1.</span> The state is the whole memory. To build a DFA for a language, find a quantity attached to a prefix that takes finitely many values, determines whether the word read so far is in the language, and whose new value after a letter depends only on its old value and that letter.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that the language $L = \{w \in \{a,b\}^* : |w|_a \equiv 0 \pmod{3}\}$ is regular.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        We build the DFA $\mathcal{A} = (\{q_0, q_1, q_2\}, \{a,b\}, \delta, q_0, \{q_0\})$ with $\delta(q_i, a) = q_{(i+1) \bmod 3}$ and $\delta(q_i, b) = q_i$. The state $q_i$ means the number of $a$'s read is congruent to $i$ modulo $3$. So $\hat{\delta}(q_0, w) = q_{|w|_a \bmod 3}$, and $w \in L(\mathcal{A})$ iff $|w|_a \equiv 0 \pmod{3}$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 2.</span> A language obtained from regular languages by union, concatenation, star, complement or intersection is regular, so it never has to be recognized directly. Union, concatenation and star are read off regular expressions, complement and intersection off automata.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Let $L$ be a regular language over $\Sigma$. Show that the set of words of $L$ of even length is regular.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Write $\Sigma = \{a_1, \ldots, a_k\}$ and $r = a_1 + \cdots + a_k$. The expression $(r \cdot r)^*$ denotes the words of even length, so that language is regular. The set asked for is its intersection with $L$, and regular languages are closed under intersection.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 3.</span> To prove that $L$ is not regular, assume a pumping length $p$ and rule out every decomposition the lemma allows. The word $w \in L$ with $|w| \geq p$ is yours to choose and the decomposition is not, so choose $w$ so that $|xy| \leq p$ forces $y$ to sit inside one block of letters.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that $L = \{a^n b^n : n \geq 0\}$ is not regular.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Suppose for contradiction that $L$ is regular, with pumping length $p$. The word $w = a^p b^p \in L$ satisfies $|w| = 2p \geq p$. By the lemma, $w = xyz$ with $|y| \geq 1$, $|xy| \leq p$. Since $|xy| \leq p$, $x$ and $y$ consist only of $a$'s, so $y = a^m$ with $m \geq 1$. Then $xy^0 z = xz = a^{p-m} b^p \notin L$ since $p - m \neq p$. Contradiction.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 4.</span> To determinize an NFA, take as states the sets of states of the NFA, starting from the set of initial states and keeping only the sets actually reached. A set is accepting as soon as it meets $F$.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Determinize the NFA over $\Sigma = \{a,b\}$ with states $\{1,2,3\}$, $I = \{1\}$, $F = \{3\}$ and transitions $\delta(1,a) = \{1,2\}$, $\delta(1,b) = \{1\}$, $\delta(2,a) = \{3\}$, all other transitions empty. Which language does it recognize?</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Starting from $\{1\}$: $\delta'(\{1\},a) = \{1,2\}$ and $\delta'(\{1\},b) = \{1\}$; $\delta'(\{1,2\},a) = \{1,2,3\}$ and $\delta'(\{1,2\},b) = \{1\}$; $\delta'(\{1,2,3\},a) = \{1,2,3\}$ and $\delta'(\{1,2,3\},b) = \{1\}$. Only three of the eight subsets are reached: $\{1\}$, $\{1,2\}$ and $\{1,2,3\}$, the last being the only accepting one since it is the only one meeting $F$.
+        State $2$ is reachable by a word exactly when that word ends with $a$, and state $3$ exactly when it ends with $aa$. The recognized language is therefore $\Sigma^* aa$, the words ending with two $a$'s.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 5.</span> To minimize a DFA whose states are all reachable, start from the partition into accepting and non-accepting states, and split a block whenever some letter sends two of its states into different blocks. Stop when no letter splits anything.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Construct the minimal automaton of the DFA over $\Sigma = \{a, b\}$ with five states $\{1, 2, 3, 4, 5\}$, initial state $1$, accepting states $\{1, 4\}$, with $\delta(1, a) = 2$, $\delta(1, b) = 3$, $\delta(2, a) = 4$, $\delta(2, b) = 5$, $\delta(3, a) = 5$, $\delta(3, b) = 4$, $\delta(4, a) = 2$, $\delta(4, b) = 3$, $\delta(5, a) = 3$, $\delta(5, b) = 2$.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        <em>Initial partition</em>: $P_0 = \{A, B\}$ with $A = \{1, 4\}$ (accepting) and $B = \{2, 3, 5\}$.
+        <em>Refinement.</em> For $a$: $\delta(1, a) = 2 \in B$, $\delta(4, a) = 2 \in B$ (identical). For $b$: $\delta(1, b) = 3 \in B$, $\delta(4, b) = 3 \in B$. So $1$ and $4$ stay together.
+        For the states in $B$: $\delta(2, a) = 4 \in A$, $\delta(3, a) = 5 \in B$, $\delta(5, a) = 3 \in B$. So $2$ is distinguished from $3$ and $5$ on $a$. We get $P_1 = \{\{1, 4\}, \{2\}, \{3, 5\}\}$.
+        Check $\{3, 5\}$: $\delta(3, a) = 5 \in \{3,5\}$, $\delta(5, a) = 3 \in \{3,5\}$; $\delta(3, b) = 4 \in \{1,4\}$, $\delta(5, b) = 2 \in \{2\}$. We distinguish $3$ and $5$ on $b$. We get $P_2 = \{\{1, 4\}, \{2\}, \{3\}, \{5\}\}$.
+        Check $\{1, 4\}$: $\delta(1, a) = 2 \in \{2\}$, $\delta(4, a) = 2 \in \{2\}$; $\delta(1, b) = 3 \in \{3\}$, $\delta(4, b) = 3 \in \{3\}$. Stable. So $P_2$ is the final partition.
+        The minimal automaton has $4$ states: $[1] = \{1,4\}$, $[2] = \{2\}$, $[3] = \{3\}$, $[5] = \{5\}$, with initial state $[1]$, accepting state $[1]$, and transitions $\delta([1], a) = [2]$, $\delta([1], b) = [3]$, $\delta([2], a) = [1]$, $\delta([2], b) = [5]$, $\delta([3], a) = [5]$, $\delta([3], b) = [1]$, $\delta([5], a) = [3]$, $\delta([5], b) = [2]$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 6.</span> To read a regular expression off an automaton, add a new initial state and a new accepting state joined by $\varepsilon$, then delete the other states one at a time, each deletion putting the words that passed through the deleted state into the labels of the surviving edges.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Find a regular expression for the language of the DFA over $\Sigma = \{a,b\}$ with states $\{1,2\}$, initial state $1$, accepting state $2$, and $\delta(1,a) = 2$, $\delta(1,b) = 1$, $\delta(2,a) = 2$, $\delta(2,b) = 1$.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Add an initial state $i$ with $i \xrightarrow{\varepsilon} 1$ and an accepting state $f$ with $2 \xrightarrow{\varepsilon} f$. The current labels are $r_{11} = b$, $r_{12} = a$, $r_{21} = b$, $r_{22} = a$.
+        <em>Deleting $2$.</em> The label from $1$ to $1$ becomes $r_{11} + r_{12} r_{22}^* r_{21} = b + a a^* b$, and the label from $1$ to $f$ becomes $r_{12} r_{22}^* = a a^*$.
+        <em>Deleting $1$.</em> Only $i$ and $f$ remain, joined by $(b + aa^*b)^* a a^*$.
+        Every word of $b + aa^*b$ ends with $b$ and every word of $aa^*$ is a nonempty block of $a$'s, so this is the set of words ending with $a$, also denoted by $(a+b)^*a$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p><span class="technique-label">Technique 7.</span> Two words that no suffix separates must reach the same state. To prove that $L$ is not regular, exhibit an infinite family of words, any two of which are separated by some suffix: they lie in distinct classes of $\sim_L$, so by Myhill-Nerode no finite automaton recognizes $L$.</p>
+
+      <div class="thm-block exercise">
+        <p><span class="thm-label">Exercise.</span> Show that $L = \{a^i b^j : i \neq j\}$ is not regular.</p>
+      </div>
+
+      <details class="proof">
+        <summary class="proof-label">Solution.</summary>
+        Consider the words $a^0, a^1, a^2, \ldots$ and let $i &lt; k$. The suffix $b^i$ separates $a^i$ from $a^k$: the word $a^i b^i$ is not in $L$ while $a^k b^i$ is, since $k \neq i$. So $a^i \not\sim_L a^k$ for $i \neq k$, the classes $[a^0], [a^1], [a^2], \ldots$ are pairwise distinct, and $\sim_L$ has infinitely many classes. By Myhill-Nerode, $L$ is not regular.
+      </details>
+    </div>
 
     <h2>Exercises</h2>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that the language $L = \{w \in \{a,b\}^* : |w|_a \equiv 0 \pmod{3}\}$ is regular.</p>
+      <p><span class="thm-label">Exercise.</span> Regular languages are closed under the union of two languages, hence of any finite number. Find regular languages whose union is not regular.</p>
     </div>
 
     <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      We build the DFA $\mathcal{A} = (\{q_0, q_1, q_2\}, \{a,b\}, \delta, q_0, \{q_0\})$ with $\delta(q_i, a) = q_{(i+1) \bmod 3}$ and $\delta(q_i, b) = q_i$. The state $q_i$ means the number of $a$'s read is congruent to $i$ modulo $3$. So $\hat{\delta}(q_0, w) = q_{|w|_a \bmod 3}$, and $w \in L(\mathcal{A})$ iff $|w|_a \equiv 0 \pmod{3}$.
+      <summary class="proof-label">Solution.</summary>
+      Every singleton $\{w\}$ is regular, being denoted by the expression $w$ itself. Any language $L$ is the union of the singletons $\{w\}$ for $w \in L$, so an arbitrary union of regular languages can be any language at all, $\{a^n b^n : n \geq 0\}$ included. Closure holds for finite unions only: the induction that extends it from two languages to $n$ never reaches an infinite family.
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that $L = \{a^n b^n : n \geq 0\}$ is not regular.</p>
+      <p><span class="thm-label">Exercise.</span> The Nerode congruence is compatible with concatenation on the right. Find a language $L$, two words $u \sim_L v$ and a letter $a$ such that $au \not\sim_L av$.</p>
     </div>
 
     <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Suppose for contradiction that $L$ is regular, with pumping length $p$. The word $w = a^p b^p \in L$ satisfies $|w| = 2p \geq p$. By the lemma, $w = xyz$ with $|y| \geq 1$, $|xy| \leq p$. Since $|xy| \leq p$, $x$ and $y$ consist only of $a$'s, so $y = a^m$ with $m \geq 1$. Then $xy^0 z = xz = a^{p-m} b^p \notin L$ since $p - m \neq p$. Contradiction.
+      <summary class="proof-label">Solution.</summary>
+      Take $\Sigma = \{a,b\}$ and $L = \Sigma^* a$, the words ending with $a$. Then $\varepsilon \sim_L b$: for every $w$, both $\varepsilon w = w$ and $bw$ end with $a$ exactly when $w$ does, and neither $\varepsilon$ nor $b$ is in $L$. But $a \varepsilon = a$ belongs to $L$ while $ab$ does not, so the suffix $\varepsilon$ separates them and $a\varepsilon \not\sim_L ab$.
+      A word is read from left to right, so what can still be appended is a suffix. Adding a letter on the right leaves the past untouched and moves both words to the same new class, while adding one on the left rewrites the prefix that has already been read.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Every regular language satisfies the conclusion of the pumping lemma. Find a language that satisfies it and is not regular.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Solution.</summary>
+      Over $\Sigma = \{a,b,c\}$, take $L = \{c^m a^n b^n : m \geq 1,\ n \geq 0\} \cup \{a,b\}^*$.
+      <em>$L$ satisfies the conclusion with $p = 1$.</em> Let $w \in L$ with $|w| \geq 1$. If $w \in \{a,b\}^*$, write $x = \varepsilon$, $y$ the first letter of $w$ and $z$ the rest: then $|y| = |xy| = 1$ and $xy^kz$ is again a word of $\{a,b\}^*$, so it lies in $L$ for every $k \geq 0$. Otherwise $w = c^m a^n b^n$ with $m \geq 1$; write $x = \varepsilon$, $y = c$ and $z = c^{m-1}a^nb^n$. Then $xy^kz = c^{m-1+k}a^nb^n$, which is in $L$ when $m - 1 + k \geq 1$, and equals $a^nb^n \in \{a,b\}^*$ when $m - 1 + k = 0$. Either way it lies in $L$.
+      <em>$L$ is not regular.</em> If it were, $L \cap c a^* b^*$ would be regular, and that language is $\{c a^n b^n : n \geq 0\}$. Its image under the morphism $\varphi$ defined by $\varphi(c) = \varepsilon$, $\varphi(a) = a$, $\varphi(b) = b$ would then be regular too, but that image is $\{a^n b^n : n \geq 0\}$, which the pumping lemma rules out.
+      The pumping property is therefore necessary for regularity and not sufficient: it can be used to reject a language, never to certify one.
     </details>
 
     <div class="thm-block exercise">
@@ -272,30 +673,12 @@
     </details>
 
     <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that $L = \{a^n : n \text{ is prime}\}$ is not regular.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Suppose $L$ is regular with pumping length $p$. Let $q$ be a prime $\geq p$. The word $w = a^q \in L$ satisfies $|w| = q \geq p$. By the pumping lemma, $w = xyz$ with $|y| = m \geq 1$, $|xy| \leq p$. Then $|xy^{q+1} z| = q + qm = q(1 + m)$. This is a product of two integers $\geq 2$ ($q$ is prime $\geq 2$ and $1 + m \geq 2$), so it is not prime. Thus $xy^{q+1} z \notin L$, contradiction.
-    </details>
-
-    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> Show that $L = \{0^n 1^n 0^n : n \geq 0\}$ is not regular.</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
       Suppose $L$ is regular with pumping length $p$. The word $w = 0^p 1^p 0^p \in L$ satisfies $|w| = 3p \geq p$. By the pumping lemma, $w = xyz$ with $|xy| \leq p$ and $|y| \geq 1$, so $y = 0^m$ with $1 \leq m \leq p$ (in the first block). Then $xy^0 z = 0^{p-m} 1^p 0^p \notin L$ since $p - m \neq p$. Contradiction.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Show that $L = \{ww : w \in \{a,b\}^*\}$ is not regular.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      Suppose $L$ is regular with pumping length $p$. The word $w = a^p b a^p b \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$, $|y| \geq 1$, so $y = a^m$ ($1 \leq m \leq p$). The word $xy^2 z = a^{p+m} b a^p b$ has length $2p + 2 + m$. If $m$ is odd, this length is odd, so $xy^2 z \notin L$ (every element of $L$ has even length). If $m$ is even, $m = 2\ell$ with $\ell \geq 1$, each half has length $p + 1 + \ell$. Since $p + 1 + \ell \leq p + 2\ell$, the cut falls in the first block of $a$'s. The first half is $a^{p + 1 + \ell}$ (only $a$'s), the second is $a^{\ell - 1} b a^p b$ (contains $b$'s). They differ, so $xy^2 z \notin L$. Contradiction.
     </details>
 
     <div class="thm-block exercise">
@@ -308,39 +691,32 @@
     </details>
 
     <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $L = \{a^n : n \text{ is prime}\}$ is not regular.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. Let $q$ be a prime $\geq p$. The word $w = a^q \in L$ satisfies $|w| = q \geq p$. By the pumping lemma, $w = xyz$ with $|y| = m \geq 1$, $|xy| \leq p$. Then $|xy^{q+1} z| = q + qm = q(1 + m)$. This is a product of two integers $\geq 2$ ($q$ is prime $\geq 2$ and $1 + m \geq 2$), so it is not prime. Thus $xy^{q+1} z \notin L$, contradiction.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> Show that $L = \{ww : w \in \{a,b\}^*\}$ is not regular.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L$ is regular with pumping length $p$. The word $w = a^p b a^p b \in L$ satisfies $|w| \geq p$. By the lemma, $w = xyz$ with $|xy| \leq p$, $|y| \geq 1$, so $y = a^m$ ($1 \leq m \leq p$). The word $xy^2 z = a^{p+m} b a^p b$ has length $2p + 2 + m$. If $m$ is odd, this length is odd, so $xy^2 z \notin L$ (every element of $L$ has even length). If $m$ is even, $m = 2\ell$ with $\ell \geq 1$, each half has length $p + 1 + \ell$. Since $p + 1 + \ell \leq p + 2\ell$, the cut falls in the first block of $a$'s. The first half is $a^{p + 1 + \ell}$ (only $a$'s), the second is $a^{\ell - 1} b a^p b$ (contains $b$'s). They differ, so $xy^2 z \notin L$. Contradiction.
+    </details>
+
+    <div class="thm-block exercise">
       <p><span class="thm-label">Exercise.</span> For a word $w = a_1 \cdots a_n$, we write $w^R = a_n \cdots a_1$ for the <em>mirror word</em> of $w$. Let $L$ be a regular language. Show that $L^R = \{w^R : w \in L\}$ is regular.</p>
     </div>
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> Reading $w^R$ from left to right is reading $w$ from right to left, so turn every arrow of an automaton for $L$ around. What was determined forwards becomes a guess backwards, which is what nondeterminism is for.
       Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. We build the NFA $\mathcal{A}^R = (Q, \Sigma, \delta^R, F, \{q_0\})$ by reversing all transitions: $(q', a, q) \in \delta^R$ iff $\delta(q, a) = q'$. The initial states of $\mathcal{A}^R$ are the accepting states of $\mathcal{A}$, and the sole accepting state is $q_0$.
       We show that $L(\mathcal{A}^R) = L^R$. A word $a_1 \cdots a_n \in L$ iff there exists a path $q_0 \xrightarrow{a_1} r_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} r_n$ in $\mathcal{A}$ with $r_n \in F$. Reversing, $r_n \xrightarrow{a_n} r_{n-1} \xrightarrow{a_{n-1}} \cdots \xrightarrow{a_1} q_0$ is a path in $\mathcal{A}^R$ from $r_n \in F$ (initial state of $\mathcal{A}^R$) to $q_0$ (accepting state of $\mathcal{A}^R$), showing that $a_n \cdots a_1 \in L(\mathcal{A}^R)$. The argument is reversible.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise (Arden's lemma).</span> Let $A, B \subseteq \Sigma^*$ with $\varepsilon \notin A$. Show that the unique solution of the equation $X = AX \cup B$ is $X = A^* B$. Deduce a method for computing the language recognized by a finite automaton: to each state $q_i$ of a DFA $(Q, \Sigma, \delta, q_0, F)$, associate the language $L_i = \{w \in \Sigma^* : \hat{\delta}(q_i, w) \in F\}$, and solve the resulting system of equations. Apply this method to the DFA over $\Sigma = \{a, b\}$ with three states $\{0, 1, 2\}$, initial state $0$, accepting state $\{0\}$, with $\delta(0, a) = 1$, $\delta(0, b) = 0$, $\delta(1, a) = 2$, $\delta(1, b) = 0$, $\delta(2, a) = 2$, $\delta(2, b) = 2$.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      <em>Verification.</em> $A^* B = A(A^* B) \cup B$ since $A^* = AA^* \cup \{\varepsilon\}$. So $X = A^* B$ is a solution.
-      <em>Uniqueness.</em> Let $X$ be a solution. By iterated substitution: $X = AX \cup B = A(AX \cup B) \cup B = A^2 X \cup AB \cup B$. By induction, $X = A^n X \cup \left(\bigcup_{k=0}^{n-1} A^k\right) B$ for all $n \geq 1$. Since $\varepsilon \notin A$, every word in $A$ has length $\geq 1$, so every word in $A^n$ has length $\geq n$. Let $w \in X$: if $w \in A^n X$ for all $n$, then $|w| \geq n$ for all $n$, which is impossible. So there exists $n$ such that $w \in \left(\bigcup_{k=0}^{n-1} A^k\right) B \subseteq A^* B$. Thus $X \subseteq A^* B$. The reverse inclusion follows from the fact that $A^* B$ is a solution and $X = AX \cup B \supseteq B$, then by induction $X \supseteq A^n B$ for all $n$, so $X \supseteq A^* B$.
-      <em>Application.</em> The system of equations is: $L_i = \bigcup_{a \in \Sigma} a \cdot L_{\delta(i, a)}$, with the term $\cup\;\{\varepsilon\}$ added if $i \in F$. Here: $L_0 = a \cdot L_1 \cup b \cdot L_0 \cup \{\varepsilon\}$, $L_1 = a \cdot L_2 \cup b \cdot L_0$, $L_2 = a \cdot L_2 \cup b \cdot L_2$.
-      By Arden on $L_2$: $L_2 = (a \cup b) L_2 \cup \varnothing$, so $L_2 = (a \cup b)^* \varnothing = \varnothing$. Then $L_1 = b \cdot L_0$. Substituting into $L_0$: $L_0 = ab \cdot L_0 \cup b \cdot L_0 \cup \{\varepsilon\} = (ab \cup b) L_0 \cup \{\varepsilon\}$. By Arden: $L_0 = (ab \cup b)^*$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p><span class="thm-label">Exercise.</span> Construct the minimal automaton of the DFA over $\Sigma = \{a, b\}$ with five states $\{1, 2, 3, 4, 5\}$, initial state $1$, accepting states $\{1, 4\}$, with $\delta(1, a) = 2$, $\delta(1, b) = 3$, $\delta(2, a) = 4$, $\delta(2, b) = 5$, $\delta(3, a) = 5$, $\delta(3, b) = 4$, $\delta(4, a) = 2$, $\delta(4, b) = 3$, $\delta(5, a) = 3$, $\delta(5, b) = 2$.</p>
-    </div>
-
-    <details class="proof">
-      <summary class="proof-label">Proof.</summary>
-      <em>Initial partition</em>: $P_0 = \{A, B\}$ with $A = \{1, 4\}$ (accepting) and $B = \{2, 3, 5\}$.
-      <em>Refinement.</em> For $a$: $\delta(1, a) = 2 \in B$, $\delta(4, a) = 2 \in B$ (identical). For $b$: $\delta(1, b) = 3 \in B$, $\delta(4, b) = 3 \in B$. So $1$ and $4$ stay together.
-      For the states in $B$: $\delta(2, a) = 4 \in A$, $\delta(3, a) = 5 \in B$, $\delta(5, a) = 3 \in B$. So $2$ is distinguished from $3$ and $5$ on $a$. We get $P_1 = \{\{1, 4\}, \{2\}, \{3, 5\}\}$.
-      Check $\{3, 5\}$: $\delta(3, a) = 5 \in \{3,5\}$, $\delta(5, a) = 3 \in \{3,5\}$; $\delta(3, b) = 4 \in \{1,4\}$, $\delta(5, b) = 2 \in \{2\}$. We distinguish $3$ and $5$ on $b$. We get $P_2 = \{\{1, 4\}, \{2\}, \{3\}, \{5\}\}$.
-      Check $\{1, 4\}$: $\delta(1, a) = 2 \in \{2\}$, $\delta(4, a) = 2 \in \{2\}$; $\delta(1, b) = 3 \in \{3\}$, $\delta(4, b) = 3 \in \{3\}$. Stable. So $P_2$ is the final partition.
-      The minimal automaton has $4$ states: $[1] = \{1,4\}$, $[2] = \{2\}$, $[3] = \{3\}$, $[5] = \{5\}$, with initial state $[1]$, accepting state $[1]$, and transitions $\delta([1], a) = [2]$, $\delta([1], b) = [3]$, $\delta([2], a) = [1]$, $\delta([2], b) = [5]$, $\delta([3], a) = [5]$, $\delta([3], b) = [1]$, $\delta([5], a) = [3]$, $\delta([5], b) = [2]$.
     </details>
 
     <div class="thm-block exercise">
@@ -363,8 +739,34 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> The automaton for $L$ already reads $x$; all that changes is when to stop. Declare accepting the states from which some word of $M$ still reaches $F$, and the transitions can be left alone.
       Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$. We build the DFA $\mathcal{A}' = (Q, \Sigma, \delta, q_0, F')$ with $F' = \{q \in Q : \exists y \in M,\; \hat{\delta}(q, y) \in F\}$. We only change the set of accepting states.
       Then $x \in L(\mathcal{A}')$ iff $\hat{\delta}(q_0, x) \in F'$ iff $\exists y \in M,\; \hat{\delta}(\hat{\delta}(q_0, x), y) \in F$ iff $\exists y \in M,\; \hat{\delta}(q_0, xy) \in F$ iff $\exists y \in M,\; xy \in L$ iff $x \in L/M$. So $L(\mathcal{A}') = L/M$, which is regular. Note that $M$ need not be regular.
+      Nothing in the construction says how to decide which states belong to $F'$, and for an arbitrary $M$ nothing can: the automaton exists, and finding it may be impossible.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise (Arden's lemma).</span> Let $A, B \subseteq \Sigma^*$ with $\varepsilon \notin A$. Show that the unique solution of the equation $X = AX \cup B$ is $X = A^* B$. Deduce a method for computing the language recognized by a finite automaton: to each state $q_i$ of a DFA $(Q, \Sigma, \delta, q_0, F)$, associate the language $L_i = \{w \in \Sigma^* : \hat{\delta}(q_i, w) \in F\}$, and solve the resulting system of equations. Apply this method to the DFA over $\Sigma = \{a, b\}$ with three states $\{0, 1, 2\}$, initial state $0$, accepting state $\{0\}$, with $\delta(0, a) = 1$, $\delta(0, b) = 0$, $\delta(1, a) = 2$, $\delta(1, b) = 0$, $\delta(2, a) = 2$, $\delta(2, b) = 2$.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      <em>Verification.</em> $A^* B = A(A^* B) \cup B$ since $A^* = AA^* \cup \{\varepsilon\}$. So $X = A^* B$ is a solution.
+      <em>Uniqueness.</em> Let $X$ be a solution. By iterated substitution: $X = AX \cup B = A(AX \cup B) \cup B = A^2 X \cup AB \cup B$. By induction, $X = A^n X \cup \left(\bigcup_{k=0}^{n-1} A^k\right) B$ for all $n \geq 1$. Since $\varepsilon \notin A$, every word in $A$ has length $\geq 1$, so every word in $A^n$ has length $\geq n$. Let $w \in X$: if $w \in A^n X$ for all $n$, then $|w| \geq n$ for all $n$, which is impossible. So there exists $n$ such that $w \in \left(\bigcup_{k=0}^{n-1} A^k\right) B \subseteq A^* B$. Thus $X \subseteq A^* B$. The reverse inclusion follows from the fact that $A^* B$ is a solution and $X = AX \cup B \supseteq B$, then by induction $X \supseteq A^n B$ for all $n$, so $X \supseteq A^* B$.
+      <em>Application.</em> The system of equations is: $L_i = \bigcup_{a \in \Sigma} a \cdot L_{\delta(i, a)}$, with the term $\cup\;\{\varepsilon\}$ added if $i \in F$. Here: $L_0 = a \cdot L_1 \cup b \cdot L_0 \cup \{\varepsilon\}$, $L_1 = a \cdot L_2 \cup b \cdot L_0$, $L_2 = a \cdot L_2 \cup b \cdot L_2$.
+      By Arden on $L_2$: $L_2 = (a \cup b) L_2 \cup \varnothing$, so $L_2 = (a \cup b)^* \varnothing = \varnothing$. Then $L_1 = b \cdot L_0$. Substituting into $L_0$: $L_0 = ab \cdot L_0 \cup b \cdot L_0 \cup \{\varepsilon\} = (ab \cup b) L_0 \cup \{\varepsilon\}$. By Arden: $L_0 = (ab \cup b)^*$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p><span class="thm-label">Exercise.</span> The subset construction turns an $n$-state NFA into a DFA with at most $2^n$ states. Show that this bound is reached: for every $n \geq 1$, exhibit a language recognized by an NFA with $n+1$ states whose minimal DFA has exactly $2^n$ states.</p>
+    </div>
+
+    <details class="proof">
+      <summary class="proof-label">Proof.</summary>
+      Over $\Sigma = \{a,b\}$, let $L_n$ be the set of words whose $n$-th letter from the end is an $a$, that is $L_n = \Sigma^* a \Sigma^{n-1}$.
+      <em>An NFA with $n+1$ states.</em> Take $Q = \{0, 1, \ldots, n\}$, $I = \{0\}$, $F = \{n\}$, with $\delta(0, a) = \{0, 1\}$, $\delta(0, b) = \{0\}$, and $\delta(i, a) = \delta(i, b) = \{i+1\}$ for $1 \leq i \leq n-1$. State $0$ reads the word and guesses at some point that the $a$ it is reading is the one in position $n$ from the end; the states $1, \ldots, n$ then count the $n-1$ letters that must follow.
+      <em>Every DFA needs $2^n$ states.</em> Let $u \neq v$ be two words of length $n$, differing at position $i$ counted from the left, say $u_i = a$ and $v_i = b$. Take $s = b^{i-1}$. The word $us$ has length $n + i - 1$, so its $n$-th letter from the end is its letter in position $i$, namely $u_i = a$; hence $us \in L_n$. The same computation gives $vs \notin L_n$. So $u \not\sim_{L_n} v$: the $2^n$ words of length $n$ are pairwise inequivalent, and by Myhill-Nerode the minimal DFA has at least $2^n$ states.
+      <em>And $2^n$ suffice.</em> Whether $w \in L_n$ depends only on the last $n$ letters of $b^n w$, so the DFA whose states are the $2^n$ words of length $n$, with initial state $b^n$, transition $\delta(x_1 \cdots x_n, c) = x_2 \cdots x_n c$ and accepting states those beginning with $a$, recognizes $L_n$. Its minimal DFA therefore has exactly $2^n$ states.
     </details>
 
     <div class="thm-block exercise">
@@ -373,6 +775,7 @@
 
     <details class="proof">
       <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> An automaton reading $w$ once cannot run the second copy of $w$, since it does not know yet where that copy starts. So it runs the second copy from every state at once: the state to carry is the function sending each possible starting state to the state reached, and a function on a finite set is itself a finite amount of memory.
       Let $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ be a DFA recognizing $L$ with $n = |Q|$. We build a DFA whose states encode both the progress of the first copy of $w$ and the effect of the second copy on every possible state.
       Set $Q' = Q \times Q^Q$ where $Q^Q$ is the set of functions from $Q$ to $Q$. A state $(q, f)$ means: the first copy has reached state $q$, and for each hypothetical starting state $s$, the second copy would have reached state $f(s)$. The transitions are: $\delta'((q, f), a) = (\delta(q, a),\; s \mapsto \delta(f(s), a))$.
       The initial state is $(q_0, \mathrm{id}_Q)$: the first copy starts from $q_0$, and the second has not read anything yet. The set of accepting states is $F' = \{(q, f) : f(q) \in F\}$: the second copy starts from the state $q$ reached by the first, and must arrive in $F$.
