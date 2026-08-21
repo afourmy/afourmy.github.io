@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Series</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '\\[', right: '\\]', display: true},
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <h2 class="en">Course</h2>
+    <h2 class="fr">Cours</h2>
+
+    <h3 class="en">Partial sums</h3>
+    <h3 class="fr">Sommes partielles</h3>
+
+    <p class="en">Only finitely many numbers can be added at once.</p>
+    <p class="fr">On ne peut additionner qu'un nombre fini de termes à la fois.</p>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Series).</span> Let $(u_n)$ be a real sequence. The <em>partial sum</em> of order $n$ is $S_n=\sum_{k=0}^{n}u_k$. The <em>series</em> $\sum u_n$ <em>converges</em> if the sequence $(S_n)$ converges, and its <em>sum</em> is then $\sum_{k=0}^{+\infty}u_k=\lim_{n\to\infty}S_n$. Otherwise the series <em>diverges</em>.</p>
+      <p class="fr"><span class="thm-label">Définition (Série).</span> Soit $(u_n)$ une suite réelle. La <em>somme partielle</em> d'ordre $n$ est $S_n=\sum_{k=0}^{n}u_k$. La <em>série</em> $\sum u_n$ <em>converge</em> si la suite $(S_n)$ converge, et sa <em>somme</em> est alors $\sum_{k=0}^{+\infty}u_k=\lim_{n\to\infty}S_n$. Sinon la série <em>diverge</em>.</p>
+    </div>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Remainder).</span> If $\sum u_n$ converges with sum $S$, the <em>remainder</em> of order $n$ is $R_n=S-S_n=\sum_{k=n+1}^{+\infty}u_k$.</p>
+      <p class="fr"><span class="thm-label">Définition (Reste).</span> Si $\sum u_n$ converge de somme $S$, le <em>reste</em> d'ordre $n$ est $R_n=S-S_n=\sum_{k=n+1}^{+\infty}u_k$.</p>
+    </div>
+
+    <p class="en">When each term is the difference of two consecutive values of a sequence, all but two of them cancel in the partial sum.</p>
+    <p class="fr">Quand chaque terme est la différence de deux valeurs consécutives d'une suite, tous s'annulent dans la somme partielle sauf deux.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Telescoping series).</span> Let $(a_n)$ be a real sequence. The series $\sum(a_{n+1}-a_n)$ converges if and only if $(a_n)$ converges, and then $\sum_{n=0}^{+\infty}(a_{n+1}-a_n)=\lim_{n\to\infty}a_n-a_0$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Série télescopique).</span> Soit $(a_n)$ une suite réelle. La série $\sum(a_{n+1}-a_n)$ converge si et seulement si $(a_n)$ converge, et alors $\sum_{n=0}^{+\infty}(a_{n+1}-a_n)=\lim_{n\to\infty}a_n-a_0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $S_n=\sum_{k=0}^{n}(a_{k+1}-a_k)=a_{n+1}-a_0$, so $(S_n)$ and $(a_n)$ converge together, and the limits differ by $a_0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $S_n=\sum_{k=0}^{n}(a_{k+1}-a_k)=a_{n+1}-a_0$, donc $(S_n)$ et $(a_n)$ convergent en même temps, et les limites diffèrent de $a_0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Geometric series).</span> Let $q\in\mathbb{R}$. The series $\sum q^n$ converges if and only if $|q|&lt;1$, and then
+      \[\sum_{n=0}^{+\infty}q^n=\frac{1}{1-q}.\]</p>
+      <p class="fr"><span class="thm-label">Proposition (Série géométrique).</span> Soit $q\in\mathbb{R}$. La série $\sum q^n$ converge si et seulement si $|q|&lt;1$, et alors
+      \[\sum_{n=0}^{+\infty}q^n=\frac{1}{1-q}.\]</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $q=1$, $S_n=n+1\to+\infty$. For $q\neq 1$, $(1-q)S_n=1-q^{n+1}$, so $S_n=\frac{1-q^{n+1}}{1-q}$ and $(S_n)$ converges if and only if $(q^{n+1})$ converges. For $q\neq 1$ that happens exactly when $|q|&lt;1$, and then $q^{n+1}\to 0$ gives $S_n\to\frac{1}{1-q}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $q=1$, $S_n=n+1\to+\infty$. Pour $q\neq 1$, $(1-q)S_n=1-q^{n+1}$, donc $S_n=\frac{1-q^{n+1}}{1-q}$ et $(S_n)$ converge si et seulement si $(q^{n+1})$ converge. Pour $q\neq 1$, cela se produit exactement quand $|q|&lt;1$, et alors $q^{n+1}\to 0$ donne $S_n\to\frac{1}{1-q}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="610" height="111" viewBox="40.0 79.0 610.0 111.0">
+        <line class="fig-axis" x1="50.0" y1="150.0" x2="640.0" y2="150.0"/>
+        <line class="fig-interval" x1="71.5" y1="118.0" x2="328.5" y2="118.0"/>
+        <line class="fig-interval" x1="331.5" y1="118.0" x2="458.5" y2="118.0"/>
+        <line class="fig-interval" x1="461.5" y1="118.0" x2="523.5" y2="118.0"/>
+        <line class="fig-interval" x1="526.5" y1="118.0" x2="556.0" y2="118.0"/>
+        <line class="fig-interval" x1="559.0" y1="118.0" x2="572.2" y2="118.0"/>
+        <line class="fig-interval" x1="575.2" y1="118.0" x2="580.4" y2="118.0"/>
+        <line class="fig-interval" x1="583.4" y1="118.0" x2="584.4" y2="118.0"/>
+        <line class="fig-accent" x1="70.0" y1="112.0" x2="70.0" y2="124.0"/>
+        <line class="fig-accent" x1="330.0" y1="112.0" x2="330.0" y2="124.0"/>
+        <line class="fig-accent" x1="460.0" y1="112.0" x2="460.0" y2="124.0"/>
+        <line class="fig-accent" x1="525.0" y1="112.0" x2="525.0" y2="124.0"/>
+        <line class="fig-accent" x1="557.5" y1="112.0" x2="557.5" y2="124.0"/>
+        <line class="fig-accent" x1="573.8" y1="112.0" x2="573.8" y2="124.0"/>
+        <line class="fig-guide" x1="70.0" y1="150.0" x2="70.0" y2="126.0"/>
+        <line class="fig-guide" x1="330.0" y1="150.0" x2="330.0" y2="126.0"/>
+        <line class="fig-guide" x1="460.0" y1="150.0" x2="460.0" y2="126.0"/>
+        <line class="fig-guide" x1="525.0" y1="150.0" x2="525.0" y2="126.0"/>
+        <text x="200.0" y="104.0" text-anchor="middle">1</text>
+        <text x="395.0" y="104.0" text-anchor="middle">q</text>
+        <text x="492.5" y="104.0" text-anchor="middle">q<tspan dy="-5" font-size="11">2</tspan></text>
+        <text x="541.2" y="104.0" text-anchor="middle">q<tspan dy="-5" font-size="11">3</tspan></text>
+        <circle class="fig-dot" cx="70.0" cy="150.0" r="3.5"/>
+        <text x="70.0" y="172.0" text-anchor="middle">0</text>
+        <circle class="fig-dot" cx="330.0" cy="150.0" r="3.5"/>
+        <text x="330.0" y="172.0" text-anchor="middle">S<tspan dy="4" font-size="11">0</tspan></text>
+        <circle class="fig-dot" cx="460.0" cy="150.0" r="3.5"/>
+        <text x="460.0" y="172.0" text-anchor="middle">S<tspan dy="4" font-size="11">1</tspan></text>
+        <circle class="fig-dot" cx="525.0" cy="150.0" r="3.5"/>
+        <text x="525.0" y="172.0" text-anchor="middle">S<tspan dy="4" font-size="11">2</tspan></text>
+        <circle class="fig-hole" cx="590.0" cy="150.0" r="4.5"/>
+        <text x="590.0" y="172.0" text-anchor="middle">1/(1 &#8722; q)</text>
+      </svg>
+      <figcaption><span class="en">The segments of lengths $1, q, q^2, \ldots$ laid end to end for $q=\tfrac12$. The right end of the $n$-th segment is the partial sum $S_n$, and each segment is $q$ times the previous one, so the ends never pass $1/(1-q)$.</span><span class="fr">Les segments de longueurs $1, q, q^2, \ldots$ mis bout à bout pour $q=\tfrac12$. L'extrémité droite du $n$-ième segment est la somme partielle $S_n$, et chaque segment vaut $q$ fois le précédent, donc les extrémités ne dépassent jamais $1/(1-q)$.</span></figcaption>
+    </figure>
+
+    <p class="en">Two consecutive partial sums differ by $u_n$, and both tend to the same limit.</p>
+    <p class="fr">Deux sommes partielles consécutives diffèrent de $u_n$, et toutes deux tendent vers la même limite.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Divergence test).</span> If $\sum u_n$ converges, then $u_n\to 0$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Condition nécessaire de convergence).</span> Si $\sum u_n$ converge, alors $u_n\to 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $n\ge 1$, $u_n=S_n-S_{n-1}$. Both terms tend to the sum $S$, so $u_n\to S-S=0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $n\ge 1$, $u_n=S_n-S_{n-1}$. Les deux termes tendent vers la somme $S$, donc $u_n\to S-S=0$.
+    </details>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Linearity).</span> If $\sum u_n$ and $\sum v_n$ converge and $\lambda\in\mathbb{R}$, then $\sum(u_n+\lambda v_n)$ converges and
+      \[\sum_{n=0}^{+\infty}(u_n+\lambda v_n)=\sum_{n=0}^{+\infty}u_n+\lambda\sum_{n=0}^{+\infty}v_n.\]</p>
+      <p class="fr"><span class="thm-label">Proposition (Linéarité).</span> Si $\sum u_n$ et $\sum v_n$ convergent et $\lambda\in\mathbb{R}$, alors $\sum(u_n+\lambda v_n)$ converge et
+      \[\sum_{n=0}^{+\infty}(u_n+\lambda v_n)=\sum_{n=0}^{+\infty}u_n+\lambda\sum_{n=0}^{+\infty}v_n.\]</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      The partial sums satisfy $\sum_{k=0}^{n}(u_k+\lambda v_k)=\sum_{k=0}^{n}u_k+\lambda\sum_{k=0}^{n}v_k$. The limit laws for sequences give the result.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Les sommes partielles vérifient $\sum_{k=0}^{n}(u_k+\lambda v_k)=\sum_{k=0}^{n}u_k+\lambda\sum_{k=0}^{n}v_k$. Les opérations sur les limites de suites donnent le résultat.
+    </details>
+
+    <h3 class="en">Series with nonnegative terms</h3>
+    <h3 class="fr">Séries à termes positifs</h3>
+
+    <p class="en">When every term is nonnegative, adding one more term cannot make the partial sum smaller.</p>
+    <p class="fr">Quand tous les termes sont positifs, ajouter un terme de plus ne peut pas faire décroître la somme partielle.</p>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition.</span> Let $u_n\ge 0$ for all $n$. The series $\sum u_n$ converges if and only if the sequence $(S_n)$ of its partial sums is bounded above. If it diverges, then $S_n\to+\infty$.</p>
+      <p class="fr"><span class="thm-label">Proposition.</span> Soit $u_n\ge 0$ pour tout $n$. La série $\sum u_n$ converge si et seulement si la suite $(S_n)$ de ses sommes partielles est majorée. Si elle diverge, alors $S_n\to+\infty$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $S_{n+1}-S_n=u_{n+1}\ge 0$, so $(S_n)$ is increasing. An increasing sequence bounded above converges, and a convergent sequence is bounded. An increasing sequence that is not bounded above tends to $+\infty$: given $A$, some $S_N$ exceeds $A$, and then $S_n\ge S_N&gt;A$ for all $n\ge N$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $S_{n+1}-S_n=u_{n+1}\ge 0$, donc $(S_n)$ est croissante. Une suite croissante majorée converge, et une suite convergente est bornée. Une suite croissante non majorée tend vers $+\infty$ : étant donné $A$, un $S_N$ dépasse $A$, et alors $S_n\ge S_N&gt;A$ pour tout $n\ge N$.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Comparison).</span> Let $0\le u_n\le v_n$ from some rank onward. If $\sum v_n$ converges then $\sum u_n$ converges, and if $\sum u_n$ diverges then $\sum v_n$ diverges.</p>
+      <p class="fr"><span class="thm-label">Théorème (Comparaison).</span> Soit $0\le u_n\le v_n$ à partir d'un certain rang. Si $\sum v_n$ converge alors $\sum u_n$ converge, et si $\sum u_n$ diverge alors $\sum v_n$ diverge.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Let $N$ be a rank from which $0\le u_n\le v_n$. For $n\ge N$, $\sum_{k=N}^{n}u_k\le\sum_{k=N}^{n}v_k$. If $\sum v_n$ converges, the right-hand side is bounded above, hence so is the left-hand side, and $\sum u_n$ converges. The second statement is the contrapositive of the first.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Soit $N$ un rang à partir duquel $0\le u_n\le v_n$. Pour $n\ge N$, $\sum_{k=N}^{n}u_k\le\sum_{k=N}^{n}v_k$. Si $\sum v_n$ converge, le membre de droite est majoré, donc celui de gauche aussi, et $\sum u_n$ converge. Le second énoncé est la contraposée du premier.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Comparison by equivalents).</span> Let $(u_n)$ and $(v_n)$ be positive from some rank onward, with $u_n\sim v_n$. Then $\sum u_n$ and $\sum v_n$ converge or diverge together.</p>
+      <p class="fr"><span class="thm-label">Théorème (Comparaison par équivalents).</span> Soient $(u_n)$ et $(v_n)$ strictement positives à partir d'un certain rang, avec $u_n\sim v_n$. Alors $\sum u_n$ et $\sum v_n$ sont de même nature.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $u_n/v_n\to 1$, so from some rank $\tfrac12\le u_n/v_n\le 2$, that is $\tfrac12 v_n\le u_n\le 2v_n$. If $\sum v_n$ converges, so does $\sum 2v_n$, and $\sum u_n$ converges by comparison. If $\sum v_n$ diverges, so does $\sum\tfrac12 v_n$, and $\sum u_n$ diverges by comparison.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $u_n/v_n\to 1$, donc à partir d'un certain rang $\tfrac12\le u_n/v_n\le 2$, c'est-à-dire $\tfrac12 v_n\le u_n\le 2v_n$. Si $\sum v_n$ converge, $\sum 2v_n$ aussi, et $\sum u_n$ converge par comparaison. Si $\sum v_n$ diverge, $\sum\tfrac12 v_n$ aussi, et $\sum u_n$ diverge par comparaison.
+    </details>
+
+    <p class="en">The term $f(n)$ is the area of a rectangle of width $1$ and height $f(n)$. When $f$ decreases, that rectangle contains the region under the graph over $[n,n+1]$ and is contained in the region under the graph over $[n-1,n]$.</p>
+    <p class="fr">Le terme $f(n)$ est l'aire d'un rectangle de largeur $1$ et de hauteur $f(n)$. Quand $f$ décroît, ce rectangle contient la région sous le graphe au-dessus de $[n,n+1]$ et est contenu dans la région sous le graphe au-dessus de $[n-1,n]$.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Comparison with an integral).</span> Let $n_0\in\mathbb{N}^{*}$ and let $f\colon[n_0,+\infty[\,\to\mathbb{R}$ be continuous, nonnegative and decreasing. For every $N\ge n_0$,
+      \[\int_{n_0}^{N+1}f(t)\,dt\ \le\ \sum_{n=n_0}^{N}f(n)\ \le\ f(n_0)+\int_{n_0}^{N}f(t)\,dt.\]
+      The series $\sum f(n)$ converges if and only if the sequence $\left(\int_{n_0}^{N}f(t)\,dt\right)_{N\ge n_0}$ is bounded above.</p>
+      <p class="fr"><span class="thm-label">Théorème (Comparaison série-intégrale).</span> Soient $n_0\in\mathbb{N}^{*}$ et $f\colon[n_0,+\infty[\,\to\mathbb{R}$ continue, positive et décroissante. Pour tout $N\ge n_0$,
+      \[\int_{n_0}^{N+1}f(t)\,dt\ \le\ \sum_{n=n_0}^{N}f(n)\ \le\ f(n_0)+\int_{n_0}^{N}f(t)\,dt.\]
+      La série $\sum f(n)$ converge si et seulement si la suite $\left(\int_{n_0}^{N}f(t)\,dt\right)_{N\ge n_0}$ est majorée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For $n\ge n_0$ and $t\in[n,n+1]$, $f$ decreasing gives $f(n+1)\le f(t)\le f(n)$. Integrating over $[n,n+1]$,
+      \[f(n+1)\ \le\ \int_{n}^{n+1}f(t)\,dt\ \le\ f(n).\]
+      Summing the right inequality for $n=n_0,\ldots,N$ gives $\int_{n_0}^{N+1}f\le\sum_{n=n_0}^{N}f(n)$. Summing the left inequality for $n=n_0,\ldots,N-1$ gives $\sum_{n=n_0+1}^{N}f(n)\le\int_{n_0}^{N}f$, and adding $f(n_0)$ gives the other bound.
+      <br><br>
+      Both $\left(\sum_{n=n_0}^{N}f(n)\right)_N$ and $\left(\int_{n_0}^{N}f\right)_N$ are increasing, since $f\ge 0$. The two inequalities bound each by the other, so one is bounded above exactly when the other is.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour $n\ge n_0$ et $t\in[n,n+1]$, la décroissance de $f$ donne $f(n+1)\le f(t)\le f(n)$. En intégrant sur $[n,n+1]$,
+      \[f(n+1)\ \le\ \int_{n}^{n+1}f(t)\,dt\ \le\ f(n).\]
+      En sommant l'inégalité de droite pour $n=n_0,\ldots,N$, on obtient $\int_{n_0}^{N+1}f\le\sum_{n=n_0}^{N}f(n)$. En sommant celle de gauche pour $n=n_0,\ldots,N-1$, on obtient $\sum_{n=n_0+1}^{N}f(n)\le\int_{n_0}^{N}f$, et l'ajout de $f(n_0)$ donne l'autre majoration.
+      <br><br>
+      Les suites $\left(\sum_{n=n_0}^{N}f(n)\right)_N$ et $\left(\int_{n_0}^{N}f\right)_N$ sont croissantes, puisque $f\ge 0$. Les deux inégalités majorent chacune par l'autre, donc l'une est majorée exactement quand l'autre l'est.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="723" height="191" viewBox="36.0 77.0 723.2 191.0">
+        <rect class="fig-shape" x="60.0" y="105.0" width="52.0" height="125.0"/>
+        <rect class="fig-shape" x="112.0" y="167.5" width="52.0" height="62.5"/>
+        <rect class="fig-shape" x="164.0" y="188.3" width="52.0" height="41.7"/>
+        <rect class="fig-shape" x="216.0" y="198.8" width="52.0" height="31.2"/>
+        <rect class="fig-shape" x="268.0" y="205.0" width="52.0" height="25.0"/>
+        <line class="fig-axis" x1="46.0" y1="230.0" x2="356.4" y2="230.0"/>
+        <line class="fig-axis" x1="60.0" y1="240.0" x2="60.0" y2="87.0"/>
+        <path class="fig-curve" d="M 60.0 105.0 L 62.6 111.0 L 65.2 116.4 L 67.8 121.3 L 70.4 125.8 L 73.0 130.0 L 75.6 133.8 L 78.2 137.4 L 80.8 140.7 L 83.4 143.8 L 86.0 146.7 L 88.6 149.4 L 91.2 151.9 L 93.8 154.2 L 96.4 156.5 L 99.0 158.6 L 101.6 160.6 L 104.2 162.4 L 106.8 164.2 L 109.4 165.9 L 112.0 167.5 L 114.6 169.0 L 117.2 170.5 L 119.8 171.9 L 122.4 173.2 L 125.0 174.4 L 127.6 175.7 L 130.2 176.8 L 132.8 177.9 L 135.4 179.0 L 138.0 180.0 L 140.6 181.0 L 143.2 181.9 L 145.8 182.8 L 148.4 183.7 L 151.0 184.5 L 153.6 185.4 L 156.2 186.1 L 158.8 186.9 L 161.4 187.6 L 164.0 188.3 L 166.6 189.0 L 169.2 189.7 L 171.8 190.3 L 174.4 190.9 L 177.0 191.5 L 179.6 192.1 L 182.2 192.7 L 184.8 193.2 L 187.4 193.8 L 190.0 194.3 L 192.6 194.8 L 195.2 195.3 L 197.8 195.8 L 200.4 196.2 L 203.0 196.7 L 205.6 197.1 L 208.2 197.5 L 210.8 197.9 L 213.4 198.4 L 216.0 198.7 L 218.6 199.1 L 221.2 199.5 L 223.8 199.9 L 226.4 200.2 L 229.0 200.6 L 231.6 200.9 L 234.2 201.3 L 236.8 201.6 L 239.4 201.9 L 242.0 202.2 L 244.6 202.5 L 247.2 202.8 L 249.8 203.1 L 252.4 203.4 L 255.0 203.7 L 257.6 204.0 L 260.2 204.2 L 262.8 204.5 L 265.4 204.7 L 268.0 205.0 L 270.6 205.2 L 273.2 205.5 L 275.8 205.7 L 278.4 206.0 L 281.0 206.2 L 283.6 206.4 L 286.2 206.6 L 288.8 206.9 L 291.4 207.1 L 294.0 207.3 L 296.6 207.5 L 299.2 207.7 L 301.8 207.9 L 304.4 208.1 L 307.0 208.3 L 309.6 208.4 L 312.2 208.6 L 314.8 208.8 L 317.4 209.0 L 320.0 209.2 L 322.6 209.3 L 325.2 209.5 L 327.8 209.7 L 330.4 209.8 L 333.0 210.0 L 335.6 210.2 L 338.2 210.3 L 340.8 210.5 L 343.4 210.6 L 346.0 210.8 L 348.6 210.9 L 351.2 211.1"/>
+        <line class="fig-axis" x1="60.0" y1="230.0" x2="60.0" y2="235.0"/>
+        <text x="60.0" y="252.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="112.0" y1="230.0" x2="112.0" y2="235.0"/>
+        <text x="112.0" y="252.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="164.0" y1="230.0" x2="164.0" y2="235.0"/>
+        <text x="164.0" y="252.0" text-anchor="middle">3</text>
+        <line class="fig-axis" x1="216.0" y1="230.0" x2="216.0" y2="235.0"/>
+        <text x="216.0" y="252.0" text-anchor="middle">4</text>
+        <line class="fig-axis" x1="268.0" y1="230.0" x2="268.0" y2="235.0"/>
+        <text x="268.0" y="252.0" text-anchor="middle">5</text>
+        <line class="fig-axis" x1="320.0" y1="230.0" x2="320.0" y2="235.0"/>
+        <text x="320.0" y="252.0" text-anchor="middle">6</text>
+        <text x="86.0" y="200.0" text-anchor="middle">f(1)</text>
+        <text x="362.4" y="215.3">f</text>
+        <rect class="fig-shape" x="440.0" y="167.5" width="52.0" height="62.5"/>
+        <rect class="fig-shape" x="492.0" y="188.3" width="52.0" height="41.7"/>
+        <rect class="fig-shape" x="544.0" y="198.8" width="52.0" height="31.2"/>
+        <rect class="fig-shape" x="596.0" y="205.0" width="52.0" height="25.0"/>
+        <rect class="fig-shape" x="648.0" y="209.2" width="52.0" height="20.8"/>
+        <line class="fig-axis" x1="426.0" y1="230.0" x2="736.4" y2="230.0"/>
+        <line class="fig-axis" x1="440.0" y1="240.0" x2="440.0" y2="87.0"/>
+        <path class="fig-curve" d="M 440.0 105.0 L 442.6 111.0 L 445.2 116.4 L 447.8 121.3 L 450.4 125.8 L 453.0 130.0 L 455.6 133.8 L 458.2 137.4 L 460.8 140.7 L 463.4 143.8 L 466.0 146.7 L 468.6 149.4 L 471.2 151.9 L 473.8 154.2 L 476.4 156.5 L 479.0 158.6 L 481.6 160.6 L 484.2 162.4 L 486.8 164.2 L 489.4 165.9 L 492.0 167.5 L 494.6 169.0 L 497.2 170.5 L 499.8 171.9 L 502.4 173.2 L 505.0 174.4 L 507.6 175.7 L 510.2 176.8 L 512.8 177.9 L 515.4 179.0 L 518.0 180.0 L 520.6 181.0 L 523.2 181.9 L 525.8 182.8 L 528.4 183.7 L 531.0 184.5 L 533.6 185.4 L 536.2 186.1 L 538.8 186.9 L 541.4 187.6 L 544.0 188.3 L 546.6 189.0 L 549.2 189.7 L 551.8 190.3 L 554.4 190.9 L 557.0 191.5 L 559.6 192.1 L 562.2 192.7 L 564.8 193.2 L 567.4 193.8 L 570.0 194.3 L 572.6 194.8 L 575.2 195.3 L 577.8 195.8 L 580.4 196.2 L 583.0 196.7 L 585.6 197.1 L 588.2 197.5 L 590.8 197.9 L 593.4 198.4 L 596.0 198.7 L 598.6 199.1 L 601.2 199.5 L 603.8 199.9 L 606.4 200.2 L 609.0 200.6 L 611.6 200.9 L 614.2 201.3 L 616.8 201.6 L 619.4 201.9 L 622.0 202.2 L 624.6 202.5 L 627.2 202.8 L 629.8 203.1 L 632.4 203.4 L 635.0 203.7 L 637.6 204.0 L 640.2 204.2 L 642.8 204.5 L 645.4 204.7 L 648.0 205.0 L 650.6 205.2 L 653.2 205.5 L 655.8 205.7 L 658.4 206.0 L 661.0 206.2 L 663.6 206.4 L 666.2 206.6 L 668.8 206.9 L 671.4 207.1 L 674.0 207.3 L 676.6 207.5 L 679.2 207.7 L 681.8 207.9 L 684.4 208.1 L 687.0 208.3 L 689.6 208.4 L 692.2 208.6 L 694.8 208.8 L 697.4 209.0 L 700.0 209.2 L 702.6 209.3 L 705.2 209.5 L 707.8 209.7 L 710.4 209.8 L 713.0 210.0 L 715.6 210.2 L 718.2 210.3 L 720.8 210.5 L 723.4 210.6 L 726.0 210.8 L 728.6 210.9 L 731.2 211.1"/>
+        <line class="fig-axis" x1="440.0" y1="230.0" x2="440.0" y2="235.0"/>
+        <text x="440.0" y="252.0" text-anchor="middle">1</text>
+        <line class="fig-axis" x1="492.0" y1="230.0" x2="492.0" y2="235.0"/>
+        <text x="492.0" y="252.0" text-anchor="middle">2</text>
+        <line class="fig-axis" x1="544.0" y1="230.0" x2="544.0" y2="235.0"/>
+        <text x="544.0" y="252.0" text-anchor="middle">3</text>
+        <line class="fig-axis" x1="596.0" y1="230.0" x2="596.0" y2="235.0"/>
+        <text x="596.0" y="252.0" text-anchor="middle">4</text>
+        <line class="fig-axis" x1="648.0" y1="230.0" x2="648.0" y2="235.0"/>
+        <text x="648.0" y="252.0" text-anchor="middle">5</text>
+        <line class="fig-axis" x1="700.0" y1="230.0" x2="700.0" y2="235.0"/>
+        <text x="700.0" y="252.0" text-anchor="middle">6</text>
+        <text x="466.0" y="189.5" text-anchor="middle">f(2)</text>
+        <text x="742.4" y="215.3">f</text>
+      </svg>
+      <figcaption><span class="en"><span class="cap-part"><span class="cap-lead">Left:</span> the rectangle of height $f(n)$ over $[n,n+1]$, drawn for $f(t)=1/t$. Its area is $f(n)$ and it contains the region under the curve, so $\sum_{n=1}^{5}f(n)\ge\int_{1}^{6}f$.</span><span class="cap-part"><span class="cap-lead">Right:</span> the same rectangles pushed one step left, of height $f(n)$ over $[n-1,n]$. Each sits under the curve, so $\sum_{n=2}^{6}f(n)\le\int_{1}^{6}f$.</span></span><span class="fr"><span class="cap-part"><span class="cap-lead">À gauche :</span> le rectangle de hauteur $f(n)$ au-dessus de $[n,n+1]$, tracé pour $f(t)=1/t$. Son aire vaut $f(n)$ et il contient la région sous la courbe, donc $\sum_{n=1}^{5}f(n)\ge\int_{1}^{6}f$.</span><span class="cap-part"><span class="cap-lead">À droite :</span> les mêmes rectangles décalés d'un cran vers la gauche, de hauteur $f(n)$ au-dessus de $[n-1,n]$. Chacun est sous la courbe, donc $\sum_{n=2}^{6}f(n)\le\int_{1}^{6}f$.</span></span></figcaption>
+    </figure>
+
+    <div class="thm-block proposition">
+      <p class="en"><span class="thm-label">Proposition (Riemann series).</span> Let $\alpha\in\mathbb{R}$. The series $\displaystyle\sum_{n\ge 1}\frac{1}{n^{\alpha}}$ converges if and only if $\alpha&gt;1$.</p>
+      <p class="fr"><span class="thm-label">Proposition (Séries de Riemann).</span> Soit $\alpha\in\mathbb{R}$. La série $\displaystyle\sum_{n\ge 1}\frac{1}{n^{\alpha}}$ converge si et seulement si $\alpha&gt;1$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $\alpha\le 0$, then $\frac{1}{n^{\alpha}}\ge 1$ does not tend to $0$, so the series diverges. If $\alpha&gt;0$, the function $t\mapsto t^{-\alpha}$ is continuous, positive and decreasing on $[1,+\infty[$. For $\alpha\neq 1$,
+      \[\int_{1}^{N}t^{-\alpha}\,dt=\frac{N^{1-\alpha}-1}{1-\alpha},\]
+      which is bounded above as $N$ grows exactly when $1-\alpha&lt;0$. For $\alpha=1$, $\int_{1}^{N}\frac{dt}{t}=\ln N$ is not bounded above. The comparison with an integral concludes.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\alpha\le 0$, alors $\frac{1}{n^{\alpha}}\ge 1$ ne tend pas vers $0$, donc la série diverge. Si $\alpha&gt;0$, la fonction $t\mapsto t^{-\alpha}$ est continue, positive et décroissante sur $[1,+\infty[$. Pour $\alpha\neq 1$,
+      \[\int_{1}^{N}t^{-\alpha}\,dt=\frac{N^{1-\alpha}-1}{1-\alpha},\]
+      qui est majorée quand $N$ croît exactement lorsque $1-\alpha&lt;0$. Pour $\alpha=1$, $\int_{1}^{N}\frac{dt}{t}=\ln N$ n'est pas majorée. La comparaison série-intégrale conclut.
+    </details>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Ratio test).</span> Let $u_n&gt;0$ with $\dfrac{u_{n+1}}{u_n}\to L$. If $L&lt;1$, the series $\sum u_n$ converges. If $L&gt;1$, it diverges.</p>
+      <p class="fr"><span class="thm-label">Théorème (Règle de d'Alembert).</span> Soit $u_n&gt;0$ avec $\dfrac{u_{n+1}}{u_n}\to L$. Si $L&lt;1$, la série $\sum u_n$ converge. Si $L&gt;1$, elle diverge.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      Suppose $L&lt;1$ and choose $k$ with $L&lt;k&lt;1$. From some rank $N$, $\frac{u_{n+1}}{u_n}\le k$, so by induction $u_n\le u_N\,k^{\,n-N}$ for $n\ge N$. Since $0&lt;k&lt;1$, the geometric series $\sum k^{n}$ converges, and $\sum u_n$ converges by comparison.
+      <br><br>
+      Suppose $L&gt;1$. From some rank, $\frac{u_{n+1}}{u_n}\ge 1$, so $(u_n)$ is increasing and positive from that rank and does not tend to $0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Supposons $L&lt;1$ et choisissons $k$ tel que $L&lt;k&lt;1$. À partir d'un rang $N$, $\frac{u_{n+1}}{u_n}\le k$, donc par récurrence $u_n\le u_N\,k^{\,n-N}$ pour $n\ge N$. Comme $0&lt;k&lt;1$, la série géométrique $\sum k^{n}$ converge, et $\sum u_n$ converge par comparaison.
+      <br><br>
+      Supposons $L&gt;1$. À partir d'un certain rang, $\frac{u_{n+1}}{u_n}\ge 1$, donc $(u_n)$ est croissante et strictement positive à partir de ce rang et ne tend pas vers $0$.
+    </details>
+
+    <h3 class="en">Absolute convergence</h3>
+    <h3 class="fr">Convergence absolue</h3>
+
+    <p class="en">The tests above all need nonnegative terms. Replacing each term by its absolute value produces such a series.</p>
+    <p class="fr">Les critères ci-dessus demandent tous des termes positifs. Remplacer chaque terme par sa valeur absolue produit une telle série.</p>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Absolute convergence).</span> The series $\sum u_n$ <em>converges absolutely</em> if the series $\sum|u_n|$ converges.</p>
+      <p class="fr"><span class="thm-label">Définition (Convergence absolue).</span> La série $\sum u_n$ est <em>absolument convergente</em> si la série $\sum|u_n|$ converge.</p>
+    </div>
+
+    <p class="en">The number $u_n+|u_n|$ lies between $0$ and $2|u_n|$.</p>
+    <p class="fr">Le nombre $u_n+|u_n|$ est compris entre $0$ et $2|u_n|$.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem.</span> An absolutely convergent series converges, and
+      \[\left|\sum_{n=0}^{+\infty}u_n\right|\le\sum_{n=0}^{+\infty}|u_n|.\]</p>
+      <p class="fr"><span class="thm-label">Théorème.</span> Une série absolument convergente converge, et
+      \[\left|\sum_{n=0}^{+\infty}u_n\right|\le\sum_{n=0}^{+\infty}|u_n|.\]</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      For every $n$, $0\le u_n+|u_n|\le 2|u_n|$. The series $\sum 2|u_n|$ converges, so $\sum(u_n+|u_n|)$ converges by comparison. Writing $u_n=(u_n+|u_n|)-|u_n|$ presents $\sum u_n$ as a difference of two convergent series, so it converges by linearity.
+      <br><br>
+      The triangle inequality gives $|S_n|\le\sum_{k=0}^{n}|u_k|$ for every $n$, and passing to the limit on both sides preserves the inequality.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Pour tout $n$, $0\le u_n+|u_n|\le 2|u_n|$. La série $\sum 2|u_n|$ converge, donc $\sum(u_n+|u_n|)$ converge par comparaison. Écrire $u_n=(u_n+|u_n|)-|u_n|$ présente $\sum u_n$ comme différence de deux séries convergentes, donc elle converge par linéarité.
+      <br><br>
+      L'inégalité triangulaire donne $|S_n|\le\sum_{k=0}^{n}|u_k|$ pour tout $n$, et le passage à la limite des deux côtés conserve l'inégalité.
+    </details>
+
+    <p class="en">Take $(a_n)$ nonnegative and decreasing. In $\sum(-1)^na_n$ the terms alternate in sign and shrink, so the partial sums of even order decrease, those of odd order increase, and $S_{2n}-S_{2n+1}=a_{2n+1}$.</p>
+    <p class="fr">Soit $(a_n)$ positive et décroissante. Dans $\sum(-1)^na_n$ les termes alternent de signe et décroissent en valeur absolue, donc les sommes partielles d'ordre pair décroissent, celles d'ordre impair croissent, et $S_{2n}-S_{2n+1}=a_{2n+1}$.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Alternating series test).</span> Let $(a_n)$ be nonnegative and decreasing with $a_n\to 0$. Then $\sum(-1)^na_n$ converges, and its sum $S$ satisfies, for every $n$,
+      \[|S-S_n|\le a_{n+1},\]
+      the difference $S-S_n$ having the sign of $(-1)^{n+1}$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Critère spécial des séries alternées).</span> Soit $(a_n)$ positive et décroissante avec $a_n\to 0$. Alors $\sum(-1)^na_n$ converge, et sa somme $S$ vérifie, pour tout $n$,
+      \[|S-S_n|\le a_{n+1},\]
+      la différence $S-S_n$ étant du signe de $(-1)^{n+1}$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      $S_{2n+2}-S_{2n}=a_{2n+2}-a_{2n+1}\le 0$, so $(S_{2n})$ decreases. $S_{2n+3}-S_{2n+1}=a_{2n+2}-a_{2n+3}\ge 0$, so $(S_{2n+1})$ increases. And $S_{2n}-S_{2n+1}=a_{2n+1}\to 0$. The sequences $(S_{2n+1})$ and $(S_{2n})$ are adjacent, hence converge to a common limit $S$; the even and odd subsequences both tending to $S$, the whole sequence $(S_n)$ tends to $S$.
+      <br><br>
+      $(S_{2n+1})$ increases to $S$ and $(S_{2n})$ decreases to $S$, so $S$ lies between $S_n$ and $S_{n+1}$ for every $n$. Hence $|S-S_n|\le|S_{n+1}-S_n|=a_{n+1}$, and $S-S_n$ has the sign of $S_{n+1}-S_n=(-1)^{n+1}a_{n+1}$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      $S_{2n+2}-S_{2n}=a_{2n+2}-a_{2n+1}\le 0$, donc $(S_{2n})$ décroît. $S_{2n+3}-S_{2n+1}=a_{2n+2}-a_{2n+3}\ge 0$, donc $(S_{2n+1})$ croît. Et $S_{2n}-S_{2n+1}=a_{2n+1}\to 0$. Les suites $(S_{2n+1})$ et $(S_{2n})$ sont adjacentes, donc convergent vers une limite commune $S$ ; les sous-suites paire et impaire tendant toutes deux vers $S$, la suite $(S_n)$ tend vers $S$.
+      <br><br>
+      $(S_{2n+1})$ croît vers $S$ et $(S_{2n})$ décroît vers $S$, donc $S$ est compris entre $S_n$ et $S_{n+1}$ pour tout $n$. Ainsi $|S-S_n|\le|S_{n+1}-S_n|=a_{n+1}$, et $S-S_n$ est du signe de $S_{n+1}-S_n=(-1)^{n+1}a_{n+1}$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="478" height="220" viewBox="31.6 49.8 478.3 220.2">
+        <rect class="fig-band" x="60.0" y="144.4" width="400.0" height="52.8"/>
+        <line class="fig-axis" x1="60.0" y1="250.0" x2="464.0" y2="250.0"/>
+        <line class="fig-axis" x1="60.0" y1="260.0" x2="60.0" y2="59.8"/>
+        <line class="fig-guide" x1="60.0" y1="173.0" x2="460.0" y2="173.0"/>
+        <polyline class="fig-accent" points="70.0,75.8 110.0,234.2 150.0,128.6 190.0,207.8 230.0,144.4 270.0,197.2 310.0,152.0 350.0,191.6 390.0,156.4 430.0,188.0" fill="none"/>
+        <circle class="fig-dot" cx="70.0" cy="75.8" r="3.5"/>
+        <circle class="fig-dot" cx="110.0" cy="234.2" r="3.5"/>
+        <circle class="fig-dot" cx="150.0" cy="128.6" r="3.5"/>
+        <circle class="fig-dot" cx="190.0" cy="207.8" r="3.5"/>
+        <circle class="fig-dot" cx="230.0" cy="144.4" r="3.5"/>
+        <circle class="fig-dot" cx="270.0" cy="197.2" r="3.5"/>
+        <circle class="fig-dot" cx="310.0" cy="152.0" r="3.5"/>
+        <circle class="fig-dot" cx="350.0" cy="191.6" r="3.5"/>
+        <circle class="fig-dot" cx="390.0" cy="156.4" r="3.5"/>
+        <circle class="fig-dot" cx="430.0" cy="188.0" r="3.5"/>
+        <line class="fig-accent" x1="476.0" y1="144.4" x2="476.0" y2="197.2"/>
+        <line class="fig-accent" x1="471.0" y1="144.4" x2="481.0" y2="144.4"/>
+        <line class="fig-accent" x1="471.0" y1="197.2" x2="481.0" y2="197.2"/>
+        <text x="486.0" y="175.8">a<tspan dy="4" font-size="11">5</tspan></text>
+        <text x="242.0" y="128.4" text-anchor="middle">S<tspan dy="4" font-size="11">4</tspan></text>
+        <text x="270.0" y="219.2" text-anchor="middle">S<tspan dy="4" font-size="11">5</tspan></text>
+        <text x="50.0" y="178.0" text-anchor="end">S</text>
+      </svg>
+      <figcaption><span class="en">The partial sums of $\sum\frac{(-1)^n}{n+1}$. The sums of even order decrease, those of odd order increase, and the shaded band between $S_5$ and $S_4$ has height $a_5$ and contains the sum $S$ and every later partial sum.</span><span class="fr">Les sommes partielles de $\sum\frac{(-1)^n}{n+1}$. Celles d'ordre pair décroissent, celles d'ordre impair croissent, et la bande grisée entre $S_5$ et $S_4$ a pour hauteur $a_5$ et contient la somme $S$ ainsi que toutes les sommes partielles suivantes.</span></figcaption>
+    </figure>
+
+    <h3 class="en">Rearrangement</h3>
+    <h3 class="fr">Réarrangement</h3>
+
+    <p class="en">A finite sum has the same value in any order. An infinite sum is a limit of finite sums, and reordering the terms replaces that sequence of finite sums by another one.</p>
+    <p class="fr">Une somme finie a la même valeur dans n'importe quel ordre. Une somme infinie est une limite de sommes finies, et réordonner les termes remplace cette suite de sommes finies par une autre.</p>
+
+    <div class="thm-block definition">
+      <p class="en"><span class="thm-label">Definition (Rearrangement).</span> Let $\sigma\colon\mathbb{N}\to\mathbb{N}$ be a bijection. The series $\sum u_{\sigma(n)}$ is a <em>rearrangement</em> of $\sum u_n$.</p>
+      <p class="fr"><span class="thm-label">Définition (Réarrangement).</span> Soit $\sigma\colon\mathbb{N}\to\mathbb{N}$ une bijection. La série $\sum u_{\sigma(n)}$ est un <em>réarrangement</em> de $\sum u_n$.</p>
+    </div>
+
+    <p class="en">Write $u_n^{+}=\max(u_n,0)$ and $u_n^{-}=\max(-u_n,0)$, so that $u_n=u_n^{+}-u_n^{-}$ and $|u_n|=u_n^{+}+u_n^{-}$. Both are nonnegative and at most $|u_n|$.</p>
+    <p class="fr">Posons $u_n^{+}=\max(u_n,0)$ et $u_n^{-}=\max(-u_n,0)$, de sorte que $u_n=u_n^{+}-u_n^{-}$ et $|u_n|=u_n^{+}+u_n^{-}$. Les deux sont positifs et majorés par $|u_n|$.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Absolute convergence and order).</span> If $\sum u_n$ converges absolutely, then every rearrangement $\sum u_{\sigma(n)}$ converges absolutely and has the same sum.</p>
+      <p class="fr"><span class="thm-label">Théorème (Convergence absolue et ordre).</span> Si $\sum u_n$ converge absolument, alors tout réarrangement $\sum u_{\sigma(n)}$ converge absolument et a la même somme.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      <em>Idea.</em> For nonnegative terms a partial sum of the rearranged series is a finite sub-collection of the terms, so it is bounded by the total; the two sums then bound each other. The general case splits a term into its positive and negative parts.
+      <br><br>
+      First let $u_n\ge 0$ with $\sum u_n=S$. For every $N$, the numbers $u_{\sigma(0)},\ldots,u_{\sigma(N)}$ are distinct terms of the series, so $\sum_{n=0}^{N}u_{\sigma(n)}\le\sum_{k=0}^{M}u_k\le S$ where $M=\max(\sigma(0),\ldots,\sigma(N))$. The rearranged partial sums are nonnegative, increasing and bounded above by $S$, so $\sum u_{\sigma(n)}$ converges with sum $S'\le S$. Since $\sum u_n$ is the rearrangement of $\sum u_{\sigma(n)}$ by $\sigma^{-1}$, the same argument gives $S\le S'$, hence $S'=S$.
+      <br><br>
+      In general, $\sum u_n^{+}$ and $\sum u_n^{-}$ converge by comparison with $\sum|u_n|$. The previous paragraph applies to each, so $\sum u^{+}_{\sigma(n)}$ and $\sum u^{-}_{\sigma(n)}$ converge with the same sums. Subtracting gives the sum of $\sum u_{\sigma(n)}$, adding gives the sum of $\sum|u_{\sigma(n)}|$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      <em>Idée.</em> Pour des termes positifs, une somme partielle du réarrangement est une sous-collection finie des termes, donc majorée par le total ; les deux sommes se majorent alors l'une l'autre. Le cas général sépare un terme en ses parties positive et négative.
+      <br><br>
+      Supposons d'abord $u_n\ge 0$ avec $\sum u_n=S$. Pour tout $N$, les nombres $u_{\sigma(0)},\ldots,u_{\sigma(N)}$ sont des termes distincts de la série, donc $\sum_{n=0}^{N}u_{\sigma(n)}\le\sum_{k=0}^{M}u_k\le S$ où $M=\max(\sigma(0),\ldots,\sigma(N))$. Les sommes partielles du réarrangement sont positives, croissantes et majorées par $S$, donc $\sum u_{\sigma(n)}$ converge de somme $S'\le S$. Comme $\sum u_n$ est le réarrangement de $\sum u_{\sigma(n)}$ par $\sigma^{-1}$, le même argument donne $S\le S'$, d'où $S'=S$.
+      <br><br>
+      En général, $\sum u_n^{+}$ et $\sum u_n^{-}$ convergent par comparaison avec $\sum|u_n|$. Le paragraphe précédent s'applique à chacune, donc $\sum u^{+}_{\sigma(n)}$ et $\sum u^{-}_{\sigma(n)}$ convergent avec les mêmes sommes. La différence donne la somme de $\sum u_{\sigma(n)}$, l'addition celle de $\sum|u_{\sigma(n)}|$.
+    </details>
+
+    <p class="en">Without absolute convergence, the positive terms alone add up to $+\infty$ and the negative terms alone to $-\infty$. Taking positive terms until the running total passes a chosen number, then negative terms until it falls back below, and repeating, reaches that number.</p>
+    <p class="fr">Sans convergence absolue, les termes positifs à eux seuls totalisent $+\infty$ et les termes négatifs $-\infty$. Prendre des termes positifs jusqu'à ce que le total dépasse un nombre choisi, puis des termes négatifs jusqu'à ce qu'il repasse en dessous, et recommencer, atteint ce nombre.</p>
+
+    <div class="thm-block theorem">
+      <p class="en"><span class="thm-label">Theorem (Riemann).</span> Let $\sum u_n$ converge without converging absolutely. For every $L\in\mathbb{R}$ there is a bijection $\sigma\colon\mathbb{N}\to\mathbb{N}$ such that $\sum u_{\sigma(n)}$ converges with sum $L$.</p>
+      <p class="fr"><span class="thm-label">Théorème (Riemann).</span> Soit $\sum u_n$ convergente mais non absolument convergente. Pour tout $L\in\mathbb{R}$, il existe une bijection $\sigma\colon\mathbb{N}\to\mathbb{N}$ telle que $\sum u_{\sigma(n)}$ converge de somme $L$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Proof.</summary>
+      If $\sum u_n^{+}$ converged, then $\sum u_n^{-}=\sum u_n^{+}-\sum u_n$ would converge as well, and so would $\sum|u_n|=\sum u_n^{+}+\sum u_n^{-}$. So $\sum u_n^{+}$ diverges, and by the same argument $\sum u_n^{-}$ diverges. Their terms being nonnegative, both have partial sums tending to $+\infty$.
+      <br><br>
+      Let $p_0,p_1,\ldots$ be the terms $u_n$ with $u_n&gt;0$, in the order of their indices, and $m_0,m_1,\ldots$ the terms with $u_n\le 0$. Then $\sum p_k=+\infty$ and $\sum m_k=-\infty$. Build the rearrangement in blocks: take $p_0,p_1,\ldots$ in order until the running total first exceeds $L$, which happens since $\sum p_k=+\infty$; then take $m_0,m_1,\ldots$ in order until it first drops to $L$ or below, which happens since $\sum m_k=-\infty$; then more $p_k$, and so on. Each block is finite and consumes the next unused terms of its list, so every $u_n$ appears exactly once: this defines a bijection $\sigma$.
+      <br><br>
+      Let $T_j$ be the partial sums of $\sum u_{\sigma(n)}$ and let $j_1&lt;j_2&lt;\cdots$ be the ranks at which a block ends. At such a rank the previous partial sum was on the other side of $L$, so $|T_{j_i}-L|$ is at most the absolute value of the term just added. Within a block the partial sums are monotone, so for $j$ between $j_{i-1}$ and $j_i$ the number $T_j$ lies between $T_{j_{i-1}}$ and $T_{j_i}$, and $|T_j-L|\le\max(|T_{j_{i-1}}-L|,|T_{j_i}-L|)$. Since $\sum u_n$ converges, $u_n\to 0$, so the terms ending the blocks tend to $0$ and $T_j\to L$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Démonstration.</summary>
+      Si $\sum u_n^{+}$ convergeait, alors $\sum u_n^{-}=\sum u_n^{+}-\sum u_n$ convergerait aussi, et $\sum|u_n|=\sum u_n^{+}+\sum u_n^{-}$ également. Donc $\sum u_n^{+}$ diverge, et par le même argument $\sum u_n^{-}$ diverge. Leurs termes étant positifs, leurs sommes partielles tendent toutes deux vers $+\infty$.
+      <br><br>
+      Soient $p_0,p_1,\ldots$ les termes $u_n$ avec $u_n&gt;0$, dans l'ordre de leurs indices, et $m_0,m_1,\ldots$ les termes avec $u_n\le 0$. Alors $\sum p_k=+\infty$ et $\sum m_k=-\infty$. Construisons le réarrangement par blocs : prendre $p_0,p_1,\ldots$ dans l'ordre jusqu'à ce que le total dépasse $L$, ce qui arrive puisque $\sum p_k=+\infty$ ; puis $m_0,m_1,\ldots$ dans l'ordre jusqu'à ce qu'il redescende à $L$ ou en dessous, ce qui arrive puisque $\sum m_k=-\infty$ ; puis d'autres $p_k$, et ainsi de suite. Chaque bloc est fini et consomme les termes suivants non encore utilisés de sa liste, donc chaque $u_n$ apparaît exactement une fois : cela définit une bijection $\sigma$.
+      <br><br>
+      Soient $T_j$ les sommes partielles de $\sum u_{\sigma(n)}$ et $j_1&lt;j_2&lt;\cdots$ les rangs où un bloc s'achève. À un tel rang, la somme partielle précédente était de l'autre côté de $L$, donc $|T_{j_i}-L|$ est majoré par la valeur absolue du terme qui vient d'être ajouté. À l'intérieur d'un bloc les sommes partielles sont monotones, donc pour $j$ entre $j_{i-1}$ et $j_i$ le nombre $T_j$ est compris entre $T_{j_{i-1}}$ et $T_{j_i}$, et $|T_j-L|\le\max(|T_{j_{i-1}}-L|,|T_{j_i}-L|)$. Comme $\sum u_n$ converge, $u_n\to 0$, donc les termes qui achèvent les blocs tendent vers $0$ et $T_j\to L$.
+    </details>
+
+    <figure class="figure-block">
+      <svg class="figure" width="493" height="211" viewBox="30.6 38.7 493.4 211.3">
+        <line class="fig-axis" x1="60.0" y1="230.0" x2="514.0" y2="230.0"/>
+        <line class="fig-axis" x1="60.0" y1="240.0" x2="60.0" y2="48.7"/>
+        <line class="fig-guide" x1="60.0" y1="68.1" x2="510.0" y2="68.1"/>
+        <polyline class="fig-accent" points="72.0,225.3 81.1,172.9 90.3,141.5 99.4,119.0 108.5,101.6 117.7,87.3 126.8,75.2 135.9,64.7 145.0,143.3 154.2,134.0 163.3,125.8 172.4,118.3 181.6,111.5 190.7,105.2 199.8,99.4 209.0,93.9 218.1,88.9 227.2,84.1 236.3,79.6 245.5,75.4 254.6,71.3 263.7,67.5 272.9,106.8 282.0,103.1 291.1,99.6 300.3,96.3 309.4,93.1 318.5,90.0 327.7,87.0 336.8,84.2 345.9,81.4 355.0,78.8 364.2,76.2 373.3,73.7 382.4,71.3 391.6,68.9 400.7,66.7 409.8,92.8 419.0,90.6 428.1,88.5 437.2,86.4 446.3,84.3 455.5,82.4 464.6,80.4 473.7,78.5 482.9,76.7" fill="none"/>
+        <circle class="fig-dot" cx="135.9" cy="64.7" r="3.5"/>
+        <circle class="fig-dot" cx="145.0" cy="143.3" r="3.5"/>
+        <circle class="fig-dot" cx="263.7" cy="67.5" r="3.5"/>
+        <circle class="fig-dot" cx="272.9" cy="106.8" r="3.5"/>
+        <circle class="fig-dot" cx="400.7" cy="66.7" r="3.5"/>
+        <circle class="fig-dot" cx="409.8" cy="92.8" r="3.5"/>
+        <text x="50.0" y="73.1" text-anchor="end">L</text>
+      </svg>
+      <figcaption><span class="en">The partial sums of the terms of $\sum\frac{(-1)^{n+1}}{n}$ reordered to reach $L=2$: positive terms are taken until the total passes $L$, then one negative term brings it back below, and so on. The marked points are the ends of the blocks, and their distance to $L$ is at most the last term used.</span><span class="fr">Les sommes partielles des termes de $\sum\frac{(-1)^{n+1}}{n}$ réordonnés pour atteindre $L=2$ : on prend des termes positifs jusqu'à dépasser $L$, puis un terme négatif ramène le total en dessous, et ainsi de suite. Les points marqués sont les fins de blocs, et leur distance à $L$ est majorée par le dernier terme utilisé.</span></figcaption>
+    </figure>
+
+    <!-- ============ TECHNIQUES ============ -->
+
+    <h2 class="en">Techniques</h2>
+    <h2 class="fr">Techniques</h2>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 1.</span> Before anything else, look at $u_n$. If it does not tend to $0$, the series diverges and there is nothing more to do.</p>
+      <p class="fr"><span class="technique-label">Technique 1.</span> Avant tout, regarder $u_n$. S'il ne tend pas vers $0$, la série diverge et il n'y a rien de plus à faire.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Determine the nature of $\displaystyle\sum_{n\ge 1} n\sin\frac{1}{n}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Déterminer la nature de $\displaystyle\sum_{n\ge 1} n\sin\frac{1}{n}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Since $\sin t\sim t$ at $0$ and $\frac1n\to 0$, we have $n\sin\frac1n=\frac{\sin(1/n)}{1/n}\to 1$. The term does not tend to $0$, so the series diverges.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Comme $\sin t\sim t$ en $0$ et $\frac1n\to 0$, on a $n\sin\frac1n=\frac{\sin(1/n)}{1/n}\to 1$. Le terme ne tend pas vers $0$, donc la série diverge.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 2.</span> To compute a sum exactly, write $u_n=a_n-a_{n+1}$ and let the partial sum collapse to $a_0-a_{n+1}$.</p>
+      <p class="fr"><span class="technique-label">Technique 2.</span> Pour calculer une somme exactement, écrire $u_n=a_n-a_{n+1}$ et laisser la somme partielle se réduire à $a_0-a_{n+1}$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Compute $\displaystyle\sum_{n\ge 1}\frac{1}{n(n+1)}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Calculer $\displaystyle\sum_{n\ge 1}\frac{1}{n(n+1)}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        $\frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$, so $S_N=\sum_{n=1}^{N}\left(\frac1n-\frac1{n+1}\right)=1-\frac{1}{N+1}\to 1$. The series converges with sum $1$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        $\frac{1}{n(n+1)}=\frac{1}{n}-\frac{1}{n+1}$, donc $S_N=\sum_{n=1}^{N}\left(\frac1n-\frac1{n+1}\right)=1-\frac{1}{N+1}\to 1$. La série converge de somme $1$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 3.</span> For a series of positive terms, find an equivalent of the form $\frac{c}{n^{\alpha}}$ and read the nature off $\alpha$.</p>
+      <p class="fr"><span class="technique-label">Technique 3.</span> Pour une série à termes positifs, trouver un équivalent de la forme $\frac{c}{n^{\alpha}}$ et lire la nature sur $\alpha$.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Determine the nature of $\displaystyle\sum_{n\ge 1}\left(1-\cos\frac{1}{n}\right)$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Déterminer la nature de $\displaystyle\sum_{n\ge 1}\left(1-\cos\frac{1}{n}\right)$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The terms are positive, since $\cos\frac1n&lt;1$ for $n\ge 1$. From $1-\cos t\sim\frac{t^2}{2}$ at $0$ and $\frac1n\to 0$, we get $1-\cos\frac1n\sim\frac{1}{2n^2}$. The Riemann series with $\alpha=2&gt;1$ converges, so the series converges.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Les termes sont strictement positifs, car $\cos\frac1n&lt;1$ pour $n\ge 1$. De $1-\cos t\sim\frac{t^2}{2}$ en $0$ et $\frac1n\to 0$, on tire $1-\cos\frac1n\sim\frac{1}{2n^2}$. La série de Riemann d'exposant $\alpha=2&gt;1$ converge, donc la série converge.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 4.</span> To bound the error made by stopping an alternating sum, take the absolute value of the first omitted term.</p>
+      <p class="fr"><span class="technique-label">Technique 4.</span> Pour majorer l'erreur commise en arrêtant une somme alternée, prendre la valeur absolue du premier terme omis.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{n\ge 0}\frac{(-1)^n}{2n+1}$ converges, and find a rank $n$ from which $S_n$ approximates its sum to within $10^{-2}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\sum_{n\ge 0}\frac{(-1)^n}{2n+1}$ converge, et trouver un rang $n$ à partir duquel $S_n$ approche sa somme à $10^{-2}$ près.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        Set $a_n=\frac{1}{2n+1}$. It is nonnegative, decreasing and tends to $0$, so the alternating series test applies and the series converges. Its sum $S$ satisfies $|S-S_n|\le a_{n+1}=\frac{1}{2n+3}$. This is at most $10^{-2}$ as soon as $2n+3\ge 100$, that is $n\ge 49$. So $S_{49}$, the sum of the first fifty terms, is within $10^{-2}$ of $S$. (The sum is $\frac{\pi}{4}$.)
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Posons $a_n=\frac{1}{2n+1}$. Elle est positive, décroissante et tend vers $0$, donc le critère spécial s'applique et la série converge. Sa somme $S$ vérifie $|S-S_n|\le a_{n+1}=\frac{1}{2n+3}$. Cette quantité est au plus $10^{-2}$ dès que $2n+3\ge 100$, c'est-à-dire $n\ge 49$. Ainsi $S_{49}$, somme des cinquante premiers termes, approche $S$ à $10^{-2}$ près. (La somme vaut $\frac{\pi}{4}$.)
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 5.</span> When $u_n$ is built from factorials or from $n$-th powers, compute the ratio $\frac{u_{n+1}}{u_n}$, where those simplify.</p>
+      <p class="fr"><span class="technique-label">Technique 5.</span> Quand $u_n$ est construit à partir de factorielles ou de puissances $n$-ièmes, calculer le quotient $\frac{u_{n+1}}{u_n}$, où celles-ci se simplifient.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Determine the nature of $\displaystyle\sum_{n\ge 1}\frac{2^n\,n!}{n^n}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Déterminer la nature de $\displaystyle\sum_{n\ge 1}\frac{2^n\,n!}{n^n}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The terms are positive, and
+        \[\frac{u_{n+1}}{u_n}=\frac{2^{n+1}(n+1)!}{(n+1)^{n+1}}\cdot\frac{n^n}{2^n\,n!}=2(n+1)\cdot\frac{n^n}{(n+1)^{n+1}}=\frac{2}{\left(1+\frac1n\right)^{n}}.\]
+        Since $\left(1+\frac1n\right)^{n}\to\mathrm{e}$, the ratio tends to $\frac{2}{\mathrm{e}}&lt;1$, and the series converges by the ratio test.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Les termes sont strictement positifs, et
+        \[\frac{u_{n+1}}{u_n}=\frac{2^{n+1}(n+1)!}{(n+1)^{n+1}}\cdot\frac{n^n}{2^n\,n!}=2(n+1)\cdot\frac{n^n}{(n+1)^{n+1}}=\frac{2}{\left(1+\frac1n\right)^{n}}.\]
+        Comme $\left(1+\frac1n\right)^{n}\to\mathrm{e}$, le quotient tend vers $\frac{2}{\mathrm{e}}&lt;1$, et la série converge par la règle de d'Alembert.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 6.</span> The comparison with an integral also gives the size of a divergent partial sum, not only its nature: both bounds differ from $\int_{n_0}^{N}f$ by a bounded quantity.</p>
+      <p class="fr"><span class="technique-label">Technique 6.</span> La comparaison série-intégrale donne aussi la taille d'une somme partielle divergente, et pas seulement sa nature : les deux majorations diffèrent de $\int_{n_0}^{N}f$ d'une quantité bornée.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Show that $\displaystyle\sum_{n=1}^{N}\frac{1}{\sqrt{n}}\sim 2\sqrt{N}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Montrer que $\displaystyle\sum_{n=1}^{N}\frac{1}{\sqrt{n}}\sim 2\sqrt{N}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        The function $f(t)=t^{-1/2}$ is continuous, positive and decreasing on $[1,+\infty[$, with $\int_1^{X}f(t)\,dt=2\sqrt{X}-2$. The comparison with an integral gives
+        \[2\sqrt{N+1}-2\ \le\ \sum_{n=1}^{N}\frac{1}{\sqrt n}\ \le\ 1+2\sqrt{N}-2.\]
+        Since $\sqrt{N+1}\ge\sqrt N$, both bounds lie between $2\sqrt N-2$ and $2\sqrt N-1$. Dividing by $2\sqrt N$ gives a quantity between $1-\frac{1}{\sqrt N}$ and $1-\frac{1}{2\sqrt N}$, which tends to $1$.
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        La fonction $f(t)=t^{-1/2}$ est continue, positive et décroissante sur $[1,+\infty[$, avec $\int_1^{X}f(t)\,dt=2\sqrt{X}-2$. La comparaison série-intégrale donne
+        \[2\sqrt{N+1}-2\ \le\ \sum_{n=1}^{N}\frac{1}{\sqrt n}\ \le\ 1+2\sqrt{N}-2.\]
+        Comme $\sqrt{N+1}\ge\sqrt N$, les deux bornes sont comprises entre $2\sqrt N-2$ et $2\sqrt N-1$. En divisant par $2\sqrt N$, on obtient une quantité comprise entre $1-\frac{1}{\sqrt N}$ et $1-\frac{1}{2\sqrt N}$, qui tend vers $1$.
+      </details>
+    </div>
+
+    <div class="technique">
+      <p class="en"><span class="technique-label">Technique 7.</span> To sum a series whose term carries a factor $n$, differentiate the closed form of the partial sum of the geometric series, which is an identity between two functions of $q$, then let $N\to\infty$.</p>
+      <p class="fr"><span class="technique-label">Technique 7.</span> Pour sommer une série dont le terme porte un facteur $n$, dériver la forme close de la somme partielle géométrique, qui est une identité entre deux fonctions de $q$, puis faire tendre $N$ vers l'infini.</p>
+
+      <div class="thm-block exercise">
+        <p class="en"><span class="thm-label">Exercise.</span> Let $|q|&lt;1$. Compute $\displaystyle\sum_{n\ge 1}n\,q^{n}$.</p>
+        <p class="fr"><span class="thm-label">Exercice.</span> Soit $|q|&lt;1$. Calculer $\displaystyle\sum_{n\ge 1}n\,q^{n}$.</p>
+      </div>
+
+      <details class="proof en">
+        <summary class="proof-label">Solution.</summary>
+        For $q\neq 1$ and every $N$, $\sum_{n=0}^{N}q^{n}=\frac{1-q^{N+1}}{1-q}$. Both sides are differentiable functions of $q$ on $]-1,1[$, and differentiating gives
+        \[\sum_{n=1}^{N}n\,q^{n-1}=\frac{-(N+1)q^{N}(1-q)+(1-q^{N+1})}{(1-q)^2}.\]
+        For $|q|&lt;1$ we have $q^{N}\to 0$ and $Nq^{N}\to 0$, so the right-hand side tends to $\frac{1}{(1-q)^2}$. Multiplying by $q$,
+        \[\sum_{n=1}^{+\infty}n\,q^{n}=\frac{q}{(1-q)^2}.\]
+      </details>
+      <details class="proof fr">
+        <summary class="proof-label">Solution.</summary>
+        Pour $q\neq 1$ et tout $N$, $\sum_{n=0}^{N}q^{n}=\frac{1-q^{N+1}}{1-q}$. Les deux membres sont des fonctions dérivables de $q$ sur $]-1,1[$, et la dérivation donne
+        \[\sum_{n=1}^{N}n\,q^{n-1}=\frac{-(N+1)q^{N}(1-q)+(1-q^{N+1})}{(1-q)^2}.\]
+        Pour $|q|&lt;1$ on a $q^{N}\to 0$ et $Nq^{N}\to 0$, donc le membre de droite tend vers $\frac{1}{(1-q)^2}$. En multipliant par $q$,
+        \[\sum_{n=1}^{+\infty}n\,q^{n}=\frac{q}{(1-q)^2}.\]
+      </details>
+    </div>
+
+    <!-- ============ EXERCISES ============ -->
+
+    <h2 class="en">Exercises</h2>
+    <h2 class="fr">Exercices</h2>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The alternating series test assumes that $(a_n)$ is nonnegative, decreasing, and tends to $0$. Find a counterexample when the decrease of $(a_n)$ is dropped.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Le critère spécial des séries alternées suppose $(a_n)$ positive, décroissante et de limite $0$. Trouver un contre-exemple lorsque la décroissance de $(a_n)$ est retirée.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Set $a_{2k}=\frac{1}{2^k}$ and $a_{2k+1}=\frac{1}{k+1}$. The sequence is nonnegative and tends to $0$, but it is not decreasing. The partial sum of odd order $2K+1$ is
+      \[S_{2K+1}=\sum_{k=0}^{K}\frac{1}{2^k}-\sum_{k=0}^{K}\frac{1}{k+1},\]
+      whose first sum converges and whose second tends to $+\infty$. So $S_{2K+1}\to-\infty$ and the series diverges.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $a_{2k}=\frac{1}{2^k}$ et $a_{2k+1}=\frac{1}{k+1}$. La suite est positive et tend vers $0$, mais n'est pas décroissante. La somme partielle d'ordre impair $2K+1$ vaut
+      \[S_{2K+1}=\sum_{k=0}^{K}\frac{1}{2^k}-\sum_{k=0}^{K}\frac{1}{k+1},\]
+      dont la première somme converge et la seconde tend vers $+\infty$. Donc $S_{2K+1}\to-\infty$ et la série diverge.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Comparison by equivalents assumes that $(u_n)$ and $(v_n)$ are positive from some rank onward. Find a counterexample when that positivity is dropped: two equivalent sequences whose series have different natures.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La comparaison par équivalents suppose $(u_n)$ et $(v_n)$ strictement positives à partir d'un certain rang. Trouver un contre-exemple lorsque cette positivité est retirée : deux suites équivalentes dont les séries sont de natures différentes.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Take $u_n=\frac{(-1)^n}{\sqrt n}$ and $v_n=\frac{(-1)^n}{\sqrt n}+\frac1n$ for $n\ge 1$. Then
+      \[\frac{v_n-u_n}{u_n}=\frac{1/n}{(-1)^n/\sqrt n}=\frac{(-1)^n}{\sqrt n}\to 0,\]
+      so $v_n/u_n\to 1$ and $u_n\sim v_n$. The series $\sum u_n$ converges by the alternating series test with $a_n=\frac{1}{\sqrt n}$. If $\sum v_n$ converged, then $\sum\frac1n=\sum(v_n-u_n)$ would converge, which is false. So $\sum v_n$ diverges.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Prenons $u_n=\frac{(-1)^n}{\sqrt n}$ et $v_n=\frac{(-1)^n}{\sqrt n}+\frac1n$ pour $n\ge 1$. Alors
+      \[\frac{v_n-u_n}{u_n}=\frac{1/n}{(-1)^n/\sqrt n}=\frac{(-1)^n}{\sqrt n}\to 0,\]
+      donc $v_n/u_n\to 1$ et $u_n\sim v_n$. La série $\sum u_n$ converge par le critère spécial avec $a_n=\frac{1}{\sqrt n}$. Si $\sum v_n$ convergeait, alors $\sum\frac1n=\sum(v_n-u_n)$ convergerait, ce qui est faux. Donc $\sum v_n$ diverge.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> The comparison with an integral assumes that $f$ is decreasing. Find a counterexample when that hypothesis is dropped: a continuous nonnegative $f$ on $[1,+\infty[$ whose integrals $\int_1^{N}f$ are bounded above while $\sum f(n)$ diverges.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> La comparaison série-intégrale suppose $f$ décroissante. Trouver un contre-exemple lorsque cette hypothèse est retirée : une fonction $f$ continue et positive sur $[1,+\infty[$ dont les intégrales $\int_1^{N}f$ sont majorées alors que $\sum f(n)$ diverge.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $f$ be the piecewise linear function that is $0$ everywhere except on the intervals $\left[n-4^{-n},\,n+4^{-n}\right]$ for $n\ge 1$, on which its graph is the triangle of apex $(n,1)$. These intervals are disjoint and $f$ is continuous and nonnegative.
+      <br><br>
+      The triangle at $n$ has base $2\cdot 4^{-n}$ and height $1$, so area $4^{-n}$. Hence $\int_1^{N}f\le\sum_{n\ge 1}4^{-n}=\frac13$ for every $N$, and the integrals are bounded above. But $f(n)=1$ for every $n$, so $\sum f(n)$ diverges. The values of $f$ at the integers say nothing about its integral once $f$ is allowed to rise and fall between them.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Soit $f$ la fonction affine par morceaux nulle partout sauf sur les intervalles $\left[n-4^{-n},\,n+4^{-n}\right]$ pour $n\ge 1$, sur lesquels son graphe est le triangle de sommet $(n,1)$. Ces intervalles sont disjoints et $f$ est continue et positive.
+      <br><br>
+      Le triangle en $n$ a pour base $2\cdot 4^{-n}$ et pour hauteur $1$, donc pour aire $4^{-n}$. Ainsi $\int_1^{N}f\le\sum_{n\ge 1}4^{-n}=\frac13$ pour tout $N$, et les intégrales sont majorées. Mais $f(n)=1$ pour tout $n$, donc $\sum f(n)$ diverge. Les valeurs de $f$ aux entiers ne disent rien de son intégrale dès que $f$ peut monter et descendre entre eux.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $\sum u_n$ and $\sum v_n$ converge, with $u_n\ge 0$ and $v_n\ge 0$. Show that $\sum\sqrt{u_nv_n}$ converges.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soient $\sum u_n$ et $\sum v_n$ convergentes, avec $u_n\ge 0$ et $v_n\ge 0$. Montrer que $\sum\sqrt{u_nv_n}$ converge.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      The AM-GM inequality gives $\sqrt{u_nv_n}\le\frac{u_n+v_n}{2}$, and both sides are nonnegative. The series $\sum\frac{u_n+v_n}{2}$ converges by linearity, so $\sum\sqrt{u_nv_n}$ converges by comparison.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      L'inégalité arithmético-géométrique donne $\sqrt{u_nv_n}\le\frac{u_n+v_n}{2}$, et les deux membres sont positifs. La série $\sum\frac{u_n+v_n}{2}$ converge par linéarité, donc $\sum\sqrt{u_nv_n}$ converge par comparaison.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Determine the nature of $\displaystyle\sum_{n\ge 1}\frac{1}{n^{1+1/n}}$, whose exponent is greater than $1$ for every $n$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Déterminer la nature de $\displaystyle\sum_{n\ge 1}\frac{1}{n^{1+1/n}}$, dont l'exposant est strictement supérieur à $1$ pour tout $n$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      $n^{1+1/n}=n\cdot n^{1/n}$ and $n^{1/n}=\mathrm{e}^{(\ln n)/n}\to\mathrm{e}^{0}=1$, since $\frac{\ln n}{n}\to 0$. So $\frac{1}{n^{1+1/n}}\sim\frac1n$, and the terms are positive. The harmonic series is the Riemann series with $\alpha=1$, which diverges, so the series diverges. A fixed exponent $\alpha&gt;1$ makes the series converge; an exponent that exceeds $1$ but tends to $1$ does not.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      $n^{1+1/n}=n\cdot n^{1/n}$ et $n^{1/n}=\mathrm{e}^{(\ln n)/n}\to\mathrm{e}^{0}=1$, puisque $\frac{\ln n}{n}\to 0$. Donc $\frac{1}{n^{1+1/n}}\sim\frac1n$, et les termes sont strictement positifs. La série harmonique est la série de Riemann d'exposant $\alpha=1$, qui diverge, donc la série diverge. Un exposant fixe $\alpha&gt;1$ fait converger la série ; un exposant qui dépasse $1$ mais tend vers $1$ ne le fait pas.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise.</span> Let $(u_n)$ be nonnegative and decreasing with $\sum u_n$ convergent. Show that $n\,u_n\to 0$.</p>
+      <p class="fr"><span class="thm-label">Exercice.</span> Soit $(u_n)$ positive et décroissante avec $\sum u_n$ convergente. Montrer que $n\,u_n\to 0$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      Let $m=\lfloor n/2\rfloor$. The sum $S_n-S_m=\sum_{k=m+1}^{n}u_k$ has $n-m$ terms, each at least $u_n$ since $(u_n)$ decreases, so
+      \[0\le (n-m)\,u_n\le S_n-S_m,\qquad n-m\ge\frac n2 .\]
+      Both $S_n$ and $S_m$ tend to the sum $S$ as $n\to\infty$, since $m\to\infty$ too, so $S_n-S_m\to 0$. Hence $\frac n2 u_n\to 0$, that is $n\,u_n\to 0$.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Posons $m=\lfloor n/2\rfloor$. La somme $S_n-S_m=\sum_{k=m+1}^{n}u_k$ a $n-m$ termes, chacun minoré par $u_n$ puisque $(u_n)$ décroît, donc
+      \[0\le (n-m)\,u_n\le S_n-S_m,\qquad n-m\ge\frac n2 .\]
+      $S_n$ et $S_m$ tendent tous deux vers la somme $S$ quand $n\to\infty$, puisque $m\to\infty$ aussi, donc $S_n-S_m\to 0$. Ainsi $\frac n2 u_n\to 0$, c'est-à-dire $n\,u_n\to 0$.
+    </details>
+
+    <div class="thm-block exercise">
+      <p class="en"><span class="thm-label">Exercise (Euler's constant).</span> Let $H_n=\sum_{k=1}^{n}\frac1k$. Show that the sequence $v_n=H_n-\ln n$ converges. Its limit is written $\gamma$.</p>
+      <p class="fr"><span class="thm-label">Exercice (Constante d'Euler).</span> Soit $H_n=\sum_{k=1}^{n}\frac1k$. Montrer que la suite $v_n=H_n-\ln n$ converge. Sa limite se note $\gamma$.</p>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      For $k\ge 1$ and $t\in[k,k+1]$, $\frac{1}{k+1}\le\frac1t\le\frac1k$; integrating over $[k,k+1]$,
+      \[\frac{1}{k+1}\ \le\ \ln(k+1)-\ln k\ \le\ \frac1k.\]
+      <em>Decreasing.</em> $v_{n+1}-v_n=\frac{1}{n+1}-\bigl(\ln(n+1)-\ln n\bigr)\le 0$ by the left inequality with $k=n$.
+      <br><br>
+      <em>Bounded below.</em> Summing the right inequality for $k=1,\ldots,n$ gives $\ln(n+1)\le H_n$, so $v_n\ge\ln(n+1)-\ln n\ge 0$.
+      <br><br>
+      Decreasing and bounded below, $(v_n)$ converges.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      Pour $k\ge 1$ et $t\in[k,k+1]$, $\frac{1}{k+1}\le\frac1t\le\frac1k$ ; en intégrant sur $[k,k+1]$,
+      \[\frac{1}{k+1}\ \le\ \ln(k+1)-\ln k\ \le\ \frac1k.\]
+      <em>Décroissance.</em> $v_{n+1}-v_n=\frac{1}{n+1}-\bigl(\ln(n+1)-\ln n\bigr)\le 0$ par l'inégalité de gauche avec $k=n$.
+      <br><br>
+      <em>Minoration.</em> En sommant l'inégalité de droite pour $k=1,\ldots,n$, on obtient $\ln(n+1)\le H_n$, donc $v_n\ge\ln(n+1)-\ln n\ge 0$.
+      <br><br>
+      Décroissante et minorée, $(v_n)$ converge.
+    </details>
+
+    <div class="thm-block exercise">
+      <div class="en"><p><span class="thm-label">Exercise (Condensation).</span> Let $(u_n)_{n\ge 1}$ be nonnegative and decreasing.</p>
+      <ol>
+        <li>Show that $\sum u_n$ and $\sum 2^k u_{2^k}$ have the same nature.</li>
+        <li>Deduce, for $\beta\in\mathbb{R}$, the nature of $\displaystyle\sum_{n\ge 2}\frac{1}{n(\ln n)^{\beta}}$.</li>
+      </ol></div>
+      <div class="fr"><p><span class="thm-label">Exercice (Condensation).</span> Soit $(u_n)_{n\ge 1}$ positive et décroissante.</p>
+      <ol>
+        <li>Montrer que $\sum u_n$ et $\sum 2^k u_{2^k}$ sont de même nature.</li>
+        <li>En déduire, pour $\beta\in\mathbb{R}$, la nature de $\displaystyle\sum_{n\ge 2}\frac{1}{n(\ln n)^{\beta}}$.</li>
+      </ol></div>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> The block of indices $n=2^k,\ldots,2^{k+1}-1$ has $2^k$ terms, each between $u_{2^{k+1}}$ and $u_{2^k}$ since $(u_n)$ decreases, so
+      \[2^{k}u_{2^{k+1}}\ \le\ \sum_{n=2^{k}}^{2^{k+1}-1}u_n\ \le\ 2^{k}u_{2^{k}}.\]
+      Summing for $k=0,\ldots,K-1$ and writing $j=k+1$ in the left-hand sums,
+      \[\frac12\sum_{j=1}^{K}2^{j}u_{2^{j}}\ \le\ \sum_{n=1}^{2^{K}-1}u_n\ \le\ \sum_{k=0}^{K-1}2^{k}u_{2^{k}}.\]
+      All three are increasing in $K$ and the terms are nonnegative, so each is bounded above exactly when the others are, and the two series have the same nature.
+      <br><br>
+      <strong>2.</strong> For $\beta\le 0$ the term is at least $\frac1n$ from $n=3$ on, so the series diverges. For $\beta&gt;0$ the sequence $u_n=\frac{1}{n(\ln n)^{\beta}}$ is nonnegative and decreasing for $n\ge 2$, and
+      \[2^{k}u_{2^{k}}=\frac{2^{k}}{2^{k}(k\ln 2)^{\beta}}=\frac{1}{(\ln 2)^{\beta}}\cdot\frac{1}{k^{\beta}}.\]
+      This is a Riemann series up to a constant factor, so it converges if and only if $\beta&gt;1$. Hence $\sum\frac{1}{n(\ln n)^{\beta}}$ converges if and only if $\beta&gt;1$. In particular $\sum\frac{1}{n\ln n}$ diverges.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> Le bloc d'indices $n=2^k,\ldots,2^{k+1}-1$ compte $2^k$ termes, chacun compris entre $u_{2^{k+1}}$ et $u_{2^k}$ puisque $(u_n)$ décroît, donc
+      \[2^{k}u_{2^{k+1}}\ \le\ \sum_{n=2^{k}}^{2^{k+1}-1}u_n\ \le\ 2^{k}u_{2^{k}}.\]
+      En sommant pour $k=0,\ldots,K-1$ et en posant $j=k+1$ dans les sommes de gauche,
+      \[\frac12\sum_{j=1}^{K}2^{j}u_{2^{j}}\ \le\ \sum_{n=1}^{2^{K}-1}u_n\ \le\ \sum_{k=0}^{K-1}2^{k}u_{2^{k}}.\]
+      Les trois quantités croissent avec $K$ et les termes sont positifs, donc chacune est majorée exactement quand les autres le sont, et les deux séries sont de même nature.
+      <br><br>
+      <strong>2.</strong> Pour $\beta\le 0$ le terme est minoré par $\frac1n$ à partir de $n=3$, donc la série diverge. Pour $\beta&gt;0$ la suite $u_n=\frac{1}{n(\ln n)^{\beta}}$ est positive et décroissante pour $n\ge 2$, et
+      \[2^{k}u_{2^{k}}=\frac{2^{k}}{2^{k}(k\ln 2)^{\beta}}=\frac{1}{(\ln 2)^{\beta}}\cdot\frac{1}{k^{\beta}}.\]
+      C'est une série de Riemann à un facteur constant près, donc elle converge si et seulement si $\beta&gt;1$. Ainsi $\sum\frac{1}{n(\ln n)^{\beta}}$ converge si et seulement si $\beta&gt;1$. En particulier $\sum\frac{1}{n\ln n}$ diverge.
+    </details>
+
+    <div class="thm-block exercise">
+      <div class="en"><p><span class="thm-label">Exercise (Irrationality of $\mathrm{e}$).</span> Let $\displaystyle S_n=\sum_{k=0}^{n}\frac{1}{k!}$.</p>
+      <ol>
+        <li>Show that $\sum\frac{1}{k!}$ converges; write $\mathrm{e}$ for its sum.</li>
+        <li>Show that $\displaystyle 0&lt;\mathrm{e}-S_n\le\frac{1}{n\cdot n!}$ for every $n\ge 1$.</li>
+        <li>Deduce that $\mathrm{e}$ is irrational.</li>
+      </ol></div>
+      <div class="fr"><p><span class="thm-label">Exercice (Irrationalité de $\mathrm{e}$).</span> Soit $\displaystyle S_n=\sum_{k=0}^{n}\frac{1}{k!}$.</p>
+      <ol>
+        <li>Montrer que $\sum\frac{1}{k!}$ converge ; on note $\mathrm{e}$ sa somme.</li>
+        <li>Montrer que $\displaystyle 0&lt;\mathrm{e}-S_n\le\frac{1}{n\cdot n!}$ pour tout $n\ge 1$.</li>
+        <li>En déduire que $\mathrm{e}$ est irrationnel.</li>
+      </ol></div>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> The terms are positive and $\frac{u_{k+1}}{u_k}=\frac{1}{k+1}\to 0&lt;1$, so the series converges by the ratio test.
+      <br><br>
+      <strong>2.</strong> All the omitted terms are positive, so $\mathrm{e}-S_n&gt;0$. For $k\ge n+1$,
+      \[k!=(n+1)!\cdot(n+2)(n+3)\cdots k\ \ge\ (n+1)!\,(n+1)^{\,k-n-1},\]
+      so, summing a geometric series of ratio $\frac{1}{n+1}&lt;1$,
+      \[\mathrm{e}-S_n=\sum_{k\ge n+1}\frac{1}{k!}\ \le\ \frac{1}{(n+1)!}\sum_{j\ge 0}\frac{1}{(n+1)^{j}}=\frac{1}{(n+1)!}\cdot\frac{n+1}{n}=\frac{1}{n\cdot n!}.\]
+      <strong>3.</strong> Suppose $\mathrm{e}=\frac pq$ with $p,q\in\mathbb{N}^{*}$, and set $n=\max(q,2)$. Then $q$ divides $n!$, so $n!\,\mathrm{e}=\frac{n!}{q}p$ is an integer, and $n!\,S_n=\sum_{k=0}^{n}\frac{n!}{k!}$ is an integer as well. So $n!\,(\mathrm{e}-S_n)$ is an integer, and it is positive by part 2, hence at least $1$. But part 2 also gives $n!\,(\mathrm{e}-S_n)\le\frac1n\le\frac12$, a contradiction. So $\mathrm{e}$ is irrational.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> Les termes sont strictement positifs et $\frac{u_{k+1}}{u_k}=\frac{1}{k+1}\to 0&lt;1$, donc la série converge par la règle de d'Alembert.
+      <br><br>
+      <strong>2.</strong> Tous les termes omis sont strictement positifs, donc $\mathrm{e}-S_n&gt;0$. Pour $k\ge n+1$,
+      \[k!=(n+1)!\cdot(n+2)(n+3)\cdots k\ \ge\ (n+1)!\,(n+1)^{\,k-n-1},\]
+      donc, en sommant une série géométrique de raison $\frac{1}{n+1}&lt;1$,
+      \[\mathrm{e}-S_n=\sum_{k\ge n+1}\frac{1}{k!}\ \le\ \frac{1}{(n+1)!}\sum_{j\ge 0}\frac{1}{(n+1)^{j}}=\frac{1}{(n+1)!}\cdot\frac{n+1}{n}=\frac{1}{n\cdot n!}.\]
+      <strong>3.</strong> Supposons $\mathrm{e}=\frac pq$ avec $p,q\in\mathbb{N}^{*}$, et posons $n=\max(q,2)$. Alors $q$ divise $n!$, donc $n!\,\mathrm{e}=\frac{n!}{q}p$ est un entier, et $n!\,S_n=\sum_{k=0}^{n}\frac{n!}{k!}$ en est un aussi. Ainsi $n!\,(\mathrm{e}-S_n)$ est un entier, strictement positif par la question 2, donc au moins $1$. Mais la question 2 donne aussi $n!\,(\mathrm{e}-S_n)\le\frac1n\le\frac12$, contradiction. Donc $\mathrm{e}$ est irrationnel.
+    </details>
+
+    <div class="thm-block exercise">
+      <div class="en"><p><span class="thm-label">Exercise (A rearrangement with a different sum).</span> Let $\gamma=\lim_{n\to\infty}(H_n-\ln n)$, so that $H_n=\ln n+\gamma+\varepsilon_n$ with $\varepsilon_n\to 0$.</p>
+      <ol>
+        <li>Show that $\displaystyle\sum_{n\ge 1}\frac{(-1)^{n+1}}{n}=\ln 2$.</li>
+        <li>Reorder the same terms by taking two positive ones then one negative, giving $1+\frac13-\frac12+\frac15+\frac17-\frac14+\cdots$. Show that this rearrangement converges to $\frac32\ln 2$.</li>
+      </ol></div>
+      <div class="fr"><p><span class="thm-label">Exercice (Un réarrangement de somme différente).</span> Soit $\gamma=\lim_{n\to\infty}(H_n-\ln n)$, de sorte que $H_n=\ln n+\gamma+\varepsilon_n$ avec $\varepsilon_n\to 0$.</p>
+      <ol>
+        <li>Montrer que $\displaystyle\sum_{n\ge 1}\frac{(-1)^{n+1}}{n}=\ln 2$.</li>
+        <li>Réordonner les mêmes termes en prenant deux termes positifs puis un négatif, ce qui donne $1+\frac13-\frac12+\frac15+\frac17-\frac14+\cdots$. Montrer que ce réarrangement converge vers $\frac32\ln 2$.</li>
+      </ol></div>
+    </div>
+
+    <details class="proof en">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> Separating the positive and negative terms of $S_{2m}$,
+      \[S_{2m}=\sum_{k=1}^{2m}\frac{(-1)^{k+1}}{k}=H_{2m}-2\sum_{k=1}^{m}\frac{1}{2k}=H_{2m}-H_m,\]
+      since subtracting twice the even terms turns each of them from $+$ to $-$. So $S_{2m}=\ln 2m+\gamma+\varepsilon_{2m}-\ln m-\gamma-\varepsilon_m\to\ln 2$. And $S_{2m+1}=S_{2m}+\frac{1}{2m+1}\to\ln 2$, so the whole sequence tends to $\ln 2$.
+      <br><br>
+      <strong>2.</strong> Let $T_j$ be the partial sums of the rearrangement. After $m$ blocks, $3m$ terms have been used: the first $2m$ odd denominators and the first $m$ even ones, so
+      \[T_{3m}=\sum_{k=1}^{2m}\frac{1}{2k-1}-\sum_{k=1}^{m}\frac{1}{2k}=\left(H_{4m}-\frac12 H_{2m}\right)-\frac12 H_m,\]
+      using $\sum_{k=1}^{2m}\frac{1}{2k-1}=H_{4m}-\sum_{k=1}^{2m}\frac{1}{2k}=H_{4m}-\frac12H_{2m}$. Substituting $H_n=\ln n+\gamma+\varepsilon_n$, the constants $\gamma$ cancel as $1-\frac12-\frac12=0$ and the terms $\ln m$ cancel as $1-\frac12-\frac12=0$, leaving
+      \[T_{3m}=\ln 4-\frac12\ln 2+\varepsilon_{4m}-\frac12\varepsilon_{2m}-\frac12\varepsilon_m\ \longrightarrow\ 2\ln 2-\frac12\ln 2=\frac32\ln 2.\]
+      Finally, $T_{3m+1}$ and $T_{3m+2}$ differ from $T_{3m}$ by at most two terms, each tending to $0$, so every partial sum tends to $\frac32\ln 2$. The same terms in a different order give a different sum.
+    </details>
+    <details class="proof fr">
+      <summary class="proof-label">Solution.</summary>
+      <strong>1.</strong> En séparant les termes positifs et négatifs de $S_{2m}$,
+      \[S_{2m}=\sum_{k=1}^{2m}\frac{(-1)^{k+1}}{k}=H_{2m}-2\sum_{k=1}^{m}\frac{1}{2k}=H_{2m}-H_m,\]
+      puisque retrancher deux fois les termes pairs change chacun d'eux de $+$ en $-$. Donc $S_{2m}=\ln 2m+\gamma+\varepsilon_{2m}-\ln m-\gamma-\varepsilon_m\to\ln 2$. Et $S_{2m+1}=S_{2m}+\frac{1}{2m+1}\to\ln 2$, donc toute la suite tend vers $\ln 2$.
+      <br><br>
+      <strong>2.</strong> Soient $T_j$ les sommes partielles du réarrangement. Après $m$ blocs, $3m$ termes ont été utilisés : les $2m$ premiers dénominateurs impairs et les $m$ premiers pairs, donc
+      \[T_{3m}=\sum_{k=1}^{2m}\frac{1}{2k-1}-\sum_{k=1}^{m}\frac{1}{2k}=\left(H_{4m}-\frac12 H_{2m}\right)-\frac12 H_m,\]
+      en utilisant $\sum_{k=1}^{2m}\frac{1}{2k-1}=H_{4m}-\sum_{k=1}^{2m}\frac{1}{2k}=H_{4m}-\frac12H_{2m}$. En substituant $H_n=\ln n+\gamma+\varepsilon_n$, les constantes $\gamma$ se compensent car $1-\frac12-\frac12=0$ et les termes $\ln m$ aussi, ce qui laisse
+      \[T_{3m}=\ln 4-\frac12\ln 2+\varepsilon_{4m}-\frac12\varepsilon_{2m}-\frac12\varepsilon_m\ \longrightarrow\ 2\ln 2-\frac12\ln 2=\frac32\ln 2.\]
+      Enfin, $T_{3m+1}$ et $T_{3m+2}$ diffèrent de $T_{3m}$ d'au plus deux termes, chacun tendant vers $0$, donc toutes les sommes partielles tendent vers $\frac32\ln 2$. Les mêmes termes dans un autre ordre donnent une autre somme.
+    </details>
+
+  </main>
+  <script>
+    function setLang(lang) {
+      localStorage.setItem('lang', lang);
+      document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+      document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+      document.documentElement.lang = lang;
+    }
+
+    (function() {
+      var lang = localStorage.getItem('lang') || 'en';
+      if (lang === 'fr') setLang('fr');
+    })();
+  </script>
+</body>
+</html>

@@ -1288,24 +1288,6 @@
     </details>
 
     <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Show that the sequence $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverges to $+\infty$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Montrer que la suite $\displaystyle H_n=\sum_{k=1}^{n}\frac{1}{k}$ diverge vers $+\infty$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      Group the terms of index $n+1$ to $2n$: each of these $n$ terms is at least $\frac{1}{2n}$, so
-      \[H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac{1}{k}\ge n\cdot\frac{1}{2n}=\frac{1}{2}.\]
-      Applying this to $n=1,2,4,\ldots,2^{m-1}$ gives $H_{2^m}\ge H_1+\frac{m}{2}=1+\frac{m}{2}$. So $(H_n)$ is unbounded, and being increasing it tends to $+\infty$: for $A\in\mathbb{R}$, choose $m$ with $1+\frac{m}{2}&gt;A$, then $H_n\ge H_{2^m}&gt;A$ for all $n\ge 2^m$.
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Regroupons les termes d'indices $n+1$ à $2n$ : chacun de ces $n$ termes vaut au moins $\frac{1}{2n}$, donc
-      \[H_{2n}-H_n=\sum_{k=n+1}^{2n}\frac{1}{k}\ge n\cdot\frac{1}{2n}=\frac{1}{2}.\]
-      En appliquant cela à $n=1,2,4,\ldots,2^{m-1}$, on obtient $H_{2^m}\ge H_1+\frac{m}{2}=1+\frac{m}{2}$. Donc $(H_n)$ n'est pas majorée, et étant croissante elle tend vers $+\infty$ : pour $A\in\mathbb{R}$, choisir $m$ tel que $1+\frac{m}{2}&gt;A$, alors $H_n\ge H_{2^m}&gt;A$ pour tout $n\ge 2^m$.
-    </details>
-
-    <div class="thm-block exercise">
       <p class="en"><span class="thm-label">Exercise (Heron's method).</span> Let $u_0&gt;0$ and $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Show that $(u_n)$ converges to $\sqrt{2}$.</p>
       <p class="fr"><span class="thm-label">Exercice (Méthode de Héron).</span> Soit $u_0&gt;0$ et $\displaystyle u_{n+1}=\frac{1}{2}\Bigl(u_n+\frac{2}{u_n}\Bigr)$. Montrer que $(u_n)$ converge vers $\sqrt{2}$.</p>
     </div>
@@ -1409,20 +1391,6 @@
     <details class="proof fr">
       <summary class="proof-label">Solution.</summary>
       Posons $S_n=\sum_{k=0}^{n}u_k$, de sorte que $u_{n+1}^2=S_n$. Pour $n\ge 1$, $u_{n+1}^2-u_n^2=S_n-S_{n-1}=u_n$, d'où $$u_{n+1}=\sqrt{u_n^2+u_n}\qquad(n\ge 1).$$ Tous les termes sont positifs ($u_1=\sqrt{u_0}&gt;0$, puis $u_{n+1}=\sqrt{u_n^2+u_n}&gt;0$). <em>Croissance.</em> Pour $n\ge 1$, $u_{n+1}^2-u_n^2=u_n&gt;0$, donc $u_{n+1}&gt;u_n$. <em>Divergence.</em> Étant croissante, $(u_n)$ converge ou tend vers $+\infty$. Si elle convergeait vers $\ell$, la limite de $u_{n+1}^2=u_n^2+u_n$ donnerait $\ell^2=\ell^2+\ell$, soit $\ell=0$, ce qui contredit $u_n\ge u_1&gt;0$. Donc $u_n\to+\infty$.
-    </details>
-
-    <div class="thm-block exercise">
-      <p class="en"><span class="thm-label">Exercise.</span> Study the sequence $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
-      <p class="fr"><span class="thm-label">Exercice.</span> Étudier la suite $\displaystyle u_n=\sum_{k=0}^{n}\frac{(-1)^k}{k!}$.</p>
-    </div>
-
-    <details class="proof en">
-      <summary class="proof-label">Solution.</summary>
-      We show the even and odd partial sums are adjacent. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, so $(u_{2n})$ is decreasing. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, so $(u_{2n+1})$ is increasing. Finally $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. So $(u_{2n})$ and $(u_{2n+1})$ are adjacent and converge to a common limit $\ell$; since both the even and odd subsequences tend to $\ell$, $(u_n)$ converges to $\ell$. (This limit is $\mathrm{e}^{-1}$, the alternating series of $\exp(-1)$.)
-    </details>
-    <details class="proof fr">
-      <summary class="proof-label">Solution.</summary>
-      Montrons que les sommes partielles paires et impaires sont adjacentes. $u_{2n+2}-u_{2n}=\frac{-1}{(2n+1)!}+\frac{1}{(2n+2)!}=\frac{1}{(2n+1)!}\left(\frac{1}{2n+2}-1\right)&lt;0$, donc $(u_{2n})$ est décroissante. $u_{2n+3}-u_{2n+1}=\frac{1}{(2n+2)!}-\frac{1}{(2n+3)!}&gt;0$, donc $(u_{2n+1})$ est croissante. Enfin $u_{2n}-u_{2n+1}=\frac{1}{(2n+1)!}\to 0$. Ainsi $(u_{2n})$ et $(u_{2n+1})$ sont adjacentes et convergent vers une limite commune $\ell$ ; les sous-suites paire et impaire tendant toutes deux vers $\ell$, $(u_n)$ converge vers $\ell$. (Cette limite est $\mathrm{e}^{-1}$, la série alternée de $\exp(-1)$.)
     </details>
 
     <div class="thm-block exercise">

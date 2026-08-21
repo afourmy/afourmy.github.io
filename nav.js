@@ -16,6 +16,7 @@
         { href: "math/suites.html", en: "Sequences" },
         { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
         { href: "math/comparaisons.html", en: "Asymptotic Comparison" },
+        { href: "math/series.html", en: "Series" },
         { href: "math/polynomes.html", en: "Polynomials" },
         { href: "math/linear-algebra.html", en: "Linear Algebra" },
         { href: "math/groups.html", en: "Groups" },
