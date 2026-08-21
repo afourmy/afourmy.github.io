@@ -14,13 +14,12 @@
       [
         { href: "math/bases.html", en: "Foundations" },
         { href: "math/suites.html", en: "Sequences" },
+        { href: "math/series.html", en: "Series" },
         { href: "math/fonctions-usuelles.html", en: "Standard Functions" },
         { href: "math/comparaisons.html", en: "Asymptotic Comparison" },
-        { href: "math/series.html", en: "Series" },
         { href: "math/polynomes.html", en: "Polynomials" },
         { href: "math/linear-algebra.html", en: "Linear Algebra" },
         { href: "math/groups.html", en: "Groups" },
-        { href: "math/topologie.html", en: "Topology" },
       ],
       [
         { href: "math/complexes.html", en: "Complex Numbers" },
@@ -40,6 +39,7 @@
         { href: "math/probabilites.html", en: "Probability" },
         { href: "math/determinants.html", en: "Determinants" },
         { href: "math/espaces-euclidiens.html", en: "Euclidean Spaces" },
+        { href: "math/topologie.html", en: "Topology" },
       ]
     ]},
     { en: "Computer Science", columns: [
