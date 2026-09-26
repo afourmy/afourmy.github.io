@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 13: Stroma and Angiogenesis</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="The normal cells inside tumors and the signals they exchange with cancer cells: the stroma, the wound-healing program, fibroblasts and macrophages, the 0.2 mm limit of oxygen diffusion, leaky tumor vessels, the angiogenic switch and drugs that block angiogenesis.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/stroma-and-angiogenesis.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 13: Stroma and Angiogenesis">
+  <meta property="og:description" content="The normal cells inside tumors and the signals they exchange with cancer cells: the stroma, the wound-healing program, fibroblasts and macrophages, the 0.2 mm limit of oxygen diffusion, leaky tumor vessels, the angiogenic switch and drugs that block angiogenesis.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/stroma-and-angiogenesis.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 13: Stroma and Angiogenesis</h1>
+    </header>
+    <h2>A Tumor Contains Many Normal Cells</h2>
+
+    <p>
+      Carcinomas make up more than 80% of the human cancer burden. A carcinoma is not only a mass of cancer cells.
+      It also contains normal cells recruited from the surrounding tissue, which together form the stroma. The
+      stroma includes fibroblasts, myofibroblasts, the endothelial cells that line blood vessels, pericytes,
+      fat cells, macrophages, lymphocytes and mast cells. In common carcinomas of the breast, colon, stomach and
+      pancreas, stromal cells can make up as much as 90% of the cells of the tumor. In Hodgkin's lymphoma, up to
+      99% of the cells are normal lymphocytes around a few cancer cells.
+    </p>
+
+    <p>
+      The space between the cells is filled by the extracellular matrix (ECM), a network of proteins such as
+      collagens. The ECM can make up as much as 25% of the mass of a carcinoma. In pancreatic ductal
+      adenocarcinomas, it can make up as much as 90%. The ECM also holds growth factors in an inactive, bound
+      form. Enzymes that cut the ECM release these factors.
+    </p>
+
+    <h2>Cancer Cells and Stromal Cells Exchange Signals</h2>
+
+    <p>
+      Signals between different cell types are called heterotypic signals. In normal tissues, epithelial cells
+      and stromal cells control each other's growth in this way. Tumors keep this exchange. The cancer cells of
+      many carcinomas release PDGF, and fibroblasts and macrophages in the stroma carry the PDGF receptor. The
+      stromal cells answer by releasing IGF-1, which helps the cancer cells survive and grow. In melanomas, PDGF
+      from the cancer cells makes fibroblasts release IGF-2. Stromal cells of breast cancers release the growth
+      factor HGF and the chemokine SDF-1, both of which stimulate the cancer cells.
+    </p>
+
+    <p>
+      Blood vessels are built by the same kind of exchange. Endothelial cells release PDGF and HB-EGF, which
+      attract pericytes and smooth muscle cells to the outside of the vessel. The pericytes answer with VEGF and
+      angiopoietin-1, which keep the endothelial cells alive.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="308" viewBox="0 0 760 308">
+      <rect class="fig-shape-img" x="60" y="30" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="160" y="62" text-anchor="middle">carcinoma cell</text>
+      <rect class="fig-shape" x="500" y="30" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="600" y="62" text-anchor="middle">fibroblast</text>
+      <line class="fig-axis" x1="268" y1="46" x2="485.7" y2="46"/>
+      <path class="fig-dot" d="M 492 46 L 485 49.1 L 485 42.9 Z"/>
+      <text class="fig-text fig-note" x="380" y="39" text-anchor="middle">PDGF</text>
+      <line class="fig-axis" x1="492" y1="68" x2="274.3" y2="68"/>
+      <path class="fig-dot" d="M 268 68 L 275 64.8 L 275 71.2 Z"/>
+      <text class="fig-text fig-note" x="380" y="86" text-anchor="middle">IGF-1</text>
+      <rect class="fig-shape-img" x="60" y="126" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="160" y="158" text-anchor="middle">carcinoma cell</text>
+      <rect class="fig-shape" x="500" y="126" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="600" y="158" text-anchor="middle">macrophage</text>
+      <line class="fig-axis" x1="268" y1="142" x2="485.7" y2="142"/>
+      <path class="fig-dot" d="M 492 142 L 485 145.2 L 485 138.8 Z"/>
+      <text class="fig-text fig-note" x="380" y="135" text-anchor="middle">CSF-1, MCP-1</text>
+      <line class="fig-axis" x1="492" y1="164" x2="274.3" y2="164"/>
+      <path class="fig-dot" d="M 268 164 L 275 160.8 L 275 167.2 Z"/>
+      <text class="fig-text fig-note" x="380" y="182" text-anchor="middle">EGF, IGF-1</text>
+      <rect class="fig-shape" x="60" y="222" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="160" y="254" text-anchor="middle">endothelial cell</text>
+      <rect class="fig-shape" x="500" y="222" width="200" height="54" rx="6"/>
+      <text class="fig-text fig-tick" x="600" y="254" text-anchor="middle">pericyte</text>
+      <line class="fig-axis" x1="268" y1="238" x2="485.7" y2="238"/>
+      <path class="fig-dot" d="M 492 238 L 485 241.2 L 485 234.8 Z"/>
+      <text class="fig-text fig-note" x="380" y="231" text-anchor="middle">PDGF, HB-EGF</text>
+      <line class="fig-axis" x1="492" y1="260" x2="274.3" y2="260"/>
+      <path class="fig-dot" d="M 268 260 L 275 256.9 L 275 263.1 Z"/>
+      <text class="fig-text fig-note" x="380" y="278" text-anchor="middle">VEGF, angiopoietin-1</text>
+      </svg>
+      <figcaption>Three pairs of cells that exchange signals in a tumor. Each cell releases a factor that acts on
+      the other cell, which answers with a factor of its own.</figcaption>
+    </figure>
+
+    <p>
+      Carcinoma cells need their stroma. In 1961, basal cell carcinomas were removed from patients and put back
+      at another site on the same patients' skin. Implants that included stroma grew well. Implants of cancer cells without stroma failed to grow when examined 1 to 5 weeks later. Most carcinoma cells are therefore hard to grow in culture. The cancer cells that do grow in culture have been selected for their ability to divide without stroma.
+    </p>
+
+    <h2>Tumors Use the Program of Wound Healing</h2>
+
+    <p>
+      In 1986, Harold Dvorak described tumors as "wounds that do not heal." When the skin is wounded, blood
+      platelets clump and release PDGF and TGF-β. Fibrinogen leaks from damaged vessels and forms a fibrin clot.
+      PDGF attracts fibroblasts and makes them divide. TGF-β turns them into myofibroblasts, which contract the
+      wound. Myofibroblasts and macrophages release matrix metalloproteinases (MMPs), enzymes that cut the ECM and
+      free the growth factors bound to it.
+    </p>
+
+    <p>
+      The freed factors, together with VEGF, make new blood vessels grow into the wound. Epithelial cells at the
+      edge of the wound take on the shape and mobility of fibroblasts. This change is called the
+      epithelial-mesenchymal transition (EMT). The cells move into the wound and divide. They then return to the
+      epithelial state and rebuild the epithelium.
+    </p>
+
+    <p>
+      Tumors switch on the same program but never switch it off. Carcinoma cells of the breast, prostate, colon
+      and lung release PDGF continuously, while platelets in a wound release it in one brief burst. Tumor
+      capillaries leak all the time, so fibrin forms in the tumor as in a wound. Fibroblasts near the cancer cells become myofibroblasts and lay down collagen. In many carcinomas, a high ratio of stromal cells to cancer cells predicts a worse outcome.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="284" viewBox="0 0 800 284">
+      <text class="fig-text fig-tick" x="320" y="24" text-anchor="middle">wound healing</text>
+      <text class="fig-text fig-tick" x="640" y="24" text-anchor="middle">tumor</text>
+      <text class="fig-text fig-tick" x="150" y="58" text-anchor="end">growth factors</text>
+      <rect class="fig-cell" x="170" y="38" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="58" text-anchor="middle">platelets release PDGF and TGF-β once</text>
+      <rect class="fig-shape-img" x="490" y="38" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="58" text-anchor="middle">cancer cells release PDGF all the time</text>
+      <text class="fig-text fig-tick" x="150" y="96" text-anchor="end">fibrin</text>
+      <rect class="fig-cell" x="170" y="76" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="96" text-anchor="middle">from damaged blood vessels</text>
+      <rect class="fig-shape-img" x="490" y="76" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="96" text-anchor="middle">from leaky tumor capillaries</text>
+      <text class="fig-text fig-tick" x="150" y="134" text-anchor="end">fibroblasts</text>
+      <rect class="fig-cell" x="170" y="114" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="134" text-anchor="middle">become myofibroblasts</text>
+      <rect class="fig-cell" x="490" y="114" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="134" text-anchor="middle">become myofibroblasts</text>
+      <text class="fig-text fig-tick" x="150" y="172" text-anchor="end">MMPs</text>
+      <rect class="fig-cell" x="170" y="152" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="172" text-anchor="middle">free growth factors from the matrix</text>
+      <rect class="fig-cell" x="490" y="152" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="172" text-anchor="middle">free growth factors from the matrix</text>
+      <text class="fig-text fig-tick" x="150" y="210" text-anchor="end">blood vessels</text>
+      <rect class="fig-cell" x="170" y="190" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="210" text-anchor="middle">grow into the wound, then stop</text>
+      <rect class="fig-shape-img" x="490" y="190" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="210" text-anchor="middle">keep growing into the tumor</text>
+      <text class="fig-text fig-tick" x="150" y="248" text-anchor="end">end point</text>
+      <rect class="fig-cell" x="170" y="228" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="320" y="248" text-anchor="middle">the wound closes</text>
+      <rect class="fig-shape-img" x="490" y="228" width="300" height="30" rx="4"/>
+      <text class="fig-text fig-note" x="640" y="248" text-anchor="middle">none</text>
+      </svg>
+      <figcaption>Wound healing and tumor stroma use the same cells and signals. The shaded boxes mark where the
+      tumor differs: its signals never stop.</figcaption>
+    </figure>
+
+    <p>
+      Experiments show that stromal cells make tumors grow faster. Transformed human breast epithelial cells took
+      more than two months to form a tumor in mice, and formed one in only about half of them. Mixed with
+      fibroblasts from a normal human breast, they formed tumors in a third of the time and in every mouse. The
+      added fibroblasts spared the cancer cells the weeks needed to recruit fibroblasts from the host. In another
+      experiment, immortalized human prostate epithelial cells alone did not form tumors. Mixed with fibroblasts from a prostate carcinoma, they formed tumors with a median weight 10 times larger. The same cells mixed with normal prostate fibroblasts formed growths of about 7 mg.
+    </p>
+
+    <h2>Macrophages Help Tumors Progress</h2>
+
+    <p>
+      Cancer cells attract monocytes from the blood with factors such as MCP-1 and CSF-1. In the tumor, the
+      monocytes become macrophages. Macrophages release VEGF and interleukin-8, which make blood vessels grow, and
+      MMPs, which cut the ECM. In advanced breast cancers, macrophages are the main source of EGF for the cancer
+      cells. A high density of macrophages predicts a poor outcome in gliomas and in carcinomas of the breast,
+      ovary, prostate, cervix, bladder and lung.
+    </p>
+
+    <p>
+      In one experiment, mice developed breast tumors driven by an oncogene. In mice that could not make CSF-1, the
+      tumors contained almost no macrophages. The primary tumors grew normally, but they rarely became invasive or
+      metastatic. Macrophages are therefore needed for the later steps of progression.
+    </p>
+
+    <h2>Tumors Need Blood Vessels</h2>
+
+    <p>
+      Oxygen diffuses only about 0.2 mm through living tissue. Tumor cells more than about 0.2 mm from a blood
+      vessel stop growing, and cells farther away die. In sections of tumors, dead tissue begins as close as 85
+      micrometers from a capillary in a melanoma and 110 micrometers in a prostate carcinoma. A tumor therefore
+      cannot grow beyond a very small size without new blood vessels. The growth of new blood vessels is called
+      angiogenesis.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="230" viewBox="0 0 760 230">
+      <text class="fig-text fig-tick" x="158" y="59" text-anchor="end">human melanoma</text>
+      <rect class="fig-shape" x="170" y="40" width="176.8" height="28"/>
+      <rect class="fig-cell-alt" x="346.8" y="40" width="343.2" height="28"/>
+      <text class="fig-text fig-note" x="258.4" y="59" text-anchor="middle">living cells: 85 μm</text>
+      <text class="fig-text fig-note" x="518.4" y="59" text-anchor="middle">necrosis</text>
+      <text class="fig-text fig-tick" x="158" y="115" text-anchor="end">rat prostate carcinoma</text>
+      <rect class="fig-shape" x="170" y="96" width="228.8" height="28"/>
+      <rect class="fig-cell-alt" x="398.8" y="96" width="291.2" height="28"/>
+      <text class="fig-text fig-note" x="284.4" y="115" text-anchor="middle">living cells: 110 μm</text>
+      <text class="fig-text fig-note" x="544.4" y="115" text-anchor="middle">necrosis</text>
+      <line class="fig-axis" x1="170" y1="166" x2="690" y2="166"/>
+      <line class="fig-axis" x1="170" y1="166" x2="170" y2="171"/>
+      <text class="fig-text fig-tick" x="170" y="186" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="274" y1="166" x2="274" y2="171"/>
+      <text class="fig-text fig-tick" x="274" y="186" text-anchor="middle">50</text>
+      <line class="fig-axis" x1="378" y1="166" x2="378" y2="171"/>
+      <text class="fig-text fig-tick" x="378" y="186" text-anchor="middle">100</text>
+      <line class="fig-axis" x1="482" y1="166" x2="482" y2="171"/>
+      <text class="fig-text fig-tick" x="482" y="186" text-anchor="middle">150</text>
+      <line class="fig-axis" x1="586" y1="166" x2="586" y2="171"/>
+      <text class="fig-text fig-tick" x="586" y="186" text-anchor="middle">200</text>
+      <line class="fig-axis" x1="690" y1="166" x2="690" y2="171"/>
+      <text class="fig-text fig-tick" x="690" y="186" text-anchor="middle">250</text>
+      <text class="fig-text fig-note" x="430" y="208" text-anchor="middle">distance from the capillary (micrometers)</text>
+      <line class="fig-guide" x1="586" y1="26" x2="586" y2="166"/>
+      <text class="fig-text fig-note" x="586" y="18" text-anchor="middle">0.2 mm: limit of oxygen diffusion</text>
+      </svg>
+      <figcaption>Distance from a capillary at which necrosis, the death of tissue, begins in two tumors. Oxygen
+      reaches cells by diffusion only over about 0.2 mm.</figcaption>
+    </figure>
+
+    <p>
+      Tumors attract blood vessels. Small pieces of tumor implanted in the cornea or the ear of rabbits drew dense
+      networks of new capillaries within days. The main signal is VEGF. Other factors also make vessels grow,
+      such as FGF2, interleukin-8, angiopoietin, TGF-β and PDGF.
+    </p>
+
+    <p>
+      Tumor vessels are built badly. Capillaries in tumors are typically three times wider than normal ones. The
+      vessels form a chaotic network with dead ends and loops. The endothelial cells leave gaps between them,
+      often several micrometers wide, and pericytes are loosely attached. The walls of tumor capillaries are
+      about 10 times more permeable than normal walls. VEGF causes much of this leakiness. It was first described
+      in 1979 as a vascular permeability factor.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="290" viewBox="0 0 760 290">
+      <circle class="fig-shape" cx="170" cy="140" r="34"/>
+      <ellipse class="fig-dot-alt" cx="205.5" cy="160.5" rx="9" ry="5" transform="rotate(120 205.5 160.5)"/>
+      <ellipse class="fig-dot-alt" cx="134.5" cy="160.5" rx="9" ry="5" transform="rotate(240 134.5 160.5)"/>
+      <ellipse class="fig-dot-alt" cx="170" cy="99" rx="9" ry="5" transform="rotate(360 170 99)"/>
+      <text class="fig-text fig-note" x="170" y="224" text-anchor="middle">normal capillary</text>
+      <text class="fig-text fig-note" x="170" y="242" text-anchor="middle">sealed wall, pericytes attached</text>
+      <circle class="fig-band" cx="520" cy="140" r="102"/>
+      <path class="fig-curve" d="M 621.4 150.7 A 102 102 0 0 1 449.1 213.4"/>
+      <path class="fig-curve" d="M 435.4 197 A 102 102 0 0 1 423.6 106.8"/>
+      <path class="fig-curve" d="M 432.6 87.5 A 102 102 0 0 1 590.9 66.6"/>
+      <path class="fig-curve" d="M 604.6 83 A 102 102 0 0 1 621.4 129.3"/>
+      <line class="fig-axis" x1="608" y1="140" x2="640.6" y2="140"/>
+      <path class="fig-dot" d="M 646 140 L 640 142.7 L 640 137.3 Z"/>
+      <line class="fig-axis" x1="452.6" y1="196.6" x2="427.6" y2="217.5"/>
+      <path class="fig-dot" d="M 423.5 221 L 426.3 215.1 L 429.8 219.2 Z"/>
+      <line class="fig-axis" x1="440.2" y1="102.8" x2="410.7" y2="89"/>
+      <path class="fig-dot" d="M 405.8 86.8 L 412.4 86.8 L 410.1 91.7 Z"/>
+      <line class="fig-axis" x1="587.4" y1="83.4" x2="612.4" y2="62.5"/>
+      <path class="fig-dot" d="M 616.5 59 L 613.7 64.9 L 610.2 60.8 Z"/>
+      <ellipse class="fig-dot-alt" cx="577" cy="238.7" rx="9" ry="5" transform="rotate(150 577 238.7)"/>
+      <text class="fig-text fig-note" x="638" y="174" text-anchor="start">fluid leaks</text>
+      <text class="fig-text fig-note" x="638" y="190" text-anchor="start">through gaps</text>
+      <text class="fig-text fig-note" x="520" y="270" text-anchor="middle">tumor capillary: 3 times wider, leaky wall, few pericytes</text>
+      <circle class="fig-dot-alt" cx="40" cy="262" r="5"/>
+      <text class="fig-text fig-note" x="52" y="266" text-anchor="start">pericyte</text>
+      </svg>
+      <figcaption>Cross-sections of a normal capillary and a tumor capillary, drawn to the diameter ratio of 1 to
+      3. The tumor capillary has gaps between its endothelial cells, and plasma leaks through them into the
+      tumor.</figcaption>
+    </figure>
+
+    <p>
+      Fluid that leaks from the capillaries accumulates in the tumor. In normal tissues, lymphatic vessels drain
+      this fluid. In solid tumors, the growing mass of cells compresses the lymphatic vessels until they collapse.
+      Myofibroblasts, stimulated by PDGF, also contract and squeeze fluid out. The pressure of the fluid inside a
+      tumor becomes high. Drugs then move poorly from the blood into the tumor, because they need a pressure drop
+      from the vessel to the tissue.
+    </p>
+
+    <p>
+      Vessel permeability can also help treatment. WNT-medulloblastomas are brain tumors of children that release
+      inhibitors of Wnt signaling. Brain capillaries need Wnt signaling to form properly. The vessels of these
+      tumors therefore have large gaps, which increase drug transport into the tumor up to 300-fold. These
+      tumors are almost always curable with low doses of drugs.
+    </p>
+
+    <h2>The Angiogenic Switch</h2>
+
+    <p>
+      Many tumors cannot recruit blood vessels at first and must acquire this ability. The clearest model is the
+      Rip-Tag mouse. It carries the large T and small t genes of SV40 under the control of the insulin gene
+      promoter, so they are made in the insulin-producing cells of the pancreas. These cells form about 400 small
+      clusters called islets. By 10 weeks of age, as many as half of the islets become hyperplastic. About 10% of
+      the hyperplastic islets then become angiogenic. By 12 to 14 weeks, about 3% of the hyperplastic islets have
+      become carcinomas.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="250" viewBox="0 0 760 250">
+      <rect class="fig-dot-alt" x="80" y="20" width="12" height="12"/>
+      <rect class="fig-dot-alt" x="95" y="20" width="12" height="12"/>
+      <rect class="fig-dot-alt" x="110" y="20" width="12" height="12"/>
+      <rect class="fig-dot-alt" x="125" y="20" width="12" height="12"/>
+      <rect class="fig-dot-alt" x="140" y="20" width="12" height="12"/>
+      <rect class="fig-dot-alt" x="155" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="170" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="185" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="200" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="215" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="230" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="245" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="260" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="275" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="290" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="305" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="320" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="335" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="350" y="20" width="12" height="12"/>
+      <rect class="fig-shape-img" x="365" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="380" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="395" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="410" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="425" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="440" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="455" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="470" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="485" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="500" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="515" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="530" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="545" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="560" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="575" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="590" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="605" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="620" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="635" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="650" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="665" y="20" width="12" height="12"/>
+      <rect class="fig-shape" x="80" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="95" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="110" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="125" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="140" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="155" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="170" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="185" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="200" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="215" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="230" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="245" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="260" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="275" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="290" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="305" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="320" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="335" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="350" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="365" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="380" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="395" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="410" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="425" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="440" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="455" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="470" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="485" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="500" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="515" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="530" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="545" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="560" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="575" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="590" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="605" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="620" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="635" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="650" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="665" y="35" width="12" height="12"/>
+      <rect class="fig-shape" x="80" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="95" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="110" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="125" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="140" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="155" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="170" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="185" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="200" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="215" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="230" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="245" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="260" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="275" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="290" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="305" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="320" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="335" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="350" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="365" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="380" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="395" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="410" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="425" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="440" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="455" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="470" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="485" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="500" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="515" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="530" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="545" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="560" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="575" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="590" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="605" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="620" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="635" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="650" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="665" y="50" width="12" height="12"/>
+      <rect class="fig-shape" x="80" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="95" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="110" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="125" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="140" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="155" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="170" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="185" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="200" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="215" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="230" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="245" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="260" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="275" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="290" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="305" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="320" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="335" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="350" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="365" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="380" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="395" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="410" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="425" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="440" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="455" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="470" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="485" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="500" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="515" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="530" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="545" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="560" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="575" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="590" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="605" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="620" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="635" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="650" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="665" y="65" width="12" height="12"/>
+      <rect class="fig-shape" x="80" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="95" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="110" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="125" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="140" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="155" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="170" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="185" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="200" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="215" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="230" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="245" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="260" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="275" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="290" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="305" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="320" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="335" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="350" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="365" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="380" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="395" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="410" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="425" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="440" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="455" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="470" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="485" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="500" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="515" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="530" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="545" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="560" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="575" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="590" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="605" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="620" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="635" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="650" y="80" width="12" height="12"/>
+      <rect class="fig-shape" x="665" y="80" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="95" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="110" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="125" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="140" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="155" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="170" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="185" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="200" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="215" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="230" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="245" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="260" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="275" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="290" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="305" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="320" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="335" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="350" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="365" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="380" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="395" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="410" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="425" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="440" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="455" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="470" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="485" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="500" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="515" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="530" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="545" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="560" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="575" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="590" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="605" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="620" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="635" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="650" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="665" y="95" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="95" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="110" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="125" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="140" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="155" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="170" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="185" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="200" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="215" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="230" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="245" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="260" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="275" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="290" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="305" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="320" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="335" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="350" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="365" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="380" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="395" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="410" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="425" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="440" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="455" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="470" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="485" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="500" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="515" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="530" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="545" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="560" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="575" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="590" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="605" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="620" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="635" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="650" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="665" y="110" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="95" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="110" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="125" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="140" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="155" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="170" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="185" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="200" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="215" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="230" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="245" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="260" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="275" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="290" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="305" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="320" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="335" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="350" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="365" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="380" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="395" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="410" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="425" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="440" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="455" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="470" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="485" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="500" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="515" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="530" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="545" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="560" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="575" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="590" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="605" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="620" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="635" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="650" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="665" y="125" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="95" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="110" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="125" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="140" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="155" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="170" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="185" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="200" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="215" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="230" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="245" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="260" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="275" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="290" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="305" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="320" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="335" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="350" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="365" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="380" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="395" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="410" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="425" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="440" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="455" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="470" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="485" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="500" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="515" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="530" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="545" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="560" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="575" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="590" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="605" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="620" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="635" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="650" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="665" y="140" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="95" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="110" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="125" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="140" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="155" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="170" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="185" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="200" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="215" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="230" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="245" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="260" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="275" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="290" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="305" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="320" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="335" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="350" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="365" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="380" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="395" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="410" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="425" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="440" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="455" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="470" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="485" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="500" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="515" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="530" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="545" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="560" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="575" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="590" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="605" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="620" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="635" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="650" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="665" y="155" width="12" height="12"/>
+      <rect class="fig-cell" x="80" y="187" width="12" height="12"/>
+      <text class="fig-text fig-note" x="100" y="198" text-anchor="start">normal islet: 200</text>
+      <rect class="fig-shape" x="400" y="187" width="12" height="12"/>
+      <text class="fig-text fig-note" x="420" y="198" text-anchor="start">hyperplastic by 10 weeks: 200 in all</text>
+      <rect class="fig-shape-img" x="80" y="213" width="12" height="12"/>
+      <text class="fig-text fig-note" x="100" y="224" text-anchor="start">angiogenic: about 20 in all</text>
+      <rect class="fig-dot-alt" x="400" y="213" width="12" height="12"/>
+      <text class="fig-text fig-note" x="420" y="224" text-anchor="start">carcinoma by 12 to 14 weeks: about 6</text>
+      </svg>
+      <figcaption>The fate of the 400 islets of a Rip-Tag mouse, one square per islet, computed from the stated
+      fractions. Half become hyperplastic. About 10% of these become angiogenic, and about 3% of them become
+      carcinomas. Each stage is a subset of the previous one.</figcaption>
+    </figure>
+
+    <p>
+      Hyperplastic islets grow to a diameter of about 0.1 to 0.2 mm and then stop. Their cells keep dividing, but
+      an equal number die by apoptosis because they lack oxygen. At some point, a few islets suddenly start to
+      attract new capillaries and then grow quickly. This event is called the angiogenic switch. It is a separate
+      step of tumor progression.
+    </p>
+
+    <p>
+      The islet cells make VEGF all along, as normal islets do. The VEGF stays bound to the ECM and is inactive.
+      The switch happens when mast cells and macrophages arrive and release MMP-9. This enzyme cuts the ECM and
+      frees the VEGF. In Rip-Tag mice that lack mast cells, the islet tumors start normally but never become
+      angiogenic, and they stay 0.1 to 0.2 mm wide. A bone marrow transplant that restores mast cells also
+      restores angiogenesis, and large tumors then appear.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="150" viewBox="0 0 800 150">
+      <rect class="fig-shape" x="8" y="20" width="136" height="58" rx="6"/>
+      <text class="fig-text fig-tick" x="76" y="47" text-anchor="middle">islet cells</text>
+      <text class="fig-text fig-note" x="76" y="64" text-anchor="middle">make VEGF</text>
+      <line class="fig-axis" x1="148" y1="49" x2="159.7" y2="49"/>
+      <path class="fig-dot" d="M 166 49 L 159 52.1 L 159 45.9 Z"/>
+      <rect class="fig-shape" x="170" y="20" width="136" height="58" rx="6"/>
+      <text class="fig-text fig-tick" x="238" y="47" text-anchor="middle">matrix</text>
+      <text class="fig-text fig-note" x="238" y="64" text-anchor="middle">holds VEGF inactive</text>
+      <line class="fig-axis" x1="310" y1="49" x2="321.7" y2="49"/>
+      <path class="fig-dot" d="M 328 49 L 321 52.1 L 321 45.9 Z"/>
+      <rect class="fig-shape-img" x="332" y="20" width="136" height="58" rx="6"/>
+      <text class="fig-text fig-tick" x="400" y="47" text-anchor="middle">MMP-9</text>
+      <text class="fig-text fig-note" x="400" y="64" text-anchor="middle">made by mast cells</text>
+      <line class="fig-axis" x1="472" y1="49" x2="483.7" y2="49"/>
+      <path class="fig-dot" d="M 490 49 L 483 52.1 L 483 45.9 Z"/>
+      <rect class="fig-shape" x="494" y="20" width="136" height="58" rx="6"/>
+      <text class="fig-text fig-tick" x="562" y="47" text-anchor="middle">free VEGF</text>
+      <text class="fig-text fig-note" x="562" y="64" text-anchor="middle">reaches vessel cells</text>
+      <line class="fig-axis" x1="634" y1="49" x2="645.7" y2="49"/>
+      <path class="fig-dot" d="M 652 49 L 645 52.1 L 645 45.9 Z"/>
+      <rect class="fig-shape" x="656" y="20" width="136" height="58" rx="6"/>
+      <text class="fig-text fig-tick" x="724" y="47" text-anchor="middle">new vessels</text>
+      <text class="fig-text fig-note" x="724" y="64" text-anchor="middle">switch is on</text>
+      <text class="fig-text fig-note" x="400" y="112" text-anchor="middle">mice without mast cells: no switch, and the nests stay 0.1 to 0.2 mm wide</text>
+      </svg>
+      <figcaption>The angiogenic switch in Rip-Tag islets. VEGF is made early but held inactive in the matrix
+      until MMP-9 from recruited mast cells and macrophages releases it.</figcaption>
+    </figure>
+
+    <p>
+      In human tumors, a high density of small vessels predicts a worse outcome. Breast cancer patients whose
+      tumors had many microvessels had a lower chance of remaining free of disease over 20 years. One study followed breast cancer patients whose lymph nodes contained cancer cells. When their tumors made low levels of both HER2 and VEGF, more than 80% were alive after 8 years. When their tumors made high levels of both, only about 35% were alive.
+    </p>
+
+    <h2>Blocking Angiogenesis</h2>
+
+    <p>
+      Drugs against tumor vessels had an expected advantage. Tumors usually become resistant to drugs because
+      their unstable genomes produce resistant variants (Chapter 12). The endothelial cells of tumor vessels are
+      normal cells with stable genomes, so they should not become resistant. They also divide much more often than
+      normal endothelial cells. In tumors they may live only a week, while normal endothelial cells live hundreds
+      of days, some as long as seven years.
+    </p>
+
+    <p>
+      Avastin (bevacizumab) is an antibody that binds and neutralizes VEGF-A. Patients with metastatic colon
+      carcinoma who received Avastin with the drug 5-fluorouracil lived on average four months longer than
+      patients who received 5-fluorouracil alone. In non-small-cell lung carcinoma, Avastin added to chemotherapy
+      extended survival by about two months. By 2020, 3.5 million patients had received Avastin. In many cancers,
+      it slows the progression of the disease but does not greatly increase overall survival.
+    </p>
+
+    <p>
+      Experiments in Rip-Tag mice show why one drug is not enough. A drug that blocks the VEGF receptor, SU5416,
+      prevented the angiogenic switch in 90% of early islets. It had no effect on established tumors. A drug
+      that blocks the PDGF receptor, SU6668, acts on pericytes, which carry this receptor and support the
+      endothelial cells. Given together, the two drugs reduced the volume of established tumors by about 85%.
+    </p>
+
+    <p>
+      Tumors also find ways around these drugs. In Rip-Tag mice treated with an antibody against the VEGF
+      receptor, the tumors first shrank by more than half. The surviving cells then made more FGFs, which replaced
+      VEGF as the signal for new vessels, and the tumors grew again. In slowly growing tumors, vessels may mature over years and become as resistant as normal vessels. In some tumors, cancer cells themselves line
+      vessel-like channels. Cancer cells that have lost p53 can also survive with less oxygen.
+    </p>
+  </main>
+</body>
+</html>

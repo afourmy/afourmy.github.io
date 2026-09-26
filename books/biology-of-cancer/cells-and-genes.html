@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1: Cells and Genes</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Genes, alleles, mutation rates, clones and inherited gene silencing: the biology the rest of the notes on The Biology of Cancer rely on.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/cells-and-genes.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 1: Cells and Genes">
+  <meta property="og:description" content="Genes, alleles, mutation rates, clones and inherited gene silencing: the biology the rest of the notes on The Biology of Cancer rely on.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/cells-and-genes.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 1: Cells, Genes and Mutations</h1>
+    </header>
+    <h2>Genes and Proteins</h2>
+
+    <p>
+      A human cell stores its instructions in DNA. DNA is a long chain made of four kinds of units,
+      called bases and written A, C, G and T. Two chains wind around each other to form a double helix.
+      The bases pair across the two chains, A with T and C with G, so each chain determines the other.
+      One full copy of the DNA sequence is called the genome. The human genome is about 3.2 billion bases
+      long and is divided into separate molecules called chromosomes.
+    </p>
+
+    <p>
+      A gene is a stretch of DNA that the cell copies into RNA. For most genes, the RNA is then used to
+      make a protein. Each group of three bases, called a codon, specifies one amino acid of the protein
+      chain. The genome contains about 20,000 genes that code for proteins. The parts of the DNA that code
+      for proteins make up only about 1.5% of the genome, and about 2% more controls when genes are
+      used.
+    </p>
+
+    <p>
+      Proteins do almost all the work of the cell. They speed up chemical reactions, build the structures
+      of the cell, carry signals and switch genes on and off. A mutation is any change in the DNA sequence.
+      A change of a single base is called a point mutation. It changes at most one codon, and so at most
+      one amino acid. Its effect depends on where it falls: most of the genome codes for no protein, and
+      many changes of an amino acid do not stop a protein from working. Larger mutations delete or
+      duplicate whole genes, or join pieces of two chromosomes. The cancer genes described in later
+      chapters are a few hundred genes whose proteins decide when a cell divides and when it dies.
+    </p>
+
+    <h2>Two Copies of Every Gene</h2>
+
+    <p>
+      Human cells are diploid: they carry two versions of the genome, one inherited from each parent.
+      Every gene is therefore present in two copies, except the genes of the sex chromosomes in males. The
+      two copies of a gene can differ. The different versions of a gene are called alleles. A cell with two
+      identical alleles of a gene is homozygous for that gene, and a cell with two different alleles is
+      heterozygous. Often one working allele is enough for normal function. A defective allele is then
+      called recessive: its effect appears only when both copies are defective. An allele is called
+      dominant when a single copy changes the cell, even in the presence of a normal copy.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="330" height="200" viewBox="0 0 330 200">
+      <text class="fig-text fig-tick" x="190" y="24" text-anchor="middle">egg from mother</text>
+      <text class="fig-text fig-tick" x="155" y="50" text-anchor="middle">+</text>
+      <text class="fig-text fig-tick" x="225" y="50" text-anchor="middle">m</text>
+      <text class="fig-text fig-tick" x="60" y="130" text-anchor="middle">sperm</text>
+      <text class="fig-text fig-tick" x="60" y="146" text-anchor="middle">from father</text>
+      <text class="fig-text fig-tick" x="106" y="100" text-anchor="middle">+</text>
+      <text class="fig-text fig-tick" x="106" y="170" text-anchor="middle">m</text>
+      <rect class="fig-cell" x="120" y="60" width="70" height="70"/>
+      <text class="fig-text fig-tick" x="155" y="100" text-anchor="middle">+ / +</text>
+      <rect class="fig-cell" x="190" y="60" width="70" height="70"/>
+      <text class="fig-text fig-tick" x="225" y="100" text-anchor="middle">+ / m</text>
+      <rect class="fig-cell" x="120" y="130" width="70" height="70"/>
+      <text class="fig-text fig-tick" x="155" y="170" text-anchor="middle">m / +</text>
+      <rect class="fig-cell-alt" x="190" y="130" width="70" height="70"/>
+      <text class="fig-text fig-tick" x="225" y="170" text-anchor="middle">m / m</text>
+      </svg>
+      <figcaption>Inheritance of a recessive defective allele $m$ of a DNA repair gene. Both parents
+      carry one normal copy $+$ and one defective copy $m$, and both are healthy. Each child receives one
+      allele from each parent, at random, so the four combinations are equally likely. On average, one
+      child in four receives two defective copies and lacks the repair function.</figcaption>
+    </figure>
+
+    <p>
+      Many genes that stop cells from multiplying out of control are protected by having two copies.
+      Almost all such genes are present in two copies, and both copies must be inactivated before a cell
+      escapes their control. Losing one copy leaves the cell normal. Losing the second copy is the step
+      that changes the cell. This explains why some cancers run in families (Chapter 7). A child who
+      inherits one defective copy from a parent already carries the first loss in every cell of the body.
+      Any one of these cells then needs only one more event.
+    </p>
+
+    <h2>Mutations and Clones</h2>
+
+    <p>
+      Copying 3.2 billion bases before every cell division is accurate but not perfect. In normal dividing
+      human cells, fewer than one base per genome is copied wrongly at each division, an error rate below
+      about one in 3 billion. The adult body contains about $3\times10^{13}$ cells. Worn-out cells are
+      constantly replaced, so as many as $10^{16}$ cells are formed over a lifetime. With up to one new
+      mutation per division, these divisions produce up to $10^{16}$ mutations in total. They are spread
+      over the $6.4\times10^{9}$ bases of the two copies of the genome, so every base is hit up to about
+      $1.6\times10^{6}$ times. A given point mutation can therefore arise many times in one body, in
+      different cells.
+    </p>
+
+    <p>
+      The effect of a mutation depends on the cell in which it occurs. A germ-line mutation is present in
+      a sperm or an egg, or in the fertilized egg itself. Every cell of the child that develops from it
+      carries the mutation, including the child's own sperm or eggs, so the mutation is inherited. A
+      somatic mutation occurs in one cell of the body after development has begun. It is passed to all
+      the descendants of that cell and to no other cell, and it is not passed on to children. The
+      descendants of a single cell form a clone, so a somatic mutation marks one clone of the body.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="720" height="250" viewBox="0 0 720 250">
+      <text class="fig-text fig-tick" x="175" y="20" text-anchor="middle">germ-line mutation</text>
+      <line class="fig-axis" x1="175" y1="57" x2="92.5" y2="87"/>
+      <line class="fig-axis" x1="175" y1="57" x2="257.5" y2="87"/>
+      <line class="fig-axis" x1="92.5" y1="97" x2="51.2" y2="127"/>
+      <line class="fig-axis" x1="92.5" y1="97" x2="133.8" y2="127"/>
+      <line class="fig-axis" x1="257.5" y1="97" x2="216.2" y2="127"/>
+      <line class="fig-axis" x1="257.5" y1="97" x2="298.8" y2="127"/>
+      <line class="fig-axis" x1="51.2" y1="137" x2="30.6" y2="167"/>
+      <line class="fig-axis" x1="51.2" y1="137" x2="71.9" y2="167"/>
+      <line class="fig-axis" x1="133.8" y1="137" x2="113.1" y2="167"/>
+      <line class="fig-axis" x1="133.8" y1="137" x2="154.4" y2="167"/>
+      <line class="fig-axis" x1="216.2" y1="137" x2="195.6" y2="167"/>
+      <line class="fig-axis" x1="216.2" y1="137" x2="236.9" y2="167"/>
+      <line class="fig-axis" x1="298.8" y1="137" x2="278.1" y2="167"/>
+      <line class="fig-axis" x1="298.8" y1="137" x2="319.4" y2="167"/>
+      <line class="fig-axis" x1="30.6" y1="177" x2="20.3" y2="207"/>
+      <line class="fig-axis" x1="30.6" y1="177" x2="40.9" y2="207"/>
+      <line class="fig-axis" x1="71.9" y1="177" x2="61.6" y2="207"/>
+      <line class="fig-axis" x1="71.9" y1="177" x2="82.2" y2="207"/>
+      <line class="fig-axis" x1="113.1" y1="177" x2="102.8" y2="207"/>
+      <line class="fig-axis" x1="113.1" y1="177" x2="123.4" y2="207"/>
+      <line class="fig-axis" x1="154.4" y1="177" x2="144.1" y2="207"/>
+      <line class="fig-axis" x1="154.4" y1="177" x2="164.7" y2="207"/>
+      <line class="fig-axis" x1="195.6" y1="177" x2="185.3" y2="207"/>
+      <line class="fig-axis" x1="195.6" y1="177" x2="205.9" y2="207"/>
+      <line class="fig-axis" x1="236.9" y1="177" x2="226.6" y2="207"/>
+      <line class="fig-axis" x1="236.9" y1="177" x2="247.2" y2="207"/>
+      <line class="fig-axis" x1="278.1" y1="177" x2="267.8" y2="207"/>
+      <line class="fig-axis" x1="278.1" y1="177" x2="288.4" y2="207"/>
+      <line class="fig-axis" x1="319.4" y1="177" x2="309.1" y2="207"/>
+      <line class="fig-axis" x1="319.4" y1="177" x2="329.7" y2="207"/>
+      <circle class="fig-dot" cx="175" cy="52" r="5"/>
+      <circle class="fig-dot" cx="92.5" cy="92" r="5"/>
+      <circle class="fig-dot" cx="257.5" cy="92" r="5"/>
+      <circle class="fig-dot" cx="51.2" cy="132" r="5"/>
+      <circle class="fig-dot" cx="133.8" cy="132" r="5"/>
+      <circle class="fig-dot" cx="216.2" cy="132" r="5"/>
+      <circle class="fig-dot" cx="298.8" cy="132" r="5"/>
+      <circle class="fig-dot" cx="30.6" cy="172" r="5"/>
+      <circle class="fig-dot" cx="71.9" cy="172" r="5"/>
+      <circle class="fig-dot" cx="113.1" cy="172" r="5"/>
+      <circle class="fig-dot" cx="154.4" cy="172" r="5"/>
+      <circle class="fig-dot" cx="195.6" cy="172" r="5"/>
+      <circle class="fig-dot" cx="236.9" cy="172" r="5"/>
+      <circle class="fig-dot" cx="278.1" cy="172" r="5"/>
+      <circle class="fig-dot" cx="319.4" cy="172" r="5"/>
+      <circle class="fig-dot" cx="20.3" cy="212" r="5"/>
+      <circle class="fig-dot" cx="40.9" cy="212" r="5"/>
+      <circle class="fig-dot" cx="61.6" cy="212" r="5"/>
+      <circle class="fig-dot" cx="82.2" cy="212" r="5"/>
+      <circle class="fig-dot" cx="102.8" cy="212" r="5"/>
+      <circle class="fig-dot" cx="123.4" cy="212" r="5"/>
+      <circle class="fig-dot" cx="144.1" cy="212" r="5"/>
+      <circle class="fig-dot" cx="164.7" cy="212" r="5"/>
+      <circle class="fig-dot" cx="185.3" cy="212" r="5"/>
+      <circle class="fig-dot" cx="205.9" cy="212" r="5"/>
+      <circle class="fig-dot" cx="226.6" cy="212" r="5"/>
+      <circle class="fig-dot" cx="247.2" cy="212" r="5"/>
+      <circle class="fig-dot" cx="267.8" cy="212" r="5"/>
+      <circle class="fig-dot" cx="288.4" cy="212" r="5"/>
+      <circle class="fig-dot" cx="309.1" cy="212" r="5"/>
+      <circle class="fig-dot" cx="329.7" cy="212" r="5"/>
+      <text class="fig-text fig-tick" x="545" y="20" text-anchor="middle">somatic mutation</text>
+      <line class="fig-axis" x1="545" y1="57" x2="462.5" y2="87"/>
+      <line class="fig-axis" x1="545" y1="57" x2="627.5" y2="87"/>
+      <line class="fig-axis" x1="462.5" y1="97" x2="421.2" y2="127"/>
+      <line class="fig-axis" x1="462.5" y1="97" x2="503.8" y2="127"/>
+      <line class="fig-axis" x1="627.5" y1="97" x2="586.2" y2="127"/>
+      <line class="fig-axis" x1="627.5" y1="97" x2="668.8" y2="127"/>
+      <line class="fig-axis" x1="421.2" y1="137" x2="400.6" y2="167"/>
+      <line class="fig-axis" x1="421.2" y1="137" x2="441.9" y2="167"/>
+      <line class="fig-axis" x1="503.8" y1="137" x2="483.1" y2="167"/>
+      <line class="fig-axis" x1="503.8" y1="137" x2="524.4" y2="167"/>
+      <line class="fig-axis" x1="586.2" y1="137" x2="565.6" y2="167"/>
+      <line class="fig-axis" x1="586.2" y1="137" x2="606.9" y2="167"/>
+      <line class="fig-axis" x1="668.8" y1="137" x2="648.1" y2="167"/>
+      <line class="fig-axis" x1="668.8" y1="137" x2="689.4" y2="167"/>
+      <line class="fig-axis" x1="400.6" y1="177" x2="390.3" y2="207"/>
+      <line class="fig-axis" x1="400.6" y1="177" x2="410.9" y2="207"/>
+      <line class="fig-axis" x1="441.9" y1="177" x2="431.6" y2="207"/>
+      <line class="fig-axis" x1="441.9" y1="177" x2="452.2" y2="207"/>
+      <line class="fig-axis" x1="483.1" y1="177" x2="472.8" y2="207"/>
+      <line class="fig-axis" x1="483.1" y1="177" x2="493.4" y2="207"/>
+      <line class="fig-axis" x1="524.4" y1="177" x2="514.1" y2="207"/>
+      <line class="fig-axis" x1="524.4" y1="177" x2="534.7" y2="207"/>
+      <line class="fig-axis" x1="565.6" y1="177" x2="555.3" y2="207"/>
+      <line class="fig-axis" x1="565.6" y1="177" x2="575.9" y2="207"/>
+      <line class="fig-axis" x1="606.9" y1="177" x2="596.6" y2="207"/>
+      <line class="fig-axis" x1="606.9" y1="177" x2="617.2" y2="207"/>
+      <line class="fig-axis" x1="648.1" y1="177" x2="637.8" y2="207"/>
+      <line class="fig-axis" x1="648.1" y1="177" x2="658.4" y2="207"/>
+      <line class="fig-axis" x1="689.4" y1="177" x2="679.1" y2="207"/>
+      <line class="fig-axis" x1="689.4" y1="177" x2="699.7" y2="207"/>
+      <circle class="fig-hole" cx="545" cy="52" r="5"/>
+      <circle class="fig-hole" cx="462.5" cy="92" r="5"/>
+      <circle class="fig-hole" cx="627.5" cy="92" r="5"/>
+      <circle class="fig-hole" cx="421.2" cy="132" r="5"/>
+      <circle class="fig-dot" cx="503.8" cy="132" r="5"/>
+      <circle class="fig-hole" cx="586.2" cy="132" r="5"/>
+      <circle class="fig-hole" cx="668.8" cy="132" r="5"/>
+      <circle class="fig-hole" cx="400.6" cy="172" r="5"/>
+      <circle class="fig-hole" cx="441.9" cy="172" r="5"/>
+      <circle class="fig-dot" cx="483.1" cy="172" r="5"/>
+      <circle class="fig-dot" cx="524.4" cy="172" r="5"/>
+      <circle class="fig-hole" cx="565.6" cy="172" r="5"/>
+      <circle class="fig-hole" cx="606.9" cy="172" r="5"/>
+      <circle class="fig-hole" cx="648.1" cy="172" r="5"/>
+      <circle class="fig-hole" cx="689.4" cy="172" r="5"/>
+      <circle class="fig-hole" cx="390.3" cy="212" r="5"/>
+      <circle class="fig-hole" cx="410.9" cy="212" r="5"/>
+      <circle class="fig-hole" cx="431.6" cy="212" r="5"/>
+      <circle class="fig-hole" cx="452.2" cy="212" r="5"/>
+      <circle class="fig-dot" cx="472.8" cy="212" r="5"/>
+      <circle class="fig-dot" cx="493.4" cy="212" r="5"/>
+      <circle class="fig-dot" cx="514.1" cy="212" r="5"/>
+      <circle class="fig-dot" cx="534.7" cy="212" r="5"/>
+      <circle class="fig-hole" cx="555.3" cy="212" r="5"/>
+      <circle class="fig-hole" cx="575.9" cy="212" r="5"/>
+      <circle class="fig-hole" cx="596.6" cy="212" r="5"/>
+      <circle class="fig-hole" cx="617.2" cy="212" r="5"/>
+      <circle class="fig-hole" cx="637.8" cy="212" r="5"/>
+      <circle class="fig-hole" cx="658.4" cy="212" r="5"/>
+      <circle class="fig-hole" cx="679.1" cy="212" r="5"/>
+      <circle class="fig-hole" cx="699.7" cy="212" r="5"/>
+      <line class="fig-guide" x1="511.8" y1="128" x2="533.8" y2="116"/>
+      <text class="fig-text fig-note" x="537.8" y="115" text-anchor="start">arises here</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left.</span> Four rounds of division
+      starting from a fertilized egg that carries a mutation (filled circles). All sixteen descendants
+      carry it.</span><span class="cap-part"><span class="cap-lead">Right.</span> The same divisions when
+      the mutation arises in one cell after the second round. Only the four descendants of that cell carry
+      it, and they form a clone.</span></figcaption>
+    </figure>
+
+    <p>
+      A tumor is such a clone. All the cells of a tumor descend from one ancestor (Chapter 2). The
+      mutations of this ancestor are therefore present in every tumor cell and absent from the normal
+      cells around the tumor. Each division is a new chance for an error, so the number of divisions a
+      tissue makes matters for its cancer risk (Chapter 11). Tissues that renew themselves all the time,
+      such as the lining of the gut, the skin and the blood, produce new cells at a high rate. The brain,
+      by contrast, has little turnover.
+    </p>
+
+    <h2>Gene Expression</h2>
+
+    <p>
+      All the cells of a body carry the same genome. A liver cell and a skin cell still look and behave
+      differently, because they use different sets of genes. Using a gene is called expressing it: the
+      cell copies the gene into RNA and makes its protein. An average specialized cell expresses about
+      10,000 proteins at a time. Some genes, called housekeeping genes, are expressed in almost every cell,
+      because every cell needs their proteins. Other genes are expressed in only one cell type. The set of
+      expressed genes defines a cell type. A cell that loses part of this set, as cancer cells often do,
+      loses part of its specialization.
+    </p>
+
+    <p>
+      Transcription factors are proteins that decide which genes are expressed. Each one binds a short DNA
+      sequence of five to ten bases in the control region of a gene. This region is either the promoter,
+      at the start of the gene, or a more distant enhancer. The transcription factor then increases or
+      decreases the copying of the gene into RNA. About 1,639 human genes, roughly 8% of the
+      protein-coding genes, encode transcription factors. A short sequence occurs near many genes, so one
+      transcription factor can control many genes at once. The Myc protein of Chapter 8, for example, acts
+      on thousands of genes. A single altered transcription factor can therefore change the behavior of a
+      cell in many ways at the same time.
+    </p>
+
+    <p>
+      Proteins are also switched on and off after they are made. The most common switch is
+      phosphorylation. An enzyme called a kinase attaches a phosphate group to a serine, threonine or
+      tyrosine in a target protein. This changes the shape and the activity of that protein. Other
+      enzymes, called phosphatases, remove the phosphate again. The signals that tell a cell to divide are
+      passed from protein to protein by kinases, and many cancer genes encode kinases that stay switched
+      on (Chapters 5 and 6).
+    </p>
+
+    <h2>Silencing Genes without Mutation</h2>
+
+    <p>
+      A cell can also pass the state of its genes to its descendants without any change in the DNA
+      sequence. This is called epigenetic inheritance. The best understood mechanism is DNA methylation. A
+      methyl group can be attached to a C that is followed by a G, a pair written CpG. When many CpGs near
+      the promoter of a gene are methylated, the gene is silenced. C pairs with G, so a CpG on one strand
+      faces a CpG on the other strand. Both C bases of the pair can therefore carry a methyl group.
+    </p>
+
+    <p>
+      The pattern survives cell division because of the way DNA is copied. Each daughter DNA molecule
+      keeps one old strand and receives one new strand. The new strand is made without methyl groups. An
+      enzyme called a maintenance methyltransferase finds each CpG that is methylated on the old strand but
+      not on the new one, and it methylates the new strand to match. Both daughter cells therefore inherit
+      the same silenced genes. Cancer cells use this mechanism to switch off genes that restrain growth
+      (Chapter 7). The effect is the same as a mutation that destroys these genes.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="780" height="330" viewBox="0 0 780 330">
+      <text class="fig-text fig-tick" x="98" y="22" text-anchor="middle">parent DNA</text>
+      <text class="fig-text fig-tick" x="368" y="22" text-anchor="middle">after copying</text>
+      <text class="fig-text fig-tick" x="638" y="22" text-anchor="middle">after maintenance</text>
+      <text class="fig-text fig-tick" x="38.5" y="150" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="38.5" y="184" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="55.5" y="150" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="55.5" y="184" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="72.5" y="150" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="72.5" y="184" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="89.5" y="150" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="89.5" y="184" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="106.5" y="150" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="106.5" y="184" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="123.5" y="150" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="123.5" y="184" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="140.5" y="150" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="140.5" y="184" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="157.5" y="150" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="157.5" y="184" text-anchor="middle">T</text>
+      <line class="fig-curve" x1="30" y1="135" x2="166" y2="135"/>
+      <line class="fig-curve" x1="30" y1="192" x2="166" y2="192"/>
+      <circle class="fig-dot" cx="55.5" cy="126" r="3.5"/>
+      <circle class="fig-dot" cx="123.5" cy="126" r="3.5"/>
+      <circle class="fig-dot" cx="72.5" cy="201" r="3.5"/>
+      <circle class="fig-dot" cx="140.5" cy="201" r="3.5"/>
+      <text class="fig-text fig-tick" x="308.5" y="80" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="308.5" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="325.5" y="80" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="325.5" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="342.5" y="80" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="342.5" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="359.5" y="80" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="359.5" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="376.5" y="80" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="376.5" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="393.5" y="80" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="393.5" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="410.5" y="80" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="410.5" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="427.5" y="80" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="427.5" y="114" text-anchor="middle">T</text>
+      <line class="fig-curve" x1="300" y1="65" x2="436" y2="65"/>
+      <line class="fig-free-solid" x1="300" y1="122" x2="436" y2="122"/>
+      <circle class="fig-dot" cx="325.5" cy="56" r="3.5"/>
+      <circle class="fig-dot" cx="393.5" cy="56" r="3.5"/>
+      <text class="fig-text fig-tick" x="308.5" y="220" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="308.5" y="254" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="325.5" y="220" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="325.5" y="254" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="342.5" y="220" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="342.5" y="254" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="359.5" y="220" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="359.5" y="254" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="376.5" y="220" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="376.5" y="254" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="393.5" y="220" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="393.5" y="254" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="410.5" y="220" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="410.5" y="254" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="427.5" y="220" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="427.5" y="254" text-anchor="middle">T</text>
+      <line class="fig-free-solid" x1="300" y1="205" x2="436" y2="205"/>
+      <line class="fig-curve" x1="300" y1="262" x2="436" y2="262"/>
+      <circle class="fig-dot" cx="342.5" cy="271" r="3.5"/>
+      <circle class="fig-dot" cx="410.5" cy="271" r="3.5"/>
+      <text class="fig-text fig-tick" x="578.5" y="80" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="578.5" y="114" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="595.5" y="80" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="595.5" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="612.5" y="80" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="612.5" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="629.5" y="80" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="629.5" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="646.5" y="80" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="646.5" y="114" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="663.5" y="80" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="663.5" y="114" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="680.5" y="80" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="680.5" y="114" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="697.5" y="80" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="697.5" y="114" text-anchor="middle">T</text>
+      <line class="fig-curve" x1="570" y1="65" x2="706" y2="65"/>
+      <line class="fig-free-solid" x1="570" y1="122" x2="706" y2="122"/>
+      <circle class="fig-dot" cx="595.5" cy="56" r="3.5"/>
+      <circle class="fig-dot" cx="663.5" cy="56" r="3.5"/>
+      <circle class="fig-dot" cx="612.5" cy="131" r="3.5"/>
+      <circle class="fig-dot" cx="680.5" cy="131" r="3.5"/>
+      <text class="fig-text fig-tick" x="578.5" y="220" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="578.5" y="254" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="595.5" y="220" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="595.5" y="254" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="612.5" y="220" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="612.5" y="254" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="629.5" y="220" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="629.5" y="254" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="646.5" y="220" text-anchor="middle">T</text>
+      <text class="fig-text fig-tick" x="646.5" y="254" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="663.5" y="220" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="663.5" y="254" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="680.5" y="220" text-anchor="middle">G</text>
+      <text class="fig-text fig-tick" x="680.5" y="254" text-anchor="middle">C</text>
+      <text class="fig-text fig-tick" x="697.5" y="220" text-anchor="middle">A</text>
+      <text class="fig-text fig-tick" x="697.5" y="254" text-anchor="middle">T</text>
+      <line class="fig-free-solid" x1="570" y1="205" x2="706" y2="205"/>
+      <line class="fig-curve" x1="570" y1="262" x2="706" y2="262"/>
+      <circle class="fig-dot" cx="595.5" cy="196" r="3.5"/>
+      <circle class="fig-dot" cx="663.5" cy="196" r="3.5"/>
+      <circle class="fig-dot" cx="612.5" cy="271" r="3.5"/>
+      <circle class="fig-dot" cx="680.5" cy="271" r="3.5"/>
+      <line class="fig-curve" x1="188" y1="167" x2="272.6" y2="167"/>
+      <path class="fig-dot" d="M 278 167 L 272 169.7 L 272 164.3 Z"/>
+      <line class="fig-curve" x1="458" y1="167" x2="542.6" y2="167"/>
+      <path class="fig-dot" d="M 548 167 L 542 169.7 L 542 164.3 Z"/>
+      <line class="fig-curve" x1="200" y1="308" x2="230" y2="308"/>
+      <text class="fig-text fig-note" x="236" y="312" text-anchor="start">old strand</text>
+      <line class="fig-free-solid" x1="340" y1="308" x2="370" y2="308"/>
+      <text class="fig-text fig-note" x="376" y="312" text-anchor="start">new strand</text>
+      <circle class="fig-dot" cx="485" cy="308" r="3.5"/>
+      <text class="fig-text fig-note" x="494" y="312" text-anchor="start">methyl group on C</text>
+      </svg>
+      <figcaption>Copying of a methylation pattern at cell division. The parent molecule carries a methyl
+      group on the C of each CpG, on both strands. After copying, each daughter molecule has one old,
+      methylated strand and one new, unmethylated strand. The maintenance methyltransferase then methylates
+      the new strand wherever the old strand is methylated. This restores the full pattern in both
+      daughters.</figcaption>
+    </figure>
+
+    <h2>Chromosomes of Cancer Cells</h2>
+
+    <p>
+      The first sign that cancer cells have abnormal genomes came from the microscope. Abnormal
+      chromosomes in cancer cells were described as early as 1892. Perhaps 90% of human solid tumors, the
+      cancers that form a mass rather than circulating in the blood, are aneuploid. This means that their
+      cells carry a wrong number of chromosomes. A piece of a chromosome can also be exchanged with another
+      chromosome in a translocation, turned around in an inversion, or lost in a deletion. A region can
+      also be copied many times, which is called gene amplification. The copies appear either as a long
+      stretch of repeats inside a chromosome or as many small separate pieces of DNA called double
+      minutes.
+    </p>
+
+    <p>
+      Most of these changes differ from one tumor to the next. Some, however, occur at the same place in
+      many independent tumors of the same kind. Such a recurring change points to a gene whose alteration
+      helps the cancer cell. A recurring translocation marks a gene that the exchange activates or
+      disrupts. A recurring amplification marks a gene whose protein helps the cell when it is made in
+      large amounts. A recurring deletion marks a gene whose loss helps the cell. Chapter 4 describes how
+      these clues led to the first human cancer genes.
+    </p>
+  </main>
+</body>
+</html>

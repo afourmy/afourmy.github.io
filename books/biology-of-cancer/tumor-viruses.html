@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Tumor Viruses</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Rous sarcoma virus and the transformation of cells in culture, DNA tumor viruses and the integration of viral DNA, retroviruses and reverse transcription, the discovery that src is a normal cellular gene, proto-oncogenes, insertional mutagenesis, and the infections behind human cancers.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/tumor-viruses.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 3: Tumor Viruses">
+  <meta property="og:description" content="Rous sarcoma virus and the transformation of cells in culture, DNA tumor viruses and the integration of viral DNA, retroviruses and reverse transcription, the discovery that src is a normal cellular gene, proto-oncogenes, insertional mutagenesis, and the infections behind human cancers.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/tumor-viruses.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 3: Tumor Viruses</h1>
+    </header>
+    <h2>A Virus That Causes Sarcomas</h2>
+
+    <p>
+      A virus is a particle made of a genome, of DNA or of RNA, wrapped in a protein coat. A virus cannot
+      live on its own. It multiplies only inside a host cell, using the cell's enzymes and building blocks
+      to make hundreds or thousands of new particles. Viruses were first defined by their size: they are
+      infectious agents small enough to pass through a filter that holds back bacteria.
+    </p>
+
+    <p>
+      Beginning in 1909, Peyton Rous, at the Rockefeller Institute in New York, studied a sarcoma that had
+      appeared in the breast muscle of a hen. He ground the tumor with sand and passed the extract through
+      such a filter. He then injected the liquid that came through the filter into young chickens, and they
+      developed sarcomas where it was injected. The new tumors could be ground and filtered in turn, and
+      they caused tumors in other chickens. This cycle could be repeated again and again.
+    </p>
+
+    <p>
+      The agent was therefore a virus, now called Rous sarcoma virus (RSV). It multiplied in the chicken,
+      because far more virus could be recovered from a tumor than had been injected. RSV caused sarcomas
+      on a predictable timetable, so researchers could produce cancer when they wanted, instead of waiting
+      for tumors to appear. Viruses that cause tumors are called tumor viruses. For decades, few
+      researchers worked on RSV. This changed when cell culture made it possible to study what the virus
+      does to single cells.
+    </p>
+
+    <h2>Transformation of Cells in a Dish</h2>
+
+    <p>
+      Howard Temin and Harry Rubin, working in the laboratory of Renato Dulbecco at the California
+      Institute of Technology, infected chicken fibroblasts with RSV. Fibroblasts are cells of connective
+      tissue, and here they grew on the bottom of a Petri dish. Normal fibroblasts spread until they cover
+      the bottom of the dish. They then stop dividing, and they form a layer one cell thick, called a
+      monolayer. This stop in division when cells touch their neighbors is called contact inhibition.
+    </p>
+
+    <p>
+      A cell infected by RSV behaves differently. The infected cell and all its descendants become rounded,
+      and they keep dividing after they touch other cells. They pile up into a clump of cells, called a
+      focus, which can be seen with the naked eye. All the cells of a focus descend from the one infected
+      cell, so a focus is a clone. The change of a normal cell into a cell that behaves like a tumor cell is
+      called transformation. RSV showed that transformation can happen in a dish, where each cell can be
+      followed under the microscope.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="780" height="215" viewBox="0 0 780 215">
+      <text class="fig-text fig-tick" x="190" y="22" text-anchor="middle">sparse culture</text>
+      <line class="fig-axis" x1="20" y1="150" x2="360" y2="150"/>
+      <line class="fig-axis" x1="20" y1="150" x2="20" y2="90"/>
+      <line class="fig-axis" x1="360" y1="150" x2="360" y2="90"/>
+      <rect class="fig-shape" x="40" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="118" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="196" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="290" y="139" width="30" height="10" rx="4"/>
+      <circle class="fig-dot" cx="248" cy="142.5" r="6.5"/>
+      <text class="fig-text fig-note" x="248" y="120" text-anchor="middle">infected cell</text>
+      <line class="fig-axis" x1="248" y1="124" x2="248" y2="128.5"/>
+      <path class="fig-dot" d="M 248 133 L 245.8 128 L 250.2 128 Z"/>
+      <text class="fig-text fig-tick" x="590" y="22" text-anchor="middle">confluent culture</text>
+      <line class="fig-axis" x1="410" y1="150" x2="770" y2="150"/>
+      <line class="fig-axis" x1="410" y1="150" x2="410" y2="90"/>
+      <line class="fig-axis" x1="770" y1="150" x2="770" y2="90"/>
+      <rect class="fig-shape" x="416" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="448" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="480" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="512" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="640" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="672" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="704" y="139" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="736" y="139" width="30" height="10" rx="4"/>
+      <circle class="fig-dot" cx="553.8" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="568.2" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="582.8" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="597.2" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="611.8" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="626.2" cy="142.5" r="6.5"/>
+      <circle class="fig-dot" cx="561" cy="130.5" r="6.5"/>
+      <circle class="fig-dot" cx="575.5" cy="130.5" r="6.5"/>
+      <circle class="fig-dot" cx="590" cy="130.5" r="6.5"/>
+      <circle class="fig-dot" cx="604.5" cy="130.5" r="6.5"/>
+      <circle class="fig-dot" cx="619" cy="130.5" r="6.5"/>
+      <circle class="fig-dot" cx="568.2" cy="118.5" r="6.5"/>
+      <circle class="fig-dot" cx="582.8" cy="118.5" r="6.5"/>
+      <circle class="fig-dot" cx="597.2" cy="118.5" r="6.5"/>
+      <circle class="fig-dot" cx="611.8" cy="118.5" r="6.5"/>
+      <circle class="fig-dot" cx="575.5" cy="106.5" r="6.5"/>
+      <circle class="fig-dot" cx="590" cy="106.5" r="6.5"/>
+      <circle class="fig-dot" cx="604.5" cy="106.5" r="6.5"/>
+      <circle class="fig-dot" cx="582.8" cy="94.5" r="6.5"/>
+      <circle class="fig-dot" cx="597.2" cy="94.5" r="6.5"/>
+      <text class="fig-text fig-note" x="590" y="62" text-anchor="middle">focus: descendants of the infected cell</text>
+      <rect class="fig-shape" x="210" y="181" width="24" height="9" rx="3"/>
+      <text class="fig-text fig-note" x="242" y="190" text-anchor="start">normal cell</text>
+      <circle class="fig-dot" cx="420" cy="185.5" r="6"/>
+      <text class="fig-text fig-note" x="432" y="190" text-anchor="start">transformed cell</text>
+      </svg>
+      <figcaption>A culture of chicken fibroblasts seen from the side. <span class="cap-part"><span
+      class="cap-lead">Left.</span> Normal cells are spread over the bottom of the dish, and one of them
+      has been infected by RSV.</span><span class="cap-part"><span class="cap-lead">Right.</span> Once
+      the dish is covered, the normal cells stop dividing and form a single layer. The descendants of the
+      infected cell are no longer stopped by contact. They keep dividing and pile up into a
+      focus.</span></figcaption>
+    </figure>
+
+    <p>
+      Transformed cells differ from normal cells in many ways at once. They are often rounded, and they have
+      lost contact inhibition, so they reach a much higher density in a dish. They can grow while floating
+      in a soft gel. Normal fibroblasts and epithelial cells cannot do this: they must be attached to a
+      solid surface. This ability to grow without attachment is called anchorage independence, and it
+      usually predicts that the cells can form tumors. Transformed cells can also divide without limit,
+      while normal cells stop after a certain number of divisions (Chapter 10). They need less of the
+      growth factors that normal cells require (Chapter 5). They take up more glucose, and they break it
+      down by glycolysis even when oxygen is present.
+    </p>
+
+    <p>
+      The final test of transformation is whether the cells can form tumors in animals. The cells are
+      injected into mice of the same genetic strain, which do not reject them. They can also be injected
+      into Nude mice, which have no thymus and a weak immune system. Fully transformed cells grow into tumors
+      in these mice.
+    </p>
+
+    <h2>The Viral Gene Must Keep Working</h2>
+
+    <p>
+      The descendants of an infected cell keep copies of the RSV genome. This alone does not show whether
+      the virus is still needed. RSV might act only once, change the infected cell for good, and then play
+      no further role. This is called hit-and-run. An experiment done in 1970 at the University of
+      California, Berkeley, answered the question. It used a temperature-sensitive mutant of RSV, a mutant
+      whose protein works at one temperature and fails at another.
+    </p>
+
+    <p>
+      This mutant transformed chicken cells at 37&nbsp;°C but not at 41&nbsp;°C, the normal body
+      temperature of chickens. Infected cells kept at 37&nbsp;°C grew as transformed cells for many
+      generations. Weeks later, the culture was moved to 41&nbsp;°C, and the cells quickly took on the
+      shape and growth of uninfected cells. When the culture was moved back to 37&nbsp;°C, the cells
+      became transformed again. A viral protein is therefore needed to keep cells transformed, not only to
+      start the transformation, and RSV does not act by hit-and-run. The protein must be made in every
+      descendant of the infected cell, so the viral genome must be passed on at every cell division.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="780" height="200" viewBox="0 0 780 200">
+      <text class="fig-text fig-tick" x="120" y="22" text-anchor="middle">37 °C</text>
+      <line class="fig-axis" x1="20" y1="130" x2="220" y2="130"/>
+      <line class="fig-axis" x1="20" y1="130" x2="20" y2="80"/>
+      <line class="fig-axis" x1="220" y1="130" x2="220" y2="80"/>
+      <circle class="fig-dot" cx="45" cy="123" r="6"/>
+      <circle class="fig-dot" cx="58.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="72" cy="123" r="6"/>
+      <circle class="fig-dot" cx="85.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="99" cy="123" r="6"/>
+      <circle class="fig-dot" cx="51.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="65.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="78.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="92.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="58.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="72" cy="101" r="6"/>
+      <circle class="fig-dot" cx="85.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="72" cy="90" r="6"/>
+      <circle class="fig-dot" cx="141" cy="123" r="6"/>
+      <circle class="fig-dot" cx="154.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="168" cy="123" r="6"/>
+      <circle class="fig-dot" cx="181.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="195" cy="123" r="6"/>
+      <circle class="fig-dot" cx="147.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="161.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="174.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="188.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="154.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="168" cy="101" r="6"/>
+      <circle class="fig-dot" cx="181.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="168" cy="90" r="6"/>
+      <text class="fig-text fig-note" x="120" y="152" text-anchor="middle">transformed</text>
+      <line class="fig-curve" x1="234" y1="100" x2="279.7" y2="100"/>
+      <path class="fig-dot" d="M 286 100 L 279 103.2 L 279 96.8 Z"/>
+      <text class="fig-text fig-note" x="260" y="90" text-anchor="middle">shift</text>
+      <text class="fig-text fig-tick" x="400" y="22" text-anchor="middle">41 °C</text>
+      <line class="fig-axis" x1="300" y1="130" x2="500" y2="130"/>
+      <line class="fig-axis" x1="300" y1="130" x2="300" y2="80"/>
+      <line class="fig-axis" x1="500" y1="130" x2="500" y2="80"/>
+      <rect class="fig-shape" x="306" y="119" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="338" y="119" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="370" y="119" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="402" y="119" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="434" y="119" width="30" height="10" rx="4"/>
+      <rect class="fig-shape" x="466" y="119" width="30" height="10" rx="4"/>
+      <text class="fig-text fig-note" x="400" y="152" text-anchor="middle">normal growth</text>
+      <line class="fig-curve" x1="514" y1="100" x2="559.7" y2="100"/>
+      <path class="fig-dot" d="M 566 100 L 559 103.2 L 559 96.8 Z"/>
+      <text class="fig-text fig-note" x="540" y="90" text-anchor="middle">shift</text>
+      <text class="fig-text fig-tick" x="680" y="22" text-anchor="middle">back to 37 °C</text>
+      <line class="fig-axis" x1="580" y1="130" x2="780" y2="130"/>
+      <line class="fig-axis" x1="580" y1="130" x2="580" y2="80"/>
+      <line class="fig-axis" x1="780" y1="130" x2="780" y2="80"/>
+      <circle class="fig-dot" cx="605" cy="123" r="6"/>
+      <circle class="fig-dot" cx="618.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="632" cy="123" r="6"/>
+      <circle class="fig-dot" cx="645.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="659" cy="123" r="6"/>
+      <circle class="fig-dot" cx="611.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="625.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="638.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="652.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="618.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="632" cy="101" r="6"/>
+      <circle class="fig-dot" cx="645.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="632" cy="90" r="6"/>
+      <circle class="fig-dot" cx="701" cy="123" r="6"/>
+      <circle class="fig-dot" cx="714.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="728" cy="123" r="6"/>
+      <circle class="fig-dot" cx="741.5" cy="123" r="6"/>
+      <circle class="fig-dot" cx="755" cy="123" r="6"/>
+      <circle class="fig-dot" cx="707.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="721.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="734.8" cy="112" r="6"/>
+      <circle class="fig-dot" cx="748.2" cy="112" r="6"/>
+      <circle class="fig-dot" cx="714.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="728" cy="101" r="6"/>
+      <circle class="fig-dot" cx="741.5" cy="101" r="6"/>
+      <circle class="fig-dot" cx="728" cy="90" r="6"/>
+      <text class="fig-text fig-note" x="680" y="152" text-anchor="middle">transformed again</text>
+      <rect class="fig-shape" x="250" y="173" width="24" height="9" rx="3"/>
+      <text class="fig-text fig-note" x="282" y="182" text-anchor="start">normal cell</text>
+      <circle class="fig-dot" cx="420" cy="177.5" r="6"/>
+      <text class="fig-text fig-note" x="432" y="182" text-anchor="start">transformed cell</text>
+      </svg>
+      <figcaption>The same culture of cells infected by the temperature-sensitive mutant of RSV, moved
+      between two temperatures weeks apart. The viral protein works at 37&nbsp;°C and fails at
+      41&nbsp;°C. The cells are transformed exactly when the protein works, so the transformed state
+      depends on the continued action of a viral protein.</figcaption>
+    </figure>
+
+    <h2>DNA Tumor Viruses</h2>
+
+    <p>
+      Several families of viruses with DNA genomes also cause tumors. The Shope papillomavirus causes warts
+      on the skin of rabbits, and these warts sometimes become squamous cell carcinomas. More than 100
+      related human papillomaviruses were found later. The polyomaviruses include mouse polyomavirus and
+      SV40, a virus of monkeys. Human adenovirus, which causes infections of the airways, causes tumors in
+      hamsters. Among the herpesviruses, Epstein-Barr virus (EBV) is one of the causes of Burkitt's
+      lymphoma in young children in equatorial Africa and New Guinea. It is also one of the causes of
+      nasopharyngeal carcinoma in Southeast Asia.
+    </p>
+
+    <p>
+      Between one-third and two-thirds of the polio vaccines given from 1955 to 1963 contained SV40, and 10
+      to 30 million people were exposed to the virus through vaccination. Forty years of follow-up showed
+      little or no increase in their risk of cancer.
+    </p>
+
+    <p>
+      SV40 multiplies in the kidney cells of several species of monkeys. These cells are called
+      permissive. The infection kills the cell and releases tens of thousands of new virus particles. SV40
+      cannot multiply in mouse, rat or hamster cells, which are called nonpermissive. In about one infected
+      nonpermissive cell out of thousands, the cell survives and becomes transformed. It then changes shape,
+      loses contact inhibition and can form tumors, like the cells transformed by RSV.
+    </p>
+
+    <p>
+      The genomes of papillomaviruses and polyomaviruses are small circles of DNA, 5 to 8 thousand bases
+      long. The human genome is 3.2 billion bases long. Most of the few genes of these viruses are needed
+      to copy the virus and to build its coat. Only a handful of genes can therefore cause transformation,
+      and each of them must change many traits of the cell at once. A gene that changes several traits at
+      once is called pleiotropic.
+    </p>
+
+    <h2>Viral DNA Joins the Host Chromosome</h2>
+
+    <p>
+      Cells transformed by SV40 make a viral protein called the T antigen, for tumor antigen. Cells that
+      lose the T antigen also lose the transformed state, so the viral DNA must stay in every transformed
+      cell. In a permissive cell, SV40 copies its DNA as separate circles, apart from the chromosomes. In a
+      nonpermissive cell, however, SV40 cannot copy its DNA at all. A free piece of viral DNA also lacks a
+      centromere, the part of a chromosome that makes sure each daughter cell receives a copy.
+    </p>
+
+    <p>
+      In 1968, researchers found that the SV40 DNA of transformed mouse cells stays attached to the
+      chromosomal DNA of the cells. It was found in DNA molecules longer than 50 thousand bases, not in the
+      circles of about 5 thousand bases of free virus. It stayed attached even in alkaline conditions,
+      which break every bond except covalent ones. The viral DNA had therefore been inserted into a
+      chromosome. This insertion is called integration. Once integrated, the viral DNA is copied with the
+      chromosome at every division, like any gene of the cell.
+    </p>
+
+    <p>
+      For SV40, integration is a rare accident. It happens in far fewer than one infection in 1,000, at
+      random places in the genome, and often only part of the viral genome is inserted. Transformed cells
+      always keep the early region of the viral genome, which carries the genes needed for transformation.
+      They often lose the late region, which is not needed.
+    </p>
+
+    <p>
+      Human cervical carcinomas show the same pattern. More than 99.7% of these tumors carry pieces of the
+      DNA of human papillomavirus (HPV) in their chromosomes. Integration usually breaks the viral gene E2.
+      The E2 protein normally represses two other viral genes, E6 and E7. Without E2, these two genes are
+      expressed at a high level. The E6 and E7 proteins then push the cells toward cancer, by the mechanisms
+      described in Chapters 8 and 9.
+    </p>
+
+    <h2>Retroviruses Copy Their RNA into DNA</h2>
+
+    <p>
+      The genome of RSV is single-stranded RNA, and RNA cannot be inserted into chromosomal DNA. In the
+      1960s, Temin proposed a solution. After infection, RSV makes a double-stranded DNA copy of its RNA
+      genome. This DNA copy, which Temin called the provirus, is inserted into a chromosome of the host
+      cell. The cell then copies the provirus with its own chromosomes at every division. The cell also
+      transcribes the provirus into viral RNA. This RNA serves as the genome of new virus particles and as
+      messenger RNA for making viral proteins.
+    </p>
+
+    <p>
+      At the time, information was known to flow only from DNA to RNA to protein, so copying RNA into DNA
+      seemed impossible. In 1970, Temin and David Baltimore independently found that RSV particles carry an
+      enzyme that copies RNA into DNA. It is called reverse transcriptase. RSV and related viruses,
+      including HIV, came to be called retroviruses, because their information flows backward.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="222" viewBox="0 0 800 222">
+      <circle class="fig-shape" cx="62" cy="76" r="34"/>
+      <path class="fig-free-solid" d="M 42 70 L 44 72.3 L 46 72.9 L 48 71.3 L 50 68.7 L 52 67.1 L 54 67.7 L 56 70 L 58 72.3 L 60 72.9 L 62 71.3 L 64 68.7 L 66 67.1 L 68 67.7 L 70 70 L 72 72.3 L 74 72.9 L 76 71.3 L 78 68.7 L 80 67.1 L 82 67.7"/>
+      <path class="fig-free-solid" d="M 42 82 L 44 84.3 L 46 84.9 L 48 83.3 L 50 80.7 L 52 79.1 L 54 79.7 L 56 82 L 58 84.3 L 60 84.9 L 62 83.3 L 64 80.7 L 66 79.1 L 68 79.7 L 70 82 L 72 84.3 L 74 84.9 L 76 83.3 L 78 80.7 L 80 79.1 L 82 79.7"/>
+      <text class="fig-text fig-note" x="62" y="134" text-anchor="middle">virion</text>
+      <text class="fig-text fig-note" x="62" y="148" text-anchor="middle">(RNA genome)</text>
+      <line class="fig-curve" x1="104" y1="76" x2="169.7" y2="76"/>
+      <path class="fig-dot" d="M 176 76 L 169 79.2 L 169 72.8 Z"/>
+      <text class="fig-text fig-note" x="140" y="46" text-anchor="middle">reverse</text>
+      <text class="fig-text fig-note" x="140" y="60" text-anchor="middle">transcriptase</text>
+      <line class="fig-free-solid" x1="190" y1="73" x2="270" y2="73"/>
+      <line class="fig-free-solid" x1="190" y1="79" x2="270" y2="79"/>
+      <text class="fig-text fig-note" x="230" y="134" text-anchor="middle">double-stranded</text>
+      <text class="fig-text fig-note" x="230" y="148" text-anchor="middle">DNA copy</text>
+      <line class="fig-curve" x1="284" y1="76" x2="339.7" y2="76"/>
+      <path class="fig-dot" d="M 346 76 L 339 79.2 L 339 72.8 Z"/>
+      <text class="fig-text fig-note" x="315" y="60" text-anchor="middle">integrase</text>
+      <line class="fig-axis" x1="360" y1="73" x2="410" y2="73"/>
+      <line class="fig-axis" x1="360" y1="79" x2="410" y2="79"/>
+      <line class="fig-free-solid" x1="410" y1="73" x2="490" y2="73"/>
+      <line class="fig-free-solid" x1="410" y1="79" x2="490" y2="79"/>
+      <line class="fig-axis" x1="490" y1="73" x2="540" y2="73"/>
+      <line class="fig-axis" x1="490" y1="79" x2="540" y2="79"/>
+      <text class="fig-text fig-note" x="450" y="134" text-anchor="middle">provirus in a</text>
+      <text class="fig-text fig-note" x="450" y="148" text-anchor="middle">host chromosome</text>
+      <line class="fig-curve" x1="554" y1="76" x2="609.7" y2="76"/>
+      <path class="fig-dot" d="M 616 76 L 609 79.2 L 609 72.8 Z"/>
+      <text class="fig-text fig-note" x="585" y="46" text-anchor="middle">the cell</text>
+      <text class="fig-text fig-note" x="585" y="60" text-anchor="middle">transcribes</text>
+      <path class="fig-free-solid" d="M 632 56 L 634 58.3 L 636 58.9 L 638 57.3 L 640 54.7 L 642 53.1 L 644 53.7 L 646 56 L 648 58.3 L 650 58.9 L 652 57.3 L 654 54.7 L 656 53.1 L 658 53.7 L 660 56 L 662 58.3 L 664 58.9 L 666 57.3 L 668 54.7 L 670 53.1 L 672 53.7 L 674 56 L 676 58.3 L 678 58.9 L 680 57.3 L 682 54.7 L 684 53.1 L 686 53.7 L 688 56 L 690 58.3 L 692 58.9 L 694 57.3 L 696 54.7 L 698 53.1 L 700 53.7 L 702 56 L 704 58.3 L 706 58.9 L 708 57.3 L 710 54.7 L 712 53.1"/>
+      <path class="fig-free-solid" d="M 632 76 L 634 78.3 L 636 78.9 L 638 77.3 L 640 74.7 L 642 73.1 L 644 73.7 L 646 76 L 648 78.3 L 650 78.9 L 652 77.3 L 654 74.7 L 656 73.1 L 658 73.7 L 660 76 L 662 78.3 L 664 78.9 L 666 77.3 L 668 74.7 L 670 73.1 L 672 73.7 L 674 76 L 676 78.3 L 678 78.9 L 680 77.3 L 682 74.7 L 684 73.1 L 686 73.7 L 688 76 L 690 78.3 L 692 78.9 L 694 77.3 L 696 74.7 L 698 73.1 L 700 73.7 L 702 76 L 704 78.3 L 706 78.9 L 708 77.3 L 710 74.7 L 712 73.1"/>
+      <path class="fig-free-solid" d="M 632 96 L 634 98.3 L 636 98.9 L 638 97.3 L 640 94.7 L 642 93.1 L 644 93.7 L 646 96 L 648 98.3 L 650 98.9 L 652 97.3 L 654 94.7 L 656 93.1 L 658 93.7 L 660 96 L 662 98.3 L 664 98.9 L 666 97.3 L 668 94.7 L 670 93.1 L 672 93.7 L 674 96 L 676 98.3 L 678 98.9 L 680 97.3 L 682 94.7 L 684 93.1 L 686 93.7 L 688 96 L 690 98.3 L 692 98.9 L 694 97.3 L 696 94.7 L 698 93.1 L 700 93.7 L 702 96 L 704 98.3 L 706 98.9 L 708 97.3 L 710 94.7 L 712 93.1"/>
+      <text class="fig-text fig-note" x="672" y="134" text-anchor="middle">viral RNA</text>
+      <text class="fig-text fig-note" x="672" y="148" text-anchor="middle">new virions and</text>
+      <text class="fig-text fig-note" x="672" y="162" text-anchor="middle">viral proteins</text>
+      <line class="fig-free-solid" x1="230" y1="200" x2="262" y2="200"/>
+      <text class="fig-text fig-note" x="270" y="204" text-anchor="start">viral sequence</text>
+      <line class="fig-axis" x1="420" y1="200" x2="452" y2="200"/>
+      <text class="fig-text fig-note" x="460" y="204" text-anchor="start">cellular DNA</text>
+      </svg>
+      <figcaption>The life cycle of a retrovirus. Reverse transcriptase, carried in the virus particle,
+      copies the RNA genome into double-stranded DNA. The viral enzyme integrase inserts this DNA into a
+      chromosome, where it is called a provirus. The cell's own enzymes then transcribe the provirus into
+      viral RNA. This RNA is packed into new particles or used to make viral proteins.</figcaption>
+    </figure>
+
+    <p>
+      For a retrovirus, integration is a normal step of every infection. The viral gene pol encodes the
+      reverse transcriptase and also the integrase, an enzyme whose only job is to insert the whole provirus
+      into a chromosome. The gene gag encodes the proteins of the core of the particle, and the gene env
+      encodes the proteins on its outer membrane. Each end of the provirus carries the same sequence, called
+      a long terminal repeat (LTR). The LTRs contain strong promoters, the DNA sequences where
+      transcription starts.
+    </p>
+
+    <p>
+      The genome of RSV is closely related to that of avian leukosis virus (ALV), a common virus of chickens
+      that does not transform cells. RSV differs from ALV by one extra gene near its end, called src
+      (pronounced "sark", for sarcoma). Mutants of RSV that had lost src still multiplied normally but no
+      longer transformed cells. All the transforming power of RSV is therefore in this one gene.
+    </p>
+
+    <h2>The src Gene Is a Normal Chicken Gene</h2>
+
+    <p>
+      In 1974, the laboratory of J. Michael Bishop and Harold Varmus in San Francisco set out to make a
+      probe for src. A probe is a piece of DNA that pairs only with a chosen sequence and that can be made
+      radioactive, so it can be detected. They copied the RNA of normal RSV into DNA fragments. They then
+      mixed the fragments with the RNA of a mutant RSV that lacked src. The fragments that paired with the
+      mutant RNA came from gag, pol or env, and they were removed. The fragments that were left came from
+      src.
+    </p>
+
+    <p>
+      The plan was to follow src into infected cells, because uninfected cells were expected to have none.
+      Instead, in 1975, the probe found src sequences in the DNA of uninfected chicken cells. Each cell had
+      two copies, one on each of the two chromosomes inherited from the two parents. Most genes of a cell
+      are present in the same way.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="285" viewBox="0 0 800 285">
+      <text class="fig-text fig-tick" x="215" y="22" text-anchor="middle">making the probe</text>
+      <text class="fig-text fig-note" x="110" y="58" text-anchor="end">wild-type RSV</text>
+      <rect class="fig-free-solid" x="120" y="46" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="155" y="58" text-anchor="middle">gag</text>
+      <rect class="fig-free-solid" x="190" y="46" width="90" height="16"/>
+      <text class="fig-text fig-tick" x="235" y="58" text-anchor="middle">pol</text>
+      <rect class="fig-free-solid" x="280" y="46" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="315" y="58" text-anchor="middle">env</text>
+      <rect class="fig-shape" x="350" y="46" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="380" y="58" text-anchor="middle">src</text>
+      <text class="fig-text fig-note" x="110" y="98" text-anchor="end">DNA copy, cut</text>
+      <line class="fig-free-solid" x1="120" y1="94" x2="145.5" y2="94"/>
+      <line class="fig-free-solid" x1="149.5" y1="94" x2="176.4" y2="94"/>
+      <line class="fig-free-solid" x1="180.4" y1="94" x2="207.9" y2="94"/>
+      <line class="fig-free-solid" x1="211.9" y1="94" x2="241.2" y2="94"/>
+      <line class="fig-free-solid" x1="245.2" y1="94" x2="272.1" y2="94"/>
+      <line class="fig-free-solid" x1="276.1" y1="94" x2="305.2" y2="94"/>
+      <line class="fig-free-solid" x1="309.2" y1="94" x2="327.5" y2="94"/>
+      <line class="fig-free-solid" x1="331.5" y1="94" x2="355.1" y2="94"/>
+      <line class="fig-curve" x1="359.1" y1="94" x2="388.4" y2="94"/>
+      <line class="fig-curve" x1="392.4" y1="94" x2="410" y2="94"/>
+      <text class="fig-text fig-note" x="110" y="146" text-anchor="end">mutant RNA</text>
+      <rect class="fig-free-solid" x="120" y="134" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="155" y="146" text-anchor="middle">gag</text>
+      <rect class="fig-free-solid" x="190" y="134" width="90" height="16"/>
+      <text class="fig-text fig-tick" x="235" y="146" text-anchor="middle">pol</text>
+      <rect class="fig-free-solid" x="280" y="134" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="315" y="146" text-anchor="middle">env</text>
+      <rect class="fig-guide" x="352" y="135" width="56" height="14"/>
+      <text class="fig-text fig-note" x="380" y="146" text-anchor="middle">deleted</text>
+      <line class="fig-free-solid" x1="120" y1="126" x2="145.5" y2="126"/>
+      <line class="fig-free-solid" x1="149.5" y1="126" x2="176.4" y2="126"/>
+      <line class="fig-free-solid" x1="180.4" y1="126" x2="207.9" y2="126"/>
+      <line class="fig-free-solid" x1="211.9" y1="126" x2="241.2" y2="126"/>
+      <line class="fig-free-solid" x1="245.2" y1="126" x2="272.1" y2="126"/>
+      <line class="fig-free-solid" x1="276.1" y1="126" x2="305.2" y2="126"/>
+      <line class="fig-free-solid" x1="309.2" y1="126" x2="327.5" y2="126"/>
+      <line class="fig-free-solid" x1="331.5" y1="126" x2="355.1" y2="126"/>
+      <text class="fig-text fig-note" x="235" y="176" text-anchor="middle">fragments that pair with the mutant RNA are discarded</text>
+      <line class="fig-curve" x1="359.1" y1="206" x2="388.4" y2="206"/>
+      <line class="fig-curve" x1="392.4" y1="206" x2="410" y2="206"/>
+      <text class="fig-text fig-note" x="110" y="210" text-anchor="end">src probe</text>
+      <text class="fig-text fig-tick" x="620" y="22" text-anchor="middle">uninfected chicken cell</text>
+      <line class="fig-axis" x1="470" y1="90" x2="770" y2="90"/>
+      <rect class="fig-shape" x="600" y="82" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="630" y="94" text-anchor="middle">c-src</text>
+      <line class="fig-curve" x1="602" y1="74" x2="618" y2="74"/>
+      <line class="fig-curve" x1="622" y1="74" x2="640" y2="74"/>
+      <line class="fig-curve" x1="644" y1="74" x2="658" y2="74"/>
+      <line class="fig-axis" x1="470" y1="170" x2="770" y2="170"/>
+      <rect class="fig-shape" x="600" y="162" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="630" y="174" text-anchor="middle">c-src</text>
+      <line class="fig-curve" x1="602" y1="154" x2="618" y2="154"/>
+      <line class="fig-curve" x1="622" y1="154" x2="640" y2="154"/>
+      <line class="fig-curve" x1="644" y1="154" x2="658" y2="154"/>
+      <text class="fig-text fig-note" x="620" y="60" text-anchor="middle">chromosome from one parent</text>
+      <text class="fig-text fig-note" x="620" y="140" text-anchor="middle">chromosome from the other parent</text>
+      <text class="fig-text fig-note" x="620" y="214" text-anchor="middle">the probe pairs with two copies of c-src</text>
+      <line class="fig-free-solid" x1="150" y1="258" x2="180" y2="258"/>
+      <text class="fig-text fig-note" x="188" y="262" text-anchor="start">fragment of gag, pol or env</text>
+      <line class="fig-curve" x1="420" y1="258" x2="450" y2="258"/>
+      <text class="fig-text fig-note" x="458" y="262" text-anchor="start">fragment of src</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left.</span> Making the src probe. DNA
+      fragments copied from the whole RSV genome are mixed with the RNA of a mutant that lacks src. The
+      fragments that pair with this RNA are removed, and only fragments of src
+      remain.</span><span class="cap-part"><span class="cap-lead">Right.</span> In the DNA of an uninfected
+      chicken cell, the probe pairs with a gene present in two copies, one on each parental chromosome,
+      like an ordinary gene of the cell.</span></figcaption>
+    </figure>
+
+    <p>
+      The probe also paired with the DNA of other birds and of several mammals. The more distant a species
+      was from the chicken in evolution, the weaker the pairing was. This is the pattern of a gene inherited
+      from a common ancestor, whose sequence slowly changed in each line of descent. It is not the pattern of
+      a gene recently inserted by a virus. The src gene was later found in fruit flies and even in sponges, whose
+      ancestors separated from those of vertebrates about 550 million years ago. The gene must therefore
+      play a vital role in normal cells.
+    </p>
+
+    <p>
+      The cellular gene is called c-src, and the viral version is called v-src. An oncogene is a gene that
+      can transform a normal cell into a tumor cell. A normal gene that can be changed into an oncogene is
+      called a proto-oncogene. The c-src gene was the first proto-oncogene to be found.
+    </p>
+
+    <h2>How RSV Acquired src</h2>
+
+    <p>
+      The most likely explanation starts from ALV. By chance, an ALV provirus was inserted next to the
+      c-src gene in an infected chicken cell. Transcription that started in the provirus continued into
+      c-src. It produced a single RNA molecule that carried both viral and cellular sequences. The introns
+      of c-src, the stretches between its coding pieces, were then removed from this RNA. The RNA was packed
+      into a virus particle. A later infection added ALV sequence on the other side of src, which gave the
+      genome of RSV. Inside the virus, src then changed into the powerful oncogene v-src. This capture may
+      have happened only once in the history of cancer research.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="280" viewBox="0 0 800 280">
+      <text class="fig-text fig-note" x="136" y="54" text-anchor="end">chicken chromosome</text>
+      <line class="fig-axis" x1="150" y1="50" x2="760" y2="50"/>
+      <rect class="fig-free-solid" x="250" y="42" width="34" height="16"/>
+      <text class="fig-text fig-tick" x="267" y="54" text-anchor="middle">LTR</text>
+      <rect class="fig-free-solid" x="284" y="42" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="314" y="54" text-anchor="middle">gag</text>
+      <rect class="fig-free-solid" x="344" y="42" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="379" y="54" text-anchor="middle">pol</text>
+      <rect class="fig-free-solid" x="414" y="42" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="444" y="54" text-anchor="middle">env</text>
+      <rect class="fig-free-solid" x="474" y="42" width="34" height="16"/>
+      <text class="fig-text fig-tick" x="491" y="54" text-anchor="middle">LTR</text>
+      <text class="fig-text fig-note" x="379" y="34" text-anchor="middle">ALV provirus</text>
+      <rect class="fig-shape" x="548" y="42" width="26" height="16"/>
+      <rect class="fig-shape" x="598" y="42" width="30" height="16"/>
+      <rect class="fig-shape" x="654" y="42" width="22" height="16"/>
+      <rect class="fig-shape" x="704" y="42" width="28" height="16"/>
+      <text class="fig-text fig-note" x="640" y="34" text-anchor="middle">c-src (exons and introns)</text>
+      <text class="fig-text fig-note" x="136" y="134" text-anchor="end">one RNA copy</text>
+      <path class="fig-free-solid" d="M 284 130 L 286 132.3 L 288 132.9 L 290 131.3 L 292 128.7 L 294 127.1 L 296 127.7 L 298 130 L 300 132.3 L 302 132.9 L 304 131.3 L 306 128.7 L 308 127.1 L 310 127.7 L 312 130 L 314 132.3 L 316 132.9 L 318 131.3 L 320 128.7 L 322 127.1 L 324 127.7 L 326 130 L 328 132.3 L 330 132.9 L 332 131.3 L 334 128.7 L 336 127.1 L 338 127.7 L 340 130 L 342 132.3 L 344 132.9 L 346 131.3 L 348 128.7 L 350 127.1 L 352 127.7 L 354 130 L 356 132.3 L 358 132.9 L 360 131.3 L 362 128.7 L 364 127.1 L 366 127.7 L 368 130 L 370 132.3 L 372 132.9 L 374 131.3 L 376 128.7 L 378 127.1 L 380 127.7 L 382 130 L 384 132.3 L 386 132.9 L 388 131.3 L 390 128.7 L 392 127.1 L 394 127.7 L 396 130 L 398 132.3 L 400 132.9 L 402 131.3 L 404 128.7 L 406 127.1 L 408 127.7 L 410 130 L 412 132.3 L 414 132.9 L 416 131.3 L 418 128.7 L 420 127.1 L 422 127.7 L 424 130 L 426 132.3 L 428 132.9 L 430 131.3 L 432 128.7 L 434 127.1 L 436 127.7 L 438 130 L 440 132.3 L 442 132.9 L 444 131.3 L 446 128.7 L 448 127.1 L 450 127.7 L 452 130 L 454 132.3 L 456 132.9 L 458 131.3 L 460 128.7 L 462 127.1 L 464 127.7 L 466 130 L 468 132.3 L 470 132.9 L 472 131.3 L 474 128.7 L 476 127.1 L 478 127.7 L 480 130 L 482 132.3 L 484 132.9 L 486 131.3 L 488 128.7 L 490 127.1 L 492 127.7 L 494 130 L 496 132.3 L 498 132.9 L 500 131.3 L 502 128.7 L 504 127.1 L 506 127.7 L 508 130"/>
+      <path class="fig-curve" d="M 508 130 L 510 132.3 L 512 132.9 L 514 131.3 L 516 128.7 L 518 127.1 L 520 127.7 L 522 130 L 524 132.3 L 526 132.9 L 528 131.3 L 530 128.7 L 532 127.1 L 534 127.7"/>
+      <path class="fig-curve" d="M 534 130 L 536 132.3 L 538 132.9 L 540 131.3 L 542 128.7 L 544 127.1 L 546 127.7 L 548 130 L 550 132.3 L 552 132.9 L 554 131.3 L 556 128.7 L 558 127.1 L 560 127.7 L 562 130 L 564 132.3"/>
+      <path class="fig-curve" d="M 564 130 L 566 132.3 L 568 132.9 L 570 131.3 L 572 128.7 L 574 127.1 L 576 127.7 L 578 130 L 580 132.3 L 582 132.9 L 584 131.3 L 586 128.7"/>
+      <path class="fig-curve" d="M 586 130 L 588 132.3 L 590 132.9 L 592 131.3 L 594 128.7 L 596 127.1 L 598 127.7 L 600 130 L 602 132.3 L 604 132.9 L 606 131.3 L 608 128.7 L 610 127.1 L 612 127.7 L 614 130"/>
+      <text class="fig-text fig-note" x="449" y="156" text-anchor="middle">read from the viral promoter into c-src; introns removed</text>
+      <text class="fig-text fig-note" x="136" y="214" text-anchor="end">RSV genome</text>
+      <rect class="fig-free-solid" x="250" y="202" width="34" height="16"/>
+      <text class="fig-text fig-tick" x="267" y="214" text-anchor="middle">LTR</text>
+      <rect class="fig-free-solid" x="284" y="202" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="314" y="214" text-anchor="middle">gag</text>
+      <rect class="fig-free-solid" x="344" y="202" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="379" y="214" text-anchor="middle">pol</text>
+      <rect class="fig-free-solid" x="414" y="202" width="60" height="16"/>
+      <text class="fig-text fig-tick" x="444" y="214" text-anchor="middle">env</text>
+      <rect class="fig-shape" x="474" y="202" width="70" height="16"/>
+      <text class="fig-text fig-tick" x="509" y="214" text-anchor="middle">v-src</text>
+      <rect class="fig-free-solid" x="544" y="202" width="34" height="16"/>
+      <text class="fig-text fig-tick" x="561" y="214" text-anchor="middle">LTR</text>
+      <line class="fig-axis" x1="420" y1="68" x2="420" y2="112.6"/>
+      <path class="fig-dot" d="M 420 118 L 417.3 112 L 422.7 112 Z"/>
+      <line class="fig-axis" x1="420" y1="166" x2="420" y2="188.6"/>
+      <path class="fig-dot" d="M 420 194 L 417.3 188 L 422.7 188 Z"/>
+      <rect class="fig-free-solid" x="210" y="251" width="26" height="14"/>
+      <text class="fig-text fig-note" x="244" y="262" text-anchor="start">viral sequence</text>
+      <rect class="fig-shape" x="400" y="251" width="26" height="14"/>
+      <text class="fig-text fig-note" x="434" y="262" text-anchor="start">sequence from the chicken genome</text>
+      </svg>
+      <figcaption>The model for the capture of c-src by avian leukosis virus. A provirus inserted next to
+      c-src is transcribed into one RNA that runs from the viral sequence into c-src. The introns are
+      removed, and the RNA is packed into a virus particle. A later infection adds viral sequence after src,
+      which gives the genome of RSV.</figcaption>
+    </figure>
+
+    <p>
+      The discovery had three consequences. First, the normal genome of vertebrates contains genes that can
+      become cancer genes. Mutations might therefore turn a proto-oncogene into an oncogene where it lies on
+      its chromosome, without any virus. Second, the single gene v-src produces all the traits of a
+      transformed cell. A few key genes may therefore be enough to make a cell form tumors, instead of 20 or
+      30 genes for 20 or 30 traits. Third, other retroviruses that cause tumors might carry other captured
+      proto-oncogenes.
+    </p>
+
+    <h2>Many Proto-Oncogenes</h2>
+
+    <p>
+      Within a year, researchers started to look for other captured genes. MC29 is a chicken virus that
+      causes a cancer of blood-forming cells. It carries the oncogene v-myc, which comes from the chicken
+      gene c-myc, and like RSV it descends from ALV. A feline leukemia virus that captured the gene fes
+      became feline sarcoma virus. A rat-mouse leukemia virus captured the genes H-ras and K-ras on two
+      separate occasions, which gave the Harvey and Kirsten sarcoma viruses. Other examples are abl, carried
+      by the Abelson leukemia virus of mice, and sis, carried by simian sarcoma virus. More than fifty
+      vertebrate proto-oncogenes are now known, and thirty of them were first found in a retrovirus that
+      transforms cells.
+    </p>
+
+    <p>
+      Each proto-oncogene found in one species is present in all other vertebrates. For example, chickens,
+      mice and humans all have a c-myc gene, and the three versions seem to work the same way. The whole set
+      of proto-oncogenes must therefore have existed in the common ancestor of mammals and birds. The
+      captured gene usually replaces some of the genes that the virus needs to multiply, so most retroviruses
+      that carry an oncogene cannot multiply on their own. RSV is an exception, because it kept gag, pol and
+      env. Retroviruses that carry an oncogene are called acutely transforming viruses, because they cause
+      tumors within days or weeks after injection.
+    </p>
+
+    <h2>Proviruses That Activate a Gene in Place</h2>
+
+    <p>
+      ALV and murine leukemia virus (MLV) carry no oncogene. They do not change the shape or growth of the
+      cells they infect in a dish. Yet they cause leukemias in animals, after several months. In 1981,
+      researchers mapped the proviruses in leukemias caused by ALV, each leukemia from a different chicken.
+      A provirus can be inserted at millions of places in the genome. Yet in more than 80% of these
+      leukemias, the provirus sat inside or right next to the c-myc gene.
+    </p>
+
+    <p>
+      Most of these proviruses sat between the first exon of c-myc, which codes for no protein, and the
+      second exon, where the protein-coding sequence begins. They also pointed in the same direction as the
+      gene. The promoter in the viral LTR then transcribes c-myc all the time and at a high rate, outside the
+      controls that normally regulate the gene. The resulting excess of Myc protein makes the cell
+      divide.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="215" viewBox="0 0 800 215">
+      <text class="fig-text fig-tick" x="400" y="22" text-anchor="middle">the c-myc gene</text>
+      <text class="fig-text fig-note" x="136" y="74" text-anchor="end">normal</text>
+      <line class="fig-axis" x1="150" y1="70" x2="760" y2="70"/>
+      <rect class="fig-shape" x="260" y="61" width="34" height="18"/>
+      <text class="fig-text fig-note" x="277" y="96" text-anchor="middle">exon 1</text>
+      <rect class="fig-shape" x="520" y="61" width="60" height="18"/>
+      <text class="fig-text fig-note" x="550" y="96" text-anchor="middle">exon 2</text>
+      <rect class="fig-shape" x="640" y="61" width="70" height="18"/>
+      <text class="fig-text fig-note" x="675" y="96" text-anchor="middle">exon 3</text>
+      <line class="fig-curve" x1="252" y1="61" x2="252" y2="44"/>
+      <line class="fig-curve" x1="252" y1="44" x2="272.6" y2="44"/>
+      <path class="fig-dot" d="M 278 44 L 272 46.7 L 272 41.3 Z"/>
+      <text class="fig-text fig-note" x="252" y="36" text-anchor="middle">the cell&#x27;s promoter</text>
+      <text class="fig-text fig-note" x="136" y="174" text-anchor="end">after insertion</text>
+      <line class="fig-axis" x1="150" y1="170" x2="760" y2="170"/>
+      <rect class="fig-shape" x="260" y="161" width="34" height="18"/>
+      <rect class="fig-free-solid" x="330" y="161" width="34" height="18"/>
+      <text class="fig-text fig-tick" x="347" y="175" text-anchor="middle">LTR</text>
+      <rect class="fig-free-solid" x="364" y="161" width="36" height="18"/>
+      <text class="fig-text fig-tick" x="382" y="175" text-anchor="middle">gag</text>
+      <rect class="fig-free-solid" x="400" y="161" width="40" height="18"/>
+      <text class="fig-text fig-tick" x="420" y="175" text-anchor="middle">pol</text>
+      <rect class="fig-free-solid" x="440" y="161" width="36" height="18"/>
+      <text class="fig-text fig-tick" x="458" y="175" text-anchor="middle">env</text>
+      <rect class="fig-free-solid" x="476" y="161" width="34" height="18"/>
+      <text class="fig-text fig-tick" x="493" y="175" text-anchor="middle">LTR</text>
+      <text class="fig-text fig-note" x="420" y="196" text-anchor="middle">ALV provirus</text>
+      <rect class="fig-shape" x="520" y="161" width="60" height="18"/>
+      <rect class="fig-shape" x="640" y="161" width="70" height="18"/>
+      <line class="fig-free-solid" x1="493" y1="161" x2="493" y2="140"/>
+      <line class="fig-free-solid" x1="493" y1="140" x2="541.7" y2="140"/>
+      <path class="fig-dot-alt" d="M 548 140 L 541 143.2 L 541 136.8 Z"/>
+      <text class="fig-text fig-note" x="529" y="132" text-anchor="middle">viral promoter drives myc without pause</text>
+      </svg>
+      <figcaption>Insertional mutagenesis at c-myc. The normal gene is transcribed from its own promoter,
+      under the control of the cell. In leukemias caused by ALV, a provirus is usually inserted between exon
+      1 and exon 2, pointing in the same direction as the gene. The promoter in its right LTR then transcribes
+      the coding exons 2 and 3 without pause.</figcaption>
+    </figure>
+
+    <p>
+      This mechanism is called insertional mutagenesis. In an infected chicken, the virus spreads through the
+      cells that make blood. There are tens of millions of infections, and each one inserts a provirus at a
+      random place. Perhaps one insertion in 10 million lands next to c-myc. A leukemia can only appear after
+      the virus has infected enough cells for this rare event to happen. This explains the delay of weeks to
+      months. Suppose that each insertion lands next to c-myc with probability $p = 10^{-7}$, independently
+      of the others. The chance that at least one of $N$ insertions does so is then $1 - (1-p)^N$.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="280" viewBox="0 0 640 280">
+      <line class="fig-axis" x1="90" y1="220" x2="570" y2="220"/>
+      <line class="fig-axis" x1="90" y1="30" x2="90" y2="220"/>
+      <line class="fig-axis" x1="90" y1="220" x2="90" y2="225"/>
+      <text class="fig-text fig-tick" x="90" y="241" text-anchor="middle">10<tspan class="fig-sup" dy="-6">5</tspan></text>
+      <line class="fig-axis" x1="210" y1="220" x2="210" y2="225"/>
+      <text class="fig-text fig-tick" x="210" y="241" text-anchor="middle">10<tspan class="fig-sup" dy="-6">6</tspan></text>
+      <line class="fig-axis" x1="330" y1="220" x2="330" y2="225"/>
+      <text class="fig-text fig-tick" x="330" y="241" text-anchor="middle">10<tspan class="fig-sup" dy="-6">7</tspan></text>
+      <line class="fig-axis" x1="450" y1="220" x2="450" y2="225"/>
+      <text class="fig-text fig-tick" x="450" y="241" text-anchor="middle">10<tspan class="fig-sup" dy="-6">8</tspan></text>
+      <line class="fig-axis" x1="570" y1="220" x2="570" y2="225"/>
+      <text class="fig-text fig-tick" x="570" y="241" text-anchor="middle">10<tspan class="fig-sup" dy="-6">9</tspan></text>
+      <line class="fig-axis" x1="85" y1="220" x2="90" y2="220"/>
+      <text class="fig-text fig-tick" x="81" y="224" text-anchor="end">0%</text>
+      <line class="fig-axis" x1="85" y1="125" x2="90" y2="125"/>
+      <text class="fig-text fig-tick" x="81" y="129" text-anchor="end">50%</text>
+      <line class="fig-axis" x1="85" y1="30" x2="90" y2="30"/>
+      <text class="fig-text fig-tick" x="81" y="34" text-anchor="end">100%</text>
+      <path class="fig-curve" d="M 90 218.1 L 92.4 218 L 94.8 217.9 L 97.2 217.8 L 99.6 217.7 L 102 217.6 L 104.4 217.5 L 106.8 217.4 L 109.2 217.3 L 111.6 217.1 L 114 217 L 116.4 216.9 L 118.8 216.7 L 121.2 216.6 L 123.6 216.4 L 126 216.2 L 128.4 216.1 L 130.8 215.9 L 133.2 215.7 L 135.6 215.5 L 138 215.3 L 140.4 215.1 L 142.8 214.8 L 145.2 214.6 L 147.6 214.3 L 150 214.1 L 152.4 213.8 L 154.8 213.5 L 157.2 213.2 L 159.6 212.9 L 162 212.6 L 164.4 212.2 L 166.8 211.9 L 169.2 211.5 L 171.6 211.1 L 174 210.7 L 176.4 210.3 L 178.8 209.8 L 181.2 209.4 L 183.6 208.9 L 186 208.4 L 188.4 207.9 L 190.8 207.3 L 193.2 206.7 L 195.6 206.1 L 198 205.5 L 200.4 204.8 L 202.8 204.2 L 205.2 203.4 L 207.6 202.7 L 210 201.9 L 212.4 201.1 L 214.8 200.3 L 217.2 199.4 L 219.6 198.5 L 222 197.5 L 224.4 196.5 L 226.8 195.5 L 229.2 194.4 L 231.6 193.3 L 234 192.2 L 236.4 190.9 L 238.8 189.7 L 241.2 188.4 L 243.6 187 L 246 185.6 L 248.4 184.2 L 250.8 182.7 L 253.2 181.1 L 255.6 179.5 L 258 177.8 L 260.4 176.1 L 262.8 174.3 L 265.2 172.4 L 267.6 170.5 L 270 168.5 L 272.4 166.4 L 274.8 164.3 L 277.2 162.2 L 279.6 159.9 L 282 157.6 L 284.4 155.2 L 286.8 152.8 L 289.2 150.3 L 291.6 147.7 L 294 145.1 L 296.4 142.4 L 298.8 139.7 L 301.2 136.9 L 303.6 134 L 306 131.1 L 308.4 128.1 L 310.8 125.1 L 313.2 122.1 L 315.6 119 L 318 115.9 L 320.4 112.7 L 322.8 109.5 L 325.2 106.3 L 327.6 103.1 L 330 99.9 L 332.4 96.7 L 334.8 93.5 L 337.2 90.3 L 339.6 87.1 L 342 84 L 344.4 80.8 L 346.8 77.8 L 349.2 74.8 L 351.6 71.8 L 354 68.9 L 356.4 66.1 L 358.8 63.4 L 361.2 60.8 L 363.6 58.3 L 366 55.8 L 368.4 53.5 L 370.8 51.3 L 373.2 49.2 L 375.6 47.3 L 378 45.4 L 380.4 43.7 L 382.8 42.1 L 385.2 40.6 L 387.6 39.3 L 390 38 L 392.4 36.9 L 394.8 35.9 L 397.2 35 L 399.6 34.2 L 402 33.5 L 404.4 32.9 L 406.8 32.4 L 409.2 32 L 411.6 31.6 L 414 31.3 L 416.4 31 L 418.8 30.8 L 421.2 30.6 L 423.6 30.5 L 426 30.3 L 428.4 30.3 L 430.8 30.2 L 433.2 30.1 L 435.6 30.1 L 438 30.1 L 440.4 30 L 442.8 30 L 445.2 30 L 447.6 30 L 450 30 L 452.4 30 L 454.8 30 L 457.2 30 L 459.6 30 L 462 30 L 464.4 30 L 466.8 30 L 469.2 30 L 471.6 30 L 474 30 L 476.4 30 L 478.8 30 L 481.2 30 L 483.6 30 L 486 30 L 488.4 30 L 490.8 30 L 493.2 30 L 495.6 30 L 498 30 L 500.4 30 L 502.8 30 L 505.2 30 L 507.6 30 L 510 30 L 512.4 30 L 514.8 30 L 517.2 30 L 519.6 30 L 522 30 L 524.4 30 L 526.8 30 L 529.2 30 L 531.6 30 L 534 30 L 536.4 30 L 538.8 30 L 541.2 30 L 543.6 30 L 546 30 L 548.4 30 L 550.8 30 L 553.2 30 L 555.6 30 L 558 30 L 560.4 30 L 562.8 30 L 565.2 30 L 567.6 30 L 570 30"/>
+      <line class="fig-guide" x1="330" y1="220" x2="330" y2="99.9"/>
+      <line class="fig-guide" x1="90" y1="99.9" x2="330" y2="99.9"/>
+      <circle class="fig-dot" cx="330" cy="99.9" r="4"/>
+      <text class="fig-text fig-note" x="340" y="115.9" text-anchor="start">63% at 10 million</text>
+      <text class="fig-text fig-note" x="330" y="262" text-anchor="middle">number of cells infected</text>
+      <text class="fig-text fig-note" x="90" y="16" text-anchor="start">chance that some cell has a provirus next to c-myc</text>
+      </svg>
+      <figcaption>The chance that at least one of $N$ infected cells has a provirus next to c-myc, when each
+      insertion lands there with probability one in 10 million. The chance is below 10% after one million
+      infections, 63% after 10 million and above 99.99% after 100 million.</figcaption>
+    </figure>
+
+    <p>
+      The provirus sits next to the gene it activates, so reading the DNA around the proviruses of several
+      tumors reveals the gene. In breast cancers of mice caused by mouse mammary tumor virus, most proviruses
+      clustered at three places, near genes named int-1, int-2 and int-3. The int-1 gene turned out to be the mouse version of the fruit-fly gene wingless, and it was renamed Wnt-1. It was the first of the Wnt genes,
+      whose signaling pathway is overactive in many human cancers (Chapters 5 and 6). In birds and mice,
+      proviruses have been found next to more than 25 different proto-oncogenes. Insertional mutagenesis also
+      caused leukemias in several children treated by gene therapy, in which a retrovirus was used to insert
+      a working copy of a gene into the patients' cells.
+    </p>
+
+    <h2>A Retrovirus with Its Own Oncogene: HTLV-I</h2>
+
+    <p>
+      Human T-cell leukemia virus type I (HTLV-I) belongs to neither group. It does not carry a captured
+      oncogene, and it does not act by insertion next to a particular gene. HTLV-I infects about 1% of the
+      people of Kyushu, the southern island of Japan. In Japan as a whole, leukemias caused by HTLV-I kill
+      about 1,000 people a year. A lifelong infection carries a 3 to 4% risk of adult T-cell leukemia. The
+      virus passes mainly from mother to baby through milk.
+    </p>
+
+    <p>
+      The best understood of its cancer-causing genes is tax. The virus needs the
+      Tax protein to transcribe its own provirus. Tax also
+      switches on two signaling pathways of the cell (Chapter 6), which make T lymphocytes divide and protect
+      them from cell death. Here the oncogene is a normal part of the viral life cycle, not a captured gene
+      of the cell.
+    </p>
+
+    <h2>Infections Behind Human Cancers</h2>
+
+    <p>
+      About one-fifth of the world's cancers are linked to infections. Hepatitis B and C viruses cause about
+      600,000 cancer deaths. They cause liver cancers that arise after years of chronic inflammation of the
+      liver. Human papillomaviruses cause about 610,000 cancer deaths, through their own oncogenic proteins.
+      EBV is one of the causes of lymphomas and of nasopharyngeal carcinoma. None of these agents is one of
+      the retroviruses or SV40 studied in the laboratory in the 1970s. The value of those laboratory viruses
+      is that they led to the human genes that play central roles in all types of cancer.
+    </p>
+
+    <p>
+      A bacterium, Helicobacter pylori, causes most stomach cancers. Almost 1 million new cases of stomach
+      cancer were diagnosed worldwide in 2012, and three-quarters of them were likely to be fatal. At least
+      75% of these deaths are due to long-term infection by H. pylori. In Japan, 99% of stomach cancers are
+      linked to it. Like the hepatitis viruses, H. pylori causes long-lasting inflammation.
+    </p>
+
+    <p>
+      Some strains of H. pylori also carry a 40,000-base stretch of genes for about 30 proteins. These
+      proteins open a channel into the cells that line the stomach, and the bacterium injects its protein
+      CagA through this channel. Inside the cells, CagA disturbs their shape, their junctions with
+      neighboring cells, their signaling and their division. CagA is needed for a tumor to form, but not
+      afterwards. In this it differs from Src, which must keep working. People are usually infected early in
+      life, and the tumors appear after the age of 50, so the delay is more than five decades.
+    </p>
+  </main>
+</body>
+</html>

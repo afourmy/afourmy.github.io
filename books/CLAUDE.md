@@ -10,6 +10,7 @@ Book pages read as factual technical writing, not as a book. Every sentence stat
 - **Dramatic or colloquial framing**: "It is not a free win", "the dictionary version wins", "a decisive improvement".
 - **Bookish headings** ("Back to the Clock"). Headings name the content: "Application: the Evening Element".
 - **Rare, obscure, or abstract words** where a common one works, and long sentences the reader has to read twice. Keep the wording simple and direct. This covers the prose only: technical terms stay exact.
+- **Sentences that are hard to parse**: a clause used as the subject ("That a large tumor is monoclonal does not prove..."), a rare sense of a common word ("each would found a clone", which reads as "find"), several facts chained in one sentence with semicolons or commas, a sentence that starts with a lowercase name ("src was..." instead of "The src gene was..."), or a reference to "the book" instead of the fact itself. Write one fact per sentence in plain word order, and reread every paragraph for readability, not only for accuracy.
 
 When tempted to write a transition, either state the technical point it was decorating or delete the sentence.
 

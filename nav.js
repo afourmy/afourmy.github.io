@@ -88,6 +88,7 @@
       [
         { href: "books/aops.html", en: "The Art of Problem Solving" },
         { href: "books/long-form-math-textbook.html", en: "A Long-Form Mathematics Textbook" },
+        { href: "books/biology-of-cancer/index.html", en: "The Biology of Cancer" },
       ]
     ]},
   ];

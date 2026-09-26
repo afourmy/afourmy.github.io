@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12: Genome Instability</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="How cells protect their DNA and how cancer cells lose this protection: stem cells and shed cells, copying errors and their correction, DNA damage from inside and outside the cell, repair systems and the inherited syndromes that disable them, unstable chromosomes, mutational signatures and PARP inhibitors.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/genome-instability.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 12: Genome Instability">
+  <meta property="og:description" content="How cells protect their DNA and how cancer cells lose this protection: stem cells and shed cells, copying errors and their correction, DNA damage from inside and outside the cell, repair systems and the inherited syndromes that disable them, unstable chromosomes, mutational signatures and PARP inhibitors.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/genome-instability.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 12: Genome Instability</h1>
+    </header>
+    <h2>The Body Copies a Large Amount of DNA</h2>
+
+    <p>
+      An adult human has about $4 \times 10^{13}$ cells. By one estimate, the body makes about 80 billion new cells
+      every hour, mostly in the intestine, the skin and the blood. Each new cell needs a full copy of the DNA,
+      which is about 2 meters long when unfolded. The body therefore makes about 160 billion meters of DNA every
+      hour, enough to go around the Earth 4000 times. Each copy is a chance for a mutation.
+    </p>
+
+    <p>
+      Each step of the multi-step process of Chapter 11 needs a new mutation. Cells protect their genome in several ways.
+      Tissues are organized so that few cells keep mutations for long. Enzymes check each new copy of the DNA
+      and correct errors. Other enzymes destroy mutagens or repair damaged DNA. Cancer cells often lose some of
+      these protections, and their genomes then become unstable.
+    </p>
+
+    <h2>Tissue Structure Limits Mutations</h2>
+
+    <p>
+      In many tissues, a small group of stem cells renews all the other cells. Stem cells may be as few as 0.1 to
+      1% of the cells of a tissue, although for most tissues these numbers are guesses. Stem cells divide rarely.
+      Their daughters, called transit-amplifying cells, divide many times and then become differentiated cells.
+      In the colon, a single stem cell division gives rise to as many as 32 differentiated cells.
+    </p>
+
+    <p>
+      Differentiated cells live a short time and are then shed. The epithelial cells of the colon live 5 to 7
+      days, and skin cells live 20 to 30 days. A mutation in one of these cells disappears when the cell is shed.
+      Only a mutation in a stem cell stays in the tissue for a long time. Because stem cells divide rarely, they
+      make fewer copying errors.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="350" viewBox="0 0 800 350">
+      <line class="fig-axis" x1="150" y1="169.5" x2="246" y2="97.5"/>
+      <line class="fig-axis" x1="150" y1="169.5" x2="246" y2="241.5"/>
+      <line class="fig-axis" x1="246" y1="97.5" x2="342" y2="61.5"/>
+      <line class="fig-axis" x1="246" y1="97.5" x2="342" y2="133.5"/>
+      <line class="fig-axis" x1="246" y1="241.5" x2="342" y2="205.5"/>
+      <line class="fig-axis" x1="246" y1="241.5" x2="342" y2="277.5"/>
+      <line class="fig-axis" x1="342" y1="61.5" x2="438" y2="43.5"/>
+      <line class="fig-axis" x1="342" y1="61.5" x2="438" y2="79.5"/>
+      <line class="fig-axis" x1="342" y1="133.5" x2="438" y2="115.5"/>
+      <line class="fig-axis" x1="342" y1="133.5" x2="438" y2="151.5"/>
+      <line class="fig-axis" x1="342" y1="205.5" x2="438" y2="187.5"/>
+      <line class="fig-axis" x1="342" y1="205.5" x2="438" y2="223.5"/>
+      <line class="fig-axis" x1="342" y1="277.5" x2="438" y2="259.5"/>
+      <line class="fig-axis" x1="342" y1="277.5" x2="438" y2="295.5"/>
+      <line class="fig-axis" x1="438" y1="43.5" x2="534" y2="34.5"/>
+      <line class="fig-axis" x1="438" y1="43.5" x2="534" y2="52.5"/>
+      <line class="fig-axis" x1="438" y1="79.5" x2="534" y2="70.5"/>
+      <line class="fig-axis" x1="438" y1="79.5" x2="534" y2="88.5"/>
+      <line class="fig-axis" x1="438" y1="115.5" x2="534" y2="106.5"/>
+      <line class="fig-axis" x1="438" y1="115.5" x2="534" y2="124.5"/>
+      <line class="fig-axis" x1="438" y1="151.5" x2="534" y2="142.5"/>
+      <line class="fig-axis" x1="438" y1="151.5" x2="534" y2="160.5"/>
+      <line class="fig-axis" x1="438" y1="187.5" x2="534" y2="178.5"/>
+      <line class="fig-axis" x1="438" y1="187.5" x2="534" y2="196.5"/>
+      <line class="fig-axis" x1="438" y1="223.5" x2="534" y2="214.5"/>
+      <line class="fig-axis" x1="438" y1="223.5" x2="534" y2="232.5"/>
+      <line class="fig-axis" x1="438" y1="259.5" x2="534" y2="250.5"/>
+      <line class="fig-axis" x1="438" y1="259.5" x2="534" y2="268.5"/>
+      <line class="fig-axis" x1="438" y1="295.5" x2="534" y2="286.5"/>
+      <line class="fig-axis" x1="438" y1="295.5" x2="534" y2="304.5"/>
+      <line class="fig-axis" x1="534" y1="34.5" x2="630" y2="30"/>
+      <line class="fig-axis" x1="534" y1="34.5" x2="630" y2="39"/>
+      <line class="fig-axis" x1="534" y1="52.5" x2="630" y2="48"/>
+      <line class="fig-axis" x1="534" y1="52.5" x2="630" y2="57"/>
+      <line class="fig-axis" x1="534" y1="70.5" x2="630" y2="66"/>
+      <line class="fig-axis" x1="534" y1="70.5" x2="630" y2="75"/>
+      <line class="fig-axis" x1="534" y1="88.5" x2="630" y2="84"/>
+      <line class="fig-axis" x1="534" y1="88.5" x2="630" y2="93"/>
+      <line class="fig-axis" x1="534" y1="106.5" x2="630" y2="102"/>
+      <line class="fig-axis" x1="534" y1="106.5" x2="630" y2="111"/>
+      <line class="fig-axis" x1="534" y1="124.5" x2="630" y2="120"/>
+      <line class="fig-axis" x1="534" y1="124.5" x2="630" y2="129"/>
+      <line class="fig-axis" x1="534" y1="142.5" x2="630" y2="138"/>
+      <line class="fig-axis" x1="534" y1="142.5" x2="630" y2="147"/>
+      <line class="fig-axis" x1="534" y1="160.5" x2="630" y2="156"/>
+      <line class="fig-axis" x1="534" y1="160.5" x2="630" y2="165"/>
+      <line class="fig-axis" x1="534" y1="178.5" x2="630" y2="174"/>
+      <line class="fig-axis" x1="534" y1="178.5" x2="630" y2="183"/>
+      <line class="fig-axis" x1="534" y1="196.5" x2="630" y2="192"/>
+      <line class="fig-axis" x1="534" y1="196.5" x2="630" y2="201"/>
+      <line class="fig-axis" x1="534" y1="214.5" x2="630" y2="210"/>
+      <line class="fig-axis" x1="534" y1="214.5" x2="630" y2="219"/>
+      <line class="fig-axis" x1="534" y1="232.5" x2="630" y2="228"/>
+      <line class="fig-axis" x1="534" y1="232.5" x2="630" y2="237"/>
+      <line class="fig-axis" x1="534" y1="250.5" x2="630" y2="246"/>
+      <line class="fig-axis" x1="534" y1="250.5" x2="630" y2="255"/>
+      <line class="fig-axis" x1="534" y1="268.5" x2="630" y2="264"/>
+      <line class="fig-axis" x1="534" y1="268.5" x2="630" y2="273"/>
+      <line class="fig-axis" x1="534" y1="286.5" x2="630" y2="282"/>
+      <line class="fig-axis" x1="534" y1="286.5" x2="630" y2="291"/>
+      <line class="fig-axis" x1="534" y1="304.5" x2="630" y2="300"/>
+      <line class="fig-axis" x1="534" y1="304.5" x2="630" y2="309"/>
+      <circle class="fig-dot" cx="150" cy="169.5" r="3.4"/>
+      <circle class="fig-dot" cx="246" cy="97.5" r="3.4"/>
+      <circle class="fig-dot" cx="246" cy="241.5" r="3.4"/>
+      <circle class="fig-dot" cx="342" cy="61.5" r="3.4"/>
+      <circle class="fig-dot" cx="342" cy="133.5" r="3.4"/>
+      <circle class="fig-dot" cx="342" cy="205.5" r="3.4"/>
+      <circle class="fig-dot" cx="342" cy="277.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="43.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="79.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="115.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="151.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="187.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="223.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="259.5" r="3.4"/>
+      <circle class="fig-dot" cx="438" cy="295.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="34.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="52.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="70.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="88.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="106.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="124.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="142.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="160.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="178.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="196.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="214.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="232.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="250.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="268.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="286.5" r="3.4"/>
+      <circle class="fig-dot" cx="534" cy="304.5" r="3.4"/>
+      <circle class="fig-hole" cx="630" cy="30" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="39" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="48" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="57" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="66" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="75" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="84" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="93" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="102" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="111" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="120" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="129" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="138" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="147" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="156" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="165" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="174" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="183" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="192" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="201" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="210" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="219" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="228" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="237" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="246" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="255" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="264" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="273" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="282" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="291" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="300" r="2.6"/>
+      <circle class="fig-hole" cx="630" cy="309" r="2.6"/>
+      <line class="fig-free-solid" x1="60" y1="169.5" x2="145" y2="169.5"/>
+      <circle class="fig-dot-alt" cx="60" cy="169.5" r="7"/>
+      <text class="fig-text fig-note" x="60" y="195.5" text-anchor="middle">stem cell</text>
+      <text class="fig-text fig-note" x="342" y="336" text-anchor="middle">transit-amplifying cells: five rounds of division</text>
+      <text class="fig-text fig-note" x="644" y="163.5" text-anchor="start">32 differentiated cells,</text>
+      <text class="fig-text fig-note" x="644" y="181.5" text-anchor="start">shed after 5 to 7 days</text>
+      </svg>
+      <figcaption>One division of a colon stem cell produces a transit-amplifying cell. This cell and its
+      descendants divide five times and yield $2^5 = 32$ differentiated cells, which are shed within a week. A
+      mutation that arises in any of these cells is shed with them.</figcaption>
+    </figure>
+
+    <p>
+      The small intestine shows this organization clearly. Each crypt, a pit in the wall of the intestine, holds
+      four to six slowly dividing stem cells near its bottom. They produce about 150 transit-amplifying cells,
+      which divide every 12 hours or so. Their descendants, about 3500 cells, cover one villus, a finger-like
+      projection of the intestinal wall. These cells move toward the tip of the villus, where they die and are
+      shed. A layer of mucus keeps the contents of the intestine away from the stem cells. Mice that lack the main
+      mucus protein, Muc2, develop adenomas in the small intestine.
+    </p>
+
+    <p>
+      Stem cells have further protections. In the mouse intestine, stem cells damaged by X-rays die by apoptosis
+      instead of attempting a repair that could leave errors. Stem cells also pump foreign molecules out of the
+      cell with the protein Mdr1. Stem cells are probably the cells in which many cancers begin. In chronic
+      myelogenous leukemia, for example, the Philadelphia chromosome is found in several types of blood cells.
+      These cell types all descend from the blood-forming stem cell.
+    </p>
+
+    <h2>Errors in Copying DNA</h2>
+
+    <p>
+      The enzymes that copy DNA are called DNA polymerases. They insert a wrong base about once in every $10^5$
+      bases. The polymerase then checks the bases it has just added and removes wrong ones, a process called
+      proofreading. Proofreading misses about one error in 100, which lowers the error rate to about one in
+      $10^7$. Mismatch repair enzymes then scan the new DNA. They also miss about one error in 100. The final rate
+      is about one wrong base in $10^9$, which leaves a few errors per copy of the genome.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="300" viewBox="0 0 640 300">
+      <line class="fig-axis" x1="110" y1="40" x2="110" y2="220"/>
+      <line class="fig-axis" x1="110" y1="220" x2="600" y2="220"/>
+      <line class="fig-axis" x1="105" y1="220" x2="110" y2="220"/>
+      <text class="fig-text fig-tick" x="101" y="224" text-anchor="end">1</text>
+      <line class="fig-axis" x1="105" y1="184" x2="110" y2="184"/>
+      <text class="fig-text fig-tick" x="101" y="188" text-anchor="end">10<tspan class="fig-sup" dy="-6">1</tspan></text>
+      <line class="fig-axis" x1="105" y1="148" x2="110" y2="148"/>
+      <text class="fig-text fig-tick" x="101" y="152" text-anchor="end">10<tspan class="fig-sup" dy="-6">2</tspan></text>
+      <line class="fig-axis" x1="105" y1="112" x2="110" y2="112"/>
+      <text class="fig-text fig-tick" x="101" y="116" text-anchor="end">10<tspan class="fig-sup" dy="-6">3</tspan></text>
+      <line class="fig-axis" x1="105" y1="76" x2="110" y2="76"/>
+      <text class="fig-text fig-tick" x="101" y="80" text-anchor="end">10<tspan class="fig-sup" dy="-6">4</tspan></text>
+      <line class="fig-axis" x1="105" y1="40" x2="110" y2="40"/>
+      <text class="fig-text fig-tick" x="101" y="44" text-anchor="end">10<tspan class="fig-sup" dy="-6">5</tspan></text>
+      <text class="fig-text fig-note" x="110" y="22" text-anchor="start">errors in one copy of the 3.2 billion bases of a haploid genome (logarithmic scale)</text>
+      <rect class="fig-shape" x="174" y="57.8" width="72" height="162.2"/>
+      <text class="fig-text fig-tick" x="210" y="49.8" text-anchor="middle">32,000</text>
+      <text class="fig-text fig-tick" x="210" y="242" text-anchor="middle">polymerase alone</text>
+      <text class="fig-text fig-note" x="210" y="262" text-anchor="middle">1 in 10<tspan class="fig-sup" dy="-6">5</tspan> bases</text>
+      <rect class="fig-shape" x="324" y="129.8" width="72" height="90.2"/>
+      <text class="fig-text fig-tick" x="360" y="121.8" text-anchor="middle">320</text>
+      <text class="fig-text fig-tick" x="360" y="242" text-anchor="middle">after proofreading</text>
+      <text class="fig-text fig-note" x="360" y="262" text-anchor="middle">1 in 10<tspan class="fig-sup" dy="-6">7</tspan> bases</text>
+      <rect class="fig-shape" x="474" y="201.8" width="72" height="18.2"/>
+      <text class="fig-text fig-tick" x="510" y="193.8" text-anchor="middle">about 3</text>
+      <text class="fig-text fig-tick" x="510" y="242" text-anchor="middle">after mismatch repair</text>
+      <text class="fig-text fig-note" x="510" y="262" text-anchor="middle">1 in 10<tspan class="fig-sup" dy="-6">9</tspan> bases</text>
+      </svg>
+      <figcaption>Errors left in one copy of the 3.2 billion bases of a haploid genome, the single set of
+      chromosomes, after each stage of error correction. Each stage removes about 99% of the remaining errors. A
+      cell that loses proofreading or mismatch repair makes about 100 times more errors.</figcaption>
+    </figure>
+
+    <p>
+      Proofreading prevents cancer. Mice carrying a DNA polymerase that cannot proofread were followed for a year.
+      Nearly half of the mice with two mutant copies developed tumors, while none of the mice with one mutant copy
+      did. In humans, mutations in the proofreading part of two polymerases, POLE and POLD1, occur in colon and
+      endometrial cancers. These tumors carry more than 100 mutations per million bases, and up to a million base
+      changes in total. They are called ultramutated.
+    </p>
+
+    <p>
+      Mismatch repair matters most in repeated sequences. A microsatellite is a short sequence repeated many times, such as a run of T bases or of TC pairs. When copying such a run, the polymerase sometimes slips and adds or
+      skips one unit. Mismatch repair normally corrects these slips. Cells without mismatch repair change the
+      length of their microsatellites at a high rate. This is called microsatellite instability (MIN).
+    </p>
+
+    <h2>Damage From Inside the Cell</h2>
+
+    <p>
+      DNA is also damaged by chemical reactions that happen in every cell. In deamination, a base loses an amino
+      group and turns into a different base. Deamination of cytosine gives uracil, which is not a normal DNA base and can be recognized by repair enzymes. Many cytosines in CpG sequences carry a methyl group
+      (Chapter 7), and deamination of methylated cytosine gives thymine. Thymine is a normal DNA base, so the
+      mismatch often escapes repair.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="780" height="230" viewBox="0 0 780 230">
+      <rect class="fig-shape" x="67" y="70" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="90" y="90" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="67" y="106" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="90" y="126" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="90" y="162" text-anchor="middle">methylated C</text>
+      <text class="fig-text fig-note" x="90" y="178" text-anchor="middle">paired with G</text>
+      <line class="fig-axis" x1="130" y1="106" x2="223.7" y2="106"/>
+      <path class="fig-dot" d="M 230 106 L 223 109.2 L 223 102.8 Z"/>
+      <text class="fig-text fig-note" x="180" y="96" text-anchor="middle">deamination</text>
+      <rect class="fig-shape-img" x="247" y="70" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="270" y="90" text-anchor="middle">T</text>
+      <rect class="fig-shape" x="247" y="106" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="270" y="126" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="270" y="162" text-anchor="middle">T paired with G:</text>
+      <text class="fig-text fig-note" x="270" y="178" text-anchor="middle">T is a normal base</text>
+      <line class="fig-axis" x1="310" y1="96" x2="463.9" y2="53.7"/>
+      <path class="fig-dot" d="M 470 52 L 464.1 56.9 L 462.4 50.8 Z"/>
+      <line class="fig-axis" x1="310" y1="116" x2="463.9" y2="158.3"/>
+      <path class="fig-dot" d="M 470 160 L 462.4 161.2 L 464.1 155.1 Z"/>
+      <text class="fig-text fig-note" x="385" y="106" text-anchor="middle">replication</text>
+      <rect class="fig-shape-img" x="487" y="16" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="510" y="36" text-anchor="middle">T</text>
+      <rect class="fig-shape-img" x="487" y="52" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="510" y="72" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="487" y="124" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="510" y="144" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="487" y="160" width="46" height="30" rx="3"/>
+      <text class="fig-text fig-tick" x="510" y="180" text-anchor="middle">G</text>
+      <text class="fig-text fig-note" x="552" y="55" text-anchor="start">T:A in place of C:G, a mutation</text>
+      <text class="fig-text fig-note" x="552" y="163" text-anchor="start">C:G, unchanged</text>
+      </svg>
+      <figcaption>Deamination of a methylated cytosine gives thymine, which is paired with guanine. After the next
+      replication, one of the two daughter molecules carries T:A in place of C:G.</figcaption>
+    </figure>
+
+    <p>
+      The change from CpG to TpG is the most frequent spontaneous mutation in human cells. It occurs in stem cells
+      at a steady rate over life. The number of these mutations in a cell therefore works as a clock that measures
+      age. The change is also frequent in cancer genomes.
+    </p>
+
+    <p>
+      Bases can also fall off the DNA. By some estimates, a mammalian cell loses as many as 10,000 purine bases
+      per day, and up to 500 pyrimidine bases. Oxygen causes even more damage. The mitochondria reduce oxygen to
+      water in several steps. By one estimate, 1 to 2% of the oxygen they consume escapes as reactive oxygen
+      species, such as hydrogen peroxide and the hydroxyl radical. These molecules attack the bases of DNA.
+    </p>
+
+    <p>
+      Oxidation of guanine gives 8-oxo-guanine, which pairs with adenine during copying. After two rounds of
+      replication, a G:C pair has become a T:A pair. Inflamed tissues produce oxidants and have more 8-oxo-guanine
+      in their DNA. Smokers excrete up to 50% more oxidized bases than nonsmokers. Together, oxidation, base loss,
+      deamination and methylation may alter as many as 100,000 bases per cell each day. In almost all tissues,
+      this far exceeds the damage caused by mutagens from outside.
+    </p>
+
+    <h2>Damage From Outside the Cell</h2>
+
+    <p>
+      X-rays spend up to 80% of their energy stripping electrons from water molecules. The resulting reactive
+      molecules break one or both strands of the DNA. Ultraviolet (UV) light joins two adjacent pyrimidine bases
+      on the same strand. More than 60% of these pyrimidine dimers are TT, perhaps 30% are CT and the rest are CC.
+      TT dimers are repaired efficiently, so they rarely cause mutations. The typical UV mutation is a change of CC to TT, which arises from CC dimers. Squamous cell carcinoma of the skin doubles in frequency with each 10 degrees
+      of latitude closer to the equator.
+    </p>
+
+    <p>
+      Many chemical carcinogens become harmful only after the body modifies them. The liver oxidizes foreign
+      molecules with cytochrome P450 enzymes, which makes them easier to excrete. The human genome has genes for
+      57 of these enzymes. The same oxidation turns benzo[a]pyrene, found in tobacco smoke and coal tar, into
+      BPDE. BPDE binds guanine and causes mutations. Aflatoxin B1, made by molds that grow on badly stored nuts and grains, also binds guanine. In about half of the liver cancers of exposed people, it has changed codon 249 of p53 from AGG to
+      AGT.
+    </p>
+
+    <p>
+      Different causes leave different patterns of base changes. These patterns are called mutational
+      signatures. Tumors caused by UV light carry many C to T changes at adjacent pyrimidines. Lung cancers of
+      smokers carry many C to A changes. The pattern of mutations in a tumor genome can therefore point to the
+      cause of the tumor.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="270" viewBox="0 0 800 270">
+      <text class="fig-text fig-tick" x="150" y="24" text-anchor="middle">cause</text>
+      <text class="fig-text fig-tick" x="298" y="24" text-anchor="middle">before</text>
+      <text class="fig-text fig-tick" x="468" y="24" text-anchor="middle">after</text>
+      <text class="fig-text fig-tick" x="640" y="24" text-anchor="middle">change</text>
+      <text class="fig-text fig-tick" x="215" y="63" text-anchor="end">ultraviolet light</text>
+      <rect class="fig-cell" x="250" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="261" y="63" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="274" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="285" y="63" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="298" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="309" y="63" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="322" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="333" y="63" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="420" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="431" y="63" text-anchor="middle">T</text>
+      <rect class="fig-shape-img" x="444" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="455" y="63" text-anchor="middle">T</text>
+      <rect class="fig-shape-img" x="468" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="479" y="63" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="492" y="46" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="503" y="63" text-anchor="middle">A</text>
+      <line class="fig-axis" x1="360" y1="58" x2="400.6" y2="58"/>
+      <path class="fig-dot" d="M 406 58 L 400 60.7 L 400 55.3 Z"/>
+      <text class="fig-text fig-note" x="560" y="63" text-anchor="start">CC to TT at adjacent pyrimidines</text>
+      <text class="fig-text fig-tick" x="215" y="105" text-anchor="end">aging</text>
+      <rect class="fig-cell" x="250" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="261" y="105" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="274" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="285" y="105" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="298" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="309" y="105" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="322" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="333" y="105" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="420" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="431" y="105" text-anchor="middle">A</text>
+      <rect class="fig-shape-img" x="444" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="455" y="105" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="468" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="479" y="105" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="492" y="88" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="503" y="105" text-anchor="middle">T</text>
+      <line class="fig-axis" x1="360" y1="100" x2="400.6" y2="100"/>
+      <path class="fig-dot" d="M 406 100 L 400 102.7 L 400 97.3 Z"/>
+      <text class="fig-text fig-note" x="560" y="105" text-anchor="start">C to T in CpG</text>
+      <text class="fig-text fig-tick" x="215" y="147" text-anchor="end">tobacco smoke</text>
+      <rect class="fig-cell" x="250" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="261" y="147" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="274" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="285" y="147" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="298" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="309" y="147" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="322" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="333" y="147" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="420" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="431" y="147" text-anchor="middle">A</text>
+      <rect class="fig-shape-img" x="444" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="455" y="147" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="468" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="479" y="147" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="492" y="130" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="503" y="147" text-anchor="middle">G</text>
+      <line class="fig-axis" x1="360" y1="142" x2="400.6" y2="142"/>
+      <path class="fig-dot" d="M 406 142 L 400 144.7 L 400 139.3 Z"/>
+      <text class="fig-text fig-note" x="560" y="147" text-anchor="start">C to A</text>
+      <text class="fig-text fig-tick" x="215" y="189" text-anchor="end">aflatoxin B1</text>
+      <rect class="fig-cell" x="250" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="261" y="189" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="274" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="285" y="189" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="298" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="309" y="189" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="420" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="431" y="189" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="444" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="455" y="189" text-anchor="middle">G</text>
+      <rect class="fig-shape-img" x="468" y="172" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="479" y="189" text-anchor="middle">T</text>
+      <line class="fig-axis" x1="360" y1="184" x2="400.6" y2="184"/>
+      <path class="fig-dot" d="M 406 184 L 400 186.7 L 400 181.3 Z"/>
+      <text class="fig-text fig-note" x="560" y="189" text-anchor="start">G to T, codon 249 of p53</text>
+      <text class="fig-text fig-tick" x="215" y="231" text-anchor="end">aristolochic acid</text>
+      <rect class="fig-cell" x="250" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="261" y="231" text-anchor="middle">C</text>
+      <rect class="fig-cell" x="274" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="285" y="231" text-anchor="middle">A</text>
+      <rect class="fig-cell" x="298" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="309" y="231" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="322" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="333" y="231" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="420" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="431" y="231" text-anchor="middle">C</text>
+      <rect class="fig-shape-img" x="444" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="455" y="231" text-anchor="middle">T</text>
+      <rect class="fig-cell" x="468" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="479" y="231" text-anchor="middle">G</text>
+      <rect class="fig-cell" x="492" y="214" width="22" height="24" rx="2"/>
+      <text class="fig-text fig-tick" x="503" y="231" text-anchor="middle">T</text>
+      <line class="fig-axis" x1="360" y1="226" x2="400.6" y2="226"/>
+      <path class="fig-dot" d="M 406 226 L 400 228.7 L 400 223.3 Z"/>
+      <text class="fig-text fig-note" x="560" y="231" text-anchor="start">A to T</text>
+      </svg>
+      <figcaption>Typical base changes left by five causes of mutation. The short sequences are examples, and the
+      changed bases are shaded. Aflatoxin B1 changes AGG to AGT at codon 249 of the p53 gene.</figcaption>
+    </figure>
+
+    <p>
+      Cells also block mutagens before they reach the DNA. Skin cells receive melanin from pigment cells and
+      place it as a cap above the nucleus. Nuclei without such caps suffer up to four times more UV damage. People
+      with red hair make little black melanin and have almost four times the risk of melanoma. Enzymes such as
+      superoxide dismutase and catalase destroy reactive oxygen species. Glutathione S-transferases attach
+      glutathione to reactive chemicals so that they can be excreted. As many as 90% of prostate carcinomas have lost one of these enzymes, often by methylation of its gene.
+    </p>
+
+    <h2>DNA Repair</h2>
+
+    <p>
+      Some damage is reversed directly. The enzyme MGMT removes a methyl or ethyl group from the O6 position of
+      guanine and restores the normal base. The MGMT gene is silenced by methylation in up to 40% of gliomas and
+      colorectal tumors. Temozolomide is a drug that kills tumor cells by adding methyl groups to their DNA. In
+      one group of glioblastoma patients treated with temozolomide, those whose tumors made MGMT survived 12
+      months. Those whose tumors had silenced MGMT survived 22 months.
+    </p>
+
+    <p>
+      Most damage is cut out and replaced. In base-excision repair, an enzyme removes a single altered base, such
+      as an oxidized or deaminated base. In nucleotide-excision repair, enzymes cut out a piece of one strand
+      around a bulky lesion that distorts the double helix. Such lesions include UV dimers and the adducts of
+      BPDE and aflatoxin. The cut is made about 24 bases on one side and 5 bases on the other. A polymerase then
+      fills the gap of about 29 bases, using the other strand as a template. Human cells repair about 80% of their
+      UV dimers within 24 hours.
+    </p>
+
+    <p>
+      Some damage cannot be repaired before the DNA is copied. Special error-prone polymerases can then copy past
+      the lesion. The normal polymerases make about one error in $10^5$ bases, while these make about one error in
+      100. The cell accepts these errors because a copying process that stops at a lesion can kill it.
+    </p>
+
+    <p>
+      A break in both strands is the most dangerous damage. Homologous recombination repairs it using the intact
+      copy of the same sequence on the sister chromatid, which exists only after the DNA has been copied. This
+      repair is accurate. Nonhomologous end joining simply joins the two broken ends. It is used when no sister chromatid is available, and it often loses a few bases at the junction.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="280" viewBox="0 0 800 280">
+      <text class="fig-text fig-tick" x="145" y="24" text-anchor="middle">damage</text>
+      <text class="fig-text fig-tick" x="410" y="24" text-anchor="middle">repair system</text>
+      <text class="fig-text fig-tick" x="672.5" y="24" text-anchor="middle">when the system is lost</text>
+      <rect class="fig-cell" x="20" y="40" width="250" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="145" y="61" text-anchor="middle">mispaired base after copying</text>
+      <rect class="fig-shape" x="300" y="40" width="220" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="410" y="61" text-anchor="middle">mismatch repair</text>
+      <rect class="fig-cell" x="560" y="40" width="225" height="32" rx="4"/>
+      <text class="fig-text fig-note" x="672.5" y="61" text-anchor="middle">Lynch syndrome: colon cancer</text>
+      <line class="fig-axis" x1="276" y1="56" x2="288.6" y2="56"/>
+      <path class="fig-dot" d="M 294 56 L 288 58.7 L 288 53.3 Z"/>
+      <line class="fig-guide" x1="526" y1="56" x2="548.6" y2="56"/>
+      <path class="fig-dot" d="M 554 56 L 548 58.7 L 548 53.3 Z"/>
+      <rect class="fig-cell" x="20" y="84" width="250" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="145" y="105" text-anchor="middle">altered base (oxidized, deaminated)</text>
+      <rect class="fig-shape" x="300" y="84" width="220" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="410" y="105" text-anchor="middle">base-excision repair</text>
+      <rect class="fig-cell" x="560" y="84" width="225" height="32" rx="4"/>
+      <text class="fig-text fig-note" x="672.5" y="105" text-anchor="middle">MYH gene: colon adenomas</text>
+      <line class="fig-axis" x1="276" y1="100" x2="288.6" y2="100"/>
+      <path class="fig-dot" d="M 294 100 L 288 102.7 L 288 97.3 Z"/>
+      <line class="fig-guide" x1="526" y1="100" x2="548.6" y2="100"/>
+      <path class="fig-dot" d="M 554 100 L 548 102.7 L 548 97.3 Z"/>
+      <rect class="fig-cell" x="20" y="128" width="250" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="145" y="149" text-anchor="middle">bulky lesion (UV dimer, BPDE)</text>
+      <rect class="fig-shape" x="300" y="128" width="220" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="410" y="149" text-anchor="middle">nucleotide-excision repair</text>
+      <rect class="fig-cell" x="560" y="128" width="225" height="32" rx="4"/>
+      <text class="fig-text fig-note" x="672.5" y="149" text-anchor="middle">xeroderma pigmentosum: skin cancer</text>
+      <line class="fig-axis" x1="276" y1="144" x2="288.6" y2="144"/>
+      <path class="fig-dot" d="M 294 144 L 288 146.7 L 288 141.3 Z"/>
+      <line class="fig-guide" x1="526" y1="144" x2="548.6" y2="144"/>
+      <path class="fig-dot" d="M 554 144 L 548 146.7 L 548 141.3 Z"/>
+      <rect class="fig-cell" x="20" y="172" width="250" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="145" y="193" text-anchor="middle">methyl group on guanine</text>
+      <rect class="fig-shape" x="300" y="172" width="220" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="410" y="193" text-anchor="middle">MGMT removes it directly</text>
+      <rect class="fig-cell" x="560" y="172" width="225" height="32" rx="4"/>
+      <text class="fig-text fig-note" x="672.5" y="193" text-anchor="middle">silenced in up to 40% of gliomas</text>
+      <line class="fig-axis" x1="276" y1="188" x2="288.6" y2="188"/>
+      <path class="fig-dot" d="M 294 188 L 288 190.7 L 288 185.3 Z"/>
+      <line class="fig-guide" x1="526" y1="188" x2="548.6" y2="188"/>
+      <path class="fig-dot" d="M 554 188 L 548 190.7 L 548 185.3 Z"/>
+      <rect class="fig-cell" x="20" y="216" width="250" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="145" y="237" text-anchor="middle">break in both strands</text>
+      <rect class="fig-shape" x="300" y="216" width="220" height="32" rx="4"/>
+      <text class="fig-text fig-tick" x="410" y="237" text-anchor="middle">recombination, end joining</text>
+      <rect class="fig-cell" x="560" y="216" width="225" height="32" rx="4"/>
+      <text class="fig-text fig-note" x="672.5" y="237" text-anchor="middle">BRCA1, BRCA2: breast, ovary</text>
+      <line class="fig-axis" x1="276" y1="232" x2="288.6" y2="232"/>
+      <path class="fig-dot" d="M 294 232 L 288 234.7 L 288 229.3 Z"/>
+      <line class="fig-guide" x1="526" y1="232" x2="548.6" y2="232"/>
+      <path class="fig-dot" d="M 554 232 L 548 234.7 L 548 229.3 Z"/>
+      </svg>
+      <figcaption>The main kinds of DNA damage, the systems that repair them, and the consequence of losing each
+      system. The first three and the last are inherited cancer syndromes. MGMT is lost by gene silencing in the
+      tumor itself.</figcaption>
+    </figure>
+
+    <h2>Inherited Defects in Repair</h2>
+
+    <p>
+      Xeroderma pigmentosum (XP) is caused by inherited defects in nucleotide-excision repair. People with XP have
+      2000 times the normal risk of skin cancer before age 20. Their risk of squamous cell carcinoma of the tip of
+      the tongue is about 100,000 times the normal risk. Their skin cancers appear at a median age of about 10
+      years, compared with about 60 years in the general population. Strong sunlight can cause as many as 100,000
+      DNA lesions per skin cell per hour. When cells from two XP patients with defects in different genes are fused, each corrects the defect of the other. Such fusion experiments sorted XP patients into eight groups, one for each gene.
+    </p>
+
+    <p>
+      Hereditary non-polyposis colon cancer, also called Lynch syndrome, is caused by inherited defects in
+      mismatch repair. It accounts for 2 to 3% of all colon cancers. People with Lynch syndrome have an 80%
+      lifetime risk of colon cancer. An adenoma normally takes more than a decade to become a carcinoma, but in
+      these patients it takes only 2 to 3 years. Most cases, 85 to 90%, involve the genes MSH2 and MLH1.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="160" viewBox="0 0 800 160">
+      <text class="fig-text fig-tick" x="245" y="24" text-anchor="middle">median age at first skin cancer</text>
+      <text class="fig-text fig-tick" x="140" y="67" text-anchor="end">xeroderma pigmentosum</text>
+      <rect class="fig-shape-img" x="150" y="53" width="27.1" height="22"/>
+      <text class="fig-text fig-note" x="183.1" y="68" text-anchor="start">about 10 years</text>
+      <text class="fig-text fig-tick" x="140" y="115" text-anchor="end">general population</text>
+      <rect class="fig-shape" x="150" y="101" width="162.9" height="22"/>
+      <text class="fig-text fig-note" x="318.9" y="116" text-anchor="start">about 60 years</text>
+      <text class="fig-text fig-tick" x="640" y="24" text-anchor="middle">time from adenoma to carcinoma</text>
+      <text class="fig-text fig-tick" x="570" y="67" text-anchor="end">Lynch syndrome</text>
+      <rect class="fig-shape-img" x="580" y="53" width="32.1" height="22"/>
+      <text class="fig-text fig-note" x="618.1" y="68" text-anchor="start">2 to 3 years</text>
+      <text class="fig-text fig-tick" x="570" y="115" text-anchor="end">general population</text>
+      <rect class="fig-shape" x="580" y="101" width="107.1" height="22"/>
+      <line class="fig-axis" x1="687.1" y1="112" x2="703.7" y2="112"/>
+      <path class="fig-dot" d="M 709.1 112 L 703.1 114.7 L 703.1 109.3 Z"/>
+      <text class="fig-text fig-note" x="715.1" y="116" text-anchor="start">over 10 years</text>
+      </svg>
+      <figcaption><span class="cap-part"><span class="cap-lead">Left.</span> Median age at the first skin
+      cancer in people with xeroderma pigmentosum and in the general population.</span><span class="cap-part"><span
+      class="cap-lead">Right.</span> Time for an adenoma to become a carcinoma in the colon, with and without
+      Lynch syndrome.</span></figcaption>
+    </figure>
+
+    <p>
+      Mismatch repair defects cause mutations in particular genes. The gene for the type II TGF-β receptor
+      contains a run of 10 A bases. In 100 of 111 colorectal carcinomas with defective mismatch repair, this run
+      had lost one or two bases. The shift in the reading frame makes a protein of 129 or 161 amino acids instead
+      of 565. The cells then escape the growth arrest caused by TGF-β (Chapter 8). About 15% of sporadic gastric,
+      colorectal and endometrial tumors also lack mismatch repair. In almost all of them, the MLH1 gene has been
+      silenced by methylation.
+    </p>
+
+    <p>
+      The BRCA1 and BRCA2 genes act in the repair of double-strand breaks by homologous recombination. Inherited
+      mutations in these genes cause almost half of familial breast cancers and 70 to 80% of familial ovarian
+      cancers. Carriers have a 50 to 70% risk of breast cancer before age 70. The risk of ovarian cancer before 70
+      is 40 to 50% with BRCA1 and 10 to 20% with BRCA2. Men who carry a mutant BRCA2 have more than 7 times the
+      risk of prostate cancer before 65.
+    </p>
+
+    <p>
+      The environment still matters for these carriers. Among Ashkenazi Jewish women with the BRCA1 mutation
+      185delAG, the risk of breast cancer by age 50 was 24% for those born before 1940. It was 67% for those born
+      after 1940.
+    </p>
+
+    <h2>Why Instability Helps a Tumor</h2>
+
+    <p>
+      Most mutations of Chapter 11 give a cell an immediate advantage in growth or survival. A defect in repair
+      gives no such advantage. Its benefit appears only in the distant descendants of the cell. Clones that
+      carry the first steps toward cancer arise often in the body. Nearly all stay small for a lifetime, because
+      their stable genomes rarely acquire the next mutation. A clone that loses a repair gene acquires new
+      mutations much faster, and some of them let the clone progress.
+    </p>
+
+    <p>
+      Instability has limits. A cell that accumulates too many mutations damages genes that it needs and dies.
+      Evolution has set the mutation rate of the germ line as a compromise. Without mutations, species could not
+      evolve. With too many, they could not survive.
+    </p>
+
+    <h2>Changes in Chromosome Structure</h2>
+
+    <p>
+      More than 85% of solid tumors carry changes in the structure of their chromosomes. A translocation moves a
+      piece of one chromosome onto another (Chapter 4). About 50% of localized prostate carcinomas carry a fusion
+      of the TMPRSS2 gene with the ERG gene. With fusions to related genes, the total reaches about 70%. About 5%
+      of lung adenocarcinomas carry the fusion gene EML4-ALK, made by an inversion within one chromosome. It
+      produces an ALK kinase that is always active. Tumors with this fusion do not carry activating mutations of
+      the EGF receptor.
+    </p>
+
+    <p>
+      Sequencing revealed a further kind of damage in 2011. In chromothripsis, one region of a chromosome breaks
+      into many pieces at once. The pieces are then joined again in a random order. Chromothripsis is found in
+      about 25% of bone cancers and in many other cancers.
+    </p>
+
+    <h2>Changes in Chromosome Number</h2>
+
+    <p>
+      Gains and losses of whole chromosomes are found in almost all solid tumors. An abnormal number of chromosomes is called aneuploidy. It arises
+      when the chromosomes are split unequally between the two daughter cells at division. In normal cells, by
+      some estimates, about 1% of divisions go wrong in this way. In cancer cells, as many as half do. The main cause appears to be a chromatid attached to fibers from both poles of the spindle, which is then left behind. Extra
+      centrosomes, the structures that organize the spindle, also cause errors.
+    </p>
+
+    <p>
+      The continuing gain and loss of chromosomes is called chromosomal instability (CIN). The few colorectal carcinomas with microsatellite instability show almost no chromosomal instability. The many carcinomas with chromosomal instability rarely show the mutations typical of microsatellite instability. In cell lines with microsatellite instability, a test gene mutated up to 100 times more often than in lines with chromosomal instability. A tumor thus appears to need one kind of instability, and either kind is enough. Some tumors show both.
+    </p>
+
+    <h2>Reading Cancer Genomes</h2>
+
+    <p>
+      The first human genome sequence cost nearly 3 billion dollars. By 2021, sequencing a whole human genome cost well under 600 dollars. Sequencing of more than 7000 cancer genomes showed that the number of point mutations varies
+      more than 1000-fold between tumors. Childhood tumors carry few mutations. Tumors caused by tobacco smoke or
+      UV light carry many, and so do tumors with defects in DNA repair.
+    </p>
+
+    <p>
+      Lung adenocarcinomas of smokers carry on average about 175 mutations that change a protein. Lung
+      adenocarcinomas of people who never smoked carry about tenfold fewer. Tumors without mismatch repair carry 14
+      to 40 base substitutions and 5 to 12 insertions or deletions per million bases. Tumors with defective POLE
+      or POLD1 proofreading carry well over 200 mutations per million bases.
+    </p>
+
+    <p>
+      Most mutations in a tumor are passengers. The genes with driver mutations are found because they are mutated
+      in many tumors, more often than expected by chance. Driver mutations in the same pathway tend to exclude
+      each other. In lung adenocarcinomas, EGFR, K-Ras and NF1 all act in the same growth signaling pathway. Most
+      tumors carry only one mutation that activates this pathway. Nearly all tumors without such a mutation have
+      lost a tumor suppressor gene that normally slows the same pathway.
+    </p>
+
+    <p>
+      Mutations found in all regions of a tumor arose early. They are called truncal mutations, because they lie
+      on the trunk of the tumor's family tree. Mutations found in only one region lie on a branch. Drugs aimed at
+      the product of a truncal mutation are the most likely to give long responses.
+    </p>
+
+    <h2>Repair Defects as Targets for Therapy</h2>
+
+    <p>
+      A repair defect makes a cancer cell depend on its remaining repair systems. The enzyme PARP1 binds breaks in
+      one DNA strand and recruits the enzymes of base-excision repair. When a drug inhibits PARP1, these
+      single-strand breaks persist. When the DNA is copied, they become double-strand breaks. These can be
+      repaired accurately only by homologous recombination, which needs BRCA1 and BRCA2.
+    </p>
+
+    <p>
+      Normal cells survive a PARP inhibitor, because they repair the double-strand breaks. Cells without BRCA1 or
+      BRCA2 cannot repair them and die. Mouse embryonic stem cells lacking both copies of BRCA2 were killed by a
+      PARP1 inhibitor at concentrations almost 1000 times lower than normal cells. PARP inhibitors are now used to
+      treat patients with ovarian and breast cancers.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="280" viewBox="0 0 760 280">
+      <text class="fig-text fig-tick" x="355" y="34" text-anchor="middle">PARP active</text>
+      <text class="fig-text fig-tick" x="605" y="34" text-anchor="middle">PARP inhibited</text>
+      <text class="fig-text fig-tick" x="216" y="94" text-anchor="end">recombination works</text>
+      <text class="fig-text fig-note" x="216" y="112" text-anchor="end">(normal BRCA1, BRCA2)</text>
+      <text class="fig-text fig-tick" x="216" y="190" text-anchor="end">recombination fails</text>
+      <text class="fig-text fig-note" x="216" y="208" text-anchor="end">(BRCA1 or BRCA2 lost)</text>
+      <rect class="fig-cell" x="234" y="54" width="242" height="88" rx="5"/>
+      <text class="fig-text fig-note" x="355" y="84" text-anchor="middle">single-strand breaks repaired</text>
+      <text class="fig-text fig-tick" x="355" y="126" text-anchor="middle">cell lives</text>
+      <rect class="fig-cell" x="484" y="54" width="242" height="88" rx="5"/>
+      <text class="fig-text fig-note" x="605" y="76" text-anchor="middle">breaks become double-strand</text>
+      <text class="fig-text fig-note" x="605" y="93" text-anchor="middle">breaks, repaired by recombination</text>
+      <text class="fig-text fig-tick" x="605" y="126" text-anchor="middle">cell lives</text>
+      <rect class="fig-cell" x="234" y="150" width="242" height="88" rx="5"/>
+      <text class="fig-text fig-note" x="355" y="180" text-anchor="middle">single-strand breaks repaired</text>
+      <text class="fig-text fig-tick" x="355" y="222" text-anchor="middle">cell lives</text>
+      <rect class="fig-shape-img" x="484" y="150" width="242" height="88" rx="5"/>
+      <text class="fig-text fig-note" x="605" y="172" text-anchor="middle">double-strand breaks</text>
+      <text class="fig-text fig-note" x="605" y="189" text-anchor="middle">cannot be repaired</text>
+      <text class="fig-text fig-tick" x="605" y="222" text-anchor="middle">cell dies</text>
+      </svg>
+      <figcaption>Synthetic lethality. A cell survives the loss of PARP activity or the loss of homologous
+      recombination. It dies when both are lost. A PARP inhibitor therefore kills cancer cells that lack BRCA1 or
+      BRCA2 and spares normal cells.</figcaption>
+    </figure>
+  </main>
+</body>
+</html>

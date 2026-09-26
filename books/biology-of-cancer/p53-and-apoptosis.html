@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 9: p53 and Apoptosis</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="p53 as the sensor of damage and stress inside the cell: its destruction by Mdm2, the signals that stop it, ARF, the dominant-negative effect of mutant p53, and apoptosis through the Bcl-2 family and caspases.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/p53-and-apoptosis.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 9: p53 and Apoptosis">
+  <meta property="og:description" content="p53 as the sensor of damage and stress inside the cell: its destruction by Mdm2, the signals that stop it, ARF, the dominant-negative effect of mutant p53, and apoptosis through the Bcl-2 family and caspases.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/p53-and-apoptosis.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 9: p53 and Apoptosis</h1>
+    </header>
+    <h2>A Protein Found Bound to a Viral Oncoprotein</h2>
+
+    <p>
+      In 1979, researchers used antibodies from animals with tumors caused by SV40 to study the proteins of
+      cells transformed by SV40. The antibodies caught the viral large T antigen and, bound to it, a protein of
+      the cell that weighs about 53 to 54 kilodaltons. This protein became known as p53. Its gene was first
+      cloned from tumor cells. This version of the gene helped ras and myc to transform cells, so p53 was first
+      thought to be an oncogene.
+    </p>
+
+    <p>
+      A copy of the gene cloned from normal cells did the opposite: it stopped transformation. The two versions
+      differed by a single point mutation, and the version from tumor cells was a mutant. The p53 gene is in
+      fact a tumor suppressor gene. Of all the genes examined in human cancers, it is the one mutated most often,
+      and it is mutated in more than 90% of some types of cancer.
+    </p>
+
+    <p>
+      Mice that lack both copies of p53 develop normally, so p53 is not needed to control normal growth. But
+      these mice die of cancer, mostly lymphomas, and all of them are dead by about 250 days of age. Mice with
+      one copy of p53 begin to develop tumors at about that age. Normal mice show almost no deaths until almost
+      500 days of age. In humans, inherited mutant copies of p53 cause Li-Fraumeni syndrome. In families with
+      this syndrome, many people develop cancers of many kinds, often early in life. Mutant p53 copies are passed
+      on in about 70% of these families.
+    </p>
+
+    <h2>One Mutant Copy Disables Most p53</h2>
+
+    <p>
+      Most mutations of APC shorten the protein. Most p53 mutations, in contrast, replace one amino acid with
+      another, and 95.1% of them fall in the part of the protein that binds DNA. The p53 protein works as a
+      tetramer, a group of four subunits. One defective subunit can disable the whole tetramer.
+    </p>
+
+    <p>
+      Consider a cell with one mutant copy and one normal copy of p53, both making the same amount of protein.
+      Each tetramer takes its four subunits at random, so only one tetramer in 16 is made entirely of normal
+      subunits. A mutant allele that works in this way, by disabling the protein made by the normal allele, is
+      called dominant-negative. Tumors usually lose the remaining normal copy later, by LOH.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="360" viewBox="0 0 800 360">
+      <text class="fig-text fig-tick" x="100" y="22" text-anchor="middle">0 mutant subunits</text>
+      <text class="fig-text fig-note" x="100" y="40" text-anchor="middle">1 of 16</text>
+      <rect class="fig-cell" x="76" y="52" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="91" cy="62" r="6.5"/>
+      <circle class="fig-dot" cx="109" cy="62" r="6.5"/>
+      <circle class="fig-dot" cx="91" cy="78" r="6.5"/>
+      <circle class="fig-dot" cx="109" cy="78" r="6.5"/>
+      <text class="fig-text fig-tick" x="250" y="22" text-anchor="middle">1 mutant subunit</text>
+      <text class="fig-text fig-note" x="250" y="40" text-anchor="middle">4 of 16</text>
+      <rect class="fig-cell" x="226" y="52" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="241" cy="62" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="62" r="6.5"/>
+      <circle class="fig-dot" cx="241" cy="78" r="6.5"/>
+      <circle class="fig-dot-alt" cx="259" cy="78" r="6.5"/>
+      <rect class="fig-cell" x="226" y="98" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="241" cy="108" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="108" r="6.5"/>
+      <circle class="fig-dot-alt" cx="241" cy="124" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="124" r="6.5"/>
+      <rect class="fig-cell" x="226" y="144" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="241" cy="154" r="6.5"/>
+      <circle class="fig-dot-alt" cx="259" cy="154" r="6.5"/>
+      <circle class="fig-dot" cx="241" cy="170" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="170" r="6.5"/>
+      <rect class="fig-cell" x="226" y="190" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="241" cy="200" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="200" r="6.5"/>
+      <circle class="fig-dot" cx="241" cy="216" r="6.5"/>
+      <circle class="fig-dot" cx="259" cy="216" r="6.5"/>
+      <text class="fig-text fig-tick" x="400" y="22" text-anchor="middle">2 mutant subunits</text>
+      <text class="fig-text fig-note" x="400" y="40" text-anchor="middle">6 of 16</text>
+      <rect class="fig-cell" x="376" y="52" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="391" cy="62" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="62" r="6.5"/>
+      <circle class="fig-dot-alt" cx="391" cy="78" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="78" r="6.5"/>
+      <rect class="fig-cell" x="376" y="98" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="391" cy="108" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="108" r="6.5"/>
+      <circle class="fig-dot" cx="391" cy="124" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="124" r="6.5"/>
+      <rect class="fig-cell" x="376" y="144" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="391" cy="154" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="154" r="6.5"/>
+      <circle class="fig-dot-alt" cx="391" cy="170" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="170" r="6.5"/>
+      <rect class="fig-cell" x="376" y="190" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="391" cy="200" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="200" r="6.5"/>
+      <circle class="fig-dot" cx="391" cy="216" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="216" r="6.5"/>
+      <rect class="fig-cell" x="376" y="236" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="391" cy="246" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="246" r="6.5"/>
+      <circle class="fig-dot-alt" cx="391" cy="262" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="262" r="6.5"/>
+      <rect class="fig-cell" x="376" y="282" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="391" cy="292" r="6.5"/>
+      <circle class="fig-dot-alt" cx="409" cy="292" r="6.5"/>
+      <circle class="fig-dot" cx="391" cy="308" r="6.5"/>
+      <circle class="fig-dot" cx="409" cy="308" r="6.5"/>
+      <text class="fig-text fig-tick" x="550" y="22" text-anchor="middle">3 mutant subunits</text>
+      <text class="fig-text fig-note" x="550" y="40" text-anchor="middle">4 of 16</text>
+      <rect class="fig-cell" x="526" y="52" width="48" height="36" rx="8"/>
+      <circle class="fig-dot" cx="541" cy="62" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="62" r="6.5"/>
+      <circle class="fig-dot-alt" cx="541" cy="78" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="78" r="6.5"/>
+      <rect class="fig-cell" x="526" y="98" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="541" cy="108" r="6.5"/>
+      <circle class="fig-dot" cx="559" cy="108" r="6.5"/>
+      <circle class="fig-dot-alt" cx="541" cy="124" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="124" r="6.5"/>
+      <rect class="fig-cell" x="526" y="144" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="541" cy="154" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="154" r="6.5"/>
+      <circle class="fig-dot" cx="541" cy="170" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="170" r="6.5"/>
+      <rect class="fig-cell" x="526" y="190" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="541" cy="200" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="200" r="6.5"/>
+      <circle class="fig-dot-alt" cx="541" cy="216" r="6.5"/>
+      <circle class="fig-dot" cx="559" cy="216" r="6.5"/>
+      <text class="fig-text fig-tick" x="700" y="22" text-anchor="middle">4 mutant subunits</text>
+      <text class="fig-text fig-note" x="700" y="40" text-anchor="middle">1 of 16</text>
+      <rect class="fig-cell" x="676" y="52" width="48" height="36" rx="8"/>
+      <circle class="fig-dot-alt" cx="691" cy="62" r="6.5"/>
+      <circle class="fig-dot-alt" cx="709" cy="62" r="6.5"/>
+      <circle class="fig-dot-alt" cx="691" cy="78" r="6.5"/>
+      <circle class="fig-dot-alt" cx="709" cy="78" r="6.5"/>
+      <text class="fig-text fig-note" x="100" y="118" text-anchor="middle">fully active</text>
+      <circle class="fig-dot" cx="250" cy="346" r="6.5"/>
+      <text class="fig-text fig-note" x="262" y="350" text-anchor="start">normal p53 subunit</text>
+      <circle class="fig-dot-alt" cx="430" cy="346" r="6.5"/>
+      <text class="fig-text fig-note" x="442" y="350" text-anchor="start">mutant p53 subunit</text>
+      </svg>
+      <figcaption>The 16 equally likely tetramers in a cell that makes equal amounts of normal and mutant p53,
+      grouped by the number of mutant subunits. The counts are 1, 4, 6, 4 and 1, the binomial coefficients of 4.
+      Only the tetramer made of four normal subunits, one in 16, is fully active.</figcaption>
+    </figure>
+
+    <h2>Mdm2 Keeps p53 Low Until the Cell Is Damaged</h2>
+
+    <p>
+      Normal cells make p53 all the time, but they destroy it almost at once. When the making of new proteins
+      is blocked, p53 disappears with a half-life of only 20 minutes. The cell can therefore raise its level of
+      p53 quickly, simply by stopping its destruction. It does not need to make more p53 RNA.
+    </p>
+
+    <p>
+      X-rays, ultraviolet light, drugs that damage DNA and drugs that block DNA synthesis all raise p53 within
+      minutes. Later work found other triggers: low oxygen, a shortage of nucleotides and too much signaling by
+      oncogenes. One experiment used thymocytes, white blood cells from the thymus. In normal mice, 80% of these
+      cells died in the 25 hours after X-rays. In mice with one p53 copy, almost as many died. In mice without
+      p53, fewer than 5% died.
+    </p>
+
+    <p>
+      The protein that destroys p53 is Mdm2. Mdm2 attaches chains of a small protein called ubiquitin to p53,
+      which marks p53 for destruction. In turn, p53 switches on the gene for Mdm2. This negative feedback loop
+      brings p53 back down once the damage is repaired. Damage and stress break this loop. DNA breaks activate
+      the kinases ATM and Chk2, and stalled DNA copying activates the kinases ATR and Chk1. These kinases add
+      phosphate to p53 near the site where Mdm2 binds, and this prevents the binding. Oncogene signals act
+      through another protein, called ARF.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="470" viewBox="0 0 800 470">
+      <rect class="fig-shape" x="66" y="27" width="88" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="110" y="44" text-anchor="middle">DNA breaks</text>
+      <rect class="fig-shape" x="224.5" y="27" width="151" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="300" y="44" text-anchor="middle">stalled DNA copying</text>
+      <rect class="fig-shape" x="465" y="27" width="130" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="530" y="44" text-anchor="middle">oncogene signals</text>
+      <rect class="fig-shape" x="656" y="27" width="88" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="700" y="44" text-anchor="middle">low oxygen</text>
+      <rect class="fig-shape" x="69.5" y="87" width="81" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="110" y="104" text-anchor="middle">ATM, Chk2</text>
+      <rect class="fig-shape" x="259.5" y="87" width="81" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="300" y="104" text-anchor="middle">ATR, Chk1</text>
+      <rect class="fig-shape" x="502" y="87" width="56" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="530" y="104" text-anchor="middle">ARF</text>
+      <line class="fig-curve" x1="110" y1="54" x2="110" y2="80.6"/>
+      <path class="fig-dot" d="M 110 86 L 107.3 80 L 112.7 80 Z"/>
+      <line class="fig-curve" x1="300" y1="54" x2="300" y2="80.6"/>
+      <path class="fig-dot" d="M 300 86 L 297.3 80 L 302.7 80 Z"/>
+      <line class="fig-curve" x1="530" y1="54" x2="530" y2="80.6"/>
+      <path class="fig-dot" d="M 530 86 L 527.3 80 L 532.7 80 Z"/>
+      <rect class="fig-shape-img" x="372" y="177" width="56" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="400" y="194" text-anchor="middle">Mdm2</text>
+      <rect class="fig-shape-img" x="355" y="267" width="90" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="400" y="284" text-anchor="middle">p53</text>
+      <line class="fig-curve" x1="400" y1="204" x2="400" y2="264"/>
+      <line class="fig-curve" x1="407" y1="264" x2="393" y2="264"/>
+      <text class="fig-text fig-note" x="408" y="240" text-anchor="start">marks p53 for destruction</text>
+      <line class="fig-curve" x1="110" y1="114" x2="350" y2="184"/>
+      <line class="fig-curve" x1="352" y1="177.3" x2="348" y2="190.7"/>
+      <line class="fig-curve" x1="300" y1="114" x2="372" y2="178"/>
+      <line class="fig-curve" x1="376.7" y1="172.8" x2="367.3" y2="183.2"/>
+      <line class="fig-curve" x1="530" y1="114" x2="430" y2="178"/>
+      <line class="fig-curve" x1="433.8" y1="183.9" x2="426.2" y2="172.1"/>
+      <path class="fig-free" d="M 700 54 L 700 280 L 452 280"/>
+      <path class="fig-dot" d="M 446 280 L 452 277.3 L 452 282.7 Z"/>
+      <path class="fig-free-solid" d="M 355 280 C 300 280 300 190 368 190"/>
+      <path class="fig-dot-alt" d="M 372 190 L 365 193.2 L 365 186.8 Z"/>
+      <text class="fig-text fig-note" x="296" y="240" text-anchor="end">p53 switches on</text>
+      <text class="fig-text fig-note" x="296" y="254" text-anchor="end">the Mdm2 gene</text>
+      <rect class="fig-shape" x="41.5" y="367" width="137" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="110" y="384" text-anchor="middle">p21: cycle arrest</text>
+      <line class="fig-curve" x1="400" y1="294" x2="115.2" y2="364.7"/>
+      <path class="fig-dot" d="M 110 366 L 115.2 361.9 L 116.5 367.2 Z"/>
+      <rect class="fig-shape" x="235" y="367" width="130" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="300" y="384" text-anchor="middle">DNA repair genes</text>
+      <line class="fig-curve" x1="400" y1="294" x2="304.4" y2="362.8"/>
+      <path class="fig-dot" d="M 300 366 L 303.3 360.3 L 306.4 364.7 Z"/>
+      <rect class="fig-shape" x="456" y="367" width="88" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="500" y="384" text-anchor="middle">senescence</text>
+      <line class="fig-curve" x1="400" y1="294" x2="495.6" y2="362.8"/>
+      <path class="fig-dot" d="M 500 366 L 493.6 364.7 L 496.7 360.3 Z"/>
+      <rect class="fig-shape" x="590" y="367" width="200" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="690" y="384" text-anchor="middle">PUMA, Noxa, Bax: apoptosis</text>
+      <line class="fig-curve" x1="400" y1="294" x2="684.8" y2="364.7"/>
+      <path class="fig-dot" d="M 690 366 L 683.5 367.2 L 684.8 361.9 Z"/>
+      <circle class="fig-hole-alt" cx="460" cy="304" r="5"/>
+      <text class="fig-text fig-note" x="470" y="308" text-anchor="start">mutated in about half of tumors</text>
+      <circle class="fig-hole-alt" cx="566" cy="100" r="5"/>
+      <text class="fig-text fig-note" x="576" y="104" text-anchor="start">lost with p16 in about half of tumors</text>
+      <circle class="fig-hole-alt" cx="432" cy="190" r="5"/>
+      <text class="fig-text fig-note" x="442" y="194" text-anchor="start">amplified in sarcomas</text>
+      <text class="fig-text fig-note" x="170" y="288" text-anchor="middle">HPV E6 and SV40 large T</text>
+      <text class="fig-text fig-note" x="170" y="302" text-anchor="middle">disable p53</text>
+      <line class="fig-curve" x1="150" y1="451" x2="180" y2="451"/>
+      <path class="fig-dot" d="M 184 451 L 178 453.7 L 178 448.3 Z"/>
+      <text class="fig-text fig-note" x="192" y="455" text-anchor="start">activates</text>
+      <line class="fig-curve" x1="280" y1="451" x2="310" y2="451"/>
+      <line class="fig-curve" x1="310" y1="444" x2="310" y2="458"/>
+      <text class="fig-text fig-note" x="318" y="455" text-anchor="start">inhibits</text>
+      <line class="fig-free-solid" x1="400" y1="451" x2="430" y2="451"/>
+      <text class="fig-text fig-note" x="438" y="455" text-anchor="start">negative feedback loop</text>
+      <circle class="fig-hole-alt" cx="600" cy="451" r="5"/>
+      <text class="fig-text fig-note" x="610" y="455" text-anchor="start">altered in tumors</text>
+      </svg>
+      <figcaption>The p53 network. Several kinds of damage and stress block Mdm2, the protein that marks p53 for
+      destruction. The p53 protein then builds up and switches on genes that stop the cell cycle, repair DNA,
+      cause senescence or cause apoptosis. It also switches on the Mdm2 gene, which ends the response. The
+      circles mark the parts altered in tumors.</figcaption>
+    </figure>
+
+    <h2>ARF Links the pRb and p53 Pathways</h2>
+
+    <p>
+      ARF is encoded in the same stretch of DNA as p16INK4A, but it is read in a different frame and from its
+      own promoter. ARF binds Mdm2 and holds it in the nucleolus, a region of the nucleus, away from p53. The p53
+      protein then builds up. The gene for ARF is switched on by E2F. In a cell whose pRb pathway is broken, free
+      E2F drives the cell into the S phase (Chapter 8). This E2F also makes the cell produce ARF, which raises
+      p53, and p53 can then kill the cell.
+    </p>
+
+    <p>
+      Too much Myc has the same effect. In lymphoid tissue, Myc makes cells divide, but it does not increase
+      their number, unless p53 or ARF is also lost. The stretch of DNA that encodes both p16INK4A and ARF is
+      inactivated in about half of all human tumors. A single deletion there disables both the pRb pathway and
+      the p53 pathway.
+    </p>
+
+    <h2>What p53 Does</h2>
+
+    <p>
+      The p53 protein is a transcription factor. One of its target genes is p21Cip1, whose protein blocks CDKs
+      and stops the cell cycle. Other targets are genes for DNA repair and genes for proteins that trigger
+      apoptosis, such as PUMA, Noxa and Bax. A cell with damaged DNA can therefore stop and repair the damage,
+      stop dividing for good (a state called senescence), or kill itself.
+    </p>
+
+    <p>
+      An experiment showed how much this matters for the genome. Pregnant mice with one p53 copy, mated with
+      males of the same kind, were treated with a chemical that causes mutations, ethylnitrosourea. Among the
+      young mice that lacked p53, 70% developed brain tumors. Among those with one copy, 3.6% did, and among
+      those with two copies, none did. Without p53, cells with damaged DNA survived and gave rise to tumors.
+    </p>
+
+    <p>
+      The p53 protein also protects the skin. When ultraviolet-B light damages the DNA of skin cells, p53
+      triggers their death. This is why skin peels several days after a sunburn. Ultraviolet light also causes
+      p53 mutations, which are found in skin carcinomas.
+    </p>
+
+    <p>
+      Tumors that keep a normal p53 gene disable the pathway in other ways. They can lose ARF. They can amplify
+      Mdm2, as some sarcomas do. Or viral proteins can disable p53: the E6 protein of HPV marks p53 for
+      destruction, and the large T antigen of SV40 binds it.
+    </p>
+
+    <h2>Apoptosis</h2>
+
+    <p>
+      Apoptosis is a program of cell suicide that almost all cells carry. It removes cells during normal
+      development. For example, more than half of the nerve cells first formed in the brain die by apoptosis. A
+      cell in apoptosis forms bulges on its surface. Its nucleus shrinks and breaks up, and its DNA is cut into
+      small pieces. Within about an hour, the cell falls apart into fragments, which neighboring cells or
+      macrophages swallow. Unlike necrosis, in which cells burst, apoptosis causes no inflammation. Damage,
+      oncogene signals and lack of oxygen can all trigger apoptosis, so it is a constant threat to a cell on its
+      way to becoming a cancer cell.
+    </p>
+
+    <p>
+      In the intrinsic pathway, the decision is made at the mitochondria, by the Bcl-2 family of proteins. Bax
+      and Bak can open pores in the outer membrane of the mitochondria. Bcl-2 and Bcl-xL prevent this. Sensor
+      proteins, such as PUMA, Noxa, Bim and Bid, block Bcl-2 and Bcl-xL. The p53 protein switches on the genes for some of these sensors. When the sensors win, the mitochondria release cytochrome c. Cytochrome c binds the protein Apaf-1,
+      and seven Apaf-1 molecules form a wheel-shaped complex, the apoptosome. The apoptosome activates caspase 9.
+      Caspase 9 activates caspases 3, 6 and 7, which cut hundreds of proteins and take the cell apart.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="500" viewBox="0 0 800 500">
+      <text class="fig-text fig-tick" x="250" y="22" text-anchor="middle">intrinsic pathway</text>
+      <text class="fig-text fig-tick" x="620" y="22" text-anchor="middle">extrinsic pathway</text>
+      <rect class="fig-shape" x="174.5" y="47" width="151" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="250" y="64" text-anchor="middle">stress signals, p53</text>
+      <rect class="fig-shape" x="104.5" y="107" width="291" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="250" y="124" text-anchor="middle">BH3-only proteins: PUMA, Noxa, Bim, Bid</text>
+      <line class="fig-curve" x1="250" y1="74" x2="250" y2="100.6"/>
+      <path class="fig-dot" d="M 250 106 L 247.3 100 L 252.7 100 Z"/>
+      <rect class="fig-shape" x="75.5" y="177" width="109" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="130" y="194" text-anchor="middle">Bcl-2, Bcl-xL</text>
+      <rect class="fig-shape" x="273" y="177" width="74" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="310" y="194" text-anchor="middle">Bax, Bak</text>
+      <line class="fig-curve" x1="190" y1="134" x2="140" y2="176"/>
+      <line class="fig-curve" x1="144.5" y1="181.4" x2="135.5" y2="170.6"/>
+      <line class="fig-curve" x1="180" y1="190" x2="276" y2="190"/>
+      <line class="fig-curve" x1="276" y1="183" x2="276" y2="197"/>
+      <rect class="fig-shape" x="185" y="247" width="250" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="310" y="264" text-anchor="middle">mitochondrion releases cytochrome c</text>
+      <line class="fig-curve" x1="310" y1="204" x2="310" y2="240.6"/>
+      <path class="fig-dot" d="M 310 246 L 307.3 240 L 312.7 240 Z"/>
+      <rect class="fig-shape" x="231" y="317" width="158" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="310" y="334" text-anchor="middle">apoptosome: 7 Apaf-1</text>
+      <line class="fig-curve" x1="310" y1="274" x2="310" y2="310.6"/>
+      <path class="fig-dot" d="M 310 316 L 307.3 310 L 312.7 310 Z"/>
+      <rect class="fig-shape" x="269.5" y="377" width="81" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="310" y="394" text-anchor="middle">caspase 9</text>
+      <line class="fig-curve" x1="310" y1="344" x2="310" y2="370.6"/>
+      <path class="fig-dot" d="M 310 376 L 307.3 370 L 312.7 370 Z"/>
+      <rect class="fig-shape" x="555" y="47" width="130" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="620" y="64" text-anchor="middle">FasL, TNF, TRAIL</text>
+      <rect class="fig-shape" x="562" y="107" width="116" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="620" y="124" text-anchor="middle">death receptor</text>
+      <line class="fig-curve" x1="620" y1="74" x2="620" y2="100.6"/>
+      <path class="fig-dot" d="M 620 106 L 617.3 100 L 622.7 100 Z"/>
+      <rect class="fig-shape" x="579.5" y="177" width="81" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="620" y="194" text-anchor="middle">caspase 8</text>
+      <line class="fig-curve" x1="620" y1="134" x2="620" y2="170.6"/>
+      <path class="fig-dot" d="M 620 176 L 617.3 170 L 622.7 170 Z"/>
+      <line class="fig-free" x1="580" y1="196" x2="307.3" y2="133.2"/>
+      <path class="fig-dot" d="M 302 132 L 308.5 130.7 L 307.2 136 Z"/>
+      <text class="fig-text fig-note" x="470" y="150" text-anchor="middle">cleaves Bid</text>
+      <rect class="fig-shape" x="345" y="437" width="250" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="470" y="454" text-anchor="middle">caspases 3, 6, 7: cell taken apart</text>
+      <line class="fig-curve" x1="310" y1="404" x2="424.8" y2="434.6"/>
+      <path class="fig-dot" d="M 430 436 L 423.5 437.1 L 424.9 431.8 Z"/>
+      <line class="fig-curve" x1="620" y1="204" x2="522.1" y2="431"/>
+      <path class="fig-dot" d="M 520 436 L 519.9 429.4 L 524.9 431.6 Z"/>
+      <rect class="fig-shape" x="672" y="317" width="56" height="26" rx="7"/>
+      <text class="fig-text fig-tick" x="700" y="334" text-anchor="middle">IAPs</text>
+      <line class="fig-curve" x1="672" y1="340" x2="560" y2="436"/>
+      <line class="fig-curve" x1="564.6" y1="441.3" x2="555.4" y2="430.7"/>
+      <circle class="fig-hole-alt" cx="66" cy="214" r="5"/>
+      <text class="fig-text fig-note" x="76" y="218" text-anchor="start">Bcl-2 raised in at least half of tumors</text>
+      <circle class="fig-hole-alt" cx="358" cy="190" r="5"/>
+      <text class="fig-text fig-note" x="368" y="194" text-anchor="start">Bax mutated</text>
+      <circle class="fig-hole-alt" cx="662" cy="190" r="5"/>
+      <text class="fig-text fig-note" x="672" y="194" text-anchor="start">caspase 8 lost</text>
+      <circle class="fig-hole-alt" cx="402" cy="330" r="5"/>
+      <text class="fig-text fig-note" x="412" y="334" text-anchor="start">Apaf-1 silenced</text>
+      </svg>
+      <figcaption>The two routes to apoptosis. In the intrinsic pathway, sensor proteins block Bcl-2 and
+      Bcl-xL, Bax and Bak open the mitochondria, and cytochrome c forms the apoptosome, which activates caspase
+      9. In the extrinsic pathway, a death ligand activates caspase 8. Both routes lead to caspases 3, 6 and 7.
+      Caspase 8 also cuts Bid, which acts on the mitochondria. The circles mark changes found in
+      tumors.</figcaption>
+    </figure>
+
+    <p>
+      In the extrinsic pathway, other cells display or release ligands such as FasL, TNF and TRAIL. These
+      ligands bind death receptors on the cell surface. The receptors activate caspase 8, which then activates
+      caspases 3, 6 and 7. Caspase 8 also cuts Bid, which acts on the mitochondria. Other proteins, called
+      IAPs, block caspases directly.
+    </p>
+
+    <p>
+      Cancer cells block apoptosis at many points. At least half of human tumors show raised levels of Bcl-2.
+      Bax is mutated in some colon cancers, and caspase 8 is lost in some neuroblastomas. Activation of the
+      PI3K-Akt pathway (Chapter 6) also blocks several proteins that promote apoptosis.
+    </p>
+
+    <p>
+      Blocking apoptosis and driving cell division work together. Mice that carry an extra Bcl-2 gene active in
+      their B cells show no increase in deaths. Mice that carry an extra, overactive Myc gene almost all die of
+      lymphomas by 100 days of age. Mice that carry both die of lymphomas by 50 days. Bcl-2 lets cells survive,
+      and Myc makes them divide, so together they produce far more tumor cells than either one alone.
+    </p>
+  </main>
+</body>
+</html>

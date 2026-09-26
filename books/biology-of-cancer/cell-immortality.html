@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 10: Cell Immortality</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Why tumors need unlimited divisions: the Hayflick limit, cell losses in every generation, telomere shortening and crisis, breakage-fusion-bridge cycles, telomerase and ALT, and how short telomeres both prevent and promote cancer.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/cell-immortality.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 10: Cell Immortality">
+  <meta property="og:description" content="Why tumors need unlimited divisions: the Hayflick limit, cell losses in every generation, telomere shortening and crisis, breakage-fusion-bridge cycles, telomerase and ALT, and how short telomeres both prevent and promote cancer.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/cell-immortality.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 10: Cell Immortality and Telomeres</h1>
+    </header>
+    <h2>Normal Cells Divide a Limited Number of Times</h2>
+
+    <p>
+      In the 1960s, Leonard Hayflick showed that human fibroblasts grown in a dish divide well for about 60
+      population doublings and then stop. They enter a state called replicative senescence. In this state they
+      stay alive, for as long as a year, but they no longer divide. Cancer cells in a dish have no such limit.
+      For example, HeLa cells came in 1951 from an aggressive cervical adenocarcinoma of a patient named
+      Henrietta Lacks, and they have been dividing ever since. A cell that can divide without limit is called
+      immortalized, and nearly all cancer cells are immortalized.
+    </p>
+
+    <p>
+      Senescence depends on the pRb and p53 pathways. The inhibitors p16INK4A and p21Cip1 rise as cells approach
+      senescence. The large T antigen of SV40 binds both pRb and p53, and it lets cells continue past this point.
+      Cells that get past senescence in this way divide for a while longer. They then enter crisis: most of them
+      die, and the survivors have chromosomes in disorder. Crisis is caused by the ends of the chromosomes, and
+      escaping it requires a different change.
+    </p>
+
+    <h2>Why a Limit on Divisions Matters for Tumors</h2>
+
+    <p>
+      One cubic centimeter of tumor contains about $10^9$ cells. A tumor that threatens life measures about $10^3$
+      cubic centimeters, so it contains about $10^{12} \approx 2^{40}$ cells. If every cell divided and none died, 40
+      generations would be enough. That is fewer than the 50 or 60 generations allowed to normal human cells. In
+      fact, 60 generations of doubling would make $10^{15}$ to $10^{18}$ cells, which would weigh around $10^6$
+      kilograms.
+    </p>
+
+    <p>
+      The limit matters because many tumor cells die in every generation. They die by apoptosis, by senescence,
+      or from a lack of oxygen and growth factors. Suppose a fraction $d$ of the cells is lost in each generation.
+      The population then grows by a factor of $2(1-d)$ per generation, and it takes $\ln 10^{12} / \ln(2(1-d))$
+      generations to reach $10^{12}$ cells.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="300" viewBox="0 0 640 300">
+      <line class="fig-axis" x1="90" y1="230" x2="570" y2="230"/>
+      <line class="fig-axis" x1="90" y1="40" x2="90" y2="230"/>
+      <line class="fig-axis" x1="90" y1="230" x2="90" y2="235"/>
+      <text class="fig-text fig-tick" x="90" y="250" text-anchor="middle">0%</text>
+      <line class="fig-axis" x1="196.7" y1="230" x2="196.7" y2="235"/>
+      <text class="fig-text fig-tick" x="196.7" y="250" text-anchor="middle">10%</text>
+      <line class="fig-axis" x1="303.3" y1="230" x2="303.3" y2="235"/>
+      <text class="fig-text fig-tick" x="303.3" y="250" text-anchor="middle">20%</text>
+      <line class="fig-axis" x1="410" y1="230" x2="410" y2="235"/>
+      <text class="fig-text fig-tick" x="410" y="250" text-anchor="middle">30%</text>
+      <line class="fig-axis" x1="516.7" y1="230" x2="516.7" y2="235"/>
+      <text class="fig-text fig-tick" x="516.7" y="250" text-anchor="middle">40%</text>
+      <line class="fig-axis" x1="85" y1="230" x2="90" y2="230"/>
+      <text class="fig-text fig-tick" x="81" y="234" text-anchor="end">0</text>
+      <line class="fig-axis" x1="85" y1="192" x2="90" y2="192"/>
+      <text class="fig-text fig-tick" x="81" y="196" text-anchor="end">60</text>
+      <line class="fig-axis" x1="85" y1="166.7" x2="90" y2="166.7"/>
+      <text class="fig-text fig-tick" x="81" y="170.7" text-anchor="end">100</text>
+      <line class="fig-axis" x1="85" y1="103.3" x2="90" y2="103.3"/>
+      <text class="fig-text fig-tick" x="81" y="107.3" text-anchor="end">200</text>
+      <line class="fig-axis" x1="85" y1="40" x2="90" y2="40"/>
+      <text class="fig-text fig-tick" x="81" y="44" text-anchor="end">300</text>
+      <path class="fig-curve" d="M 90 204.8 L 91.1 204.7 L 92.1 204.7 L 93.2 204.6 L 94.3 204.6 L 95.3 204.6 L 96.4 204.5 L 97.5 204.5 L 98.5 204.5 L 99.6 204.4 L 100.7 204.4 L 101.7 204.3 L 102.8 204.3 L 103.9 204.3 L 104.9 204.2 L 106 204.2 L 107.1 204.2 L 108.1 204.1 L 109.2 204.1 L 110.3 204 L 111.3 204 L 112.4 204 L 113.5 203.9 L 114.5 203.9 L 115.6 203.8 L 116.7 203.8 L 117.7 203.8 L 118.8 203.7 L 119.9 203.7 L 120.9 203.6 L 122 203.6 L 123.1 203.6 L 124.1 203.5 L 125.2 203.5 L 126.3 203.4 L 127.3 203.4 L 128.4 203.3 L 129.5 203.3 L 130.5 203.3 L 131.6 203.2 L 132.7 203.2 L 133.7 203.1 L 134.8 203.1 L 135.9 203 L 136.9 203 L 138 203 L 139.1 202.9 L 140.1 202.9 L 141.2 202.8 L 142.3 202.8 L 143.3 202.7 L 144.4 202.7 L 145.5 202.6 L 146.5 202.6 L 147.6 202.6 L 148.7 202.5 L 149.7 202.5 L 150.8 202.4 L 151.9 202.4 L 152.9 202.3 L 154 202.3 L 155.1 202.2 L 156.1 202.2 L 157.2 202.1 L 158.3 202.1 L 159.3 202 L 160.4 202 L 161.5 201.9 L 162.5 201.9 L 163.6 201.8 L 164.7 201.8 L 165.7 201.8 L 166.8 201.7 L 167.9 201.7 L 168.9 201.6 L 170 201.6 L 171.1 201.5 L 172.1 201.5 L 173.2 201.4 L 174.3 201.4 L 175.3 201.3 L 176.4 201.2 L 177.5 201.2 L 178.5 201.1 L 179.6 201.1 L 180.7 201 L 181.7 201 L 182.8 200.9 L 183.9 200.9 L 184.9 200.8 L 186 200.8 L 187.1 200.7 L 188.1 200.7 L 189.2 200.6 L 190.3 200.6 L 191.3 200.5 L 192.4 200.5 L 193.5 200.4 L 194.5 200.3 L 195.6 200.3 L 196.7 200.2 L 197.7 200.2 L 198.8 200.1 L 199.9 200.1 L 200.9 200 L 202 199.9 L 203.1 199.9 L 204.1 199.8 L 205.2 199.8 L 206.3 199.7 L 207.3 199.7 L 208.4 199.6 L 209.5 199.5 L 210.5 199.5 L 211.6 199.4 L 212.7 199.4 L 213.7 199.3 L 214.8 199.2 L 215.9 199.2 L 216.9 199.1 L 218 199 L 219.1 199 L 220.1 198.9 L 221.2 198.9 L 222.3 198.8 L 223.3 198.7 L 224.4 198.7 L 225.5 198.6 L 226.5 198.5 L 227.6 198.5 L 228.7 198.4 L 229.7 198.3 L 230.8 198.3 L 231.9 198.2 L 232.9 198.1 L 234 198.1 L 235.1 198 L 236.1 197.9 L 237.2 197.9 L 238.3 197.8 L 239.3 197.7 L 240.4 197.7 L 241.5 197.6 L 242.5 197.5 L 243.6 197.5 L 244.7 197.4 L 245.7 197.3 L 246.8 197.2 L 247.9 197.2 L 248.9 197.1 L 250 197 L 251.1 196.9 L 252.1 196.9 L 253.2 196.8 L 254.3 196.7 L 255.3 196.7 L 256.4 196.6 L 257.5 196.5 L 258.5 196.4 L 259.6 196.3 L 260.7 196.3 L 261.7 196.2 L 262.8 196.1 L 263.9 196 L 264.9 196 L 266 195.9 L 267.1 195.8 L 268.1 195.7 L 269.2 195.6 L 270.3 195.6 L 271.3 195.5 L 272.4 195.4 L 273.5 195.3 L 274.5 195.2 L 275.6 195.1 L 276.7 195.1 L 277.7 195 L 278.8 194.9 L 279.9 194.8 L 280.9 194.7 L 282 194.6 L 283.1 194.5 L 284.1 194.4 L 285.2 194.4 L 286.3 194.3 L 287.3 194.2 L 288.4 194.1 L 289.5 194 L 290.5 193.9 L 291.6 193.8 L 292.7 193.7 L 293.7 193.6 L 294.8 193.5 L 295.9 193.4 L 296.9 193.3 L 298 193.3 L 299.1 193.2 L 300.1 193.1 L 301.2 193 L 302.3 192.9 L 303.3 192.8 L 304.4 192.7 L 305.5 192.6 L 306.5 192.5 L 307.6 192.4 L 308.7 192.3 L 309.7 192.2 L 310.8 192.1 L 311.9 192 L 312.9 191.8 L 314 191.7 L 315.1 191.6 L 316.1 191.5 L 317.2 191.4 L 318.3 191.3 L 319.3 191.2 L 320.4 191.1 L 321.5 191 L 322.5 190.9 L 323.6 190.8 L 324.7 190.6 L 325.7 190.5 L 326.8 190.4 L 327.9 190.3 L 328.9 190.2 L 330 190.1 L 331.1 190 L 332.1 189.8 L 333.2 189.7 L 334.3 189.6 L 335.3 189.5 L 336.4 189.3 L 337.5 189.2 L 338.5 189.1 L 339.6 189 L 340.7 188.9 L 341.7 188.7 L 342.8 188.6 L 343.9 188.5 L 344.9 188.3 L 346 188.2 L 347.1 188.1 L 348.1 187.9 L 349.2 187.8 L 350.3 187.7 L 351.3 187.5 L 352.4 187.4 L 353.5 187.3 L 354.5 187.1 L 355.6 187 L 356.7 186.8 L 357.7 186.7 L 358.8 186.6 L 359.9 186.4 L 360.9 186.3 L 362 186.1 L 363.1 186 L 364.1 185.8 L 365.2 185.7 L 366.3 185.5 L 367.3 185.4 L 368.4 185.2 L 369.5 185.1 L 370.5 184.9 L 371.6 184.7 L 372.7 184.6 L 373.7 184.4 L 374.8 184.3 L 375.9 184.1 L 376.9 183.9 L 378 183.8 L 379.1 183.6 L 380.1 183.4 L 381.2 183.2 L 382.3 183.1 L 383.3 182.9 L 384.4 182.7 L 385.5 182.5 L 386.5 182.4 L 387.6 182.2 L 388.7 182 L 389.7 181.8 L 390.8 181.6 L 391.9 181.5 L 392.9 181.3 L 394 181.1 L 395.1 180.9 L 396.1 180.7 L 397.2 180.5 L 398.3 180.3 L 399.3 180.1 L 400.4 179.9 L 401.5 179.7 L 402.5 179.5 L 403.6 179.3 L 404.7 179.1 L 405.7 178.9 L 406.8 178.6 L 407.9 178.4 L 408.9 178.2 L 410 178 L 411.1 177.8 L 412.1 177.5 L 413.2 177.3 L 414.3 177.1 L 415.3 176.9 L 416.4 176.6 L 417.5 176.4 L 418.5 176.2 L 419.6 175.9 L 420.7 175.7 L 421.7 175.4 L 422.8 175.2 L 423.9 174.9 L 424.9 174.7 L 426 174.4 L 427.1 174.2 L 428.1 173.9 L 429.2 173.6 L 430.3 173.4 L 431.3 173.1 L 432.4 172.8 L 433.5 172.5 L 434.5 172.3 L 435.6 172 L 436.7 171.7 L 437.7 171.4 L 438.8 171.1 L 439.9 170.8 L 440.9 170.5 L 442 170.2 L 443.1 169.9 L 444.1 169.6 L 445.2 169.3 L 446.3 169 L 447.3 168.6 L 448.4 168.3 L 449.5 168 L 450.5 167.6 L 451.6 167.3 L 452.7 167 L 453.7 166.6 L 454.8 166.3 L 455.9 165.9 L 456.9 165.6 L 458 165.2 L 459.1 164.8 L 460.1 164.5 L 461.2 164.1 L 462.3 163.7 L 463.3 163.3 L 464.4 162.9 L 465.5 162.5 L 466.5 162.1 L 467.6 161.7 L 468.7 161.3 L 469.7 160.9 L 470.8 160.4 L 471.9 160 L 472.9 159.6 L 474 159.1 L 475.1 158.7 L 476.1 158.2 L 477.2 157.7 L 478.3 157.3 L 479.3 156.8 L 480.4 156.3 L 481.5 155.8 L 482.5 155.3 L 483.6 154.8 L 484.7 154.3 L 485.7 153.8 L 486.8 153.2 L 487.9 152.7 L 488.9 152.1 L 490 151.6 L 491.1 151 L 492.1 150.4 L 493.2 149.8 L 494.3 149.3 L 495.3 148.6 L 496.4 148 L 497.5 147.4 L 498.5 146.8 L 499.6 146.1 L 500.7 145.5 L 501.7 144.8 L 502.8 144.1 L 503.9 143.4 L 504.9 142.7 L 506 142 L 507.1 141.3 L 508.1 140.5 L 509.2 139.8 L 510.3 139 L 511.3 138.2 L 512.4 137.4 L 513.5 136.6 L 514.5 135.7 L 515.6 134.9 L 516.7 134 L 517.7 133.1 L 518.8 132.2 L 519.9 131.3 L 520.9 130.4 L 522 129.4 L 523.1 128.4 L 524.1 127.4 L 525.2 126.4 L 526.3 125.3 L 527.3 124.3 L 528.4 123.2 L 529.5 122.1 L 530.5 120.9 L 531.6 119.7 L 532.7 118.5 L 533.7 117.3 L 534.8 116.1 L 535.9 114.8 L 536.9 113.4 L 538 112.1 L 539.1 110.7 L 540.1 109.3 L 541.2 107.8 L 542.3 106.3 L 543.3 104.8 L 544.4 103.2 L 545.5 101.6 L 546.5 99.9 L 547.6 98.2 L 548.7 96.4 L 549.7 94.6 L 550.8 92.8 L 551.9 90.8 L 552.9 88.9 L 554 86.8 L 555.1 84.7 L 556.1 82.5 L 557.2 80.3 L 558.3 78 L 559.3 75.6 L 560.4 73.1 L 561.5 70.6 L 562.5 67.9 L 563.6 65.2 L 564.7 62.3 L 565.7 59.4 L 566.8 56.3 L 567.9 53.1 L 568.9 49.8 L 570 46.4"/>
+      <line class="fig-guide" x1="90" y1="192" x2="570" y2="192"/>
+      <text class="fig-text fig-note" x="96" y="186" text-anchor="start">about 60 doublings allowed to normal cells</text>
+      <circle class="fig-dot" cx="90" cy="204.8" r="4"/>
+      <text class="fig-text fig-note" x="98" y="218.8" text-anchor="start">40</text>
+      <circle class="fig-dot" cx="410" cy="178" r="4"/>
+      <text class="fig-text fig-note" x="418" y="170" text-anchor="start">82</text>
+      <circle class="fig-dot" cx="516.7" cy="134" r="4"/>
+      <text class="fig-text fig-note" x="524.7" y="126" text-anchor="start">152</text>
+      <text class="fig-text fig-note" x="330" y="272" text-anchor="middle">share of cells lost in each generation</text>
+      <text class="fig-text fig-note" x="90" y="24" text-anchor="start">generations needed to reach 10<tspan class="fig-sup" dy="-5">12</tspan><tspan dy="5"> cells</tspan></text>
+      </svg>
+      <figcaption>Generations needed for one cell to produce $10^{12}$ descendants when a fraction of the cells is
+      lost in each generation. Without losses, 40 generations are needed. When 30% are lost, 82 are needed, and
+      when 40% are lost, 152 are needed. Above a loss of about 20%, the number is larger than the roughly 60
+      doublings that normal human cells allow. A tumor therefore needs a way to divide without
+      limit.</figcaption>
+    </figure>
+
+    <h2>Telomeres Shorten at Every Division</h2>
+
+    <p>
+      The ends of human chromosomes are called telomeres. They consist of the six-base sequence TTAGGG repeated
+      several thousand times. In normal human cells, telomeres are 5 to 15 kilobases long, usually 5 to 10. One
+      strand is longer than the other and sticks out at the end as a single strand several hundred bases long.
+      With the help of proteins, the end is folded into a loop, which hides it from the cell's repair enzymes.
+    </p>
+
+    <p>
+      Telomeres get shorter each time the DNA is copied. One of the two new strands is made in short pieces, and
+      each piece starts from a short RNA primer. At the very end of a chromosome, the last primer cannot be
+      replaced by DNA, so the end is not fully copied. Enzymes also trim the ends. As a result, telomeres lose 50
+      to 100 bases in each cell generation.
+    </p>
+
+    <p>
+      The length of the telomeres therefore counts how many divisions a cell lineage has gone through. Human
+      lymphocytes grown in a dish entered crisis when their telomeric DNA fell below about 3 kilobases. The cell
+      treats a chromosome end without a telomere like a broken piece of DNA. In 1941, Barbara McClintock found
+      that chromosomes of maize that had lost their telomeres fuse end to end with one another. A fused chromosome
+      with two centromeres is pulled toward both ends of the cell when the cell divides, and it breaks. This
+      starts a cycle of breaks and fusions.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="300" viewBox="0 0 640 300">
+      <rect class="fig-band" x="90" y="178.2" width="480" height="51.8"/>
+      <text class="fig-text fig-note" x="564" y="194.2" text-anchor="end">below about 3 kb: crisis</text>
+      <line class="fig-axis" x1="90" y1="230" x2="570" y2="230"/>
+      <line class="fig-axis" x1="90" y1="40" x2="90" y2="230"/>
+      <line class="fig-axis" x1="90" y1="230" x2="90" y2="235"/>
+      <text class="fig-text fig-tick" x="90" y="250" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="210" y1="230" x2="210" y2="235"/>
+      <text class="fig-text fig-tick" x="210" y="250" text-anchor="middle">40</text>
+      <line class="fig-axis" x1="330" y1="230" x2="330" y2="235"/>
+      <text class="fig-text fig-tick" x="330" y="250" text-anchor="middle">80</text>
+      <line class="fig-axis" x1="450" y1="230" x2="450" y2="235"/>
+      <text class="fig-text fig-tick" x="450" y="250" text-anchor="middle">120</text>
+      <line class="fig-axis" x1="570" y1="230" x2="570" y2="235"/>
+      <text class="fig-text fig-tick" x="570" y="250" text-anchor="middle">160</text>
+      <line class="fig-axis" x1="85" y1="230" x2="90" y2="230"/>
+      <text class="fig-text fig-tick" x="81" y="234" text-anchor="end">0 kb</text>
+      <line class="fig-axis" x1="85" y1="178.2" x2="90" y2="178.2"/>
+      <text class="fig-text fig-tick" x="81" y="182.2" text-anchor="end">3 kb</text>
+      <line class="fig-axis" x1="85" y1="143.6" x2="90" y2="143.6"/>
+      <text class="fig-text fig-tick" x="81" y="147.6" text-anchor="end">5 kb</text>
+      <line class="fig-axis" x1="85" y1="57.3" x2="90" y2="57.3"/>
+      <text class="fig-text fig-tick" x="81" y="61.3" text-anchor="end">10 kb</text>
+      <line class="fig-curve" x1="90" y1="57.3" x2="300" y2="178.2"/>
+      <line class="fig-free-solid" x1="90" y1="57.3" x2="510" y2="178.2"/>
+      <line class="fig-free" x1="210" y1="126.4" x2="570" y2="126.4"/>
+      <circle class="fig-dot" cx="210" cy="126.4" r="4"/>
+      <circle class="fig-dot" cx="300" cy="178.2" r="4"/>
+      <circle class="fig-dot-alt" cx="510" cy="178.2" r="4"/>
+      <text class="fig-text fig-note" x="300" y="212.2" text-anchor="middle">70</text>
+      <text class="fig-text fig-note" x="510" y="212.2" text-anchor="middle">140</text>
+      <text class="fig-text fig-note" x="330" y="272" text-anchor="middle">population doublings</text>
+      <text class="fig-text fig-note" x="90" y="24" text-anchor="start">telomere length</text>
+      <line class="fig-curve" x1="330" y1="64" x2="360" y2="64"/>
+      <text class="fig-text fig-note" x="366" y="68" text-anchor="start">losing 100 bases per doubling</text>
+      <line class="fig-free-solid" x1="330" y1="84" x2="360" y2="84"/>
+      <text class="fig-text fig-note" x="366" y="88" text-anchor="start">losing 50 bases per doubling</text>
+      <line class="fig-free" x1="330" y1="104" x2="360" y2="104"/>
+      <text class="fig-text fig-note" x="366" y="108" text-anchor="start">telomerase switched on</text>
+      </svg>
+      <figcaption>Telomere length against population doublings, starting from 10 kilobases. The two lines assume a loss of 50 and of 100 bases per doubling. The 3-kilobase threshold of crisis is reached after
+      140 and 70 doublings respectively. A cell that switches on telomerase keeps its telomeres at a constant
+      length and escapes crisis.</figcaption>
+    </figure>
+
+    <h2>Breakage-Fusion-Bridge Cycles</h2>
+
+    <p>
+      After a chromosome is copied, the two new copies, called sister chromatids, have ends of the same length.
+      If both ends have lost their telomeres, they can fuse. The result is one chromosome with two centromeres.
+      When the cell divides, the two centromeres are pulled toward opposite ends of the cell. The chromosome is
+      stretched across the dividing cell like a bridge, and it breaks at a random point.
+    </p>
+
+    <p>
+      One daughter cell then receives a chromosome with an extra copy of a segment. The other daughter cell
+      receives a chromosome that has lost a segment. Both new ends lack telomeres, so the process repeats at the
+      next division. These cycles scramble the chromosomes and usually kill the cells. This is what happens in
+      crisis.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="256" viewBox="0 0 800 256">
+      <text class="fig-text fig-tick" x="108" y="22" text-anchor="middle">1. ends lose telomeres</text>
+      <text class="fig-text fig-tick" x="303" y="22" text-anchor="middle">2. sister ends fuse</text>
+      <text class="fig-text fig-tick" x="498" y="22" text-anchor="middle">3. bridge at division</text>
+      <text class="fig-text fig-tick" x="693" y="22" text-anchor="middle">4. random break</text>
+      <rect class="fig-shape-img" x="30" y="73" width="36" height="14"/>
+      <text class="fig-text fig-note" x="48" y="84" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="66" y="73" width="36" height="14"/>
+      <text class="fig-text fig-note" x="84" y="84" text-anchor="middle">B</text>
+      <rect class="fig-shape" x="102" y="73" width="36" height="14"/>
+      <text class="fig-text fig-note" x="120" y="84" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="138" y="73" width="36" height="14"/>
+      <text class="fig-text fig-note" x="156" y="84" text-anchor="middle">D</text>
+      <line class="fig-guide" x1="180" y1="70" x2="180" y2="90"/>
+      <rect class="fig-shape-img" x="30" y="113" width="36" height="14"/>
+      <text class="fig-text fig-note" x="48" y="124" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="66" y="113" width="36" height="14"/>
+      <text class="fig-text fig-note" x="84" y="124" text-anchor="middle">B</text>
+      <rect class="fig-shape" x="102" y="113" width="36" height="14"/>
+      <text class="fig-text fig-note" x="120" y="124" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="138" y="113" width="36" height="14"/>
+      <text class="fig-text fig-note" x="156" y="124" text-anchor="middle">D</text>
+      <line class="fig-guide" x1="180" y1="110" x2="180" y2="130"/>
+      <text class="fig-text fig-note" x="108" y="160" text-anchor="middle">centromere at A; the right</text>
+      <text class="fig-text fig-note" x="108" y="174" text-anchor="middle">ends have lost their telomeres</text>
+      <rect class="fig-shape-img" x="217" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="228" y="104" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="239" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="250" y="104" text-anchor="middle">B</text>
+      <rect class="fig-shape" x="261" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="272" y="104" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="283" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="294" y="104" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="305" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="316" y="104" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="327" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="338" y="104" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="349" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="360" y="104" text-anchor="middle">B</text>
+      <rect class="fig-shape-img" x="371" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="382" y="104" text-anchor="middle">A</text>
+      <text class="fig-text fig-note" x="305" y="140" text-anchor="middle">one chromosome with</text>
+      <text class="fig-text fig-note" x="305" y="154" text-anchor="middle">two centromeres</text>
+      <line class="fig-curve" x1="430" y1="100" x2="417.4" y2="100"/>
+      <path class="fig-dot" d="M 412 100 L 418 97.3 L 418 102.7 Z"/>
+      <rect class="fig-shape-img" x="434" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="445" y="104" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="456" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="467" y="104" text-anchor="middle">B</text>
+      <rect class="fig-shape" x="478" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="489" y="104" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="500" y="93" width="20" height="14"/>
+      <text class="fig-text fig-note" x="510" y="104" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="520" y="93" width="20" height="14"/>
+      <text class="fig-text fig-note" x="530" y="104" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="540" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="551" y="104" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="562" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="573" y="104" text-anchor="middle">B</text>
+      <rect class="fig-shape-img" x="584" y="93" width="22" height="14"/>
+      <text class="fig-text fig-note" x="595" y="104" text-anchor="middle">A</text>
+      <line class="fig-curve" x1="610" y1="100" x2="622.6" y2="100"/>
+      <path class="fig-dot" d="M 628 100 L 622 102.7 L 622 97.3 Z"/>
+      <text class="fig-text fig-note" x="522" y="140" text-anchor="middle">the two centromeres</text>
+      <text class="fig-text fig-note" x="522" y="154" text-anchor="middle">move to opposite poles</text>
+      <rect class="fig-shape-img" x="609" y="73" width="22" height="14"/>
+      <text class="fig-text fig-note" x="620" y="84" text-anchor="middle">A</text>
+      <rect class="fig-shape" x="631" y="73" width="22" height="14"/>
+      <text class="fig-text fig-note" x="642" y="84" text-anchor="middle">B</text>
+      <rect class="fig-shape" x="653" y="73" width="22" height="14"/>
+      <text class="fig-text fig-note" x="664" y="84" text-anchor="middle">C</text>
+      <rect class="fig-shape" x="675" y="73" width="22" height="14"/>
+      <text class="fig-text fig-note" x="686" y="84" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="697" y="73" width="22" height="14"/>
+      <text class="fig-text fig-note" x="708" y="84" text-anchor="middle">D</text>
+      <rect class="fig-shape" x="719" y="73" width="11" height="14"/>
+      <text class="fig-text fig-note" x="724.5" y="84" text-anchor="middle">C</text>
+      <line class="fig-guide" x1="736" y1="70" x2="736" y2="90"/>
+      <rect class="fig-shape" x="665" y="117" width="11" height="14"/>
+      <rect class="fig-shape" x="676" y="117" width="22" height="14"/>
+      <text class="fig-text fig-note" x="687" y="128" text-anchor="middle">B</text>
+      <rect class="fig-shape-img" x="698" y="117" width="22" height="14"/>
+      <text class="fig-text fig-note" x="709" y="128" text-anchor="middle">A</text>
+      <line class="fig-guide" x1="659" y1="114" x2="659" y2="134"/>
+      <text class="fig-text fig-note" x="693" y="164" text-anchor="middle">one daughter gains a copy of D,</text>
+      <text class="fig-text fig-note" x="693" y="178" text-anchor="middle">the other loses D and part of C; both have</text>
+      <text class="fig-text fig-note" x="693" y="192" text-anchor="middle">new unprotected ends and repeat</text>
+      <rect class="fig-shape-img" x="200" y="229" width="22" height="14"/>
+      <text class="fig-text fig-note" x="228" y="240" text-anchor="start">segment with the centromere</text>
+      <line class="fig-guide" x1="420" y1="227" x2="420" y2="245"/>
+      <text class="fig-text fig-note" x="428" y="240" text-anchor="start">end without a telomere</text>
+      </svg>
+      <figcaption>A breakage-fusion-bridge cycle. Sister chromatids that have lost their telomeres fuse at their
+      ends, and the resulting chromosome has two centromeres. At division it is torn between the two ends of the
+      cell. The break leaves one daughter cell with an extra copy of a segment and the other with a missing
+      segment, and both have new ends without telomeres.</figcaption>
+    </figure>
+
+    <h2>Telomerase</h2>
+
+    <p>
+      Telomerase is the enzyme that lengthens telomeres. It has two parts: a reverse transcriptase called hTERT,
+      and an RNA called hTR. The RNA carries a template, and hTERT copies it to add TTAGGG units to the end of the
+      chromosome. Telomerase activity is found in 85 to 90% of human tumor samples. It is very low in most normal
+      human cells, which make hTR but not hTERT.
+    </p>
+
+    <p>
+      In many tumors, mutations in the promoter of the hTERT gene switch the gene on. There are two such
+      mutations, at 228 and at 250 bases before the start of the gene, and a tumor carries one or the other. Each
+      creates a binding site for a transcription factor. They are found in 83% of primary glioblastomas, 66% of
+      bladder carcinomas and 71% of melanomas. Myc also switches on hTERT.
+    </p>
+
+    <p>
+      Adding hTERT to human cells that would otherwise enter crisis makes their telomeres longer, and the cells
+      then divide without limit. The other 10 to 15% of tumors keep their telomeres without telomerase. They copy
+      telomere DNA from one chromosome end to another by recombination, a mechanism called ALT (alternative
+      lengthening of telomeres). ALT is found in perhaps half of osteosarcomas and soft-tissue sarcomas and in a
+      quarter of glioblastomas, but rarely in carcinomas. A drug that blocks telomerase would therefore favor the
+      tumor cells that use ALT.
+    </p>
+
+    <h2>Short Telomeres Can Prevent or Promote Cancer</h2>
+
+    <p>
+      Laboratory mice do not strongly repress their telomerase. Their telomeric DNA is 30 to 40 kilobases long,
+      about five times as long as in humans. This is why mouse cells easily become immortalized in a dish, while
+      human cells need both large T and hTERT. Mice without the telomerase RNA are normal for several
+      generations. Each generation starts life with shorter telomeres. By the fifth and sixth generations, the
+      mice heal wounds poorly and have fewer offspring. When p53 works normally, short telomeres protect against
+      cancer, because cells with very short telomeres stop dividing or die.
+    </p>
+
+    <p>
+      When p53 has been lost, short telomeres have the opposite effect. Cells with very short telomeres then
+      survive the breakage-fusion-bridge cycles, and they accumulate large gains and losses of chromosome
+      segments. Mice that lack both telomerase and p53 develop more carcinomas, the most common type of tumor in
+      humans. Later, a tumor cell may switch on telomerase or ALT. This stops the cycles and fixes the scrambled
+      set of chromosomes that the cell has reached. This sequence explains why many human carcinomas carry
+      heavily rearranged chromosomes, the subject of Chapter 12.
+    </p>
+  </main>
+</body>
+</html>

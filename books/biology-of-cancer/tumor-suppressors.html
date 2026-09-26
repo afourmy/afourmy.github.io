@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 7: Tumor Suppressors</title>
+  <!-- SEO (generated) -->
+  <meta name="description" content="Genes whose loss causes cancer: retinoblastoma and Knudson's one-hit and two-hit kinetics, loss of heterozygosity, silencing by promoter methylation, NF1 as a switch that turns Ras off, and APC in the colonic crypt.">
+  <meta name="author" content="Antoine Fourmy">
+  <link rel="canonical" href="https://afourmy.github.io/books/biology-of-cancer/tumor-suppressors.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Antoine Fourmy">
+  <meta property="og:title" content="Chapter 7: Tumor Suppressors">
+  <meta property="og:description" content="Genes whose loss causes cancer: retinoblastoma and Knudson's one-hit and two-hit kinetics, loss of heterozygosity, silencing by promoter methylation, NF1 as a switch that turns Ras off, and APC in the colonic crypt.">
+  <meta property="og:url" content="https://afourmy.github.io/books/biology-of-cancer/tumor-suppressors.html">
+  <meta property="og:locale" content="en_US">
+  <!-- /SEO -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: false},
+        {left: '$', right: '$', display: false}
+      ]
+    });"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+  <script src="../../nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Chapter 7: Tumor Suppressor Genes</h1>
+    </header>
+    <h2>Genes Whose Loss Causes Cancer</h2>
+
+    <p>
+      Oncogenes are dominant: one mutant copy is enough to change the cell. A second kind of cancer gene works
+      the other way. Researchers fused cancer cells with normal cells to make hybrid cells. When the cancer
+      cells came from most human tumors not caused by viruses, or from rodent tumors caused by chemicals, the
+      hybrid cells could not form tumors. The normal cell therefore supplied something that stopped the cancer,
+      and the cancer cell had lost it. When the cancer cells came from tumors caused by viruses, the hybrid
+      cells usually still formed tumors, as expected from dominant viral oncogenes. Genes whose loss
+      contributes to cancer are called tumor suppressor genes.
+    </p>
+
+    <p>
+      It is easy to inactivate a gene. A point mutation at many different places can do it, and so can a small
+      insertion or deletion that shifts the reading frame, or the deletion of the whole gene. A ras gene, by
+      contrast, is activated only by substitutions at codons 12, 13 or 61. But a cell has two copies of every
+      tumor suppressor gene, and one remaining good copy is enough to do the job. Suppose one copy is
+      inactivated with a probability of about $10^{-6}$ per cell generation. Two independent mutations in the
+      same cell then have a probability of about $10^{-12}$, which seemed too rare for tumors to form. The
+      answer to this puzzle came from a rare eye tumor of children.
+    </p>
+
+    <h2>Retinoblastoma and Knudson's Two Hits</h2>
+
+    <p>
+      Retinoblastoma is a tumor of the retina. It arises in the cells that would become the light-sensing
+      cells of the eye. It affects about 1 in 20,000 children and is diagnosed between birth and the ages of 6
+      to 8 years, rarely later.
+    </p>
+
+    <p>
+      The disease has two forms. Children from families with no history of the disease have a single tumor in
+      one eye. This form is called unilateral retinoblastoma, and once the tumor is removed, the child has no
+      further risk. In the family form, the child of a parent who had the disease has several tumors in both
+      eyes. This is called bilateral retinoblastoma. These children also have a risk of bone cancer in their
+      teens that is more than 500 times the normal risk. Half of their own children develop the disease.
+    </p>
+
+    <p>
+      In 1971, Alfred Knudson studied the ages at which the two forms are diagnosed. The family form appeared as
+      if one random event were enough to cause a tumor. The other form appeared as if two random events were
+      needed. Knudson's explanation was that both events inactivate the same gene, later named Rb. A child who
+      inherits one defective copy carries it in every cell of the retina. Any one of these cells then needs
+      only one more event. A child born with two good copies needs both copies to be lost in the same cell.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="290" viewBox="0 0 640 290">
+      <line class="fig-axis" x1="90" y1="230" x2="570" y2="230"/>
+      <line class="fig-axis" x1="90" y1="40" x2="90" y2="230"/>
+      <line class="fig-axis" x1="90" y1="230" x2="90" y2="235"/>
+      <text class="fig-text fig-tick" x="90" y="250" text-anchor="middle">0</text>
+      <line class="fig-axis" x1="170" y1="230" x2="170" y2="235"/>
+      <text class="fig-text fig-tick" x="170" y="250" text-anchor="middle">1</text>
+      <line class="fig-axis" x1="250" y1="230" x2="250" y2="235"/>
+      <text class="fig-text fig-tick" x="250" y="250" text-anchor="middle">2</text>
+      <line class="fig-axis" x1="330" y1="230" x2="330" y2="235"/>
+      <text class="fig-text fig-tick" x="330" y="250" text-anchor="middle">3</text>
+      <line class="fig-axis" x1="410" y1="230" x2="410" y2="235"/>
+      <text class="fig-text fig-tick" x="410" y="250" text-anchor="middle">4</text>
+      <line class="fig-axis" x1="490" y1="230" x2="490" y2="235"/>
+      <text class="fig-text fig-tick" x="490" y="250" text-anchor="middle">5</text>
+      <line class="fig-axis" x1="570" y1="230" x2="570" y2="235"/>
+      <text class="fig-text fig-tick" x="570" y="250" text-anchor="middle">6</text>
+      <line class="fig-axis" x1="85" y1="40" x2="90" y2="40"/>
+      <text class="fig-text fig-tick" x="81" y="44" text-anchor="end">100%</text>
+      <line class="fig-axis" x1="85" y1="135" x2="90" y2="135"/>
+      <text class="fig-text fig-tick" x="81" y="139" text-anchor="end">10%</text>
+      <line class="fig-axis" x1="85" y1="230" x2="90" y2="230"/>
+      <text class="fig-text fig-tick" x="81" y="234" text-anchor="end">1%</text>
+      <path class="fig-curve" d="M 90 40 L 91.6 40.6 L 93.2 41.3 L 94.8 41.9 L 96.4 42.5 L 98 43.2 L 99.6 43.8 L 101.2 44.4 L 102.8 45.1 L 104.4 45.7 L 106 46.3 L 107.6 47 L 109.2 47.6 L 110.8 48.2 L 112.4 48.9 L 114 49.5 L 115.6 50.1 L 117.2 50.8 L 118.8 51.4 L 120.4 52 L 122 52.7 L 123.6 53.3 L 125.2 53.9 L 126.8 54.6 L 128.4 55.2 L 130 55.8 L 131.6 56.5 L 133.2 57.1 L 134.8 57.7 L 136.4 58.4 L 138 59 L 139.6 59.6 L 141.2 60.3 L 142.8 60.9 L 144.4 61.5 L 146 62.2 L 147.6 62.8 L 149.2 63.4 L 150.8 64.1 L 152.4 64.7 L 154 65.3 L 155.6 66 L 157.2 66.6 L 158.8 67.2 L 160.4 67.9 L 162 68.5 L 163.6 69.1 L 165.2 69.8 L 166.8 70.4 L 168.4 71 L 170 71.7 L 171.6 72.3 L 173.2 72.9 L 174.8 73.6 L 176.4 74.2 L 178 74.8 L 179.6 75.5 L 181.2 76.1 L 182.8 76.7 L 184.4 77.4 L 186 78 L 187.6 78.6 L 189.2 79.3 L 190.8 79.9 L 192.4 80.5 L 194 81.2 L 195.6 81.8 L 197.2 82.4 L 198.8 83.1 L 200.4 83.7 L 202 84.3 L 203.6 85 L 205.2 85.6 L 206.8 86.2 L 208.4 86.9 L 210 87.5 L 211.6 88.1 L 213.2 88.8 L 214.8 89.4 L 216.4 90 L 218 90.7 L 219.6 91.3 L 221.2 91.9 L 222.8 92.6 L 224.4 93.2 L 226 93.8 L 227.6 94.5 L 229.2 95.1 L 230.8 95.7 L 232.4 96.4 L 234 97 L 235.6 97.6 L 237.2 98.3 L 238.8 98.9 L 240.4 99.5 L 242 100.2 L 243.6 100.8 L 245.2 101.4 L 246.8 102.1 L 248.4 102.7 L 250 103.3 L 251.6 104 L 253.2 104.6 L 254.8 105.2 L 256.4 105.9 L 258 106.5 L 259.6 107.1 L 261.2 107.8 L 262.8 108.4 L 264.4 109 L 266 109.7 L 267.6 110.3 L 269.2 110.9 L 270.8 111.6 L 272.4 112.2 L 274 112.8 L 275.6 113.5 L 277.2 114.1 L 278.8 114.7 L 280.4 115.4 L 282 116 L 283.6 116.6 L 285.2 117.3 L 286.8 117.9 L 288.4 118.5 L 290 119.2 L 291.6 119.8 L 293.2 120.4 L 294.8 121.1 L 296.4 121.7 L 298 122.3 L 299.6 123 L 301.2 123.6 L 302.8 124.2 L 304.4 124.9 L 306 125.5 L 307.6 126.1 L 309.2 126.8 L 310.8 127.4 L 312.4 128 L 314 128.7 L 315.6 129.3 L 317.2 129.9 L 318.8 130.6 L 320.4 131.2 L 322 131.8 L 323.6 132.5 L 325.2 133.1 L 326.8 133.7 L 328.4 134.4 L 330 135 L 331.6 135.6 L 333.2 136.3 L 334.8 136.9 L 336.4 137.5 L 338 138.2 L 339.6 138.8 L 341.2 139.4 L 342.8 140.1 L 344.4 140.7 L 346 141.3 L 347.6 142 L 349.2 142.6 L 350.8 143.2 L 352.4 143.9 L 354 144.5 L 355.6 145.1 L 357.2 145.8 L 358.8 146.4 L 360.4 147 L 362 147.7 L 363.6 148.3 L 365.2 148.9 L 366.8 149.6 L 368.4 150.2 L 370 150.8 L 371.6 151.5 L 373.2 152.1 L 374.8 152.7 L 376.4 153.4 L 378 154 L 379.6 154.6 L 381.2 155.3 L 382.8 155.9 L 384.4 156.5 L 386 157.2 L 387.6 157.8 L 389.2 158.4 L 390.8 159.1 L 392.4 159.7 L 394 160.3 L 395.6 161 L 397.2 161.6 L 398.8 162.2 L 400.4 162.9 L 402 163.5 L 403.6 164.1 L 405.2 164.8 L 406.8 165.4 L 408.4 166 L 410 166.7 L 411.6 167.3 L 413.2 167.9 L 414.8 168.6 L 416.4 169.2 L 418 169.8 L 419.6 170.5 L 421.2 171.1 L 422.8 171.7 L 424.4 172.4 L 426 173 L 427.6 173.6 L 429.2 174.3 L 430.8 174.9 L 432.4 175.5 L 434 176.2 L 435.6 176.8 L 437.2 177.4 L 438.8 178.1 L 440.4 178.7 L 442 179.3 L 443.6 180 L 445.2 180.6 L 446.8 181.2 L 448.4 181.9 L 450 182.5 L 451.6 183.1 L 453.2 183.8 L 454.8 184.4 L 456.4 185 L 458 185.7 L 459.6 186.3 L 461.2 186.9 L 462.8 187.6 L 464.4 188.2 L 466 188.8 L 467.6 189.5 L 469.2 190.1 L 470.8 190.7 L 472.4 191.4 L 474 192 L 475.6 192.6 L 477.2 193.3 L 478.8 193.9 L 480.4 194.5 L 482 195.2 L 483.6 195.8 L 485.2 196.4 L 486.8 197.1 L 488.4 197.7 L 490 198.3 L 491.6 199 L 493.2 199.6 L 494.8 200.2 L 496.4 200.9 L 498 201.5 L 499.6 202.1 L 501.2 202.8 L 502.8 203.4 L 504.4 204 L 506 204.7 L 507.6 205.3 L 509.2 205.9 L 510.8 206.6 L 512.4 207.2 L 514 207.8 L 515.6 208.5 L 517.2 209.1 L 518.8 209.7 L 520.4 210.4 L 522 211 L 523.6 211.6 L 525.2 212.3 L 526.8 212.9 L 528.4 213.5 L 530 214.2 L 531.6 214.8 L 533.2 215.4 L 534.8 216.1 L 536.4 216.7 L 538 217.3 L 539.6 218 L 541.2 218.6 L 542.8 219.2 L 544.4 219.9 L 546 220.5 L 547.6 221.1 L 549.2 221.8 L 550.8 222.4 L 552.4 223 L 554 223.7 L 555.6 224.3 L 557.2 224.9 L 558.8 225.6 L 560.4 226.2 L 562 226.8 L 563.6 227.5 L 565.2 228.1 L 566.8 228.7 L 568.4 229.4 L 570 230"/>
+      <path class="fig-free-solid" d="M 90 40 L 91.6 40 L 93.2 40 L 94.8 40 L 96.4 40 L 98 40.1 L 99.6 40.1 L 101.2 40.1 L 102.8 40.1 L 104.4 40.2 L 106 40.2 L 107.6 40.3 L 109.2 40.3 L 110.8 40.4 L 112.4 40.4 L 114 40.5 L 115.6 40.5 L 117.2 40.6 L 118.8 40.7 L 120.4 40.8 L 122 40.8 L 123.6 40.9 L 125.2 41 L 126.8 41.1 L 128.4 41.2 L 130 41.3 L 131.6 41.4 L 133.2 41.5 L 134.8 41.7 L 136.4 41.8 L 138 41.9 L 139.6 42 L 141.2 42.2 L 142.8 42.3 L 144.4 42.4 L 146 42.6 L 147.6 42.7 L 149.2 42.9 L 150.8 43 L 152.4 43.2 L 154 43.4 L 155.6 43.5 L 157.2 43.7 L 158.8 43.9 L 160.4 44.1 L 162 44.3 L 163.6 44.5 L 165.2 44.7 L 166.8 44.9 L 168.4 45.1 L 170 45.3 L 171.6 45.5 L 173.2 45.7 L 174.8 45.9 L 176.4 46.2 L 178 46.4 L 179.6 46.6 L 181.2 46.9 L 182.8 47.1 L 184.4 47.3 L 186 47.6 L 187.6 47.9 L 189.2 48.1 L 190.8 48.4 L 192.4 48.6 L 194 48.9 L 195.6 49.2 L 197.2 49.5 L 198.8 49.8 L 200.4 50.1 L 202 50.3 L 203.6 50.6 L 205.2 50.9 L 206.8 51.3 L 208.4 51.6 L 210 51.9 L 211.6 52.2 L 213.2 52.5 L 214.8 52.8 L 216.4 53.2 L 218 53.5 L 219.6 53.9 L 221.2 54.2 L 222.8 54.5 L 224.4 54.9 L 226 55.3 L 227.6 55.6 L 229.2 56 L 230.8 56.3 L 232.4 56.7 L 234 57.1 L 235.6 57.5 L 237.2 57.9 L 238.8 58.3 L 240.4 58.7 L 242 59.1 L 243.6 59.5 L 245.2 59.9 L 246.8 60.3 L 248.4 60.7 L 250 61.1 L 251.6 61.5 L 253.2 62 L 254.8 62.4 L 256.4 62.8 L 258 63.3 L 259.6 63.7 L 261.2 64.2 L 262.8 64.6 L 264.4 65.1 L 266 65.5 L 267.6 66 L 269.2 66.5 L 270.8 67 L 272.4 67.4 L 274 67.9 L 275.6 68.4 L 277.2 68.9 L 278.8 69.4 L 280.4 69.9 L 282 70.4 L 283.6 70.9 L 285.2 71.4 L 286.8 71.9 L 288.4 72.5 L 290 73 L 291.6 73.5 L 293.2 74.1 L 294.8 74.6 L 296.4 75.1 L 298 75.7 L 299.6 76.2 L 301.2 76.8 L 302.8 77.3 L 304.4 77.9 L 306 78.5 L 307.6 79 L 309.2 79.6 L 310.8 80.2 L 312.4 80.8 L 314 81.4 L 315.6 82 L 317.2 82.6 L 318.8 83.2 L 320.4 83.8 L 322 84.4 L 323.6 85 L 325.2 85.6 L 326.8 86.2 L 328.4 86.9 L 330 87.5 L 331.6 88.1 L 333.2 88.8 L 334.8 89.4 L 336.4 90.1 L 338 90.7 L 339.6 91.4 L 341.2 92 L 342.8 92.7 L 344.4 93.4 L 346 94 L 347.6 94.7 L 349.2 95.4 L 350.8 96.1 L 352.4 96.8 L 354 97.5 L 355.6 98.2 L 357.2 98.9 L 358.8 99.6 L 360.4 100.3 L 362 101 L 363.6 101.7 L 365.2 102.5 L 366.8 103.2 L 368.4 103.9 L 370 104.7 L 371.6 105.4 L 373.2 106.1 L 374.8 106.9 L 376.4 107.6 L 378 108.4 L 379.6 109.2 L 381.2 109.9 L 382.8 110.7 L 384.4 111.5 L 386 112.3 L 387.6 113 L 389.2 113.8 L 390.8 114.6 L 392.4 115.4 L 394 116.2 L 395.6 117 L 397.2 117.8 L 398.8 118.6 L 400.4 119.5 L 402 120.3 L 403.6 121.1 L 405.2 121.9 L 406.8 122.8 L 408.4 123.6 L 410 124.4 L 411.6 125.3 L 413.2 126.1 L 414.8 127 L 416.4 127.9 L 418 128.7 L 419.6 129.6 L 421.2 130.5 L 422.8 131.3 L 424.4 132.2 L 426 133.1 L 427.6 134 L 429.2 134.9 L 430.8 135.8 L 432.4 136.7 L 434 137.6 L 435.6 138.5 L 437.2 139.4 L 438.8 140.3 L 440.4 141.3 L 442 142.2 L 443.6 143.1 L 445.2 144 L 446.8 145 L 448.4 145.9 L 450 146.9 L 451.6 147.8 L 453.2 148.8 L 454.8 149.7 L 456.4 150.7 L 458 151.7 L 459.6 152.7 L 461.2 153.6 L 462.8 154.6 L 464.4 155.6 L 466 156.6 L 467.6 157.6 L 469.2 158.6 L 470.8 159.6 L 472.4 160.6 L 474 161.6 L 475.6 162.6 L 477.2 163.6 L 478.8 164.7 L 480.4 165.7 L 482 166.7 L 483.6 167.8 L 485.2 168.8 L 486.8 169.8 L 488.4 170.9 L 490 171.9 L 491.6 173 L 493.2 174.1 L 494.8 175.1 L 496.4 176.2 L 498 177.3 L 499.6 178.4 L 501.2 179.4 L 502.8 180.5 L 504.4 181.6 L 506 182.7 L 507.6 183.8 L 509.2 184.9 L 510.8 186 L 512.4 187.1 L 514 188.3 L 515.6 189.4 L 517.2 190.5 L 518.8 191.6 L 520.4 192.8 L 522 193.9 L 523.6 195 L 525.2 196.2 L 526.8 197.3 L 528.4 198.5 L 530 199.7 L 531.6 200.8 L 533.2 202 L 534.8 203.2 L 536.4 204.3 L 538 205.5 L 539.6 206.7 L 541.2 207.9 L 542.8 209.1 L 544.4 210.3 L 546 211.5 L 547.6 212.7 L 549.2 213.9 L 550.8 215.1 L 552.4 216.3 L 554 217.5 L 555.6 218.8 L 557.2 220 L 558.8 221.2 L 560.4 222.5 L 562 223.7 L 563.6 225 L 565.2 226.2 L 566.8 227.5 L 568.4 228.7 L 570 230"/>
+      <text class="fig-text fig-note" x="330" y="272" text-anchor="middle">age in years</text>
+      <text class="fig-text fig-note" x="90" y="24" text-anchor="start">cases not yet diagnosed (logarithmic scale)</text>
+      <line class="fig-curve" x1="380" y1="70" x2="410" y2="70"/>
+      <text class="fig-text fig-note" x="416" y="74" text-anchor="start">one hit needed (inherited)</text>
+      <line class="fig-free-solid" x1="380" y1="90" x2="410" y2="90"/>
+      <text class="fig-text fig-note" x="416" y="94" text-anchor="start">two hits needed (sporadic)</text>
+      </svg>
+      <figcaption>The patterns produced by one hit and by two hits, in a model where hits happen at a constant
+      rate. The share of cases still undiagnosed at age $t$ is $e^{-at}$ when one hit is enough, and
+      $e^{-bt^2}$ when two hits are needed. The rates are chosen so that 99% of cases are diagnosed by age 6 in
+      both groups, because only the shapes of the curves matter. On a logarithmic scale, one hit gives a
+      straight line. Two hits give a curve that starts flat, because few children acquire two hits
+      early.</figcaption>
+    </figure>
+
+    <h2>Dominant in Families, Recessive in Cells</h2>
+
+    <p>
+      Inside a cell, a mutant Rb allele is recessive: a cell with one mutant copy and one normal copy behaves
+      normally. In a family, however, it behaves like a dominant allele, because a carrier almost always
+      develops the disease. A simple estimate explains this. Suppose the developing retina
+      contains $5 \times 10^6$ cells that can form a tumor, and each of them loses its remaining good copy with
+      probability $10^{-6}$. A carrier then has, on average, 5 cells per eye that lose all Rb function, and each
+      of these cells can grow into a tumor.
+    </p>
+
+    <p>
+      With this average, the number of tumors in one eye follows a Poisson distribution. The chance that an eye
+      has no tumor is $e^{-5}$, about 0.7%. The chance that both eyes are affected is about 98.7%.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="640" height="270" viewBox="0 0 640 270">
+      <line class="fig-axis" x1="90" y1="210" x2="570" y2="210"/>
+      <line class="fig-axis" x1="90" y1="40" x2="90" y2="210"/>
+      <line class="fig-axis" x1="85" y1="210" x2="90" y2="210"/>
+      <text class="fig-text fig-tick" x="81" y="214" text-anchor="end">0%</text>
+      <line class="fig-axis" x1="85" y1="125" x2="90" y2="125"/>
+      <text class="fig-text fig-tick" x="81" y="129" text-anchor="end">10%</text>
+      <line class="fig-axis" x1="85" y1="40" x2="90" y2="40"/>
+      <text class="fig-text fig-tick" x="81" y="44" text-anchor="end">20%</text>
+      <rect class="fig-shape" x="95" y="204.3" width="26.9" height="5.7"/>
+      <text class="fig-text fig-tick" x="108.5" y="228" text-anchor="middle">0</text>
+      <rect class="fig-shape" x="131.9" y="181.4" width="26.9" height="28.6"/>
+      <text class="fig-text fig-tick" x="145.4" y="228" text-anchor="middle">1</text>
+      <rect class="fig-shape" x="168.8" y="138.4" width="26.9" height="71.6"/>
+      <text class="fig-text fig-tick" x="182.3" y="228" text-anchor="middle">2</text>
+      <rect class="fig-shape" x="205.8" y="90.7" width="26.9" height="119.3"/>
+      <text class="fig-text fig-tick" x="219.2" y="228" text-anchor="middle">3</text>
+      <rect class="fig-shape" x="242.7" y="60.9" width="26.9" height="149.1"/>
+      <text class="fig-text fig-tick" x="256.2" y="228" text-anchor="middle">4</text>
+      <rect class="fig-shape" x="279.6" y="60.9" width="26.9" height="149.1"/>
+      <text class="fig-text fig-tick" x="293.1" y="228" text-anchor="middle">5</text>
+      <rect class="fig-shape" x="316.5" y="85.7" width="26.9" height="124.3"/>
+      <text class="fig-text fig-tick" x="330" y="228" text-anchor="middle">6</text>
+      <rect class="fig-shape" x="353.5" y="121.2" width="26.9" height="88.8"/>
+      <text class="fig-text fig-tick" x="366.9" y="228" text-anchor="middle">7</text>
+      <rect class="fig-shape" x="390.4" y="154.5" width="26.9" height="55.5"/>
+      <text class="fig-text fig-tick" x="403.8" y="228" text-anchor="middle">8</text>
+      <rect class="fig-shape" x="427.3" y="179.2" width="26.9" height="30.8"/>
+      <text class="fig-text fig-tick" x="440.8" y="228" text-anchor="middle">9</text>
+      <rect class="fig-shape" x="464.2" y="194.6" width="26.9" height="15.4"/>
+      <text class="fig-text fig-tick" x="477.7" y="228" text-anchor="middle">10</text>
+      <rect class="fig-shape" x="501.2" y="203" width="26.9" height="7"/>
+      <text class="fig-text fig-tick" x="514.6" y="228" text-anchor="middle">11</text>
+      <rect class="fig-shape" x="538.1" y="207.1" width="26.9" height="2.9"/>
+      <text class="fig-text fig-tick" x="551.5" y="228" text-anchor="middle">12</text>
+      <text class="fig-text fig-note" x="330" y="250" text-anchor="middle">number of tumors in one eye</text>
+      <text class="fig-text fig-note" x="90" y="24" text-anchor="start">probability</text>
+      </svg>
+      <figcaption>Number of retinoblastomas in one eye of a child who inherited one defective Rb copy. The
+      distribution is a Poisson distribution with mean 5, which is $5 \times 10^6$ cells times a loss rate of $10^{-6}$ per cell. Almost every eye of a carrier develops several
+      tumors.</figcaption>
+    </figure>
+
+    <h2>Losing the Second Copy</h2>
+
+    <p>
+      The second copy is usually not lost by a second, independent mutation. When a cell divides, its two
+      copies of a chromosome can exchange pieces. This is called mitotic recombination. It happens at a rate of
+      $10^{-5}$ to $10^{-4}$ per cell generation, far more often than a mutation in a given gene. After such an
+      exchange, one daughter cell can end up with two copies of the piece that carries the mutant Rb, so the
+      mutation is now on both chromosomes.
+    </p>
+
+    <p>
+      Other events have the same result. In gene conversion, one copy of a sequence is overwritten by the
+      other. A cell can also lose the chromosome that carries the good copy and then duplicate the chromosome
+      that remains. Finally, the good copy can be removed by a deletion.
+    </p>
+
+    <p>
+      All these events change a whole region of the chromosome, not only the Rb gene. At many places near Rb, a
+      person often carries two different versions of the DNA, one on each chromosome. The person is then said to
+      be heterozygous at these places. After the event, the tumor carries only one version. It has lost
+      heterozygosity, which is abbreviated LOH. This loss marks the region where a tumor suppressor gene lies.
+    </p>
+
+    <p>
+      The gene for the enzyme esterase D lies near Rb on chromosome 13, and its two versions can be told apart
+      in the laboratory. In retinoblastomas of children who carried both versions, one version was often lost.
+      LOH at other DNA markers then narrowed down the region, and Rb was cloned in 1986.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="300" viewBox="0 0 800 300">
+      <text class="fig-text fig-tick" x="75" y="30" text-anchor="middle">tumor precursor</text>
+      <rect class="fig-free-solid" x="52" y="60" width="16" height="150" rx="3"/>
+      <rect class="fig-shape" x="82" y="60" width="16" height="150" rx="3"/>
+      <text class="fig-text fig-tick" x="60" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="60" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="90" y="164" text-anchor="middle">+</text>
+      <text class="fig-text fig-tick" x="90" y="194" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="40" y="164" text-anchor="end">Rb</text>
+      <text class="fig-text fig-note" x="40" y="194" text-anchor="end">marker</text>
+      <line class="fig-curve" x1="120" y1="135" x2="163.7" y2="135"/>
+      <path class="fig-dot" d="M 170 135 L 163 138.2 L 163 131.8 Z"/>
+      <text class="fig-text fig-tick" x="245" y="30" text-anchor="middle">recombination</text>
+      <rect class="fig-free-solid" x="222" y="60" width="16" height="150" rx="3"/>
+      <rect class="fig-shape" x="252" y="60" width="16" height="80" rx="3"/>
+      <rect class="fig-free-solid" x="252" y="140" width="16" height="70" rx="3"/>
+      <text class="fig-text fig-tick" x="230" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="230" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="260" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="260" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="405" y="30" text-anchor="middle">loss, then copy</text>
+      <rect class="fig-free-solid" x="382" y="60" width="16" height="150" rx="3"/>
+      <rect class="fig-free-solid" x="412" y="60" width="16" height="150" rx="3"/>
+      <text class="fig-text fig-tick" x="390" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="390" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="420" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="420" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="565" y="30" text-anchor="middle">deletion</text>
+      <rect class="fig-free-solid" x="542" y="60" width="16" height="150" rx="3"/>
+      <rect class="fig-shape" x="572" y="60" width="16" height="80" rx="3"/>
+      <text class="fig-text fig-tick" x="550" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="550" y="194" text-anchor="middle">1</text>
+      <rect class="fig-guide" x="572" y="140" width="16" height="70" rx="3"/>
+      <text class="fig-text fig-tick" x="725" y="30" text-anchor="middle">new mutation</text>
+      <rect class="fig-free-solid" x="702" y="60" width="16" height="150" rx="3"/>
+      <rect class="fig-shape" x="732" y="60" width="16" height="150" rx="3"/>
+      <text class="fig-text fig-tick" x="710" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="710" y="194" text-anchor="middle">1</text>
+      <text class="fig-text fig-tick" x="740" y="164" text-anchor="middle">−</text>
+      <text class="fig-text fig-tick" x="740" y="194" text-anchor="middle">2</text>
+      <text class="fig-text fig-note" x="475" y="250" text-anchor="middle">the marker near Rb becomes homozygous, or is lost on one chromosome</text>
+      <text class="fig-text fig-note" x="725" y="250" text-anchor="middle">marker unchanged</text>
+      <rect class="fig-free-solid" x="210" y="274" width="16" height="14" rx="3"/>
+      <text class="fig-text fig-note" x="232" y="285" text-anchor="start">chromosome 13 carrying the mutant Rb</text>
+      <rect class="fig-shape" x="470" y="274" width="16" height="14" rx="3"/>
+      <text class="fig-text fig-note" x="492" y="285" text-anchor="start">the other chromosome 13</text>
+      </svg>
+      <figcaption>Ways in which a cell with one mutant Rb copy loses its good copy. Recombination, loss of a
+      chromosome followed by duplication of the other, and deletion all remove the good copy together with the
+      nearby marker. The tumor then carries only one version of the marker. Only an independent new mutation
+      leaves both versions of the marker in place.</figcaption>
+    </figure>
+
+    <p>
+      The Rb gene spans about 190,000 bases. Some retinoblastomas had lost both copies of parts of it. One
+      osteosarcoma had lost a piece that lay entirely inside the gene. This confirmed that the Rb gene itself,
+      and not a neighboring gene, is the target.
+    </p>
+
+    <p>
+      Searching tumors for regions that often lose heterozygosity became a general way to find tumor suppressor
+      genes, and more than 30 were cloned this way. Large-scale sequencing has now identified more than 200
+      human genes that meet the criteria for tumor suppressor genes. One example is TP53, which is inherited in
+      mutant form in Li-Fraumeni syndrome. Others are APC, inherited in familial adenomatous polyposis, PTEN,
+      and NF1, inherited in neurofibromatosis.
+    </p>
+
+    <h2>Silencing by Methylation</h2>
+
+    <p>
+      A tumor suppressor gene can also be silenced without any change in its sequence, by methylation of its
+      promoter (Chapter 1). Some tumor suppressor genes are inactivated by inherited mutations in family cancer
+      syndromes. More than half of these genes are silenced by promoter methylation in cancers that do not run
+      in families. Often, one copy is methylated first, and LOH then copies the methylated version onto the
+      other chromosome.
+    </p>
+
+    <p>
+      One study examined the gene p16INK4A in normal-looking lung epithelial cells. The gene was methylated in
+      44% of samples from current and former smokers, and in none of the samples from people who had never
+      smoked. Methylation of genes that control growth can therefore happen early, long before a tissue looks
+      abnormal under the microscope.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="760" height="230" viewBox="0 0 760 230">
+      <text class="fig-text fig-tick" x="330" y="22" text-anchor="start">share of normal-looking lung epithelial cell samples</text>
+      <text class="fig-text fig-tick" x="20" y="50" text-anchor="start">p16 gene methylated</text>
+      <text class="fig-text fig-note" x="322" y="71" text-anchor="end">current and former smokers</text>
+      <rect class="fig-shape" x="330" y="60" width="145.2" height="14"/>
+      <text class="fig-text fig-tick" x="481.2" y="71" text-anchor="start">44%</text>
+      <text class="fig-text fig-note" x="322" y="93" text-anchor="end">never smoked</text>
+      <text class="fig-text fig-tick" x="336" y="93" text-anchor="start">0%</text>
+      <text class="fig-text fig-tick" x="20" y="128" text-anchor="start">loss of heterozygosity at p16</text>
+      <text class="fig-text fig-note" x="322" y="149" text-anchor="end">current and former smokers</text>
+      <rect class="fig-shape" x="330" y="138" width="234.3" height="14"/>
+      <rect class="fig-shape-img" x="564.3" y="138" width="6.6" height="14"/>
+      <text class="fig-text fig-tick" x="576.9" y="149" text-anchor="start">71 to 73%</text>
+      <text class="fig-text fig-note" x="322" y="171" text-anchor="end">nonsmokers</text>
+      <rect class="fig-shape" x="330" y="160" width="4.9" height="14"/>
+      <rect class="fig-shape-img" x="334.9" y="160" width="0.7" height="14"/>
+      <text class="fig-text fig-tick" x="341.6" y="171" text-anchor="start">1.5 to 1.7%</text>
+      <line class="fig-axis" x1="330" y1="196" x2="660" y2="196"/>
+      <line class="fig-axis" x1="330" y1="196" x2="330" y2="201"/>
+      <text class="fig-text fig-tick" x="330" y="216" text-anchor="middle">0%</text>
+      <line class="fig-axis" x1="412.5" y1="196" x2="412.5" y2="201"/>
+      <text class="fig-text fig-tick" x="412.5" y="216" text-anchor="middle">25%</text>
+      <line class="fig-axis" x1="495" y1="196" x2="495" y2="201"/>
+      <text class="fig-text fig-tick" x="495" y="216" text-anchor="middle">50%</text>
+      <line class="fig-axis" x1="577.5" y1="196" x2="577.5" y2="201"/>
+      <text class="fig-text fig-tick" x="577.5" y="216" text-anchor="middle">75%</text>
+      <line class="fig-axis" x1="660" y1="196" x2="660" y2="201"/>
+      <text class="fig-text fig-tick" x="660" y="216" text-anchor="middle">100%</text>
+      </svg>
+      <figcaption>Changes at the p16INK4A gene in normal-looking lung epithelial cells, by smoking history. Loss
+      of heterozygosity in the region was found in 71 to 73% of samples from the two groups of smokers, and in
+      1.5 to 1.7% of samples from nonsmokers.</figcaption>
+    </figure>
+
+    <h2>NF1: a Tumor Suppressor That Switches Off Ras</h2>
+
+    <p>
+      Neurofibromatosis type 1 affects about 1 in 3,500 people worldwide. Its main feature is neurofibromas,
+      benign tumors of the sheaths around nerves, and some of these tumors become malignant. The NF1 gene
+      encodes a protein called neurofibromin, which is a GAP for Ras (Chapter 5). It inserts an arginine, the
+      amino acid at position 1276 of neurofibromin, into the active site of Ras, and this speeds up the cutting
+      of GTP. When this arginine is replaced by another amino acid, the GAP activity falls 1000-fold.
+    </p>
+
+    <p>
+      A cell that has lost both copies of NF1 keeps more of its Ras bound to GTP. Here, the loss of a tumor
+      suppressor gene has the same effect as an activated ras oncogene.
+    </p>
+
+    <h2>APC and the Colonic Crypt</h2>
+
+    <p>
+      People with familial adenomatous polyposis (FAP) develop hundreds or thousands of polyps in the colon at
+      a young age, and some of the polyps become carcinomas. FAP causes a little less than 1% of colon cancers
+      in the West. The inherited gene, APC, was cloned in 1991. It is mutated in about 90% of colon cancers that
+      do not run in families. In these cancers, both copies of APC are lost in two steps, as for Rb.
+    </p>
+
+    <p>
+      The APC protein works with axin and the kinase GSK-3 beta to mark beta-catenin for destruction (Chapter
+      6). Without working APC, beta-catenin builds up and keeps switching on its target genes.
+    </p>
+
+    <p>
+      The lining of the colon has many crypts, small pits in its wall. At the bottom of each crypt, cells of
+      the stroma release Wnt factors. The Wnt factors keep beta-catenin high in the cells at the bottom, and
+      this keeps these cells in a stem cell state. The daughters of the stem cells move up the wall of the
+      crypt. On the way, they stop dividing and mature. At the surface they die and are shed into the gut. In
+      the human colon, this whole journey takes only 3 to 4 days.
+    </p>
+
+    <p>
+      A cell that acquires a mutation on its way up is therefore lost within days. A cell that loses APC is
+      different. Its beta-catenin stays high, as if Wnt were present, so the cell and its descendants stay in
+      the crypt and keep dividing. They then have time to acquire further mutations. This is why the loss of
+      APC is usually the first step in colon cancer.
+    </p>
+
+    <figure class="figure-block">
+      <svg class="figure" width="800" height="330" viewBox="0 0 800 330">
+      <text class="fig-text fig-tick" x="200" y="22" text-anchor="middle">normal crypt</text>
+      <circle class="fig-hole" cx="150" cy="60" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="76" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="92.1" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="108.1" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="124.2" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="140.2" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="156.2" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="172.3" r="6.5"/>
+      <circle class="fig-hole" cx="150" cy="188.3" r="6.5"/>
+      <circle class="fig-hole" cx="152.1" cy="204.2" r="6.5"/>
+      <circle class="fig-dot" cx="159" cy="218.6" r="6.5"/>
+      <circle class="fig-dot" cx="170.1" cy="230.1" r="6.5"/>
+      <circle class="fig-dot" cx="184.2" cy="237.4" r="6.5"/>
+      <circle class="fig-dot" cx="200" cy="240" r="6.5"/>
+      <circle class="fig-dot" cx="215.8" cy="237.4" r="6.5"/>
+      <circle class="fig-dot" cx="229.9" cy="230.1" r="6.5"/>
+      <circle class="fig-dot" cx="241" cy="218.6" r="6.5"/>
+      <circle class="fig-hole" cx="247.9" cy="204.2" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="188.3" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="172.3" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="156.2" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="140.2" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="124.2" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="108.1" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="92.1" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="76" r="6.5"/>
+      <circle class="fig-hole" cx="250" cy="60" r="6.5"/>
+      <line class="fig-axis" x1="128" y1="190" x2="128" y2="75.4"/>
+      <path class="fig-dot" d="M 128 70 L 130.7 76 L 125.3 76 Z"/>
+      <line class="fig-axis" x1="272" y1="190" x2="272" y2="75.4"/>
+      <path class="fig-dot" d="M 272 70 L 274.7 76 L 269.3 76 Z"/>
+      <circle class="fig-dot-alt" cx="176" cy="280" r="3.5"/>
+      <circle class="fig-dot-alt" cx="200" cy="280" r="3.5"/>
+      <circle class="fig-dot-alt" cx="224" cy="280" r="3.5"/>
+      <text class="fig-text fig-note" x="200" y="300" text-anchor="middle">Wnt from stromal cells</text>
+      <circle class="fig-free-solid" cx="150" cy="108" r="9.5"/>
+      <text class="fig-text fig-note" x="110" y="112" text-anchor="end">mutant cell,</text>
+      <text class="fig-text fig-note" x="110" y="126" text-anchor="end">carried up and shed</text>
+      <text class="fig-text fig-note" x="200" y="44" text-anchor="middle">cells shed at the top after 3 to 4 days</text>
+      <text class="fig-text fig-tick" x="600" y="22" text-anchor="middle">crypt with Apc lost in a stem cell</text>
+      <circle class="fig-hole" cx="550" cy="60" r="6.5"/>
+      <circle class="fig-hole" cx="550" cy="76" r="6.5"/>
+      <circle class="fig-hole" cx="550" cy="92.1" r="6.5"/>
+      <circle class="fig-hole" cx="550" cy="108.1" r="6.5"/>
+      <circle class="fig-hole" cx="550" cy="124.2" r="6.5"/>
+      <circle class="fig-hole" cx="550" cy="140.2" r="6.5"/>
+      <circle class="fig-dot-alt" cx="550" cy="156.2" r="6.5"/>
+      <circle class="fig-dot-alt" cx="550" cy="172.3" r="6.5"/>
+      <circle class="fig-dot-alt" cx="550" cy="188.3" r="6.5"/>
+      <circle class="fig-dot-alt" cx="552.1" cy="204.2" r="6.5"/>
+      <circle class="fig-dot-alt" cx="559" cy="218.6" r="6.5"/>
+      <circle class="fig-dot-alt" cx="570.1" cy="230.1" r="6.5"/>
+      <circle class="fig-dot-alt" cx="584.2" cy="237.4" r="6.5"/>
+      <circle class="fig-dot-alt" cx="600" cy="240" r="6.5"/>
+      <circle class="fig-dot-alt" cx="615.8" cy="237.4" r="6.5"/>
+      <circle class="fig-dot-alt" cx="629.9" cy="230.1" r="6.5"/>
+      <circle class="fig-dot-alt" cx="641" cy="218.6" r="6.5"/>
+      <circle class="fig-dot-alt" cx="647.9" cy="204.2" r="6.5"/>
+      <circle class="fig-dot-alt" cx="650" cy="188.3" r="6.5"/>
+      <circle class="fig-dot-alt" cx="650" cy="172.3" r="6.5"/>
+      <circle class="fig-dot-alt" cx="650" cy="156.2" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="140.2" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="124.2" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="108.1" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="92.1" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="76" r="6.5"/>
+      <circle class="fig-hole" cx="650" cy="60" r="6.5"/>
+      <line class="fig-axis" x1="528" y1="190" x2="528" y2="75.4"/>
+      <path class="fig-dot" d="M 528 70 L 530.7 76 L 525.3 76 Z"/>
+      <line class="fig-axis" x1="672" y1="190" x2="672" y2="75.4"/>
+      <path class="fig-dot" d="M 672 70 L 674.7 76 L 669.3 76 Z"/>
+      <circle class="fig-dot-alt" cx="576" cy="280" r="3.5"/>
+      <circle class="fig-dot-alt" cx="600" cy="280" r="3.5"/>
+      <circle class="fig-dot-alt" cx="624" cy="280" r="3.5"/>
+      <text class="fig-text fig-note" x="600" y="300" text-anchor="middle">Wnt from stromal cells</text>
+      <circle class="fig-dot-alt" cx="584.5" cy="222" r="6.5"/>
+      <circle class="fig-dot-alt" cx="600" cy="222" r="6.5"/>
+      <circle class="fig-dot-alt" cx="615.5" cy="222" r="6.5"/>
+      <circle class="fig-dot-alt" cx="576.8" cy="206" r="6.5"/>
+      <circle class="fig-dot-alt" cx="592.2" cy="206" r="6.5"/>
+      <circle class="fig-dot-alt" cx="607.8" cy="206" r="6.5"/>
+      <circle class="fig-dot-alt" cx="623.2" cy="206" r="6.5"/>
+      <circle class="fig-dot-alt" cx="569" cy="190" r="6.5"/>
+      <circle class="fig-dot-alt" cx="584.5" cy="190" r="6.5"/>
+      <circle class="fig-dot-alt" cx="600" cy="190" r="6.5"/>
+      <circle class="fig-dot-alt" cx="615.5" cy="190" r="6.5"/>
+      <circle class="fig-dot-alt" cx="631" cy="190" r="6.5"/>
+      <circle class="fig-dot-alt" cx="576.8" cy="174" r="6.5"/>
+      <circle class="fig-dot-alt" cx="592.2" cy="174" r="6.5"/>
+      <circle class="fig-dot-alt" cx="607.8" cy="174" r="6.5"/>
+      <circle class="fig-dot-alt" cx="623.2" cy="174" r="6.5"/>
+      <circle class="fig-dot-alt" cx="584.5" cy="158" r="6.5"/>
+      <circle class="fig-dot-alt" cx="600" cy="158" r="6.5"/>
+      <circle class="fig-dot-alt" cx="615.5" cy="158" r="6.5"/>
+      <text class="fig-text fig-note" x="690" y="196" text-anchor="start">mutant cells stay</text>
+      <text class="fig-text fig-note" x="690" y="210" text-anchor="start">and multiply</text>
+      <circle class="fig-dot" cx="170" cy="318" r="6.5"/>
+      <text class="fig-text fig-note" x="182" y="322" text-anchor="start">stem cell</text>
+      <circle class="fig-hole" cx="290" cy="318" r="6.5"/>
+      <text class="fig-text fig-note" x="302" y="322" text-anchor="start">dividing or maturing cell</text>
+      <circle class="fig-dot-alt" cx="480" cy="318" r="6.5"/>
+      <text class="fig-text fig-note" x="492" y="322" text-anchor="start">cell without working Apc</text>
+      </svg>
+      <figcaption>A colonic crypt in cross-section. <span class="cap-part"><span class="cap-lead">Left.</span>
+      Wnt from the stroma keeps the cells at the bottom in a stem cell state. Their descendants move up the
+      walls and are shed after 3 to 4 days, so a mutant cell on the wall is soon lost.</span><span
+      class="cap-part"><span class="cap-lead">Right.</span> When a stem cell loses APC, its descendants behave
+      as if they received Wnt everywhere. They stay in the crypt and build up.</span></figcaption>
+    </figure>
+
+    <h2>Why Inherited Cancer Genes Are Mostly Suppressors</h2>
+
+    <p>
+      Most inherited cancer syndromes are caused by defective copies of tumor suppressor genes or of the DNA
+      repair genes of Chapter 12. An allele that makes an oncoprotein active all the time acts in every cell of
+      the embryo, and it usually disrupts development. A defective copy of a tumor suppressor gene, in contrast,
+      does no harm as long as the good copy remains.
+    </p>
+
+    <p>
+      A carrier has the defective copy in each of about $10^{13}$ cells, and LOH happens at a rate of $10^{-5}$ to
+      $10^{-4}$ per cell generation. Yet carriers do not develop millions of tumors. Losing a tumor suppressor
+      gene is therefore a necessary step for most cancers, but not a sufficient one, and further changes are
+      needed (Chapter 11). Retinoblastoma is an exception: in a precursor cell of the retina, the loss of Rb is
+      almost enough.
+    </p>
+  </main>
+</body>
+</html>
